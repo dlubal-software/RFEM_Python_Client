@@ -23,7 +23,6 @@ This Python project is focused on opening RFEM 6 to all our customers, enabling 
 ### Examples
 Examples can be found under Examples folder.
 ## License
-![image](https://user-images.githubusercontent.com/37547309/118117274-b167fa00-b3eb-11eb-91a9-762b454cef0f.png)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ## Contribute
 Contributions are always welcome! Please ensure your pull request adheres to the following guidelines:
