@@ -1,2 +1,32 @@
 # RfemPythonWsClient
 Python client (or high-level functions) for RFEM 6 using Web Services using SOAP and WSDL
+## Short description
+This Python project is focused on opening RFEM 6 to all our customers, enabling them to interact with RFEM on much higher level. If you are looking for tool to help you solve parametric models or optimization tasks, you are on the right place. This project and comunity should create support for such jobs. The goal is to create easily expandable Python library communicating RFEM instructions through web services. 
+## Architecture
+![image](https://user-images.githubusercontent.com/37547309/118119185-44a22f00-b3ee-11eb-9d60-3d74a4a96f81.png)
+## Getting started
+### Dependencies
+* SUDS library
+* RFEM 6 application
+### Step by step
+1) Download repo (main.py + RFEM folder) or instal pkg via command line `pip install RfemPythonWsClient`
+2) Open RFEM 6 application
+3) Check that there are no opened dialogues in RFEM and server port range under *Options-Web Services* 8081 or corresponds with the one set in initModel
+4) Update main.py and run from this location.
+## Examples
+Examples can be found under Examples folder.
+## License
+![image](https://user-images.githubusercontent.com/37547309/118117274-b167fa00-b3eb-11eb-91a9-762b454cef0f.png)
+## Contribute
+Contributions are always welcome! Please ensure your pull request adheres to the following guidelines:
+
+* Alphabetize your entry.
+* Search previous suggestions before making a new one, as yours may be a duplicate.
+* Suggested READMEs should be beautiful or stand out in some way.
+* Make an individual pull request for each suggestion.
+* New categories, or improvements to the existing categorization are welcome.
+* Keep descriptions short and simple, but descriptive.
+* Start the description with a capital and end with a full stop/period.
+* Check your spelling and grammar.
+* Make sure your text editor is set to remove trailing whitespace.
+* Use the #readme anchor for GitHub READMEs to link them directly
