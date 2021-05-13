@@ -1,5 +1,5 @@
 # RfemPythonWsClient
-Python client (or high-level functions) for RFEM 6 using Web Services using SOAP and WSDL
+Python client (or high-level functions) for RFEM 6 using Web Services, SOAP and WSDL
 ## Short description
 This Python project is focused on opening RFEM 6 to all our customers, enabling them to interact with RFEM on much higher level. If you are looking for tool to help you solve parametric models or optimization tasks, you are on the right place. This project and comunity should create support for such jobs. The goal is to create easily expandable Python library communicating RFEM instructions through web services. 
 ## Architecture
