@@ -33,7 +33,7 @@ This Python project is focused on opening RFEM 6 to all our customers, enabling 
 3) Check if there are no opened dialogues in RFEM and server port range under *Options-Web Services* corresponds to the one set in initModel
 4) Update main.py and run from the same file
 ### Examples
-Examples can be found under [Examples](RfemPythonWsClient/Examlpes) folder.
+Examples can be found under [Examples](RfemPythonWsClient/Examples) folder.
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ## Contribute
