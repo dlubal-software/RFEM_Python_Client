@@ -1,7 +1,7 @@
 # RfemPythonWsClient 
 ![image](https://img.shields.io/badge/COMPATIBILITY-RFEM%206.00-yellow) ![image](https://img.shields.io/badge/SUDS-0.3.5-orange)
 
-Python client (or high-level functions) for RFEM 6 using Web Services (WS), SOAP and WSDL
+Python client (or high-level functions) for [RFEM 6](https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem) using [Web Services](https://en.wikipedia.org/wiki/Web_service) (WS), [SOAP](https://cs.wikipedia.org/wiki/SOAP) and [WSDL](https://en.wikipedia.org/wiki/Web_Services_Description_Language)
 - [RfemPythonWsClient](#rfempythonwsclient)
   * [Description](#description)
   * [Architecture](#architecture)
@@ -17,15 +17,15 @@ This Python project is focused on opening RFEM 6 to all our customers, enabling 
 ## Architecture
 ![image](https://user-images.githubusercontent.com/37547309/118119185-44a22f00-b3ee-11eb-9d60-3d74a4a96f81.png)
 ### Data Structure
-* main.py:      setting of individual objects by one line entry
-* window.py:    definition of GUI layer; called first
-* initModel.py: runs after window and initializes suds.Client by connecting to `http://localhost:8081/wsdl` and active model in RFEM
-* enums.py:     definition of enums
-* dataTypes.py: definition of special data types
-* RFEM:         folder folloving structure of RFEM 6 navigator containing individual types of objects
+* [main.py](main.py): setting of individual objects by one line entry
+* [window.py](/RFEM/window.py): definition of GUI layer; called first
+* [initModel.py](/RFEM/initModel.py): runs after window and initializes suds.Client by connecting to `http://localhost:8081/wsdl` and active model in RFEM
+* [enums.py](/RFEM/enums.py): definition of enums
+* [dataTypes.py](/RFEM/dataTypes.py): definition of special data types
+* [RFEM](/RFEM): folder folloving structure of RFEM 6 navigator containing individual types of objects
 ## Getting started
 ### Dependencies
-* SUDS library
+* [SUDS](https://github.com/suds-community/suds) library
 * RFEM 6 application
 ### Step by step
 1) Download repo (main.py + RFEM folder) or instal pkg via command line `pip install RfemPythonWsClient`
