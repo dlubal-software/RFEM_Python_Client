@@ -1,5 +1,5 @@
 # RfemPythonWsClient 
-![image](https://img.shields.io/badge/COMPATIBILITY-RFEM%206.00-yellow) ![image](https://img.shields.io/badge/SUDS%20pkg-0.3.5-orange)
+![image](https://img.shields.io/badge/COMPATIBILITY-RFEM%206.00-yellow) ![image](https://img.shields.io/badge/SUDS-0.3.5-orange)
 
 Python client (or high-level functions) for RFEM 6 using Web Services (WS), SOAP and WSDL
 - [RfemPythonWsClient](#rfempythonwsclient)
@@ -30,10 +30,10 @@ This Python project is focused on opening RFEM 6 to all our customers, enabling 
 ### Step by step
 1) Download repo (main.py + RFEM folder) or instal pkg via command line `pip install RfemPythonWsClient`
 2) Open RFEM 6 application
-3) Check that there are no opened dialogues in RFEM and server port range under *Options-Web Services* 8081 or corresponds with the one set in initModel
-4) Update main.py and run from this location.
+3) Check if there are no opened dialogues in RFEM and server port range under *Options-Web Services* corresponds to the one set in initModel
+4) Update main.py and run from the same file
 ### Examples
-Examples can be found under Examples folder.
+Examples can be found under [Examples](RfemPythonWsClient/Examlpes) folder.
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ## Contribute
