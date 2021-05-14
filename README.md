@@ -2,6 +2,7 @@
 ![image](https://img.shields.io/badge/COMPATIBILITY-RFEM%206.00-yellow) ![image](https://img.shields.io/badge/Python-3-blue) ![image](https://img.shields.io/badge/SUDS-0.3.5-orange)
 
 Python client (or high-level functions) for [RFEM 6](https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem) using [Web Services](https://en.wikipedia.org/wiki/Web_service) (WS), [SOAP](https://cs.wikipedia.org/wiki/SOAP) and [WSDL](https://en.wikipedia.org/wiki/Web_Services_Description_Language)
+### Table of Contents
 - [RfemPythonWsClient](#rfempythonwsclient)
   * [Description](#description)
   * [Architecture](#architecture)
