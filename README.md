@@ -1,4 +1,6 @@
-# RfemPythonWsClient
+# RfemPythonWsClient 
+![image](https://img.shields.io/badge/COMPATIBILITY-RFEM%206.00-yellow) ![image](https://img.shields.io/badge/SUDS%20pkg-0.3.5-orange)
+
 Python client (or high-level functions) for RFEM 6 using Web Services (WS), SOAP and WSDL
 - [RfemPythonWsClient](#rfempythonwsclient)
   * [Description](#description)
