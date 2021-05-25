@@ -19,11 +19,56 @@ except:
         # Prevents invoking pip by an old script wrapper (https://github.com/pypa/pip/issues/5599)
         import subprocess
         try:
+            subprocess.call('python -m pip install --upgrade pip')
             subprocess.call('python -m pip install suds-py3 --user')
             from suds.client import Client
         except:
             print('WARNING: Installation of SUDS library failed!')
             print('Please use command "pip install suds-py3 --user" in your Command Prompt.')
+            input('Press Enter to exit...')
+            sys.exit()
+    else:
+        input('Press Enter to exit...')
+        sys.exit()
+
+try:
+    import requests
+except:
+    print('requests library is not installed in your Python env.')
+    instSUDS = input('Do you want to install it (y/n)? ')
+    instSUDS = instSUDS.lower()
+    if instSUDS == 'y':
+        # Subprocess will be opened in cmd and closed automaticaly after installation.
+        # Prevents invoking pip by an old script wrapper (https://github.com/pypa/pip/issues/5599)
+        import subprocess
+        try:
+            subprocess.call('python -m pip install requests --user')
+            import requests
+        except:
+            print('WARNING: Installation of requests library failed!')
+            print('Please use command "pip install requests --user" in your Command Prompt.')
+            input('Press Enter to exit...')
+            sys.exit()
+    else:
+        input('Press Enter to exit...')
+        sys.exit()
+
+try:
+    import suds_requests
+except:
+    print('suds_requests library is not installed in your Python env.')
+    instSUDS = input('Do you want to install it (y/n)? ')
+    instSUDS = instSUDS.lower()
+    if instSUDS == 'y':
+        # Subprocess will be opened in cmd and closed automaticaly after installation.
+        # Prevents invoking pip by an old script wrapper (https://github.com/pypa/pip/issues/5599)
+        import subprocess
+        try:
+            subprocess.call('python -m pip install suds_requests --user')
+            import suds_requests
+        except:
+            print('WARNING: Installation of suds_requests library failed!')
+            print('Please use command "pip install suds_requests --user" in your Command Prompt.')
             input('Press Enter to exit...')
             sys.exit()
     else:
@@ -54,15 +99,23 @@ except:
     input('Press Enter to exit...')
     sys.exit()
 
+# Persistent connection
+# Without next 4 lines the connection lasts only 1 request,
+# the message: 'Application is locked by external connection'
+# is blinking whole time and the execution is unnecessarily long.
+session = requests.Session()
+adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
+session.mount('http://', adapter)
+trans = suds_requests.RequestsTransport(session)
 if modelLst:
     new = client.service.get_active_model() + 'wsdl'
-    cModel = Client(new)
+    cModel = Client(new, transport=trans)
     print('Resetting model...')
     cModel.service.delete_all_results()
     cModel.service.reset()
 else:
     new = client.service.new_model('My Model') + 'wsdl'
-    cModel = Client(new)
+    cModel = Client(new, transport=trans)
 
 # Init client model
 clientModel = cModel

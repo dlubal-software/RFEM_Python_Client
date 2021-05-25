@@ -196,7 +196,6 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
     #SolidSet()
 
 # -------------------------------------------------------------
-    clientModel.service.finish_modification()
     print('Load Cases/Loads...')
 
 # -------------------------------------------------------------
@@ -271,6 +270,7 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 # -------------------------------------------------------------
     # Finish client model
     print("Calculating...")
+    clientModel.service.finish_modification()
 
 # -------------------------------------------------------------
     # Calculate all
