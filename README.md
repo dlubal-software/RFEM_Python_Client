@@ -27,10 +27,13 @@ This Python project is focused on opening RFEM 6 to all our customers, enabling 
 * [RFEM](/RFEM): folder folloving structure of RFEM 6 navigator containing individual types of objects
 ## Getting started
 ### Dependencies
+Dependency check is implemented inside [initModel.py](/RFEM/initModel.py) with option to install during execution.
 * [SUDS](https://github.com/suds-community/suds) library
+* [requests](https://docs.python-requests.org/en/master/) library
+* [suds_requests](https://pypi.org/project/suds_requests/) library
 * RFEM 6 application
 ### Step by step
-1) Download skript (main.py + RFEM folder) or instal pkg via command line `pip install RfemPythonWsClient`
+1) Download skript (main.py + RFEM folder) or instal pkg via command line `pip install RFEM_Python_Client`
 2) Open RFEM 6 application
 3) Check if there are no opened dialogues in RFEM and server port range under *Options-Web Services* corresponds to the one set in initModel
 4) Update main.py and run from the same file
