@@ -107,6 +107,7 @@ session = requests.Session()
 adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
 session.mount('http://', adapter)
 trans = suds_requests.RequestsTransport(session)
+
 if modelLst:
     new = client.service.get_active_model() + 'wsdl'
     cModel = Client(new, transport=trans)
@@ -120,11 +121,10 @@ else:
 # Init client model
 clientModel = cModel
 
-
 def clearAtributes(obj):
     '''
-    Clears object atributes
-    Sets all atributes to None
+    Clears object atributes.
+    Sets all atributes to None.
 
     Params:
         obj: object to clear
@@ -147,7 +147,6 @@ def insertSpaces(lst: list):
     # remove trailing space
     return strLst[:-1]
 
-
 def Calculate_all(generateXmlSolverInput: bool = False):
     '''
     Calculates model
@@ -155,5 +154,4 @@ def Calculate_all(generateXmlSolverInput: bool = False):
     Params:
     - generateXmlSolverInput: generate XML solver input
     '''
-
     clientModel.service.calculate_all(generateXmlSolverInput)
