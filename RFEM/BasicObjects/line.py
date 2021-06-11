@@ -23,3 +23,187 @@ class Line():
 
         # Add Line to client model
         clientModel.service.set_line(clientObject)
+
+    def Polyline(self,
+                 no: int = 1,
+                 nodes_no: str = '1 2',
+                 comment: str = ''):
+
+        # Client model | Line
+        clientObject = clientModel.factory.create('ns0:line')
+
+        # Clears object atributes | Sets all atributes to None
+        clearAtributes(clientObject)
+
+        # Line No.
+        clientObject.no = no
+
+        # Nodes No.
+        clientObject.definition_nodes = nodes_no
+
+        # Comment
+        clientObject.comment = comment
+
+        # Add Line to client model
+        clientModel.service.set_line(clientObject)
+
+    def Arc(self,
+                 no: int = 1,
+                 nodes_no: str = '1 2',
+                 comment: str = ''):
+
+        # Client model | Line
+        clientObject = clientModel.factory.create('ns0:line')
+
+        # Clears object atributes | Sets all atributes to None
+        clearAtributes(clientObject)
+
+        # Line No.
+        clientObject.no = no
+
+        # Nodes No.
+        clientObject.definition_nodes = nodes_no
+
+        # Comment
+        clientObject.comment = comment
+
+        # Add Line to client model
+        clientModel.service.set_line(clientObject)
+
+    def Circle(self,
+                 no: int = 1,
+                 nodes_no: str = '1 2',
+                 comment: str = ''):
+
+        # Client model | Line
+        clientObject = clientModel.factory.create('ns0:line')
+
+        # Clears object atributes | Sets all atributes to None
+        clearAtributes(clientObject)
+
+        # Line No.
+        clientObject.no = no
+
+        # Nodes No.
+        clientObject.definition_nodes = nodes_no
+
+        # Comment
+        clientObject.comment = comment
+
+        # Add Line to client model
+        clientModel.service.set_line(clientObject)
+
+    def EllipticalArc(self,
+                 no: int = 1,
+                 nodes_no: str = '1 2',
+                 comment: str = ''):
+
+        # Client model | Line
+        clientObject = clientModel.factory.create('ns0:line')
+
+        # Clears object atributes | Sets all atributes to None
+        clearAtributes(clientObject)
+
+        # Line No.
+        clientObject.no = no
+
+        # Nodes No.
+        clientObject.definition_nodes = nodes_no
+
+        # Comment
+        clientObject.comment = comment
+
+        # Add Line to client model
+        clientModel.service.set_line(clientObject)
+
+    def Ellipse(self,
+                 no: int = 1,
+                 nodes_no: str = '1 2',
+                 comment: str = ''):
+
+        # Client model | Line
+        clientObject = clientModel.factory.create('ns0:line')
+
+        # Clears object atributes | Sets all atributes to None
+        clearAtributes(clientObject)
+
+        # Line No.
+        clientObject.no = no
+
+        # Nodes No.
+        clientObject.definition_nodes = nodes_no
+
+        # Comment
+        clientObject.comment = comment
+
+        # Add Line to client model
+        clientModel.service.set_line(clientObject)
+
+    def Parabola(self,
+                 no: int = 1,
+                 nodes_no: str = '1 2',
+                 comment: str = ''):
+
+        # Client model | Line
+        clientObject = clientModel.factory.create('ns0:line')
+
+        # Clears object atributes | Sets all atributes to None
+        clearAtributes(clientObject)
+
+        # Line No.
+        clientObject.no = no
+
+        # Nodes No.
+        clientObject.definition_nodes = nodes_no
+
+        # Comment
+        clientObject.comment = comment
+
+        # Add Line to client model
+        clientModel.service.set_line(clientObject)
+
+    def Spline(self,
+                 no: int = 1,
+                 nodes_no: str = '1 2',
+                 comment: str = ''):
+
+        # Client model | Line
+        clientObject = clientModel.factory.create('ns0:line')
+
+        # Clears object atributes | Sets all atributes to None
+        clearAtributes(clientObject)
+
+        # Line No.
+        clientObject.no = no
+
+        # Nodes No.
+        clientObject.definition_nodes = nodes_no
+
+        # Comment
+        clientObject.comment = comment
+
+        # Add Line to client model
+        clientModel.service.set_line(clientObject)
+
+    def BURBS(self,
+                 no: int = 1,
+                 nodes_no: str = '1 2',
+                 comment: str = ''):
+
+        # Client model | Line
+        clientObject = clientModel.factory.create('ns0:line')
+
+        # Clears object atributes | Sets all atributes to None
+        clearAtributes(clientObject)
+
+        # Line No.
+        clientObject.no = no
+
+        # Nodes No.
+        clientObject.definition_nodes = nodes_no
+
+        # Comment
+        clientObject.comment = comment
+
+        # Add Line to client model
+        clientModel.service.set_line(clientObject)

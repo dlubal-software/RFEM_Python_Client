@@ -14,8 +14,8 @@ def setNodalSupportConditions(clientObject,
 
     Params:
         clientObject: Client model object | Nodal support
-        C_u_X ... C_u_Z: Translational support conditions in respected direction
-        C_phi_X ... C_phi_Z: Rotational support conditions about respected axis
+        C_u_X,Y,Z: Translational support conditions in respected direction
+        C_phi_X,Y,Z: Rotational support conditions about respected axis
         comment: Comment
 
     Returns:
