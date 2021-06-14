@@ -11,7 +11,8 @@ class LineLoad():
                  load_distribution = LineLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_direction = LoadDirectionType.LOAD_DIRECTION_LOCAL_Z,
                  load_parameter = None,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Line Load
         clientObject = clientModel.factory.create('ns0:line_load')
@@ -129,6 +130,10 @@ class LineLoad():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Load Line Load to client model
         clientModel.service.set_line_load(load_case_no, clientObject)

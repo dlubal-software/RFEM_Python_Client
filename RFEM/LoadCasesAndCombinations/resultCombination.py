@@ -4,7 +4,8 @@ from RFEM.enums import SetType
 class ResultCombination():
     def __init__(self,
                  no: int = 1,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Result Combination
         clientObject = clientModel.factory.create('ns0:result_combination')
@@ -14,6 +15,10 @@ class ResultCombination():
 
         # Result Combination No.
         clientObject.no = no
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Result Combination to client model
         clientModel.service.set_result_combination(clientObject)

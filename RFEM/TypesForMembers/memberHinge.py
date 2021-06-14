@@ -11,7 +11,8 @@ class MemberHinge():
                  rotational_release_mt: float = inf,
                  rotational_release_my: float = 0.0,
                  rotational_release_mz: float = inf,
-                 comment: str = 'Rotational Release My'):
+                 comment: str = 'Rotational Release My',
+                 params: dict = {}):
 
         # Client model | Member Hinge
         clientObject = clientModel.factory.create('ns0:member_hinge')
@@ -45,6 +46,10 @@ class MemberHinge():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Line to client model
         clientModel.service.set_member_hinge(clientObject)

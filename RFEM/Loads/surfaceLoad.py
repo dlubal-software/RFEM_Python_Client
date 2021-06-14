@@ -10,7 +10,8 @@ class SurfaceLoad():
                  load_magnitude_p: float = 1.0,
                  load_direction = SurfaceLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
                  load_distribution = SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Surface Load
         clientObject = clientModel.factory.create('ns0:surface_load')
@@ -41,6 +42,10 @@ class SurfaceLoad():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Surface Load to client model
         clientModel.service.set_surface_load(load_case_no, clientObject)

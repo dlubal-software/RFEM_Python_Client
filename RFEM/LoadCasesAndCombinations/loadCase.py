@@ -12,7 +12,8 @@ class LoadCase():
                  self_weight_factor_X: float = 0.0,
                  self_weight_factor_Y: float = 0.0,
                  self_weight_factor_Z: float = 0.0,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Load Case
         clientObject = clientModel.factory.create('ns0:load_case')
@@ -55,6 +56,10 @@ class LoadCase():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Load Case to client model
         clientModel.service.set_load_case(clientObject)

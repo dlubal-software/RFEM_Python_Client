@@ -26,6 +26,7 @@ class Node():
         # Comment
         clientObject.comment = comment
 
+        # Adding optional parameters via dictionary
         for key in params:
             clientObject[key] = params[key]
 

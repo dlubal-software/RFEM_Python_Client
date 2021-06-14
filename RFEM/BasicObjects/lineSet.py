@@ -6,7 +6,8 @@ class LineSet():
                  no: int = 1,
                  lines_no: str = '33 36 39 42 45',
                  line_set_type = SetType.SET_TYPE_CONTINUOUS,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Line Set
         clientObject = clientModel.factory.create('ns0:line_set')
@@ -25,6 +26,10 @@ class LineSet():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Line Set to client model
         clientModel.service.set_line_set(clientObject)
@@ -33,7 +38,8 @@ class LineSet():
                  no: int = 1,
                  lines_no: str = '33 36 39 42 45',
                  line_set_type = SetType.SET_TYPE_CONTINUOUS,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Line Set
         clientObject = clientModel.factory.create('ns0:line_set')
@@ -52,6 +58,10 @@ class LineSet():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Line Set to client model
         clientModel.service.set_line_set(clientObject)
@@ -60,7 +70,8 @@ class LineSet():
                  no: int = 1,
                  lines_no: str = '33 36 39 42 45',
                  line_set_type = SetType.SET_TYPE_CONTINUOUS,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Line Set
         clientObject = clientModel.factory.create('ns0:line_set')
@@ -79,6 +90,10 @@ class LineSet():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Line Set to client model
         clientModel.service.set_line_set(clientObject)

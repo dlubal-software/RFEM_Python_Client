@@ -4,7 +4,8 @@ from RFEM.enums import SetType
 class RigidLink():
     def __init__(self,
                  no: int = 1,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Rigid Link
         clientObject = clientModel.factory.create('ns0:rigid_link')
@@ -15,12 +16,20 @@ class RigidLink():
         # Rigid Link No.
         clientObject.no = no
 
+        # Comment
+        clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
+
         # Add rigid link to client model
         clientModel.service.set_rigid_link(clientObject)
 
     def LineToLine(self,
                  no: int = 1,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Line To Line Rigid Link
         clientObject = clientModel.factory.create('ns0:rigid_link')
@@ -31,12 +40,20 @@ class RigidLink():
         # Rigid Link No.
         clientObject.no = no
 
+        # Comment
+        clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
+
         # Add rigid link to client model
         clientModel.service.set_rigid_link(clientObject)
 
     def LineToSurface(self,
                  no: int = 1,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Line To Surface Rigid Link
         clientObject = clientModel.factory.create('ns0:rigid_link')
@@ -47,12 +64,20 @@ class RigidLink():
         # Rigid Link No.
         clientObject.no = no
 
+        # Comment
+        clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
+
         # Add rigid link to client model
         clientModel.service.set_rigid_link(clientObject)
 
     def Diapragm(self,
                  no: int = 1,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Diapragm Rigid Link
         clientObject = clientModel.factory.create('ns0:rigid_link')
@@ -62,6 +87,13 @@ class RigidLink():
 
         # Rigid Link No.
         clientObject.no = no
+
+        # Comment
+        clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add rigid link to client model
         clientModel.service.set_rigid_link(clientObject)

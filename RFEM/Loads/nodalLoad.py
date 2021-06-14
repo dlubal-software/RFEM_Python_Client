@@ -9,7 +9,8 @@ class NodalLoad():
                  nodes_no: str = '1',
                  load_direction = LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
                  magnitude: float = 0.0,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Nodal Force
         clientObject = clientModel.factory.create('ns0:nodal_load')
@@ -34,6 +35,10 @@ class NodalLoad():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Nodal Force to client model
         clientModel.service.set_nodal_load(load_case_no, clientObject)

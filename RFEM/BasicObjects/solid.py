@@ -5,7 +5,8 @@ class Solid():
                  no: int = 1,
                  boundary_surfaces_no: str = '1 2',
                  material_no: int = 1,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Solid
         clientObject = clientModel.factory.create('ns0:solid')
@@ -24,6 +25,10 @@ class Solid():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Surface to client model
         clientModel.service.set_solid(clientObject)
@@ -32,7 +37,8 @@ class Solid():
                  no: int = 1,
                  boundary_surfaces_no: str = '1 2',
                  material_no: int = 1,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Solid
         clientObject = clientModel.factory.create('ns0:solid')
@@ -51,6 +57,10 @@ class Solid():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Surface to client model
         clientModel.service.set_solid(clientObject)
@@ -59,7 +69,8 @@ class Solid():
                  no: int = 1,
                  boundary_surfaces_no: str = '1 2',
                  material_no: int = 1,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Solid
         clientObject = clientModel.factory.create('ns0:solid')
@@ -78,6 +89,10 @@ class Solid():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Surface to client model
         clientModel.service.set_solid(clientObject)
@@ -86,7 +101,8 @@ class Solid():
                  no: int = 1,
                  boundary_surfaces_no: str = '1 2',
                  material_no: int = 1,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Solid
         clientObject = clientModel.factory.create('ns0:solid')
@@ -105,6 +121,10 @@ class Solid():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Surface to client model
         clientModel.service.set_solid(clientObject)

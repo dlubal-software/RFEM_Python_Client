@@ -6,7 +6,8 @@ class SolidSet():
                  no: int = 1,
                  solids_no: str = '1 2',
                  solid_set_type = SetType.SET_TYPE_GROUP,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Solid Set
         clientObject = clientModel.factory.create('ns0:solid_set')
@@ -25,6 +26,10 @@ class SolidSet():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Solid Set to client model
         clientModel.service.set_solid_set(clientObject)
@@ -32,8 +37,9 @@ class SolidSet():
     def ContinuousSolids(self,
                  no: int = 1,
                  solids_no: str = '1 2',
-                 solid_set_type = SetType.SET_TYPE_GROUP,
-                 comment: str = ''):
+                 solid_set_type = SetType.SET_TYPE_CONTINUOUS,
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Solid Set
         clientObject = clientModel.factory.create('ns0:solid_set')
@@ -52,6 +58,10 @@ class SolidSet():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Solid Set to client model
         clientModel.service.set_solid_set(clientObject)
@@ -60,7 +70,8 @@ class SolidSet():
                  no: int = 1,
                  solids_no: str = '1 2',
                  solid_set_type = SetType.SET_TYPE_GROUP,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Solid Set
         clientObject = clientModel.factory.create('ns0:solid_set')
@@ -79,6 +90,10 @@ class SolidSet():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Solid Set to client model
         clientModel.service.set_solid_set(clientObject)

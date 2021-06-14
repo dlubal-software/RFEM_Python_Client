@@ -4,7 +4,8 @@ class Line():
     def __init__(self,
                  no: int = 1,
                  nodes_no: str = '1 2',
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Line
         clientObject = clientModel.factory.create('ns0:line')
@@ -20,6 +21,10 @@ class Line():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Line to client model
         clientModel.service.set_line(clientObject)
@@ -27,7 +32,8 @@ class Line():
     def Polyline(self,
                  no: int = 1,
                  nodes_no: str = '1 2',
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Line
         clientObject = clientModel.factory.create('ns0:line')
@@ -43,6 +49,10 @@ class Line():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Line to client model
         clientModel.service.set_line(clientObject)
@@ -50,7 +60,8 @@ class Line():
     def Arc(self,
                  no: int = 1,
                  nodes_no: str = '1 2',
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Line
         clientObject = clientModel.factory.create('ns0:line')
@@ -66,6 +77,10 @@ class Line():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Line to client model
         clientModel.service.set_line(clientObject)
@@ -73,7 +88,8 @@ class Line():
     def Circle(self,
                  no: int = 1,
                  nodes_no: str = '1 2',
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Line
         clientObject = clientModel.factory.create('ns0:line')
@@ -89,6 +105,10 @@ class Line():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Line to client model
         clientModel.service.set_line(clientObject)
@@ -96,7 +116,8 @@ class Line():
     def EllipticalArc(self,
                  no: int = 1,
                  nodes_no: str = '1 2',
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Line
         clientObject = clientModel.factory.create('ns0:line')
@@ -112,6 +133,10 @@ class Line():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Line to client model
         clientModel.service.set_line(clientObject)
@@ -119,7 +144,8 @@ class Line():
     def Ellipse(self,
                  no: int = 1,
                  nodes_no: str = '1 2',
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Line
         clientObject = clientModel.factory.create('ns0:line')
@@ -135,6 +161,10 @@ class Line():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Line to client model
         clientModel.service.set_line(clientObject)
@@ -142,7 +172,8 @@ class Line():
     def Parabola(self,
                  no: int = 1,
                  nodes_no: str = '1 2',
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Line
         clientObject = clientModel.factory.create('ns0:line')
@@ -158,6 +189,10 @@ class Line():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Line to client model
         clientModel.service.set_line(clientObject)
@@ -165,7 +200,8 @@ class Line():
     def Spline(self,
                  no: int = 1,
                  nodes_no: str = '1 2',
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Line
         clientObject = clientModel.factory.create('ns0:line')
@@ -181,14 +217,19 @@ class Line():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Line to client model
         clientModel.service.set_line(clientObject)
 
-    def BURBS(self,
+    def NURBS(self,
                  no: int = 1,
                  nodes_no: str = '1 2',
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Line
         clientObject = clientModel.factory.create('ns0:line')
@@ -204,6 +245,10 @@ class Line():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Line to client model
         clientModel.service.set_line(clientObject)

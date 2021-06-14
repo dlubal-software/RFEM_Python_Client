@@ -6,7 +6,8 @@ class StaticAnalysisSettings():
                  no: int = 1,
                  name: str = 'Geometric linear analysis',
                  analysis_type = StaticAnalysisType.GEOMETRICALLY_LINEAR,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Surface
         clientObject = clientModel.factory.create('ns0:static_analysis_settings')
@@ -25,6 +26,10 @@ class StaticAnalysisSettings():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Static Analysis Settings to client model
         clientModel.service.set_static_analysis_settings(clientObject)

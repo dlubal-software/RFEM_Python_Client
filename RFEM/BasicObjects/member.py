@@ -12,7 +12,8 @@ class Member():
                  end_section_no: int = 1,
                  start_member_hinge_no: int = 0,
                  end_member_hinge_no: int = 0,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Member
         clientObject = clientModel.factory.create('ns0:member')
@@ -49,6 +50,10 @@ class Member():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Member to client model
         clientModel.service.set_member(clientObject)
@@ -63,7 +68,8 @@ class Member():
             end_section_no: int = 1,
             start_member_hinge_no: int = 0,
             end_member_hinge_no: int = 0,
-            comment: str = ''):
+            comment: str = '',
+            params: dict = {}):
 
         # Client model | Member
         clientObject = clientModel.factory.create('ns0:member')
@@ -100,21 +106,26 @@ class Member():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Member to client model
         clientModel.service.set_member(clientObject)
 
     def Rigid(self,
-                 no: int = 1,
-                 member_type = MemberType.TYPE_BEAM,
-                 start_node_no: int = 1,
-                 end_node_no: int = 2,
-                 rotation_angle: float = 0.0,
-                 start_section_no: int = 1,
-                 end_section_no: int = 1,
-                 start_member_hinge_no: int = 0,
-                 end_member_hinge_no: int = 0,
-                 comment: str = ''):
+                no: int = 1,
+                member_type = MemberType.TYPE_RIGID,
+                start_node_no: int = 1,
+                end_node_no: int = 2,
+                rotation_angle: float = 0.0,
+                start_section_no: int = 1,
+                end_section_no: int = 1,
+                start_member_hinge_no: int = 0,
+                end_member_hinge_no: int = 0,
+                comment: str = '',
+                params: dict = {}):
 
         # Client model | Member
         clientObject = clientModel.factory.create('ns0:member')
@@ -151,13 +162,17 @@ class Member():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Member to client model
         clientModel.service.set_member(clientObject)
 
     def Rib(self,
             no: int = 1,
-            member_type = MemberType.TYPE_BEAM,
+            member_type = MemberType.TYPE_RIB,
             start_node_no: int = 1,
             end_node_no: int = 2,
             rotation_angle: float = 0.0,
@@ -165,7 +180,8 @@ class Member():
             end_section_no: int = 1,
             start_member_hinge_no: int = 0,
             end_member_hinge_no: int = 0,
-            comment: str = ''):
+            comment: str = '',
+            params: dict = {}):
 
         # Client model | Member
         clientObject = clientModel.factory.create('ns0:member')
@@ -202,21 +218,26 @@ class Member():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Member to client model
         clientModel.service.set_member(clientObject)
 
     def Truss(self,
-              no: int = 1,
-              member_type = MemberType.TYPE_BEAM,
-              start_node_no: int = 1,
-              end_node_no: int = 2,
-              rotation_angle: float = 0.0,
-              start_section_no: int = 1,
-              end_section_no: int = 1,
-              start_member_hinge_no: int = 0,
-              end_member_hinge_no: int = 0,
-              comment: str = ''):
+                no: int = 1,
+                member_type = MemberType.TYPE_TRUSS,
+                start_node_no: int = 1,
+                end_node_no: int = 2,
+                rotation_angle: float = 0.0,
+                start_section_no: int = 1,
+                end_section_no: int = 1,
+                start_member_hinge_no: int = 0,
+                end_member_hinge_no: int = 0,
+                comment: str = '',
+                params: dict = {}):
 
         # Client model | Member
         clientObject = clientModel.factory.create('ns0:member')
@@ -253,21 +274,26 @@ class Member():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Member to client model
         clientModel.service.set_member(clientObject)
 
     def TrussOnlyN(self,
-                 no: int = 1,
-                 member_type = MemberType.TYPE_BEAM,
-                 start_node_no: int = 1,
-                 end_node_no: int = 2,
-                 rotation_angle: float = 0.0,
-                 start_section_no: int = 1,
-                 end_section_no: int = 1,
-                 start_member_hinge_no: int = 0,
-                 end_member_hinge_no: int = 0,
-                 comment: str = ''):
+                no: int = 1,
+                member_type = MemberType.TYPE_TRUSS_ONLY_N,
+                start_node_no: int = 1,
+                end_node_no: int = 2,
+                rotation_angle: float = 0.0,
+                start_section_no: int = 1,
+                end_section_no: int = 1,
+                start_member_hinge_no: int = 0,
+                end_member_hinge_no: int = 0,
+                comment: str = '',
+                params: dict = {}):
 
         # Client model | Member
         clientObject = clientModel.factory.create('ns0:member')
@@ -304,21 +330,26 @@ class Member():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Member to client model
         clientModel.service.set_member(clientObject)
 
     def Tension(self,
-                 no: int = 1,
-                 member_type = MemberType.TYPE_BEAM,
-                 start_node_no: int = 1,
-                 end_node_no: int = 2,
-                 rotation_angle: float = 0.0,
-                 start_section_no: int = 1,
-                 end_section_no: int = 1,
-                 start_member_hinge_no: int = 0,
-                 end_member_hinge_no: int = 0,
-                 comment: str = ''):
+                no: int = 1,
+                member_type = MemberType.TYPE_TENSION,
+                start_node_no: int = 1,
+                end_node_no: int = 2,
+                rotation_angle: float = 0.0,
+                start_section_no: int = 1,
+                end_section_no: int = 1,
+                start_member_hinge_no: int = 0,
+                end_member_hinge_no: int = 0,
+                comment: str = '',
+                params: dict = {}):
 
         # Client model | Member
         clientObject = clientModel.factory.create('ns0:member')
@@ -355,21 +386,26 @@ class Member():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Member to client model
         clientModel.service.set_member(clientObject)
 
     def Compression(self,
-                 no: int = 1,
-                 member_type = MemberType.TYPE_BEAM,
-                 start_node_no: int = 1,
-                 end_node_no: int = 2,
-                 rotation_angle: float = 0.0,
-                 start_section_no: int = 1,
-                 end_section_no: int = 1,
-                 start_member_hinge_no: int = 0,
-                 end_member_hinge_no: int = 0,
-                 comment: str = ''):
+                no: int = 1,
+                member_type = MemberType.TYPE_COMPRESSION,
+                start_node_no: int = 1,
+                end_node_no: int = 2,
+                rotation_angle: float = 0.0,
+                start_section_no: int = 1,
+                end_section_no: int = 1,
+                start_member_hinge_no: int = 0,
+                end_member_hinge_no: int = 0,
+                comment: str = '',
+                params: dict = {}):
 
         # Client model | Member
         clientObject = clientModel.factory.create('ns0:member')
@@ -406,21 +442,26 @@ class Member():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Member to client model
         clientModel.service.set_member(clientObject)
 
     def Buckling(self,
-                 no: int = 1,
-                 member_type = MemberType.TYPE_BEAM,
-                 start_node_no: int = 1,
-                 end_node_no: int = 2,
-                 rotation_angle: float = 0.0,
-                 start_section_no: int = 1,
-                 end_section_no: int = 1,
-                 start_member_hinge_no: int = 0,
-                 end_member_hinge_no: int = 0,
-                 comment: str = ''):
+                no: int = 1,
+                member_type = MemberType.TYPE_BUCKLING,
+                start_node_no: int = 1,
+                end_node_no: int = 2,
+                rotation_angle: float = 0.0,
+                start_section_no: int = 1,
+                end_section_no: int = 1,
+                start_member_hinge_no: int = 0,
+                end_member_hinge_no: int = 0,
+                comment: str = '',
+                params: dict = {}):
 
         # Client model | Member
         clientObject = clientModel.factory.create('ns0:member')
@@ -457,21 +498,26 @@ class Member():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Member to client model
         clientModel.service.set_member(clientObject)
 
     def Cable(self,
-                 no: int = 1,
-                 member_type = MemberType.TYPE_BEAM,
-                 start_node_no: int = 1,
-                 end_node_no: int = 2,
-                 rotation_angle: float = 0.0,
-                 start_section_no: int = 1,
-                 end_section_no: int = 1,
-                 start_member_hinge_no: int = 0,
-                 end_member_hinge_no: int = 0,
-                 comment: str = ''):
+                no: int = 1,
+                member_type = MemberType.TYPE_CABLE,
+                start_node_no: int = 1,
+                end_node_no: int = 2,
+                rotation_angle: float = 0.0,
+                start_section_no: int = 1,
+                end_section_no: int = 1,
+                start_member_hinge_no: int = 0,
+                end_member_hinge_no: int = 0,
+                comment: str = '',
+                params: dict = {}):
 
         # Client model | Member
         clientObject = clientModel.factory.create('ns0:member')
@@ -508,21 +554,26 @@ class Member():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Member to client model
         clientModel.service.set_member(clientObject)
 
     def ResultBeam(self,
-                 no: int = 1,
-                 member_type = MemberType.TYPE_BEAM,
-                 start_node_no: int = 1,
-                 end_node_no: int = 2,
-                 rotation_angle: float = 0.0,
-                 start_section_no: int = 1,
-                 end_section_no: int = 1,
-                 start_member_hinge_no: int = 0,
-                 end_member_hinge_no: int = 0,
-                 comment: str = ''):
+                no: int = 1,
+                member_type = MemberType.TYPE_BEAM,
+                start_node_no: int = 1,
+                end_node_no: int = 2,
+                rotation_angle: float = 0.0,
+                start_section_no: int = 1,
+                end_section_no: int = 1,
+                start_member_hinge_no: int = 0,
+                end_member_hinge_no: int = 0,
+                comment: str = '',
+                params: dict = {}):
 
         # Client model | Member
         clientObject = clientModel.factory.create('ns0:member')
@@ -559,21 +610,26 @@ class Member():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Member to client model
         clientModel.service.set_member(clientObject)
 
     def DefinableStifness(self,
-                 no: int = 1,
-                 member_type = MemberType.TYPE_BEAM,
-                 start_node_no: int = 1,
-                 end_node_no: int = 2,
-                 rotation_angle: float = 0.0,
-                 start_section_no: int = 1,
-                 end_section_no: int = 1,
-                 start_member_hinge_no: int = 0,
-                 end_member_hinge_no: int = 0,
-                 comment: str = ''):
+                no: int = 1,
+                member_type = MemberType.TYPE_DEFINABLE_STIFFNESS,
+                start_node_no: int = 1,
+                end_node_no: int = 2,
+                rotation_angle: float = 0.0,
+                start_section_no: int = 1,
+                end_section_no: int = 1,
+                start_member_hinge_no: int = 0,
+                end_member_hinge_no: int = 0,
+                comment: str = '',
+                params: dict = {}):
 
         # Client model | Member
         clientObject = clientModel.factory.create('ns0:member')
@@ -610,21 +666,26 @@ class Member():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Member to client model
         clientModel.service.set_member(clientObject)
 
     def CouplingRigid_Rigid(self,
-                 no: int = 1,
-                 member_type = MemberType.TYPE_BEAM,
-                 start_node_no: int = 1,
-                 end_node_no: int = 2,
-                 rotation_angle: float = 0.0,
-                 start_section_no: int = 1,
-                 end_section_no: int = 1,
-                 start_member_hinge_no: int = 0,
-                 end_member_hinge_no: int = 0,
-                 comment: str = ''):
+                no: int = 1,
+                member_type = MemberType.TYPE_COUPLING_RIGID_RIGID,
+                start_node_no: int = 1,
+                end_node_no: int = 2,
+                rotation_angle: float = 0.0,
+                start_section_no: int = 1,
+                end_section_no: int = 1,
+                start_member_hinge_no: int = 0,
+                end_member_hinge_no: int = 0,
+                comment: str = '',
+                params: dict = {}):
 
         # Client model | Member
         clientObject = clientModel.factory.create('ns0:member')
@@ -661,21 +722,26 @@ class Member():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Member to client model
         clientModel.service.set_member(clientObject)
 
     def CouplingRigid_Hinge(self,
-                 no: int = 1,
-                 member_type = MemberType.TYPE_BEAM,
-                 start_node_no: int = 1,
-                 end_node_no: int = 2,
-                 rotation_angle: float = 0.0,
-                 start_section_no: int = 1,
-                 end_section_no: int = 1,
-                 start_member_hinge_no: int = 0,
-                 end_member_hinge_no: int = 0,
-                 comment: str = ''):
+                no: int = 1,
+                member_type = MemberType.TYPE_COUPLING_RIGID_HINGE,
+                start_node_no: int = 1,
+                end_node_no: int = 2,
+                rotation_angle: float = 0.0,
+                start_section_no: int = 1,
+                end_section_no: int = 1,
+                start_member_hinge_no: int = 0,
+                end_member_hinge_no: int = 0,
+                comment: str = '',
+                params: dict = {}):
 
         # Client model | Member
         clientObject = clientModel.factory.create('ns0:member')
@@ -712,21 +778,26 @@ class Member():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Member to client model
         clientModel.service.set_member(clientObject)
 
     def CouplingHinge_Rigid(self,
-                 no: int = 1,
-                 member_type = MemberType.TYPE_BEAM,
-                 start_node_no: int = 1,
-                 end_node_no: int = 2,
-                 rotation_angle: float = 0.0,
-                 start_section_no: int = 1,
-                 end_section_no: int = 1,
-                 start_member_hinge_no: int = 0,
-                 end_member_hinge_no: int = 0,
-                 comment: str = ''):
+                no: int = 1,
+                member_type = MemberType.TYPE_COUPLING_HINGE_RIGID,
+                start_node_no: int = 1,
+                end_node_no: int = 2,
+                rotation_angle: float = 0.0,
+                start_section_no: int = 1,
+                end_section_no: int = 1,
+                start_member_hinge_no: int = 0,
+                end_member_hinge_no: int = 0,
+                comment: str = '',
+                params: dict = {}):
 
         # Client model | Member
         clientObject = clientModel.factory.create('ns0:member')
@@ -763,21 +834,26 @@ class Member():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Member to client model
         clientModel.service.set_member(clientObject)
 
     def CouplingHinge_Hinge(self,
-                 no: int = 1,
-                 member_type = MemberType.TYPE_BEAM,
-                 start_node_no: int = 1,
-                 end_node_no: int = 2,
-                 rotation_angle: float = 0.0,
-                 start_section_no: int = 1,
-                 end_section_no: int = 1,
-                 start_member_hinge_no: int = 0,
-                 end_member_hinge_no: int = 0,
-                 comment: str = ''):
+                no: int = 1,
+                member_type = MemberType.TYPE_COUPLING_HINGE_HINGE,
+                start_node_no: int = 1,
+                end_node_no: int = 2,
+                rotation_angle: float = 0.0,
+                start_section_no: int = 1,
+                end_section_no: int = 1,
+                start_member_hinge_no: int = 0,
+                end_member_hinge_no: int = 0,
+                comment: str = '',
+                params: dict = {}):
 
         # Client model | Member
         clientObject = clientModel.factory.create('ns0:member')
@@ -814,6 +890,10 @@ class Member():
 
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Member to client model
         clientModel.service.set_member(clientObject)

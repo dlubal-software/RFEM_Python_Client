@@ -4,7 +4,8 @@ from RFEM.enums import SetType
 class SurfaceStiffnessModification():
     def __init__(self,
                  no: int = 1,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
 
         # Client model | Surface Stifness Modification
         clientObject = clientModel.factory.create('ns0:surface_stiffness_modification')
@@ -14,6 +15,13 @@ class SurfaceStiffnessModification():
 
         # Surface Stifness Modification No.
         clientObject.no = no
+
+        # Comment
+        clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Surface Stifness Modification to client model
         clientModel.service.set_surface_stiffness_modification(clientObject)

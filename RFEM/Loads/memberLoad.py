@@ -11,7 +11,8 @@ class MemberLoad():
                  load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_direction = LoadDirectionType.LOAD_DIRECTION_LOCAL_Z,
                  load_parameter = None,
-                 comment: str = ''):
+                 comment: str = '',
+                 params: dict = {}):
         '''
         Params:
             LOAD_DISTRIBUTION_UNIFORM: load_parameter = magnitude
@@ -208,10 +209,12 @@ class MemberLoad():
             # Load Type Rotary Motation
             pass
 
-
-
         # Comment
         clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         clientModel.service.set_member_load(load_case_no, clientObject)
