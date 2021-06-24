@@ -19,7 +19,7 @@ class SurfaceSet():
         clientObject.no = no
 
         # Surfaces number
-        clientObject.surfaces = surfaces_no
+        clientObject.surfaces = ConvertToDlString(surfaces_no)
 
         # Surface Set Type
         clientObject.set_type = surface_set_type.name
@@ -51,7 +51,7 @@ class SurfaceSet():
         clientObject.no = no
 
         # Surfaces number
-        clientObject.surfaces = surfaces_no
+        clientObject.surfaces = ConvertToDlString(surfaces_no)
 
         # Surface Set Type
         clientObject.set_type = surface_set_type.name
@@ -83,7 +83,7 @@ class SurfaceSet():
         clientObject.no = no
 
         # Surfaces number
-        clientObject.surfaces = surfaces_no
+        clientObject.surfaces = ConvertToDlString(surfaces_no)
 
         # Surface Set Type
         clientObject.set_type = surface_set_type.name

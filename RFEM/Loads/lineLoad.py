@@ -27,7 +27,7 @@ class LineLoad():
         clientObject.load_case = load_case_no
 
         # Line No. (e.g. '5 6 7 12')
-        clientObject.lines = lines_no
+        clientObject.lines = ConvertToDlString(lines_no)
 
         # Line Load Type
         clientObject.load_type = load_type.name

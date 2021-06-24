@@ -18,7 +18,7 @@ class Surface():
         clientObject.no = no
 
         # Lines No. (e.g. "5 7 8 12 5")
-        clientObject.boundary_lines = boundary_lines_no
+        clientObject.boundary_lines = ConvertToDlString(boundary_lines_no)
 
         # Comment
         clientObject.comment = comment
@@ -47,7 +47,7 @@ class Surface():
         clientObject.no = no
 
         # Lines No. (e.g. "5 7 8 12 5")
-        clientObject.boundary_lines = boundary_lines_no
+        clientObject.boundary_lines = ConvertToDlString(boundary_lines_no)
 
         # Comment
         clientObject.comment = comment
@@ -76,7 +76,7 @@ class Surface():
         clientObject.no = no
 
         # Lines No. (e.g. "5 7 8 12 5")
-        clientObject.boundary_lines = boundary_lines_no
+        clientObject.boundary_lines = ConvertToDlString(boundary_lines_no)
 
         # Comment
         clientObject.comment = comment
@@ -105,7 +105,7 @@ class Surface():
         clientObject.no = no
 
         # Lines No. (e.g. "5 7 8 12 5")
-        clientObject.boundary_lines = boundary_lines_no
+        clientObject.boundary_lines = ConvertToDlString(boundary_lines_no)
 
         # Comment
         clientObject.comment = comment
@@ -134,7 +134,7 @@ class Surface():
         clientObject.no = no
 
         # Lines No. (e.g. "5 7 8 12 5")
-        clientObject.boundary_lines = boundary_lines_no
+        clientObject.boundary_lines = ConvertToDlString(boundary_lines_no)
 
         # Comment
         clientObject.comment = comment
@@ -163,7 +163,7 @@ class Surface():
         clientObject.no = no
 
         # Lines No. (e.g. "5 7 8 12 5")
-        clientObject.boundary_lines = boundary_lines_no
+        clientObject.boundary_lines = ConvertToDlString(boundary_lines_no)
 
         # Comment
         clientObject.comment = comment
@@ -192,7 +192,7 @@ class Surface():
         clientObject.no = no
 
         # Lines No. (e.g. "5 7 8 12 5")
-        clientObject.boundary_lines = boundary_lines_no
+        clientObject.boundary_lines = ConvertToDlString(boundary_lines_no)
 
         # Comment
         clientObject.comment = comment
@@ -221,7 +221,7 @@ class Surface():
         clientObject.no = no
 
         # Lines No. (e.g. "5 7 8 12 5")
-        clientObject.boundary_lines = boundary_lines_no
+        clientObject.boundary_lines = ConvertToDlString(boundary_lines_no)
 
         # Comment
         clientObject.comment = comment

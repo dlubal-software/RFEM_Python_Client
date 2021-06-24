@@ -25,7 +25,7 @@ class NodalLoad():
         clientObject.load_case = load_case_no
 
         # Nodes No. (e.g. '5 6 7 12')
-        clientObject.nodes = nodes_no
+        clientObject.nodes = ConvertToDlString(nodes_no)
 
         # Force Direction
         clientObject.load_direction = load_direction.name

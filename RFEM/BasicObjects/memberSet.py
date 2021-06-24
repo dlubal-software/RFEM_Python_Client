@@ -19,7 +19,7 @@ class MemberSet():
         clientObject.no = no
 
         # Members number
-        clientObject.members = members_no
+        clientObject.members = ConvertToDlString(members_no)
 
         # Member Set Type
         clientObject.set_type = member_set_type.name
@@ -51,7 +51,7 @@ class MemberSet():
         clientObject.no = no
 
         # Members number
-        clientObject.members = members_no
+        clientObject.members = ConvertToDlString(members_no)
 
         # Member Set Type
         clientObject.set_type = member_set_type.name
@@ -83,7 +83,7 @@ class MemberSet():
         clientObject.no = no
 
         # Members number
-        clientObject.members = members_no
+        clientObject.members = ConvertToDlString(members_no)
 
         # Member Set Type
         clientObject.set_type = member_set_type.name

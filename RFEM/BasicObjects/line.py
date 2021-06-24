@@ -17,7 +17,7 @@ class Line():
         clientObject.no = no
 
         # Nodes No.
-        clientObject.definition_nodes = nodes_no
+        clientObject.definition_nodes = ConvertToDlString(nodes_no)
 
         # Comment
         clientObject.comment = comment
@@ -45,7 +45,7 @@ class Line():
         clientObject.no = no
 
         # Nodes No.
-        clientObject.definition_nodes = nodes_no
+        clientObject.definition_nodes = ConvertToDlString(nodes_no)
 
         # Comment
         clientObject.comment = comment
@@ -73,7 +73,7 @@ class Line():
         clientObject.no = no
 
         # Nodes No.
-        clientObject.definition_nodes = nodes_no
+        clientObject.definition_nodes = ConvertToDlString(nodes_no)
 
         # Comment
         clientObject.comment = comment
@@ -101,7 +101,7 @@ class Line():
         clientObject.no = no
 
         # Nodes No.
-        clientObject.definition_nodes = nodes_no
+        clientObject.definition_nodes = ConvertToDlString(nodes_no)
 
         # Comment
         clientObject.comment = comment
@@ -129,7 +129,7 @@ class Line():
         clientObject.no = no
 
         # Nodes No.
-        clientObject.definition_nodes = nodes_no
+        clientObject.definition_nodes = ConvertToDlString(nodes_no)
 
         # Comment
         clientObject.comment = comment
@@ -157,7 +157,7 @@ class Line():
         clientObject.no = no
 
         # Nodes No.
-        clientObject.definition_nodes = nodes_no
+        clientObject.definition_nodes = ConvertToDlString(nodes_no)
 
         # Comment
         clientObject.comment = comment
@@ -185,7 +185,7 @@ class Line():
         clientObject.no = no
 
         # Nodes No.
-        clientObject.definition_nodes = nodes_no
+        clientObject.definition_nodes = ConvertToDlString(nodes_no)
 
         # Comment
         clientObject.comment = comment
@@ -213,7 +213,7 @@ class Line():
         clientObject.no = no
 
         # Nodes No.
-        clientObject.definition_nodes = nodes_no
+        clientObject.definition_nodes = ConvertToDlString(nodes_no)
 
         # Comment
         clientObject.comment = comment
@@ -241,7 +241,7 @@ class Line():
         clientObject.no = no
 
         # Nodes No.
-        clientObject.definition_nodes = nodes_no
+        clientObject.definition_nodes = ConvertToDlString(nodes_no)
 
         # Comment
         clientObject.comment = comment

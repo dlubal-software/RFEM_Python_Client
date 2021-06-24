@@ -51,7 +51,7 @@ class NodalSupport():
         clientObject.no = no
 
         # Nodes No. (e.g. "5 6 7 12")
-        clientObject.nodes = nodes_no
+        clientObject.nodes = ConvertToDlString(nodes_no)
 
         # Nodal Support Conditions
         inf = float('inf')

@@ -29,7 +29,7 @@ class SurfaceLoad():
         clientObject.load_case = load_case_no
 
         # Surfaces No. (e.g. '5 6 7 12')
-        clientObject.surfaces = surface_no
+        clientObject.surfaces = ConvertToDlString(surface_no)
 
         # Load Direction
         clientObject.load_direction = load_direction.name

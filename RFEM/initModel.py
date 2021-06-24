@@ -155,3 +155,39 @@ def Calculate_all(generateXmlSolverInput: bool = False):
     - generateXmlSolverInput: generate XML solver input
     '''
     clientModel.service.calculate_all(generateXmlSolverInput)
+
+def ConvertToDlString(s: str = ''):
+    '''
+    The function converts strings commonly used in RSTAB / RFEM so that they 
+    can be used In WebServices. It solved issue #4.
+    Examples:
+    '1,3'       -> '1 3'
+    '1, 3'      -> '1 3'
+    '1-3'       -> '1 2 3'
+    '1,3,5-9'   -> '1 3 5 6 7 8 9'
+    
+    Params:
+        RSTAB / RFEM common string
+        
+    Returns a WS conform string.
+    '''
+    s = s.replace(',', ' ')
+    s = s.replace('  ', ' ')
+    lst = s.split(' ')
+    new_lst = []
+    for element in lst:
+        if('-' in element):
+            inLst = element.split('-')
+            start = int(inLst[0])
+            end   = int(inLst[1])
+            inLst = []
+            for i in range(start, end + 1):
+                inLst.append(str(i))
+                
+            inS = ' '.join(inLst)
+            new_lst.append(inS)
+        else:
+            new_lst.append(element)
+            
+    s = ' '.join(new_lst)
+    return s

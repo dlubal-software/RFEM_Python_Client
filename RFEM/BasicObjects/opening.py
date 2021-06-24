@@ -17,7 +17,7 @@ class Opening():
         clientObject.no = no
 
         # Boundary Lines No.
-        clientObject.boundary_lines = lines_no
+        clientObject.boundary_lines = ConvertToDlString(lines_no)
 
         # Comment
         clientObject.comment = comment

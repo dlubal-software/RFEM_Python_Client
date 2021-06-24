@@ -42,7 +42,7 @@ class MemberLoad():
         clientObject.load_case = load_case_no
 
         # Members No. (e.g. '5 6 7 12')
-        clientObject.members = members_no
+        clientObject.members = ConvertToDlString(members_no)
 
         # Member Load Type
         clientObject.load_type = load_type.name

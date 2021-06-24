@@ -18,7 +18,7 @@ class Solid():
         clientObject.no = no
 
         # Surfaces No. (e.g. "5 7 8 12 5")
-        clientObject.boundary_surfaces = boundary_surfaces_no
+        clientObject.boundary_surfaces = ConvertToDlString(boundary_surfaces_no)
 
         # Material
         clientObject.material = material_no
@@ -50,7 +50,7 @@ class Solid():
         clientObject.no = no
 
         # Surfaces No. (e.g. "5 7 8 12 5")
-        clientObject.boundary_surfaces = boundary_surfaces_no
+        clientObject.boundary_surfaces = ConvertToDlString(boundary_surfaces_no)
 
         # Material
         clientObject.material = material_no
@@ -82,7 +82,7 @@ class Solid():
         clientObject.no = no
 
         # Surfaces No. (e.g. "5 7 8 12 5")
-        clientObject.boundary_surfaces = boundary_surfaces_no
+        clientObject.boundary_surfaces = ConvertToDlString(boundary_surfaces_no)
 
         # Material
         clientObject.material = material_no
@@ -114,7 +114,7 @@ class Solid():
         clientObject.no = no
 
         # Surfaces No. (e.g. "5 7 8 12 5")
-        clientObject.boundary_surfaces = boundary_surfaces_no
+        clientObject.boundary_surfaces = ConvertToDlString(boundary_surfaces_no)
 
         # Material
         clientObject.material = material_no

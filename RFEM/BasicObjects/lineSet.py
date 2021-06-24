@@ -19,7 +19,7 @@ class LineSet():
         clientObject.no = no
 
         # Lines number
-        clientObject.lines = lines_no
+        clientObject.lines = ConvertToDlString(lines_no)
 
         # Line Set Type
         clientObject.set_type = line_set_type.name
@@ -51,7 +51,7 @@ class LineSet():
         clientObject.no = no
 
         # Lines number
-        clientObject.lines = lines_no
+        clientObject.lines = ConvertToDlString(lines_no)
 
         # Line Set Type
         clientObject.set_type = line_set_type.name
@@ -83,7 +83,7 @@ class LineSet():
         clientObject.no = no
 
         # Lines number
-        clientObject.lines = lines_no
+        clientObject.lines = ConvertToDlString(lines_no)
 
         # Line Set Type
         clientObject.set_type = line_set_type.name

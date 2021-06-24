@@ -23,7 +23,7 @@ class SurfaceSupport():
         clientObject.no = no
 
         # Surface No. (e.g. "5 6 7 12")
-        clientObject.surfaces = surfaces_no
+        clientObject.surfaces = ConvertToDlString(surfaces_no)
 
         # Surface Support Conditions
         clientObject.translation_x = c_1_x
