@@ -1,12 +1,11 @@
 from RFEM.enums import MemberType
 from RFEM.initModel import *
 
-class Member():
+class Member_by_line():
     def __init__(self,
                  no: int = 1,
                  member_type = MemberType.TYPE_BEAM,
-                 start_node_no: int = 1,
-                 end_node_no: int = 2,
+                 line_no: int = 1,
                  rotation_angle: float = 0.0,
                  start_section_no: int = 1,
                  end_section_no: int = 1,
@@ -26,12 +25,9 @@ class Member():
 
         # Member Type
         clientObject.type = member_type.name
-
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        
+        # Line No.
+        clientObject.line = line_no
 
         # Member Rotation Angle beta
         clientObject.rotation_angle = rotation_angle
@@ -56,13 +52,13 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)    
-    
+        clientModel.service.set_member(clientObject)
+            
+
     def Beam(self,
             no: int = 1,
             member_type = MemberType.TYPE_BEAM,
-            start_node_no: int = 1,
-            end_node_no: int = 2,
+            line_no: int = 1,
             rotation_angle: float = 0.0,
             start_section_no: int = 1,
             end_section_no: int = 1,
@@ -83,11 +79,8 @@ class Member():
         # Member Type
         clientObject.type = member_type.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Line No.
+        clientObject.line = line_no
 
         # Member Rotation Angle beta
         clientObject.rotation_angle = rotation_angle
@@ -117,8 +110,7 @@ class Member():
     def Rigid(self,
                 no: int = 1,
                 member_type = MemberType.TYPE_RIGID,
-                start_node_no: int = 1,
-                end_node_no: int = 2,
+                line_no: int = 1,
                 rotation_angle: float = 0.0,
                 start_section_no: int = 1,
                 end_section_no: int = 1,
@@ -139,11 +131,8 @@ class Member():
         # Member Type
         clientObject.type = member_type.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Line No.
+        clientObject.line = line_no
 
         # Member Rotation Angle beta
         clientObject.rotation_angle = rotation_angle
@@ -173,8 +162,7 @@ class Member():
     def Rib(self,
             no: int = 1,
             member_type = MemberType.TYPE_RIB,
-            start_node_no: int = 1,
-            end_node_no: int = 2,
+            line_no: int = 1,
             rotation_angle: float = 0.0,
             start_section_no: int = 1,
             end_section_no: int = 1,
@@ -195,11 +183,8 @@ class Member():
         # Member Type
         clientObject.type = member_type.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Line No.
+        clientObject.line = line_no
 
         # Member Rotation Angle beta
         clientObject.rotation_angle = rotation_angle
@@ -229,8 +214,7 @@ class Member():
     def Truss(self,
                 no: int = 1,
                 member_type = MemberType.TYPE_TRUSS,
-                start_node_no: int = 1,
-                end_node_no: int = 2,
+                line_no: int = 1,
                 rotation_angle: float = 0.0,
                 start_section_no: int = 1,
                 end_section_no: int = 1,
@@ -251,11 +235,8 @@ class Member():
         # Member Type
         clientObject.type = member_type.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Line No.
+        clientObject.line = line_no
 
         # Member Rotation Angle beta
         clientObject.rotation_angle = rotation_angle
@@ -285,8 +266,7 @@ class Member():
     def TrussOnlyN(self,
                 no: int = 1,
                 member_type = MemberType.TYPE_TRUSS_ONLY_N,
-                start_node_no: int = 1,
-                end_node_no: int = 2,
+                line_no: int = 1,
                 rotation_angle: float = 0.0,
                 start_section_no: int = 1,
                 end_section_no: int = 1,
@@ -307,11 +287,8 @@ class Member():
         # Member Type
         clientObject.type = member_type.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Line No.
+        clientObject.line = line_no
 
         # Member Rotation Angle beta
         clientObject.rotation_angle = rotation_angle
@@ -341,8 +318,7 @@ class Member():
     def Tension(self,
                 no: int = 1,
                 member_type = MemberType.TYPE_TENSION,
-                start_node_no: int = 1,
-                end_node_no: int = 2,
+                line_no: int = 1,
                 rotation_angle: float = 0.0,
                 start_section_no: int = 1,
                 end_section_no: int = 1,
@@ -363,11 +339,8 @@ class Member():
         # Member Type
         clientObject.type = member_type.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Line No.
+        clientObject.line = line_no
 
         # Member Rotation Angle beta
         clientObject.rotation_angle = rotation_angle
@@ -397,8 +370,7 @@ class Member():
     def Compression(self,
                 no: int = 1,
                 member_type = MemberType.TYPE_COMPRESSION,
-                start_node_no: int = 1,
-                end_node_no: int = 2,
+                line_no: int = 1,
                 rotation_angle: float = 0.0,
                 start_section_no: int = 1,
                 end_section_no: int = 1,
@@ -419,11 +391,8 @@ class Member():
         # Member Type
         clientObject.type = member_type.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Line No.
+        clientObject.line = line_no
 
         # Member Rotation Angle beta
         clientObject.rotation_angle = rotation_angle
@@ -453,8 +422,7 @@ class Member():
     def Buckling(self,
                 no: int = 1,
                 member_type = MemberType.TYPE_BUCKLING,
-                start_node_no: int = 1,
-                end_node_no: int = 2,
+                line_no: int = 1,
                 rotation_angle: float = 0.0,
                 start_section_no: int = 1,
                 end_section_no: int = 1,
@@ -475,11 +443,8 @@ class Member():
         # Member Type
         clientObject.type = member_type.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Line No.
+        clientObject.line = line_no
 
         # Member Rotation Angle beta
         clientObject.rotation_angle = rotation_angle
@@ -509,8 +474,7 @@ class Member():
     def Cable(self,
                 no: int = 1,
                 member_type = MemberType.TYPE_CABLE,
-                start_node_no: int = 1,
-                end_node_no: int = 2,
+                line_no: int = 1,
                 rotation_angle: float = 0.0,
                 start_section_no: int = 1,
                 end_section_no: int = 1,
@@ -531,11 +495,8 @@ class Member():
         # Member Type
         clientObject.type = member_type.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Line No.
+        clientObject.line = line_no
 
         # Member Rotation Angle beta
         clientObject.rotation_angle = rotation_angle
@@ -565,8 +526,7 @@ class Member():
     def ResultBeam(self,
                 no: int = 1,
                 member_type = MemberType.TYPE_BEAM,
-                start_node_no: int = 1,
-                end_node_no: int = 2,
+                line_no: int = 1,
                 rotation_angle: float = 0.0,
                 start_section_no: int = 1,
                 end_section_no: int = 1,
@@ -587,11 +547,8 @@ class Member():
         # Member Type
         clientObject.type = member_type.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Line No.
+        clientObject.line = line_no
 
         # Member Rotation Angle beta
         clientObject.rotation_angle = rotation_angle
@@ -621,8 +578,7 @@ class Member():
     def DefinableStifness(self,
                 no: int = 1,
                 member_type = MemberType.TYPE_DEFINABLE_STIFFNESS,
-                start_node_no: int = 1,
-                end_node_no: int = 2,
+                line_no: int = 1,
                 rotation_angle: float = 0.0,
                 start_section_no: int = 1,
                 end_section_no: int = 1,
@@ -643,11 +599,8 @@ class Member():
         # Member Type
         clientObject.type = member_type.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Line No.
+        clientObject.line = line_no
 
         # Member Rotation Angle beta
         clientObject.rotation_angle = rotation_angle
@@ -677,8 +630,7 @@ class Member():
     def CouplingRigid_Rigid(self,
                 no: int = 1,
                 member_type = MemberType.TYPE_COUPLING_RIGID_RIGID,
-                start_node_no: int = 1,
-                end_node_no: int = 2,
+                line_no: int = 1,
                 rotation_angle: float = 0.0,
                 start_section_no: int = 1,
                 end_section_no: int = 1,
@@ -699,11 +651,8 @@ class Member():
         # Member Type
         clientObject.type = member_type.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Line No.
+        clientObject.line = line_no
 
         # Member Rotation Angle beta
         clientObject.rotation_angle = rotation_angle
@@ -733,8 +682,7 @@ class Member():
     def CouplingRigid_Hinge(self,
                 no: int = 1,
                 member_type = MemberType.TYPE_COUPLING_RIGID_HINGE,
-                start_node_no: int = 1,
-                end_node_no: int = 2,
+                line_no: int = 1,
                 rotation_angle: float = 0.0,
                 start_section_no: int = 1,
                 end_section_no: int = 1,
@@ -755,11 +703,8 @@ class Member():
         # Member Type
         clientObject.type = member_type.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Line No.
+        clientObject.line = line_no
 
         # Member Rotation Angle beta
         clientObject.rotation_angle = rotation_angle
@@ -789,8 +734,7 @@ class Member():
     def CouplingHinge_Rigid(self,
                 no: int = 1,
                 member_type = MemberType.TYPE_COUPLING_HINGE_RIGID,
-                start_node_no: int = 1,
-                end_node_no: int = 2,
+                line_no: int = 1,
                 rotation_angle: float = 0.0,
                 start_section_no: int = 1,
                 end_section_no: int = 1,
@@ -811,11 +755,8 @@ class Member():
         # Member Type
         clientObject.type = member_type.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Line No.
+        clientObject.line = line_no
 
         # Member Rotation Angle beta
         clientObject.rotation_angle = rotation_angle
@@ -845,8 +786,7 @@ class Member():
     def CouplingHinge_Hinge(self,
                 no: int = 1,
                 member_type = MemberType.TYPE_COUPLING_HINGE_HINGE,
-                start_node_no: int = 1,
-                end_node_no: int = 2,
+                line_no: int = 1,
                 rotation_angle: float = 0.0,
                 start_section_no: int = 1,
                 end_section_no: int = 1,
@@ -867,11 +807,8 @@ class Member():
         # Member Type
         clientObject.type = member_type.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Line No.
+        clientObject.line = line_no
 
         # Member Rotation Angle beta
         clientObject.rotation_angle = rotation_angle
