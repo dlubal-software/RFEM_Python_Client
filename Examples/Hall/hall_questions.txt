@@ -1,0 +1,44 @@
+Comments:
+
+1. Class: Frame #by halls, we repeat the same portal frame on same distance, so why wouldnt we do a loop: the usrer gives the number of repetitation nd we do a while loop with i
+
+while i = 4 #frames and j = 2 #span 2 meters between each fram
+
+   if 
+     repeat the previous input  = true
+
+
+
+
+     print 'Material = ### ? '
+        if true
+        return ...    
+        if false 
+        return ...
+         
+     then repeat:
+     the user sees: 
+     
+   else
+     do nothing 
+
+#otherwise user will have to repeat the same input/parameter for different elememts many times!
+
+
+2. OR Class: SetFrame: set of frames where the same parameters can be repeated(an array like)
+
+3. Class Bracing??  
+
+4. Class between 2 nodes: 
+
+smth like: 
+
+def midpoint(n1, n2):
+ return Point((n1[0]+n2[0])/2, (n1[1]+n2[1])/2))
+
+a list like, limited by a loop of points: give 2 nodes and indicate distance or nb of nodes needed between the 2 nodes
+  
+
+5. should the user enter his script OR also smth like an online tool where they see an input tool and they give it? like how simple should this be?
+
+6. steel connections???  a library with connections (bolts and so on..)
