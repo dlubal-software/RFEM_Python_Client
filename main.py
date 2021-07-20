@@ -276,6 +276,7 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
     # Calculate all
     Calculate_all()
     print("Done")
+    clientModel.service.set_optimization_settings(True,20,2,1,0.2)
 
 if __name__ == '__main__':
     window(main)
