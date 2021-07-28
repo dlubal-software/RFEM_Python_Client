@@ -120,3 +120,8 @@ class SetType(Enum):
     '''
     SET_TYPE_CONTINUOUS, SET_TYPE_GROUP = range(2)
 
+ class BracingType(Enum):
+    '''
+    Bracing Type | Enum
+    '''
+    TYPE_HORIZONTAL, TYPE_VERTICAL = range(2)
