@@ -1,4 +1,5 @@
 from RFEM.initModel import *
+from RFEM.enums import BracingType
 
 
 class Bracing():
