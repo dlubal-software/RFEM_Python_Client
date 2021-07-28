@@ -114,7 +114,7 @@ class Bracing():
         # Add Bracing to client model
         clientModel.service.set_bracing(clientObject)
 
- def Horizontal(self,
+        def Vertical(self,
             no: int = 1,
             bracing_type = BracingType.TYPE_VERTICAL,
             start_node_no: int = 1,
