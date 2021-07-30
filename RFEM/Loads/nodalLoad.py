@@ -54,7 +54,7 @@ class NodalLoad():
         # Add Nodal Force to client model
         clientModel.service.set_nodal_load(load_case_no, clientObject)
 
-    def force(self,
+    def Force(self,
               no: int = 1,
               load_case_no: int = 1,
               nodes_no: str = '1',
@@ -69,8 +69,6 @@ class NodalLoad():
 
         '''
         Assigns force type nodal lode. Further options are available. 
-
-
 
         For specific_direction type DIRECTION_TYPE_ROTATED_VIA_3_ANGLES;
         load_parameter={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_ROTATED_VIA_3_ANGLES, NodalLoadAxesSequence, angle_1, angle_2, angle_3, angle_x, angle_y, angle_z]}
@@ -94,8 +92,6 @@ class NodalLoad():
 
         For shifted_display;
         load_parameter={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
-
-
         '''
 
         # Client model | Nodal Force
@@ -131,8 +127,8 @@ class NodalLoad():
         # Specific Direction
         if specific_direction == True:
 
-            #if 'specific_direction' not in list(load_parameter.keys()):
-                #raise Exception("Required key is missing")
+            if 'specific_direction' not in list(load_parameter.keys()):
+                raise Exception("Required key is missing")
 
             load_parameter_s = load_parameter['specific_direction']
 
@@ -202,7 +198,7 @@ class NodalLoad():
         clientModel.service.set_nodal_load(load_case_no, clientObject)
 
 
-    def moment(self,
+    def Moment(self,
               no: int = 1,
               load_case_no: int = 1,
               nodes_no: str = '1',
@@ -217,8 +213,6 @@ class NodalLoad():
         
         '''
         Assigns moment type nodal lode. Further options are available. 
-
-
 
         For specific_direction type DIRECTION_TYPE_ROTATED_VIA_3_ANGLES;
         load_parameter={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_ROTATED_VIA_3_ANGLES, NodalLoadAxesSequence, angle_1, angle_2, angle_3, angle_x, angle_y, angle_z]}
@@ -239,8 +233,6 @@ class NodalLoad():
 
         For shifted_display;
         load_parameter={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
-
-
         '''
 
         # Client model | Nodal Force
@@ -328,7 +320,7 @@ class NodalLoad():
         clientModel.service.set_nodal_load(load_case_no, clientObject)
 
 
-    def components(self,
+    def Components(self,
               no: int = 1,
               load_case_no: int = 1,
               nodes_no: str = '1',
@@ -473,7 +465,7 @@ class NodalLoad():
         # Add Nodal Force to client model
         clientModel.service.set_nodal_load(load_case_no, clientObject)
 
-    def mass(self,
+    def Mass(self,
               no: int = 1,
               load_case_no: int = 1,
               nodes_no: str = '1',
