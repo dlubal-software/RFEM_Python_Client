@@ -120,3 +120,16 @@ class SetType(Enum):
     '''
     SET_TYPE_CONTINUOUS, SET_TYPE_GROUP = range(2)
 
+class LineArcAlphaAdjustmentTarget(Enum):
+    '''
+    Line Arc Alpha Adjustment Target | Enum
+    '''
+    ALPHA_ADJUSTMENT_TARGET_ARC_CONTROL_POINT, ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC, \
+    ALPHA_ADJUSTMENT_TARGET_END_OF_ARC = range(3)
+
+class LineType(Enum):
+    '''
+    Line Type | Enum
+    '''
+    TYPE_ARC, TYPE_CIRCLE, TYPE_CUT_VIA_SECTION, TYPE_CUT_VIA_TWO_LINES, TYPE_ELLIPTICAL_ARC, TYPE_ELLIPSE, TYPE_NURBS, TYPE_PARABOLA, TYPE_POLYLINE, TYPE_SPLINE = range(10)
+
