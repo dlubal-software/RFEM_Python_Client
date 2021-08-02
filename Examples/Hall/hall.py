@@ -35,7 +35,7 @@ if __name__ == '__main__':
 	x = float(input('Number of frames: '))
 	a = float(input('Distance between frames in m: '))
    
-   clientModel.service.begin_modification()
+   clientModel.service.begin_modification('new')
 
    Material (1 , 'S235')
    Material (2, 'C25/30')
