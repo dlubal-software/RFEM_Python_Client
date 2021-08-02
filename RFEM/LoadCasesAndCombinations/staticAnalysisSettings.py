@@ -19,6 +19,7 @@ class StaticAnalysisSettings():
         clientObject.no = no
 
         # Name
+        clientObject.user_defined_name_enabled = True
         clientObject.name = name
 
         # Analysis Type
