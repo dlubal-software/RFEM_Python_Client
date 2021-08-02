@@ -30,31 +30,33 @@ from RFEM.Loads.lineLoad import *
 from RFEM.Loads.surfaceLoad import *
 
 if __name__ == '__main__':
+
+	l = float(input('Length of the clear span in m: '))
+	x = float(input('Number of frames: '))
+   a = float(input('Distance between frames in m: '))
+   
    clientModel.service.begin_modification()
 
-   %MaterialDefinition
    Material (1 , 'S235')
    Material (2, 'C25/30')
    Material (3, 'EN AW-3004 H14')
    
-   %SectionDefinition
    Section (1, 'HEM 700')
    Section (2, 'IPE 500')
    Section (3, 'IPE 80')
 
-   %NodalSupportDefinition
    NodalSupport(1, '1' , NodalSupportType.FIXED)
    NodalSupport(2, '3' , NodalSupportType.FIXED)
    NodalSupport(3, '9' , NodalSupportType.FIXED)
    NodalSupport(4, '12' , NodalSupportType.FIXED)
 
-   %NodesDefinition
+   
    Node (2, 0 , 0 , -15)
    Node (10, 15 , 0 , -15)
    Node (11, 15 , -30 , -15)
    Node (4, 0 , -30 , -15)
 
-   %Between2Nodes: ??
+   %Between2Nodes:??
 
   
 
