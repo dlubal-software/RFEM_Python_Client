@@ -33,7 +33,7 @@ if __name__ == '__main__':
 
 	l = float(input('Length of the clear span in m: '))
 	x = float(input('Number of frames: '))
-   a = float(input('Distance between frames in m: '))
+	a = float(input('Distance between frames in m: '))
    
    clientModel.service.begin_modification()
 
