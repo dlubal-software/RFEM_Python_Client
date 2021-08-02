@@ -1,1 +1,3 @@
+from RFEM.initModel import *
+
 
