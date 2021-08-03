@@ -33,10 +33,17 @@ if __name__ == '__main__':
 
 	l = float(input('Length of the clear span in m: '))
 	x = float(input('Number of frames: '))
-	if ('Distance between frames is the same' == TRUE)
-	    a = float(input('Distance between frames in m: '))
-	    else 
-	    a =  [ eine liste einzutragen]
+	d = bool(input('Distance between frames is the same (True or False): '))
+	if (d == "True"):
+	    d = float(input('Distance between frames in m: '))
+	else 
+	d = []
+	d = int(input('Enter' + + 'distances:')) 
+	for i in range(0, x-1): # iterating till the range  
+	 ele = int(input())
+	 lst.append(ele) # adding the element
+ 
+  
 	
    
    clientModel.service.begin_modification('new')
