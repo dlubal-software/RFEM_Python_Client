@@ -1,4 +1,5 @@
 import sys
+from RFEM.enums import *
 
 # Import SUDS module
 try:
@@ -191,3 +192,59 @@ def ConvertToDlString(s: str = ''):
             
     s = ' '.join(new_lst)
     return s
+
+def method_exists(instance, method):
+    return hasattr(instance, method) and callable(instance.method)
+
+def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None):
+    '''
+    This method calculate just selected objects - load cases, desingSituations, loadCombinations
+    Args:
+        loadCases (list, optional): [description]. Defaults to None.
+        designSituations (list, optional): [description]. Defaults to None.
+        loadCombinations (list, optional): [description]. Defaults to None.
+    '''
+    specificObjectsToCalculate = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements')
+    if loadCases:
+        for loadCase in loadCases:
+            specificObjectsToCalculateLC = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
+            specificObjectsToCalculateLC.no = loadCase
+            specificObjectsToCalculateLC.parent_no = 0
+            specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
+            specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
+    
+    if designSituations:
+        for designSituation in designSituations:
+            specificObjectsToCalculateDS = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
+            specificObjectsToCalculateDS.no = designSituation
+            specificObjectsToCalculateDS.parent_no = 0
+            specificObjectsToCalculateDS.type = ObjectTypes.E_OBJECT_TYPE_DESIGN_SITUATION.name
+            specificObjectsToCalculate.element.append(specificObjectsToCalculateDS)
+    
+    if loadCombinations:
+        for loadCombination in loadCombinations:
+            specificObjectsToCalculateLC = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
+            specificObjectsToCalculateLC.no = loadCombination
+            specificObjectsToCalculateLC.parent_no = 0
+            specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
+            specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
+    
+
+    clientModel.service.calculate_specific_objects(specificObjectsToCalculate)
+
+def ExportResulTablesToCsv(TargetDirectoryPath: str):
+
+    clientModel.service.export_result_tables_to_csv(TargetDirectoryPath)
+
+def ExportResulTablesToXML(TargetFilePath: str):
+
+    clientModel.service.export_result_tables_to_xml(TargetFilePath)
+
+def ExportResulTablesWithDetailedMembersResultsToCsv(TargetDirectoryPath: str):
+    
+    clientModel.service.export_result_tables_with_detailed_members_results_to_csv(TargetDirectoryPath)
+
+def ExportResulTablesWithDetailedMembersResultsToXML(TargetFilePath: str):
+    
+    clientModel.service.export_result_tables_with_detailed_members_results_to_xml(TargetFilePath)
+    

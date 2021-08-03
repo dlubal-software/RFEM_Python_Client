@@ -55,13 +55,18 @@ if __name__ == '__main__':
     StaticAnalysisSettings(
         1, '1. Ordnung', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
-    LoadCase(1, 'Eigengewicht', AnalysisType.ANALYSIS_TYPE_STATIC,
-             1,  1, True, 0.0, 0.0, 1.0)
+    LoadCase(1, 'NodalLoad', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False, 0.0, 0.0, 1.0)
+    LoadCase(2, 'SelfWeight', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
 
-    NodalLoad(
-        1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, f*1000)
-
-    Calculate_all()
-    print('Ready!')
-
+    NodalLoad(1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, f*1000)
     clientModel.service.finish_modification()
+    
+    # Calculate_all()
+    
+    
+    loadCases = [1]
+    CalculateSelectedCases(loadCases=loadCases)
+    ExportResulTablesWithDetailedMembersResultsToCsv(dirName)
+    
+    print('Ready!')
+    
