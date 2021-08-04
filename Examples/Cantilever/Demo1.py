@@ -67,6 +67,10 @@ if __name__ == '__main__':
     loadCases = [1]
     CalculateSelectedCases(loadCases=loadCases)
     ExportResulTablesWithDetailedMembersResultsToCsv(dirName)
+    ExportResulTablesWithDetailedMembersResultsToXML(dirName + "Results.xml")
+    #internalForces = ParseCSVResultsFromSelectedFileToDict(dirName + "\\My Model\\LC1_static_analysis_members_internal_forces.csv")
+    results = ParseXMLResultsFromSelectedFileToDict(dirName + "Results.xml")
+
+
     
-    print('Ready!')
     

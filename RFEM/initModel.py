@@ -1,5 +1,9 @@
 import sys
 from RFEM.enums import *
+import xmltodict
+import csv
+#import json
+#import xml.etree.ElementTree as ET
 
 # Import SUDS module
 try:
@@ -248,3 +252,23 @@ def ExportResulTablesWithDetailedMembersResultsToXML(TargetFilePath: str):
     
     clientModel.service.export_result_tables_with_detailed_members_results_to_xml(TargetFilePath)
     
+def  __parseXMLAsDictionary(path: str =""):
+    with open(path, "rb") as f:
+        my_dictionary = xmltodict.parse(f, xml_attribs=True)
+    return my_dictionary
+
+def __parseCSVAsDictionary(path: str =""):
+    with open(path, mode='r') as f:
+        reader = csv.DictReader(f,delimiter=';')
+        my_dictionary = []
+        for line in reader:
+            my_dictionary.append(line)
+    return my_dictionary
+
+def ParseCSVResultsFromSelectedFileToDict(filePath: str):
+    
+    return __parseCSVAsDictionary(filePath)
+
+def ParseXMLResultsFromSelectedFileToDict(filePath: str):
+    
+    return __parseXMLAsDictionary(filePath)
