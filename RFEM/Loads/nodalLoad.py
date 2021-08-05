@@ -17,8 +17,7 @@ class NodalLoad():
         Assigns nodal lode with no further options. Load type is 'force' by default.
         
         '''
-
-
+        
         # Client model | Nodal Force
         clientObject = clientModel.factory.create('ns0:nodal_load')
 

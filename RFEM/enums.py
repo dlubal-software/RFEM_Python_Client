@@ -149,4 +149,65 @@ class NodalLoadMassAxisRotation(Enum):
     AXIS_OF_ROTATION_X_NEGATIVE, AXIS_OF_ROTATION_X_POSITIVE, AXIS_OF_ROTATION_Y_NEGATIVE, AXIS_OF_ROTATION_Y_POSITIVE, AXIS_OF_ROTATION_Z_NEGATIVE, AXIS_OF_ROTATION_Z_POSITIVE = range(6)
 
 
+class MemberLoadEccentricityHorizontalAlignment(Enum):
+    '''
+    Member Load Eccentricity Horizontal Alignment
+    '''
+
+    ALIGN_LEFT, ALIGN_MIDDLE, ALIGN_NONE, ALIGN_TOP = range(4)
+
+
+class MemberLoadEccentricityVerticalAlignment(Enum):
+    '''
+    Member Load Eccentricity Vertical Alignment
+    '''
+
+    ALIGN_LEFT, ALIGN_MIDDLE, ALIGN_NONE, ALIGN_TOP = range(4)
+
+class MemberLoadEccentricitySectionMiddle(Enum):
+    '''
+    Member Load Eccentricity Section Middle
+    '''
+
+    LOAD_ECCENTRICITY_SECTION_MIDDLE_CENTER_OF_GRAVITY, LOAD_ECCENTRICITY_SECTION_MIDDLE_NONE, LOAD_ECCENTRICITY_SECTION_MIDDLE_SHEAR_CENTER = range(3)
+
+class MemberLoadFormFindingDefinitonType(Enum):
+    '''
+    Member Load Form Finding Definiton Type
+    '''
+
+    FORM_FINDING_TYPE_FORCE, FORM_FINDING_TYPE_GEOMETRIC = range(2)
+
+class MemberLoadFormFindingForceDefinition(Enum):
+    '''
+    Member Load Form Finding Force Definition
+    '''
+
+    FORM_FINDING_FORCE_INPUT_PARAMETER_AVERAGE, FORM_FINDING_FORCE_INPUT_PARAMETER_DENSITY, FORM_FINDING_FORCE_INPUT_PARAMETER_HORIZONTAL_TENSION_COMPONENT, \
+    FORM_FINDING_FORCE_INPUT_PARAMETER_MAXIMUM_FORCE_IN_MEMBER, FORM_FINDING_FORCE_INPUT_PARAMETER_MINIMAL_TENSION_AT_I_END, \
+    FORM_FINDING_FORCE_INPUT_PARAMETER_MINIMAL_TENSION_AT_J_END, FORM_FINDING_FORCE_INPUT_PARAMETER_MINIMUM_FORCE_IN_MEMBER,\
+    FORM_FINDING_FORCE_INPUT_PARAMETER_TENSION_AT_I_END, FORM_FINDING_FORCE_INPUT_PARAMETER_TENSION_AT_J_END = range(9)
+
+class MemberLoadFormFindingGeometryDefinition(Enum):
+    '''
+    Member Load Form Finding Geometry Definition
+    '''
+
+    FORM_FINDING_GEOMETRIC_INPUT_PARAMETER_LENGTH, FORM_FINDING_GEOMETRIC_INPUT_PARAMETER_LOW_POINT_VERTICAL_SAG, \
+    FORM_FINDING_GEOMETRIC_INPUT_PARAMETER_MAXIMUM_VERTICAL_SAG, FORM_FINDING_GEOMETRIC_INPUT_PARAMETER_SAG, \
+    FORM_FINDING_GEOMETRIC_INPUT_PARAMETER_UNSTRESSED_LENGTH = range(5)
+
+class MemberLoadFormFindingInternalForce(Enum):
+    '''
+    Member Load Form Finding Internal Force
+    '''
+
+    FORM_FINDING_INTERNAL_FORCE_COMPRESSION, FORM_FINDING_INTERNAL_FORCE_TENSION = range(2)
+
+class MemberLoadDirectionOrientation(Enum):
+    '''
+    Member Load Direction Orientation
+    '''
+    LOAD_DIRECTION_FORWARD,LOAD_DIRECTION_REVERSED = range(2)
+
 
