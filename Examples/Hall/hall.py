@@ -32,19 +32,8 @@ from RFEM.Loads.surfaceLoad import *
 if __name__ == '__main__':
 
 	l = float(input('Length of the clear span in m: '))
-	x = float(input('Number of frames: '))
-	d = bool(input('Distance between frames is the same (True or False): '))
-	if (d == "True"):
-	    d = float(input('Distance between frames in m: '))
-	else 
-	d = []
-	d = int(input('Enter' + + 'distances:')) 
-	for i in range(0, x-1): # iterating till the range  
-	 ele = int(input())
-	 lst.append(ele) # adding the element
- 
-  
-	
+	n = float(input('Number of frames: '))
+	d = float(input('Distance between frames in m: '))
    
    clientModel.service.begin_modification('new')
 
@@ -83,10 +72,10 @@ if __name__ == '__main__':
    Member (11, MemberType.TYPE_BEAM, 11, 4, 0.0, 2, 2)
    Member (6, MemberType.TYPE_BEAM , 4, 2, 0.0, 2, 2)
 
-   %Surfaces  ???
+   %Surfaces 
    Surface (1, '5 6 7 8', 1)
  
-   %Bracing ??
+   %Bracing
    
   %Analysis
   StaticAnalysisSettings(1, '1. Order', StaticAnalysisType.GEOMETRICALLY_LINEAR)
