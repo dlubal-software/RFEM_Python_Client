@@ -61,15 +61,19 @@ if __name__ == '__main__':
     NodalLoad(1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, f*1000)
     clientModel.service.finish_modification()
     
-    # Calculate_all()
+    Calculate_all()
+
+    clientModel.service.save(r"D:\TEMP\model.rf6")
     
-    
-    loadCases = [1]
-    CalculateSelectedCases(loadCases=loadCases)
-    ExportResulTablesWithDetailedMembersResultsToCsv(dirName)
-    ExportResulTablesWithDetailedMembersResultsToXML(dirName + "Results.xml")
-    #internalForces = ParseCSVResultsFromSelectedFileToDict(dirName + "\\My Model\\LC1_static_analysis_members_internal_forces.csv")
-    results = ParseXMLResultsFromSelectedFileToDict(dirName + "Results.xml")
+    clientModel.service.export_to(r"D:\TEMP\model.gltf")
+    clientModel.service.export_to(r"D:\TEMP\model.glb")
+    clientModel.service.export_to(r"D:\TEMP\model.vtk")
+    # loadCases = [1]
+    # CalculateSelectedCases(loadCases=loadCases)
+    # ExportResulTablesWithDetailedMembersResultsToCsv(dirName)
+    # ExportResulTablesWithDetailedMembersResultsToXML(dirName + "Results.xml")
+    # #internalForces = ParseCSVResultsFromSelectedFileToDict(dirName + "\\My Model\\LC1_static_analysis_members_internal_forces.csv")
+    # results = ParseXMLResultsFromSelectedFileToDict(dirName + "Results.xml")
 
 
     

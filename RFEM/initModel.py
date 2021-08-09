@@ -236,19 +236,19 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
 
     clientModel.service.calculate_specific_objects(specificObjectsToCalculate)
 
-def ExportResulTablesToCsv(TargetDirectoryPath: str):
+def ExportResultTablesToCsv(TargetDirectoryPath: str):
 
     clientModel.service.export_result_tables_to_csv(TargetDirectoryPath)
 
-def ExportResulTablesToXML(TargetFilePath: str):
+def ExportResultTablesToXML(TargetFilePath: str):
 
     clientModel.service.export_result_tables_to_xml(TargetFilePath)
 
-def ExportResulTablesWithDetailedMembersResultsToCsv(TargetDirectoryPath: str):
+def ExportResultTablesWithDetailedMembersResultsToCsv(TargetDirectoryPath: str):
     
     clientModel.service.export_result_tables_with_detailed_members_results_to_csv(TargetDirectoryPath)
 
-def ExportResulTablesWithDetailedMembersResultsToXML(TargetFilePath: str):
+def ExportResultTablesWithDetailedMembersResultsToXML(TargetFilePath: str):
     
     clientModel.service.export_result_tables_with_detailed_members_results_to_xml(TargetFilePath)
     
