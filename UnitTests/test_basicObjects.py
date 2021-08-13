@@ -1,3 +1,11 @@
+import os
+import sys
+baseName = os.path.basename(__file__)
+dirName = os.path.dirname(__file__)
+print('basename:    ', baseName)
+print('dirname:     ', dirName)
+sys.path.append(dirName + r'/..')
+
 from RFEM.enums import *
 from RFEM.dataTypes import *
 from RFEM.initModel import *
@@ -21,13 +29,6 @@ from RFEM.LoadCasesAndCombinations.loadCase import *
 from RFEM.Loads.nodalLoad import *
 from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
-import os
-import sys
-baseName = os.path.basename(__file__)
-dirName = os.path.dirname(__file__)
-print('basename:    ', baseName)
-print('dirname:     ', dirName)
-sys.path.append(dirName + r'/../..')
 
 
 def test_material():
