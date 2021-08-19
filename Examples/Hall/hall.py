@@ -47,33 +47,16 @@ if __name__ == '__main__':
    Section (1, 'HEM 700')
    Section (2, 'IPE 500')
    Section (3, 'IPE 80')
-
-   NodalSupport(1, '1' , NodalSupportType.FIXED)
-   NodalSupport(2, '3' , NodalSupportType.FIXED)
-   NodalSupport(3, '9' , NodalSupportType.FIXED)
-   NodalSupport(4, '12' , NodalSupportType.FIXED)
-
-   
+  
+   Node (1, 0 , 0 , 0)
    Node (2, 0 , 0 , -15)
-   Node (10, 15 , 0 , -15)
-   Node (11, 15 , -30 , -15)
-   Node (4, 0 , -30 , -15)
+   Node (3, 0 , 30 , -15)
+   Node (4, 0 , 30 , 0)
+	
+   NodalSupport(1, '1 4' , NodalSupportType.FIXED)
 
    %Between2Nodes:??
-
   
-
-   %MembersDefinition
-     %ColumnsDefinition
-   Member (1, MemberType.TYPE_BEAM, 1, 2, 0.0, 1, 1)
-   Member (2, MemberType.TYPE_BEAM, 3, 4, 0.0, 1, 1)
-   Member (12, MemberType.TYPE_BEAM, 9, 10, 0.0, 1, 1)
-   Member (15, MemberType.TYPE_BEAM,  12, 11, 0.0, 1, 1)
-     %BeamsDefinition
-   Member (9, MemberType.TYPE_BEAM, 2, 10, 0.0, 2, 2)
-   Member (8, MemberType.TYPE_BEAM, 10, 11, 0.0, 2, 2)
-   Member (11, MemberType.TYPE_BEAM, 11, 4, 0.0, 2, 2)
-   Member (6, MemberType.TYPE_BEAM , 4, 2, 0.0, 2, 2)
 
    %Surfaces 
    Surface (1, '5 6 7 8', 1)
