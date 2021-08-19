@@ -48,7 +48,7 @@ if __name__ == '__main__':
    
    Section (1, 'HEM 700',1)
    Section (2, 'IPE 500',1)
-   Section (3, 'IPE 80',1)
+   Section (3, 'IPE 80',3)
   
    Node (1, 0 , 0 , 0)
    Node (2, 0 , 0 , -15)
@@ -58,13 +58,13 @@ if __name__ == '__main__':
    NodalSupport(1, '1 4' , NodalSupportType.FIXED)
 
    Frame(1,1,2,1,1,2,3,2,2,3,4,1,1)
-  
 
-   %Surfaces 
-   Surface (1, '5 6 7 8', 1)
+   Bracing(1, BracingType.TYPE_VERTICAL, 2 , 5 , 0, 3, 3, 0, 0)
+  
+ XXX  %Surfaces 
+   Surface (1, '5 6 7 8', 1)  XXXX
  
-   %Bracing
-   Bracing(1, BracingType.TYPE_VERTICAL, )
+   
    
   %Analysis
   StaticAnalysisSettings(1, '1. Order', StaticAnalysisType.GEOMETRICALLY_LINEAR)
