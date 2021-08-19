@@ -52,15 +52,20 @@ if __name__ == '__main__':
   
    Node (1, 0 , 0 , 0)
    Node (2, 0 , 0 , -15)
-   Node (3, 0 , 30 , -15)
-   Node (4, 0 , 30 , 0)
+   Node (3, 30 , 0 , -15)
+   Node (4, 30 , 0 , 0)
 	
    NodalSupport(1, '1 4' , NodalSupportType.FIXED)
 
    Frame(1,1,2,1,1,2,3,2,2,3,4,1,1)
 
-   Bracing(1, BracingType.TYPE_VERTICAL, 2 , 5 , 0, 3, 3, 0, 0)
-  
+   Bracing(1, BracingType.TYPE_VERTICAL, 1 , 6 , 0, 3, 3, 0, 0)
+   Bracing(2, BracingType.TYPE_VERTICAL, 2 , 5 , 0, 3, 3, 0, 0)
+   Bracing(3, BracingType.TYPE_VERTICAL, 3 , 8 , 0, 3, 3, 0, 0)
+   Bracing(4, BracingType.TYPE_VERTICAL, 4 , 7 , 0, 3, 3, 0, 0)
+
+
+	
  XXX  %Surfaces 
    Surface (1, '5 6 7 8', 1)  XXXX
  
@@ -70,9 +75,10 @@ if __name__ == '__main__':
   StaticAnalysisSettings(1, '1. Order', StaticAnalysisType.GEOMETRICALLY_LINEAR)
   LoadCase(1 , 'Eigengewicht', SelfWeight.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
   
+
   %Loads
   NodalLoad(1, 1, '# # # #', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z, 2.5 )
-  
+  SurfaceLoad(1,1,1,f*1000,SurfaceLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM)
       
       Calculate_all()
       print('Ready!')
