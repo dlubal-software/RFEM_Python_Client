@@ -79,6 +79,7 @@ if __name__ == '__main__':
    Surface (1, '5 6 7 8', 1)
  
    %Bracing
+   Bracing(1, BracingType.TYPE_VERTICAL, )
    
   %Analysis
   StaticAnalysisSettings(1, '1. Order', StaticAnalysisType.GEOMETRICALLY_LINEAR)
