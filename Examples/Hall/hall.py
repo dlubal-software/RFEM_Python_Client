@@ -28,6 +28,8 @@ from RFEM.BasicObjects.node import *
 from RFEM.BasicObjects.thickness import *
 from RFEM.BasicObjects.section import *
 from RFEM.BasicObjects.material import *
+from RFEM.BasicObjects.frame import *
+from RFEM.BasicObjects.bracing import *
 from RFEM.initModel import *
 from RFEM.dataTypes import *
 from RFEM.enums import *
