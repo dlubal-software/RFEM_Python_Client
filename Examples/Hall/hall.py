@@ -57,7 +57,7 @@ if __name__ == '__main__':
 	
    NodalSupport(1, '1 4' , NodalSupportType.FIXED)
 
-   %Between2Nodes:??
+   Frame(1,1,2,1,1,2,3,2,2,3,4,1,1)
   
 
    %Surfaces 
