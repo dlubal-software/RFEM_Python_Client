@@ -59,10 +59,10 @@ if __name__ == '__main__':
 
    Frame(1,1,2,1,1,2,3,2,2,3,4,1,1)
 
-   Bracing(1, BracingType.TYPE_VERTICAL, 1 , 6 , 0, 3, 3, 0, 0)
-   Bracing(2, BracingType.TYPE_VERTICAL, 2 , 5 , 0, 3, 3, 0, 0)
-   Bracing(3, BracingType.TYPE_VERTICAL, 3 , 8 , 0, 3, 3, 0, 0)
-   Bracing(4, BracingType.TYPE_VERTICAL, 4 , 7 , 0, 3, 3, 0, 0)
+   Bracing(1, BracingType.TYPE_VERTICAL, 1 , 9 , 0, 3, 3, 0, 0)
+   Bracing(2, BracingType.TYPE_VERTICAL, 2 , 8 , 0, 3, 3, 0, 0)
+   Bracing(3, BracingType.TYPE_VERTICAL, 3 , 11 , 0, 3, 3, 0, 0)
+   Bracing(4, BracingType.TYPE_VERTICAL, 4 , 10 , 0, 3, 3, 0, 0)
 
 
 	
@@ -77,8 +77,8 @@ if __name__ == '__main__':
   
 
   %Loads
-  NodalLoad(1, 1, '# # # #', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z, 2.5 )
-  SurfaceLoad(1,1,1,f*1000,SurfaceLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM)
+  NodalLoad(1, 1, '5 6 7', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z, 2.5 )
+  SurfaceLoad(1,1,1,0.8,SurfaceLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM)
       
       Calculate_all()
       print('Ready!')
