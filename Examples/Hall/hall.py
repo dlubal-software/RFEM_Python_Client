@@ -46,9 +46,9 @@ if __name__ == '__main__':
    Material (2, 'C25/30')
    Material (3, 'EN AW-3004 H14')
    
-   Section (1, 'HEM 700')
-   Section (2, 'IPE 500')
-   Section (3, 'IPE 80')
+   Section (1, 'HEM 700',1)
+   Section (2, 'IPE 500',1)
+   Section (3, 'IPE 80',1)
   
    Node (1, 0 , 0 , 0)
    Node (2, 0 , 0 , -15)
