@@ -1,4 +1,3 @@
-from RFEM.enums import MemberType
 from RFEM.initModel import *
 
 class Frame():
