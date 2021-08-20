@@ -40,74 +40,72 @@ from RFEM.enums import *
 
 if __name__ == '__main__':
 
-    l = float(input('Length of the clear span in m: '))
-    n = float(input('Number of frames: '))
-    d = float(input('Distance between frames in m: '))
-    h = float(input('Height of frame in m: '))
-
-
-    clientModel.service.begin_modification('new')
-    
-    # Geometry
-
-    Material (1 , 'S235')
-    Material (2, 'C25/30')
-    Material (3, 'EN AW-3004 H14')
-    
-    Section (1, 'HEM 700',1)
-    Section (2, 'IPE 500',1)
-    Section (3, 'IPE 80',3)
-    
-    Node (1, 0 , 0 , 0)
-    Node (2, 0 , 0 , -15)
-    Node (3, 30 , 0 , -15)
-    Node (4, 30 , 0 , 0)
-    
-    NodalSupport(1, '1 4' , NodalSupportType.FIXED)
-    
-    Surface(1, "1", 1)
-
-    Frame(1,1,2,1,1,2,3,2,2,3,4,1,1)
-
-    # Frames n
-    i = 1
-    while i <= n:
-        j = (i-1) * 5
-        Node(j+1, 0.0           , -(i-1) * d)
-        Node(j+2, 0.0           , -(i-1) * d, -h)
-        Node(j+3, l/2, -(i-1) * d, -h)
-        Node(j+4, l  , -(i-1) * d, -h)
-        Node(j+5, l  , -(i-1) * d)
-        i += 1
-     
-   # Nodes n
-   i = 1
-   while i <= n:
-        j = (i-1) * 5
-        Node(j+1, 0.0           , -(i-1) * d)
-        Node(j+2, 0.0           , -(i-1) * d, -h)
-        Node(j+3, l/2, -(i-1) * d, -h)
-        Node(j+4, l  , -(i-1) * d, -h)
-        Node(j+5, l  , -(i-1) * d)
-        i += 1
+  l = float(input('Length of the clear span in m: '))
+  n = float(input('Number of frames: '))
+  d = float(input('Distance between frames in m: '))
+  h = float(input('Height of frame in m: '))
   
-    # Nodal supports n
-    i = 1
-    nodes_no = ""
-    while i <= ns:
-        j = (i-1) * 5
-        nodes_no += str(j+1) + " "
-        nodes_no += str(j+5) + " "
-        i += 1
-
-    #Loads
+  clientModel.service.begin_modification('new')
+  
+  # Geometry
+  Material (1 , 'S235')
+  Material (2, 'C25/30')
+  Material (3, 'EN AW-3004 H14')
     
-    StaticAnalysisSettings(1, '1. Order', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1 , 'Eigengewicht', SelfWeight.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
+  Section (1, 'HEM 700',1)
+  Section (2, 'IPE 500',1)
+  Section (3, 'IPE 80',3)
+    
+  Node (1, 0 , 0 , 0)
+  Node (2, 0 , 0 , -15)
+  Node (3, 30 , 0 , -15)
+  Node (4, 30 , 0 , 0)
+    
+  NodalSupport(1, '1 4' , NodalSupportType.FIXED)
+    
+  Surface(1, "1", 1)
+
+  Frame(1,1,2,1,1,2,3,2,2,3,4,1,1)
+
+  # Frames n
+  i = 1
+  while i <= n:
+    j = (i-1) * 5
+    Node(j+1, 0.0           , -(i-1) * d)
+    Node(j+2, 0.0           , -(i-1) * d, -h)
+    Node(j+3, l/2, -(i-1) * d, -h)
+    Node(j+4, l  , -(i-1) * d, -h)
+    Node(j+5, l  , -(i-1) * d)
+    i += 1
+     
+  # Nodes n
+  i = 1
+  while i <= n:
+    j = (i-1) * 5
+    Node(j+1, 0.0           , -(i-1) * d)
+    Node(j+2, 0.0           , -(i-1) * d, -h)
+    Node(j+3, l/2, -(i-1) * d, -h)
+    Node(j+4, l  , -(i-1) * d, -h)
+    Node(j+5, l  , -(i-1) * d)
+    i += 1
+  
+  # Nodal supports n
+  i = 1
+  nodes_no = ""
+  while i <= ns:
+    j = (i-1) * 5
+    nodes_no += str(j+1) + " "
+    nodes_no += str(j+5) + " "
+    i += 1
+
+  #Loads
+    
+  StaticAnalysisSettings(1, '1. Order', StaticAnalysisType.GEOMETRICALLY_LINEAR)
+  LoadCase(1 , 'Eigengewicht', SelfWeight.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
 
 
    
-    Calculate_all()
-    print('Ready!')
+  Calculate_all()
+  print('Ready!')
 
-    clientModel.service.finish_modification()
+  clientModel.service.finish_modification()
