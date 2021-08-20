@@ -64,6 +64,8 @@ if __name__ == '__main__':
     Node (4, 30 , 0 , 0)
     
     NodalSupport(1, '1 4' , NodalSupportType.FIXED)
+    
+    Surface(1, "1", 1)
 
     Frame(1,1,2,1,1,2,3,2,2,3,4,1,1)
 
@@ -77,8 +79,26 @@ if __name__ == '__main__':
         Node(j+4, l  , -(i-1) * d, -h)
         Node(j+5, l  , -(i-1) * d)
         i += 1
-
-
+     
+   # Nodes n
+   i = 1
+   while i <= n:
+        j = (i-1) * 5
+        Node(j+1, 0.0           , -(i-1) * d)
+        Node(j+2, 0.0           , -(i-1) * d, -h)
+        Node(j+3, l/2, -(i-1) * d, -h)
+        Node(j+4, l  , -(i-1) * d, -h)
+        Node(j+5, l  , -(i-1) * d)
+        i += 1
+  
+    # Nodal supports n
+    i = 1
+    nodes_no = ""
+    while i <= ns:
+        j = (i-1) * 5
+        nodes_no += str(j+1) + " "
+        nodes_no += str(j+5) + " "
+        i += 1
 
     # Load
     StaticAnalysisSettings(1, '1. Order', StaticAnalysisType.GEOMETRICALLY_LINEAR)
