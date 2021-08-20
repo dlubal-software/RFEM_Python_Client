@@ -31,6 +31,7 @@ from RFEM.BasicObjects.thickness import *
 from RFEM.BasicObjects.section import *
 from RFEM.BasicObjects.material import *
 from RFEM.BasicObjects.frame import *
+from RFEM.BasicObjects.bracing import *
 from RFEM.initModel import *
 from RFEM.dataTypes import *
 from RFEM.enums import *
@@ -63,7 +64,7 @@ if __name__ == '__main__':
     
   NodalSupport(1, '1 4' , NodalSupportType.FIXED)
     
-  Surface(1, "1", 1)
+  Bracing()
 
   Frame(1,1,2,1,1,2,3,2,2,3,4,1,1)
 
@@ -97,6 +98,17 @@ if __name__ == '__main__':
     nodes_no += str(j+1) + " "
     nodes_no += str(j+5) + " "
     i += 1
+    
+  # Vertical Bracing
+    i = 1
+    j = 4*n + 3*(n-1)
+    while i <= n-1:
+        k = j + (i-1)*4
+        Bracing(k+1, BracingType.TYPE_HORIZONTAL, (i-1)*5+1, (i-1)*5+7 , 0.0,  4, 4)
+        Bracing(k+2, BracingType.TYPE_HORIZONTAL, (i-1)*5+2, (i-1)*5+6 , 0.0,  4, 4)
+        Bracing(k+3, BracingType.TYPE_HORIZONTAL, (i-1)*5+5, (i-1)*5+9 , 0.0,  4, 4)
+        Bracing(k+4, BracingType.TYPE_HORIZONTAL, (i-1)*5+4, (i-1)*5+10, 0.0,  4, 4)
+        i += 1
 
   #Loads
     
