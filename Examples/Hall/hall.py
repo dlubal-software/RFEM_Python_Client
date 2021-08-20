@@ -41,8 +41,8 @@ from RFEM.enums import *
 if __name__ == '__main__':
 
     l = float(input('Length of the clear span in m: '))
-	n = float(input('Number of frames: '))
-	d = float(input('Distance between frames in m: '))
+    n = float(input('Number of frames: '))
+    d = float(input('Distance between frames in m: '))
     h = float(input('Height of frame in m: '))
 
 
@@ -73,27 +73,16 @@ if __name__ == '__main__':
         j = (i-1) * 5
         Node(j+1, 0.0           , -(i-1) * d)
         Node(j+2, 0.0           , -(i-1) * d, -h)
-        Node(j+3, hall_width_L/2, -(i-1) * d, -h)
-        Node(j+4, hall_width_L  , -(i-1) * d, -h)
-        Node(j+5, hall_width_L  , -(i-1) * d)
+        Node(j+3, l/2, -(i-1) * d, -h)
+        Node(j+4, l  , -(i-1) * d, -h)
+        Node(j+5, l  , -(i-1) * d)
         i += 1
 
 
 
-    
-
-
-
-
-
-
-
-
     # Load
-
-    StaticAnalysisSettings(1, '1. Ordnung', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-
-    LoadCase(1, 'Eigengewicht', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
+    StaticAnalysisSettings(1, '1. Order', StaticAnalysisType.GEOMETRICALLY_LINEAR)
+    LoadCase(1 , 'Eigengewicht', SelfWeight.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
 
    
     Calculate_all()
