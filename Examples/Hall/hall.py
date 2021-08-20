@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
+import math
 baseName = os.path.basename(__file__)
 dirName = os.path.dirname(__file__)
 print('basename:    ', baseName)
@@ -11,6 +12,7 @@ sys.path.append(dirName + r'/../..')
 from RFEM.Loads.surfaceLoad import *
 from RFEM.Loads.memberLoad import *
 from RFEM.Loads.nodalLoad import *
+from RFEM.Loads.lineLoad import *
 from RFEM.LoadCasesAndCombinations.loadCase import *
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
 from RFEM.TypesForMembers.memberHinge import *
@@ -29,60 +31,72 @@ from RFEM.BasicObjects.thickness import *
 from RFEM.BasicObjects.section import *
 from RFEM.BasicObjects.material import *
 from RFEM.BasicObjects.frame import *
-from RFEM.BasicObjects.bracing import *
 from RFEM.initModel import *
 from RFEM.dataTypes import *
 from RFEM.enums import *
 
+# Import der Bibliotheken
+#from RFEM.window import *
+
 if __name__ == '__main__':
 
-	l = float(input('Length of the clear span in m: '))
+    l = float(input('Length of the clear span in m: '))
 	n = float(input('Number of frames: '))
 	d = float(input('Distance between frames in m: '))
+    h = float(input('Height of frame in m: '))
+
+
+    clientModel.service.begin_modification('new')
+    
+    # Geometry
+
+    Material (1 , 'S235')
+    Material (2, 'C25/30')
+    Material (3, 'EN AW-3004 H14')
+    
+    Section (1, 'HEM 700',1)
+    Section (2, 'IPE 500',1)
+    Section (3, 'IPE 80',3)
+    
+    Node (1, 0 , 0 , 0)
+    Node (2, 0 , 0 , -15)
+    Node (3, 30 , 0 , -15)
+    Node (4, 30 , 0 , 0)
+    
+    NodalSupport(1, '1 4' , NodalSupportType.FIXED)
+
+    Frame(1,1,2,1,1,2,3,2,2,3,4,1,1)
+
+    # Frames n
+    i = 1
+    while i <= n:
+        j = (i-1) * 5
+        Node(j+1, 0.0           , -(i-1) * d)
+        Node(j+2, 0.0           , -(i-1) * d, -h)
+        Node(j+3, hall_width_L/2, -(i-1) * d, -h)
+        Node(j+4, hall_width_L  , -(i-1) * d, -h)
+        Node(j+5, hall_width_L  , -(i-1) * d)
+        i += 1
+
+
+
+    
+
+
+
+
+
+
+
+
+    # Load
+
+    StaticAnalysisSettings(1, '1. Ordnung', StaticAnalysisType.GEOMETRICALLY_LINEAR)
+
+    LoadCase(1, 'Eigengewicht', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
+
    
-   clientModel.service.begin_modification('new')
+    Calculate_all()
+    print('Ready!')
 
-   Material (1 , 'S235')
-   Material (2, 'C25/30')
-   Material (3, 'EN AW-3004 H14')
-   
-   Section (1, 'HEM 700',1)
-   Section (2, 'IPE 500',1)
-   Section (3, 'IPE 80',3)
-  
-   Node (1, 0 , 0 , 0)
-   Node (2, 0 , 0 , -15)
-   Node (3, 30 , 0 , -15)
-   Node (4, 30 , 0 , 0)
-	
-   NodalSupport(1, '1 4' , NodalSupportType.FIXED)
-
-   Frame(1,1,2,1,1,2,3,2,2,3,4,1,1)
-
-   Bracing(1, BracingType.TYPE_VERTICAL, 1 , 9 , 0, 3, 3, 0, 0)
-   Bracing(2, BracingType.TYPE_VERTICAL, 2 , 8 , 0, 3, 3, 0, 0)
-   Bracing(3, BracingType.TYPE_VERTICAL, 3 , 11 , 0, 3, 3, 0, 0)
-   Bracing(4, BracingType.TYPE_VERTICAL, 4 , 10 , 0, 3, 3, 0, 0)
-
-
-	
- XXX  %Surfaces 
-   Surface (1, '5 6 7 8', 1)  XXXX
- 
-   
-   
-  %Analysis
-  StaticAnalysisSettings(1, '1. Order', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-  LoadCase(1 , 'Eigengewicht', SelfWeight.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
-  
-
-  %Loads
-  NodalLoad(1, 1, '5 6 7', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z, 2.5 )
-  SurfaceLoad(1,1,1,0.8,SurfaceLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM)
-      
-      Calculate_all()
-      print('Ready!')
-
-
-   clientModel.service.finish_modification()
-   
+    clientModel.service.finish_modification()
