@@ -100,9 +100,11 @@ if __name__ == '__main__':
         nodes_no += str(j+5) + " "
         i += 1
 
-    # Load
+    #Loads
+    
     StaticAnalysisSettings(1, '1. Order', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1 , 'Eigengewicht', SelfWeight.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
+
 
    
     Calculate_all()
