@@ -208,6 +208,30 @@ class MemberLoadDirectionOrientation(Enum):
     '''
     Member Load Direction Orientation
     '''
-    LOAD_DIRECTION_FORWARD,LOAD_DIRECTION_REVERSED = range(2)
+    LOAD_DIRECTION_FORWARD, LOAD_DIRECTION_REVERSED = range(2)
+
+class MemberLoadAxisDefinitionType(Enum):
+    '''
+    Member Load Axis Definition
+    '''
+    AXIS_DEFINITION_POINT_AND_AXIS, AXIS_DEFINITION_TWO_POINTS = range(2)
+
+class MemberLoadAxisDefinition(Enum):
+    '''
+    Member Load Axis Definition
+    '''
+    AXIS_X, AXIS_Y, AXIS_Z = range(3)
+
+class MemberLoadAxisDefinitionAxisOrientation(Enum):
+    '''
+    Member Load Axis Definition Axis Orientation
+    '''
+
+    AXIS_NEGATIVE, AXIS_POSITIVE = range(2)
+
+
+    
+
+
 
 
