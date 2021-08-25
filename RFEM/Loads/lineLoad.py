@@ -528,3 +528,6 @@ class LineLoad():
         # Adding optional parameters via dictionary
         for key in params:
             clientObject[key] = params[key]
+
+        # Add Load Line Load to client model
+        clientModel.service.set_line_load(load_case_no, clientObject)
