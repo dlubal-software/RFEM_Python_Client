@@ -257,8 +257,8 @@ class LineLoad():
         # Line Load Direction
         clientObject.load_direction = load_direction.name
 
-        # Reference to List of Members
-        clientObject.reference_to_list_of_members = list_reference
+        # Reference to List of Lines
+        clientObject.reference_to_list_of_lines = list_reference
 
         # Comment
         clientObject.comment = comment
