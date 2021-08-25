@@ -748,7 +748,7 @@ class MemberLoad():
         clientModel.service.set_member_load(load_case_no, clientObject)
 
 
-    def Temperature_Change(self,
+    def TemperatureChange(self,
                            no: int = 1,
                            load_case_no: int = 1,
                            members_no: str = '1',
@@ -894,7 +894,7 @@ class MemberLoad():
         # Add Load Member Load to client model
         clientModel.service.set_member_load(load_case_no, clientObject)
         
-    def Axial_Strain(self,
+    def AxialStrain(self,
                     no: int = 1,
                     load_case_no: int = 1,
                     members_no: str = '1',
@@ -1027,7 +1027,7 @@ class MemberLoad():
         # Add Load Member Load to client model
         clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def Axial_Displacement(self,
+    def AxialDisplacement(self,
                     no: int = 1,
                     load_case_no: int = 1,
                     members_no: str = '1',
@@ -1667,7 +1667,7 @@ class MemberLoad():
         # Add Load Member Load to client model
         clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def PipeContent_Full(self,
+    def PipeContentFull(self,
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -1720,7 +1720,7 @@ class MemberLoad():
         # Add Load Member Load to client model
         clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def PipeContent_Partial(self,
+    def PipeContentPartial(self,
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -1777,7 +1777,7 @@ class MemberLoad():
         # Add Load Member Load to client model
         clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def PipeInternal_Pressure(self,
+    def PipeInternalPressure(self,
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -1826,7 +1826,7 @@ class MemberLoad():
         clientModel.service.set_member_load(load_case_no, clientObject)
 
 
-    def Rotary_Motion(self,
+    def RotaryMotion(self,
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
