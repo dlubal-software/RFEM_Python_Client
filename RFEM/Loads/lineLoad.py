@@ -189,10 +189,6 @@ class LineLoad():
                 mlvlp.delta_distance = load_parameter[i][1]
                 mlvlp.magnitude = load_parameter[i][2]
                 mlvlp.note = None
-                #mlvlp.magnitude_t_c = 0.0      Gibt diese Parameter im localhost nicht
-                #mlvlp.magnitude_delta_t = 0.0  Gibt diese Parameter im localhost nicht
-                #mlvlp.magnitude_t_t = 0.0      Gibt diese Parameter im localhost nicht
-                #mlvlp.magnitude_t_b = 0.0      Gibt diese Parameter im localhost nicht
 
                 clientObject.varying_load_parameters.line_load_varying_load_parameters.append(mlvlp)
 
@@ -247,10 +243,6 @@ class LineLoad():
                 mlvlp.delta_distance = load_parameter[i][1]
                 mlvlp.magnitude = load_parameter[i][2]
                 mlvlp.note = None
-                #mlvlp.magnitude_t_c = 0.0      Gibt diese Parameter im localhost nicht
-                #mlvlp.magnitude_delta_t = 0.0  Gibt diese Parameter im localhost nicht
-                #mlvlp.magnitude_t_t = 0.0      Gibt diese Parameter im localhost nicht
-                #mlvlp.magnitude_t_b = 0.0      Gibt diese Parameter im localhost nicht
 
                 clientObject.varying_load_parameters.line_load_varying_load_parameters.append(mlvlp)
         
@@ -398,10 +390,6 @@ class LineLoad():
                 mlvlp.delta_distance = load_parameter[i][1]
                 mlvlp.magnitude = load_parameter[i][2]
                 mlvlp.note = None
-                #mlvlp.magnitude_t_c = 0.0
-                #mlvlp.magnitude_delta_t = 0.0
-                #mlvlp.magnitude_t_t = 0.0
-                #mlvlp.magnitude_t_b = 0.0
 
                 clientObject.varying_load_parameters.line_load_varying_load_parameters.append(mlvlp)
 
@@ -456,10 +444,6 @@ class LineLoad():
                 mlvlp.delta_distance = load_parameter[i][1]
                 mlvlp.magnitude = load_parameter[i][2]
                 mlvlp.note = None
-                #mlvlp.magnitude_t_c = 0.0
-                #mlvlp.magnitude_delta_t = 0.0
-                #mlvlp.magnitude_t_t = 0.0
-                #mlvlp.magnitude_t_b = 0.0
 
                 clientObject.varying_load_parameters.line_load_varying_load_parameters.append(mlvlp)
 
