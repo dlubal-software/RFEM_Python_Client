@@ -229,9 +229,35 @@ class MemberLoadAxisDefinitionAxisOrientation(Enum):
 
     AXIS_NEGATIVE, AXIS_POSITIVE = range(2)
 
+class SurfaceLoadAxisDefinitionAxis(Enum):
+    '''
+    Surface Load Axis Definition Axis
+    '''
+    AXIS_X, AXIS_Y, AXIS_Z = range(3)
 
+class SurfaceLoadAxisDefinitionType(Enum):
+    '''
+    Surface Load Axis Definition Type
+    '''
+    AXIS_NEGATIVE, AXIS_POSITIVE = range(2)
+
+class SurfaceLoadAxisDefinitionType(Enum):
+    '''
+    Surface Load Axis Definition Type
+    '''
+    AXIS_DEFINITION_POINT_AND_AXIS, AXIS_DEFINITION_TWO_POINTS = range(2)
+
+class SurfaceLoadDirection(Enum):
+    '''
+    Surface Load Load Direction
+    '''
+    LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED, LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE,\
+    LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, LOAD_DIRECTION_LOCAL_X, LOAD_DIRECTION_LOCAL_Y, LOAD_DIRECTION_LOCAL_Z = range(9)
     
-
-
+class SurfaceLoadType(Enum):
+    '''
+    Surface Load Type
+    '''
+    LOAD_TYPE_AXIAL_STRAIN, LOAD_TYPE_FORCE, LOAD_TYPE_FORM_FINDING, LOAD_TYPE_MASS, LOAD_TYPE_PRECAMBER, LOAD_TYPE_ROTARY_MOTION, LOAD_TYPE_TEMPERATURE = range(7)
 
 
