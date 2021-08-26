@@ -48,3 +48,27 @@ class Frame():
 
         # Add Member to client model
         clientModel.service.set_member(clientObject)
+        
+        # Nodes n
+        i = 1
+        while i <= n:
+            j = (i-1) * 5
+            Node(j+1, 0.0           , -(i-1) * d)
+            Node(j+2, 0.0           , -(i-1) * d, -h)
+            Node(j+3, l/2, -(i-1) * d, -h)
+            Node(j+4, l  , -(i-1) * d, -h)
+            Node(j+5, l  , -(i-1) * d)
+            i += 1
+            
+            
+         # Nodal supports n
+        i = 1
+        nodes_no = ""
+        while i <= ns:
+            j = (i-1) * 5
+            nodes_no += str(j+1) + " "
+            nodes_no += str(j+5) + " "
+            NodalSupport(i, '???' , NodalSupportType.FIXED)
+            i += 1
+    
+    
