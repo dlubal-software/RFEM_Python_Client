@@ -114,8 +114,6 @@ if __name__ == '__main__':
     
   StaticAnalysisSettings(1, '1. Order', StaticAnalysisType.GEOMETRICALLY_LINEAR)
   LoadCase(1 , 'Eigengewicht', SelfWeight.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
-
-
    
   Calculate_all()
   print('Ready!')
