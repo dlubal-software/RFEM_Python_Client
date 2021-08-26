@@ -69,42 +69,36 @@ while True:
     Node(j+5, l  , -(i-1) * d)
     Frame(1,1,2,1,1,2,3,2,2,3,4,1,1)
     i += 1
-     
-  # Nodes n
-  i = 1
-  while i <= n:
-    j = (i-1) * 5
-    Node(j+1, 0.0           , -(i-1) * d)
-    Node(j+2, 0.0           , -(i-1) * d, -h)
-    Node(j+3, l/2, -(i-1) * d, -h)
-    Node(j+4, l  , -(i-1) * d, -h)
-    Node(j+5, l  , -(i-1) * d)
-    i += 1
-  
-  # Nodal supports n
-  i = 1
-  nodes_no = ""
-  while i <= ns:
-    j = (i-1) * 5
-    nodes_no += str(j+1) + " "
-    nodes_no += str(j+5) + " "
-    NodalSupport(i, '???' , NodalSupportType.FIXED)
-    i += 1
     
   check = input("Do you want to include bracing? enter Y to include it or another key to end: ")
   if check.upper() == "Y":
-  
-  # Vertical Bracing
-    i = 1
-    j = 4*n + 3*(n-1)
-    while i <= n-1:
-        k = j + (i-1)*4
-        Bracing(k+1, BracingType.TYPE_HORIZONTAL, (i-1)*5+1, (i-1)*5+7 , 0.0,  4, 4)
-        Bracing(k+2, BracingType.TYPE_HORIZONTAL, (i-1)*5+2, (i-1)*5+6 , 0.0,  4, 4)
-        Bracing(k+3, BracingType.TYPE_HORIZONTAL, (i-1)*5+5, (i-1)*5+9 , 0.0,  4, 4)
-        Bracing(k+4, BracingType.TYPE_HORIZONTAL, (i-1)*5+4, (i-1)*5+10, 0.0,  4, 4)
-        Bracing()
-        i += 1
+   check = input("Do you want to include vertical bracing? enter Y to include it or another key to end: ")
+    if check.upper() == "Y":
+      # Vertical Bracing
+      i = 1
+      j = 4*n + 3*(n-1)
+       while i <= n-1:
+         k = j + (i-1)*4
+         Bracing(k+1, BracingType.TYPE_VERTICAL, (i-1)*5+1, (i-1)*5+7 , 0.0,  4, 4)
+         Bracing(k+2, BracingType.TYPE_VERTICAL, (i-1)*5+2, (i-1)*5+6 , 0.0,  4, 4)
+         Bracing(k+3, BracingType.TYPE_VERTICAL, (i-1)*5+5, (i-1)*5+9 , 0.0,  4, 4)
+         Bracing(k+4, BracingType.TYPE_VERTICAL, (i-1)*5+4, (i-1)*5+10, 0.0,  4, 4)
+         Bracing()
+         i += 1
+     Break
+    
+     check = input("Do you want to include horizontal bracing? enter Y to include it or another key to end: ")
+     if check.upper() == "Y":
+       # Horizontal Bracing
+       
+         j += 4*(n-1)
+          if n > 1:
+            Member(j+1, MemberType.TYPE_TENSION, 2, 8, 0.0,  4, 4)
+            Member(j+2, MemberType.TYPE_TENSION, 7, 3, 0.0,  4, 4)
+            Member(j+3, MemberType.TYPE_TENSION, 3, 9, 0.0,  4, 4)
+            Member(j+4, MemberType.TYPE_TENSION, 4, 8, 0.0,  4, 4)
+      Break
+       
   
   Break
   
