@@ -1,6 +1,5 @@
 from RFEM.initModel import *
-from RFEM.enums import SurfaceLoadAxisDefinitionAxis, SurfaceLoadAxisDefinitionType, SurfaceLoadDirection, SurfaceLoadDistribution, SurfaceLoadType
-
+from RFEM.enums import *
 
 class SurfaceLoad():
     def __init__(self,
@@ -79,6 +78,7 @@ class SurfaceLoad():
         for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
             load_parameter = [[distance_1, delta_distance_1, magnitude_1], [distance_2, delta_distance_2, magnitude_2]...]
         '''
+
         # Client model | Surface Load
         clientObject = clientModel.factory.create('ns0:surface_load')
 
@@ -128,24 +128,23 @@ class SurfaceLoad():
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
             
-            
             clientObject.node_1 = load_parameter[2]
             clientObject.node_2 = load_parameter[3]
 
             clientObject.axis_definition_type = load_parameter[4].name
             if load_parameter[4] == SurfaceLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS:
-                clientObject.axis_definition_p1 = load_parameter[5]
-                clientObject.axis_definition_p2 = load_parameter[6]
                 clientObject.axis_definition_p1_x = load_parameter[5][0]
                 clientObject.axis_definition_p1_y = load_parameter[5][1]
                 clientObject.axis_definition_p1_z = load_parameter[5][2]
                 clientObject.axis_definition_p2_x = load_parameter[6][0]
                 clientObject.axis_definition_p2_y = load_parameter[6][1]
                 clientObject.axis_definition_p2_z = load_parameter[6][2]
-
+                
             else:
-                clientObject.axis_definition_axis = load_parameter[5]
-                clientObject.axis_definition_p1 = load_parameter[6]
+                clientObject.axis_definition_axis = load_parameter[5].name
+                clientObject.axis_definition_p1_x = load_parameter[6][0]
+                clientObject.axis_definition_p1_y = load_parameter[6][1]
+                clientObject.axis_definition_p1_z = load_parameter[6][2]
 
         elif load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
 
@@ -169,6 +168,7 @@ class SurfaceLoad():
 
         # Add Surface Load to client model
         clientModel.service.set_surface_load(load_case_no, clientObject)
+
 
     def Temperature(self,
                  no: int = 1,
@@ -255,14 +255,10 @@ class SurfaceLoad():
 
             clientObject.axis_definition_type = load_parameter[6].name
             if load_parameter[6] == SurfaceLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS:
-                clientObject.axis_definition_p1 = load_parameter[7]
-                clientObject.axis_definition_p2 = load_parameter[8]
-                clientObject.axis_definition_p1_x = load_parameter[7][0]
-                clientObject.axis_definition_p1_y = load_parameter[7][1]
-                clientObject.axis_definition_p1_z = load_parameter[7][2]
-                clientObject.axis_definition_p2_x = load_parameter[8][0]
-                clientObject.axis_definition_p2_y = load_parameter[8][1]
-                clientObject.axis_definition_p2_z = load_parameter[8][2]
+                clientObject.axis_definition_p1_x = load_parameter[7]
+                clientObject.axis_definition_p1_y = load_parameter[8]
+                clientObject.axis_definition_p1_z = load_parameter[9]
+                
 
             else:
                 clientObject.axis_definition_axis = load_parameter[7]
@@ -409,7 +405,11 @@ class SurfaceLoad():
                  comment: str = '',
                  params: dict = {}):
         '''
+        if axis_definition_type = SurfaceLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS:
+            load_parameter = [angular_velocity, angular_acceleration, SurfaceLoadAxisDefinitionType, [x1, y1, z1], [x2, y2, z2]]
 
+        if axis_definition_type = SurfaceLoadAxisDefinitionType.AXIS_DEFINITION_POINT_AND_AXIS:
+            load_parameter = [angular_velocity, angular_acceleration, SurfaceLoadAxisDefinitionType, SurfaceLoadAxisDefinitionAxis, SurfaceLoadAxisDirectionType; [x1, y1, z1]]            
         '''
         # Client model | Surface Load
         clientObject = clientModel.factory.create('ns0:surface_load')
@@ -431,15 +431,23 @@ class SurfaceLoad():
         # Load Magnitude
         clientObject.angular_acceleration = load_parameter[0]
         clientObject.angular_velocity = load_parameter[1]
-        clientObject.axis_definition_type = load_parameter[2]
+        clientObject.axis_definition_type = load_parameter[2].name
 
         if load_parameter[2] == SurfaceLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS:
-            clientObject.axis_definition_p1 = load_parameter[3]
-            clientObject.axis_definition_p2 = load_parameter[4]
-        elif load_parameter[2] == SurfaceLoadAxisDefinitionType.AXIS_DEFINITION_POINT_AND_AXIS:
-            clientObject.axis_definition_axis = load_parameter[3]
-            clientObject.axis_definition_axis_orientation = load_parameter[4]
-            clientObject.axis_definition_p1 = load_parameter[5]
+            clientObject.axis_definition_p1_x = load_parameter[3][0]
+            clientObject.axis_definition_p1_y = load_parameter[3][1]
+            clientObject.axis_definition_p1_z = load_parameter[3][2]
+
+            clientObject.axis_definition_p1_x = load_parameter[4][0]
+            clientObject.axis_definition_p1_y = load_parameter[4][1]
+            clientObject.axis_definition_p1_z = load_parameter[4][2]
+
+        else:
+            clientObject.axis_definition_axis = load_parameter[3].name
+            clientObject.axis_definition_axis_orientation = load_parameter[4].name
+            clientObject.axis_definition_p1_x = load_parameter[5][0]
+            clientObject.axis_definition_p1_y = load_parameter[5][1]
+            clientObject.axis_definition_p1_z = load_parameter[5][2]
         # Comment
         clientObject.comment = comment
 

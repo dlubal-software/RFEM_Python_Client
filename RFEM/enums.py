@@ -235,9 +235,9 @@ class SurfaceLoadAxisDefinitionAxis(Enum):
     '''
     AXIS_X, AXIS_Y, AXIS_Z = range(3)
 
-class SurfaceLoadAxisDefinitionType(Enum):
+class SurfaceLoadAxisDirectionType(Enum):
     '''
-    Surface Load Axis Definition Type
+    Surface Load Axis Direction Type
     '''
     AXIS_NEGATIVE, AXIS_POSITIVE = range(2)
 
