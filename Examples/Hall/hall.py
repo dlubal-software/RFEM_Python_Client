@@ -44,6 +44,8 @@ if __name__ == '__main__':
  n = float(input('Number of frames: '))
  d = float(input('Distance between frames in m: '))
  h = float(input('Height of frame in m: '))
+ 
+ print("Preparing...")
     
  clientModel.service.begin_modification()
 
@@ -78,7 +80,7 @@ if __name__ == '__main__':
     
  Section (1, 'HEM 700',1)
  Section (2, 'IPE 500',1)
-  
+ #members x direction 
  i = 1
  while i <= n:
   j = (i-1) * 5
@@ -89,6 +91,7 @@ if __name__ == '__main__':
   Member(k+4, MemberType.TYPE_BEAM, j+4, j+5, 0.0,  1, 1)
   i += 1
 
+ #members y direction 
  i = 1
  while i <= n-1:
   j = (i-1) * 5
@@ -110,9 +113,15 @@ if __name__ == '__main__':
   i += 1
 
  #HorizontalBracing
+ i = 1
+ j = (i-1) * 5 
+ while i <= n-1:
+  k = int(4*(n-1))
+  Member(k+1, MemberType.TYPE_TENSION, j+2, j+8, 0.0,  3, 3)
+  Member(k+2, MemberType.TYPE_TENSION, j+3, j+7, 0.0,  3, 3)
+  Member(k+3, MemberType.TYPE_TENSION, j+3, j+9, 0.0,  3, 3)
+  Member(k+4, MemberType.TYPE_TENSION, j+4, j+8, 0.0,  3, 3)
 
  
- 
- print("Preparing...")
  print('Ready!')
  clientModel.service.finish_modification()
