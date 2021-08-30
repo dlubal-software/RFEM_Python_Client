@@ -625,6 +625,9 @@ class MemberLoad():
 
         for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
             load_parameter = [tb1, tb2, tb3, tt1, tt2, tt3]
+        
+        for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING: 
+            load_parameter = [[distance, delta_distance, magnitude], ...]
         '''
         # Client model | Member Load
         clientObject = clientModel.factory.create('ns0:member_load')
@@ -744,7 +747,6 @@ class MemberLoad():
         # Add Load Member Load to client model
         clientModel.service.set_member_load(load_case_no, clientObject)
 
-
     def TemperatureChange(self,
                            no: int = 1,
                            load_case_no: int = 1,
@@ -771,6 +773,9 @@ class MemberLoad():
 
         for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
             load_parameter = [delta_t_1, delta_t_2, delta_t_3, t_c_1, t_c_2, t_c_3]
+
+        for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING: 
+            load_parameter = [[distance, delta_distance, magnitude], ...]
         '''
         # Client model | Member Load
         clientObject = clientModel.factory.create('ns0:member_load')
@@ -914,6 +919,9 @@ class MemberLoad():
         
         for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
             load_parameter = [epsilon1, epsilon2, epsilon3]
+
+        for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING: 
+            load_parameter = [[distance, delta_distance, magnitude], ...]
         '''
         # Client model | Member Load
         clientObject = clientModel.factory.create('ns0:member_load')
@@ -1095,6 +1103,9 @@ class MemberLoad():
 
         for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
             load_parameter = [magnitude_1, magnitude_2, magnitude_3]
+
+        for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING: 
+            load_parameter = [[distance, delta_distance, magnitude], ...]
         '''
         # Client model | Member Load
         clientObject = clientModel.factory.create('ns0:member_load')
@@ -1260,8 +1271,8 @@ class MemberLoad():
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
-                 load_direction = MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z,
                  load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
+                 load_direction = MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z,
                  load_parameter = None,
                  list_reference: bool= False,
                  load_over_total_length: bool= False,
@@ -1281,7 +1292,10 @@ class MemberLoad():
             load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_c_is_defined_as_relative = False, distance_a, distance_b, distance_c]
 
         for load_distrubition = MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
-            load_parameter = [magnitude_1, magnitude_1, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
+            load_parameter = [magnitude_1, magnitude_2, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
+
+        for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING: 
+            load_parameter = [[distance, delta_distance, magnitude], ...]
 
         for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
             load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
@@ -1291,7 +1305,9 @@ class MemberLoad():
 
         for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
             load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-
+        
+        for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING: 
+            load_parameter = [[distance, delta_distance, magnitude], ...]
         '''
         # Client model | Member Load
         clientObject = clientModel.factory.create('ns0:member_load')
@@ -1383,6 +1399,27 @@ class MemberLoad():
             else:
                 clientObject.distance_b_absolute = load_parameter[5]
 
+        elif load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
+            try:
+                len(load_parameter[0])==3
+            except:
+                print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
+
+            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load').varying_load_parameters
+            for i in range(len(load_parameter)):
+                mlvlp = clientModel.factory.create('ns0:member_load_varying_load_parameters')
+                mlvlp.no = i+1
+                mlvlp.distance = load_parameter[i][0]
+                mlvlp.delta_distance = load_parameter[i][1]
+                mlvlp.magnitude = load_parameter[i][2]
+                mlvlp.note = None
+                mlvlp.magnitude_t_c = 0.0
+                mlvlp.magnitude_delta_t = 0.0
+                mlvlp.magnitude_t_t = 0.0
+                mlvlp.magnitude_t_b = 0.0
+
+                clientObject.varying_load_parameters.member_load_varying_load_parameters.append(mlvlp)
+
         elif load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
@@ -1461,13 +1498,12 @@ class MemberLoad():
         # Add Load Member Load to client model
         clientModel.service.set_member_load(load_case_no, clientObject)
 
-    
     def Rotation(self,
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
-                 load_direction = MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z,
                  load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
+                 load_direction = MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z,
                  load_parameter = None,
                  list_reference: bool= False,
                  load_over_total_length: bool= False,
@@ -1487,7 +1523,10 @@ class MemberLoad():
             load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_c_is_defined_as_relative = False, distance_a, distance_b, distance_c]
 
         for load_distrubition = MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
-            load_parameter = [magnitude_1, magnitude_1, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
+            load_parameter = [magnitude_1, magnitude_2, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
+
+        for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING: 
+            load_parameter = [[distance, delta_distance, magnitude], ...]
 
         for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
             load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
@@ -1497,7 +1536,9 @@ class MemberLoad():
 
         for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
             load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-
+        
+        for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING: 
+            load_parameter = [[distance, delta_distance, magnitude], ...]
         '''
         # Client model | Member Load
         clientObject = clientModel.factory.create('ns0:member_load')
@@ -1588,6 +1629,27 @@ class MemberLoad():
                 clientObject.distance_b_relative = load_parameter[5]
             else:
                 clientObject.distance_b_absolute = load_parameter[5]
+
+        elif load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
+            try:
+                len(load_parameter[0])==3
+            except:
+                print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
+
+            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load').varying_load_parameters
+            for i in range(len(load_parameter)):
+                mlvlp = clientModel.factory.create('ns0:member_load_varying_load_parameters')
+                mlvlp.no = i+1
+                mlvlp.distance = load_parameter[i][0]
+                mlvlp.delta_distance = load_parameter[i][1]
+                mlvlp.magnitude = load_parameter[i][2]
+                mlvlp.note = None
+                mlvlp.magnitude_t_c = 0.0
+                mlvlp.magnitude_delta_t = 0.0
+                mlvlp.magnitude_t_t = 0.0
+                mlvlp.magnitude_t_b = 0.0
+
+                clientObject.varying_load_parameters.member_load_varying_load_parameters.append(mlvlp)
 
         elif load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
             clientObject.magnitude_1 = load_parameter[0]
