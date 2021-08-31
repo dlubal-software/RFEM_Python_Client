@@ -45,7 +45,7 @@ if __name__ == '__main__':
  d = float(input('Distance between frames in m: '))
  h = float(input('Height of frame in m: '))
  
- print("Preparing...")
+
     
  clientModel.service.begin_modification()
 
@@ -72,6 +72,7 @@ if __name__ == '__main__':
   i += 1
   nodes_no = nodes_no.rstrip(nodes_no[-1])    
   NodalSupport(1, nodes_no, NodalSupportType.HINGED, "Hinged support")
+
 
  #members
  Material (1 , 'S235')
@@ -115,16 +116,20 @@ if __name__ == '__main__':
    Member(k+4, MemberType.TYPE_TENSION, (i-1)*5+4, (i-1)*5+10, 0.0, 3, 3)
    i += 1
 
- #HorizontalBracing
- i = 1
- j = (i-1) * 5 
- while i <= n-1:
-  k = int(4*(n-1))
-  Member(k+1, MemberType.TYPE_TENSION, j+2, j+8, 0.0,  3, 3)
-  Member(k+2, MemberType.TYPE_TENSION, j+3, j+7, 0.0,  3, 3)
-  Member(k+3, MemberType.TYPE_TENSION, j+3, j+9, 0.0,  3, 3)
-  Member(k+4, MemberType.TYPE_TENSION, j+4, j+8, 0.0,  3, 3)
-
  
+ 
+ #horizontal bracing
+ BracingH = input('Would you like to include horizontal bracing?\n')
+ if BracingH.lower() == 'yes' or BracingH.lower() == 'y':
+  i = 1
+  while i <= n-1:
+   j = (i-1) * 5
+   Member(int(4*n+i), MemberType.TYPE_BEAM, j+2, j+8, 0.0, 3, 3)
+   Member(int(4*n+i + n-1), MemberType.TYPE_BEAM, j+3, j+7, 0.0, 3, 3)
+   Member(int(4*n+i + 2*n - 2), MemberType.TYPE_BEAM, j+3, j+9, 0.0, 3, 3)
+   Member(int(4*n+i + 3* n -3), MemberType.TYPE_BEAM, j+4, j+8, 0.0, 3, 3)
+   i += 1
+   
+ print("Preparing...")
  print('Ready!')
  clientModel.service.finish_modification()
