@@ -87,7 +87,12 @@ class Node():
 
         # End Node No.
         clientObject.node_end = end_node_no
-
+        
+        # Distance Start Node.
+        clientObject = distance_start_node
+        
+        # Distance Start Node. 
+        clientObject = distance_end_node
 
         # Comment
         clientObject.comment = comment
