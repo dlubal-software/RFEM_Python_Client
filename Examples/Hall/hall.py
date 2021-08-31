@@ -99,18 +99,21 @@ if __name__ == '__main__':
   Member(int(4*n+i + n-1), MemberType.TYPE_BEAM, j+4, j+9, 0.0, 2, 2)
   i += 1
  
- #VerticalBracing
- Material (3, 'EN AW-3004 H14')
- Section (3, 'IPE 80',3)
- i = 1
- j = int(4*n + 3*(n-1))
- while i <= n-1:
-  k = j + (i-1)*4
-  Member(k+1, MemberType.TYPE_TENSION, (i-1)*5+1, (i-1)*5+7, 0.0,  3, 3)
-  Member(k+2, MemberType.TYPE_TENSION, (i-1)*5+2, (i-1)*5+6, 0.0,  3, 3)
-  Member(k+3, MemberType.TYPE_TENSION, (i-1)*5+5, (i-1)*5+9, 0.0,  3, 3)
-  Member(k+4, MemberType.TYPE_TENSION, (i-1)*5+4, (i-1)*5+10, 0.0, 3, 3)
-  i += 1
+ #vertical bracing
+
+ BracingV = input('Would you like to include vertical bracing?\n')
+ if BracingV.lower() == 'yes' or BracingV.lower() == 'y':
+  Material (3, 'EN AW-3004 H14')
+  Section (3, 'IPE 80',3)
+  i = 1
+  j = int(4*n + 3*(n-1))
+  while i <= n-1:
+   k = j + (i-1)*4
+   Member(k+1, MemberType.TYPE_TENSION, (i-1)*5+1, (i-1)*5+7, 0.0,  3, 3)
+   Member(k+2, MemberType.TYPE_TENSION, (i-1)*5+2, (i-1)*5+6, 0.0,  3, 3)
+   Member(k+3, MemberType.TYPE_TENSION, (i-1)*5+5, (i-1)*5+9, 0.0,  3, 3)
+   Member(k+4, MemberType.TYPE_TENSION, (i-1)*5+4, (i-1)*5+10, 0.0, 3, 3)
+   i += 1
 
  #HorizontalBracing
  i = 1
