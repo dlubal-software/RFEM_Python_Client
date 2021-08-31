@@ -66,9 +66,10 @@ class Node():
 
     def BetweenTwoNodes(self,
                  no: int = 1,
-                 coordinate_X: float = 0.0,
-                 coordinate_Y: float = 0.0,
-                 coordinate_Z: float = 0.0,
+                 start_node_no: int = 1,
+                 end_node_no: int = 2,
+                 distance_start_node: int = 0,
+                 distance_end_node: int = 0,
                  comment: str = '',
                  params: dict = {}):
 
@@ -80,11 +81,13 @@ class Node():
 
         # Node No.
         clientObject.no = no
+        
+        # Start Node No.
+        clientObject.node_start = start_node_no
 
-        # Coordinates
-        clientObject.coordinate_1 = coordinate_X
-        clientObject.coordinate_2 = coordinate_Y
-        clientObject.coordinate_3 = coordinate_Z
+        # End Node No.
+        clientObject.node_end = end_node_no
+
 
         # Comment
         clientObject.comment = comment
