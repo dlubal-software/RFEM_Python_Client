@@ -100,7 +100,8 @@ if __name__ == '__main__':
   Member(int(4*n+i + n-1), MemberType.TYPE_BEAM, j+4, j+9, 0.0, 2, 2)
   i += 1
  
- #vertical bracing
+ #vertical bracing 
+   # add a question about repeating in every block, one yes one no, only beginning and end
 
  BracingV = input('Would you like to include vertical bracing?\n')
  if BracingV.lower() == 'yes' or BracingV.lower() == 'y':
@@ -119,6 +120,8 @@ if __name__ == '__main__':
  
  
  #horizontal bracing
+  # add a question about repeating in every block, one yes one no, only beginning and end
+    
  BracingH = input('Would you like to include horizontal bracing?\n')
  if BracingH.lower() == 'yes' or BracingH.lower() == 'y':
   i = 1
