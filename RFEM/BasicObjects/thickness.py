@@ -339,24 +339,23 @@ class Thickness():
         clientObject.type = thickness_type.name
 
         # Layers
-        #for i in range(0, no_of_layers):
         clientObject.layers_reference_table = clientModel.factory.create('ns0:thickness').layers_reference_table
 
         for i in range(len(reference_table)):
-            tlrft = clientModel.factory.create('ns0:thickness_layers_reference_table')
-            tlrft.no = no
-            tlrft.layer_no = i+1
-            tlrft.layer_type = None
-            tlrft.thickness_type = reference_table[i][0]
-            tlrft.material = reference_table[i][1]
-            tlrft.thickness = reference_table[i][2]
-            tlrft.angle = reference_table[i][3] * (pi/180)
-            tlrft.connection_with_other_topological_elements = False
-            tlrft.comment = reference_table[i][4]
-            tlrft.specific_weight = 0
-            tlrft.weight = 0
+            tlrt = clientModel.factory.create('ns0:thickness_layers_reference_table')
+            tlrt.no = no
+            tlrt.layer_no = i+1
+            tlrt.layer_type = None
+            tlrt.thickness_type = reference_table[i][0]
+            tlrt.material = reference_table[i][1]
+            tlrt.thickness = reference_table[i][2]
+            tlrt.angle = reference_table[i][3] * (pi/180)
+            tlrt.connection_with_other_topological_elements = False
+            tlrt.comment = reference_table[i][4]
+            tlrt.specific_weight = 0
+            tlrt.weight = 0
 
-            clientObject.layers_reference_table.thickness_layers_reference_table.append(tlrft)
+            clientObject.layers_reference_table.thickness_layers_reference_table.append(tlrt)
 
         # Comment
         clientObject.comment = comment
