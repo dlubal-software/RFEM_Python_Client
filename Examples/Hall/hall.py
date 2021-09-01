@@ -43,7 +43,7 @@ if __name__ == '__main__':
  h = float(input('Height of frame in m: '))
  
  clientModel.service.begin_modification()
- 
+
 	#nodes
 
  i = 1
@@ -100,26 +100,59 @@ if __name__ == '__main__':
  #vertical bracing 
  # add a question about repeating in every block, one yes one no, only beginning and end
      
- BracingV = 'yes'
+ BracingV = input('Would you like to include vertical bracing?\n')
  if BracingV.lower() == 'yes' or BracingV.lower() == 'y':
-  Material (3, 'EN AW-3004 H14')
-  Section (3, 'IPE 80',3)
-  i = 1
-  j = int(4*n + 3*(n-1))
-  while i <= n-1:
-   k = int(n*4+(n-1)*2)
-   Member(k+1+4*(i-1), MemberType.TYPE_TENSION, (i-1)*5+1, (i-1)*5+7, 0.0,  3, 3)
-   Member(k+2+4*(i-1), MemberType.TYPE_TENSION, (i-1)*5+2, (i-1)*5+6, 0.0,  3, 3)
-   Member(k+3+4*(i-1), MemberType.TYPE_TENSION, (i-1)*5+5, (i-1)*5+9, 0.0,  3, 3)
-   Member(k+4+4*(i-1), MemberType.TYPE_TENSION, (i-1)*5+4, (i-1)*5+10, 0.0, 3, 3)
-   print(k+1+4*(i-1), k+2+4*(i-1), k+3+4*(i-1), k+4+4*(i-1))
-   i += 1
+  BracingV_C1 = input('Would you like to repeat a vertical bracing in every block?\n')
+  if BracingV_C1.lower() == 'yes' or BracingV_C1.lower() == 'y':
+   Material (3, 'EN AW-3004 H14')
+   Section (3, 'IPE 80',3)
+   i = 1
+   j = int(4*n + 3*(n-1))
+   while i <= n-1:
+    k = int(n*4+(n-1)*2)
+    Member(k+1+4*(i-1), MemberType.TYPE_TENSION, (i-1)*5+1, (i-1)*5+7, 0.0,  3, 3)
+    Member(k+2+4*(i-1), MemberType.TYPE_TENSION, (i-1)*5+2, (i-1)*5+6, 0.0,  3, 3)
+    Member(k+3+4*(i-1), MemberType.TYPE_TENSION, (i-1)*5+5, (i-1)*5+9, 0.0,  3, 3)
+    Member(k+4+4*(i-1), MemberType.TYPE_TENSION, (i-1)*5+4, (i-1)*5+10, 0.0, 3, 3)
+    print(k+1+4*(i-1), k+2+4*(i-1), k+3+4*(i-1), k+4+4*(i-1))
+    i += 1
+  BracingV_C2 = input('Would you like to repeat a vertical bracing only in the first and last block?\n')
+  if BracingV_C2.lower() == 'yes' or BracingV_C2.lower() == 'y':
+   Material (3, 'EN AW-3004 H14')
+   Section (3, 'IPE 80',3)
+   i = 1
+   while i <= n-1:
+    k = int(n*4+(n-1)*2)
+    if i == 1 or i == int(n-1):
+     Member(k+1+4*(i-1), MemberType.TYPE_TENSION, (i-1)*5+1, (i-1)*5+7, 0.0,  3, 3)
+     Member(k+2+4*(i-1), MemberType.TYPE_TENSION, (i-1)*5+2, (i-1)*5+6, 0.0,  3, 3)
+     Member(k+3+4*(i-1), MemberType.TYPE_TENSION, (i-1)*5+5, (i-1)*5+9, 0.0,  3, 3)
+     Member(k+4+4*(i-1), MemberType.TYPE_TENSION, (i-1)*5+4, (i-1)*5+10, 0.0, 3, 3)
+     print(k+1+4*(i-1), k+2+4*(i-1), k+3+4*(i-1), k+4+4*(i-1))
+    i += 1  
+  BracingV_C3 = input('Would you like to repeat a vertical bracing in even/odd blocks?\n') # MAKE IT MORE GENERAL! 
+  if BracingV_C3.lower() == 'yes' or BracingV_C3.lower() == 'y':
+   Material (3, 'EN AW-3004 H14')
+   Section (3, 'IPE 80',3)
+   i = 1
+   j = int(4*n + 3*(n-1))
+   while i <= n-1:
+    if i% 2 != 0:
+     k = int(n*4+(n-1)*2)
+     Member(k+1+4*(i-1), MemberType.TYPE_TENSION, (i-1)*5+1, (i-1)*5+7, 0.0,  3, 3)
+     Member(k+2+4*(i-1), MemberType.TYPE_TENSION, (i-1)*5+2, (i-1)*5+6, 0.0,  3, 3)
+     Member(k+3+4*(i-1), MemberType.TYPE_TENSION, (i-1)*5+5, (i-1)*5+9, 0.0,  3, 3)
+     Member(k+4+4*(i-1), MemberType.TYPE_TENSION, (i-1)*5+4, (i-1)*5+10, 0.0, 3, 3)
+     print(k+1+4*(i-1), k+2+4*(i-1), k+3+4*(i-1), k+4+4*(i-1))
+    i += 1
    
+
+ 
  #horizontal bracing
  # add a question about repeating in every block, one yes one no, only beginning and end
 
  member_count = int(n*4+(n-1)*2)
-     
+ BracingH = input('Would you like to include horizontal bracing?\n')
  if BracingV.lower() == 'yes' or BracingV.lower() == 'y':
   member_count += (int(n)-1)*4
   BracingH = 'yes'
@@ -131,8 +164,8 @@ if __name__ == '__main__':
     Member(int(member_count+2+4*(i-1)), MemberType.TYPE_BEAM, j+3, j+7, 0.0, 3, 3)
     Member(int(member_count+3+4*(i-1)), MemberType.TYPE_BEAM, j+3, j+9, 0.0, 3, 3)
     Member(int(member_count+4+4*(i-1)), MemberType.TYPE_BEAM, j+4, j+8, 0.0, 3, 3)
-    i += 1
     print(int(member_count+1+4*(i-1)),int(member_count+2+4*(i-1)),int(member_count+3+4*(i-1)),int(member_count+4+4*(i-1)))
+    i += 1
        
  print("Preparing...")
  print('Ready!')
