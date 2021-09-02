@@ -9,21 +9,21 @@ class MemberType(Enum):
     TYPE_DEFINABLE_STIFFNESS, TYPE_RIB, TYPE_RIGID, TYPE_TENSION, TYPE_TRUSS, TYPE_TRUSS_ONLY_N = range(14)
     
     
- class Nodetype(Enum):
+class NodeType(Enum):
     '''
     Node Type | Enum
-    ...
+    '''
     TYPE_BETWEEN_TWO_NODES, TYPE_BETWEEN_TWO_POINTS, TYPE_ON_LINE, TYPE_ON_MEMBER, TYPE_STANDARD = range (5)
-    
-    
-  class NodeCoordinateSystemType(Enum):
+
+
+class NodeCoordinateSystemType(Enum):
     '''
     Node Coordinate System Type | Enum
     '''
     COORDINATE_SYSTEM_CARTESIAN, COORDINATE_SYSTEM_POLAR, COORDINATE_SYSTEM_X_CYLINDRICAL, COORDINATE_SYSTEM_Y_CYLINDRICAL, COORDINATE_SYSTEM_Z_CYLINDRICAL = range (5)
 
-
-  class NodeReferenceType(Enum):
+    
+class NodeReferenceType(Enum):
     '''
     Node Reference Type| Enum
     '''
