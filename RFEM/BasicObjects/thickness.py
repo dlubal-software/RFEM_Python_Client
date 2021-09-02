@@ -366,7 +366,7 @@ class Thickness():
             consideration_of_self_weight = [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, fictitious_thickness]
             
         for consideration of self-weight = user-defined fictitious thickness:
-            SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS: consideration_of_self_weight = [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, fictitious_thickness]
+            consideration_of_self_weight = [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, fictitious_thickness]
 
         for consideration of self-weight = user-defined self-weight:
             consideration_of_self_weight = [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_WEIGHT, self_weight]
