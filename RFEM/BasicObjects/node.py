@@ -1,3 +1,6 @@
+from RFEM.enums import NodeType
+from RFEM.enums import NodeCoordinateSystemType
+from RFEM.enums import NodeReferenceType
 from RFEM.initModel import *
 
 class Node():
