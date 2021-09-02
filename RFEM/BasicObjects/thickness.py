@@ -1,4 +1,4 @@
-from RFEM.enums import ThicknessType
+from RFEM.enums import ThicknessDirection, ThicknessType
 from RFEM.enums import ThicknessOrthotropyType
 from RFEM.enums import ThicknessSelfWeightDefinitionType
 from RFEM.initModel import *
@@ -7,13 +7,16 @@ from math import *
 class Thickness():
     def __init__(self,
                  no: int = 1,
-                 user_defined_name_enabled: bool = False,
-                 thickness_name: str = '',
-                 thickness_type = ThicknessType.TYPE_UNIFORM,
+                 name: str = None,
                  material_no: int = 1,
                  uniform_thickness_d: float = 0.20,
                  comment: str = '',
                  params: dict = {}):
+
+        '''
+        Assigns thickness without any further options.
+        Thickness types is Uniform by default.
+        '''
 
         # Client model | Thickness
         clientObject = clientModel.factory.create('ns0:thickness')
@@ -24,14 +27,13 @@ class Thickness():
         # Thickness No.
         clientObject.no = no
 
-        # Thickness User Defined Name
-        clientObject.user_defined_name_enabled = user_defined_name_enabled
-
         # Thickness Name
-        clientObject.name = thickness_name
+        if name != None:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Thickness Type
-        clientObject.type = thickness_type.name
+        clientObject.type = ThicknessType.TYPE_UNIFORM.name
 
         # Material No.
         clientObject.material = material_no
@@ -51,16 +53,14 @@ class Thickness():
 
     def Uniform(self,
                  no: int = 1,
-                 user_defined_name_enabled: bool = False,
-                 thickness_name: str = '',
-                 thickness_type = ThicknessType.TYPE_UNIFORM,
+                 name: str = None,
                  material_no: int = 1,
-                 thickness_parameter = None,
+                 properties = None,
                  comment: str = '',
                  params: dict = {}):
 
         '''
-        thickness_parameter = [uniform_thickness]
+        properties = [uniform_thickness]
         '''
 
         # Client model | Thickness
@@ -72,20 +72,19 @@ class Thickness():
         # Thickness No.
         clientObject.no = no
 
-        # Thickness User Defined Name
-        clientObject.user_defined_name_enabled = user_defined_name_enabled
-        
         # Thickness Name
-        clientObject.name = thickness_name
+        if name != None:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Thickness Type
-        clientObject.type = thickness_type.name
+        clientObject.type = ThicknessType.TYPE_UNIFORM.name
 
         # Material No.
         clientObject.material = material_no
 
         # Thickness Parameters
-        clientObject.uniform_thickness = thickness_parameter[0]
+        clientObject.uniform_thickness = properties[0]
 
         # Comment
         clientObject.comment = comment
@@ -99,16 +98,14 @@ class Thickness():
 
     def Variable_3Nodes(self,
                  no: int = 1,
-                 user_defined_name_enabled: bool = False,
-                 thickness_name: str = '',
-                 thickness_type = ThicknessType.TYPE_VARIABLE_THREE_NODES,
+                 name: str = None,
                  material_no: int = 1,
-                 thickness_parameter = None,
+                 properties = None,
                  comment: str = '',
                  params: dict = {}):
 
         '''
-        thickness_parameter = [thickness_1, node_1, thickness_2, node_2, thickness_3, node_3]
+        properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, thickness_d3, node_no_3]
         '''
 
         # Client model | Thickness
@@ -120,25 +117,24 @@ class Thickness():
         # Thickness No.
         clientObject.no = no
 
-        # Thickness User Defined Name
-        clientObject.user_defined_name_enabled = user_defined_name_enabled
-        
         # Thickness Name
-        clientObject.name = thickness_name
+        if name != None:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Thickness Type
-        clientObject.type = thickness_type.name
+        clientObject.type = ThicknessType.TYPE_VARIABLE_THREE_NODES.name
 
         # Material No.
         clientObject.material = material_no
 
-        # Thickness Parameters
-        clientObject.thickness_1 = thickness_parameter[0]
-        clientObject.node_1 = thickness_parameter[1]
-        clientObject.thickness_2 = thickness_parameter[2]
-        clientObject.node_2 = thickness_parameter[3]
-        clientObject.thickness_3 = thickness_parameter[4]
-        clientObject.node_3 = thickness_parameter[5]
+        # Thickness Properties
+        clientObject.thickness_1 = properties[0]
+        clientObject.node_1 = properties[1]
+        clientObject.thickness_2 = properties[2]
+        clientObject.node_2 = properties[3]
+        clientObject.thickness_3 = properties[4]
+        clientObject.node_3 = properties[5]
 
         # Comment
         clientObject.comment = comment
@@ -152,16 +148,14 @@ class Thickness():
 
     def Variable_2NodesAndDirection(self,
                  no: int = 1,
-                 user_defined_name_enabled: bool = False,
-                 thickness_name: str = '',
-                 thickness_type = ThicknessType.TYPE_VARIABLE_TWO_NODES_AND_DIRECTION,
+                 name: str = None,
                  material_no: int = 1,
-                 thickness_parameter = None,
+                 properties = [0.18, 1, 0.18, 2, ThicknessDirection.THICKNESS_DIRECTION_IN_X],
                  comment: str = '',
                  params: dict = {}):
 
         '''
-        thickness_parameter = [thickness_1, node_1, thickness_2, node_2, direction]
+        properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, direction]
         '''
 
         # Client model | Thickness
@@ -173,24 +167,23 @@ class Thickness():
         # Thickness No.
         clientObject.no = no
 
-        # Thickness User Defined Name
-        clientObject.user_defined_name_enabled = user_defined_name_enabled
-        
         # Thickness Name
-        clientObject.name = thickness_name
+        if name != None:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Thickness Type
-        clientObject.type = thickness_type.name
+        clientObject.type = ThicknessType.TYPE_VARIABLE_TWO_NODES_AND_DIRECTION.name
 
         # Material No.
         clientObject.material = material_no
 
-        # Thickness Parameters
-        clientObject.thickness_1 = thickness_parameter[0]
-        clientObject.node_1 = thickness_parameter[1]
-        clientObject.thickness_2 = thickness_parameter[2]
-        clientObject.node_2 = thickness_parameter[3]
-        clientObject.direction = thickness_parameter[4].name
+        # Thickness Properties
+        clientObject.thickness_1 = properties[0]
+        clientObject.node_1 = properties[1]
+        clientObject.thickness_2 = properties[2]
+        clientObject.node_2 = properties[3]
+        clientObject.direction = properties[4].name
 
         # Comment
         clientObject.comment = comment
@@ -204,16 +197,14 @@ class Thickness():
 
     def Variable_4SurfaceCorners(self,
                  no: int = 1,
-                 user_defined_name_enabled: bool = False,
-                 thickness_name: str = '',
-                 thickness_type = ThicknessType.TYPE_VARIABLE_FOUR_SURFACE_CORNERS,
+                 name: str = None,
                  material_no: int = 1,
-                 thickness_parameter = None,
+                 properties = None,
                  comment: str = '',
                  params: dict = {}):
 
         '''
-        thickness_parameter = [thickness_1, node_1, thickness_2, node_2, thickness_3, node_3, thickness_4, node_4]
+        properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, thickness_d3, node_no_3, thickness_d4, node_no_4]
         '''
 
         # Client model | Thickness
@@ -225,27 +216,26 @@ class Thickness():
         # Thickness No.
         clientObject.no = no
 
-        # Thickness User Defined Name
-        clientObject.user_defined_name_enabled = user_defined_name_enabled
-        
         # Thickness Name
-        clientObject.name = thickness_name
+        if name != None:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Thickness Type
-        clientObject.type = thickness_type.name
+        clientObject.type = ThicknessType.TYPE_VARIABLE_FOUR_SURFACE_CORNERS.name
 
         # Material No.
         clientObject.material = material_no
 
-        # Thickness Parameters
-        clientObject.thickness_1 = thickness_parameter[0]
-        clientObject.node_1 = thickness_parameter[1]
-        clientObject.thickness_2 = thickness_parameter[2]
-        clientObject.node_2 = thickness_parameter[3]
-        clientObject.thickness_3 = thickness_parameter[4]
-        clientObject.node_3 = thickness_parameter[5]
-        clientObject.thickness_4 = thickness_parameter[6]
-        clientObject.node_4 = thickness_parameter[7]
+        # Thickness Properties
+        clientObject.thickness_1 = properties[0]
+        clientObject.node_1 = properties[1]
+        clientObject.thickness_2 = properties[2]
+        clientObject.node_2 = properties[3]
+        clientObject.thickness_3 = properties[4]
+        clientObject.node_3 = properties[5]
+        clientObject.thickness_4 = properties[6]
+        clientObject.node_4 = properties[7]
 
         # Comment
         clientObject.comment = comment
@@ -259,16 +249,14 @@ class Thickness():
 
     def Variable_Circle(self,
                  no: int = 1,
-                 user_defined_name_enabled: bool = False,
-                 thickness_name: str = '',
-                 thickness_type = ThicknessType.TYPE_VARIABLE_CIRCLE,
+                 name: str = None,
                  material_no: int = 1,
-                 thickness_parameter = None,
+                 properties = None,
                  comment: str = '',
                  params: dict = {}):
 
         '''
-        thickness_parameter = [thickness_circle_center, thickness_circle_line]
+        properties = [thickness_circle_center_dC, thickness_circle_line_dR]
         '''
 
         # Client model | Thickness
@@ -280,21 +268,20 @@ class Thickness():
         # Thickness No.
         clientObject.no = no
 
-        # Thickness User Defined Name
-        clientObject.user_defined_name_enabled = user_defined_name_enabled
-        
         # Thickness Name
-        clientObject.name = thickness_name
+        if name != None:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Thickness Type
-        clientObject.type = thickness_type.name
+        clientObject.type = ThicknessType.TYPE_VARIABLE_CIRCLE.name
 
         # Material No.
         clientObject.material = material_no
 
-        # Thickness Parameters
-        clientObject.thickness_circle_center = thickness_parameter[0]
-        clientObject.thickness_circle_line = thickness_parameter[1]
+        # Thickness Properties
+        clientObject.thickness_circle_center = properties[0]
+        clientObject.thickness_circle_line = properties[1]
 
         # Comment
         clientObject.comment = comment
@@ -308,16 +295,13 @@ class Thickness():
 
     def Layers(self,
                  no: int = 1,
-                 user_defined_name_enabled: bool = False,
-                 thickness_name: str = '',
-                 thickness_type = ThicknessType.TYPE_LAYERS,
-                 reference_table = None,
+                 name: str = None,
+                 layers = [[0, 1, 200, 0.0, '']],
                  comment: str = '',
                  params: dict = {}):
 
         '''
-        reference_table = [[thickness_type, material, thickness, angle, comment],
-                           [...                                                 ]]
+        layers = [[thickness_type, material, thickness, rotation, comment], ...]
         '''
 
         # Client model | Thickness
@@ -329,29 +313,28 @@ class Thickness():
         # Thickness No.
         clientObject.no = no
 
-        # Thickness User Defined Name
-        clientObject.user_defined_name_enabled = user_defined_name_enabled
-        
         # Thickness Name
-        clientObject.name = thickness_name
+        if name != None:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Thickness Type
-        clientObject.type = thickness_type.name
+        clientObject.type = ThicknessType.TYPE_LAYERS.name
 
         # Layers
         clientObject.layers_reference_table = clientModel.factory.create('ns0:thickness').layers_reference_table
 
-        for i in range(len(reference_table)):
+        for i in range(len(layers)):
             tlrt = clientModel.factory.create('ns0:thickness_layers_reference_table')
             tlrt.no = no
             tlrt.layer_no = i+1
             tlrt.layer_type = None
-            tlrt.thickness_type = reference_table[i][0]
-            tlrt.material = reference_table[i][1]
-            tlrt.thickness = reference_table[i][2]
-            tlrt.angle = reference_table[i][3] * (pi/180)
+            tlrt.thickness_type = layers[i][0]
+            tlrt.material = layers[i][1]
+            tlrt.thickness = layers[i][2]
+            tlrt.angle = layers[i][3] * (pi/180)
             tlrt.connection_with_other_topological_elements = False
-            tlrt.comment = reference_table[i][4]
+            tlrt.comment = layers[i][4]
             tlrt.specific_weight = 0
             tlrt.weight = 0
 
@@ -369,31 +352,46 @@ class Thickness():
 
     def ShapeOrthotropy(self,
                  no: int = 1,
-                 user_defined_name_enabled: bool = False,
-                 thickness_name: str = '',
-                 thickness_type = ThicknessType.TYPE_SHAPE_ORTHOTROPY,
+                 name: str = None,
                  material_no: int = 1,
                  orthotropy_type = ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS,
-                 rotation_beta: float = 90,
+                 rotation_beta: float = 0,
                  consideration_of_self_weight = [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, 0.18],
-                 shape_orthotropy_parameter = None,
+                 parameters = [0.18, 0.18],
                  comment: str = '',
                  params: dict = {}):
 
         '''
-        consideration_of_self_weight:
-            SELF_WEIGHT_COMPUTED_FROM_PARAMETERS: consideration_of_self_weight = [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, fictitious_thickness]
-            SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS: consideration_of_self_weight = [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, fictitious_thickness]
-            SELF_WEIGHT_DEFINED_VIA_WEIGHT: consideration_of_self_weight = [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_WEIGHT, self_weight]
+        for consideration of self-weight = determined from parameters:
+            consideration_of_self_weight = [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, fictitious_thickness]
             
-        shape_orthotropy_parameter:
-            ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS: shape_orthotropy_parameter = [effective_thickness_x, effective_thickness_y]
-            ORTHOTROPIC_THICKNESS_TYPE_COUPLING: shape_orthotropy_parameter = [coupling_thickness, coupling_spacing, coupling_width]
-            ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE: shape_orthotropy_parameter = [slab_thickness, rib_height, rib_spacing, rib_width]
-            ORTHOTROPIC_THICKNESS_TYPE_BIDIRECTIONAL_RIBBED_PLATE: shape_orthotropy_parameter = [slab_thickness, rib_height_x, rib_height_y, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
-            ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET: shape_orthotropy_parameter = [sheet_thickness, total_profile_height, rib_spacin, top_flange_width, bottom_flange_width]
-            ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB: shape_orthotropy_parameter = [slab_thickness, void_spacing, void_diameter]
-            ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE: shape_orthotropy_parameter = [slab_thickness, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]]
+        for consideration of self-weight = user-defined fictitious thickness:
+            SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS: consideration_of_self_weight = [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, fictitious_thickness]
+
+        for consideration of self-weight = user-defined self-weight:
+            consideration_of_self_weight = [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_WEIGHT, self_weight]
+            
+        for orthotropy_type = ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS:
+            parameters = [effective_thickness_x, effective_thickness_y]
+
+        for orthotropy_type = ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_COUPLING:
+            parameters = [coupling_thickness, coupling_spacing, coupling_width]
+        
+        for orthotropy_type = ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE:
+            parameters = [slab_thickness, rib_height, rib_spacing, rib_width]
+
+        for orthotropy_type = ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_BIDIRECTIONAL_RIBBED_PLATE:
+            parameters = [slab_thickness, rib_height_x, rib_height_y, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
+        
+        for orthotropy_type = ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET:
+            parameters = [sheet_thickness, total_profile_height, rib_spacing, top_flange_width, bottom_flange_width]
+
+        for orthotropy_type = ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB:
+            parameters = [slab_thickness, void_spacing, void_diameter]
+        
+        for orthotropy_type = ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE:
+            parameters = [slab_thickness, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
+
         '''
 
         # Client model | Thickness
@@ -405,14 +403,13 @@ class Thickness():
         # Thickness No.
         clientObject.no = no
 
-        # Thickness User Defined Name
-        clientObject.user_defined_name_enabled = user_defined_name_enabled
-        
         # Thickness Name
-        clientObject.name = thickness_name
+        if name != None:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Thickness Type
-        clientObject.type = thickness_type.name
+        clientObject.type = ThicknessType.TYPE_SHAPE_ORTHOTROPY.name
 
         # Material No.
         clientObject.material = material_no
@@ -432,41 +429,41 @@ class Thickness():
 
         # Shape Orthotropy Parameters
         if orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS':
-            clientObject.effective_thickness_x = shape_orthotropy_parameter[0]
-            clientObject.effective_thickness_y = shape_orthotropy_parameter[1]
+            clientObject.effective_thickness_x = parameters[0]
+            clientObject.effective_thickness_y = parameters[1]
         elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_COUPLING':
-            clientObject.coupling_thickness = shape_orthotropy_parameter[0]
-            clientObject.coupling_spacing = shape_orthotropy_parameter[1]
-            clientObject.coupling_width = shape_orthotropy_parameter[2]
+            clientObject.coupling_thickness = parameters[0]
+            clientObject.coupling_spacing = parameters[1]
+            clientObject.coupling_width = parameters[2]
         elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE':
-            clientObject.slab_thickness = shape_orthotropy_parameter[0]
-            clientObject.rib_height = shape_orthotropy_parameter[1]
-            clientObject.rib_spacing = shape_orthotropy_parameter[2]
-            clientObject.rib_width = shape_orthotropy_parameter[3]
+            clientObject.slab_thickness = parameters[0]
+            clientObject.rib_height = parameters[1]
+            clientObject.rib_spacing = parameters[2]
+            clientObject.rib_width = parameters[3]
         elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_BIDIRECTIONAL_RIBBED_PLATE':
-            clientObject.slab_thickness = shape_orthotropy_parameter[0]
-            clientObject.rib_height_x = shape_orthotropy_parameter[1]
-            clientObject.rib_height_y = shape_orthotropy_parameter[2]
-            clientObject.rib_spacing_x = shape_orthotropy_parameter[3]
-            clientObject.rib_spacing_y = shape_orthotropy_parameter[4]
-            clientObject.rib_width_x = shape_orthotropy_parameter[5]
-            clientObject.rib_width_y = shape_orthotropy_parameter[6]
+            clientObject.slab_thickness = parameters[0]
+            clientObject.rib_height_x = parameters[1]
+            clientObject.rib_height_y = parameters[2]
+            clientObject.rib_spacing_x = parameters[3]
+            clientObject.rib_spacing_y = parameters[4]
+            clientObject.rib_width_x = parameters[5]
+            clientObject.rib_width_y = parameters[6]
         elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET':
-            clientObject.sheet_thickness = shape_orthotropy_parameter[0]
-            clientObject.total_profile_height = shape_orthotropy_parameter[1]
-            clientObject.rib_spacing = shape_orthotropy_parameter[2]
-            clientObject.top_flange_width = shape_orthotropy_parameter[3]
-            clientObject.bottom_flange_width = shape_orthotropy_parameter[4]
+            clientObject.sheet_thickness = parameters[0]
+            clientObject.total_profile_height = parameters[1]
+            clientObject.rib_spacing = parameters[2]
+            clientObject.top_flange_width = parameters[3]
+            clientObject.bottom_flange_width = parameters[4]
         elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB':
-            clientObject.slab_thickness = shape_orthotropy_parameter[0]
-            clientObject.void_spacing = shape_orthotropy_parameter[1]
-            clientObject.void_diameter = shape_orthotropy_parameter[2]
+            clientObject.slab_thickness = parameters[0]
+            clientObject.void_spacing = parameters[1]
+            clientObject.void_diameter = parameters[2]
         elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE':
-            clientObject.slab_thickness = shape_orthotropy_parameter[0]
-            clientObject.rib_spacing_x = shape_orthotropy_parameter[1]
-            clientObject.rib_spacing_y = shape_orthotropy_parameter[2]
-            clientObject.rib_width_x = shape_orthotropy_parameter[3]
-            clientObject.rib_width_y = shape_orthotropy_parameter[4]
+            clientObject.slab_thickness = parameters[0]
+            clientObject.rib_spacing_x = parameters[1]
+            clientObject.rib_spacing_y = parameters[2]
+            clientObject.rib_width_x = parameters[3]
+            clientObject.rib_width_y = parameters[4]
         
         # Comment
         clientObject.comment = comment
@@ -480,20 +477,20 @@ class Thickness():
 
     def StiffnessMatrix(self,
                  no: int = 1,
-                 user_defined_name_enabled: bool = False,
-                 thickness_name: str = '',
-                 thickness_type = ThicknessType.TYPE_STIFFNESS_MATRIX,
+                 name: str = None,
                  material_no: int = 1,
-                 rotation_beta: float = 90,
+                 rotation_beta: float = 0,
                  consideration_of_self_weight = [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, 0.18],
                  stiffness_matrix = [[0, 0, 0, 0, 0, 0],[0, 0, 0],[0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0]],
                  comment: str = '',
                  params: dict = {}):
 
-        '''
-        consideration_of_self_weight:
+        '''          
+        for consideration of self-weight = via fictitious thickness:
             SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS: consideration_of_self_weight = [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, fictitious_thickness]
-            SELF_WEIGHT_DEFINED_VIA_WEIGHT: consideration_of_self_weight = [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_WEIGHT, self_weight]
+
+        for consideration of self-weight = via weight:
+            consideration_of_self_weight = [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_WEIGHT, self_weight]
         
         stiffness_matrix:
             Element entry overview = [[Bending/Torsional Stiffness Elements (Nm)],
@@ -515,14 +512,13 @@ class Thickness():
         # Thickness No.
         clientObject.no = no
 
-        # Thickness User Defined Name
-        clientObject.user_defined_name_enabled = user_defined_name_enabled
-        
         # Thickness Name
-        clientObject.name = thickness_name
+        if name != None:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Thickness Type
-        clientObject.type = thickness_type.name
+        clientObject.type = ThicknessType.TYPE_STIFFNESS_MATRIX.name
 
         # Material No.
         clientObject.material = material_no
