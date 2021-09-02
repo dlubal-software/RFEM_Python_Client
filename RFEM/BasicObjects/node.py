@@ -102,15 +102,19 @@ class Node():
         # End Node No.
         clientObject.between_two_nodes_end_node = end_node_no
         
-        # Length between i and j
+         # Length between i and j
+
         clientObject.reference_type = node_reference.name
 
+        clientObject.reference_object_projected_length = length_between_i_and_j
+       
+        # Distance between node k and start point
+         
         if parameters[0] == True:
             clientObject.distance_from_start_relative = parameters[1]
+        
         elif parameters[0] == False:
          clientObject.distance_from_start_absolute = parameters[1]
-
-        clientObject.reference_object_projected_length = length_between_i_and_j
 
         # Offset_local_y
         clientObject.offset_in_local_direction_y = offset_y
