@@ -16,14 +16,14 @@ class Frame():
                  comment: str = '',
                  params: dict = {}):
  
- # Client model | Frame
+        # Client model | Frame
         clientObject = clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
 
  -------------------------------------------------------------------------
-        # Number of frames:
+        # Number of frames: da soll man eine Funktion zu clientModel. herstellen... oder?
         
         i = 1
         while i <= n:
@@ -80,14 +80,16 @@ class Frame():
     -------------------------------------------------------------------------
     
       clientObject. = NodeType.TYPE_BETWEEN_TWO_NODES.name
- = column_cross_section
+                    = column_cross_section
 
          #column cross section
-           clientobject. =  columnr_cross_section.name
+           clientobject. =  columnn_cross_section.name
     
     
          #column member type
           clientObject.type = column_member_type.name
+        
+        
         
         #girder cross section
           clientobject. =  girder_cross_section.name
@@ -95,7 +97,9 @@ class Frame():
         #girder member type
          clientObject.type = girder_member_type.name
    
+       # Nodal Support
     
+          clientObject.       =    support_type.name
     
        # Comment
         clientObject.comment = comment
