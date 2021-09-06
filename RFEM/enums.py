@@ -309,14 +309,6 @@ class NodalLoadMassAxisRotation(Enum):
     AXIS_OF_ROTATION_X_NEGATIVE, AXIS_OF_ROTATION_X_POSITIVE, AXIS_OF_ROTATION_Y_NEGATIVE, AXIS_OF_ROTATION_Y_POSITIVE, AXIS_OF_ROTATION_Z_NEGATIVE, AXIS_OF_ROTATION_Z_POSITIVE = range(6)
 
 class NodeType(Enum):
- 
- jarabroz 1 minute ago 
-
-Resolve conflicts with main.
-Better is to make an update from main before pull request and solve all conflicts before
-
-	Reply…
-Resolve conversation
     '''
     Node Type | Enum
     '''
