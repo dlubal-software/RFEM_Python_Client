@@ -162,6 +162,7 @@ class Node():
 
     def OnMember(self,
                  no: int = 1,
+                 member_number: int = 1,
                  node_reference = NodeReferenceType.REFERENCE_TYPE_L,
                  length_between_i_and_j: int = 1,
                  parameters = [True, 0.5],
@@ -175,7 +176,10 @@ class Node():
         clearAtributes(clientObject)
 
         # Node No.
-        clientObject.on_member_reference_member = no
+        clientObject.no = no
+        
+        # Member Reference No.
+        clientObject.on_member_reference_member = member_number
 
         # Node Type
         clientObject.type = NodeType.TYPE_ON_MEMBER.name
