@@ -5,11 +5,11 @@ class Frame():
                  number_of_frames: int = 1,
                  span_l: int = 2,
                  height_h: int = 1,
-                 column_cross_section: ,
-                 column_member_type: ,
-                 girder_cross_section:,
-                 girder_member_type: ,
-                 support_type: ,
+                 column_cross_section: 1,
+                 column_member_type = MemberType.TYPE_BEAM,
+                 girder_cross_section: 2,
+                 girder_member_type = MemberType.TYPE_BEAM,
+                 support_type = NodalSupportType.HINGED,
                  insertion_point_x: int = 3,
                  insertion_point_y: int = 4,
                  insertion_point_z: int = 3,
@@ -23,8 +23,6 @@ class Frame():
         clearAtributes(clientObject)
 
  -------------------------------------------------------------------------
-
-        
         # Number of frames:
         
         i = 1
