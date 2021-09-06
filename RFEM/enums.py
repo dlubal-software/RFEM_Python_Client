@@ -7,28 +7,7 @@ class MemberType(Enum):
     TYPE_BEAM, TYPE_BUCKLING, TYPE_CABLE, TYPE_COMPRESSION, TYPE_COUPLING_HINGE_HINGE,\
     TYPE_COUPLING_HINGE_RIGID, TYPE_COUPLING_RIGID_HINGE, TYPE_COUPLING_RIGID_RIGID,\
     TYPE_DEFINABLE_STIFFNESS, TYPE_RIB, TYPE_RIGID, TYPE_TENSION, TYPE_TRUSS, TYPE_TRUSS_ONLY_N = range(14)
-    
-    
-class NodeType(Enum):
-    '''
-    Node Type | Enum
-    '''
-    TYPE_BETWEEN_TWO_NODES, TYPE_BETWEEN_TWO_POINTS, TYPE_ON_LINE, TYPE_ON_MEMBER, TYPE_STANDARD = range (5)
 
-
-class NodeCoordinateSystemType(Enum):
-    '''
-    Node Coordinate System Type | Enum
-    '''
-    COORDINATE_SYSTEM_CARTESIAN, COORDINATE_SYSTEM_POLAR, COORDINATE_SYSTEM_X_CYLINDRICAL, COORDINATE_SYSTEM_Y_CYLINDRICAL, COORDINATE_SYSTEM_Z_CYLINDRICAL = range (5)
-
-    
-class NodeReferenceType(Enum):
-    '''
-    Node Reference Type| Enum
-    '''
-    REFERENCE_TYPE_L, REFERENCE_TYPE_XY, REFERENCE_TYPE_XZ, REFERENCE_TYPE_YZ = range (4)
-    
 
 class NodalSupportType(Enum):
     '''
@@ -141,6 +120,19 @@ class SetType(Enum):
     '''
     SET_TYPE_CONTINUOUS, SET_TYPE_GROUP = range(2)
 
+class LineArcAlphaAdjustmentTarget(Enum):
+    '''
+    Line Arc Alpha Adjustment Target | Enum
+    '''
+    ALPHA_ADJUSTMENT_TARGET_ARC_CONTROL_POINT, ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC, \
+    ALPHA_ADJUSTMENT_TARGET_END_OF_ARC = range(3)
+
+class LineType(Enum):
+    '''
+    Line Type | Enum
+    '''
+    TYPE_ARC, TYPE_CIRCLE, TYPE_CUT_VIA_SECTION, TYPE_CUT_VIA_TWO_LINES, TYPE_ELLIPTICAL_ARC, TYPE_ELLIPSE, TYPE_NURBS, TYPE_PARABOLA, TYPE_POLYLINE, TYPE_SPLINE = range(10)
+
 class NodalLoadType(Enum):
     '''
     Nodal Load Type | Enum
@@ -169,5 +161,22 @@ class NodalLoadMassAxisRotation(Enum):
 
     AXIS_OF_ROTATION_X_NEGATIVE, AXIS_OF_ROTATION_X_POSITIVE, AXIS_OF_ROTATION_Y_NEGATIVE, AXIS_OF_ROTATION_Y_POSITIVE, AXIS_OF_ROTATION_Z_NEGATIVE, AXIS_OF_ROTATION_Z_POSITIVE = range(6)
 
+class NodeType(Enum):
+    '''
+    Node Type | Enum
+    '''
+    TYPE_BETWEEN_TWO_NODES, TYPE_BETWEEN_TWO_POINTS, TYPE_ON_LINE, TYPE_ON_MEMBER, TYPE_STANDARD = range (5)
 
 
+class NodeCoordinateSystemType(Enum):
+    '''
+    Node Coordinate System Type | Enum
+    '''
+    COORDINATE_SYSTEM_CARTESIAN, COORDINATE_SYSTEM_POLAR, COORDINATE_SYSTEM_X_CYLINDRICAL, COORDINATE_SYSTEM_Y_CYLINDRICAL, COORDINATE_SYSTEM_Z_CYLINDRICAL = range (5)
+
+
+class NodeReferenceType(Enum):
+    '''
+    Node Reference Type| Enum
+    '''
+    REFERENCE_TYPE_L, REFERENCE_TYPE_XY, REFERENCE_TYPE_XZ, REFERENCE_TYPE_YZ = range (4)
