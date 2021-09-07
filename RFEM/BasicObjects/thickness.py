@@ -84,6 +84,8 @@ class Thickness():
         clientObject.material = material_no
 
         # Thickness Parameters
+        if properties == None:
+            raise Exception('WARNING: The properties parameter cannot be empty')
         clientObject.uniform_thickness = properties[0]
 
         # Comment
@@ -129,6 +131,8 @@ class Thickness():
         clientObject.material = material_no
 
         # Thickness Properties
+        if properties == None:
+            raise Exception('WARNING: The properties parameter cannot be empty')
         clientObject.thickness_1 = properties[0]
         clientObject.node_1 = properties[1]
         clientObject.thickness_2 = properties[2]
@@ -228,6 +232,8 @@ class Thickness():
         clientObject.material = material_no
 
         # Thickness Properties
+        if properties == None:
+            raise Exception('WARNING: The properties parameter cannot be empty')
         clientObject.thickness_1 = properties[0]
         clientObject.node_1 = properties[1]
         clientObject.thickness_2 = properties[2]
@@ -280,6 +286,8 @@ class Thickness():
         clientObject.material = material_no
 
         # Thickness Properties
+        if properties == None:
+            raise Exception('WARNING: The properties parameter cannot be empty')
         clientObject.thickness_circle_center = properties[0]
         clientObject.thickness_circle_line = properties[1]
 
