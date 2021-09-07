@@ -120,7 +120,47 @@ class SetType(Enum):
     '''
     SET_TYPE_CONTINUOUS, SET_TYPE_GROUP = range(2)
 
-class ThicknessType(Enum):
+class LineArcAlphaAdjustmentTarget(Enum):
+    '''
+    Line Arc Alpha Adjustment Target | Enum
+    '''
+    ALPHA_ADJUSTMENT_TARGET_ARC_CONTROL_POINT, ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC, \
+    ALPHA_ADJUSTMENT_TARGET_END_OF_ARC = range(3)
+
+class LineType(Enum):
+    '''
+    Line Type | Enum
+    '''
+    TYPE_ARC, TYPE_CIRCLE, TYPE_CUT_VIA_SECTION, TYPE_CUT_VIA_TWO_LINES, TYPE_ELLIPTICAL_ARC, TYPE_ELLIPSE, TYPE_NURBS, TYPE_PARABOLA, TYPE_POLYLINE, TYPE_SPLINE = range(10)
+
+class NodalLoadType(Enum):
+    '''
+    Nodal Load Type | Enum
+    '''
+
+    LOAD_TYPE_COMPONENTS, LOAD_TYPE_FORCE, LOAD_TYPE_MASS, LOAD_TYPE_MOMENT = range(4)
+
+class NodalLoadSpecificDirectionType(Enum):
+    '''
+    Nodal Load Specific Direction Type | Enum
+    '''
+
+    DIRECTION_TYPE_DIRECTED_TO_NODE, DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE, DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER, DIRECTION_TYPE_PARALLEL_TO_TWO_NODES, DIRECTION_TYPE_ROTATED_VIA_3_ANGLES = range(5)
+
+class NodalLoadAxesSequence(Enum):
+    '''
+    Nodal Load Axes Sequence | Enum
+    '''
+
+    SEQUENCE_XYZ, SEQUENCE_XZY, SEQUENCE_YXZ, SEQUENCE_YZX, SEQUENCE_ZXY, SEQUENCE_ZYX = range(6)
+
+class NodalLoadMassAxisRotation(Enum):
+    '''
+    Nodal Load Mass Axis Rotation | Enum
+    '''
+
+    AXIS_OF_ROTATION_X_NEGATIVE, AXIS_OF_ROTATION_X_POSITIVE, AXIS_OF_ROTATION_Y_NEGATIVE, AXIS_OF_ROTATION_Y_POSITIVE, AXIS_OF_ROTATION_Z_NEGATIVE, AXIS_OF_ROTATION_Z_POSITIVE = range(6)
+    class ThicknessType(Enum):
     '''
     Thickness Type | Enum
     '''
@@ -144,30 +184,3 @@ class ThicknessOrthotropyType(Enum):
     ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS, ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE, \
     ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB, ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET, \
     ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE = range(7)
-
-class NodalLoadType(Enum):
-    '''
-    Nodal Load Type | Enum
-    '''
-    LOAD_TYPE_COMPONENTS, LOAD_TYPE_FORCE, LOAD_TYPE_MASS, LOAD_TYPE_MOMENT = range(4)
-
-class NodalLoadSpecificDirectionType(Enum):
-    '''
-    Nodal Load Specific Direction Type | Enum
-    '''
-    DIRECTION_TYPE_DIRECTED_TO_NODE, DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE, DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER, DIRECTION_TYPE_PARALLEL_TO_TWO_NODES, DIRECTION_TYPE_ROTATED_VIA_3_ANGLES = range(5)
-
-class NodalLoadAxesSequence(Enum):
-    '''
-    Nodal Load Axes Sequence | Enum
-    '''
-    SEQUENCE_XYZ, SEQUENCE_XZY, SEQUENCE_YXZ, SEQUENCE_YZX, SEQUENCE_ZXY, SEQUENCE_ZYX = range(6)
-
-class NodalLoadMassAxisRotation(Enum):
-    '''
-    Nodal Load Mass Axis Rotation | Enum
-    '''
-    AXIS_OF_ROTATION_X_NEGATIVE, AXIS_OF_ROTATION_X_POSITIVE, AXIS_OF_ROTATION_Y_NEGATIVE, AXIS_OF_ROTATION_Y_POSITIVE, AXIS_OF_ROTATION_Z_NEGATIVE, AXIS_OF_ROTATION_Z_POSITIVE = range(6)
-
-
-
