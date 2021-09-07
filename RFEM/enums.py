@@ -161,6 +161,7 @@ class NodalLoadMassAxisRotation(Enum):
 
     AXIS_OF_ROTATION_X_NEGATIVE, AXIS_OF_ROTATION_X_POSITIVE, AXIS_OF_ROTATION_Y_NEGATIVE, AXIS_OF_ROTATION_Y_POSITIVE, AXIS_OF_ROTATION_Z_NEGATIVE, AXIS_OF_ROTATION_Z_POSITIVE = range(6)
 
+
 class NodeType(Enum):
     '''
     Node Type | Enum
@@ -180,7 +181,3 @@ class NodeReferenceType(Enum):
     Node Reference Type| Enum
     '''
     REFERENCE_TYPE_L, REFERENCE_TYPE_XY, REFERENCE_TYPE_XZ, REFERENCE_TYPE_YZ = range (4)
-
-
-
-
