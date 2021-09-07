@@ -160,7 +160,7 @@ class NodalLoadMassAxisRotation(Enum):
     '''
 
     AXIS_OF_ROTATION_X_NEGATIVE, AXIS_OF_ROTATION_X_POSITIVE, AXIS_OF_ROTATION_Y_NEGATIVE, AXIS_OF_ROTATION_Y_POSITIVE, AXIS_OF_ROTATION_Z_NEGATIVE, AXIS_OF_ROTATION_Z_POSITIVE = range(6)
-    class ThicknessType(Enum):
+class ThicknessType(Enum):
     '''
     Thickness Type | Enum
     '''
