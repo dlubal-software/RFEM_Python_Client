@@ -130,6 +130,7 @@ class Node():
         clientModel.service.set_node(clientObject)
 
     def OnLine(self,
+                 no: int = 1,
                  line_number: int = 1,
                  node_reference = NodeReferenceType.REFERENCE_TYPE_L,
                  length_between_i_and_j: int = 1,
