@@ -1,3 +1,5 @@
+import sys
+sys.path.append(".")
 from RFEM.Loads.surfaceLoad import *
 from RFEM.Loads.memberLoad import *
 from RFEM.Loads.nodalLoad import *
