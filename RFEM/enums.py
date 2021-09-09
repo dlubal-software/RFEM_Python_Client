@@ -228,10 +228,4 @@ class MemberLoadAxisDefinitionAxisOrientation(Enum):
     '''
 
     AXIS_NEGATIVE, AXIS_POSITIVE = range(2)
-
-
     
-
-
-
-
