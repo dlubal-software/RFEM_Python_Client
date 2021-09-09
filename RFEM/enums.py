@@ -171,9 +171,9 @@ class MemberLoadEccentricitySectionMiddle(Enum):
 
     LOAD_ECCENTRICITY_SECTION_MIDDLE_CENTER_OF_GRAVITY, LOAD_ECCENTRICITY_SECTION_MIDDLE_NONE, LOAD_ECCENTRICITY_SECTION_MIDDLE_SHEAR_CENTER = range(3)
 
-class MemberLoadFormFindingDefinitonType(Enum):
+class MemberLoadFormFindingDefinitionType(Enum):
     '''
-    Member Load Form Finding Definiton Type
+    Member Load Form Finding Definition Type
     '''
 
     FORM_FINDING_TYPE_FORCE, FORM_FINDING_TYPE_GEOMETRIC = range(2)
