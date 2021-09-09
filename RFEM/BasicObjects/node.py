@@ -113,6 +113,13 @@ class Node():
                  offset_z: float = 0.0, 
                  comment: str = '',
                  params: dict = {}):
+        
+        '''
+       ############
+       
+       
+       
+        '''
 
         # Client model | Node
         clientObject = clientModel.factory.create('ns0:node')
