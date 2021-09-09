@@ -148,7 +148,7 @@ class SurfaceLoad():
 
         elif load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
 
-            clientObject.varying_load_parameters = clientModel.factory.create('ns0:surface_load').varying_load_parameters
+            clientObject.varying_load_parameters = clientModel.factory.create('ns0:surface_load.varying_load_parameters')
             for i in range(len(load_parameter)):
                 mlvlp = clientModel.factory.create('ns0:surface_load_varying_load_parameters')
                 mlvlp.no = i+1
@@ -168,7 +168,6 @@ class SurfaceLoad():
 
         # Add Surface Load to client model
         clientModel.service.set_surface_load(load_case_no, clientObject)
-
 
     def Temperature(self,
                  no: int = 1,
@@ -401,7 +400,7 @@ class SurfaceLoad():
                  no: int = 1,
                  load_case_no: int = 1,
                  surface_no: str = '1',
-                 load_parameter = None,
+                 load_parameter = [],
                  comment: str = '',
                  params: dict = {}):
         '''
@@ -463,7 +462,7 @@ class SurfaceLoad():
                  load_case_no: int = 1,
                  surface_no: str = '1',
                  individual_mass_components : bool = False,
-                 mass_parameter = None,
+                 mass_parameter = [],
                  comment: str = '',
                  params: dict = {}):
         '''

@@ -15,7 +15,7 @@ class MemberLoad():
         '''
         Assigns member load without any further options. 
         Load type is Force by default.
-        Load distrubition is Uniform by default.
+        Load distribution is Uniform by default.
         '''
 
         # Client model | Member Load
@@ -64,7 +64,7 @@ class MemberLoad():
                  members_no: str = '1',
                  load_distribution= MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_direction= MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z,
-                 load_parameter = None,
+                 load_parameter = [],
                  force_eccentricity: bool= False,
                  list_reference: bool= False,
                  comment: str = '',
@@ -346,7 +346,7 @@ class MemberLoad():
                  members_no: str = '1',
                  load_distribution= MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_direction= MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z,
-                 load_parameter = None,
+                 load_parameter = [],
                  list_reference: bool= False,
                  comment: str = '',
                  params: dict = {}):
@@ -553,7 +553,7 @@ class MemberLoad():
                 no: int = 1,
                 load_case_no: int = 1,
                 members_no: str = '1',
-                mass_components = None,
+                mass_components = [],
                 individual_mass_components: bool=True,
                 comment: str = '',
                 params: dict = {}):
@@ -608,7 +608,7 @@ class MemberLoad():
                  members_no: str = '1',
                  load_direction = MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z,
                  load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
-                 load_parameter = None,
+                 load_parameter = [],
                  list_reference: bool= False,
                  load_over_total_length: bool= False,
                  comment: str = '',
