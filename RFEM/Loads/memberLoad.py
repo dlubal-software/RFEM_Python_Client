@@ -14,7 +14,7 @@ class MemberLoad():
         '''
         Assigns member load without any further options. 
         Load type is Force by default.
-        Load distrubition is Uniform by default.
+        Load distribution is Uniform by default.
         '''
 
         # Client model | Member Load
@@ -63,7 +63,7 @@ class MemberLoad():
                  members_no: str = '1',
                  load_distribution= MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_direction= MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z,
-                 load_parameter = None,
+                 load_parameter = [],
                  force_eccentricity: bool= False,
                  list_reference: bool= False,
                  comment: str = '',
@@ -345,7 +345,7 @@ class MemberLoad():
                  members_no: str = '1',
                  load_distribution= MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_direction= MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z,
-                 load_parameter = None,
+                 load_parameter = [],
                  list_reference: bool= False,
                  comment: str = '',
                  params: dict = {}):
@@ -553,7 +553,7 @@ class MemberLoad():
                 load_case_no: int = 1,
                 members_no: str = '1',
                 individual_mass_components: bool=False,
-                mass_components = None,
+                mass_components = [],
                 comment: str = '',
                 params: dict = {}):
 
@@ -753,7 +753,7 @@ class MemberLoad():
                            members_no: str = '1',
                            load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                            load_direction = MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z,
-                           load_parameter = None,
+                           load_parameter = [],
                            list_reference: bool= False,
                            load_over_total_length: bool= False,
                            comment: str = '',
@@ -902,7 +902,7 @@ class MemberLoad():
                     members_no: str = '1',
                     load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                     load_direction = MemberLoadDirection.LOAD_DIRECTION_LOCAL_X,
-                    load_parameter = None,
+                    load_parameter = [],
                     list_reference: bool= False,
                     load_over_total_length: bool= False,
                     comment: str = '',
@@ -1189,7 +1189,7 @@ class MemberLoad():
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load').varying_load_parameters
+            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load.varying_load_parameters')
             for i in range(len(load_parameter)):
                 mlvlp = clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.no = i+1
@@ -1405,7 +1405,7 @@ class MemberLoad():
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load').varying_load_parameters
+            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load.varying_load_parameters')
             for i in range(len(load_parameter)):
                 mlvlp = clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.no = i+1
@@ -1470,7 +1470,7 @@ class MemberLoad():
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load').varying_load_parameters
+            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load.varying_load_parameters')
             for i in range(len(load_parameter)):
                 mlvlp = clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.no = i+1
@@ -1636,7 +1636,7 @@ class MemberLoad():
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load').varying_load_parameters
+            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load.varying_load_parameters')
             for i in range(len(load_parameter)):
                 mlvlp = clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.no = i+1
@@ -1701,7 +1701,7 @@ class MemberLoad():
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load').varying_load_parameters
+            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load.varying_load_parameters')
             for i in range(len(load_parameter)):
                 mlvlp = clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.no = i+1
