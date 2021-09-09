@@ -168,6 +168,13 @@ class Node():
                  parameters = [True, 0.5],
                  comment: str = '',
                  params: dict = {}):
+        
+               
+        '''
+       [docstring]
+       
+        '''
+
 
         # Client model | Node
         clientObject = clientModel.factory.create('ns0:node')
