@@ -279,3 +279,9 @@ class NodeReferenceType(Enum):
     '''
     REFERENCE_TYPE_L, REFERENCE_TYPE_XY, REFERENCE_TYPE_XZ, REFERENCE_TYPE_YZ = range (4)
 
+class LineArcAlphaAdjustmentTarget(Enum):
+    '''
+    Line Arc Alpha Adjustment Target | Enum
+    '''
+    ALPHA_ADJUSTMENT_TARGET_ARC_CONTROL_POINT, ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC, \
+    ALPHA_ADJUSTMENT_TARGET_END_OF_ARC = range(3)
