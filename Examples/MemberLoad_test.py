@@ -271,6 +271,8 @@ if __name__ == '__main__':
 
     ## PipeContentFull Type Member Load ## 
     MemberLoad.PipeContentFull(0, 68, 1, '2', MemberLoadDirectionOrientation.LOAD_DIRECTION_FORWARD, 50)
+
+    print(clientModel)
     
     
     Calculate_all()
