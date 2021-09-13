@@ -72,7 +72,6 @@ class Node():
                  start_node_no: int = 1,
                  end_node_no: int = 2,
                  node_reference = NodeReferenceType.REFERENCE_TYPE_L,
-                 length_between_i_and_j: int = 1,
                  parameters = [True, 50],
                  offset_x: int = 0,
                  offset_y: int = 0,
@@ -109,8 +108,6 @@ class Node():
          # Length between i and j
 
         clientObject.reference_type = node_reference.name
-
-        clientObject.reference_object_projected_length = length_between_i_and_j
        
         # Distance between node k and start point
          
