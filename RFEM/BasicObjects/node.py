@@ -72,6 +72,7 @@ class Node():
                  start_node_no: int = 1,
                  end_node_no: int = 2,
                  node_reference = NodeReferenceType.REFERENCE_TYPE_L,
+                 length_between_i_and_j: int = 1,
                  parameters = [True, 50],
                  offset_x: int = 0,
                  offset_y: int = 0,
