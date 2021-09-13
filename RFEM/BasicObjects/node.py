@@ -149,9 +149,6 @@ class Node():
         # Length between i and j
 
         clientObject.reference_type = node_reference.name
-
-        clientObject.reference_object_projected_length = length_between_i_and_j
-       
        
         # Distance between node k and start point
 
