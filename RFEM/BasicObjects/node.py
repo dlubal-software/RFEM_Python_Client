@@ -106,6 +106,7 @@ class Node():
                  end_point_x: float = 1.0,
                  end_point_y:float = 1.0,
                  end_point_z: float = 1.0,
+                 length_between_i_and_j: int = 1,
                  node_reference = NodeReferenceType.REFERENCE_TYPE_L,
                  parameters = [True, 0.5],
                  offset_y: float = 0.0,
