@@ -2,7 +2,7 @@ from enum import Enum
 
 class MemberType(Enum):
     '''
-    Member Type | Enum
+    Member Type | Enu
     '''
     TYPE_BEAM, TYPE_BUCKLING, TYPE_CABLE, TYPE_COMPRESSION, TYPE_COUPLING_HINGE_HINGE,\
     TYPE_COUPLING_HINGE_RIGID, TYPE_COUPLING_RIGID_HINGE, TYPE_COUPLING_RIGID_RIGID,\
@@ -148,7 +148,6 @@ class NodalLoadMassAxisRotation(Enum):
 
     AXIS_OF_ROTATION_X_NEGATIVE, AXIS_OF_ROTATION_X_POSITIVE, AXIS_OF_ROTATION_Y_NEGATIVE, AXIS_OF_ROTATION_Y_POSITIVE, AXIS_OF_ROTATION_Z_NEGATIVE, AXIS_OF_ROTATION_Z_POSITIVE = range(6)
 
-
 class MemberLoadEccentricityHorizontalAlignment(Enum):
     '''
     Member Load Eccentricity Horizontal Alignment
@@ -171,9 +170,9 @@ class MemberLoadEccentricitySectionMiddle(Enum):
 
     LOAD_ECCENTRICITY_SECTION_MIDDLE_CENTER_OF_GRAVITY, LOAD_ECCENTRICITY_SECTION_MIDDLE_NONE, LOAD_ECCENTRICITY_SECTION_MIDDLE_SHEAR_CENTER = range(3)
 
-class MemberLoadFormFindingDefinitonType(Enum):
+class MemberLoadFormFindingDefinitionType(Enum):
     '''
-    Member Load Form Finding Definiton Type
+    Member Load Form Finding Definition Type
     '''
 
     FORM_FINDING_TYPE_FORCE, FORM_FINDING_TYPE_GEOMETRIC = range(2)
@@ -228,4 +227,55 @@ class MemberLoadAxisDefinitionAxisOrientation(Enum):
     '''
 
     AXIS_NEGATIVE, AXIS_POSITIVE = range(2)
+
+class SurfaceLoadAxisDefinitionAxis(Enum):
+    '''
+    Surface Load Axis Definition Axis
+    '''
+    AXIS_X, AXIS_Y, AXIS_Z = range(3)
+
+class SurfaceLoadAxisDirectionType(Enum):
+    '''
+    Surface Load Axis Direction Type
+    '''
+    AXIS_NEGATIVE, AXIS_POSITIVE = range(2)
+
+class SurfaceLoadAxisDefinitionType(Enum):
+    '''
+    Surface Load Axis Definition Type
+    '''
+    AXIS_DEFINITION_POINT_AND_AXIS, AXIS_DEFINITION_TWO_POINTS = range(2)
+
+class SurfaceLoadDirection(Enum):
+    '''
+    Surface Load Load Direction
+    '''
+    LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED, LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE,\
+    LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, LOAD_DIRECTION_LOCAL_X, LOAD_DIRECTION_LOCAL_Y, LOAD_DIRECTION_LOCAL_Z = range(9)
     
+class SurfaceLoadType(Enum):
+    '''
+    Surface Load Type
+    '''
+    LOAD_TYPE_AXIAL_STRAIN, LOAD_TYPE_FORCE, LOAD_TYPE_FORM_FINDING, LOAD_TYPE_MASS, LOAD_TYPE_PRECAMBER, LOAD_TYPE_ROTARY_MOTION, LOAD_TYPE_TEMPERATURE = range(7)
+    
+class NodeType(Enum):
+    '''
+    Node Type | Enum
+    '''
+    TYPE_BETWEEN_TWO_NODES, TYPE_BETWEEN_TWO_POINTS, TYPE_ON_LINE, TYPE_ON_MEMBER, TYPE_STANDARD = range (5)
+
+
+class NodeCoordinateSystemType(Enum):
+    '''
+    Node Coordinate System Type | Enum
+    '''
+    COORDINATE_SYSTEM_CARTESIAN, COORDINATE_SYSTEM_POLAR, COORDINATE_SYSTEM_X_CYLINDRICAL, COORDINATE_SYSTEM_Y_CYLINDRICAL, COORDINATE_SYSTEM_Z_CYLINDRICAL = range (5)
+
+
+class NodeReferenceType(Enum):
+    '''
+    Node Reference Type| Enum
+    '''
+    REFERENCE_TYPE_L, REFERENCE_TYPE_XY, REFERENCE_TYPE_XZ, REFERENCE_TYPE_YZ = range (4)
+

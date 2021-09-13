@@ -116,6 +116,8 @@ class NodalLoad():
 
             clientObject.has_specific_direction = specific_direction
             clientObject.specific_direction_type = params_s[0].name
+
+
             if params_s[0] == NodalLoadSpecificDirectionType.DIRECTION_TYPE_ROTATED_VIA_3_ANGLES:
                 clientObject.axes_sequence = params_s[1].name
                 clientObject.rotated_about_angle_1 = params_s[2]
