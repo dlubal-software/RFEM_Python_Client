@@ -12,6 +12,7 @@ sys.path.append(dirName + r'/../..')
 from RFEM.Loads.surfaceLoad import *
 from RFEM.Loads.memberLoad import *
 from RFEM.Loads.nodalLoad import *
+from RFEM.Loads.lineLoad import *
 from RFEM.LoadCasesAndCombinations.loadCase import *
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
 from RFEM.TypesForMembers.memberHinge import *
@@ -37,14 +38,15 @@ from RFEM.enums import *
 #from RFEM.window import *
 
 if __name__ == '__main__':
+    
  l = float(input('Length of the clear span in m: '))
- n = float(input('Number of frames: ')) 
+ n = float(input('Number of frames: '))
  d = float(input('Distance between frames in m: '))
  h = float(input('Height of frame in m: '))
  
  clientModel.service.begin_modification()
 
-	#nodes
+ #nodes
 
  i = 1
  while i <= n:
@@ -55,49 +57,47 @@ if __name__ == '__main__':
   Node(j+4, l, -(i-1)*d, -h)
   Node(j+5, l, -(i-1)*d, 0.0)
   i += 1
-   
+
+    
  # Nodal Supports
  i = 1
  nodes_no = ""
  while i <= n:
-  j = (i-1) * 5
-  nodes_no += str(j+1) + " "
-  nodes_no += str(j+5) + " "
-  i += 1
-  nodes_no = nodes_no.rstrip(nodes_no[-1])    
-  NodalSupport(1, nodes_no, NodalSupportType.HINGED, "Hinged support")
+   j = (i-1) * 5
+   nodes_no += str(j+1) + " "
+   nodes_no += str(j+5) + " "
+   i += 1
+   nodes_no = nodes_no.rstrip(nodes_no[-1])    
+   NodalSupport(1, nodes_no, NodalSupportType.HINGED, "Hinged support")
 
 
  #members
  Material (1 , 'S235')
  Material (2, 'C25/30')
-        
+ 
+    
  Section (1, 'HEM 700',1)
  Section (2, 'IPE 500',1)
-
-
  #members x direction 
  i = 1
  while i <= n:
-  j = (i-1) * 5
-  k = (i-1) * 4
-  Member(k+1, MemberType.TYPE_BEAM, j+1, j+2, 0.0,  1, 1)
-  Member(k+2, MemberType.TYPE_BEAM, j+2, j+3, 0.0,  2, 2)
-  Member(k+3, MemberType.TYPE_BEAM, j+3, j+4, 0.0,  2, 2)
-  Member(k+4, MemberType.TYPE_BEAM, j+4, j+5, 0.0,  1, 1)
-  i += 1
-  print(k+1,k+2,k+3,k+4)
+   j = (i-1) * 5
+   k = (i-1) * 4
+   Member(k+1, MemberType.TYPE_BEAM, j+1, j+2, 0.0,  1, 1)
+   Member(k+2, MemberType.TYPE_BEAM, j+2, j+3, 0.0,  2, 2)
+   Member(k+3, MemberType.TYPE_BEAM, j+3, j+4, 0.0,  2, 2)
+   Member(k+4, MemberType.TYPE_BEAM, j+4, j+5, 0.0,  1, 1)
+   i += 1
 
  #members y direction 
  i = 1
  while i <= n-1:
-  j = (i-1) * 5
-  print(k+4+2*(i-1)+1, k+4+2*(i-1)+2)
-  Member(int(k+4+2*(i-1)+1), MemberType.TYPE_BEAM, j+2, j+7, 0.0, 2, 2)
-  Member(int(k+4+2*(i-1)+2), MemberType.TYPE_BEAM, j+4, j+9, 0.0, 2, 2)
-  i += 1
-
- #vertical bracing 
+   j = (i-1) * 5
+   Member(int(4*n+i), MemberType.TYPE_BEAM, j+2, j+7, 0.0, 2, 2)
+   Member(int(4*n+i + n-1), MemberType.TYPE_BEAM, j+4, j+9, 0.0, 2, 2)
+   i += 1
+ 
+#vertical bracing 
  # add a question about repeating in every block, one yes one no, only beginning and end
      
  BracingV = input('Would you like to include vertical bracing?\n')
@@ -166,7 +166,7 @@ if __name__ == '__main__':
     Member(int(member_count+4+4*(i-1)), MemberType.TYPE_BEAM, j+4, j+8, 0.0, 3, 3)
     print(int(member_count+1+4*(i-1)),int(member_count+2+4*(i-1)),int(member_count+3+4*(i-1)),int(member_count+4+4*(i-1)))
     i += 1
-       
+ 
  print("Preparing...")
  print('Ready!')
  clientModel.service.finish_modification()
