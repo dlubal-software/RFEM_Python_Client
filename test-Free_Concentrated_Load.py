@@ -1,3 +1,4 @@
+from RFEM.Loads.freeConcentratedLoad import FreeConcentratedLoad
 from RFEM.enums import *
 from RFEM.window import *
 from RFEM.dataTypes import *
@@ -27,30 +28,32 @@ if __name__ == '__main__':
     clientModel.service.begin_modification('new')
 
     Material(1, 'S235')
-	
+    
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 10.0, 0.0, 0.0)
     Node(3, 10.0, 10.0, 0.0)
     Node(4, 0.0, 10.0, 0.0)
-	
+    
     Line(1, '1 2')
     Line(2, '2 3')
     Line(3, '3 4')
     Line(4, '4 1')
-	
+    
     Thickness(1, 'My Test Thickness', 1, 0.05)
     Surface(1, '1-4', 1)
-
+    
     NodalSupport(1, '1', NodalSupportType.HINGED)
     NodalSupport(2, '2', NodalSupportType.HINGED)
     NodalSupport(3, '3', NodalSupportType.HINGED)
     NodalSupport(4, '4', NodalSupportType.HINGED)
-	
+    
     StaticAnalysisSettings(1, 'Geometric linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-
+    
     LoadCase(1 , 'Test load case', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
 
+    FreeConcentratedLoad(1, 1, LoadProjectionType.LOAD_PROJECTON_XY, FreeConcentratedLoadLoadDirection.LOAD_DIRECTION_LOCAL_Z, 1.5, 1.4, 2.3, 'My Comment')
+    
     Calculate_all()
     print('Ready!')
-
+    
     clientModel.service.finish_modification()
