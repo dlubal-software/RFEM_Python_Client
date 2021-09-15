@@ -8,7 +8,6 @@ class MemberType(Enum):
     TYPE_COUPLING_HINGE_RIGID, TYPE_COUPLING_RIGID_HINGE, TYPE_COUPLING_RIGID_RIGID,\
     TYPE_DEFINABLE_STIFFNESS, TYPE_RIB, TYPE_RIGID, TYPE_TENSION, TYPE_TRUSS, TYPE_TRUSS_ONLY_N = range(14)
 
-
 class NodalSupportType(Enum):
     '''
     Nodal Support Type | Enum
