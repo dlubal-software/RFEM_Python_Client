@@ -38,10 +38,8 @@ class Node():
 
     def Standard(self,
                  no: int = 1,
-                 coordinate_system = [True, coordinate_X, coordinate_Y, coordinate_Z],
-                 coordinate_X: float = 0.0,
-                 coordinate_Y: float = 0.0,
-                 coordinate_Z: float = 0.0,
+                 coordinate_system = [], 
+                 coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN,
                  comment: str = '',
                  params: dict = {}):
 
@@ -53,50 +51,58 @@ class Node():
 
         # Node No.
         clientObject.no = no
-        
-         # Node Type
+
+        # Node Type
         clientObject.type = NodeType.STANDARD.name
         
         # Coordinates
-        clientObject.coordinate_1 = coordinate_X
-        clientObject.coordinate_2 = coordinate_Y
-        clientObject.coordinate_3 = coordinate_Z
+
+        clientObject.coordinate_system_type= coordinate_system_type.name
+
+
+        if len(coordinate_system) != 3:
+            raise Exception('WARNING: The coordinate system needs to be of length 3. Kindly check list inputs for completeness and correctness.')
             
-        if parameters[0] == True:
+        if type(coordinate_system[0]) != int or type(coordinate_system[0]) != float :
+            raise Exception ('WARNING: Coordinate system at index 0 to be of type "int" or ''float''')
+        
+        if type(coordinate_system[1]) != int or type(coordinate_system[1]) != float :
+            raise Exception ('WARNING: Coordinate system at index 1 to be of type "int" or ''float''')
+
+        if type(coordinate_system[2]) != int or type(coordinate_system[2]) != float :
+            raise Exception ('WARNING: Coordinate system at index 2 to be of type "int" or ''float''')
+    
+        if coordinate_system_type.name == "COORDINATE_SYSTEM_CARTESIAN":
             clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN
-            clientObject.coordinate_1 = parameters[1]
-            clientObject.coordinate_2 = parameters[2]
-            clientObject.coordinate_3 = parameters[3]
+            clientObject.coordinate_1 = coordinate_system[0]
+            clientObject.coordinate_2 = coordinate_system[1]
+            clientObject.coordinate_3 = coordinate_system[2]
             
-         if parameters[0] == False:           
-            CoordinateSystemType = input('Please enter ''P'' for Polar Coordinate System OR ''X'' for X-Cylindrical Coordinate System OR ''Y'' for Y-Cylindrical Coordinate System OR ''Z'' for Z-Cylindrical Coordinate System')
-            if CoordinateSystemType.lower() == 'X' or CoordinateSystemType.lower() == 'x':
-                parameters[0] == 'X-Cylindrical'  #is that correct?
-                clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_X_CYLINDRICAL
-                #clientObject.coordinate_1 = parameters[1]
-                #clientObject.coordinate_2 = parameters[2]
-                #clientObject.coordinate_3 = parameters[3]
-                
-                elif CoordinateSystemType.lower() == 'Y' or CoordinateSystemType.lower() == 'y': 
-                    parameters[0] == 'Y-Cylindrical'  #is that correct?
-                    clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Y_CYLINDRICAL
-                    #clientObject.coordinate_1 = parameters[1]
-                    #clientObject.coordinate_2 = parameters[2]
-                    #clientObject.coordinate_3 = parameters[3]
-                    
-               elif CoordinateSystemType.lower() == 'Z' or CoordinateSystemType.lower() == 'z': 
-                    parameters[0] == 'Z-Cylindrical'   #is that correct?
-                    clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Z_CYLINDRICAL
-                    #clientObject.coordinate_1 = parameters[1]
-                    #clientObject.coordinate_2 = parameters[2]
-                    #clientObject.coordinate_3 = parameters[3]
+
+        elif coordinate_system_type.name == "COORDINATE_SYSTEM_X_CYLINDRICAL":   
+            clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_X_CYLINDRICAL
+            clientObject.coordinate_1 = coordinate_system[0]
+            clientObject.coordinate_2 = coordinate_system[1]
+            clientObject.coordinate_3 = coordinate_system[2] * (pi/180) 
+
+        elif coordinate_system_type.name == "COORDINATE_SYSTEM_Y_CYLINDRICAL":
+            clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Y_CYLINDRICAL
+            clientObject.coordinate_1 = coordinate_system[0]
+            clientObject.coordinate_2 = coordinate_system[1]
+            clientObject.coordinate_3 = coordinate_system[2] * (pi/180)
+        
+        elif coordinate_system_type.name == "COORDINATE_SYSTEM_Z_CYLINDRICAL":
+            clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Z_CYLINDRICAL
+            clientObject.coordinate_1 = coordinate_system[0]
+            clientObject.coordinate_2 = coordinate_system[1] * (pi/180)
+            clientObject.coordinate_3 = coordinate_system[2]
             
-               elif CoordinateSystemType.lower() == 'Y' or CoordinateSystemType.lower() == 'y': 
-                    parameters[0] == 'Polar'   #is that correct?
-                    clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_POLAR
-                    #clientObject.coordinate_1 = parameters[1]
-                    #clientObject.coordinate_2 = parameters[2]
-                    #clientObject.coordinate_3 = parameters[3]
+        
+        elif coordinate_system_type.name == "COORDINATE_SYSTEM_POLAR":
+            clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_POLAR
+            clientObject.coordinate_1 = coordinate_system[0]
+            clientObject.coordinate_2 = coordinate_system[1] * (pi/180)
+            clientObject.coordinate_3 = coordinate_system[2] * (pi/180)
 
         # Comment
         clientObject.comment = comment
@@ -106,6 +112,7 @@ class Node():
 
         # Add Node to client model
         clientModel.service.set_node(clientObject)
+        
 
     def BetweenTwoNodes(self,
                  no: int = 1,
