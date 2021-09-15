@@ -61,39 +61,40 @@ class Node():
         clientObject.coordinate_1 = coordinate_X
         clientObject.coordinate_2 = coordinate_Y
         clientObject.coordinate_3 = coordinate_Z
-        
-        
-        
+            
         if parameters[0] == True:
             clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN
             clientObject.coordinate_1 = parameters[1]
             clientObject.coordinate_2 = parameters[2]
             clientObject.coordinate_3 = parameters[3]
             
-         elif parameters[0] == False:
-            CoordinateSystemType = input('')
-            if CoordinateSystemType.lower() == '...':
-                if parameters[0] == 'X-Cylindrical':
-                    clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_X_CYLINDRICAL
-                #   clientObject.coordinate_1 = parameters[1]
-                 #  clientObject.coordinate_2 = parameters[2]
-                  # clientObject.coordinate_3 = parameters[3]
+         if parameters[0] == False:           
+            CoordinateSystemType = input('Please enter ''P'' for Polar Coordinate System OR ''X'' for X-Cylindrical Coordinate System OR ''Y'' for Y-Cylindrical Coordinate System OR ''Z'' for Z-Cylindrical Coordinate System')
+            if CoordinateSystemType.lower() == 'X' or CoordinateSystemType.lower() == 'x':
+                parameters[0] == 'X-Cylindrical'  #is that correct?
+                clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_X_CYLINDRICAL
+                #clientObject.coordinate_1 = parameters[1]
+                #clientObject.coordinate_2 = parameters[2]
+                #clientObject.coordinate_3 = parameters[3]
                 
-                elif parameters[0] == 'Y-Cylindrical':
+                elif CoordinateSystemType.lower() == 'Y' or CoordinateSystemType.lower() == 'y': 
+                    parameters[0] == 'Y-Cylindrical'  #is that correct?
                     clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Y_CYLINDRICAL
-                   #clientObject.coordinate_1 = parameters[1]
+                    #clientObject.coordinate_1 = parameters[1]
                     #clientObject.coordinate_2 = parameters[2]
                     #clientObject.coordinate_3 = parameters[3]
                     
-                elif parameters[0] == 'Z-Cylindrical':
+               elif CoordinateSystemType.lower() == 'Z' or CoordinateSystemType.lower() == 'z': 
+                    parameters[0] == 'Z-Cylindrical'   #is that correct?
                     clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Z_CYLINDRICAL
                     #clientObject.coordinate_1 = parameters[1]
                     #clientObject.coordinate_2 = parameters[2]
                     #clientObject.coordinate_3 = parameters[3]
             
-               elif parameters[0] == 'Polar':
+               elif CoordinateSystemType.lower() == 'Y' or CoordinateSystemType.lower() == 'y': 
+                    parameters[0] == 'Polar'   #is that correct?
                     clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_POLAR
-                   # clientObject.coordinate_1 = parameters[1]
+                    #clientObject.coordinate_1 = parameters[1]
                     #clientObject.coordinate_2 = parameters[2]
                     #clientObject.coordinate_3 = parameters[3]
 
