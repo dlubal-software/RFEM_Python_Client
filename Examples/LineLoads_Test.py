@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys
+sys.path.append(".")
+
 # Import der Bibliotheken
 from RFEM.Loads.lineLoad import LineLoad
 from RFEM.enums import *
