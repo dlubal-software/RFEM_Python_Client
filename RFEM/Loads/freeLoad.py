@@ -138,3 +138,71 @@ class FreeLoad():
 
         # Add Free Concentrated Load to client model          
         clientModel.service.set_free_line_load(load_case_no, clientObject)
+
+    def RectangularLoad(self,
+                 no: int = 1,
+                 load_case_no: int = 1,
+                 load_direction = FreeLineLoadLoadDirection.LOAD_DIRECTION_LOCAL_Z,
+                 load_distribution = FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
+                 load_projection = FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
+                 load_parameter = [],
+                 surfaces_no = '1',
+                 comment: str = '',
+                 params: dict = {}):
+                 
+        '''
+        DocStrings
+        '''
+
+        # Client model | Free Concentrated Load
+        clientObject = clientModel.factory.create('ns0:free_rectangular_load')
+
+        # Clears object attributes | Sets all attributes to None
+        clearAtributes(clientObject)
+
+        # Load No.
+        clientObject.no = no
+        
+        # Load Case No.
+        clientObject.load_case = load_case_no
+        
+        # Assigned Surfaces No.
+        clientObject.surfaces = ConvertToDlString(surfaces_no)
+        
+        # Load Distribution
+        clientObject.load_distribution = load_distribution.name
+        
+        # Load Projection
+        clientObject.load_projection = load_projection.name
+        
+        # Load Direction
+        clientObject.load_direction = load_direction.name
+        
+        # Load Parameter
+        if load_distribution.name == 'LOAD_DISTRIBUTION_UNIFORM':
+            if len(load_parameter) != 5:
+                raise Exception('WARNING: The load parameter needs to be of length 5. Kindly check list inputs for completeness and correctness.')
+            clientObject.magnitude_uniform = load_parameter[0]
+            clientObject.load_location_first_x = load_parameter[1]
+            clientObject.load_location_first_y = load_parameter[2]
+            clientObject.load_location_second_x = load_parameter[3]
+            clientObject.load_location_second_y = load_parameter[4]
+        elif load_distribution.name == 'LOAD_DISTRIBUTION_LINEAR':
+            if len(load_parameter) != 6:
+                raise Exception('WARNING: The load parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.')
+            clientObject.magnitude_first = load_parameter[0]
+            clientObject.magnitude_second = load_parameter[1]
+            clientObject.load_location_first_x = load_parameter[2]
+            clientObject.load_location_first_y = load_parameter[3]
+            clientObject.load_location_second_x = load_parameter[4]
+            clientObject.load_location_second_y = load_parameter[5]
+
+        # Comment
+        clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
+
+        # Add Free Concentrated Load to client model          
+        clientModel.service.set_free_rectangular_load(load_case_no, clientObject)
