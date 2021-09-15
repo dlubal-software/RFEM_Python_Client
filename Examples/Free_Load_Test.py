@@ -1,7 +1,7 @@
 import sys
 sys.path.append(".")
 
-from RFEM.Loads.freeConcentratedLoad import *
+from RFEM.Loads.freeLoad import *
 from RFEM.enums import *
 from RFEM.window import *
 from RFEM.dataTypes import *
@@ -52,11 +52,20 @@ if __name__ == '__main__':
     
     StaticAnalysisSettings(1, 'Geometric linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     
-    LoadCase(1 , 'Test load case', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
+    LoadCase(1 , 'freie Last', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
 
-    FreeConcentratedLoad(1, 1, load_parameter= [2500, 5, 5])
+    # Testing the free concentrated loads
+    FreeLoad.ConcentratedLoad(FreeLoad, 1, 1, load_parameter= [5000, 4, 2])
+    FreeLoad.ConcentratedLoad(FreeLoad, 2, 1, load_parameter= [50, 8, 8], load_type= FreeConcentratedLoadLoadType.LOAD_TYPE_MOMENT, load_direction= FreeConcentratedLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Y)
 
-    Calculate_all()
+    # Testing the free line loads
+    FreeLoad.LineLoad(FreeLoad, 3, 1, FreeLineLoadLoadDirection.LOAD_DIRECTION_LOCAL_Z, FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
+                     FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV, load_parameter= [5000, 1, 4, 3, 2])
+    FreeLoad.LineLoad(FreeLoad, 4, 1, FreeLineLoadLoadDirection.LOAD_DIRECTION_LOCAL_Z, FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR,
+                    FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV, load_parameter= [5000, 3000, 7, 2, 5, 9])
+
+    #print(clientModel)
+    #Calculate_all()
     print('Ready!')
     
     clientModel.service.finish_modification()
