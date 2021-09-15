@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys
+sys.path.append(".")
+
 # Import der Bibliotheken
 from os import name
 from RFEM.enums import *
