@@ -60,7 +60,6 @@ class Member():
     
     def Beam(self,
             no: int = 1,
-            member_type = MemberType.TYPE_BEAM,
             start_node_no: int = 1,
             end_node_no: int = 2,
             rotation_angle: float = 0.0,
@@ -81,7 +80,7 @@ class Member():
         clientObject.no = no
 
         # Member Type
-        clientObject.type = member_type.name
+        clientObject.type = MemberType.TYPE_BEAM.name
 
         # Start Node No.
         clientObject.node_start = start_node_no
@@ -116,7 +115,6 @@ class Member():
 
     def Rigid(self,
                 no: int = 1,
-                member_type = MemberType.TYPE_RIGID,
                 start_node_no: int = 1,
                 end_node_no: int = 2,
                 rotation_angle: float = 0.0,
@@ -137,7 +135,7 @@ class Member():
         clientObject.no = no
 
         # Member Type
-        clientObject.type = member_type.name
+        clientObject.type = MemberType.TYPE_RIGID.name
 
         # Start Node No.
         clientObject.node_start = start_node_no
@@ -172,7 +170,6 @@ class Member():
 
     def Rib(self,
             no: int = 1,
-            member_type = MemberType.TYPE_RIB,
             start_node_no: int = 1,
             end_node_no: int = 2,
             rotation_angle: float = 0.0,
@@ -193,7 +190,7 @@ class Member():
         clientObject.no = no
 
         # Member Type
-        clientObject.type = member_type.name
+        clientObject.type = MemberType.TYPE_RIB.name
 
         # Start Node No.
         clientObject.node_start = start_node_no
@@ -228,7 +225,6 @@ class Member():
 
     def Truss(self,
                 no: int = 1,
-                member_type = MemberType.TYPE_TRUSS,
                 start_node_no: int = 1,
                 end_node_no: int = 2,
                 rotation_angle: float = 0.0,
@@ -249,7 +245,7 @@ class Member():
         clientObject.no = no
 
         # Member Type
-        clientObject.type = member_type.name
+        clientObject.type = MemberType.TYPE_TRUSS.name
 
         # Start Node No.
         clientObject.node_start = start_node_no
@@ -284,7 +280,6 @@ class Member():
 
     def TrussOnlyN(self,
                 no: int = 1,
-                member_type = MemberType.TYPE_TRUSS_ONLY_N,
                 start_node_no: int = 1,
                 end_node_no: int = 2,
                 rotation_angle: float = 0.0,
@@ -305,7 +300,7 @@ class Member():
         clientObject.no = no
 
         # Member Type
-        clientObject.type = member_type.name
+        clientObject.type = MemberType.TYPE_TRUSS_ONLY_N.name
 
         # Start Node No.
         clientObject.node_start = start_node_no
@@ -340,7 +335,6 @@ class Member():
 
     def Tension(self,
                 no: int = 1,
-                member_type = MemberType.TYPE_TENSION,
                 start_node_no: int = 1,
                 end_node_no: int = 2,
                 rotation_angle: float = 0.0,
@@ -361,7 +355,7 @@ class Member():
         clientObject.no = no
 
         # Member Type
-        clientObject.type = member_type.name
+        clientObject.type = MemberType.TYPE_TENSION.name
 
         # Start Node No.
         clientObject.node_start = start_node_no
@@ -396,7 +390,6 @@ class Member():
 
     def Compression(self,
                 no: int = 1,
-                member_type = MemberType.TYPE_COMPRESSION,
                 start_node_no: int = 1,
                 end_node_no: int = 2,
                 rotation_angle: float = 0.0,
@@ -417,7 +410,7 @@ class Member():
         clientObject.no = no
 
         # Member Type
-        clientObject.type = member_type.name
+        clientObject.type = MemberType.TYPE_COMPRESSION.name
 
         # Start Node No.
         clientObject.node_start = start_node_no
@@ -452,7 +445,6 @@ class Member():
 
     def Buckling(self,
                 no: int = 1,
-                member_type = MemberType.TYPE_BUCKLING,
                 start_node_no: int = 1,
                 end_node_no: int = 2,
                 rotation_angle: float = 0.0,
@@ -473,7 +465,7 @@ class Member():
         clientObject.no = no
 
         # Member Type
-        clientObject.type = member_type.name
+        clientObject.type = MemberType.TYPE_BUCKLING.name
 
         # Start Node No.
         clientObject.node_start = start_node_no
@@ -508,7 +500,6 @@ class Member():
 
     def Cable(self,
                 no: int = 1,
-                member_type = MemberType.TYPE_CABLE,
                 start_node_no: int = 1,
                 end_node_no: int = 2,
                 rotation_angle: float = 0.0,
@@ -529,7 +520,7 @@ class Member():
         clientObject.no = no
 
         # Member Type
-        clientObject.type = member_type.name
+        clientObject.type = MemberType.TYPE_CABLE.name
 
         # Start Node No.
         clientObject.node_start = start_node_no
@@ -564,7 +555,6 @@ class Member():
 
     def ResultBeam(self,
                 no: int = 1,
-                member_type = MemberType.TYPE_BEAM,
                 start_node_no: int = 1,
                 end_node_no: int = 2,
                 rotation_angle: float = 0.0,
@@ -585,7 +575,7 @@ class Member():
         clientObject.no = no
 
         # Member Type
-        clientObject.type = member_type.name
+        clientObject.type = MemberType.TYPE_BEAM.name
 
         # Start Node No.
         clientObject.node_start = start_node_no
@@ -620,7 +610,6 @@ class Member():
 
     def DefinableStifness(self,
                 no: int = 1,
-                member_type = MemberType.TYPE_DEFINABLE_STIFFNESS,
                 start_node_no: int = 1,
                 end_node_no: int = 2,
                 rotation_angle: float = 0.0,
@@ -641,7 +630,7 @@ class Member():
         clientObject.no = no
 
         # Member Type
-        clientObject.type = member_type.name
+        clientObject.type = MemberType.TYPE_DEFINABLE_STIFFNESS.name
 
         # Start Node No.
         clientObject.node_start = start_node_no
@@ -676,7 +665,6 @@ class Member():
 
     def CouplingRigid_Rigid(self,
                 no: int = 1,
-                member_type = MemberType.TYPE_COUPLING_RIGID_RIGID,
                 start_node_no: int = 1,
                 end_node_no: int = 2,
                 rotation_angle: float = 0.0,
@@ -697,7 +685,7 @@ class Member():
         clientObject.no = no
 
         # Member Type
-        clientObject.type = member_type.name
+        clientObject.type = MemberType.TYPE_COUPLING_RIGID_RIGID.name
 
         # Start Node No.
         clientObject.node_start = start_node_no
@@ -732,7 +720,6 @@ class Member():
 
     def CouplingRigid_Hinge(self,
                 no: int = 1,
-                member_type = MemberType.TYPE_COUPLING_RIGID_HINGE,
                 start_node_no: int = 1,
                 end_node_no: int = 2,
                 rotation_angle: float = 0.0,
@@ -753,7 +740,7 @@ class Member():
         clientObject.no = no
 
         # Member Type
-        clientObject.type = member_type.name
+        clientObject.type = MemberType.TYPE_COUPLING_RIGID_HINGE.name
 
         # Start Node No.
         clientObject.node_start = start_node_no
@@ -788,7 +775,6 @@ class Member():
 
     def CouplingHinge_Rigid(self,
                 no: int = 1,
-                member_type = MemberType.TYPE_COUPLING_HINGE_RIGID,
                 start_node_no: int = 1,
                 end_node_no: int = 2,
                 rotation_angle: float = 0.0,
@@ -809,7 +795,7 @@ class Member():
         clientObject.no = no
 
         # Member Type
-        clientObject.type = member_type.name
+        clientObject.type = MemberType.TYPE_COUPLING_HINGE_RIGID.name
 
         # Start Node No.
         clientObject.node_start = start_node_no
@@ -844,7 +830,6 @@ class Member():
 
     def CouplingHinge_Hinge(self,
                 no: int = 1,
-                member_type = MemberType.TYPE_COUPLING_HINGE_HINGE,
                 start_node_no: int = 1,
                 end_node_no: int = 2,
                 rotation_angle: float = 0.0,
@@ -865,7 +850,7 @@ class Member():
         clientObject.no = no
 
         # Member Type
-        clientObject.type = member_type.name
+        clientObject.type = MemberType.TYPE_COUPLING_HINGE_HINGE.name
 
         # Start Node No.
         clientObject.node_start = start_node_no
