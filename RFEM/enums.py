@@ -114,11 +114,24 @@ class SurfaceLoadType(Enum):
     LOAD_TYPE_AXIAL_STRAIN, LOAD_TYPE_FORCE, LOAD_TYPE_FORM_FINDING, LOAD_TYPE_MASS, LOAD_TYPE_PRECAMBER,\
     LOAD_TYPE_ROTARY_MOTION, LOAD_TYPE_TEMPERATURE = range(7)
 
-class LoadProjectionType:
+class FreeConcentratedLoadLoadDirection(Enum):
     '''
-    Load Projection | Enum
+    Load Concentrated Load Load Direction | Enum
     '''
-    LOAD_PROJECTON_XY, LOAD_PROJECTON_YZ, LOAD_PROJECTON_XZ = range(3)
+    LOAD_DIRECTION_GLOBAL_X, LOAD_DIRECTION_GLOBAL_Y, LOAD_DIRECTION_GLOBAL_Z, LOAD_DIRECTION_LOCAL_X, LOAD_DIRECTION_LOCAL_Y, \
+    LOAD_DIRECTION_LOCAL_Z, LOAD_DIRECTION_USER_DEFINED_U, LOAD_DIRECTION_USER_DEFINED_V, LOAD_DIRECTION_USER_DEFINED_W = range(9)
+
+class FreeConcentratedLoadLoadProjection(Enum):
+    '''
+    Free Concentrated Load Load Projection | Enum
+    '''
+    LOAD_PROJECTION_XY_OR_UV, LOAD_PROJECTION_XZ_OR_UW, LOAD_PROJECTION_YZ_OR_VW = range(3)
+
+class FreeConcentratedLoadLoadType(Enum):
+    '''
+    Free Concentrated Load Load Type | Enum
+    '''
+    LOAD_TYPE_FORCE, LOAD_TYPE_MOMENT = range(2)
 
 class SetType(Enum):
     '''

@@ -1,4 +1,7 @@
-from RFEM.Loads.freeConcentratedLoad import FreeConcentratedLoad
+import sys
+sys.path.append(".")
+
+from RFEM.Loads.freeConcentratedLoad import *
 from RFEM.enums import *
 from RFEM.window import *
 from RFEM.dataTypes import *
@@ -51,8 +54,8 @@ if __name__ == '__main__':
     
     LoadCase(1 , 'Test load case', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
 
-    FreeConcentratedLoad(1, 1, LoadProjectionType.LOAD_PROJECTON_XY, FreeConcentratedLoadLoadDirection.LOAD_DIRECTION_LOCAL_Z, 1.5, 1.4, 2.3, 'My Comment')
-    
+    FreeConcentratedLoad(1, 1, load_parameter= [2500, 5, 5])
+
     Calculate_all()
     print('Ready!')
     
