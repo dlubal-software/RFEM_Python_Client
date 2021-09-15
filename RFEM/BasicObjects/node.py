@@ -38,6 +38,7 @@ class Node():
 
     def Standard(self,
                  no: int = 1,
+                 coordinate_system = [True, coordinate_X, coordinate_Y, coordinate_Z],
                  coordinate_X: float = 0.0,
                  coordinate_Y: float = 0.0,
                  coordinate_Z: float = 0.0,
@@ -52,11 +53,49 @@ class Node():
 
         # Node No.
         clientObject.no = no
-
+        
+         # Node Type
+        clientObject.type = NodeType.STANDARD.name
+        
         # Coordinates
         clientObject.coordinate_1 = coordinate_X
         clientObject.coordinate_2 = coordinate_Y
         clientObject.coordinate_3 = coordinate_Z
+        
+        
+        
+        if parameters[0] == True:
+            clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN
+            clientObject.coordinate_1 = parameters[1]
+            clientObject.coordinate_2 = parameters[2]
+            clientObject.coordinate_3 = parameters[3]
+            
+         elif parameters[0] == False:
+            CoordinateSystemType = input('')
+            if CoordinateSystemType.lower() == '...':
+                if parameters[0] == 'X-Cylindrical':
+                    clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_X_CYLINDRICAL
+                #   clientObject.coordinate_1 = parameters[1]
+                 #  clientObject.coordinate_2 = parameters[2]
+                  # clientObject.coordinate_3 = parameters[3]
+                
+                elif parameters[0] == 'Y-Cylindrical':
+                    clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Y_CYLINDRICAL
+                   #clientObject.coordinate_1 = parameters[1]
+                    #clientObject.coordinate_2 = parameters[2]
+                    #clientObject.coordinate_3 = parameters[3]
+                    
+                elif parameters[0] == 'Z-Cylindrical':
+                    clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Z_CYLINDRICAL
+                    #clientObject.coordinate_1 = parameters[1]
+                    #clientObject.coordinate_2 = parameters[2]
+                    #clientObject.coordinate_3 = parameters[3]
+            
+               elif parameters[0] == 'Polar':
+                    clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_POLAR
+                   # clientObject.coordinate_1 = parameters[1]
+                    #clientObject.coordinate_2 = parameters[2]
+                    #clientObject.coordinate_3 = parameters[3]
 
         # Comment
         clientObject.comment = comment
