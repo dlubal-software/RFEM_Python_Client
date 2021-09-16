@@ -43,13 +43,9 @@ if __name__ == '__main__':
     Line(2, '2 3')
     Line(3, '3 4')
     Line(4, '4 1')
-    Line(5, '1 5')
-    Line(6, '5 6')
-    Line(7, '6 4')
     
     Thickness(1, 'Dicke', 1, 0.05)
     Surface(1, '1-4', 1)
-    Surface(2, '4-7', 1)
     
     NodalSupport(1, '1', NodalSupportType.HINGED)
     NodalSupport(2, '2', NodalSupportType.HINGED)
@@ -62,6 +58,7 @@ if __name__ == '__main__':
     LoadCase(2 , 'Rechtecklast 1', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False, 0.0, 0.0, 0.0)
     LoadCase(3 , 'Rechtecklast 2', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False, 0.0, 0.0, 0.0)
     LoadCase(4 , 'Kreislast', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False, 0.0, 0.0, 0.0)
+    LoadCase(5 , 'Polygonlast', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False, 0.0, 0.0, 0.0)
 
     # Prüfung der freien Einzellasten
     FreeLoad.ConcentratedLoad(FreeLoad, 1, 1, load_parameter= [5000, 4, 2])
@@ -184,6 +181,35 @@ if __name__ == '__main__':
                              FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                              FreeCircularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
                              [10000, 2500, 2.5, 5, 2])
+
+    # Prüfung der freien Polygonlasten
+    FreeLoad.PolygonLoad(FreeLoad, 1, 5, '1',
+                         FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
+                         FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
+                         FreePolygonLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
+                         [[1, 0], [0, 2], [2, 2]],
+                         [5000])
+
+    FreeLoad.PolygonLoad(FreeLoad, 2, 5, '1',
+                         FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR,
+                         FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
+                         FreePolygonLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
+                         [[6, 0], [4, 2], [8, 2]],
+                         [5000, 2500, 1000, 1, 2, 3])
+
+    FreeLoad.PolygonLoad(FreeLoad, 3, 5, '1',
+                         FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_FIRST,
+                         FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
+                         FreePolygonLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
+                         [[6, 4], [4, 6], [8, 6]],
+                         [5000, 2500, 1, 3])
+
+    FreeLoad.PolygonLoad(FreeLoad, 4, 5, '1',
+                         FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_SECOND,
+                         FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
+                         FreePolygonLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
+                         [[1, 4], [0, 6], [2, 6]],
+                         [1500, 7500, 2, 1])
 
     #print(clientModel)
     #Calculate_all()

@@ -480,3 +480,100 @@ class FreeLoad():
 
         # Add Free Concentrated Load to client model          
         clientModel.service.set_free_circular_load(load_case_no, clientObject)
+
+    def PolygonLoad(self,
+                 no: int = 1,
+                 load_case_no: int = 1,
+                 surfaces_no = '1',
+                 load_distribution = FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
+                 load_projection = FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
+                 load_direction = FreePolygonLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
+                 load_location = [],
+                 load_parameter = [],
+                 comment: str = '',
+                 params: dict = {}):
+                 
+        '''
+        for load_distribution = FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+            load_location = [[first_coordinate, second_coordinate], ...]
+            load_parameter = [magnitude_uniform]
+
+       for load_distribution = FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
+            load_location = [[first_coordinate, second_coordinate], ...]
+            load_parameter = [magnitude_linear_1, magnitude_linear_2, magnitude_linear_3, magnitude_linear_location_1, magnitude_linear_location_2, magnitude_linear_location_3]
+
+       for load_distribution = FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_FIRST:
+            load_location = [[first_coordinate, second_coordinate], ...]
+            load_parameter = [magnitude_linear_1, magnitude_linear_2, magnitude_linear_location_1, magnitude_linear_location_2]
+
+       for load_distribution = FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_SECOND:
+            load_location = [[first_coordinate, second_coordinate], ...]
+            load_parameter = [magnitude_linear_1, magnitude_linear_2, magnitude_linear_location_1, magnitude_linear_location_2]
+        '''
+
+        # Client model | Free Concentrated Load
+        clientObject = clientModel.factory.create('ns0:free_polygon_load')
+
+        # Clears object attributes | Sets all attributes to None
+        clearAtributes(clientObject)
+
+        # Load No.
+        clientObject.no = no
+        
+        # Load Case No.
+        clientObject.load_case = load_case_no
+        
+        # Assigned Surfaces No.
+        clientObject.surfaces = ConvertToDlString(surfaces_no)
+
+        # Load Distribution
+        clientObject.load_distribution = load_distribution.name
+
+        # Load Projection
+        clientObject.load_projection = load_projection.name
+        
+        # Load Direction
+        clientObject.load_direction = load_direction.name
+
+        # Load Location
+        clientObject.load_location = clientModel.factory.create('ns0:free_polygon_load.load_location')
+        for i in range(len(load_location)):
+            fplld = clientModel.factory.create('ns0:free_polygon_load_load_location')
+            fplld.no = i+1
+            fplld.first_coordinate = load_location[i][0]
+            fplld.second_coordinate = load_location[i][1]
+            clientObject.load_location.free_polygon_load_load_location.append(fplld)
+
+        # Load Parameter
+        if load_distribution.name == 'LOAD_DISTRIBUTION_UNIFORM':
+            if len(load_parameter) != 1:
+                raise Exception('WARNING: The load parameter needs to be of length 1. Kindly check list inputs for completeness and correctness.')
+            clientObject.magnitude_uniform = load_parameter[0]
+
+        elif load_distribution.name == 'LOAD_DISTRIBUTION_LINEAR':
+            if len(load_parameter) != 6:
+                raise Exception('WARNING: The load parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.')
+            clientObject.magnitude_linear_1 = load_parameter[0]
+            clientObject.magnitude_linear_2 = load_parameter[1]
+            clientObject.magnitude_linear_3 = load_parameter[2]
+            clientObject.magnitude_linear_location_1 = load_parameter[3]
+            clientObject.magnitude_linear_location_2 = load_parameter[4]
+            clientObject.magnitude_linear_location_3 = load_parameter[5]
+
+        elif load_distribution.name == 'LOAD_DISTRIBUTION_LINEAR_FIRST' or load_distribution.name == 'LOAD_DISTRIBUTION_LINEAR_SECOND':
+            if len(load_parameter) != 4:
+                raise Exception('WARNING: The load parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
+            clientObject.magnitude_linear_1 = load_parameter[0]
+            clientObject.magnitude_linear_2 = load_parameter[1]
+            clientObject.magnitude_linear_location_1 = load_parameter[2]
+            clientObject.magnitude_linear_location_2 = load_parameter[3]
+
+        # Comment
+        clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
+
+        # Add Free Concentrated Load to client model          
+        clientModel.service.set_free_polygon_load(load_case_no, clientObject)
