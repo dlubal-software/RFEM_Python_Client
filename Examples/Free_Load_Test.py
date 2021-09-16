@@ -58,9 +58,10 @@ if __name__ == '__main__':
     
     StaticAnalysisSettings(1, 'Geometrisch-linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     
-    LoadCase(1 , 'Einzell- u. Linienlast', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
-    LoadCase(2 , 'Rechtecklast 1', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
-    LoadCase(3 , 'Rechtecklast 2', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
+    LoadCase(1 , 'Einzell- u. Linienlast', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False, 0.0, 0.0, 0.0)
+    LoadCase(2 , 'Rechtecklast 1', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False, 0.0, 0.0, 0.0)
+    LoadCase(3 , 'Rechtecklast 2', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False, 0.0, 0.0, 0.0)
+    LoadCase(4 , 'Kreislast', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False, 0.0, 0.0, 0.0)
 
     # Prüfung der freien Einzellasten
     FreeLoad.ConcentratedLoad(FreeLoad, 1, 1, load_parameter= [5000, 4, 2])
@@ -170,6 +171,19 @@ if __name__ == '__main__':
                             [5000], 
                             FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CENTER_AND_SIDES,
                             [8, 6, 2, 2, [[-3, 0.3], [-1, 0.4], [0, 1]], [5, 7, 0], [5, 9, 2], 0, [[0, 0.5], [90, 1.75], [180, 1.25], [270, 1], [360, 0.5]]])
+
+    # Prüfung der freien Kreislasten
+    FreeLoad.CircularLoad(FreeLoad, 1, 4, '1',
+                             FreeCircularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
+                             FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
+                             FreeCircularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
+                             [10000, 7.5, 5, 2])
+
+    FreeLoad.CircularLoad(FreeLoad, 2, 4, '1',
+                             FreeCircularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR,
+                             FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
+                             FreeCircularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
+                             [10000, 2500, 2.5, 5, 2])
 
     #print(clientModel)
     #Calculate_all()

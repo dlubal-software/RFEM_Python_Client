@@ -218,7 +218,7 @@ class FreeLoad():
             if len(load_magnitude_parameter) != 1:
                 raise Exception('WARNING: The load parameter for the selected distribution needs to be of length 1. Kindly check list inputs for completeness and correctness.')
             clientObject.magnitude_uniform = load_magnitude_parameter[0]
-            
+
         elif load_distribution.name == 'LOAD_DISTRIBUTION_LINEAR_FIRST' or load_distribution.name == 'LOAD_DISTRIBUTION_LINEAR_SECOND':
             if len(load_magnitude_parameter) != 2:
                 raise Exception('WARNING: The load parameter for the selected distribution needs to be of length 2. Kindly check list inputs for completeness and correctness.')
@@ -409,3 +409,74 @@ class FreeLoad():
 
         # Add Free Concentrated Load to client model          
         clientModel.service.set_free_rectangular_load(load_case_no, clientObject)
+
+    def CircularLoad(self,
+                 no: int = 1,
+                 load_case_no: int = 1,
+                 surfaces_no = '1',
+                 load_distribution = FreeCircularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
+                 load_projection = FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
+                 load_direction = FreeCircularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
+                 load_parameter = [],
+                 comment: str = '',
+                 params: dict = {}):
+                 
+        '''
+        for load_distribution = FreeCircularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+            load_parameter = [magnitude_uniform, load_location_x, load_location_y, load_location_radius]
+
+        for load_distribution = FreeCircularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
+            load_parameter = [magnitude_center, magnitude_radius, load_location_x, load_location_y, load_location_radius]
+        '''
+
+        # Client model | Free Concentrated Load
+        clientObject = clientModel.factory.create('ns0:free_circular_load')
+
+        # Clears object attributes | Sets all attributes to None
+        clearAtributes(clientObject)
+
+        # Load No.
+        clientObject.no = no
+        
+        # Load Case No.
+        clientObject.load_case = load_case_no
+        
+        # Assigned Surfaces No.
+        clientObject.surfaces = ConvertToDlString(surfaces_no)
+
+        # Load Distribution
+        clientObject.load_distribution = load_distribution.name
+
+        # Load Projection
+        clientObject.load_projection = load_projection.name
+        
+        # Load Direction
+        clientObject.load_direction = load_direction.name
+        
+        # Load Parameter
+        if load_distribution.name == 'LOAD_DISTRIBUTION_UNIFORM':
+            if len(load_parameter) != 4:
+                raise Exception('WARNING: The load parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
+            clientObject.magnitude_uniform = load_parameter[0]
+            clientObject.load_location_x = load_parameter[1]
+            clientObject.load_location_y = load_parameter[2]
+            clientObject.load_location_radius = load_parameter[3]
+
+        elif load_distribution.name == 'LOAD_DISTRIBUTION_LINEAR':
+            if len(load_parameter) != 5:
+                raise Exception('WARNING: The load parameter needs to be of length 5. Kindly check list inputs for completeness and correctness.')
+            clientObject.magnitude_center = load_parameter[0]
+            clientObject.magnitude_radius = load_parameter[1]
+            clientObject.load_location_x = load_parameter[2]
+            clientObject.load_location_y = load_parameter[3]
+            clientObject.load_location_radius = load_parameter[4]
+
+        # Comment
+        clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
+
+        # Add Free Concentrated Load to client model          
+        clientModel.service.set_free_circular_load(load_case_no, clientObject)
