@@ -567,8 +567,8 @@ class Thickness():
 
         # Stiffness Matrix - Bending/Torsional Stiffness Elements
         array_count = []
-        [array_count.append(item_length) for item_length in stiffness_matrix]
-        if array_count != [3, 6, 3, 3, 6, 3, 6]:
+        [array_count.append(len(item_length)) for item_length in stiffness_matrix]
+        if array_count != [6, 3, 6, 6]:
             raise Exception('WARNING: Kindly check Stiffness Matrix inputs for completeness and correctness.')
         clientObject.D11, clientObject.D12, clientObject.D13 = stiffness_matrix[0][0], stiffness_matrix[0][1], stiffness_matrix[0][2]
         clientObject.D22, clientObject.D23, clientObject.D33 = stiffness_matrix[0][3], stiffness_matrix[0][4], stiffness_matrix[0][5]
