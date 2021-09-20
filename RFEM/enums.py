@@ -2,7 +2,7 @@ from enum import Enum
 
 class MemberType(Enum):
     '''
-    Member Type | Enum
+    Member Type | Enu
     '''
     TYPE_BEAM, TYPE_BUCKLING, TYPE_CABLE, TYPE_COMPRESSION, TYPE_COUPLING_HINGE_HINGE,\
     TYPE_COUPLING_HINGE_RIGID, TYPE_COUPLING_RIGID_HINGE, TYPE_COUPLING_RIGID_RIGID,\
@@ -120,19 +120,6 @@ class SetType(Enum):
     '''
     SET_TYPE_CONTINUOUS, SET_TYPE_GROUP = range(2)
 
-class LineArcAlphaAdjustmentTarget(Enum):
-    '''
-    Line Arc Alpha Adjustment Target | Enum
-    '''
-    ALPHA_ADJUSTMENT_TARGET_ARC_CONTROL_POINT, ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC, \
-    ALPHA_ADJUSTMENT_TARGET_END_OF_ARC = range(3)
-
-class LineType(Enum):
-    '''
-    Line Type | Enum
-    '''
-    TYPE_ARC, TYPE_CIRCLE, TYPE_CUT_VIA_SECTION, TYPE_CUT_VIA_TWO_LINES, TYPE_ELLIPTICAL_ARC, TYPE_ELLIPSE, TYPE_NURBS, TYPE_PARABOLA, TYPE_POLYLINE, TYPE_SPLINE = range(10)
-
 class NodalLoadType(Enum):
     '''
     Nodal Load Type | Enum
@@ -161,6 +148,117 @@ class NodalLoadMassAxisRotation(Enum):
 
     AXIS_OF_ROTATION_X_NEGATIVE, AXIS_OF_ROTATION_X_POSITIVE, AXIS_OF_ROTATION_Y_NEGATIVE, AXIS_OF_ROTATION_Y_POSITIVE, AXIS_OF_ROTATION_Z_NEGATIVE, AXIS_OF_ROTATION_Z_POSITIVE = range(6)
 
+class MemberLoadEccentricityHorizontalAlignment(Enum):
+    '''
+    Member Load Eccentricity Horizontal Alignment
+    '''
+
+    ALIGN_LEFT, ALIGN_MIDDLE, ALIGN_NONE, ALIGN_TOP = range(4)
+
+
+class MemberLoadEccentricityVerticalAlignment(Enum):
+    '''
+    Member Load Eccentricity Vertical Alignment
+    '''
+
+    ALIGN_LEFT, ALIGN_MIDDLE, ALIGN_NONE, ALIGN_TOP = range(4)
+
+class MemberLoadEccentricitySectionMiddle(Enum):
+    '''
+    Member Load Eccentricity Section Middle
+    '''
+
+    LOAD_ECCENTRICITY_SECTION_MIDDLE_CENTER_OF_GRAVITY, LOAD_ECCENTRICITY_SECTION_MIDDLE_NONE, LOAD_ECCENTRICITY_SECTION_MIDDLE_SHEAR_CENTER = range(3)
+
+class MemberLoadFormFindingDefinitionType(Enum):
+    '''
+    Member Load Form Finding Definition Type
+    '''
+
+    FORM_FINDING_TYPE_FORCE, FORM_FINDING_TYPE_GEOMETRIC = range(2)
+
+class MemberLoadFormFindingForceDefinition(Enum):
+    '''
+    Member Load Form Finding Force Definition
+    '''
+
+    FORM_FINDING_FORCE_INPUT_PARAMETER_AVERAGE, FORM_FINDING_FORCE_INPUT_PARAMETER_DENSITY, FORM_FINDING_FORCE_INPUT_PARAMETER_HORIZONTAL_TENSION_COMPONENT, \
+    FORM_FINDING_FORCE_INPUT_PARAMETER_MAXIMUM_FORCE_IN_MEMBER, FORM_FINDING_FORCE_INPUT_PARAMETER_MINIMAL_TENSION_AT_I_END, \
+    FORM_FINDING_FORCE_INPUT_PARAMETER_MINIMAL_TENSION_AT_J_END, FORM_FINDING_FORCE_INPUT_PARAMETER_MINIMUM_FORCE_IN_MEMBER,\
+    FORM_FINDING_FORCE_INPUT_PARAMETER_TENSION_AT_I_END, FORM_FINDING_FORCE_INPUT_PARAMETER_TENSION_AT_J_END = range(9)
+
+class MemberLoadFormFindingGeometryDefinition(Enum):
+    '''
+    Member Load Form Finding Geometry Definition
+    '''
+
+    FORM_FINDING_GEOMETRIC_INPUT_PARAMETER_LENGTH, FORM_FINDING_GEOMETRIC_INPUT_PARAMETER_LOW_POINT_VERTICAL_SAG, \
+    FORM_FINDING_GEOMETRIC_INPUT_PARAMETER_MAXIMUM_VERTICAL_SAG, FORM_FINDING_GEOMETRIC_INPUT_PARAMETER_SAG, \
+    FORM_FINDING_GEOMETRIC_INPUT_PARAMETER_UNSTRESSED_LENGTH = range(5)
+
+class MemberLoadFormFindingInternalForce(Enum):
+    '''
+    Member Load Form Finding Internal Force
+    '''
+
+    FORM_FINDING_INTERNAL_FORCE_COMPRESSION, FORM_FINDING_INTERNAL_FORCE_TENSION = range(2)
+
+class MemberLoadDirectionOrientation(Enum):
+    '''
+    Member Load Direction Orientation
+    '''
+    LOAD_DIRECTION_FORWARD, LOAD_DIRECTION_REVERSED = range(2)
+
+class MemberLoadAxisDefinitionType(Enum):
+    '''
+    Member Load Axis Definition
+    '''
+    AXIS_DEFINITION_POINT_AND_AXIS, AXIS_DEFINITION_TWO_POINTS = range(2)
+
+class MemberLoadAxisDefinition(Enum):
+    '''
+    Member Load Axis Definition
+    '''
+    AXIS_X, AXIS_Y, AXIS_Z = range(3)
+
+class MemberLoadAxisDefinitionAxisOrientation(Enum):
+    '''
+    Member Load Axis Definition Axis Orientation
+    '''
+
+    AXIS_NEGATIVE, AXIS_POSITIVE = range(2)
+
+class SurfaceLoadAxisDefinitionAxis(Enum):
+    '''
+    Surface Load Axis Definition Axis
+    '''
+    AXIS_X, AXIS_Y, AXIS_Z = range(3)
+
+class SurfaceLoadAxisDirectionType(Enum):
+    '''
+    Surface Load Axis Direction Type
+    '''
+    AXIS_NEGATIVE, AXIS_POSITIVE = range(2)
+
+class SurfaceLoadAxisDefinitionType(Enum):
+    '''
+    Surface Load Axis Definition Type
+    '''
+    AXIS_DEFINITION_POINT_AND_AXIS, AXIS_DEFINITION_TWO_POINTS = range(2)
+
+class SurfaceLoadDirection(Enum):
+    '''
+    Surface Load Load Direction
+    '''
+    LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED, LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE,\
+    LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, LOAD_DIRECTION_LOCAL_X, LOAD_DIRECTION_LOCAL_Y, LOAD_DIRECTION_LOCAL_Z = range(9)
+    
+class SurfaceLoadType(Enum):
+    '''
+    Surface Load Type
+    '''
+    LOAD_TYPE_AXIAL_STRAIN, LOAD_TYPE_FORCE, LOAD_TYPE_FORM_FINDING, LOAD_TYPE_MASS, LOAD_TYPE_PRECAMBER, LOAD_TYPE_ROTARY_MOTION, LOAD_TYPE_TEMPERATURE = range(7)
+    
 class NodeType(Enum):
     '''
     Node Type | Enum
@@ -180,3 +278,10 @@ class NodeReferenceType(Enum):
     Node Reference Type| Enum
     '''
     REFERENCE_TYPE_L, REFERENCE_TYPE_XY, REFERENCE_TYPE_XZ, REFERENCE_TYPE_YZ = range (4)
+
+class LineArcAlphaAdjustmentTarget(Enum):
+    '''
+    Line Arc Alpha Adjustment Target | Enum
+    '''
+    ALPHA_ADJUSTMENT_TARGET_ARC_CONTROL_POINT, ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC, \
+    ALPHA_ADJUSTMENT_TARGET_END_OF_ARC = range(3)
