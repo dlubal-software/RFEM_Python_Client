@@ -62,25 +62,18 @@ class NodalLoad():
               params= {}):
         '''
         Assigns force type nodal lode. Further options are available. 
-
         For specific_direction type DIRECTION_TYPE_ROTATED_VIA_3_ANGLES;
         params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_ROTATED_VIA_3_ANGLES, NodalLoadAxesSequence, angle_1, angle_2, angle_3, angle_x, angle_y, angle_z]}
-
         For specific_direction type DIRECTION_TYPE_DIRECTED_TO_NODE;
         params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_DIRECTED_TO_NODE, nodes_no]}
-
         For specific_direction type DIRECTION_TYPE_PARALLEL_TO_TWO_NODES;
         params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_TWO_NODES, nodes_no]}
-
         For specific_direction type DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE;
         params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE, line_no]}
-
         For specific_direction type DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER;
         params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER, member_no]}
-
         For force_eccentricity;
         params={'force_eccentricity' : [ex, ey, ez]}
-
         For shifted_display;
         params={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
         '''
@@ -123,6 +116,7 @@ class NodalLoad():
 
             clientObject.has_specific_direction = specific_direction
             clientObject.specific_direction_type = params_s[0].name
+
 
             if params_s[0] == NodalLoadSpecificDirectionType.DIRECTION_TYPE_ROTATED_VIA_3_ANGLES:
                 clientObject.axes_sequence = params_s[1].name
@@ -200,22 +194,16 @@ class NodalLoad():
               params: dict = {}):
         '''
         Assigns moment type nodal lode. Further options are available. 
-
         For specific_direction type DIRECTION_TYPE_ROTATED_VIA_3_ANGLES;
         params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_ROTATED_VIA_3_ANGLES, NodalLoadAxesSequence, angle_1, angle_2, angle_3, angle_x, angle_y, angle_z]}
-
         For specific_direction type DIRECTION_TYPE_DIRECTED_TO_NODE;
         params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_DIRECTED_TO_NODE, nodes_no]}
-
         For specific_direction type DIRECTION_TYPE_PARALLEL_TO_TWO_NODES;
         params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_TWO_NODES, nodes_no]}
-
         For specific_direction type DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE;
         params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE, line_no]}
-
         For specific_direction type DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER;
         params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER, member_no]}
-
         For shifted_display;
         params={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
         '''
@@ -322,16 +310,12 @@ class NodalLoad():
               params: dict= {}):
         '''
         Assigns component type nodal lode. Further options are available. 
-
         For specific_direction type DIRECTION_TYPE_ROTATED_VIA_3_ANGLES;
         params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_ROTATED_VIA_3_ANGLES, NodalLoadAxesSequence, angle_1, angle_2, angle_3, angle_x, angle_y, angle_z]}
-
         For specific_direction type DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE;
         params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE, line_no]}
-
         For specific_direction type DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER;
         params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER, member_no]}
-
         For force_eccentricity;
         params={'force_eccentricity' : [ex, ey, ez]}
         
