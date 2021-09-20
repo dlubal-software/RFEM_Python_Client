@@ -67,7 +67,7 @@ class Node():
         # Add Node to client model
         clientModel.service.set_node(clientObject)
 
-     def BetweenTwoNodes(self,
+    def BetweenTwoNodes(self,
                  no: int = 1,
                  start_node_no: int = 1,
                  end_node_no: int = 2,
