@@ -4,7 +4,7 @@
 import sys
 sys.path.append(".")
 
-# Import der Bibliotheken
+# Import the relevant Libraries
 from os import name
 from RFEM.enums import *
 #from RFEM.window import *
@@ -35,14 +35,14 @@ if __name__ == '__main__':
 
     clientModel.service.begin_modification('new')
 
-    # Prüfung der vorgegebenen Flächefunktion
+    # Testing the Default Function
     Node(1, 0, -30, 0), Node(2, 10, -30, 0), Node(3, 10, -20, 0), Node(4, 0, -20, 0)
     Line(1, '1 2'), Line(2, '2 3'), Line(3, '3 4'), Line(4, '4 1')
     Material(name='C30/37')
     Thickness()
     Surface()
 
-    # STANDARD EBENE FLÄCHE
+    # Standard Even Load Distribution
     Node(5, 0, -15, 0), Node(6, 10, -15, 0), Node(7, 10, -5, 0), Node(8, 0, -5, 0)
     Line(5, '5 6'), Line(6, '6 7'), Line(7, '7 8'), Line(8, '8 5')
     Surface.LoadDistribution(1, 2, boundary_lines_no= '5 6 7 8', load_distribution_direction=SurfaceLoadDistributionDirection.LOAD_DISTRIBUTION_DIRECTION_IN_BOTH,
