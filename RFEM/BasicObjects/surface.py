@@ -54,7 +54,7 @@ class Surface():
             geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
         
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
-            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
+            geometry_type_parameters = None
         
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
@@ -76,6 +76,8 @@ class Surface():
         boundary_lines_list = boundary_lines_no.split(sep= ' ')
 
         if geometry_type.name == 'GEOMETRY_NURBS':
+            if len(geometry_type_parameters) != 4:
+                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
             for line in boundary_lines_list:
                 if clientModel.service.get_line(int(line))['type'] != 'TYPE_NURBS':
                     raise Exception('WARNING: For a NURBS Surface, the boundary lines need to be NURBS Curves')
@@ -88,6 +90,8 @@ class Surface():
             geometry_type_parameters = None
         
         elif geometry_type.name == 'GEOMETRY_QUADRANGLE':
+            if len(geometry_type_parameters) != 4:
+                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
             clientObject.quadrangle_corner_node_1 = geometry_type_parameters[0]
             clientObject.quadrangle_corner_node_2 = geometry_type_parameters[1]
             clientObject.quadrangle_corner_node_3 = geometry_type_parameters[2]
@@ -124,7 +128,7 @@ class Surface():
             geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
         
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
-            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
+            geometry_type_parameters = None
         
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
@@ -146,6 +150,8 @@ class Surface():
         boundary_lines_list = boundary_lines_no.split(sep= ' ')
 
         if geometry_type.name == 'GEOMETRY_NURBS':
+            if len(geometry_type_parameters) != 4:
+                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
             for line in boundary_lines_list:
                 if clientModel.service.get_line(int(line))['type'] != 'TYPE_NURBS':
                     raise Exception('WARNING: For a NURBS Surface, the boundary lines need to be NURBS Curves')
@@ -158,6 +164,8 @@ class Surface():
             geometry_type_parameters = None
         
         elif geometry_type.name == 'GEOMETRY_QUADRANGLE':
+            if len(geometry_type_parameters) != 4:
+                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
             clientObject.quadrangle_corner_node_1 = geometry_type_parameters[0]
             clientObject.quadrangle_corner_node_2 = geometry_type_parameters[1]
             clientObject.quadrangle_corner_node_3 = geometry_type_parameters[2]
@@ -191,7 +199,7 @@ class Surface():
             geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
         
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
-            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
+            geometry_type_parameters = None
         
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
@@ -213,6 +221,8 @@ class Surface():
         boundary_lines_list = boundary_lines_no.split(sep= ' ')
 
         if geometry_type.name == 'GEOMETRY_NURBS':
+            if len(geometry_type_parameters) != 4:
+                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
             for line in boundary_lines_list:
                 if clientModel.service.get_line(int(line))['type'] != 'TYPE_NURBS':
                     raise Exception('WARNING: For a NURBS Surface, the boundary lines need to be NURBS Curves')
@@ -225,6 +235,8 @@ class Surface():
             geometry_type_parameters = None
         
         elif geometry_type.name == 'GEOMETRY_QUADRANGLE':
+            if len(geometry_type_parameters) != 4:
+                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
             clientObject.quadrangle_corner_node_1 = geometry_type_parameters[0]
             clientObject.quadrangle_corner_node_2 = geometry_type_parameters[1]
             clientObject.quadrangle_corner_node_3 = geometry_type_parameters[2]
@@ -259,7 +271,7 @@ class Surface():
             geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
         
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
-            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
+            geometry_type_parameters = None
         
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
@@ -281,6 +293,8 @@ class Surface():
         boundary_lines_list = boundary_lines_no.split(sep= ' ')
 
         if geometry_type.name == 'GEOMETRY_NURBS':
+            if len(geometry_type_parameters) != 4:
+                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
             for line in boundary_lines_list:
                 if clientModel.service.get_line(int(line))['type'] != 'TYPE_NURBS':
                     raise Exception('WARNING: For a NURBS Surface, the boundary lines need to be NURBS Curves')
@@ -293,6 +307,8 @@ class Surface():
             geometry_type_parameters = None
         
         elif geometry_type.name == 'GEOMETRY_QUADRANGLE':
+            if len(geometry_type_parameters) != 4:
+                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
             clientObject.quadrangle_corner_node_1 = geometry_type_parameters[0]
             clientObject.quadrangle_corner_node_2 = geometry_type_parameters[1]
             clientObject.quadrangle_corner_node_3 = geometry_type_parameters[2]
@@ -330,7 +346,7 @@ class Surface():
             geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
         
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
-            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
+            geometry_type_parameters = None
         
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
@@ -352,6 +368,8 @@ class Surface():
         boundary_lines_list = boundary_lines_no.split(sep= ' ')
 
         if geometry_type.name == 'GEOMETRY_NURBS':
+            if len(geometry_type_parameters) != 4:
+                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
             for line in boundary_lines_list:
                 if clientModel.service.get_line(int(line))['type'] != 'TYPE_NURBS':
                     raise Exception('WARNING: For a NURBS Surface, the boundary lines need to be NURBS Curves')
@@ -364,6 +382,8 @@ class Surface():
             geometry_type_parameters = None
         
         elif geometry_type.name == 'GEOMETRY_QUADRANGLE':
+            if len(geometry_type_parameters) != 4:
+                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
             clientObject.quadrangle_corner_node_1 = geometry_type_parameters[0]
             clientObject.quadrangle_corner_node_2 = geometry_type_parameters[1]
             clientObject.quadrangle_corner_node_3 = geometry_type_parameters[2]
@@ -407,7 +427,7 @@ class Surface():
             geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
         
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
-            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
+            geometry_type_parameters = None
         
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
