@@ -316,7 +316,7 @@ class Surface():
         # Add Surface to client model
         clientModel.service.set_surface(clientObject)
 
-    def WithoutMmeberaneTension(self,
+    def WithoutMemberaneTension(self,
                  no: int = 1,
                  geometry_type = SurfaceGeometry.GEOMETRY_PLANE,
                  geometry_type_parameters = None,
