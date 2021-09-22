@@ -72,48 +72,16 @@ class Surface():
         # Surface Type
         clientObject.type = SurfaceType.TYPE_STANDARD.name
 
-        # Geometry Type
-        boundary_lines_list = boundary_lines_no.split(sep= ' ')
-
-        if geometry_type.name == 'GEOMETRY_NURBS':
-            if len(geometry_type_parameters) != 4:
-                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
-            for line in boundary_lines_list:
-                if clientModel.service.get_line(int(line))['type'] != 'TYPE_NURBS':
-                    raise Exception('WARNING: For a NURBS Surface, the boundary lines need to be NURBS Curves')
-            clientObject.nurbs_control_point_count_in_direction_u = geometry_type_parameters[0]
-            clientObject.nurbs_control_point_count_in_direction_v = geometry_type_parameters[1]
-            clientObject.nurbs_order_in_direction_u = geometry_type_parameters[2]
-            clientObject.nurbs_order_in_direction_v = geometry_type_parameters[3]
-        
-        elif geometry_type.name == 'GEOMETRY_PLANE':
-            geometry_type_parameters = None
-        
-        elif geometry_type.name == 'GEOMETRY_QUADRANGLE':
-            if len(geometry_type_parameters) != 4:
-                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
-            clientObject.quadrangle_corner_node_1 = geometry_type_parameters[0]
-            clientObject.quadrangle_corner_node_2 = geometry_type_parameters[1]
-            clientObject.quadrangle_corner_node_3 = geometry_type_parameters[2]
-            clientObject.quadrangle_corner_node_4 = geometry_type_parameters[3]
-
-        clientObject.geometry = geometry_type.name
-
-        # Lines No. (e.g. "5 7 8 12")
-        clientObject.boundary_lines = ConvertToDlString(boundary_lines_no)
-
-        # Thickness
-        clientObject.thickness = thickness
-
-        # Comment
-        clientObject.comment = comment
-
-        # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
-
-        # Add Surface to client model
-        clientModel.service.set_surface(clientObject)
+        # Reptitive code between various functions migrated to a private method
+        self.type = SurfaceType.TYPE_STANDARD.name
+        self.boundary_lines_no = boundary_lines_no
+        self.geometry_type = geometry_type
+        self.geometry_type_parameters = geometry_type_parameters
+        self.thickness = thickness
+        self.comment = comment
+        self.params = params
+        self.clientObject = clientObject
+        self.__PrivateMethod(self)
 
     def WithoutThickness(self,
                  no: int = 1,
@@ -146,45 +114,15 @@ class Surface():
         # Surface Type
         clientObject.type = SurfaceType.TYPE_WITHOUT_THICKNESS.name
 
-        # Geometry Type
-        boundary_lines_list = boundary_lines_no.split(sep= ' ')
-
-        if geometry_type.name == 'GEOMETRY_NURBS':
-            if len(geometry_type_parameters) != 4:
-                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
-            for line in boundary_lines_list:
-                if clientModel.service.get_line(int(line))['type'] != 'TYPE_NURBS':
-                    raise Exception('WARNING: For a NURBS Surface, the boundary lines need to be NURBS Curves')
-            clientObject.nurbs_control_point_count_in_direction_u = geometry_type_parameters[0]
-            clientObject.nurbs_control_point_count_in_direction_v = geometry_type_parameters[1]
-            clientObject.nurbs_order_in_direction_u = geometry_type_parameters[2]
-            clientObject.nurbs_order_in_direction_v = geometry_type_parameters[3]
-        
-        elif geometry_type.name == 'GEOMETRY_PLANE':
-            geometry_type_parameters = None
-        
-        elif geometry_type.name == 'GEOMETRY_QUADRANGLE':
-            if len(geometry_type_parameters) != 4:
-                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
-            clientObject.quadrangle_corner_node_1 = geometry_type_parameters[0]
-            clientObject.quadrangle_corner_node_2 = geometry_type_parameters[1]
-            clientObject.quadrangle_corner_node_3 = geometry_type_parameters[2]
-            clientObject.quadrangle_corner_node_4 = geometry_type_parameters[3]
-
-        clientObject.geometry = geometry_type.name
-
-        # Lines No. (e.g. "5 7 8 12")
-        clientObject.boundary_lines = ConvertToDlString(boundary_lines_no)
-
-        # Comment
-        clientObject.comment = comment
-
-        # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
-
-        # Add Surface to client model
-        clientModel.service.set_surface(clientObject)
+        # Reptitive code between various functions migrated to a private method
+        self.type = SurfaceType.TYPE_WITHOUT_THICKNESS.name
+        self.boundary_lines_no = boundary_lines_no
+        self.geometry_type = geometry_type
+        self.geometry_type_parameters = geometry_type_parameters
+        self.comment = comment
+        self.params = params
+        self.clientObject = clientObject
+        self.__PrivateMethod(self)
 
     def Rigid(self,
                  no: int = 1,
@@ -217,45 +155,15 @@ class Surface():
         # Surface Type
         clientObject.type = SurfaceType.TYPE_RIGID.name
 
-        # Geometry Type
-        boundary_lines_list = boundary_lines_no.split(sep= ' ')
-
-        if geometry_type.name == 'GEOMETRY_NURBS':
-            if len(geometry_type_parameters) != 4:
-                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
-            for line in boundary_lines_list:
-                if clientModel.service.get_line(int(line))['type'] != 'TYPE_NURBS':
-                    raise Exception('WARNING: For a NURBS Surface, the boundary lines need to be NURBS Curves')
-            clientObject.nurbs_control_point_count_in_direction_u = geometry_type_parameters[0]
-            clientObject.nurbs_control_point_count_in_direction_v = geometry_type_parameters[1]
-            clientObject.nurbs_order_in_direction_u = geometry_type_parameters[2]
-            clientObject.nurbs_order_in_direction_v = geometry_type_parameters[3]
-        
-        elif geometry_type.name == 'GEOMETRY_PLANE':
-            geometry_type_parameters = None
-        
-        elif geometry_type.name == 'GEOMETRY_QUADRANGLE':
-            if len(geometry_type_parameters) != 4:
-                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
-            clientObject.quadrangle_corner_node_1 = geometry_type_parameters[0]
-            clientObject.quadrangle_corner_node_2 = geometry_type_parameters[1]
-            clientObject.quadrangle_corner_node_3 = geometry_type_parameters[2]
-            clientObject.quadrangle_corner_node_4 = geometry_type_parameters[3]
-
-        clientObject.geometry = geometry_type.name
-
-        # Lines No. (e.g. "5 7 8 12")
-        clientObject.boundary_lines = ConvertToDlString(boundary_lines_no)
-
-        # Comment
-        clientObject.comment = comment
-
-        # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
-
-        # Add Surface to client model
-        clientModel.service.set_surface(clientObject)
+        # Reptitive code between various functions migrated to a private method
+        self.type = SurfaceType.TYPE_RIGID.name
+        self.boundary_lines_no = boundary_lines_no
+        self.geometry_type = geometry_type
+        self.geometry_type_parameters = geometry_type_parameters
+        self.comment = comment
+        self.params = params
+        self.clientObject = clientObject
+        self.__PrivateMethod(self)
 
     def Membrane(self,
                  no: int = 1,
@@ -289,48 +197,16 @@ class Surface():
         # Surface Type
         clientObject.type = SurfaceType.TYPE_MEMBRANE.name
 
-        # Geometry Type
-        boundary_lines_list = boundary_lines_no.split(sep= ' ')
-
-        if geometry_type.name == 'GEOMETRY_NURBS':
-            if len(geometry_type_parameters) != 4:
-                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
-            for line in boundary_lines_list:
-                if clientModel.service.get_line(int(line))['type'] != 'TYPE_NURBS':
-                    raise Exception('WARNING: For a NURBS Surface, the boundary lines need to be NURBS Curves')
-            clientObject.nurbs_control_point_count_in_direction_u = geometry_type_parameters[0]
-            clientObject.nurbs_control_point_count_in_direction_v = geometry_type_parameters[1]
-            clientObject.nurbs_order_in_direction_u = geometry_type_parameters[2]
-            clientObject.nurbs_order_in_direction_v = geometry_type_parameters[3]
-        
-        elif geometry_type.name == 'GEOMETRY_PLANE':
-            geometry_type_parameters = None
-        
-        elif geometry_type.name == 'GEOMETRY_QUADRANGLE':
-            if len(geometry_type_parameters) != 4:
-                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
-            clientObject.quadrangle_corner_node_1 = geometry_type_parameters[0]
-            clientObject.quadrangle_corner_node_2 = geometry_type_parameters[1]
-            clientObject.quadrangle_corner_node_3 = geometry_type_parameters[2]
-            clientObject.quadrangle_corner_node_4 = geometry_type_parameters[3]
-
-        clientObject.geometry = geometry_type.name
-
-        # Lines No. (e.g. "5 7 8 12")
-        clientObject.boundary_lines = ConvertToDlString(boundary_lines_no)
-
-        # Thickness
-        clientObject.thickness = thickness
-
-        # Comment
-        clientObject.comment = comment
-
-        # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
-
-        # Add Surface to client model
-        clientModel.service.set_surface(clientObject)
+        # Reptitive code between various functions migrated to a private method
+        self.type = SurfaceType.TYPE_MEMBRANE.name
+        self.boundary_lines_no = boundary_lines_no
+        self.geometry_type = geometry_type
+        self.geometry_type_parameters = geometry_type_parameters
+        self.thickness = thickness
+        self.comment = comment
+        self.params = params
+        self.clientObject = clientObject
+        self.__PrivateMethod(self)
 
     def WithoutMemberaneTension(self,
                  no: int = 1,
@@ -364,48 +240,16 @@ class Surface():
         # Surface Type
         clientObject.type = SurfaceType.TYPE_WITHOUT_MEMBRANE_TENSION.name
 
-        # Geometry Type
-        boundary_lines_list = boundary_lines_no.split(sep= ' ')
-
-        if geometry_type.name == 'GEOMETRY_NURBS':
-            if len(geometry_type_parameters) != 4:
-                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
-            for line in boundary_lines_list:
-                if clientModel.service.get_line(int(line))['type'] != 'TYPE_NURBS':
-                    raise Exception('WARNING: For a NURBS Surface, the boundary lines need to be NURBS Curves')
-            clientObject.nurbs_control_point_count_in_direction_u = geometry_type_parameters[0]
-            clientObject.nurbs_control_point_count_in_direction_v = geometry_type_parameters[1]
-            clientObject.nurbs_order_in_direction_u = geometry_type_parameters[2]
-            clientObject.nurbs_order_in_direction_v = geometry_type_parameters[3]
-        
-        elif geometry_type.name == 'GEOMETRY_PLANE':
-            geometry_type_parameters = None
-        
-        elif geometry_type.name == 'GEOMETRY_QUADRANGLE':
-            if len(geometry_type_parameters) != 4:
-                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
-            clientObject.quadrangle_corner_node_1 = geometry_type_parameters[0]
-            clientObject.quadrangle_corner_node_2 = geometry_type_parameters[1]
-            clientObject.quadrangle_corner_node_3 = geometry_type_parameters[2]
-            clientObject.quadrangle_corner_node_4 = geometry_type_parameters[3]
-
-        clientObject.geometry = geometry_type.name
-
-        # Lines No. (e.g. "5 7 8 12")
-        clientObject.boundary_lines = ConvertToDlString(boundary_lines_no)
-
-        # Thickness
-        clientObject.thickness = thickness
-
-        # Comment
-        clientObject.comment = comment
-
-        # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
-
-        # Add Surface to client model
-        clientModel.service.set_surface(clientObject)
+        # Reptitive code between various functions migrated to a private method
+        self.type = SurfaceType.TYPE_WITHOUT_MEMBRANE_TENSION.name
+        self.boundary_lines_no = boundary_lines_no
+        self.geometry_type = geometry_type
+        self.geometry_type_parameters = geometry_type_parameters
+        self.thickness = thickness
+        self.comment = comment
+        self.params = params
+        self.clientObject = clientObject
+        self.__PrivateMethod(self)
 
     def LoadDistribution(self,
                  no: int = 1,
@@ -483,3 +327,49 @@ class Surface():
 
         # Add Surface to client model
         clientModel.service.set_surface(clientObject)
+    
+    def __PrivateMethod(self):
+
+        # Geometry Type
+        boundary_lines_list = self.boundary_lines_no.split(sep= ' ')
+
+        if self.geometry_type.name == 'GEOMETRY_NURBS':
+            if len(self.geometry_type_parameters) != 4:
+                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
+            for line in boundary_lines_list:
+                if clientModel.service.get_line(int(line))['type'] != 'TYPE_NURBS':
+                    raise Exception('WARNING: For a NURBS Surface, the boundary lines need to be NURBS Curves')
+            self.clientObject.nurbs_control_point_count_in_direction_u = self.geometry_type_parameters[0]
+            self.clientObject.nurbs_control_point_count_in_direction_v = self.geometry_type_parameters[1]
+            self.clientObject.nurbs_order_in_direction_u = self.geometry_type_parameters[2]
+            self.clientObject.nurbs_order_in_direction_v = self.geometry_type_parameters[3]
+        
+        elif self.geometry_type.name == 'GEOMETRY_PLANE':
+            self.geometry_type_parameters = None
+        
+        elif self.geometry_type.name == 'GEOMETRY_QUADRANGLE':
+            if len(self.geometry_type_parameters) != 4:
+                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
+            self.clientObject.quadrangle_corner_node_1 = self.geometry_type_parameters[0]
+            self.clientObject.quadrangle_corner_node_2 = self.geometry_type_parameters[1]
+            self.clientObject.quadrangle_corner_node_3 = self.geometry_type_parameters[2]
+            self.clientObject.quadrangle_corner_node_4 = self.geometry_type_parameters[3]
+
+        self.clientObject.geometry = self.geometry_type.name
+
+        # Lines No. (e.g. "5 7 8 12")
+        self.clientObject.boundary_lines = ConvertToDlString(self.boundary_lines_no)
+
+        # Thickness
+        if self.type == 'TYPE_STANDARD'or self.type == 'TYPE_MEMBRANE' or self.type == 'TYPE_WITHOUT_MEMBRANE_TENSION':
+            self.clientObject.thickness = self.thickness
+
+        # Comment
+        self.clientObject.comment = self.comment
+
+        # Adding optional parameters via dictionary
+        for key in self.params:
+            self.clientObject[key] = self.params[key]
+
+        # Add Surface to client model
+        clientModel.service.set_surface(self.clientObject)
