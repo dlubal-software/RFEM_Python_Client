@@ -9,9 +9,9 @@ class FreeLoad():
                  no: int = 1,
                  load_case_no: int = 1,
                  surfaces_no = '1',
-                 load_direction = FreeConcentratedLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z,
-                 load_projection = FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                  load_type = FreeConcentratedLoadLoadType.LOAD_TYPE_FORCE,
+                 load_projection = FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
+                 load_direction = FreeConcentratedLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z,
                  load_parameter = [1000, 0, 0],
                  comment: str = '',
                  params: dict = {}):
@@ -72,9 +72,9 @@ class FreeLoad():
                  no: int = 1,
                  load_case_no: int = 1,
                  surfaces_no = '1',
-                 load_direction = FreeLineLoadLoadDirection.LOAD_DIRECTION_LOCAL_Z,
                  load_distribution = FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_projection = FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
+                 load_direction = FreeLineLoadLoadDirection.LOAD_DIRECTION_LOCAL_Z,
                  load_parameter = [],
                  comment: str = '',
                  params: dict = {}):
