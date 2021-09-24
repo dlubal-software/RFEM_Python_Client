@@ -189,7 +189,7 @@ class MemberLoad():
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load').varying_load_parameters
+            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load.varying_load_parameters')
 
             for i in range(len(load_parameter)):
                 mlvlp = clientModel.factory.create('ns0:member_load_varying_load_parameters')
@@ -248,7 +248,7 @@ class MemberLoad():
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load').varying_load_parameters
+            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load.varying_load_parameters')
             for i in range(len(load_parameter)):
                 mlvlp = clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.no = i+1
@@ -269,7 +269,7 @@ class MemberLoad():
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load').varying_load_parameters
+            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load.varying_load_parameters')
             for i in range(len(load_parameter)):
                 mlvlp = clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.no = i+1
@@ -458,7 +458,7 @@ class MemberLoad():
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load').varying_load_parameters
+            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load.varying_load_parameters')
 
             for i in range(len(load_parameter)):
                 mlvlp = clientModel.factory.create('ns0:member_load_varying_load_parameters')
@@ -517,7 +517,7 @@ class MemberLoad():
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load').varying_load_parameters
+            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load.varying_load_parameters')
             for i in range(len(load_parameter)):
                 mlvlp = clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.no = i+1
@@ -719,7 +719,7 @@ class MemberLoad():
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load').varying_load_parameters
+            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load.varying_load_parameters')
             for i in range(len(load_parameter)):
                 mlvlp = clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.no = i+1
@@ -868,7 +868,7 @@ class MemberLoad():
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load').varying_load_parameters
+            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load.varying_load_parameters')
             for i in range(len(load_parameter)):
                 mlvlp = clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.no = i+1
@@ -1005,7 +1005,7 @@ class MemberLoad():
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load').varying_load_parameters
+            clientObject.varying_load_parameters = clientModel.factory.create('ns0:member_load.varying_load_parameters')
             for i in range(len(load_parameter)):
                 mlvlp = clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.no = i+1
