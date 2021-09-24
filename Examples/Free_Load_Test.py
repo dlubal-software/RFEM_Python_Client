@@ -65,9 +65,11 @@ if __name__ == '__main__':
     FreeLoad.ConcentratedLoad(FreeLoad, 2, 1, load_parameter= [50, 8, 8], load_type= FreeConcentratedLoadLoadType.LOAD_TYPE_MOMENT, load_direction= FreeConcentratedLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Y)
 
     # Prüfung der freien Linienlasten
-    FreeLoad.LineLoad(FreeLoad, 3, 1, '1', FreeLineLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE, 
-                     FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
-                     [5000, 2, 2, 4, 4])
+    FreeLoad.LineLoad(FreeLoad, 3, 1, '1',
+                        FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
+                        FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
+                        FreeLineLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE, 
+                        [5000, 2, 2, 4, 4])
     
     # Prüfung der freien Rechtecklasten
 
