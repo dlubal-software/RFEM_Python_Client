@@ -31,10 +31,10 @@ class LoadCase():
         clientObject.analysis_type = analysis_type.name
 
         # Analysis Settings No.
-        if analysis_type == AnalysisType.ANALYSIS_TYPE_STATIC:
-            clientObject.static_analysis_settings = analysis_settings_no
-        else:
-            printInitErr('Load Case', no, 'Static Analysis Settings')
+        #if analysis_type == AnalysisType.ANALYSIS_TYPE_STATIC:
+            #clientObject.static_analysis_settings = analysis_settings_no
+        #else:
+            #printInitErr('Load Case', no, 'Static Analysis Settings')
 
         '''
         Todo!!!
