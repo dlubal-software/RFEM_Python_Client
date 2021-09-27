@@ -37,10 +37,10 @@ if __name__ == '__main__':
 	clientModel.service.begin_modification('new')
 
 	StaticAnalysisSettings()
-	LoadCase(1, 'SW', True, AnalysisType.ANALYSIS_TYPE_STATIC, 1, 'Permanent | G', [True, 0, 0, 1])
-	LoadCase(2, 'SDL', True, AnalysisType.ANALYSIS_TYPE_STATIC, 1, 'Permanent/Imposed | Gq', [True, 0.1, 0.1, 0])
-	LoadCase(3, 'Snow', True, AnalysisType.ANALYSIS_TYPE_STATIC, 1, 'Snow / Ice loads - H &gt; 1000 m | Qs', [False])
-	LoadCase(4, 'Wind', True, AnalysisType.ANALYSIS_TYPE_STATIC, 1, 'Wind | Qw', [False])
+	LoadCase(1, 'SW', True, AnalysisType.ANALYSIS_TYPE_STATIC, 1, DIN_Action_Category['1A'], [True, 0, 0, 1])
+	LoadCase(2, 'SDL', True, AnalysisType.ANALYSIS_TYPE_STATIC, 1, DIN_Action_Category['1C'], [True, 0.1, 0.1, 0])
+	LoadCase(3, 'Snow', True, AnalysisType.ANALYSIS_TYPE_STATIC, 1, DIN_Action_Category['4A'], [False])
+	LoadCase(4, 'Wind', False, AnalysisType.ANALYSIS_TYPE_STATIC, 1, DIN_Action_Category['5'], [False])
 
 
 	clientModel.service.finish_modification()

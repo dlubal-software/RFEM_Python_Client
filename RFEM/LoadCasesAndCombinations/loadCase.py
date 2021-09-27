@@ -1,6 +1,14 @@
 from RFEM.initModel import *
 from RFEM.enums import AnalysisType
 
+DIN_Action_Category = {'1A': 'Permanent | G', '1B': 'Permanent - small fluctuations | G*', '1C': 'Permanent/Imposed | Gq', '2': 'Prestress | P',
+                        '3A': 'Imposed loads - category A: domestic, residential areas | QI A', '3B': 'Imposed loads - category B: office areas | QI B',
+                        '3C': 'Imposed loads - category C: congregation areas | QI C', '3D': 'Imposed loads - category D: shopping areas | QI D',
+                        '3E': 'Imposed loads - category E: storage areas | QI E', '3F': 'Imposed loads - category F: traffic area - vehicle weight <= 30 kN | QI F',
+                        '3G': 'Imposed loads - category G: traffic area - vehicle weight <= 160 kN | QI G', '3H': 'Imposed loads - category H: roofs | QI H',
+                        '4A': 'Snow / Ice loads - H <= 1000 m | Qs', '4B': 'Snow / Ice loads - H > 1000 m | Qs', '5': 'Wind | Qw', '6': 'Temperature (non-fire) | QT',
+                        '7': 'Foundation subsidence | Qf', '8': 'Other actions | Qo', '9': 'Accidental actions | A', '10': 'Seismic actions | AE', 'None': 'None | None'}
+
 class LoadCase():
     def __init__(self,
                  no: int = 1,
@@ -8,7 +16,7 @@ class LoadCase():
                  to_solve: bool = True,
                  analysis_type = AnalysisType.ANALYSIS_TYPE_STATIC,
                  analysis_settings_no: int = 1,
-                 action_category: str = 'Permanent | G',
+                 action_category= DIN_Action_Category['1A'],
                  self_weight = [True, 0.0, 0.0, 10.0],
                  comment: str = 'Comment',
                  params: dict = {}):
@@ -18,6 +26,30 @@ class LoadCase():
         
         for no self-weight considerations:
             self_weight = [False]
+        
+        for action_category:
+            key     =   value
+            1A      =   Permanent | G
+            1B      =   Permanent - small fluctuations | G*
+            1C      =   Permanent/Imposed | Gq
+            2       =   Prestress | P
+            3A      =   Imposed loads - category A: domestic, residential areas | QI A
+            3B      =   Imposed loads - category B: office areas | QI B
+            3C      =   Imposed loads - category C: congregation areas | QI C
+            3D      =   Imposed loads - category D: shopping areas | QI D
+            3E      =   Imposed loads - category E: storage areas | QI E
+            3F      =   Imposed loads - category F: traffic area - vehicle weight <= 30 kN | QI F
+            3G      =   Imposed loads - category G: traffic area - vehicle weight <= 160 kN | QI G
+            3H      =   Imposed loads - category H: roofs | QI H
+            4A      =   Snow / Ice loads - H <= 1000 m | Qs
+            4B      =   Snow / Ice loads - H > 1000 m | Qs
+            5       =   Wind | Qw
+            6       =   Temperature (non-fire) | QT
+            7       =   Foundation subsidence | Qf
+            8       =   Other actions | Qo
+            9       =   Accidental actions | A
+            10      =   Seismic actions | AE
+            None    =   None | None
         '''
 
         # Client model | Load Case
@@ -68,25 +100,4 @@ class LoadCase():
 
         # Add Load Case to client model
         clientModel.service.set_load_case(clientObject)
-
-#   ACTION CATEGORIES ACCESSED USING WIZDLER. EXACT STRING NEEDS TO BE PASSED AS ACTION CATEGORY IN THE CODE
-#   G
-#   Permanent/Imposed | Gq
-#   Prestress | P
-#   Imposed loads - category A: domestic, residential areas | QI A
-#   Imposed loads - category B: office areas | QI B
-#   Imposed loads - category C: congregation areas | QI C
-#   Imposed loads - category D: shopping areas | QI D
-#   Imposed loads - category E: storage areas | QI E
-#   Imposed loads - category F: traffic area - vehicle weight &lt;= 30 kN | QI F
-#   Imposed loads - category G: traffic area - vehicle weight &lt;= 160 kN | QI G
-#   Imposed loads - category H: roofs | QI H
-#   Snow / Ice loads - Finland, Island, ... | Qs
-#   Snow / Ice loads - H &gt; 1000 m | Qs
-#   Snow / Ice loads - H &lt;= 1000 m | Qs
-#   Wind | Qw
-#   Temperature (non-fire) | QT
-#   Accidental actions | A
-#   Seismic actions | AE
-
 
