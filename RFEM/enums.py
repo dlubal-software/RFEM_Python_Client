@@ -315,4 +315,3 @@ class ModalNeglectMasses(Enum):
     Modal Analysis Settings Neglect Masses
     '''
     E_NEGLECT_MASSES_IN_ALL_FIXED_SUPPORTS, E_NEGLECT_MASSES_NO_NEGLECTION, E_NEGLECT_MASSES_USER_DEFINED = range(3)
-
