@@ -13,7 +13,19 @@ class ModalAnalysisSettings():
                  neglect_masses = ModalNeglectMasses.E_NEGLECT_MASSES_NO_NEGLECTION,
                  comment: str = '',
                  params: dict = {}):
-
+        """
+        Args:
+            no (int): Setting Tag
+            name (str): Setting Name
+            solution_method (enum): Solution Method Enumeration 
+            mass_conversion_type (enum): Mass Conversion Type Enumeration
+            mass_matrix_type (enum): Mass Matrix Type Enumeration
+            number_of_modes (int): Number of Modes
+            acting_masses (list): Acting Masses Directions List
+            neglect_masses (enum): Neglect Masses Enumeration
+            comment (str, optional): Comment
+            params (dict, optional): Parameters
+        """
         # Client model | Surface
         clientObject = clientModel.factory.create('ns0:modal_analysis_settings')
 

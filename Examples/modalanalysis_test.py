@@ -49,15 +49,14 @@ if __name__ == '__main__':
     StaticAnalysisSettings(1, 'Geometrically Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
     # Modal Analysis Settings
-    ModalAnalysisSettings(2, 'Modal Analysis Settings', ModalSolutionMethod.METHOD_LANCZOS, ModalMassConversionType.MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS, 
+    ModalAnalysisSettings(1, 'Modal Analysis Settings', ModalSolutionMethod.METHOD_LANCZOS, ModalMassConversionType.MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS, 
     ModalMassMatrixType.MASS_MATRIX_TYPE_DIAGONAL, 2, [False, False, False, False, True, True])
 
     # Load Case Static
     LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, True, 0, 0, 1)
 
     # Load Case Modal
-    LoadCase(2, 'MODAL', AnalysisType.ANALYSIS_TYPE_MODAL, 2, 1, False)
-
+    LoadCase(2, 'MODAL', AnalysisType.ANALYSIS_TYPE_MODAL, 1, 2, False)
     Calculate_all()
 
     print('Ready!')
