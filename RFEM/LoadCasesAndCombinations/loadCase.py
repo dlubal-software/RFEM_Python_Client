@@ -24,21 +24,10 @@ class LoadCase():
         Args:
             no (int): Load Case Tag
             name (str): Load Case Name
-            to_solve (bool): Solver Status
+            to_solve (bool): Enable/Disbale Load Case Solver Status
             analysis_type (enum): Analysis Type Enumeration
             analysis_settings_no (int): Analysis Settings Number
-            action_category (dict): Action Category accessed key entry into respective Standards (currently DIN Standards only provided)
-            comment (str, optional): Comments 
-            params (dict, optional): Parameters
-
-                For self-weight considerations;
-                    self_weight = [True, self_weight_factor_x, self_weight_factor_y, self_weight_factor_z]
-
-                For no self-weight considerations;
-                    self_weight = [False]
-
-                For action_category;
-                    key     =   value
+            action_category (dict): Action Category Key
                     1A      =   Permanent | G
                     1B      =   Permanent - small fluctuations | G*
                     1C      =   Permanent/Imposed | Gq
@@ -60,6 +49,13 @@ class LoadCase():
                     9       =   Accidental actions | A
                     10      =   Seismic actions | AE
                     None    =   None | None
+            self_weight (list): Self-weight Considerations
+                For self-weight considerations;
+                    self_weight = [True, self_weight_factor_x, self_weight_factor_y, self_weight_factor_z]
+                For no self-weight considerations;
+                    self_weight = [False]
+            comment (str, optional): Comments 
+            params (dict, optional): Parameters
         """
 
         # Client model | Load Case
