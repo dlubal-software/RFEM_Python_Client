@@ -11,7 +11,16 @@ class DesignSituation():
                  comment: str = '',
                  params: dict = {}):
         
-        '''
+        """
+        Args:
+            no (int): Design Situation Tag
+            user_defined_name (bool): Possibility for a user-defined name
+            name (str, optional): User-defined name. Only applicable for user_defined_name boolean as TRUE
+            active (bool): Status of the design situation for the solver
+            design_situation_type (int): Numeric codes representing intended design situation type
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+
         design_situation_type:
             6122 : ULS (EQU) - Permanent and transient,
             6993 : ULS (EQU) - Accidental - psi-1,1,
@@ -28,7 +37,7 @@ class DesignSituation():
             6193 : SLS - Characteristic,
             6194 : SLS - Frequent,
             6195 : SLS - Quasi-permanent
-        '''
+        """
 
         # Client model | Design Situation
         clientObject = clientModel.factory.create('ns0:design_situation')
