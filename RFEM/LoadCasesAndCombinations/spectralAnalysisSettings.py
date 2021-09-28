@@ -58,13 +58,11 @@ class SpectralAnalysisSettings():
             clientObject.damping_for_cqc_rule = damping_for_cqc_rule.name
             clientObject.constant_d_for_each_mode = constant_d_for_each_mode
 
-
         # Comment
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
         for key in params:
             clientObject[key] = params[key]
-        print(clientObject)
         # Add Static Analysis Settings to client model
         clientModel.service.set_spectral_analysis_settings(clientObject)
