@@ -20,37 +20,47 @@ class LoadCase():
                  self_weight = [True, 0.0, 0.0, 10.0],
                  comment: str = 'Comment',
                  params: dict = {}):
-        '''
-        for self-weight considerations:
-            self_weight = [True, self_weight_factor_x, self_weight_factor_y, self_weight_factor_z]
-        
-        for no self-weight considerations:
-            self_weight = [False]
-        
-        for action_category:
-            key     =   value
-            1A      =   Permanent | G
-            1B      =   Permanent - small fluctuations | G*
-            1C      =   Permanent/Imposed | Gq
-            2       =   Prestress | P
-            3A      =   Imposed loads - category A: domestic, residential areas | QI A
-            3B      =   Imposed loads - category B: office areas | QI B
-            3C      =   Imposed loads - category C: congregation areas | QI C
-            3D      =   Imposed loads - category D: shopping areas | QI D
-            3E      =   Imposed loads - category E: storage areas | QI E
-            3F      =   Imposed loads - category F: traffic area - vehicle weight <= 30 kN | QI F
-            3G      =   Imposed loads - category G: traffic area - vehicle weight <= 160 kN | QI G
-            3H      =   Imposed loads - category H: roofs | QI H
-            4A      =   Snow / Ice loads - H <= 1000 m | Qs
-            4B      =   Snow / Ice loads - H > 1000 m | Qs
-            5       =   Wind | Qw
-            6       =   Temperature (non-fire) | QT
-            7       =   Foundation subsidence | Qf
-            8       =   Other actions | Qo
-            9       =   Accidental actions | A
-            10      =   Seismic actions | AE
-            None    =   None | None
-        '''
+        """
+        Args:
+            no (int): Load Case Tag
+            name (str): Load Case Name
+            to_solve (bool): Solver Status
+            analysis_type (enum): Analysis Type Enumeration
+            analysis_settings_no (int): Analysis Settings Number
+            action_category (dict): Action Category accessed key entry into respective Standards (currently DIN Standards only provided)
+            comment (str, optional): Comments 
+            params (dict, optional): Parameters
+
+                For self-weight considerations;
+                    self_weight = [True, self_weight_factor_x, self_weight_factor_y, self_weight_factor_z]
+
+                For no self-weight considerations;
+                    self_weight = [False]
+
+                For action_category;
+                    key     =   value
+                    1A      =   Permanent | G
+                    1B      =   Permanent - small fluctuations | G*
+                    1C      =   Permanent/Imposed | Gq
+                    2       =   Prestress | P
+                    3A      =   Imposed loads - category A: domestic, residential areas | QI A
+                    3B      =   Imposed loads - category B: office areas | QI B
+                    3C      =   Imposed loads - category C: congregation areas | QI C
+                    3D      =   Imposed loads - category D: shopping areas | QI D
+                    3E      =   Imposed loads - category E: storage areas | QI E
+                    3F      =   Imposed loads - category F: traffic area - vehicle weight <= 30 kN | QI F
+                    3G      =   Imposed loads - category G: traffic area - vehicle weight <= 160 kN | QI G
+                    3H      =   Imposed loads - category H: roofs | QI H
+                    4A      =   Snow / Ice loads - H <= 1000 m | Qs
+                    4B      =   Snow / Ice loads - H > 1000 m | Qs
+                    5       =   Wind | Qw
+                    6       =   Temperature (non-fire) | QT
+                    7       =   Foundation subsidence | Qf
+                    8       =   Other actions | Qo
+                    9       =   Accidental actions | A
+                    10      =   Seismic actions | AE
+                    None    =   None | None
+        """
 
         # Client model | Load Case
         clientObject = clientModel.factory.create('ns0:load_case')
