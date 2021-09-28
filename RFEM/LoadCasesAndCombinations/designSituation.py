@@ -14,29 +14,27 @@ class DesignSituation():
         """
         Args:
             no (int): Design Situation Tag
-            user_defined_name (bool): Possibility for a user-defined name
-            name (str, optional): User-defined name. Only applicable for user_defined_name boolean as TRUE
-            active (bool): Status of the design situation for the solver
-            design_situation_type (int): Numeric codes representing intended design situation type
+            user_defined_name (bool): Enable/Disable User-Defined Name
+            name (str, optional): User-Defined Name (Applicable when user_defined_name = TRUE)
+            active (bool): Enable/Disable Design Situation Activity
+            design_situation_type (int): Design Situation Numeric Code
+                6122 = ULS (EQU) - Permanent and transient,
+                6993 = ULS (EQU) - Accidental - psi-1,1,
+                6994 = ULS (EQU) - Accidental - psi-2,1,
+                6995 = ULS (EQU) - Accidental - Snow - psi-1,1,
+                6996 = ULS (EQU) - Accidental - Snow - psi-2,1,
+                6997 = ULS (EQU) - Seismic,
+                7007 = ULS (STR/GEO) - Permanent and transient - Eq. 6.10,
+                7010 = ULS (STR/GEO) - Accidental - psi-1,1,
+                7011 = ULS (STR/GEO) - Accidental - psi-2,1,
+                7012 = ULS (STR/GEO) - Accidental - Snow - psi-1,1,
+                7013 = ULS (STR/GEO) - Accidental - Snow - psi-2,1,
+                7014 = ULS (STR/GEO) - Seismic,
+                6193 = SLS - Characteristic,
+                6194 = SLS - Frequent,
+                6195 = SLS - Quasi-permanent
             comment (str, optional): Comments
             params (dict, optional): Parameters
-
-        design_situation_type:
-            6122 : ULS (EQU) - Permanent and transient,
-            6993 : ULS (EQU) - Accidental - psi-1,1,
-            6994 : ULS (EQU) - Accidental - psi-2,1,
-            6995 : ULS (EQU) - Accidental - Snow - psi-1,1,
-            6996 : ULS (EQU) - Accidental - Snow - psi-2,1,
-            6997 : ULS (EQU) - Seismic,
-            7007 : ULS (STR/GEO) - Permanent and transient - Eq. 6.10,
-            7010 : ULS (STR/GEO) - Accidental - psi-1,1,
-            7011 : ULS (STR/GEO) - Accidental - psi-2,1,
-            7012 : ULS (STR/GEO) - Accidental - Snow - psi-1,1,
-            7013 : ULS (STR/GEO) - Accidental - Snow - psi-2,1,
-            7014 : ULS (STR/GEO) - Seismic,
-            6193 : SLS - Characteristic,
-            6194 : SLS - Frequent,
-            6195 : SLS - Quasi-permanent
         """
 
         # Client model | Design Situation
