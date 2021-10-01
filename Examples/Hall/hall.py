@@ -102,7 +102,7 @@ if __name__ == '__main__':
      
  BracingV = input('Would you like to include vertical bracing? (Y/N)')
  if BracingV.lower() == 'yes' or BracingV.lower() == 'y':
-  BracingV_C1 = input('Would you like to repeat a vertical bracing in every block?\n')
+  BracingV_C1 = input('Would you like to repeat a vertical bracing in every block? (Y/N)')
   if BracingV_C1.lower() == 'yes' or BracingV_C1.lower() == 'y':
    Material (3, 'EN AW-3004 H14')
    Section (3, 'IPE 80',3)
