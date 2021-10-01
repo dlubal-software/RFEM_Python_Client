@@ -132,7 +132,7 @@ class Node():
             parameters = [True, %]
         
         if distance_from_start_absolute:
-            parameters[False, magnitude]
+            parameters = [False, magnitude]
         '''
 
         # Client model | Node
@@ -205,7 +205,7 @@ class Node():
             parameters = [True, %]
         
         if distance_from_start_absolute:
-            parameters[False, magnitude]
+            parameters = [False, magnitude]
         '''
 
 
@@ -273,7 +273,7 @@ class Node():
             parameters = [True, %]
         
         if distance_from_start_absolute:
-            parameters[False, magnitude]
+            parameters = [False, magnitude]
         '''
         
         # Client model | Node
@@ -325,7 +325,7 @@ class Node():
             parameters = [True, %]
         
         if distance_from_start_absolute:
-            parameters[False, magnitude]
+            parameters = [False, magnitude]
         '''
 
         # Client model | Node
