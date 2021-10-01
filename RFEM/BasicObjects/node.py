@@ -147,11 +147,21 @@ class Node():
                  params: dict = {}):
 
         '''
-        if distance_from_start_relative:
-            parameters = [True, %]
-        
-        if distance_from_start_absolute:
-            parameters = [False, magnitude]
+        Args:
+            no (int): Node Tag
+            start_node_no (int): 
+            end_node_no (int): 
+            node_reference (enum): Node Reference Enumeration
+            length_between_i_and_j (int):
+            parameters (list): 
+              if distance_from_start_relative:
+                parameters = [True, %]
+              if distance_from_start_absolute:
+                parameters = [False, magnitude]
+            offset_y (int):
+            offset_z (int):
+            comment (str, optional): Comments 
+            params (dict, optional): Parameters  
         '''
 
         # Client model | Node
@@ -220,14 +230,26 @@ class Node():
                  params: dict = {}):
         
         '''
-        if distance_from_start_relative:
-            parameters = [True, %]
-        
-        if distance_from_start_absolute:
-            parameters = [False, magnitude]
+        Args:
+            no (int): Node Tag
+            start_point_x (float): 
+            start_point_y (float):
+            start_point_z (float):
+            end_point_x (float): 
+            end_point_y (float):
+            end_point_z (float):
+            node_reference (enum): Node Reference Enumeration
+            parameters (list): 
+              if distance_from_start_relative:
+                parameters = [True, %]
+              if distance_from_start_absolute:
+                parameters = [False, magnitude]
+            offset_y (int):
+            offset_z (int):
+            comment (str, optional): Comments 
+            params (dict, optional): Parameters  
         '''
-
-
+        
         # Client model | Node
         clientObject = clientModel.factory.create('ns0:node')
 
@@ -288,11 +310,18 @@ class Node():
                  params: dict = {}):
         
         '''
-        if distance_from_start_relative:
-            parameters = [True, %]
-        
-        if distance_from_start_absolute:
-            parameters = [False, magnitude]
+         Args:
+            no (int): Node Tag
+            line_number (int): Line Tag
+            node_reference (enum): Node Reference Enumeration
+            length_between_i_and_j (int):
+            parameters (list):
+              if distance_from_start_relative:
+                parameters = [True, %]
+              if distance_from_start_absolute:
+                parameters = [False, magnitude]
+            comment (str, optional): Comments 
+            params (dict, optional): Parameters  
         '''
         
         # Client model | Node
@@ -340,11 +369,18 @@ class Node():
                  params: dict = {}):
         
         '''
-        if distance_from_start_relative:
-            parameters = [True, %]
-        
-        if distance_from_start_absolute:
-            parameters = [False, magnitude]
+         Args:
+            no (int): Node Tag
+            member_number (int): Member Tag
+            node_reference (enum): Node Reference Enumeration
+            length_between_i_and_j (int):
+            parameters (list):
+              if distance_from_start_relative:
+                parameters = [True, %]
+              if distance_from_start_absolute:
+                parameters = [False, magnitude]
+            comment (str, optional): Comments 
+            params (dict, optional): Parameters  
         '''
 
         # Client model | Node
