@@ -12,6 +12,16 @@ class Node():
                  coordinate_Z: float = 0.0,
                  comment: str = '',
                  params: dict = {}):
+        
+         '''
+         Args:
+            no (int): Node Tag
+            coordinate_X (float): X-Coordinate
+            coordinate_Y (float): Y-Coordinate
+            coordinate_Z (float): Z-Coordinate
+            comment (str, optional): Comments 
+            params (dict, optional): Parameters    
+        '''
 
         # Client model | Node
         clientObject = clientModel.factory.create('ns0:node')
