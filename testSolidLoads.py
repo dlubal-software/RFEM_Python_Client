@@ -85,6 +85,10 @@ if __name__ == '__main__':
     SolidLoad.Temperature(SolidLoad, 6, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y, 237, -8.9, 5, 7)
     SolidLoad.Temperature(SolidLoad, 7, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z, -2587.98, -8.9, 5, 2)
     
+    SolidLoad.Strain(SolidLoad, 8, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, 0.01, 0.02, 0.03)
+    SolidLoad.Strain(SolidLoad, 9, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, 0.01, 0.02, 0.03, 5, 0.04, 0.05, 0.06, 6)
+    SolidLoad.Strain(SolidLoad, 10, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y, 0.01, 0.02, 0.03, 5, 0.04, 0.05, 0.06, 8)
+    SolidLoad.Strain(SolidLoad, 11, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z, 0.01, 0.02, 0.03, 5, 0.04, 0.05, 0.06, 1)
 
 
 
