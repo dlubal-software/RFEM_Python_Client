@@ -45,20 +45,22 @@ class Node():
                  params: dict = {}):
         
         '''
-        for coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN:
-            coordinate_system = [X, Y, Z]
-
-        for coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_X_CYLINDRICAL:
-            coordinate_system = [X, R, θ]
-            
-        for coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Y_CYLINDRICAL:
-            coordinate_system = [R, Ύ, θ]    
-            
-        for coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Z_CYLINDRICAL:
-            coordinate_system = [R, θ, Z]
-            
-        for coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_POLAR:
-            coordinate_system = [R, θ, φ]
+         Args:
+            no (int): Node Tag
+            coordinate_system (list): Coordinate System
+              For coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN;
+                coordinate_system = [X, Y, Z]
+              For coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_X_CYLINDRICAL;
+                coordinate_system = [X, R, θ]
+              For coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Y_CYLINDRICAL;
+                coordinate_system = [R, Ύ, θ]
+              For coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Z_CYLINDRICAL;
+                coordinate_system = [R, θ, Z]
+              For coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_POLAR:
+                coordinate_system = [R, θ, φ]
+            coordinate_system_type (enum): Coordinate System Type Enumeration
+            comment (str, optional): Comments 
+            params (dict, optional): Parameters    
         '''
         
         # Client model | Node
