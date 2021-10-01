@@ -201,11 +201,13 @@ class Node():
                  params: dict = {}):
         
         '''
-       ############
-       
-       
-       
+        if distance_from_start_relative:
+            parameters = [True, %]
+        
+        if distance_from_start_absolute:
+            parameters[False, magnitude]
         '''
+
 
         # Client model | Node
         clientObject = clientModel.factory.create('ns0:node')
@@ -266,12 +268,14 @@ class Node():
                  comment: str = '',
                  params: dict = {}):
         
-         
         '''
-       [docstring]
-       
+        if distance_from_start_relative:
+            parameters = [True, %]
+        
+        if distance_from_start_absolute:
+            parameters[False, magnitude]
         '''
-
+        
         # Client model | Node
         clientObject = clientModel.factory.create('ns0:node')
 
@@ -316,12 +320,13 @@ class Node():
                  comment: str = '',
                  params: dict = {}):
         
-               
         '''
-       [docstring]
-       
+        if distance_from_start_relative:
+            parameters = [True, %]
+        
+        if distance_from_start_absolute:
+            parameters[False, magnitude]
         '''
-
 
         # Client model | Node
         clientObject = clientModel.factory.create('ns0:node')
