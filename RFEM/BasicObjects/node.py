@@ -136,7 +136,7 @@ class Node():
 
     def BetweenTwoNodes(self,
                  no: int = 1,
-                 start_node_no: int = 1,
+                 start_node_no: int = 1, 
                  end_node_no: int = 2,
                  node_reference = NodeReferenceType.REFERENCE_TYPE_L,
                  length_between_i_and_j: int = 1,
@@ -149,17 +149,17 @@ class Node():
         '''
         Args:
             no (int): Node Tag
-            start_node_no (int): 
-            end_node_no (int): 
+            start_node_no (int): Start Node
+            end_node_no (int): End Node
             node_reference (enum): Node Reference Enumeration
-            length_between_i_and_j (int):
+            length_between_i_and_j (int): Length between 2 Nodes
             parameters (list): 
               if distance_from_start_relative:
                 parameters = [True, %]
               if distance_from_start_absolute:
                 parameters = [False, magnitude]
-            offset_y (int):
-            offset_z (int):
+            offset_y (int): Offset in Y-Direction
+            offset_z (int): Offset in Z-Direction
             comment (str, optional): Comments 
             params (dict, optional): Parameters  
         '''
@@ -232,20 +232,20 @@ class Node():
         '''
         Args:
             no (int): Node Tag
-            start_point_x (float): 
-            start_point_y (float):
-            start_point_z (float):
-            end_point_x (float): 
-            end_point_y (float):
-            end_point_z (float):
+            start_point_x (float): Start Point in X-Direction
+            start_point_y (float): Start Point in Y-Direction
+            start_point_z (float): Start Point in Z-Direction
+            end_point_x (float): End Point in X-Direction
+            end_point_y (float): End Point in Y-Direction
+            end_point_z (float): End Point in Z-Direction
             node_reference (enum): Node Reference Enumeration
             parameters (list): 
               if distance_from_start_relative:
                 parameters = [True, %]
               if distance_from_start_absolute:
                 parameters = [False, magnitude]
-            offset_y (int):
-            offset_z (int):
+            offset_y (int): Offset in Y-Direction
+            offset_z (int): Offset in Z-Direction
             comment (str, optional): Comments 
             params (dict, optional): Parameters  
         '''
@@ -314,7 +314,7 @@ class Node():
             no (int): Node Tag
             line_number (int): Line Tag
             node_reference (enum): Node Reference Enumeration
-            length_between_i_and_j (int):
+            length_between_i_and_j (int): Length between 2 Nodes
             parameters (list):
               if distance_from_start_relative:
                 parameters = [True, %]
@@ -373,7 +373,7 @@ class Node():
             no (int): Node Tag
             member_number (int): Member Tag
             node_reference (enum): Node Reference Enumeration
-            length_between_i_and_j (int):
+            length_between_i_and_j (int): Length between 2 Nodes
             parameters (list):
               if distance_from_start_relative:
                 parameters = [True, %]
