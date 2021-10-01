@@ -2,6 +2,7 @@ from RFEM.enums import NodeType
 from RFEM.enums import NodeCoordinateSystemType
 from RFEM.enums import NodeReferenceType
 from RFEM.initModel import *
+from math import *
 
 class Node():
     def __init__(self,
@@ -51,7 +52,7 @@ class Node():
 
         # Node No.
         clientObject.no = no
-
+        
         # Node Type
         clientObject.type = NodeType.STANDARD.name
         
@@ -121,7 +122,6 @@ class Node():
                  node_reference = NodeReferenceType.REFERENCE_TYPE_L,
                  length_between_i_and_j: int = 1,
                  parameters = [True, 50],
-                 offset_x: int = 0,
                  offset_y: int = 0,
                  offset_z: int = 0,
                  comment: str = '',
