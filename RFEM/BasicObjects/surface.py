@@ -81,7 +81,7 @@ class Surface():
         self.comment = comment
         self.params = params
         self.clientObject = clientObject
-        self.__PrivateMethod(self)
+        self.__CreateGeometryAndSetToModel(self)
 
     def WithoutThickness(self,
                  no: int = 1,
@@ -122,7 +122,7 @@ class Surface():
         self.comment = comment
         self.params = params
         self.clientObject = clientObject
-        self.__PrivateMethod(self)
+        self.__CreateGeometryAndSetToModel(self)
 
     def Rigid(self,
                  no: int = 1,
@@ -163,7 +163,7 @@ class Surface():
         self.comment = comment
         self.params = params
         self.clientObject = clientObject
-        self.__PrivateMethod(self)
+        self.__CreateGeometryAndSetToModel(self)
 
     def Membrane(self,
                  no: int = 1,
@@ -206,7 +206,7 @@ class Surface():
         self.comment = comment
         self.params = params
         self.clientObject = clientObject
-        self.__PrivateMethod(self)
+        self.__CreateGeometryAndSetToModel(self)
 
     def WithoutMemberaneTension(self,
                  no: int = 1,
@@ -249,7 +249,7 @@ class Surface():
         self.comment = comment
         self.params = params
         self.clientObject = clientObject
-        self.__PrivateMethod(self)
+        self.__CreateGeometryAndSetToModel(self)
 
     def LoadDistribution(self,
                  no: int = 1,
@@ -328,7 +328,7 @@ class Surface():
         # Add Surface to client model
         clientModel.service.set_surface(clientObject)
     
-    def __PrivateMethod(self):
+    def __CreateGeometryAndSetToModel(self):
 
         # Geometry Type
         boundary_lines_list = self.boundary_lines_no.split(sep= ' ')
