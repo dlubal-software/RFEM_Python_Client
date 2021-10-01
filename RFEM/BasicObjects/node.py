@@ -43,7 +43,24 @@ class Node():
                  coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN,
                  comment: str = '',
                  params: dict = {}):
+        
+        '''
+        for coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN:
+            coordinate_system = [X, Y, Z]
 
+        for coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_X_CYLINDRICAL:
+            coordinate_system = [X, R, θ]
+            
+        for coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Y_CYLINDRICAL:
+            coordinate_system = [R, Ύ, θ]    
+            
+        for coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Z_CYLINDRICAL:
+            coordinate_system = [R, θ, Z]
+            
+        for coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_POLAR:
+            coordinate_system = [R, θ, φ]
+        '''
+        
         # Client model | Node
         clientObject = clientModel.factory.create('ns0:node')
 
