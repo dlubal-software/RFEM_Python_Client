@@ -13,7 +13,44 @@ class SolidLoad():
                  magnitude: float = 0,
                  comment: str = '',
                  params: dict = {}):
-        pass
+        
+        # Client model | Solid Load
+        clientObject = clientModel.factory.create('ns0:solid_load')
+
+        # Clears object attributes | Sets all attributes to None
+        clearAtributes(clientObject)
+
+        # Load No.
+        clientObject.no = no
+        
+        # Load Case No.
+        clientObject.load_case = load_case_no
+        
+        # Assigned Solid No.
+        clientObject.solids = ConvertToDlString(solids_no)
+        
+        # Load Type
+        clientObject.load_type = load_type.name
+
+        # Load Distribution
+        clientObject.load_distribution = load_distribution.name
+
+        # Load Direction
+        clientObject.load_direction = load_direction.name
+
+        # Load Magnitude
+        clientObject.uniform_magnitude = magnitude
+        
+        # Comment
+        clientObject.comment = comment
+        
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
+
+        # Add Solid Load to client model
+        clientModel.service.set_solid_load(load_case_no, clientObject)
+        
 
     def Force():
         # Siehe lineLoad.Force()

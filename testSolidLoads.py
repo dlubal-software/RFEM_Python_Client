@@ -1,4 +1,5 @@
 #from RFEM.Loads.solidLoad import SolidLoad
+from RFEM.Loads.solidLoad import SolidLoad
 from RFEM.enums import *
 from RFEM.window import *
 from RFEM.dataTypes import *
@@ -74,9 +75,11 @@ if __name__ == '__main__':
     
     LoadCase(1 , 'Test load case', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
 
-    
+    NodalLoad(1, 1, '1', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 12.8)
+    SolidLoad(1, 1, '1', SolidLoadType.LOAD_TYPE_FORCE, SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 1289.0, 'My Comment')
     
     #Calculate_all()
     print('Ready!')
     
     clientModel.service.finish_modification()
+    
