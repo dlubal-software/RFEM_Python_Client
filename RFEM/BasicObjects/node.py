@@ -232,12 +232,12 @@ class Node():
         '''
         Args:
             no (int): Node Tag
-            start_point_x (float): Start Point in X-Direction
-            start_point_y (float): Start Point in Y-Direction
-            start_point_z (float): Start Point in Z-Direction
-            end_point_x (float): End Point in X-Direction
-            end_point_y (float): End Point in Y-Direction
-            end_point_z (float): End Point in Z-Direction
+            start_point_x (float): Start Point in X-Coordinate
+            start_point_y (float): Start Point in Y-Coordinate
+            start_point_z (float): Start Point in Z-Coordinate
+            end_point_x (float): End Point in X-Coordinate
+            end_point_y (float): End Point in Y-Coordinate
+            end_point_z (float): End Point in Z-Coordinate
             node_reference (enum): Node Reference Enumeration
             parameters (list): 
               if distance_from_start_relative:
