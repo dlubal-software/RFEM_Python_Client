@@ -80,6 +80,13 @@ if __name__ == '__main__':
     SolidLoad(1, 1, '1', SolidLoadType.LOAD_TYPE_FORCE, SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 1289.0, 'My Comment')
     SolidLoad.Force(SolidLoad, 2, 1, '1', SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 8569.21, 'My 2nd Comment')
     SolidLoad.Force(SolidLoad, 3, 1, '1', SolidLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 78548.21, 'My 2nd Comment')
+    SolidLoad.Temperature(SolidLoad, 4, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, 78.4)
+    SolidLoad.Temperature(SolidLoad, 5, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, 105.4, 507.8, 4, 3)
+    SolidLoad.Temperature(SolidLoad, 6, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y, 237, -8.9, 5, 7)
+    SolidLoad.Temperature(SolidLoad, 7, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z, -2587.98, -8.9, 5, 2)
+    
+
+
 
     #Calculate_all()
     print('Ready!')
