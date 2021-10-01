@@ -459,3 +459,22 @@ class FreePolygonLoadLoadDistribution(Enum):
     '''
     LOAD_DISTRIBUTION_LINEAR, LOAD_DISTRIBUTION_LINEAR_FIRST, LOAD_DISTRIBUTION_LINEAR_SECOND, LOAD_DISTRIBUTION_UNIFORM = range(4)
     
+class PeriodicResponseCombinationRule(Enum):
+    '''
+    Spectral Analysis Settings Combination Rule For Periodic Responses
+    '''
+    ABSOLUTE_SUM, CQC, SRSS = range(3)
+
+class DirectionalComponentCombinationRule(Enum):
+    '''
+    Spectral Analysis Settings Combination Rule For Directional Components
+    '''
+    ABSOLUTE_SUM, SCALED_SUM, SRSS = range(3)
+
+class CqsDampingRule(Enum):
+    '''
+    Spectal Analysis Settings Damping for CQC Rule
+    '''
+    CONSTANT_FOR_EACH_MODE, DIFFERENT_FOR_EACH_MODE = range(2)
+
+
