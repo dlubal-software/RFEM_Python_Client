@@ -212,7 +212,7 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
         loadCombinations (list, optional): [description]. Defaults to None.
     '''
     specificObjectsToCalculate = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements')
-    if loadCases:
+    if loadCases is not None:
         for loadCase in loadCases:
             specificObjectsToCalculateLC = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
             specificObjectsToCalculateLC.no = loadCase
@@ -220,7 +220,7 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
             specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
     
-    if designSituations:
+    if designSituations is not None:
         for designSituation in designSituations:
             specificObjectsToCalculateDS = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
             specificObjectsToCalculateDS.no = designSituation
@@ -228,7 +228,7 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculateDS.type = ObjectTypes.E_OBJECT_TYPE_DESIGN_SITUATION.name
             specificObjectsToCalculate.element.append(specificObjectsToCalculateDS)
     
-    if loadCombinations:
+    if loadCombinations is not None:
         for loadCombination in loadCombinations:
             specificObjectsToCalculateLC = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
             specificObjectsToCalculateLC.no = loadCombination
