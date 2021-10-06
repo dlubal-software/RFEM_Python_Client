@@ -89,6 +89,18 @@ class LineLoadDistribution(Enum):
     LOAD_DISTRIBUTION_CONCENTRATED_N, LOAD_DISTRIBUTION_CONCENTRATED_VARYING, LOAD_DISTRIBUTION_PARABOLIC,\
     LOAD_DISTRIBUTION_TAPERED, LOAD_DISTRIBUTION_TRAPEZOIDAL, LOAD_DISTRIBUTION_UNIFORM, LOAD_DISTRIBUTION_UNIFORM_TOTAL,\
     LOAD_DISTRIBUTION_VARYING = range(11)
+
+class SurfaceGeometry(Enum):
+    '''
+    Geometry Type | Enum
+    '''
+    GEOMETRY_NURBS, GEOMETRY_PLANE, GEOMETRY_QUADRANGLE = range(3)
+
+class SurfaceType(Enum):
+    '''
+    Stiffness Type | Enum
+    '''
+    TYPE_LOAD_DISTRIBUTION, TYPE_MEMBRANE, TYPE_RIGID, TYPE_STANDARD, TYPE_WITHOUT_MEMBRANE_TENSION, TYPE_WITHOUT_THICKNESS = range(6)
     
 class SurfaceLoadDistribution(Enum):
     '''
@@ -112,6 +124,12 @@ class SurfaceLoadType(Enum):
     '''
     LOAD_TYPE_AXIAL_STRAIN, LOAD_TYPE_FORCE, LOAD_TYPE_FORM_FINDING, LOAD_TYPE_MASS, LOAD_TYPE_PRECAMBER,\
     LOAD_TYPE_ROTARY_MOTION, LOAD_TYPE_TEMPERATURE = range(7)
+
+class SurfaceLoadDistributionDirection(Enum):
+    '''
+    Surface Load Distribution Direction | Enum
+    '''
+    LOAD_DISTRIBUTION_DIRECTION_IN_BOTH, LOAD_DISTRIBUTION_DIRECTION_IN_X, LOAD_DISTRIBUTION_DIRECTION_IN_Y = range(3)
 
 class SetType(Enum):
     '''
@@ -470,3 +488,23 @@ class ModalNeglectMasses(Enum):
     Modal Analysis Settings Neglect Masses
     '''
     E_NEGLECT_MASSES_IN_ALL_FIXED_SUPPORTS, E_NEGLECT_MASSES_NO_NEGLECTION, E_NEGLECT_MASSES_USER_DEFINED = range(3)
+=======
+class PeriodicResponseCombinationRule(Enum):
+    '''
+    Spectral Analysis Settings Combination Rule For Periodic Responses
+    '''
+    ABSOLUTE_SUM, CQC, SRSS = range(3)
+
+class DirectionalComponentCombinationRule(Enum):
+    '''
+    Spectral Analysis Settings Combination Rule For Directional Components
+    '''
+    ABSOLUTE_SUM, SCALED_SUM, SRSS = range(3)
+
+class CqsDampingRule(Enum):
+    '''
+    Spectal Analysis Settings Damping for CQC Rule
+    '''
+    CONSTANT_FOR_EACH_MODE, DIFFERENT_FOR_EACH_MODE = range(2)
+
+
