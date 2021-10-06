@@ -431,7 +431,7 @@ class Thickness():
         clientObject.material = material_no
 
         # Orthotropy Type
-        clientObject.orthotropy_type = orthotropy_type.name
+        clientObject.orthotropy_rotation_beta = orthotropy_type.name
 
         # Rotation Beta
         clientObject.rotation_beta = rotation_beta * (pi/180)
