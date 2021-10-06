@@ -33,6 +33,7 @@ from RFEM.BasicObjects.material import *
 from RFEM.initModel import *
 from RFEM.dataTypes import *
 from RFEM.enums import *
+from math import *
 
 # Import der Bibliotheken
 #from RFEM.window import *
