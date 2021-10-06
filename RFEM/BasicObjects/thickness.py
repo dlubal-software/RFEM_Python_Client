@@ -1,6 +1,7 @@
 from RFEM.enums import ThicknessDirection, ThicknessType
 from RFEM.enums import ThicknessOrthotropyType
-from RFEM.enums import ThicknessSelfWeightDefinitionType
+from RFEM.enums import ThicknessShapeOrthotropySelfWeightDefinitionType
+from RFEM.enums import ThicknessStiffnessMatrixSelfWeightDefinitionType
 from RFEM.initModel import *
 from math import *
 
@@ -296,10 +297,9 @@ class Thickness():
             no (int): Thickness Tag
             name (str): Thickness Name
             material_no (int): Assigned Material Number
-            properties (list): [thickness_d1, node_no_1, thickness_d2, node_no_2, thickness_d3, node_no_3]
+            properties (list): [thickness_circle_center_dC, thickness_circle_line_dR
             comment (str, optional): Comments
             params (dict, optional): Parameters
-        properties = [thickness_circle_center_dC, thickness_circle_line_dR]
         '''
 
         # Client model | Thickness
@@ -409,7 +409,7 @@ class Thickness():
                  material_no: int = 1,
                  orthotropy_type = ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS,
                  rotation_beta: float = 0,
-                 consideration_of_self_weight = [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, 0.18],
+                 consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, 0.18],
                  parameters = [0.18, 0.18],
                  comment: str = '',
                  params: dict = {}):
@@ -446,13 +446,13 @@ class Thickness():
             consideration_of_self_weight (list):
 
                 For parameter defined self-weight:
-                    consideration_of_self_weight : [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, fictitious_thickness]
+                    consideration_of_self_weight : [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, fictitious_thickness]
                     
                 For user-defined fictitious thickness self-weight:
-                    consideration_of_self_weight = [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, fictitious_thickness]
+                    consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, fictitious_thickness]
 
                 For user-defined self-weight:
-                    consideration_of_self_weight = [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_WEIGHT, self_weight]
+                    consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_WEIGHT, self_weight]
 
             parameters (list):
             comment (str, optional): Comments
@@ -480,19 +480,19 @@ class Thickness():
         clientObject.material = material_no
 
         # Orthotropy Type
-        clientObject.orthotropy_rotation_beta = orthotropy_type.name
+        clientObject.orthotropy_type = orthotropy_type.name
 
         # Rotation Beta
-        clientObject.rotation_beta = rotation_beta * (pi/180)
+        clientObject.orthotropy_rotation_beta = rotation_beta * (pi/180)
 
         # Consideration of Self-Weight
         if len(consideration_of_self_weight) != 2:
             raise Exception('WARNING: The consideration of self-weight parameter needs to be of length 2. Kindly check list inputs for completeness and correctness.')
-        clientObject.self_weight_definition_type = consideration_of_self_weight[0].name
+        clientObject.shape_orthotropy_self_weight_definition_type = consideration_of_self_weight[0].name
         if consideration_of_self_weight[0].name == 'SELF_WEIGHT_COMPUTED_FROM_PARAMETERS' or consideration_of_self_weight[0].name == 'SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS':
-            clientObject.fictitious_thickness = consideration_of_self_weight[1]
+            clientObject.orthotropy_fictitious_thickness = consideration_of_self_weight[1]
         elif consideration_of_self_weight[0].name == 'SELF_WEIGHT_DEFINED_VIA_WEIGHT':
-            clientObject.self_weight = consideration_of_self_weight[1]
+            clientObject.shape_orthotropy_self_weight = consideration_of_self_weight[1]
 
         # Shape Orthotropy Parameters
         if orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS':
@@ -561,7 +561,8 @@ class Thickness():
                  name: str = None,
                  material_no: int = 1,
                  rotation_beta: float = 0,
-                 consideration_of_self_weight = [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, 0.18],
+                 consideration_of_self_weight = [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_BULK_DENSITY, 0.2, 0.0],
+                 coefficient_of_thermal_expansion: float = 0,
                  stiffness_matrix = [[0, 0, 0, 0, 0, 0],[0, 0, 0],[0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0]],
                  comment: str = '',
                  params: dict = {}):
@@ -574,12 +575,14 @@ class Thickness():
             rotation_beta (float)
             consideration_of_self_weight (list):
 
-                For fictitious thickness self-weight:
-                    consideration_of_self_weight : [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, fictitious_thickness]
+                For fictitious thickness and bulk density self-weight:
+                    consideration_of_self_weight : [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_BULK_DENSITY, fictitious_thickness, stiffness_matrix_bulk_density]
+                For fictitious thickness and bulk density self-weight:
+                    consideration_of_self_weight : [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_AREA_DENSITY, stiffness_matrix_bulk_density, stiffness_matrix_area_density]
+                For fictitious thickness and bulk density self-weight:
+                    consideration_of_self_weight : [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_BULK_DENSITY_AND_AREA_DENSITY, fictitious_thickness, stiffness_matrix_area_density]
 
-                For self-weight via a defined weight:
-                    consideration_of_self_weight : [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_WEIGHT, self_weight]
-
+            coefficient_of_thermal_expansion (float): Coefficient of Thermal Expansion
             stiffness_matrix (list):
 
                 Element entry overview : [[Bending/Torsional Stiffness Elements (Nm)],
@@ -616,15 +619,23 @@ class Thickness():
         clientObject.material = material_no
 
         # Rotation Beta
-        clientObject.rotation_beta = rotation_beta * (pi/180)
+        clientObject.orthotropy_rotation_beta = rotation_beta * (pi/180)
 
         # Consideration of Self-Weight
-        clientObject.self_weight_definition_type = consideration_of_self_weight[0].name
-        if consideration_of_self_weight[0].name == 'SELF_WEIGHT_COMPUTED_FROM_PARAMETERS' or consideration_of_self_weight[0].name == 'SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS':
-            clientObject.fictitious_thickness = consideration_of_self_weight[1]
-        elif consideration_of_self_weight[0].name == 'SELF_WEIGHT_DEFINED_VIA_WEIGHT':
-            clientObject.self_weight = consideration_of_self_weight[1]
+        clientObject.stiffness_matrix_self_weight_definition_type = consideration_of_self_weight[0].name
+        if consideration_of_self_weight[0].name == 'SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_BULK_DENSITY':
+            clientObject.orthotropy_fictitious_thickness = consideration_of_self_weight[1]
+            clientObject.stiffness_matrix_bulk_density = consideration_of_self_weight[2]
+        elif consideration_of_self_weight[0].name == 'SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_AREA_DENSITY':
+            clientObject.orthotropy_fictitious_thickness = consideration_of_self_weight[1]
+            clientObject.stiffness_matrix_area_density = consideration_of_self_weight[2]
+        elif consideration_of_self_weight[0].name == 'SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_BULK_DENSITY_AND_AREA_DENSITY':
+            clientObject.stiffness_matrix_bulk_density = consideration_of_self_weight[1]
+            clientObject.stiffness_matrix_area_density = consideration_of_self_weight[2]
 
+        # Coefficient of Thermal Expansion
+        clientObject.stiffness_matrix_coefficient_of_thermal_expansion = coefficient_of_thermal_expansion
+        
         # Stiffness Matrix - Bending/Torsional Stiffness Elements
         array_count = []
         [array_count.append(len(item_length)) for item_length in stiffness_matrix]
