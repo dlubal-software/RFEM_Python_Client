@@ -53,12 +53,15 @@ class ModalAnalysisSettings():
         clientObject.number_of_modes = number_of_modes
 
         # Acting Masses
-        clientObject.acting_masses_about_axis_x_enabled = acting_masses[0]
-        clientObject.acting_masses_about_axis_y_enabled = acting_masses[1]
-        clientObject.acting_masses_about_axis_z_enabled = acting_masses[2]
-        clientObject.acting_masses_in_direction_x_enabled = acting_masses[3]
-        clientObject.acting_masses_in_direction_y_enabled = acting_masses[4]
-        clientObject.acting_masses_in_direction_z_enabled = acting_masses[5]
+        if len(acting_masses) == 6:
+            clientObject.acting_masses_about_axis_x_enabled = acting_masses[0]
+            clientObject.acting_masses_about_axis_y_enabled = acting_masses[1]
+            clientObject.acting_masses_about_axis_z_enabled = acting_masses[2]
+            clientObject.acting_masses_in_direction_x_enabled = acting_masses[3]
+            clientObject.acting_masses_in_direction_y_enabled = acting_masses[4]
+            clientObject.acting_masses_in_direction_z_enabled = acting_masses[5]
+        else:
+            raise Exception('WARNING: The acting masses array needs to be of length 6. Kindly check list inputs for completeness and correctness.')
 
         # Neglect Masses
         clientObject.neglect_masses = neglect_masses.name
