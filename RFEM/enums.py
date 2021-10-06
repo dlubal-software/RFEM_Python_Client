@@ -458,10 +458,4 @@ class CqsDampingRule(Enum):
     Spectal Analysis Settings Damping for CQC Rule
     '''
     CONSTANT_FOR_EACH_MODE, DIFFERENT_FOR_EACH_MODE = range(2)
-    
-class LineType(Enum):
-    '''
-    Line Type
-    '''
-    TYPE_ARC, TYPE_CIRCLE, TYPE_CUT_VIA_SECTION, TYPE_CUT_VIA_TWO_LINES, TYPE_ELLIPSE, TYPE_ELLIPTICAL_ARC, TYPE_NURBS, TYPE_PARABOLA, TYPE_POLYLINE, TYPE_SPLINE = range(10)
 
