@@ -423,22 +423,16 @@ class Thickness():
 
                 For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS:
                     parameters = [effective_thickness_x, effective_thickness_y]
-
                 For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_COUPLING:
                     parameters = [coupling_thickness, coupling_spacing, coupling_width]
-                
                 For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE:
                     parameters = [slab_thickness, rib_height, rib_spacing, rib_width]
-
                 For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_BIDIRECTIONAL_RIBBED_PLATE:
                     parameters = [slab_thickness, rib_height_x, rib_height_y, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
-                
                 For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET:
                     parameters = [sheet_thickness, total_profile_height, rib_spacing, top_flange_width, bottom_flange_width]
-
                 For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB:
                     parameters = [slab_thickness, void_spacing, void_diameter]
-                
                 For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE:
                     parameters = [slab_thickness, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
 
@@ -447,10 +441,8 @@ class Thickness():
 
                 For parameter defined self-weight:
                     consideration_of_self_weight : [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, fictitious_thickness]
-                    
                 For user-defined fictitious thickness self-weight:
                     consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, fictitious_thickness]
-
                 For user-defined self-weight:
                     consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_WEIGHT, self_weight]
 
@@ -577,9 +569,9 @@ class Thickness():
 
                 For fictitious thickness and bulk density self-weight:
                     consideration_of_self_weight : [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_BULK_DENSITY, fictitious_thickness, stiffness_matrix_bulk_density]
-                For fictitious thickness and bulk density self-weight:
+                For fictitious thickness and area density self-weight:
                     consideration_of_self_weight : [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_AREA_DENSITY, stiffness_matrix_bulk_density, stiffness_matrix_area_density]
-                For fictitious thickness and bulk density self-weight:
+                For bulk density and area density self-weight:
                     consideration_of_self_weight : [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_BULK_DENSITY_AND_AREA_DENSITY, fictitious_thickness, stiffness_matrix_area_density]
 
             coefficient_of_thermal_expansion (float): Coefficient of Thermal Expansion
