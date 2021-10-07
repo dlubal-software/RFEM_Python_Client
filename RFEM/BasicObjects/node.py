@@ -2,7 +2,7 @@ from RFEM.enums import NodeType
 from RFEM.enums import NodeCoordinateSystemType
 from RFEM.enums import NodeReferenceType
 from RFEM.initModel import *
-
+from math import *
 class Node():
     def __init__(self,
                  no: int = 1,
@@ -11,6 +11,16 @@ class Node():
                  coordinate_Z: float = 0.0,
                  comment: str = '',
                  params: dict = {}):
+        
+        '''
+         Args:
+            no (int): Node Tag
+            coordinate_X (float): X-Coordinate
+            coordinate_Y (float): Y-Coordinate
+            coordinate_Z (float): Z-Coordinate
+            comment (str, optional): Comments 
+            params (dict, optional): Parameters    
+        '''
 
         # Client model | Node
         clientObject = clientModel.factory.create('ns0:node')
@@ -38,12 +48,30 @@ class Node():
 
     def Standard(self,
                  no: int = 1,
-                 coordinate_X: float = 0.0,
-                 coordinate_Y: float = 0.0,
-                 coordinate_Z: float = 0.0,
+                 coordinate_system = [], 
+                 coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN,
                  comment: str = '',
                  params: dict = {}):
-
+        
+        '''
+         Args:
+            no (int): Node Tag
+            coordinate_system (list): Coordinate System
+              For coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN;
+                coordinate_system = [X, Y, Z]
+              For coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_X_CYLINDRICAL;
+                coordinate_system = [X, R, θ]
+              For coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Y_CYLINDRICAL;
+                coordinate_system = [R, Ύ, θ]
+              For coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Z_CYLINDRICAL;
+                coordinate_system = [R, θ, Z]
+              For coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_POLAR:
+                coordinate_system = [R, θ, φ]
+            coordinate_system_type (enum): Coordinate System Type Enumeration
+            comment (str, optional): Comments 
+            params (dict, optional): Parameters    
+        '''
+        
         # Client model | Node
         clientObject = clientModel.factory.create('ns0:node')
 
@@ -52,11 +80,58 @@ class Node():
 
         # Node No.
         clientObject.no = no
-
+        
+        # Node Type
+        clientObject.type = NodeType.STANDARD.name
+        
         # Coordinates
-        clientObject.coordinate_1 = coordinate_X
-        clientObject.coordinate_2 = coordinate_Y
-        clientObject.coordinate_3 = coordinate_Z
+
+        clientObject.coordinate_system_type= coordinate_system_type.name
+
+
+        if len(coordinate_system) != 3:
+            raise Exception('WARNING: The coordinate system needs to be of length 3. Kindly check list inputs for completeness and correctness.')
+            
+        if type(coordinate_system[0]) != int or type(coordinate_system[0]) != float :
+            raise Exception ('WARNING: Coordinate system at index 0 to be of type "int" or ''float''')
+        
+        if type(coordinate_system[1]) != int or type(coordinate_system[1]) != float :
+            raise Exception ('WARNING: Coordinate system at index 1 to be of type "int" or ''float''')
+
+        if type(coordinate_system[2]) != int or type(coordinate_system[2]) != float :
+            raise Exception ('WARNING: Coordinate system at index 2 to be of type "int" or ''float''')
+    
+        if coordinate_system_type.name == "COORDINATE_SYSTEM_CARTESIAN":
+            clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN
+            clientObject.coordinate_1 = coordinate_system[0]
+            clientObject.coordinate_2 = coordinate_system[1]
+            clientObject.coordinate_3 = coordinate_system[2]
+            
+
+        elif coordinate_system_type.name == "COORDINATE_SYSTEM_X_CYLINDRICAL":   
+            clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_X_CYLINDRICAL
+            clientObject.coordinate_1 = coordinate_system[0]
+            clientObject.coordinate_2 = coordinate_system[1]
+            clientObject.coordinate_3 = coordinate_system[2] * (pi/180) 
+
+        elif coordinate_system_type.name == "COORDINATE_SYSTEM_Y_CYLINDRICAL":
+            clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Y_CYLINDRICAL
+            clientObject.coordinate_1 = coordinate_system[0]
+            clientObject.coordinate_2 = coordinate_system[1]
+            clientObject.coordinate_3 = coordinate_system[2] * (pi/180)
+        
+        elif coordinate_system_type.name == "COORDINATE_SYSTEM_Z_CYLINDRICAL":
+            clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Z_CYLINDRICAL
+            clientObject.coordinate_1 = coordinate_system[0]
+            clientObject.coordinate_2 = coordinate_system[1] * (pi/180)
+            clientObject.coordinate_3 = coordinate_system[2]
+            
+        
+        elif coordinate_system_type.name == "COORDINATE_SYSTEM_POLAR":
+            clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_POLAR
+            clientObject.coordinate_1 = coordinate_system[0]
+            clientObject.coordinate_2 = coordinate_system[1] * (pi/180)
+            clientObject.coordinate_3 = coordinate_system[2] * (pi/180)
 
         # Comment
         clientObject.comment = comment
@@ -66,26 +141,36 @@ class Node():
 
         # Add Node to client model
         clientModel.service.set_node(clientObject)
+        
 
     def BetweenTwoNodes(self,
                  no: int = 1,
-                 start_node_no: int = 1,
+                 start_node_no: int = 1, 
                  end_node_no: int = 2,
                  node_reference = NodeReferenceType.REFERENCE_TYPE_L,
                  length_between_i_and_j: int = 1,
                  parameters = [True, 50],
-                 offset_x: int = 0,
                  offset_y: int = 0,
                  offset_z: int = 0,
                  comment: str = '',
                  params: dict = {}):
 
         '''
-        if distance_from_start_relative:
-            parameters = [True, %]
-        
-        if distance_from_start_absolute:
-            parameters[False, magnitude]
+        Args:
+            no (int): Node Tag
+            start_node_no (int): Start Node
+            end_node_no (int): End Node
+            node_reference (enum): Node Reference Enumeration
+            length_between_i_and_j (int): Length between 2 Nodes
+            parameters (list): 
+              if distance_from_start_relative:
+                parameters = [True, %]
+              if distance_from_start_absolute:
+                parameters = [False, magnitude]
+            offset_y (int): Offset in Y-Direction
+            offset_z (int): Offset in Z-Direction
+            comment (str, optional): Comments 
+            params (dict, optional): Parameters  
         '''
 
         # Client model | Node
@@ -154,12 +239,26 @@ class Node():
                  params: dict = {}):
         
         '''
-       ############
-       
-       
-       
+        Args:
+            no (int): Node Tag
+            start_point_x (float): Start Point in X-Coordinate
+            start_point_y (float): Start Point in Y-Coordinate
+            start_point_z (float): Start Point in Z-Coordinate
+            end_point_x (float): End Point in X-Coordinate
+            end_point_y (float): End Point in Y-Coordinate
+            end_point_z (float): End Point in Z-Coordinate
+            node_reference (enum): Node Reference Enumeration
+            parameters (list): 
+              if distance_from_start_relative:
+                parameters = [True, %]
+              if distance_from_start_absolute:
+                parameters = [False, magnitude]
+            offset_y (int): Offset in Y-Direction
+            offset_z (int): Offset in Z-Direction
+            comment (str, optional): Comments 
+            params (dict, optional): Parameters  
         '''
-
+        
         # Client model | Node
         clientObject = clientModel.factory.create('ns0:node')
 
@@ -219,12 +318,21 @@ class Node():
                  comment: str = '',
                  params: dict = {}):
         
-         
         '''
-       [docstring]
-       
+         Args:
+            no (int): Node Tag
+            line_number (int): Line Tag
+            node_reference (enum): Node Reference Enumeration
+            length_between_i_and_j (int): Length between 2 Nodes
+            parameters (list):
+              if distance_from_start_relative:
+                parameters = [True, %]
+              if distance_from_start_absolute:
+                parameters = [False, magnitude]
+            comment (str, optional): Comments 
+            params (dict, optional): Parameters  
         '''
-
+        
         # Client model | Node
         clientObject = clientModel.factory.create('ns0:node')
 
@@ -269,12 +377,20 @@ class Node():
                  comment: str = '',
                  params: dict = {}):
         
-               
         '''
-       [docstring]
-       
+         Args:
+            no (int): Node Tag
+            member_number (int): Member Tag
+            node_reference (enum): Node Reference Enumeration
+            length_between_i_and_j (int): Length between 2 Nodes
+            parameters (list):
+              if distance_from_start_relative:
+                parameters = [True, %]
+              if distance_from_start_absolute:
+                parameters = [False, magnitude]
+            comment (str, optional): Comments 
+            params (dict, optional): Parameters  
         '''
-
 
         # Client model | Node
         clientObject = clientModel.factory.create('ns0:node')
