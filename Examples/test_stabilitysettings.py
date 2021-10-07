@@ -52,10 +52,10 @@ def test_stability_analysis_settings_eigenvalue_method():
 	assert stability_analysis_settings.eigenvalue_method == 'EIGENVALUE_METHOD_ROOTS_OF_CHARACTERISTIC_POLYNOMIAL'
 	assert stability_analysis_settings.calculate_without_loading_for_instability == False
 	assert stability_analysis_settings.considered_favored_effect == False
-	assert stability_analysis_settings.display_local_torsional_rotations == False
+	assert stability_analysis_settings.display_local_torsional_rotations == True
 	assert stability_analysis_settings.find_eigenvectors_beyond_critical_load_factor == True
 	assert stability_analysis_settings.critical_load_factor == 10
-	assert stability_analysis_settings.matrix_type == 'MATRIX_TYPE_STANDARD'
+	assert stability_analysis_settings.matrix_type == 'MATRIX_TYPE_UNIT'
 	assert stability_analysis_settings.minimum_initial_strain == 2.5e-05
 	assert stability_analysis_settings.number_of_lowest_eigenvalues == 5
 
@@ -129,3 +129,8 @@ def test_stability_analysis_settings_incrementaly_method_without_eigenvalue():
 	assert stability_analysis_settings.maximum_number_of_load_increments == 125
 	assert stability_analysis_settings.refinement_of_the_last_load_increment == 5
 	assert stability_analysis_settings.save_results_of_all_increments == False
+
+test_stability_analysis_settings_init()
+test_stability_analysis_settings_eigenvalue_method()
+test_stability_analysis_settings_incrementaly_method_with_eigenvalue()
+test_stability_analysis_settings_incrementaly_method_without_eigenvalue()
