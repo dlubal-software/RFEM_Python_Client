@@ -36,7 +36,7 @@ if __name__ == '__main__':
     Section(1, 'IPE 300')
 
     # Create Nodes
-    Node(1, 0.0, 0.0, 0.0)
+    Node(1, 0.0, 0.0, 0.0) 
     Node(2, 2, 0.0, 0.0)
     Node(3, 4, 0, 0)
 
