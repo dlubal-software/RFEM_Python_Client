@@ -120,11 +120,11 @@ class StabilityAnalysisSettings():
             clientObject.critical_load_factor = critical_load_factor
         
         # Minimum Initial Strain
-        if minimum_initial_strain != None:
+        if minimum_initial_strain == None or minimum_initial_strain == 0:
+            clientObject.activate_minimum_initial_prestress = False
+        elif minimum_initial_strain != None or minimum_initial_strain != 0:
             clientObject.activate_minimum_initial_prestress = True
             clientObject.minimum_initial_strain = minimum_initial_strain
-        elif minimum_initial_strain == None or minimum_initial_strain == 0:
-            clientObject.activate_minimum_initial_prestress = False
         
         # Local Torsional Relations
         if local_torsional_rotations != None:
@@ -177,7 +177,7 @@ class StabilityAnalysisSettings():
                 For minimum initial strain application:
                     minimum_initial_strain != 0 or minimum_initial_strain != None
                 For no minimum initial strain application:
-                    minimum_initial_strain == 0 or minimum_initial_strain == None
+                    minimum_initial_strain == None
             local_torsional_rotations (optional):
                 For no local torsional rotations display:
                     local_torsional_rotations = None
@@ -238,11 +238,11 @@ class StabilityAnalysisSettings():
             clientObject.critical_load_factor = critical_load_factor
         
         # Minimum Initial Strain
-        if minimum_initial_strain != None:
+        if minimum_initial_strain == None or minimum_initial_strain == 0:
+            clientObject.activate_minimum_initial_prestress = False
+        elif minimum_initial_strain != None or minimum_initial_strain != 0:
             clientObject.activate_minimum_initial_prestress = True
             clientObject.minimum_initial_strain = minimum_initial_strain
-        elif minimum_initial_strain == None or minimum_initial_strain == 0:
-            clientObject.activate_minimum_initial_prestress = False
         
         # Local Torsional Relations
         if local_torsional_rotations != None:
@@ -262,12 +262,12 @@ class StabilityAnalysisSettings():
             if len(stopping_of_load_increasing) != 3:
                 raise Exception('WARNING: For active stopping of load-increasing, the stopping of load increasing parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
             clientObject.activate_stopping_of_load_increasing = True
-        clientObject.stopping_of_load_increasing_result = stopping_of_load_increasing[0].name
-        if stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U_X' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U_Y' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U_Z':
-            clientObject.stopping_of_load_increasing_limit_result_displacement = stopping_of_load_increasing[1]
-        elif stopping_of_load_increasing[0].name == 'RESULT_TYPE_ROTATION_PHI' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_ROTATION_PHI_X' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_ROTATION_PHI_Y' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_ROTATION_PHI_Z':
-            clientObject.stopping_of_load_increasing_limit_result_rotation = stopping_of_load_increasing[1]
-        clientObject.stopping_of_load_increasing_limit_node = stopping_of_load_increasing[2]
+            clientObject.stopping_of_load_increasing_result = stopping_of_load_increasing[0].name
+            if stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U_X' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U_Y' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U_Z':
+                clientObject.stopping_of_load_increasing_limit_result_displacement = stopping_of_load_increasing[1]
+            elif stopping_of_load_increasing[0].name == 'RESULT_TYPE_ROTATION_PHI' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_ROTATION_PHI_X' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_ROTATION_PHI_Y' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_ROTATION_PHI_Z':
+                clientObject.stopping_of_load_increasing_limit_result_rotation = stopping_of_load_increasing[1]
+            clientObject.stopping_of_load_increasing_limit_node = stopping_of_load_increasing[2]
 
         # Save Results of All Increments
         clientObject.save_results_of_all_increments = save_results_of_all_increments
@@ -354,11 +354,11 @@ class StabilityAnalysisSettings():
         clientObject.analysis_type = StabilityAnalysisSettingsAnalysisType.INCREMENTALY_METHOD_WITHOUT_EIGENVALUE.name
         
         # Minimum Initial Strain
-        if minimum_initial_strain != None:
+        if minimum_initial_strain == None or minimum_initial_strain == 0:
+            clientObject.activate_minimum_initial_prestress = False
+        elif minimum_initial_strain != None or minimum_initial_strain != 0:
             clientObject.activate_minimum_initial_prestress = True
             clientObject.minimum_initial_strain = minimum_initial_strain
-        elif minimum_initial_strain == None or minimum_initial_strain == 0:
-            clientObject.activate_minimum_initial_prestress = False
         
         # Local Torsional Relations
         if local_torsional_rotations != None:
@@ -378,12 +378,12 @@ class StabilityAnalysisSettings():
             if len(stopping_of_load_increasing) != 3:
                 raise Exception('WARNING: For active stopping of load-increasing, the stopping of load increasing parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
             clientObject.activate_stopping_of_load_increasing = True
-        clientObject.stopping_of_load_increasing_result = stopping_of_load_increasing[0].name
-        if stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U_X' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U_Y' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U_Z':
-            clientObject.stopping_of_load_increasing_limit_result_displacement = stopping_of_load_increasing[1]
-        elif stopping_of_load_increasing[0].name == 'RESULT_TYPE_ROTATION_PHI' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_ROTATION_PHI_X' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_ROTATION_PHI_Y' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_ROTATION_PHI_Z':
-            clientObject.stopping_of_load_increasing_limit_result_rotation = stopping_of_load_increasing[1]
-        clientObject.stopping_of_load_increasing_limit_node = stopping_of_load_increasing[2]
+            clientObject.stopping_of_load_increasing_result = stopping_of_load_increasing[0].name
+            if stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U_X' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U_Y' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U_Z':
+                clientObject.stopping_of_load_increasing_limit_result_displacement = stopping_of_load_increasing[1]
+            elif stopping_of_load_increasing[0].name == 'RESULT_TYPE_ROTATION_PHI' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_ROTATION_PHI_X' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_ROTATION_PHI_Y' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_ROTATION_PHI_Z':
+                clientObject.stopping_of_load_increasing_limit_result_rotation = stopping_of_load_increasing[1]
+            clientObject.stopping_of_load_increasing_limit_node = stopping_of_load_increasing[2]
 
         # Save Results of All Increments
         clientObject.save_results_of_all_increments = save_results_of_all_increments
