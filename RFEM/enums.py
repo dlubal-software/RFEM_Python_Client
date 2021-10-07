@@ -323,3 +323,9 @@ class LineArcAlphaAdjustmentTarget(Enum):
     ALPHA_ADJUSTMENT_TARGET_ARC_CONTROL_POINT, ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC, \
     ALPHA_ADJUSTMENT_TARGET_END_OF_ARC = range(3)
 
+class StaticAnalysisSettingsAnalysisType(Enum):
+    '''
+    Static Analysis Settings Analysis Type | Enum
+    '''
+    GEOMETRICALLY_LINEAR, LARGE_DEFORMATIONS, SECOND_ORDER_P_DELTA = range (3)
+
