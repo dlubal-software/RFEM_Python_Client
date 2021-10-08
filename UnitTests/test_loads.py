@@ -32,7 +32,7 @@ def test_nodal_load_init():
     Node(1, 2, 0, 0)
     
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, False)
+    LoadCase(1, 'DEAD')
 
     NodalLoad(1, 1, '1', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 5000)
 
@@ -51,7 +51,7 @@ def test_nodal_load_force():
     Node(1, 2, 0, 0)
     
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, False)
+    LoadCase(1, 'DEAD')
 
     NodalLoad.Force(0, 1, 1, '1', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 5000)
     clientModel.service.finish_modification()
@@ -69,7 +69,7 @@ def test_nodal_load_moment():
     Node(1, 2, 0, 0)
     
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, False)
+    LoadCase(1, 'DEAD')
 
     NodalLoad.Moment(0, 1, 1, '1', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 5000)
     
@@ -88,9 +88,9 @@ def test_nodal_load_components():
     Node(1, 2, 0, 0)
     
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, False)
+    LoadCase(1, 'DEAD')
 
-    NodalLoad.Components(0, 1, 1, '1', 5000, 0, 0, 0, 6000, 0)
+    NodalLoad.Components(0, 1, 1, '1', [5000, 0, 0, 0, 6000, 0])
 
     clientModel.service.finish_modification()
 
@@ -107,9 +107,9 @@ def test_nodal_load_mass():
     Node(1, 2, 0, 0)
     
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, False)
+    LoadCase(1, 'DEAD')
 
-    NodalLoad.Mass(0, 1, 1, '1', 5000)
+    NodalLoad.Mass(0, 1, 1, '1', False,[5000])
 
     clientModel.service.finish_modification()
 
@@ -135,7 +135,7 @@ def test_member_load_init():
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
     
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, False)
+    LoadCase(1, 'DEAD')
 
     MemberLoad(1, 1, '1', LoadDirectionType.LOAD_DIRECTION_LOCAL_Z, 4000)
 
@@ -159,7 +159,7 @@ def test_member_load_force():
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
     
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, False)
+    LoadCase(1, 'DEAD')
 
     MemberLoad.Force(0, 1, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [6000])
 
@@ -183,7 +183,7 @@ def test_member_load_moment():
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
     
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, False)
+    LoadCase(1, 'DEAD')
 
     MemberLoad.Moment(0, 1, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [3000])
 
@@ -207,7 +207,7 @@ def test_member_load_mass():
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
     
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, False)
+    LoadCase(1, 'DEAD')
 
     MemberLoad.Mass(0, 1, 1, '1', False, mass_components=[5000])
     clientModel.service.finish_modification()
@@ -230,7 +230,7 @@ def test_member_load_temperature():
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
     
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, False)
+    LoadCase(1, 'DEAD')
 
     MemberLoad.Temperature(0, 1, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.497, 0.596])
 
@@ -254,7 +254,7 @@ def test_member_load_temperature_change():
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
     
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, False)
+    LoadCase(1, 'DEAD')
 
     MemberLoad.TemperatureChange(0, 1, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, 0.6])
 
@@ -278,7 +278,7 @@ def test_member_load_axial_strain():
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
     
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, False)
+    LoadCase(1, 'DEAD')
 
     MemberLoad.AxialStrain(0, 1, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, [0.5])
 
@@ -302,7 +302,7 @@ def test_member_load_axial_displacement():
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
     
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, False)
+    LoadCase(1, 'DEAD')
 
     MemberLoad.AxialDisplacement(0, 1, 1, '1', MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, 50)
 
@@ -326,7 +326,7 @@ def test_member_load_precamber():
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
     
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, False)
+    LoadCase(1, 'DEAD')
 
     MemberLoad.Precamber(0, 1, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [5])
 
@@ -350,7 +350,7 @@ def test_member_load_initial_prestress():
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
     
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, False)
+    LoadCase(1, 'DEAD')
 
     MemberLoad.InitialPrestress(0, 1, 1, '1', MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, 50)
 
@@ -374,7 +374,7 @@ def test_member_load_displacement():
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
     
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, False)
+    LoadCase(1, 'DEAD')
 
     MemberLoad.Displacement(0, 1, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [60])
 
@@ -398,7 +398,7 @@ def test_member_load_rotation():
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
     
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, False)
+    LoadCase(1, 'DEAD')
 
     MemberLoad.Rotation(0, 1, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.6])
 
@@ -422,7 +422,7 @@ def test_member_load_pipecontentfull():
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
     
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, False)
+    LoadCase(1, 'DEAD')
 
     MemberLoad.PipeContentFull(0, 1, 1, '1', MemberLoadDirectionOrientation.LOAD_DIRECTION_FORWARD, 50)
 
@@ -446,7 +446,7 @@ def test_member_load_pipecontentpartial():
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
     
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, False)
+    LoadCase(1, 'DEAD')
 
     MemberLoad.PipeContentPartial(0, 1, 1, '1', MemberLoadDirectionOrientation.LOAD_DIRECTION_FORWARD, 50, 50)
 
@@ -470,7 +470,7 @@ def test_member_load_pipeinternalpressure():
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
     
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1, 1, False)
+    LoadCase(1, 'DEAD')
 
     MemberLoad.PipeInternalPressure(0, 1, 1, '1', 50)
 
@@ -512,7 +512,7 @@ def test_surface_load_init():
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False)
+    LoadCase(1, 'DEAD')
 
     SurfaceLoad(1, 1, '1', 5000)
 
@@ -551,7 +551,7 @@ def test_surface_load_force():
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False)
+    LoadCase(1, 'DEAD')
 
     SurfaceLoad.Force(0, 1, 1, '1', SurfaceLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, load_parameter=[5000])
 
@@ -590,7 +590,7 @@ def test_surface_load_temperature():
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False)
+    LoadCase(1, 'DEAD')
 
     SurfaceLoad.Temperature(0, 1, 1, '1', SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, load_parameter=[18, 2])
 
@@ -629,7 +629,7 @@ def test_surface_load_axial_strain():
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False)
+    LoadCase(1, 'DEAD')
 
     SurfaceLoad.AxialStrain(0, 1, 1, '1', SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, load_parameter=[0.5, 1])
 
@@ -668,7 +668,7 @@ def test_surface_load_precamber():
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False)
+    LoadCase(1, 'DEAD')
 
     SurfaceLoad.Precamber(0, 1, 1, '1', 50)
 
@@ -707,7 +707,7 @@ def test_surface_load_mass():
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False)
+    LoadCase(1, 'DEAD')
 
     SurfaceLoad.Mass(0, 1, 1, '1', individual_mass_components=True, mass_parameter=[500, 600, 700])
 
@@ -747,7 +747,7 @@ def test_line_load_init():
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False)
+    LoadCase(1, 'DEAD')
 
     LineLoad(1, 1, '1', magnitude=500)
 
@@ -786,7 +786,7 @@ def test_line_load_force():
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False)
+    LoadCase(1, 'DEAD')
 
     LineLoad.Force(LineLoad, 1, 1, '1',
 					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
@@ -827,7 +827,7 @@ def test_line_load_moment():
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False)
+    LoadCase(1, 'DEAD')
 
     LineLoad.Moment(LineLoad, 1, 1, '1',
 					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
@@ -868,7 +868,7 @@ def test_line_load_mass():
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False)
+    LoadCase(1, 'DEAD')
 
     LineLoad.Mass(LineLoad, 1, 1, '1',
 					 individual_mass_components= False,
@@ -912,7 +912,7 @@ def test_free_concentrated_load():
     
     StaticAnalysisSettings(1, 'LINEAR', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     
-    LoadCase(1 , 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False, 0.0, 0.0, 0.0)
+    LoadCase(1, 'DEAD')
 
     FreeLoad.ConcentratedLoad(FreeLoad, 1, 1, load_parameter= [5000, 4, 2])
 
@@ -952,7 +952,7 @@ def test_free_line_load():
     
     StaticAnalysisSettings(1, 'LINEAR', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     
-    LoadCase(1 , 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False, 0.0, 0.0, 0.0)
+    LoadCase(1, 'DEAD')
 
     FreeLoad.LineLoad(FreeLoad, 1, 1, '1',
                         FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
@@ -996,7 +996,7 @@ def test_free_rectangular_load():
     
     StaticAnalysisSettings(1, 'LINEAR', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     
-    LoadCase(1 , 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False, 0.0, 0.0, 0.0)
+    LoadCase(1, 'DEAD')
 
     FreeLoad.RectangularLoad(FreeLoad, 1, 1, '1',
                              FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
@@ -1043,7 +1043,7 @@ def test_free_circular_load():
     
     StaticAnalysisSettings(1, 'LINEAR', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     
-    LoadCase(1 , 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False, 0.0, 0.0, 0.0)
+    LoadCase(1, 'DEAD')
 
     FreeLoad.CircularLoad(FreeLoad, 1, 1, '1',
                              FreeCircularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
@@ -1087,7 +1087,7 @@ def test_free_polygon_load():
     
     StaticAnalysisSettings(1, 'LINEAR', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     
-    LoadCase(1 , 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False, 0.0, 0.0, 0.0)
+    LoadCase(1, 'DEAD')
 
     FreeLoad.PolygonLoad(FreeLoad, 1, 1, '1',
                          FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
