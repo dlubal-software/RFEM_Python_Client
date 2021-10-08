@@ -384,8 +384,6 @@ class SurfaceSetLoadFormFindingCalculationMethod(Enum):
     Surface Set Load Form Finding Calculation Method
     '''
     FORM_FINDING_CALCULATION_METHOD_PROJECTION, FORM_FINDING_CALCULATION_METHOD_STANDARD = range(2)
-    LOAD_DIRECTION_LOCAL_X, LOAD_DIRECTION_LOCAL_Y, LOAD_DIRECTION_LOCAL_Z, LOAD_DIRECTION_PRINCIPAL_U,\
-    LOAD_DIRECTION_PRINCIPAL_V = range(11)
 
 class MemberSetLoadDirectionOrientation(Enum):
     '''
