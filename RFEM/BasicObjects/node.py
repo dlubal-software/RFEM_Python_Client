@@ -2,7 +2,7 @@ from RFEM.enums import NodeType
 from RFEM.enums import NodeCoordinateSystemType
 from RFEM.enums import NodeReferenceType
 from RFEM.initModel import *
-
+from math import *
 class Node():
     def __init__(self,
                  no: int = 1,
@@ -11,6 +11,16 @@ class Node():
                  coordinate_Z: float = 0.0,
                  comment: str = '',
                  params: dict = {}):
+        
+        '''
+         Args:
+            no (int): Node Tag
+            coordinate_X (float): X-Coordinate
+            coordinate_Y (float): Y-Coordinate
+            coordinate_Z (float): Z-Coordinate
+            comment (str, optional): Comments 
+            params (dict, optional): Parameters    
+        '''
 
         # Client model | Node
         clientObject = clientModel.factory.create('ns0:node')
@@ -42,7 +52,26 @@ class Node():
                  coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN,
                  comment: str = '',
                  params: dict = {}):
-
+        
+        '''
+         Args:
+            no (int): Node Tag
+            coordinate_system (list): Coordinate System
+              For coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN;
+                coordinate_system = [X, Y, Z]
+              For coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_X_CYLINDRICAL;
+                coordinate_system = [X, R, θ]
+              For coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Y_CYLINDRICAL;
+                coordinate_system = [R, Ύ, θ]
+              For coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Z_CYLINDRICAL;
+                coordinate_system = [R, θ, Z]
+              For coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_POLAR:
+                coordinate_system = [R, θ, φ]
+            coordinate_system_type (enum): Coordinate System Type Enumeration
+            comment (str, optional): Comments 
+            params (dict, optional): Parameters    
+        '''
+        
         # Client model | Node
         clientObject = clientModel.factory.create('ns0:node')
 
@@ -51,7 +80,7 @@ class Node():
 
         # Node No.
         clientObject.no = no
-
+        
         # Node Type
         clientObject.type = NodeType.STANDARD.name
         
@@ -116,23 +145,32 @@ class Node():
 
     def BetweenTwoNodes(self,
                  no: int = 1,
-                 start_node_no: int = 1,
+                 start_node_no: int = 1, 
                  end_node_no: int = 2,
                  node_reference = NodeReferenceType.REFERENCE_TYPE_L,
                  length_between_i_and_j: int = 1,
                  parameters = [True, 50],
-                 offset_x: int = 0,
                  offset_y: int = 0,
                  offset_z: int = 0,
                  comment: str = '',
                  params: dict = {}):
 
         '''
-        if distance_from_start_relative:
-            parameters = [True, %]
-        
-        if distance_from_start_absolute:
-            parameters[False, magnitude]
+        Args:
+            no (int): Node Tag
+            start_node_no (int): Start Node
+            end_node_no (int): End Node
+            node_reference (enum): Node Reference Enumeration
+            length_between_i_and_j (int): Length between 2 Nodes
+            parameters (list): 
+              if distance_from_start_relative:
+                parameters = [True, %]
+              if distance_from_start_absolute:
+                parameters = [False, magnitude]
+            offset_y (int): Offset in Y-Direction
+            offset_z (int): Offset in Z-Direction
+            comment (str, optional): Comments 
+            params (dict, optional): Parameters  
         '''
 
         # Client model | Node
@@ -201,12 +239,26 @@ class Node():
                  params: dict = {}):
         
         '''
-       ############
-       
-       
-       
+        Args:
+            no (int): Node Tag
+            start_point_x (float): Start Point in X-Coordinate
+            start_point_y (float): Start Point in Y-Coordinate
+            start_point_z (float): Start Point in Z-Coordinate
+            end_point_x (float): End Point in X-Coordinate
+            end_point_y (float): End Point in Y-Coordinate
+            end_point_z (float): End Point in Z-Coordinate
+            node_reference (enum): Node Reference Enumeration
+            parameters (list): 
+              if distance_from_start_relative:
+                parameters = [True, %]
+              if distance_from_start_absolute:
+                parameters = [False, magnitude]
+            offset_y (int): Offset in Y-Direction
+            offset_z (int): Offset in Z-Direction
+            comment (str, optional): Comments 
+            params (dict, optional): Parameters  
         '''
-
+        
         # Client model | Node
         clientObject = clientModel.factory.create('ns0:node')
 
@@ -266,12 +318,21 @@ class Node():
                  comment: str = '',
                  params: dict = {}):
         
-         
         '''
-       [docstring]
-       
+         Args:
+            no (int): Node Tag
+            line_number (int): Line Tag
+            node_reference (enum): Node Reference Enumeration
+            length_between_i_and_j (int): Length between 2 Nodes
+            parameters (list):
+              if distance_from_start_relative:
+                parameters = [True, %]
+              if distance_from_start_absolute:
+                parameters = [False, magnitude]
+            comment (str, optional): Comments 
+            params (dict, optional): Parameters  
         '''
-
+        
         # Client model | Node
         clientObject = clientModel.factory.create('ns0:node')
 
@@ -316,12 +377,20 @@ class Node():
                  comment: str = '',
                  params: dict = {}):
         
-               
         '''
-       [docstring]
-       
+         Args:
+            no (int): Node Tag
+            member_number (int): Member Tag
+            node_reference (enum): Node Reference Enumeration
+            length_between_i_and_j (int): Length between 2 Nodes
+            parameters (list):
+              if distance_from_start_relative:
+                parameters = [True, %]
+              if distance_from_start_absolute:
+                parameters = [False, magnitude]
+            comment (str, optional): Comments 
+            params (dict, optional): Parameters  
         '''
-
 
         # Client model | Node
         clientObject = clientModel.factory.create('ns0:node')
