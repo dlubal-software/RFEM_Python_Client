@@ -1,7 +1,11 @@
 {
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.linting.pydocstyleEnabled": false,
     "python.testing.pytestArgs": [
         "UnitTests"
     ],
     "python.testing.unittestEnabled": false,
+    "python.testing.nosetestsEnabled": false,
     "python.testing.pytestEnabled": true
 }
