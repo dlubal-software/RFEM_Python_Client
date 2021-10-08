@@ -1,14 +1,9 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-from os import name
 import sys
 sys.path.append(".")
 
 # Import der Bibliotheken
 from RFEM.Loads.lineLoad import LineLoad
 from RFEM.enums import *
-#from RFEM.window import *
 from RFEM.dataTypes import *
 from RFEM.initModel import *
 from RFEM.BasicObjects.material import *
