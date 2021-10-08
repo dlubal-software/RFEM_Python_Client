@@ -8,7 +8,14 @@ class StaticAnalysisSettings():
                  analysis_type = StaticAnalysisType.GEOMETRICALLY_LINEAR,
                  comment: str = '',
                  params: dict = {}):
-
+        """
+        Args:
+            no (int): Setting Tag
+            name (str): Setting Name
+            analysis_type (enum): Analysis Type Enumeration
+            comment (str): Comments
+            params (dict): Parameters
+        """
         # Client model | Surface
         clientObject = clientModel.factory.create('ns0:static_analysis_settings')
 

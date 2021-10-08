@@ -463,6 +463,36 @@ class FreePolygonLoadLoadDistribution(Enum):
     '''
     LOAD_DISTRIBUTION_LINEAR, LOAD_DISTRIBUTION_LINEAR_FIRST, LOAD_DISTRIBUTION_LINEAR_SECOND, LOAD_DISTRIBUTION_UNIFORM = range(4)
     
+class ModalSolutionMethod(Enum):
+    '''
+    Modal Analysis Settings Solution Method
+    '''
+    METHOD_ICG_ITERATION, METHOD_LANCZOS, METHOD_ROOT_OF_CHARACTERISTIC_POLYNOMIAL, METHOD_SUBSPACE_ITERATION, SOLUTION_METHOD_SHIFTED_INVERSE_POWER_METHOD = range(5)
+
+class ModalMassConversionType(Enum):
+    '''
+    Modal Analysis Settings Mass Conversion Type
+    '''
+    MASS_CONVERSION_TYPE_FULL_LOADS_AS_MASS, MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS, MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS_IN_DIRECTION_OF_GRAVITY = range(3)
+
+class ModalMassMatrixType(Enum):
+    '''
+    Modal Analysis Settings Mass Matrix Type
+    '''
+    MASS_MATRIX_TYPE_CONSISTENT, MASS_MATRIX_TYPE_DIAGONAL, MASS_MATRIX_TYPE_DIAGONAL_WITH_TORSIONAL_ELEMENTS, MASS_MATRIX_TYPE_UNIT = range(4)
+
+class ModalModeNumberMethod(Enum):
+    '''
+    Modal Analysis Settings Number of Modes Method
+    '''
+    NUMBER_OF_MODES_METHOD_EFFECTIVE_MASS_FACTORS, NUMBER_OF_MODES_METHOD_MAXIMUM_FREQUENCY, NUMBER_OF_MODES_METHOD_USER_DEFINED = range(3)
+
+class ModalNeglectMasses(Enum):
+    '''
+    Modal Analysis Settings Neglect Masses
+    '''
+    E_NEGLECT_MASSES_IN_ALL_FIXED_SUPPORTS, E_NEGLECT_MASSES_NO_NEGLECTION, E_NEGLECT_MASSES_USER_DEFINED = range(3)
+=======
 class PeriodicResponseCombinationRule(Enum):
     '''
     Spectral Analysis Settings Combination Rule For Periodic Responses
