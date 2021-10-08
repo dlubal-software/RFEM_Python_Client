@@ -18,7 +18,7 @@ Python client (or high-level functions) for [RFEM 6](https://www.dlubal.com/en/p
   * [Contribute](#contribute)
 
 ## Description
-This Python project is focused on opening RFEM 6 to all our customers, enabling them to interact with RFEM on much higher level. If you are looking for tool to help you solve parametric models or optimization tasks, you are on the right place. This project and comunity will create support for all your projects. The goal is to create easily expandable Python library communicating instructions to RFEM through WS. WS anable you to access your local version of RFEM or remote via internet connection.
+This Python project is focused on opening RFEM 6 to all our customers, enabling them to interact with RFEM on much higher level. If you are looking for tool to help you solve parametric models or optimization tasks, you are on the right place. This project and community will create support for all your projects. The goal is to create easily expandable Python library communicating instructions to RFEM through WS. WS enable you to access your local version of RFEM or remote via internet connection.
 
 ## Architecture
 ![image](https://user-images.githubusercontent.com/37547309/118119185-44a22f00-b3ee-11eb-9d60-3d74a4a96f81.png)
@@ -38,7 +38,7 @@ Dependency check is implemented inside [initModel.py](/RFEM/initModel.py) with o
 * RFEM 6 application
 
 ### Step by step
-1) Download script (main.py + RFEM folder)
+1) Clone this repository (if you have GitHub account) or download this repository
 2) Open RFEM 6 application
 3) Check if there are no opened dialogues in RFEM and server port range under *Options-Web Services* corresponds to the one set in initModel
 4) Update main.py and run from the same file
