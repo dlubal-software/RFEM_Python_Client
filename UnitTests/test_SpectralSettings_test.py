@@ -26,7 +26,7 @@ from RFEM.Loads.nodalLoad import *
 from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 
-if __name__ == '__main__':
+def test_spectral_analysis_settings():
 	
 	clientModel.service.begin_modification('new')
 

@@ -31,7 +31,7 @@ from RFEM.Loads.nodalLoad import *
 from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 
-if __name__ == '__main__':
+def test_load_distribution_surface():
 
     clientModel.service.begin_modification('new')
 
