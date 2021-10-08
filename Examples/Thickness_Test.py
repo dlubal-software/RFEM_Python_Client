@@ -1,13 +1,9 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import sys
 sys.path.append(".")
 
 # Import der Bibliotheken
 from os import name
 from RFEM.enums import *
-#from RFEM.window import *
 from RFEM.dataTypes import *
 from RFEM.initModel import *
 from RFEM.BasicObjects.material import *
@@ -101,7 +97,7 @@ if __name__ == '__main__':
                      name= 'Shape Orthotropy',
                      orthotropy_type= ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB,
                      rotation_beta= 180,
-                     consideration_of_self_weight= [ThicknessSelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, 0.234],
+                     consideration_of_self_weight= [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, 0.234],
                      parameters= [0.4, 0.125, 0.05],
                      comment= 'Comment')
 
@@ -109,10 +105,13 @@ if __name__ == '__main__':
     Thickness.StiffnessMatrix(Thickness,
                      no= 9,
                      name= 'Stiffness Matrix',
+                     rotation_beta= 90,
                      stiffness_matrix= [[11000, 12000, 13000, 22000, 23000, 33000],
                                         [44000, 45000, 55000],
                                         [66000, 67000, 68000, 77000, 78000, 88000],
                                         [16000, 17000, 18000, 27000, 28000, 38000]],
+                     consideration_of_self_weight= [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_BULK_DENSITY_AND_AREA_DENSITY, 10, 10],
+                     coefficient_of_thermal_expansion= 1,
                      comment= 'Comment')
     
     #Calculate_all()
