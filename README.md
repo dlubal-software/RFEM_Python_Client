@@ -38,7 +38,7 @@ Dependency check is implemented inside [initModel.py](/RFEM/initModel.py) with o
 * RFEM 6 application
 
 ### Step by step
-1) Clone this repository (if you have GitHub account) or download this repository
+1) Clone this repository (if you have GitHub account) or download actual [release](https://github.com/Dlubal-Software/RFEM_Python_Client/releases/tag/R-v1.0.0)
 2) Open RFEM 6 application
 3) Check if there are no opened dialogues in RFEM and server port range under *Options-Web Services* corresponds to the one set in initModel
 4) Update main.py and run from the same file
