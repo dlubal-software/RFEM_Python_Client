@@ -151,7 +151,7 @@ if __name__ == '__main__':
     Solid(3, '13-17,12', 1)
 
     # Solid Set
-    SolidSet.ContinuousSolids(SolidSet, 1, '2 3')
+    SolidSet.ContinuousSolids(SolidSet, 1, '2 3',)
 
     #Calculate_all()
     print('Ready!')
