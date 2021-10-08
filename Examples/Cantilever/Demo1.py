@@ -54,8 +54,7 @@ if __name__ == '__main__':
     StaticAnalysisSettings(
         1, '1. Ordnung', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
-    LoadCase(1, 'Eigengewicht', AnalysisType.ANALYSIS_TYPE_STATIC,
-             1,  1, True, 0.0, 0.0, 1.0)
+    LoadCase(1, 'Eigengewicht', [True, 0.0, 0.0, 1.0])
 
     NodalLoad(
         1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, f*1000)

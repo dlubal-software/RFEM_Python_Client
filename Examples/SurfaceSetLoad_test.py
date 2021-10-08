@@ -98,7 +98,7 @@ if __name__ == '__main__':
     StaticAnalysisSettings(1, '1. Order', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
     # Create Load Case
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
+    LoadCase(1, 'DEAD', [True, 0.0, 0.0, 1.0])
 
     ## Default Surface Load ##
     SurfaceSetLoad(1, 1, '1', 5000)

@@ -26,7 +26,7 @@ from RFEM.dataTypes import *
 from RFEM.enums import *
 
 if __name__ == '__main__':
-
+    # modal analysis not yet implemmented in released RFEM6
     clientModel.service.begin_modification()
 
     # Create Material
