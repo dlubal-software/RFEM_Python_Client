@@ -2,6 +2,7 @@ from RFEM.initModel import *
 from RFEM.enums import *
 
 class SurfaceLoad():
+    
     def __init__(self,
                  no: int = 1,
                  load_case_no: int = 1,
