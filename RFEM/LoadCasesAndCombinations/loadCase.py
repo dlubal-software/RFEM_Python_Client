@@ -162,4 +162,3 @@ class LoadCase():
 
         # Add Load Case to client model
         clientModel.service.set_load_case(clientObject)
-
