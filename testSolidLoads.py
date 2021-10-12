@@ -73,7 +73,7 @@ if __name__ == '__main__':
     
     StaticAnalysisSettings(1, 'Geometric linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     
-    LoadCase(1 , 'Test load case', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
+    LoadCase(1 , 'Test load case', [True, 0.0, 0.0, 1.0])
 
     NodalLoad(1, 1, '1', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 12.8)
     
