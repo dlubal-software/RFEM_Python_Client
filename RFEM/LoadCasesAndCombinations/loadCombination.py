@@ -87,5 +87,5 @@ class LoadCombination():
         for key in params:
             clientObject[key] = params[key]
 
-        # Add Load Case to client model
-        clientModel.service.set_load_case(clientObject)
+        # Add Load Combination to client model
+        clientModel.service.set_load_combination(clientObject)
