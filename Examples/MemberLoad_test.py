@@ -55,7 +55,7 @@ if __name__ == '__main__':
     StaticAnalysisSettings(1, '1. Ordnung', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
     # Create Load Case
-    LoadCase(1, 'DEAD', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
+    LoadCase(1, 'DEAD', [True, 0.0, 0.0, 1.0])
 
     ## Initial Member Load ##
     MemberLoad(1, 1, '1', LoadDirectionType.LOAD_DIRECTION_LOCAL_Z, 5000)
@@ -166,7 +166,6 @@ if __name__ == '__main__':
     ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_VARYING ##
     MemberLoad.TemperatureChange(0, 35, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])
 
-
     ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
     MemberLoad.AxialStrain(0, 36, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[0.005])
 
@@ -268,10 +267,8 @@ if __name__ == '__main__':
     ## Rotation Type Member Load with LOAD_DISTRIBUTION_VARYING ##
     MemberLoad.Rotation(0, 67, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])
 
-
     ## PipeContentFull Type Member Load ## 
     MemberLoad.PipeContentFull(0, 68, 1, '2', MemberLoadDirectionOrientation.LOAD_DIRECTION_FORWARD, 50)
-    
     
     Calculate_all()
 
