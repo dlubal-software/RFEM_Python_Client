@@ -81,7 +81,7 @@ except:
 try:
     import xmltodict
 except:
-    print('requests library is not installed in your Python env.')
+    print('xmltodict library is not installed in your Python env.')
     instXML = input('Do you want to install it (y/n)? ')
     instXML = instXML.lower()
     if instXML == 'y':
@@ -92,8 +92,8 @@ except:
             subprocess.call('python -m pip install xmltodict --user')
             import requests
         except:
-            print('WARNING: Installation of requests library failed!')
-            print('Please use command "pip install requests --user" in your Command Prompt.')
+            print('WARNING: Installation of xmltodict library failed!')
+            print('Please use command "pip install xmltodict --user" in your Command Prompt.')
             input('Press Enter to exit...')
             sys.exit()
     else:
