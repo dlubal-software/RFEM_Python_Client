@@ -22,7 +22,7 @@ class StaticAnalysisType(Enum):
     '''
     GEOMETRICALLY_LINEAR, LARGE_DEFORMATIONS, LARGE_DEFORMATIONS_POSTRCRITICAL, SECOND_ORDER_P_DELTA = range(4)
 
-
+    
 class AnalysisType(Enum):
     '''
     Analysis Type | Enum
@@ -30,7 +30,14 @@ class AnalysisType(Enum):
     ANALYSIS_TYPE_CREEP_AND_SHRINKAGE, ANALYSIS_TYPE_CUTTING_PATTERN, ANALYSIS_TYPE_MODAL, ANALYSIS_TYPE_RESPONSE_SPECTRUM,\
     ANALYSIS_TYPE_STATIC, ANALYSIS_TYPE_TIME_DEPENDENT, ANALYSIS_TYPE_TIME_HISTORY, ANALYSIS_TYPE_WIND_SIMULATION = range(8)
 
+    
+class LoadCombinationAnalysisType(Enum):
+    '''
+    Load Combination Analysis Type | Enum
+    '''
+    ANALYSIS_TYPE_HARMONIC_RESPONSE_ANALYSIS, ANALYSIS_TYPE_STATIC, ANALYSIS_TYPE_STATIC_CREEP_AND_SHRINKAGE, ANALYSIS_TYPE_STATIC_TIME_DEPENDENCE = range(4)
 
+    
 class LoadDirectionType(Enum):
     '''
     Load Direction Type | Enum
@@ -38,6 +45,7 @@ class LoadDirectionType(Enum):
     LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,\
     LOAD_DIRECTION_LOCAL_X, LOAD_DIRECTION_LOCAL_Y, LOAD_DIRECTION_LOCAL_Z = range(6)
 
+    
 class MemberLoadDirection(Enum):
     '''
     Member Load Direction | Enum
@@ -48,6 +56,7 @@ class MemberLoadDirection(Enum):
     LOAD_DIRECTION_LOCAL_X, LOAD_DIRECTION_LOCAL_Y, LOAD_DIRECTION_LOCAL_Z, LOAD_DIRECTION_PRINCIPAL_U,\
     LOAD_DIRECTION_PRINCIPAL_V = range(11)
 
+    
 class MemberLoadType(Enum):
     '''
     Member Load Type | Enum
@@ -328,4 +337,6 @@ class StaticAnalysisSettingsAnalysisType(Enum):
     Static Analysis Settings Analysis Type | Enum
     '''
     GEOMETRICALLY_LINEAR, LARGE_DEFORMATIONS, SECOND_ORDER_P_DELTA = range (3)
+    
+class   
 
