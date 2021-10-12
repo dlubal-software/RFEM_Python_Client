@@ -20,8 +20,16 @@ class StaticAnalysisType(Enum):
     Static Analysis Type | Enum
     '''
     GEOMETRICALLY_LINEAR, LARGE_DEFORMATIONS, LARGE_DEFORMATIONS_POSTRCRITICAL, SECOND_ORDER_P_DELTA = range(4)
-
-
+    
+    
+class StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis(Enum):
+    '''
+    Static Analysis Settings Iterative Method For Nonlinear Analysis | Enum
+    '''
+    DYNAMIC_RELAXATION, NEWTON_RAPHSON, NEWTON_RAPHSON_COMBINED_WITH_PICARD, NEWTON_RAPHSON_WITH_CONSTANT_STIFFNESS,\
+    NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS, PICARD = range(6)
+    
+    
 class AnalysisType(Enum):
     '''
     Analysis Type | Enum
