@@ -1,10 +1,11 @@
 from RFEM.initModel import *
 from RFEM.enums import StaticAnalysisType
+from RFEM.enums import StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis
 
 class StaticAnalysisSettings():
     def __init__(self,
                  no: int = 1,
-                 name: str = 'Geometric linear analysis',
+                 name: str = None,
                  analysis_type = StaticAnalysisType.GEOMETRICALLY_LINEAR,
                  comment: str = '',
                  params: dict = {}):
@@ -23,7 +24,7 @@ class StaticAnalysisSettings():
         clientObject.name = name
 
         # Analysis Type
-        clientObject.analysis_type = analysis_type.name
+        clientObject.analysis_type = StaticAnalysisType.GEOMETRICALLY_LINEAR.name
 
         # Comment
         clientObject.comment = comment
@@ -34,3 +35,6 @@ class StaticAnalysisSettings():
 
         # Add Static Analysis Settings to client model
         clientModel.service.set_static_analysis_settings(clientObject)
+        
+        
+        
