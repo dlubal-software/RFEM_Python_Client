@@ -70,9 +70,9 @@ class StaticAnalysisSettings():
         # Load Multiplier Factor  (add a list)
         clientObject.modify_loading_by_multiplier_factor = load_multiplier_factor 
         if load_multiplier_factor != False:
-            clientObject.modify_loading_by_multiplier_factor = True 
-            clientObject.number_of_iterations_for_loading_prestress: int = 1 ??
-            clientObject.divide_results_by_loading_factor
+            factors = []
+            clientObject.number_of_iterations_for_loading_prestress = factors[0] 
+            clientObject.divide_results_by_loading_factor = factors[1] 
             
         # Bourdon Effect Displacement 
         clientObject.displacements_due_to_bourdon_effect = bourdon_effect 
@@ -138,6 +138,9 @@ class StaticAnalysisSettings():
 
         # Iterative Method
         clientObject.iterative_method_for_nonlinear_analysis = iterative_method.name
+        if iterative_method.name =! "NEWTON_RAPHSON" OR iterative_method.name =! "NEWTON_RAPHSON_COMBINED_WITH_PICARD" OR iterative_method.name =! "NEWTON_RAPHSON_WITH_CONSTANT_STIFFNESSOR" OR iterative_method.name =! "DYNAMIC_RELAXATION" OR iterative_method.name =! "PICARD":
+            raise Exception('WARNING: The iterative method does not match with the selected static analysis type. Kindly check input for completeness and correctness.')
+        
 
         # Standard Precision and Tolerance
         clientObject.standard_precision_and_tolerance_settings_enabled = standard_precision_and_tolerance_settings_enabled
@@ -223,7 +226,9 @@ class StaticAnalysisSettings():
 
         # Iterative Method
         clientObject.iterative_method_for_nonlinear_analysis = iterative_method.name
-
+        if iterative_method.name =! "NEWTON_RAPHSON" OR iterative_method.name =!"NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS" OR iterative_method.name =! "PICARD":
+            raise Exception('WARNING: The iterative method does not match with the selected static analysis type. Kindly check input for completeness and correctness.')
+        
 
         # Maximum Number of Iterations
         clientObject.max_number_of_iterations = max_number_of_iterations
@@ -282,15 +287,4 @@ class StaticAnalysisSettings():
 
         # Add Static Analysis Settings to client model
         clientModel.service.set_static_analysis_settings(clientObject)
-
-
-
-
-
-
-
-
-
-
-
         
