@@ -44,8 +44,8 @@ class StaticAnalysisSettings():
                  load_multiplier_factor : bool = False,
                  bourdon_effect: bool = True,
                  nonsymmetric_direct_solver: bool = True,
-                 method_of_equation_system = .METHOD_OF_EQUATION_SYSTEM_DIRECT,
-                 plate_bending_theory = .PLATE_BENDING_THEORY_MINDLIN,
+                 method_of_equation_system = StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT,
+                 plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion_enabled : bool = False,
                  comment: str = '',
                  params: dict = {}):   
@@ -114,7 +114,7 @@ class StaticAnalysisSettings():
                  load_multiplier_factor : bool = False,
                  bourdon_effect: bool = True,
                  nonsymmetric_direct_solver: bool = True,
-                 plate_bending_theory = .PLATE_BENDING_THEORY_MINDLIN,
+                 plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion_enabled : bool = False,
                  comment: str = '',
                  params: dict = {}):  
@@ -197,8 +197,8 @@ class StaticAnalysisSettings():
                  bourdon_effect: bool = True,
                  nonsymmetric_direct_solver: bool = True,
                  refer_internal_forces_to_deformed_structure : bool = False,
-                 method_of_equation_system = .METHOD_OF_EQUATION_SYSTEM_DIRECT,
-                 plate_bending_theory = .PLATE_BENDING_THEORY_MINDLIN,
+                 method_of_equation_system = StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT,
+                 plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion_enabled : bool = False,
                  comment: str = '',
                  params: dict = {}):  
