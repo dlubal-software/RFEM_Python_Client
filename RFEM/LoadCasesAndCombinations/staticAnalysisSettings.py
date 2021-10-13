@@ -1,8 +1,8 @@
 from RFEM.initModel import *
 from RFEM.enums import StaticAnalysisType
 from RFEM.enums import StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis
-from RFEM.enums import 
-from RFEM.enums import 
+from RFEM.enums import StaticAnalysisSettingsMethodOfEquationSystem
+from RFEM.enums import StaticAnalysisSettingsPlateBendingTheory
 
 class StaticAnalysisSettings():
     def __init__(self,
@@ -44,8 +44,8 @@ class StaticAnalysisSettings():
                  load_multiplier_factor : bool = False,
                  bourdon_effect: bool = True,
                  nonsymmetric_direct_solver: bool = True,
-                 method_of_equation_system = .DIRECT,
-                 plate_bending_theory = .MINDLIN,
+                 method_of_equation_system = .METHOD_OF_EQUATION_SYSTEM_DIRECT,
+                 plate_bending_theory = .PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion_enabled : bool = False,
                  comment: str = '',
                  params: dict = {}):   
@@ -114,7 +114,7 @@ class StaticAnalysisSettings():
                  load_multiplier_factor : bool = False,
                  bourdon_effect: bool = True,
                  nonsymmetric_direct_solver: bool = True,
-                 plate_bending_theory = .MINDLIN,
+                 plate_bending_theory = .PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion_enabled : bool = False,
                  comment: str = '',
                  params: dict = {}):  
@@ -138,7 +138,6 @@ class StaticAnalysisSettings():
 
         # Iterative Method
         clientObject.iterative_method_for_nonlinear_analysis = iterative_method.name
-
 
         # Standard Precision and Tolerance
         clientObject.standard_precision_and_tolerance_settings_enabled = standard_precision_and_tolerance_settings_enabled
@@ -198,8 +197,8 @@ class StaticAnalysisSettings():
                  bourdon_effect: bool = True,
                  nonsymmetric_direct_solver: bool = True,
                  refer_internal_forces_to_deformed_structure : bool = False,
-                 method_of_equation_system = .DIRECT,
-                 plate_bending_theory = .MINDLIN,
+                 method_of_equation_system = .METHOD_OF_EQUATION_SYSTEM_DIRECT,
+                 plate_bending_theory = .PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion_enabled : bool = False,
                  comment: str = '',
                  params: dict = {}):  
