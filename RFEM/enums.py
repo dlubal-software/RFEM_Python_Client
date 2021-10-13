@@ -30,6 +30,20 @@ class StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis(Enum):
     NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS, PICARD = range(6)
     
     
+class StaticAnalysisSettingsMethodOfEquationSystem(Enum):
+    '''
+    Static Analysis Settings Method of Equation System | Enum
+    '''
+    METHOD_OF_EQUATION_SYSTEM_DIRECT, METHOD_OF_EQUATION_SYSTEM_ITERATIVE = range(2)
+    
+    
+class StaticAnalysisSettingsPlateBendingTheory(Enum):
+    '''
+    Static Analysis Settings Plate Bending Theory | Enum
+    '''
+    PLATE_BENDING_THEORY_MINDLIN, PLATE_BENDING_THEORY_KIRCHHOFF = range(2)    
+
+
 class AnalysisType(Enum):
     '''
     Analysis Type | Enum
