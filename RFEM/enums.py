@@ -2,7 +2,7 @@ from enum import Enum
 
 class MemberType(Enum):
     '''
-    Member Type | Enu
+    Member Type | Enum
     '''
     TYPE_BEAM, TYPE_BUCKLING, TYPE_CABLE, TYPE_COMPRESSION, TYPE_COUPLING_HINGE_HINGE,\
     TYPE_COUPLING_HINGE_RIGID, TYPE_COUPLING_RIGID_HINGE, TYPE_COUPLING_RIGID_RIGID,\
