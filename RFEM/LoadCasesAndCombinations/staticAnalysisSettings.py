@@ -48,8 +48,21 @@ class StaticAnalysisSettings():
                  plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion_enabled : bool = False,
                  comment: str = '',
-                 params: dict = {}):   
-
+                 params: dict = {}):
+        '''
+        Args:
+            no (int): 
+            name (str, optional): Static Analysis Name
+            load_multiplier_factor (bool): Loading by Multiple Factors
+            bourdon_effect (bool): Bourdon Effect
+            nonsymmetric_direct_solver (bool): Non-symmetric Direct Solver
+            method_of_equation_system (enum): Static Analysis Settings Method of Equation System Enumeration
+            plate_bending_theory (enum): Static Analysis Settings Plate Bending Theory Enumeration
+            mass_conversion_enabled (bool): Mass Conversion into Load
+            comment (str, optional):
+            params (dict, optional):
+        '''
+        
         # Client model
         clientObject = clientModel.factory.create('ns0:static_analysis_settings')
 
@@ -117,7 +130,23 @@ class StaticAnalysisSettings():
                  plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion_enabled : bool = False,
                  comment: str = '',
-                 params: dict = {}):  
+                 params: dict = {}):
+        '''
+        Args:
+            no (int): 
+            name (str, optional): Static Analysis Name
+            iterative_method (enum): Static Analysis Settings Iterative Method for Non-linear Analysis Enumeration
+            standard_precision_and_tolerance_settings_enabled (bool): Standard Precision and Tolerance Settings
+            max_number_of_iterations (int): Maximum Number of Iterations
+            number_of_load_increments (int): Number of Load Increments
+            load_multiplier_factor (bool): Loading by Multiple Factors
+            bourdon_effect (bool): Bourdon Effect
+            nonsymmetric_direct_solver (bool): Non-symmetric Direct Solver
+            plate_bending_theory (enum): Static Analysis Settings Plate Bending Theory Enumeration
+            mass_conversion_enabled (bool): Mass Conversion into Load
+            comment (str, optional):
+            params (dict, optional):
+        '''  
     
         # Client model
         clientObject = clientModel.factory.create('ns0:static_analysis_settings')
@@ -204,7 +233,25 @@ class StaticAnalysisSettings():
                  plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion_enabled : bool = False,
                  comment: str = '',
-                 params: dict = {}):  
+                 params: dict = {}):
+        '''
+        Args:
+            no (int): 
+            name (str, optional): Static Analysis Name
+            iterative_method (enum): Static Analysis Settings Iterative Method for Non-linear Analysis Enumeration
+            max_number_of_iterations (int): Maximum Number of Iterations
+            number_of_load_increments (int): Number of Load Increments
+            load_multiplier_factor (bool): Loading by Multiple Factors
+            favorable_effect_due_to_tension_in_members (bool): Considered Favored Effect
+            bourdon_effect (bool): Bourdon Effect
+            nonsymmetric_direct_solver (bool): Non-symmetric Direct Solver
+            refer_internal_forces_to_deformed_structure (bool): Refered Internal Forces to Deformed Structure 
+            method_of_equation_system (enum): Static Analysis Settings Method of Equation System Enumeration
+            plate_bending_theory (enum): Static Analysis Settings Plate Bending Theory Enumeration
+            mass_conversion_enabled (bool): Mass Conversion into Load
+            comment (str, optional):
+            params (dict, optional):
+        '''    
     
         # Client model
         clientObject = clientModel.factory.create('ns0:static_analysis_settings')
