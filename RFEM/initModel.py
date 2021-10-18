@@ -144,6 +144,8 @@ if modelLst:
     cModel.service.reset()
 else:
     new = client.service.new_model('My Model') + 'wsdl'
+    # If a new model is created, I thought we can create an input list for the user to define the model type
+    # new = client.service.set_model_type('E_MODEL_TYPE_2D_XZ_PLANE_STRESS')
     cModel = Client(new, transport=trans)
 
 # Init client model
