@@ -53,3 +53,4 @@ class MemberHinge():
 
         # Add Line to client model
         clientModel.service.set_member_hinge(clientObject)
+
