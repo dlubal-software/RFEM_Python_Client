@@ -54,11 +54,11 @@ if __name__ == '__main__':
     
     StaticAnalysisSettings(1, 'Geometrisch-linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     
-    LoadCase(1 , 'Einzell- u. Linienlast', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False, 0.0, 0.0, 0.0)
-    LoadCase(2 , 'Rechtecklast 1', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False, 0.0, 0.0, 0.0)
-    LoadCase(3 , 'Rechtecklast 2', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False, 0.0, 0.0, 0.0)
-    LoadCase(4 , 'Kreislast', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False, 0.0, 0.0, 0.0)
-    LoadCase(5 , 'Polygonlast', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False, 0.0, 0.0, 0.0)
+    LoadCase(1 , 'Einzell- u. Linienlast')
+    LoadCase(2 , 'Rechtecklast 1')
+    LoadCase(3 , 'Rechtecklast 2')
+    LoadCase(4 , 'Kreislast')
+    LoadCase(5 , 'Polygonlast')
 
     # Prüfung der freien Einzellasten
     FreeLoad.ConcentratedLoad(FreeLoad, 1, 1, load_parameter= [5000, 4, 2])

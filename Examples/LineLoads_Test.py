@@ -60,13 +60,13 @@ if __name__ == '__main__':
 
 	# Testing Standard (i.e. default) Function
 
-	LoadCase(1 , 'Standard', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False)
+	LoadCase(1 , 'Standard')
 
 	LineLoad(1,1,'1', magnitude=1)
 	
 	# Testing Force Type Line Loads
 
-	LoadCase(2 , 'TYPE: Force', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False)
+	LoadCase(2 , 'TYPE: Force')
 
 	LineLoad.Force(LineLoad, 1, 2, '1',
 					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
@@ -108,7 +108,7 @@ if __name__ == '__main__':
 
 	# Testing Moment Type Line Loads
 
-	LoadCase(3 , 'TYPE: Moment', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False)
+	LoadCase(3 , 'TYPE: Moment')
 
 	LineLoad.Moment(LineLoad, 1, 3, '1',
 					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
@@ -155,7 +155,7 @@ if __name__ == '__main__':
 
 	# Testing Mass Type Line Loads
 
-	LoadCase(4 , 'TYPE: Mass', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, False)
+	LoadCase(4 , 'TYPE: Mass')
 
 	LineLoad.Mass(LineLoad, 1, 4, '1',
 					 individual_mass_components= False,

@@ -202,25 +202,24 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 
 # -------------------------------------------------------------
     # Static Analysis Settings
-    StaticAnalysisSettings(1, "Large deformations", StaticAnalysisType.GEOMETRICALLY_LINEAR)
+    StaticAnalysisSettings(1, "Linear calculation", StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
 # -------------------------------------------------------------
     # Load Cases
-    LoadCase(1 , "Self-weight", AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
-    LoadCase(2 , "Live loads" , AnalysisType.ANALYSIS_TYPE_STATIC, 1,  4)
-    LoadCase(3 , "Test 1"     , AnalysisType.ANALYSIS_TYPE_STATIC, 1, 14)
-    LoadCase(4 , "Test 2"     , AnalysisType.ANALYSIS_TYPE_STATIC, 1, 14)
-    LoadCase(5 , "Test 3"     , AnalysisType.ANALYSIS_TYPE_STATIC, 1, 14)
-    LoadCase(6 , "Test 4"     , AnalysisType.ANALYSIS_TYPE_STATIC, 1, 14)
-    LoadCase(7 , "Test 5"     , AnalysisType.ANALYSIS_TYPE_STATIC, 1, 14)
-    LoadCase(8 , "Test 6"     , AnalysisType.ANALYSIS_TYPE_STATIC, 1, 14)
-    LoadCase(9 , "Test 7"     , AnalysisType.ANALYSIS_TYPE_STATIC, 1, 14)
-    LoadCase(10, "Test 8"     , AnalysisType.ANALYSIS_TYPE_STATIC, 1, 14)
-    LoadCase(11, "Test 9"     , AnalysisType.ANALYSIS_TYPE_STATIC, 1, 14)
-    LoadCase(12, "Test 10"    , AnalysisType.ANALYSIS_TYPE_STATIC, 1, 14)
-    LoadCase(13, "Test 11"    , AnalysisType.ANALYSIS_TYPE_STATIC, 1, 14)
-    LoadCase(14, "Test 12"    , AnalysisType.ANALYSIS_TYPE_STATIC, 1, 14)
-
+    LoadCase(1 , "Self-weight",[True, 0.0, 0.0, 10.0])
+    LoadCase(2 , "Live loads")
+    LoadCase(3 , "Test 1" )
+    LoadCase(4 , "Test 2" )
+    LoadCase(5 , "Test 3" )
+    LoadCase(6 , "Test 4" )
+    LoadCase(7 , "Test 5" )
+    LoadCase(8 , "Test 6" )
+    LoadCase(9 , "Test 7" )
+    LoadCase(10, "Test 8" )
+    LoadCase(11, "Test 9" )
+    LoadCase(12, "Test 10")
+    LoadCase(13, "Test 11")
+    LoadCase(14, "Test 12")
 
 # -------------------------------------------------------------
     # Nodal Forces
@@ -228,45 +227,45 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 
 # -------------------------------------------------------------
     # Member Loads
-    ## Force Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
-    MemberLoad.Force(1, 2, 1, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])
+    MemberLoad.Force(0, 2, 1, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_UNIFORM with Eccentricity ##
-    MemberLoad.Force(1, 3, 1, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000], force_eccentricity=True, params={'eccentricity_y_at_start' : 0.01, 'eccentricity_z_at_start': 0.02})
+    MemberLoad.Force(0, 3, 2, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000], force_eccentricity=True, params={'eccentricity_y_at_start' : 0.01, 'eccentricity_z_at_start': 0.02})
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_UNIFORM_TOTAL ##
-    MemberLoad.Force(1, 4, 1, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM_TOTAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])
+    MemberLoad.Force(0, 4, 3, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM_TOTAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_1 ##
-    MemberLoad.Force(1, 5, 1, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, 5000, 1.2])
+    MemberLoad.Force(0, 5, 4, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, 5000, 1.2])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_N ##
-    MemberLoad.Force(1, 6, 1, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 2, 1, 2])
+    MemberLoad.Force(0, 6, 5, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 2, 1, 2])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x2 ##
-    MemberLoad.Force(1, 7, 1, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, False, 5000, 1, 2, 3])
+    MemberLoad.Force(0, 7, 6, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, False, 5000, 1, 2, 3])
     
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x ##
-    MemberLoad.Force(1, 8, 1, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 6000, 1, 2])
+    MemberLoad.Force(0, 8, 7, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 6000, 1, 2])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_VARYING ##
-    MemberLoad.Force(1, 9, 1, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
+    MemberLoad.Force(0, 9, 8, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##
-    MemberLoad.Force(1, 10, 1, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])
+    MemberLoad.Force(0, 10, 9, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_TAPERED ##
-    MemberLoad.Force(1, 11, 1, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])
+    MemberLoad.Force(0, 11, 10, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
-    MemberLoad.Force(1, 12, 1, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[4000, 8000, 12000])
+    MemberLoad.Force(0, 12, 11, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[4000, 8000, 12000])
      
     ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING ##
-    MemberLoad.Force(1, 13, 1, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
+    MemberLoad.Force(0, 13, 12, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
      
     ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING_IN_Z ##
-    MemberLoad.Force(1, 14, 1, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
-   
+    MemberLoad.Force(0, 14, 13, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
+    
+
 
 # -------------------------------------------------------------
     # Surface Loads
