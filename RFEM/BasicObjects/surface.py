@@ -1,5 +1,5 @@
 from os import sep
-from RFEM.enums import SurfaceGeometry, SurfaceLoadDistributionDirection, SurfaceType
+from RFEM.enums import SurfaceGeometry, SurfaceLoadTransferDirection, SurfaceType
 from RFEM.initModel import *
 
 class Surface():
@@ -254,7 +254,7 @@ class Surface():
     def LoadDistribution(self,
                  no: int = 1,
                  boundary_lines_no: str = '1 2 3 4',
-                 load_distribution_direction = SurfaceLoadDistributionDirection.LOAD_DISTRIBUTION_DIRECTION_IN_X,
+                 load_transfer_direction = SurfaceLoadTransferDirection.LOAD_TRANSFER_DIRECTION_IN_X,
                  surface_weight_enabled: bool = False,
                  surface_weight: float = None,
                  excluded_members = None,
@@ -287,7 +287,7 @@ class Surface():
         clientObject.no = no
 
         # Surface Type
-        clientObject.type = SurfaceType.TYPE_LOAD_DISTRIBUTION.name
+        clientObject.type = SurfaceType.TYPE_LOAD_TRANSFER.name
 
         # Geometry Type
         clientObject.geometry = SurfaceGeometry.GEOMETRY_PLANE.name
@@ -296,7 +296,7 @@ class Surface():
         clientObject.boundary_lines = ConvertToDlString(boundary_lines_no)
 
         # Surface Load Distribution Direction
-        clientObject.load_distribution_direction = load_distribution_direction.name
+        clientObject.load_transfer_direction = load_transfer_direction.name
 
         # Surface Weight
         clientObject.is_surface_weight_enabled = surface_weight_enabled

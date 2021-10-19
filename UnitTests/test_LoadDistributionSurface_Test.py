@@ -45,7 +45,7 @@ def test_load_distribution_surface():
     # Standard Even Load Distribution
     Node(5, 0, -15, 0), Node(6, 10, -15, 0), Node(7, 10, -5, 0), Node(8, 0, -5, 0)
     Line(5, '5 6'), Line(6, '6 7'), Line(7, '7 8'), Line(8, '8 5')
-    Surface.LoadDistribution(Surface, 2, boundary_lines_no= '5 6 7 8', load_distribution_direction=SurfaceLoadDistributionDirection.LOAD_DISTRIBUTION_DIRECTION_IN_BOTH,
+    Surface.LoadDistribution(Surface, 2, boundary_lines_no= '5 6 7 8', load_transfer_direction=SurfaceLoadTransferDirection.LOAD_TRANSFER_DIRECTION_IN_BOTH,
                              surface_weight_enabled=True, surface_weight=10, loaded_lines='6 7 8', excluded_lines='5')
 
     clientModel.service.finish_modification()

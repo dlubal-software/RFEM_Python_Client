@@ -25,7 +25,7 @@ from RFEM.dataTypes import *
 from RFEM.enums import *
 
 
-if __name__ == '__main__':
+def test_nodal_load():
 
     clientModel.service.begin_modification()
 

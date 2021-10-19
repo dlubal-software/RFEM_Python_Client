@@ -1,3 +1,11 @@
+import os
+import sys
+import math
+baseName = os.path.basename(__file__)
+dirName = os.path.dirname(__file__)
+print('basename:    ', baseName)
+print('dirname:     ', dirName)
+sys.path.append(r'.')
 from RFEM.enums import *
 from RFEM.window import *
 from RFEM.dataTypes import *
