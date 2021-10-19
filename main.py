@@ -143,6 +143,7 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
         Member(k+4, MemberType.TYPE_TENSION, (i-1)*5+4, (i-1)*5+10, 0.0,  4, 4)
         i += 1
 
+
     # Diagonals on the roof
     j += 4*(number_frames-1)
     if number_frames > 1:
@@ -150,6 +151,7 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
         Member(j+2, MemberType.TYPE_TENSION, 7, 3, 0.0,  4, 4)
         Member(j+3, MemberType.TYPE_TENSION, 3, 9, 0.0,  4, 4)
         Member(j+4, MemberType.TYPE_TENSION, 4, 8, 0.0,  4, 4)
+
 
 # -------------------------------------------------------------
     # Surfaces
@@ -221,7 +223,7 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 
 # -------------------------------------------------------------
     # Nodal Forces
-    NodalLoad(1, 3, "9 4 7 2", LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 2000.0)
+    NodalLoad(1, 1, "9 4 7 2", LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 2000.0)
 
 # -------------------------------------------------------------
     # Member Loads
@@ -278,7 +280,6 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
     # Calculate all
     Calculate_all()
     print("Done")
-
 
 if __name__ == '__main__':
     window(main)
