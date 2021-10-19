@@ -77,8 +77,8 @@ if __name__ == '__main__':
 
     ## Force Type Surface Load with RADIAL Load Distribution ##
 
-    SurfaceLoad.Force(0, 5, 1, '1', SurfaceLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, SurfaceLoadDistribution.LOAD_DISTRIBUTION_RADIAL,
-    (5000, 6000, 3, 4, SurfaceLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS, [1,2,3], [4,5,6]))
+    #SurfaceLoad.Force(0, 5, 1, '1', SurfaceLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, SurfaceLoadDistribution.LOAD_DISTRIBUTION_RADIAL,
+    #(5000, 6000, 3, 4, SurfaceLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS, [1,2,3], [4,5,6]))
     
     ## Temperature Type Surface Load with UNIFORM Load Distribution ##
     SurfaceLoad.Temperature(0, 6, 1, '1', SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, load_parameter=[18, 2])
@@ -102,10 +102,10 @@ if __name__ == '__main__':
     SurfaceLoad.Precamber(0, 12, 1, '1', 50)
 
     ## Rotary Motion Surface Load ##
-    SurfaceLoad.RotaryMotion(0, 13, 1, '1', load_parameter=[1, 2, SurfaceLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS, [1,2,3], [4,5,6]])
+    #SurfaceLoad.RotaryMotion(0, 13, 1, '1', load_parameter=[1, 2, SurfaceLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS, [1,2,3], [4,5,6]])
 
     ## Mass Type Surface Load ##
-    SurfaceLoad.Mass(0, 14, 1, '1', individual_mass_components=True, mass_parameter=[500, 600, 700])
+    #SurfaceLoad.Mass(0, 14, 1, '1', individual_mass_components=True, mass_parameter=[500, 600, 700])
 
 
     Calculate_all()

@@ -258,7 +258,6 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculateLC.parent_no = 0
             specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
             specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
-    
 
     clientModel.service.calculate_specific_objects(specificObjectsToCalculate)
 
@@ -298,3 +297,14 @@ def ParseCSVResultsFromSelectedFileToDict(filePath: str):
 def ParseXMLResultsFromSelectedFileToDict(filePath: str):
     
     return __parseXMLAsDictionary(filePath)
+
+def GenerateMesh(generateXmlSolverInput: bool = False):
+
+    clientModel.service.calculate_all(generateXmlSolverInput)
+
+def GetMeshStatics():
+
+    mesh_stats = clientModel.service.get_mesh_statistics()
+
+    return mesh_stats
+
