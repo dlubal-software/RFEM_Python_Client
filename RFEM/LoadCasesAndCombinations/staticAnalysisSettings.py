@@ -27,7 +27,7 @@ class StaticAnalysisSettings():
 
         # Analysis Type
         clientObject.analysis_type = StaticAnalysisType.GEOMETRICALLY_LINEAR.name
-
+        
         # Comment
         clientObject.comment = comment
 
@@ -48,21 +48,8 @@ class StaticAnalysisSettings():
                  plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion_enabled : bool = False,
                  comment: str = '',
-                 params: dict = {}):
-        '''
-        Args:
-            no (int): 
-            name (str, optional): Static Analysis Name
-            load_multiplier_factor (bool): Loading by Multiple Factors
-            bourdon_effect (bool): Bourdon Effect
-            nonsymmetric_direct_solver (bool): Non-symmetric Direct Solver
-            method_of_equation_system (enum): Static Analysis Settings Method of Equation System Enumeration
-            plate_bending_theory (enum): Static Analysis Settings Plate Bending Theory Enumeration
-            mass_conversion_enabled (bool): Mass Conversion into Load
-            comment (str, optional):
-            params (dict, optional):
-        '''
-        
+                 params: dict = {}):   
+
         # Client model
         clientObject = clientModel.factory.create('ns0:static_analysis_settings')
 
@@ -83,9 +70,9 @@ class StaticAnalysisSettings():
         # Load Multiplier Factor  (add a list)
         clientObject.modify_loading_by_multiplier_factor = load_multiplier_factor 
         if load_multiplier_factor != False:
-            factors = []
-            clientObject.number_of_iterations_for_loading_prestress = factors[0] 
-            clientObject.divide_results_by_loading_factor = factors[1] 
+            clientObject.modify_loading_by_multiplier_factor = True 
+            clientObject.number_of_iterations_for_loading_prestress: int
+            clientObject.divide_results_by_loading_factor = 
             
         # Bourdon Effect Displacement 
         clientObject.displacements_due_to_bourdon_effect = bourdon_effect 
@@ -130,23 +117,7 @@ class StaticAnalysisSettings():
                  plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion_enabled : bool = False,
                  comment: str = '',
-                 params: dict = {}):
-        '''
-        Args:
-            no (int): 
-            name (str, optional): Static Analysis Name
-            iterative_method (enum): Static Analysis Settings Iterative Method for Non-linear Analysis Enumeration
-            standard_precision_and_tolerance_settings_enabled (bool): Standard Precision and Tolerance Settings
-            max_number_of_iterations (int): Maximum Number of Iterations
-            number_of_load_increments (int): Number of Load Increments
-            load_multiplier_factor (bool): Loading by Multiple Factors
-            bourdon_effect (bool): Bourdon Effect
-            nonsymmetric_direct_solver (bool): Non-symmetric Direct Solver
-            plate_bending_theory (enum): Static Analysis Settings Plate Bending Theory Enumeration
-            mass_conversion_enabled (bool): Mass Conversion into Load
-            comment (str, optional):
-            params (dict, optional):
-        '''  
+                 params: dict = {}):  
     
         # Client model
         clientObject = clientModel.factory.create('ns0:static_analysis_settings')
@@ -167,9 +138,6 @@ class StaticAnalysisSettings():
 
         # Iterative Method
         clientObject.iterative_method_for_nonlinear_analysis = iterative_method.name
-        if iterative_method.name =! "NEWTON_RAPHSON" OR iterative_method.name =! "NEWTON_RAPHSON_COMBINED_WITH_PICARD" OR iterative_method.name =! "NEWTON_RAPHSON_WITH_CONSTANT_STIFFNESSOR" OR iterative_method.name =! "DYNAMIC_RELAXATION" OR iterative_method.name =! "PICARD":
-            raise Exception('WARNING: The iterative method does not match with the selected static analysis type. Kindly check input for completeness and correctness.')
-        
 
         # Standard Precision and Tolerance
         clientObject.standard_precision_and_tolerance_settings_enabled = standard_precision_and_tolerance_settings_enabled
@@ -233,25 +201,7 @@ class StaticAnalysisSettings():
                  plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion_enabled : bool = False,
                  comment: str = '',
-                 params: dict = {}):
-        '''
-        Args:
-            no (int): 
-            name (str, optional): Static Analysis Name
-            iterative_method (enum): Static Analysis Settings Iterative Method for Non-linear Analysis Enumeration
-            max_number_of_iterations (int): Maximum Number of Iterations
-            number_of_load_increments (int): Number of Load Increments
-            load_multiplier_factor (bool): Loading by Multiple Factors
-            favorable_effect_due_to_tension_in_members (bool): Considered Favored Effect
-            bourdon_effect (bool): Bourdon Effect
-            nonsymmetric_direct_solver (bool): Non-symmetric Direct Solver
-            refer_internal_forces_to_deformed_structure (bool): Refered Internal Forces to Deformed Structure 
-            method_of_equation_system (enum): Static Analysis Settings Method of Equation System Enumeration
-            plate_bending_theory (enum): Static Analysis Settings Plate Bending Theory Enumeration
-            mass_conversion_enabled (bool): Mass Conversion into Load
-            comment (str, optional):
-            params (dict, optional):
-        '''    
+                 params: dict = {}):  
     
         # Client model
         clientObject = clientModel.factory.create('ns0:static_analysis_settings')
@@ -273,9 +223,7 @@ class StaticAnalysisSettings():
 
         # Iterative Method
         clientObject.iterative_method_for_nonlinear_analysis = iterative_method.name
-        if iterative_method.name =! "NEWTON_RAPHSON" OR iterative_method.name =!"NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS" OR iterative_method.name =! "PICARD":
-            raise Exception('WARNING: The iterative method does not match with the selected static analysis type. Kindly check input for completeness and correctness.')
-        
+
 
         # Maximum Number of Iterations
         clientObject.max_number_of_iterations = max_number_of_iterations
@@ -334,4 +282,3 @@ class StaticAnalysisSettings():
 
         # Add Static Analysis Settings to client model
         clientModel.service.set_static_analysis_settings(clientObject)
-        
