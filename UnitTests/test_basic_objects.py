@@ -16,7 +16,7 @@ from RFEM.BasicObjects.lineSet import *
 from RFEM.BasicObjects.memberSet import *
 from RFEM.BasicObjects.surfaceSet import *
 from RFEM.BasicObjects.solidSet import *
-from RFEM.BasicObjects.member_by_line import *
+from RFEM.BasicObjects.memberByLine import *
 
 def test_line_init():
     
@@ -143,7 +143,7 @@ def test_memberbyline_init():
 
     Section(1, 'IPE 240', 1)
 
-    Member_by_line(1, MemberType.TYPE_BEAM, 1, 0, 1, 1)
+    MemberByLine(1, MemberType.TYPE_BEAM, 1, 0, 1, 1)
     
     clientModel.service.finish_modification()
 
