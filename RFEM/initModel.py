@@ -1,4 +1,7 @@
 import sys
+from RFEM.enums import *
+#import json
+#import xml.etree.ElementTree as ET
 
 # Import SUDS module
 try:
@@ -74,6 +77,31 @@ except:
     else:
         input('Press Enter to exit...')
         sys.exit()
+
+try:
+    import xmltodict
+except:
+    print('xmltodict library is not installed in your Python env.')
+    instXML = input('Do you want to install it (y/n)? ')
+    instXML = instXML.lower()
+    if instXML == 'y':
+        # Subprocess will be opened in cmd and closed automaticaly after installation.
+        # Prevents invoking pip by an old script wrapper (https://github.com/pypa/pip/issues/5599)
+        import subprocess
+        try:
+            subprocess.call('python -m pip install xmltodict --user')
+            import requests
+        except:
+            print('WARNING: Installation of xmltodict library failed!')
+            print('Please use command "pip install xmltodict --user" in your Command Prompt.')
+            input('Press Enter to exit...')
+            sys.exit()
+    else:
+        input('Press Enter to exit...')
+        sys.exit()
+
+import csv
+
 
 # Connect to server
 # Check server port range set in "Program Options & Settings"
@@ -194,3 +222,79 @@ def ConvertToDlString(s):
             
     s = ' '.join(new_lst)
     return s
+
+def method_exists(instance, method):
+    return hasattr(instance, method) and callable(instance.method)
+
+def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None):
+    '''
+    This method calculate just selected objects - load cases, desingSituations, loadCombinations
+    Args:
+        loadCases (list, optional): [description]. Defaults to None.
+        designSituations (list, optional): [description]. Defaults to None.
+        loadCombinations (list, optional): [description]. Defaults to None.
+    '''
+    specificObjectsToCalculate = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements')
+    if loadCases is not None:
+        for loadCase in loadCases:
+            specificObjectsToCalculateLC = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
+            specificObjectsToCalculateLC.no = loadCase
+            specificObjectsToCalculateLC.parent_no = 0
+            specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
+            specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
+    
+    if designSituations is not None:
+        for designSituation in designSituations:
+            specificObjectsToCalculateDS = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
+            specificObjectsToCalculateDS.no = designSituation
+            specificObjectsToCalculateDS.parent_no = 0
+            specificObjectsToCalculateDS.type = ObjectTypes.E_OBJECT_TYPE_DESIGN_SITUATION.name
+            specificObjectsToCalculate.element.append(specificObjectsToCalculateDS)
+    
+    if loadCombinations is not None:
+        for loadCombination in loadCombinations:
+            specificObjectsToCalculateLC = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
+            specificObjectsToCalculateLC.no = loadCombination
+            specificObjectsToCalculateLC.parent_no = 0
+            specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
+            specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
+    
+
+    clientModel.service.calculate_specific_objects(specificObjectsToCalculate)
+
+def ExportResultTablesToCsv(TargetDirectoryPath: str):
+
+    clientModel.service.export_result_tables_to_csv(TargetDirectoryPath)
+
+def ExportResultTablesToXML(TargetFilePath: str):
+
+    clientModel.service.export_result_tables_to_xml(TargetFilePath)
+
+def ExportResultTablesWithDetailedMembersResultsToCsv(TargetDirectoryPath: str):
+    
+    clientModel.service.export_result_tables_with_detailed_members_results_to_csv(TargetDirectoryPath)
+
+def ExportResultTablesWithDetailedMembersResultsToXML(TargetFilePath: str):
+    
+    clientModel.service.export_result_tables_with_detailed_members_results_to_xml(TargetFilePath)
+    
+def  __parseXMLAsDictionary(path: str =""):
+    with open(path, "rb") as f:
+        my_dictionary = xmltodict.parse(f, xml_attribs=True)
+    return my_dictionary
+
+def __parseCSVAsDictionary(path: str =""):
+    with open(path, mode='r') as f:
+        reader = csv.DictReader(f,delimiter=';')
+        my_dictionary = []
+        for line in reader:
+            my_dictionary.append(line)
+    return my_dictionary
+
+def ParseCSVResultsFromSelectedFileToDict(filePath: str):
+    
+    return __parseCSVAsDictionary(filePath)
+
+def ParseXMLResultsFromSelectedFileToDict(filePath: str):
+    
+    return __parseXMLAsDictionary(filePath)
