@@ -181,6 +181,9 @@ class ThicknessDirection(Enum):
     THICKNESS_DIRECTION_IN_Y, THICKNESS_DIRECTION_IN_Z = range(5)
 
 class ThicknessSelfWeightDefinitionType(Enum):
+    '''
+    Thickness Self Weight Definition Type | Enum
+    '''
     SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, \
     SELF_WEIGHT_DEFINED_VIA_WEIGHT = range(3)
 class ThicknessShapeOrthotropySelfWeightDefinitionType(Enum):
@@ -192,12 +195,13 @@ class ThicknessStiffnessMatrixSelfWeightDefinitionType(Enum):
     SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_AREA_DENSITY, \
     SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_BULK_DENSITY = range(3)
 class ThicknessOrthotropyType(Enum):
+    '''
+    Thickness Orthotropy Type | Enum
+    '''
     ORTHOTROPIC_THICKNESS_TYPE_BIDIRECTIONAL_RIBBED_PLATE, ORTHOTROPIC_THICKNESS_TYPE_COUPLING, \
     ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS, ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE, \
     ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB, ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET, \
     ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE = range(7)
-
-
    
 class LineLoadDirection(Enum):
     '''
@@ -208,12 +212,10 @@ class LineLoadDirection(Enum):
     LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,\
     LOAD_DIRECTION_LOCAL_X, LOAD_DIRECTION_LOCAL_Y, LOAD_DIRECTION_LOCAL_Z = range(9)
 
-
 class MemberLoadEccentricityHorizontalAlignment(Enum):
     '''
     Member Load Eccentricity Horizontal Alignment
     '''
-
     ALIGN_LEFT, ALIGN_MIDDLE, ALIGN_NONE, ALIGN_TOP = range(4)
 
 
@@ -221,14 +223,12 @@ class MemberLoadEccentricityVerticalAlignment(Enum):
     '''
     Member Load Eccentricity Vertical Alignment
     '''
-
     ALIGN_LEFT, ALIGN_MIDDLE, ALIGN_NONE, ALIGN_TOP = range(4)
 
 class MemberLoadEccentricitySectionMiddle(Enum):
     '''
     Member Load Eccentricity Section Middle
     '''
-
     LOAD_ECCENTRICITY_SECTION_MIDDLE_CENTER_OF_GRAVITY, LOAD_ECCENTRICITY_SECTION_MIDDLE_NONE, LOAD_ECCENTRICITY_SECTION_MIDDLE_SHEAR_CENTER = range(3)
 
 class MemberLoadFormFindingDefinitionType(Enum):
@@ -633,6 +633,34 @@ class CqsDampingRule(Enum):
     '''
     CONSTANT_FOR_EACH_MODE, DIFFERENT_FOR_EACH_MODE = range(2)
 
+class StabilityAnalysisSettingsAnalysisType(Enum):
+    '''
+    Stability Analysis Settings Analysis Type | Enum
+    '''
+    EIGENVALUE_METHOD, INCREMENTALY_METHOD_WITHOUT_EIGENVALUE, \
+    INCREMENTALY_METHOD_WITH_EIGENVALUE = range(3)
+
+class StabilityAnalysisSettingsEigenvalueMethod(Enum):
+    '''
+    Stability Analysis Settings Eigenvalue Method | Enum
+    '''
+    EIGENVALUE_METHOD_ICG_ITERATION, EIGENVALUE_METHOD_LANCZOS, \
+    EIGENVALUE_METHOD_ROOTS_OF_CHARACTERISTIC_POLYNOMIAL, \
+    EIGENVALUE_METHOD_SUBSPACE_ITERATION, E_EIGENVALUE_METHOD_SHIFTED_INVERSE_POWER_METHOD = range(5)
+
+class StabilityAnalysisSettingsMatrixType(Enum):
+    '''
+    Stability Analysis Settings Matrix Type | Enum
+    '''
+    MATRIX_TYPE_STANDARD, MATRIX_TYPE_UNIT = range(2)
+
+class StabilityAnalysisSettingsStoppingOfLoadIncreasingResult(Enum):
+    '''
+    Stability Analysis Settings Stopping Of Load Increasing Result | Enum
+    '''
+    RESULT_TYPE_DISPLACEMENT_U, RESULT_TYPE_DISPLACEMENT_U_X, RESULT_TYPE_DISPLACEMENT_U_Y, \
+    RESULT_TYPE_DISPLACEMENT_U_Z, RESULT_TYPE_ROTATION_PHI, RESULT_TYPE_ROTATION_PHI_X, \
+    RESULT_TYPE_ROTATION_PHI_Y, RESULT_TYPE_ROTATION_PHI_Z = range(8)
 class LineType(Enum):
     '''
     Line Type | Enum
