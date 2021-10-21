@@ -72,14 +72,13 @@ class StaticAnalysisSettings():
         if load_multiplier_factor != False:
             clientObject.modify_loading_by_multiplier_factor = True 
             clientObject.number_of_iterations_for_loading_prestress: int
-            clientObject.divide_results_by_loading_factor = 
+            clientObject.divide_results_by_loading_factor = bool
             
         # Bourdon Effect Displacement 
         clientObject.displacements_due_to_bourdon_effect = bourdon_effect 
 
         # Nonsymetric Direct Solver
         clientObject.nonsymmetric_direct_solver = nonsymmetric_direct_solver
-
 
         # Equation System
         clientObject.method_of_equation_system = method_of_equation_system.name
@@ -90,9 +89,9 @@ class StaticAnalysisSettings():
         # Mass Conversion
         clientObject.mass_conversion_enabled = mass_conversion_enabled
         if mass_conversion_enabled != False:
-            clientObject.mass_conversion_factor_in_direction_x =  
-            clientObject.mass_conversion_acceleration_in_direction_y =
-            clientObject.mass_conversion_acceleration_in_direction_z =
+            clientObject.mass_conversion_factor_in_direction_x =  double
+            clientObject.mass_conversion_acceleration_in_direction_y = double
+            clientObject.mass_conversion_acceleration_in_direction_z = double
 
         # Comment
         clientObject.comment = comment
@@ -143,7 +142,7 @@ class StaticAnalysisSettings():
         clientObject.standard_precision_and_tolerance_settings_enabled = standard_precision_and_tolerance_settings_enabled
         if standard_precision_and_tolerance_settings_enabled != False:
             clientObject.precision_of_convergence_criteria_for_nonlinear_calculation = int = 1
-            clientObject.relative_setting_of_time_step_for_dynamic_relaxation = 
+            clientObject.relative_setting_of_time_step_for_dynamic_relaxation = double
 
         # Maximum Number of Iterations
         clientObject.max_number_of_iterations = max_number_of_iterations
@@ -155,25 +154,23 @@ class StaticAnalysisSettings():
         clientObject.modify_loading_by_multiplier_factor = load_multiplier_factor 
         if load_multiplier_factor != False:
             clientObject.modify_loading_by_multiplier_factor = True 
-            clientObject.number_of_iterations_for_loading_prestress = ??
+            clientObject.number_of_iterations_for_loading_prestress = int
             
-
         # Bourdon Effect Displacement 
         clientObject.displacements_due_to_bourdon_effect = bourdon_effect 
 
         # Nonsymetric Direct Solver
         clientObject.nonsymmetric_direct_solver = nonsymmetric_direct_solver
 
-        
         # Plate Bending Theory
         clientObject.plate_bending_theory = plate_bending_theory.name
 
         # Mass Conversion
         clientObject.mass_conversion_enabled = mass_conversion_enabled
         if mass_conversion_enabled != False:
-            clientObject.mass_conversion_factor_in_direction_x =  
-            clientObject.mass_conversion_acceleration_in_direction_y =
-            clientObject.mass_conversion_acceleration_in_direction_z =
+            clientObject.mass_conversion_factor_in_direction_x =  double
+            clientObject.mass_conversion_acceleration_in_direction_y = double
+            clientObject.mass_conversion_acceleration_in_direction_z = double
 
         # Comment
         clientObject.comment = comment
@@ -237,7 +234,7 @@ class StaticAnalysisSettings():
         clientObject.modify_loading_by_multiplier_factor = load_multiplier_factor 
         if load_multiplier_factor != False:
             clientObject.modify_loading_by_multiplier_factor = True 
-            clientObject.number_of_iterations_for_loading_prestress = ?? 
+            clientObject.number_of_iterations_for_loading_prestress = int
 
 
         # Effect due to Tension in Members
@@ -269,9 +266,9 @@ class StaticAnalysisSettings():
         # Mass Conversion
         clientObject.mass_conversion_enabled = mass_conversion_enabled
         if mass_conversion_enabled != False:
-            clientObject.mass_conversion_factor_in_direction_x =  
-            clientObject.mass_conversion_acceleration_in_direction_y =
-            clientObject.mass_conversion_acceleration_in_direction_z =
+            clientObject.mass_conversion_factor_in_direction_x = double
+            clientObject.mass_conversion_acceleration_in_direction_y = double
+            clientObject.mass_conversion_acceleration_in_direction_z = double
 
         # Comment
         clientObject.comment = comment
