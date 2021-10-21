@@ -49,9 +49,8 @@ class StaticAnalysisSettings():
                  method_of_equation_system = StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT,
                  plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion_enabled : bool = False,
-                 mass_conversion_factor_in_direction_x = None,
-                 mass_conversion_factor_in_direction_y = None,
-                 mass_conversion_factor_in_direction_z = None,
+                 mass_conversion_factors = [None, None, None]
+                            ,
                  comment: str = '',
                  params: dict = {}):   
         
@@ -71,14 +70,11 @@ class StaticAnalysisSettings():
             method_of_equation_system (enum): Static Analysis Settings Method of Equation System Enumeration
             plate_bending_theory (enum): Static Analysis Settings Plate Bending Theory Enumeration
             mass_conversion_enabled (bool, optional): 
+            mass_conversion_factors (list, optional): [mass_conversion_factor_in_direction_x, mass_conversion_factor_in_direction_y, mass_conversion_factor_in_direction_z]
                   For mass_conversion_enabled == False:
-                      mass_conversion_factor_in_direction_x = None
-                      mass_conversion_factor_in_direction_y = None
-                      mass_conversion_factor_in_direction_z = None
+                      mass_conversion_factors = [None, None, None]
                   For mass_conversion_enabled == True:
-                      mass_conversion_factor_in_direction_x = double
-                      mass_conversion_factor_in_direction_y = double
-                      mass_conversion_factor_in_direction_z = double
+                      mass_conversion_factors = [double, double, double]
             comment (str, optional):
             params (dict, optional):
         '''
@@ -122,12 +118,22 @@ class StaticAnalysisSettings():
         # Plate Bending Theory
         clientObject.plate_bending_theory = plate_bending_theory.name
 
-        # Mass Conversion
+         # Mass Conversion
         clientObject.mass_conversion_enabled = mass_conversion_enabled
+        
+        clientObject.mass_conversion_factor_in_direction_x = mass_conversion_factor_in_direction_x
+        clientObject.mass_conversion_factor_in_direction_y = mass_conversion_factor_in_direction_y
+        clientObject.mass_conversion_factor_in_direction_z = mass_conversion_factor_in_direction_z
+        
+        mass_conversion_factor_in_direction_x = mass_conversion_factors[0]
+        mass_conversion_factor_in_direction_y = mass_conversion_factors[1]
+        mass_conversion_factor_in_direction_z = mass_conversion_factors[2]
         if mass_conversion_enabled != False:
-            clientObject.mass_conversion_factor_in_direction_x = double
-            clientObject.mass_conversion_acceleration_in_direction_y = double
-            clientObject.mass_conversion_acceleration_in_direction_z = double
+            mass_conversion_factor_in_direction_x =  double
+            mass_conversion_acceleration_in_direction_y = double
+            mass_conversion_acceleration_in_direction_z = double
+        if len(mass_conversion_factors) != 3:
+            raise Exception('WARNING: The mass conversion factors parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')    
 
         # Comment
         clientObject.comment = comment
@@ -151,9 +157,7 @@ class StaticAnalysisSettings():
                  nonsymmetric_direct_solver: bool = True,
                  plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion_enabled : bool = False,
-                 mass_conversion_factor_in_direction_x = None,
-                 mass_conversion_factor_in_direction_y = None,
-                 mass_conversion_factor_in_direction_z = None,
+                 mass_conversion_factors = [None, None, None]
                  comment: str = '',
                  params: dict = {}):  
         '''
@@ -181,14 +185,11 @@ class StaticAnalysisSettings():
             nonsymmetric_direct_solver (bool, optional): 
             plate_bending_theory (enum): Static Analysis Settings Plate Bending Theory Enumeration
             mass_conversion_enabled (bool, optional): 
+            mass_conversion_factors (list, optional): [mass_conversion_factor_in_direction_x, mass_conversion_factor_in_direction_y, mass_conversion_factor_in_direction_z]
                   For mass_conversion_enabled == False:
-                      mass_conversion_factor_in_direction_x = None
-                      mass_conversion_factor_in_direction_y = None
-                      mass_conversion_factor_in_direction_z = None
+                      mass_conversion_factors = [None, None, None]
                   For mass_conversion_enabled == True:
-                      mass_conversion_factor_in_direction_x = double
-                      mass_conversion_factor_in_direction_y = double
-                      mass_conversion_factor_in_direction_z = double
+                      mass_conversion_factors = [double, double, double]
             comment (str, optional): 
             params (dict, optional):
         '''  
@@ -244,12 +245,22 @@ class StaticAnalysisSettings():
         # Plate Bending Theory
         clientObject.plate_bending_theory = plate_bending_theory.name
 
-        # Mass Conversion
+         # Mass Conversion
         clientObject.mass_conversion_enabled = mass_conversion_enabled
+        
+        clientObject.mass_conversion_factor_in_direction_x = mass_conversion_factor_in_direction_x
+        clientObject.mass_conversion_factor_in_direction_y = mass_conversion_factor_in_direction_y
+        clientObject.mass_conversion_factor_in_direction_z = mass_conversion_factor_in_direction_z
+        
+        mass_conversion_factor_in_direction_x = mass_conversion_factors[0]
+        mass_conversion_factor_in_direction_y = mass_conversion_factors[1]
+        mass_conversion_factor_in_direction_z = mass_conversion_factors[2]
         if mass_conversion_enabled != False:
-            clientObject.mass_conversion_factor_in_direction_x =  double
-            clientObject.mass_conversion_acceleration_in_direction_y = double
-            clientObject.mass_conversion_acceleration_in_direction_z = double
+            mass_conversion_factor_in_direction_x =  double
+            mass_conversion_acceleration_in_direction_y = double
+            mass_conversion_acceleration_in_direction_z = double
+        if len(mass_conversion_factors) != 3:
+            raise Exception('WARNING: The mass conversion factors parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')    
 
         # Comment
         clientObject.comment = comment
@@ -277,9 +288,7 @@ class StaticAnalysisSettings():
                  method_of_equation_system = StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT,
                  plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion_enabled : bool = False,
-                 mass_conversion_factor_in_direction_x = None,
-                 mass_conversion_factor_in_direction_y = None,
-                 mass_conversion_factor_in_direction_z = None,
+                 mass_conversion_factors = [None, None, None]
                  comment: str = '',
                  params: dict = {}):  
             
@@ -312,14 +321,11 @@ class StaticAnalysisSettings():
             method_of_equation_system (enum): Static Analysis Settings Method of Equation System Enumeration
             plate_bending_theory (enum): Static Analysis Settings Plate Bending Theory Enumeration
             mass_conversion_enabled (bool, optional): 
+            mass_conversion_factors (list, optional): [mass_conversion_factor_in_direction_x, mass_conversion_factor_in_direction_y, mass_conversion_factor_in_direction_z]
                   For mass_conversion_enabled == False:
-                      mass_conversion_factor_in_direction_x = None
-                      mass_conversion_factor_in_direction_y = None
-                      mass_conversion_factor_in_direction_z = None
+                      mass_conversion_factors = [None, None, None]
                   For mass_conversion_enabled == True:
-                      mass_conversion_factor_in_direction_x = double
-                      mass_conversion_factor_in_direction_y = double
-                      mass_conversion_factor_in_direction_z = double
+                      mass_conversion_factors = [double, double, double]
             comment (str, optional):
             params (dict, optional):
         '''        
@@ -393,12 +399,22 @@ class StaticAnalysisSettings():
         # Plate Bending Theory
         clientObject.plate_bending_theory = plate_bending_theory.name
 
-        # Mass Conversion
+         # Mass Conversion
         clientObject.mass_conversion_enabled = mass_conversion_enabled
+        
+        clientObject.mass_conversion_factor_in_direction_x = mass_conversion_factor_in_direction_x
+        clientObject.mass_conversion_factor_in_direction_y = mass_conversion_factor_in_direction_y
+        clientObject.mass_conversion_factor_in_direction_z = mass_conversion_factor_in_direction_z
+        
+        mass_conversion_factor_in_direction_x = mass_conversion_factors[0]
+        mass_conversion_factor_in_direction_y = mass_conversion_factors[1]
+        mass_conversion_factor_in_direction_z = mass_conversion_factors[2]
         if mass_conversion_enabled != False:
-            clientObject.mass_conversion_factor_in_direction_x = double
-            clientObject.mass_conversion_acceleration_in_direction_y = double
-            clientObject.mass_conversion_acceleration_in_direction_z = double
+            mass_conversion_factor_in_direction_x =  double
+            mass_conversion_acceleration_in_direction_y = double
+            mass_conversion_acceleration_in_direction_z = double
+        if len(mass_conversion_factors) != 3:
+            raise Exception('WARNING: The mass conversion factors parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')    
 
         # Comment
         clientObject.comment = comment
