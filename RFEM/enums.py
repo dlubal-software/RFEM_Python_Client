@@ -669,3 +669,141 @@ class export_to_ifc_axis_type(Enum):
 class export_to_ifc_export_type(Enum):
 
     E_EXPORT_IFC4_REFERENCE_VIEW, E_EXPORT_IFC4_STRUCTURAL_ANALYSIS_VIEW = range(2)
+
+class DurabilityCorrosionCarbonation(Enum):
+    '''
+    Concrete Durability Corrosion Induced by Carbonation
+    '''
+    CORROSION_INDUCED_BY_CARBONATION_TYPE_CYCLIC_WET_AND_DRY, CORROSION_INDUCED_BY_CARBONATION_TYPE_DRY_OR_PERMANENTLY_WET,\
+    CORROSION_INDUCED_BY_CARBONATION_TYPE_MODERATE_HUMIDITY, CORROSION_INDUCED_BY_CARBONATION_TYPE_WET_RARELY_DRY = range(4)
+
+class DurabilityCorrosionChlorides(Enum):
+    '''
+    Concrete Durability Corrosion Induced by Chlorides
+    '''
+    CORROSION_INDUCED_BY_CHLORIDES_TYPE_CYCLIC_WET_AND_DRY, CORROSION_INDUCED_BY_CHLORIDES_TYPE_MODERATE_HUMIDITY, CORROSION_INDUCED_BY_CHLORIDES_TYPE_WET_RARELY_DRY = range(3)
+
+class DurabilityCorrosionSeaWater(Enum):
+    '''
+    Concrete Durability Corrosion Induced by Chlorised From Sea Water
+    '''
+    CORROSION_INDUCED_BY_CHLORIDES_FROM_SEA_WATER_TYPE_AIRBORNE_SALT, CORROSION_INDUCED_BY_CHLORIDES_FROM_SEA_WATER_TYPE_PERMANENTLY_SUBMERGED,\
+    CORROSION_INDUCED_BY_CHLORIDES_FROM_SEA_WATER_TYPE_SPLASH_AND_SPRAY_ZONES = range(3)
+
+class DurabilityFreezeThawAttack(Enum):
+    '''
+    Concrete Durability Freeze Thaw Attack
+    '''
+    FREEZE_THAW_ATTACK_TYPE_HIGH_SATURATION_DEICING, FREEZE_THAW_ATTACK_TYPE_HIGH_SATURATION_NO_DEICING,\
+     FREEZE_THAW_ATTACK_TYPE_MODERATE_SATURATION_DEICING, FREEZE_THAW_ATTACK_TYPE_MODERATE_SATURATION_NO_DEICING = range(4)
+
+class DurabilityChemicalAttack(Enum):
+    '''
+    Concrete Durability Chemical Attack
+    '''
+    CHEMICAL_ATTACK_TYPE_HIGHLY_AGGRESSIVE, CHEMICAL_ATTACK_TYPE_MODERATELY_AGGRESSIVE, CHEMICAL_ATTACK_TYPE_SLIGHTLY_AGGRESSIVE = range(3)
+
+class DurabilityCorrosionWear(Enum):
+    '''
+    Concrete Durability Concrete Corrosion Induced by the Wear
+    '''
+    CONCRETE_CORROSION_INDUCED_BY_WEAR_TYPE_HIGH, CONCRETE_CORROSION_INDUCED_BY_WEAR_TYPE_MODERATE, CONCRETE_CORROSION_INDUCED_BY_WEAR_TYPE_VERY_HIGH = range(3)
+
+class DurabilityStructuralClassType(Enum):
+    '''
+    Concrete Durability Structural Class Type
+    '''
+    DEFINED, STANDARD = range(2)
+
+class DurabilityStructuralClass(Enum):
+    '''
+    Concrete Durability User Defined Structural Class
+    '''
+    S1, S2, S3, S4, S5, S6 = range(6)
+
+class DurabilityMaxWaterToCementRatio(Enum):
+    '''
+    Concrete Durability Maximum Equivalent Water To Cement Ratio
+    '''
+    ZERO_POINT_FIVE, ZERO_POINT_FIVE_FIVE, ZERO_POINT_FOUR, ZERO_POINT_FOUR_FIVE, ZERO_POINT_NINE, ZERO_POINT_SIX, ZERO_POINT_THREE_FIVE = range(7)
+
+class DurabilityConcreteCoverType(Enum):
+    '''
+    Concrete Durability Increase of Minimum Concrete Cover Type
+    '''
+    DEFINED, STANDARD = range(2)
+
+class DurabilityStainlessSteelType(Enum):
+    '''
+    Concrete Durability Additional Protection Type
+    '''
+    DEFINED, STANDARD = range(2)
+
+class DurabilityAdditionalProtectionType(Enum):
+    '''
+    Concrete Durability Additional Protection Type
+    '''
+    DEFINED, STANDARD = range(2)
+
+class DurabilityAllowanceDeviationType(Enum):
+    '''
+    Concrete Durability Allowance of Deviation Type
+    '''
+    DEFINED, STANDARD = range(2)
+
+class DurabilityConcreteCast(Enum):
+    '''
+    Concrete Durability Concrete Cast
+    '''
+    AGAINST_PREPARED_GROUND, DIRECTLY_AGAINST_SOIL = range(2)
+
+class ConcreteEffectiveLengthsAxisZ(Enum):
+    '''
+    Concrete Effective Lengths Structure Type About Axis Z
+    '''
+    STRUCTURE_TYPE_BRACED, STRUCTURE_TYPE_UNBRACED = range(2)
+
+class ConcreteEffectiveLengthAxisY(Enum):
+    '''
+    Concrete Effective Lengths Structure Type About Axis Y
+    '''
+    STRUCTURE_TYPE_BRACED, STRUCTURE_TYPE_UNBRACED = range(2)
+
+class EffectiveLengthSupportType(Enum):
+    '''
+    Effective Length Nodal Support Type
+    '''
+    SUPPORT_TYPE_FIXED_ALL, SUPPORT_TYPE_FIXED_IN_Y, SUPPORT_TYPE_FIXED_IN_Z, SUPPORT_TYPE_FIXED_IN_Z_AND_TORSION,\
+    SUPPORT_TYPE_FIXED_IN_Z_AND_TORSION_AND_WARPING, SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION, SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION_AND_WARPING,\
+    SUPPORT_TYPE_INDIVIDUALLY, SUPPORT_TYPE_NONE, SUPPORT_TYPE_RESTRAINT_ABOUT_X = range(10)
+
+class EffectiveLengthEccentricityType(Enum):
+    '''
+    Effective Length Eccentricity Type
+    '''
+    ECCENTRICITY_TYPE_AT_LOWER_FLANGE, ECCENTRICITY_TYPE_AT_UPPER_FLANGE, ECCENTRICITY_TYPE_NONE, ECCENTRICITY_TYPE_USER_VALUE = range(4)
+
+class SupportStatus(Enum):
+    '''
+    Support Status
+    '''
+    SUPPORT_STATUS_NO, SUPPORT_STATUS_SPRING, SUPPORT_STATUS_YES = range(3)
+
+class RestraintTypeAboutX(Enum):
+    '''
+    Restraint About X Type
+    '''
+    SUPPORT_STATUS_NO, SUPPORT_STATUS_SPRING, SUPPORT_STATUS_YES = range(3)
+
+class RestraintTypeAboutZ(Enum):
+    '''
+    Restraint About X Type
+    '''
+    SUPPORT_STATUS_NO, SUPPORT_STATUS_SPRING, SUPPORT_STATUS_YES = range(3)
+
+class RestraintTypeWarping(Enum):
+    '''
+    Restraint About Warping
+    '''
+    SUPPORT_STATUS_NO, SUPPORT_STATUS_SPRING, SUPPORT_STATUS_YES = range(3)
+

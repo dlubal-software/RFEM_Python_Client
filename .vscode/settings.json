@@ -1,5 +1,4 @@
 {
-    "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
     "python.linting.pydocstyleEnabled": false,
     "python.testing.pytestArgs": [
