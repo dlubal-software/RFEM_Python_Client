@@ -50,7 +50,6 @@ class StaticAnalysisSettings():
                  plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion_enabled : bool = False,
                  mass_conversion_factors = [None, None, None]
-                            ,
                  comment: str = '',
                  params: dict = {}):   
         
@@ -100,7 +99,6 @@ class StaticAnalysisSettings():
         clientObject.modify_loading_by_multiplier_factor = load_multiplier_factor 
         clientObject.number_of_iterations_for_loading_prestress = multiplier_factor
         clientObject.divide_results_by_loading_factor = dividing_results
-  
         if load_multiplier_factor != False:
             load_multiplier_factor = True 
             multiplier_factor = int
@@ -153,8 +151,12 @@ class StaticAnalysisSettings():
                  max_number_of_iterations: int = 100, 
                  number_of_load_increments: int = 1,
                  load_multiplier_factor : bool = False,
+                 multiplier_factor = None,
+                 dividing_results = None,
+                         unstable function
                  bourdon_effect: bool = True,
                  nonsymmetric_direct_solver: bool = True,
+                 method_of_equation_system = StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT,
                  plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion_enabled : bool = False,
                  mass_conversion_factors = [None, None, None]
@@ -183,6 +185,7 @@ class StaticAnalysisSettings():
                       dividing_results = bool
             bourdon_effect (bool, optional): 
             nonsymmetric_direct_solver (bool, optional): 
+            method_of_equation_system (enum): Static Analysis Settings Method of Equation System Enumeration
             plate_bending_theory (enum): Static Analysis Settings Plate Bending Theory Enumeration
             mass_conversion_enabled (bool, optional): 
             mass_conversion_factors (list, optional): [mass_conversion_factor_in_direction_x, mass_conversion_factor_in_direction_y, mass_conversion_factor_in_direction_z]
@@ -242,6 +245,9 @@ class StaticAnalysisSettings():
         # Nonsymetric Direct Solver
         clientObject.nonsymmetric_direct_solver = nonsymmetric_direct_solver
 
+        # Equation System
+        clientObject.method_of_equation_system = method_of_equation_system.name
+        
         # Plate Bending Theory
         clientObject.plate_bending_theory = plate_bending_theory.name
 
@@ -272,19 +278,21 @@ class StaticAnalysisSettings():
         # Add Static Analysis Settings to client model
         clientModel.service.set_static_analysis_settings(clientObject)
 
-
         def SecondOrderPDelta (self,
                  no: int = 1,
                  name: str = None,
                  iterative_method = StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis.NEWTON_RAPHSON,
+                 standard_precision_and_tolerance_settings_enabled : bool = False,
                  max_number_of_iterations: int = 100, 
                  number_of_load_increments: int = 1,
                  load_multiplier_factor : bool = False,
+                 multiplier_factor = None,
+                 dividing_results = None,
                  favorable_effect_due_to_tension_in_members : bool = False,
                  bourdon_effect: bool = True,
                  nonsymmetric_direct_solver: bool = True,
-                 refer_internal_forces_to_deformed_structure : bool = True,
-                 
+                 refer_internal_forces_to_deformed_structure : bool = False,
+                 internal_forces = [None, None, None]
                  method_of_equation_system = StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT,
                  plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion_enabled : bool = False,
