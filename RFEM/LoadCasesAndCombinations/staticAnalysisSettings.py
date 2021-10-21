@@ -42,11 +42,16 @@ class StaticAnalysisSettings():
                  no: int = 1,
                  name: str = None,
                  load_multiplier_factor : bool = False,
+                 multiplier_factor = None,
+                 dividing_results = None,
                  bourdon_effect: bool = True,
                  nonsymmetric_direct_solver: bool = True,
                  method_of_equation_system = StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT,
                  plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion_enabled : bool = False,
+                 mass_conversion_factor_in_direction_x = None,
+                 mass_conversion_factor_in_direction_y = None,
+                 mass_conversion_factor_in_direction_z = None,
                  comment: str = '',
                  params: dict = {}):   
         
@@ -54,12 +59,26 @@ class StaticAnalysisSettings():
         Args:
             no (int): 
             name (str, optional): Static Analysis Name
-            load_multiplier_factor (bool): Loading by Multiple Factors
+            load_multiplier_factor (bool, optional): 
+                 For load_multiplier_factor == False:
+                      multiplier_factor = None
+                      dividing_results = None
+                 For load_multiplier_factor == True:
+                      multiplier_factor = int
+                      dividing_results = bool
             bourdon_effect (bool): Bourdon Effect
             nonsymmetric_direct_solver (bool): Non-symmetric Direct Solver
             method_of_equation_system (enum): Static Analysis Settings Method of Equation System Enumeration
             plate_bending_theory (enum): Static Analysis Settings Plate Bending Theory Enumeration
-            mass_conversion_enabled (bool): Mass Conversion into Load
+            mass_conversion_enabled (bool, optional): 
+                  For mass_conversion_enabled == False:
+                      mass_conversion_factor_in_direction_x = None
+                      mass_conversion_factor_in_direction_y = None
+                      mass_conversion_factor_in_direction_z = None
+                  For mass_conversion_enabled == True:
+                      mass_conversion_factor_in_direction_x = double
+                      mass_conversion_factor_in_direction_y = double
+                      mass_conversion_factor_in_direction_z = double
             comment (str, optional):
             params (dict, optional):
         '''
@@ -81,12 +100,15 @@ class StaticAnalysisSettings():
         # Static Analysis Type
         clientObject.analysis_type = StaticAnalysisType.GEOMETRICALLY_LINEAR.name
 
-        # Load Multiplier Factor  (add a list)
+        # Load Multiplier Factor 
         clientObject.modify_loading_by_multiplier_factor = load_multiplier_factor 
+        clientObject.number_of_iterations_for_loading_prestress = multiplier_factor
+        clientObject.divide_results_by_loading_factor = dividing_results
+  
         if load_multiplier_factor != False:
-            clientObject.modify_loading_by_multiplier_factor = True 
-            clientObject.number_of_iterations_for_loading_prestress: int
-            clientObject.divide_results_by_loading_factor = bool
+            load_multiplier_factor = True 
+            multiplier_factor = int
+            dividing_results = bool
             
         # Bourdon Effect Displacement 
         clientObject.displacements_due_to_bourdon_effect = bourdon_effect 
@@ -103,7 +125,7 @@ class StaticAnalysisSettings():
         # Mass Conversion
         clientObject.mass_conversion_enabled = mass_conversion_enabled
         if mass_conversion_enabled != False:
-            clientObject.mass_conversion_factor_in_direction_x =  double
+            clientObject.mass_conversion_factor_in_direction_x = double
             clientObject.mass_conversion_acceleration_in_direction_y = double
             clientObject.mass_conversion_acceleration_in_direction_z = double
 
@@ -144,7 +166,7 @@ class StaticAnalysisSettings():
             nonsymmetric_direct_solver (bool): Non-symmetric Direct Solver
             plate_bending_theory (enum): Static Analysis Settings Plate Bending Theory Enumeration
             mass_conversion_enabled (bool): Mass Conversion into Load
-            comment (str, optional):
+            comment (str, optional): 
             params (dict, optional):
         '''  
     
