@@ -41,7 +41,7 @@ class LoadCombination():
                  name: str = 'CO1',
                  to_solve: bool = True,
                  analysis_settings_no: int = 1,
-                 design_situation = int = 1,
+                 design_situation: int = 1,
                  comment: str = 'Comment',
                  params: dict = {}):
 
