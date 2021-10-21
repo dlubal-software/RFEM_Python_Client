@@ -161,6 +161,12 @@ class StaticAnalysisSettings():
             no (int): 
             name (str, optional): Static Analysis Name
             iterative_method (enum): Static Analysis Settings Iterative Method for Non-linear Analysis Enumeration
+                 For load_multiplier_factor == load_multiplier_factor == or load_multiplier_factor == or load_multiplier_factor:
+                       max_number_of_iterations = int
+                       number_of_load_increments = int
+                 For load_multiplier_factor == :
+                       max_number_of_iterations = None
+                       number_of_load_increments = None
             standard_precision_and_tolerance_settings_enabled (bool, optional):
             max_number_of_iterations (int): Maximum Number of Iterations
             number_of_load_increments (int): Number of Load Increments
@@ -266,7 +272,8 @@ class StaticAnalysisSettings():
                  favorable_effect_due_to_tension_in_members : bool = False,
                  bourdon_effect: bool = True,
                  nonsymmetric_direct_solver: bool = True,
-                 refer_internal_forces_to_deformed_structure : bool = False,
+                 refer_internal_forces_to_deformed_structure : bool = True,
+                 
                  method_of_equation_system = StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT,
                  plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion_enabled : bool = False,
@@ -283,11 +290,25 @@ class StaticAnalysisSettings():
             iterative_method (enum): Static Analysis Settings Iterative Method for Non-linear Analysis Enumeration
             max_number_of_iterations (int): Maximum Number of Iterations
             number_of_load_increments (int): Number of Load Increments
-            load_multiplier_factor (bool): Loading by Multiple Factors
-            favorable_effect_due_to_tension_in_members (bool): Considered Favored Effect
-            bourdon_effect (bool): Bourdon Effect
-            nonsymmetric_direct_solver (bool): Non-symmetric Direct Solver
-            refer_internal_forces_to_deformed_structure (bool): Refered Internal Forces to Deformed Structure 
+            load_multiplier_factor (bool, optional): 
+                 For load_multiplier_factor == False:
+                      multiplier_factor = None
+                      dividing_results = None
+                 For load_multiplier_factor == True:
+                      multiplier_factor = int
+                      dividing_results = bool
+            favorable_effect_due_to_tension_in_members (bool, optional): 
+            bourdon_effect (bool, optional): 
+            nonsymmetric_direct_solver (bool, optional): 
+            refer_internal_forces_to_deformed_structure (bool, optional): 
+                 For refer_internal_forces_to_deformed_structure == False:
+                       internal_forces_to_deformed_structure_for_moments = None 
+                       internal_forces_to_deformed_structure_for_normal_forces = None
+                       internal_forces_to_deformed_structure_for_shear_forces = None
+                 For refer_internal_forces_to_deformed_structure == True:
+                       internal_forces_to_deformed_structure_for_moments = bool 
+                       internal_forces_to_deformed_structure_for_normal_forces = bool
+                       internal_forces_to_deformed_structure_for_shear_forces = bool
             method_of_equation_system (enum): Static Analysis Settings Method of Equation System Enumeration
             plate_bending_theory (enum): Static Analysis Settings Plate Bending Theory Enumeration
             mass_conversion_enabled (bool, optional): 
@@ -358,12 +379,14 @@ class StaticAnalysisSettings():
 
         # Internal Forces to Deformed Structure
         clientObject.refer_internal_forces_to_deformed_structure = refer_internal_forces_to_deformed_structure
+        clientObject.refer_internal_forces_to_deformed_structure_for_moments = internal_forces_to_deformed_structure_for_moments
+        clientObject.refer_internal_forces_to_deformed_structure_for_normal_forces = internal_forces_to_deformed_structure_for_normal_forces
+        clientObject.refer_internal_forces_to_deformed_structure_for_shear_forces = internal_forces_to_deformed_structure_for_shear_forces
         if refer_internal_forces_to_deformed_structure != False:
-            clientObject.refer_internal_forces_to_deformed_structure_for_moments = bool 
-            clientObject.refer_internal_forces_to_deformed_structure_for_normal_forces = bool
-            clientObject.refer_internal_forces_to_deformed_structure_for_shear_forces = bool
-
-
+            internal_forces_to_deformed_structure_for_moments = bool 
+            internal_forces_to_deformed_structure_for_normal_forces = bool
+            internal_forces_to_deformed_structure_for_shear_forces = bool
+            
         # Equation System
         clientObject.method_of_equation_system = method_of_equation_system.name
         
