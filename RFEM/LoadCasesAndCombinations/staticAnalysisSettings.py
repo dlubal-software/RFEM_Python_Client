@@ -42,8 +42,7 @@ class StaticAnalysisSettings():
                  no: int = 1,
                  name: str = None,
                  load_multiplier_factor : bool = False,
-                 multiplier_factor = None,
-                 dividing_results = None,
+                 control_nonlinear_analysis = [None, None]
                  bourdon_effect: bool = True,
                  nonsymmetric_direct_solver: bool = True,
                  method_of_equation_system = StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT,
@@ -58,12 +57,7 @@ class StaticAnalysisSettings():
             no (int): 
             name (str, optional): Static Analysis Name
             load_multiplier_factor (bool, optional): 
-                 For load_multiplier_factor == False:
-                      multiplier_factor = None
-                      dividing_results = None
-                 For load_multiplier_factor == True:
-                      multiplier_factor = int
-                      dividing_results = bool
+            control_nonlinear_analysis (list, optional): []
             bourdon_effect (bool, optional): 
             nonsymmetric_direct_solver (bool, optional): 
             method_of_equation_system (enum): Static Analysis Settings Method of Equation System Enumeration
@@ -148,6 +142,7 @@ class StaticAnalysisSettings():
                  name: str = None,
                  iterative_method = StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis.NEWTON_RAPHSON,
                  standard_precision_and_tolerance_settings_enabled : bool = False,
+                 control_nonlinear_analysis = [None, None]
                  max_number_of_iterations: int = 100, 
                  number_of_load_increments: int = 1,
                  load_multiplier_factor : bool = False,
@@ -174,6 +169,7 @@ class StaticAnalysisSettings():
                        max_number_of_iterations = None
                        number_of_load_increments = None
             standard_precision_and_tolerance_settings_enabled (bool, optional):
+            control_nonlinear_analysis (list, int
             max_number_of_iterations (int): Maximum Number of Iterations
             number_of_load_increments (int): Number of Load Increments
             load_multiplier_factor (bool, optional): 
