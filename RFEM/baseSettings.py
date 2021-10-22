@@ -37,6 +37,11 @@ class BaseSettings():
         clientObject.local_axes_orientation = local_axes_orientation.name
 
         # Tolerances
+        if len(tolerances) == 4:
+            pass
+        else:
+            raise Exception("WARNING:Expected size of the array. Kindly check the list correctness.")
+
         clientObject.tolerance_for_nodes = tolerances[0]
         clientObject.tolerance_for_lines = tolerances[1]
         clientObject.tolerance_for_surfaces_and_planes = tolerances[2]
@@ -50,5 +55,6 @@ class BaseSettings():
 
         # Add Base Data Settings to client model
         clientModel.service.set_model_settings_and_options(clientObject)
+
 
 
