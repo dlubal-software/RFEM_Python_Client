@@ -13,7 +13,7 @@ class SolidLoad():
                  magnitude: float = 0,
                  comment: str = '',
                  params: dict = {}):
-        
+
         # Client model | Solid Load
         clientObject = clientModel.factory.create('ns0:solid_load')
 
@@ -56,8 +56,6 @@ class SolidLoad():
               no: int =1,
               load_case_no: int = 1,
               solids_no: str= '1',
-              #load_type = SolidLoadType.LOAD_TYPE_FORCE,
-              #load_distribution = SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
               load_direction = SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
               magnitude: float = 0,
               comment: str = '',
@@ -89,10 +87,10 @@ class SolidLoad():
 
         # Load Magnitude
         clientObject.uniform_magnitude = magnitude
-        
+
         # Comment
         clientObject.comment = comment
-        
+
         # Adding optional parameters via dictionary
         for key in params:
             clientObject[key] = params[key]
