@@ -298,13 +298,14 @@ def ParseXMLResultsFromSelectedFileToDict(filePath: str):
     
     return __parseXMLAsDictionary(filePath)
 
-def GenerateMesh(generateXmlSolverInput: bool = False):
+def GenerateMesh():
 
-    clientModel.service.calculate_all(generateXmlSolverInput)
+    clientModel.service.generate_mesh()
 
 def GetMeshStatics():
 
     mesh_stats = clientModel.service.get_mesh_statistics()
+    clientModel.dict(mesh_stats)
 
     return mesh_stats
 
