@@ -431,3 +431,20 @@ class SolidLoadDirection(Enum):
     '''
     LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE = range(3)
     
+class SolidSetLoadType(Enum):
+    '''
+    Solidset Load Load Type | Enum
+    '''
+    LOAD_TYPE_BUOYANCY, LOAD_TYPE_FORCE, LOAD_TYPE_GAS, LOAD_TYPE_ROTARY_MOTION, LOAD_TYPE_STRAIN, LOAD_TYPE_TEMPERATURE = range(6)
+
+class SolidSetLoadDistribution(Enum):
+    '''
+    Solidset Load Load Distribution | Enum
+    '''
+    LOAD_DISTRIBUTION_LINEAR_IN_X, LOAD_DISTRIBUTION_LINEAR_IN_Y, LOAD_DISTRIBUTION_LINEAR_IN_Z, LOAD_DISTRIBUTION_UNIFORM = range(4)
+
+class SolidSetLoadDirection(Enum):
+    '''
+    Solidset Load Load Direction | Enum
+    '''
+    LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE = range(3)

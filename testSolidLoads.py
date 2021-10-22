@@ -1,4 +1,5 @@
 from RFEM.Loads.solidLoad import SolidLoad
+from RFEM.Loads.solidSetLoad import SolidSetLoad
 from RFEM.enums import *
 from RFEM.window import *
 from RFEM.dataTypes import *
@@ -76,6 +77,7 @@ if __name__ == '__main__':
     LoadCase(1 , 'Test load case', AnalysisType.ANALYSIS_TYPE_STATIC, 1,  1, True, 0.0, 0.0, 1.0)
 
     NodalLoad(1, 1, '1', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 12.8)
+    '''
     
     SolidLoad(1, 1, '1', SolidLoadType.LOAD_TYPE_FORCE, SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 1289.0, 'My Comment')
     SolidLoad.Force(SolidLoad, 2, 1, '1', SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 8569.21, 'My 2nd Comment')
@@ -91,7 +93,7 @@ if __name__ == '__main__':
     SolidLoad.Strain(SolidLoad, 11, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z, 0.01, 0.02, 0.03, 5, 0.04, 0.05, 0.06, 1)
 
     SolidLoad.Motion(SolidLoad, 12, 1, '1', 5, 2, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0)
-
+    '''
     # Solid 2
     Node(9, 0.0, 20.0, 0.0)
     Node(10, 10.0, 20.0, 0.0)
@@ -151,7 +153,9 @@ if __name__ == '__main__':
     Solid(3, '13-17,12', 1)
 
     # Solid Set
-    SolidSet.ContinuousSolids(SolidSet, 1, '2 3',)
+    SolidSet.ContinuousSolids(SolidSet, 1, '2 3')
+
+    SolidSetLoad(1, 1, '1', SolidSetLoadType.LOAD_TYPE_FORCE, SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, SolidSetLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 58.9, 'Ny Comment')
 
     #Calculate_all()
     print('Ready!')
