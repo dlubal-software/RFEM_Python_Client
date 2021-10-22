@@ -225,17 +225,15 @@ class SolidLoad():
                no: int = 1,
                load_case_no: int = 1,
                solids_no: str= '1',
-               angular_velocity: float = 0,
-               angular_acceleration: float = 0,
-               axis_definition_p1_x: float = 0,
-               axis_definition_p1_y: float = 0,
-               axis_definition_p1_z: float = 0,
-               axis_definition_p2_x: float = 0,
-               axis_definition_p2_y: float = 0,
-               axis_definition_p2_z: float = 0,
+               load_parameter = None,
                comment: str = '',
                params: dict = {}):
-        
+        '''
+        load_parameter:
+            load_parameter = [angular_velocity, angular_acceleration, axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z, axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z]
+        params:
+            {''}
+        '''
         # Client model | Solid Load
         clientObject = clientModel.factory.create('ns0:solid_load')
 
@@ -255,18 +253,18 @@ class SolidLoad():
         clientObject.load_type = SolidLoadType.LOAD_TYPE_ROTARY_MOTION.name
 
         # Velocity
-        clientObject.angular_velocity = angular_velocity
+        clientObject.angular_velocity = load_parameter[1]
 
         # Acceleration
-        clientObject.angular_acceleration = angular_acceleration
+        clientObject.angular_acceleration = load_parameter[2]
 
         # Axis Definition
-        clientObject.axis_definition_p1_x = axis_definition_p1_x
-        clientObject.axis_definition_p1_y = axis_definition_p1_y
-        clientObject.axis_definition_p1_z = axis_definition_p1_z
-        clientObject.axis_definition_p2_x = axis_definition_p2_x
-        clientObject.axis_definition_p2_y = axis_definition_p2_y
-        clientObject.axis_definition_p2_z = axis_definition_p2_z
+        clientObject.axis_definition_p1_x = load_parameter[3]
+        clientObject.axis_definition_p1_y = load_parameter[4]
+        clientObject.axis_definition_p1_z = load_parameter[5]
+        clientObject.axis_definition_p2_x = load_parameter[6]
+        clientObject.axis_definition_p2_y = load_parameter[7]
+        clientObject.axis_definition_p2_z = load_parameter[8]
 
         # Comment
         clientObject.comment = comment
