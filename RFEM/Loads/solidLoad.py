@@ -106,10 +106,7 @@ class SolidLoad():
                     load_case_no: int = 1,
                     solids_no: str= '1',
                     load_distribution = SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
-                    magnitude_1: float = 0,
-                    magnitude_2: float = 0,
-                    node_1: int = 1,
-                    node_2: int = 2,
+                    load_parameter = None,
                     comment: str = '',
                     params: dict = {}):
         
@@ -133,12 +130,12 @@ class SolidLoad():
 
         # Load Distribution
         if load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM":
-            clientObject.uniform_magnitude = magnitude_1
+            clientObject.uniform_magnitude = load_parameter
         else:
-            clientObject.magnitude_1 = magnitude_1
-            clientObject.magnitude_2 = magnitude_2
-            clientObject.node_1 = node_1
-            clientObject.node_2 = node_2
+            clientObject.magnitude_1 = load_parameter[1]
+            clientObject.magnitude_2 = load_parameter[2]
+            clientObject.node_1 = load_parameter[3]
+            clientObject.node_2 = load_parameter[4]
         
         clientObject.load_distribution = load_distribution.name
 
