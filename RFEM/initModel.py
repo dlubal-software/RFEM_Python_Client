@@ -301,6 +301,10 @@ def ParseXMLResultsFromSelectedFileToDict(filePath: str):
     
     return __parseXMLAsDictionary(filePath)
 
-def SetModelType(ModelType = ModelType.E_MODEL_TYPE_1D_X_3D):
+def SetModelType(model_type = ModelType.E_MODEL_TYPE_1D_X_3D):
 
-    clientModel.service.set_model_type(ModelType.name)
+    clientModel.service.set_model_type(model_type.name)
+
+def GetModelType():
+
+    return clientModel.service.get_model_type()
