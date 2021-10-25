@@ -303,8 +303,27 @@ def ParseXMLResultsFromSelectedFileToDict(filePath: str):
 
 def SetModelType(model_type = ModelType.E_MODEL_TYPE_3D):
 
+    '''
+    This method sets the model type. The model type is E_MODEL_TYPE_3D by default.
+
+    Args:
+        model_type (enum): The available model types are listed below.
+            ModelType.E_MODEL_TYPE_1D_X_3D
+            ModelType.E_MODEL_TYPE_1D_X_AXIAL
+            ModelType.E_MODEL_TYPE_2D_XY_3D
+            ModelType.E_MODEL_TYPE_2D_XY_PLATE
+            ModelType.E_MODEL_TYPE_2D_XZ_3D
+            ModelType.E_MODEL_TYPE_2D_XZ_PLANE_STRAIN
+            ModelType.E_MODEL_TYPE_2D_XZ_PLANE_STRESS
+            ModelType.E_MODEL_TYPE_3D
+    '''
+
     clientModel.service.set_model_type(model_type.name)
 
 def GetModelType():
+
+    '''
+    The method returns a string of the current model type.
+    '''
 
     return clientModel.service.get_model_type()
