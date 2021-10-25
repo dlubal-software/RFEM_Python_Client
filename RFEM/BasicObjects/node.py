@@ -21,7 +21,6 @@ class Node():
             comment (str, optional): Comments 
             params (dict, optional): Parameters    
         '''
-
         # Client model | Node
         clientObject = clientModel.factory.create('ns0:node')
 

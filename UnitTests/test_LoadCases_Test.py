@@ -1,11 +1,8 @@
-import os
 import sys
-baseName = os.path.basename(__file__)
-dirName = os.path.dirname(__file__)
-print('basename:    ', baseName)
-print('dirname:     ', dirName)
-sys.path.append(dirName + r'/..')
+sys.path.append(".")
 
+# Import der Bibliotheken
+from RFEM.Loads.lineLoad import LineLoad
 from RFEM.enums import *
 from RFEM.dataTypes import *
 from RFEM.initModel import *
@@ -30,11 +27,15 @@ from RFEM.Loads.nodalLoad import *
 from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 
+def test_load_case():
+	
+	clientModel.service.begin_modification('new')
 
-def test_ImportFrom():
+	StaticAnalysisSettings()
+	LoadCase.StaticAnalysis(LoadCase, 1, 'SW', True, 1, DIN_Action_Category['1A'], [True, 0, 0, 1])
+	LoadCase.StaticAnalysis(LoadCase, 2, 'SDL', True,  1, DIN_Action_Category['1C'], [True, 0.1, 0.1, 0])
+	LoadCase.StaticAnalysis(LoadCase, 3, 'Snow', True,  1, DIN_Action_Category['4A'], [False])
+	LoadCase.StaticAnalysis(LoadCase, 4, 'Wind', False,  1, DIN_Action_Category['5'], [False])
 
-   
-    # url = client.service.import_from(r'D:/OneDrive - Dlubal Software/MODELS/RFEM_XML/Cantilever.xml')
-    # print(url)
-    # assert url == 'http://127.0.0.1:8083/'
-    assert 1 == 1
+
+	clientModel.service.finish_modification()

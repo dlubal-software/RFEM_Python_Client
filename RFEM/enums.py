@@ -100,7 +100,7 @@ class SurfaceType(Enum):
     '''
     Stiffness Type | Enum
     '''
-    TYPE_LOAD_DISTRIBUTION, TYPE_MEMBRANE, TYPE_RIGID, TYPE_STANDARD, TYPE_WITHOUT_MEMBRANE_TENSION, TYPE_WITHOUT_THICKNESS = range(6)
+    TYPE_LOAD_TRANSFER, TYPE_MEMBRANE, TYPE_RIGID, TYPE_STANDARD, TYPE_WITHOUT_MEMBRANE_TENSION, TYPE_WITHOUT_THICKNESS = range(6)
     
 class SurfaceLoadDistribution(Enum):
     '''
@@ -125,11 +125,11 @@ class SurfaceLoadType(Enum):
     LOAD_TYPE_AXIAL_STRAIN, LOAD_TYPE_FORCE, LOAD_TYPE_FORM_FINDING, LOAD_TYPE_MASS, LOAD_TYPE_PRECAMBER,\
     LOAD_TYPE_ROTARY_MOTION, LOAD_TYPE_TEMPERATURE = range(7)
 
-class SurfaceLoadDistributionDirection(Enum):
+class SurfaceLoadTransferDirection(Enum):
     '''
     Surface Load Distribution Direction | Enum
     '''
-    LOAD_DISTRIBUTION_DIRECTION_IN_BOTH, LOAD_DISTRIBUTION_DIRECTION_IN_X, LOAD_DISTRIBUTION_DIRECTION_IN_Y = range(3)
+    LOAD_TRANSFER_DIRECTION_IN_BOTH, LOAD_TRANSFER_DIRECTION_IN_X, LOAD_TRANSFER_DIRECTION_IN_Y = range(3)
 
 class SetType(Enum):
     '''
@@ -181,6 +181,9 @@ class ThicknessDirection(Enum):
     THICKNESS_DIRECTION_IN_Y, THICKNESS_DIRECTION_IN_Z = range(5)
 
 class ThicknessSelfWeightDefinitionType(Enum):
+    '''
+    Thickness Self Weight Definition Type | Enum
+    '''
     SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, \
     SELF_WEIGHT_DEFINED_VIA_WEIGHT = range(3)
 class ThicknessShapeOrthotropySelfWeightDefinitionType(Enum):
@@ -192,12 +195,13 @@ class ThicknessStiffnessMatrixSelfWeightDefinitionType(Enum):
     SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_AREA_DENSITY, \
     SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_BULK_DENSITY = range(3)
 class ThicknessOrthotropyType(Enum):
+    '''
+    Thickness Orthotropy Type | Enum
+    '''
     ORTHOTROPIC_THICKNESS_TYPE_BIDIRECTIONAL_RIBBED_PLATE, ORTHOTROPIC_THICKNESS_TYPE_COUPLING, \
     ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS, ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE, \
     ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB, ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET, \
     ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE = range(7)
-
-
    
 class LineLoadDirection(Enum):
     '''
@@ -208,12 +212,10 @@ class LineLoadDirection(Enum):
     LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,\
     LOAD_DIRECTION_LOCAL_X, LOAD_DIRECTION_LOCAL_Y, LOAD_DIRECTION_LOCAL_Z = range(9)
 
-
 class MemberLoadEccentricityHorizontalAlignment(Enum):
     '''
     Member Load Eccentricity Horizontal Alignment
     '''
-
     ALIGN_LEFT, ALIGN_MIDDLE, ALIGN_NONE, ALIGN_TOP = range(4)
 
 
@@ -221,14 +223,12 @@ class MemberLoadEccentricityVerticalAlignment(Enum):
     '''
     Member Load Eccentricity Vertical Alignment
     '''
-
     ALIGN_LEFT, ALIGN_MIDDLE, ALIGN_NONE, ALIGN_TOP = range(4)
 
 class MemberLoadEccentricitySectionMiddle(Enum):
     '''
     Member Load Eccentricity Section Middle
     '''
-
     LOAD_ECCENTRICITY_SECTION_MIDDLE_CENTER_OF_GRAVITY, LOAD_ECCENTRICITY_SECTION_MIDDLE_NONE, LOAD_ECCENTRICITY_SECTION_MIDDLE_SHEAR_CENTER = range(3)
 
 class MemberLoadFormFindingDefinitionType(Enum):
@@ -633,6 +633,34 @@ class CqsDampingRule(Enum):
     '''
     CONSTANT_FOR_EACH_MODE, DIFFERENT_FOR_EACH_MODE = range(2)
 
+class StabilityAnalysisSettingsAnalysisType(Enum):
+    '''
+    Stability Analysis Settings Analysis Type | Enum
+    '''
+    EIGENVALUE_METHOD, INCREMENTALY_METHOD_WITHOUT_EIGENVALUE, \
+    INCREMENTALY_METHOD_WITH_EIGENVALUE = range(3)
+
+class StabilityAnalysisSettingsEigenvalueMethod(Enum):
+    '''
+    Stability Analysis Settings Eigenvalue Method | Enum
+    '''
+    EIGENVALUE_METHOD_ICG_ITERATION, EIGENVALUE_METHOD_LANCZOS, \
+    EIGENVALUE_METHOD_ROOTS_OF_CHARACTERISTIC_POLYNOMIAL, \
+    EIGENVALUE_METHOD_SUBSPACE_ITERATION, E_EIGENVALUE_METHOD_SHIFTED_INVERSE_POWER_METHOD = range(5)
+
+class StabilityAnalysisSettingsMatrixType(Enum):
+    '''
+    Stability Analysis Settings Matrix Type | Enum
+    '''
+    MATRIX_TYPE_STANDARD, MATRIX_TYPE_UNIT = range(2)
+
+class StabilityAnalysisSettingsStoppingOfLoadIncreasingResult(Enum):
+    '''
+    Stability Analysis Settings Stopping Of Load Increasing Result | Enum
+    '''
+    RESULT_TYPE_DISPLACEMENT_U, RESULT_TYPE_DISPLACEMENT_U_X, RESULT_TYPE_DISPLACEMENT_U_Y, \
+    RESULT_TYPE_DISPLACEMENT_U_Z, RESULT_TYPE_ROTATION_PHI, RESULT_TYPE_ROTATION_PHI_X, \
+    RESULT_TYPE_ROTATION_PHI_Y, RESULT_TYPE_ROTATION_PHI_Z = range(8)
 class LineType(Enum):
     '''
     Line Type | Enum
@@ -669,3 +697,50 @@ class export_to_ifc_axis_type(Enum):
 class export_to_ifc_export_type(Enum):
 
     E_EXPORT_IFC4_REFERENCE_VIEW, E_EXPORT_IFC4_STRUCTURAL_ANALYSIS_VIEW = range(2)
+
+class ModalSolutionMethod(Enum):
+    '''
+    Modal Analysis Settings Solution Method
+    '''
+    METHOD_ICG_ITERATION, METHOD_LANCZOS, METHOD_ROOT_OF_CHARACTERISTIC_POLYNOMIAL, METHOD_SUBSPACE_ITERATION, SOLUTION_METHOD_SHIFTED_INVERSE_POWER_METHOD = range(5)
+
+class ModalMassConversionType(Enum):
+    '''
+    Modal Analysis Settings Mass Conversion Type
+    '''
+    MASS_CONVERSION_TYPE_FULL_LOADS_AS_MASS, MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS, MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS_IN_DIRECTION_OF_GRAVITY = range(3)
+
+class ModalMassMatrixType(Enum):
+    '''
+    Modal Analysis Settings Mass Matrix Type
+    '''
+    MASS_MATRIX_TYPE_CONSISTENT, MASS_MATRIX_TYPE_DIAGONAL, MASS_MATRIX_TYPE_DIAGONAL_WITH_TORSIONAL_ELEMENTS, MASS_MATRIX_TYPE_UNIT = range(4)
+
+class ModalModeNumberMethod(Enum):
+    '''
+    Modal Analysis Settings Number of Modes Method
+    '''
+    NUMBER_OF_MODES_METHOD_EFFECTIVE_MASS_FACTORS, NUMBER_OF_MODES_METHOD_MAXIMUM_FREQUENCY, NUMBER_OF_MODES_METHOD_USER_DEFINED = range(3)
+
+class ModalNeglectMasses(Enum):
+    '''
+    Modal Analysis Settings Neglect Masses
+    '''
+    E_NEGLECT_MASSES_IN_ALL_FIXED_SUPPORTS, E_NEGLECT_MASSES_NO_NEGLECTION, E_NEGLECT_MASSES_USER_DEFINED = range(3)
+class PeriodicResponseCombinationRule(Enum):
+    '''
+    Spectral Analysis Settings Combination Rule For Periodic Responses
+    '''
+    ABSOLUTE_SUM, CQC, SRSS = range(3)
+
+class DirectionalComponentCombinationRule(Enum):
+    '''
+    Spectral Analysis Settings Combination Rule For Directional Components
+    '''
+    ABSOLUTE_SUM, SCALED_SUM, SRSS = range(3)
+
+class CqsDampingRule(Enum):
+    '''
+    Spectal Analysis Settings Damping for CQC Rule
+    '''
+    CONSTANT_FOR_EACH_MODE, DIFFERENT_FOR_EACH_MODE = range(2)
