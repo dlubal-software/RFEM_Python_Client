@@ -144,6 +144,8 @@ if modelLst:
     cModel.service.reset()
 else:
     new = client.service.new_model('My Model') + 'wsdl'
+    # If a new model is created, I thought we can create an input list for the user to define the model type
+    # new = client.service.set_model_type('E_MODEL_TYPE_2D_XZ_PLANE_STRESS')
     cModel = Client(new, transport=trans)
 
 # Init client model
@@ -307,3 +309,44 @@ def GetMeshStatics():
     mesh_stats = clientModel.service.get_mesh_statistics()
     return clientModel.dict(mesh_stats)
 
+def FirstFreeIdNumber(type = ObjectTypes.E_OBJECT_TYPE_MEMBER,
+            parent_no: int = 0):
+
+            '''
+            This method returns the next available Id Number for the selected object type.
+
+            Args:
+                type (enum): Object Type
+                parent_no (int): Object Parent Number
+                    Note:
+                    (1) A geometric object has, in general, a parent_no = 0
+                    (2) The parent_no parameter becomes significant for example with loads
+            '''
+
+            return clientModel.service.get_first_free_number(type.name, parent_no)
+def SetModelType(model_type = ModelType.E_MODEL_TYPE_3D):
+
+    '''
+    This method sets the model type. The model type is E_MODEL_TYPE_3D by default.
+
+    Args:
+        model_type (enum): The available model types are listed below.
+            ModelType.E_MODEL_TYPE_1D_X_3D
+            ModelType.E_MODEL_TYPE_1D_X_AXIAL
+            ModelType.E_MODEL_TYPE_2D_XY_3D
+            ModelType.E_MODEL_TYPE_2D_XY_PLATE
+            ModelType.E_MODEL_TYPE_2D_XZ_3D
+            ModelType.E_MODEL_TYPE_2D_XZ_PLANE_STRAIN
+            ModelType.E_MODEL_TYPE_2D_XZ_PLANE_STRESS
+            ModelType.E_MODEL_TYPE_3D
+    '''
+
+    clientModel.service.set_model_type(model_type.name)
+
+def GetModelType():
+
+    '''
+    The method returns a string of the current model type.
+    '''
+
+    return clientModel.service.get_model_type()
