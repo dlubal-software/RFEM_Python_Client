@@ -305,7 +305,5 @@ def GenerateMesh():
 def GetMeshStatics():
 
     mesh_stats = clientModel.service.get_mesh_statistics()
-    clientModel.dict(mesh_stats)
-
-    return mesh_stats
+    return clientModel.dict(mesh_stats)
 
