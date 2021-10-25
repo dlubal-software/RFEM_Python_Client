@@ -717,6 +717,13 @@ class export_to_ifc_export_type(Enum):
 
     E_EXPORT_IFC4_REFERENCE_VIEW, E_EXPORT_IFC4_STRUCTURAL_ANALYSIS_VIEW = range(2)
 
+class ModelType(Enum):
+    '''
+    Model Type | Enum
+    '''
+    E_MODEL_TYPE_1D_X_3D, E_MODEL_TYPE_1D_X_AXIAL, E_MODEL_TYPE_2D_XY_3D, \
+    E_MODEL_TYPE_2D_XY_PLATE, E_MODEL_TYPE_2D_XZ_3D, E_MODEL_TYPE_2D_XZ_PLANE_STRAIN, \
+    E_MODEL_TYPE_2D_XZ_PLANE_STRESS, E_MODEL_TYPE_3D = range(8)
 class ModalSolutionMethod(Enum):
     '''
     Modal Analysis Settings Solution Method
