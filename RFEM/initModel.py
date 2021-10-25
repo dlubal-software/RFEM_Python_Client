@@ -260,7 +260,6 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculateLC.parent_no = 0
             specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
             specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
-    
 
     clientModel.service.calculate_specific_objects(specificObjectsToCalculate)
 
@@ -300,6 +299,15 @@ def ParseCSVResultsFromSelectedFileToDict(filePath: str):
 def ParseXMLResultsFromSelectedFileToDict(filePath: str):
     
     return __parseXMLAsDictionary(filePath)
+
+def GenerateMesh():
+
+    clientModel.service.generate_mesh()
+
+def GetMeshStatics():
+
+    mesh_stats = clientModel.service.get_mesh_statistics()
+    return clientModel.dict(mesh_stats)
 
 def FirstFreeIdNumber(type = ObjectTypes.E_OBJECT_TYPE_MEMBER,
             parent_no: int = 0):
