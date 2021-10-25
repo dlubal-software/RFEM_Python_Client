@@ -301,6 +301,21 @@ def ParseXMLResultsFromSelectedFileToDict(filePath: str):
     
     return __parseXMLAsDictionary(filePath)
 
+def FirstFreeIdNumber(type = ObjectTypes.E_OBJECT_TYPE_MEMBER,
+            parent_no: int = 0):
+
+            '''
+            This method returns the next available Id Number for the selected object type.
+
+            Args:
+                type (enum): Object Type
+                parent_no (int): Object Parent Number
+                    Note:
+                    (1) A geometric object has, in general, a parent_no = 0
+                    (2) The parent_no parameter becomes significant for example with loads
+            '''
+
+            return clientModel.service.get_first_free_number(type.name, parent_no)
 def SetModelType(model_type = ModelType.E_MODEL_TYPE_3D):
 
     '''
