@@ -614,6 +614,25 @@ class FreePolygonLoadLoadDistribution(Enum):
     Free Polygon Load Load Distribution | Enum
     '''
     LOAD_DISTRIBUTION_LINEAR, LOAD_DISTRIBUTION_LINEAR_FIRST, LOAD_DISTRIBUTION_LINEAR_SECOND, LOAD_DISTRIBUTION_UNIFORM = range(4)
+
+class SolidLoadType(Enum):
+    '''
+    Solid Load Load Type | Enum
+    '''
+    LOAD_TYPE_BUOYANCY, LOAD_TYPE_FORCE, LOAD_TYPE_GAS, LOAD_TYPE_ROTARY_MOTION, LOAD_TYPE_STRAIN, LOAD_TYPE_TEMPERATURE = range(6)
+
+class SolidLoadDistribution(Enum):
+    '''
+    Solid Load Load Distribution | Enum
+    '''
+    LOAD_DISTRIBUTION_LINEAR_IN_X, LOAD_DISTRIBUTION_LINEAR_IN_Y, LOAD_DISTRIBUTION_LINEAR_IN_Z, LOAD_DISTRIBUTION_UNIFORM = range(4)
+
+class SolidLoadDirection(Enum):
+    '''
+    Solid Load Load Direction | Enum
+    '''
+    LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE = range(3)
+    
     
 class PeriodicResponseCombinationRule(Enum):
     '''
