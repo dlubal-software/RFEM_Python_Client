@@ -807,3 +807,47 @@ class RestraintTypeWarping(Enum):
     '''
     SUPPORT_STATUS_NO, SUPPORT_STATUS_SPRING, SUPPORT_STATUS_YES = range(3)
 
+class ReinforcementDirectionType(Enum):
+    '''
+    Reinforcement Direction Type
+    '''
+    REINFORCEMENT_DIRECTION_TYPE_FIRST_REINFORCEMENT_IN_X, REINFORCEMENT_DIRECTION_TYPE_FIRST_REINFORCEMENT_IN_Y, REINFORCEMENT_DIRECTION_TYPE_ROTATED = range(3)
+
+class SurfaceReinforcementLocationType(Enum):
+    '''
+    Surface Reinforcement Location Type
+    '''
+    LOCATION_TYPE_FREE_CIRCULAR, LOCATION_TYPE_FREE_POLYGON, LOCATION_TYPE_FREE_RECTANGULAR, LOCATION_TYPE_ON_SURFACE = range(4)
+
+class SurfaceReinforcementType(Enum):
+    '''
+    Surface Reinforcement Type
+    '''
+    REINFORCEMENT_TYPE_MESH, REINFORCEMENT_TYPE_REBARS, REINFORCEMENT_TYPE_STIRRUPS = range(3)
+
+class SurfaceReinforcementDirectionType(Enum):
+    '''
+    Surface Reinforcement Direction Type
+    '''
+    REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION, REINFORCEMENT_DIRECTION_TYPE_PARALLEL_TO_TWO_POINTS = range(2)
+
+class SurfaceReinforcementDesignDirection(Enum):
+    '''
+    Surface Design Reinforcement Direction
+    '''
+    DESIGN_REINFORCEMENT_DIRECTION_A_S_1, DESIGN_REINFORCEMENT_DIRECTION_A_S_2 = range(2)
+
+class SurfaceReinforcementProjectionPlane(Enum):
+    '''
+    Surface Reinforcement Projection Plane
+    '''
+
+    PROJECTION_PLANE_XY_OR_UV, PROJECTION_PLANE_XZ_OR_UW, PROJECTION_PLANE_YZ_OR_VW = range(3)
+
+class SurfaceReinforcementLocationRectangleType(Enum):
+    '''
+    Surface Reinforcement Location Type
+    '''
+    RECTANGLE_TYPE_CENTER_AND_SIDES, RECTANGLE_TYPE_CORNER_POINTS = range(2)
+
+

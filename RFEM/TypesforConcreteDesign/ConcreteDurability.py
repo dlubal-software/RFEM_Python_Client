@@ -4,7 +4,6 @@ from RFEM.enums import *
 from enum import *
 
 class ConcreteDurability():
-
     def __init__(self,
                 no: int = 1, 
                 name: str = "XC 1",
@@ -21,6 +20,24 @@ class ConcreteDurability():
                 allowance_deviation = [DurabilityAllowanceDeviationType.STANDARD, False],
                 comment: str = '', 
                 params: dict = {}):
+        """
+        Args:
+            no (int): Concrete Durability Tag
+            name (str): User Defined Name  
+            members_no (str): Assigned Members
+            member_sets_no (str): Assigned Member Sets
+            surfaces_no (str): Assigned Surfaces
+            exposure_classes_reinforcement (list): Exposure Classes Reinforcement Parameters 
+            exposure_classes_reinforcement_types (list): Exposure Classes Reinforcement Parameters
+            exposure_classes_concrete (list): Exposure Classes Concrete Parameters
+            exposure_classes_concrete_types (list): Exposure Classes Concrete Parameters
+            structural_class (list): Structural Class Parameters
+            stainless_steel_reduction (list): Stainless Steel Reduction Parameters
+            additional_protection_reduction (list): Additional Protection Reduction
+            allowance_deviation (list): Allowance Deviation Parameters
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        """
         
         # Client model | Concrete Durabilities
         clientObject = clientModel.factory.create('ns0:concrete_durability')

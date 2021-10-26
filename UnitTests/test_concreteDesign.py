@@ -10,6 +10,8 @@ from RFEM.TypesforConcreteDesign.ConcreteDurability import ConcreteDurability
 from RFEM.ConcreteDesign.ConcreteUltimateConfigurations import ConcreteUltimateConfiguration
 from RFEM.ConcreteDesign.ConcreteServiceabilityConfigurations import ConcreteServiceabilityConfiguration
 from RFEM.TypesforConcreteDesign.ConcreteEffectiveLength import ConcreteEffectiveLength
+from RFEM.TypesforConcreteDesign.ConcreteReinforcementDirections import ConcreteReinforcementDirection
+from RFEM.TypesforConcreteDesign.ConcreteSurfaceReinforcements import ConcreteSurfaceReinforcements
 
 
 if __name__ == '__main__':
@@ -17,6 +19,7 @@ if __name__ == '__main__':
     clientModel.service.begin_modification()
 
     Material(1, 'C30/37')
+    Material(2, 'B550S(A)')
     Section(1, 'R_M1 500/500', 1)
 
     Node(1, 0, 0, 0)
@@ -56,5 +59,21 @@ if __name__ == '__main__':
     # Concrete Effective Lengths 
     ConcreteEffectiveLength()
 
+    # Concrete Reinforcement Direction
+    ConcreteReinforcementDirection(1, 'RD 1', "", ReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_FIRST_REINFORCEMENT_IN_X)
+    ConcreteReinforcementDirection(2, 'RD 2', "", ReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_FIRST_REINFORCEMENT_IN_Y)
+    ConcreteReinforcementDirection(3, 'RD 3', "", ReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_ROTATED, [30, 60])
+
+    # Concrete Surface Reinforcements
+    ConcreteSurfaceReinforcements()
+    ConcreteSurfaceReinforcements(2, "RD 2", "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_ON_SURFACE, SurfaceReinforcementType.REINFORCEMENT_TYPE_STIRRUPS, [0.01, 0.15])
+    ConcreteSurfaceReinforcements(3, "RD 3", "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_ON_SURFACE, SurfaceReinforcementType.REINFORCEMENT_TYPE_MESH, ["Germany - 1997-01-01", "Q-Mesh", "Q131A"])
+    ConcreteSurfaceReinforcements(4, "RD 4", "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_ON_SURFACE, reinforcement_direction=SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_PARALLEL_TO_TWO_POINTS, reinforcement_direction_parameters=[1, 2, 3, 4, "1", SurfaceReinforcementProjectionPlane.PROJECTION_PLANE_XY_OR_UV])
+    ConcreteSurfaceReinforcements(5, "RD 5", "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_ON_SURFACE, reinforcement_direction=SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION, reinforcement_direction_parameters=[SurfaceReinforcementDesignDirection.DESIGN_REINFORCEMENT_DIRECTION_A_S_1, "1", SurfaceReinforcementProjectionPlane.PROJECTION_PLANE_XY_OR_UV], reinforcement_location=[SurfaceReinforcementLocationRectangleType.RECTANGLE_TYPE_CORNER_POINTS, 1, 2, 3, 4, 35], reinforcement_acting_region=["-inf", "+inf"])
+    ConcreteSurfaceReinforcements(6, 'RD 6', "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_FREE_RECTANGULAR, SurfaceReinforcementType.REINFORCEMENT_TYPE_STIRRUPS, [0.01, 0.15], reinforcement_direction =SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION, reinforcement_direction_parameters = [SurfaceReinforcementDesignDirection.DESIGN_REINFORCEMENT_DIRECTION_A_S_1, "1", SurfaceReinforcementProjectionPlane.PROJECTION_PLANE_XY_OR_UV], reinforcement_location=[SurfaceReinforcementLocationRectangleType.RECTANGLE_TYPE_CORNER_POINTS, 1, 2, 3, 4, 35], reinforcement_acting_region=["-inf", "+inf"])
+    ConcreteSurfaceReinforcements(7, 'RD 7', "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_FREE_RECTANGULAR, SurfaceReinforcementType.REINFORCEMENT_TYPE_STIRRUPS, [0.01, 0.15], reinforcement_direction=SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION, reinforcement_direction_parameters = [SurfaceReinforcementDesignDirection.DESIGN_REINFORCEMENT_DIRECTION_A_S_1, "1", SurfaceReinforcementProjectionPlane.PROJECTION_PLANE_XY_OR_UV], reinforcement_location=[SurfaceReinforcementLocationRectangleType.RECTANGLE_TYPE_CENTER_AND_SIDES, 2, 3, 2, 2, 35], reinforcement_acting_region=["-inf", "+inf"])
+    ConcreteSurfaceReinforcements(8, 'RD 8', "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_FREE_CIRCULAR, SurfaceReinforcementType.REINFORCEMENT_TYPE_STIRRUPS, [0.01, 0.15], reinforcement_direction=SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION, reinforcement_direction_parameters = [SurfaceReinforcementDesignDirection.DESIGN_REINFORCEMENT_DIRECTION_A_S_1, "1", SurfaceReinforcementProjectionPlane.PROJECTION_PLANE_XY_OR_UV], reinforcement_location=[1, 2, 3], reinforcement_acting_region=["-inf", "+inf"])
+    ConcreteSurfaceReinforcements(9, 'RD 9', "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_FREE_POLYGON, SurfaceReinforcementType.REINFORCEMENT_TYPE_STIRRUPS, [0.01, 0.15], reinforcement_direction=SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION, reinforcement_direction_parameters = [SurfaceReinforcementDesignDirection.DESIGN_REINFORCEMENT_DIRECTION_A_S_1, "1", SurfaceReinforcementProjectionPlane.PROJECTION_PLANE_XY_OR_UV], reinforcement_location=[[1, 1, ""], [2, 2, ""], [3, 2, ""]], reinforcement_acting_region=["-inf", "+inf"])
+    
     print("Ready!")
     clientModel.service.finish_modification()
