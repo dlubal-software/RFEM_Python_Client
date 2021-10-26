@@ -670,6 +670,60 @@ class export_to_ifc_export_type(Enum):
 
     E_EXPORT_IFC4_REFERENCE_VIEW, E_EXPORT_IFC4_STRUCTURAL_ANALYSIS_VIEW = range(2)
 
+class ModelType(Enum):
+    '''
+    Model Type | Enum
+    '''
+    E_MODEL_TYPE_1D_X_3D, E_MODEL_TYPE_1D_X_AXIAL, E_MODEL_TYPE_2D_XY_3D, \
+    E_MODEL_TYPE_2D_XY_PLATE, E_MODEL_TYPE_2D_XZ_3D, E_MODEL_TYPE_2D_XZ_PLANE_STRAIN, \
+    E_MODEL_TYPE_2D_XZ_PLANE_STRESS, E_MODEL_TYPE_3D = range(8)
+class ModalSolutionMethod(Enum):
+    '''
+    Modal Analysis Settings Solution Method
+    '''
+    METHOD_ICG_ITERATION, METHOD_LANCZOS, METHOD_ROOT_OF_CHARACTERISTIC_POLYNOMIAL, METHOD_SUBSPACE_ITERATION, SOLUTION_METHOD_SHIFTED_INVERSE_POWER_METHOD = range(5)
+
+class ModalMassConversionType(Enum):
+    '''
+    Modal Analysis Settings Mass Conversion Type
+    '''
+    MASS_CONVERSION_TYPE_FULL_LOADS_AS_MASS, MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS, MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS_IN_DIRECTION_OF_GRAVITY = range(3)
+
+class ModalMassMatrixType(Enum):
+    '''
+    Modal Analysis Settings Mass Matrix Type
+    '''
+    MASS_MATRIX_TYPE_CONSISTENT, MASS_MATRIX_TYPE_DIAGONAL, MASS_MATRIX_TYPE_DIAGONAL_WITH_TORSIONAL_ELEMENTS, MASS_MATRIX_TYPE_UNIT = range(4)
+
+class ModalModeNumberMethod(Enum):
+    '''
+    Modal Analysis Settings Number of Modes Method
+    '''
+    NUMBER_OF_MODES_METHOD_EFFECTIVE_MASS_FACTORS, NUMBER_OF_MODES_METHOD_MAXIMUM_FREQUENCY, NUMBER_OF_MODES_METHOD_USER_DEFINED = range(3)
+
+class ModalNeglectMasses(Enum):
+    '''
+    Modal Analysis Settings Neglect Masses
+    '''
+    E_NEGLECT_MASSES_IN_ALL_FIXED_SUPPORTS, E_NEGLECT_MASSES_NO_NEGLECTION, E_NEGLECT_MASSES_USER_DEFINED = range(3)
+class PeriodicResponseCombinationRule(Enum):
+    '''
+    Spectral Analysis Settings Combination Rule For Periodic Responses
+    '''
+    ABSOLUTE_SUM, CQC, SRSS = range(3)
+
+class DirectionalComponentCombinationRule(Enum):
+    '''
+    Spectral Analysis Settings Combination Rule For Directional Components
+    '''
+    ABSOLUTE_SUM, SCALED_SUM, SRSS = range(3)
+
+class CqsDampingRule(Enum):
+    '''
+    Spectal Analysis Settings Damping for CQC Rule
+    '''
+    CONSTANT_FOR_EACH_MODE, DIFFERENT_FOR_EACH_MODE = range(2)
+
 class DurabilityCorrosionCarbonation(Enum):
     '''
     Concrete Durability Corrosion Induced by Carbonation
