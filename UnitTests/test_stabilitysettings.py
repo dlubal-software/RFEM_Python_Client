@@ -1,10 +1,12 @@
 import sys
+import pytest
 sys.path.append(".")
 from RFEM.enums import *
 from RFEM.dataTypes import *
 from RFEM.initModel import *
-from RFEM.LoadCasesAndCombinations.stabilityAnalysisSettings import *
+from RFEM.LoadCasesAndCombinations.stabilityAnalysisSettings import *	
 
+@pytest.mark.skip("all tests still WIP")
 def test_stability_analysis_settings_init():
 	
 	clientModel.service.reset()
@@ -27,6 +29,7 @@ def test_stability_analysis_settings_init():
 	assert stability_analysis_settings.minimum_initial_strain == 1e-05
 	assert stability_analysis_settings.number_of_lowest_eigenvalues == 4
 
+@pytest.mark.skip("all tests still WIP")
 def test_stability_analysis_settings_eigenvalue_method():
 	
 	clientModel.service.reset()
@@ -59,6 +62,7 @@ def test_stability_analysis_settings_eigenvalue_method():
 	assert stability_analysis_settings.minimum_initial_strain == 2.5e-05
 	assert stability_analysis_settings.number_of_lowest_eigenvalues == 5
 
+@pytest.mark.skip("all tests still WIP")
 def test_stability_analysis_settings_incrementaly_method_with_eigenvalue():
     	
 	clientModel.service.reset()
@@ -102,6 +106,8 @@ def test_stability_analysis_settings_incrementaly_method_with_eigenvalue():
 	assert stability_analysis_settings.stopping_of_load_increasing_limit_result_displacement == 0.1
 	assert stability_analysis_settings.stopping_of_load_increasing_result == 'RESULT_TYPE_DISPLACEMENT_U'
 
+
+@pytest.mark.skip("all tests still WIP")
 def test_stability_analysis_settings_incrementaly_method_without_eigenvalue():
     	
 	clientModel.service.reset()
@@ -129,8 +135,3 @@ def test_stability_analysis_settings_incrementaly_method_without_eigenvalue():
 	assert stability_analysis_settings.maximum_number_of_load_increments == 125
 	assert stability_analysis_settings.refinement_of_the_last_load_increment == 5
 	assert stability_analysis_settings.save_results_of_all_increments == False
-
-test_stability_analysis_settings_init()
-test_stability_analysis_settings_eigenvalue_method()
-test_stability_analysis_settings_incrementaly_method_with_eigenvalue()
-test_stability_analysis_settings_incrementaly_method_without_eigenvalue()
