@@ -429,7 +429,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
 }
 </script>
     <h1>report.html</h1>
-    <p>Report generated on 26-Oct-2021 at 13:45:56 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.1.1</p>
+    <p>Report generated on 26-Oct-2021 at 14:06:15 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.1.1</p>
     <h2>Environment</h2>
     <table id="environment">
       <tr>
@@ -448,8 +448,8 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <td>Python</td>
         <td>3.9.7</td></tr></table>
     <h2>Summary</h2>
-    <p>0 tests ran in 2.73 seconds. </p>
-    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">0 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
+    <p>77 tests ran in 95.88 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">67 passed</span>, <input checked="true" class="filter" data-test-result="skipped" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">7 skipped</span>, <input checked="true" class="filter" data-test-result="failed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">10 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
     <h2>Results</h2>
     <table id="results-table">
       <thead id="results-table-head">
@@ -459,4 +459,764 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
           <th class="sortable" col="duration">Duration</th>
           <th class="sortable links" col="links">Links</th></tr>
         <tr hidden="true" id="not-found-message">
-          <th colspan="4">No results found. Try to check the filters</th></tr></thead></table></body></html>
+          <th colspan="4">No results found. Try to check the filters</th></tr></thead>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">UnitTests/test_MemberLoad_test.py::test_member_loads</td>
+          <td class="col-duration">6.54</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">def test_member_loads():<br/>    <br/>        clientModel.service.begin_modification()<br/>    <br/>        # Create Material<br/>        Material(1, &#x27;S235&#x27;)<br/>    <br/>        # Create Thickness<br/>        Section(1, &#x27;IPE 300&#x27;)<br/>        Section(2, &#x27;CHS 100x4&#x27;)<br/>    <br/>        # Create Nodes<br/>        Node(1, 0.0, 0.0, 0.0)<br/>        Node(2, 4.0, 0.0, 0.0)<br/>    <br/>        Node(3, 0, 5, 0)<br/>        Node(4, 4, 5, 0)<br/>    <br/>        Member(1, MemberType.TYPE_BEAM, &#x27;1&#x27;, &#x27;2&#x27;, 0, 1, 1)<br/>        Member(2, MemberType.TYPE_BEAM, &#x27;3&#x27;, &#x27;4&#x27;, 0, 2, 2)<br/>    <br/>        # Create Nodal Supports<br/>        NodalSupport(1, &#x27;1&#x27;, NodalSupportType.FIXED)<br/>        NodalSupport(2, &#x27;2&#x27;, NodalSupportType.FIXED)<br/>        NodalSupport(3, &#x27;3&#x27;, NodalSupportType.FIXED)<br/>        NodalSupport(4, &#x27;4&#x27;, NodalSupportType.FIXED)<br/>    <br/>        # Create Static Analysis Settings<br/>        StaticAnalysisSettings(1, &#x27;1. Ordnung&#x27;, StaticAnalysisType.GEOMETRICALLY_LINEAR)<br/>    <br/>        # Create Load Case<br/>        LoadCase(1, &#x27;DEAD&#x27;, [True, 0.0, 0.0, 1.0])<br/>    <br/>        ## Initial Member Load ##<br/>        MemberLoad(1, 1, &#x27;1&#x27;, LoadDirectionType.LOAD_DIRECTION_LOCAL_Z, 5000)<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##<br/>        MemberLoad.Force(0, 2, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_UNIFORM with Eccentricity ##<br/>        MemberLoad.Force(0, 3, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000], force_eccentricity=True, params={&#x27;eccentricity_y_at_start&#x27; : 0.01, &#x27;eccentricity_z_at_start&#x27;: 0.02})<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_UNIFORM_TOTAL ##<br/>        MemberLoad.Force(0, 4, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM_TOTAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_1 ##<br/>        MemberLoad.Force(0, 5, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, 5000, 1.2])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_N ##<br/>        MemberLoad.Force(0, 6, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 2, 1, 2])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x2 ##<br/>        MemberLoad.Force(0, 7, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, False, 5000, 1, 2, 3])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x ##<br/>        MemberLoad.Force(0, 8, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 6000, 1, 2])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_VARYING ##<br/>        MemberLoad.Force(0, 9, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##<br/>        MemberLoad.Force(0, 10, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_TAPERED ##<br/>        MemberLoad.Force(0, 11, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##<br/>        MemberLoad.Force(0, 12, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[4000, 8000, 12000])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING ##<br/>        MemberLoad.Force(0, 13, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING_IN_Z ##<br/>        MemberLoad.Force(0, 14, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])<br/>    <br/>    <br/>        ## Moment Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##<br/>        MemberLoad.Moment(0, 15, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])<br/>    <br/>        ## Moment Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_1 ##<br/>        MemberLoad.Moment(0, 16, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, 5000, 1.2])<br/>    <br/>        ## Moment Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_N ##<br/>        MemberLoad.Moment(0, 17, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 2, 1, 2])<br/>    <br/>        ## Moment Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x2 ##<br/>        MemberLoad.Moment(0, 18, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, False, 5000, 1, 2, 3])<br/>    <br/>        ## Moment Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x ##<br/>        MemberLoad.Moment(0, 19, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 6000, 1, 2])<br/>    <br/>        ## Moment Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_VARYING ##<br/>        MemberLoad.Moment(0, 20, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])<br/>    <br/>        ## Moment Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##<br/>        MemberLoad.Moment(0, 21, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])<br/>    <br/>        ## Moment Type Member Load with LOAD_DISTRIBUTION_TAPERED ##<br/>        MemberLoad.Moment(0, 22, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])<br/>    <br/>        ## Moment Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##<br/>        MemberLoad.Moment(0, 23, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[4000, 8000, 12000])<br/>    <br/>        ## Moment Type Member Load with LOAD_DISTRIBUTION_VARYING ##<br/>        MemberLoad.Moment(0, 24, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])<br/>    <br/>    <br/>        ## Mass Type Member Load ##<br/>        MemberLoad.Mass(0, 25, 1, mass_components=[1000])<br/>    <br/>    <br/>        ## Temperature Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##<br/>        MemberLoad.Temperature(0, 26, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[18, 2])<br/>    <br/>        ## Temperature Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##<br/>        MemberLoad.Temperature(0, 27, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, 18, 20, False, False, 1, 2])<br/>    <br/>        ## Temperature Type Member Load with LOAD_DISTRIBUTION_TAPERED ##<br/>        MemberLoad.Temperature(0, 28, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, 18, 20, False, False, 1, 2])<br/>    <br/>        ## Temperature Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##<br/>        MemberLoad.Temperature(0, 29, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3, 4, 5, 6])<br/>    <br/>        ## Temperature Type Member Load with LOAD_DISTRIBUTION_VARYING ##<br/>        MemberLoad.Temperature(0, 30, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])<br/>    <br/>    <br/>        ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##<br/>        MemberLoad.TemperatureChange(0, 31, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[18, 2])<br/>    <br/>        ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##<br/>        MemberLoad.TemperatureChange(0, 32, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, 18, 20, False, False, 1, 2])<br/>    <br/>        ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_TAPERED ##<br/>        MemberLoad.TemperatureChange(0, 33, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, 18, 20, False, False, 1, 2])<br/>    <br/>        ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##<br/>        MemberLoad.TemperatureChange(0, 34, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3, 4, 5, 6])<br/>    <br/>        ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_VARYING ##<br/>        MemberLoad.TemperatureChange(0, 35, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])<br/>    <br/>        ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##<br/>        MemberLoad.AxialStrain(0, 36, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[0.005])<br/>    <br/>        ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##<br/>        MemberLoad.AxialStrain(0, 37, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[12, 16, False, False, 1, 2])<br/>    <br/>        ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_TAPERED ##<br/>        MemberLoad.AxialStrain(0, 38, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[12, 16, False, False, 1, 2])<br/>    <br/>        ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##<br/>        MemberLoad.AxialStrain(0, 39, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[1, 2, 3])<br/>    <br/>        ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_VARYING ##<br/>        MemberLoad.AxialStrain(0, 40, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])<br/>    <br/>    <br/>        ## AxialDisplacement Type Member Load ##<br/>        MemberLoad.AxialDisplacement(0, 41, 1, &#x27;1&#x27;, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, 0.05)<br/>    <br/>    <br/>        ## Precamber Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##<br/>        MemberLoad.Precamber(0, 42, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[0.005])<br/>    <br/>        ## Precamber Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##<br/>        MemberLoad.Precamber(0, 43, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])<br/>    <br/>        ## Precamber Type Member Load with LOAD_DISTRIBUTION_TAPERED ##<br/>        MemberLoad.Precamber(0, 44, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])<br/>    <br/>        ## Precamber Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##<br/>        MemberLoad.Precamber(0, 45, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3])<br/>    <br/>        ## Precamber Type Member Load with LOAD_DISTRIBUTION_VARYING ##<br/>        MemberLoad.Precamber(0, 46, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])<br/>    <br/>    <br/>        ## InitialPrestress Type Member Load ##<br/>        MemberLoad.InitialPrestress(0, 47, 1, &#x27;1&#x27;, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, 50)<br/>    <br/>    <br/>        ## Displacement Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##<br/>        MemberLoad.Displacement(0, 48, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5])<br/>    <br/>        ## Displacement Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_1 ##<br/>        MemberLoad.Displacement(0, 49, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, 1])<br/>    <br/>        ## Displacement Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_N ##<br/>        MemberLoad.Displacement(0, 50, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, False, 1, 2])<br/>    <br/>        ## Displacement Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x2 ##<br/>        MemberLoad.Displacement(0, 51, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, False, False, 1, 2, 3])<br/>    <br/>        ## Displacement Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2 ##<br/>        MemberLoad.Displacement(0, 52, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, 0.6, False, False, 1, 2])<br/>    <br/>        ## Displacement Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_VARYING ##<br/>        MemberLoad.Displacement(0, 53, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [[0.001, 1, 1], [0.002, 2, 1]])<br/>    <br/>        ## Displacement Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##<br/>        MemberLoad.Displacement(0, 54, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])<br/>    <br/>        ## Displacement Type Member Load with LOAD_DISTRIBUTION_TAPERED ##<br/>        MemberLoad.Displacement(0, 55, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])<br/>    <br/>        ## Displacement Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##<br/>        MemberLoad.Displacement(0, 56, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3])<br/>    <br/>        ## Displacement Type Member Load with LOAD_DISTRIBUTION_VARYING ##<br/>        MemberLoad.Displacement(0, 57, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])<br/>    <br/>    <br/>        ## Rotation Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##<br/>        MemberLoad.Rotation(0, 58, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5])<br/>    <br/>        ## Rotation Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_1 ##<br/>        MemberLoad.Rotation(0, 59, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, 1])<br/>    <br/>        ## Rotation Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_N ##<br/>        MemberLoad.Rotation(0, 60, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, False, 1, 2])<br/>    <br/>        ## Rotation Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x2 ##<br/>        MemberLoad.Rotation(0, 61, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, False, False, 1, 2, 3])<br/>    <br/>        ## Rotation Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2 ##<br/>        MemberLoad.Rotation(0, 62, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, 0.6, False, False, 1, 2])<br/>    <br/>        ## Rotation Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_VARYING ##<br/>        MemberLoad.Rotation(0, 63, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [[1, 1, 285], [2, 1, 293]])<br/>    <br/>        ## Rotation Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##<br/>        MemberLoad.Rotation(0, 64, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])<br/>    <br/>        ## Rotation Type Member Load with LOAD_DISTRIBUTION_TAPERED ##<br/>        MemberLoad.Rotation(0, 65, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])<br/>    <br/>        ## Rotation Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##<br/>        MemberLoad.Rotation(0, 66, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3])<br/>    <br/>        ## Rotation Type Member Load with LOAD_DISTRIBUTION_VARYING ##<br/>        MemberLoad.Rotation(0, 67, 1, &#x27;1&#x27;, MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])<br/>    <br/>        ## PipeContentFull Type Member Load ##<br/>        MemberLoad.PipeContentFull(0, 68, 1, &#x27;2&#x27;, MemberLoadDirectionOrientation.LOAD_DIRECTION_FORWARD, 50)<br/>    <br/>&gt;       Calculate_all()<br/><br/>UnitTests\test_MemberLoad_test.py:273: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<br/>RFEM\initModel.py:187: in Calculate_all<br/>    clientModel.service.calculate_all(generateXmlSolverInput)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:566: in __call__<br/>    return client.invoke(args, kwargs)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:708: in invoke<br/>    result = self.send(soapenv, timeout=timeout)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:756: in send<br/>    return self.process_reply(reply.message, None, None)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<br/><br/>self = &lt;suds.client._SoapClient object at 0x0000023F0307E520&gt;<br/>reply = b&#x27;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;soap:Envelope xmlns:soap=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:so...ultcode&gt;&lt;faultstring&gt;Plausibility error&lt;/faultstring&gt;&lt;faultactor/&gt;&lt;detail/&gt;&lt;/soap:Fault&gt;&lt;/soap:Body&gt;&lt;/soap:Envelope&gt;\n&#x27;<br/>status = &lt;HTTPStatus.OK: 200&gt;, description = None<br/><br/>    def process_reply(self, reply, status, description):<br/>        &quot;&quot;&quot;<br/>        Process a web service operation SOAP reply.<br/>    <br/>        Depending on how the ``retxml`` option is set, may return the SOAP<br/>        reply XML or process it and return the Python object representing the<br/>        returned value.<br/>    <br/>        @param reply: The SOAP reply envelope.<br/>        @type reply: I{bytes}<br/>        @param status: The HTTP status code (None indicates httplib.OK).<br/>        @type status: int|I{None}<br/>        @param description: Additional status description.<br/>        @type description: str<br/>        @return: The invoked web service operation return value.<br/>        @rtype: I{builtin}|I{subclass of} L{Object}|I{bytes}|I{None}<br/>    <br/>        &quot;&quot;&quot;<br/>        if status is None:<br/>            status = http.client.OK<br/>        debug_message = &quot;Reply HTTP status - %d&quot; % (status,)<br/>        if status in (http.client.ACCEPTED, http.client.NO_CONTENT):<br/>            log.debug(debug_message)<br/>            return<br/>        #TODO: Consider whether and how to allow plugins to handle error,<br/>        # httplib.ACCEPTED &amp; httplib.NO_CONTENT replies as well as successful<br/>        # ones.<br/>        if status == http.client.OK:<br/>            log.debug(&quot;%s\n%s&quot;, debug_message, reply)<br/>        else:<br/>            log.debug(&quot;%s - %s\n%s&quot;, debug_message, description, reply)<br/>    <br/>        plugins = PluginContainer(self.options.plugins)<br/>        ctx = plugins.message.received(reply=reply)<br/>        reply = ctx.reply<br/>    <br/>        # SOAP standard states that SOAP errors must be accompanied by HTTP<br/>        # status code 500 - internal server error:<br/>        #<br/>        # From SOAP 1.1 specification:<br/>        #   In case of a SOAP error while processing the request, the SOAP HTTP<br/>        # server MUST issue an HTTP 500 &quot;Internal Server Error&quot; response and<br/>        # include a SOAP message in the response containing a SOAP Fault<br/>        # element (see section 4.4) indicating the SOAP processing error.<br/>        #<br/>        # From WS-I Basic profile:<br/>        #   An INSTANCE MUST use a &quot;500 Internal Server Error&quot; HTTP status code<br/>        # if the response message is a SOAP Fault.<br/>        replyroot = None<br/>        if status in (http.client.OK, http.client.INTERNAL_SERVER_ERROR):<br/>            replyroot = _parse(reply)<br/>            plugins.message.parsed(reply=replyroot)<br/>            fault = self.__get_fault(replyroot)<br/>            if fault:<br/>                if status != http.client.INTERNAL_SERVER_ERROR:<br/>                    log.warning(&quot;Web service reported a SOAP processing fault &quot;<br/>                        &quot;using an unexpected HTTP status code %d. Reporting &quot;<br/>                        &quot;as an internal server error.&quot;, status)<br/>                if self.options.faults:<br/>&gt;                   raise WebFault(fault, replyroot)<br/><span class="error">E                   suds.WebFault: Server raised fault: &#x27;Plausibility error&#x27;</span><br/><br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:817: WebFault<br/> -------------------------------Captured log call-------------------------------- <br/>WARNING  suds.client:client.py:813 Web service reported a SOAP processing fault using an unexpected HTTP status code 200. Reporting as an internal server error.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">UnitTests/test_MemberSetLoad_test.py::test_member_set_load</td>
+          <td class="col-duration">6.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">def test_member_set_load():<br/>        clientModel.service.begin_modification()<br/>    <br/>        # Create Material<br/>        Material(1, &#x27;S235&#x27;)<br/>    <br/>        # Create Section<br/>        Section(1, &#x27;IPE 300&#x27;)<br/>    <br/>        # Create Nodes<br/>        Node(1, 0.0, 0.0, 0.0)<br/>        Node(2, 2, 0.0, 0.0)<br/>        Node(3, 4, 0, 0)<br/>    <br/>        # Create Member<br/>        Member(1, MemberType.TYPE_BEAM, &#x27;1&#x27;, &#x27;2&#x27;, 0, 1, 1)<br/>        Member(2, MemberType.TYPE_BEAM, &#x27;2&#x27;, &#x27;3&#x27;, 0, 1, 1)<br/>    <br/>        # Create Member Set<br/>        MemberSet(1, &#x27;1 2&#x27;, SetType.SET_TYPE_CONTINUOUS)<br/>    <br/>        # Create Nodal Supports<br/>        NodalSupport(1, &#x27;1&#x27;, NodalSupportType.FIXED)<br/>        NodalSupport(2, &#x27;3&#x27;, NodalSupportType.FIXED)<br/>    <br/>        # Create Static Analysis Settings<br/>        StaticAnalysisSettings(1, &#x27;1. Order&#x27;, StaticAnalysisType.GEOMETRICALLY_LINEAR)<br/>    <br/>        # Create Load Case<br/>        LoadCase(1, &#x27;DEAD&#x27;, [True, 0.0, 0.0, 1.0])<br/>    <br/>        ## Initial Member Set Load ##<br/>        MemberSetLoad(1, 1, &#x27;1&#x27;, LoadDirectionType.LOAD_DIRECTION_LOCAL_Z, 5000)<br/>    <br/>        ## Force Type Member Set Load with LOAD_DISTRIBUTION_UNIFORM ##<br/>        MemberSetLoad.Force(0, 2, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_UNIFORM with Eccentricity ##<br/>        MemberSetLoad.Force(0, 3, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000], force_eccentricity=True, params={&#x27;eccentricity_y_at_start&#x27; : 0.01, &#x27;eccentricity_z_at_start&#x27;: 0.02})<br/>    <br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_UNIFORM_TOTAL ##<br/>        MemberSetLoad.Force(0, 4, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM_TOTAL, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_1 ##<br/>        MemberSetLoad.Force(0, 5, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, 5000, 1.2])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_N ##<br/>        MemberSetLoad.Force(0, 6, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 2, 1, 2])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x2 ##<br/>        MemberSetLoad.Force(0, 7, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, False, 5000, 1, 2, 3])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x ##<br/>        MemberSetLoad.Force(0, 8, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 6000, 1, 2])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_VARYING ##<br/>        MemberSetLoad.Force(0, 9, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##<br/>        MemberSetLoad.Force(0, 10, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_TAPERED ##<br/>        MemberSetLoad.Force(0, 11, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##<br/>        MemberSetLoad.Force(0, 12, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[4000, 8000, 12000])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING ##<br/>        MemberSetLoad.Force(0, 13, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])<br/>    <br/>        ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING_IN_Z ##<br/>        MemberSetLoad.Force(0, 14, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])<br/>    <br/>    <br/>        ## Moment Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##<br/>        MemberSetLoad.Moment(0, 15, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])<br/>    <br/>        ## Moment Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_1 ##<br/>        MemberSetLoad.Moment(0, 16, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, 5000, 1.2])<br/>    <br/>        ## Moment Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_N ##<br/>        MemberSetLoad.Moment(0, 17, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 2, 1, 2])<br/>    <br/>        ## Moment Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x2 ##<br/>        MemberSetLoad.Moment(0, 18, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, False, 5000, 1, 2, 3])<br/>    <br/>        ## Moment Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x ##<br/>        MemberSetLoad.Moment(0, 19, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 6000, 1, 2])<br/>    <br/>        ## Moment Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_VARYING ##<br/>        MemberSetLoad.Moment(0, 20, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])<br/>    <br/>        ## Moment Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##<br/>        MemberSetLoad.Moment(0, 21, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])<br/>    <br/>        ## Moment Type Member Load with LOAD_DISTRIBUTION_TAPERED ##<br/>        MemberSetLoad.Moment(0, 22, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])<br/>    <br/>        ## Moment Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##<br/>        MemberSetLoad.Moment(0, 23, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[4000, 8000, 12000])<br/>    <br/>        ## Moment Type Member Load with LOAD_DISTRIBUTION_VARYING ##<br/>        MemberSetLoad.Moment(0, 24, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])<br/>    <br/>    <br/>        ## Mass Type Member Load ##<br/>        MemberSetLoad.Mass(0, 25, 1, mass_components=[1000])<br/>    <br/>    <br/>        ## Temperature Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##<br/>        MemberSetLoad.Temperature(0, 26, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[18, 2])<br/>    <br/>        ## Temperature Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##<br/>        MemberSetLoad.Temperature(0, 27, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, 18, 20, False, False, 1, 2])<br/>    <br/>        ## Temperature Type Member Load with LOAD_DISTRIBUTION_TAPERED ##<br/>        MemberSetLoad.Temperature(0, 28, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, 18, 20, False, False, 1, 2])<br/>    <br/>        ## Temperature Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##<br/>        MemberSetLoad.Temperature(0, 29, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3, 4, 5, 6])<br/>    <br/>        ## Temperature Type Member Load with LOAD_DISTRIBUTION_VARYING ##<br/>        MemberSetLoad.Temperature(0, 30, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])<br/>    <br/>    <br/>        ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##<br/>        MemberSetLoad.TemperatureChange(0, 31, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[18, 2])<br/>    <br/>        ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##<br/>        MemberSetLoad.TemperatureChange(0, 32, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, 18, 20, False, False, 1, 2])<br/>    <br/>        ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_TAPERED ##<br/>        MemberSetLoad.TemperatureChange(0, 33, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, 18, 20, False, False, 1, 2])<br/>    <br/>        ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##<br/>        MemberSetLoad.TemperatureChange(0, 34, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3, 4, 5, 6])<br/>    <br/>        ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_VARYING ##<br/>        MemberSetLoad.TemperatureChange(0, 35, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])<br/>    <br/>    <br/>        ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##<br/>        MemberSetLoad.AxialStrain(0, 36, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[0.005])<br/>    <br/>        ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##<br/>        MemberSetLoad.AxialStrain(0, 37, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[12, 16, False, False, 1, 2])<br/>    <br/>        ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_TAPERED ##<br/>        MemberSetLoad.AxialStrain(0, 38, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[12, 16, False, False, 1, 2])<br/>    <br/>        ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##<br/>        MemberSetLoad.AxialStrain(0, 39, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[1, 2, 3])<br/>    <br/>        ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_VARYING ##<br/>        MemberSetLoad.AxialStrain(0, 40, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])<br/>    <br/>    <br/>        ## AxialDisplacement Type Member Load ##<br/>        MemberSetLoad.AxialDisplacement(0, 41, 1, &#x27;1&#x27;, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X, 0.05)<br/>    <br/>    <br/>        ## Precamber Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##<br/>        MemberSetLoad.Precamber(0, 42, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[0.005])<br/>    <br/>        ## Precamber Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##<br/>        MemberSetLoad.Precamber(0, 43, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])<br/>    <br/>        ## Precamber Type Member Load with LOAD_DISTRIBUTION_TAPERED ##<br/>        MemberSetLoad.Precamber(0, 44, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])<br/>    <br/>        ## Precamber Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##<br/>        MemberSetLoad.Precamber(0, 45, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3])<br/>    <br/>        ## Precamber Type Member Load with LOAD_DISTRIBUTION_VARYING ##<br/>        MemberSetLoad.Precamber(0, 46, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])<br/>    <br/>    <br/>        ## InitialPrestress Type Member Load ##<br/>        MemberSetLoad.InitialPrestress(0, 47, 1, &#x27;1&#x27;, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X, 50)<br/>    <br/>    <br/>        ## Displacement Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##<br/>        MemberSetLoad.Displacement(0, 48, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5])<br/>    <br/>        ## Displacement Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_1 ##<br/>        MemberSetLoad.Displacement(0, 49, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, 1])<br/>    <br/>        ## Displacement Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_N ##<br/>        MemberSetLoad.Displacement(0, 50, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, False, 1, 2])<br/>    <br/>        ## Displacement Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x2 ##<br/>        MemberSetLoad.Displacement(0, 51, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, False, False, 1, 2, 3])<br/>    <br/>        ## Displacement Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2 ##<br/>        MemberSetLoad.Displacement(0, 52, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, 0.6, False, False, 1, 2])<br/>    <br/>        ## Displacement Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_VARYING ##<br/>        MemberSetLoad.Displacement(0, 53, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, [[0.001, 1, 1], [0.002, 2, 1]])<br/>    <br/>        ## Displacement Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##<br/>        MemberSetLoad.Displacement(0, 54, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])<br/>    <br/>        ## Displacement Type Member Load with LOAD_DISTRIBUTION_TAPERED ##<br/>        MemberSetLoad.Displacement(0, 55, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])<br/>    <br/>        ## Displacement Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##<br/>        MemberSetLoad.Displacement(0, 56, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3])<br/>    <br/>        ## Displacement Type Member Load with LOAD_DISTRIBUTION_VARYING ##<br/>        MemberSetLoad.Displacement(0, 57, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])<br/>    <br/>    <br/>        ## Rotation Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##<br/>        MemberSetLoad.Rotation(0, 58, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5])<br/>    <br/>        ## Rotation Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_1 ##<br/>        MemberSetLoad.Rotation(0, 59, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, 1])<br/>    <br/>        ## Rotation Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_N ##<br/>        MemberSetLoad.Rotation(0, 60, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, False, 1, 2])<br/>    <br/>        ## Rotation Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x2 ##<br/>        MemberSetLoad.Rotation(0, 61, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, False, False, 1, 2, 3])<br/>    <br/>        ## Rotation Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2 ##<br/>        MemberSetLoad.Rotation(0, 62, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, 0.6, False, False, 1, 2])<br/>    <br/>        ## Rotation Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_VARYING ##<br/>        MemberSetLoad.Rotation(0, 63, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, [[1, 1, 285], [2, 1, 293]])<br/>    <br/>        ## Rotation Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##<br/>        MemberSetLoad.Rotation(0, 64, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])<br/>    <br/>        ## Rotation Type Member Load with LOAD_DISTRIBUTION_TAPERED ##<br/>        MemberSetLoad.Rotation(0, 65, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])<br/>    <br/>        ## Rotation Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##<br/>        MemberSetLoad.Rotation(0, 66, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3])<br/>    <br/>        ## Rotation Type Member Load with LOAD_DISTRIBUTION_VARYING ##<br/>        MemberSetLoad.Rotation(0, 67, 1, &#x27;1&#x27;, MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])<br/>    <br/>&gt;       Calculate_all()<br/><br/>UnitTests\test_MemberSetLoad_test.py:271: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<br/>RFEM\initModel.py:187: in Calculate_all<br/>    clientModel.service.calculate_all(generateXmlSolverInput)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:566: in __call__<br/>    return client.invoke(args, kwargs)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:708: in invoke<br/>    result = self.send(soapenv, timeout=timeout)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:756: in send<br/>    return self.process_reply(reply.message, None, None)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<br/><br/>self = &lt;suds.client._SoapClient object at 0x0000023F0338B100&gt;<br/>reply = b&#x27;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;soap:Envelope xmlns:soap=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:so...ultcode&gt;&lt;faultstring&gt;Plausibility error&lt;/faultstring&gt;&lt;faultactor/&gt;&lt;detail/&gt;&lt;/soap:Fault&gt;&lt;/soap:Body&gt;&lt;/soap:Envelope&gt;\n&#x27;<br/>status = &lt;HTTPStatus.OK: 200&gt;, description = None<br/><br/>    def process_reply(self, reply, status, description):<br/>        &quot;&quot;&quot;<br/>        Process a web service operation SOAP reply.<br/>    <br/>        Depending on how the ``retxml`` option is set, may return the SOAP<br/>        reply XML or process it and return the Python object representing the<br/>        returned value.<br/>    <br/>        @param reply: The SOAP reply envelope.<br/>        @type reply: I{bytes}<br/>        @param status: The HTTP status code (None indicates httplib.OK).<br/>        @type status: int|I{None}<br/>        @param description: Additional status description.<br/>        @type description: str<br/>        @return: The invoked web service operation return value.<br/>        @rtype: I{builtin}|I{subclass of} L{Object}|I{bytes}|I{None}<br/>    <br/>        &quot;&quot;&quot;<br/>        if status is None:<br/>            status = http.client.OK<br/>        debug_message = &quot;Reply HTTP status - %d&quot; % (status,)<br/>        if status in (http.client.ACCEPTED, http.client.NO_CONTENT):<br/>            log.debug(debug_message)<br/>            return<br/>        #TODO: Consider whether and how to allow plugins to handle error,<br/>        # httplib.ACCEPTED &amp; httplib.NO_CONTENT replies as well as successful<br/>        # ones.<br/>        if status == http.client.OK:<br/>            log.debug(&quot;%s\n%s&quot;, debug_message, reply)<br/>        else:<br/>            log.debug(&quot;%s - %s\n%s&quot;, debug_message, description, reply)<br/>    <br/>        plugins = PluginContainer(self.options.plugins)<br/>        ctx = plugins.message.received(reply=reply)<br/>        reply = ctx.reply<br/>    <br/>        # SOAP standard states that SOAP errors must be accompanied by HTTP<br/>        # status code 500 - internal server error:<br/>        #<br/>        # From SOAP 1.1 specification:<br/>        #   In case of a SOAP error while processing the request, the SOAP HTTP<br/>        # server MUST issue an HTTP 500 &quot;Internal Server Error&quot; response and<br/>        # include a SOAP message in the response containing a SOAP Fault<br/>        # element (see section 4.4) indicating the SOAP processing error.<br/>        #<br/>        # From WS-I Basic profile:<br/>        #   An INSTANCE MUST use a &quot;500 Internal Server Error&quot; HTTP status code<br/>        # if the response message is a SOAP Fault.<br/>        replyroot = None<br/>        if status in (http.client.OK, http.client.INTERNAL_SERVER_ERROR):<br/>            replyroot = _parse(reply)<br/>            plugins.message.parsed(reply=replyroot)<br/>            fault = self.__get_fault(replyroot)<br/>            if fault:<br/>                if status != http.client.INTERNAL_SERVER_ERROR:<br/>                    log.warning(&quot;Web service reported a SOAP processing fault &quot;<br/>                        &quot;using an unexpected HTTP status code %d. Reporting &quot;<br/>                        &quot;as an internal server error.&quot;, status)<br/>                if self.options.faults:<br/>&gt;                   raise WebFault(fault, replyroot)<br/><span class="error">E                   suds.WebFault: Server raised fault: &#x27;Plausibility error&#x27;</span><br/><br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:817: WebFault<br/> -------------------------------Captured log call-------------------------------- <br/>WARNING  suds.client:client.py:813 Web service reported a SOAP processing fault using an unexpected HTTP status code 200. Reporting as an internal server error.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">UnitTests/test_MembraneWithoutTensionSurface_Test.py::test_membrane_without_tension_surface</td>
+          <td class="col-duration">1.48</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">def test_membrane_without_tension_surface():<br/>    <br/>        clientModel.service.begin_modification(&#x27;new&#x27;)<br/>    <br/>        # Testing the standard surface function<br/>        Node(1, 0, -30, 0), Node(2, 10, -30, 0), Node(3, 10, -20, 0), Node(4, 0, -20, 0)<br/>        Line(1, &#x27;1 2&#x27;), Line(2, &#x27;2 3&#x27;), Line(3, &#x27;3 4&#x27;), Line(4, &#x27;4 1&#x27;)<br/>        Material(name=&#x27;C30/37&#x27;)<br/>        Thickness()<br/>        Surface()<br/>    <br/>        # Standard planar Surface<br/>        Node(5, 0, -15, 0), Node(6, 10, -15, 0), Node(7, 10, -5, 0), Node(8, 0, -5, 0)<br/>        Line(5, &#x27;5 6&#x27;), Line(6, &#x27;6 7&#x27;), Line(7, &#x27;7 8&#x27;), Line(8, &#x27;8 5&#x27;)<br/>        Surface.WithoutMemberaneTension(Surface, 2, SurfaceGeometry.GEOMETRY_PLANE, boundary_lines_no= &#x27;5 6 7 8&#x27;)<br/>    <br/>        # Standard NURBS Surface<br/>    <br/>        ## Define Nodes<br/>        Node(9, 0.0, 0.0, 0.0)<br/>        Node(10, 5.0, 0.0, -2.5)<br/>        Node(11, 10.0, 0.0, 0.0)<br/>        Node(12, 0.0, 10.0, 0.0)<br/>        Node(13, 5.0, 10.0, -2.5)<br/>        Node(14, 10.0, 10.0, 0.0)<br/>        Node(15, 0.0, 5.0, -2,5)<br/>        Node(16, 10.0, 5.0, -2.5)<br/>    <br/>        ## NURBS-Curve Definition<br/>        Line.NURBS(Line, 9, &#x27;9 10 11&#x27;, control_points= [[0, 0, 0], [5, 0, -2.5], [10, 0, 0]], weights= [1, 1, 1],params= {&#x27;nurbs_order&#x27;:3})<br/>        Line.NURBS(Line, 10, &#x27;12 13 14&#x27;, control_points= [[0, 10, 0], [5, 10, -2.5], [10, 10, 0]], weights= [1, 1, 1], params= {&#x27;nurbs_order&#x27;:3})<br/>        Line.NURBS(Line, 11, &#x27;9 15 12&#x27;, control_points= [[0, 0, 0], [0, 5, -2.5], [0, 10, 0]], weights= [1, 1, 1], params= {&#x27;nurbs_order&#x27;:3})<br/>        Line.NURBS(Line, 12, &#x27;11 16 14&#x27;, control_points= [[10, 0, 0], [10, 5, -2.5], [10, 5, -2.5]], weights= [1, 1, 1], params= {&#x27;nurbs_order&#x27;:3})<br/>    <br/>        # Surfaces Definition<br/>        Surface.WithoutMemberaneTension(Surface, 3, SurfaceGeometry.GEOMETRY_NURBS, [3,3,3,3], &#x27;9 10 11 12&#x27;)<br/>    <br/>        # Standard Quadrangle<br/>    <br/>        # Define Nodes<br/>        Node(17, 0, 15, 0)<br/>        Node(18, 10, 15, 0)<br/>        Node(19, 0, 20, 0)<br/>        Node(20, 10, 20, 0)<br/>    <br/>        # Boundary Lines<br/>        Line.Arc(1, 13, [17, 18], [5, 15, -2])<br/>        Line.Arc(1, 14, [19, 20], [5, 20, -2])<br/>        Line(15, &#x27;17 19&#x27;)<br/>        Line(16, &#x27;18 20&#x27;)<br/>    <br/>        # Quadrangle Defintion<br/>&gt;       Surface.WithoutMemberaneTension(Surface, 4, SurfaceGeometry.GEOMETRY_QUADRANGLE, [17, 18, 19, 20], &#x27;13 14 15 16&#x27;)<br/><br/>UnitTests\test_MembraneWithoutTensionSurface_Test.py:86: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<br/>RFEM\BasicObjects\surface.py:252: in WithoutMemberaneTension<br/>    self.__CreateGeometryAndSetToModel(self)<br/>RFEM\BasicObjects\surface.py:375: in __CreateGeometryAndSetToModel<br/>    clientModel.service.set_surface(self.clientObject)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:566: in __call__<br/>    return client.invoke(args, kwargs)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:708: in invoke<br/>    result = self.send(soapenv, timeout=timeout)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:756: in send<br/>    return self.process_reply(reply.message, None, None)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<br/><br/>self = &lt;suds.client._SoapClient object at 0x0000023F03396C10&gt;<br/>reply = b&#x27;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;soap:Envelope xmlns:soap=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:so...e enter a point that lies in the plane.&lt;/faultstring&gt;&lt;faultactor/&gt;&lt;detail/&gt;&lt;/soap:Fault&gt;&lt;/soap:Body&gt;&lt;/soap:Envelope&gt;\n&#x27;<br/>status = &lt;HTTPStatus.OK: 200&gt;, description = None<br/><br/>    def process_reply(self, reply, status, description):<br/>        &quot;&quot;&quot;<br/>        Process a web service operation SOAP reply.<br/>    <br/>        Depending on how the ``retxml`` option is set, may return the SOAP<br/>        reply XML or process it and return the Python object representing the<br/>        returned value.<br/>    <br/>        @param reply: The SOAP reply envelope.<br/>        @type reply: I{bytes}<br/>        @param status: The HTTP status code (None indicates httplib.OK).<br/>        @type status: int|I{None}<br/>        @param description: Additional status description.<br/>        @type description: str<br/>        @return: The invoked web service operation return value.<br/>        @rtype: I{builtin}|I{subclass of} L{Object}|I{bytes}|I{None}<br/>    <br/>        &quot;&quot;&quot;<br/>        if status is None:<br/>            status = http.client.OK<br/>        debug_message = &quot;Reply HTTP status - %d&quot; % (status,)<br/>        if status in (http.client.ACCEPTED, http.client.NO_CONTENT):<br/>            log.debug(debug_message)<br/>            return<br/>        #TODO: Consider whether and how to allow plugins to handle error,<br/>        # httplib.ACCEPTED &amp; httplib.NO_CONTENT replies as well as successful<br/>        # ones.<br/>        if status == http.client.OK:<br/>            log.debug(&quot;%s\n%s&quot;, debug_message, reply)<br/>        else:<br/>            log.debug(&quot;%s - %s\n%s&quot;, debug_message, description, reply)<br/>    <br/>        plugins = PluginContainer(self.options.plugins)<br/>        ctx = plugins.message.received(reply=reply)<br/>        reply = ctx.reply<br/>    <br/>        # SOAP standard states that SOAP errors must be accompanied by HTTP<br/>        # status code 500 - internal server error:<br/>        #<br/>        # From SOAP 1.1 specification:<br/>        #   In case of a SOAP error while processing the request, the SOAP HTTP<br/>        # server MUST issue an HTTP 500 &quot;Internal Server Error&quot; response and<br/>        # include a SOAP message in the response containing a SOAP Fault<br/>        # element (see section 4.4) indicating the SOAP processing error.<br/>        #<br/>        # From WS-I Basic profile:<br/>        #   An INSTANCE MUST use a &quot;500 Internal Server Error&quot; HTTP status code<br/>        # if the response message is a SOAP Fault.<br/>        replyroot = None<br/>        if status in (http.client.OK, http.client.INTERNAL_SERVER_ERROR):<br/>            replyroot = _parse(reply)<br/>            plugins.message.parsed(reply=replyroot)<br/>            fault = self.__get_fault(replyroot)<br/>            if fault:<br/>                if status != http.client.INTERNAL_SERVER_ERROR:<br/>                    log.warning(&quot;Web service reported a SOAP processing fault &quot;<br/>                        &quot;using an unexpected HTTP status code %d. Reporting &quot;<br/>                        &quot;as an internal server error.&quot;, status)<br/>                if self.options.faults:<br/>&gt;                   raise WebFault(fault, replyroot)<br/><span class="error">E                   suds.WebFault: Server raised fault: &#x27;Object: Surface No. 4</span><br/><span class="error">E                   Attribute: Grid origin</span><br/><span class="error">E                   Error: Please enter a point that lies in the plane.&#x27;</span><br/><br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:817: WebFault<br/> -------------------------------Captured log call-------------------------------- <br/>WARNING  suds.client:client.py:813 Web service reported a SOAP processing fault using an unexpected HTTP status code 200. Reporting as an internal server error.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">UnitTests/test_NodalLoad_test.py::test_nodal_load</td>
+          <td class="col-duration">3.15</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">def test_nodal_load():<br/>    <br/>        clientModel.service.begin_modification()<br/>    <br/>        # Create Material<br/>        Material(1, &#x27;S235&#x27;)<br/>    <br/>        # Create Section<br/>        Section(1, &#x27;IPE 300&#x27;, 1)<br/>    <br/>        # Create Nodes<br/>        Node(1, 0, 0, 0)<br/>        Node(2, 0, 0, -5)<br/>    <br/>        Node(3, 3, 0, 0)<br/>        Node(4, 3, 0, -5)<br/>    <br/>        Node(5, 6, 0, 0)<br/>        Node(6, 6, 0, -5)<br/>    <br/>        Node(7, 9, 0, 0)<br/>        Node(8, 9, 0, -5)<br/>    <br/>        # Create Nodal Supports<br/>        NodalSupport(1, &#x27;1&#x27;, NodalSupportType.FIXED)<br/>        NodalSupport(2, &#x27;3&#x27;, NodalSupportType.FIXED)<br/>        NodalSupport(3, &#x27;5&#x27;, NodalSupportType.FIXED)<br/>        NodalSupport(4, &#x27;7&#x27;, NodalSupportType.FIXED)<br/>    <br/>        # Create Member<br/>        Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)<br/>        Member(2, MemberType.TYPE_BEAM, 3, 4, 0, 1, 1)<br/>        Member(3, MemberType.TYPE_BEAM, 5, 6, 0, 1, 1)<br/>        Member(4, MemberType.TYPE_BEAM, 7, 8, 0, 1, 1)<br/>    <br/>        # Create Static Analysis Settings<br/>        StaticAnalysisSettings(1, &#x27;Linear&#x27;, StaticAnalysisType.GEOMETRICALLY_LINEAR)<br/>    <br/>        # Create Load Case<br/>        LoadCase(1, &#x27;DEAD&#x27;, [True, 0.0, 0.0, 1.0])<br/>    <br/>        # Initial Nodal Load<br/>        NodalLoad(1, 1, &#x27;2&#x27;, LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 5000)<br/>    <br/>        # Force Type Nodal Load<br/>        NodalLoad.Force(0, 2, 1, &#x27;2&#x27;, LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 5000)<br/>    <br/>        # Moment Type Nodal Load<br/>        NodalLoad.Moment(0, 3, 1, &#x27;4&#x27;, LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 5000)<br/>    <br/>        # Component Type Nodal Load<br/>        NodalLoad.Components(0, 4, 1, &#x27;6&#x27;, [5000, 5000, 0, 0, 5000, 0])<br/>    <br/>        #Mass Type Nodal Load<br/>        NodalLoad.Mass(0, 5, 1, &#x27;8&#x27;, True, [5000, 5000, 0, 0, 5000, 0])<br/>    <br/>&gt;       Calculate_all()<br/><br/>UnitTests\test_NodalLoad_test.py:84: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<br/>RFEM\initModel.py:187: in Calculate_all<br/>    clientModel.service.calculate_all(generateXmlSolverInput)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:566: in __call__<br/>    return client.invoke(args, kwargs)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:708: in invoke<br/>    result = self.send(soapenv, timeout=timeout)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:756: in send<br/>    return self.process_reply(reply.message, None, None)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<br/><br/>self = &lt;suds.client._SoapClient object at 0x0000023F03707340&gt;<br/>reply = b&#x27;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;soap:Envelope xmlns:soap=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:so...ultcode&gt;&lt;faultstring&gt;Plausibility error&lt;/faultstring&gt;&lt;faultactor/&gt;&lt;detail/&gt;&lt;/soap:Fault&gt;&lt;/soap:Body&gt;&lt;/soap:Envelope&gt;\n&#x27;<br/>status = &lt;HTTPStatus.OK: 200&gt;, description = None<br/><br/>    def process_reply(self, reply, status, description):<br/>        &quot;&quot;&quot;<br/>        Process a web service operation SOAP reply.<br/>    <br/>        Depending on how the ``retxml`` option is set, may return the SOAP<br/>        reply XML or process it and return the Python object representing the<br/>        returned value.<br/>    <br/>        @param reply: The SOAP reply envelope.<br/>        @type reply: I{bytes}<br/>        @param status: The HTTP status code (None indicates httplib.OK).<br/>        @type status: int|I{None}<br/>        @param description: Additional status description.<br/>        @type description: str<br/>        @return: The invoked web service operation return value.<br/>        @rtype: I{builtin}|I{subclass of} L{Object}|I{bytes}|I{None}<br/>    <br/>        &quot;&quot;&quot;<br/>        if status is None:<br/>            status = http.client.OK<br/>        debug_message = &quot;Reply HTTP status - %d&quot; % (status,)<br/>        if status in (http.client.ACCEPTED, http.client.NO_CONTENT):<br/>            log.debug(debug_message)<br/>            return<br/>        #TODO: Consider whether and how to allow plugins to handle error,<br/>        # httplib.ACCEPTED &amp; httplib.NO_CONTENT replies as well as successful<br/>        # ones.<br/>        if status == http.client.OK:<br/>            log.debug(&quot;%s\n%s&quot;, debug_message, reply)<br/>        else:<br/>            log.debug(&quot;%s - %s\n%s&quot;, debug_message, description, reply)<br/>    <br/>        plugins = PluginContainer(self.options.plugins)<br/>        ctx = plugins.message.received(reply=reply)<br/>        reply = ctx.reply<br/>    <br/>        # SOAP standard states that SOAP errors must be accompanied by HTTP<br/>        # status code 500 - internal server error:<br/>        #<br/>        # From SOAP 1.1 specification:<br/>        #   In case of a SOAP error while processing the request, the SOAP HTTP<br/>        # server MUST issue an HTTP 500 &quot;Internal Server Error&quot; response and<br/>        # include a SOAP message in the response containing a SOAP Fault<br/>        # element (see section 4.4) indicating the SOAP processing error.<br/>        #<br/>        # From WS-I Basic profile:<br/>        #   An INSTANCE MUST use a &quot;500 Internal Server Error&quot; HTTP status code<br/>        # if the response message is a SOAP Fault.<br/>        replyroot = None<br/>        if status in (http.client.OK, http.client.INTERNAL_SERVER_ERROR):<br/>            replyroot = _parse(reply)<br/>            plugins.message.parsed(reply=replyroot)<br/>            fault = self.__get_fault(replyroot)<br/>            if fault:<br/>                if status != http.client.INTERNAL_SERVER_ERROR:<br/>                    log.warning(&quot;Web service reported a SOAP processing fault &quot;<br/>                        &quot;using an unexpected HTTP status code %d. Reporting &quot;<br/>                        &quot;as an internal server error.&quot;, status)<br/>                if self.options.faults:<br/>&gt;                   raise WebFault(fault, replyroot)<br/><span class="error">E                   suds.WebFault: Server raised fault: &#x27;Plausibility error&#x27;</span><br/><br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:817: WebFault<br/> -------------------------------Captured log call-------------------------------- <br/>WARNING  suds.client:client.py:813 Web service reported a SOAP processing fault using an unexpected HTTP status code 200. Reporting as an internal server error.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">UnitTests/test_RigidSurface_Test.py::test_rigid_surface</td>
+          <td class="col-duration">1.44</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">def test_rigid_surface():<br/>    <br/>        clientModel.service.begin_modification(&#x27;new&#x27;)<br/>    <br/>        # Testing the standard surface function<br/>        Node(1, 0, -30, 0), Node(2, 10, -30, 0), Node(3, 10, -20, 0), Node(4, 0, -20, 0)<br/>        Line(1, &#x27;1 2&#x27;), Line(2, &#x27;2 3&#x27;), Line(3, &#x27;3 4&#x27;), Line(4, &#x27;4 1&#x27;)<br/>        Material(name=&#x27;C30/37&#x27;)<br/>        Thickness()<br/>        Surface()<br/>    <br/>        # Standard planar Surface<br/>        Node(5, 0, -15, 0), Node(6, 10, -15, 0), Node(7, 10, -5, 0), Node(8, 0, -5, 0)<br/>        Line(5, &#x27;5 6&#x27;), Line(6, &#x27;6 7&#x27;), Line(7, &#x27;7 8&#x27;), Line(8, &#x27;8 5&#x27;)<br/>        Surface.Rigid(Surface, 2, SurfaceGeometry.GEOMETRY_PLANE, boundary_lines_no= &#x27;5 6 7 8&#x27;)<br/>    <br/>        # Standard NURBS Surface<br/>    <br/>        ## Define Nodes<br/>        Node(9, 0.0, 0.0, 0.0)<br/>        Node(10, 5.0, 0.0, -2.5)<br/>        Node(11, 10.0, 0.0, 0.0)<br/>        Node(12, 0.0, 10.0, 0.0)<br/>        Node(13, 5.0, 10.0, -2.5)<br/>        Node(14, 10.0, 10.0, 0.0)<br/>        Node(15, 0.0, 5.0, -2,5)<br/>        Node(16, 10.0, 5.0, -2.5)<br/>    <br/>        ## NURBS-Curve Definition<br/>        Line.NURBS(Line, 9, &#x27;9 10 11&#x27;, control_points= [[0, 0, 0], [5, 0, -2.5], [10, 0, 0]], weights= [1, 1, 1],params= {&#x27;nurbs_order&#x27;:3})<br/>        Line.NURBS(Line, 10, &#x27;12 13 14&#x27;, control_points= [[0, 10, 0], [5, 10, -2.5], [10, 10, 0]], weights= [1, 1, 1], params= {&#x27;nurbs_order&#x27;:3})<br/>        Line.NURBS(Line, 11, &#x27;9 15 12&#x27;, control_points= [[0, 0, 0], [0, 5, -2.5], [0, 10, 0]], weights= [1, 1, 1], params= {&#x27;nurbs_order&#x27;:3})<br/>        Line.NURBS(Line, 12, &#x27;11 16 14&#x27;, control_points= [[10, 0, 0], [10, 5, -2.5], [10, 5, -2.5]], weights= [1, 1, 1], params= {&#x27;nurbs_order&#x27;:3})<br/>    <br/>        # Surfaces Definition<br/>        Surface.Rigid(Surface, 3, SurfaceGeometry.GEOMETRY_NURBS, [3,3,3,3], &#x27;9 10 11 12&#x27;)<br/>    <br/>        # Standard Quadrangle<br/>    <br/>        # Define Nodes<br/>        Node(17, 0, 15, 0)<br/>        Node(18, 10, 15, 0)<br/>        Node(19, 0, 20, 0)<br/>        Node(20, 10, 20, 0)<br/>    <br/>        # Boundary Lines<br/>        Line.Arc(1, 13, [17, 18], [5, 15, -2])<br/>        Line.Arc(1, 14, [19, 20], [5, 20, -2])<br/>        Line(15, &#x27;17 19&#x27;)<br/>        Line(16, &#x27;18 20&#x27;)<br/>    <br/>        # Quadrangle Defintion<br/>&gt;       Surface.Rigid(Surface, 4, SurfaceGeometry.GEOMETRY_QUADRANGLE, [17, 18, 19, 20], &#x27;13 14 15 16&#x27;)<br/><br/>UnitTests\test_RigidSurface_Test.py:86: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<br/>RFEM\BasicObjects\surface.py:166: in Rigid<br/>    self.__CreateGeometryAndSetToModel(self)<br/>RFEM\BasicObjects\surface.py:375: in __CreateGeometryAndSetToModel<br/>    clientModel.service.set_surface(self.clientObject)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:566: in __call__<br/>    return client.invoke(args, kwargs)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:708: in invoke<br/>    result = self.send(soapenv, timeout=timeout)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:756: in send<br/>    return self.process_reply(reply.message, None, None)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<br/><br/>self = &lt;suds.client._SoapClient object at 0x0000023F0381EE80&gt;<br/>reply = b&#x27;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;soap:Envelope xmlns:soap=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:so...e enter a point that lies in the plane.&lt;/faultstring&gt;&lt;faultactor/&gt;&lt;detail/&gt;&lt;/soap:Fault&gt;&lt;/soap:Body&gt;&lt;/soap:Envelope&gt;\n&#x27;<br/>status = &lt;HTTPStatus.OK: 200&gt;, description = None<br/><br/>    def process_reply(self, reply, status, description):<br/>        &quot;&quot;&quot;<br/>        Process a web service operation SOAP reply.<br/>    <br/>        Depending on how the ``retxml`` option is set, may return the SOAP<br/>        reply XML or process it and return the Python object representing the<br/>        returned value.<br/>    <br/>        @param reply: The SOAP reply envelope.<br/>        @type reply: I{bytes}<br/>        @param status: The HTTP status code (None indicates httplib.OK).<br/>        @type status: int|I{None}<br/>        @param description: Additional status description.<br/>        @type description: str<br/>        @return: The invoked web service operation return value.<br/>        @rtype: I{builtin}|I{subclass of} L{Object}|I{bytes}|I{None}<br/>    <br/>        &quot;&quot;&quot;<br/>        if status is None:<br/>            status = http.client.OK<br/>        debug_message = &quot;Reply HTTP status - %d&quot; % (status,)<br/>        if status in (http.client.ACCEPTED, http.client.NO_CONTENT):<br/>            log.debug(debug_message)<br/>            return<br/>        #TODO: Consider whether and how to allow plugins to handle error,<br/>        # httplib.ACCEPTED &amp; httplib.NO_CONTENT replies as well as successful<br/>        # ones.<br/>        if status == http.client.OK:<br/>            log.debug(&quot;%s\n%s&quot;, debug_message, reply)<br/>        else:<br/>            log.debug(&quot;%s - %s\n%s&quot;, debug_message, description, reply)<br/>    <br/>        plugins = PluginContainer(self.options.plugins)<br/>        ctx = plugins.message.received(reply=reply)<br/>        reply = ctx.reply<br/>    <br/>        # SOAP standard states that SOAP errors must be accompanied by HTTP<br/>        # status code 500 - internal server error:<br/>        #<br/>        # From SOAP 1.1 specification:<br/>        #   In case of a SOAP error while processing the request, the SOAP HTTP<br/>        # server MUST issue an HTTP 500 &quot;Internal Server Error&quot; response and<br/>        # include a SOAP message in the response containing a SOAP Fault<br/>        # element (see section 4.4) indicating the SOAP processing error.<br/>        #<br/>        # From WS-I Basic profile:<br/>        #   An INSTANCE MUST use a &quot;500 Internal Server Error&quot; HTTP status code<br/>        # if the response message is a SOAP Fault.<br/>        replyroot = None<br/>        if status in (http.client.OK, http.client.INTERNAL_SERVER_ERROR):<br/>            replyroot = _parse(reply)<br/>            plugins.message.parsed(reply=replyroot)<br/>            fault = self.__get_fault(replyroot)<br/>            if fault:<br/>                if status != http.client.INTERNAL_SERVER_ERROR:<br/>                    log.warning(&quot;Web service reported a SOAP processing fault &quot;<br/>                        &quot;using an unexpected HTTP status code %d. Reporting &quot;<br/>                        &quot;as an internal server error.&quot;, status)<br/>                if self.options.faults:<br/>&gt;                   raise WebFault(fault, replyroot)<br/><span class="error">E                   suds.WebFault: Server raised fault: &#x27;Object: Surface No. 4</span><br/><span class="error">E                   Attribute: Grid origin</span><br/><span class="error">E                   Error: Please enter a point that lies in the plane.&#x27;</span><br/><br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:817: WebFault<br/> -------------------------------Captured log call-------------------------------- <br/>WARNING  suds.client:client.py:813 Web service reported a SOAP processing fault using an unexpected HTTP status code 200. Reporting as an internal server error.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">UnitTests/test_SolidLoads.py::test_solid_loads</td>
+          <td class="col-duration">0.98</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">def test_solid_loads():<br/>        clientModel.service.begin_modification(&#x27;new&#x27;)<br/>    <br/>        Material(1, &#x27;S235&#x27;)<br/>    <br/>        # Solid 1<br/>        Node(1, 0.0, 0.0, 0.0)<br/>        Node(2, 10.0, 0.0, 0.0)<br/>        Node(3, 10.0, 10.0, 0.0)<br/>        Node(4, 0.0, 10.0, 0.0)<br/>    <br/>        Node(5, 0.0, 0.0, -5.0)<br/>        Node(6, 10.0, 0.0, -5.0)<br/>        Node(7, 10.0, 10.0, -5.0)<br/>        Node(8, 0.0, 10.0, -5.0)<br/>    <br/>        Line(1, &#x27;1 2&#x27;)<br/>        Line(2, &#x27;2 3&#x27;)<br/>        Line(3, &#x27;3 4&#x27;)<br/>        Line(4, &#x27;4 1&#x27;)<br/>    <br/>        Line(5, &#x27;5 6&#x27;)<br/>        Line(6, &#x27;6 7&#x27;)<br/>        Line(7, &#x27;7 8&#x27;)<br/>        Line(8, &#x27;8 5&#x27;)<br/>    <br/>        Line(9, &#x27;1 5&#x27;)<br/>        Line(10, &#x27;2 6&#x27;)<br/>        Line(11, &#x27;3 7&#x27;)<br/>        Line(12, &#x27;4 8&#x27;)<br/>    <br/>        Thickness(1, &#x27;My Test Thickness&#x27;, 1, 0.05)<br/>    <br/>        Surface(1, &#x27;1-4&#x27;, 1)<br/>        Surface(2, &#x27;5-8&#x27;, 1)<br/>&gt;       Surface(3, &#x27;1 9 5 10&#x27;, 1)<br/><br/>UnitTests\test_SolidLoads.py:62: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<br/>RFEM\BasicObjects\surface.py:41: in __init__<br/>    clientModel.service.set_surface(clientObject)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:566: in __call__<br/>    return client.invoke(args, kwargs)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:708: in invoke<br/>    result = self.send(soapenv, timeout=timeout)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:756: in send<br/>    return self.process_reply(reply.message, None, None)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<br/><br/>self = &lt;suds.client._SoapClient object at 0x0000023F037A7760&gt;<br/>reply = b&#x27;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;soap:Envelope xmlns:soap=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:so...enter an integer value between 2 and 0.&lt;/faultstring&gt;&lt;faultactor/&gt;&lt;detail/&gt;&lt;/soap:Fault&gt;&lt;/soap:Body&gt;&lt;/soap:Envelope&gt;\n&#x27;<br/>status = &lt;HTTPStatus.OK: 200&gt;, description = None<br/><br/>    def process_reply(self, reply, status, description):<br/>        &quot;&quot;&quot;<br/>        Process a web service operation SOAP reply.<br/>    <br/>        Depending on how the ``retxml`` option is set, may return the SOAP<br/>        reply XML or process it and return the Python object representing the<br/>        returned value.<br/>    <br/>        @param reply: The SOAP reply envelope.<br/>        @type reply: I{bytes}<br/>        @param status: The HTTP status code (None indicates httplib.OK).<br/>        @type status: int|I{None}<br/>        @param description: Additional status description.<br/>        @type description: str<br/>        @return: The invoked web service operation return value.<br/>        @rtype: I{builtin}|I{subclass of} L{Object}|I{bytes}|I{None}<br/>    <br/>        &quot;&quot;&quot;<br/>        if status is None:<br/>            status = http.client.OK<br/>        debug_message = &quot;Reply HTTP status - %d&quot; % (status,)<br/>        if status in (http.client.ACCEPTED, http.client.NO_CONTENT):<br/>            log.debug(debug_message)<br/>            return<br/>        #TODO: Consider whether and how to allow plugins to handle error,<br/>        # httplib.ACCEPTED &amp; httplib.NO_CONTENT replies as well as successful<br/>        # ones.<br/>        if status == http.client.OK:<br/>            log.debug(&quot;%s\n%s&quot;, debug_message, reply)<br/>        else:<br/>            log.debug(&quot;%s - %s\n%s&quot;, debug_message, description, reply)<br/>    <br/>        plugins = PluginContainer(self.options.plugins)<br/>        ctx = plugins.message.received(reply=reply)<br/>        reply = ctx.reply<br/>    <br/>        # SOAP standard states that SOAP errors must be accompanied by HTTP<br/>        # status code 500 - internal server error:<br/>        #<br/>        # From SOAP 1.1 specification:<br/>        #   In case of a SOAP error while processing the request, the SOAP HTTP<br/>        # server MUST issue an HTTP 500 &quot;Internal Server Error&quot; response and<br/>        # include a SOAP message in the response containing a SOAP Fault<br/>        # element (see section 4.4) indicating the SOAP processing error.<br/>        #<br/>        # From WS-I Basic profile:<br/>        #   An INSTANCE MUST use a &quot;500 Internal Server Error&quot; HTTP status code<br/>        # if the response message is a SOAP Fault.<br/>        replyroot = None<br/>        if status in (http.client.OK, http.client.INTERNAL_SERVER_ERROR):<br/>            replyroot = _parse(reply)<br/>            plugins.message.parsed(reply=replyroot)<br/>            fault = self.__get_fault(replyroot)<br/>            if fault:<br/>                if status != http.client.INTERNAL_SERVER_ERROR:<br/>                    log.warning(&quot;Web service reported a SOAP processing fault &quot;<br/>                        &quot;using an unexpected HTTP status code %d. Reporting &quot;<br/>                        &quot;as an internal server error.&quot;, status)<br/>                if self.options.faults:<br/>&gt;                   raise WebFault(fault, replyroot)<br/><span class="error">E                   suds.WebFault: Server raised fault: &#x27;Object: Surface No. 3</span><br/><span class="error">E                   Attribute: Order in direction u</span><br/><span class="error">E                   Error: Please enter an integer value between 2 and 0.&#x27;</span><br/><br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:817: WebFault<br/> -------------------------------Captured log call-------------------------------- <br/>WARNING  suds.client:client.py:813 Web service reported a SOAP processing fault using an unexpected HTTP status code 200. Reporting as an internal server error.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">UnitTests/test_StandardSurface_Test.py::test_standard_surface</td>
+          <td class="col-duration">1.48</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">def test_standard_surface():<br/>    <br/>        clientModel.service.begin_modification(&#x27;new&#x27;)<br/>    <br/>        # Testing the standard surface function<br/>        Node(1, 0, -30, 0), Node(2, 10, -30, 0), Node(3, 10, -20, 0), Node(4, 0, -20, 0)<br/>        Line(1, &#x27;1 2&#x27;), Line(2, &#x27;2 3&#x27;), Line(3, &#x27;3 4&#x27;), Line(4, &#x27;4 1&#x27;)<br/>        Material(name=&#x27;C30/37&#x27;)<br/>        Thickness()<br/>        Surface()<br/>    <br/>        # Standard planar Surface<br/>        Node(5, 0, -15, 0), Node(6, 10, -15, 0), Node(7, 10, -5, 0), Node(8, 0, -5, 0)<br/>        Line(5, &#x27;5 6&#x27;), Line(6, &#x27;6 7&#x27;), Line(7, &#x27;7 8&#x27;), Line(8, &#x27;8 5&#x27;)<br/>        Surface.Standard(Surface, 2, SurfaceGeometry.GEOMETRY_PLANE, boundary_lines_no= &#x27;5 6 7 8&#x27;)<br/>    <br/>        # Standard NURBS Surface<br/>    <br/>        ## Define Nodes<br/>        Node(9, 0.0, 0.0, 0.0)<br/>        Node(10, 5.0, 0.0, -2.5)<br/>        Node(11, 10.0, 0.0, 0.0)<br/>        Node(12, 0.0, 10.0, 0.0)<br/>        Node(13, 5.0, 10.0, -2.5)<br/>        Node(14, 10.0, 10.0, 0.0)<br/>        Node(15, 0.0, 5.0, -2,5)<br/>        Node(16, 10.0, 5.0, -2.5)<br/>    <br/>        ## NURBS-Curve Definition<br/>        Line.NURBS(Line, 9, &#x27;9 10 11&#x27;, control_points= [[0, 0, 0], [5, 0, -2.5], [10, 0, 0]], weights= [1, 1, 1],params= {&#x27;nurbs_order&#x27;:3})<br/>        Line.NURBS(Line, 10, &#x27;12 13 14&#x27;, control_points= [[0, 10, 0], [5, 10, -2.5], [10, 10, 0]], weights= [1, 1, 1], params= {&#x27;nurbs_order&#x27;:3})<br/>        Line.NURBS(Line, 11, &#x27;9 15 12&#x27;, control_points= [[0, 0, 0], [0, 5, -2.5], [0, 10, 0]], weights= [1, 1, 1], params= {&#x27;nurbs_order&#x27;:3})<br/>        Line.NURBS(Line, 12, &#x27;11 16 14&#x27;, control_points= [[10, 0, 0], [10, 5, -2.5], [10, 5, -2.5]], weights= [1, 1, 1], params= {&#x27;nurbs_order&#x27;:3})<br/>    <br/>        # Surfaces Definition<br/>        Surface.Standard(Surface, 3, SurfaceGeometry.GEOMETRY_NURBS, [3,3,3,3], &#x27;9 10 11 12&#x27;)<br/>    <br/>        # Standard Quadrangle<br/>    <br/>        # Define Nodes<br/>        Node(17, 0, 15, 0)<br/>        Node(18, 10, 15, 0)<br/>        Node(19, 0, 20, 0)<br/>        Node(20, 10, 20, 0)<br/>    <br/>        # Boundary Lines<br/>        Line.Arc(1, 13, [17, 18], [5, 15, -2])<br/>        Line.Arc(1, 14, [19, 20], [5, 20, -2])<br/>        Line(15, &#x27;17 19&#x27;)<br/>        Line(16, &#x27;18 20&#x27;)<br/>    <br/>        # Quadrangle Defintion<br/>&gt;       Surface.Standard(Surface, 4, SurfaceGeometry.GEOMETRY_QUADRANGLE, [17, 18, 19, 20], &#x27;13 14 15 16&#x27;)<br/><br/>UnitTests\test_StandardSurface_Test.py:86: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<br/>RFEM\BasicObjects\surface.py:84: in Standard<br/>    self.__CreateGeometryAndSetToModel(self)<br/>RFEM\BasicObjects\surface.py:375: in __CreateGeometryAndSetToModel<br/>    clientModel.service.set_surface(self.clientObject)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:566: in __call__<br/>    return client.invoke(args, kwargs)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:708: in invoke<br/>    result = self.send(soapenv, timeout=timeout)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:756: in send<br/>    return self.process_reply(reply.message, None, None)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<br/><br/>self = &lt;suds.client._SoapClient object at 0x0000023F036EDAF0&gt;<br/>reply = b&#x27;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;soap:Envelope xmlns:soap=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:so...e enter a point that lies in the plane.&lt;/faultstring&gt;&lt;faultactor/&gt;&lt;detail/&gt;&lt;/soap:Fault&gt;&lt;/soap:Body&gt;&lt;/soap:Envelope&gt;\n&#x27;<br/>status = &lt;HTTPStatus.OK: 200&gt;, description = None<br/><br/>    def process_reply(self, reply, status, description):<br/>        &quot;&quot;&quot;<br/>        Process a web service operation SOAP reply.<br/>    <br/>        Depending on how the ``retxml`` option is set, may return the SOAP<br/>        reply XML or process it and return the Python object representing the<br/>        returned value.<br/>    <br/>        @param reply: The SOAP reply envelope.<br/>        @type reply: I{bytes}<br/>        @param status: The HTTP status code (None indicates httplib.OK).<br/>        @type status: int|I{None}<br/>        @param description: Additional status description.<br/>        @type description: str<br/>        @return: The invoked web service operation return value.<br/>        @rtype: I{builtin}|I{subclass of} L{Object}|I{bytes}|I{None}<br/>    <br/>        &quot;&quot;&quot;<br/>        if status is None:<br/>            status = http.client.OK<br/>        debug_message = &quot;Reply HTTP status - %d&quot; % (status,)<br/>        if status in (http.client.ACCEPTED, http.client.NO_CONTENT):<br/>            log.debug(debug_message)<br/>            return<br/>        #TODO: Consider whether and how to allow plugins to handle error,<br/>        # httplib.ACCEPTED &amp; httplib.NO_CONTENT replies as well as successful<br/>        # ones.<br/>        if status == http.client.OK:<br/>            log.debug(&quot;%s\n%s&quot;, debug_message, reply)<br/>        else:<br/>            log.debug(&quot;%s - %s\n%s&quot;, debug_message, description, reply)<br/>    <br/>        plugins = PluginContainer(self.options.plugins)<br/>        ctx = plugins.message.received(reply=reply)<br/>        reply = ctx.reply<br/>    <br/>        # SOAP standard states that SOAP errors must be accompanied by HTTP<br/>        # status code 500 - internal server error:<br/>        #<br/>        # From SOAP 1.1 specification:<br/>        #   In case of a SOAP error while processing the request, the SOAP HTTP<br/>        # server MUST issue an HTTP 500 &quot;Internal Server Error&quot; response and<br/>        # include a SOAP message in the response containing a SOAP Fault<br/>        # element (see section 4.4) indicating the SOAP processing error.<br/>        #<br/>        # From WS-I Basic profile:<br/>        #   An INSTANCE MUST use a &quot;500 Internal Server Error&quot; HTTP status code<br/>        # if the response message is a SOAP Fault.<br/>        replyroot = None<br/>        if status in (http.client.OK, http.client.INTERNAL_SERVER_ERROR):<br/>            replyroot = _parse(reply)<br/>            plugins.message.parsed(reply=replyroot)<br/>            fault = self.__get_fault(replyroot)<br/>            if fault:<br/>                if status != http.client.INTERNAL_SERVER_ERROR:<br/>                    log.warning(&quot;Web service reported a SOAP processing fault &quot;<br/>                        &quot;using an unexpected HTTP status code %d. Reporting &quot;<br/>                        &quot;as an internal server error.&quot;, status)<br/>                if self.options.faults:<br/>&gt;                   raise WebFault(fault, replyroot)<br/><span class="error">E                   suds.WebFault: Server raised fault: &#x27;Object: Surface No. 4</span><br/><span class="error">E                   Attribute: Grid origin</span><br/><span class="error">E                   Error: Please enter a point that lies in the plane.&#x27;</span><br/><br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:817: WebFault<br/> -------------------------------Captured log call-------------------------------- <br/>WARNING  suds.client:client.py:813 Web service reported a SOAP processing fault using an unexpected HTTP status code 200. Reporting as an internal server error.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">UnitTests/test_SurfaceLoad_test.py::test_surface_loads</td>
+          <td class="col-duration">3.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">def test_surface_loads():<br/>    <br/>        clientModel.service.begin_modification()<br/>    <br/>        # Create Material<br/>        Material(1, &#x27;S235&#x27;)<br/>    <br/>        # Create Thickness<br/>        Thickness(1, &#x27;1&#x27;, 1, 0.1)<br/>    <br/>    <br/>        # Create Nodes<br/>        Node(1, 0.0, 0.0, 0.0)<br/>        Node(2, 4, 0.0, 0.0)<br/>        Node(3, 0, 4.0, 0.0)<br/>        Node(4, 4, 4.0, 0.0)<br/>    <br/>        # Create Lines<br/>        Line(1, &#x27;1 2&#x27;)<br/>        Line(2, &#x27;2 4&#x27;)<br/>        Line(3, &#x27;4 3&#x27;)<br/>        Line(4, &#x27;3 1&#x27;)<br/>    <br/>        # Create Surfaces<br/>        Surface(1, &#x27;1 2 3 4&#x27;, 1)<br/>    <br/>        # Create Nodal Supports<br/>        NodalSupport(1, &#x27;1&#x27;, NodalSupportType.FIXED)<br/>        NodalSupport(2, &#x27;2&#x27;, NodalSupportType.FIXED)<br/>        NodalSupport(3, &#x27;3&#x27;, NodalSupportType.FIXED)<br/>        NodalSupport(4, &#x27;4&#x27;, NodalSupportType.FIXED)<br/>    <br/>        # Create Static Analysis Settings<br/>        StaticAnalysisSettings(1, &#x27;1. Ordnung&#x27;, StaticAnalysisType.GEOMETRICALLY_LINEAR)<br/>    <br/>        # Create Load Case<br/>        LoadCase(1, &#x27;Eigengewicht&#x27;)<br/>    <br/>        ## Default Surface Load ##<br/>        SurfaceLoad(1, 1, &#x27;1&#x27;, 5000)<br/>    <br/>        ## Force Type Surface Load with UNIFORM Load Distribution ##<br/>        SurfaceLoad.Force(0, 2, 1, &#x27;1&#x27;, SurfaceLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, load_parameter=[5000])<br/>    <br/>        ## Force Type Surface Load with LINEAR Load Distribution ##<br/>        SurfaceLoad.Force(0, 3, 1, &#x27;1&#x27;, SurfaceLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR, load_parameter=[5000, 6000, 7000, 2, 3, 4])<br/>    <br/>        ## Force Type Surface Load with LINEAR_X or LINEAR_Y or LINEAR_Z Load Distribution ##<br/>        SurfaceLoad.Force(0, 4, 1, &#x27;1&#x27;, SurfaceLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, load_parameter=[5000, 6000, 3, 4])<br/>    <br/>        ## Force Type Surface Load with RADIAL Load Distribution ##<br/>    <br/>        #SurfaceLoad.Force(0, 5, 1, &#x27;1&#x27;, SurfaceLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, SurfaceLoadDistribution.LOAD_DISTRIBUTION_RADIAL,<br/>        #(5000, 6000, 3, 4, SurfaceLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS, [1,2,3], [4,5,6]))<br/>    <br/>        ## Temperature Type Surface Load with UNIFORM Load Distribution ##<br/>        SurfaceLoad.Temperature(0, 6, 1, &#x27;1&#x27;, SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, load_parameter=[18, 2])<br/>    <br/>        ## Temperature Type Surface Load with LINEAR Load Distribution ##<br/>        SurfaceLoad.Temperature(0, 7, 1, &#x27;1&#x27;, SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR, load_parameter=[18, 2, 20, 4, 22, 6, 2, 3, 4])<br/>    <br/>        ## Temperature Type Surface Load with LINEAR_X or LINEAR_Y or LINEAR_Z Load Distribution ##<br/>        SurfaceLoad.Temperature(0, 8, 1, &#x27;1&#x27;, SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, load_parameter=[18, 2, 20, 4, 2, 3])<br/>    <br/>        ## Axial Strain Type Surface Load with UNIFORM Load Distribution ##<br/>        SurfaceLoad.AxialStrain(0, 9, 1, &#x27;1&#x27;, SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, load_parameter=[0.5, 1])<br/>    <br/>        ## Axial Strain Type Surface Load with LINEAR Load Distribution ##<br/>        SurfaceLoad.AxialStrain(0, 10, 1, &#x27;1&#x27;, SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR, load_parameter=[0.005, 0.006, 0.007, 0.008, 0.009, 0.01, 2, 3, 4])<br/>    <br/>        ## Axial Strain Type Surface Load with LINEAR_IN_X Load Distribution ##<br/>        SurfaceLoad.AxialStrain(0, 11, 1, &#x27;1&#x27;, SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, load_parameter=[0.005, 0.006, 0.007, 0.008, 2, 3])<br/>    <br/>        ## Precamber Type Surface Load ##<br/>        SurfaceLoad.Precamber(0, 12, 1, &#x27;1&#x27;, 50)<br/>    <br/>        ## Rotary Motion Surface Load ##<br/>        #SurfaceLoad.RotaryMotion(0, 13, 1, &#x27;1&#x27;, load_parameter=[1, 2, SurfaceLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS, [1,2,3], [4,5,6]])<br/>    <br/>        ## Mass Type Surface Load ##<br/>        #SurfaceLoad.Mass(0, 14, 1, &#x27;1&#x27;, individual_mass_components=True, mass_parameter=[500, 600, 700])<br/>    <br/>    <br/>&gt;       Calculate_all()<br/><br/>UnitTests\test_SurfaceLoad_test.py:111: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<br/>RFEM\initModel.py:187: in Calculate_all<br/>    clientModel.service.calculate_all(generateXmlSolverInput)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:566: in __call__<br/>    return client.invoke(args, kwargs)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:708: in invoke<br/>    result = self.send(soapenv, timeout=timeout)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:756: in send<br/>    return self.process_reply(reply.message, None, None)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<br/><br/>self = &lt;suds.client._SoapClient object at 0x0000023F037D3A00&gt;<br/>reply = b&#x27;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;soap:Envelope xmlns:soap=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:so...ultcode&gt;&lt;faultstring&gt;Plausibility error&lt;/faultstring&gt;&lt;faultactor/&gt;&lt;detail/&gt;&lt;/soap:Fault&gt;&lt;/soap:Body&gt;&lt;/soap:Envelope&gt;\n&#x27;<br/>status = &lt;HTTPStatus.OK: 200&gt;, description = None<br/><br/>    def process_reply(self, reply, status, description):<br/>        &quot;&quot;&quot;<br/>        Process a web service operation SOAP reply.<br/>    <br/>        Depending on how the ``retxml`` option is set, may return the SOAP<br/>        reply XML or process it and return the Python object representing the<br/>        returned value.<br/>    <br/>        @param reply: The SOAP reply envelope.<br/>        @type reply: I{bytes}<br/>        @param status: The HTTP status code (None indicates httplib.OK).<br/>        @type status: int|I{None}<br/>        @param description: Additional status description.<br/>        @type description: str<br/>        @return: The invoked web service operation return value.<br/>        @rtype: I{builtin}|I{subclass of} L{Object}|I{bytes}|I{None}<br/>    <br/>        &quot;&quot;&quot;<br/>        if status is None:<br/>            status = http.client.OK<br/>        debug_message = &quot;Reply HTTP status - %d&quot; % (status,)<br/>        if status in (http.client.ACCEPTED, http.client.NO_CONTENT):<br/>            log.debug(debug_message)<br/>            return<br/>        #TODO: Consider whether and how to allow plugins to handle error,<br/>        # httplib.ACCEPTED &amp; httplib.NO_CONTENT replies as well as successful<br/>        # ones.<br/>        if status == http.client.OK:<br/>            log.debug(&quot;%s\n%s&quot;, debug_message, reply)<br/>        else:<br/>            log.debug(&quot;%s - %s\n%s&quot;, debug_message, description, reply)<br/>    <br/>        plugins = PluginContainer(self.options.plugins)<br/>        ctx = plugins.message.received(reply=reply)<br/>        reply = ctx.reply<br/>    <br/>        # SOAP standard states that SOAP errors must be accompanied by HTTP<br/>        # status code 500 - internal server error:<br/>        #<br/>        # From SOAP 1.1 specification:<br/>        #   In case of a SOAP error while processing the request, the SOAP HTTP<br/>        # server MUST issue an HTTP 500 &quot;Internal Server Error&quot; response and<br/>        # include a SOAP message in the response containing a SOAP Fault<br/>        # element (see section 4.4) indicating the SOAP processing error.<br/>        #<br/>        # From WS-I Basic profile:<br/>        #   An INSTANCE MUST use a &quot;500 Internal Server Error&quot; HTTP status code<br/>        # if the response message is a SOAP Fault.<br/>        replyroot = None<br/>        if status in (http.client.OK, http.client.INTERNAL_SERVER_ERROR):<br/>            replyroot = _parse(reply)<br/>            plugins.message.parsed(reply=replyroot)<br/>            fault = self.__get_fault(replyroot)<br/>            if fault:<br/>                if status != http.client.INTERNAL_SERVER_ERROR:<br/>                    log.warning(&quot;Web service reported a SOAP processing fault &quot;<br/>                        &quot;using an unexpected HTTP status code %d. Reporting &quot;<br/>                        &quot;as an internal server error.&quot;, status)<br/>                if self.options.faults:<br/>&gt;                   raise WebFault(fault, replyroot)<br/><span class="error">E                   suds.WebFault: Server raised fault: &#x27;Plausibility error&#x27;</span><br/><br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:817: WebFault<br/> -------------------------------Captured log call-------------------------------- <br/>WARNING  suds.client:client.py:813 Web service reported a SOAP processing fault using an unexpected HTTP status code 200. Reporting as an internal server error.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">UnitTests/test_SurfaceSetLoad_test.py::test_surface_set_load</td>
+          <td class="col-duration">1.16</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">def test_surface_set_load():<br/>    <br/>        clientModel.service.begin_modification()<br/>    <br/>        # Create Material<br/>        Material(1, &#x27;S235&#x27;)<br/>    <br/>        # Create Thickness<br/>        Thickness(1, &#x27;1&#x27;, 1, 0.01)<br/>    <br/>        # Create Nodes<br/>        Node(1, 0.0, 0.0, 0.0)<br/>        Node(2, 0.0, 2.0, 0.0)<br/>        Node(3, 2.0, 2.0, 0.0)<br/>        Node(4, 2.0, 0.0, 0.0)<br/>        Node(5, 0.0, 4.0, 0.0)<br/>        Node(6, 2.0, 4.0, 0.0)<br/>    <br/>        Node(7, 5, 0, 0)<br/>        Node(8, 7, 0, 0)<br/>        Node(9, 5, 0, 2)<br/>        Node(10, 7, 0, 2)<br/>        Node(11, 5, 0, -2)<br/>        Node(12, 7, 0, -2)<br/>    <br/>        # Create Lines<br/>        Line(1, &#x27;1 2&#x27;)<br/>        Line(2, &#x27;2 3&#x27;)<br/>        Line(3, &#x27;3 4&#x27;)<br/>        Line(4, &#x27;4 1&#x27;)<br/>        Line(5, &#x27;2 5&#x27;)<br/>        Line(6, &#x27;5 6&#x27;)<br/>        Line(7, &#x27;6 3&#x27;)<br/>    <br/>        Line(8, &#x27;9 7&#x27;)<br/>        Line(9, &#x27;7 8&#x27;)<br/>        Line(10, &#x27;8 10&#x27;)<br/>        Line(11, &#x27;10 9&#x27;)<br/>        Line(12, &#x27;8 12&#x27;)<br/>        Line(13, &#x27;12 11&#x27;)<br/>        Line(14, &#x27;11 7&#x27;)<br/>    <br/>    <br/>        # Create Surfaces<br/>        Surface(1, &#x27;1 2 3 4&#x27;, 1)<br/>        Surface(2, &#x27;2 5 6 7&#x27;, 1)<br/>    <br/>&gt;       Surface(3, &#x27;8 9 10 11&#x27;, 1)<br/><br/>UnitTests\test_SurfaceSetLoad_test.py:76: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<br/>RFEM\BasicObjects\surface.py:41: in __init__<br/>    clientModel.service.set_surface(clientObject)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:566: in __call__<br/>    return client.invoke(args, kwargs)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:708: in invoke<br/>    result = self.send(soapenv, timeout=timeout)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:756: in send<br/>    return self.process_reply(reply.message, None, None)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<br/><br/>self = &lt;suds.client._SoapClient object at 0x0000023F0388BD90&gt;<br/>reply = b&#x27;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;soap:Envelope xmlns:soap=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:so...enter an integer value between 2 and 0.&lt;/faultstring&gt;&lt;faultactor/&gt;&lt;detail/&gt;&lt;/soap:Fault&gt;&lt;/soap:Body&gt;&lt;/soap:Envelope&gt;\n&#x27;<br/>status = &lt;HTTPStatus.OK: 200&gt;, description = None<br/><br/>    def process_reply(self, reply, status, description):<br/>        &quot;&quot;&quot;<br/>        Process a web service operation SOAP reply.<br/>    <br/>        Depending on how the ``retxml`` option is set, may return the SOAP<br/>        reply XML or process it and return the Python object representing the<br/>        returned value.<br/>    <br/>        @param reply: The SOAP reply envelope.<br/>        @type reply: I{bytes}<br/>        @param status: The HTTP status code (None indicates httplib.OK).<br/>        @type status: int|I{None}<br/>        @param description: Additional status description.<br/>        @type description: str<br/>        @return: The invoked web service operation return value.<br/>        @rtype: I{builtin}|I{subclass of} L{Object}|I{bytes}|I{None}<br/>    <br/>        &quot;&quot;&quot;<br/>        if status is None:<br/>            status = http.client.OK<br/>        debug_message = &quot;Reply HTTP status - %d&quot; % (status,)<br/>        if status in (http.client.ACCEPTED, http.client.NO_CONTENT):<br/>            log.debug(debug_message)<br/>            return<br/>        #TODO: Consider whether and how to allow plugins to handle error,<br/>        # httplib.ACCEPTED &amp; httplib.NO_CONTENT replies as well as successful<br/>        # ones.<br/>        if status == http.client.OK:<br/>            log.debug(&quot;%s\n%s&quot;, debug_message, reply)<br/>        else:<br/>            log.debug(&quot;%s - %s\n%s&quot;, debug_message, description, reply)<br/>    <br/>        plugins = PluginContainer(self.options.plugins)<br/>        ctx = plugins.message.received(reply=reply)<br/>        reply = ctx.reply<br/>    <br/>        # SOAP standard states that SOAP errors must be accompanied by HTTP<br/>        # status code 500 - internal server error:<br/>        #<br/>        # From SOAP 1.1 specification:<br/>        #   In case of a SOAP error while processing the request, the SOAP HTTP<br/>        # server MUST issue an HTTP 500 &quot;Internal Server Error&quot; response and<br/>        # include a SOAP message in the response containing a SOAP Fault<br/>        # element (see section 4.4) indicating the SOAP processing error.<br/>        #<br/>        # From WS-I Basic profile:<br/>        #   An INSTANCE MUST use a &quot;500 Internal Server Error&quot; HTTP status code<br/>        # if the response message is a SOAP Fault.<br/>        replyroot = None<br/>        if status in (http.client.OK, http.client.INTERNAL_SERVER_ERROR):<br/>            replyroot = _parse(reply)<br/>            plugins.message.parsed(reply=replyroot)<br/>            fault = self.__get_fault(replyroot)<br/>            if fault:<br/>                if status != http.client.INTERNAL_SERVER_ERROR:<br/>                    log.warning(&quot;Web service reported a SOAP processing fault &quot;<br/>                        &quot;using an unexpected HTTP status code %d. Reporting &quot;<br/>                        &quot;as an internal server error.&quot;, status)<br/>                if self.options.faults:<br/>&gt;                   raise WebFault(fault, replyroot)<br/><span class="error">E                   suds.WebFault: Server raised fault: &#x27;Object: Surface No. 3</span><br/><span class="error">E                   Attribute: Order in direction u</span><br/><span class="error">E                   Error: Please enter an integer value between 2 and 0.&#x27;</span><br/><br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:817: WebFault<br/> -------------------------------Captured log call-------------------------------- <br/>WARNING  suds.client:client.py:813 Web service reported a SOAP processing fault using an unexpected HTTP status code 200. Reporting as an internal server error.<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">UnitTests/test_WithoutThicknessSurface_Test.py::test_without_thickness_surface</td>
+          <td class="col-duration">1.48</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">def test_without_thickness_surface():<br/>    <br/>        clientModel.service.begin_modification(&#x27;new&#x27;)<br/>    <br/>        # Testing the standard surface function<br/>        Node(1, 0, -30, 0), Node(2, 10, -30, 0), Node(3, 10, -20, 0), Node(4, 0, -20, 0)<br/>        Line(1, &#x27;1 2&#x27;), Line(2, &#x27;2 3&#x27;), Line(3, &#x27;3 4&#x27;), Line(4, &#x27;4 1&#x27;)<br/>        Material(name=&#x27;C30/37&#x27;)<br/>        Thickness()<br/>        Surface()<br/>    <br/>        # Standard planar Surface<br/>        Node(5, 0, -15, 0), Node(6, 10, -15, 0), Node(7, 10, -5, 0), Node(8, 0, -5, 0)<br/>        Line(5, &#x27;5 6&#x27;), Line(6, &#x27;6 7&#x27;), Line(7, &#x27;7 8&#x27;), Line(8, &#x27;8 5&#x27;)<br/>        Surface.WithoutThickness(Surface, 2, boundary_lines_no= &#x27;5 6 7 8&#x27;)<br/>    <br/>        # Standard NURBS Surface<br/>    <br/>        ## Define Nodes<br/>        Node(9, 0.0, 0.0, 0.0)<br/>        Node(10, 5.0, 0.0, -2.5)<br/>        Node(11, 10.0, 0.0, 0.0)<br/>        Node(12, 0.0, 10.0, 0.0)<br/>        Node(13, 5.0, 10.0, -2.5)<br/>        Node(14, 10.0, 10.0, 0.0)<br/>        Node(15, 0.0, 5.0, -2,5)<br/>        Node(16, 10.0, 5.0, -2.5)<br/>    <br/>        ## NURBS-Curve Definition<br/>        Line.NURBS(Line, 9, &#x27;9 10 11&#x27;, control_points= [[0, 0, 0], [5, 0, -2.5], [10, 0, 0]], weights= [1, 1, 1],params= {&#x27;nurbs_order&#x27;:3})<br/>        Line.NURBS(Line, 10, &#x27;12 13 14&#x27;, control_points= [[0, 10, 0], [5, 10, -2.5], [10, 10, 0]], weights= [1, 1, 1], params= {&#x27;nurbs_order&#x27;:3})<br/>        Line.NURBS(Line, 11, &#x27;9 15 12&#x27;, control_points= [[0, 0, 0], [0, 5, -2.5], [0, 10, 0]], weights= [1, 1, 1], params= {&#x27;nurbs_order&#x27;:3})<br/>        Line.NURBS(Line, 12, &#x27;11 16 14&#x27;, control_points= [[10, 0, 0], [10, 5, -2.5], [10, 5, -2.5]], weights= [1, 1, 1], params= {&#x27;nurbs_order&#x27;:3})<br/>    <br/>        # Surfaces Definition<br/>        Surface.WithoutThickness(Surface, 3, SurfaceGeometry.GEOMETRY_NURBS, [3,3,3,3], &#x27;9 10 11 12&#x27;)<br/>    <br/>        # Standard Quadrangle<br/>    <br/>        # Define Nodes<br/>        Node(17, 0, 15, 0)<br/>        Node(18, 10, 15, 0)<br/>        Node(19, 0, 20, 0)<br/>        Node(20, 10, 20, 0)<br/>    <br/>        # Boundary Lines<br/>        Line.Arc(1, 13, [17, 18], [5, 15, -2])<br/>        Line.Arc(1, 14, [19, 20], [5, 20, -2])<br/>        Line(15, &#x27;17 19&#x27;)<br/>        Line(16, &#x27;18 20&#x27;)<br/>    <br/>        # Quadrangle Defintion<br/>&gt;       Surface.WithoutThickness(Surface, 4, SurfaceGeometry.GEOMETRY_QUADRANGLE, [17, 18, 19, 20], &#x27;13 14 15 16&#x27;)<br/><br/>UnitTests\test_WithoutThicknessSurface_Test.py:86: <br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<br/>RFEM\BasicObjects\surface.py:125: in WithoutThickness<br/>    self.__CreateGeometryAndSetToModel(self)<br/>RFEM\BasicObjects\surface.py:375: in __CreateGeometryAndSetToModel<br/>    clientModel.service.set_surface(self.clientObject)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:566: in __call__<br/>    return client.invoke(args, kwargs)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:708: in invoke<br/>    result = self.send(soapenv, timeout=timeout)<br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:756: in send<br/>    return self.process_reply(reply.message, None, None)<br/>_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _<br/><br/>self = &lt;suds.client._SoapClient object at 0x0000023F0380EF10&gt;<br/>reply = b&#x27;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;soap:Envelope xmlns:soap=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:so...e enter a point that lies in the plane.&lt;/faultstring&gt;&lt;faultactor/&gt;&lt;detail/&gt;&lt;/soap:Fault&gt;&lt;/soap:Body&gt;&lt;/soap:Envelope&gt;\n&#x27;<br/>status = &lt;HTTPStatus.OK: 200&gt;, description = None<br/><br/>    def process_reply(self, reply, status, description):<br/>        &quot;&quot;&quot;<br/>        Process a web service operation SOAP reply.<br/>    <br/>        Depending on how the ``retxml`` option is set, may return the SOAP<br/>        reply XML or process it and return the Python object representing the<br/>        returned value.<br/>    <br/>        @param reply: The SOAP reply envelope.<br/>        @type reply: I{bytes}<br/>        @param status: The HTTP status code (None indicates httplib.OK).<br/>        @type status: int|I{None}<br/>        @param description: Additional status description.<br/>        @type description: str<br/>        @return: The invoked web service operation return value.<br/>        @rtype: I{builtin}|I{subclass of} L{Object}|I{bytes}|I{None}<br/>    <br/>        &quot;&quot;&quot;<br/>        if status is None:<br/>            status = http.client.OK<br/>        debug_message = &quot;Reply HTTP status - %d&quot; % (status,)<br/>        if status in (http.client.ACCEPTED, http.client.NO_CONTENT):<br/>            log.debug(debug_message)<br/>            return<br/>        #TODO: Consider whether and how to allow plugins to handle error,<br/>        # httplib.ACCEPTED &amp; httplib.NO_CONTENT replies as well as successful<br/>        # ones.<br/>        if status == http.client.OK:<br/>            log.debug(&quot;%s\n%s&quot;, debug_message, reply)<br/>        else:<br/>            log.debug(&quot;%s - %s\n%s&quot;, debug_message, description, reply)<br/>    <br/>        plugins = PluginContainer(self.options.plugins)<br/>        ctx = plugins.message.received(reply=reply)<br/>        reply = ctx.reply<br/>    <br/>        # SOAP standard states that SOAP errors must be accompanied by HTTP<br/>        # status code 500 - internal server error:<br/>        #<br/>        # From SOAP 1.1 specification:<br/>        #   In case of a SOAP error while processing the request, the SOAP HTTP<br/>        # server MUST issue an HTTP 500 &quot;Internal Server Error&quot; response and<br/>        # include a SOAP message in the response containing a SOAP Fault<br/>        # element (see section 4.4) indicating the SOAP processing error.<br/>        #<br/>        # From WS-I Basic profile:<br/>        #   An INSTANCE MUST use a &quot;500 Internal Server Error&quot; HTTP status code<br/>        # if the response message is a SOAP Fault.<br/>        replyroot = None<br/>        if status in (http.client.OK, http.client.INTERNAL_SERVER_ERROR):<br/>            replyroot = _parse(reply)<br/>            plugins.message.parsed(reply=replyroot)<br/>            fault = self.__get_fault(replyroot)<br/>            if fault:<br/>                if status != http.client.INTERNAL_SERVER_ERROR:<br/>                    log.warning(&quot;Web service reported a SOAP processing fault &quot;<br/>                        &quot;using an unexpected HTTP status code %d. Reporting &quot;<br/>                        &quot;as an internal server error.&quot;, status)<br/>                if self.options.faults:<br/>&gt;                   raise WebFault(fault, replyroot)<br/><span class="error">E                   suds.WebFault: Server raised fault: &#x27;Object: Surface No. 4</span><br/><span class="error">E                   Attribute: Grid origin</span><br/><span class="error">E                   Error: Please enter a point that lies in the plane.&#x27;</span><br/><br/>C:\Users\BrozJ\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0\LocalCache\local-packages\Python39\site-packages\suds\client.py:817: WebFault<br/> -------------------------------Captured log call-------------------------------- <br/>WARNING  suds.client:client.py:813 Web service reported a SOAP processing fault using an unexpected HTTP status code 200. Reporting as an internal server error.<br/></div></td></tr></tbody>
+      <tbody class="skipped results-table-row">
+        <tr>
+          <td class="col-result">Skipped</td>
+          <td class="col-name">UnitTests/test_MeshGenerationStatistics.py::test_generation_of_mesh_statistics</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">(&#x27;d:\\Sources\\RfemPythonWsClient\\UnitTests\\test_MeshGenerationStatistics.py&#x27;, 34, &#x27;Skipped: all tests still WIP&#x27;)<br/></div></td></tr></tbody>
+      <tbody class="skipped results-table-row">
+        <tr>
+          <td class="col-result">Skipped</td>
+          <td class="col-name">UnitTests/test_SpectralSettings_test.py::test_spectral_analysis_settings</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">(&#x27;d:\\Sources\\RfemPythonWsClient\\UnitTests\\test_SpectralSettings_test.py&#x27;, 36, &#x27;Skipped: all tests still WIP&#x27;)<br/></div></td></tr></tbody>
+      <tbody class="skipped results-table-row">
+        <tr>
+          <td class="col-result">Skipped</td>
+          <td class="col-name">UnitTests/test_modalAnalysis_test.py::test_modal_analysis_settings</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">(&#x27;d:\\Sources\\RfemPythonWsClient\\UnitTests\\test_modalAnalysis_test.py&#x27;, 34, &#x27;Skipped: all tests still WIP&#x27;)<br/></div></td></tr></tbody>
+      <tbody class="skipped results-table-row">
+        <tr>
+          <td class="col-result">Skipped</td>
+          <td class="col-name">UnitTests/test_stabilitysettings.py::test_stability_analysis_settings_init</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">(&#x27;d:\\Sources\\RfemPythonWsClient\\UnitTests\\test_stabilitysettings.py&#x27;, 9, &#x27;Skipped: all tests still WIP&#x27;)<br/></div></td></tr></tbody>
+      <tbody class="skipped results-table-row">
+        <tr>
+          <td class="col-result">Skipped</td>
+          <td class="col-name">UnitTests/test_stabilitysettings.py::test_stability_analysis_settings_eigenvalue_method</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">(&#x27;d:\\Sources\\RfemPythonWsClient\\UnitTests\\test_stabilitysettings.py&#x27;, 32, &#x27;Skipped: all tests still WIP&#x27;)<br/></div></td></tr></tbody>
+      <tbody class="skipped results-table-row">
+        <tr>
+          <td class="col-result">Skipped</td>
+          <td class="col-name">UnitTests/test_stabilitysettings.py::test_stability_analysis_settings_incrementaly_method_with_eigenvalue</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">(&#x27;d:\\Sources\\RfemPythonWsClient\\UnitTests\\test_stabilitysettings.py&#x27;, 65, &#x27;Skipped: all tests still WIP&#x27;)<br/></div></td></tr></tbody>
+      <tbody class="skipped results-table-row">
+        <tr>
+          <td class="col-result">Skipped</td>
+          <td class="col-name">UnitTests/test_stabilitysettings.py::test_stability_analysis_settings_incrementaly_method_without_eigenvalue</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">(&#x27;d:\\Sources\\RfemPythonWsClient\\UnitTests\\test_stabilitysettings.py&#x27;, 110, &#x27;Skipped: all tests still WIP&#x27;)<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_DesignSituations.py::test_design_situation</td>
+          <td class="col-duration">0.66</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_Free_Load_Test.py::test_free_load</td>
+          <td class="col-duration">2.44</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>Ready!
+<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_GlobalParameters_Test.py::test_global_parameters</td>
+          <td class="col-duration">0.24</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>Ready!
+<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_LineLoads_Test.py::test_line_loads</td>
+          <td class="col-duration">2.72</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>Ready!
+<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_LoadCases_Test.py::test_load_case</td>
+          <td class="col-duration">0.39</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_LoadDistributionSurface_Test.py::test_load_distribution_surface</td>
+          <td class="col-duration">0.94</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_MembraneSurface_Test.py::test_membrane_surface</td>
+          <td class="col-duration">1.49</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_MeshGenerationStatistics.py::test_generation_mesh_implemented</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_SpectralSettings_test.py::test_spectral_analysis_implemented</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_Thickness_Test.py::test_thickness</td>
+          <td class="col-duration">0.97</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>Ready!
+<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_basic_objects.py::test_line_init</td>
+          <td class="col-duration">1.06</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_basic_objects.py::test_line_polyline</td>
+          <td class="col-duration">0.40</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_basic_objects.py::test_line_arc</td>
+          <td class="col-duration">0.42</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_basic_objects.py::test_line_circle</td>
+          <td class="col-duration">0.33</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_basic_objects.py::test_lineSet</td>
+          <td class="col-duration">0.51</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_basic_objects.py::test_material</td>
+          <td class="col-duration">0.33</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_basic_objects.py::test_node_init</td>
+          <td class="col-duration">0.15</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_basic_objects.py::test_memberbyline_init</td>
+          <td class="col-duration">0.88</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_basic_objects.py::test_member_init</td>
+          <td class="col-duration">0.79</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_basic_objects.py::test_member_beam</td>
+          <td class="col-duration">0.78</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_basic_objects.py::test_member_set</td>
+          <td class="col-duration">0.95</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_basic_objects.py::test_opening</td>
+          <td class="col-duration">1.34</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_basic_objects.py::test_section</td>
+          <td class="col-duration">0.54</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_basic_objects.py::test_thickness_init</td>
+          <td class="col-duration">0.52</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_basic_objects.py::test_thickness_uniform</td>
+          <td class="col-duration">0.48</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_basic_objects.py::test_thickness_3nodes</td>
+          <td class="col-duration">0.59</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_basic_objects.py::test_thickness_2nodes</td>
+          <td class="col-duration">0.54</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_basic_objects.py::test_thickness_4corners</td>
+          <td class="col-duration">1.51</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_basic_objects.py::test_thickness_circle</td>
+          <td class="col-duration">0.47</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_basic_objects.py::test_thickness_layers</td>
+          <td class="col-duration">0.48</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_nodal_load_init</td>
+          <td class="col-duration">0.47</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_nodal_load_force</td>
+          <td class="col-duration">0.48</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_nodal_load_moment</td>
+          <td class="col-duration">0.48</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_nodal_load_components</td>
+          <td class="col-duration">0.48</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_nodal_load_mass</td>
+          <td class="col-duration">0.49</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_member_load_init</td>
+          <td class="col-duration">0.90</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_member_load_force</td>
+          <td class="col-duration">0.98</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_member_load_moment</td>
+          <td class="col-duration">0.96</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_member_load_mass</td>
+          <td class="col-duration">0.99</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_member_load_temperature</td>
+          <td class="col-duration">0.99</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_member_load_temperature_change</td>
+          <td class="col-duration">0.97</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_member_load_axial_strain</td>
+          <td class="col-duration">1.01</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_member_load_axial_displacement</td>
+          <td class="col-duration">1.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_member_load_precamber</td>
+          <td class="col-duration">0.99</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_member_load_initial_prestress</td>
+          <td class="col-duration">0.99</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_member_load_displacement</td>
+          <td class="col-duration">1.01</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_member_load_rotation</td>
+          <td class="col-duration">0.96</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_member_load_pipecontentfull</td>
+          <td class="col-duration">0.96</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_member_load_pipecontentpartial</td>
+          <td class="col-duration">0.99</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_member_load_pipeinternalpressure</td>
+          <td class="col-duration">0.96</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_surface_load_init</td>
+          <td class="col-duration">1.68</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_surface_load_force</td>
+          <td class="col-duration">1.66</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_surface_load_temperature</td>
+          <td class="col-duration">1.61</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_surface_load_axial_strain</td>
+          <td class="col-duration">1.65</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_surface_load_precamber</td>
+          <td class="col-duration">1.61</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_surface_load_mass</td>
+          <td class="col-duration">1.68</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_line_load_init</td>
+          <td class="col-duration">1.69</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_line_load_force</td>
+          <td class="col-duration">1.65</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_line_load_moment</td>
+          <td class="col-duration">1.69</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_line_load_mass</td>
+          <td class="col-duration">1.68</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_free_concentrated_load</td>
+          <td class="col-duration">1.79</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_free_line_load</td>
+          <td class="col-duration">1.83</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_free_rectangular_load</td>
+          <td class="col-duration">1.75</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_free_circular_load</td>
+          <td class="col-duration">1.73</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_loads.py::test_free_polygon_load</td>
+          <td class="col-duration">1.73</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_modalAnalysis_test.py::test_modal_analysis_implemented</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">UnitTests/test_newFunctionalityTesting.py::test_ImportFrom</td>
+          <td class="col-duration">0.00</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="empty log">No log output captured.</div></td></tr></tbody></table></body></html>

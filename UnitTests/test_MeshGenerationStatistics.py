@@ -25,6 +25,12 @@ from RFEM.initModel import *
 from RFEM.dataTypes import *
 from RFEM.enums import *
 
+
+def test_generation_mesh_implemented():
+    
+    exist = method_exists(clientModel,'generate_mesh')
+    assert exist == False #test fail once method is in T9 master or GM
+
 @pytest.mark.skip("all tests still WIP")
 def test_generation_of_mesh_statistics():
     # modal analysis not yet implemmented in released RFEM6
