@@ -25,34 +25,35 @@ from RFEM.dataTypes import *
 from RFEM.enums import *
 
 if __name__ == '__main__':
+    # modal analysis not yet implemmented in released RFEM6
     clientModel.service.begin_modification()
 
     # Create Material
     Material(1, 'S235')
-    Thickness(1, '20 mm', 1, 0.02)
 
+    # Create Sections
+    Section(1, 'HEA 240', 1)
+    Section(2, 'IPE 300', 1)
+
+    # Create Nodes
     Node(1, 0, 0, 0)
-    Node(2, 5, 0, 0)
-    Node(3, 0, 5, 0)
-    Node(4, 5, 5, 0)
+    Node(3, 6, 0, -5)
+    Node(4, 6, 0, 0)
 
-    Line(1, '1 2')
-    Line(2, '2 4')
-    Line(3, '4 3')
-    Line(4, '3 1')
+    # Create Members
+    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
+    Member(2, MemberType.TYPE_BEAM, 2, 3, 0, 2, 2)
+    Member(3, MemberType.TYPE_BEAM, 4, 3, 0, 1, 1)
 
-    Surface(1, '1 2 3 4', 1)
+    # Create Nodal Supports
+    NodalSupport(1, '1 4', NodalSupportType.FIXED)
 
-    NodalSupport(1, '1 2 3 4', NodalSupportType.FIXED)
-
-    GenerateMesh()
+    plausibilityCheck()
 
     print('Ready!')
 
     clientModel.service.finish_modification()
 
-    mesh_stats = GetMeshStatics()
 
-    print(mesh_stats)
 
 

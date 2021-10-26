@@ -350,3 +350,12 @@ def GetModelType():
     '''
 
     return clientModel.service.get_model_type()
+
+def plausibilityCheck():
+    '''
+    Plausibility Check
+    '''
+    clientModel.service.plausibility_check()
+
+    print(clientModel.service.plausibility_check())
+    
