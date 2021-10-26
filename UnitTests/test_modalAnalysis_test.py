@@ -23,9 +23,15 @@ from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 from RFEM.LoadCasesAndCombinations.modalAnalysisSettings import ModalAnalysisSettings
 import sys
+import pytest
 sys.path.append(".")
 
+def test_modal_analysis_implemented():
+    
+    exist = method_exists(clientModel,'set_modal_analysis_settings')
+    assert exist == False #test fail once method is in T9 master or GM
 
+@pytest.mark.skip("all tests still WIP")
 def test_modal_analysis_settings():
     
     
