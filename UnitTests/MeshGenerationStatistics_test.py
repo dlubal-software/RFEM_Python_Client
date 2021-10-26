@@ -1,5 +1,6 @@
 import sys
 sys.path.append(".")
+import pytest
 from RFEM.Loads.surfaceLoad import *
 from RFEM.Loads.memberLoad import *
 from RFEM.Loads.nodalLoad import *
@@ -24,7 +25,8 @@ from RFEM.initModel import *
 from RFEM.dataTypes import *
 from RFEM.enums import *
 
-if __name__ == '__main__':
+@pytest.mark.skip("all tests still WIP")
+def test_generation_of_mesh_statistics():
     # modal analysis not yet implemmented in released RFEM6
     clientModel.service.begin_modification()
 
