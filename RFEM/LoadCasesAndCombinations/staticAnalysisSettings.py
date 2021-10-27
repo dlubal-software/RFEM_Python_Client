@@ -139,7 +139,7 @@ class StaticAnalysisSettings():
                  no: int = 1,
                  name: str = None,
                  iterative_method = StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis.NEWTON_RAPHSON,
-                 standard_precision_and_tolerance_settings_enabled : bool = False,
+                 standard_precision_and_tolerance_settings = [False, none, none, none],
                  control_nonlinear_analysis = [100, 1],
                  load_modification = [False, none, none],
                          unstable function
@@ -162,7 +162,7 @@ class StaticAnalysisSettings():
                  For load_multiplier_factor == :
                        max_number_of_iterations = None
                        number_of_load_increments = None
-            standard_precision_and_tolerance_settings_enabled (bool, optional):
+            standard_precision_and_tolerance_settings (list, optional): [standard_precision_and_tolerance_settings_enabled, precision_of_convergence_criteria_for_nonlinear_calculation , , ]
             control_nonlinear_analysis (list): [max_number_of_iterations, number_of_load_increments]
             load_modification (list, optional): [load_multiplier_factor, multiplier_factor, dividing_results]
             load_multiplier_factor (bool, optional): 
@@ -207,7 +207,16 @@ class StaticAnalysisSettings():
         clientObject.iterative_method_for_nonlinear_analysis = iterative_method.name
 
         # Standard Precision and Tolerance
+        
+        clientObject.standard_precision_and_tolerance_settings_enabled = standard_precision_and_tolerance_settings[0]
+        clientObject.precision_of_convergence_criteria_for_nonlinear_calculation = standard_precision_and_tolerance_settings[1]
+        clientObject. = standard_precision_and_tolerance_settings[2]
+        standard_precision_and_tolerance_settings[3]
+        
         clientObject.standard_precision_and_tolerance_settings_enabled = standard_precision_and_tolerance_settings_enabled
+        clientObject.precision_of_convergence_criteria_for_nonlinear_calculation = precision_of_convergence_criteria_for_nonlinear_calculation
+        clientObject. =  
+        
         if standard_precision_and_tolerance_settings_enabled != False:
             clientObject.precision_of_convergence_criteria_for_nonlinear_calculation = int = 1
             clientObject.relative_setting_of_time_step_for_dynamic_relaxation = double
