@@ -42,7 +42,6 @@ class StaticAnalysisSettings():
                  no: int = 1,
                  name: str = None,
                  load_multiplier_factor : bool = False,
-                 control_nonlinear_analysis = [None, None]
                  bourdon_effect: bool = True,
                  nonsymmetric_direct_solver: bool = True,
                  method_of_equation_system = StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT,
@@ -57,7 +56,6 @@ class StaticAnalysisSettings():
             no (int): 
             name (str, optional): Static Analysis Name
             load_multiplier_factor (bool, optional): 
-            control_nonlinear_analysis (list, optional): []
             bourdon_effect (bool, optional): 
             nonsymmetric_direct_solver (bool, optional): 
             method_of_equation_system (enum): Static Analysis Settings Method of Equation System Enumeration
@@ -110,7 +108,7 @@ class StaticAnalysisSettings():
         # Plate Bending Theory
         clientObject.plate_bending_theory = plate_bending_theory.name
 
-         # Mass Conversion
+        # Mass Conversion
         clientObject.mass_conversion_enabled = mass_conversion_enabled
         
         clientObject.mass_conversion_factor_in_direction_x = mass_conversion_factor_in_direction_x
@@ -142,12 +140,8 @@ class StaticAnalysisSettings():
                  name: str = None,
                  iterative_method = StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis.NEWTON_RAPHSON,
                  standard_precision_and_tolerance_settings_enabled : bool = False,
-                 control_nonlinear_analysis = [None, None]
-                 max_number_of_iterations: int = 100, 
-                 number_of_load_increments: int = 1,
-                 load_multiplier_factor : bool = False,
-                 multiplier_factor = None,
-                 dividing_results = None,
+                 control_nonlinear_analysis = [100, 1],
+                 load_modification = [False, none, none],
                          unstable function
                  bourdon_effect: bool = True,
                  nonsymmetric_direct_solver: bool = True,
@@ -169,9 +163,8 @@ class StaticAnalysisSettings():
                        max_number_of_iterations = None
                        number_of_load_increments = None
             standard_precision_and_tolerance_settings_enabled (bool, optional):
-            control_nonlinear_analysis (list, int
-            max_number_of_iterations (int): Maximum Number of Iterations
-            number_of_load_increments (int): Number of Load Increments
+            control_nonlinear_analysis (list): [max_number_of_iterations, number_of_load_increments]
+            load_modification (list, optional): [load_multiplier_factor, multiplier_factor, dividing_results]
             load_multiplier_factor (bool, optional): 
                  For load_multiplier_factor == False:
                       multiplier_factor = None
@@ -219,13 +212,27 @@ class StaticAnalysisSettings():
             clientObject.precision_of_convergence_criteria_for_nonlinear_calculation = int = 1
             clientObject.relative_setting_of_time_step_for_dynamic_relaxation = double
 
-        # Maximum Number of Iterations
+        # Control nonlinear Analysis
+        clientObject.max_number_of_iterations = control_nonlinear_analysis[0]
+        clientObject.number_of_load_increments = control_nonlinear_analysis[1]
+        
         clientObject.max_number_of_iterations = max_number_of_iterations
-
-        # Number of Load Increments
         clientObject.number_of_load_increments = number_of_load_increments
+        
+        if len(control_nonlinear_analysis) != 2:
+            raise Exception('WARNING: The nonlinear analysis control parameter needs to be of length 2. Kindly check list inputs for completeness and correctness.')
+            
+            INTEGER
+            
+         if len(control_nonlinear_analysis) != 
+            
 
-        # Load Multiplier Factor 
+        # Load Modification
+        
+        clientObject.modify_loading_by_multiplier_factor = load_modification[0]
+        clientObject.number_of_iterations_for_loading_prestress = load_modification[1]
+        clientObject.divide_results_by_loading_factor = load_modification[2]
+        
         clientObject.modify_loading_by_multiplier_factor = load_multiplier_factor 
         clientObject.number_of_iterations_for_loading_prestress = multiplier_factor
         clientObject.divide_results_by_loading_factor = dividing_results
@@ -235,6 +242,19 @@ class StaticAnalysisSettings():
             multiplier_factor = int
             dividing_results = bool
             
+        if len(load_modification) != 2:
+            raise Exception('WARNING: The load modification parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
+            
+            types of inputs
+            
+        if (load_modification) != 
+
+        if load_multiplier_factor != False:
+            load_multiplier_factor = True 
+            multiplier_factor = int
+            dividing_results = bool
+            
+         
         # Bourdon Effect Displacement 
         clientObject.displacements_due_to_bourdon_effect = bourdon_effect 
 
@@ -279,11 +299,8 @@ class StaticAnalysisSettings():
                  name: str = None,
                  iterative_method = StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis.NEWTON_RAPHSON,
                  standard_precision_and_tolerance_settings_enabled : bool = False,
-                 max_number_of_iterations: int = 100, 
-                 number_of_load_increments: int = 1,
-                 load_multiplier_factor : bool = False,
-                 multiplier_factor = None,
-                 dividing_results = None,
+                 control_nonlinear_analysis = [100, 1],
+                 load_modification = [False, none, none],
                  favorable_effect_due_to_tension_in_members : bool = False,
                  bourdon_effect: bool = True,
                  nonsymmetric_direct_solver: bool = True,
@@ -301,8 +318,7 @@ class StaticAnalysisSettings():
             no (int): 
             name (str, optional): Static Analysis Name
             iterative_method (enum): Static Analysis Settings Iterative Method for Non-linear Analysis Enumeration
-            max_number_of_iterations (int): Maximum Number of Iterations
-            number_of_load_increments (int): Number of Load Increments
+            control_nonlinear_analysis (list): [max_number_of_iterations, number_of_load_increments]
             load_multiplier_factor (bool, optional): 
                  For load_multiplier_factor == False:
                       multiplier_factor = None
@@ -351,24 +367,46 @@ class StaticAnalysisSettings():
         # Static Analysis Type
         clientObject.analysis_type = StaticAnalysisType.SECOND_ORDER_P_DELTA.name
 
-
         # Iterative Method
         clientObject.iterative_method_for_nonlinear_analysis = iterative_method.name
 
-
-        # Maximum Number of Iterations
+        # Control nonlinear Analysis
+        clientObject.max_number_of_iterations = control_nonlinear_analysis[0]
+        clientObject.number_of_load_increments = control_nonlinear_analysis[1]
+        
         clientObject.max_number_of_iterations = max_number_of_iterations
-
-
-        # Number of Load Increments
         clientObject.number_of_load_increments = number_of_load_increments
-
-
-        # Load Multiplier Factor 
+        
+        if len(control_nonlinear_analysis) != 2:
+            raise Exception('WARNING: The nonlinear analysis control parameter needs to be of length 2. Kindly check list inputs for completeness and correctness.')
+            
+            INTEGER
+            
+         if len(control_nonlinear_analysis) != 
+        
+        
+        # Load Modification
+        
+        clientObject.modify_loading_by_multiplier_factor = load_modification[0]
+        clientObject.number_of_iterations_for_loading_prestress = load_modification[1]
+        clientObject.divide_results_by_loading_factor = load_modification[2]
+        
         clientObject.modify_loading_by_multiplier_factor = load_multiplier_factor 
         clientObject.number_of_iterations_for_loading_prestress = multiplier_factor
         clientObject.divide_results_by_loading_factor = dividing_results
   
+        if load_multiplier_factor != False:
+            load_multiplier_factor = True 
+            multiplier_factor = int
+            dividing_results = bool
+            
+        if len(load_modification) != 2:
+            raise Exception('WARNING: The load modification parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
+            
+            types of inputs
+            
+        if (load_modification) != 
+
         if load_multiplier_factor != False:
             load_multiplier_factor = True 
             multiplier_factor = int
