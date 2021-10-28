@@ -217,6 +217,12 @@ class StaticAnalysisSettings():
 
         # Iterative Method
         clientObject.iterative_method_for_nonlinear_analysis = iterative_method.name
+        if iterative_method.name == "NEWTON_RAPHSON" or iterative_method.name == "NEWTON_RAPHSON_COMBINED_WITH_PICARD" or iterative_method.name == "PICARD" or iterative_method.name == "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS":
+                       max_number_of_iterations = int
+                       number_of_load_increments = int
+        elif iterative_method.name == "DYNAMIC_RELAXATION":
+                       max_number_of_iterations = None
+                       number_of_load_increments = None
 
         # Standard Precision and Tolerance
         
