@@ -55,6 +55,12 @@ class StaticAnalysisSettings():
             no (int): 
             name (str, optional): Static Analysis Name
             load_modification (list, optional): [load_multiplier_factor, multiplier_factor, dividing_results]
+                 For load_multiplier_factor == False:
+                      multiplier_factor = None
+                      dividing_results = None
+                 For load_multiplier_factor == True:
+                      multiplier_factor = int
+                      dividing_results = bool
             bourdon_effect (bool, optional): 
             nonsymmetric_direct_solver (bool, optional): 
             method_of_equation_system (enum): Static Analysis Settings Method of Equation System Enumeration
@@ -125,13 +131,13 @@ class StaticAnalysisSettings():
             raise Exception('WARNING: The mass conversion parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')    
             
         if type(mass_conversion[0]) != bool :
-            raise Exception ('WARNING: Enabling the mass conversion at index 0 to be of type "bool"')
+            raise Exception ('WARNING: Enabling the mass conversion at index 0 has to be of type "bool"')
         if type(mass_conversion[1]) != double :
-            raise Exception ('WARNING: Mass conversion factor in direction x at index 1 to be of type "double"')
+            raise Exception ('WARNING: Mass conversion factor in direction x at index 1 has to be of type "double"')
         if type(mass_conversion[2]) != double :
-            raise Exception ('WARNING: Mass conversion factor in direction y at index 2 to be of type "double"')
+            raise Exception ('WARNING: Mass conversion factor in direction y at index 2 has to be of type "double"')
         if type(mass_conversion[3]) != double :
-            raise Exception ('WARNING: Mass conversion factor in direction z at index 3 to be of type "double"')
+            raise Exception ('WARNING: Mass conversion factor in direction z at index 3 has to be of type "double"')
             
         # Comment
         clientObject.comment = comment
@@ -172,7 +178,6 @@ class StaticAnalysisSettings():
             standard_precision_and_tolerance_settings (list, optional): [standard_precision_and_tolerance_settings_enabled, precision_of_convergence_criteria_for_nonlinear_calculation, tolerance_for_detection_of_instability, robustness_of_iterative_calculation]
             control_nonlinear_analysis (list): [max_number_of_iterations, number_of_load_increments]
             load_modification (list, optional): [load_multiplier_factor, multiplier_factor, dividing_results]
-            load_multiplier_factor (bool, optional): 
                  For load_multiplier_factor == False:
                       multiplier_factor = None
                       dividing_results = None
@@ -263,11 +268,9 @@ class StaticAnalysisSettings():
             raise Exception('WARNING: The nonlinear analysis control parameter needs to be of length 2. Kindly check list inputs for completeness and correctness.')
         
         if type(control_nonlinear_analysis[0]) != int :
-            raise Exception ('WARNING: Enabling the standard precision and tolerance settings at index 0 to be of type "int"')
+            raise Exception ('WARNING: Enabling the standard precision and tolerance settings at index 0 has to be of type "int"')
         if type(control_nonlinear_analysis[1]) != int :
-            raise Exception ('WARNING: Precision of convergence criteria for nonlinear calculation factor at index 1 to be of type "int"')
-            
-    
+            raise Exception ('WARNING: Precision of convergence criteria for nonlinear calculation factor at index 1 has to be of type "int"')
 
         # Load Modification
         
@@ -288,11 +291,11 @@ class StaticAnalysisSettings():
             raise Exception('WARNING: The load modification parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
             
         if type(load_modification[0]) != bool :
-            raise Exception ('WARNING: Load multiplier factor parameter at index 0 to be of type "int"')
+            raise Exception ('WARNING: Load multiplier factor parameter at index 0 has to be of type "int"')
         if type(load_modification[1]) != int :
-            raise Exception ('WARNING: Multiplier factor parameter at index 1 to be of type "int"')
+            raise Exception ('WARNING: Multiplier factor parameter at index 1 has to be of type "int"')
         if type(load_modification[2]) != bool :
-            raise Exception ('WARNING: Dividing results parameter at index 0 to be of type "int"')
+            raise Exception ('WARNING: Dividing results parameter at index 0 has to be of type "int"')
         
         if load_multiplier_factor != False:
             load_multiplier_factor = True 
@@ -334,13 +337,13 @@ class StaticAnalysisSettings():
             raise Exception('WARNING: The mass conversion parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')    
             
         if type(mass_conversion[0]) != bool :
-            raise Exception ('WARNING: Enabling the mass conversion at index 0 to be of type "bool"')
+            raise Exception ('WARNING: Enabling the mass conversion at index 0 has to be of type "bool"')
         if type(mass_conversion[1]) != double :
-            raise Exception ('WARNING: Mass conversion factor in direction x at index 1 to be of type "double"')
+            raise Exception ('WARNING: Mass conversion factor in direction x at index 1 has to be of type "double"')
         if type(mass_conversion[2]) != double :
-            raise Exception ('WARNING: Mass conversion factor in direction y at index 2 to be of type "double"')
+            raise Exception ('WARNING: Mass conversion factor in direction y at index 2 has to be of type "double"')
         if type(mass_conversion[3]) != double :
-            raise Exception ('WARNING: Mass conversion factor in direction z at index 3 to be of type "double"')
+            raise Exception ('WARNING: Mass conversion factor in direction z at index 3 has to be of type "double"')
 
         # Comment
         clientObject.comment = comment
@@ -363,7 +366,7 @@ class StaticAnalysisSettings():
                  bourdon_effect: bool = True,
                  nonsymmetric_direct_solver: bool = True,
                  refer_internal_forces_to_deformed_structure : bool = False,
-                 internal_forces = [None, None, None]
+                 internal_forces = [False, None, None, None]
                  method_of_equation_system = StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT,
                  plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion = [False, None, None, None],
@@ -495,6 +498,18 @@ class StaticAnalysisSettings():
             internal_forces_to_deformed_structure_for_normal_forces = bool
             internal_forces_to_deformed_structure_for_shear_forces = bool
             
+        if len(mass_conversion) != 4:
+            raise Exception('WARNING: The mass conversion parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')    
+            
+        if type(mass_conversion[0]) != bool :
+            raise Exception ('WARNING: Enabling the mass conversion at index 0 to be of type "bool"')
+        if type(mass_conversion[1]) != double :
+            raise Exception ('WARNING: Mass conversion factor in direction x at index 1 to be of type "double"')
+        if type(mass_conversion[2]) != double :
+            raise Exception ('WARNING: Mass conversion factor in direction y at index 2 to be of type "double"')
+        if type(mass_conversion[3]) != double :
+            raise Exception ('WARNING: Mass conversion factor in direction z at index 3 to be of type "double"')
+    
         # Equation System
         clientObject.method_of_equation_system = method_of_equation_system.name
         
