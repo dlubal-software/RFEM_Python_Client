@@ -365,8 +365,7 @@ class StaticAnalysisSettings():
                  favorable_effect_due_to_tension_in_members : bool = False,
                  bourdon_effect: bool = True,
                  nonsymmetric_direct_solver: bool = True,
-                 refer_internal_forces_to_deformed_structure : bool = False,
-                 internal_forces = [False, None, None, None]
+                 internal_forces_to_deformed_structure = [False, None, None, None],
                  method_of_equation_system = StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT,
                  plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                  mass_conversion = [False, None, None, None],
@@ -389,7 +388,7 @@ class StaticAnalysisSettings():
             favorable_effect_due_to_tension_in_members (bool, optional): 
             bourdon_effect (bool, optional): 
             nonsymmetric_direct_solver (bool, optional): 
-            refer_internal_forces_to_deformed_structure (bool, optional): 
+            internal_forces_to_deformed_structure (list, optional): [refer_internal_forces_to_deformed_structure, internal_forces_to_deformed_structure_for_moments, internal_forces_to_deformed_structure_for_normal_forces, internal_forces_to_deformed_structure_for_shear_forces]
                  For refer_internal_forces_to_deformed_structure == False:
                        internal_forces_to_deformed_structure_for_moments = None 
                        internal_forces_to_deformed_structure_for_normal_forces = None
@@ -489,26 +488,32 @@ class StaticAnalysisSettings():
 
 
         # Internal Forces to Deformed Structure
+        
         clientObject.refer_internal_forces_to_deformed_structure = refer_internal_forces_to_deformed_structure
         clientObject.refer_internal_forces_to_deformed_structure_for_moments = internal_forces_to_deformed_structure_for_moments
         clientObject.refer_internal_forces_to_deformed_structure_for_normal_forces = internal_forces_to_deformed_structure_for_normal_forces
         clientObject.refer_internal_forces_to_deformed_structure_for_shear_forces = internal_forces_to_deformed_structure_for_shear_forces
+        
+        refer_internal_forces_to_deformed_structure = internal_forces_to_deformed_structure[0]
+        internal_forces_to_deformed_structure_for_moments = internal_forces_to_deformed_structure[1]
+        internal_forces_to_deformed_structure_for_normal_forces = internal_forces_to_deformed_structure[2]
+        internal_forces_to_deformed_structure_for_shear_forces = internal_forces_to_deformed_structure[3] 
         if refer_internal_forces_to_deformed_structure != False:
             internal_forces_to_deformed_structure_for_moments = bool 
             internal_forces_to_deformed_structure_for_normal_forces = bool
             internal_forces_to_deformed_structure_for_shear_forces = bool
-            
-        if len(mass_conversion) != 4:
-            raise Exception('WARNING: The mass conversion parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')    
+               
+        if len(internal_forces_to_deformed_structure) != 4:
+            raise Exception('WARNING: The internal forces to deformed structure parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')    
             
         if type(mass_conversion[0]) != bool :
-            raise Exception ('WARNING: Enabling the mass conversion at index 0 to be of type "bool"')
-        if type(mass_conversion[1]) != double :
-            raise Exception ('WARNING: Mass conversion factor in direction x at index 1 to be of type "double"')
-        if type(mass_conversion[2]) != double :
-            raise Exception ('WARNING: Mass conversion factor in direction y at index 2 to be of type "double"')
-        if type(mass_conversion[3]) != double :
-            raise Exception ('WARNING: Mass conversion factor in direction z at index 3 to be of type "double"')
+            raise Exception ('WARNING: Refering internal forces to deformed structure at index 0 to be of type "bool"')
+        if type(mass_conversion[1]) != bool :
+            raise Exception ('WARNING: Internal forces to deformed structure for moments at index 1 to be of type "bool"')
+        if type(mass_conversion[2]) != bool :
+            raise Exception ('WARNING: Internal forces to deformed structure for normal forces at index 2 to be of type "bool"')
+        if type(mass_conversion[3]) != bool :
+            raise Exception ('WARNING: Internal forces to deformed structure for shear forces at index 3 to be of type "bool"')
     
         # Equation System
         clientObject.method_of_equation_system = method_of_equation_system.name
