@@ -41,7 +41,7 @@ class StaticAnalysisSettings():
     def GeometricallyLinear(self,
                  no: int = 1,
                  name: str = None,
-                 load_multiplier_factor : bool = False,
+                 load_modification = [False, None, None],
                  bourdon_effect: bool = True,
                  nonsymmetric_direct_solver: bool = True,
                  method_of_equation_system = StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT,
@@ -54,7 +54,7 @@ class StaticAnalysisSettings():
         Args:
             no (int): 
             name (str, optional): Static Analysis Name
-            load_multiplier_factor (bool, optional): 
+            load_modification (list, optional): [load_multiplier_factor, multiplier_factor, dividing_results]
             bourdon_effect (bool, optional): 
             nonsymmetric_direct_solver (bool, optional): 
             method_of_equation_system (enum): Static Analysis Settings Method of Equation System Enumeration
@@ -120,6 +120,7 @@ class StaticAnalysisSettings():
             mass_conversion_factor_in_direction_x =  double
             mass_conversion_acceleration_in_direction_y = double
             mass_conversion_acceleration_in_direction_z = double
+            
         if len(mass_conversion) != 4:
             raise Exception('WARNING: The mass conversion parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')    
             
@@ -146,9 +147,9 @@ class StaticAnalysisSettings():
                  no: int = 1,
                  name: str = None,
                  iterative_method = StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis.NEWTON_RAPHSON,
-                 standard_precision_and_tolerance_settings = [False, none, none, none],
+                 standard_precision_and_tolerance_settings = [False, None, None, None],
                  control_nonlinear_analysis = [100, 1],
-                 load_modification = [False, none, none],
+                 load_modification = [False, None, None],
                          unstable function
                  bourdon_effect: bool = True,
                  nonsymmetric_direct_solver: bool = True,
@@ -168,7 +169,7 @@ class StaticAnalysisSettings():
                  For load_multiplier_factor == :
                        max_number_of_iterations = None
                        number_of_load_increments = None
-            standard_precision_and_tolerance_settings (list, optional): [standard_precision_and_tolerance_settings_enabled, precision_of_convergence_criteria_for_nonlinear_calculation , , ]
+            standard_precision_and_tolerance_settings (list, optional): [standard_precision_and_tolerance_settings_enabled, precision_of_convergence_criteria_for_nonlinear_calculation, tolerance_for_detection_of_instability, robustness_of_iterative_calculation]
             control_nonlinear_analysis (list): [max_number_of_iterations, number_of_load_increments]
             load_modification (list, optional): [load_multiplier_factor, multiplier_factor, dividing_results]
             load_multiplier_factor (bool, optional): 
@@ -215,16 +216,40 @@ class StaticAnalysisSettings():
         
         clientObject.standard_precision_and_tolerance_settings_enabled = standard_precision_and_tolerance_settings[0]
         clientObject.precision_of_convergence_criteria_for_nonlinear_calculation = standard_precision_and_tolerance_settings[1]
-        clientObject. = standard_precision_and_tolerance_settings[2]
-        standard_precision_and_tolerance_settings[3]
+        clientObject.instability_detection_tolerance = standard_precision_and_tolerance_settings[2]
+        clientObject.iterative_calculation_robustness = standard_precision_and_tolerance_settings[3]
         
         clientObject.standard_precision_and_tolerance_settings_enabled = standard_precision_and_tolerance_settings_enabled
         clientObject.precision_of_convergence_criteria_for_nonlinear_calculation = precision_of_convergence_criteria_for_nonlinear_calculation
-        clientObject. =  
+        clientObject.instability_detection_tolerance = tolerance_for_detection_of_instability
+        clientObject.iterative_calculation_robustness = robustness_of_iterative_calculation
         
         if standard_precision_and_tolerance_settings_enabled != False:
-            clientObject.precision_of_convergence_criteria_for_nonlinear_calculation = int = 1
-            clientObject.relative_setting_of_time_step_for_dynamic_relaxation = double
+            clientObject.precision_of_convergence_criteria_for_nonlinear_calculation = double
+            clientObject.instability_detection_tolerance = double
+            clientObject.iterative_calculation_robustness = double
+            
+        if len(mass_conversion) != 4:
+            raise Exception('WARNING: The standard precision and tolerance settings parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')    
+        
+        if type(standard_precision_and_tolerance_settings[0]) != bool :
+            raise Exception ('WARNING: Enabling the standard precision and tolerance settings at index 0 to be of type "bool"')
+        if type(standard_precision_and_tolerance_settings[1]) != double :
+            raise Exception ('WARNING: Precision of convergence criteria for nonlinear calculation factor at index 1 to be of type "double"')
+        if type(standard_precision_and_tolerance_settings[2]) != double :
+            raise Exception ('WARNING: Tolerance for detection of instability factor at index 2 to be of type "double"')
+        if type(standard_precision_and_tolerance_settings[3]) != double :
+            raise Exception ('WARNING: Robustness of iterative calculation factor at index 3 to be of type "double"')
+        
+        if :
+            raise Exception ('WARNING: Precision of convergence criteria for nonlinear calculations at index 1 is out of range. Input has to be in the range [0.01 ... 100].')
+        
+        if :
+            raise Exception ('WARNING: Tolerance for detection of instability at index 2 is out of range. Input has to be in the range [0.01 ... 100].')
+        
+        if :
+            raise Exception ('WARNING: Robustness of iterative calculation at index 3 is out of range. Input has to be in the range [1.00 ... 100].')
+        
 
         # Control nonlinear Analysis
         clientObject.max_number_of_iterations = control_nonlinear_analysis[0]
@@ -235,11 +260,13 @@ class StaticAnalysisSettings():
         
         if len(control_nonlinear_analysis) != 2:
             raise Exception('WARNING: The nonlinear analysis control parameter needs to be of length 2. Kindly check list inputs for completeness and correctness.')
+        
+        if type(control_nonlinear_analysis[0]) != int :
+            raise Exception ('WARNING: Enabling the standard precision and tolerance settings at index 0 to be of type "int"')
+        if type(control_nonlinear_analysis[1]) != int :
+            raise Exception ('WARNING: Precision of convergence criteria for nonlinear calculation factor at index 1 to be of type "int"')
             
-            INTEGER
-            
-         if len(control_nonlinear_analysis) != 
-            
+    
 
         # Load Modification
         
@@ -256,13 +283,16 @@ class StaticAnalysisSettings():
             multiplier_factor = int
             dividing_results = bool
             
-        if len(load_modification) != 2:
+        if len(load_modification) != 3:
             raise Exception('WARNING: The load modification parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
             
-            types of inputs
-            
-        if (load_modification) != 
-
+        if type(load_modification[0]) != bool :
+            raise Exception ('WARNING: Load multiplier factor parameter at index 0 to be of type "int"')
+        if type(load_modification[1]) != int :
+            raise Exception ('WARNING: Multiplier factor parameter at index 1 to be of type "int"')
+        if type(load_modification[2]) != bool :
+            raise Exception ('WARNING: Dividing results parameter at index 0 to be of type "int"')
+        
         if load_multiplier_factor != False:
             load_multiplier_factor = True 
             multiplier_factor = int
@@ -295,6 +325,7 @@ class StaticAnalysisSettings():
             mass_conversion_factor_in_direction_x =  double
             mass_conversion_acceleration_in_direction_y = double
             mass_conversion_acceleration_in_direction_z = double
+            
         if len(mass_conversion) != 4:
             raise Exception('WARNING: The mass conversion parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')    
             
