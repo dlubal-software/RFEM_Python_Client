@@ -150,7 +150,7 @@ class StaticAnalysisSettings():
                  standard_precision_and_tolerance_settings = [False, None, None, None],
                  control_nonlinear_analysis = [100, 1],
                  load_modification = [False, None, None],
-                         unstable function
+                 instabil_structure_calculation : bool = True,
                  bourdon_effect: bool = True,
                  nonsymmetric_direct_solver: bool = True,
                  method_of_equation_system = StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT,
@@ -179,6 +179,7 @@ class StaticAnalysisSettings():
                  For load_multiplier_factor == True:
                       multiplier_factor = int
                       dividing_results = bool
+            instabil_structure_calculation (bool, optional): 
             bourdon_effect (bool, optional): 
             nonsymmetric_direct_solver (bool, optional): 
             method_of_equation_system (enum): Static Analysis Settings Method of Equation System Enumeration
@@ -297,8 +298,11 @@ class StaticAnalysisSettings():
             load_multiplier_factor = True 
             multiplier_factor = int
             dividing_results = bool
-            
-         
+        
+        
+        # Instabil Structure 
+        clientObject.try_to_calculate_instabil_structure = instabil_structure_calculation
+        
         # Bourdon Effect Displacement 
         clientObject.displacements_due_to_bourdon_effect = bourdon_effect 
 
@@ -354,7 +358,7 @@ class StaticAnalysisSettings():
                  iterative_method = StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis.NEWTON_RAPHSON,
                  standard_precision_and_tolerance_settings_enabled : bool = False,
                  control_nonlinear_analysis = [100, 1],
-                 load_modification = [False, none, none],
+                 load_modification = [False, None, None],
                  favorable_effect_due_to_tension_in_members : bool = False,
                  bourdon_effect: bool = True,
                  nonsymmetric_direct_solver: bool = True,
@@ -431,10 +435,11 @@ class StaticAnalysisSettings():
         
         if len(control_nonlinear_analysis) != 2:
             raise Exception('WARNING: The nonlinear analysis control parameter needs to be of length 2. Kindly check list inputs for completeness and correctness.')
-            
-            INTEGER
-            
-         if len(control_nonlinear_analysis) != 
+        
+        if type(control_nonlinear_analysis[0]) != int :
+            raise Exception ('WARNING: Enabling the standard precision and tolerance settings at index 0 to be of type "int"')
+        if type(control_nonlinear_analysis[1]) != int :
+            raise Exception ('WARNING: Precision of convergence criteria for nonlinear calculation factor at index 1 to be of type "int"')
         
         
         # Load Modification
@@ -452,13 +457,16 @@ class StaticAnalysisSettings():
             multiplier_factor = int
             dividing_results = bool
             
-        if len(load_modification) != 2:
+        if len(load_modification) != 3:
             raise Exception('WARNING: The load modification parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
             
-            types of inputs
-            
-        if (load_modification) != 
-
+        if type(load_modification[0]) != bool :
+            raise Exception ('WARNING: Load multiplier factor parameter at index 0 to be of type "int"')
+        if type(load_modification[1]) != int :
+            raise Exception ('WARNING: Multiplier factor parameter at index 1 to be of type "int"')
+        if type(load_modification[2]) != bool :
+            raise Exception ('WARNING: Dividing results parameter at index 0 to be of type "int"')
+        
         if load_multiplier_factor != False:
             load_multiplier_factor = True 
             multiplier_factor = int
@@ -507,6 +515,7 @@ class StaticAnalysisSettings():
             mass_conversion_factor_in_direction_x =  double
             mass_conversion_acceleration_in_direction_y = double
             mass_conversion_acceleration_in_direction_z = double
+            
         if len(mass_conversion) != 4:
             raise Exception('WARNING: The mass conversion parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')    
             
