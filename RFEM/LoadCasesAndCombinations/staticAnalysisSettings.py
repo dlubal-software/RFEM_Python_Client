@@ -253,13 +253,13 @@ class StaticAnalysisSettings():
         if type(standard_precision_and_tolerance_settings[3]) != double :
             raise Exception ('WARNING: Robustness of iterative calculation factor at index 3 to be of type "double"')
         
-        if :
+        while not double(precision_of_convergence_criteria_for_nonlinear_calculation) in range(0.01,100):
             raise Exception ('WARNING: Precision of convergence criteria for nonlinear calculations at index 1 is out of range. Input has to be in the range [0.01 ... 100].')
         
-        if :
+        while not double(tolerance_for_detection_of_instability) in range(0.01,100):
             raise Exception ('WARNING: Tolerance for detection of instability at index 2 is out of range. Input has to be in the range [0.01 ... 100].')
         
-        if :
+        while not double(robustness_of_iterative_calculation) in range(1.00,100):
             raise Exception ('WARNING: Robustness of iterative calculation at index 3 is out of range. Input has to be in the range [1.00 ... 100].')
         
 
@@ -365,7 +365,7 @@ class StaticAnalysisSettings():
                  no: int = 1,
                  name: str = None,
                  iterative_method = StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis.NEWTON_RAPHSON,
-                 standard_precision_and_tolerance_settings_enabled : bool = False,
+                 standard_precision_and_tolerance_settings = [False, None, None, None],
                  control_nonlinear_analysis = [100, 1],
                  load_modification = [False, None, None],
                  favorable_effect_due_to_tension_in_members : bool = False,
@@ -383,6 +383,7 @@ class StaticAnalysisSettings():
             no (int): 
             name (str, optional): Static Analysis Name
             iterative_method (enum): Static Analysis Settings Iterative Method for Non-linear Analysis Enumeration
+            standard_precision_and_tolerance_settings (list, optional): [standard_precision_and_tolerance_settings_enabled, precision_of_convergence_criteria_for_nonlinear_calculation, tolerance_for_detection_of_instability, robustness_of_iterative_calculation]
             control_nonlinear_analysis (list): [max_number_of_iterations, number_of_load_increments]
             load_multiplier_factor (bool, optional): 
                  For load_multiplier_factor == False:
@@ -433,6 +434,44 @@ class StaticAnalysisSettings():
 
         # Iterative Method
         clientObject.iterative_method_for_nonlinear_analysis = iterative_method.name
+        
+        # Standard Precision and Tolerance
+        
+        clientObject.standard_precision_and_tolerance_settings_enabled = standard_precision_and_tolerance_settings[0]
+        clientObject.precision_of_convergence_criteria_for_nonlinear_calculation = standard_precision_and_tolerance_settings[1]
+        clientObject.instability_detection_tolerance = standard_precision_and_tolerance_settings[2]
+        clientObject.iterative_calculation_robustness = standard_precision_and_tolerance_settings[3]
+        
+        clientObject.standard_precision_and_tolerance_settings_enabled = standard_precision_and_tolerance_settings_enabled
+        clientObject.precision_of_convergence_criteria_for_nonlinear_calculation = precision_of_convergence_criteria_for_nonlinear_calculation
+        clientObject.instability_detection_tolerance = tolerance_for_detection_of_instability
+        clientObject.iterative_calculation_robustness = robustness_of_iterative_calculation
+        
+        if standard_precision_and_tolerance_settings_enabled != False:
+            clientObject.precision_of_convergence_criteria_for_nonlinear_calculation = double
+            clientObject.instability_detection_tolerance = double
+            clientObject.iterative_calculation_robustness = double
+            
+        if len(mass_conversion) != 4:
+            raise Exception('WARNING: The standard precision and tolerance settings parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')    
+        
+        if type(standard_precision_and_tolerance_settings[0]) != bool :
+            raise Exception ('WARNING: Enabling the standard precision and tolerance settings at index 0 to be of type "bool"')
+        if type(standard_precision_and_tolerance_settings[1]) != double :
+            raise Exception ('WARNING: Precision of convergence criteria for nonlinear calculation factor at index 1 to be of type "double"')
+        if type(standard_precision_and_tolerance_settings[2]) != double :
+            raise Exception ('WARNING: Tolerance for detection of instability factor at index 2 to be of type "double"')
+        if type(standard_precision_and_tolerance_settings[3]) != double :
+            raise Exception ('WARNING: Robustness of iterative calculation factor at index 3 to be of type "double"')
+        
+        while not double(precision_of_convergence_criteria_for_nonlinear_calculation) in range(0.01,100):
+            raise Exception ('WARNING: Precision of convergence criteria for nonlinear calculations at index 1 is out of range. Input has to be in the range [0.01 ... 100].')
+        
+        while not double(tolerance_for_detection_of_instability) in range(0.01,100):
+            raise Exception ('WARNING: Tolerance for detection of instability at index 2 is out of range. Input has to be in the range [0.01 ... 100].')
+        
+        while not double(robustness_of_iterative_calculation) in range(1.00,100):
+            raise Exception ('WARNING: Robustness of iterative calculation at index 3 is out of range. Input has to be in the range [1.00 ... 100].')
 
         # Control nonlinear Analysis
         clientObject.max_number_of_iterations = control_nonlinear_analysis[0]
