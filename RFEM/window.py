@@ -9,34 +9,6 @@ def window(mainFunc, lstOfModels):
     win.resizable(False, False)
     win.title('Power of automation with RFEM6')
     win.geometry("550x280")
-    '''
-    win.geometry("600x280")
-    
-    columns=("one","two","three","four","five")
-    tree = ttk.Treeview(win, columns=columns)
-    
-    tree.column("one", width=100, anchor="center")
-    tree.column("two", width=100, anchor="center")
-    tree.column("three", width=100, anchor="center")
-    tree.column("four", width=100, anchor="center")
-
-    tree.heading("one", text="Type")
-    tree.heading("two", text="Symbol")
-    tree.heading("three", text="Unit")
-    tree.heading("four", text="Magnitude")
-
-    params=tree.insert(parent="", index=0, iid=0, text="Parameters", open=True)
-    tree.insert(parent=params, index='end', iid=1, text="hall width", values=("float","L","meters","20"))
-    tree.insert(parent=params, index='end', iid=2, text="hall height", values=("float","h_o","meters","5.2"))
-    tree.insert(parent=params, index='end', iid=3, text="hall height", values=("float","h_m","meters","7.3"))
-    tree.insert(parent=params, index='end', iid=4, text="frame spacing", values=("float","f_s","meters","6"))
-    tree.insert(parent=params, index='end', iid=5, text="number of frames", values=("integer","n","-","6"))
-    options=tree.insert(parent="", index=1, iid=6, text="Options", open=True)
-    tree.insert(parent=options, index='end', iid=7, text="hall width", values=("float","L","meters","20"))
-    
-    #tree.grid(row=4, column=5, sticky='nsew')
-    tree.pack(side=TOP,fill=X)
-    '''
     
     win.configure(bg=color)
     win.grid_columnconfigure(index=0, minsize=140)

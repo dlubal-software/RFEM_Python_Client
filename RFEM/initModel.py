@@ -118,8 +118,6 @@ except:
     print('- Check Program Options & Settings > Web Services')
     sys.exit()
 
-# Instantiate SOAP client model
-#cModel = modelLst = Model.clientModel = None
 try:
     modelLst = client.service.get_model_list()
 except:
@@ -135,21 +133,6 @@ session = requests.Session()
 adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
 session.mount('http://', adapter)
 trans = suds_requests.RequestsTransport(session)
-
-'''
-if modelLst:
-    new = client.service.get_active_model() + 'wsdl'
-    cModel = Client(new, transport=trans)
-    print('Resetting model...')
-    cModel.service.delete_all_results()
-    cModel.service.reset()
-else:
-    new = client.service.new_model('My Model') + 'wsdl'
-    cModel = Client(new, transport=trans)
-
-# Init client model
-Model.clientModel = cModel
-'''
 
 class Model():
     clientModel = None
@@ -184,7 +167,6 @@ class Model():
                 cModel.service.reset()
     
         Model.clientModel = cModel
-        Model.clientModel.service.begin_modification('new')
         print('Geometry...')
 
 def clearAtributes(obj):
