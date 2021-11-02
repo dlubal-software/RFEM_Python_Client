@@ -33,7 +33,7 @@ from RFEM.Loads.surfaceLoad import *
 
 if __name__ == '__main__':
 	
-	clientModel.service.begin_modification('new')
+	Model.clientModel.service.begin_modification('new')
 
 	# Creating a lot of lines for line load testing
 	
@@ -168,5 +168,5 @@ if __name__ == '__main__':
 
 	print('Ready!')
 	
-	clientModel.service.finish_modification()
+	Model.clientModel.service.finish_modification()
 	

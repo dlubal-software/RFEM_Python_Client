@@ -10,7 +10,7 @@ class LineSet():
                  params: dict = {}):
 
         # Client model | Line Set
-        clientObject = clientModel.factory.create('ns0:line_set')
+        clientObject = Model.clientModel.factory.create('ns0:line_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -32,7 +32,7 @@ class LineSet():
             clientObject[key] = params[key]
 
         # Add Line Set to client model
-        clientModel.service.set_line_set(clientObject)
+        Model.clientModel.service.set_line_set(clientObject)
 
     def ContinuousLines(self,
                  no: int = 1,
@@ -42,7 +42,7 @@ class LineSet():
                  params: dict = {}):
 
         # Client model | Line Set
-        clientObject = clientModel.factory.create('ns0:line_set')
+        clientObject = Model.clientModel.factory.create('ns0:line_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -64,7 +64,7 @@ class LineSet():
             clientObject[key] = params[key]
 
         # Add Line Set to client model
-        clientModel.service.set_line_set(clientObject)
+        Model.clientModel.service.set_line_set(clientObject)
 
     def GroupOfLines(self,
                  no: int = 1,
@@ -74,7 +74,7 @@ class LineSet():
                  params: dict = {}):
 
         # Client model | Line Set
-        clientObject = clientModel.factory.create('ns0:line_set')
+        clientObject = Model.clientModel.factory.create('ns0:line_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -96,4 +96,4 @@ class LineSet():
             clientObject[key] = params[key]
 
         # Add Line Set to client model
-        clientModel.service.set_line_set(clientObject)
+        Model.clientModel.service.set_line_set(clientObject)

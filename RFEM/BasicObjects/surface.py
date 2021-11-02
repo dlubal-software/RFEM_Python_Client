@@ -16,7 +16,7 @@ class Surface():
         '''
 
         # Client model | Surface
-        clientObject = clientModel.factory.create('ns0:surface')
+        clientObject = Model.clientModel.factory.create('ns0:surface')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -38,7 +38,7 @@ class Surface():
             clientObject[key] = params[key]
 
         # Add Surface to client model
-        clientModel.service.set_surface(clientObject)
+        Model.clientModel.service.set_surface(clientObject)
 
     def Standard(self,
                  no: int = 1,
@@ -61,7 +61,7 @@ class Surface():
         '''
 
         # Client model | Surface
-        clientObject = clientModel.factory.create('ns0:surface')
+        clientObject = Model.clientModel.factory.create('ns0:surface')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -103,7 +103,7 @@ class Surface():
         '''
 
         # Client model | Surface
-        clientObject = clientModel.factory.create('ns0:surface')
+        clientObject = Model.clientModel.factory.create('ns0:surface')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -144,7 +144,7 @@ class Surface():
         '''
 
         # Client model | Surface
-        clientObject = clientModel.factory.create('ns0:surface')
+        clientObject = Model.clientModel.factory.create('ns0:surface')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -186,7 +186,7 @@ class Surface():
         '''
 
         # Client model | Surface
-        clientObject = clientModel.factory.create('ns0:surface')
+        clientObject = Model.clientModel.factory.create('ns0:surface')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -229,7 +229,7 @@ class Surface():
         '''
 
         # Client model | Surface
-        clientObject = clientModel.factory.create('ns0:surface')
+        clientObject = Model.clientModel.factory.create('ns0:surface')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -278,7 +278,7 @@ class Surface():
         '''
 
         # Client model | Surface
-        clientObject = clientModel.factory.create('ns0:surface')
+        clientObject = Model.clientModel.factory.create('ns0:surface')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -326,7 +326,7 @@ class Surface():
             clientObject[key] = params[key]
 
         # Add Surface to client model
-        clientModel.service.set_surface(clientObject)
+        Model.clientModel.service.set_surface(clientObject)
     
     def __CreateGeometryAndSetToModel(self):
 
@@ -337,7 +337,7 @@ class Surface():
             if len(self.geometry_type_parameters) != 4:
                 raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
             for line in boundary_lines_list:
-                if clientModel.service.get_line(int(line))['type'] != 'TYPE_NURBS':
+                if Model.clientModel.service.get_line(int(line))['type'] != 'TYPE_NURBS':
                     raise Exception('WARNING: For a NURBS Surface, the boundary lines need to be NURBS Curves')
             self.clientObject.nurbs_control_point_count_in_direction_u = self.geometry_type_parameters[0]
             self.clientObject.nurbs_control_point_count_in_direction_v = self.geometry_type_parameters[1]
@@ -372,4 +372,4 @@ class Surface():
             self.clientObject[key] = self.params[key]
 
         # Add Surface to client model
-        clientModel.service.set_surface(self.clientObject)
+        Model.clientModel.service.set_surface(self.clientObject)

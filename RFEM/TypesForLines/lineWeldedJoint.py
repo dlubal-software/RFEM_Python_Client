@@ -8,7 +8,7 @@ class LineWeldedJoint():
                  params: dict = {}):
 
         # Client model | Line Welded Joint
-        clientObject = clientModel.factory.create('ns0:line_welded_joint')
+        clientObject = Model.clientModel.factory.create('ns0:line_welded_joint')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +24,4 @@ class LineWeldedJoint():
             clientObject[key] = params[key]
 
         # Add Line welded joint to client model
-        clientModel.service.set_line_welded_joint(clientObject)
+        Model.clientModel.service.set_line_welded_joint(clientObject)

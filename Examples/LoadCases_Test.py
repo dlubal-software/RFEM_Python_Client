@@ -29,7 +29,7 @@ from RFEM.Loads.surfaceLoad import *
 
 if __name__ == '__main__':
 	
-	clientModel.service.begin_modification('new')
+	Model.clientModel.service.begin_modification('new')
 
 	StaticAnalysisSettings()
 	LoadCase.StaticAnalysis(LoadCase, 1, 'SW', True, 1, DIN_Action_Category['1A'], [True, 0, 0, 1])
@@ -38,4 +38,4 @@ if __name__ == '__main__':
 	LoadCase.StaticAnalysis(LoadCase, 4, 'Wind', False,  1, DIN_Action_Category['5'], [False])
 
 
-	clientModel.service.finish_modification()
+	Model.clientModel.service.finish_modification()

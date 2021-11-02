@@ -14,7 +14,7 @@ class SurfaceSupport():
                  params: dict = {}):
 
         # Client model | Surface Support
-        clientObject = clientModel.factory.create('ns0:surface_support')
+        clientObject = Model.clientModel.factory.create('ns0:surface_support')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -40,4 +40,4 @@ class SurfaceSupport():
             clientObject[key] = params[key]
 
         # Add Surface Support to client model
-        clientModel.service.set_surface_support(clientObject)
+        Model.clientModel.service.set_surface_support(clientObject)

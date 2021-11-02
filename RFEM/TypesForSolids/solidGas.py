@@ -8,7 +8,7 @@ class SolidGas():
                  params: dict = {}):
 
         # Client model | Solid Gas
-        clientObject = clientModel.factory.create('ns0:solid_gas')
+        clientObject = Model.clientModel.factory.create('ns0:solid_gas')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +24,4 @@ class SolidGas():
             clientObject[key] = params[key]
 
         # Add Solid Gas to client model
-        clientModel.service.set_solid_gas(clientObject)
+        Model.clientModel.service.set_solid_gas(clientObject)

@@ -16,7 +16,7 @@ class Member():
                  params: dict = {}):
 
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -56,7 +56,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)    
+        Model.clientModel.service.set_member(clientObject)    
     
     def Beam(self,
             no: int = 1,
@@ -71,7 +71,7 @@ class Member():
             params: dict = {}):
 
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -111,7 +111,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def Rigid(self,
                 no: int = 1,
@@ -126,7 +126,7 @@ class Member():
                 params: dict = {}):
 
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -166,7 +166,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def Rib(self,
             no: int = 1,
@@ -181,7 +181,7 @@ class Member():
             params: dict = {}):
 
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -221,7 +221,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def Truss(self,
                 no: int = 1,
@@ -236,7 +236,7 @@ class Member():
                 params: dict = {}):
 
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -276,7 +276,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def TrussOnlyN(self,
                 no: int = 1,
@@ -291,7 +291,7 @@ class Member():
                 params: dict = {}):
 
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -331,7 +331,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def Tension(self,
                 no: int = 1,
@@ -346,7 +346,7 @@ class Member():
                 params: dict = {}):
 
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -386,7 +386,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def Compression(self,
                 no: int = 1,
@@ -401,7 +401,7 @@ class Member():
                 params: dict = {}):
 
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -441,7 +441,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def Buckling(self,
                 no: int = 1,
@@ -456,7 +456,7 @@ class Member():
                 params: dict = {}):
 
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -496,7 +496,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def Cable(self,
                 no: int = 1,
@@ -511,7 +511,7 @@ class Member():
                 params: dict = {}):
 
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -551,7 +551,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def ResultBeam(self,
                 no: int = 1,
@@ -566,7 +566,7 @@ class Member():
                 params: dict = {}):
 
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -606,7 +606,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def DefinableStifness(self,
                 no: int = 1,
@@ -621,7 +621,7 @@ class Member():
                 params: dict = {}):
 
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -661,7 +661,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def CouplingRigid_Rigid(self,
                 no: int = 1,
@@ -676,7 +676,7 @@ class Member():
                 params: dict = {}):
 
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -716,7 +716,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def CouplingRigid_Hinge(self,
                 no: int = 1,
@@ -731,7 +731,7 @@ class Member():
                 params: dict = {}):
 
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -771,7 +771,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def CouplingHinge_Rigid(self,
                 no: int = 1,
@@ -786,7 +786,7 @@ class Member():
                 params: dict = {}):
 
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -826,7 +826,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def CouplingHinge_Hinge(self,
                 no: int = 1,
@@ -841,7 +841,7 @@ class Member():
                 params: dict = {}):
 
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -881,4 +881,4 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)

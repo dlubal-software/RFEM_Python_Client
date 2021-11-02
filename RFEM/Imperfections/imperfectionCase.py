@@ -8,7 +8,7 @@ class ImperfectionCase():
                  params: dict = {}):
 
         # Client model | Imperfection Case
-        clientObject = clientModel.factory.create('ns0:imperfection_case')
+        clientObject = Model.clientModel.factory.create('ns0:imperfection_case')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -21,4 +21,4 @@ class ImperfectionCase():
             clientObject[key] = params[key]
 
         # Add Imperfection Case to client model
-        clientModel.service.set_imperfection_case(clientObject)
+        Model.clientModel.service.set_imperfection_case(clientObject)

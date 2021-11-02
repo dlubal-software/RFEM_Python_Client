@@ -29,7 +29,7 @@ from RFEM.Loads.surfaceLoad import *
 
 if __name__ == '__main__':
     
-    clientModel.service.begin_modification('new')
+    Model.clientModel.service.begin_modification('new')
     
     Material(1, 'C30/37')
 	
@@ -117,4 +117,4 @@ if __name__ == '__main__':
     #Calculate_all()
     print('Ready!')
     
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()

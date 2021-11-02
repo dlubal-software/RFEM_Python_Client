@@ -33,20 +33,20 @@ from RFEM.enums import *
 
 if __name__ == "__main__":
     
-    objectLocation = clientModel.factory.create('ns0:object_location')
+    objectLocation = Model.clientModel.factory.create('ns0:object_location')
     objectLocation.type = ObjectTypes.E_OBJECT_TYPE_SECTION.name
     objectLocation.no = 1
     objectLocation.parent_no = 0
     
-    objectParameterLocation = clientModel.factory.create('ns0:object_parameter_location_type')
+    objectParameterLocation = Model.clientModel.factory.create('ns0:object_parameter_location_type')
     objectParameterLocation.attribute = "parametrization"
-    parameterPathInNestedModelsHierarchy = clientModel.factory.create('ns0:object_parameter_location_type.parameter_path_in_nested_models_hierarchy')
-    parameterPathInNestedModelsHierarchyNode = clientModel.factory.create('ns0:object_parameter_location_type.parameter_path_in_nested_models_hierarchy.node')
+    parameterPathInNestedModelsHierarchy = Model.clientModel.factory.create('ns0:object_parameter_location_type.parameter_path_in_nested_models_hierarchy')
+    parameterPathInNestedModelsHierarchyNode = Model.clientModel.factory.create('ns0:object_parameter_location_type.parameter_path_in_nested_models_hierarchy.node')
     parameterPathInNestedModelsHierarchyNode.row_path =  "0, 0"
     parameterPathInNestedModelsHierarchyNode.column_string_id = "section_parameter_value"
     parameterPathInNestedModelsHierarchy.node = parameterPathInNestedModelsHierarchyNode
     objectParameterLocation.parameter_path_in_nested_models_hierarchy = parameterPathInNestedModelsHierarchy
-    formula = clientModel.service.get_formula(objectLocation,objectParameterLocation)
+    formula = Model.clientModel.service.get_formula(objectLocation,objectParameterLocation)
     print('formula: ' + formula.formula)
     print('Calculated value: ' + str(formula.calculated_value))
     print('Validation results: ' + formula.validation_result)

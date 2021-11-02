@@ -8,7 +8,7 @@ class LineMeshRefinements():
                  params: dict = {}):
 
         # Client model | Line Mesh Refinement
-        clientObject = clientModel.factory.create('ns0:line_mesh_refinement')
+        clientObject = Model.clientModel.factory.create('ns0:line_mesh_refinement')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +24,4 @@ class LineMeshRefinements():
             clientObject[key] = params[key]
 
         # Add Line Mesh Refinement to client model
-        clientModel.service.set_line_mesh_refinement(clientObject)
+        Model.clientModel.service.set_line_mesh_refinement(clientObject)

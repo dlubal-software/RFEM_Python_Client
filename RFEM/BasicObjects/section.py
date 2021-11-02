@@ -9,7 +9,7 @@ class Section():
                  params: dict = {}):
 
         # Client model | Section
-        clientObject = clientModel.factory.create('ns0:section')
+        clientObject = Model.clientModel.factory.create('ns0:section')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -31,4 +31,4 @@ class Section():
             clientObject[key] = params[key]
 
         # Add Section to client model
-        clientModel.service.set_section(clientObject)
+        Model.clientModel.service.set_section(clientObject)

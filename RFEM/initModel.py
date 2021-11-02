@@ -119,7 +119,7 @@ except:
     sys.exit()
 
 # Instantiate SOAP client model
-cModel = modelLst = None
+#cModel = modelLst = Model.clientModel = None
 try:
     modelLst = client.service.get_model_list()
 except:
@@ -136,6 +136,7 @@ adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
 session.mount('http://', adapter)
 trans = suds_requests.RequestsTransport(session)
 
+'''
 if modelLst:
     new = client.service.get_active_model() + 'wsdl'
     cModel = Client(new, transport=trans)
@@ -147,7 +148,44 @@ else:
     cModel = Client(new, transport=trans)
 
 # Init client model
-clientModel = cModel
+Model.clientModel = cModel
+'''
+
+class Model():
+    clientModel = None
+    def __init__(self,
+                 hall_width_L,
+                 hall_height_h_o,
+                 hall_height_h_m,
+                 number_frames,
+                 frame_spacing,
+                 new_model,
+                 model_name,
+                 delete,
+                 reset):
+    
+        cModel = None
+        if new_model:
+            new = client.service.new_model(model_name) + 'wsdl'
+            cModel = Client(new, transport=trans)
+        else:
+            modelLst = client.service.get_model_list()
+            modelIndex = 0
+            for i in range(len(modelLst)):
+                if modelLst[i] == model_name:
+                    modelIndex = i
+            new = client.service.get_model(modelIndex) + 'wsdl'
+            cModel = Client(new, transport=trans)
+            if delete:
+                print('Deleting results...')
+                cModel.service.delete_all_results()
+            if reset:
+                print('Resetting model...')
+                cModel.service.reset()
+    
+        Model.clientModel = cModel
+        Model.clientModel.service.begin_modification('new')
+        print('Geometry...')
 
 def clearAtributes(obj):
     '''
@@ -182,7 +220,7 @@ def Calculate_all(generateXmlSolverInput: bool = False):
     Params:
     - generateXmlSolverInput: generate XML solver input
     '''
-    clientModel.service.calculate_all(generateXmlSolverInput)
+    Model.clientModel.service.calculate_all(generateXmlSolverInput)
 
 def ConvertToDlString(s):
     '''
@@ -234,10 +272,10 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
         designSituations (list, optional): [description]. Defaults to None.
         loadCombinations (list, optional): [description]. Defaults to None.
     '''
-    specificObjectsToCalculate = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements')
+    specificObjectsToCalculate = Model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements')
     if loadCases is not None:
         for loadCase in loadCases:
-            specificObjectsToCalculateLC = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
+            specificObjectsToCalculateLC = Model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
             specificObjectsToCalculateLC.no = loadCase
             specificObjectsToCalculateLC.parent_no = 0
             specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
@@ -245,7 +283,7 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
     
     if designSituations is not None:
         for designSituation in designSituations:
-            specificObjectsToCalculateDS = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
+            specificObjectsToCalculateDS = Model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
             specificObjectsToCalculateDS.no = designSituation
             specificObjectsToCalculateDS.parent_no = 0
             specificObjectsToCalculateDS.type = ObjectTypes.E_OBJECT_TYPE_DESIGN_SITUATION.name
@@ -253,30 +291,30 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
     
     if loadCombinations is not None:
         for loadCombination in loadCombinations:
-            specificObjectsToCalculateLC = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
+            specificObjectsToCalculateLC = Model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
             specificObjectsToCalculateLC.no = loadCombination
             specificObjectsToCalculateLC.parent_no = 0
             specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
             specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
     
 
-    clientModel.service.calculate_specific_objects(specificObjectsToCalculate)
+    Model.clientModel.service.calculate_specific_objects(specificObjectsToCalculate)
 
 def ExportResultTablesToCsv(TargetDirectoryPath: str):
 
-    clientModel.service.export_result_tables_to_csv(TargetDirectoryPath)
+    Model.clientModel.service.export_result_tables_to_csv(TargetDirectoryPath)
 
 def ExportResultTablesToXML(TargetFilePath: str):
 
-    clientModel.service.export_result_tables_to_xml(TargetFilePath)
+    Model.clientModel.service.export_result_tables_to_xml(TargetFilePath)
 
 def ExportResultTablesWithDetailedMembersResultsToCsv(TargetDirectoryPath: str):
     
-    clientModel.service.export_result_tables_with_detailed_members_results_to_csv(TargetDirectoryPath)
+    Model.clientModel.service.export_result_tables_with_detailed_members_results_to_csv(TargetDirectoryPath)
 
 def ExportResultTablesWithDetailedMembersResultsToXML(TargetFilePath: str):
     
-    clientModel.service.export_result_tables_with_detailed_members_results_to_xml(TargetFilePath)
+    Model.clientModel.service.export_result_tables_with_detailed_members_results_to_xml(TargetFilePath)
     
 def  __parseXMLAsDictionary(path: str =""):
     with open(path, "rb") as f:

@@ -1,6 +1,6 @@
-from RFEM.initModel import *
+from RFEM.initModel import clearAtributes, Model
 
-class Material():
+class Material(Model):
     def __init__(self,
                  no: int = 1,
                  name: str = 'S235',
@@ -8,7 +8,7 @@ class Material():
                  params: dict = {}):
 
         # Client model | Material
-        clientObject = clientModel.factory.create('ns0:material')
+        clientObject = Model.clientModel.factory.create('ns0:material')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -27,4 +27,4 @@ class Material():
             clientObject[key] = params[key]
 
         # Add material to client model
-        clientModel.service.set_material(clientObject)
+        Model.clientModel.service.set_material(clientObject)

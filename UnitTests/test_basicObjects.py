@@ -33,23 +33,23 @@ from RFEM.Loads.surfaceLoad import *
 
 def test_material():
 
-    clientModel.service.begin_modification('new')
+    Model.clientModel.service.begin_modification('new')
     Material(1, 'S235')
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    material = clientModel.service.get_material(1)
+    material = Model.clientModel.service.get_material(1)
     print(material)
     assert material.name == 'S235'
 
 
 def test_section():
 
-    clientModel.service.begin_modification('new')
+    Model.clientModel.service.begin_modification('new')
     Material(1, 'S235')
     Section(1, 'IPE 200')
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    section = clientModel.service.get_section(1)
+    section = Model.clientModel.service.get_section(1)
     print(section)
     assert section.material == 1
     assert section.name == 'IPE 200'
@@ -58,13 +58,13 @@ def test_section():
 
 def test_nodes():
 
-    clientModel.service.begin_modification('new')
+    Model.clientModel.service.begin_modification('new')
     Node(1, 1.0, 2.0, 3.0)
     Node(2, 4.0, 5.0, 6.0)
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    nodeOne = clientModel.service.get_node(1)
-    nodeTwo = clientModel.service.get_node(2)
+    nodeOne = Model.clientModel.service.get_node(1)
+    nodeTwo = Model.clientModel.service.get_node(2)
 
     assert nodeOne.coordinate_1 == 1.0
     assert nodeOne.coordinate_2 == 2.0

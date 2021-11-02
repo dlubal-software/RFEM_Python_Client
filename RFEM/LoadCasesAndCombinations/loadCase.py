@@ -25,7 +25,7 @@ class LoadCase():
         '''
 
         # Client model | Load Case
-        clientObject = clientModel.factory.create('ns0:load_case')
+        clientObject = Model.clientModel.factory.create('ns0:load_case')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -68,7 +68,7 @@ class LoadCase():
             clientObject[key] = params[key]
 
         # Add Load Case to client model
-        clientModel.service.set_load_case(clientObject)
+        Model.clientModel.service.set_load_case(clientObject)
 
     def StaticAnalysis(self,
                  no: int = 1,
@@ -118,7 +118,7 @@ class LoadCase():
         '''
 
         # Client model | Load Case
-        clientObject = clientModel.factory.create('ns0:load_case')
+        clientObject = Model.clientModel.factory.create('ns0:load_case')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -161,4 +161,4 @@ class LoadCase():
             clientObject[key] = params[key]
 
         # Add Load Case to client model
-        clientModel.service.set_load_case(clientObject)
+        Model.clientModel.service.set_load_case(clientObject)

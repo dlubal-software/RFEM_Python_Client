@@ -28,7 +28,7 @@ from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 
 if __name__ == '__main__':
-    clientModel.service.begin_modification('new')
+    Model.clientModel.service.begin_modification('new')
 
     Material(1, 'S235')
     
@@ -213,8 +213,8 @@ if __name__ == '__main__':
                          [[1, 4], [0, 6], [2, 6]],
                          [1500, 7500, 2, 1])
 
-    #print(clientModel)
+    #print(Model.clientModel)
     #Calculate_all()
     print('Ready!')
     
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()

@@ -74,7 +74,7 @@ class MyDialog(QtWidgets.QDialog):
             sys.exit()
 
         # RFEM 6
-        clientModel.service.begin_modification('new')
+        Model.clientModel.service.begin_modification('new')
 
         Material(1, 'S235')
 
@@ -100,7 +100,7 @@ class MyDialog(QtWidgets.QDialog):
         print('Ready!')
         
 
-        clientModel.service.finish_modification()
+        Model.clientModel.service.finish_modification()
 
     def onCancel(self):
         print('Cancel')

@@ -38,7 +38,7 @@ if __name__ == '__main__':
     l = float(input('Length of the cantilever in m: '))
     f = float(input('Force in kN: '))
 
-    clientModel.service.begin_modification('new')
+    Model.clientModel.service.begin_modification('new')
 
     Material(1, 'S235')
 
@@ -58,12 +58,12 @@ if __name__ == '__main__':
 
     NodalLoad(
         1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, f*1000)
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
     Calculate_all()
 
     # model status
-    modelStatus = clientModel.service.get_model_info()
+    modelStatus = Model.clientModel.service.get_model_info()
     print("Model is calculated") if modelStatus.property_has_results else print("Model is not calculated")
     print("Model contains printout report") if modelStatus.property_has_printout_report else print("Model has not printout report")
     print ("Model contains " +  str(modelStatus.property_node_count) + " nodes")
@@ -80,14 +80,14 @@ if __name__ == '__main__':
     print ("Model dimension z " + str(modelStatus.property_dimensions.z))
     
     
-    # clientModel.service.save(r"D:/TEMP/model.rf6")
+    # Model.clientModel.service.save(r"D:/TEMP/model.rf6")
     
-    # clientModel.service.export_to(r"D:/TEMP/model.gltf")
-    # clientModel.service.export_to(r"D:/TEMP/model.glb")
-    # clientModel.service.export_to(r"D:/TEMP/model.vtk")
-   # clientObject = clientModel.factory.create('ns0:nodal_load')
+    # Model.clientModel.service.export_to(r"D:/TEMP/model.gltf")
+    # Model.clientModel.service.export_to(r"D:/TEMP/model.glb")
+    # Model.clientModel.service.export_to(r"D:/TEMP/model.vtk")
+   # clientObject = Model.clientModel.factory.create('ns0:nodal_load')
     # export_to_ifc_object_location_type[] ifcLocation = null; // whole model will be exported
-    # ifcSettings = clientModel.factory.create('ns0:export_to_ifc_settings_type')
+    # ifcSettings = Model.clientModel.factory.create('ns0:export_to_ifc_settings_type')
          
     # ifcSettings.axis_rotation_sequence = "X'Y'Z'"
     # ifcSettings.mirror_axis_x = False
@@ -104,7 +104,7 @@ if __name__ == '__main__':
     # ifcSettings.switch_axis_y = export_to_ifc_axis_type.Y.name
     # ifcSettings.switch_axis_z = export_to_ifc_axis_type.Z.name
     # ifcSettings.remove_accents = False
-    # clientModel.service.export_to_ifc(r'D:/TEMP/Mymodel.ifc', ifcSettings, None)
+    # Model.clientModel.service.export_to_ifc(r'D:/TEMP/Mymodel.ifc', ifcSettings, None)
     
     # loadCases = [1]
     # CalculateSelectedCases(loadCases=loadCases)

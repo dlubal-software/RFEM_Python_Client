@@ -8,7 +8,7 @@ class SolidMeshRefinement():
                  params: dict = {}):
 
         # Client model | Solid Mesh Refinement
-        clientObject = clientModel.factory.create('ns0:solid_mesh_refinement')
+        clientObject = Model.clientModel.factory.create('ns0:solid_mesh_refinement')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +24,4 @@ class SolidMeshRefinement():
             clientObject[key] = params[key]
 
         # Add Solid Mesh Refinement to client model
-        clientModel.service.set_solid_mesh_refinement(clientObject)
+        Model.clientModel.service.set_solid_mesh_refinement(clientObject)

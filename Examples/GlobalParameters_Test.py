@@ -13,7 +13,7 @@ from RFEM.initModel import *
 
 if __name__ == '__main__':
     
-    clientModel.service.begin_modification('new')
+    Model.clientModel.service.begin_modification('new')
     #not yet implemented in RFEM6 GM
     GlobalParameter.AddParameter(GlobalParameter, 
                                  no= 1,
@@ -62,4 +62,4 @@ if __name__ == '__main__':
 
     print('Ready!')
     
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()

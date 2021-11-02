@@ -28,7 +28,7 @@ from RFEM.enums import *
 
 if __name__ == '__main__':
 
-    clientModel.service.begin_modification()
+    Model.clientModel.service.begin_modification()
 
     # Create Material 
     Material(1, 'S235')
@@ -150,5 +150,5 @@ if __name__ == '__main__':
 
     print('Ready!')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 

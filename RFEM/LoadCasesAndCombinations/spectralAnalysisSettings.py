@@ -17,7 +17,7 @@ class SpectralAnalysisSettings():
                  params: dict = {}):
 
         # Client model | Surface
-        clientObject = clientModel.factory.create('ns0:spectral_analysis_settings')
+        clientObject = Model.clientModel.factory.create('ns0:spectral_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -65,4 +65,4 @@ class SpectralAnalysisSettings():
         for key in params:
             clientObject[key] = params[key]
         # Add Static Analysis Settings to client model
-        clientModel.service.set_spectral_analysis_settings(clientObject)
+        Model.clientModel.service.set_spectral_analysis_settings(clientObject)

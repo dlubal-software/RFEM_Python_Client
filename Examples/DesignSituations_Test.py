@@ -15,7 +15,7 @@ from RFEM.LoadCasesAndCombinations.designSituation import *
 
 if __name__ == '__main__':
 	
-	clientModel.service.begin_modification('new')
+	Model.clientModel.service.begin_modification('new')
 
 	StaticAnalysisSettings()
 
@@ -42,4 +42,4 @@ if __name__ == '__main__':
 	DesignSituation(14, design_situation_type= 6194, active= False)
 	DesignSituation(15, design_situation_type= 6195, active= False)
 
-	clientModel.service.finish_modification()
+	Model.clientModel.service.finish_modification()

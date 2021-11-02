@@ -33,7 +33,7 @@ from RFEM.Loads.surfaceLoad import *
 
 if __name__ == '__main__':
 
-    clientModel.service.begin_modification('new')
+    Model.clientModel.service.begin_modification('new')
 
     # Testing the Default Function
     Node(1, 0, -30, 0), Node(2, 10, -30, 0), Node(3, 10, -20, 0), Node(4, 0, -20, 0)
@@ -48,5 +48,5 @@ if __name__ == '__main__':
     Surface.LoadDistribution(Surface, 2, boundary_lines_no= '5 6 7 8', load_distribution_direction=SurfaceLoadDistributionDirection.LOAD_DISTRIBUTION_DIRECTION_IN_BOTH,
                              surface_weight_enabled=True, surface_weight=10, loaded_lines='6 7 8', excluded_lines='5')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 

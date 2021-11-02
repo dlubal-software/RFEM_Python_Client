@@ -20,7 +20,7 @@ class SurfaceLoad():
             params (dict, optional): Parameters
         """
         # Client model | Surface Load
-        clientObject = clientModel.factory.create('ns0:surface_load')
+        clientObject = Model.clientModel.factory.create('ns0:surface_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -53,7 +53,7 @@ class SurfaceLoad():
             clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        clientModel.service.set_surface_load(load_case_no, clientObject)
+        Model.clientModel.service.set_surface_load(load_case_no, clientObject)
 
     def Force(self,
                  no: int = 1,
@@ -93,7 +93,7 @@ class SurfaceLoad():
             params (dict, optional): Parameters
         """
         # Client model | Surface Load
-        clientObject = clientModel.factory.create('ns0:surface_load')
+        clientObject = Model.clientModel.factory.create('ns0:surface_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -161,9 +161,9 @@ class SurfaceLoad():
 
         elif load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
 
-            clientObject.varying_load_parameters = clientModel.factory.create('ns0:surface_load.varying_load_parameters')
+            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:surface_load.varying_load_parameters')
             for i in range(len(load_parameter)):
-                mlvlp = clientModel.factory.create('ns0:surface_load_varying_load_parameters')
+                mlvlp = Model.clientModel.factory.create('ns0:surface_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
                 mlvlp.delta_distance = load_parameter[i][1]
@@ -180,7 +180,7 @@ class SurfaceLoad():
             clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        clientModel.service.set_surface_load(load_case_no, clientObject)
+        Model.clientModel.service.set_surface_load(load_case_no, clientObject)
 
     def Temperature(self,
                  no: int = 1,
@@ -216,7 +216,7 @@ class SurfaceLoad():
             params (dict, optional): Parameters
         """
         # Client model | Surface Load
-        clientObject = clientModel.factory.create('ns0:surface_load')
+        clientObject = Model.clientModel.factory.create('ns0:surface_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -291,7 +291,7 @@ class SurfaceLoad():
             clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        clientModel.service.set_surface_load(load_case_no, clientObject)
+        Model.clientModel.service.set_surface_load(load_case_no, clientObject)
 
     def AxialStrain(self,
                  no: int = 1,
@@ -322,7 +322,7 @@ class SurfaceLoad():
             params (dict, optional): Parameters
         """
         # Client model | Surface Load
-        clientObject = clientModel.factory.create('ns0:surface_load')
+        clientObject = Model.clientModel.factory.create('ns0:surface_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -376,7 +376,7 @@ class SurfaceLoad():
             clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        clientModel.service.set_surface_load(load_case_no, clientObject)
+        Model.clientModel.service.set_surface_load(load_case_no, clientObject)
 
     def Precamber(self,
                  no: int = 1,
@@ -395,7 +395,7 @@ class SurfaceLoad():
             params (dict, optional): Parameters
         """
         # Client model | Surface Load
-        clientObject = clientModel.factory.create('ns0:surface_load')
+        clientObject = Model.clientModel.factory.create('ns0:surface_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -428,7 +428,7 @@ class SurfaceLoad():
             clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        clientModel.service.set_surface_load(load_case_no, clientObject)
+        Model.clientModel.service.set_surface_load(load_case_no, clientObject)
 
     def RotaryMotion(self,
                  no: int = 1,
@@ -453,7 +453,7 @@ class SurfaceLoad():
             params (dict, optional): Parameters
         """
         # Client model | Surface Load
-        clientObject = clientModel.factory.create('ns0:surface_load')
+        clientObject = Model.clientModel.factory.create('ns0:surface_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -497,7 +497,7 @@ class SurfaceLoad():
             clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        clientModel.service.set_surface_load(load_case_no, clientObject)
+        Model.clientModel.service.set_surface_load(load_case_no, clientObject)
 
     def Mass(self,
                  no: int = 1,
@@ -524,7 +524,7 @@ class SurfaceLoad():
             params (dict, optional): 
         """
         # Client model | Surface Load
-        clientObject = clientModel.factory.create('ns0:surface_load')
+        clientObject = Model.clientModel.factory.create('ns0:surface_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -565,4 +565,4 @@ class SurfaceLoad():
             clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        clientModel.service.set_surface_load(load_case_no, clientObject)
+        Model.clientModel.service.set_surface_load(load_case_no, clientObject)
