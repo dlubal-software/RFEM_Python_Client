@@ -179,7 +179,7 @@ class StaticAnalysisSettings():
                  For iterative_method == "NEWTON_RAPHSON" or iterative_method.name == "NEWTON_RAPHSON_COMBINED_WITH_PICARD" or iterative_method.name == "PICARD" or iterative_method.name == "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS"
                        max_number_of_iterations = int
                        number_of_load_increments = int
-                For iterative_method == "DYNAMIC_RELAXATION":
+                 For iterative_method == "DYNAMIC_RELAXATION":
                        max_number_of_iterations = None
                        number_of_load_increments = None
             standard_precision_and_tolerance_settings (list, optional): [standard_precision_and_tolerance_settings_enabled, precision_of_convergence_criteria_for_nonlinear_calculation, tolerance_for_detection_of_instability, robustness_of_iterative_calculation]
