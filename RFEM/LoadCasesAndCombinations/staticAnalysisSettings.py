@@ -61,11 +61,11 @@ class StaticAnalysisSettings():
         Args:
             no (int): 
             name (str, optional): Static Analysis Name
-            load_modification (list, optional): [load_multiplier_factor, multiplier_factor, dividing_results]
-                 For load_multiplier_factor == False:
+            load_modification (list, optional): [loading_by_multiplier_factor, multiplier_factor, dividing_results]
+                 For loading_by_multiplier_factor == False:
                       multiplier_factor = None
                       dividing_results = None
-                 For load_multiplier_factor == True:
+                 For loading_by_multiplier_factor == True:
                       multiplier_factor = int
                       dividing_results = bool
             bourdon_effect (bool, optional): 
@@ -99,11 +99,11 @@ class StaticAnalysisSettings():
         clientObject.analysis_type = StaticAnalysisType.GEOMETRICALLY_LINEAR.name
 
         # Load Multiplier Factor 
-        clientObject.modify_loading_by_multiplier_factor = load_multiplier_factor 
+        clientObject.modify_loading_by_multiplier_factor = loading_by_multiplier_factor 
         clientObject.number_of_iterations_for_loading_prestress = multiplier_factor
         clientObject.divide_results_by_loading_factor = dividing_results
-        if load_multiplier_factor != False:
-            load_multiplier_factor = True 
+        if loading_by_multiplier_factor != False:
+            loading_by_multiplier_factor = True 
             multiplier_factor = int
             dividing_results = bool
             
@@ -184,11 +184,11 @@ class StaticAnalysisSettings():
                        number_of_load_increments = None
             standard_precision_and_tolerance_settings (list, optional): [standard_precision_and_tolerance_settings_enabled, precision_of_convergence_criteria_for_nonlinear_calculation, tolerance_for_detection_of_instability, robustness_of_iterative_calculation]
             control_nonlinear_analysis (list): [max_number_of_iterations, number_of_load_increments]
-            load_modification (list, optional): [load_multiplier_factor, multiplier_factor, dividing_results]
-                 For load_multiplier_factor == False:
+            load_modification (list, optional): [loading_by_multiplier_factor, multiplier_factor, dividing_results]
+                 For loading_by_multiplier_factor == False:
                       multiplier_factor = None
                       dividing_results = None
-                 For load_multiplier_factor == True:
+                 For loading_by_multiplier_factor == True:
                       multiplier_factor = int
                       dividing_results = bool
             instabil_structure_calculation (bool, optional): 
@@ -291,12 +291,12 @@ class StaticAnalysisSettings():
         clientObject.number_of_iterations_for_loading_prestress = load_modification[1]
         clientObject.divide_results_by_loading_factor = load_modification[2]
         
-        clientObject.modify_loading_by_multiplier_factor = load_multiplier_factor 
+        clientObject.modify_loading_by_multiplier_factor = loading_by_multiplier_factor 
         clientObject.number_of_iterations_for_loading_prestress = multiplier_factor
         clientObject.divide_results_by_loading_factor = dividing_results
   
-        if load_multiplier_factor != False:
-            load_multiplier_factor = True 
+        if loading_by_multiplier_factor != False:
+            loading_by_multiplier_factor = True 
             multiplier_factor = int
             dividing_results = bool
             
@@ -310,8 +310,8 @@ class StaticAnalysisSettings():
         if type(load_modification[2]) != bool :
             raise Exception ('WARNING: Dividing results parameter at index 0 has to be of type "int"')
         
-        if load_multiplier_factor != False:
-            load_multiplier_factor = True 
+        if loading_by_multiplier_factor != False:
+            loading_by_multiplier_factor = True 
             multiplier_factor = int
             dividing_results = bool
         
@@ -392,11 +392,11 @@ class StaticAnalysisSettings():
             iterative_method (enum): Static Analysis Settings Iterative Method for Non-linear Analysis Enumeration
             standard_precision_and_tolerance_settings (list, optional): [standard_precision_and_tolerance_settings_enabled, precision_of_convergence_criteria_for_nonlinear_calculation, tolerance_for_detection_of_instability, robustness_of_iterative_calculation]
             control_nonlinear_analysis (list): [max_number_of_iterations, number_of_load_increments]
-            load_multiplier_factor (bool, optional): 
-                 For load_multiplier_factor == False:
+            loading_by_multiplier_factor (bool, optional): 
+                 For loading_by_multiplier_factor == False:
                       multiplier_factor = None
                       dividing_results = None
-                 For load_multiplier_factor == True:
+                 For loading_by_multiplier_factor == True:
                       multiplier_factor = int
                       dividing_results = bool
             favorable_effect_due_to_tension_in_members (bool, optional): 
@@ -502,12 +502,12 @@ class StaticAnalysisSettings():
         clientObject.number_of_iterations_for_loading_prestress = load_modification[1]
         clientObject.divide_results_by_loading_factor = load_modification[2]
         
-        clientObject.modify_loading_by_multiplier_factor = load_multiplier_factor 
+        clientObject.modify_loading_by_multiplier_factor = loading_by_multiplier_factor 
         clientObject.number_of_iterations_for_loading_prestress = multiplier_factor
         clientObject.divide_results_by_loading_factor = dividing_results
   
-        if load_multiplier_factor != False:
-            load_multiplier_factor = True 
+        if loading_by_multiplier_factor != False:
+            loading_by_multiplier_factor = True 
             multiplier_factor = int
             dividing_results = bool
             
@@ -521,8 +521,8 @@ class StaticAnalysisSettings():
         if type(load_modification[2]) != bool :
             raise Exception ('WARNING: Dividing results parameter at index 0 to be of type "int"')
         
-        if load_multiplier_factor != False:
-            load_multiplier_factor = True 
+        if loading_by_multiplier_factor != False:
+            loading_by_multiplier_factor = True 
             multiplier_factor = int
             dividing_results = bool
 
