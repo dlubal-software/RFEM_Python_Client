@@ -98,10 +98,31 @@ class StaticAnalysisSettings():
         # Static Analysis Type
         clientObject.analysis_type = StaticAnalysisType.GEOMETRICALLY_LINEAR.name
 
-        # Load Multiplier Factor 
+        # Load Modification
+        
+        clientObject.modify_loading_by_multiplier_factor = load_modification[0]
+        clientObject.number_of_iterations_for_loading_prestress = load_modification[1]
+        clientObject.divide_results_by_loading_factor = load_modification[2]
+        
         clientObject.modify_loading_by_multiplier_factor = loading_by_multiplier_factor 
         clientObject.number_of_iterations_for_loading_prestress = multiplier_factor
         clientObject.divide_results_by_loading_factor = dividing_results
+  
+        if loading_by_multiplier_factor != False:
+            loading_by_multiplier_factor = True 
+            multiplier_factor = int
+            dividing_results = bool
+            
+        if len(load_modification) != 3:
+            raise Exception('WARNING: The load modification parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
+            
+        if type(load_modification[0]) != bool :
+            raise Exception ('WARNING: Load multiplier factor parameter at index 0 to be of type "int"')
+        if type(load_modification[1]) != int :
+            raise Exception ('WARNING: Multiplier factor parameter at index 1 to be of type "int"')
+        if type(load_modification[2]) != bool :
+            raise Exception ('WARNING: Dividing results parameter at index 0 to be of type "int"')
+        
         if loading_by_multiplier_factor != False:
             loading_by_multiplier_factor = True 
             multiplier_factor = int
