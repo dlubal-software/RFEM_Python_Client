@@ -1,108 +1,275 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>2.1.12. SurfaceSet &mdash; RFEM 6.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
     
-    <title>2.1.12. SurfaceSet &#8212; RFEM 6.0.1 documentation</title>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'6.0.1',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
     
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
     
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '6.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="2.1.13. SolidSet" href="2.1.13-solidsets.html" />
-    <link rel="prev" title="2.1.11. MemberSet" href="2.1.11-membersets.html" />
+    <link rel="prev" title="2.1.11. MemberSet" href="2.1.11-membersets.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head>
-  <body role="document">
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: white" >
           
 
-          <div class="body" role="main">
+          
+            <a href="index.html" class="icon icon-home"> RFEM
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                6.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="1-installation.html">1. <strong>Installation</strong></a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="2-globalcommands.html">2. <strong>Global Commands</strong></a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="2.1-basicobjects.html">2.1. <strong>Basic Objects</strong></a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="2.1.1-materials.html">2.1.1. Material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2.1.2-sections.html">2.1.2. Section</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2.1.3-thicknesses.html">2.1.3. Thickness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2.1.4-nodes.html">2.1.4. Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2.1.5-lines.html">2.1.5. Line</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2.1.6-members.html">2.1.6. Member</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2.1.7-surfaces.html">2.1.7. Surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2.1.8-openings.html">2.1.8. Opening</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2.1.9-solids.html">2.1.9. Solid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2.1.10-linesets.html">2.1.10. LineSet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2.1.11-membersets.html">2.1.11. MemberSet</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">2.1.12. SurfaceSet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="2.1.13-solidsets.html">2.1.13. SolidSet</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="2.2-specialobjects.html">2.2. <strong>Special Objects</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.3-typesfornodes.html">2.3. <strong>Types for Nodes</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.4-typesforlines.html">2.4. <strong>Types for Lines</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.5-typesformembers.html">2.5. <strong>Types for Members</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.6-typesforsurfaces.html">2.6. <strong>Types for Surfaces</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.7-typesforsolids.html">2.7. <strong>Types for Solids</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.8-typesforspecialobjects.html">2.8. <strong>Types for Special Objects</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.9-imperfection.html">2.9. <strong>Imperfections</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.10-loadcasesandcombinations.html">2.10. <strong>Load Cases and Combinations</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.11-loadwizards.html">2.11. <strong>Load Wizards</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.12-loads.html">2.12. <strong>Loads</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.13-results.html">2.13. <strong>Results</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.14-guideobjects.html">2.14. <strong>Guide Objects</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="2.15-printoutreport.html">2.15. <strong>Printout Report</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="3-addoncommands.html">3. <strong>Add-on Commands</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="4-examples.html">4. Example</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RFEM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="2-globalcommands.html">2. <strong>Global Commands</strong></a> &raquo;</li>
+        
+          <li><a href="2.1-basicobjects.html">2.1. <strong>Basic Objects</strong></a> &raquo;</li>
+        
+      <li>2.1.12. SurfaceSet</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/2.1.12-surfacesets.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   <div class="section" id="surfaceset">
 <h1>2.1.12. SurfaceSet<a class="headerlink" href="#surfaceset" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
+           </div>
+           
           </div>
-          
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="2-globalcommands.html">2. <strong>Global Commands</strong></a><ul>
-  <li><a href="2.1-basicobjects.html">2.1. <strong>Basic Objects</strong></a><ul>
-      <li>Previous: <a href="2.1.11-membersets.html" title="previous chapter">2.1.11. MemberSet</a></li>
-      <li>Next: <a href="2.1.13-solidsets.html" title="next chapter">2.1.13. SolidSet</a></li>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/2.1.12-surfacesets.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2021, Dlubal Software.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="_sources/2.1.12-surfacesets.rst.txt"
-          rel="nofollow">Page source</a>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="2.1.13-solidsets.html" class="btn btn-neutral float-right" title="2.1.13. SolidSet" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="2.1.11-membersets.html" class="btn btn-neutral float-left" title="2.1.11. MemberSet" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Dlubal Software.
+
+    </p>
+  </div>
     
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    <!-- Theme Analytics -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'G-XXXXXXXXXX', 'auto');
+    
+    ga('send', 'pageview');
+    </script>
 
     
-  </body>
+   
+
+</body>
 </html>
