@@ -717,6 +717,18 @@ class export_to_ifc_export_type(Enum):
 
     E_EXPORT_IFC4_REFERENCE_VIEW, E_EXPORT_IFC4_STRUCTURAL_ANALYSIS_VIEW = range(2)
 
+class GlobalAxesOrientationType(Enum):
+    '''
+    Model Settings and Options Global Axes Orientation Type
+    '''
+    E_GLOBAL_AXES_ORIENTATION_ZDOWN, E_GLOBAL_AXES_ORIENTATION_ZUP = range(2)
+
+class LocalAxesOrientationType(Enum):
+    '''
+    Model Settings and Local Axes Orientation Type
+    '''
+    E_LOCAL_AXES_ORIENTATION_YUPX, E_LOCAL_AXES_ORIENTATION_YUPZ, E_LOCAL_AXES_ORIENTATION_ZDOWN, E_LOCAL_AXES_ORIENTATION_ZUP = range(4)
+
 class ModelType(Enum):
     '''
     Model Type | Enum
