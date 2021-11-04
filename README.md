@@ -46,6 +46,9 @@ Dependency check is implemented inside [initModel.py](/RFEM/initModel.py) with o
 ### Examples
 Examples can be found under [Examples](/Examples) folder.
 
+## API Documentation
+Visit our [GitHub page](https://dlubal-software.github.io/RFEM_Python_Client/)
+
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
