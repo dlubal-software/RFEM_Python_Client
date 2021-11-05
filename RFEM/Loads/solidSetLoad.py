@@ -49,20 +49,20 @@ class SolidSetLoad():
             clientObject[key] = params[key]
 
         # Add Solid Load to client model
-        clientModel.service.set_solid_load(load_case_no, clientObject)
+        clientModel.service.set_solid_set_load(load_case_no, clientObject)
         
 
     def Force(self,
               no: int =1,
               load_case_no: int = 1,
-              solids_no: str= '1',
-              load_direction = SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
+              solid_sets_no: str= '1',
+              load_direction = SolidSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
               magnitude: float = 0,
               comment: str = '',
               params: dict = {}):
               
         # Client model | Solid Load
-        clientObject = clientModel.factory.create('ns0:solid_load')
+        clientObject = clientModel.factory.create('ns0:solid_set_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -74,13 +74,13 @@ class SolidSetLoad():
         clientObject.load_case = load_case_no
         
         # Assigned Solid No.
-        clientObject.solids = ConvertToDlString(solids_no)
+        clientObject.solid_sets = ConvertToDlString(solid_sets_no)
         
         # Load Type
-        clientObject.load_type = SolidLoadType.LOAD_TYPE_FORCE.name
+        clientObject.load_type = SolidSetLoadType.LOAD_TYPE_FORCE.name
 
         # Load Distribution
-        clientObject.load_distribution = SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM.name
+        clientObject.load_distribution = SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM.name
 
         # Load Direction
         clientObject.load_direction = load_direction.name
@@ -96,14 +96,14 @@ class SolidSetLoad():
             clientObject[key] = params[key]
 
         # Add Solid Load to client model
-        clientModel.service.set_solid_load(load_case_no, clientObject)
+        clientModel.service.set_solid_set_load(load_case_no, clientObject)
 
 
     def Temperature(self,
                     no: int = 1,
                     load_case_no: int = 1,
-                    solids_no: str= '1',
-                    load_distribution = SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
+                    solid_sets_no: str= '1',
+                    load_distribution = SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                     load_parameter = None,
                     comment: str = '',
                     params: dict = {}):
@@ -117,7 +117,7 @@ class SolidSetLoad():
             {''}
         '''
         # Client model | Solid Load
-        clientObject = clientModel.factory.create('ns0:solid_load')
+        clientObject = clientModel.factory.create('ns0:solid_set_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -129,10 +129,10 @@ class SolidSetLoad():
         clientObject.load_case = load_case_no
         
         # Assigned Solid No.
-        clientObject.solids = ConvertToDlString(solids_no)
+        clientObject.solid_sets = ConvertToDlString(solid_sets_no)
         
         # Load Type
-        clientObject.load_type = SolidLoadType.LOAD_TYPE_TEMPERATURE.name
+        clientObject.load_type = SolidSetLoadType.LOAD_TYPE_TEMPERATURE.name
 
         # Load Distribution
         if load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM":
@@ -153,14 +153,14 @@ class SolidSetLoad():
             clientObject[key] = params[key]
 
         # Add Solid Load to client model
-        clientModel.service.set_solid_load(load_case_no, clientObject)
+        clientModel.service.set_solid_set_load(load_case_no, clientObject)
 
 
     def Strain(self,
                no: int = 1,
                load_case_no: int = 1,
-               solids_no: str= '1',
-               load_distribution = SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
+               solid_sets_no: str= '1',
+               load_distribution = SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                load_parameter = None,
                comment: str = '',
                params: dict = {}):
@@ -174,7 +174,7 @@ class SolidSetLoad():
             {''}
         '''
         # Client model | Solid Load
-        clientObject = clientModel.factory.create('ns0:solid_load')
+        clientObject = clientModel.factory.create('ns0:solid_set_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -186,10 +186,10 @@ class SolidSetLoad():
         clientObject.load_case = load_case_no
         
         # Assigned Solid No.
-        clientObject.solids = ConvertToDlString(solids_no)
+        clientObject.solid_sets = ConvertToDlString(solid_sets_no)
         
         # Load Type
-        clientObject.load_type = SolidLoadType.LOAD_TYPE_STRAIN.name
+        clientObject.load_type = SolidSetLoadType.LOAD_TYPE_STRAIN.name
 
         # Load Distribution
         if load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM":
@@ -216,13 +216,13 @@ class SolidSetLoad():
             clientObject[key] = params[key]
 
         # Add Solid Load to client model
-        clientModel.service.set_solid_load(load_case_no, clientObject)
+        clientModel.service.set_solid_set_load(load_case_no, clientObject)
 
 
     def Motion(self,
                no: int = 1,
                load_case_no: int = 1,
-               solids_no: str= '1',
+               solid_sets_no: str= '1',
                load_parameter = None,
                comment: str = '',
                params: dict = {}):
@@ -233,7 +233,7 @@ class SolidSetLoad():
             {''}
         '''
         # Client model | Solid Load
-        clientObject = clientModel.factory.create('ns0:solid_load')
+        clientObject = clientModel.factory.create('ns0:solid_set_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -245,10 +245,10 @@ class SolidSetLoad():
         clientObject.load_case = load_case_no
         
         # Assigned Solid No.
-        clientObject.solids = ConvertToDlString(solids_no)
+        clientObject.solid_sets = ConvertToDlString(solid_sets_no)
 
         # Load Type
-        clientObject.load_type = SolidLoadType.LOAD_TYPE_ROTARY_MOTION.name
+        clientObject.load_type = SolidSetLoadType.LOAD_TYPE_ROTARY_MOTION.name
 
         # Velocity
         clientObject.angular_velocity = load_parameter[1]
@@ -272,7 +272,7 @@ class SolidSetLoad():
             clientObject[key] = params[key]
         
         # Add Solid Load to client model
-        clientModel.service.set_solid_load(load_case_no, clientObject)
+        clientModel.service.set_solid_set_load(load_case_no, clientObject)
 
 
     def Buoyancy():
