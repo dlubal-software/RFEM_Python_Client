@@ -4,12 +4,25 @@ from RFEM.enums import *
 class ObjectInformation():
 
         def CentreOfGravity(self,
-                            object_type = ObjectTypes.E_OBJECT_TYPE_MEMBER,
-                            no: int = 1,
+                            type = ObjectTypes.E_OBJECT_TYPE_MEMBER,
                             parent_no = 0,
+                            no: int = 1,
                             coord: str = 'X'):
 
-                self.object_type = object_type
+                '''
+                This function returns the centre of gravity position (X, Y or Z) for a selected object.
+
+                Args:
+                   type (enum): Object Type
+                   parent_no (int): Object Parent Number
+                        Note:
+                        (1) A geometric object has, in general, a parent_no = 0
+                        (2) The parent_no parameter becomes significant for example with loads
+                   no (int):  The Object Tag
+                   coord (str): Desired global basis vector component of the Centre of Gravity (i.e. X, Y or Z)
+                '''
+
+                self.object_type = type
                 self.no = no
                 self.parent_no = parent_no
                 
@@ -27,6 +40,14 @@ class ObjectInformation():
         def MemberInformation(self,
                               no: int = 1,
                               information = SelectedObjectInformation.LENGTH):
+                
+                '''
+                This function returns further information associated with a member.
+
+                Args:
+                   no (int): Member Tag
+                   information (enum): Desired Information (Length / Volume / Mass)
+                '''
 
                 if information.name == 'AREA':
                         raise Exception ('WARNING: Area information is only relevant for Surface and Volume Information.')
@@ -44,6 +65,14 @@ class ObjectInformation():
                               no: int = 1,
                               information = SelectedObjectInformation.AREA):
 
+                '''
+                This function returns further information associated with a surface.
+
+                Args:
+                   no (int): Surface Tag
+                   information (enum): Desired Information (Area / Volume / Mass)
+                '''
+
                 if information.name == 'LENGTH':
                         raise Exception ('WARNING: Length information is only relevant for Member Information.')
 
@@ -59,6 +88,14 @@ class ObjectInformation():
         def SolidInformation(self,
                               no: int = 1,
                               information = SelectedObjectInformation.AREA):
+
+                '''
+                This function returns further information associated with a solid.
+
+                Args:
+                   no (int): Solid Tag
+                   information (enum): Desired Information (Area / Volume / Mass)
+                '''
 
                 if information.name == 'LENGTH':
                         raise Exception ('WARNING: Length information is only relevant for Member Information.')
