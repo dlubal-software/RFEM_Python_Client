@@ -19,7 +19,7 @@ from RFEM.BasicObjects.solidSet import *
 from RFEM.BasicObjects.memberByLine import *
 
 def test_line_init():
-    
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
@@ -36,7 +36,7 @@ def test_line_init():
     assert line.length == 2
 
 def test_line_polyline():
-    
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
@@ -53,7 +53,7 @@ def test_line_polyline():
     assert line.length == 5
 
 def test_line_arc():
-    
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
@@ -70,7 +70,7 @@ def test_line_arc():
     assert line.type == "TYPE_ARC"
 
 def test_line_circle():
-    
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
@@ -84,7 +84,7 @@ def test_line_circle():
     assert line.circle_radius == 3
 
 def test_lineSet():
-    
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
@@ -96,7 +96,7 @@ def test_lineSet():
     Line(2, '2 3')
 
     LineSet(1, '1 2', SetType.SET_TYPE_CONTINUOUS)
-    
+
     clientModel.service.finish_modification()
 
     line_set = clientModel.service.get_line_set(1)
@@ -105,12 +105,12 @@ def test_lineSet():
     assert line_set.length == 4
 
 def test_material():
-    
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    
+
     clientModel.service.finish_modification()
 
     material = clientModel.service.get_material(1)
@@ -121,9 +121,9 @@ def test_node_init():
 
     clientModel.service.reset()
     clientModel.service.begin_modification()
-    
+
     Node(1, 2, 0, 0)
-   
+
     node = clientModel.service.get_node(1)
 
     assert node.no == 1
@@ -133,7 +133,7 @@ def test_memberbyline_init():
 
     clientModel.service.reset()
     clientModel.service.begin_modification()
-    
+
     Material(1, 'S235')
     Node(1, 0, 0, 0)
     Node(2, 4, 0, 0)
@@ -144,7 +144,7 @@ def test_memberbyline_init():
     Section(1, 'IPE 240', 1)
 
     MemberByLine(1, MemberType.TYPE_BEAM, 1, 0, 1, 1)
-    
+
     clientModel.service.finish_modification()
 
     member = clientModel.service.get_member(1)
@@ -166,7 +166,7 @@ def test_member_init():
     Section(1, 'IPE 300', 1)
 
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
-    
+
     clientModel.service.finish_modification()
 
     member = clientModel.service.get_member(1)
@@ -187,14 +187,14 @@ def test_member_beam():
     Section(1, 'IPE 300', 1)
 
     Member.Beam(0, 1, 1, 2, 0, 1, 1)
-    
+
     clientModel.service.finish_modification()
 
     member = clientModel.service.get_member(1)
 
     assert member.analytical_length == 6
     assert member.type == "TYPE_BEAM"
-    
+
 ## Other Member Types must be added to the main code.
 
 def test_member_set():
@@ -225,7 +225,7 @@ def test_member_set():
 ## Bugs must be solved in Node.py
 
 def test_opening():
-    
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
@@ -264,7 +264,7 @@ def test_opening():
     assert opening.center_of_opening_x == 2.5
 
 def test_section():
-    
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
@@ -348,7 +348,7 @@ def test_thickness_2nodes():
     Node(1, 4, 0, 0)
     Node(2, 2, 2, 0)
 
-    Thickness.Variable_2NodesAndDirection(0, 1, '3', 1, [0.2, 1, 0.1, 2, ThicknessDirection.THICKNESS_DIRECTION_IN_X])    
+    Thickness.Variable_2NodesAndDirection(0, 1, '3', 1, [0.2, 1, 0.1, 2, ThicknessDirection.THICKNESS_DIRECTION_IN_X])
     clientModel.service.finish_modification()
 
     thickness = clientModel.service.get_thickness(1)

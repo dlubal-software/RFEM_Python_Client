@@ -30,7 +30,7 @@ def test_nodal_load_init():
     clientModel.service.begin_modification()
 
     Node(1, 2, 0, 0)
-    
+
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
@@ -49,7 +49,7 @@ def test_nodal_load_force():
     clientModel.service.begin_modification()
 
     Node(1, 2, 0, 0)
-    
+
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
@@ -62,17 +62,17 @@ def test_nodal_load_force():
     assert nodal_load.force_magnitude == 5000
 
 def test_nodal_load_moment():
-    
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
     Node(1, 2, 0, 0)
-    
+
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
     NodalLoad.Moment(0, 1, 1, '1', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 5000)
-    
+
     clientModel.service.finish_modification()
 
     nodal_load = clientModel.service.get_nodal_load(1, 1)
@@ -81,12 +81,12 @@ def test_nodal_load_moment():
     assert nodal_load.moment_magnitude == 5000
 
 def test_nodal_load_components():
-    
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
     Node(1, 2, 0, 0)
-    
+
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
@@ -100,12 +100,12 @@ def test_nodal_load_components():
     assert nodal_load.components_force_x  == 5000
 
 def test_nodal_load_mass():
-    
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
     Node(1, 2, 0, 0)
-    
+
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
@@ -123,7 +123,7 @@ def test_nodal_load_mass():
 
 
 def test_member_load_init():
-    
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
@@ -133,7 +133,7 @@ def test_member_load_init():
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
-    
+
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
@@ -157,7 +157,7 @@ def test_member_load_force():
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
-    
+
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
@@ -181,7 +181,7 @@ def test_member_load_moment():
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
-    
+
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
@@ -205,7 +205,7 @@ def test_member_load_mass():
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
-    
+
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
@@ -228,7 +228,7 @@ def test_member_load_temperature():
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
-    
+
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
@@ -252,7 +252,7 @@ def test_member_load_temperature_change():
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
-    
+
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
@@ -276,7 +276,7 @@ def test_member_load_axial_strain():
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
-    
+
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
@@ -300,7 +300,7 @@ def test_member_load_axial_displacement():
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
-    
+
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
@@ -324,7 +324,7 @@ def test_member_load_precamber():
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
-    
+
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
@@ -348,7 +348,7 @@ def test_member_load_initial_prestress():
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
-    
+
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
@@ -372,7 +372,7 @@ def test_member_load_displacement():
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
-    
+
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
@@ -396,7 +396,7 @@ def test_member_load_rotation():
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
-    
+
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
@@ -420,7 +420,7 @@ def test_member_load_pipecontentfull():
     Material(1, 'S235')
     Section(1, 'CHS 100x4', 1)
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
-    
+
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
@@ -444,7 +444,7 @@ def test_member_load_pipecontentpartial():
     Material(1, 'S235')
     Section(1, 'CHS 100x4', 1)
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
-    
+
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
@@ -468,7 +468,7 @@ def test_member_load_pipeinternalpressure():
     Material(1, 'S235')
     Section(1, 'CHS 100x4', 1)
     Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
-    
+
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
@@ -485,7 +485,7 @@ def test_member_load_pipeinternalpressure():
 ### Surface Load Unit Tests ###
 
 def test_surface_load_init():
-    
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
@@ -889,29 +889,29 @@ def test_free_concentrated_load():
     clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    
+
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 10.0, 0.0, 0.0)
     Node(3, 10.0, 10.0, 0.0)
     Node(4, 0.0, 10.0, 0.0)
     Node(5, 0.0, 0.0, 10.0)
     Node(6, 0.0, 10.0, 10.0)
-    
+
     Line(1, '1 2')
     Line(2, '2 3')
     Line(3, '3 4')
     Line(4, '4 1')
-    
+
     Thickness(1, '1', 1, 0.05)
     Surface(1, '1-4', 1)
-    
+
     NodalSupport(1, '1', NodalSupportType.HINGED)
     NodalSupport(2, '2', NodalSupportType.HINGED)
     NodalSupport(3, '3', NodalSupportType.HINGED)
     NodalSupport(4, '4', NodalSupportType.HINGED)
-    
+
     StaticAnalysisSettings(1, 'LINEAR', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    
+
     LoadCase(1, 'DEAD')
 
     FreeLoad.ConcentratedLoad(FreeLoad, 1, 1, load_parameter= [5000, 4, 2])
@@ -929,42 +929,42 @@ def test_free_line_load():
     clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    
+
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 10.0, 0.0, 0.0)
     Node(3, 10.0, 10.0, 0.0)
     Node(4, 0.0, 10.0, 0.0)
     Node(5, 0.0, 0.0, 10.0)
     Node(6, 0.0, 10.0, 10.0)
-    
+
     Line(1, '1 2')
     Line(2, '2 3')
     Line(3, '3 4')
     Line(4, '4 1')
-    
+
     Thickness(1, '1', 1, 0.05)
     Surface(1, '1-4', 1)
-    
+
     NodalSupport(1, '1', NodalSupportType.HINGED)
     NodalSupport(2, '2', NodalSupportType.HINGED)
     NodalSupport(3, '3', NodalSupportType.HINGED)
     NodalSupport(4, '4', NodalSupportType.HINGED)
-    
+
     StaticAnalysisSettings(1, 'LINEAR', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    
+
     LoadCase(1, 'DEAD')
 
     FreeLoad.LineLoad(FreeLoad, 1, 1, '1',
                         FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                         FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
-                        FreeLineLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE, 
+                        FreeLineLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
                         [5000, 2, 2, 4, 4])
 
     clientModel.service.finish_modification()
 
     free_load = clientModel.service.get_free_line_load(1, 1)
 
-    assert free_load.load_location_first_x == 2 
+    assert free_load.load_location_first_x == 2
     assert free_load.magnitude_uniform == 5000
 
 def test_free_rectangular_load():
@@ -973,36 +973,36 @@ def test_free_rectangular_load():
     clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    
+
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 10.0, 0.0, 0.0)
     Node(3, 10.0, 10.0, 0.0)
     Node(4, 0.0, 10.0, 0.0)
     Node(5, 0.0, 0.0, 10.0)
     Node(6, 0.0, 10.0, 10.0)
-    
+
     Line(1, '1 2')
     Line(2, '2 3')
     Line(3, '3 4')
     Line(4, '4 1')
-    
+
     Thickness(1, '1', 1, 0.05)
     Surface(1, '1-4', 1)
-    
+
     NodalSupport(1, '1', NodalSupportType.HINGED)
     NodalSupport(2, '2', NodalSupportType.HINGED)
     NodalSupport(3, '3', NodalSupportType.HINGED)
     NodalSupport(4, '4', NodalSupportType.HINGED)
-    
+
     StaticAnalysisSettings(1, 'LINEAR', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    
+
     LoadCase(1, 'DEAD')
 
     FreeLoad.RectangularLoad(FreeLoad, 1, 1, '1',
                              FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                              FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                              FreeRectangularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
-                             [5000], 
+                             [5000],
                              FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CORNER_POINTS,
                              [1, 8, 3, 10, 0])
 
@@ -1020,29 +1020,29 @@ def test_free_circular_load():
     clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    
+
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 10.0, 0.0, 0.0)
     Node(3, 10.0, 10.0, 0.0)
     Node(4, 0.0, 10.0, 0.0)
     Node(5, 0.0, 0.0, 10.0)
     Node(6, 0.0, 10.0, 10.0)
-    
+
     Line(1, '1 2')
     Line(2, '2 3')
     Line(3, '3 4')
     Line(4, '4 1')
-    
+
     Thickness(1, '1', 1, 0.05)
     Surface(1, '1-4', 1)
-    
+
     NodalSupport(1, '1', NodalSupportType.HINGED)
     NodalSupport(2, '2', NodalSupportType.HINGED)
     NodalSupport(3, '3', NodalSupportType.HINGED)
     NodalSupport(4, '4', NodalSupportType.HINGED)
-    
+
     StaticAnalysisSettings(1, 'LINEAR', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    
+
     LoadCase(1, 'DEAD')
 
     FreeLoad.CircularLoad(FreeLoad, 1, 1, '1',
@@ -1064,29 +1064,29 @@ def test_free_polygon_load():
     clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    
+
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 10.0, 0.0, 0.0)
     Node(3, 10.0, 10.0, 0.0)
     Node(4, 0.0, 10.0, 0.0)
     Node(5, 0.0, 0.0, 10.0)
     Node(6, 0.0, 10.0, 10.0)
-    
+
     Line(1, '1 2')
     Line(2, '2 3')
     Line(3, '3 4')
     Line(4, '4 1')
-    
+
     Thickness(1, '1', 1, 0.05)
     Surface(1, '1-4', 1)
-    
+
     NodalSupport(1, '1', NodalSupportType.HINGED)
     NodalSupport(2, '2', NodalSupportType.HINGED)
     NodalSupport(3, '3', NodalSupportType.HINGED)
     NodalSupport(4, '4', NodalSupportType.HINGED)
-    
+
     StaticAnalysisSettings(1, 'LINEAR', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    
+
     LoadCase(1, 'DEAD')
 
     FreeLoad.PolygonLoad(FreeLoad, 1, 1, '1',

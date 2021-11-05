@@ -98,7 +98,7 @@ class MyDialog(QtWidgets.QDialog):
         Calculate_all()
 
         print('Ready!')
-        
+
 
         clientModel.service.finish_modification()
 

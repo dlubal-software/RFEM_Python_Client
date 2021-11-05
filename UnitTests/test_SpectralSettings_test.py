@@ -29,13 +29,13 @@ import pytest
 
 
 def test_spectral_analysis_implemented():
-    
+
     exist = method_exists(clientModel,'set_spectral_analysis_settings')
     assert exist == False #test fail once method is in T9 master or GM
 
 @pytest.mark.skip("all tests still WIP")
 def test_spectral_analysis_settings():
-	
+
 	clientModel.service.begin_modification('new')
 
 	# Create Material
@@ -50,6 +50,6 @@ def test_spectral_analysis_settings():
 	SpectralAnalysisSettings(6, 'SpectralSettings_6', PeriodicResponseCombinationRule.CQC, DirectionalComponentCombinationRule.ABSOLUTE_SUM)
 
 	print('Ready!')
-	
+
 	clientModel.service.finish_modification()
-	
+

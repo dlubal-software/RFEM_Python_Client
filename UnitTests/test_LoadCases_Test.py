@@ -28,7 +28,7 @@ from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 
 def test_load_case():
-	
+
 	clientModel.service.begin_modification('new')
 
 	StaticAnalysisSettings()

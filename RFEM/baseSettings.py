@@ -13,12 +13,12 @@ class BaseSettings():
         """
         Args:
             gravitational_acceleration (int): Gravitational Acceleration (m/sn2)
-            global_axes_orientation (enum): Global Axes Orientation Enumeration 
+            global_axes_orientation (enum): Global Axes Orientation Enumeration
             local_axes_orientation (Enum): Local Axes Orientation Enumeration
             tolerances (list): Tolerances
-            member_representatives (bool): Member Representatives 
+            member_representatives (bool): Member Representatives
             member_set_representatives (bool): Member Set Representatives
-        
+
         tolerances = [tolerance_for_nodes, tolerance_for_lines, tolerance_for_surfaces_and_planes, tolerance_for_directions]
         """
         # Client model | Load Case

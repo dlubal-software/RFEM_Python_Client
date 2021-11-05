@@ -11,7 +11,7 @@ class StabilityAnalysisSettings():
                  comment: str = '',
                  params: dict = {}):
         '''
-        Creates default stability analysis settings with no further options. 
+        Creates default stability analysis settings with no further options.
         Stability analysis type is Eigenvalue by default.
         Eigenvalue method is Lanczos by default.
         Matrix type is Standard by default.
@@ -40,7 +40,7 @@ class StabilityAnalysisSettings():
         # Eigenvalue Method
         clientObject.eigenvalue_method = StabilityAnalysisSettingsEigenvalueMethod.EIGENVALUE_METHOD_LANCZOS.name
 
-        # Matrix Type 
+        # Matrix Type
         clientObject.matrix_type = StabilityAnalysisSettingsMatrixType.MATRIX_TYPE_STANDARD.name
 
         # Comment
@@ -67,7 +67,7 @@ class StabilityAnalysisSettings():
                  params: dict = {}):
         '''
         Args:
-            no (int): 
+            no (int):
             name (str, optional): Stability Analysis Name
             number_of_lowest_eigenvalues (int): Number of Lowest Eigenvalues
             considered_favored_effect (bool): Considered Favored Effect
@@ -118,14 +118,14 @@ class StabilityAnalysisSettings():
         if critical_load_factor != None:
             clientObject.find_eigenvectors_beyond_critical_load_factor = True
             clientObject.critical_load_factor = critical_load_factor
-        
+
         # Minimum Initial Strain
         if minimum_initial_strain == None or minimum_initial_strain == 0:
             clientObject.activate_minimum_initial_prestress = False
         elif minimum_initial_strain != None or minimum_initial_strain != 0:
             clientObject.activate_minimum_initial_prestress = True
             clientObject.minimum_initial_strain = minimum_initial_strain
-        
+
         # Local Torsional Relations
         if local_torsional_rotations != None:
             clientObject.display_local_torsional_rotations = True
@@ -136,7 +136,7 @@ class StabilityAnalysisSettings():
 
         # Matrix Type
         clientObject.matrix_type = matrix_type.name
-        
+
         # Comment
         clientObject.comment = comment
 
@@ -164,7 +164,7 @@ class StabilityAnalysisSettings():
                  params: dict = {}):
         '''
         Args:
-            no (int): 
+            no (int):
             name (str, optional): Stability Analysis Name
             number_of_lowest_eigenvalues (int): Number of Lowest Eigenvalues
             considered_favored_effect (bool): Considered Favored Effect
@@ -236,19 +236,19 @@ class StabilityAnalysisSettings():
         if critical_load_factor != None:
             clientObject.find_eigenvectors_beyond_critical_load_factor = True
             clientObject.critical_load_factor = critical_load_factor
-        
+
         # Minimum Initial Strain
         if minimum_initial_strain == None or minimum_initial_strain == 0:
             clientObject.activate_minimum_initial_prestress = False
         elif minimum_initial_strain != None or minimum_initial_strain != 0:
             clientObject.activate_minimum_initial_prestress = True
             clientObject.minimum_initial_strain = minimum_initial_strain
-        
+
         # Local Torsional Relations
         if local_torsional_rotations != None:
             clientObject.display_local_torsional_rotations = True
             clientObject.local_torsional_rotations
-        
+
         # Increase Loading
         if len(incrementally_increasing_loading) != 4:
             raise Exception('WARNING: The incrementally increasing loading parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
@@ -271,13 +271,13 @@ class StabilityAnalysisSettings():
 
         # Save Results of All Increments
         clientObject.save_results_of_all_increments = save_results_of_all_increments
-        
+
         # Eigenvalue Method
         clientObject.eigenvalue_method = eigenvalue_method.name
 
         # Matrix Type
         clientObject.matrix_type = matrix_type.name
-        
+
         # Comment
         clientObject.comment = comment
 
@@ -300,7 +300,7 @@ class StabilityAnalysisSettings():
                  params: dict = {}):
         '''
         Args:
-            no (int): 
+            no (int):
             name (str, optional): Stability Analysis Name
             minimum_initial_strain (optional):
                 For minimum initial strain application:
@@ -352,19 +352,19 @@ class StabilityAnalysisSettings():
 
         # Stability Analysis Type
         clientObject.analysis_type = StabilityAnalysisSettingsAnalysisType.INCREMENTALY_METHOD_WITHOUT_EIGENVALUE.name
-        
+
         # Minimum Initial Strain
         if minimum_initial_strain == None or minimum_initial_strain == 0:
             clientObject.activate_minimum_initial_prestress = False
         elif minimum_initial_strain != None or minimum_initial_strain != 0:
             clientObject.activate_minimum_initial_prestress = True
             clientObject.minimum_initial_strain = minimum_initial_strain
-        
+
         # Local Torsional Relations
         if local_torsional_rotations != None:
             clientObject.display_local_torsional_rotations = True
             clientObject.local_torsional_rotations
-        
+
         # Increase Loading
         if len(incrementally_increasing_loading) != 4:
             raise Exception('WARNING: The incrementally increasing loading parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
@@ -387,7 +387,7 @@ class StabilityAnalysisSettings():
 
         # Save Results of All Increments
         clientObject.save_results_of_all_increments = save_results_of_all_increments
-        
+
         # Comment
         clientObject.comment = comment
 

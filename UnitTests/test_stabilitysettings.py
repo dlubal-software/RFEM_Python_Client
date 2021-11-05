@@ -4,15 +4,15 @@ sys.path.append(".")
 from RFEM.enums import *
 from RFEM.dataTypes import *
 from RFEM.initModel import *
-from RFEM.LoadCasesAndCombinations.stabilityAnalysisSettings import *	
+from RFEM.LoadCasesAndCombinations.stabilityAnalysisSettings import *
 
 @pytest.mark.skip("all tests still WIP")
 def test_stability_analysis_settings_init():
-	
+
 	clientModel.service.reset()
 	clientModel.service.begin_modification()
 
-	StabilityAnalysisSettings()	
+	StabilityAnalysisSettings()
 
 	clientModel.service.finish_modification()
 
@@ -31,7 +31,7 @@ def test_stability_analysis_settings_init():
 
 @pytest.mark.skip("all tests still WIP")
 def test_stability_analysis_settings_eigenvalue_method():
-	
+
 	clientModel.service.reset()
 	clientModel.service.begin_modification()
 
@@ -49,7 +49,7 @@ def test_stability_analysis_settings_eigenvalue_method():
 	clientModel.service.finish_modification()
 
 	stability_analysis_settings = clientModel.service.get_stability_analysis_settings(1)
-	
+
 	assert stability_analysis_settings.analysis_type == 'EIGENVALUE_METHOD'
 	assert stability_analysis_settings.activate_minimum_initial_prestress == True
 	assert stability_analysis_settings.eigenvalue_method == 'EIGENVALUE_METHOD_ROOTS_OF_CHARACTERISTIC_POLYNOMIAL'
@@ -64,7 +64,7 @@ def test_stability_analysis_settings_eigenvalue_method():
 
 @pytest.mark.skip("all tests still WIP")
 def test_stability_analysis_settings_incrementaly_method_with_eigenvalue():
-    	
+
 	clientModel.service.reset()
 	clientModel.service.begin_modification()
 
@@ -85,7 +85,7 @@ def test_stability_analysis_settings_incrementaly_method_with_eigenvalue():
 	clientModel.service.finish_modification()
 
 	stability_analysis_settings = clientModel.service.get_stability_analysis_settings(1)
-	
+
 	assert stability_analysis_settings.analysis_type == 'INCREMENTALY_METHOD_WITH_EIGENVALUE'
 	assert stability_analysis_settings.activate_minimum_initial_prestress == False
 	assert stability_analysis_settings.activate_stopping_of_load_increasing == True
@@ -109,7 +109,7 @@ def test_stability_analysis_settings_incrementaly_method_with_eigenvalue():
 
 @pytest.mark.skip("all tests still WIP")
 def test_stability_analysis_settings_incrementaly_method_without_eigenvalue():
-    	
+
 	clientModel.service.reset()
 	clientModel.service.begin_modification()
 
@@ -120,11 +120,11 @@ def test_stability_analysis_settings_incrementaly_method_without_eigenvalue():
 											incrementally_increasing_loading= [1, 0.25, 5, 125],
 											save_results_of_all_increments= False,
 											comment= 'Test Comment')
-	
+
 	clientModel.service.finish_modification()
 
 	stability_analysis_settings = clientModel.service.get_stability_analysis_settings(1)
-	
+
 	assert stability_analysis_settings.analysis_type == 'INCREMENTALY_METHOD_WITHOUT_EIGENVALUE'
 	assert stability_analysis_settings.activate_minimum_initial_prestress == False
 	assert stability_analysis_settings.activate_stopping_of_load_increasing == False

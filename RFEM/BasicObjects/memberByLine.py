@@ -25,7 +25,7 @@ class MemberByLine():
 
         # Member Type
         clientObject.type = member_type.name
-        
+
         # Line No.
         clientObject.line = line_no
 

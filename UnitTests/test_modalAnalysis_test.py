@@ -27,13 +27,13 @@ import pytest
 sys.path.append(".")
 
 def test_modal_analysis_implemented():
-    
+
     exist = method_exists(clientModel,'set_modal_analysis_settings')
     assert exist == False #test fail once method is in T9 master or GM
 
 @pytest.mark.skip("all tests still WIP")
 def test_modal_analysis_settings():
-    
+
     
     # modal analysis not yet implemmented in released RFEM6
     clientModel.service.begin_modification()
@@ -66,7 +66,7 @@ def test_modal_analysis_settings():
    # LoadCase(1, 'DEAD', [True, 0, 0, 1])
     modalParams = {
         "analysis_type": AnalysisType.ANALYSIS_TYPE_MODAL.name,
-        "modal_analysis_settings":1,  
+        "modal_analysis_settings":1,
     }
     # Load Case Modal
     LoadCase(2, 'MODAL',params=modalParams)

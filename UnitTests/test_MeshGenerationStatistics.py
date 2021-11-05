@@ -27,7 +27,7 @@ from RFEM.enums import *
 
 
 def test_generation_mesh_implemented():
-    
+
     exist = method_exists(clientModel,'generate_mesh')
     assert exist == False #test fail once method is in T9 master or GM
 

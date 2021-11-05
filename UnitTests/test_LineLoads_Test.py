@@ -32,11 +32,11 @@ from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 
 def test_line_loads():
-	
+
 	clientModel.service.begin_modification('new')
 
 	# Creating a lot of lines for line load testing
-	
+
 	Node(1, 0, 0, 0), Node(2, 2, 0, 0), Node(3, 4, 0, 0), Node(4, 6, 0, 0), Node(5, 8, 0, 0), Node(6, 10, 0, 0)
 	Node(7, 10, 2, 0), Node(8, 10, 4, 0), Node(9, 10, 6, 0), Node(10, 10, 8, 0), Node(11, 10, 10, 0)
 	Node(12, 8, 10, 0), Node(13, 6, 10, 0), Node(14, 4, 10, 0), Node(15, 2, 10, 0), Node(16, 0, 10, 0)
@@ -53,7 +53,7 @@ def test_line_loads():
 				surface_str += str(i)
 				nodes_no = str(i)+' 1'
 				Line(i, nodes_no)
-	
+
 	Material()
 	Thickness()
 	Surface(1, surface_str)
@@ -63,7 +63,7 @@ def test_line_loads():
 	LoadCase(1 , 'Standard')
 
 	LineLoad(1,1,'1', magnitude=1)
-	
+
 	# Testing Force Type Line Loads
 
 	LoadCase(2 , 'TYPE: Force')
@@ -160,13 +160,13 @@ def test_line_loads():
 	LineLoad.Mass(LineLoad, 1, 4, '1',
 					 individual_mass_components= False,
 					 mass_components= [10])
-	
+
 	LineLoad.Mass(LineLoad, 2, 4, '2',
 					 individual_mass_components=True,
 					 mass_components=[1000,1000,10000])
 
 
 	print('Ready!')
-	
+
 	clientModel.service.finish_modification()
-	
+

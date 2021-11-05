@@ -30,7 +30,7 @@ def test_surface_set_load():
 
     clientModel.service.begin_modification()
 
-    # Create Material 
+    # Create Material
     Material(1, 'S235')
 
     # Create Thickness
@@ -117,7 +117,7 @@ def test_surface_set_load():
 
     ## Force Type Surface Set Load with varying in Z
     SurfaceSetLoad.Force(0, 32, 1, '2', SurfaceSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, load_parameter=[[1, 1, 1000], [2, 1, 2000]])
-    
+
     ## Temperature Type Surface Load with UNIFORM Load Distribution ##
     SurfaceSetLoad.Temperature(0, 6, 1, '1', SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, load_parameter=[18, 2])
 

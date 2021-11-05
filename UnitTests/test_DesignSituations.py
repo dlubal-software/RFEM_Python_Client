@@ -15,7 +15,7 @@ from RFEM.LoadCasesAndCombinations.designSituation import *
 
 
 def test_design_situation():
-	
+
 	clientModel.service.begin_modification('new')
 
 	StaticAnalysisSettings()
@@ -23,7 +23,7 @@ def test_design_situation():
 	# Testing: Automatic naming, design situation keys and manual comments
 	DesignSituation(no= 1, user_defined_name= False, design_situation_type= 6122, comment= 'ULS (EQU) - Permanent and transient')
 	ds = clientModel.service.get_design_situation(1)
-	assert ds.no == 1 
+	assert ds.no == 1
 	DesignSituation(no= 2, user_defined_name= False, design_situation_type= 6993, comment= 'ULS (EQU) - Accidental - psi-1,1')
 	ds = clientModel.service.get_design_situation(2)
 	assert ds.no == 2

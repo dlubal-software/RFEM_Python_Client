@@ -29,7 +29,7 @@ def test_nodal_load():
 
     clientModel.service.begin_modification()
 
-    # Create Material 
+    # Create Material
     Material(1, 'S235')
 
     # Create Section
@@ -77,10 +77,10 @@ def test_nodal_load():
 
     # Component Type Nodal Load
     NodalLoad.Components(0, 4, 1, '6', [5000, 5000, 0, 0, 5000, 0])
-    
+
     #Mass Type Nodal Load
     NodalLoad.Mass(0, 5, 1, '8', True, [5000, 5000, 0, 0, 5000, 0])
-    
+
     Calculate_all()
 
     print('Ready!')
