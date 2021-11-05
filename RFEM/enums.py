@@ -669,3 +669,9 @@ class export_to_ifc_axis_type(Enum):
 class export_to_ifc_export_type(Enum):
 
     E_EXPORT_IFC4_REFERENCE_VIEW, E_EXPORT_IFC4_STRUCTURAL_ANALYSIS_VIEW = range(2)
+
+class SelectedObjectsInformation(Enum):
+    '''
+    Information About Members | Enum
+    '''
+    LENGTH, VOLUME, MASS, AREA = range(4)
