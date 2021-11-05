@@ -38,7 +38,7 @@ class ObjectInformation():
                 self.row_key = 2
                 self.result = ObjectInformation.__BuildResultsArray(self)
 
-                return ObjectInformation.__AreaVolumeMassInformation(self)
+                return ObjectInformation.__AreaVolumeMassInformationLength(self)
 
         def SurfaceInformation(self,
                               no: int = 1,
@@ -54,7 +54,7 @@ class ObjectInformation():
                 self.row_key = 3              
                 self.result = ObjectInformation.__BuildResultsArray(self)
 
-                return ObjectInformation.__AreaVolumeMassInformation(self)
+                return ObjectInformation.__AreaVolumeMassInformationLength(self)
 
         def SolidInformation(self,
                               no: int = 1,
@@ -70,7 +70,7 @@ class ObjectInformation():
                 self.row_key = 4
                 self.result = ObjectInformation.__BuildResultsArray(self)
 
-                return ObjectInformation.__AreaVolumeMassInformation(self)
+                return ObjectInformation.__AreaVolumeMassInformationLength(self)
 
         def __BuildResultsArray(self):
                 
@@ -85,7 +85,7 @@ class ObjectInformation():
                 
                 return result
         
-        def __AreaVolumeMassInformation(self):
+        def __AreaVolumeMassInformationLength(self):
 
                 if self.information.name == "LENGTH" or self.information.name == "AREA":
                         return self.result['section'][self.row_key].rows[0][0].value
