@@ -165,7 +165,6 @@ def test_line_loads():
 					 individual_mass_components=True,
 					 mass_components=[1000,1000,10000])
 
-
 	print('Ready!')
 
 	clientModel.service.finish_modification()

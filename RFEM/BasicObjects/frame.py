@@ -46,14 +46,12 @@ class Frame():
         nodes_no = nodes_no.rstrip(nodes_no[-1])
         NodalSupport(1, nodes_no, NodalSupportType.HINGED, "Hinged support")
 
-        
        #members: what's about the sections? maybe an input field where the user gives the materials
        Material (1 , 'S235')
        Material (2, 'C25/30')
 
        Section (1, 'HEM 700',1)
        Section (2, 'IPE 500',1)
-
 
       #members x direction
         i = 1
@@ -76,7 +74,6 @@ class Frame():
         Member(int(k+4+2*(i-1)+2), MemberType.TYPE_BEAM, j+4, j+9, 0.0, 2, 2)
         i += 1
 
-
     -------------------------------------------------------------------------
 
       clientObject. = NodeType.TYPE_BETWEEN_TWO_NODES.name
@@ -85,12 +82,9 @@ class Frame():
          #column cross section
            clientobject. =  columnn_cross_section.name
 
-    
          #column member type
           clientObject.type = column_member_type.name
 
-        
-        
         #girder cross section
           clientobject. =  girder_cross_section.name
 

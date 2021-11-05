@@ -13,7 +13,6 @@ from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
 from RFEM.LoadCasesAndCombinations.loadCase import *
 from RFEM.LoadCasesAndCombinations.designSituation import *
 
-
 def test_design_situation():
 
 	clientModel.service.begin_modification('new')

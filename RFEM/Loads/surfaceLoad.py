@@ -278,7 +278,6 @@ class SurfaceLoad():
                 clientObject.axis_definition_p1_y = load_parameter[8]
                 clientObject.axis_definition_p1_z = load_parameter[9]
 
-
             else:
                 clientObject.axis_definition_axis = load_parameter[7]
                 clientObject.axis_definition_p1 = load_parameter[8]

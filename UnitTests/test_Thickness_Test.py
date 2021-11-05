@@ -90,7 +90,6 @@ def test_thickness():
                                        [0, 1, 0.456, 90, 'Schicht 2']],
                      comment= 'Comment')
 
-
     # Shape Orthotropy
     Thickness.ShapeOrthotropy(Thickness,
                      no= 8,

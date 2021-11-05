@@ -24,7 +24,6 @@ from RFEM.initModel import *
 from RFEM.dataTypes import *
 from RFEM.enums import *
 
-
 def test_nodal_load():
 
     clientModel.service.begin_modification()

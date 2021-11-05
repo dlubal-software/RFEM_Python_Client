@@ -65,7 +65,6 @@ def test_member_set_load():
     ## Force Type Member Load with LOAD_DISTRIBUTION_UNIFORM with Eccentricity ##
     MemberSetLoad.Force(0, 3, 1, '1', MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000], force_eccentricity=True, params={'eccentricity_y_at_start' : 0.01, 'eccentricity_z_at_start': 0.02})
 
-
     ## Force Type Member Load with LOAD_DISTRIBUTION_UNIFORM_TOTAL ##
     MemberSetLoad.Force(0, 4, 1, '1', MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM_TOTAL, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])
 
@@ -99,7 +98,6 @@ def test_member_set_load():
     ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING_IN_Z ##
     MemberSetLoad.Force(0, 14, 1, '1', MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
 
-
     ## Moment Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
     MemberSetLoad.Moment(0, 15, 1, '1', MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])
 
@@ -130,10 +128,8 @@ def test_member_set_load():
     ## Moment Type Member Load with LOAD_DISTRIBUTION_VARYING ##
     MemberSetLoad.Moment(0, 24, 1, '1', MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
 
-
     ## Mass Type Member Load ##
     MemberSetLoad.Mass(0, 25, 1, mass_components=[1000])
-
 
     ## Temperature Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
     MemberSetLoad.Temperature(0, 26, 1, '1', MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[18, 2])
@@ -150,7 +146,6 @@ def test_member_set_load():
     ## Temperature Type Member Load with LOAD_DISTRIBUTION_VARYING ##
     MemberSetLoad.Temperature(0, 30, 1, '1', MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])
 
-
     ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
     MemberSetLoad.TemperatureChange(0, 31, 1, '1', MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[18, 2])
 
@@ -165,7 +160,6 @@ def test_member_set_load():
 
     ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_VARYING ##
     MemberSetLoad.TemperatureChange(0, 35, 1, '1', MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])
-
 
     ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
     MemberSetLoad.AxialStrain(0, 36, 1, '1', MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[0.005])
@@ -182,10 +176,8 @@ def test_member_set_load():
     ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_VARYING ##
     MemberSetLoad.AxialStrain(0, 40, 1, '1', MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])
 
-
     ## AxialDisplacement Type Member Load ##
     MemberSetLoad.AxialDisplacement(0, 41, 1, '1', MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X, 0.05)
-
 
     ## Precamber Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
     MemberSetLoad.Precamber(0, 42, 1, '1', MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[0.005])
@@ -202,10 +194,8 @@ def test_member_set_load():
     ## Precamber Type Member Load with LOAD_DISTRIBUTION_VARYING ##
     MemberSetLoad.Precamber(0, 46, 1, '1', MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])
 
-
     ## InitialPrestress Type Member Load ##
     MemberSetLoad.InitialPrestress(0, 47, 1, '1', MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X, 50)
-
 
     ## Displacement Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
     MemberSetLoad.Displacement(0, 48, 1, '1', MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5])
@@ -236,7 +226,6 @@ def test_member_set_load():
 
     ## Displacement Type Member Load with LOAD_DISTRIBUTION_VARYING ##
     MemberSetLoad.Displacement(0, 57, 1, '1', MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])
-
 
     ## Rotation Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
     MemberSetLoad.Rotation(0, 58, 1, '1', MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5])

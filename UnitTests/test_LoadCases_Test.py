@@ -37,5 +37,4 @@ def test_load_case():
 	LoadCase.StaticAnalysis(LoadCase, 3, 'Snow', True,  1, DIN_Action_Category['4A'], [False])
 	LoadCase.StaticAnalysis(LoadCase, 4, 'Wind', False,  1, DIN_Action_Category['5'], [False])
 
-
 	clientModel.service.finish_modification()

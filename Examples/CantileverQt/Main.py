@@ -52,7 +52,6 @@ except:
         input('Press Enter to exit...')
         sys.exit()
 
-
 class MyDialog(QtWidgets.QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -99,13 +98,11 @@ class MyDialog(QtWidgets.QDialog):
 
         print('Ready!')
 
-
         clientModel.service.finish_modification()
 
     def onCancel(self):
         print('Cancel')
         self.close()
-
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

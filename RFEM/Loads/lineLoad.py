@@ -57,7 +57,6 @@ class LineLoad():
         # Add Load Line Load to client model
         clientModel.service.set_line_load(load_case_no, clientObject)
 
-
     def Force(self,
                 no: int = 1,
                 load_case_no: int = 1,
@@ -374,7 +373,6 @@ class LineLoad():
                 clientObject.distance_b_absolute = load_parameter[5]
             else:
                 clientObject.distance_b_relative = load_parameter[5]
-
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_2x2":
             if len(load_parameter) != 7:

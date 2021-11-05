@@ -30,7 +30,6 @@ from RFEM.initModel import *
 from RFEM.dataTypes import *
 from RFEM.enums import *
 
-
 if __name__ == "__main__":
 
     objectLocation = clientModel.factory.create('ns0:object_location')

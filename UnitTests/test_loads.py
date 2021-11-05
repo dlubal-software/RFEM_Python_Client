@@ -21,7 +21,6 @@ from RFEM.Loads.nodalLoad import *
 from RFEM.Loads.surfaceLoad import *
 from RFEM.Loads.lineLoad import *
 
-
 ### Nodal Load Unit Tests ###
 
 def test_nodal_load_init():
@@ -118,9 +117,7 @@ def test_nodal_load_mass():
     assert nodal_load.no == 1
     assert nodal_load.mass_global == 5000
 
-
 ### Member Load Unit Tests ###
-
 
 def test_member_load_init():
 
@@ -480,7 +477,6 @@ def test_member_load_pipeinternalpressure():
 
     assert member_load.no == 1
     assert member_load.magnitude == 50
-
 
 ### Surface Load Unit Tests ###
 
@@ -1013,7 +1009,6 @@ def test_free_rectangular_load():
     assert free_load.load_location_center_x == 2
     assert free_load.magnitude_uniform == 5000
 
-
 def test_free_circular_load():
 
     clientModel.service.reset()
@@ -1102,5 +1097,4 @@ def test_free_polygon_load():
 
     assert free_load.no == 1
     assert free_load.magnitude_uniform == 5000
-
 

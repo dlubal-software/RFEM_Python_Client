@@ -14,13 +14,11 @@ class NodalSupportType(Enum):
     '''
     FIXED, HINGED, ROLLER, ROLLER_IN_X, ROLLER_IN_Y, ROLLER_IN_Z = range(6)
 
-
 class StaticAnalysisType(Enum):
     '''
     Static Analysis Type | Enum
     '''
     GEOMETRICALLY_LINEAR, LARGE_DEFORMATIONS, LARGE_DEFORMATIONS_POSTRCRITICAL, SECOND_ORDER_P_DELTA = range(4)
-
 
 class AnalysisType(Enum):
     '''
@@ -28,7 +26,6 @@ class AnalysisType(Enum):
     '''
     ANALYSIS_TYPE_CREEP_AND_SHRINKAGE, ANALYSIS_TYPE_CUTTING_PATTERN, ANALYSIS_TYPE_MODAL, ANALYSIS_TYPE_RESPONSE_SPECTRUM,\
     ANALYSIS_TYPE_STATIC, ANALYSIS_TYPE_TIME_DEPENDENT, ANALYSIS_TYPE_TIME_HISTORY, ANALYSIS_TYPE_WIND_SIMULATION = range(8)
-
 
 class LoadDirectionType(Enum):
     '''
@@ -55,7 +52,6 @@ class MemberLoadType(Enum):
     LOAD_TYPE_FORM_FINDING, LOAD_TYPE_INITIAL_PRESTRESS, LOAD_TYPE_MOMENT, LOAD_TYPE_PIPE_CONTENT_FULL,\
     LOAD_TYPE_PIPE_CONTENT_PARTIAL, LOAD_TYPE_PIPE_INTERNAL_PRESSURE, LOAD_TYPE_PRECAMBER, LOAD_TYPE_ROTARY_MOTION,\
     LOAD_TYPE_ROTATION, LOAD_TYPE_TEMPERATURE, LOAD_TYPE_TEMPERATURE_CHANGE = range(16)
-
 
 class MemberLoadDistribution(Enum):
     '''
@@ -218,7 +214,6 @@ class MemberLoadEccentricityHorizontalAlignment(Enum):
     '''
     ALIGN_LEFT, ALIGN_MIDDLE, ALIGN_NONE, ALIGN_TOP = range(4)
 
-
 class MemberLoadEccentricityVerticalAlignment(Enum):
     '''
     Member Load Eccentricity Vertical Alignment
@@ -326,13 +321,11 @@ class NodeType(Enum):
     '''
     TYPE_BETWEEN_TWO_NODES, TYPE_BETWEEN_TWO_POINTS, TYPE_ON_LINE, TYPE_ON_MEMBER, TYPE_STANDARD = range (5)
 
-
 class NodeCoordinateSystemType(Enum):
     '''
     Node Coordinate System Type | Enum
     '''
     COORDINATE_SYSTEM_CARTESIAN, COORDINATE_SYSTEM_POLAR, COORDINATE_SYSTEM_X_CYLINDRICAL, COORDINATE_SYSTEM_Y_CYLINDRICAL, COORDINATE_SYSTEM_Z_CYLINDRICAL = range (5)
-
 
 class NodeReferenceType(Enum):
     '''
@@ -633,7 +626,6 @@ class SolidLoadDirection(Enum):
     '''
     LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE = range(3)
 
-    
 class PeriodicResponseCombinationRule(Enum):
     '''
     Spectral Analysis Settings Combination Rule For Periodic Responses
@@ -702,16 +694,13 @@ class ObjectTypes(Enum):
     E_OBJECT_TYPE_SURFACE_LOAD, E_OBJECT_TYPE_SURFACE_MESH_REFINEMENT, E_OBJECT_TYPE_SURFACE_RESULTS_ADJUSTMENT, E_OBJECT_TYPE_SURFACE_SET, E_OBJECT_TYPE_SURFACE_SET_IMPERFECTION, E_OBJECT_TYPE_SURFACE_SET_LOAD,\
     E_OBJECT_TYPE_SURFACE_STIFFNESS_MODIFICATION, E_OBJECT_TYPE_SURFACE_SUPPORT, E_OBJECT_TYPE_THICKNESS, E_OBJECT_TYPE_VISUAL_OBJECT = range(86)
 
-
 class export_to_ifc_axis_rotation_sequence_type(Enum):
 
     XYZ, XZY, YXZ, YZX, ZXY, ZYX = range(6)
 
-
 class export_to_ifc_axis_type(Enum):
 
     X,Y,Z = range(3)
-
 
 class export_to_ifc_export_type(Enum):
 

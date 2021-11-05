@@ -27,7 +27,6 @@ from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 import pytest
 
-
 def test_spectral_analysis_implemented():
 
     exist = method_exists(clientModel,'set_spectral_analysis_settings')

@@ -87,7 +87,6 @@ class Node():
 
         clientObject.coordinate_system_type= coordinate_system_type.name
 
-
         if len(coordinate_system) != 3:
             raise Exception('WARNING: The coordinate system needs to be of length 3. Kindly check list inputs for completeness and correctness.')
 
@@ -105,7 +104,6 @@ class Node():
             clientObject.coordinate_1 = coordinate_system[0]
             clientObject.coordinate_2 = coordinate_system[1]
             clientObject.coordinate_3 = coordinate_system[2]
-
 
         elif coordinate_system_type.name == "COORDINATE_SYSTEM_X_CYLINDRICAL":
             clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_X_CYLINDRICAL
@@ -125,7 +123,6 @@ class Node():
             clientObject.coordinate_2 = coordinate_system[1] * (pi/180)
             clientObject.coordinate_3 = coordinate_system[2]
 
-        
         elif coordinate_system_type.name == "COORDINATE_SYSTEM_POLAR":
             clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_POLAR
             clientObject.coordinate_1 = coordinate_system[0]
@@ -140,7 +137,6 @@ class Node():
 
         # Add Node to client model
         clientModel.service.set_node(clientObject)
-
 
     def BetweenTwoNodes(self,
                  no: int = 1,
@@ -196,7 +192,6 @@ class Node():
 
         clientObject.reference_object_projected_length = length_between_i_and_j
 
-
         # Distance between node k and start point
 
         if parameters[0] == True:
@@ -214,13 +209,11 @@ class Node():
         # Comment
         clientObject.comment = comment
 
-
         for key in params:
             clientObject[key] = params[key]
 
         # Add Node to client model
         clientModel.service.set_node(clientObject)
-
 
     def BetweenTwoPoints(self,
                  no: int = 1,
@@ -267,10 +260,8 @@ class Node():
         # Node No.
         clientObject.no = no
 
-
         # Node Type
         clientObject.type = NodeType.TYPE_BETWEEN_TWO_POINTS.name
-
 
         # Coordinates start point
         clientObject.between_two_points_start_point_coordinate_1= start_point_x
@@ -282,7 +273,6 @@ class Node():
         clientObject.between_two_points_end_point_coordinate_1= end_point_x
         clientObject.between_two_points_end_point_coordinate_2= end_point_y
         clientObject.between_two_points_end_point_coordinate_3= end_point_z
-
 
         # Length between i and j
 
@@ -350,7 +340,6 @@ class Node():
 
         clientObject.reference_object_projected_length = length_between_i_and_j
 
-       
         # Distance between node k and start point
 
         if parameters[0] == True:
@@ -406,14 +395,12 @@ class Node():
         # Node Type
         clientObject.type = NodeType.TYPE_ON_MEMBER.name
 
-        
         # Length between i and j
 
         clientObject.reference_type = node_reference.name
 
         clientObject.reference_object_projected_length = length_between_i_and_j
 
-       
         # Distance between node k and start point
 
         if parameters[0] == True:

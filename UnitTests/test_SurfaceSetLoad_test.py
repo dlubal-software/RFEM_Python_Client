@@ -25,7 +25,6 @@ from RFEM.initModel import *
 from RFEM.dataTypes import *
 from RFEM.enums import *
 
-
 def test_surface_set_load():
 
     clientModel.service.begin_modification()
@@ -67,7 +66,6 @@ def test_surface_set_load():
     Line(12, '8 12')
     Line(13, '12 11')
     Line(14, '11 7')
-
 
     # Create Surfaces
     Surface(1, '1 2 3 4', 1)
@@ -144,7 +142,6 @@ def test_surface_set_load():
 
     ## Mass Type Surface Load ##
     #SurfaceSetLoad.Mass(0, 14, 1, '1', individual_mass_components=True, mass_parameter=[500, 600, 700])
-
 
     Calculate_all()
 

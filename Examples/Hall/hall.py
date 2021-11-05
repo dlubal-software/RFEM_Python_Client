@@ -59,7 +59,6 @@ if __name__ == '__main__':
   Node(j+5, l, -(i-1)*d, 0.0)
   i += 1
 
-
  # Nodal Supports
  i = 1
  nodes_no = ""
@@ -71,12 +70,10 @@ if __name__ == '__main__':
    nodes_no = nodes_no.rstrip(nodes_no[-1])
    NodalSupport(1, nodes_no, NodalSupportType.HINGED, "Hinged support")
 
-
  #members
  Material (1 , 'S235')
  Material (2, 'C25/30')
 
-    
  Section (1, 'HEM 700',1)
  Section (2, 'IPE 500',1)
  #members x direction
@@ -146,8 +143,6 @@ if __name__ == '__main__':
      Member(k+4+4*(i-1), MemberType.TYPE_TENSION, (i-1)*5+4, (i-1)*5+10, 0.0, 3, 3)
      print(k+1+4*(i-1), k+2+4*(i-1), k+3+4*(i-1), k+4+4*(i-1))
     i += 1
-
-
 
  #horizontal bracing
  # add a question about repeating in every block, one yes one no, only beginning and end

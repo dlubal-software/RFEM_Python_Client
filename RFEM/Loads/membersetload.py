@@ -961,7 +961,6 @@ class MemberSetLoad():
             clientObject.magnitude_delta_t = load_parameter[0]
             clientObject.magnitude_t_c = load_parameter[1]
 
-
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
             try:
                 len(load_parameter)==8

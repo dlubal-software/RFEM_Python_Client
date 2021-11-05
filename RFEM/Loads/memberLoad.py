@@ -171,7 +171,6 @@ class MemberLoad():
             else:
                 clientObject.distance_b_relative = load_parameter[5]
 
-
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_2x2":
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
@@ -459,7 +458,6 @@ class MemberLoad():
                 clientObject.distance_b_absolute = load_parameter[5]
             else:
                 clientObject.distance_b_relative = load_parameter[5]
-
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_2x2":
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
@@ -889,7 +887,6 @@ class MemberLoad():
         if load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             clientObject.magnitude_delta_t = load_parameter[0]
             clientObject.magnitude_t_c = load_parameter[1]
-
 
         elif load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
             clientObject.magnitude_delta_t_1 = load_parameter[0]

@@ -55,6 +55,3 @@ class BaseSettings():
 
         # Add Base Data Settings to client model
         clientModel.service.set_model_settings_and_options(clientObject)
-
-
-

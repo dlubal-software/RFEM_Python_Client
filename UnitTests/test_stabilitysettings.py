@@ -106,7 +106,6 @@ def test_stability_analysis_settings_incrementaly_method_with_eigenvalue():
 	assert stability_analysis_settings.stopping_of_load_increasing_limit_result_displacement == 0.1
 	assert stability_analysis_settings.stopping_of_load_increasing_result == 'RESULT_TYPE_DISPLACEMENT_U'
 
-
 @pytest.mark.skip("all tests still WIP")
 def test_stability_analysis_settings_incrementaly_method_without_eigenvalue():
 

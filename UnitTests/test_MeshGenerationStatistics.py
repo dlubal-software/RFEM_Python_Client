@@ -25,7 +25,6 @@ from RFEM.initModel import *
 from RFEM.dataTypes import *
 from RFEM.enums import *
 
-
 def test_generation_mesh_implemented():
 
     exist = method_exists(clientModel,'generate_mesh')
@@ -63,5 +62,4 @@ def test_generation_of_mesh_statistics():
     mesh_stats = GetMeshStatics()
 
     print(mesh_stats)
-
 

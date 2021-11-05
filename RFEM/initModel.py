@@ -102,7 +102,6 @@ except:
 
 import csv
 
-
 # Connect to server
 # Check server port range set in "Program Options & Settings"
 # By default range is set between 8081 ... 8089

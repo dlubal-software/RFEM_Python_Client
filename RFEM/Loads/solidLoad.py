@@ -51,7 +51,6 @@ class SolidLoad():
         # Add Solid Load to client model
         clientModel.service.set_solid_load(load_case_no, clientObject)
 
-
     def Force(self,
               no: int =1,
               load_case_no: int = 1,
@@ -97,7 +96,6 @@ class SolidLoad():
 
         # Add Solid Load to client model
         clientModel.service.set_solid_load(load_case_no, clientObject)
-
 
     def Temperature(self,
                     no: int = 1,
@@ -154,7 +152,6 @@ class SolidLoad():
 
         # Add Solid Load to client model
         clientModel.service.set_solid_load(load_case_no, clientObject)
-
 
     def Strain(self,
                no: int = 1,
@@ -218,7 +215,6 @@ class SolidLoad():
         # Add Solid Load to client model
         clientModel.service.set_solid_load(load_case_no, clientObject)
 
-
     def Motion(self,
                no: int = 1,
                load_case_no: int = 1,
@@ -274,11 +270,9 @@ class SolidLoad():
         # Add Solid Load to client model
         clientModel.service.set_solid_load(load_case_no, clientObject)
 
-
     def Buoyancy():
         print('The function Buoyancy() is not implemented yet.')
         pass
-
 
     def Gass():
         print('The function Gass() is not implemented yet.')

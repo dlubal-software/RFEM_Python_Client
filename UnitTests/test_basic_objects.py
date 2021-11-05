@@ -152,7 +152,6 @@ def test_memberbyline_init():
     assert member.analytical_length == 4
     assert member.section_start == 1
 
-
 def test_member_init():
 
     clientModel.service.reset()
@@ -278,7 +277,6 @@ def test_section():
     assert section.no == 1
     assert section.name == 'IPE 300'
 
-
 ## Solid Class should be updated.
 
 ## SolidSet Class should be updated.
@@ -309,7 +307,6 @@ def test_thickness_uniform():
     Material(1, 'S235')
 
     Thickness.Uniform(0, 1, '1', 1, [0.03])
-
 
     clientModel.service.finish_modification()
 
@@ -389,7 +386,6 @@ def test_thickness_circle():
 
     clientModel.service.finish_modification()
 
-
     thickness = clientModel.service.get_thickness(1)
 
     assert thickness.type == "TYPE_VARIABLE_CIRCLE"
@@ -404,7 +400,6 @@ def test_thickness_layers():
 
     Thickness.Layers(0, 1, '6', [[0, 1, 0.1, 0, ''], [0, 1, 0.2, 0, '']])
     clientModel.service.finish_modification()
-
 
     thickness = clientModel.service.get_thickness(1)
 
