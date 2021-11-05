@@ -56,9 +56,9 @@ def test_member_information():
     V = L * A
     M = (V * 7850) / 1000
 
-    assert round(L,3) == ObjectInformation.MemberInformation(ObjectInformation, information= SelectedObjectsInformation.LENGTH)
-    assert round(V,3) == ObjectInformation.MemberInformation(ObjectInformation, information= SelectedObjectsInformation.VOLUME)
-    assert round(M,3) == ObjectInformation.MemberInformation(ObjectInformation, information= SelectedObjectsInformation.MASS)
+    assert round(L,3) == ObjectInformation.MemberInformation(ObjectInformation, information= SelectedObjectInformation.LENGTH)
+    assert round(V,3) == ObjectInformation.MemberInformation(ObjectInformation, information= SelectedObjectInformation.VOLUME)
+    assert round(M,3) == ObjectInformation.MemberInformation(ObjectInformation, information= SelectedObjectInformation.MASS)
 
 def test_surface_information():
 
@@ -81,6 +81,6 @@ def test_surface_information():
     V = A * 0.2
     M = (V * 2500) / 1000
 
-    assert round(A,3) == ObjectInformation.SurfaceInformation(ObjectInformation, information= SelectedObjectsInformation.AREA)
-    assert round(V,3) == ObjectInformation.SurfaceInformation(ObjectInformation, information= SelectedObjectsInformation.VOLUME)
-    assert round(M,3) == ObjectInformation.SurfaceInformation(ObjectInformation, information= SelectedObjectsInformation.MASS)
+    assert round(A,3) == ObjectInformation.SurfaceInformation(ObjectInformation, information= SelectedObjectInformation.AREA)
+    assert round(V,3) == ObjectInformation.SurfaceInformation(ObjectInformation, information= SelectedObjectInformation.VOLUME)
+    assert round(M,3) == ObjectInformation.SurfaceInformation(ObjectInformation, information= SelectedObjectInformation.MASS)

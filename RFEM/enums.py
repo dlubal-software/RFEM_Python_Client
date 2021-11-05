@@ -670,7 +670,7 @@ class export_to_ifc_export_type(Enum):
 
     E_EXPORT_IFC4_REFERENCE_VIEW, E_EXPORT_IFC4_STRUCTURAL_ANALYSIS_VIEW = range(2)
 
-class SelectedObjectsInformation(Enum):
+class SelectedObjectInformation(Enum):
     '''
     Information About Members | Enum
     '''

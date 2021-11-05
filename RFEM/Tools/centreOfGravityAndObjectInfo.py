@@ -26,7 +26,7 @@ class ObjectInformation():
 
         def MemberInformation(self,
                               no: int = 1,
-                              information = SelectedObjectsInformation.LENGTH):
+                              information = SelectedObjectInformation.LENGTH):
 
                 if information.name == 'AREA':
                         raise Exception ('WARNING: Area information is only relevant for Surface and Volume Information.')
@@ -42,7 +42,7 @@ class ObjectInformation():
 
         def SurfaceInformation(self,
                               no: int = 1,
-                              information = SelectedObjectsInformation.AREA):
+                              information = SelectedObjectInformation.AREA):
 
                 if information.name == 'LENGTH':
                         raise Exception ('WARNING: Length information is only relevant for Member Information.')
@@ -58,7 +58,7 @@ class ObjectInformation():
 
         def SolidInformation(self,
                               no: int = 1,
-                              information = SelectedObjectsInformation.AREA):
+                              information = SelectedObjectInformation.AREA):
 
                 if information.name == 'LENGTH':
                         raise Exception ('WARNING: Length information is only relevant for Member Information.')
