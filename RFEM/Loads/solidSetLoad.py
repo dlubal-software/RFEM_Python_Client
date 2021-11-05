@@ -138,10 +138,10 @@ class SolidSetLoad():
         if load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM":
             clientObject.uniform_magnitude = load_parameter
         else:
-            clientObject.magnitude_1 = load_parameter[1]
-            clientObject.magnitude_2 = load_parameter[2]
-            clientObject.node_1 = load_parameter[3]
-            clientObject.node_2 = load_parameter[4]
+            clientObject.magnitude_1 = load_parameter[0]
+            clientObject.magnitude_2 = load_parameter[1]
+            clientObject.node_1 = load_parameter[2]
+            clientObject.node_2 = load_parameter[3]
         
         clientObject.load_distribution = load_distribution.name
 
@@ -193,18 +193,18 @@ class SolidSetLoad():
 
         # Load Distribution
         if load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM":
-            clientObject.strain_uniform_magnitude_x = load_parameter[1]
-            clientObject.strain_uniform_magnitude_y = load_parameter[2]
-            clientObject.strain_uniform_magnitude_z = load_parameter[3]
+            clientObject.strain_uniform_magnitude_x = load_parameter[0]
+            clientObject.strain_uniform_magnitude_y = load_parameter[1]
+            clientObject.strain_uniform_magnitude_z = load_parameter[2]
         else:
-            clientObject.strain_magnitude_x1 = load_parameter[1]
-            clientObject.strain_magnitude_y1 = load_parameter[2]
-            clientObject.strain_magnitude_z1 = load_parameter[3]
-            clientObject.strain_magnitude_x2 = load_parameter[4]
-            clientObject.strain_magnitude_y2 = load_parameter[5]
-            clientObject.strain_magnitude_z2 = load_parameter[6]
-            clientObject.node_1 = load_parameter[7]
-            clientObject.node_2 = load_parameter[8]
+            clientObject.strain_magnitude_x1 = load_parameter[0]
+            clientObject.strain_magnitude_y1 = load_parameter[1]
+            clientObject.strain_magnitude_z1 = load_parameter[2]
+            clientObject.strain_magnitude_x2 = load_parameter[3]
+            clientObject.strain_magnitude_y2 = load_parameter[4]
+            clientObject.strain_magnitude_z2 = load_parameter[5]
+            clientObject.node_1 = load_parameter[6]
+            clientObject.node_2 = load_parameter[7]
         
         clientObject.load_distribution = load_distribution.name
 
@@ -251,18 +251,18 @@ class SolidSetLoad():
         clientObject.load_type = SolidSetLoadType.LOAD_TYPE_ROTARY_MOTION.name
 
         # Velocity
-        clientObject.angular_velocity = load_parameter[1]
+        clientObject.angular_velocity = load_parameter[0]
 
         # Acceleration
-        clientObject.angular_acceleration = load_parameter[2]
+        clientObject.angular_acceleration = load_parameter[1]
 
         # Axis Definition
-        clientObject.axis_definition_p1_x = load_parameter[3]
-        clientObject.axis_definition_p1_y = load_parameter[4]
-        clientObject.axis_definition_p1_z = load_parameter[5]
-        clientObject.axis_definition_p2_x = load_parameter[6]
-        clientObject.axis_definition_p2_y = load_parameter[7]
-        clientObject.axis_definition_p2_z = load_parameter[8]
+        clientObject.axis_definition_p1_x = load_parameter[2]
+        clientObject.axis_definition_p1_y = load_parameter[3]
+        clientObject.axis_definition_p1_z = load_parameter[4]
+        clientObject.axis_definition_p2_x = load_parameter[5]
+        clientObject.axis_definition_p2_y = load_parameter[6]
+        clientObject.axis_definition_p2_z = load_parameter[7]
 
         # Comment
         clientObject.comment = comment
