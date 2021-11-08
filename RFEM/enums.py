@@ -728,6 +728,11 @@ class export_to_ifc_export_type(Enum):
 
     E_EXPORT_IFC4_REFERENCE_VIEW, E_EXPORT_IFC4_STRUCTURAL_ANALYSIS_VIEW = range(2)
 
+class SelectedObjectInformation(Enum):
+    '''
+    Information About Members | Enum
+    '''
+    LENGTH, VOLUME, MASS, AREA = range(4)
 class GlobalAxesOrientationType(Enum):
     '''
     Model Settings and Options Global Axes Orientation Type
