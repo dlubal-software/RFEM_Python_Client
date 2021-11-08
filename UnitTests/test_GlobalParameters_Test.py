@@ -12,10 +12,10 @@ from RFEM.dataTypes import *
 from RFEM.initModel import *
 
 def test_global_parameters():
-    
+
     clientModel.service.begin_modification('new')
     #not yet implemented in RFEM6 GM
-    GlobalParameter.AddParameter(GlobalParameter, 
+    GlobalParameter.AddParameter(GlobalParameter,
                                  no= 1,
                                  name= 'Test_1',
                                  symbol= 'Test_1',
@@ -24,7 +24,7 @@ def test_global_parameters():
                                  definition_parameter= ['1+1'],
                                  comment= 'Comment_1')
     # issue with optimization type
-    # GlobalParameter.AddParameter(GlobalParameter, 
+    # GlobalParameter.AddParameter(GlobalParameter,
     #                              no= 2,
     #                              name= 'Test_2',
     #                              symbol= 'Test_2',
@@ -32,8 +32,8 @@ def test_global_parameters():
     #                              definition_type= GlobalParameterDefinitionType.DEFINITION_TYPE_OPTIMIZATION,
     #                              definition_parameter= [50, 0, 100, 4],
     #                              comment= 'Comment_2')
-    
-    # GlobalParameter.AddParameter(GlobalParameter, 
+
+    # GlobalParameter.AddParameter(GlobalParameter,
     #                             no= 3,
     #                             name= 'Test_3',
     #                             symbol= 'Test_3',
@@ -42,7 +42,7 @@ def test_global_parameters():
     #                             definition_parameter= [50, 0, 100, 4],
     #                             comment= 'Comment_3')
 
-    # GlobalParameter.AddParameter(GlobalParameter, 
+    # GlobalParameter.AddParameter(GlobalParameter,
     #                             no= 4,
     #                             name= 'Test_4',
     #                             symbol= 'Test_4',
@@ -51,7 +51,7 @@ def test_global_parameters():
     #                             definition_parameter= [50, 0, 100, 4],
     #                             comment= 'Comment_4')
 
-    GlobalParameter.AddParameter(GlobalParameter, 
+    GlobalParameter.AddParameter(GlobalParameter,
                                 no= 5,
                                 name= 'Test_5',
                                 symbol= 'Test_5',
@@ -61,5 +61,5 @@ def test_global_parameters():
                                 comment= 'Comment_5')
 
     print('Ready!')
-    
+
     clientModel.service.finish_modification()

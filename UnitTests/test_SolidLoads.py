@@ -28,7 +28,7 @@ def test_solid_loads():
     clientModel.service.begin_modification('new')
 
     Material(1, 'S235')
-    
+
     # Solid 1
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 10.0, 0.0, 0.0)
@@ -54,7 +54,7 @@ def test_solid_loads():
     Line(10, '2 6')
     Line(11, '3 7')
     Line(12, '4 8')
-    
+
     Thickness(1, 'My Test Thickness', 1, 0.05)
 
     Surface(1, '1-4', 1)
@@ -63,20 +63,20 @@ def test_solid_loads():
     Surface(4, '2 10 6 11', 1)
     Surface(5, '3 11 7 12', 1)
     Surface(6, '4 12 8 9', 1)
-    
+
     Solid(1, '1-6', 1)
-    
+
     NodalSupport(1, '1', NodalSupportType.HINGED)
     NodalSupport(2, '2', NodalSupportType.HINGED)
     NodalSupport(3, '3', NodalSupportType.HINGED)
     NodalSupport(4, '4', NodalSupportType.HINGED)
-    
+
     StaticAnalysisSettings(1, 'Geometric linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    
+
     LoadCase(1 , 'Test load case', [True, 0.0, 0.0, 1.0])
 
     NodalLoad(1, 1, '1', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 12.8)
-    
+
     SolidLoad(1, 1, '1', SolidLoadType.LOAD_TYPE_FORCE, SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 1289.0, 'My Comment')
     SolidLoad.Force(SolidLoad, 2, 1, '1', SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 8569.21, 'My 2nd Comment')
     SolidLoad.Force(SolidLoad, 3, 1, '1', SolidLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 78548.21, 'My 2nd Comment')
@@ -84,7 +84,7 @@ def test_solid_loads():
     SolidLoad.Temperature(SolidLoad, 5, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, [105.4, 507.8, 4, 3])
     SolidLoad.Temperature(SolidLoad, 6, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y, [237, -8.9, 5, 7])
     SolidLoad.Temperature(SolidLoad, 7, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z, [-2587.98, -8.9, 5, 2])
-    
+
     SolidLoad.Strain(SolidLoad, 8, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, [0.01, 0.02, 0.03])
     SolidLoad.Strain(SolidLoad, 9, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 5, 6])
     SolidLoad.Strain(SolidLoad, 10, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y, [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 5, 8])
@@ -155,5 +155,5 @@ def test_solid_loads():
 
     #Calculate_all()
     print('Ready!')
-    
+
     clientModel.service.finish_modification()

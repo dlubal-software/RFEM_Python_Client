@@ -43,7 +43,7 @@ class SolidSet():
 
         # Client model | Solid Set
         clientObject = clientModel.factory.create('ns0:solid_set')
-       
+
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
 

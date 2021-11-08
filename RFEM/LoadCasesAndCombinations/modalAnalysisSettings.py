@@ -17,7 +17,7 @@ class ModalAnalysisSettings():
         Args:
             no (int): Setting Tag
             name (str): Setting Name
-            solution_method (enum): Solution Method Enumeration 
+            solution_method (enum): Solution Method Enumeration
             mass_conversion_type (enum): Mass Conversion Type Enumeration
             mass_matrix_type (enum): Mass Matrix Type Enumeration
             number_of_modes (int): Number of Modes

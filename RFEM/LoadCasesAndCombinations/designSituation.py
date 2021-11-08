@@ -10,7 +10,7 @@ class DesignSituation():
                  design_situation_type: int = 6122,
                  comment: str = '',
                  params: dict = {}):
-        
+
         """
         Args:
             no (int): Design Situation Tag
@@ -55,7 +55,7 @@ class DesignSituation():
 
         # Design Situation Active
         clientObject.active = active
-        
+
         # Design Situation Type
         clientObject.design_situation_type = design_situation_type
 
