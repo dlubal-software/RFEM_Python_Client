@@ -25,12 +25,11 @@ from RFEM.initModel import *
 from RFEM.dataTypes import *
 from RFEM.enums import *
 
-
 def test_surface_set_load():
 
     clientModel.service.begin_modification()
 
-    # Create Material 
+    # Create Material
     Material(1, 'S235')
 
     # Create Thickness
@@ -67,7 +66,6 @@ def test_surface_set_load():
     Line(12, '8 12')
     Line(13, '12 11')
     Line(14, '11 7')
-
 
     # Create Surfaces
     Surface(1, '1 2 3 4', 1)
@@ -117,7 +115,7 @@ def test_surface_set_load():
 
     ## Force Type Surface Set Load with varying in Z
     SurfaceSetLoad.Force(0, 32, 1, '2', SurfaceSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, load_parameter=[[1, 1, 1000], [2, 1, 2000]])
-    
+
     ## Temperature Type Surface Load with UNIFORM Load Distribution ##
     SurfaceSetLoad.Temperature(0, 6, 1, '1', SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, load_parameter=[18, 2])
 
@@ -144,7 +142,6 @@ def test_surface_set_load():
 
     ## Mass Type Surface Load ##
     #SurfaceSetLoad.Mass(0, 14, 1, '1', individual_mass_components=True, mass_parameter=[500, 600, 700])
-
 
     Calculate_all()
 

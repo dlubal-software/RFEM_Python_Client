@@ -113,7 +113,7 @@ class LoadCase():
                     self_weight = [True, self_weight_factor_x, self_weight_factor_y, self_weight_factor_z]
                 For no self-weight considerations;
                     self_weight = [False]
-            comment (str, optional): Comments 
+            comment (str, optional): Comments
             params (dict, optional): Parameters
         '''
 

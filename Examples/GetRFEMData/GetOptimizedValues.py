@@ -29,7 +29,6 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-
 if __name__ == "__main__":
 
     optimizationResults = clientModel.service.get_optimized_formula_parameters()

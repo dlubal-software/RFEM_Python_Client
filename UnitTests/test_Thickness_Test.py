@@ -28,11 +28,11 @@ from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 
 def test_thickness():
-    
+
     clientModel.service.begin_modification('new')
-    
+
     Material(1, 'C30/37')
-	
+
     ##  THICKNESS TYPE
 
     # Standard
@@ -54,7 +54,7 @@ def test_thickness():
                      name= 'Variable - 3 Nodes',
                      properties= [0.1, 1, 0.25, 2, 0.45, 3],
                      comment= 'Comment')
-                                 
+
     # Variable - 2 Nodes and Direction
     Node(4, 20, -10, 0)
     Node(5, 20, 0, -5)
@@ -90,7 +90,6 @@ def test_thickness():
                                        [0, 1, 0.456, 90, 'Schicht 2']],
                      comment= 'Comment')
 
-
     # Shape Orthotropy
     Thickness.ShapeOrthotropy(Thickness,
                      no= 8,
@@ -113,8 +112,8 @@ def test_thickness():
                      consideration_of_self_weight= [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_BULK_DENSITY_AND_AREA_DENSITY, 10, 10],
                      coefficient_of_thermal_expansion= 1,
                      comment= 'Comment')
-    
+
     #Calculate_all()
     print('Ready!')
-    
+
     clientModel.service.finish_modification()

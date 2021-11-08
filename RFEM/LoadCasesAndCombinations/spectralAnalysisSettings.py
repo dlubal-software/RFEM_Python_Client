@@ -53,7 +53,7 @@ class SpectralAnalysisSettings():
         # Further Options
         if directional_combination == DirectionalComponentCombinationRule.SCALED_SUM:
             clientObject.combination_rule_for_directional_components_value = directional_component_scale_value
-        
+
         if periodic_combination == PeriodicResponseCombinationRule.CQC:
             clientObject.damping_for_cqc_rule = damping_for_cqc_rule.name
             clientObject.constant_d_for_each_mode = constant_d_for_each_mode

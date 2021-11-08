@@ -151,7 +151,6 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
         Member(k+4, MemberType.TYPE_TENSION, (i-1)*5+4, (i-1)*5+10, 0.0,  4, 4)
         i += 1
 
-
     # Diagonals on the roof
     j += 4*(number_frames-1)
     if number_frames > 1:
@@ -159,7 +158,6 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
         Member(j+2, MemberType.TYPE_TENSION, 7, 3, 0.0,  4, 4)
         Member(j+3, MemberType.TYPE_TENSION, 3, 9, 0.0,  4, 4)
         Member(j+4, MemberType.TYPE_TENSION, 4, 8, 0.0,  4, 4)
-
 
 # -------------------------------------------------------------
     # Surfaces
@@ -251,7 +249,7 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x2 ##
     MemberLoad.Force(0, 7, 6, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, False, 5000, 1, 2, 3])
-    
+
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x ##
     MemberLoad.Force(0, 8, 7, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 6000, 1, 2])
 
@@ -266,15 +264,12 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
     MemberLoad.Force(0, 12, 11, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[4000, 8000, 12000])
-     
+
     ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING ##
     MemberLoad.Force(0, 13, 12, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
-     
+
     ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING_IN_Z ##
     MemberLoad.Force(0, 14, 13, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
-    
-
-
 # -------------------------------------------------------------
     # Surface Loads
     SurfaceLoad(1, 3, "3", 20000)

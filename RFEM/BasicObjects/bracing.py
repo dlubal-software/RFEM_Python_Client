@@ -1,7 +1,6 @@
 from RFEM.initModel import *
 from RFEM.enums import BracingType
 
-
 class Bracing():
  def __init__(self,
                  no: int = 1,
@@ -56,7 +55,7 @@ class Bracing():
 
         # Add Member to client model
         clientModel.service.set_bracing(clientObject)
-        
+
       def Horizontal(self,
             no: int = 1,
             bracing_type = BracingType.TYPE_HORIZONTAL,
@@ -169,4 +168,3 @@ class Bracing():
         # Add Bracing to client model
         clientModel.service.set_bracing(clientObject)
 
-      

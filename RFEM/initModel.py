@@ -102,7 +102,6 @@ except:
 
 import csv
 
-
 # Connect to server
 # Check server port range set in "Program Options & Settings"
 # By default range is set between 8081 ... 8089
@@ -188,17 +187,17 @@ def Calculate_all(generateXmlSolverInput: bool = False):
 
 def ConvertToDlString(s):
     '''
-    The function converts strings commonly used in RSTAB / RFEM so that they 
+    The function converts strings commonly used in RSTAB / RFEM so that they
     can be used In WebServices. It solved issue #4.
     Examples:
     '1,3'       -> '1 3'
     '1, 3'      -> '1 3'
     '1-3'       -> '1 2 3'
     '1,3,5-9'   -> '1 3 5 6 7 8 9'
-    
+
     Params:
         RSTAB / RFEM common string
-        
+
     Returns a WS conform string.
     '''
     if type(s)==list:
@@ -216,12 +215,12 @@ def ConvertToDlString(s):
             inLst = []
             for i in range(start, end + 1):
                 inLst.append(str(i))
-                
+
             inS = ' '.join(inLst)
             new_lst.append(inS)
         else:
             new_lst.append(element)
-            
+
     s = ' '.join(new_lst)
     return s
 
@@ -244,7 +243,7 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculateLC.parent_no = 0
             specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
             specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
-    
+
     if designSituations is not None:
         for designSituation in designSituations:
             specificObjectsToCalculateDS = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
@@ -252,7 +251,7 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculateDS.parent_no = 0
             specificObjectsToCalculateDS.type = ObjectTypes.E_OBJECT_TYPE_DESIGN_SITUATION.name
             specificObjectsToCalculate.element.append(specificObjectsToCalculateDS)
-    
+
     if loadCombinations is not None:
         for loadCombination in loadCombinations:
             specificObjectsToCalculateLC = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
@@ -272,13 +271,13 @@ def ExportResultTablesToXML(TargetFilePath: str):
     clientModel.service.export_result_tables_to_xml(TargetFilePath)
 
 def ExportResultTablesWithDetailedMembersResultsToCsv(TargetDirectoryPath: str):
-    
+
     clientModel.service.export_result_tables_with_detailed_members_results_to_csv(TargetDirectoryPath)
 
 def ExportResultTablesWithDetailedMembersResultsToXML(TargetFilePath: str):
-    
+
     clientModel.service.export_result_tables_with_detailed_members_results_to_xml(TargetFilePath)
-    
+
 def  __parseXMLAsDictionary(path: str =""):
     with open(path, "rb") as f:
         my_dictionary = xmltodict.parse(f, xml_attribs=True)
@@ -293,11 +292,11 @@ def __parseCSVAsDictionary(path: str =""):
     return my_dictionary
 
 def ParseCSVResultsFromSelectedFileToDict(filePath: str):
-    
+
     return __parseCSVAsDictionary(filePath)
 
 def ParseXMLResultsFromSelectedFileToDict(filePath: str):
-    
+
     return __parseXMLAsDictionary(filePath)
 
 def GenerateMesh():

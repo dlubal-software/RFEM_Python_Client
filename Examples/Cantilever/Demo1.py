@@ -33,7 +33,6 @@ from RFEM.Loads.nodalLoad import *
 from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 
-
 if __name__ == '__main__':
     l = float(input('Length of the cantilever in m: '))
     f = float(input('Force in kN: '))
@@ -78,17 +77,16 @@ if __name__ == '__main__':
     print ("Model dimension x " + str(modelStatus.property_dimensions.x))
     print ("Model dimension y " + str(modelStatus.property_dimensions.y))
     print ("Model dimension z " + str(modelStatus.property_dimensions.z))
-    
-    
+
     # clientModel.service.save(r"D:/TEMP/model.rf6")
-    
+
     # clientModel.service.export_to(r"D:/TEMP/model.gltf")
     # clientModel.service.export_to(r"D:/TEMP/model.glb")
     # clientModel.service.export_to(r"D:/TEMP/model.vtk")
-   # clientObject = clientModel.factory.create('ns0:nodal_load')
+    # clientObject = clientModel.factory.create('ns0:nodal_load')
     # export_to_ifc_object_location_type[] ifcLocation = null; // whole model will be exported
     # ifcSettings = clientModel.factory.create('ns0:export_to_ifc_settings_type')
-         
+
     # ifcSettings.axis_rotation_sequence = "X'Y'Z'"
     # ifcSettings.mirror_axis_x = False
     # ifcSettings.mirror_axis_y = False
@@ -105,13 +103,10 @@ if __name__ == '__main__':
     # ifcSettings.switch_axis_z = export_to_ifc_axis_type.Z.name
     # ifcSettings.remove_accents = False
     # clientModel.service.export_to_ifc(r'D:/TEMP/Mymodel.ifc', ifcSettings, None)
-    
+
     # loadCases = [1]
     # CalculateSelectedCases(loadCases=loadCases)
     # ExportResulTablesWithDetailedMembersResultsToCsv(dirName)
     # ExportResulTablesWithDetailedMembersResultsToXML(dirName + "Results.xml")
     # #internalForces = ParseCSVResultsFromSelectedFileToDict(dirName + "\\My Model\\LC1_static_analysis_members_internal_forces.csv")
     # results = ParseXMLResultsFromSelectedFileToDict(dirName + "Results.xml")
-    
-    
-    

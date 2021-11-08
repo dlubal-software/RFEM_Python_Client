@@ -52,10 +52,10 @@ class Surface():
         '''
         for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
             geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-        
+
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
-        
+
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
         '''
@@ -94,10 +94,10 @@ class Surface():
         '''
         for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
             geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-        
+
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
-        
+
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
         '''
@@ -135,10 +135,10 @@ class Surface():
         '''
         for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
             geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-        
+
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
-        
+
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
         '''
@@ -177,10 +177,10 @@ class Surface():
         '''
         for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
             geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-        
+
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
-        
+
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
         '''
@@ -220,10 +220,10 @@ class Surface():
         '''
         for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
             geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-        
+
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
-        
+
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
         '''
@@ -269,10 +269,10 @@ class Surface():
         '''
         for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
             geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-        
+
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
-        
+
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
         '''
@@ -327,7 +327,7 @@ class Surface():
 
         # Add Surface to client model
         clientModel.service.set_surface(clientObject)
-    
+
     def __CreateGeometryAndSetToModel(self):
 
         # Geometry Type
@@ -343,10 +343,10 @@ class Surface():
             self.clientObject.nurbs_control_point_count_in_direction_v = self.geometry_type_parameters[1]
             self.clientObject.nurbs_order_in_direction_u = self.geometry_type_parameters[2]
             self.clientObject.nurbs_order_in_direction_v = self.geometry_type_parameters[3]
-        
+
         elif self.geometry_type.name == 'GEOMETRY_PLANE':
             self.geometry_type_parameters = None
-        
+
         elif self.geometry_type.name == 'GEOMETRY_QUADRANGLE':
             if len(self.geometry_type_parameters) != 4:
                 raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
