@@ -25,7 +25,7 @@ class ObjectInformation():
                 self.object_type = type
                 self.no = no
                 self.parent_no = parent_no
-                
+
                 result = ObjectInformation.__BuildResultsArray(self)
 
                 if coord == 'X' or coord.lstrip().rstrip().upper() == 'X':
@@ -40,7 +40,7 @@ class ObjectInformation():
         def MemberInformation(self,
                               no: int = 1,
                               information = SelectedObjectInformation.LENGTH):
-                
+
                 '''
                 This function returns further information associated with a member.
 
@@ -51,7 +51,7 @@ class ObjectInformation():
 
                 if information.name == 'AREA':
                         raise Exception ('WARNING: Area information is only relevant for Surface and Volume Information.')
-                
+
                 self.object_type = ObjectTypes.E_OBJECT_TYPE_MEMBER
                 self.no = no
                 self.parent_no = 0
@@ -80,7 +80,7 @@ class ObjectInformation():
                 self.no = no
                 self.parent_no = 0
                 self.information = information
-                self.row_key = 3              
+                self.row_key = 3
                 self.result = ObjectInformation.__BuildResultsArray(self)
 
                 return ObjectInformation.__AreaVolumeMassInformationLength(self)
@@ -110,7 +110,7 @@ class ObjectInformation():
                 return ObjectInformation.__AreaVolumeMassInformationLength(self)
 
         def __BuildResultsArray(self):
-                
+
                 elements = clientModel.factory.create('ns0:array_of_get_center_of_gravity_and_objects_info_elements_type')
                 clientObject = clientModel.factory.create('ns0:get_center_of_gravity_and_objects_info_element_type')
                 clientObject.parent_no = self.parent_no
@@ -119,9 +119,9 @@ class ObjectInformation():
                 elements.element.append(clientObject)
                 result = clientModel.service.get_center_of_gravity_and_objects_info(elements)
                 result = clientModel.dict(result)
-                
+
                 return result
-        
+
         def __AreaVolumeMassInformationLength(self):
 
                 if self.information.name == "LENGTH" or self.information.name == "AREA":

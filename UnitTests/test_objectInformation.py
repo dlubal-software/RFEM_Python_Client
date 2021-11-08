@@ -39,7 +39,7 @@ def test_centre_of_gravity():
     assert CoG_Z == ObjectInformation.CentreOfGravity(ObjectInformation, coord= 'Z')
 
 def test_member_information():
-    
+
     clientModel.service.begin_modification('new')
 
     x1, y1, z1, = 0, 0, 0
