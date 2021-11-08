@@ -2,7 +2,7 @@ from enum import Enum
 
 class MemberType(Enum):
     '''
-    Member Type | Enu
+    Member Type | Enum
     '''
     TYPE_BEAM, TYPE_BUCKLING, TYPE_CABLE, TYPE_COMPRESSION, TYPE_COUPLING_HINGE_HINGE,\
     TYPE_COUPLING_HINGE_RIGID, TYPE_COUPLING_RIGID_HINGE, TYPE_COUPLING_RIGID_RIGID,\
@@ -19,6 +19,28 @@ class StaticAnalysisType(Enum):
     Static Analysis Type | Enum
     '''
     GEOMETRICALLY_LINEAR, LARGE_DEFORMATIONS, LARGE_DEFORMATIONS_POSTRCRITICAL, SECOND_ORDER_P_DELTA = range(4)
+    
+    
+class StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis(Enum):
+    '''
+    Static Analysis Settings Iterative Method For Nonlinear Analysis | Enum
+    '''
+    DYNAMIC_RELAXATION, NEWTON_RAPHSON, NEWTON_RAPHSON_COMBINED_WITH_PICARD, NEWTON_RAPHSON_WITH_CONSTANT_STIFFNESS,\
+    NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS, PICARD = range(6)
+    
+    
+class StaticAnalysisSettingsMethodOfEquationSystem(Enum):
+    '''
+    Static Analysis Settings Method of Equation System | Enum
+    '''
+    METHOD_OF_EQUATION_SYSTEM_DIRECT, METHOD_OF_EQUATION_SYSTEM_ITERATIVE = range(2)
+    
+    
+class StaticAnalysisSettingsPlateBendingTheory(Enum):
+    '''
+    Static Analysis Settings Plate Bending Theory | Enum
+    '''
+    PLATE_BENDING_THEORY_MINDLIN, PLATE_BENDING_THEORY_KIRCHHOFF = range(2)    
 
 class AnalysisType(Enum):
     '''
