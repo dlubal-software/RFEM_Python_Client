@@ -18,7 +18,7 @@ Python client (or high-level functions) for [RFEM 6](https://www.dlubal.com/en/p
   * [Contribute](#contribute)
 
 ## Description
-This Python project is focused on opening RFEM 6 to all our customers, enabling them to interact with RFEM on much higher level. If you are looking for tool to help you solve parametric models or optimization tasks, you are on the right place. This project and community will create support for all your projects. The goal is to create easily expandable Python library communicating instructions to RFEM through WS. WS enable you to access your local version of RFEM or remote via internet connection.
+This Python project is focused on opening RFEM 6 to all of our customers, enabling them to interact with RFEM 6 on a much higher level. If you are looking for a tool to help you solve parametric models or optimization tasks, you have come to the right place. This community serves as a support portal and base for all of your future projects. The goal is to create an easily expandable Python library, which communicates instructions to RFEM 6 through WebServices (WS). WS enables access to RFEM 6 either via a local instance or a remote internet connection.
 
 ## Architecture
 ![image](https://user-images.githubusercontent.com/37547309/118119185-44a22f00-b3ee-11eb-9d60-3d74a4a96f81.png)
@@ -45,6 +45,9 @@ Dependency check is implemented inside [initModel.py](/RFEM/initModel.py) with o
 
 ### Examples
 Examples can be found under [Examples](/Examples) folder.
+
+## API Documentation
+Visit our [GitHub page](https://dlubal-software.github.io/RFEM_Python_Client/)
 
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)

@@ -436,7 +436,7 @@ class Thickness():
                 For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE:
                     parameters = [slab_thickness, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
 
-            rotation_beta (float): 
+            rotation_beta (float):
             consideration_of_self_weight (list):
 
                 For parameter defined self-weight:
@@ -537,7 +537,7 @@ class Thickness():
             clientObject.rib_spacing_y = parameters[2]
             clientObject.rib_width_x = parameters[3]
             clientObject.rib_width_y = parameters[4]
-        
+
         # Comment
         clientObject.comment = comment
 
@@ -627,7 +627,7 @@ class Thickness():
 
         # Coefficient of Thermal Expansion
         clientObject.stiffness_matrix_coefficient_of_thermal_expansion = coefficient_of_thermal_expansion
-        
+
         # Stiffness Matrix - Bending/Torsional Stiffness Elements
         array_count = []
         [array_count.append(len(item_length)) for item_length in stiffness_matrix]
@@ -635,10 +635,10 @@ class Thickness():
             raise Exception('WARNING: Kindly check Stiffness Matrix inputs for completeness and correctness.')
         clientObject.D11, clientObject.D12, clientObject.D13 = stiffness_matrix[0][0], stiffness_matrix[0][1], stiffness_matrix[0][2]
         clientObject.D22, clientObject.D23, clientObject.D33 = stiffness_matrix[0][3], stiffness_matrix[0][4], stiffness_matrix[0][5]
-        
+
         # Stiffness Matrix - Shear Stiffness Elements
         clientObject.D44, clientObject.D45, clientObject.D55 = stiffness_matrix[1][0], stiffness_matrix[1][1], stiffness_matrix[1][2]
-        
+
         # Stiffness Matrix - Membrane Stiffness Elements
         clientObject.D66, clientObject.D67, clientObject.D68 = stiffness_matrix[2][0], stiffness_matrix[2][1], stiffness_matrix[2][2]
         clientObject.D77, clientObject.D78, clientObject.D88 = stiffness_matrix[2][3], stiffness_matrix[2][4], stiffness_matrix[2][5]
@@ -646,7 +646,7 @@ class Thickness():
         # Stiffness Matrix - Eccentric Stiffness Elements
         clientObject.D16, clientObject.D17, clientObject.D18 = stiffness_matrix[3][0], stiffness_matrix[3][1], stiffness_matrix[3][2]
         clientObject.D27, clientObject.D28, clientObject.D38 = stiffness_matrix[3][3], stiffness_matrix[3][4], stiffness_matrix[3][5]
-        
+
         # Comment
         clientObject.comment = comment
 

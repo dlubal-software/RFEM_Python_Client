@@ -14,13 +14,11 @@ class NodalSupportType(Enum):
     '''
     FIXED, HINGED, ROLLER, ROLLER_IN_X, ROLLER_IN_Y, ROLLER_IN_Z = range(6)
 
-
 class StaticAnalysisType(Enum):
     '''
     Static Analysis Type | Enum
     '''
     GEOMETRICALLY_LINEAR, LARGE_DEFORMATIONS, LARGE_DEFORMATIONS_POSTRCRITICAL, SECOND_ORDER_P_DELTA = range(4)
-
 
 class AnalysisType(Enum):
     '''
@@ -28,7 +26,6 @@ class AnalysisType(Enum):
     '''
     ANALYSIS_TYPE_CREEP_AND_SHRINKAGE, ANALYSIS_TYPE_CUTTING_PATTERN, ANALYSIS_TYPE_MODAL, ANALYSIS_TYPE_RESPONSE_SPECTRUM,\
     ANALYSIS_TYPE_STATIC, ANALYSIS_TYPE_TIME_DEPENDENT, ANALYSIS_TYPE_TIME_HISTORY, ANALYSIS_TYPE_WIND_SIMULATION = range(8)
-
 
 class LoadDirectionType(Enum):
     '''
@@ -55,7 +52,6 @@ class MemberLoadType(Enum):
     LOAD_TYPE_FORM_FINDING, LOAD_TYPE_INITIAL_PRESTRESS, LOAD_TYPE_MOMENT, LOAD_TYPE_PIPE_CONTENT_FULL,\
     LOAD_TYPE_PIPE_CONTENT_PARTIAL, LOAD_TYPE_PIPE_INTERNAL_PRESSURE, LOAD_TYPE_PRECAMBER, LOAD_TYPE_ROTARY_MOTION,\
     LOAD_TYPE_ROTATION, LOAD_TYPE_TEMPERATURE, LOAD_TYPE_TEMPERATURE_CHANGE = range(16)
-
 
 class MemberLoadDistribution(Enum):
     '''
@@ -100,8 +96,8 @@ class SurfaceType(Enum):
     '''
     Stiffness Type | Enum
     '''
-    TYPE_LOAD_DISTRIBUTION, TYPE_MEMBRANE, TYPE_RIGID, TYPE_STANDARD, TYPE_WITHOUT_MEMBRANE_TENSION, TYPE_WITHOUT_THICKNESS = range(6)
-    
+    TYPE_LOAD_TRANSFER, TYPE_MEMBRANE, TYPE_RIGID, TYPE_STANDARD, TYPE_WITHOUT_MEMBRANE_TENSION, TYPE_WITHOUT_THICKNESS = range(6)
+
 class SurfaceLoadDistribution(Enum):
     '''
     Surface Load Distribution | Enum
@@ -125,11 +121,11 @@ class SurfaceLoadType(Enum):
     LOAD_TYPE_AXIAL_STRAIN, LOAD_TYPE_FORCE, LOAD_TYPE_FORM_FINDING, LOAD_TYPE_MASS, LOAD_TYPE_PRECAMBER,\
     LOAD_TYPE_ROTARY_MOTION, LOAD_TYPE_TEMPERATURE = range(7)
 
-class SurfaceLoadDistributionDirection(Enum):
+class SurfaceLoadTransferDirection(Enum):
     '''
     Surface Load Distribution Direction | Enum
     '''
-    LOAD_DISTRIBUTION_DIRECTION_IN_BOTH, LOAD_DISTRIBUTION_DIRECTION_IN_X, LOAD_DISTRIBUTION_DIRECTION_IN_Y = range(3)
+    LOAD_TRANSFER_DIRECTION_IN_BOTH, LOAD_TRANSFER_DIRECTION_IN_X, LOAD_TRANSFER_DIRECTION_IN_Y = range(3)
 
 class SetType(Enum):
     '''
@@ -181,6 +177,9 @@ class ThicknessDirection(Enum):
     THICKNESS_DIRECTION_IN_Y, THICKNESS_DIRECTION_IN_Z = range(5)
 
 class ThicknessSelfWeightDefinitionType(Enum):
+    '''
+    Thickness Self Weight Definition Type | Enum
+    '''
     SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, \
     SELF_WEIGHT_DEFINED_VIA_WEIGHT = range(3)
 class ThicknessShapeOrthotropySelfWeightDefinitionType(Enum):
@@ -192,13 +191,14 @@ class ThicknessStiffnessMatrixSelfWeightDefinitionType(Enum):
     SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_AREA_DENSITY, \
     SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_BULK_DENSITY = range(3)
 class ThicknessOrthotropyType(Enum):
+    '''
+    Thickness Orthotropy Type | Enum
+    '''
     ORTHOTROPIC_THICKNESS_TYPE_BIDIRECTIONAL_RIBBED_PLATE, ORTHOTROPIC_THICKNESS_TYPE_COUPLING, \
     ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS, ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE, \
     ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB, ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET, \
     ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE = range(7)
 
-
-   
 class LineLoadDirection(Enum):
     '''
     Line Load Direction | Enum
@@ -208,27 +208,22 @@ class LineLoadDirection(Enum):
     LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,\
     LOAD_DIRECTION_LOCAL_X, LOAD_DIRECTION_LOCAL_Y, LOAD_DIRECTION_LOCAL_Z = range(9)
 
-
 class MemberLoadEccentricityHorizontalAlignment(Enum):
     '''
     Member Load Eccentricity Horizontal Alignment
     '''
-
     ALIGN_LEFT, ALIGN_MIDDLE, ALIGN_NONE, ALIGN_TOP = range(4)
-
 
 class MemberLoadEccentricityVerticalAlignment(Enum):
     '''
     Member Load Eccentricity Vertical Alignment
     '''
-
     ALIGN_LEFT, ALIGN_MIDDLE, ALIGN_NONE, ALIGN_TOP = range(4)
 
 class MemberLoadEccentricitySectionMiddle(Enum):
     '''
     Member Load Eccentricity Section Middle
     '''
-
     LOAD_ECCENTRICITY_SECTION_MIDDLE_CENTER_OF_GRAVITY, LOAD_ECCENTRICITY_SECTION_MIDDLE_NONE, LOAD_ECCENTRICITY_SECTION_MIDDLE_SHEAR_CENTER = range(3)
 
 class MemberLoadFormFindingDefinitionType(Enum):
@@ -313,26 +308,24 @@ class SurfaceLoadDirection(Enum):
     '''
     LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED, LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE,\
     LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, LOAD_DIRECTION_LOCAL_X, LOAD_DIRECTION_LOCAL_Y, LOAD_DIRECTION_LOCAL_Z = range(9)
-    
+
 class SurfaceLoadType(Enum):
     '''
     Surface Load Type
     '''
     LOAD_TYPE_AXIAL_STRAIN, LOAD_TYPE_FORCE, LOAD_TYPE_FORM_FINDING, LOAD_TYPE_MASS, LOAD_TYPE_PRECAMBER, LOAD_TYPE_ROTARY_MOTION, LOAD_TYPE_TEMPERATURE = range(7)
-    
+
 class NodeType(Enum):
     '''
     Node Type | Enum
     '''
     TYPE_BETWEEN_TWO_NODES, TYPE_BETWEEN_TWO_POINTS, TYPE_ON_LINE, TYPE_ON_MEMBER, TYPE_STANDARD = range (5)
 
-
 class NodeCoordinateSystemType(Enum):
     '''
     Node Coordinate System Type | Enum
     '''
     COORDINATE_SYSTEM_CARTESIAN, COORDINATE_SYSTEM_POLAR, COORDINATE_SYSTEM_X_CYLINDRICAL, COORDINATE_SYSTEM_Y_CYLINDRICAL, COORDINATE_SYSTEM_Z_CYLINDRICAL = range (5)
-
 
 class NodeReferenceType(Enum):
     '''
@@ -614,7 +607,25 @@ class FreePolygonLoadLoadDistribution(Enum):
     Free Polygon Load Load Distribution | Enum
     '''
     LOAD_DISTRIBUTION_LINEAR, LOAD_DISTRIBUTION_LINEAR_FIRST, LOAD_DISTRIBUTION_LINEAR_SECOND, LOAD_DISTRIBUTION_UNIFORM = range(4)
-    
+
+class SolidLoadType(Enum):
+    '''
+    Solid Load Load Type | Enum
+    '''
+    LOAD_TYPE_BUOYANCY, LOAD_TYPE_FORCE, LOAD_TYPE_GAS, LOAD_TYPE_ROTARY_MOTION, LOAD_TYPE_STRAIN, LOAD_TYPE_TEMPERATURE = range(6)
+
+class SolidLoadDistribution(Enum):
+    '''
+    Solid Load Load Distribution | Enum
+    '''
+    LOAD_DISTRIBUTION_LINEAR_IN_X, LOAD_DISTRIBUTION_LINEAR_IN_Y, LOAD_DISTRIBUTION_LINEAR_IN_Z, LOAD_DISTRIBUTION_UNIFORM = range(4)
+
+class SolidLoadDirection(Enum):
+    '''
+    Solid Load Load Direction | Enum
+    '''
+    LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE = range(3)
+
 class PeriodicResponseCombinationRule(Enum):
     '''
     Spectral Analysis Settings Combination Rule For Periodic Responses
@@ -633,14 +644,42 @@ class CqsDampingRule(Enum):
     '''
     CONSTANT_FOR_EACH_MODE, DIFFERENT_FOR_EACH_MODE = range(2)
 
+class StabilityAnalysisSettingsAnalysisType(Enum):
+    '''
+    Stability Analysis Settings Analysis Type | Enum
+    '''
+    EIGENVALUE_METHOD, INCREMENTALY_METHOD_WITHOUT_EIGENVALUE, \
+    INCREMENTALY_METHOD_WITH_EIGENVALUE = range(3)
+
+class StabilityAnalysisSettingsEigenvalueMethod(Enum):
+    '''
+    Stability Analysis Settings Eigenvalue Method | Enum
+    '''
+    EIGENVALUE_METHOD_ICG_ITERATION, EIGENVALUE_METHOD_LANCZOS, \
+    EIGENVALUE_METHOD_ROOTS_OF_CHARACTERISTIC_POLYNOMIAL, \
+    EIGENVALUE_METHOD_SUBSPACE_ITERATION, E_EIGENVALUE_METHOD_SHIFTED_INVERSE_POWER_METHOD = range(5)
+
+class StabilityAnalysisSettingsMatrixType(Enum):
+    '''
+    Stability Analysis Settings Matrix Type | Enum
+    '''
+    MATRIX_TYPE_STANDARD, MATRIX_TYPE_UNIT = range(2)
+
+class StabilityAnalysisSettingsStoppingOfLoadIncreasingResult(Enum):
+    '''
+    Stability Analysis Settings Stopping Of Load Increasing Result | Enum
+    '''
+    RESULT_TYPE_DISPLACEMENT_U, RESULT_TYPE_DISPLACEMENT_U_X, RESULT_TYPE_DISPLACEMENT_U_Y, \
+    RESULT_TYPE_DISPLACEMENT_U_Z, RESULT_TYPE_ROTATION_PHI, RESULT_TYPE_ROTATION_PHI_X, \
+    RESULT_TYPE_ROTATION_PHI_Y, RESULT_TYPE_ROTATION_PHI_Z = range(8)
 class LineType(Enum):
     '''
     Line Type | Enum
     '''
     TYPE_ARC, TYPE_CIRCLE, TYPE_CUT_VIA_SECTION, TYPE_CUT_VIA_TWO_LINES, TYPE_ELLIPTICAL_ARC, TYPE_ELLIPSE, TYPE_NURBS, TYPE_PARABOLA, TYPE_POLYLINE, TYPE_SPLINE = range(10)
-    
+
 class ObjectTypes(Enum):
-    
+
     E_OBJECT_TYPE_ACTION, E_OBJECT_TYPE_ACTION_COMBINATION, E_OBJECT_TYPE_BUILDING_STORY, E_OBJECT_TYPE_CLIPPING_BOX, E_OBJECT_TYPE_CLIPPING_PLANE, E_OBJECT_TYPE_COMBINATION_WIZARD, E_OBJECT_TYPE_COORDINATE_SYSTEM,\
     E_OBJECT_TYPE_CUTTING_LINE_SETTING, E_OBJECT_TYPE_CUTTING_PATTERN, E_OBJECT_TYPE_DESIGN_SITUATION, E_OBJECT_TYPE_DESIGN_SUPPORT, E_OBJECT_TYPE_DIMENSION, E_OBJECT_TYPE_FREE_CIRCULAR_LOAD, E_OBJECT_TYPE_FREE_CONCENTRATED_LOAD,\
     E_OBJECT_TYPE_FREE_LINE_LOAD, E_OBJECT_TYPE_FREE_POLYGON_LOAD, E_OBJECT_TYPE_FREE_RECTANGULAR_LOAD, E_OBJECT_TYPE_IMPERFECTION_CASE, E_OBJECT_TYPE_IMPOSED_LINE_DEFORMATION, E_OBJECT_TYPE_IMPOSED_NODAL_DEFORMATION,\
@@ -655,16 +694,13 @@ class ObjectTypes(Enum):
     E_OBJECT_TYPE_SURFACE_LOAD, E_OBJECT_TYPE_SURFACE_MESH_REFINEMENT, E_OBJECT_TYPE_SURFACE_RESULTS_ADJUSTMENT, E_OBJECT_TYPE_SURFACE_SET, E_OBJECT_TYPE_SURFACE_SET_IMPERFECTION, E_OBJECT_TYPE_SURFACE_SET_LOAD,\
     E_OBJECT_TYPE_SURFACE_STIFFNESS_MODIFICATION, E_OBJECT_TYPE_SURFACE_SUPPORT, E_OBJECT_TYPE_THICKNESS, E_OBJECT_TYPE_VISUAL_OBJECT = range(86)
 
-
 class export_to_ifc_axis_rotation_sequence_type(Enum):
 
     XYZ, XZY, YXZ, YZX, ZXY, ZYX = range(6)
 
-
 class export_to_ifc_axis_type(Enum):
 
     X,Y,Z = range(3)
-
 
 class export_to_ifc_export_type(Enum):
 
@@ -675,3 +711,68 @@ class SelectedObjectInformation(Enum):
     Information About Members | Enum
     '''
     LENGTH, VOLUME, MASS, AREA = range(4)
+class GlobalAxesOrientationType(Enum):
+    '''
+    Model Settings and Options Global Axes Orientation Type
+    '''
+    E_GLOBAL_AXES_ORIENTATION_ZDOWN, E_GLOBAL_AXES_ORIENTATION_ZUP = range(2)
+
+class LocalAxesOrientationType(Enum):
+    '''
+    Model Settings and Local Axes Orientation Type
+    '''
+    E_LOCAL_AXES_ORIENTATION_YUPX, E_LOCAL_AXES_ORIENTATION_YUPZ, E_LOCAL_AXES_ORIENTATION_ZDOWN, E_LOCAL_AXES_ORIENTATION_ZUP = range(4)
+
+class ModelType(Enum):
+    '''
+    Model Type | Enum
+    '''
+    E_MODEL_TYPE_1D_X_3D, E_MODEL_TYPE_1D_X_AXIAL, E_MODEL_TYPE_2D_XY_3D, \
+    E_MODEL_TYPE_2D_XY_PLATE, E_MODEL_TYPE_2D_XZ_3D, E_MODEL_TYPE_2D_XZ_PLANE_STRAIN, \
+    E_MODEL_TYPE_2D_XZ_PLANE_STRESS, E_MODEL_TYPE_3D = range(8)
+class ModalSolutionMethod(Enum):
+    '''
+    Modal Analysis Settings Solution Method
+    '''
+    METHOD_ICG_ITERATION, METHOD_LANCZOS, METHOD_ROOT_OF_CHARACTERISTIC_POLYNOMIAL, METHOD_SUBSPACE_ITERATION, SOLUTION_METHOD_SHIFTED_INVERSE_POWER_METHOD = range(5)
+
+class ModalMassConversionType(Enum):
+    '''
+    Modal Analysis Settings Mass Conversion Type
+    '''
+    MASS_CONVERSION_TYPE_FULL_LOADS_AS_MASS, MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS, MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS_IN_DIRECTION_OF_GRAVITY = range(3)
+
+class ModalMassMatrixType(Enum):
+    '''
+    Modal Analysis Settings Mass Matrix Type
+    '''
+    MASS_MATRIX_TYPE_CONSISTENT, MASS_MATRIX_TYPE_DIAGONAL, MASS_MATRIX_TYPE_DIAGONAL_WITH_TORSIONAL_ELEMENTS, MASS_MATRIX_TYPE_UNIT = range(4)
+
+class ModalModeNumberMethod(Enum):
+    '''
+    Modal Analysis Settings Number of Modes Method
+    '''
+    NUMBER_OF_MODES_METHOD_EFFECTIVE_MASS_FACTORS, NUMBER_OF_MODES_METHOD_MAXIMUM_FREQUENCY, NUMBER_OF_MODES_METHOD_USER_DEFINED = range(3)
+
+class ModalNeglectMasses(Enum):
+    '''
+    Modal Analysis Settings Neglect Masses
+    '''
+    E_NEGLECT_MASSES_IN_ALL_FIXED_SUPPORTS, E_NEGLECT_MASSES_NO_NEGLECTION, E_NEGLECT_MASSES_USER_DEFINED = range(3)
+class PeriodicResponseCombinationRule(Enum):
+    '''
+    Spectral Analysis Settings Combination Rule For Periodic Responses
+    '''
+    ABSOLUTE_SUM, CQC, SRSS = range(3)
+
+class DirectionalComponentCombinationRule(Enum):
+    '''
+    Spectral Analysis Settings Combination Rule For Directional Components
+    '''
+    ABSOLUTE_SUM, SCALED_SUM, SRSS = range(3)
+
+class CqsDampingRule(Enum):
+    '''
+    Spectal Analysis Settings Damping for CQC Rule
+    '''
+    CONSTANT_FOR_EACH_MODE, DIFFERENT_FOR_EACH_MODE = range(2)
