@@ -314,7 +314,7 @@ class Line():
 
     def NURBS(self,
               no: int = 1,
-              nodes_no: str = '1 2', 
+              nodes_no: str = '1 2',
               control_points: list = [[0,0,0],[2.33,0,-3,4],[10,0,-11],[17.66,0,-3.4],[20,0,0]],
               weights = [1,1,1,1,1],
               comment: str = '',
@@ -336,7 +336,7 @@ class Line():
         clientObject.type = LineType.TYPE_NURBS.name
 
         if len(control_points) != len(weights):
-            print("Number of control points must comply with number of weights!") 
+            print("Number of control points must comply with number of weights!")
 
         nurbs_control_points = []
         for i in range(len(control_points)):

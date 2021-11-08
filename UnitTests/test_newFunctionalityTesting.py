@@ -30,10 +30,9 @@ from RFEM.Loads.nodalLoad import *
 from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 
-
 def test_ImportFrom():
 
-   
     # url = client.service.import_from(r'D:/OneDrive - Dlubal Software/MODELS/RFEM_XML/Cantilever.xml')
     # print(url)
     # assert url == 'http://127.0.0.1:8083/'
+    assert 1 == 1
