@@ -1,4 +1,5 @@
 from RFEM.Loads.solidLoad import SolidLoad
+from RFEM.Loads.solidSetLoad import SolidSetLoad
 from RFEM.enums import *
 from RFEM.window import *
 from RFEM.dataTypes import *
@@ -152,6 +153,16 @@ def test_solid_loads():
 
     # Solid Set
     SolidSet.ContinuousSolids(SolidSet, 1, '2 3')
+
+    SolidSetLoad(1, 1, '1', SolidSetLoadType.LOAD_TYPE_FORCE, SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, SolidSetLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 58.9*1000, 'My Comment')
+    SolidSetLoad.Force(SolidSetLoad, 2, 1, '1', SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 8974.123, 'My 2nd Comment')
+    SolidSetLoad.Temperature(SolidSetLoad, 3, 1, '1', SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, [25489], 'My 3rd Comment')
+    SolidSetLoad.Temperature(SolidSetLoad, 4, 1, '1', SolidSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, [1.5, 8.9, 16, 15], 'My 3rd Comment')
+    SolidSetLoad.Strain(SolidSetLoad, 5, 1, '1', SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, [0.1, 0.2, 0.3], 'My Comment')
+    SolidSetLoad.Strain(SolidSetLoad, 6, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y, [0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 13, 16])
+    SolidSetLoad.Motion(SolidSetLoad, 7, 1, '1', [1.5, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0])
+    SolidSetLoad.Buoyancy()
+    SolidSetLoad.Gass()
 
     #Calculate_all()
     print('Ready!')
