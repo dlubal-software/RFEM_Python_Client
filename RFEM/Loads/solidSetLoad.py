@@ -22,13 +22,13 @@ class SolidSetLoad():
 
         # Load No.
         clientObject.no = no
-        
+
         # Load Case No.
         clientObject.load_case = load_case_no
-        
+
         # Assigned Solid No.
         clientObject.solid_sets = ConvertToDlString(solid_sets_no)
-        
+
         # Load Type
         clientObject.load_type = load_type.name
 
@@ -40,17 +40,17 @@ class SolidSetLoad():
 
         # Load Magnitude
         clientObject.uniform_magnitude = magnitude
-        
+
         # Comment
         clientObject.comment = comment
-        
+
         # Adding optional parameters via dictionary
         for key in params:
             clientObject[key] = params[key]
 
         # Add Solid Load to client model
         clientModel.service.set_solid_set_load(load_case_no, clientObject)
-        
+
 
     def Force(self,
               no: int =1,
@@ -60,7 +60,7 @@ class SolidSetLoad():
               magnitude: float = 0,
               comment: str = '',
               params: dict = {}):
-              
+
         # Client model | Solid Load
         clientObject = clientModel.factory.create('ns0:solid_set_load')
 
@@ -69,13 +69,13 @@ class SolidSetLoad():
 
         # Load No.
         clientObject.no = no
-        
+
         # Load Case No.
         clientObject.load_case = load_case_no
-        
+
         # Assigned Solid No.
         clientObject.solid_sets = ConvertToDlString(solid_sets_no)
-        
+
         # Load Type
         clientObject.load_type = SolidSetLoadType.LOAD_TYPE_FORCE.name
 
@@ -97,7 +97,6 @@ class SolidSetLoad():
 
         # Add Solid Load to client model
         clientModel.service.set_solid_set_load(load_case_no, clientObject)
-
 
     def Temperature(self,
                     no: int = 1,
@@ -124,13 +123,13 @@ class SolidSetLoad():
 
         # Load No.
         clientObject.no = no
-        
+
         # Load Case No.
         clientObject.load_case = load_case_no
-        
+
         # Assigned Solid No.
         clientObject.solid_sets = ConvertToDlString(solid_sets_no)
-        
+
         # Load Type
         clientObject.load_type = SolidSetLoadType.LOAD_TYPE_TEMPERATURE.name
 
@@ -142,19 +141,18 @@ class SolidSetLoad():
             clientObject.magnitude_2 = load_parameter[1]
             clientObject.node_1 = load_parameter[2]
             clientObject.node_2 = load_parameter[3]
-        
+
         clientObject.load_distribution = load_distribution.name
 
         # Comment
         clientObject.comment = comment
-        
+
         # Adding optional parameters via dictionary
         for key in params:
             clientObject[key] = params[key]
 
         # Add Solid Load to client model
         clientModel.service.set_solid_set_load(load_case_no, clientObject)
-
 
     def Strain(self,
                no: int = 1,
@@ -181,13 +179,13 @@ class SolidSetLoad():
 
         # Load No.
         clientObject.no = no
-        
+
         # Load Case No.
         clientObject.load_case = load_case_no
-        
+
         # Assigned Solid No.
         clientObject.solid_sets = ConvertToDlString(solid_sets_no)
-        
+
         # Load Type
         clientObject.load_type = SolidSetLoadType.LOAD_TYPE_STRAIN.name
 
@@ -205,19 +203,18 @@ class SolidSetLoad():
             clientObject.strain_magnitude_z2 = load_parameter[5]
             clientObject.node_1 = load_parameter[6]
             clientObject.node_2 = load_parameter[7]
-        
+
         clientObject.load_distribution = load_distribution.name
 
         # Comment
         clientObject.comment = comment
-        
+
         # Adding optional parameters via dictionary
         for key in params:
             clientObject[key] = params[key]
 
         # Add Solid Load to client model
         clientModel.service.set_solid_set_load(load_case_no, clientObject)
-
 
     def Motion(self,
                no: int = 1,
@@ -240,10 +237,10 @@ class SolidSetLoad():
 
         # Load No.
         clientObject.no = no
-        
+
         # Load Case No.
         clientObject.load_case = load_case_no
-        
+
         # Assigned Solid No.
         clientObject.solid_sets = ConvertToDlString(solid_sets_no)
 
@@ -266,19 +263,17 @@ class SolidSetLoad():
 
         # Comment
         clientObject.comment = comment
-        
+
         # Adding optional parameters via dictionary
         for key in params:
             clientObject[key] = params[key]
-        
+
         # Add Solid Load to client model
         clientModel.service.set_solid_set_load(load_case_no, clientObject)
-
 
     def Buoyancy():
         print('The function Buoyancy() is not implemented yet.')
         pass
-
 
     def Gass():
         print('The function Gass() is not implemented yet.')
