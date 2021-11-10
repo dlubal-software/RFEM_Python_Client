@@ -83,7 +83,7 @@ class SolidSet():
         clientObject.no = no
 
         # Solids number
-        clientObject.solides = ConvertToDlString(solids_no)
+        clientObject.solids = ConvertToDlString(solids_no)
 
         # Solid Set Type
         clientObject.set_type = solid_set_type.name
