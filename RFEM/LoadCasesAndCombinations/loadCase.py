@@ -1,19 +1,28 @@
 from RFEM.initModel import *
 from RFEM.enums import AnalysisType
 
+DIN_Action_Category = {'1A': 'Permanent | G', '1B': 'Permanent - small fluctuations | G*', '1C': 'Permanent/Imposed | Gq', '2': 'Prestress | P',
+                        '3A': 'Imposed loads - category A: domestic, residential areas | QI A', '3B': 'Imposed loads - category B: office areas | QI B',
+                        '3C': 'Imposed loads - category C: congregation areas | QI C', '3D': 'Imposed loads - category D: shopping areas | QI D',
+                        '3E': 'Imposed loads - category E: storage areas | QI E', '3F': 'Imposed loads - category F: traffic area - vehicle weight <= 30 kN | QI F',
+                        '3G': 'Imposed loads - category G: traffic area - vehicle weight <= 160 kN | QI G', '3H': 'Imposed loads - category H: roofs | QI H',
+                        '4A': 'Snow / Ice loads - H <= 1000 m | Qs', '4B': 'Snow / Ice loads - H > 1000 m | Qs', '5': 'Wind | Qw', '6': 'Temperature (non-fire) | QT',
+                        '7': 'Foundation subsidence | Qf', '8': 'Other actions | Qo', '9': 'Accidental actions | A', '10': 'Seismic actions | AE', 'None': 'None | None'}
+
 class LoadCase():
+
     def __init__(self,
                  no: int = 1,
                  name: str = 'Self-weight',
-                 analysis_type = AnalysisType.ANALYSIS_TYPE_STATIC,
-                 analysis_settings_no: int = 1,
-                 action_category: int = 1,
-                 active_self_weight: bool = False,
-                 self_weight_factor_X: float = 0.0,
-                 self_weight_factor_Y: float = 0.0,
-                 self_weight_factor_Z: float = 0.0,
-                 comment: str = '',
+                 self_weight = [True, 0.0, 0.0, 10.0],
+                 comment: str = 'Comment',
                  params: dict = {}):
+        '''
+        Creates a default load case with no further options.
+        Analysis type is static by default.
+        Static analysis settings defaults to 1.
+        Action category is Permanent | G by default.
+        '''
 
         # Client model | Load Case
         clientObject = clientModel.factory.create('ns0:load_case')
@@ -27,32 +36,122 @@ class LoadCase():
         # Load Case Name
         clientObject.name = name
 
+        # To Solve
+        clientObject.to_solve = True
+
         # Analysis Type
-        clientObject.analysis_type = analysis_type.name
+        clientObject.analysis_type = AnalysisType.ANALYSIS_TYPE_STATIC.name
+        clientObject.static_analysis_settings = 1
 
-        # Analysis Settings No.
-        if analysis_type == AnalysisType.ANALYSIS_TYPE_STATIC:
-            clientObject.static_analysis_settings = analysis_settings_no
-        else:
-            printInitErr('Load Case', no, 'Static Analysis Settings')
+        # Action Category
+        clientObject.action_category = 'Permanent | G'
 
+        # Self-weight Considerations
+        clientObject.self_weight_active = self_weight[0]
+        if type(self_weight[0]) != bool:
+            raise Exception('WARNING: Entry at index 0 of Self-Weight parameter to be of type bool')
+        if self_weight[0] == True:
+            if len(self_weight) != 4:
+                raise Exception('WARNING: Self-weight is activated and therefore requires a list definition of length 4. Kindly check list inputs for completeness and correctness.')
+            clientObject.self_weight_factor_x = self_weight[1]
+            clientObject.self_weight_factor_y = self_weight[2]
+            clientObject.self_weight_factor_z = self_weight[3]
+        elif self_weight[0] == False:
+            if len(self_weight) != 1:
+                raise Exception('WARNING: Self-weight is deactivated and therefore requires a list definition of length 1. Kindly check list inputs for completeness and correctness.')
+
+        # Comment
+        clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
+
+        # Add Load Case to client model
+        clientModel.service.set_load_case(clientObject)
+
+    def StaticAnalysis(self,
+                 no: int = 1,
+                 name: str = 'Self-weight',
+                 to_solve: bool = True,
+                 analysis_settings_no: int = 1,
+                 action_category= DIN_Action_Category['1A'],
+                 self_weight = [True, 0.0, 0.0, 10.0],
+                 comment: str = 'Comment',
+                 params: dict = {}):
         '''
-        Todo!!!
-        Action Category
+        Args:
+            no (int): Load Case Tag
+            name (str): Load Case Name
+            to_solve (bool): Enable/Disbale Load Case Solver Status
+            analysis_type (enum): Analysis Type Enumeration
+            analysis_settings_no (int): Analysis Settings Number
+            action_category (dict): Action Category Key
+                    1A      =   Permanent | G
+                    1B      =   Permanent - small fluctuations | G*
+                    1C      =   Permanent/Imposed | Gq
+                    2       =   Prestress | P
+                    3A      =   Imposed loads - category A: domestic, residential areas | QI A
+                    3B      =   Imposed loads - category B: office areas | QI B
+                    3C      =   Imposed loads - category C: congregation areas | QI C
+                    3D      =   Imposed loads - category D: shopping areas | QI D
+                    3E      =   Imposed loads - category E: storage areas | QI E
+                    3F      =   Imposed loads - category F: traffic area - vehicle weight <= 30 kN | QI F
+                    3G      =   Imposed loads - category G: traffic area - vehicle weight <= 160 kN | QI G
+                    3H      =   Imposed loads - category H: roofs | QI H
+                    4A      =   Snow / Ice loads - H <= 1000 m | Qs
+                    4B      =   Snow / Ice loads - H > 1000 m | Qs
+                    5       =   Wind | Qw
+                    6       =   Temperature (non-fire) | QT
+                    7       =   Foundation subsidence | Qf
+                    8       =   Other actions | Qo
+                    9       =   Accidental actions | A
+                    10      =   Seismic actions | AE
+                    None    =   None | None
+            self_weight (list): Self-weight Considerations
+                For self-weight considerations;
+                    self_weight = [True, self_weight_factor_x, self_weight_factor_y, self_weight_factor_z]
+                For no self-weight considerations;
+                    self_weight = [False]
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+
+        # Client model | Load Case
+        clientObject = clientModel.factory.create('ns0:load_case')
+
+        # Clears object atributes | Sets all atributes to None
+        clearAtributes(clientObject)
+
+        # Load Case No.
+        clientObject.no = no
+
+        # Load Case Name
+        clientObject.name = name
+
+        # To Solve
+        clientObject.to_solve = to_solve
+
+        # Analysis Type
+        clientObject.analysis_type = AnalysisType.ANALYSIS_TYPE_STATIC.name
+        clientObject.static_analysis_settings = analysis_settings_no
+
+        # Action Category
         clientObject.action_category = action_category
-        '''
 
-        # Active Self-weight
-        clientObject.self_weight_active = active_self_weight
-
-        # Self-weight Factor in direction X
-        clientObject.self_weight_factor_x = self_weight_factor_X
-
-        # Self_weight Factor in direction Y
-        clientObject.self_weight_factor_y = self_weight_factor_Y
-
-        # Self_weight Factor in direction Z
-        clientObject.self_weight_factor_z = self_weight_factor_Z
+        # Self-weight Considerations
+        clientObject.self_weight_active = self_weight[0]
+        if type(self_weight[0]) != bool:
+            raise Exception('WARNING: Entry at index 0 of Self-Weight parameter to be of type bool')
+        if self_weight[0] == True:
+            if len(self_weight) != 4:
+                raise Exception('WARNING: Self-weight is activated and therefore requires a list definition of length 4. Kindly check list inputs for completeness and correctness.')
+            clientObject.self_weight_factor_x = self_weight[1]
+            clientObject.self_weight_factor_y = self_weight[2]
+            clientObject.self_weight_factor_z = self_weight[3]
+        elif self_weight[0] == False:
+            if len(self_weight) != 1:
+                raise Exception('WARNING: Self-weight is deactivated and therefore requires a list definition of length 1. Kindly check list inputs for completeness and correctness.')
 
         # Comment
         clientObject.comment = comment

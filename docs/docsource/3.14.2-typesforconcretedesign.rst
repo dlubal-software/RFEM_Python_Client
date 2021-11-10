@@ -1,0 +1,32 @@
+**Types for Concrete Design**
+==============================
+
+#. :doc:`3.14.2.1-effectivelengths`
+#. :doc:`3.14.2.2-concretedurabilities`
+#. :doc:`3.14.2.3-reinforcementdirections`
+#. :doc:`3.14.2.4-surfacereinforcements`
+
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   3.14.2.1-effectivelengths
+   3.14.2.2-concretedurabilities
+   3.14.2.3-reinforcementdirections
+   3.14.2.4-surfacereinforcements
+
+
+   
+
+   
+
+
+
+
+   
+   
+   
+   
+   
+   

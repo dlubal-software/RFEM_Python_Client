@@ -2,7 +2,7 @@ from RFEM.initModel import *
 from RFEM.enums import *
 
 class NodalLoad():
-    
+
     def __init__(self,
                  no: int = 1,
                  load_case_no: int = 1,
@@ -11,9 +11,16 @@ class NodalLoad():
                  magnitude: float = 0.0,
                  comment: str= '',
                  params: dict= {}):
-        '''
-        Assigns nodal lode with no further options. Load type is 'force' by default.
-        '''
+        """
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            nodes_no (str): Assigned Nodes
+            load_direction (enum): Load Direction Enumeration
+            magnitude (float): Force Magnitude
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        """
         # Client model | Nodal Force
         clientObject = clientModel.factory.create('ns0:nodal_load')
 
@@ -60,23 +67,34 @@ class NodalLoad():
               shifted_display: bool = False,
               comment: str= '',
               params= {}):
-        '''
-        Assigns force type nodal lode. Further options are available. 
-        For specific_direction type DIRECTION_TYPE_ROTATED_VIA_3_ANGLES;
-        params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_ROTATED_VIA_3_ANGLES, NodalLoadAxesSequence, angle_1, angle_2, angle_3, angle_x, angle_y, angle_z]}
-        For specific_direction type DIRECTION_TYPE_DIRECTED_TO_NODE;
-        params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_DIRECTED_TO_NODE, nodes_no]}
-        For specific_direction type DIRECTION_TYPE_PARALLEL_TO_TWO_NODES;
-        params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_TWO_NODES, nodes_no]}
-        For specific_direction type DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE;
-        params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE, line_no]}
-        For specific_direction type DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER;
-        params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER, member_no]}
-        For force_eccentricity;
-        params={'force_eccentricity' : [ex, ey, ez]}
-        For shifted_display;
-        params={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
-        '''
+        """
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            nodes_no (str): Assigned Nodes
+            load_direction (enum): Load Direction Enumeration
+            magnitude (float): Force Magnitude
+            force_eccentricity (bool): Enable/Disable Force Eccentricity Option
+            specific_direction (bool): Enable/Disable Specific Direction Option
+            shifted_display (bool): Enable/Disable Shifted Display Option
+            comment (str, optional): Comments
+            params (dict, optional):
+
+                For specific_direction type DIRECTION_TYPE_ROTATED_VIA_3_ANGLES;
+                    params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_ROTATED_VIA_3_ANGLES, NodalLoadAxesSequence, angle_1, angle_2, angle_3, angle_x, angle_y, angle_z]}
+                For specific_direction type DIRECTION_TYPE_DIRECTED_TO_NODE;
+                    params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_DIRECTED_TO_NODE, nodes_no]}
+                For specific_direction type DIRECTION_TYPE_PARALLEL_TO_TWO_NODES;
+                    params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_TWO_NODES, nodes_no]}
+                For specific_direction type DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE;
+                    params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE, line_no]}
+                For specific_direction type DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER;
+                    params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER, member_no]}
+                For force_eccentricity;
+                    params={'force_eccentricity' : [ex, ey, ez]}
+                For shifted_display;
+                    params={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
+        """
         # Client model | Nodal Force
         clientObject = clientModel.factory.create('ns0:nodal_load')
 
@@ -116,7 +134,6 @@ class NodalLoad():
 
             clientObject.has_specific_direction = specific_direction
             clientObject.specific_direction_type = params_s[0].name
-
 
             if params_s[0] == NodalLoadSpecificDirectionType.DIRECTION_TYPE_ROTATED_VIA_3_ANGLES:
                 clientObject.axes_sequence = params_s[1].name
@@ -162,7 +179,7 @@ class NodalLoad():
 
             params_d = params['shifted_display']
 
-            clientObject.has_shifted_display = shifted_display 
+            clientObject.has_shifted_display = shifted_display
 
             clientObject.offset_x = params_d[0]
             clientObject.offset_y = params_d[1]
@@ -192,21 +209,30 @@ class NodalLoad():
               shifted_display: bool= False,
               comment: str = '',
               params: dict = {}):
-        '''
-        Assigns moment type nodal lode. Further options are available. 
-        For specific_direction type DIRECTION_TYPE_ROTATED_VIA_3_ANGLES;
-        params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_ROTATED_VIA_3_ANGLES, NodalLoadAxesSequence, angle_1, angle_2, angle_3, angle_x, angle_y, angle_z]}
-        For specific_direction type DIRECTION_TYPE_DIRECTED_TO_NODE;
-        params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_DIRECTED_TO_NODE, nodes_no]}
-        For specific_direction type DIRECTION_TYPE_PARALLEL_TO_TWO_NODES;
-        params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_TWO_NODES, nodes_no]}
-        For specific_direction type DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE;
-        params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE, line_no]}
-        For specific_direction type DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER;
-        params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER, member_no]}
-        For shifted_display;
-        params={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
-        '''
+        """
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            nodes_no (str): Assigned Nodes
+            load_direction (enum): Load Direction Enumeration
+            moment_magnitude (float): Moment Magnitude
+            specific_direction (bool): Enable/Disable Specific Direction Option
+            shifted_display (bool): Enable/Disable Shifted Display Option
+            comment (str, optional): Comments
+            params (dict, optional):
+                For specific_direction type DIRECTION_TYPE_ROTATED_VIA_3_ANGLES;
+                    params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_ROTATED_VIA_3_ANGLES, NodalLoadAxesSequence, angle_1, angle_2, angle_3, angle_x, angle_y, angle_z]}
+                For specific_direction type DIRECTION_TYPE_DIRECTED_TO_NODE;
+                    params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_DIRECTED_TO_NODE, nodes_no]}
+                For specific_direction type DIRECTION_TYPE_PARALLEL_TO_TWO_NODES;
+                    params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_TWO_NODES, nodes_no]}
+                For specific_direction type DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE;
+                    params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE, line_no]}
+                For specific_direction type DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER;
+                    params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER, member_no]}
+                For shifted_display;
+                    params={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
+        """
         # Client model | Nodal Force
         clientObject = clientModel.factory.create('ns0:nodal_load')
 
@@ -297,31 +323,35 @@ class NodalLoad():
               no: int= 1,
               load_case_no: int= 1,
               nodes_no: str= '1',
-              components_force_x: float= 0,
-              components_force_y: float= 0,
-              components_force_z : float= 0,
-              components_moment_x: float= 0,
-              components_moment_y: float= 0,
-              components_moment_z: float= 0,
+              components = [],
               specific_direction: bool= False,
               force_eccentricity: bool= False,
               shifted_display: bool= False,
               comment: str= '',
               params: dict= {}):
-        '''
-        Assigns component type nodal lode. Further options are available. 
-        For specific_direction type DIRECTION_TYPE_ROTATED_VIA_3_ANGLES;
-        params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_ROTATED_VIA_3_ANGLES, NodalLoadAxesSequence, angle_1, angle_2, angle_3, angle_x, angle_y, angle_z]}
-        For specific_direction type DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE;
-        params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE, line_no]}
-        For specific_direction type DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER;
-        params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER, member_no]}
-        For force_eccentricity;
-        params={'force_eccentricity' : [ex, ey, ez]}
-        
-        For shifted_display;
-        params={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
-        '''
+        """
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            nodes_no (str): Assigned Nodes
+            components (list): Component Magnitude List
+            specific_direction (bool): Enable/Disable Specific Direction Option
+            force_eccentricity(bool): Enable/Disable Force Direction Option
+            shifted_display(bool): Enable/Disable Shifted Display Option
+            comment (str, optional): Comments
+            params (dict, optional):
+                For specific_direction type DIRECTION_TYPE_ROTATED_VIA_3_ANGLES;
+                    params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_ROTATED_VIA_3_ANGLES, NodalLoadAxesSequence, angle_1, angle_2, angle_3, angle_x, angle_y, angle_z]}
+                For specific_direction type DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE;
+                    params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE, line_no]}
+                For specific_direction type DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER;
+                    params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER, member_no]}
+                For force_eccentricity;
+                    params={'force_eccentricity' : [ex, ey, ez]}
+
+                For shifted_display;
+                    params={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
+        """
         # Client model | Nodal Force
         clientObject = clientModel.factory.create('ns0:nodal_load')
 
@@ -342,24 +372,27 @@ class NodalLoad():
         clientObject.load_type = load_type.name
 
         #Load Magnitudes
-        clientObject.components_force_x = components_force_x
-        clientObject.components_force_y = components_force_y
-        clientObject.components_force_z = components_force_z
+        if len(components) == 6:
+            clientObject.components_force_x = components[0]
+            clientObject.components_force_y = components[1]
+            clientObject.components_force_z = components[2]
 
-        clientObject.components_moment_x = components_moment_x
-        clientObject.components_moment_y = components_moment_y
-        clientObject.components_moment_z = components_moment_z
+            clientObject.components_moment_x = components[3]
+            clientObject.components_moment_y = components[4]
+            clientObject.components_moment_z = components[5]
+        else:
+            raise Exception("WARNING: The components must contain 6 elements. Kindly check list inputs for completeness and correctness.")
 
         #Option Check
         if force_eccentricity == True and shifted_display==True:
-            raise Exception("Only one of force_eccentiricity and shifted_display could be TRUE")
+            raise Exception("WARNING: Only one of force_eccentiricity and shifted_display could be TRUE")
 
         # Specific Direction
         if specific_direction:
 
             if 'specific_direction' not in list(params.keys()):
                 raise Exception("Required key is missing")
-                
+
             params_s = params['specific_direction']
 
             clientObject.has_specific_direction = specific_direction
@@ -385,9 +418,9 @@ class NodalLoad():
 
             if 'force_eccentricity' not in list(params.keys()):
                 raise Exception("Required key is missing")
-                
+
             params_e = params['force_eccentricity']
-            
+
             clientObject.has_force_eccentricity = force_eccentricity
 
             clientObject.force_eccentricity_x = params_e[0]
@@ -396,10 +429,10 @@ class NodalLoad():
 
         #Shifted Display
         if shifted_display:
-                
+
             if 'shifted_display' not in list(params.keys()):
                 raise Exception("Required key is missing")
-                
+
             params_d = params['shifted_display']
 
             clientObject.has_shifted_display = shifted_display
@@ -426,14 +459,24 @@ class NodalLoad():
               no: int = 1,
               load_case_no: int = 1,
               nodes_no: str = '1',
-              mass : float = 0,
               individual_mass_components : bool = False,
+              mass = [],
               comment: str = '',
               params: dict = {}):
-        '''
-        Assigns mass type nodal force. Advanced options are available.
-        params = {'mass_advanced_options' : [Mx, My, Mz, Ix, Iy, Iz]}
-        '''
+        """
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Load Case Number
+            nodes_no (str): Assigned Nodes
+            individual_mass_components (bool): Enable/Disable Mass Component Option
+            mass (list):
+                if individual_mass_components == False:
+                    mass = [M]
+                elif individual_mass_components == True:
+                    mass = [Mx, My, Mz, Ix, Iy, Iz]
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        """
         # Client model | Nodal Force
         clientObject = clientModel.factory.create('ns0:nodal_load')
 
@@ -456,22 +499,19 @@ class NodalLoad():
         # Magnitude
         if individual_mass_components:
 
-            params_m = params['individual_mass_components']
-
             clientObject.individual_mass_components = individual_mass_components
-            clientObject.mass_x = params_m[0]
-            clientObject.mass_y = params_m[1]
-            clientObject.mass_z = params_m[2]
-            
+            clientObject.mass_x = mass[0]
+            clientObject.mass_y = mass[1]
+            clientObject.mass_z = mass[2]
 
-            clientObject.mass_moment_of_inertia_x = params_m[3]
-            clientObject.mass_moment_of_inertia_y = params_m[4]
-            clientObject.mass_moment_of_inertia_z = params_m[5]
-            
+            clientObject.mass_moment_of_inertia_x = mass[3]
+            clientObject.mass_moment_of_inertia_y = mass[4]
+            clientObject.mass_moment_of_inertia_z = mass[5]
+
         else:
             clientObject.individual_mass_components = individual_mass_components
 
-        clientObject.mass_global = mass
+        clientObject.mass_global = mass[0]
 
         # Comment
         clientObject.comment = comment
