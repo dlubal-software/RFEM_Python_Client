@@ -11,14 +11,14 @@ class StaticAnalysisSettings():
                  analysis_type = StaticAnalysisType.GEOMETRICALLY_LINEAR,
                  comment: str = '',
                  params: dict = {}):
-        """
+        '''
         Args:
             no (int): Setting Tag
             name (str): Setting Name
             analysis_type (enum): Analysis Type Enumeration
             comment (str): Comments
             params (dict): Parameters
-        """
+        '''
         # Client model | Surface
         clientObject = clientModel.factory.create('ns0:static_analysis_settings')
 
@@ -57,7 +57,7 @@ class StaticAnalysisSettings():
                   comment: str = '',
                   params: dict = {}):   
         
-        """
+        '''
         Args:
             no (int): 
             name (str, optional): Static Analysis Name
@@ -79,7 +79,7 @@ class StaticAnalysisSettings():
             mass_conversion_factors = [double, double, double]
             comment (str, optional):
             params (dict, optional):
-        """
+        '''
 
         # Client model
         clientObject = clientModel.factory.create('ns0:static_analysis_settings')
@@ -192,7 +192,7 @@ class StaticAnalysisSettings():
                   comment: str = '',
                   params: dict = {}):  
 
-        """
+        '''
         Args:
             no (int): 
             name (str, optional): Static Analysis Name
@@ -224,7 +224,7 @@ class StaticAnalysisSettings():
             mass_conversion_factors = [double, double, double]
             comment (str, optional): 
             params (dict, optional):
-        """
+        '''
     
         # Client model
         clientObject = clientModel.factory.create('ns0:static_analysis_settings')
@@ -404,7 +404,7 @@ class StaticAnalysisSettings():
                   mass_conversion = [False, None, None, None],
                   comment: str = '',
                   params: dict = {}):   
-        """
+        '''
         Args:
             no (int):
             name (str, optional): Static Analysis Name
@@ -439,8 +439,8 @@ class StaticAnalysisSettings():
             mass_conversion_factors = [double, double, double]
             comment (str, optional):
             params (dict, optional):
-        """
-    
+        '''
+
         # Client model
         clientObject = clientModel.factory.create('ns0:static_analysis_settings')
 
