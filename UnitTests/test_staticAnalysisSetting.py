@@ -31,4 +31,12 @@ def test_LargeDeformation():
 
     clientModel.service.finish_modification()
 
-test_LargeDeformation()
+def test_SecondOrderPDelta():
+
+    clientModel.service.begin_modification()
+
+    # Set Base Settings
+    StaticAnalysisSettings.SecondOrderPDelta(1)
+
+    clientModel.service.finish_modification()
+

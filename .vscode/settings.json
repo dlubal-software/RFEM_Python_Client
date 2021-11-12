@@ -8,7 +8,6 @@
     "python.testing.pytestArgs": [
         "--html=UnitTests\\report.html",
         "--self-contained-html",
-        "--cov=RFEM",
     ],
     "markdownlint.config": {
         "MD028": false,
