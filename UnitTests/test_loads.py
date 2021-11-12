@@ -20,6 +20,7 @@ from RFEM.Loads.lineLoad import *
 from RFEM.Loads.nodalLoad import *
 from RFEM.Loads.surfaceLoad import *
 from RFEM.Loads.lineLoad import *
+from RFEM.Loads.imposedNodalDeformation import *
 
 ### Nodal Load Unit Tests ###
 
@@ -1098,3 +1099,29 @@ def test_free_polygon_load():
     assert free_load.no == 1
     assert free_load.magnitude_uniform == 5000
 
+### Imposed Deformation ###
+
+def test_imposed_nodal_deformation():
+    clientModel.service.reset()
+    clientModel.service.begin_modification()
+
+    Material(1, 'S235')
+
+    Node(1, 0.0, 0.0, 0.0)
+    Node(2, 10.0, 0.0, 0.0)
+
+    Section(1, 'IPE 300')
+
+    Member(1, MemberType.TYPE_BEAM, 1, 2)
+
+    NodalSupport(1, '1', NodalSupportType.FIXED)
+    NodalSupport(2, '2', NodalSupportType.ROLLER_IN_X)
+
+    StaticAnalysisSettings(1, 'LINEAR', StaticAnalysisType.GEOMETRICALLY_LINEAR)
+
+    LoadCase(1, 'DEAD')
+
+    ImposedNodalDeformation(1, 1, '2', [0.0, 0.01,0.02,0.0,0.0,0.0])
+
+
+    clientModel.service.finish_modification()
