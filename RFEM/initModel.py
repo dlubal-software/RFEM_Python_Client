@@ -349,3 +349,5 @@ def GetModelType():
     '''
 
     return clientModel.service.get_model_type()
+
+
