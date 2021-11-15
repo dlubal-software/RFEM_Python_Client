@@ -22,12 +22,10 @@ if __name__ == '__main__':
     SectionDialogue.DeleteSectionFavoriteList(0, 'Favs_2')
 
     # Get section favorite lists
-    section_favorite_lists = SectionDialogue.GetSectionFromFavoriteLists(0)
+    section_favorite_lists = SectionDialogue.GetSectionFavoriteLists(0)
     print(dict(section_favorite_lists))
 
     # Create section from rsection file
     SectionDialogue.CreateSectionFromRsectionFile(0, 3, 'rsc_file_path')
-
-
 
     clientModel.service.finish_modification()

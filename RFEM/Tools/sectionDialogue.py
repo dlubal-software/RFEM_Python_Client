@@ -33,7 +33,7 @@ class SectionDialogue():
         else:
             print("WARNING:Name of the section favorite list and the section should be a string. Please kindly check the inputs.")
 
-    def GetSectionFromFavoriteLists(self):
+    def GetSectionFavoriteLists(self):
 
         return clientModel.service.get_section_favorite_lists()
 
