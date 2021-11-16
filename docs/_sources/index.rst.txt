@@ -19,8 +19,7 @@ Architecture
    :numbered:
    :caption: Contents
    
-   1-installation
-   2-globalcommands
-   3-addoncommands
-   4-examples
+   install
+   commands
+   examples
 
