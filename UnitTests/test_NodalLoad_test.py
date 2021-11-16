@@ -54,10 +54,10 @@ def test_nodal_load():
     NodalSupport(4, '7', NodalSupportType.FIXED)
 
     # Create Member
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
-    Member(2, MemberType.TYPE_BEAM, 3, 4, 0, 1, 1)
-    Member(3, MemberType.TYPE_BEAM, 5, 6, 0, 1, 1)
-    Member(4, MemberType.TYPE_BEAM, 7, 8, 0, 1, 1)
+    Member(1,  1, 2, 0, 1, 1)
+    Member(2,  3, 4, 0, 1, 1)
+    Member(3,  5, 6, 0, 1, 1)
+    Member(4,  7, 8, 0, 1, 1)
 
     # Create Static Analysis Settings
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)

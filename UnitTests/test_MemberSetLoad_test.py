@@ -40,8 +40,8 @@ def test_member_set_load():
     Node(3, 4, 0, 0)
 
     # Create Member
-    Member(1, MemberType.TYPE_BEAM, '1', '2', 0, 1, 1)
-    Member(2, MemberType.TYPE_BEAM, '2', '3', 0, 1, 1)
+    Member(1, 1, 2, 0, 1, 1)
+    Member(2, 2, 3, 0, 1, 1)
 
     # Create Member Set
     MemberSet(1, '1 2', SetType.SET_TYPE_CONTINUOUS)

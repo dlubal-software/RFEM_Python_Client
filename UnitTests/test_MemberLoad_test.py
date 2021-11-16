@@ -42,8 +42,8 @@ def test_member_loads():
     Node(3, 0, 5, 0)
     Node(4, 4, 5, 0)
 
-    Member(1, MemberType.TYPE_BEAM, '1', '2', 0, 1, 1)
-    Member(2, MemberType.TYPE_BEAM, '3', '4', 0, 2, 2)
+    Member(1, 1, 2, 0, 1, 1)
+    Member(2, 3, 4, 0, 2, 2)
 
     # Create Nodal Supports
     NodalSupport(1, '1', NodalSupportType.FIXED)

@@ -125,19 +125,19 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
     while i <= number_frames:
         j = (i-1) * 5
         k = (i-1) * 4
-        Member(k+1, MemberType.TYPE_BEAM, j+1, j+2, 0.0,  1, 1)
-        Member(k+2, MemberType.TYPE_BEAM, j+2, j+3, 0.0,  2, 2)
-        Member(k+3, MemberType.TYPE_BEAM, j+3, j+4, 0.0,  2, 2)
-        Member(k+4, MemberType.TYPE_BEAM, j+4, j+5, 0.0,  1, 1)
+        Member(k+1, j+1, j+2, 0.0,  1, 1)
+        Member(k+2, j+2, j+3, 0.0,  2, 2)
+        Member(k+3, j+3, j+4, 0.0,  2, 2)
+        Member(k+4, j+4, j+5, 0.0,  1, 1)
         i += 1
 
     # Purlins
     i = 1
     while i <= number_frames-1:
         j = (i-1) * 5
-        Member(4*number_frames+i                    , MemberType.TYPE_BEAM, j+2, j+7,   0.0,  3, 3,  1, 1)
-        Member(4*number_frames+i +   number_frames-1, MemberType.TYPE_BEAM, j+3, j+8,   0.0,  3, 3)
-        Member(4*number_frames+i + 2*number_frames-2, MemberType.TYPE_BEAM, j+4, j+9, 180.0,  3, 3,  1, 1)
+        Member(4*number_frames+i                    , j+2, j+7,   0.0,  3, 3,  1, 1)
+        Member(4*number_frames+i +   number_frames-1, j+3, j+8,   0.0,  3, 3)
+        Member(4*number_frames+i + 2*number_frames-2, j+4, j+9, 180.0,  3, 3,  1, 1)
         i += 1
 
     # Diagonals on the wall
@@ -145,19 +145,19 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
     j = 4*number_frames + 3*(number_frames-1)
     while i <= number_frames-1:
         k = j + (i-1)*4
-        Member(k+1, MemberType.TYPE_TENSION, (i-1)*5+1, (i-1)*5+7 , 0.0,  4, 4)
-        Member(k+2, MemberType.TYPE_TENSION, (i-1)*5+2, (i-1)*5+6 , 0.0,  4, 4)
-        Member(k+3, MemberType.TYPE_TENSION, (i-1)*5+5, (i-1)*5+9 , 0.0,  4, 4)
-        Member(k+4, MemberType.TYPE_TENSION, (i-1)*5+4, (i-1)*5+10, 0.0,  4, 4)
+        Member.Tension(0,k+1, (i-1)*5+1, (i-1)*5+7 , MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
+        Member.Tension(0,k+2, (i-1)*5+2, (i-1)*5+6 , MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
+        Member.Tension(0,k+3, (i-1)*5+5, (i-1)*5+9 , MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
+        Member.Tension(0,k+4, (i-1)*5+4, (i-1)*5+10, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
         i += 1
 
     # Diagonals on the roof
     j += 4*(number_frames-1)
     if number_frames > 1:
-        Member(j+1, MemberType.TYPE_TENSION, 2, 8, 0.0,  4, 4)
-        Member(j+2, MemberType.TYPE_TENSION, 7, 3, 0.0,  4, 4)
-        Member(j+3, MemberType.TYPE_TENSION, 3, 9, 0.0,  4, 4)
-        Member(j+4, MemberType.TYPE_TENSION, 4, 8, 0.0,  4, 4)
+        Member.Tension(0,j+1, 2, 8, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
+        Member.Tension(0,j+2, 7, 3, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
+        Member.Tension(0,j+3, 3, 9, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
+        Member.Tension(0,j+4, 4, 8, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
 
 # -------------------------------------------------------------
     # Surfaces

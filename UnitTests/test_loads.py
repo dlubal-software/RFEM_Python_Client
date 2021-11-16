@@ -129,7 +129,7 @@ def test_member_load_init():
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
+    Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
@@ -153,7 +153,7 @@ def test_member_load_force():
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
+    Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
@@ -177,7 +177,7 @@ def test_member_load_moment():
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
+    Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
@@ -201,7 +201,7 @@ def test_member_load_mass():
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
+    Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
@@ -224,7 +224,7 @@ def test_member_load_temperature():
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
+    Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
@@ -248,7 +248,7 @@ def test_member_load_temperature_change():
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
+    Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
@@ -272,7 +272,7 @@ def test_member_load_axial_strain():
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
+    Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
@@ -296,7 +296,7 @@ def test_member_load_axial_displacement():
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
+    Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
@@ -320,7 +320,7 @@ def test_member_load_precamber():
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
+    Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
@@ -344,7 +344,7 @@ def test_member_load_initial_prestress():
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
+    Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
@@ -368,7 +368,7 @@ def test_member_load_displacement():
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
+    Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
@@ -392,7 +392,7 @@ def test_member_load_rotation():
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
+    Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
@@ -416,7 +416,7 @@ def test_member_load_pipecontentfull():
 
     Material(1, 'S235')
     Section(1, 'CHS 100x4', 1)
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
+    Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
@@ -440,7 +440,7 @@ def test_member_load_pipecontentpartial():
 
     Material(1, 'S235')
     Section(1, 'CHS 100x4', 1)
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
+    Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
@@ -464,7 +464,7 @@ def test_member_load_pipeinternalpressure():
 
     Material(1, 'S235')
     Section(1, 'CHS 100x4', 1)
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
+    Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
