@@ -38,6 +38,7 @@ if __name__ == '__main__':
     l = float(input('Length of the cantilever in m: '))
     f = float(input('Force in kN: '))
 
+    Model(True, "Demo1") # crete new model called Demo1
     Model.clientModel.service.begin_modification('new')
 
     Material(1, 'S235')

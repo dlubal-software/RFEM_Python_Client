@@ -25,7 +25,7 @@ from RFEM.Loads.surfaceLoad import *
 
 def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_spacing, new_model, model_name, delete, reset):
 # -------------------------------------------------------------
-    Model(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_spacing, new_model, model_name, delete, reset)
+    Model(new_model, model_name, delete, reset)
     Model.clientModel.service.begin_modification('new')
 # -------------------------------------------------------------
     # Materials

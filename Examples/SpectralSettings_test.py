@@ -28,6 +28,7 @@ from RFEM.Loads.surfaceLoad import *
 
 if __name__ == '__main__':
 	#spectral analysis is not yet supported in released RFEM6 in WS
+	Model(True, "SpectralSettings")
 	Model.clientModel.service.begin_modification('new')
 
 	# Create Material
@@ -44,4 +45,3 @@ if __name__ == '__main__':
 	print('Ready!')
 	
 	Model.clientModel.service.finish_modification()
-	

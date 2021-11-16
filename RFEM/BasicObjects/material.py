@@ -1,6 +1,6 @@
 from RFEM.initModel import clearAtributes, Model
 
-class Material(Model):
+class Material():
     def __init__(self,
                  no: int = 1,
                  name: str = 'S235',

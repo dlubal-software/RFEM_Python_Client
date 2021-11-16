@@ -26,7 +26,7 @@ from RFEM.enums import *
 
 
 if __name__ == '__main__':
-
+    Model(True, "NodalLoad")
     Model.clientModel.service.begin_modification()
 
     # Create Material 

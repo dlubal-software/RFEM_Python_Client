@@ -14,7 +14,8 @@ from RFEM.LoadCasesAndCombinations.loadCase import *
 from RFEM.LoadCasesAndCombinations.designSituation import *
 
 if __name__ == '__main__':
-	
+
+	Model(True, "DesignSituations")
 	Model.clientModel.service.begin_modification('new')
 
 	StaticAnalysisSettings()

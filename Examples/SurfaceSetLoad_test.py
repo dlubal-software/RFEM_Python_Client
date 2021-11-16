@@ -28,6 +28,7 @@ from RFEM.enums import *
 
 if __name__ == '__main__':
 
+    Model(True, "SurfaceSetLoad")
     Model.clientModel.service.begin_modification()
 
     # Create Material 

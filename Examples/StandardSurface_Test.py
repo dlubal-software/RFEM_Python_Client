@@ -33,6 +33,7 @@ from RFEM.Loads.surfaceLoad import *
 
 if __name__ == '__main__':
 
+    Model(True, "StandardSurface")
     Model.clientModel.service.begin_modification('new')
 
     # Testing the standard surface function

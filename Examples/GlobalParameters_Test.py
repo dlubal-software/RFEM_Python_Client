@@ -13,6 +13,7 @@ from RFEM.initModel import *
 
 if __name__ == '__main__':
     
+    Model(True, "GlobalParameters")
     Model.clientModel.service.begin_modification('new')
     #not yet implemented in RFEM6 GM
     GlobalParameter.AddParameter(GlobalParameter, 

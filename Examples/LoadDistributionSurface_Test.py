@@ -32,7 +32,7 @@ from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 
 if __name__ == '__main__':
-
+    Model(True, "LoadDistributionSurfaces")
     Model.clientModel.service.begin_modification('new')
 
     # Testing the Default Function

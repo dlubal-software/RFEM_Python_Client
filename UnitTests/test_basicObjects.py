@@ -33,6 +33,7 @@ from RFEM.Loads.surfaceLoad import *
 
 def test_material():
 
+    Model(True, "BasicObjects")
     Model.clientModel.service.begin_modification('new')
     Material(1, 'S235')
     Model.clientModel.service.finish_modification()

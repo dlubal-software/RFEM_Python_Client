@@ -25,7 +25,7 @@ from RFEM.dataTypes import *
 from RFEM.enums import *
 
 if __name__ == '__main__':
-
+    Model(True, "MemberLoad")
     Model.clientModel.service.begin_modification()
 
     # Create Material 

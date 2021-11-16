@@ -29,6 +29,7 @@ from RFEM.Loads.surfaceLoad import *
 
 if __name__ == '__main__':
     
+    Model(True, "Thickness")
     Model.clientModel.service.begin_modification('new')
     
     Material(1, 'C30/37')

@@ -27,6 +27,7 @@ from RFEM.enums import *
 
 if __name__ == '__main__':
     # modal analysis not yet implemmented in released RFEM6
+    Model(True, "ModalAnalysis")
     Model.clientModel.service.begin_modification()
 
     # Create Material

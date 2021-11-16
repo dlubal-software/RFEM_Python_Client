@@ -33,6 +33,7 @@ from RFEM.Loads.surfaceLoad import *
 
 if __name__ == '__main__':
 
+    Model(True, "WithoutThicknessSurface")
     Model.clientModel.service.begin_modification('new')
 
     # Testing the standard surface function
