@@ -1,0 +1,346 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>3.1. Parametric Cantilever Beam &mdash; RFEM 6.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'6.0.1',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="3. Examples" href="examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> RFEM
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                6.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">1. <strong>Installation</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">2. <strong>Commands</strong></a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="examples.html">3. Examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.1. Parametric Cantilever Beam</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RFEM</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="examples.html">3. Examples</a> &raquo;</li>
+        
+      <li>3.1. Parametric Cantilever Beam</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/demo1.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="parametric-cantilever-beam">
+<h1>3.1. Parametric Cantilever Beam<a class="headerlink" href="#parametric-cantilever-beam" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li>The source code is shown below.</li>
+</ol>
+<div class="highlight-default"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1"># Import der Bibliotheken</span>
+<span class="kn">from</span> <span class="nn">RFEM.enums</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1">#from RFEM.window import *</span>
+<span class="kn">from</span> <span class="nn">RFEM.dataTypes</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.initModel</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.BasicObjects.material</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.BasicObjects.section</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.BasicObjects.thickness</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.BasicObjects.node</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.BasicObjects.line</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.BasicObjects.member</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.BasicObjects.surface</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.BasicObjects.solid</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.BasicObjects.opening</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.BasicObjects.lineSet</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.BasicObjects.memberSet</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.BasicObjects.surfaceSet</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.BasicObjects.solidSet</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.TypesForNodes.nodalSupport</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.TypesForMembers.memberHinge</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.LoadCasesAndCombinations.staticAnalysisSettings</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.LoadCasesAndCombinations.loadCase</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.Loads.nodalLoad</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.Loads.memberLoad</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">RFEM.Loads.surfaceLoad</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+	<span class="n">l</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Length of the cantilever in m: &#39;</span><span class="p">))</span>
+	<span class="n">f</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Force in kN: &#39;</span><span class="p">))</span>
+	
+	<span class="n">clientModel</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">begin_modification</span><span class="p">(</span><span class="s1">&#39;new&#39;</span><span class="p">)</span>
+	
+	<span class="n">Material</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;S235&#39;</span><span class="p">)</span>
+	
+	<span class="n">Section</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;IPE 200&#39;</span><span class="p">)</span>
+	
+	<span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+	<span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+	
+	<span class="n">Member</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">MemberType</span><span class="o">.</span><span class="n">TYPE_BEAM</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+	
+	<span class="n">NodalSupport</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">NodalSupportType</span><span class="o">.</span><span class="n">FIXED</span><span class="p">)</span>
+	
+	<span class="n">StaticAnalysisSettings</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;1. Ordnung&#39;</span><span class="p">,</span> <span class="n">StaticAnalysisType</span><span class="o">.</span><span class="n">GEOMETRICALLY_LINEAR</span><span class="p">)</span>
+	
+	<span class="n">LoadCase</span><span class="p">(</span><span class="mi">1</span> <span class="p">,</span> <span class="s1">&#39;Eigengewicht&#39;</span><span class="p">,</span> <span class="n">AnalysisType</span><span class="o">.</span><span class="n">ANALYSIS_TYPE_STATIC</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+	
+	<span class="n">NodalLoad</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">LoadDirectionType</span><span class="o">.</span><span class="n">LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W</span><span class="p">,</span> <span class="n">f</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span>
+	
+	<span class="n">Calculate_all</span><span class="p">()</span>
+	<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Ready!&#39;</span><span class="p">)</span>
+	
+	<span class="n">clientModel</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">finish_modification</span><span class="p">()</span>
+	
+</pre></div>
+</td></tr></table></div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="examples.html" class="btn btn-neutral float-left" title="3. Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Dlubal Software.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
