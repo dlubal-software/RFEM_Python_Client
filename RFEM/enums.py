@@ -19,7 +19,28 @@ class StaticAnalysisType(Enum):
     Static Analysis Type
     '''
     GEOMETRICALLY_LINEAR, LARGE_DEFORMATIONS, LARGE_DEFORMATIONS_POSTRCRITICAL, SECOND_ORDER_P_DELTA = range(4)
-
+    
+    
+class StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis(Enum):
+    '''
+    Static Analysis Settings Iterative Method For Nonlinear Analysis | Enum
+    '''
+    DYNAMIC_RELAXATION, NEWTON_RAPHSON, NEWTON_RAPHSON_COMBINED_WITH_PICARD, NEWTON_RAPHSON_WITH_CONSTANT_STIFFNESS,\
+    NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS, PICARD = range(6)
+    
+    
+class StaticAnalysisSettingsMethodOfEquationSystem(Enum):
+    '''
+    Static Analysis Settings Method of Equation System | Enum
+    '''
+    METHOD_OF_EQUATION_SYSTEM_DIRECT, METHOD_OF_EQUATION_SYSTEM_ITERATIVE = range(2)
+    
+    
+class StaticAnalysisSettingsPlateBendingTheory(Enum):
+    '''
+    Static Analysis Settings Plate Bending Theory | Enum
+    '''
+    PLATE_BENDING_THEORY_MINDLIN, PLATE_BENDING_THEORY_KIRCHHOFF = range(2)    
 
 class AnalysisType(Enum):
     '''
@@ -27,7 +48,6 @@ class AnalysisType(Enum):
     '''
     ANALYSIS_TYPE_CREEP_AND_SHRINKAGE, ANALYSIS_TYPE_CUTTING_PATTERN, ANALYSIS_TYPE_MODAL, ANALYSIS_TYPE_RESPONSE_SPECTRUM,\
     ANALYSIS_TYPE_STATIC, ANALYSIS_TYPE_TIME_DEPENDENT, ANALYSIS_TYPE_TIME_HISTORY, ANALYSIS_TYPE_WIND_SIMULATION = range(8)
-
 
 class LoadDirectionType(Enum):
     '''
@@ -99,7 +119,7 @@ class SurfaceType(Enum):
     Stiffness Type
     '''
     TYPE_LOAD_TRANSFER, TYPE_MEMBRANE, TYPE_RIGID, TYPE_STANDARD, TYPE_WITHOUT_MEMBRANE_TENSION, TYPE_WITHOUT_THICKNESS = range(6)
-    
+
 class SurfaceLoadDistribution(Enum):
     '''
     Surface Load Distribution
@@ -182,7 +202,6 @@ class ThicknessOrthotropyType(Enum):
     ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB, ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET, \
     ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE = range(7)
 
-   
 class LineLoadDirection(Enum):
     '''
     Line Load Direction 
@@ -287,26 +306,24 @@ class SurfaceLoadDirection(Enum):
     '''
     LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED, LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE,\
     LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, LOAD_DIRECTION_LOCAL_X, LOAD_DIRECTION_LOCAL_Y, LOAD_DIRECTION_LOCAL_Z = range(9)
-    
+
 class SurfaceLoadType(Enum):
     '''
     Surface Load Type
     '''
     LOAD_TYPE_AXIAL_STRAIN, LOAD_TYPE_FORCE, LOAD_TYPE_FORM_FINDING, LOAD_TYPE_MASS, LOAD_TYPE_PRECAMBER, LOAD_TYPE_ROTARY_MOTION, LOAD_TYPE_TEMPERATURE = range(7)
-    
+
 class NodeType(Enum):
     '''
     Node Type | Enum
     '''
     TYPE_BETWEEN_TWO_NODES, TYPE_BETWEEN_TWO_POINTS, TYPE_ON_LINE, TYPE_ON_MEMBER, TYPE_STANDARD = range (5)
 
-
 class NodeCoordinateSystemType(Enum):
     '''
     Node Coordinate System Type | Enum
     '''
     COORDINATE_SYSTEM_CARTESIAN, COORDINATE_SYSTEM_POLAR, COORDINATE_SYSTEM_X_CYLINDRICAL, COORDINATE_SYSTEM_Y_CYLINDRICAL, COORDINATE_SYSTEM_Z_CYLINDRICAL = range (5)
-
 
 class NodeReferenceType(Enum):
     '''
@@ -588,24 +605,42 @@ class FreePolygonLoadLoadDistribution(Enum):
     Free Polygon Load Load Distribution | Enum
     '''
     LOAD_DISTRIBUTION_LINEAR, LOAD_DISTRIBUTION_LINEAR_FIRST, LOAD_DISTRIBUTION_LINEAR_SECOND, LOAD_DISTRIBUTION_UNIFORM = range(4)
-    
-class PeriodicResponseCombinationRule(Enum):
-    '''
-    Spectral Analysis Settings Combination Rule For Periodic Responses
-    '''
-    ABSOLUTE_SUM, CQC, SRSS = range(3)
 
-class DirectionalComponentCombinationRule(Enum):
+class SolidLoadType(Enum):
     '''
-    Spectral Analysis Settings Combination Rule For Directional Components
+    Solid Load Load Type | Enum
     '''
-    ABSOLUTE_SUM, SCALED_SUM, SRSS = range(3)
+    LOAD_TYPE_BUOYANCY, LOAD_TYPE_FORCE, LOAD_TYPE_GAS, LOAD_TYPE_ROTARY_MOTION, LOAD_TYPE_STRAIN, LOAD_TYPE_TEMPERATURE = range(6)
 
-class CqsDampingRule(Enum):
+class SolidLoadDistribution(Enum):
     '''
-    Spectal Analysis Settings Damping for CQC Rule
+    Solid Load Load Distribution | Enum
     '''
-    CONSTANT_FOR_EACH_MODE, DIFFERENT_FOR_EACH_MODE = range(2)
+    LOAD_DISTRIBUTION_LINEAR_IN_X, LOAD_DISTRIBUTION_LINEAR_IN_Y, LOAD_DISTRIBUTION_LINEAR_IN_Z, LOAD_DISTRIBUTION_UNIFORM = range(4)
+
+class SolidLoadDirection(Enum):
+    '''
+    Solid Load Load Direction | Enum
+    '''
+    LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE = range(3)
+class SolidSetLoadType(Enum):
+    '''
+    Solidset Load Load Type | Enum
+    '''
+    LOAD_TYPE_BUOYANCY, LOAD_TYPE_FORCE, LOAD_TYPE_GAS, LOAD_TYPE_ROTARY_MOTION, LOAD_TYPE_STRAIN, LOAD_TYPE_TEMPERATURE = range(6)
+
+class SolidSetLoadDistribution(Enum):
+    '''
+    Solidset Load Load Distribution | Enum
+    '''
+    LOAD_DISTRIBUTION_LINEAR_IN_X, LOAD_DISTRIBUTION_LINEAR_IN_Y, LOAD_DISTRIBUTION_LINEAR_IN_Z, LOAD_DISTRIBUTION_UNIFORM = range(4)
+
+class SolidSetLoadDirection(Enum):
+    '''
+    Solidset Load Load Direction | Enum
+    '''
+    LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE = range(3)
+
 
 class StabilityAnalysisSettingsAnalysisType(Enum):
     '''
@@ -640,7 +675,7 @@ class LineType(Enum):
     Line Type 
     '''
     TYPE_ARC, TYPE_CIRCLE, TYPE_CUT_VIA_SECTION, TYPE_CUT_VIA_TWO_LINES, TYPE_ELLIPTICAL_ARC, TYPE_ELLIPSE, TYPE_NURBS, TYPE_PARABOLA, TYPE_POLYLINE, TYPE_SPLINE = range(10)
-    
+
 class ObjectTypes(Enum):
     '''
     Object Types
@@ -832,6 +867,30 @@ class AnchorageEndAnchorType(Enum):
     ANCHORAGE_TYPE_BEND, ANCHORAGE_TYPE_HOOK, ANCHORAGE_TYPE_HOOK_WITH_TRANSVERSE_BAR, ANCHORAGE_TYPE_NONE,\
     ANCHORAGE_TYPE_STRAIGHT, ANCHORAGE_TYPE_STRAIGHT_WITH_TRANSVERSE_BAR, ANCHORAGE_TYPE_STRAIGHT_WITH_TWO_TRANSVERSE_BARS = range(7)
 
+class SelectedObjectInformation(Enum):
+    '''
+    Information About Members | Enum
+    '''
+    LENGTH, VOLUME, MASS, AREA = range(4)
+class GlobalAxesOrientationType(Enum):
+    '''
+    Model Settings and Options Global Axes Orientation Type
+    '''
+    E_GLOBAL_AXES_ORIENTATION_ZDOWN, E_GLOBAL_AXES_ORIENTATION_ZUP = range(2)
+
+class LocalAxesOrientationType(Enum):
+    '''
+    Model Settings and Local Axes Orientation Type
+    '''
+    E_LOCAL_AXES_ORIENTATION_YUPX, E_LOCAL_AXES_ORIENTATION_YUPZ, E_LOCAL_AXES_ORIENTATION_ZDOWN, E_LOCAL_AXES_ORIENTATION_ZUP = range(4)
+
+class ModelType(Enum):
+    '''
+    Model Type | Enum
+    '''
+    E_MODEL_TYPE_1D_X_3D, E_MODEL_TYPE_1D_X_AXIAL, E_MODEL_TYPE_2D_XY_3D, \
+    E_MODEL_TYPE_2D_XY_PLATE, E_MODEL_TYPE_2D_XZ_3D, E_MODEL_TYPE_2D_XZ_PLANE_STRAIN, \
+    E_MODEL_TYPE_2D_XZ_PLANE_STRESS, E_MODEL_TYPE_3D = range(8)
 class ModalSolutionMethod(Enum):
     '''
     Modal Analysis Settings Solution Method

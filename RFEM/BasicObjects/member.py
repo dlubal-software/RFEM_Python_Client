@@ -68,8 +68,8 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)    
-    
+        clientModel.service.set_member(clientObject)
+
     def Beam(self,
             no: int = 1,
             start_node_no: int = 1,

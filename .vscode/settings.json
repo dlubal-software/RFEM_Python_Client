@@ -2,11 +2,18 @@
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
     "python.linting.pydocstyleEnabled": false,
-    "python.testing.pytestArgs": [
-        "UnitTests"
-    ],
     "python.testing.unittestEnabled": false,
     "python.testing.nosetestsEnabled": false,
     "python.testing.pytestEnabled": true,
-    "python.testing.pytestArgs": ["--html=UnitTests\\report.html","--self-contained-html","--cov=RFEM",]
+    "python.testing.pytestArgs": [
+        "--html=UnitTests\\report.html",
+        "--self-contained-html",
+        "--cov=RFEM",
+    ],
+    "markdownlint.config": {
+        "MD028": false,
+        "MD025": {
+            "front_matter_title": ""
+        }
+    }
 }

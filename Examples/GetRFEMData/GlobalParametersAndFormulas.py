@@ -30,14 +30,13 @@ from RFEM.initModel import *
 from RFEM.dataTypes import *
 from RFEM.enums import *
 
-
 if __name__ == "__main__":
-    
+
     objectLocation = clientModel.factory.create('ns0:object_location')
     objectLocation.type = ObjectTypes.E_OBJECT_TYPE_SECTION.name
     objectLocation.no = 1
     objectLocation.parent_no = 0
-    
+
     objectParameterLocation = clientModel.factory.create('ns0:object_parameter_location_type')
     objectParameterLocation.attribute = "parametrization"
     parameterPathInNestedModelsHierarchy = clientModel.factory.create('ns0:object_parameter_location_type.parameter_path_in_nested_models_hierarchy')
@@ -51,4 +50,3 @@ if __name__ == "__main__":
     print('Calculated value: ' + str(formula.calculated_value))
     print('Validation results: ' + formula.validation_result)
 
-    
