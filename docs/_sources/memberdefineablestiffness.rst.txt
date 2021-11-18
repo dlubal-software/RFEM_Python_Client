@@ -1,2 +1,0 @@
-Member Defineable Stiffness
-============================

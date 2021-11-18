@@ -1,2 +1,0 @@
-Surface Mesh Refinement
-==========================

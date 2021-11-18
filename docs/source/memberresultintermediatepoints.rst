@@ -1,2 +1,0 @@
-Member Result Intermediate Points
-====================================

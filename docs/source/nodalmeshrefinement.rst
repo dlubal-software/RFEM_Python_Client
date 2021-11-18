@@ -1,2 +1,0 @@
-Nodal Mesh Refinement
-=============================
