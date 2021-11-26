@@ -1099,7 +1099,7 @@ def test_free_polygon_load():
     assert free_load.no == 1
     assert free_load.magnitude_uniform == 5000
 
-### Imposed Deformation ###
+### Imposed Nodal Deformation ###
 
 def test_imposed_nodal_deformation():
     clientModel.service.reset()
@@ -1115,13 +1115,17 @@ def test_imposed_nodal_deformation():
     Member(1, MemberType.TYPE_BEAM, 1, 2)
 
     NodalSupport(1, '1', NodalSupportType.FIXED)
-    NodalSupport(2, '2', NodalSupportType.ROLLER_IN_X)
+    NodalSupport(2, '2', NodalSupportType.FIXED)
 
     StaticAnalysisSettings(1, 'LINEAR', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
     LoadCase(1, 'DEAD')
 
-    ImposedNodalDeformation(1, 1, '2', [0.0, 0.01,0.02,0.0,0.0,0.0])
-
+    ImposedNodalDeformation(1, 1, '1', [0.005, 0.01, 0.02, 0.01, 0.02, 0.03])
 
     clientModel.service.finish_modification()
+
+    imposed_nodal_deformation = clientModel.service.get_imposed_nodal_deformation(1, 1)
+
+    assert imposed_nodal_deformation.imposed_displacement.x == 0.005
+    assert imposed_nodal_deformation.imposed_rotation.y == 0.02
