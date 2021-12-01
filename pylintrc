@@ -148,6 +148,10 @@ disable=abstract-method,
         wrong-import-order,
         xrange-builtin,
         zip-builtin-not-iterating,
+        invalid-name,
+        inconsistent-quotes,
+        line-too-long,
+        missing-module-docstring,
 
 
 [REPORTS]

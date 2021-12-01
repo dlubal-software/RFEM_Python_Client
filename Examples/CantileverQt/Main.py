@@ -82,7 +82,7 @@ class MyDialog(QtWidgets.QDialog):
         Node(1, 0.0, 0.0, 0.0)
         Node(2, l, 0.0, 0.0)
 
-        Member(1, MemberType.TYPE_BEAM, 1, 2, 0.0, 1, 1)
+        Member(1,  1, 2, 0.0, 1, 1)
 
         NodalSupport(1, '1', NodalSupportType.FIXED)
 

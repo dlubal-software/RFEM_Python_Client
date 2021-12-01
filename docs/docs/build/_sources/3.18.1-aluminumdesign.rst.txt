@@ -1,0 +1,30 @@
+**Aluminum Design**
+============================
+
+#. :doc:`3.18.1.1-ultimateconfigurations`
+#. :doc:`3.18.1.2-serviceabilityconfigurations`
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   3.18.1.1-ultimateconfigurations
+   3.18.1.2-serviceabilityconfigurations
+
+   
+
+
+   
+   
+
+   
+
+
+
+
+   
+   
+   
+   
+   
+   

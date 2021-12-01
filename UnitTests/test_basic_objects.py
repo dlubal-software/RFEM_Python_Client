@@ -164,7 +164,7 @@ def test_member_init():
 
     Section(1, 'IPE 300', 1)
 
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
+    Member(1,  1, 2, 0, 1, 1)
 
     clientModel.service.finish_modification()
 
@@ -178,20 +178,20 @@ def test_member_beam():
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
-    Node(1, 0, 0, 0)
-    Node(2, 6, 0, 0)
-
     Material(1, 'S235')
-
     Section(1, 'IPE 300', 1)
 
-    Member.Beam(0, 1, 1, 2, 0, 1, 1)
+    Node(1, 0, 0, 0)
+    Node(2, 5, 0, 0)
+
+    Member.Beam(0, 1, 1, 2, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [15], 1, 1)
+
 
     clientModel.service.finish_modification()
 
     member = clientModel.service.get_member(1)
 
-    assert member.analytical_length == 6
+    assert member.analytical_length == 5
     assert member.type == "TYPE_BEAM"
 
 ## Other Member Types must be added to the main code.
@@ -209,8 +209,8 @@ def test_member_set():
 
     Section(1, 'IPE 300', 1)
 
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
-    Member(2, MemberType.TYPE_BEAM, 2, 3, 0, 1, 1)
+    Member(1, 1, 2, 0, 1, 1)
+    Member(2, 2, 3, 0, 1, 1)
 
     MemberSet(1, '1 2', SetType.SET_TYPE_GROUP)
 
@@ -407,4 +407,3 @@ def test_thickness_layers():
     assert round(thickness.layers_total_thickness, 2) == 0.3
 
 ## Thickness type Shape Orthotropy has bugs. Need to be updated
-
