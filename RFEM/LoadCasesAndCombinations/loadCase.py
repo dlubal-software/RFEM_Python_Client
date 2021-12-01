@@ -14,7 +14,7 @@ class LoadCase():
     def __init__(self,
                  no: int = 1,
                  name: str = 'Self-weight',
-                 self_weight = [True, 0.0, 0.0, 10.0],
+                 self_weight = [True, 0.0, 0.0, 1.0],
                  comment: str = 'Comment',
                  params: dict = {}):
         '''
