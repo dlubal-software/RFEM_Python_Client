@@ -354,7 +354,7 @@ def SetModelType(model_type = ModelType.E_MODEL_TYPE_3D):
             ModelType.E_MODEL_TYPE_3D
     '''
 
-     Model.clientModel.service.set_model_type(model_type.name)
+    Model.clientModel.service.set_model_type(model_type.name)
 
 def GetModelType():
 
