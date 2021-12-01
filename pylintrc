@@ -148,6 +148,10 @@ disable=abstract-method,
         wrong-import-order,
         xrange-builtin,
         zip-builtin-not-iterating,
+        invalid-name,
+        inconsistent-quotes,
+        line-too-long,
+        missing-module-docstring,
 
 
 [REPORTS]
@@ -290,7 +294,7 @@ no-space-check=
 # Maximum number of lines in a module
 max-module-lines=99999
 
-# String used as indentation unit. consistent with PEP 8.  
+# String used as indentation unit. consistent with PEP 8.
 # Here, we use 4 spaces, for conformity with many open-sourced Google
 # projects (like TensorFlow).
 indent-string='    '

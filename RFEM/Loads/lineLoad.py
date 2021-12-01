@@ -53,10 +53,9 @@ class LineLoad():
         # Adding optional parameters via dictionary
         for key in params:
             clientObject[key] = params[key]
-        
+
         # Add Load Line Load to client model
         Model.clientModel.service.set_line_load(load_case_no, clientObject)
-
 
     def Force(self,
                 no: int = 1,
@@ -111,7 +110,7 @@ class LineLoad():
         # Load Magnitude and Parameters
         if load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM" or load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM_TOTAL":
             clientObject.magnitude = load_parameter
-        
+
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_1":
             if len(load_parameter) != 3:
                 raise Exception('WARNING: The load parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
@@ -124,7 +123,7 @@ class LineLoad():
             else:
                 clientObject.magnitude = load_parameter[1]
                 clientObject.distance_a_relative = load_parameter[2]
-        
+
         elif load_distribution.name ==  "LOAD_DISTRIBUTION_CONCENTRATED_N":
             if len(load_parameter) != 6:
                 raise Exception('WARNING: The load parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.')
@@ -164,7 +163,7 @@ class LineLoad():
                 clientObject.distance_b_absolute = load_parameter[5]
             else:
                 clientObject.distance_b_relative = load_parameter[5]
-            
+
             if load_parameter[2] == False:
                 clientObject.distance_c_absolute = load_parameter[6]
             else:
@@ -275,7 +274,7 @@ class LineLoad():
                 mlvlp.note = None
 
                 clientObject.varying_load_parameters.line_load_varying_load_parameters.append(mlvlp)
-        
+
         # Line Load Direction
         clientObject.load_direction = load_direction.name
 
@@ -341,7 +340,7 @@ class LineLoad():
         #Load Magnitude and Parameters
         if load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM":
             clientObject.magnitude = load_parameter
-            
+
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_1":
             if len(load_parameter) != 3:
                 raise Exception('WARNING: The load parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
@@ -375,7 +374,6 @@ class LineLoad():
             else:
                 clientObject.distance_b_relative = load_parameter[5]
 
-
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_2x2":
             if len(load_parameter) != 7:
                 raise Exception('WARNING: The load parameter needs to be of length 7. Kindly check list inputs for completeness and correctness.')
@@ -395,7 +393,7 @@ class LineLoad():
                 clientObject.distance_b_absolute = load_parameter[5]
             else:
                 clientObject.distance_b_relative = load_parameter[5]
-            
+
             if load_parameter[2] == False:
                 clientObject.distance_c_absolute = load_parameter[6]
             else:

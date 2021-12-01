@@ -31,7 +31,7 @@ class SurfaceSupport():
         clientObject.translation_z = c_1_z
         clientObject.shear_xz = c_2_x
         clientObject.shear_yz = c_2_y
-        
+
         # Comment
         clientObject.comment = comment
 

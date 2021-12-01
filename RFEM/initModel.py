@@ -102,7 +102,6 @@ except:
 
 import csv
 
-
 # Connect to server
 # Check server port range set in "Program Options & Settings"
 # By default range is set between 8081 ... 8089
@@ -201,17 +200,17 @@ def Calculate_all(generateXmlSolverInput: bool = False):
 
 def ConvertToDlString(s):
     '''
-    The function converts strings commonly used in RSTAB / RFEM so that they 
+    The function converts strings commonly used in RSTAB / RFEM so that they
     can be used In WebServices. It solved issue #4.
     Examples:
     '1,3'       -> '1 3'
     '1, 3'      -> '1 3'
     '1-3'       -> '1 2 3'
     '1,3,5-9'   -> '1 3 5 6 7 8 9'
-    
+
     Params:
         RSTAB / RFEM common string
-        
+
     Returns a WS conform string.
     '''
     if type(s)==list:
@@ -229,12 +228,12 @@ def ConvertToDlString(s):
             inLst = []
             for i in range(start, end + 1):
                 inLst.append(str(i))
-                
+
             inS = ' '.join(inLst)
             new_lst.append(inS)
         else:
             new_lst.append(element)
-            
+
     s = ' '.join(new_lst)
     return s
 
@@ -257,7 +256,7 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculateLC.parent_no = 0
             specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
             specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
-    
+
     if designSituations is not None:
         for designSituation in designSituations:
             specificObjectsToCalculateDS = Model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
@@ -265,7 +264,7 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculateDS.parent_no = 0
             specificObjectsToCalculateDS.type = ObjectTypes.E_OBJECT_TYPE_DESIGN_SITUATION.name
             specificObjectsToCalculate.element.append(specificObjectsToCalculateDS)
-    
+
     if loadCombinations is not None:
         for loadCombination in loadCombinations:
             specificObjectsToCalculateLC = Model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
@@ -273,7 +272,6 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculateLC.parent_no = 0
             specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
             specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
-    
 
     Model.clientModel.service.calculate_specific_objects(specificObjectsToCalculate)
 
@@ -307,9 +305,61 @@ def __parseCSVAsDictionary(path: str =""):
     return my_dictionary
 
 def ParseCSVResultsFromSelectedFileToDict(filePath: str):
-    
+
     return __parseCSVAsDictionary(filePath)
 
 def ParseXMLResultsFromSelectedFileToDict(filePath: str):
-    
+
     return __parseXMLAsDictionary(filePath)
+
+def GenerateMesh():
+
+     Model.clientModel.service.generate_mesh()
+
+def GetMeshStatics():
+
+    mesh_stats =  Model.clientModel.service.get_mesh_statistics()
+    return  Model.clientModel.dict(mesh_stats)
+
+def FirstFreeIdNumber(type = ObjectTypes.E_OBJECT_TYPE_MEMBER,
+            parent_no: int = 0):
+
+            '''
+            This method returns the next available Id Number for the selected object type.
+
+            Args:
+                type (enum): Object Type
+                parent_no (int): Object Parent Number
+                    Note:
+                    (1) A geometric object has, in general, a parent_no = 0
+                    (2) The parent_no parameter becomes significant for example with loads
+            '''
+
+            return  Model.clientModel.service.get_first_free_number(type.name, parent_no)
+
+def SetModelType(model_type = ModelType.E_MODEL_TYPE_3D):
+
+    '''
+    This method sets the model type. The model type is E_MODEL_TYPE_3D by default.
+
+    Args:
+        model_type (enum): The available model types are listed below.
+            ModelType.E_MODEL_TYPE_1D_X_3D
+            ModelType.E_MODEL_TYPE_1D_X_AXIAL
+            ModelType.E_MODEL_TYPE_2D_XY_3D
+            ModelType.E_MODEL_TYPE_2D_XY_PLATE
+            ModelType.E_MODEL_TYPE_2D_XZ_3D
+            ModelType.E_MODEL_TYPE_2D_XZ_PLANE_STRAIN
+            ModelType.E_MODEL_TYPE_2D_XZ_PLANE_STRESS
+            ModelType.E_MODEL_TYPE_3D
+    '''
+
+     Model.clientModel.service.set_model_type(model_type.name)
+
+def GetModelType():
+
+    '''
+    The method returns a string of the current model type.
+    '''
+
+    return clientModel.service.get_model_type()

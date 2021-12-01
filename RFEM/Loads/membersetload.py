@@ -82,30 +82,30 @@ class MemberSetLoad():
             force_eccentricity (bool): Force Eccentricity Option
             comment (str, optional): Comments
             params (dict, optional): Parameters
-            
-            for LOAD_DISTRIBUTION_UNIFORM: 
+
+            for LOAD_DISTRIBUTION_UNIFORM:
                 load_parameter = [magnitude]
-            for LOAD_DISTRIBUTION_UNIFORM_TOTAL: 
+            for LOAD_DISTRIBUTION_UNIFORM_TOTAL:
                 load_parameter = [magnitude]
-            for LOAD_DISTRIBUTION_CONCENTRATED_1: 
+            for LOAD_DISTRIBUTION_CONCENTRATED_1:
                 load_parameter = [relative_distance = False, magnitude, distance_a]
-            for LOAD_DISTRIBUTION_CONCENTRATED_N: 
+            for LOAD_DISTRIBUTION_CONCENTRATED_N:
                 load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude, count_n, distance_a, distance_b]
-            for LOAD_DISTRIBUTION_CONCENTRATED_2x2: 
+            for LOAD_DISTRIBUTION_CONCENTRATED_2x2:
                 load_parameter = [relative_distance_a = False, relative_distance_b = False, relative_distance_c = False, magnitude, distance_a, distance_b, distance_c]
-            for LOAD_DISTRIBUTION_CONCENTRATED_2: 
+            for LOAD_DISTRIBUTION_CONCENTRATED_2:
                 load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
-            for LOAD_DISTRIBUTION_CONCENTRATED_VARYING: 
+            for LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
                 load_parameter = [[distance, delta_distance, magnitude], ...]
-            for LOAD_DISTRIBUTION_TRAPEZOIDAL: 
+            for LOAD_DISTRIBUTION_TRAPEZOIDAL:
                 load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-            for LOAD_DISTRIBUTION_TAPERED: 
+            for LOAD_DISTRIBUTION_TAPERED:
                 load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-            for LOAD_DISTRIBUTION_PARABOLIC: 
+            for LOAD_DISTRIBUTION_PARABOLIC:
                 load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-            for LOAD_DISTRIBUTION_VARYING: 
+            for LOAD_DISTRIBUTION_VARYING:
                 load_parameter = [[distance, delta_distance, magnitude], ...]
-            for LOAD_DISTRIBUTION_VARYING_IN_Z: 
+            for LOAD_DISTRIBUTION_VARYING_IN_Z:
                 load_parameter = [[distance, delta_distance, magnitude], ...]
 
         params:
@@ -197,7 +197,7 @@ class MemberSetLoad():
                         clientObject.distance_b_absolute = load_parameter[5]
                     else:
                         clientObject.distance_b_relative = load_parameter[5]
-                    
+
                     if load_parameter[2] == False:
                         clientObject.distance_c_absolute = load_parameter[6]
                     else:
@@ -377,7 +377,7 @@ class MemberSetLoad():
                 clientObject.eccentricity_y_at_start= params_ecc['eccentricity_y_at_start']
                 clientObject.eccentricity_z_at_end= params_ecc['eccentricity_z_at_end']
                 clientObject.eccentricity_z_at_start= params_ecc['eccentricity_z_at_start']
-        
+
         # Comment
         clientObject.comment = comment
 
@@ -411,25 +411,25 @@ class MemberSetLoad():
             comment (str, optional): Comments
             params (dict, optional): Parameters
 
-            for LOAD_DISTRIBUTION_UNIFORM: 
+            for LOAD_DISTRIBUTION_UNIFORM:
                 load_parameter = magnitude
-            for LOAD_DISTRIBUTION_CONCENTRATED_1: 
+            for LOAD_DISTRIBUTION_CONCENTRATED_1:
                 load_parameter = [relative_distance = False, magnitude, distance_a]
-            for LOAD_DISTRIBUTION_CONCENTRATED_N: 
+            for LOAD_DISTRIBUTION_CONCENTRATED_N:
                 load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude, count_n, distance_a, distance_b]
-            for LOAD_DISTRIBUTION_CONCENTRATED_2x2: 
+            for LOAD_DISTRIBUTION_CONCENTRATED_2x2:
                 load_parameter = [relative_distance_a = False, relative_distance_b = False, relative_distance_c = False, magnitude, distance_a, distance_b, distance_c]
-            for LOAD_DISTRIBUTION_CONCENTRATED_2: 
+            for LOAD_DISTRIBUTION_CONCENTRATED_2:
                 load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
-            for LOAD_DISTRIBUTION_CONCENTRATED_VARYING: 
+            for LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
                 load_parameter = [[distance, delta_distance, magnitude], ...]
-            for LOAD_DISTRIBUTION_TRAPEZOIDAL: 
+            for LOAD_DISTRIBUTION_TRAPEZOIDAL:
                 load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-            for LOAD_DISTRIBUTION_TAPERED: 
+            for LOAD_DISTRIBUTION_TAPERED:
                 load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-            for LOAD_DISTRIBUTION_PARABOLIC: 
+            for LOAD_DISTRIBUTION_PARABOLIC:
                 load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-            for LOAD_DISTRIBUTION_VARYING: 
+            for LOAD_DISTRIBUTION_VARYING:
                 load_parameter = [[distance, delta_distance, magnitude], ...]
         """
         # Client model | Member Load
@@ -461,7 +461,7 @@ class MemberSetLoad():
             except:
                 raise Exception("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
-            
+
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_1":
             try:
                 len(load_parameter)==3
@@ -515,7 +515,7 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[5]
             else:
                 clientObject.distance_b_relative = load_parameter[5]
-            
+
             if load_parameter[2] == False:
                 clientObject.distance_c_absolute = load_parameter[6]
             else:
@@ -526,7 +526,7 @@ class MemberSetLoad():
                 len(load_parameter)==6
             except:
                 raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")
-            
+
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
             clientObject.magnitude_1 = load_parameter[2]
@@ -707,7 +707,7 @@ class MemberSetLoad():
         # Adding optional parameters via dictionary
         for key in params:
             clientObject[key] = params[key]
-        
+
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
@@ -732,7 +732,7 @@ class MemberSetLoad():
             load_over_total_length (bool): Load Over Total Length Option
             comment (str, optional): Comment
             params (dict, optional): Parameters
-        
+
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             load_parameter = [tt, tb]
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
@@ -744,7 +744,7 @@ class MemberSetLoad():
             load_parameter = [tt1, tt2, tb1, tb2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
             load_parameter = [tb1, tb2, tb3, tt1, tt2, tt3]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING: 
+        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
             load_parameter = [[distance, delta_distance, magnitude], ...]
         """
         # Client model | Member Load
@@ -804,7 +804,7 @@ class MemberSetLoad():
                 else:
                     clientObject.distance_a_is_defined_as_relative = False
                     clientObject.distance_a_absolute = load_parameter[6]
-        
+
                 if load_parameter[5] == True:
                     clientObject.distance_b_is_defined_as_relative = True
                     clientObject.distance_b_relative = load_parameter[7]
@@ -823,19 +823,19 @@ class MemberSetLoad():
             clientObject.magnitude_t_b_2 = load_parameter[1]
             clientObject.magnitude_t_t_1 = load_parameter[2]
             clientObject.magnitude_t_t_2 = load_parameter[3]
-            
+
             if type(load_parameter[4]) == bool:
                 pass
             else:
                 raise Exception("WARNING: Type of the fourth load parameter should be bool. Kindly check inputs correctness.")
-            
+
             if load_parameter[4] == True:
                 clientObject.distance_a_is_defined_as_relative = True
                 clientObject.distance_a_relative = load_parameter[6]
             else:
                 clientObject.distance_a_is_defined_as_relative = False
                 clientObject.distance_a_absolute = load_parameter[6]
-            
+
             if type(load_parameter[5]) == bool:
                 pass
             else:
@@ -880,7 +880,7 @@ class MemberSetLoad():
                 mlvlp.magnitude_t_b = load_parameter[i][3]
 
                 clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
-            
+
         # Comment
         clientObject.comment = comment
 
@@ -912,7 +912,7 @@ class MemberSetLoad():
             load_over_total_length (bool): Load Over Total Length Option
             comment (str, optional): Comment
             params (dict, optional): Parameters
-        
+
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             load_parameter = [tc, delta_t]
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
@@ -924,7 +924,7 @@ class MemberSetLoad():
             load_parameter = [delta_t_1, delta_t_2, t_c_1, t_c_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
             load_parameter = [delta_t_1, delta_t_2, delta_t_3, t_c_1, t_c_2, t_c_3]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING: 
+        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
             load_parameter = [[distance, delta_distance, magnitude], ...]
         """
         # Client model | Member Load
@@ -960,7 +960,6 @@ class MemberSetLoad():
                 raise Exception("WARNING: Load parameter array length should be 2 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_delta_t = load_parameter[0]
             clientObject.magnitude_t_c = load_parameter[1]
-            
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
             try:
@@ -971,7 +970,7 @@ class MemberSetLoad():
             clientObject.magnitude_delta_t_2 = load_parameter[1]
             clientObject.magnitude_t_c_1 = load_parameter[2]
             clientObject.magnitude_t_c_2 = load_parameter[3]
-            
+
             if type(load_over_total_length) == bool:
                 pass
             else:
@@ -985,7 +984,7 @@ class MemberSetLoad():
                 else:
                     clientObject.distance_a_is_defined_as_relative = False
                     clientObject.distance_a_absolute = load_parameter[6]
-        
+
                 if load_parameter[5] == True:
                     clientObject.distance_b_is_defined_as_relative = True
                     clientObject.distance_b_relative = load_parameter[7]
@@ -1011,7 +1010,7 @@ class MemberSetLoad():
             else:
                 clientObject.distance_a_is_defined_as_relative = False
                 clientObject.distance_a_absolute = load_parameter[6]
-        
+
             if load_parameter[5] == True:
                 clientObject.distance_b_is_defined_as_relative = True
                 clientObject.distance_b_relative = load_parameter[7]
@@ -1051,7 +1050,7 @@ class MemberSetLoad():
                 mlvlp.magnitude_t_b = load_parameter[i][3]
 
                 clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
-            
+
         # Comment
         clientObject.comment = comment
 
@@ -1075,7 +1074,7 @@ class MemberSetLoad():
         """
         Args:
             no (int): Load Tag
-            load_case_no (int): Assigned Load Case 
+            load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
             load_distribution (enum): Load Distribution Enumeration
             load_direction (enum): Load Direction Enumeration
@@ -1092,7 +1091,7 @@ class MemberSetLoad():
             load_parameter = [epsilon1, epsilon2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
             load_parameter = [epsilon1, epsilon2, epsilon3]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING: 
+        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
             load_parameter = [[distance, delta_distance, magnitude], ...]
         """
         # Client model | Member Load
@@ -1127,7 +1126,7 @@ class MemberSetLoad():
             except:
                 raise Exception("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
-            
+
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
             try:
                 len(load_parameter)==6
@@ -1149,7 +1148,7 @@ class MemberSetLoad():
                 else:
                     clientObject.distance_a_is_defined_as_relative = False
                     clientObject.distance_a_absolute = load_parameter[4]
-        
+
                 if load_parameter[3] == True:
                     clientObject.distance_b_is_defined_as_relative = True
                     clientObject.distance_b_relative = load_parameter[5]
@@ -1173,7 +1172,7 @@ class MemberSetLoad():
             else:
                 clientObject.distance_a_is_defined_as_relative = False
                 clientObject.distance_a_absolute = load_parameter[4]
-        
+
             if load_parameter[3] == True:
                 clientObject.distance_b_is_defined_as_relative = True
                 clientObject.distance_b_relative = load_parameter[5]
@@ -1210,7 +1209,7 @@ class MemberSetLoad():
                 mlvlp.magnitude_t_b = 0.0
 
                 clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
-            
+
         # Comment
         clientObject.comment = comment
 
@@ -1266,7 +1265,7 @@ class MemberSetLoad():
 
         #Load Magnitude
         clientObject.magnitude = magnitude
-            
+
         # Comment
         clientObject.comment = comment
 
@@ -1290,7 +1289,7 @@ class MemberSetLoad():
         """
         Args:
             no (int): Load Tag
-            load_case_no (int): Assigned Load Case 
+            load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
             load_distribution (enum): Load Distribution Enumeration
             load_direction (enum): Load Direction Enumeration
@@ -1298,7 +1297,7 @@ class MemberSetLoad():
             load_over_total_length (bool): Load Over Total Lenth Option
             comment (str, optional): Comment
             params (dict, optional): Parameters
-            
+
             for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                 load_parameter = [magnitude]
             for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
@@ -1307,7 +1306,7 @@ class MemberSetLoad():
                 load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
             for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
                 load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-            for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING: 
+            for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
                 load_parameter = [[distance, delta_distance, magnitude], ...]
         """
         # Client model | Member Load
@@ -1364,7 +1363,7 @@ class MemberSetLoad():
                 else:
                     clientObject.distance_a_is_defined_as_relative = False
                     clientObject.distance_a_absolute = load_parameter[4]
-        
+
                 if load_parameter[3] == True:
                     clientObject.distance_b_is_defined_as_relative = True
                     clientObject.distance_b_relative = load_parameter[5]
@@ -1389,7 +1388,7 @@ class MemberSetLoad():
             else:
                 clientObject.distance_a_is_defined_as_relative = False
                 clientObject.distance_a_absolute = load_parameter[4]
-        
+
             if load_parameter[3] == True:
                 clientObject.distance_b_is_defined_as_relative = True
                 clientObject.distance_b_relative = load_parameter[5]
@@ -1426,7 +1425,7 @@ class MemberSetLoad():
                 mlvlp.magnitude_t_b = 0.0
 
                 clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
-            
+
         # Comment
         clientObject.comment = comment
 
@@ -1506,7 +1505,7 @@ class MemberSetLoad():
         """
         Args:
             no (int): Load Tag
-            load_case_no (int): Assigned Load Case 
+            load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
             load_distribution (enum): Load Distribution Enumeration
             load_direction (enum): Load Direction Enumeration
@@ -1525,7 +1524,7 @@ class MemberSetLoad():
             load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_c_is_defined_as_relative = False, distance_a, distance_b, distance_c]
         for load_distrubition = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
             load_parameter = [magnitude_1, magnitude_2, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING: 
+        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
             load_parameter = [[distance, delta_distance, magnitude], ...]
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
             load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
@@ -1533,7 +1532,7 @@ class MemberSetLoad():
             load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
             load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING: 
+        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
             load_parameter = [[distance, delta_distance, magnitude], ...]
         """
         # Client model | Member Load
@@ -1566,14 +1565,14 @@ class MemberSetLoad():
             try:
                 len(load_parameter)==1
             except:
-                raise Exception("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")            
+                raise Exception("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1:
             try:
                 len(load_parameter)==3
             except:
-                raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_CONCENTRATED_1. Kindly check list inputs completeness and correctness.")   
+                raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_CONCENTRATED_1. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
             clientObject.distance_a_is_defined_as_relative = load_parameter[1]
             if load_parameter[1]:
@@ -1585,7 +1584,7 @@ class MemberSetLoad():
             try:
                 len(load_parameter)==5
             except:
-                raise Exception("WARNING: Load parameter array length should be 5 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")  
+                raise Exception("WARNING: Load parameter array length should be 5 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
             clientObject.distance_a_is_defined_as_relative = load_parameter[1]
             clientObject.distance_b_is_defined_as_relative = load_parameter[2]
@@ -1604,7 +1603,7 @@ class MemberSetLoad():
             try:
                 len(load_parameter)==7
             except:
-                raise Exception("WARNING: Load parameter array length should be 7 for LOAD_DISTRIBUTION_CONCENTRATED_2x2. Kindly check list inputs completeness and correctness.")  
+                raise Exception("WARNING: Load parameter array length should be 7 for LOAD_DISTRIBUTION_CONCENTRATED_2x2. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
             clientObject.distance_a_is_defined_as_relative = load_parameter[1]
             clientObject.distance_b_is_defined_as_relative = load_parameter[2]
@@ -1629,7 +1628,7 @@ class MemberSetLoad():
             try:
                 len(load_parameter)==6
             except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")  
+                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
@@ -1671,7 +1670,7 @@ class MemberSetLoad():
             try:
                 len(load_parameter)==6
             except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")  
+                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
@@ -1702,7 +1701,7 @@ class MemberSetLoad():
             try:
                 len(load_parameter)==6
             except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")  
+                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
@@ -1723,7 +1722,7 @@ class MemberSetLoad():
             try:
                 len(load_parameter)==3
             except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")  
+                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
             clientObject.magnitude_3 = load_parameter[2]
@@ -1748,7 +1747,7 @@ class MemberSetLoad():
                 mlvlp.magnitude_t_b = 0.0
 
                 clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
-            
+
         # Comment
         clientObject.comment = comment
 
@@ -1772,7 +1771,7 @@ class MemberSetLoad():
         """
         Args:
             no (int): Load Tag
-            load_case_no (int): Assigned Load Case 
+            load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
             load_distribution (enum): Load Distribution Enumeration
             load_direction (enum): Load Direction Enumeration
@@ -1791,7 +1790,7 @@ class MemberSetLoad():
             load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_c_is_defined_as_relative = False, distance_a, distance_b, distance_c]
         for load_distrubition = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
             load_parameter = [magnitude_1, magnitude_2, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING: 
+        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
             load_parameter = [[distance, delta_distance, magnitude], ...]
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
             load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
@@ -1799,7 +1798,7 @@ class MemberSetLoad():
             load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
             load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING: 
+        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
             load_parameter = [[distance, delta_distance, magnitude], ...]
         """
         # Client model | Member Load
@@ -1832,14 +1831,14 @@ class MemberSetLoad():
             try:
                 len(load_parameter)==1
             except:
-                raise Exception("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")  
+                raise Exception("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1:
             try:
                 len(load_parameter) ==  3
             except:
-                raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_CONCENTRATED_1. Kindly check list inputs completeness and correctness.")  
+                raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_CONCENTRATED_1. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
             clientObject.distance_a_is_defined_as_relative = load_parameter[1]
             if load_parameter[1]:
@@ -1851,7 +1850,7 @@ class MemberSetLoad():
             try:
                 len(load_parameter) ==  5
             except:
-                raise Exception("WARNING: Load parameter array length should be 5 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")  
+                raise Exception("WARNING: Load parameter array length should be 5 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
             clientObject.distance_a_is_defined_as_relative = load_parameter[1]
             clientObject.distance_b_is_defined_as_relative = load_parameter[2]
@@ -1870,7 +1869,7 @@ class MemberSetLoad():
             try:
                 len(load_parameter) ==  7
             except:
-                raise Exception("WARNING: Load parameter array length should be 7 for LOAD_DISTRIBUTION_CONCENTRATED_2x2. Kindly check list inputs completeness and correctness.")  
+                raise Exception("WARNING: Load parameter array length should be 7 for LOAD_DISTRIBUTION_CONCENTRATED_2x2. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
             clientObject.distance_a_is_defined_as_relative = load_parameter[1]
             clientObject.distance_b_is_defined_as_relative = load_parameter[2]
@@ -1895,7 +1894,7 @@ class MemberSetLoad():
             try:
                 len(load_parameter) ==  6
             except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")  
+                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
@@ -1937,7 +1936,7 @@ class MemberSetLoad():
             try:
                 len(load_parameter) ==  6
             except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")  
+                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
@@ -1968,7 +1967,7 @@ class MemberSetLoad():
             try:
                 len(load_parameter) ==  6
             except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")  
+                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
@@ -1989,7 +1988,7 @@ class MemberSetLoad():
             try:
                 len(load_parameter) ==  3
             except:
-                raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")  
+                raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
             clientObject.magnitude_3 = load_parameter[2]
@@ -2014,7 +2013,7 @@ class MemberSetLoad():
                 mlvlp.magnitude_t_b = 0.0
 
                 clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
-            
+
         # Comment
         clientObject.comment = comment
 
@@ -2036,12 +2035,12 @@ class MemberSetLoad():
         """
         Args:
             no (int): Load Tag
-            load_case_no (int): Assigned Load Case 
+            load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
             load_direction_orientation (enum): Load Direction Orientation Enumeration
             specific_weight (float): Specific Weight
             comment (str, optional): Comment
-            params (dict, optional): Parameters 
+            params (dict, optional): Parameters
         """
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
@@ -2096,7 +2095,7 @@ class MemberSetLoad():
         """
         Args:
             no (int): Load Tag
-            load_case_no (int): Assigned Load Case 
+            load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
             load_direction_orientation (enum): Load Direction Orientation Enumeration
             specific_weight (float): Specific Weight
@@ -2137,7 +2136,7 @@ class MemberSetLoad():
 
         #Filling Height
         clientObject.filling_height = filling_height
-        
+
         # Comment
         clientObject.comment = comment
 
@@ -2158,7 +2157,7 @@ class MemberSetLoad():
         """
         Args:
             no (int): Load Tag
-            load_case_no (int): Assigned Load Case 
+            load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
             pressure (float): Pressure
             comment (str, optional): Comment
@@ -2191,7 +2190,7 @@ class MemberSetLoad():
 
         #Load Magnitude
         clientObject.magnitude = pressure
-        
+
         # Comment
         clientObject.comment = comment
 
@@ -2218,7 +2217,7 @@ class MemberSetLoad():
         """
         Args:
             no (int): Load Tag
-            load_case_no (int): Assigned Load Case 
+            load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
             angular_acceleration (float): Angular Acceleration
             angular_velocity (float): Angular Velocity

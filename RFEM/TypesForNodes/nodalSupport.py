@@ -32,7 +32,6 @@ def setNodalSupportConditions(clientObject,
 
     return clientObject
 
-
 class NodalSupport():
     def __init__(self,
                  no: int = 1,

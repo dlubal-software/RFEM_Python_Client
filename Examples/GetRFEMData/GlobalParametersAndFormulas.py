@@ -30,7 +30,6 @@ from RFEM.initModel import *
 from RFEM.dataTypes import *
 from RFEM.enums import *
 
-
 if __name__ == "__main__":
     
     objectLocation = Model.clientModel.factory.create('ns0:object_location')
@@ -51,4 +50,3 @@ if __name__ == "__main__":
     print('Calculated value: ' + str(formula.calculated_value))
     print('Validation results: ' + formula.validation_result)
 
-    

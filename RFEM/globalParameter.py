@@ -50,7 +50,7 @@ class GlobalParameter():
 
         # Definition Type
         clientObject.definition_type = definition_type.name
-        
+
         if definition_type.name == 'DEFINITION_TYPE_FORMULA':
             if len(definition_parameter) != 1:
                 raise Exception('WARNING: The definition parameter needs to be of length 1. Kindly check list inputs for completeness and correctness.')

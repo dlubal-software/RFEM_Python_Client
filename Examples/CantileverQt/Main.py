@@ -52,7 +52,6 @@ except:
         input('Press Enter to exit...')
         sys.exit()
 
-
 class MyDialog(QtWidgets.QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -84,7 +83,7 @@ class MyDialog(QtWidgets.QDialog):
         Node(1, 0.0, 0.0, 0.0)
         Node(2, l, 0.0, 0.0)
 
-        Member(1, MemberType.TYPE_BEAM, 1, 2, 0.0, 1, 1)
+        Member(1,  1, 2, 0.0, 1, 1)
 
         NodalSupport(1, '1', NodalSupportType.FIXED)
 
@@ -99,14 +98,12 @@ class MyDialog(QtWidgets.QDialog):
         Calculate_all()
 
         print('Ready!')
-        
 
         Model.clientModel.service.finish_modification()
 
     def onCancel(self):
         print('Cancel')
         self.close()
-
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
