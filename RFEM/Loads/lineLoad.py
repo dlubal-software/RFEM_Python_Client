@@ -19,7 +19,7 @@ class LineLoad():
         '''
 
         # Client model | Line Load
-        clientObject = clientModel.factory.create('ns0:line_load')
+        clientObject = Model.clientModel.factory.create('ns0:line_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -55,7 +55,7 @@ class LineLoad():
             clientObject[key] = params[key]
 
         # Add Load Line Load to client model
-        clientModel.service.set_line_load(load_case_no, clientObject)
+        Model.clientModel.service.set_line_load(load_case_no, clientObject)
 
     def Force(self,
                 no: int = 1,
@@ -86,7 +86,7 @@ class LineLoad():
         '''
 
         # Client model | Line Load
-        clientObject = clientModel.factory.create('ns0:line_load')
+        clientObject = Model.clientModel.factory.create('ns0:line_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -195,12 +195,12 @@ class LineLoad():
             except:
                 print("WARNING: LineLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = clientModel.factory.create('ns0:line_load.varying_load_parameters')
+            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:line_load.varying_load_parameters')
 
             for i in range(len(load_parameter)):
                 if len(load_parameter[i]) != 3:
                     raise Exception('WARNING: The load parameter sub-lists need to be of length 3. Kindly check sub-list inputs for completeness and correctness.')
-                mlvlp = clientModel.factory.create('ns0:line_load_varying_load_parameters')
+                mlvlp = Model.clientModel.factory.create('ns0:line_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
                 mlvlp.delta_distance = load_parameter[i][1]
@@ -262,11 +262,11 @@ class LineLoad():
             except:
                 print("WARNING: LineLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = clientModel.factory.create('ns0:line_load.varying_load_parameters')
+            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:line_load.varying_load_parameters')
             for i in range(len(load_parameter)):
                 if len(load_parameter[i]) != 3:
                     raise Exception('WARNING: The load parameter sub-lists need to be of length 3. Kindly check sub-list inputs for completeness and correctness.')
-                mlvlp = clientModel.factory.create('ns0:line_load_varying_load_parameters')
+                mlvlp = Model.clientModel.factory.create('ns0:line_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
                 mlvlp.delta_distance = load_parameter[i][1]
@@ -289,7 +289,7 @@ class LineLoad():
             clientObject[key] = params[key]
 
         # Add Load Line Load to client model
-        clientModel.service.set_line_load(load_case_no, clientObject)
+        Model.clientModel.service.set_line_load(load_case_no, clientObject)
 
     def Moment(self,
                  no: int = 1,
@@ -316,7 +316,7 @@ class LineLoad():
         '''
 
         # Client model | Line Load
-        clientObject = clientModel.factory.create('ns0:line_load')
+        clientObject = Model.clientModel.factory.create('ns0:line_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -425,12 +425,12 @@ class LineLoad():
             except:
                 print("WARNING: LineLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = clientModel.factory.create('ns0:line_load.varying_load_parameters')
+            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:line_load.varying_load_parameters')
 
             for i in range(len(load_parameter)):
                 if len(load_parameter[i]) != 3:
                     raise Exception('WARNING: The load parameter sub-lists need to be of length 3. Kindly check sub-list inputs for completeness and correctness.')
-                mlvlp = clientModel.factory.create('ns0:line_load_varying_load_parameters')
+                mlvlp = Model.clientModel.factory.create('ns0:line_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
                 mlvlp.delta_distance = load_parameter[i][1]
@@ -492,11 +492,11 @@ class LineLoad():
             except:
                 print("WARNING: LineLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = clientModel.factory.create('ns0:line_load.varying_load_parameters')
+            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:line_load.varying_load_parameters')
             for i in range(len(load_parameter)):
                 if len(load_parameter[i]) != 3:
                     raise Exception('WARNING: The load parameter sub-lists need to be of length 3. Kindly check sub-list inputs for completeness and correctness.')
-                mlvlp = clientModel.factory.create('ns0:line_load_varying_load_parameters')
+                mlvlp = Model.clientModel.factory.create('ns0:line_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
                 mlvlp.delta_distance = load_parameter[i][1]
@@ -519,7 +519,7 @@ class LineLoad():
             clientObject[key] = params[key]
 
         # Add Load Line Load to client model
-        clientModel.service.set_line_load(load_case_no, clientObject)
+        Model.clientModel.service.set_line_load(load_case_no, clientObject)
 
     def Mass(self,
                 no: int = 1,
@@ -538,7 +538,7 @@ class LineLoad():
         '''
 
         # Client model | Line Load
-        clientObject = clientModel.factory.create('ns0:line_load')
+        clientObject = Model.clientModel.factory.create('ns0:line_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -585,4 +585,4 @@ class LineLoad():
             clientObject[key] = params[key]
 
         # Add Load Line Load to client model
-        clientModel.service.set_line_load(load_case_no, clientObject)
+        Model.clientModel.service.set_line_load(load_case_no, clientObject)

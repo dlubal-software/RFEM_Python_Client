@@ -31,7 +31,7 @@ class GlobalParameter():
         '''
 
         # Client model | Global Parameter
-        clientObject = clientModel.factory.create('ns0:global_parameter')
+        clientObject = Model.clientModel.factory.create('ns0:global_parameter')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -76,5 +76,5 @@ class GlobalParameter():
         for key in params:
             clientObject[key] = params[key]
 
-        # Add Global Parameter to client model
-        clientModel.service.set_global_parameter(clientObject)
+        # Add Global Parameter to client model          
+        Model.clientModel.service.set_global_parameter(clientObject)

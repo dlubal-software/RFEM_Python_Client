@@ -24,9 +24,10 @@ from RFEM.initModel import *
 from RFEM.dataTypes import *
 from RFEM.enums import *
 
-def test_nodal_load():
 
-    clientModel.service.begin_modification()
+def test_nodal_load():
+    Model(True, "NodalLoad")
+    Model.clientModel.service.begin_modification()
 
     # Create Material
     Material(1, 'S235')
@@ -84,5 +85,5 @@ def test_nodal_load():
 
     print('Ready!')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 

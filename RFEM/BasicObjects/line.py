@@ -9,7 +9,7 @@ class Line():
                  params: dict = {}):
 
         # Client model | Line
-        clientObject = clientModel.factory.create('ns0:line')
+        clientObject = Model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -28,7 +28,7 @@ class Line():
             clientObject[key] = params[key]
 
         # Add Line to client model
-        clientModel.service.set_line(clientObject)
+        Model.clientModel.service.set_line(clientObject)
 
     def Polyline(self,
                  no: int = 1,
@@ -37,7 +37,7 @@ class Line():
                  params: dict = {}):
 
         # Client model | Line
-        clientObject = clientModel.factory.create('ns0:line')
+        clientObject = Model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -59,7 +59,7 @@ class Line():
             clientObject[key] = params[key]
 
         # Add Line to client model
-        clientModel.service.set_line(clientObject)
+        Model.clientModel.service.set_line(clientObject)
 
     def Arc(self,
             no: int = 1,
@@ -70,7 +70,7 @@ class Line():
             params: dict = {}):
 
         # Client model | Line
-        clientObject = clientModel.factory.create('ns0:line')
+        clientObject = Model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -98,7 +98,7 @@ class Line():
             clientObject[key] = params[key]
 
         # Add Line to client model
-        clientModel.service.set_line(clientObject)
+        Model.clientModel.service.set_line(clientObject)
 
     def Circle(self,
                 no: int = 1,
@@ -110,7 +110,7 @@ class Line():
                 params: dict = {}):
 
         # Client model | Line
-        clientObject = clientModel.factory.create('ns0:line')
+        clientObject = Model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -144,7 +144,7 @@ class Line():
             clientObject[key] = params[key]
 
         # Add Line to client model
-        clientModel.service.set_line(clientObject)
+        Model.clientModel.service.set_line(clientObject)
 
     def EllipticalArc(self,
                       no: int = 72,
@@ -158,7 +158,7 @@ class Line():
                       params: dict = {}):
 
         # Client model | Line
-        clientObject = clientModel.factory.create('ns0:line')
+        clientObject = Model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -198,7 +198,7 @@ class Line():
             clientObject[key] = params[key]
 
         # Add Line to client model
-        clientModel.service.set_line(clientObject)
+        Model.clientModel.service.set_line(clientObject)
 
     def Ellipse(self,
                 no: int = 1,
@@ -208,7 +208,7 @@ class Line():
                 params: dict = {}):
 
         # Client model | Line
-        clientObject = clientModel.factory.create('ns0:line')
+        clientObject = Model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -237,7 +237,7 @@ class Line():
             clientObject[key] = params[key]
 
         # Add Line to client model
-        clientModel.service.set_line(clientObject)
+        Model.clientModel.service.set_line(clientObject)
 
     def Parabola(self,
                  no: int = 1,
@@ -248,7 +248,7 @@ class Line():
                  params: dict = {}):
 
         # Client model | Line
-        clientObject = clientModel.factory.create('ns0:line')
+        clientObject = Model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -279,7 +279,7 @@ class Line():
             clientObject[key] = params[key]
 
         # Add Line to client model
-        clientModel.service.set_line(clientObject)
+        Model.clientModel.service.set_line(clientObject)
 
     def Spline(self,
                no: int = 1,
@@ -288,7 +288,7 @@ class Line():
                params: dict = {}):
 
         # Client model | Line
-        clientObject = clientModel.factory.create('ns0:line')
+        clientObject = Model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -310,7 +310,7 @@ class Line():
             clientObject[key] = params[key]
 
         # Add Line to client model
-        clientModel.service.set_line(clientObject)
+        Model.clientModel.service.set_line(clientObject)
 
     def NURBS(self,
               no: int = 1,
@@ -321,7 +321,7 @@ class Line():
               params: dict = {}):
 
         # Client model | Line
-        clientObject = clientModel.factory.create('ns0:line')
+        clientObject = Model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -340,14 +340,14 @@ class Line():
 
         nurbs_control_points = []
         for i in range(len(control_points)):
-            point = clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
+            point = Model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
             point.no = i+1
             point.global_coordinate_x = control_points[i][0]
             point.global_coordinate_y = control_points[i][1]
             point.global_coordinate_z = control_points[i][2]
             point.weight = weights[i]
             nurbs_control_points.append(point)
-        clientObject.nurbs_control_points_by_components = clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
+        clientObject.nurbs_control_points_by_components = Model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
 
         # Comment
         clientObject.comment = comment
@@ -357,4 +357,4 @@ class Line():
             clientObject[key] = params[key]
 
         # Add Line to client model
-        clientModel.service.set_line(clientObject)
+        Model.clientModel.service.set_line(clientObject)

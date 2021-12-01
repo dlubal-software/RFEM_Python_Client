@@ -28,7 +28,7 @@ class Member():
         """
 
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -68,8 +68,8 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
-
+        Model.clientModel.service.set_member(clientObject)    
+    
     def Beam(self,
             no: int = 1,
             start_node_no: int = 1,
@@ -138,7 +138,7 @@ class Member():
             rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -330,7 +330,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def Rigid(self,
                 no: int = 1,
@@ -364,7 +364,7 @@ class Member():
             rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -431,7 +431,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
 ## Rib Member should be corrected.
     def Rib(self,
@@ -474,7 +474,7 @@ class Member():
         """
 
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -557,7 +557,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def Truss(self,
             no: int = 1,
@@ -597,7 +597,7 @@ class Member():
             rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -672,7 +672,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def TrussOnlyN(self,
             no: int = 1,
@@ -712,7 +712,7 @@ class Member():
             rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -787,7 +787,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def Tension(self,
             no: int = 1,
@@ -827,7 +827,7 @@ class Member():
             rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -902,7 +902,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def Compression(self,
             no: int = 1,
@@ -942,7 +942,7 @@ class Member():
             rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1017,7 +1017,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def Buckling(self,
             no: int = 1,
@@ -1057,7 +1057,7 @@ class Member():
             rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1132,7 +1132,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def Cable(self,
             no: int = 1,
@@ -1170,7 +1170,7 @@ class Member():
             rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1236,7 +1236,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def ResultBeam(self,
             no: int = 1,
@@ -1311,7 +1311,7 @@ class Member():
             integration_parameters[result_beam_radius]
         """
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1493,7 +1493,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def DefinableStiffness(self,
             no: int = 1,
@@ -1529,7 +1529,7 @@ class Member():
             rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1599,7 +1599,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def CouplingRigidRigid(self,
                         no: int = 1,
@@ -1629,7 +1629,7 @@ class Member():
             rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1675,7 +1675,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def CouplingRigidHinge(self,
                         no: int = 1,
@@ -1705,7 +1705,7 @@ class Member():
             rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1751,7 +1751,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def CouplingHingeRigid(self,
                         no: int = 1,
@@ -1781,7 +1781,7 @@ class Member():
             rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1827,7 +1827,7 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)
 
     def CouplingHingeHinge(self,
                         no: int = 1,
@@ -1857,7 +1857,7 @@ class Member():
             rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
-        clientObject = clientModel.factory.create('ns0:member')
+        clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1903,4 +1903,4 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        clientModel.service.set_member(clientObject)
+        Model.clientModel.service.set_member(clientObject)

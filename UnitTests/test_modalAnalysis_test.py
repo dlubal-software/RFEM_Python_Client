@@ -35,7 +35,8 @@ def test_modal_analysis_implemented():
 def test_modal_analysis_settings():
 
     # modal analysis not yet implemmented in released RFEM6
-    clientModel.service.begin_modification()
+    Model(True, "ModalAnalysis")
+    Model.clientModel.service.begin_modification()
 
     # Create Material
     Material(1, 'S235')
@@ -73,4 +74,5 @@ def test_modal_analysis_settings():
 
     print('Ready!')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
+

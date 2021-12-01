@@ -8,7 +8,7 @@ class RigidLink():
                  params: dict = {}):
 
         # Client model | Rigid Link
-        clientObject = clientModel.factory.create('ns0:rigid_link')
+        clientObject = Model.clientModel.factory.create('ns0:rigid_link')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,7 +24,7 @@ class RigidLink():
             clientObject[key] = params[key]
 
         # Add rigid link to client model
-        clientModel.service.set_rigid_link(clientObject)
+        Model.clientModel.service.set_rigid_link(clientObject)
 
     def LineToLine(self,
                  no: int = 1,
@@ -32,7 +32,7 @@ class RigidLink():
                  params: dict = {}):
 
         # Client model | Line To Line Rigid Link
-        clientObject = clientModel.factory.create('ns0:rigid_link')
+        clientObject = Model.clientModel.factory.create('ns0:rigid_link')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -48,7 +48,7 @@ class RigidLink():
             clientObject[key] = params[key]
 
         # Add rigid link to client model
-        clientModel.service.set_rigid_link(clientObject)
+        Model.clientModel.service.set_rigid_link(clientObject)
 
     def LineToSurface(self,
                  no: int = 1,
@@ -56,7 +56,7 @@ class RigidLink():
                  params: dict = {}):
 
         # Client model | Line To Surface Rigid Link
-        clientObject = clientModel.factory.create('ns0:rigid_link')
+        clientObject = Model.clientModel.factory.create('ns0:rigid_link')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -72,7 +72,7 @@ class RigidLink():
             clientObject[key] = params[key]
 
         # Add rigid link to client model
-        clientModel.service.set_rigid_link(clientObject)
+        Model.clientModel.service.set_rigid_link(clientObject)
 
     def Diapragm(self,
                  no: int = 1,
@@ -80,7 +80,7 @@ class RigidLink():
                  params: dict = {}):
 
         # Client model | Diapragm Rigid Link
-        clientObject = clientModel.factory.create('ns0:rigid_link')
+        clientObject = Model.clientModel.factory.create('ns0:rigid_link')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -96,4 +96,4 @@ class RigidLink():
             clientObject[key] = params[key]
 
         # Add rigid link to client model
-        clientModel.service.set_rigid_link(clientObject)
+        Model.clientModel.service.set_rigid_link(clientObject)

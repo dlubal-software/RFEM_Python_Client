@@ -8,7 +8,7 @@ class LineSupport():
                  params: dict = {}):
 
         # Client model | Line Support
-        clientObject = clientModel.factory.create('ns0:line_support')
+        clientObject = Model.clientModel.factory.create('ns0:line_support')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +24,4 @@ class LineSupport():
             clientObject[key] = params[key]
 
         # Add Line Support to client model
-        clientModel.service.set_line_support(clientObject)
+        Model.clientModel.service.set_line_support(clientObject)

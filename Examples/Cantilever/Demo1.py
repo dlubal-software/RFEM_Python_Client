@@ -37,7 +37,8 @@ if __name__ == '__main__':
     l = float(input('Length of the cantilever in m: '))
     f = float(input('Force in kN: '))
 
-    clientModel.service.begin_modification('new')
+    Model(True, "Demo1") # crete new model called Demo1
+    Model.clientModel.service.begin_modification('new')
 
     Material(1, 'S235')
 
@@ -57,12 +58,12 @@ if __name__ == '__main__':
 
     NodalLoad(
         1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, f*1000)
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
     Calculate_all()
 
     # model status
-    modelStatus = clientModel.service.get_model_info()
+    modelStatus = Model.clientModel.service.get_model_info()
     print("Model is calculated") if modelStatus.property_has_results else print("Model is not calculated")
     print("Model contains printout report") if modelStatus.property_has_printout_report else print("Model has not printout report")
     print ("Model contains " +  str(modelStatus.property_node_count) + " nodes")

@@ -8,7 +8,7 @@ class SolidContact():
                  params: dict = {}):
 
         # Client model | Solid Contact
-        clientObject = clientModel.factory.create('ns0:solid_contacts')
+        clientObject = Model.clientModel.factory.create('ns0:solid_contacts')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +24,4 @@ class SolidContact():
             clientObject[key] = params[key]
 
         # Add Solid Contact to client model
-        clientModel.service.set_solid_contacts(clientObject)
+        Model.clientModel.service.set_solid_contacts(clientObject)

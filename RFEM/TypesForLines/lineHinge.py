@@ -8,7 +8,7 @@ class LineHinge():
                  params: dict = {}):
 
         # Client model | Line Hinge
-        clientObject = clientModel.factory.create('ns0:line_hinge')
+        clientObject = Model.clientModel.factory.create('ns0:line_hinge')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +24,4 @@ class LineHinge():
             clientObject[key] = params[key]
 
         # Add Line Hinge to client model
-        clientModel.service.set_line_hinge(clientObject)
+        Model.clientModel.service.set_line_hinge(clientObject)

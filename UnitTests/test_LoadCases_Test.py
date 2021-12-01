@@ -28,8 +28,8 @@ from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 
 def test_load_case():
-
-	clientModel.service.begin_modification('new')
+	Model(True, "LoadCases")
+	Model.clientModel.service.begin_modification('new')
 
 	StaticAnalysisSettings()
 	LoadCase.StaticAnalysis(LoadCase, 1, 'SW', True, 1, DIN_Action_Category['1A'], [True, 0, 0, 1])
@@ -37,4 +37,4 @@ def test_load_case():
 	LoadCase.StaticAnalysis(LoadCase, 3, 'Snow', True,  1, DIN_Action_Category['4A'], [False])
 	LoadCase.StaticAnalysis(LoadCase, 4, 'Wind', False,  1, DIN_Action_Category['5'], [False])
 
-	clientModel.service.finish_modification()
+	Model.clientModel.service.finish_modification()

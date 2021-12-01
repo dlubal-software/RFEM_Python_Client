@@ -22,7 +22,7 @@ class Node():
             params (dict, optional): Parameters
         '''
         # Client model | Node
-        clientObject = clientModel.factory.create('ns0:node')
+        clientObject = Model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -43,7 +43,7 @@ class Node():
             clientObject[key] = params[key]
 
         # Add Node to client model
-        clientModel.service.set_node(clientObject)
+        Model.clientModel.service.set_node(clientObject)
 
     def Standard(self,
                  no: int = 1,
@@ -72,7 +72,7 @@ class Node():
         '''
 
         # Client model | Node
-        clientObject = clientModel.factory.create('ns0:node')
+        clientObject = Model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -136,7 +136,8 @@ class Node():
             clientObject[key] = params[key]
 
         # Add Node to client model
-        clientModel.service.set_node(clientObject)
+        Model.clientModel.service.set_node(clientObject)
+        
 
     def BetweenTwoNodes(self,
                  no: int = 1,
@@ -169,7 +170,7 @@ class Node():
         '''
 
         # Client model | Node
-        clientObject = clientModel.factory.create('ns0:node')
+        clientObject = Model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -213,7 +214,7 @@ class Node():
             clientObject[key] = params[key]
 
         # Add Node to client model
-        clientModel.service.set_node(clientObject)
+        Model.clientModel.service.set_node(clientObject)
 
     def BetweenTwoPoints(self,
                  no: int = 1,
@@ -252,7 +253,7 @@ class Node():
         '''
 
         # Client model | Node
-        clientObject = clientModel.factory.create('ns0:node')
+        clientObject = Model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -296,7 +297,7 @@ class Node():
             clientObject[key] = params[key]
 
         # Add Node to client model
-        clientModel.service.set_node(clientObject)
+        Model.clientModel.service.set_node(clientObject)
 
     def OnLine(self,
                  no: int = 1,
@@ -323,7 +324,7 @@ class Node():
         '''
 
         # Client model | Node
-        clientObject = clientModel.factory.create('ns0:node')
+        clientObject = Model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -354,7 +355,7 @@ class Node():
             clientObject[key] = params[key]
 
         # Add Node to client model
-        clientModel.service.set_node(clientObject)
+        Model.clientModel.service.set_node(clientObject)
 
     def OnMember(self,
                  no: int = 1,
@@ -381,7 +382,7 @@ class Node():
         '''
 
         # Client model | Node
-        clientObject = clientModel.factory.create('ns0:node')
+        clientObject = Model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -415,4 +416,4 @@ class Node():
             clientObject[key] = params[key]
 
         # Add Node to client model
-        clientModel.service.set_node(clientObject)
+        Model.clientModel.service.set_node(clientObject)

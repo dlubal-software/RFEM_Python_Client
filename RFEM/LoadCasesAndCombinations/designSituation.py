@@ -55,7 +55,7 @@ class DesignSituation():
         """
 
         # Client model | Design Situation
-        clientObject = clientModel.factory.create('ns0:design_situation')
+        clientObject = Model.clientModel.factory.create('ns0:design_situation')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -84,4 +84,4 @@ class DesignSituation():
             clientObject[key] = params[key]
 
         # Add Design Situation to client model
-        clientModel.service.set_design_situation(clientObject)
+        Model.clientModel.service.set_design_situation(clientObject)

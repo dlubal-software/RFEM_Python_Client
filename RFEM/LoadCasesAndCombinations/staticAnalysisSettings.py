@@ -20,8 +20,7 @@ class StaticAnalysisSettings():
             params (dict): Parameters
         """
         # Client model | Surface
-        clientObject = clientModel.factory.create(
-            'ns0:static_analysis_settings')
+        clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -44,7 +43,7 @@ class StaticAnalysisSettings():
             clientObject[key] = params[key]
 
         # Add Static Analysis Settings to client model
-        clientModel.service.set_static_analysis_settings(clientObject)
+        Model.clientModel.service.set_static_analysis_settings(clientObject)
 
     def GeometricallyLinear(self,
                   no: int = 1,
@@ -73,7 +72,7 @@ class StaticAnalysisSettings():
         """
 
         # Client model
-        clientObject = clientModel.factory.create('ns0:static_analysis_settings')
+        clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -150,7 +149,7 @@ class StaticAnalysisSettings():
             clientObject[key] = params[key]
 
         # Add Static Analysis Settings to client model
-        clientModel.service.set_static_analysis_settings(clientObject)
+        Model.clientModel.service.set_static_analysis_settings(clientObject)
 
     def LargeDeformation(self,
                   no: int = 1,
@@ -193,7 +192,7 @@ class StaticAnalysisSettings():
         """
 
         # Client model
-        clientObject = clientModel.factory.create('ns0:static_analysis_settings')
+        Model.clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -317,7 +316,7 @@ class StaticAnalysisSettings():
             clientObject[key] = params[key]
 
         # Add Static Analysis Settings to client model
-        clientModel.service.set_static_analysis_settings(clientObject)
+        Model.clientModel.service.set_static_analysis_settings(clientObject)
 
     def SecondOrderPDelta (self,
                   no: int = 1,
@@ -354,7 +353,7 @@ class StaticAnalysisSettings():
         """
 
         # Client model
-        clientObject = clientModel.factory.create('ns0:static_analysis_settings')
+        Model.clientObject = clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -485,4 +484,4 @@ class StaticAnalysisSettings():
             clientObject[key] = params[key]
 
         # Add Static Analysis Settings to client model
-        clientModel.service.set_static_analysis_settings(clientObject)
+        Model.clientModel.service.set_static_analysis_settings(clientObject)

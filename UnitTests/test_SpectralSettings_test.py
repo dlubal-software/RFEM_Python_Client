@@ -29,13 +29,15 @@ import pytest
 
 def test_spectral_analysis_implemented():
 
-    exist = method_exists(clientModel,'set_spectral_analysis_settings')
+    exist = method_exists(Model.clientModel,'set_spectral_analysis_settings')
     assert exist == False #test fail once method is in T9 master or GM
 
 @pytest.mark.skip("all tests still WIP")
 def test_spectral_analysis_settings():
 
-	clientModel.service.begin_modification('new')
+	#spectral analysis is not yet supported in released RFEM6 in WS
+	Model(True, "SpectralSettings")
+	Model.clientModel.service.begin_modification('new')
 
 	# Create Material
 	Material(1, 'S235')
@@ -49,6 +51,5 @@ def test_spectral_analysis_settings():
 	SpectralAnalysisSettings(6, 'SpectralSettings_6', PeriodicResponseCombinationRule.CQC, DirectionalComponentCombinationRule.ABSOLUTE_SUM)
 
 	print('Ready!')
-
-	clientModel.service.finish_modification()
-
+	
+	Model.clientModel.service.finish_modification()

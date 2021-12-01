@@ -8,7 +8,7 @@ class ResultCombination():
                  params: dict = {}):
 
         # Client model | Result Combination
-        clientObject = clientModel.factory.create('ns0:result_combination')
+        clientObject = Model.clientModel.factory.create('ns0:result_combination')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -21,4 +21,4 @@ class ResultCombination():
             clientObject[key] = params[key]
 
         # Add Result Combination to client model
-        clientModel.service.set_result_combination(clientObject)
+        Model.clientModel.service.set_result_combination(clientObject)

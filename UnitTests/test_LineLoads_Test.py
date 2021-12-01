@@ -32,8 +32,9 @@ from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 
 def test_line_loads():
-
-	clientModel.service.begin_modification('new')
+	
+	Model(True, "LineLoads")
+	Model.clientModel.service.begin_modification('new')
 
 	# Creating a lot of lines for line load testing
 
@@ -46,14 +47,14 @@ def test_line_loads():
 	nodes_no = ''
 	for i in range(1, 21):
 		if i < 20:
-				surface_str += str(i)+' '
-				nodes_no = str(i)+' '+str(i+1)
-				Line(i, nodes_no)
+			surface_str += str(i)+' '
+			nodes_no = str(i)+' '+str(i+1)
+			Line(i, nodes_no)
 		else:
-				surface_str += str(i)
-				nodes_no = str(i)+' 1'
-				Line(i, nodes_no)
-
+			surface_str += str(i)
+			nodes_no = str(i)+' 1'
+			Line(i, nodes_no)
+	
 	Material()
 	Thickness()
 	Surface(1, surface_str)
@@ -92,7 +93,7 @@ def test_line_loads():
 					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING,
 					 load_parameter=[[0.2, 0.1, 200], [0.5, 0.2, 200]])
 
-# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
+	# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
 	# LineLoad.Force(LineLoad, 7, 2, '7',
 	# 				 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL,
 	# 				 load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
@@ -101,7 +102,7 @@ def test_line_loads():
 					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC,
 					 load_parameter=[750, 1000, 2500])
 
-# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
+	# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
 	# LineLoad.Force(LineLoad, 9, 2, '9',
 	# 				 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_VARYING,
 	# 				 load_parameter=[[1000, 500, 750], [250, 200, 600]])
@@ -134,12 +135,12 @@ def test_line_loads():
 					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING,
 					 load_parameter=[[0.2, 0.1, 200], [0.5, 0.2, 200]])
 
-# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
+	# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
 	# LineLoad.Moment(LineLoad, 7, 3, '7',
 	# 				 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL,
 	# 				 load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
 
-# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
+	# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
 	# LineLoad.Moment(LineLoad, 8, 3, '8',
 	# 				 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_TAPERED,
 	# 				 load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
@@ -148,7 +149,7 @@ def test_line_loads():
 					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC,
 					 load_parameter=[750, 1000, 2500])
 
-# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
+	# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
 	# LineLoad.Moment(LineLoad, 10, 3, '10',
 	# 				 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_VARYING,
 	# 				 load_parameter=[[1000, 500, 750], [250, 200, 600]])
@@ -166,6 +167,6 @@ def test_line_loads():
 					 mass_components=[1000,1000,10000])
 
 	print('Ready!')
-
-	clientModel.service.finish_modification()
-
+	
+	Model.clientModel.service.finish_modification()
+	

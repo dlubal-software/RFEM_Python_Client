@@ -25,8 +25,8 @@ from RFEM.dataTypes import *
 from RFEM.enums import *
 
 def test_member_loads():
-
-    clientModel.service.begin_modification()
+    Model(True, "MemberLoad")
+    Model.clientModel.service.begin_modification()
 
     # Create Material
     Material(1, 'S235')
@@ -265,5 +265,5 @@ def test_member_loads():
 
     print('Ready!')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 

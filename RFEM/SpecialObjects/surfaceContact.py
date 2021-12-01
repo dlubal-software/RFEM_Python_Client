@@ -8,7 +8,7 @@ class SurfaceContact():
                  params: dict = {}):
 
         # Client model | Surfaces Contact
-        clientObject = clientModel.factory.create('ns0:surfaces_contact')
+        clientObject = Model.clientModel.factory.create('ns0:surfaces_contact')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +24,4 @@ class SurfaceContact():
             clientObject[key] = params[key]
 
         # Add Surfaces Contact to client model
-        clientModel.service.set_surfaces_contact(clientObject)
+        Model.clientModel.service.set_surfaces_contact(clientObject)

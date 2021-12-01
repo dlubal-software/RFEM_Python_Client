@@ -32,8 +32,8 @@ from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 
 def test_rigid_surface():
-
-    clientModel.service.begin_modification('new')
+    Model(True, "RigidSurface")
+    Model.clientModel.service.begin_modification('new')
 
     # Testing the standard surface function
     Node(1, 0, -30, 0), Node(2, 10, -30, 0), Node(3, 10, -20, 0), Node(4, 0, -20, 0)
@@ -85,5 +85,5 @@ def test_rigid_surface():
     # Quadrangle Defintion
     Surface.Rigid(Surface, 4, SurfaceGeometry.GEOMETRY_QUADRANGLE, [17, 18, 19, 20], '13 14 15 16')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 

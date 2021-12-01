@@ -28,7 +28,8 @@ from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 
 def test_free_load():
-    clientModel.service.begin_modification('new')
+    Model(True, "FreeLoad")
+    Model.clientModel.service.begin_modification('new')
 
     Material(1, 'S235')
 
@@ -213,8 +214,8 @@ def test_free_load():
                          [[1, 4], [0, 6], [2, 6]],
                          [1500, 7500, 2, 1])
 
-    #print(clientModel)
+    #print(Model.clientModel)
     #Calculate_all()
     print('Ready!')
-
-    clientModel.service.finish_modification()
+    
+    Model.clientModel.service.finish_modification()

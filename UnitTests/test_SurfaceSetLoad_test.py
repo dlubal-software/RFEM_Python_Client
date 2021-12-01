@@ -27,7 +27,8 @@ from RFEM.enums import *
 
 def test_surface_set_load():
 
-    clientModel.service.begin_modification()
+    Model(True, "SurfaceSetLoad")
+    Model.clientModel.service.begin_modification()
 
     # Create Material
     Material(1, 'S235')
@@ -147,5 +148,5 @@ def test_surface_set_load():
 
     print('Ready!')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 

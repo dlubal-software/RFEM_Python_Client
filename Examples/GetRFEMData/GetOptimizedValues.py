@@ -31,7 +31,7 @@ sys.path.append(dirName + r'/../..')
 
 if __name__ == "__main__":
 
-    optimizationResults = clientModel.service.get_optimized_formula_parameters()
+    optimizationResults = Model.clientModel.service.get_optimized_formula_parameters()
 
     if optimizationResults != None:
         for i in range(0, len(optimizationResults.row)):

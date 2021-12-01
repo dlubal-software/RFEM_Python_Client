@@ -28,9 +28,9 @@ from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 
 def test_thickness():
-
-    clientModel.service.begin_modification('new')
-
+    
+    Model(True, "Thickness")
+    Model.clientModel.service.begin_modification('new')
     Material(1, 'C30/37')
 
     ##  THICKNESS TYPE
@@ -115,5 +115,5 @@ def test_thickness():
 
     #Calculate_all()
     print('Ready!')
-
-    clientModel.service.finish_modification()
+    
+    Model.clientModel.service.finish_modification()
