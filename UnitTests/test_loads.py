@@ -1098,3 +1098,56 @@ def test_free_polygon_load():
     assert free_load.no == 1
     assert free_load.magnitude_uniform == 5000
 
+### Imposed Nodal Deformation ###
+
+def test_imposed_nodal_deformation():
+    clientModel.service.reset()
+    clientModel.service.begin_modification()
+
+    Material(1, 'S235')
+
+    Node(1, 0.0, 0.0, 0.0)
+    Node(2, 10.0, 0.0, 0.0)
+
+    Section(1, 'IPE 300')
+
+    Member(1, MemberType.TYPE_BEAM, 1, 2)
+
+    NodalSupport(1, '1', NodalSupportType.FIXED)
+    NodalSupport(2, '2', NodalSupportType.FIXED)
+
+    StaticAnalysisSettings(1, 'LINEAR', StaticAnalysisType.GEOMETRICALLY_LINEAR)
+
+    LoadCase(1, 'DEAD')
+
+    ImposedNodalDeformation(1, 1, '1', [0.005, 0.01, 0.02, 0.01, 0.02, 0.03])
+
+    clientModel.service.finish_modification()
+
+    imposed_nodal_deformation = clientModel.service.get_imposed_nodal_deformation(1, 1)
+
+    assert imposed_nodal_deformation.imposed_displacement.x == 0.005
+    assert imposed_nodal_deformation.imposed_rotation.y == 0.02
+
+    ### Imposed Line Deformation ###
+
+def test_imposed_line_deformation():
+    clientModel.service.reset()
+    clientModel.service.begin_modification()
+
+    Material(1, 'S235')
+
+    Node(1, 0.0, 0.0, 0.0)
+    Node(2, 5.0, 0.0, 0.0)
+    Node(3, 5.0, 6.0, 0.0)
+    Node(4, 0.0, 6.0, 0.0)
+
+    Line(1, '1 2')
+    Line(2, '2 3')
+    Line(3, '3 4')
+    Line(4, '4 0')
+
+    Thickness(1, 'My Thickness', 1, 0.05)
+    Surface(1, '1-4', 1)
+
+    clientModel.service.finish_modification()
