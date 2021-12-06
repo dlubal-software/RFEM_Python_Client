@@ -32,11 +32,11 @@ from RFEM.Loads.surfaceLoad import *
 from RFEM.TypesForMembers.memberDefinableStiffness import MemberDefinableStiffness
 
 
-
 def test_init():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model(False)
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
@@ -46,17 +46,17 @@ def test_init():
 
     Member(1, 1, 2, 0, 1, 1)
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    member = clientModel.service.get_member(1)
+    member = Model.clientModel.service.get_member(1)
 
     assert member.no == 1
     assert member.length == 5
 
 def test_beam():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
@@ -66,17 +66,17 @@ def test_beam():
 
     Member.Beam(0, 1, 1, 2, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [15], 1, 1)
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    member = clientModel.service.get_member(1)
+    member = Model.clientModel.service.get_member(1)
 
     assert member.no == 1
     assert member.length == 5
 
 def test_rigid():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
@@ -86,17 +86,17 @@ def test_rigid():
 
     Member.Rigid(0, 1, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0])
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    member = clientModel.service.get_member(1)
+    member = Model.clientModel.service.get_member(1)
 
     assert member.no == 1
     assert member.length == 5
 
 def test_truss():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
@@ -106,17 +106,17 @@ def test_truss():
 
     Member.Truss(0, 1, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0])
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    member = clientModel.service.get_member(1)
+    member = Model.clientModel.service.get_member(1)
 
     assert member.no == 1
     assert member.length == 5
 
 def test_trussonlyn():
     
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
@@ -126,17 +126,17 @@ def test_trussonlyn():
 
     Member.TrussOnlyN(0, 1, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0])
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    member = clientModel.service.get_member(1)
+    member = Model.clientModel.service.get_member(1)
 
     assert member.no == 1
     assert member.length == 5
 
 def test_tension():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
@@ -146,17 +146,17 @@ def test_tension():
 
     Member.Tension(0, 1, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0])
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    member = clientModel.service.get_member(1)
+    member = Model.clientModel.service.get_member(1)
 
     assert member.no == 1
     assert member.length == 5
     
 def test_compression():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
@@ -166,17 +166,17 @@ def test_compression():
 
     Member.Compression(0, 1, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0])
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    member = clientModel.service.get_member(1)
+    member = Model.clientModel.service.get_member(1)
 
     assert member.no == 1
     assert member.length == 5
 
 def test_buckling():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
@@ -186,17 +186,17 @@ def test_buckling():
 
     Member.Buckling(0, 1, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0]) 
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    member = clientModel.service.get_member(1)
+    member = Model.clientModel.service.get_member(1)
 
     assert member.no == 1
     assert member.length == 5
 
 def test_cable():
     
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
@@ -206,17 +206,17 @@ def test_cable():
 
     Member.Cable(0, 1, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0])
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    member = clientModel.service.get_member(1)
+    member = Model.clientModel.service.get_member(1)
 
     assert member.no == 1
     assert member.length == 5
 
 def test_resultbeam():
     
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
@@ -226,17 +226,17 @@ def test_resultbeam():
 
     Member.ResultBeam(0, 1, 1, 2, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, MemberResultBeamIntegration.INTEGRATE_WITHIN_CUBOID_QUADRATIC, [0], 1, 1,  integration_parameters = [0.1])
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    member = clientModel.service.get_member(1)
+    member = Model.clientModel.service.get_member(1)
 
     assert member.no == 1
     assert member.length == 5
 
 def test_definablestiffness():
     
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
@@ -247,77 +247,77 @@ def test_definablestiffness():
 
     Member.DefinableStiffness(0, 1, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1)
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    member = clientModel.service.get_member(1)
+    member = Model.clientModel.service.get_member(1)
 
     assert member.no == 1
     assert member.length == 5
 
 def test_couplingrigidrigid():
         
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
     Node(2, 5, 0, 0)
 
     Member.CouplingRigidRigid(0, 1, 1, 2)
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    member = clientModel.service.get_member(1)
+    member = Model.clientModel.service.get_member(1)
 
     assert member.no == 1
     assert member.length == 5
 
 def test_couplingrigidhinge():
         
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
     Node(2, 5, 0, 0)
 
     Member.CouplingRigidHinge(0, 1, 1, 2)
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    member = clientModel.service.get_member(1)
+    member = Model.clientModel.service.get_member(1)
 
     assert member.no == 1
     assert member.length == 5
 
 def test_couplinghingerigid():
         
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
     Node(2, 5, 0, 0)
 
     Member.CouplingHingeRigid(0, 1, 1, 2)
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    member = clientModel.service.get_member(1)
+    member = Model.clientModel.service.get_member(1)
 
     assert member.no == 1
     assert member.length == 5
 
 def test_couplinghingehinge():
         
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
     Node(2, 5, 0, 0)
 
     Member.CouplingHingeHinge(0, 1, 1, 2)
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    member = clientModel.service.get_member(1)
+    member = Model.clientModel.service.get_member(1)
 
     assert member.no == 1
     assert member.length == 5

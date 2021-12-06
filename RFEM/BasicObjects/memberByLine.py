@@ -1,7 +1,7 @@
 from RFEM.enums import MemberType
 from RFEM.initModel import *
 
-class Member_by_line():
+class MemberbyLine():
     def __init__(self,
                  no: int = 1,
                  member_type = MemberType.TYPE_BEAM,

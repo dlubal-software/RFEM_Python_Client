@@ -27,15 +27,9 @@ from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 import pytest
 
-def test_spectral_analysis_implemented():
 
-    exist = method_exists(Model.clientModel,'set_spectral_analysis_settings')
-    assert exist == False #test fail once method is in T9 master or GM
+if __name__ == '__main__':
 
-@pytest.mark.skip("all tests still WIP")
-def test_spectral_analysis_settings():
-
-	#spectral analysis is not yet supported in released RFEM6 in WS
 	Model(True, "SpectralSettings")
 	Model.clientModel.service.begin_modification('new')
 

@@ -18,7 +18,9 @@ from RFEM.Tools.centreOfGravityAndObjectInfo import *
 
 def test_centre_of_gravity():
 
-    clientModel.service.begin_modification('new')
+    Model(False)
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     x1, y1, z1, = 0, 0, 0
     x2, y2, z2 = 4, 10, -6
@@ -27,7 +29,7 @@ def test_centre_of_gravity():
     Section()
     Member(1, start_node_no= 1, end_node_no= 2)
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
     CoG_X = (x2 - x1) / 2
     CoG_Y = (y2 - y1) / 2
@@ -40,7 +42,8 @@ def test_centre_of_gravity():
 
 def test_member_information():
 
-    clientModel.service.begin_modification('new')
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     x1, y1, z1, = 0, 0, 0
     x2, y2, z2 = 4, 10, -6
@@ -49,7 +52,7 @@ def test_member_information():
     Section()
     Member(1, start_node_no= 1, end_node_no= 2)
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
     L = sqrt((x2 - x1)**2 + (y2 - y1)**2 + (z2 - z1)**2)
     A = 53.80 / (100 * 100)
@@ -62,7 +65,8 @@ def test_member_information():
 
 def test_surface_information():
 
-    clientModel.service.begin_modification('new')
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     x1, y1, z1 = 0 , 0, 0
     x2, y2, z2 = 10, 0, 0
@@ -75,7 +79,7 @@ def test_surface_information():
     Thickness(material_no= 2)
     Surface()
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
     A = (x2 - x1) * (y4 - y1)
     V = A * 0.2

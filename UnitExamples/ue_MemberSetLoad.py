@@ -25,7 +25,8 @@ from RFEM.initModel import *
 from RFEM.dataTypes import *
 from RFEM.enums import *
 
-def test_member_set_load():
+if __name__ == '__main__':
+    
     Model(True, "MemberSetLoad")
     Model.clientModel.service.begin_modification()
 

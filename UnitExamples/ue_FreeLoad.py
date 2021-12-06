@@ -27,7 +27,9 @@ from RFEM.Loads.nodalLoad import *
 from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 
-def test_free_load():
+
+if __name__ == '__main__':
+    
     Model(True, "FreeLoad")
     Model.clientModel.service.begin_modification('new')
 

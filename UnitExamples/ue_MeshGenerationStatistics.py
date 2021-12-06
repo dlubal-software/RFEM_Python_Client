@@ -1,5 +1,6 @@
 import sys
 sys.path.append(".")
+import pytest
 from RFEM.Loads.surfaceLoad import *
 from RFEM.Loads.memberLoad import *
 from RFEM.Loads.nodalLoad import *
@@ -23,16 +24,37 @@ from RFEM.BasicObjects.material import *
 from RFEM.initModel import *
 from RFEM.dataTypes import *
 from RFEM.enums import *
-from RFEM.baseSettings import *
 
 if __name__ == '__main__':
+    
+    Model(True, "MeshGenerationStatistics")
+    Model.clientModel.service.begin_modification()
 
-    clientModel.service.begin_modification()
+    # Create Material
+    Material(1, 'S235')
+    Thickness(1, '20 mm', 1, 0.02)
 
-    # Set Base Settings
-    BaseSettings(12, GlobalAxesOrientationType.E_GLOBAL_AXES_ORIENTATION_ZUP, LocalAxesOrientationType.E_LOCAL_AXES_ORIENTATION_ZUP, [0.001, 0.002, 0.003, 0.004])
+    Node(1, 0, 0, 0)
+    Node(2, 5, 0, 0)
+    Node(3, 0, 5, 0)
+    Node(4, 5, 5, 0)
+
+    Line(1, '1 2')
+    Line(2, '2 4')
+    Line(3, '4 3')
+    Line(4, '3 1')
+
+    Surface(1, '1 2 3 4', 1)
+
+    NodalSupport(1, '1 2 3 4', NodalSupportType.FIXED)
+
+    GenerateMesh()
 
     print('Ready!')
 
-    clientModel.service.finish_modification()
+    Model.Model.clientModel.service.finish_modification()
+
+    mesh_stats = GetMeshStatics()
+
+    print(mesh_stats)
 

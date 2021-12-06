@@ -27,7 +27,8 @@ from RFEM.TypesForMembers.memberDefinableStiffness import MemberDefinableStiffne
 
 if __name__ == '__main__':
     
-    clientModel.service.begin_modification('new')
+    Model(True, "Member")
+    Model.clientModel.service.begin_modification('new')
     
     Material(1, 'S235')
     Material(2, 'C30/37')
@@ -143,4 +144,4 @@ if __name__ == '__main__':
     
     print('Ready!')
     
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()

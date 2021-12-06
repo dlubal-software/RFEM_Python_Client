@@ -31,8 +31,9 @@ from RFEM.Loads.nodalLoad import *
 from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 
-def test_membrane_surface():
-    Model(True, "MemberSurface")
+if __name__ == '__main__':
+    
+    Model(True, "RigidSurface")
     Model.clientModel.service.begin_modification('new')
 
     # Testing the standard surface function
@@ -45,7 +46,7 @@ def test_membrane_surface():
     # Standard planar Surface
     Node(5, 0, -15, 0), Node(6, 10, -15, 0), Node(7, 10, -5, 0), Node(8, 0, -5, 0)
     Line(5, '5 6'), Line(6, '6 7'), Line(7, '7 8'), Line(8, '8 5')
-    Surface.Membrane(Surface, 2, SurfaceGeometry.GEOMETRY_PLANE, boundary_lines_no= '5 6 7 8')
+    Surface.Rigid(Surface, 2, SurfaceGeometry.GEOMETRY_PLANE, boundary_lines_no= '5 6 7 8')
 
     # Standard NURBS Surface
 
@@ -66,7 +67,7 @@ def test_membrane_surface():
     Line.NURBS(Line, 12, '11 16 14', control_points= [[10, 0, 0], [10, 5, -2.5], [10, 5, -2.5]], weights= [1, 1, 1], params= {'nurbs_order':3})
 
     # Surfaces Definition
-    Surface.Membrane(Surface, 4, SurfaceGeometry.GEOMETRY_NURBS, [3,3,3,3], '9 10 11 12')
+    Surface.Rigid(Surface, 3, SurfaceGeometry.GEOMETRY_NURBS, [3,3,3,3], '9 10 11 12')
 
     # Standard Quadrangle
 
@@ -83,7 +84,7 @@ def test_membrane_surface():
     Line(16, '18 20')
 
     # Quadrangle Defintion
-    Surface.Membrane(Surface, 5, SurfaceGeometry.GEOMETRY_QUADRANGLE, [17, 18, 19, 20], '13 14 15 16')
+    Surface.Rigid(Surface, 4, SurfaceGeometry.GEOMETRY_QUADRANGLE, [17, 18, 19, 20], '13 14 15 16')
 
     Model.clientModel.service.finish_modification()
 

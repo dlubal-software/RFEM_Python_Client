@@ -25,7 +25,8 @@ from RFEM.dataTypes import *
 from RFEM.enums import *
 
 
-def test_nodal_load():
+if __name__ == '__main__':
+    
     Model(True, "NodalLoad")
     Model.clientModel.service.begin_modification()
 

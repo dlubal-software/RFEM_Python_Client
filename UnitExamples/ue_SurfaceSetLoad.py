@@ -25,7 +25,7 @@ from RFEM.initModel import *
 from RFEM.dataTypes import *
 from RFEM.enums import *
 
-def test_surface_set_load():
+if __name__ == '__main__':
 
     Model(True, "SurfaceSetLoad")
     Model.clientModel.service.begin_modification()
