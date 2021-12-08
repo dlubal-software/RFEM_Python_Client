@@ -1,4 +1,5 @@
-from suds.wsdl import Message
+#pylint: disable=W0614, W0401, W0622, C0103, C0114, C0115, C0116, C0301, C0413, R0913, R0914, R0915, C0305, C0411, W0102, W0702, E0602, E0401
+
 from RFEM.initModel import *
 from RFEM.enums import *
 
@@ -8,21 +9,21 @@ class PlausiblityCheck():
 
         response = clientModel.service.plausibility_check()
 
-        if 'failed' in response:
+        if "failed" in response:
             self.checkresult = PlausibilityCheckResult.CHECK_FAILED
             self.message = response.split("Messages received:", 1)[1]
-            self.errormessage = self.message.split('Result "false"', 1)[0]
+            self.errormessage = self.message.split("Result 'false'", 1)[0]
         else:
             self.checkresult = PlausibilityCheckResult.CHECK_IS_OK
             self.errormessage = ""
 
     def IsModelOK(self):
 
-        if self.checkresult == PlausibilityCheckResult.CHECK_IS_OK:
+        if self.checkresult == PlausibilityCheckResult.CHECK_FAILED:
             return True
         else:
             return False
-        
+
     def GetErrorMessage(self):
 
         return self.errormessage

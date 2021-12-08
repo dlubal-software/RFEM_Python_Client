@@ -1,5 +1,5 @@
+#pylint: disable=W0614, W0401, W0622, C0103, C0114, C0115, C0116, C0301, C0413, R0913, R0914, R0915, C0305, C0411, W0102, W0702, E0602, E0401
 import sys
-from types import coroutine
 sys.path.append(".")
 from RFEM.Loads.surfaceLoad import *
 from RFEM.Loads.memberLoad import *
@@ -22,7 +22,7 @@ from RFEM.BasicObjects.material import *
 from RFEM.initModel import *
 from RFEM.dataTypes import *
 from RFEM.enums import *
-from RFEM.Tools.ModelCheck import ModelCheck
+from RFEM.Tools.modelCheck import ModelCheck
 
 
 if __name__ == '__main__':
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     Node(2, 0, 0, 0)
     Node(3, 1, 1, 1)
     Node(4, 1, 1, 1)
-    
+
     Node(5, 10, 0, 0)
     Node(6, 10, 3, 0)
     Node(7, 9, 2, 0)
@@ -52,7 +52,7 @@ if __name__ == '__main__':
 
     Node(15, 7, 0, 0)
     Node(16, 7, 3, 0)
-    
+
     Line(1, '5 6')
     Line(2, '7 8')
 

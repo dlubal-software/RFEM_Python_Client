@@ -1,3 +1,4 @@
+#pylint: disable=W0614, W0401, W0622, C0103, C0114, C0115, C0116, C0301, C0413, R0913, R0914, R0915, C0305, C0411, W0102, W0702, E0602, E0401
 import sys
 sys.path.append(".")
 from RFEM.Loads.surfaceLoad import *
@@ -21,7 +22,7 @@ from RFEM.BasicObjects.material import *
 from RFEM.initModel import *
 from RFEM.dataTypes import *
 from RFEM.enums import *
-from RFEM.Tools.PlausibilityCheck import PlausiblityCheck
+from RFEM.Tools.plausibilityCheck import PlausiblityCheck
 
 
 if __name__ == '__main__':
@@ -51,5 +52,3 @@ if __name__ == '__main__':
 
     check = PlausiblityCheck()
     print(check.GetErrorMessage())
-
-    

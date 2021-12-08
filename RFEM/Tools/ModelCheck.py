@@ -1,14 +1,12 @@
-from suds.wsdl import Message
-from RFEM.BasicObjects.member import Member
+#pylint: disable=W0614, W0401, W0622, C0103, C0114, C0115, C0116, C0301, C0413, R0913, R0914, R0915, C0305, C0411, W0102, W0702, E0602, E0401
 from RFEM.initModel import *
 from RFEM.enums import *
-
 
 class ModelCheck():
 
     def __init__(self):
         pass
-    
+
     def GetIdenticalNodes(self, tolerance):
         """
         Args:
@@ -16,7 +14,7 @@ class ModelCheck():
         Returns:
             Identical Nodes Object Group
         """
-        
+
         operation = ModelCheckGetOptionType.IDENTICAL_NODES.name
         object_groups = clientModel.service.model_check__get_object_groups_operation(operation, tolerance)
 
@@ -84,7 +82,7 @@ class ModelCheck():
             tolerance (float): Tolerance
             member_groups (dict): Member Groups of Not Connected Members
         """
-        
+
         process = ModelCheckProcessOptionType.CROSS_MEMBERS.name
         clientModel.service.model_check__process_object_groups_operation(process, tolerance, member_groups)
 
@@ -98,7 +96,7 @@ class ModelCheck():
         overlapping_lines = clientModel.service.model_check__get_object_groups_operation(operation)
 
         return overlapping_lines
-    
+
     def GetOverlappingMembers(self):
         """
         Returns:
