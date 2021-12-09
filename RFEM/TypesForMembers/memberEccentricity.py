@@ -1,5 +1,4 @@
 from RFEM.initModel import *
-from RFEM.enums import SetType
 
 class MemberEccentricity():
     def __init__(self,

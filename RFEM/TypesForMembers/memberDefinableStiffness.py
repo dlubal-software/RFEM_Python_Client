@@ -1,5 +1,4 @@
 from RFEM.initModel import *
-from RFEM.enums import SetType
 
 class MemberDefinableStiffness():
     def __init__(self,

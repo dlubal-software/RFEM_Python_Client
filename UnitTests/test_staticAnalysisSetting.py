@@ -1,6 +1,5 @@
 import sys
 sys.path.append(".")
-import pytest
 from RFEM.enums import *
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 

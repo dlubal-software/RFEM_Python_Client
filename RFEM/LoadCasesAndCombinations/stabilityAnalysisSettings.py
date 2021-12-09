@@ -2,7 +2,6 @@ from RFEM.initModel import *
 from RFEM.enums import StabilityAnalysisSettingsAnalysisType
 from RFEM.enums import StabilityAnalysisSettingsEigenvalueMethod
 from RFEM.enums import StabilityAnalysisSettingsMatrixType
-from RFEM.enums import StabilityAnalysisSettingsStoppingOfLoadIncreasingResult
 
 class StabilityAnalysisSettings():
     def __init__(self,

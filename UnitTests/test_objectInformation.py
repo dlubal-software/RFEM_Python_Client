@@ -2,7 +2,6 @@ import sys
 sys.path.append(".")
 
 # Import the relevant Libraries
-from os import name
 from RFEM.enums import *
 from RFEM.initModel import *
 from RFEM.BasicObjects.material import Material
@@ -12,7 +11,6 @@ from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.surface import Surface
-from RFEM.BasicObjects.solid import Solid
 from RFEM.Tools.centreOfGravityAndObjectInfo import ObjectInformation
 
 def test_centre_of_gravity():

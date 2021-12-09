@@ -1,4 +1,3 @@
-from os import sep
 from RFEM.enums import SurfaceGeometry, SurfaceLoadTransferDirection, SurfaceType
 from RFEM.initModel import *
 

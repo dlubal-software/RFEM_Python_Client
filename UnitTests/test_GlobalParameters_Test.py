@@ -5,7 +5,6 @@ import sys
 sys.path.append(".")
 
 # Importing the relevant libraries
-from os import name
 from RFEM.enums import *
 from RFEM.globalParameter import GlobalParameter
 from RFEM.initModel import *

@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import pytest
 import sys
 sys.path.append(".")
 
@@ -8,7 +7,6 @@ sys.path.append(".")
 from RFEM.enums import *
 from RFEM.initModel import *
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
-from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.designSituation import DesignSituation
 
 def test_design_situation():

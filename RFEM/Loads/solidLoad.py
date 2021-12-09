@@ -272,8 +272,6 @@ class SolidLoad():
 
     def Buoyancy():
         print('The function Buoyancy() is not implemented yet.')
-        pass
 
     def Gass():
         print('The function Gass() is not implemented yet.')
-        pass

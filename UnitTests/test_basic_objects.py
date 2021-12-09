@@ -9,12 +9,9 @@ from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.surface import Surface
-from RFEM.BasicObjects.solid import Solid
 from RFEM.BasicObjects.opening import Opening
 from RFEM.BasicObjects.lineSet import LineSet
 from RFEM.BasicObjects.memberSet import MemberSet
-from RFEM.BasicObjects.surfaceSet import SurfaceSet
-from RFEM.BasicObjects.solidSet import SolidSet
 from RFEM.BasicObjects.memberByLine import MemberByLine
 
 def test_line_init():

@@ -1,4 +1,3 @@
-from RFEM.initModel import *
 from tkinter import Tk
 from tkinter import ttk, Entry, Label, Button, Radiobutton, Checkbutton, CENTER, VERTICAL, INSERT, NORMAL, DISABLED, LEFT, W, IntVar, StringVar
 
@@ -87,9 +86,6 @@ def window(mainFunc, lstOfModels):
     e5.grid(row=5, column=4)
     e5.insert(INSERT, 6)
 
-    model_name = ""
-    delete = False
-    reset = False
 
     def start(val):
         # hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_spacing, new_model, model_name, delete, reset
