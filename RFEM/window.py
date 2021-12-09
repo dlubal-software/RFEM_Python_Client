@@ -1,6 +1,6 @@
 from RFEM.initModel import *
-from tkinter import *
-from tkinter import ttk, Entry
+from tkinter import Tk
+from tkinter import ttk, Entry, Label, Button, Radiobutton, Checkbutton, CENTER, VERTICAL, INSERT, NORMAL, DISABLED, LEFT, W, IntVar, StringVar
 
 def window(mainFunc, lstOfModels):
     color = '#F2F3F4'

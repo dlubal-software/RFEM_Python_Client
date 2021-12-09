@@ -1,24 +1,22 @@
 import sys
-from RFEM.Loads import nodalLoad
 sys.path.append(".")
 from RFEM.enums import *
 from RFEM.initModel import *
-from RFEM.BasicObjects.material import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.surface import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.freeLoad import *
-from RFEM.Loads.lineLoad import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.Loads.surfaceLoad import *
-from RFEM.Loads.lineLoad import *
+from RFEM.BasicObjects.material import Material
+from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.thickness import Thickness 
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.line import Line
+from RFEM.BasicObjects.member import Member
+from RFEM.BasicObjects.surface import Surface
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.Loads.memberLoad import MemberLoad
+from RFEM.Loads.lineLoad import LineLoad
+from RFEM.Loads.nodalLoad import NodalLoad
+from RFEM.Loads.surfaceLoad import SurfaceLoad
+from RFEM.Loads.lineLoad import LineLoad
 
 ### Nodal Load Unit Tests ###
 

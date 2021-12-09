@@ -2,40 +2,38 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-import math
 baseName = os.path.basename(__file__)
 dirName = os.path.dirname(__file__)
 print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.Loads.surfaceLoad import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.Loads.lineLoad import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
-from RFEM.TypesForMembers.memberHinge import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.BasicObjects.solidSet import *
-from RFEM.BasicObjects.surfaceSet import *
-from RFEM.BasicObjects.memberSet import *
-from RFEM.BasicObjects.lineSet import *
-from RFEM.BasicObjects.opening import *
-from RFEM.BasicObjects.solid import *
-from RFEM.BasicObjects.surface import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.material import *
+from RFEM.Loads.surfaceLoad import SurfaceLoad
+from RFEM.Loads.memberLoad import MemberLoad
+from RFEM.Loads.nodalLoad import NodalLoad
+from RFEM.Loads.lineLoad import LineLoad
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.TypesForMembers.memberHinge import MemberHinge
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.BasicObjects.solidSet import SolidSet
+from RFEM.BasicObjects.surfaceSet import SurfaceSet
+from RFEM.BasicObjects.memberSet import MemberSet
+from RFEM.BasicObjects.lineSet import LineSet
+from RFEM.BasicObjects.opening import Opening
+from RFEM.BasicObjects.solid import Solid
+from RFEM.BasicObjects.surface import Surface
+from RFEM.BasicObjects.member import Member
+from RFEM.BasicObjects.line import Line
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.thickness import Thickness 
+from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.material import Material
 from RFEM.initModel import *
 from RFEM.enums import *
-from math import *
 
 # Import der Bibliotheken
-#from RFEM.window import *
+#from RFEM.window import window
 
 if __name__ == '__main__':
 

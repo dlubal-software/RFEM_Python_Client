@@ -1,5 +1,8 @@
 {
     "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [
+        "--enable=W0614"
+    ],
     "python.linting.enabled": true,
     "python.linting.pydocstyleEnabled": false,
     "python.testing.unittestEnabled": false,
