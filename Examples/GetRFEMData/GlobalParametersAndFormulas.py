@@ -27,7 +27,6 @@ from RFEM.BasicObjects.thickness import *
 from RFEM.BasicObjects.section import *
 from RFEM.BasicObjects.material import *
 from RFEM.initModel import *
-from RFEM.dataTypes import *
 from RFEM.enums import *
 
 if __name__ == "__main__":

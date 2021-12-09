@@ -2,7 +2,6 @@ import sys
 from RFEM.Loads import nodalLoad
 sys.path.append(".")
 from RFEM.enums import *
-from RFEM.dataTypes import *
 from RFEM.initModel import *
 from RFEM.BasicObjects.material import *
 from RFEM.BasicObjects.section import *

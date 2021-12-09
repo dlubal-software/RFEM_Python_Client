@@ -1,4 +1,5 @@
 from RFEM.initModel import *
+from RFEM.dataTypes import inf
 from RFEM.enums import NodalSupportType
 
 def setNodalSupportConditions(clientObject,
@@ -52,7 +53,6 @@ class NodalSupport():
         clientObject.nodes = ConvertToDlString(nodes_no)
 
         # Nodal Support Conditions
-        inf = float('inf')
         if   support_type == NodalSupportType.FIXED:
             # FIXED       'xxx xxx'
             clientObject = setNodalSupportConditions(clientObject, inf, inf, inf, inf, inf, inf)

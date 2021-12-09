@@ -4,7 +4,6 @@ sys.path.append(".")
 # Import the relevant Libraries
 from os import name
 from RFEM.enums import *
-from RFEM.dataTypes import *
 from RFEM.initModel import *
 from RFEM.BasicObjects.material import *
 from RFEM.BasicObjects.section import *

@@ -2,7 +2,6 @@ import sys
 import pytest
 sys.path.append(".")
 from RFEM.enums import *
-from RFEM.dataTypes import *
 from RFEM.initModel import *
 from RFEM.LoadCasesAndCombinations.stabilityAnalysisSettings import *
 

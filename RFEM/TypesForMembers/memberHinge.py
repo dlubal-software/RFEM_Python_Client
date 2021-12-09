@@ -1,5 +1,5 @@
 from RFEM.initModel import *
-from RFEM.dataTypes import *
+from RFEM.dataTypes import inf
 
 class MemberHinge():
     def __init__(self,

@@ -3,8 +3,6 @@
 
 # Import der Bibliotheken
 from RFEM.enums import *
-#from RFEM.window import *
-from RFEM.dataTypes import *
 from RFEM.initModel import *
 from RFEM.BasicObjects.material import *
 from RFEM.BasicObjects.section import *

@@ -8,9 +8,7 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 # Import der Bibliotheken
-# from RFEM.window import *
 from RFEM.enums import *
-from RFEM.dataTypes import *
 from RFEM.initModel import *
 from RFEM.BasicObjects.material import *
 from RFEM.BasicObjects.section import *

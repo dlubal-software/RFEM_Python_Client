@@ -1,13 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import pytest
-from os import name
 import sys
 sys.path.append(".")
 
 # Import der Bibliotheken
 from RFEM.enums import *
-from RFEM.dataTypes import *
 from RFEM.initModel import *
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
 from RFEM.LoadCasesAndCombinations.loadCase import *

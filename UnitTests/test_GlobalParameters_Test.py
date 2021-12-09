@@ -8,7 +8,6 @@ sys.path.append(".")
 from os import name
 from RFEM.enums import *
 from RFEM.globalParameter import *
-from RFEM.dataTypes import *
 from RFEM.initModel import *
 
 def test_global_parameters():
