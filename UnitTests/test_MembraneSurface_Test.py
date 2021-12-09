@@ -7,33 +7,31 @@ sys.path.append(".")
 # Import the relevant Libraries
 from os import name
 from RFEM.enums import *
-#from RFEM.window import *
-from RFEM.dataTypes import *
 from RFEM.initModel import *
-from RFEM.BasicObjects.material import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.surface import *
-from RFEM.BasicObjects.solid import *
-from RFEM.BasicObjects.opening import *
-from RFEM.BasicObjects.lineSet import *
-from RFEM.BasicObjects.memberSet import *
-from RFEM.BasicObjects.surfaceSet import *
-from RFEM.BasicObjects.solidSet import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.TypesForMembers.memberHinge import *
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.surfaceLoad import *
+from RFEM.BasicObjects.material import Material
+from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.thickness import Thickness 
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.line import Line
+from RFEM.BasicObjects.member import Member
+from RFEM.BasicObjects.surface import Surface
+from RFEM.BasicObjects.solid import Solid
+from RFEM.BasicObjects.opening import Opening
+from RFEM.BasicObjects.lineSet import LineSet
+from RFEM.BasicObjects.memberSet import MemberSet
+from RFEM.BasicObjects.surfaceSet import SurfaceSet
+from RFEM.BasicObjects.solidSet import SolidSet
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.TypesForMembers.memberHinge import MemberHinge
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.Loads.nodalLoad import NodalLoad
+from RFEM.Loads.memberLoad import MemberLoad
+from RFEM.Loads.surfaceLoad import SurfaceLoad
 
 def test_membrane_surface():
-
-    clientModel.service.begin_modification('new')
+    Model(True, "MemberSurface")
+    Model.clientModel.service.begin_modification('new')
 
     # Testing the standard surface function
     Node(1, 0, -30, 0), Node(2, 10, -30, 0), Node(3, 10, -20, 0), Node(4, 0, -20, 0)
@@ -85,5 +83,5 @@ def test_membrane_surface():
     # Quadrangle Defintion
     Surface.Membrane(Surface, 5, SurfaceGeometry.GEOMETRY_QUADRANGLE, [17, 18, 19, 20], '13 14 15 16')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 

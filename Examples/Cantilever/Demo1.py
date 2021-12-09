@@ -8,36 +8,35 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 # Import der Bibliotheken
-# from RFEM.window import *
 from RFEM.enums import *
-from RFEM.dataTypes import *
 from RFEM.initModel import *
-from RFEM.BasicObjects.material import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.surface import *
-from RFEM.BasicObjects.solid import *
-from RFEM.BasicObjects.opening import *
-from RFEM.BasicObjects.lineSet import *
-from RFEM.BasicObjects.memberSet import *
-from RFEM.BasicObjects.surfaceSet import *
-from RFEM.BasicObjects.solidSet import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.TypesForMembers.memberHinge import *
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.surfaceLoad import *
+from RFEM.BasicObjects.material import Material
+from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.thickness import Thickness 
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.line import Line
+from RFEM.BasicObjects.member import Member
+from RFEM.BasicObjects.surface import Surface
+from RFEM.BasicObjects.solid import Solid
+from RFEM.BasicObjects.opening import Opening
+from RFEM.BasicObjects.lineSet import LineSet
+from RFEM.BasicObjects.memberSet import MemberSet
+from RFEM.BasicObjects.surfaceSet import SurfaceSet
+from RFEM.BasicObjects.solidSet import SolidSet
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.TypesForMembers.memberHinge import MemberHinge
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.Loads.nodalLoad import NodalLoad
+from RFEM.Loads.memberLoad import MemberLoad
+from RFEM.Loads.surfaceLoad import SurfaceLoad
 
 if __name__ == '__main__':
     l = float(input('Length of the cantilever in m: '))
     f = float(input('Force in kN: '))
 
-    clientModel.service.begin_modification('new')
+    Model(True, "Demo1") # crete new model called Demo1
+    Model.clientModel.service.begin_modification('new')
 
     Material(1, 'S235')
 
@@ -46,7 +45,7 @@ if __name__ == '__main__':
     Node(1, 0.0, 0.0, 0.0)
     Node(2, l, 0.0, 0.0)
 
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0.0, 1, 1)
+    Member(1, 1, 2, 0.0, 1, 1)
 
     NodalSupport(1, '1', NodalSupportType.FIXED)
 
@@ -57,12 +56,12 @@ if __name__ == '__main__':
 
     NodalLoad(
         1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, f*1000)
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
     Calculate_all()
 
     # model status
-    modelStatus = clientModel.service.get_model_info()
+    modelStatus = Model.clientModel.service.get_model_info()
     print("Model is calculated") if modelStatus.property_has_results else print("Model is not calculated")
     print("Model contains printout report") if modelStatus.property_has_printout_report else print("Model has not printout report")
     print ("Model contains " +  str(modelStatus.property_node_count) + " nodes")

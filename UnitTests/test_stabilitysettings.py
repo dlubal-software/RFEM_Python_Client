@@ -2,9 +2,8 @@ import sys
 import pytest
 sys.path.append(".")
 from RFEM.enums import *
-from RFEM.dataTypes import *
 from RFEM.initModel import *
-from RFEM.LoadCasesAndCombinations.stabilityAnalysisSettings import *
+from RFEM.LoadCasesAndCombinations.stabilityAnalysisSettings import StabilityAnalysisSettings
 
 @pytest.mark.skip("all tests still WIP")
 def test_stability_analysis_settings_init():

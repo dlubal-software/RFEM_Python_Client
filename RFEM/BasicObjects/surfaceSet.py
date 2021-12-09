@@ -10,7 +10,7 @@ class SurfaceSet():
                  params: dict = {}):
 
         # Client model | Surface Set
-        clientObject = clientModel.factory.create('ns0:surface_set')
+        clientObject = Model.clientModel.factory.create('ns0:surface_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -32,7 +32,7 @@ class SurfaceSet():
             clientObject[key] = params[key]
 
         # Add Surface Set to client model
-        clientModel.service.set_surface_set(clientObject)
+        Model.clientModel.service.set_surface_set(clientObject)
 
     def ContinuousSurfaces(self,
                  no: int = 1,
@@ -42,7 +42,7 @@ class SurfaceSet():
                  params: dict = {}):
 
         # Client model | Surface Set
-        clientObject = clientModel.factory.create('ns0:surface_set')
+        clientObject = Model.clientModel.factory.create('ns0:surface_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -64,7 +64,7 @@ class SurfaceSet():
             clientObject[key] = params[key]
 
         # Add Surface Set to client model
-        clientModel.service.set_surface_set(clientObject)
+        Model.clientModel.service.set_surface_set(clientObject)
 
     def GroupOfSurfaces(self,
                  no: int = 1,
@@ -74,7 +74,7 @@ class SurfaceSet():
                  params: dict = {}):
 
         # Client model | Surface Set
-        clientObject = clientModel.factory.create('ns0:surface_set')
+        clientObject = Model.clientModel.factory.create('ns0:surface_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -96,4 +96,4 @@ class SurfaceSet():
             clientObject[key] = params[key]
 
         # Add Surface Set to client model
-        clientModel.service.set_surface_set(clientObject)
+        Model.clientModel.service.set_surface_set(clientObject)

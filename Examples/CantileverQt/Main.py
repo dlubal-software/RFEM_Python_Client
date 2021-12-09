@@ -7,31 +7,29 @@ print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
 from RFEM.enums import *
-#from RFEM.window import *
-from RFEM.dataTypes import *
 from RFEM.initModel import *
-from RFEM.BasicObjects.material import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.surface import *
-from RFEM.BasicObjects.solid import *
-from RFEM.BasicObjects.opening import *
-from RFEM.BasicObjects.lineSet import *
-from RFEM.BasicObjects.memberSet import *
-from RFEM.BasicObjects.surfaceSet import *
-from RFEM.BasicObjects.solidSet import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.TypesForMembers.memberHinge import *
-from RFEM.TypesForSurfaces.surfaceSupport import *
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.lineLoad import *
-from RFEM.Loads.surfaceLoad import *
+from RFEM.BasicObjects.material import Material
+from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.thickness import Thickness 
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.line import Line
+from RFEM.BasicObjects.member import Member
+from RFEM.BasicObjects.surface import Surface
+from RFEM.BasicObjects.solid import Solid
+from RFEM.BasicObjects.opening import Opening
+from RFEM.BasicObjects.lineSet import LineSet
+from RFEM.BasicObjects.memberSet import MemberSet
+from RFEM.BasicObjects.surfaceSet import SurfaceSet
+from RFEM.BasicObjects.solidSet import SolidSet
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.TypesForMembers.memberHinge import MemberHinge
+from RFEM.TypesForSurfaces.surfaceSupport import SurfaceSupport 
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.Loads.nodalLoad import NodalLoad
+from RFEM.Loads.memberLoad import MemberLoad
+from RFEM.Loads.lineLoad import LineLoad
+from RFEM.Loads.surfaceLoad import SurfaceLoad
 
 try:
     from PyQt5 import QtWidgets, QtCore, uic
@@ -73,7 +71,8 @@ class MyDialog(QtWidgets.QDialog):
             sys.exit()
 
         # RFEM 6
-        clientModel.service.begin_modification('new')
+        Model(True, "CantileverQt") # crete new model called CantileverQt
+        Model.clientModel.service.begin_modification('new')
 
         Material(1, 'S235')
 
@@ -82,7 +81,7 @@ class MyDialog(QtWidgets.QDialog):
         Node(1, 0.0, 0.0, 0.0)
         Node(2, l, 0.0, 0.0)
 
-        Member(1, MemberType.TYPE_BEAM, 1, 2, 0.0, 1, 1)
+        Member(1,  1, 2, 0.0, 1, 1)
 
         NodalSupport(1, '1', NodalSupportType.FIXED)
 
@@ -98,7 +97,7 @@ class MyDialog(QtWidgets.QDialog):
 
         print('Ready!')
 
-        clientModel.service.finish_modification()
+        Model.clientModel.service.finish_modification()
 
     def onCancel(self):
         print('Cancel')

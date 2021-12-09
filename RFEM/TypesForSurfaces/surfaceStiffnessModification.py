@@ -8,7 +8,7 @@ class SurfaceStiffnessModification():
                  params: dict = {}):
 
         # Client model | Surface Stifness Modification
-        clientObject = clientModel.factory.create('ns0:surface_stiffness_modification')
+        clientObject = Model.clientModel.factory.create('ns0:surface_stiffness_modification')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +24,4 @@ class SurfaceStiffnessModification():
             clientObject[key] = params[key]
 
         # Add Surface Stifness Modification to client model
-        clientModel.service.set_surface_stiffness_modification(clientObject)
+        Model.clientModel.service.set_surface_stiffness_modification(clientObject)

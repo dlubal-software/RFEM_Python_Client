@@ -7,8 +7,7 @@ sys.path.append(".")
 # Importing the relevant libraries
 from os import name
 from RFEM.enums import *
-from RFEM.globalParameter import *
-from RFEM.dataTypes import *
+from RFEM.globalParameter import GlobalParameter
 from RFEM.initModel import *
 
 def test_global_parameters():

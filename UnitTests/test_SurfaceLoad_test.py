@@ -1,32 +1,32 @@
 import sys
 sys.path.append(".")
-from RFEM.Loads.surfaceLoad import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
-from RFEM.TypesForMembers.memberHinge import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.BasicObjects.solidSet import *
-from RFEM.BasicObjects.surfaceSet import *
-from RFEM.BasicObjects.memberSet import *
-from RFEM.BasicObjects.lineSet import *
-from RFEM.BasicObjects.opening import *
-from RFEM.BasicObjects.solid import *
-from RFEM.BasicObjects.surface import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.material import *
+from RFEM.Loads.surfaceLoad import SurfaceLoad
+from RFEM.Loads.memberLoad import MemberLoad
+from RFEM.Loads.nodalLoad import NodalLoad
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.TypesForMembers.memberHinge import MemberHinge
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.BasicObjects.solidSet import SolidSet
+from RFEM.BasicObjects.surfaceSet import SurfaceSet
+from RFEM.BasicObjects.memberSet import MemberSet
+from RFEM.BasicObjects.lineSet import LineSet
+from RFEM.BasicObjects.opening import Opening
+from RFEM.BasicObjects.solid import Solid
+from RFEM.BasicObjects.surface import Surface
+from RFEM.BasicObjects.member import Member
+from RFEM.BasicObjects.line import Line
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.thickness import Thickness 
+from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.material import Material
 from RFEM.initModel import *
-from RFEM.dataTypes import *
 from RFEM.enums import *
 
 def test_surface_loads():
 
-    clientModel.service.begin_modification()
+    Model(True, "SurfaceLoad")
+    Model.clientModel.service.begin_modification()
 
     # Create Material
     Material(1, 'S235')
@@ -109,5 +109,5 @@ def test_surface_loads():
 
     print('Ready!')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 

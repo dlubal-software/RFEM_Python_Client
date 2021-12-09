@@ -2,7 +2,7 @@ import sys
 sys.path.append(".")
 import pytest
 from RFEM.enums import *
-from RFEM.baseSettings import *
+from RFEM.baseSettings import BaseSettings
 
 def test_base_settings_implemented():
 

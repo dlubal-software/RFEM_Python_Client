@@ -7,33 +7,32 @@ sys.path.append(".")
 # Import der Bibliotheken
 from RFEM.Loads.lineLoad import LineLoad
 from RFEM.enums import *
-#from RFEM.window import *
-from RFEM.dataTypes import *
 from RFEM.initModel import *
-from RFEM.BasicObjects.material import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.surface import *
-from RFEM.BasicObjects.solid import *
-from RFEM.BasicObjects.opening import *
-from RFEM.BasicObjects.lineSet import *
-from RFEM.BasicObjects.memberSet import *
-from RFEM.BasicObjects.surfaceSet import *
-from RFEM.BasicObjects.solidSet import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.TypesForMembers.memberHinge import *
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.surfaceLoad import *
+from RFEM.BasicObjects.material import Material
+from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.thickness import Thickness 
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.line import Line
+from RFEM.BasicObjects.member import Member
+from RFEM.BasicObjects.surface import Surface
+from RFEM.BasicObjects.solid import Solid
+from RFEM.BasicObjects.opening import Opening
+from RFEM.BasicObjects.lineSet import LineSet
+from RFEM.BasicObjects.memberSet import MemberSet
+from RFEM.BasicObjects.surfaceSet import SurfaceSet
+from RFEM.BasicObjects.solidSet import SolidSet
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.TypesForMembers.memberHinge import MemberHinge
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.Loads.nodalLoad import NodalLoad
+from RFEM.Loads.memberLoad import MemberLoad
+from RFEM.Loads.surfaceLoad import SurfaceLoad
 
 def test_line_loads():
-
-	clientModel.service.begin_modification('new')
+	
+	Model(True, "LineLoads")
+	Model.clientModel.service.begin_modification('new')
 
 	# Creating a lot of lines for line load testing
 
@@ -46,14 +45,14 @@ def test_line_loads():
 	nodes_no = ''
 	for i in range(1, 21):
 		if i < 20:
-				surface_str += str(i)+' '
-				nodes_no = str(i)+' '+str(i+1)
-				Line(i, nodes_no)
+			surface_str += str(i)+' '
+			nodes_no = str(i)+' '+str(i+1)
+			Line(i, nodes_no)
 		else:
-				surface_str += str(i)
-				nodes_no = str(i)+' 1'
-				Line(i, nodes_no)
-
+			surface_str += str(i)
+			nodes_no = str(i)+' 1'
+			Line(i, nodes_no)
+	
 	Material()
 	Thickness()
 	Surface(1, surface_str)
@@ -92,7 +91,7 @@ def test_line_loads():
 					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING,
 					 load_parameter=[[0.2, 0.1, 200], [0.5, 0.2, 200]])
 
-# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
+	# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
 	# LineLoad.Force(LineLoad, 7, 2, '7',
 	# 				 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL,
 	# 				 load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
@@ -101,7 +100,7 @@ def test_line_loads():
 					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC,
 					 load_parameter=[750, 1000, 2500])
 
-# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
+	# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
 	# LineLoad.Force(LineLoad, 9, 2, '9',
 	# 				 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_VARYING,
 	# 				 load_parameter=[[1000, 500, 750], [250, 200, 600]])
@@ -134,12 +133,12 @@ def test_line_loads():
 					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING,
 					 load_parameter=[[0.2, 0.1, 200], [0.5, 0.2, 200]])
 
-# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
+	# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
 	# LineLoad.Moment(LineLoad, 7, 3, '7',
 	# 				 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL,
 	# 				 load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
 
-# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
+	# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
 	# LineLoad.Moment(LineLoad, 8, 3, '8',
 	# 				 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_TAPERED,
 	# 				 load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
@@ -148,7 +147,7 @@ def test_line_loads():
 					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC,
 					 load_parameter=[750, 1000, 2500])
 
-# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
+	# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
 	# LineLoad.Moment(LineLoad, 10, 3, '10',
 	# 				 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_VARYING,
 	# 				 load_parameter=[[1000, 500, 750], [250, 200, 600]])
@@ -166,6 +165,6 @@ def test_line_loads():
 					 mass_components=[1000,1000,10000])
 
 	print('Ready!')
-
-	clientModel.service.finish_modification()
-
+	
+	Model.clientModel.service.finish_modification()
+	

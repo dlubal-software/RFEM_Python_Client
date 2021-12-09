@@ -8,7 +8,7 @@ class StructureModification():
                  params: dict = {}):
 
         # Client model | Structure Modification
-        clientObject = clientModel.factory.create('ns0:structure_modification')
+        clientObject = Model.clientModel.factory.create('ns0:structure_modification')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +24,4 @@ class StructureModification():
             clientObject[key] = params[key]
 
         # Add Structure Modification to client model
-        clientModel.service.set_structure_modification(clientObject)
+        Model.clientModel.service.set_structure_modification(clientObject)
