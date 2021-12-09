@@ -1,6 +1,5 @@
 from RFEM.initModel import *
 from RFEM.enums import GlobalParameterUnitGroup, GlobalParameterDefinitionType
-from enum import Enum
 
 class GlobalParameter():
 

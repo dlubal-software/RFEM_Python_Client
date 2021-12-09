@@ -1,7 +1,6 @@
 from RFEM.initModel import *
 from RFEM.enums import *
-from enum import Enum
-from math import *
+from math import pi
 
 class FreeLoad():
 

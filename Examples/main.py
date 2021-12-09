@@ -1,4 +1,4 @@
-import sys
+import sys,os
 sys.path.append(".")
 from RFEM.enums import *
 from RFEM.window import *

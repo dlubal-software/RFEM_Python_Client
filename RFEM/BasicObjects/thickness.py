@@ -3,7 +3,7 @@ from RFEM.enums import ThicknessOrthotropyType
 from RFEM.enums import ThicknessShapeOrthotropySelfWeightDefinitionType
 from RFEM.enums import ThicknessStiffnessMatrixSelfWeightDefinitionType
 from RFEM.initModel import *
-from math import *
+from math import pi
 
 class Thickness():
     def __init__(self,

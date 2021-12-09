@@ -1,5 +1,4 @@
 from RFEM.initModel import *
-from enum import Enum
 
 class SurfaceSupport():
     def __init__(self,

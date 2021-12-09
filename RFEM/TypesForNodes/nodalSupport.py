@@ -1,6 +1,5 @@
 from RFEM.initModel import *
 from RFEM.enums import NodalSupportType
-from enum import Enum
 
 def setNodalSupportConditions(clientObject,
                               C_u_X: float,

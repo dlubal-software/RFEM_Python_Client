@@ -1,6 +1,5 @@
 from RFEM.initModel import *
 from RFEM.enums import *
-from enum import Enum
 
 class BaseSettings():
     def __init__(self,
