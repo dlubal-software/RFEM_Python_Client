@@ -1060,7 +1060,7 @@ class MemberSetLoad():
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
-        
+
     def AxialStrain(self,
                     no: int = 1,
                     load_case_no: int = 1,

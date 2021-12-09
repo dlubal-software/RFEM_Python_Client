@@ -25,7 +25,7 @@ class MemberByLine():
 
         # Member Type
         clientObject.type = member_type.name
-        
+
         # Line No.
         clientObject.line = line_no
 
@@ -53,7 +53,7 @@ class MemberByLine():
 
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
-            
+
 
     def Beam(self,
             no: int = 1,

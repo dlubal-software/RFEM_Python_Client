@@ -75,5 +75,5 @@ class GlobalParameter():
         for key in params:
             clientObject[key] = params[key]
 
-        # Add Global Parameter to client model          
+        # Add Global Parameter to client model
         Model.clientModel.service.set_global_parameter(clientObject)

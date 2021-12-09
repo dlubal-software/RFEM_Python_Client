@@ -4,7 +4,7 @@ from RFEM.enums import *
 from RFEM.initModel import *
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
-from RFEM.BasicObjects.thickness import Thickness 
+from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.member import Member
@@ -782,8 +782,8 @@ def test_line_load_force():
     LoadCase(1, 'DEAD')
 
     LineLoad.Force(LineLoad, 1, 1, '1',
-					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
-					 load_parameter=[1000])
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
+                     load_parameter=[1000])
 
     clientModel.service.finish_modification()
 
@@ -823,8 +823,8 @@ def test_line_load_moment():
     LoadCase(1, 'DEAD')
 
     LineLoad.Moment(LineLoad, 1, 1, '1',
-					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
-					 load_parameter=[2000])
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
+                     load_parameter=[2000])
 
     clientModel.service.finish_modification()
 
@@ -864,8 +864,8 @@ def test_line_load_mass():
     LoadCase(1, 'DEAD')
 
     LineLoad.Mass(LineLoad, 1, 1, '1',
-					 individual_mass_components= False,
-					 mass_components= [10])
+                     individual_mass_components= False,
+                     mass_components= [10])
 
     clientModel.service.finish_modification()
 

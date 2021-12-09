@@ -64,7 +64,7 @@ class FreeLoad():
         for key in params:
             clientObject[key] = params[key]
 
-        # Add Free Concentrated Load to client model          
+        # Add Free Concentrated Load to client model
         Model.clientModel.service.set_free_concentrated_load(load_case_no, clientObject)
 
     def LineLoad(self,
@@ -136,7 +136,7 @@ class FreeLoad():
         for key in params:
             clientObject[key] = params[key]
 
-        # Add Free Concentrated Load to client model          
+        # Add Free Concentrated Load to client model
         Model.clientModel.service.set_free_line_load(load_case_no, clientObject)
 
     def RectangularLoad(self,
@@ -406,7 +406,7 @@ class FreeLoad():
         for key in params:
             clientObject[key] = params[key]
 
-        # Add Free Concentrated Load to client model          
+        # Add Free Concentrated Load to client model
         Model.clientModel.service.set_free_rectangular_load(load_case_no, clientObject)
 
     def CircularLoad(self,
@@ -477,7 +477,7 @@ class FreeLoad():
         for key in params:
             clientObject[key] = params[key]
 
-        # Add Free Concentrated Load to client model          
+        # Add Free Concentrated Load to client model
         Model.clientModel.service.set_free_circular_load(load_case_no, clientObject)
 
     def PolygonLoad(self,
@@ -574,5 +574,5 @@ class FreeLoad():
         for key in params:
             clientObject[key] = params[key]
 
-        # Add Free Concentrated Load to client model          
+        # Add Free Concentrated Load to client model
         Model.clientModel.service.set_free_polygon_load(load_case_no, clientObject)

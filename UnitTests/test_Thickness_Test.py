@@ -5,11 +5,11 @@ sys.path.append(".")
 from RFEM.enums import *
 from RFEM.initModel import *
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.thickness import Thickness 
+from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 
 def test_thickness():
-    
+
     Model(True, "Thickness")
     Model.clientModel.service.begin_modification('new')
     Material(1, 'C30/37')
@@ -96,5 +96,5 @@ def test_thickness():
 
     #Calculate_all()
     print('Ready!')
-    
+
     Model.clientModel.service.finish_modification()

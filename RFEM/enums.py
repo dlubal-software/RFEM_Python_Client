@@ -19,28 +19,28 @@ class StaticAnalysisType(Enum):
     Static Analysis Type
     '''
     GEOMETRICALLY_LINEAR, LARGE_DEFORMATIONS, LARGE_DEFORMATIONS_POSTRCRITICAL, SECOND_ORDER_P_DELTA = range(4)
-    
-    
+
+
 class StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis(Enum):
     '''
     Static Analysis Settings Iterative Method For Nonlinear Analysis | Enum
     '''
     DYNAMIC_RELAXATION, NEWTON_RAPHSON, NEWTON_RAPHSON_COMBINED_WITH_PICARD, NEWTON_RAPHSON_WITH_CONSTANT_STIFFNESS,\
     NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS, PICARD = range(6)
-    
-    
+
+
 class StaticAnalysisSettingsMethodOfEquationSystem(Enum):
     '''
     Static Analysis Settings Method of Equation System | Enum
     '''
     METHOD_OF_EQUATION_SYSTEM_DIRECT, METHOD_OF_EQUATION_SYSTEM_ITERATIVE = range(2)
-    
-    
+
+
 class StaticAnalysisSettingsPlateBendingTheory(Enum):
     '''
     Static Analysis Settings Plate Bending Theory | Enum
     '''
-    PLATE_BENDING_THEORY_MINDLIN, PLATE_BENDING_THEORY_KIRCHHOFF = range(2)    
+    PLATE_BENDING_THEORY_MINDLIN, PLATE_BENDING_THEORY_KIRCHHOFF = range(2)
 
 class AnalysisType(Enum):
     '''
@@ -129,31 +129,31 @@ class SurfaceLoadDistribution(Enum):
 
 class SurfaceLoadTransferDirection(Enum):
     '''
-    Surface Load Distribution Direction 
+    Surface Load Distribution Direction
     '''
     LOAD_TRANSFER_DIRECTION_IN_BOTH, LOAD_TRANSFER_DIRECTION_IN_X, LOAD_TRANSFER_DIRECTION_IN_Y = range(3)
 
 class SetType(Enum):
     '''
-    Line, Member, Surface, and Solid Set Type 
+    Line, Member, Surface, and Solid Set Type
     '''
     SET_TYPE_CONTINUOUS, SET_TYPE_GROUP = range(2)
 
 class NodalLoadType(Enum):
     '''
-    Nodal Load Type 
+    Nodal Load Type
     '''
     LOAD_TYPE_COMPONENTS, LOAD_TYPE_FORCE, LOAD_TYPE_MASS, LOAD_TYPE_MOMENT = range(4)
 
 class NodalLoadSpecificDirectionType(Enum):
     '''
-    Nodal Load Specific Direction Type 
+    Nodal Load Specific Direction Type
     '''
     DIRECTION_TYPE_DIRECTED_TO_NODE, DIRECTION_TYPE_PARALLEL_TO_CS_OF_LINE, DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER, DIRECTION_TYPE_PARALLEL_TO_TWO_NODES, DIRECTION_TYPE_ROTATED_VIA_3_ANGLES = range(5)
 
 class NodalLoadAxesSequence(Enum):
     '''
-    Nodal Load Axes Sequence 
+    Nodal Load Axes Sequence
     '''
     SEQUENCE_XYZ, SEQUENCE_XZY, SEQUENCE_YXZ, SEQUENCE_YZX, SEQUENCE_ZXY, SEQUENCE_ZYX = range(6)
 
@@ -166,7 +166,7 @@ class NodalLoadMassAxisRotation(Enum):
 
 class ThicknessType(Enum):
     '''
-    Thickness Type 
+    Thickness Type
     '''
     TYPE_LAYERS, TYPE_SHAPE_ORTHOTROPY, TYPE_STIFFNESS_MATRIX, TYPE_THICKNESS_PHASE, TYPE_UNIFORM,\
     TYPE_VARIABLE_CIRCLE, TYPE_VARIABLE_FOUR_SURFACE_CORNERS, TYPE_VARIABLE_THREE_NODES, \
@@ -174,7 +174,7 @@ class ThicknessType(Enum):
 
 class ThicknessDirection(Enum):
     '''
-    Thickness Direction 
+    Thickness Direction
     '''
     THICKNESS_DIRECTION_IN_SMALL_X, THICKNESS_DIRECTION_IN_SMALL_Y, THICKNESS_DIRECTION_IN_X, \
     THICKNESS_DIRECTION_IN_Y, THICKNESS_DIRECTION_IN_Z = range(5)
@@ -204,7 +204,7 @@ class ThicknessOrthotropyType(Enum):
 
 class LineLoadDirection(Enum):
     '''
-    Line Load Direction 
+    Line Load Direction
     '''
     LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED, LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE,\
     LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE,\
@@ -672,7 +672,7 @@ class StabilityAnalysisSettingsStoppingOfLoadIncreasingResult(Enum):
     RESULT_TYPE_ROTATION_PHI_Y, RESULT_TYPE_ROTATION_PHI_Z = range(8)
 class LineType(Enum):
     '''
-    Line Type 
+    Line Type
     '''
     TYPE_ARC, TYPE_CIRCLE, TYPE_CUT_VIA_SECTION, TYPE_CUT_VIA_TWO_LINES, TYPE_ELLIPTICAL_ARC, TYPE_ELLIPSE, TYPE_NURBS, TYPE_PARABOLA, TYPE_POLYLINE, TYPE_SPLINE = range(10)
 
@@ -740,7 +740,7 @@ class MemberReferenceLengthType(Enum):
 
 class MemberReferenceLengthWidthType(Enum):
     '''
-    Member Reference Length Width Type 
+    Member Reference Length Width Type
     '''
     REFERENCE_LENGTH_WIDTH_EC2, REFERENCE_LENGTH_WIDTH_EIGHTH, REFERENCE_LENGTH_WIDTH_NONE, REFERENCE_LENGTH_WIDTH_SIXTH = range(4)
 
@@ -773,7 +773,7 @@ class MemberRotationPlaneType(Enum):
     Member Rotation Plane Type
     '''
     ROTATION_PLANE_XY, ROTATION_PLANE_XZ = range(2)
-    
+
 class StirrupType(Enum):
     '''
     Stirrup Type
@@ -852,7 +852,7 @@ class AdditionalOffsetReferenceEndType(Enum):
     LONGITUDINAL_REINFORCEMENT_ADDITIONAL_OFFSET_REFERENCE_TYPE_LEFT_CENTER, LONGITUDINAL_REINFORCEMENT_ADDITIONAL_OFFSET_REFERENCE_TYPE_LEFT_TOP, \
     LONGITUDINAL_REINFORCEMENT_ADDITIONAL_OFFSET_REFERENCE_TYPE_RIGHT_BOTTOM, LONGITUDINAL_REINFORCEMENT_ADDITIONAL_OFFSET_REFERENCE_TYPE_RIGHT_CENTER, \
     LONGITUDINAL_REINFORCEMENT_ADDITIONAL_OFFSET_REFERENCE_TYPE_RIGHT_TOP = range(9)
-    
+
 class AnchorageStartAnchorType(Enum):
     '''
     Anchorage Start Anchor Type

@@ -137,7 +137,7 @@ class Node():
 
         # Add Node to client model
         Model.clientModel.service.set_node(clientObject)
-        
+
 
     def BetweenTwoNodes(self,
                  no: int = 1,

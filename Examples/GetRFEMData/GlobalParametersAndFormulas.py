@@ -10,12 +10,12 @@ from RFEM.initModel import *
 from RFEM.enums import *
 
 if __name__ == "__main__":
-    
+
     objectLocation = Model.clientModel.factory.create('ns0:object_location')
     objectLocation.type = ObjectTypes.E_OBJECT_TYPE_SECTION.name
     objectLocation.no = 1
     objectLocation.parent_no = 0
-    
+
     objectParameterLocation = Model.clientModel.factory.create('ns0:object_parameter_location_type')
     objectParameterLocation.attribute = "parametrization"
     parameterPathInNestedModelsHierarchy = Model.clientModel.factory.create('ns0:object_parameter_location_type.parameter_path_in_nested_models_hierarchy')

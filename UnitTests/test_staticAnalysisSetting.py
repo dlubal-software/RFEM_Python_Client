@@ -4,7 +4,7 @@ from RFEM.enums import *
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 
 def test_default():
-    
+
     clientModel.service.begin_modification()
 
     # Set Base Settings

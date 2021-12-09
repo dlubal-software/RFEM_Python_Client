@@ -48,7 +48,7 @@ class DesignSituation():
                     6193 = SLS - Characteristic,
                     6194 = SLS - Frequent,
                     6195 = SLS - Quasi-permanent.
-                    
+
             comment (str, optional): Comments
             params (dict, optional): Parameters
         """

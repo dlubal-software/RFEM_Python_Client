@@ -8,7 +8,7 @@ def window(mainFunc, lstOfModels):
     win.resizable(False, False)
     win.title('Power of automation with RFEM6')
     win.geometry("550x280")
-    
+
     win.configure(bg=color)
     win.grid_columnconfigure(index=0, minsize=140)
     win.grid_columnconfigure(index=1, minsize=80)
@@ -143,7 +143,7 @@ def window(mainFunc, lstOfModels):
         modeCombo['values'] = lst
         modeCombo.current(0)
     modeCombo.grid(row=8, column=1, sticky=W)
-    
+
     # Checkboxes
     var2 = IntVar()
     c2 = Checkbutton(win, text='delete results', state=DISABLED, variable=var2, onvalue=1, offvalue=0)

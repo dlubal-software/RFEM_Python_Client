@@ -33,14 +33,14 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
     Material(1)
     Material(2, "S275", "Test")
     Material(3, "Concrete f'c = 20 MPa | CSA A23.3-19", "Test")
-    
+
 # -------------------------------------------------------------
     # Sections
     Section(1, "HEB 220")
     Section(2, "IPE 300")
     Section(3, "U 100", 2)
     Section(4, "Cable 14.00", 2)
-    
+
 # -------------------------------------------------------------
     # Thicknesses
     Thickness(1, "Slab", 3, 0.24, "Test")
@@ -241,7 +241,7 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x2 ##
     MemberLoad.Force(0, 7, 6, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, False, 5000, 1, 2, 3])
-    
+
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x ##
     MemberLoad.Force(0, 8, 7, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 6000, 1, 2])
 
@@ -256,13 +256,13 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
     MemberLoad.Force(0, 12, 11, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[4000, 8000, 12000])
-     
+
     ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING ##
     MemberLoad.Force(0, 13, 12, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
-     
+
     ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING_IN_Z ##
     MemberLoad.Force(0, 14, 13, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
-    
+
 # -------------------------------------------------------------
     # Surface Loads
     SurfaceLoad(1, 3, "3", 20000)

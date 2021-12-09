@@ -5,7 +5,7 @@ from RFEM.Loads.freeLoad import FreeLoad
 from RFEM.enums import *
 from RFEM.initModel import *
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.thickness import Thickness 
+from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.surface import Surface
@@ -203,5 +203,5 @@ def test_free_load():
     #print(Model.clientModel)
     #Calculate_all()
     print('Ready!')
-    
+
     Model.clientModel.service.finish_modification()

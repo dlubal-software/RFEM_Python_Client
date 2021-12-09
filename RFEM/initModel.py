@@ -140,7 +140,7 @@ class Model():
                  model_name: str="MyModel",
                  delete: bool=False,
                  reset: bool=False):
-    
+
         cModel = None
         if new_model:
             new = client.service.new_model(model_name) + 'wsdl'
@@ -159,7 +159,7 @@ class Model():
             if reset:
                 print('Resetting model...')
                 cModel.service.reset()
-    
+
         Model.clientModel = cModel
         print('Geometry...')
 
@@ -284,13 +284,13 @@ def ExportResultTablesToXML(TargetFilePath: str):
     Model.clientModel.service.export_result_tables_to_xml(TargetFilePath)
 
 def ExportResultTablesWithDetailedMembersResultsToCsv(TargetDirectoryPath: str):
-    
+
     Model.clientModel.service.export_result_tables_with_detailed_members_results_to_csv(TargetDirectoryPath)
 
 def ExportResultTablesWithDetailedMembersResultsToXML(TargetFilePath: str):
-    
+
     Model.clientModel.service.export_result_tables_with_detailed_members_results_to_xml(TargetFilePath)
-    
+
 def  __parseXMLAsDictionary(path: str =""):
     with open(path, "rb") as f:
         my_dictionary = xmltodict.parse(f, xml_attribs=True)

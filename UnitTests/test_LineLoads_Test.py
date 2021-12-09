@@ -9,148 +9,148 @@ from RFEM.Loads.lineLoad import LineLoad
 from RFEM.enums import *
 from RFEM.initModel import *
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.thickness import Thickness 
+from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.surface import Surface
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 
 def test_line_loads():
-	
-	Model(True, "LineLoads")
-	Model.clientModel.service.begin_modification('new')
 
-	# Creating a lot of lines for line load testing
+    Model(True, "LineLoads")
+    Model.clientModel.service.begin_modification('new')
 
-	Node(1, 0, 0, 0), Node(2, 2, 0, 0), Node(3, 4, 0, 0), Node(4, 6, 0, 0), Node(5, 8, 0, 0), Node(6, 10, 0, 0)
-	Node(7, 10, 2, 0), Node(8, 10, 4, 0), Node(9, 10, 6, 0), Node(10, 10, 8, 0), Node(11, 10, 10, 0)
-	Node(12, 8, 10, 0), Node(13, 6, 10, 0), Node(14, 4, 10, 0), Node(15, 2, 10, 0), Node(16, 0, 10, 0)
-	Node(17, 0, 8, 0), Node(18, 0, 6, 0), Node(19, 0, 4, 0), Node(20, 0, 2, 0)
+    # Creating a lot of lines for line load testing
 
-	surface_str = ''
-	nodes_no = ''
-	for i in range(1, 21):
-		if i < 20:
-			surface_str += str(i)+' '
-			nodes_no = str(i)+' '+str(i+1)
-			Line(i, nodes_no)
-		else:
-			surface_str += str(i)
-			nodes_no = str(i)+' 1'
-			Line(i, nodes_no)
-	
-	Material()
-	Thickness()
-	Surface(1, surface_str)
+    Node(1, 0, 0, 0), Node(2, 2, 0, 0), Node(3, 4, 0, 0), Node(4, 6, 0, 0), Node(5, 8, 0, 0), Node(6, 10, 0, 0)
+    Node(7, 10, 2, 0), Node(8, 10, 4, 0), Node(9, 10, 6, 0), Node(10, 10, 8, 0), Node(11, 10, 10, 0)
+    Node(12, 8, 10, 0), Node(13, 6, 10, 0), Node(14, 4, 10, 0), Node(15, 2, 10, 0), Node(16, 0, 10, 0)
+    Node(17, 0, 8, 0), Node(18, 0, 6, 0), Node(19, 0, 4, 0), Node(20, 0, 2, 0)
 
-	# Testing Standard (i.e. default) Function
+    surface_str = ''
+    nodes_no = ''
+    for i in range(1, 21):
+        if i < 20:
+            surface_str += str(i)+' '
+            nodes_no = str(i)+' '+str(i+1)
+            Line(i, nodes_no)
+        else:
+            surface_str += str(i)
+            nodes_no = str(i)+' 1'
+            Line(i, nodes_no)
 
-	LoadCase(1 , 'Standard')
+    Material()
+    Thickness()
+    Surface(1, surface_str)
 
-	LineLoad(1,1,'1', magnitude=1)
+    # Testing Standard (i.e. default) Function
 
-	# Testing Force Type Line Loads
+    LoadCase(1 , 'Standard')
 
-	LoadCase(2 , 'TYPE: Force')
+    LineLoad(1,1,'1', magnitude=1)
 
-	LineLoad.Force(LineLoad, 1, 2, '1',
-					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
-					 load_parameter=[1000])
+    # Testing Force Type Line Loads
 
-	LineLoad.Force(LineLoad, 2, 2, '2',
-					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1,
-					 load_parameter=[False, 10000, 0.5])
+    LoadCase(2 , 'TYPE: Force')
 
-	LineLoad.Force(LineLoad, 3, 2, '3',
-					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N,
-					 load_parameter=[True, True, 25000, 3, 0.25, 0.5])
+    LineLoad.Force(LineLoad, 1, 2, '1',
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
+                     load_parameter=[1000])
 
-	LineLoad.Force(LineLoad, 4, 2, '4',
-					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2,
-					 load_parameter=[True, True, True, 17000, 0.25, 0.5, 0.25])
+    LineLoad.Force(LineLoad, 2, 2, '2',
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1,
+                     load_parameter=[False, 10000, 0.5])
 
-	LineLoad.Force(LineLoad, 5, 2, '5',
-					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2,
-					 load_parameter=[True, True, 5000, 7500, 0.4, 0.5])
+    LineLoad.Force(LineLoad, 3, 2, '3',
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N,
+                     load_parameter=[True, True, 25000, 3, 0.25, 0.5])
 
-	LineLoad.Force(LineLoad, 6, 2, '6',
-					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING,
-					 load_parameter=[[0.2, 0.1, 200], [0.5, 0.2, 200]])
+    LineLoad.Force(LineLoad, 4, 2, '4',
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2,
+                     load_parameter=[True, True, True, 17000, 0.25, 0.5, 0.25])
 
-	# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
-	# LineLoad.Force(LineLoad, 7, 2, '7',
-	# 				 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL,
-	# 				 load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
+    LineLoad.Force(LineLoad, 5, 2, '5',
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2,
+                     load_parameter=[True, True, 5000, 7500, 0.4, 0.5])
 
-	LineLoad.Force(LineLoad, 8, 2, '8',
-					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC,
-					 load_parameter=[750, 1000, 2500])
+    LineLoad.Force(LineLoad, 6, 2, '6',
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING,
+                     load_parameter=[[0.2, 0.1, 200], [0.5, 0.2, 200]])
 
-	# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
-	# LineLoad.Force(LineLoad, 9, 2, '9',
-	# 				 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_VARYING,
-	# 				 load_parameter=[[1000, 500, 750], [250, 200, 600]])
+    # NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
+    # LineLoad.Force(LineLoad, 7, 2, '7',
+    #                  load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL,
+    #                  load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
 
-	# Testing Moment Type Line Loads
+    LineLoad.Force(LineLoad, 8, 2, '8',
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC,
+                     load_parameter=[750, 1000, 2500])
 
-	LoadCase(3 , 'TYPE: Moment')
+    # NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
+    # LineLoad.Force(LineLoad, 9, 2, '9',
+    #                  load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_VARYING,
+    #                  load_parameter=[[1000, 500, 750], [250, 200, 600]])
 
-	LineLoad.Moment(LineLoad, 1, 3, '1',
-					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
-					 load_parameter=[1000])
+    # Testing Moment Type Line Loads
 
-	LineLoad.Moment(LineLoad, 2, 3, '2',
-					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1,
-					 load_parameter=[False, 10000, 0.5])
+    LoadCase(3 , 'TYPE: Moment')
 
-	LineLoad.Moment(LineLoad, 3, 3, '3',
-					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N,
-					 load_parameter=[True, True, 25000, 3, 0.25, 0.5])
+    LineLoad.Moment(LineLoad, 1, 3, '1',
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
+                     load_parameter=[1000])
 
-	LineLoad.Moment(LineLoad, 4, 3, '4',
-					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2,
-					 load_parameter=[True, True, True, 17000, 0.25, 0.5, 0.25])
+    LineLoad.Moment(LineLoad, 2, 3, '2',
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1,
+                     load_parameter=[False, 10000, 0.5])
 
-	LineLoad.Moment(LineLoad, 5, 3, '5',
-					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2,
-					 load_parameter=[True, True, 5000, 7500, 0.4, 0.5])
+    LineLoad.Moment(LineLoad, 3, 3, '3',
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N,
+                     load_parameter=[True, True, 25000, 3, 0.25, 0.5])
 
-	LineLoad.Moment(LineLoad, 6, 3, '6',
-					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING,
-					 load_parameter=[[0.2, 0.1, 200], [0.5, 0.2, 200]])
+    LineLoad.Moment(LineLoad, 4, 3, '4',
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2,
+                     load_parameter=[True, True, True, 17000, 0.25, 0.5, 0.25])
 
-	# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
-	# LineLoad.Moment(LineLoad, 7, 3, '7',
-	# 				 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL,
-	# 				 load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
+    LineLoad.Moment(LineLoad, 5, 3, '5',
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2,
+                     load_parameter=[True, True, 5000, 7500, 0.4, 0.5])
 
-	# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
-	# LineLoad.Moment(LineLoad, 8, 3, '8',
-	# 				 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_TAPERED,
-	# 				 load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
+    LineLoad.Moment(LineLoad, 6, 3, '6',
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING,
+                     load_parameter=[[0.2, 0.1, 200], [0.5, 0.2, 200]])
 
-	LineLoad.Moment(LineLoad, 9, 3, '9',
-					 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC,
-					 load_parameter=[750, 1000, 2500])
+    # NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
+    # LineLoad.Moment(LineLoad, 7, 3, '7',
+    #                  load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL,
+    #                  load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
 
-	# NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
-	# LineLoad.Moment(LineLoad, 10, 3, '10',
-	# 				 load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_VARYING,
-	# 				 load_parameter=[[1000, 500, 750], [250, 200, 600]])
+    # NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
+    # LineLoad.Moment(LineLoad, 8, 3, '8',
+    #                  load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_TAPERED,
+    #                  load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
 
-	# Testing Mass Type Line Loads
+    LineLoad.Moment(LineLoad, 9, 3, '9',
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC,
+                     load_parameter=[750, 1000, 2500])
 
-	LoadCase(4 , 'TYPE: Mass')
+    # NOTE. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
+    # LineLoad.Moment(LineLoad, 10, 3, '10',
+    #                  load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_VARYING,
+    #                  load_parameter=[[1000, 500, 750], [250, 200, 600]])
 
-	LineLoad.Mass(LineLoad, 1, 4, '1',
-					 individual_mass_components= False,
-					 mass_components= [10])
+    # Testing Mass Type Line Loads
 
-	LineLoad.Mass(LineLoad, 2, 4, '2',
-					 individual_mass_components=True,
-					 mass_components=[1000,1000,10000])
+    LoadCase(4 , 'TYPE: Mass')
 
-	print('Ready!')
-	
-	Model.clientModel.service.finish_modification()
-	
+    LineLoad.Mass(LineLoad, 1, 4, '1',
+                     individual_mass_components= False,
+                     mass_components= [10])
+
+    LineLoad.Mass(LineLoad, 2, 4, '2',
+                     individual_mass_components=True,
+                     mass_components=[1000,1000,10000])
+
+    print('Ready!')
+
+    Model.clientModel.service.finish_modification()
+

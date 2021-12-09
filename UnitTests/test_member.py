@@ -97,7 +97,7 @@ def test_truss():
     assert member.length == 5
 
 def test_trussonlyn():
-    
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
@@ -135,7 +135,7 @@ def test_tension():
 
     assert member.no == 1
     assert member.length == 5
-    
+
 def test_compression():
 
     clientModel.service.reset()
@@ -167,7 +167,7 @@ def test_buckling():
     Node(1, 0, 0, 0)
     Node(2, 5, 0, 0)
 
-    Member.Buckling(0, 1, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0]) 
+    Member.Buckling(0, 1, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0])
 
     clientModel.service.finish_modification()
 
@@ -177,7 +177,7 @@ def test_buckling():
     assert member.length == 5
 
 def test_cable():
-    
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
@@ -197,7 +197,7 @@ def test_cable():
     assert member.length == 5
 
 def test_resultbeam():
-    
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
@@ -217,7 +217,7 @@ def test_resultbeam():
     assert member.length == 5
 
 def test_definablestiffness():
-    
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
@@ -238,7 +238,7 @@ def test_definablestiffness():
     assert member.length == 5
 
 def test_couplingrigidrigid():
-        
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
@@ -255,7 +255,7 @@ def test_couplingrigidrigid():
     assert member.length == 5
 
 def test_couplingrigidhinge():
-        
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
@@ -272,7 +272,7 @@ def test_couplingrigidhinge():
     assert member.length == 5
 
 def test_couplinghingerigid():
-        
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 
@@ -289,7 +289,7 @@ def test_couplinghingerigid():
     assert member.length == 5
 
 def test_couplinghingehinge():
-        
+
     clientModel.service.reset()
     clientModel.service.begin_modification()
 

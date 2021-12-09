@@ -326,7 +326,7 @@ class Surface():
 
         # Add Surface to client model
         Model.clientModel.service.set_surface(clientObject)
-    
+
     def __CreateGeometryAndSetToModel(self):
 
         # Geometry Type
