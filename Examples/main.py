@@ -1,9 +1,14 @@
 import sys
-sys.path.append(".")
-from RFEM.enums import *
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
+from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType, MemberLoadDistribution, MemberLoadDirection
 from RFEM.window import window
 from RFEM.dataTypes import inf
-from RFEM.initModel import *
+from RFEM.initModel import Model, MemberRotationSpecificationType, Calculate_all, insertSpaces, modelLst
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.thickness import Thickness

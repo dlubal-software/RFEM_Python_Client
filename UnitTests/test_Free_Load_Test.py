@@ -1,5 +1,10 @@
 import sys
-sys.path.append(".")
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
 
 from RFEM.Loads.freeLoad import FreeLoad
 from RFEM.enums import *

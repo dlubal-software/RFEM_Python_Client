@@ -3,7 +3,7 @@ from RFEM.Loads.solidSetLoad import SolidSetLoad
 from RFEM.enums import *
 from RFEM.initModel import *
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.thickness import Thickness 
+from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.surface import Surface

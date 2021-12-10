@@ -1,5 +1,10 @@
 import sys
-sys.path.append(".")
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
 from RFEM.Loads.surfaceLoad import SurfaceLoad
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
@@ -7,7 +12,7 @@ from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.BasicObjects.surface import Surface
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.node import Node
-from RFEM.BasicObjects.thickness import Thickness 
+from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.material import Material
 from RFEM.initModel import *
 from RFEM.enums import *
