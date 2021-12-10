@@ -23,7 +23,7 @@ def test_generation_mesh_implemented():
 @pytest.mark.skip("all tests still WIP")
 def test_generation_of_mesh_statistics():
     # modal analysis not yet implemmented in released RFEM6
-    clientModel.service.begin_modification()
+    Model.clientModel.service.begin_modification()
 
     # Create Material
     Material(1, 'S235')
@@ -47,7 +47,7 @@ def test_generation_of_mesh_statistics():
 
     print('Ready!')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
     mesh_stats = GetMeshStatics()
 

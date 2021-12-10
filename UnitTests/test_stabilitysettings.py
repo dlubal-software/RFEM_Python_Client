@@ -13,14 +13,14 @@ from RFEM.LoadCasesAndCombinations.stabilityAnalysisSettings import StabilityAna
 @pytest.mark.skip("all tests still WIP")
 def test_stability_analysis_settings_init():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     StabilityAnalysisSettings()
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    stability_analysis_settings = clientModel.service.get_stability_analysis_settings(1)
+    stability_analysis_settings = Model.clientModel.service.get_stability_analysis_settings(1)
 
     assert stability_analysis_settings.analysis_type == 'EIGENVALUE_METHOD'
     assert stability_analysis_settings.activate_minimum_initial_prestress == True
@@ -36,8 +36,8 @@ def test_stability_analysis_settings_init():
 @pytest.mark.skip("all tests still WIP")
 def test_stability_analysis_settings_eigenvalue_method():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     StabilityAnalysisSettings.EigenvalueMethod(StabilityAnalysisSettings, no= 1,
                                             name= 'Eigenvalue Method Test',
@@ -50,9 +50,9 @@ def test_stability_analysis_settings_eigenvalue_method():
                                             matrix_type= StabilityAnalysisSettingsMatrixType.MATRIX_TYPE_UNIT,
                                             comment= 'Test Comment')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    stability_analysis_settings = clientModel.service.get_stability_analysis_settings(1)
+    stability_analysis_settings = Model.clientModel.service.get_stability_analysis_settings(1)
 
     assert stability_analysis_settings.analysis_type == 'EIGENVALUE_METHOD'
     assert stability_analysis_settings.activate_minimum_initial_prestress == True
@@ -69,8 +69,8 @@ def test_stability_analysis_settings_eigenvalue_method():
 @pytest.mark.skip("all tests still WIP")
 def test_stability_analysis_settings_incrementaly_method_with_eigenvalue():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     StabilityAnalysisSettings.IncrementalyMethodWithEigenvalue(StabilityAnalysisSettings, no= 1,
                                             name= 'Incrementaly Method with Eigenvalue Test',
@@ -86,9 +86,9 @@ def test_stability_analysis_settings_incrementaly_method_with_eigenvalue():
                                             matrix_type= StabilityAnalysisSettingsMatrixType.MATRIX_TYPE_STANDARD,
                                             comment= 'Test Comment')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    stability_analysis_settings = clientModel.service.get_stability_analysis_settings(1)
+    stability_analysis_settings = Model.clientModel.service.get_stability_analysis_settings(1)
 
     assert stability_analysis_settings.analysis_type == 'INCREMENTALY_METHOD_WITH_EIGENVALUE'
     assert stability_analysis_settings.activate_minimum_initial_prestress == False
@@ -113,8 +113,8 @@ def test_stability_analysis_settings_incrementaly_method_with_eigenvalue():
 @pytest.mark.skip("all tests still WIP")
 def test_stability_analysis_settings_incrementaly_method_without_eigenvalue():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     StabilityAnalysisSettings.IncrementalyMethodWithoutEigenvalue(StabilityAnalysisSettings, no= 1,
                                             name= 'Incrementaly Method with Eigenvalue Test',
@@ -124,9 +124,9 @@ def test_stability_analysis_settings_incrementaly_method_without_eigenvalue():
                                             save_results_of_all_increments= False,
                                             comment= 'Test Comment')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    stability_analysis_settings = clientModel.service.get_stability_analysis_settings(1)
+    stability_analysis_settings = Model.clientModel.service.get_stability_analysis_settings(1)
 
     assert stability_analysis_settings.analysis_type == 'INCREMENTALY_METHOD_WITHOUT_EIGENVALUE'
     assert stability_analysis_settings.activate_minimum_initial_prestress == False

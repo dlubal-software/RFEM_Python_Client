@@ -64,8 +64,8 @@ class DesignSituation():
 
         # Design Situation Name
         clientObject.user_defined_name_enabled = user_defined_name
-        if user_defined_name == True:
-            if name == None:
+        if user_defined_name:
+            if name is None:
                 raise Exception('WARNING: A user defined design situation name was requested. As such, the name parameter cannot be empty.')
             clientObject.name = name
 

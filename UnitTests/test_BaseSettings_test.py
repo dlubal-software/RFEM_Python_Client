@@ -17,12 +17,12 @@ def test_base_settings_implemented():
 @pytest.mark.skip("all tests still WIP")
 def test_baseSettings():
 
-    clientModel.service.begin_modification()
+    Model.clientModel.service.begin_modification()
 
     # Set Base Settings
     BaseSettings(12, GlobalAxesOrientationType.E_GLOBAL_AXES_ORIENTATION_ZUP, LocalAxesOrientationType.E_LOCAL_AXES_ORIENTATION_ZUP, [0.001, 0.002, 0.003, 0.004])
 
     print('Ready!')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 

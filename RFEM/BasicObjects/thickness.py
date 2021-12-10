@@ -29,7 +29,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -80,7 +80,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -91,7 +91,7 @@ class Thickness():
         clientObject.material = material_no
 
         # Thickness Parameters
-        if properties == None:
+        if properties is None:
             raise Exception('WARNING: The properties parameter cannot be empty.')
         clientObject.uniform_thickness = properties[0]
 
@@ -133,7 +133,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -144,7 +144,7 @@ class Thickness():
         clientObject.material = material_no
 
         # Thickness Properties
-        if properties == None:
+        if properties is None:
             raise Exception('WARNING: The properties parameter cannot be empty')
         elif len(properties) != 6:
             raise Exception('WARNING: The properties parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.')
@@ -193,7 +193,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -250,7 +250,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -261,7 +261,7 @@ class Thickness():
         clientObject.material = material_no
 
         # Thickness Properties
-        if properties == None:
+        if properties is None:
             raise Exception('WARNING: The properties parameter cannot be empty')
         elif len(properties) != 8:
             raise Exception('WARNING: The properties parameter needs to be of length 8. Kindly check list inputs for completeness and correctness.')
@@ -312,7 +312,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -323,7 +323,7 @@ class Thickness():
         clientObject.material = material_no
 
         # Thickness Properties
-        if properties == None:
+        if properties is None:
             raise Exception('WARNING: The properties parameter cannot be empty')
         elif len(properties) != 2:
             raise Exception('WARNING: The properties parameter needs to be of length 2. Kindly check list inputs for completeness and correctness.')
@@ -367,7 +367,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -461,7 +461,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -600,7 +600,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -630,7 +630,8 @@ class Thickness():
 
         # Stiffness Matrix - Bending/Torsional Stiffness Elements
         array_count = []
-        [array_count.append(len(item_length)) for item_length in stiffness_matrix]
+        for item_length in stiffness_matrix:
+            array_count.append(len(item_length))
         if array_count != [6, 3, 6, 6]:
             raise Exception('WARNING: Kindly check Stiffness Matrix inputs for completeness and correctness.')
         clientObject.D11, clientObject.D12, clientObject.D13 = stiffness_matrix[0][0], stiffness_matrix[0][1], stiffness_matrix[0][2]

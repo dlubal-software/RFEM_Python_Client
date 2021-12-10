@@ -48,15 +48,15 @@ class LoadCase():
 
         # Self-weight Considerations
         clientObject.self_weight_active = self_weight[0]
-        if type(self_weight[0]) != bool:
+        if isinstance(self_weight[0], bool):
             raise Exception('WARNING: Entry at index 0 of Self-Weight parameter to be of type bool')
-        if self_weight[0] == True:
+        if self_weight[0]:
             if len(self_weight) != 4:
                 raise Exception('WARNING: Self-weight is activated and therefore requires a list definition of length 4. Kindly check list inputs for completeness and correctness.')
             clientObject.self_weight_factor_x = self_weight[1]
             clientObject.self_weight_factor_y = self_weight[2]
             clientObject.self_weight_factor_z = self_weight[3]
-        elif self_weight[0] == False:
+        else:
             if len(self_weight) != 1:
                 raise Exception('WARNING: Self-weight is deactivated and therefore requires a list definition of length 1. Kindly check list inputs for completeness and correctness.')
 
@@ -141,15 +141,15 @@ class LoadCase():
 
         # Self-weight Considerations
         clientObject.self_weight_active = self_weight[0]
-        if type(self_weight[0]) != bool:
+        if isinstance(self_weight[0], bool):
             raise Exception('WARNING: Entry at index 0 of Self-Weight parameter to be of type bool')
-        if self_weight[0] == True:
+        if self_weight[0]:
             if len(self_weight) != 4:
                 raise Exception('WARNING: Self-weight is activated and therefore requires a list definition of length 4. Kindly check list inputs for completeness and correctness.')
             clientObject.self_weight_factor_x = self_weight[1]
             clientObject.self_weight_factor_y = self_weight[2]
             clientObject.self_weight_factor_z = self_weight[3]
-        elif self_weight[0] == False:
+        else:
             if len(self_weight) != 1:
                 raise Exception('WARNING: Self-weight is deactivated and therefore requires a list definition of length 1. Kindly check list inputs for completeness and correctness.')
 

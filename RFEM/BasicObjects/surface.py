@@ -302,19 +302,19 @@ class Surface():
         clientObject.surface_weight = surface_weight
 
         # Loading Parameters
-        if excluded_members != None:
+        if excluded_members is not None:
             clientObject.excluded_members = ConvertToDlString(excluded_members)
-        if excluded_parallel_to_members != None:
+        if excluded_parallel_to_members is not None:
             clientObject.excluded_parallel_to_members = ConvertToDlString(excluded_parallel_to_members)
-        if excluded_lines != None:
+        if excluded_lines is not None:
             clientObject.excluded_lines = ConvertToDlString(excluded_lines)
-        if excluded_parallel_to_lines != None:
+        if excluded_parallel_to_lines is not None:
             clientObject.excluded_parallel_to_lines = ConvertToDlString(excluded_parallel_to_lines)
-        if loaded_members != None:
+        if loaded_members is not None:
             clientObject.loaded_members = ConvertToDlString(loaded_members)
-        if loaded_lines != None:
+        if loaded_lines is not None:
             clientObject.loaded_lines = ConvertToDlString(loaded_lines)
-        if loaded_lines == None and loaded_members == None:
+        if loaded_lines is None and loaded_members is None:
             raise Exception('WARNING: Loaded lines and/or members need to be specified.')
 
         # Comment

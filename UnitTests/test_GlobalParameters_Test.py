@@ -16,7 +16,7 @@ from RFEM.initModel import *
 
 def test_global_parameters():
 
-    clientModel.service.begin_modification('new')
+    Model.clientModel.service.begin_modification('new')
     #not yet implemented in RFEM6 GM
     GlobalParameter.AddParameter(GlobalParameter,
                                  no= 1,
@@ -65,4 +65,4 @@ def test_global_parameters():
 
     print('Ready!')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()

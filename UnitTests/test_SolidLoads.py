@@ -15,7 +15,7 @@ from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.Loads.nodalLoad import NodalLoad
 
 def test_solid_loads():
-    clientModel.service.begin_modification('new')
+    Model.clientModel.service.begin_modification('new')
 
     Material(1, 'S235')
 
@@ -156,4 +156,4 @@ def test_solid_loads():
     #Calculate_all()
     print('Ready!')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()

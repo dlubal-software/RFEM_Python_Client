@@ -1,12 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from RFEM.enums import *
-from RFEM.initModel import *
-from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
-from RFEM.BasicObjects.node import Node
-from RFEM.BasicObjects.member import Member
-from RFEM.TypesForNodes.nodalSupport import NodalSupport
 import os
 import sys
 baseName = os.path.basename(__file__)
@@ -14,10 +7,13 @@ dirName = os.path.dirname(__file__)
 print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
-
-
-# Import der Bibliotheken
-#from RFEM.window import window
+from RFEM.enums import NodalSupportType, MemberRotationSpecificationType
+from RFEM.initModel import Model
+from RFEM.BasicObjects.material import Material
+from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.member import Member
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
 
 if __name__ == '__main__':
 
@@ -26,7 +22,8 @@ if __name__ == '__main__':
     d = float(input('Distance between frames in m: '))
     h = float(input('Height of frame in m: '))
 
-    clientModel.service.begin_modification()
+    Model()
+    Model.clientModel.service.begin_modification()
 
     # nodes
 
@@ -104,7 +101,7 @@ if __name__ == '__main__':
             i = 1
             while i <= n-1:
                 k = n*4+(n-1)*2
-                if i == 1 or i == n-1:
+                if i in (1, n-1):
                     Member.Tension(0, k+1+4*(i-1), (i-1)*5+1, (i-1)*5+7,
                                    MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 3)
                     Member.Tension(0, k+2+4*(i-1), (i-1)*5+2, (i-1)*5+6,
@@ -158,4 +155,4 @@ if __name__ == '__main__':
 
     print("Preparing...")
     print('Ready!')
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()

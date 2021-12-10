@@ -213,7 +213,7 @@ def ConvertToDlString(s):
 
     Returns a WS conform string.
     '''
-    if type(s)==list:
+    if isinstance(s, list):
         return ' '.join(map(str, s))
 
     s = s.replace(',', ' ')
@@ -221,7 +221,7 @@ def ConvertToDlString(s):
     lst = s.split(' ')
     new_lst = []
     for element in lst:
-        if('-' in element):
+        if '-' in element:
             inLst = element.split('-')
             start = int(inLst[0])
             end   = int(inLst[1])
@@ -314,31 +314,26 @@ def ParseXMLResultsFromSelectedFileToDict(filePath: str):
 
 def GenerateMesh():
 
-     Model.clientModel.service.generate_mesh()
+    Model.clientModel.service.generate_mesh()
 
 def GetMeshStatics():
 
-    mesh_stats =  Model.clientModel.service.get_mesh_statistics()
-    return  Model.clientModel.dict(mesh_stats)
+    mesh_stats = Model.clientModel.service.get_mesh_statistics()
+    return Model.clientModel.dict(mesh_stats)
 
-def FirstFreeIdNumber(type = ObjectTypes.E_OBJECT_TYPE_MEMBER,
-            parent_no: int = 0):
-
-            '''
-            This method returns the next available Id Number for the selected object type.
-
-            Args:
-                type (enum): Object Type
-                parent_no (int): Object Parent Number
-                    Note:
-                    (1) A geometric object has, in general, a parent_no = 0
-                    (2) The parent_no parameter becomes significant for example with loads
-            '''
-
-            return  Model.clientModel.service.get_first_free_number(type.name, parent_no)
+def FirstFreeIdNumber(memType = ObjectTypes.E_OBJECT_TYPE_MEMBER, parent_no: int = 0):
+    '''
+    This method returns the next available Id Number for the selected object type
+    Args:
+        type (enum): Object Type
+        parent_no (int): Object Parent Number
+            Note:
+            (1) A geometric object has, in general, a parent_no = 0
+            (2) The parent_no parameter becomes significant for example with loads
+    '''
+    return Model.clientModel.service.get_first_free_number(memType.name, parent_no)
 
 def SetModelType(model_type = ModelType.E_MODEL_TYPE_3D):
-
     '''
     This method sets the model type. The model type is E_MODEL_TYPE_3D by default.
 
@@ -362,4 +357,4 @@ def GetModelType():
     The method returns a string of the current model type.
     '''
 
-    return clientModel.service.get_model_type()
+    return Model.clientModel.service.get_model_type()

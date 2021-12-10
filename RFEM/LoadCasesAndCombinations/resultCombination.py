@@ -15,6 +15,9 @@ class ResultCombination():
         # Result Combination No.
         clientObject.no = no
 
+        # Comment
+        clientObject.comment = comment
+
         # Adding optional parameters via dictionary
         for key in params:
             clientObject[key] = params[key]

@@ -90,13 +90,13 @@ class Node():
         if len(coordinate_system) != 3:
             raise Exception('WARNING: The coordinate system needs to be of length 3. Kindly check list inputs for completeness and correctness.')
 
-        if type(coordinate_system[0]) != int or type(coordinate_system[0]) != float :
+        if not isinstance(coordinate_system[0], (int, float)):
             raise Exception ('WARNING: Coordinate system at index 0 to be of type "int" or ''float''')
 
-        if type(coordinate_system[1]) != int or type(coordinate_system[1]) != float :
+        if not isinstance(coordinate_system[1], (int, float)):
             raise Exception ('WARNING: Coordinate system at index 1 to be of type "int" or ''float''')
 
-        if type(coordinate_system[2]) != int or type(coordinate_system[2]) != float :
+        if not isinstance(coordinate_system[2], (int, float)):
             raise Exception ('WARNING: Coordinate system at index 2 to be of type "int" or ''float''')
 
         if coordinate_system_type.name == "COORDINATE_SYSTEM_CARTESIAN":
@@ -195,11 +195,10 @@ class Node():
 
         # Distance between node k and start point
 
-        if parameters[0] == True:
+        if parameters[0]: #if parameters[0]==True
             clientObject.distance_from_start_relative = parameters[1]
-
-        elif parameters[0] == False:
-         clientObject.distance_from_start_absolute = parameters[1]
+        else:
+            clientObject.distance_from_start_absolute = parameters[1]
 
         # Offset_local_y
         clientObject.offset_in_local_direction_y = offset_y
@@ -281,10 +280,10 @@ class Node():
 
         # Distance between node k and start point
 
-        if parameters[0] == True:
+        if parameters[0]:
             clientObject.distance_from_start_relative = parameters[1]
-        elif parameters[0] == False:
-         clientObject.distance_from_start_absolute = parameters[1]
+        else:
+            clientObject.distance_from_start_absolute = parameters[1]
 
         # offset local coordinates
         clientObject.offset_in_local_direction_y= offset_y
@@ -300,7 +299,6 @@ class Node():
         Model.clientModel.service.set_node(clientObject)
 
     def OnLine(self,
-                 no: int = 1,
                  line_number: int = 1,
                  node_reference = NodeReferenceType.REFERENCE_TYPE_L,
                  length_between_i_and_j: int = 1,
@@ -310,7 +308,6 @@ class Node():
 
         '''
          Args:
-            no (int): Node Tag
             line_number (int): Line Tag
             node_reference (enum): Node Reference Enumeration
             length_between_i_and_j (int): Length between 2 Nodes
@@ -343,10 +340,10 @@ class Node():
 
         # Distance between node k and start point
 
-        if parameters[0] == True:
+        if parameters[0]:
             clientObject.distance_from_start_relative = parameters[1]
-        elif parameters[0] == False:
-         clientObject.distance_from_start_absolute = parameters[1]
+        else:
+            clientObject.distance_from_start_absolute = parameters[1]
 
         # Comment
         clientObject.comment = comment
@@ -404,10 +401,10 @@ class Node():
 
         # Distance between node k and start point
 
-        if parameters[0] == True:
+        if parameters[0]:
             clientObject.distance_from_start_relative = parameters[1]
-        elif parameters[0] == False:
-         clientObject.distance_from_start_absolute = parameters[1]
+        else:
+            clientObject.distance_from_start_absolute = parameters[1]
 
         # Comment
         clientObject.comment = comment

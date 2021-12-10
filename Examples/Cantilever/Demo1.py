@@ -7,9 +7,10 @@ dirName = os.path.dirname(__file__)
 print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
+
 # Import der Bibliotheken
-from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType
+from RFEM.initModel import Model, Calculate_all
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
@@ -37,21 +38,19 @@ if __name__ == '__main__':
 
     NodalSupport(1, '1', NodalSupportType.FIXED)
 
-    StaticAnalysisSettings(
-        1, '1. Ordnung', StaticAnalysisType.GEOMETRICALLY_LINEAR)
+    StaticAnalysisSettings(1, '1. Ordnung', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
     LoadCase(1, 'Eigengewicht', [True, 0.0, 0.0, 1.0])
 
-    NodalLoad(
-        1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, f*1000)
+    NodalLoad(1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, f*1000)
     Model.clientModel.service.finish_modification()
 
     Calculate_all()
 
     # model status
     modelStatus = Model.clientModel.service.get_model_info()
-    print("Model is calculated") if modelStatus.property_has_results else print("Model is not calculated")
-    print("Model contains printout report") if modelStatus.property_has_printout_report else print("Model has not printout report")
+    print("Model is calculated" if modelStatus.property_has_results else "Model is not calculated")
+    print("Model contains printout report" if modelStatus.property_has_printout_report else "Model has not printout report")
     print ("Model contains " +  str(modelStatus.property_node_count) + " nodes")
     print ("Model contains " +  str(modelStatus.property_line_count) + " lines")
     print ("Model contains " +  str(modelStatus.property_member_count) + " members")
@@ -65,14 +64,14 @@ if __name__ == '__main__':
     print ("Model dimension y " + str(modelStatus.property_dimensions.y))
     print ("Model dimension z " + str(modelStatus.property_dimensions.z))
 
-    # clientModel.service.save(r"D:/TEMP/model.rf6")
+    # Model.clientModel.service.save(r"D:/TEMP/model.rf6")
 
-    # clientModel.service.export_to(r"D:/TEMP/model.gltf")
-    # clientModel.service.export_to(r"D:/TEMP/model.glb")
-    # clientModel.service.export_to(r"D:/TEMP/model.vtk")
-    # clientObject = clientModel.factory.create('ns0:nodal_load')
+    # Model.clientModel.service.export_to(r"D:/TEMP/model.gltf")
+    # Model.clientModel.service.export_to(r"D:/TEMP/model.glb")
+    # Model.clientModel.service.export_to(r"D:/TEMP/model.vtk")
+    # clientObject = Model.clientModel.factory.create('ns0:nodal_load')
     # export_to_ifc_object_location_type[] ifcLocation = null; // whole model will be exported
-    # ifcSettings = clientModel.factory.create('ns0:export_to_ifc_settings_type')
+    # ifcSettings = Model.clientModel.factory.create('ns0:export_to_ifc_settings_type')
 
     # ifcSettings.axis_rotation_sequence = "X'Y'Z'"
     # ifcSettings.mirror_axis_x = False
@@ -89,7 +88,7 @@ if __name__ == '__main__':
     # ifcSettings.switch_axis_y = export_to_ifc_axis_type.Y.name
     # ifcSettings.switch_axis_z = export_to_ifc_axis_type.Z.name
     # ifcSettings.remove_accents = False
-    # clientModel.service.export_to_ifc(r'D:/TEMP/Mymodel.ifc', ifcSettings, None)
+    # Model.clientModel.service.export_to_ifc(r'D:/TEMP/Mymodel.ifc', ifcSettings, None)
 
     # loadCases = [1]
     # CalculateSelectedCases(loadCases=loadCases)

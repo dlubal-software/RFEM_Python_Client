@@ -125,16 +125,16 @@ class Line():
         clientObject.definition_nodes = ConvertToDlString(nodes_no)
 
         # Center of circle
-        clientObject.circle_center_coordinate_1 = center_of_cirle[0],
-        clientObject.circle_center_coordinate_2 = center_of_cirle[1],
-        clientObject.circle_center_coordinate_3 = center_of_cirle[2],
+        clientObject.circle_center_coordinate_1 = center_of_cirle[0]
+        clientObject.circle_center_coordinate_2 = center_of_cirle[1]
+        clientObject.circle_center_coordinate_3 = center_of_cirle[2]
 
         clientObject.circle_radius = circle_radius,
 
         # Point of normal to circle plane
-        clientObject.circle_normal_coordinate_1 = point_of_normal_to_circle_plane[0],
-        clientObject.circle_normal_coordinate_2 = point_of_normal_to_circle_plane[1],
-        clientObject.circle_normal_coordinate_3 = point_of_normal_to_circle_plane[2],
+        clientObject.circle_normal_coordinate_1 = point_of_normal_to_circle_plane[0]
+        clientObject.circle_normal_coordinate_2 = point_of_normal_to_circle_plane[1]
+        clientObject.circle_normal_coordinate_3 = point_of_normal_to_circle_plane[2]
 
         # Comment
         clientObject.comment = comment

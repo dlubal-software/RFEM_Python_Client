@@ -128,8 +128,8 @@ class SurfaceLoad():
             clientObject.node_2 = load_parameter[4]
             clientObject.node_3 = load_parameter[5]
 
-        elif load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X or load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y\
-            or load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z:
+        elif load_distribution in (SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y, \
+            SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z):
 
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
@@ -252,8 +252,8 @@ class SurfaceLoad():
             clientObject.node_2 = load_parameter[7]
             clientObject.node_3 = load_parameter[8]
 
-        elif load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X or load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y\
-            or load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z:
+        elif load_distribution in (SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y,\
+            SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z):
             clientObject.magnitude_t_c_1 = load_parameter[0]
             clientObject.magnitude_delta_t_1 = load_parameter[1]
             clientObject.magnitude_t_c_2 = load_parameter[2]
@@ -357,8 +357,8 @@ class SurfaceLoad():
             clientObject.node_2 = load_parameter[7]
             clientObject.node_3 = load_parameter[8]
 
-        elif load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X or load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y\
-            or load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z:
+        elif load_distribution in (SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y,\
+            SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z):
             clientObject.magnitude_axial_strain_1x = load_parameter[0]
             clientObject.magnitude_axial_strain_1y = load_parameter[1]
             clientObject.magnitude_axial_strain_2x = load_parameter[2]
