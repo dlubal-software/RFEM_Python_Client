@@ -192,7 +192,7 @@ class StaticAnalysisSettings():
         """
 
         # Client model
-        Model.clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
+        clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -353,7 +353,7 @@ class StaticAnalysisSettings():
         """
 
         # Client model
-        Model.clientObject = clientModel.factory.create('ns0:static_analysis_settings')
+        clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
