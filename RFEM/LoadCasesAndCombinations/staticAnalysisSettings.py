@@ -192,7 +192,7 @@ class StaticAnalysisSettings():
         """
 
         # Client model
-        Model.clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
+        clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -255,7 +255,7 @@ class StaticAnalysisSettings():
 
         if not isinstance(control_nonlinear_analysis[0],int):
             raise Exception ('WARNING: Enabling the standard precision and tolerance settings at index 0 has to be of type "int"')
-        if isinstance(control_nonlinear_analysis[1], int):
+        if not isinstance(control_nonlinear_analysis[1], int):
             raise Exception ('WARNING: Precision of convergence criteria for nonlinear calculation factor at index 1 has to be of type "int"')
 
         clientObject.max_number_of_iterations = control_nonlinear_analysis[0]
@@ -354,7 +354,7 @@ class StaticAnalysisSettings():
         """
 
         # Client model
-        Model.clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
+        clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -408,9 +408,9 @@ class StaticAnalysisSettings():
         if len(control_nonlinear_analysis) != 2:
             raise Exception('WARNING: The nonlinear analysis control parameter needs to be of length 2. Kindly check list inputs for completeness and correctness.')
 
-        if isinstance(control_nonlinear_analysis[0], int):
+        if not isinstance(control_nonlinear_analysis[0], int):
             raise Exception ('WARNING: Enabling the standard precision and tolerance settings at index 0 has to be of type "int"')
-        if isinstance(control_nonlinear_analysis[1], int):
+        if not isinstance(control_nonlinear_analysis[1], int):
             raise Exception ('WARNING: Precision of convergence criteria for nonlinear calculation factor at index 1 has to be of type "int"')
 
         clientObject.max_number_of_iterations = control_nonlinear_analysis[0]

@@ -48,7 +48,7 @@ class LoadCase():
 
         # Self-weight Considerations
         clientObject.self_weight_active = self_weight[0]
-        if isinstance(self_weight[0], bool):
+        if not isinstance(self_weight[0], bool):
             raise Exception('WARNING: Entry at index 0 of Self-Weight parameter to be of type bool')
         if self_weight[0]:
             if len(self_weight) != 4:
