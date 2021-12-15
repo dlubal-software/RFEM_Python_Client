@@ -142,11 +142,18 @@ class Model():
                  reset: bool=False):
 
         cModel = None
+        modelLst = client.service.get_model_list()
+
         if new_model:
-            new = client.service.new_model(model_name) + 'wsdl'
-            cModel = Client(new, transport=trans)
+            if model_name in modelLst.name:
+                new = client.service.open_model(model_name) + 'wsdl'
+                cModel = Client(new, transport=trans)
+                cModel.service.delete_all_results()
+                cModel.service.reset()
+            else:
+                new = client.service.new_model(model_name) + 'wsdl'
+                cModel = Client(new, transport=trans)
         else:
-            modelLst = client.service.get_model_list()
             modelIndex = 0
             for i in range(len(modelLst)):
                 if modelLst[i] == model_name:
@@ -161,7 +168,6 @@ class Model():
                 cModel.service.reset()
 
         Model.clientModel = cModel
-        print('Geometry...')
 
 def clearAtributes(obj):
     '''
@@ -237,8 +243,29 @@ def ConvertToDlString(s):
     s = ' '.join(new_lst)
     return s
 
-def method_exists(instance, method):
-    return hasattr(instance, method) and callable(instance.method)
+def method_exists(client, method_or_type):
+    """
+    Check if SOAP method or type is present in your version of RFEM/RSTAB.
+
+    Args:
+        client (Model.clientModel)
+        method_or_type (string): method or type of SOAP client
+
+    Returns:
+        [type]: bool
+
+    Note:
+        To get list of methods invoke:
+        list_of_methods = [method for method in Model.clientModel.wsdl.services[0].ports[0]]
+    """
+    if client is None:
+        print("WARNING: Client is not initialized.")
+        return False
+    if method_or_type in str(client):
+        return True
+    else:
+        print("WARNING: Used method/type: %s is not implemented in Web Services yet." % (method_or_type))
+        return False
 
 def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None):
     '''

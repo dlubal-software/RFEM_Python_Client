@@ -8,6 +8,7 @@ sys.path.append(PROJECT_ROOT)
 import pytest
 from RFEM.enums import *
 from RFEM.baseSettings import BaseSettings
+from RFEM.initModel import method_exists
 
 def test_base_settings_implemented():
 
