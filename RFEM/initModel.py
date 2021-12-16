@@ -145,7 +145,7 @@ class Model():
         modelLst = client.service.get_model_list()
 
         if new_model:
-            if model_name in modelLst.name:
+            if modelLst and model_name in modelLst.name:
                 new = client.service.open_model(model_name) + 'wsdl'
                 cModel = Client(new, transport=trans)
                 cModel.service.delete_all_results()
