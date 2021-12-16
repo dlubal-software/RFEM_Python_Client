@@ -8,7 +8,7 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 from RFEM.enums import NodalSupportType, MemberRotationSpecificationType
-from RFEM.initModel import Model
+from RFEM.initModel import Model, insertSpaces
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
@@ -38,15 +38,11 @@ if __name__ == '__main__':
         i += 1
 
     # Nodal Supports
-    i = 1
-    nodes_no = ""
-    while i <= n:
-        j = (i-1) * 5
-        nodes_no += str(j+1) + " "
-        nodes_no += str(j+5) + " "
-        i += 1
-        nodes_no = nodes_no.rstrip(nodes_no[-1])
-        NodalSupport(1, nodes_no, NodalSupportType.HINGED, "Hinged support")
+    nodes_no = []
+    for i in range(n):
+        j = 5*i
+        nodes_no.extend([j+1, j+5])
+    NodalSupport(1, insertSpaces(nodes_no), NodalSupportType.HINGED, "Hinged support")
 
     # members
     Material(1, 'S235')
