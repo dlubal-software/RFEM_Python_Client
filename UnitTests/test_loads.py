@@ -20,6 +20,7 @@ from RFEM.Loads.lineLoad import *
 from RFEM.Loads.nodalLoad import *
 from RFEM.Loads.surfaceLoad import *
 from RFEM.Loads.lineLoad import *
+from RFEM.Loads.imposedLineDeformation import *
 
 ### Nodal Load Unit Tests ###
 
