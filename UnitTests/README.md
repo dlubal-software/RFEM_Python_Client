@@ -32,4 +32,4 @@ Labels: . - passed, s - skipped, e - error, f - failed
 ![image](https://user-images.githubusercontent.com/37547309/147245207-530f75fa-33b3-4cec-9f01-8b81da8b3edd.png)
 
 ## Contribute
-Contributions are always welcome! Just ensure consistency with other unit tests by startinh with `UnitTests/template.py`
+Contributions are always welcome! Just be sure to start with `UnitTests/template.py`
