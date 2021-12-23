@@ -14,7 +14,7 @@ Python client (or high-level functions) for [RFEM 6](https://www.dlubal.com/en/p
     + [Dependencies](#dependencies)
     + [Step by step](#step-by-step)
     + [Examples](#examples)
-    + [Unit Tets](#UnitTests)
+    + [Unit Tets](#unit-tests)
   * [License](#license)
   * [Contribute](#contribute)
 
