@@ -45,7 +45,7 @@ Dependency check is implemented inside [initModel.py](/RFEM/initModel.py) with o
 4) Run your script. Inspirations can be found in Examples.
 
 ### Examples
-These scripts are intended to be used as templates or examples. Also can be used for testing of backward compatibility.
+Scripts intended to be used as templates or examples. Also can be used for testing of backward compatibility.
 
 ### Unit Tests
 Collection of scripts to support further development.
