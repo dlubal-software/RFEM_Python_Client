@@ -6,17 +6,17 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.initModel import Model, method_exists
+from RFEM.initModel import Model, CheckIfMethodOrTypeExists
 from RFEM.enums import ObjectTypes
 
 if __name__ == "__main__":
 
     Model()
-    method_exists(Model.clientModel,'ns0:object_location')
-    method_exists(Model.clientModel,'ns0:object_parameter_location_type')
-    method_exists(Model.clientModel,'ns0:object_parameter_location_type.parameter_path_in_nested_models_hierarchy')
-    method_exists(Model.clientModel,'ns0:object_parameter_location_type.parameter_path_in_nested_models_hierarchy.node')
-    method_exists(Model.clientModel,'get_formula')
+    CheckIfMethodOrTypeExists(Model.clientModel,'ns0:object_location')
+    CheckIfMethodOrTypeExists(Model.clientModel,'ns0:object_parameter_location_type')
+    CheckIfMethodOrTypeExists(Model.clientModel,'ns0:object_parameter_location_type.parameter_path_in_nested_models_hierarchy')
+    CheckIfMethodOrTypeExists(Model.clientModel,'ns0:object_parameter_location_type.parameter_path_in_nested_models_hierarchy.node')
+    CheckIfMethodOrTypeExists(Model.clientModel,'get_formula')
 
     objectLocation = Model.clientModel.factory.create('ns0:object_location')
     objectLocation.type = ObjectTypes.E_OBJECT_TYPE_SECTION.name

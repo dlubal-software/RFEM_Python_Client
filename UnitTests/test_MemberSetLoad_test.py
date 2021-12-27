@@ -14,11 +14,15 @@ from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.material import Material
-from RFEM.initModel import *
+from RFEM.initModel import Model, Calculate_all
 from RFEM.enums import *
 
+if Model.clientModel is None:
+    Model()
+
 def test_member_set_load():
-    Model(True, "MemberSetLoad")
+
+    Model.clientModel.service.reset()
     Model.clientModel.service.begin_modification()
 
     # Create Material
@@ -251,8 +255,6 @@ def test_member_set_load():
     MemberSetLoad.Rotation(0, 67, 1, '1', MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])
 
     Calculate_all()
-
-    print('Ready!')
 
     Model.clientModel.service.finish_modification()
 

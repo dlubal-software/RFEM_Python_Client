@@ -162,7 +162,7 @@ class SurfaceLoad():
         elif load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
 
             clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:surface_load.varying_load_parameters')
-            for i in range(len(load_parameter)):
+            for i,j in enumerate(load_parameter):
                 mlvlp = Model.clientModel.factory.create('ns0:surface_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]

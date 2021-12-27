@@ -7,10 +7,13 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.initModel import Model, CheckIfMethodOrTypeExists
 from RFEM.LoadCasesAndCombinations.stabilityAnalysisSettings import StabilityAnalysisSettings
 
-@pytest.mark.skip("all tests still WIP")
+if Model.clientModel is None:
+    Model()
+
+pytestmark = pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:stability_analysis_settings', True), reason="Type ns0:stability_analysis_settings not in RFEM yet")
 def test_stability_analysis_settings_init():
 
     Model.clientModel.service.reset()
@@ -33,7 +36,6 @@ def test_stability_analysis_settings_init():
     assert stability_analysis_settings.minimum_initial_strain == 1e-05
     assert stability_analysis_settings.number_of_lowest_eigenvalues == 4
 
-@pytest.mark.skip("all tests still WIP")
 def test_stability_analysis_settings_eigenvalue_method():
 
     Model.clientModel.service.reset()
@@ -66,7 +68,6 @@ def test_stability_analysis_settings_eigenvalue_method():
     assert stability_analysis_settings.minimum_initial_strain == 2.5e-05
     assert stability_analysis_settings.number_of_lowest_eigenvalues == 5
 
-@pytest.mark.skip("all tests still WIP")
 def test_stability_analysis_settings_incrementaly_method_with_eigenvalue():
 
     Model.clientModel.service.reset()
@@ -110,7 +111,6 @@ def test_stability_analysis_settings_incrementaly_method_with_eigenvalue():
     assert stability_analysis_settings.stopping_of_load_increasing_limit_result_displacement == 0.1
     assert stability_analysis_settings.stopping_of_load_increasing_result == 'RESULT_TYPE_DISPLACEMENT_U'
 
-@pytest.mark.skip("all tests still WIP")
 def test_stability_analysis_settings_incrementaly_method_without_eigenvalue():
 
     Model.clientModel.service.reset()

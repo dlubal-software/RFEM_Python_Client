@@ -14,10 +14,14 @@ from RFEM.enums import *
 from RFEM.globalParameter import GlobalParameter
 from RFEM.initModel import *
 
+if Model.clientModel is None:
+    Model()
+
 def test_global_parameters():
 
-    Model.clientModel.service.begin_modification('new')
-    #not yet implemented in RFEM6 GM
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
+
     GlobalParameter.AddParameter(GlobalParameter,
                                  no= 1,
                                  name= 'Test_1',
@@ -62,7 +66,5 @@ def test_global_parameters():
                                 definition_type= GlobalParameterDefinitionType.DEFINITION_TYPE_VALUE,
                                 definition_parameter= [0.25],
                                 comment= 'Comment_5')
-
-    print('Ready!')
 
     Model.clientModel.service.finish_modification()

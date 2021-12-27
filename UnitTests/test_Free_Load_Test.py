@@ -18,9 +18,13 @@ from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 
+if Model.clientModel is None:
+    Model()
+
 def test_free_load():
-    Model(True, "FreeLoad")
-    Model.clientModel.service.begin_modification('new')
+
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
 
@@ -205,8 +209,6 @@ def test_free_load():
                          [[1, 4], [0, 6], [2, 6]],
                          [1500, 7500, 2, 1])
 
-    #print(Model.clientModel)
     #Calculate_all()
-    print('Ready!')
 
     Model.clientModel.service.finish_modification()

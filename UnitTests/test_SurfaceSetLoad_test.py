@@ -15,12 +15,15 @@ from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.material import Material
-from RFEM.initModel import *
+from RFEM.initModel import Model, Calculate_all
 from RFEM.enums import *
+
+if Model.clientModel is None:
+    Model()
 
 def test_surface_set_load():
 
-    Model(True, "SurfaceSetLoad")
+    Model.clientModel.service.reset()
     Model.clientModel.service.begin_modification()
 
     # Create Material
@@ -139,7 +142,4 @@ def test_surface_set_load():
 
     Calculate_all()
 
-    print('Ready!')
-
     Model.clientModel.service.finish_modification()
-

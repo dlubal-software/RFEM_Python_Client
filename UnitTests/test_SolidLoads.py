@@ -1,3 +1,11 @@
+import sys
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
+
 from RFEM.Loads.solidLoad import SolidLoad
 from RFEM.Loads.solidSetLoad import SolidSetLoad
 from RFEM.enums import *
@@ -14,8 +22,13 @@ from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisS
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.Loads.nodalLoad import NodalLoad
 
+if Model.clientModel is None:
+    Model()
+
 def test_solid_loads():
-    Model.clientModel.service.begin_modification('new')
+
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
 
@@ -154,6 +167,5 @@ def test_solid_loads():
     SolidSetLoad.Gass()
 
     #Calculate_all()
-    print('Ready!')
 
     Model.clientModel.service.finish_modification()

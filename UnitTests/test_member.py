@@ -1,21 +1,24 @@
 import os
 import sys
-baseName = os.path.basename(__file__)
-dirName = os.path.dirname(__file__)
-print('basename:    ', baseName)
-print('dirname:     ', dirName)
-sys.path.append(dirName + r'/..')
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForMembers.memberDefinableStiffness import MemberDefinableStiffness
+import pytest
 
+if Model.clientModel is None:
+    Model()
 
-
+pytestmark = pytest.mark.skip(False, reason="This test can be skipped/deleted since test_member_test does the same.")
 def test_init():
 
     Model.clientModel.service.reset()

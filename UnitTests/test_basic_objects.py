@@ -5,8 +5,9 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
+import pytest
 from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.thickness import Thickness
@@ -18,6 +19,9 @@ from RFEM.BasicObjects.opening import Opening
 from RFEM.BasicObjects.lineSet import LineSet
 from RFEM.BasicObjects.memberSet import MemberSet
 from RFEM.BasicObjects.memberByLine import MemberByLine
+
+if Model.clientModel is None:
+    Model()
 
 def test_line_init():
 
@@ -366,10 +370,9 @@ def test_thickness_4corners():
     Node(3, 3, 3, 0)
     Node(4, 0, 3, 0)
 
-    Thickness.Variable_4SurfaceCorners
-    Model.clientModel.service.finish_modification()
-
     Thickness.Variable_4SurfaceCorners(0, 1, '4', 1, [0.2, 1, 0.15, 2, 0.1, 3, 0.05, 4])
+
+    Model.clientModel.service.finish_modification()
 
     thickness = Model.clientModel.service.get_thickness(1)
 
@@ -392,6 +395,7 @@ def test_thickness_circle():
     assert thickness.type == "TYPE_VARIABLE_CIRCLE"
     assert thickness.thickness_circle_line == 0.1
 
+@pytest.mark.skip("all tests still WIP")
 def test_thickness_layers():
 
     Model.clientModel.service.reset()

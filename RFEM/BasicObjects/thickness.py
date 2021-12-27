@@ -2,7 +2,7 @@ from RFEM.enums import ThicknessDirection, ThicknessType
 from RFEM.enums import ThicknessOrthotropyType
 from RFEM.enums import ThicknessShapeOrthotropySelfWeightDefinitionType
 from RFEM.enums import ThicknessStiffnessMatrixSelfWeightDefinitionType
-from RFEM.initModel import *
+from RFEM.initModel import Model, CheckAddonStatus, clearAtributes, SetAddonStatus
 from math import pi
 
 class Thickness():
@@ -348,6 +348,8 @@ class Thickness():
                  params: dict = {}):
 
         '''
+        Available only for Special Solution Add-on Multilayer Surfaces.
+
         Args:
             no (int): Thickness Tag
             name (str): Thickness Name
@@ -356,6 +358,10 @@ class Thickness():
             comment (str, optional): Comments
             params (dict, optional): Parameters
         '''
+
+        # Check if Multilayer Surfaces Add-on is ON.
+        if not CheckAddonStatus(Model.clientModel, "multilayer_surfaces_active"):
+            SetAddonStatus(Model.clientModel, "multilayer_surfaces_active", True)
 
         # Client model | Thickness
         clientObject = Model.clientModel.factory.create('ns0:thickness')
@@ -367,7 +373,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name is not None:
+        if name:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -377,7 +383,7 @@ class Thickness():
         # Layers
         clientObject.layers_reference_table = Model.clientModel.factory.create('ns0:thickness.layers_reference_table')
 
-        for i in range(len(layers)):
+        for i,j in enumerate(layers):
             tlrt = Model.clientModel.factory.create('ns0:thickness_layers_reference_table')
             tlrt.no = no
             tlrt.layer_no = i+1

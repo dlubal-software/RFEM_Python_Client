@@ -13,11 +13,15 @@ from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.material import Material
-from RFEM.initModel import *
+from RFEM.initModel import Model, Calculate_all
 from RFEM.enums import *
 
+if Model.clientModel is None:
+    Model()
+
 def test_member_loads():
-    Model(True, "MemberLoad")
+
+    Model.clientModel.service.reset()
     Model.clientModel.service.begin_modification()
 
     # Create Material
@@ -254,8 +258,6 @@ def test_member_loads():
     MemberLoad.PipeContentFull(0, 68, 1, '2', MemberLoadDirectionOrientation.LOAD_DIRECTION_FORWARD, 50)
 
     Calculate_all()
-
-    print('Ready!')
 
     Model.clientModel.service.finish_modification()
 

@@ -1,7 +1,6 @@
 import sys
-from RFEM.enums import *
-#import json
-#import xml.etree.ElementTree as ET
+import csv
+from RFEM.enums import ObjectTypes, ModelType
 
 # Import SUDS module
 try:
@@ -90,7 +89,7 @@ except:
         import subprocess
         try:
             subprocess.call('python -m pip install xmltodict --user')
-            import requests
+            import xmltodict
         except:
             print('WARNING: Installation of xmltodict library failed!')
             print('Please use command "pip install xmltodict --user" in your Command Prompt.')
@@ -99,8 +98,6 @@ except:
     else:
         input('Press Enter to exit...')
         sys.exit()
-
-import csv
 
 # Connect to server
 # Check server port range set in "Program Options & Settings"
@@ -128,10 +125,14 @@ except:
 # Without next 4 lines the connection lasts only 1 request,
 # the message: 'Application is locked by external connection'
 # is blinking whole time and the execution is unnecessarily long.
-session = requests.Session()
-adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
-session.mount('http://', adapter)
-trans = suds_requests.RequestsTransport(session)
+# This solution works with unit-tests.
+def persistent():
+    session = requests.Session()
+    adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
+    session.mount('http://', adapter)
+    return suds_requests.RequestsTransport(session)
+
+trans = persistent()
 
 class Model():
     clientModel = None
@@ -142,10 +143,10 @@ class Model():
                  reset: bool=False):
 
         cModel = None
-        modelLst = client.service.get_model_list()
+        modelLs = client.service.get_model_list()
 
         if new_model:
-            if modelLst and model_name in modelLst.name:
+            if modelLs and model_name in modelLs.name:
                 new = client.service.open_model(model_name) + 'wsdl'
                 cModel = Client(new, transport=trans)
                 cModel.service.delete_all_results()
@@ -155,8 +156,8 @@ class Model():
                 cModel = Client(new, transport=trans)
         else:
             modelIndex = 0
-            for i in range(len(modelLst)):
-                if modelLst[i] == model_name:
+            for i,j in enumerate(modelLs):
+                if modelLs[i] == model_name:
                     modelIndex = i
             new = client.service.get_model(modelIndex) + 'wsdl'
             cModel = Client(new, transport=trans)
@@ -243,29 +244,90 @@ def ConvertToDlString(s):
     s = ' '.join(new_lst)
     return s
 
-def method_exists(client, method_or_type):
+def CheckIfMethodOrTypeExists(modelClient, method_or_type, unitTestMode=False):
     """
     Check if SOAP method or type is present in your version of RFEM/RSTAB.
+    Use it only in your examples.
+    Unit tests except msg from SUDS where this is checked already.
 
     Args:
-        client (Model.clientModel)
+        modelClient (Model.clientModel)
         method_or_type (string): method or type of SOAP client
 
     Returns:
-        [type]: bool
+        bool: Status of method or type.
 
     Note:
         To get list of methods invoke:
         list_of_methods = [method for method in Model.clientModel.wsdl.services[0].ports[0]]
     """
-    if client is None:
-        print("WARNING: Client is not initialized.")
+    assert modelClient is not None, "WARNING: modelClient is not initialized."
+
+    if method_or_type not in str(modelClient):
+        if unitTestMode:
+            return True
+        else:
+            assert False, "WARNING: Used method/type: %s is not implemented in Web Services yet." % (method_or_type)
+
+    return not unitTestMode
+
+
+def CheckAddonStatus(modelClient, addOn = "stress_analysis_active"):
+    """
+    Check if Add-on is reachable and active.
+    For some types of objects, specific Add-ons need to be ennabled.
+
+    Args:
+        modelClient (Model.clientModel)
+        method_or_type (string): method or type of SOAP client
+
+    Returns:
+        (bool): Status of Add-on
+    """
+    if modelClient is None:
+        print("WARNING: modelClient is not initialized.")
         return False
-    if method_or_type in str(client):
-        return True
-    else:
-        print("WARNING: Used method/type: %s is not implemented in Web Services yet." % (method_or_type))
-        return False
+
+    addons = modelClient.service.get_addon_statuses()
+    dct = {}
+    for lstType in addons:
+        if not isinstance(lstType[1], bool) and len(lstType[1]) > 1:
+            addon = [lst for lst in lstType[1]]
+            for item in addon:
+                dct[str(item[0])] = bool(item[1])
+        elif isinstance(lstType[1], bool):
+            dct[str(lstType[0])] = bool(lstType[1])
+        else:
+            assert False
+
+    # sanity check
+    assert addOn in dct, "WARNING: %s Add-on can not be reached." % (addOn)
+
+    return dct[addOn]
+
+def SetAddonStatus(modelClient, addOn = "stress_analysis_active", status = True):
+    """
+    Activate or deactivate Add-on.
+    For some types of objects, specific Add-ons need to be ennabled.
+
+    Args:
+        modelClient (Model.clientModel)
+        method_or_type (string): method or type of SOAP client
+        status (bool): in/active
+    """
+
+    # this will also provide sanity check
+    currentStatus = CheckAddonStatus(modelClient, addOn)
+    if currentStatus != status:
+        addonLst = modelClient.service.get_addon_statuses()
+        if addOn in addonLst['__keylist__']:
+            addonLst[addOn] = status
+        else:
+            for listType in addonLst['__keylist__']:
+                if not isinstance(addonLst[listType], bool) and addOn in addonLst[listType]:
+                    addonLst[listType][addOn] = status
+
+        modelClient.service.set_addon_statuses(addonLst)
 
 def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None):
     '''

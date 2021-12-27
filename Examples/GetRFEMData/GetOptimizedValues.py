@@ -5,15 +5,15 @@ dirName = os.path.dirname(__file__)
 print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
-from RFEM.initModel import Model, method_exists
+from RFEM.initModel import Model, CheckIfMethodOrTypeExists
 
 if __name__ == "__main__":
 
     Model()
-    if method_exists(Model.clientModel,'get_optimized_formula_parameters'):
+    if CheckIfMethodOrTypeExists(Model.clientModel,'get_optimized_formula_parameters'):
 
         optimizationResults = Model.clientModel.service.get_optimized_formula_parameters()
-        if len(optimizationResults):
+        if len(optimizationResults) > 0:
             for i in range(0, len(optimizationResults.row)):
                 for j in range(0, len(optimizationResults.row[i].section)):
 

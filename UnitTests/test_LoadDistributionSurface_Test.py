@@ -18,9 +18,13 @@ from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.surface import Surface
 
+if Model.clientModel is None:
+    Model()
+
 def test_load_distribution_surface():
-    Model(True, "LoadDistributionSurfaces")
-    Model.clientModel.service.begin_modification('new')
+
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     # Testing the Default Function
     Node(1, 0, -30, 0), Node(2, 10, -30, 0), Node(3, 10, -20, 0), Node(4, 0, -20, 0)
@@ -36,4 +40,3 @@ def test_load_distribution_surface():
                              surface_weight_enabled=True, surface_weight=10, loaded_lines='6 7 8', excluded_lines='5')
 
     Model.clientModel.service.finish_modification()
-

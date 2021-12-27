@@ -129,7 +129,7 @@ class Line():
         clientObject.circle_center_coordinate_2 = center_of_cirle[1]
         clientObject.circle_center_coordinate_3 = center_of_cirle[2]
 
-        clientObject.circle_radius = circle_radius,
+        clientObject.circle_radius = circle_radius
 
         # Point of normal to circle plane
         clientObject.circle_normal_coordinate_1 = point_of_normal_to_circle_plane[0]
@@ -339,7 +339,7 @@ class Line():
             print("Number of control points must comply with number of weights!")
 
         nurbs_control_points = []
-        for i in range(len(control_points)):
+        for i,j in enumerate(control_points):
             point = Model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
             point.no = i+1
             point.global_coordinate_x = control_points[i][0]

@@ -58,7 +58,7 @@ class MyDialog(QtWidgets.QDialog):
 
         # RFEM 6
         Model(True, "CantileverQt") # crete new model called CantileverQt
-        Model.clientModel.service.begin_modification('new')
+        Model.clientModel.service.begin_modification()
 
         Material(1, 'S235')
 

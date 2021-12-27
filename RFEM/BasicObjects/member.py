@@ -1,5 +1,5 @@
-from RFEM.enums import MemberType
-from RFEM.initModel import *
+from RFEM.enums import MemberType, MemberRotationSpecificationType, MemberSectionDistributionType, MemberTypeRibAlignment, MemberReferenceLengthWidthType, MemberResultBeamIntegration
+from RFEM.initModel import Model, clearAtributes
 
 class Member():
     def __init__(self,
@@ -102,7 +102,7 @@ class Member():
             rotation_parameters (list): Rotation Parameters
             start_section_no (int): Tag of Start Section
             end_section_no (int): End of End Section
-            distribution_parameters (list): Distrobution Parameters
+            distribution_parameters (list): Distribution Parameters
             comment (str, optional): Comment
             params (dict, optional): Parameters
 
@@ -159,103 +159,103 @@ class Member():
         clientObject.section_distribution_type = section_distribution_type.name
 
         if section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR:
-            clientObject.section_alignment == distribution_parameters[0]
+            clientObject.section_alignment = distribution_parameters[0].name
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES:
             try:
-                type(distribution_parameters[0]) == bool
-                type(distribution_parameters[1]) == bool
+                isinstance(distribution_parameters[0], bool)
+                isinstance(distribution_parameters[1], bool)
             except:
-                raise Exception("WARNING: First two parameters should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First two parameters should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_start_is_defined_as_relative = distribution_parameters[0]
             clientObject.section_distance_from_end_is_defined_as_relative = distribution_parameters[1]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_start_relative = distribution_parameters[2]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_start_absolute = distribution_parameters[2]
-            if distribution_parameters[1] == True:
+            if distribution_parameters[1]:
                 clientObject.section_distance_from_end_relative = distribution_parameters[3]
-            elif distribution_parameters[1] == False:
+            else:
                 clientObject.section_distance_from_end_absolute = distribution_parameters[3]
             clientObject.section_alignment = distribution_parameters[4].name
             clientObject.section_internal = distribution_parameters[5]
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER:
             try:
-                type(distribution_parameters[0]) == bool
+                isinstance(distribution_parameters[0], bool)
             except:
-                raise Exception("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_start_is_defined_as_relative = distribution_parameters[0]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_start_relative = distribution_parameters[1]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_start_absolute = distribution_parameters[1]
             clientObject.section_alignment = distribution_parameters[2].name
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER:
             try:
-                type(distribution_parameters[0]) == bool
+                isinstance(distribution_parameters[0], bool)
             except:
-                raise Exception("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_end_is_defined_as_relative = distribution_parameters[0]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_end_relative = distribution_parameters[1]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_end_absolute = distribution_parameters[1]
             clientObject.section_alignment = distribution_parameters[2].name
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_SADDLE:
             try:
-                type(distribution_parameters[0]) == bool
+                isinstance(distribution_parameters[0], bool)
             except:
-                raise Exception("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_SADDLE. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_SADDLE. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_end_is_defined_as_relative = distribution_parameters[0]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_end_relative = distribution_parameters[1]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_end_absolute = distribution_parameters[1]
             clientObject.section_alignment = distribution_parameters[2].name
             clientObject.section_internal = distribution_parameters[3]
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES:
             try:
-                type(distribution_parameters[0]) == bool
-                type(distribution_parameters[1]) == bool
+                isinstance(distribution_parameters[0], bool)
+                isinstance(distribution_parameters[1], bool)
             except:
-                raise Exception("WARNING: First two parameters should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First two parameters should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_start_is_defined_as_relative = distribution_parameters[0]
             clientObject.section_distance_from_end_is_defined_as_relative = distribution_parameters[1]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_start_relative = distribution_parameters[2]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_start_absolute = distribution_parameters[2]
-            if distribution_parameters[1] == True:
+            if distribution_parameters[1]:
                 clientObject.section_distance_from_end_relative = distribution_parameters[3]
-            elif distribution_parameters[1] == False:
+            else:
                 clientObject.section_distance_from_end_absolute = distribution_parameters[3]
             clientObject.section_alignment = distribution_parameters[4].name
             clientObject.section_internal = distribution_parameters[5]
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER:
             try:
-                type(distribution_parameters[0]) == bool
+                isinstance(distribution_parameters[0], bool)
             except:
-                raise Exception("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_start_is_defined_as_relative = distribution_parameters[0]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_start_relative = distribution_parameters[1]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_start_absolute = distribution_parameters[1]
             clientObject.section_alignment = distribution_parameters[2].name
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER:
             try:
-                type(distribution_parameters[0]) == bool
+                isinstance(distribution_parameters[0], bool)
             except:
-                raise Exception("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_end_is_defined_as_relative = distribution_parameters[0]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_end_relative = distribution_parameters[1]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_end_absolute = distribution_parameters[1]
             clientObject.section_alignment = distribution_parameters[2].name
 
@@ -267,7 +267,7 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
@@ -389,7 +389,7 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
@@ -496,7 +496,7 @@ class Member():
         try:
             section_distribution_type.name == "MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM" or section_distribution_type.name == "MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR"
         except:
-            raise Exception("WARNING: Only Uniform and Linear section distributions are available for Rib member. Kindly check inputs and correctness.")
+            raise TypeError("WARNING: Only Uniform and Linear section distributions are available for Rib member. Kindly check inputs and correctness.")
 
         # Start Section No.
         clientObject.section_start = start_section_no
@@ -622,7 +622,7 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
@@ -737,7 +737,7 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
@@ -852,7 +852,7 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
@@ -967,7 +967,7 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
@@ -1082,7 +1082,7 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
@@ -1195,7 +1195,7 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
@@ -1344,103 +1344,103 @@ class Member():
             clientObject.result_beam_radius = integration_parameters[0]
 
         if section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR:
-            clientObject.section_alignment == distribution_parameters[0]
+            clientObject.section_alignment = distribution_parameters[0].name
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES:
             try:
-                type(distribution_parameters[0]) == bool
-                type(distribution_parameters[1]) == bool
+                isinstance(distribution_parameters[0], bool)
+                isinstance(distribution_parameters[1], bool)
             except:
-                raise Exception("WARNING: First two parameters should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First two parameters should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_start_is_defined_as_relative = distribution_parameters[0]
             clientObject.section_distance_from_end_is_defined_as_relative = distribution_parameters[1]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_start_relative = distribution_parameters[2]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_start_absolute = distribution_parameters[2]
-            if distribution_parameters[1] == True:
+            if distribution_parameters[1]:
                 clientObject.section_distance_from_end_relative = distribution_parameters[3]
-            elif distribution_parameters[1] == False:
+            else:
                 clientObject.section_distance_from_end_absolute = distribution_parameters[3]
             clientObject.section_alignment = distribution_parameters[4].name
             clientObject.section_internal = distribution_parameters[5]
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER:
             try:
-                type(distribution_parameters[0]) == bool
+                isinstance(distribution_parameters[0], bool)
             except:
-                raise Exception("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_start_is_defined_as_relative = distribution_parameters[0]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_start_relative = distribution_parameters[1]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_start_absolute = distribution_parameters[1]
             clientObject.section_alignment = distribution_parameters[2].name
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER:
             try:
-                type(distribution_parameters[0]) == bool
+                isinstance(distribution_parameters[0], bool)
             except:
-                raise Exception("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_end_is_defined_as_relative = distribution_parameters[0]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_end_relative = distribution_parameters[1]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_end_absolute = distribution_parameters[1]
             clientObject.section_alignment = distribution_parameters[2].name
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_SADDLE:
             try:
-                type(distribution_parameters[0]) == bool
+                isinstance(distribution_parameters[0], bool)
             except:
-                raise Exception("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_SADDLE. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_SADDLE. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_end_is_defined_as_relative = distribution_parameters[0]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_end_relative = distribution_parameters[1]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_end_absolute = distribution_parameters[1]
             clientObject.section_alignment = distribution_parameters[2].name
             clientObject.section_internal = distribution_parameters[3]
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES:
             try:
-                type(distribution_parameters[0]) == bool
-                type(distribution_parameters[1]) == bool
+                isinstance(distribution_parameters[0], bool)
+                isinstance(distribution_parameters[1], bool)
             except:
-                raise Exception("WARNING: First two parameters should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First two parameters should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_start_is_defined_as_relative = distribution_parameters[0]
             clientObject.section_distance_from_end_is_defined_as_relative = distribution_parameters[1]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_start_relative = distribution_parameters[2]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_start_absolute = distribution_parameters[2]
-            if distribution_parameters[1] == True:
+            if distribution_parameters[1]:
                 clientObject.section_distance_from_end_relative = distribution_parameters[3]
-            elif distribution_parameters[1] == False:
+            else:
                 clientObject.section_distance_from_end_absolute = distribution_parameters[3]
             clientObject.section_alignment = distribution_parameters[4].name
             clientObject.section_internal = distribution_parameters[5]
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER:
             try:
-                type(distribution_parameters[0]) == bool
+                isinstance(distribution_parameters[0], bool)
             except:
-                raise Exception("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_start_is_defined_as_relative = distribution_parameters[0]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_start_relative = distribution_parameters[1]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_start_absolute = distribution_parameters[1]
             clientObject.section_alignment = distribution_parameters[2].name
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER:
             try:
-                type(distribution_parameters[0]) == bool
+                isinstance(distribution_parameters[0], bool)
             except:
-                raise Exception("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_end_is_defined_as_relative = distribution_parameters[0]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_end_relative = distribution_parameters[1]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_end_absolute = distribution_parameters[1]
             clientObject.section_alignment = distribution_parameters[2].name
 
@@ -1452,7 +1452,7 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
@@ -1560,7 +1560,7 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
@@ -1654,7 +1654,7 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
@@ -1730,7 +1730,7 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
@@ -1806,7 +1806,7 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
@@ -1882,7 +1882,7 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
