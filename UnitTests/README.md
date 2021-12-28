@@ -20,7 +20,7 @@ output:
 ![image](https://user-images.githubusercontent.com/37547309/147245670-db248e57-95f6-4f00-9b5b-8a89033dcc2a.png)
 Labels: . - passed, s - skipped, e - error, f - failed
 
-3) To asses code coverage, run `coverage`. Pytest can be exetuted inside coverage, leaving nothing out. Coverage enables to automaticaly create formated output (html, json, or dxf). Again, for more information refer to help `coverage -h` and `coverage html -h` for details about html. In html the results can be sorted or filtered and files can be inspected separately. Coverage results can be directed into UnitTests folder since they are ignored by github and they will not be commited to repository. Use new folder for the results.
+3) To assess code coverage, run `coverage`. Pytest can be executed inside coverage process, leaving nothing out. Coverage enables to automaticaly create formated output (html, json, or dxf). Again, for more information refer to help (`coverage -h`) and html (`coverage html -h`). In html the results can be sorted out or filtered. Files can be inspected separately. Coverage results can be directed into UnitTests folder since they are ignored by github and they will not be commited to repository. Use separate folder for the results. There is a lot of files generated.
 ```
 > coverage run -m pytest --tb=no .\RFEM_Python_Client\UnitTests
 ...
