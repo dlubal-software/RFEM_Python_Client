@@ -12,7 +12,7 @@ Testing framework to check all RFEM Python Client objects and types. Using `pyte
 
 ### Step by step
 1) Open RFEM 6 application. Check if there are no opened dialogues in RFEM and server port range under *Options-Web Services* corresponds to the one set in initModel.
-2) Run whole `.\UnitTests` folder. This ensure maximum scope. Execution is independent of current working directory. Pytest has many parameters it can be runned with refer to help via `pytest -h` or documentation. Ensure that all tests are either passed or skipped.
+2) Run whole `.\UnitTests` folder. This ensure maximum scope. Execution is independent of current working directory. Pytest has many parameters it can be runned with. Refer to help via `pytest -h` or documentation. Ensure that all tests are either passed or skipped.
 ```
 > pytest --tb=no .\RFEM_Python_Client\UnitTests
 ```
