@@ -26,8 +26,43 @@ from RFEM.Loads.nodalLoad import *
 from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
 
-from PyQt5 import QtCore, QtGui, QtWidgets
-import qdarkstyle
+try:
+    from PyQt5 import QtCore, QtGui, QtWidgets
+except:
+    print('PyQt5 library is not installed in your Python env.')
+    instPyQt5 = input('Do you want to install it (y/n)? ')
+    instPyQt5 = instPyQt5.lower()
+    if instPyQt5 == 'y':
+        import subprocess
+        try:
+            subprocess.call('python -m pip install PyQt5 --user')
+        except:
+            print('WARNING: Installation of PyQt5 library failed!')
+            print('Please use command "pip install PyQt5 --user" in your Command Prompt.')
+            input('Press Enter to exit...')
+            sys.exit()
+    else:
+        input('Press Enter to exit...')
+        sys.exit()
+
+try:
+    import qdarkstyle
+except:
+    print('qdarkstyle library is not installed in your Python env.')
+    instqdark = input('Do you want to install it (y/n)? ')
+    instqdark = instPyQt5.lower()
+    if instqdark == 'y':
+        import subprocess
+        try:
+            subprocess.call('python -m pip install qdarkstyle')
+        except:
+            print('WARNING: Installation of qdarkstyle library failed!')
+            print('Please use command "pip install qdarkstyle" in your Command Prompt.')
+            input('Press Enter to exit...')
+            sys.exit()
+    else:
+        input('Press Enter to exit...')
+        sys.exit()
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -613,45 +648,59 @@ class Ui_MainWindow(object):
 
     def click(self):
 
+        upper_chord_material = self.upperchord_mat.text()
+        lower_chord_material = self.lowerchord_mat.text()
+        diagonal_material = self.diagonals_mat.text()
+        vertical_material = self.verticals_mat.text()
+        upper_chord_section = self.upperchord_section.text()
+        lower_chord_section = self.lowerchord_section.text()
+        diagonal_section = self.diagonals_section.text()
+        vertical_section = self.verticals_section.text()
+        number_of_bays = int(self.bay_input.text())
+        total_length = float(self.length_input.text())
+        total_height = float(self.height_input.text())
+        first_span = float(self.firstspan_input.text())
+        side_height = float(self.sideheight_input.text())
+
         if self.truss_1.isChecked():
 
-            upper_chord_material = self.upperchord_mat.text()
-            lower_chord_material = self.lowerchord_mat.text()
-            diagonal_material = self.diagonals_mat.text()
-            vertical_material = self.verticals_mat.text()
-
-            upper_chord_section = self.upperchord_section.text()
-            lower_chord_section = self.lowerchord_section.text()
-            diagonal_section = self.diagonals_section.text()
-            vertical_section = self.verticals_section.text()
-
-            number_of_bays = int(self.bay_input.text())
-            total_length = float(self.length_input.text())
-            total_height = float(self.height_input.text())
-            first_span = float(self.firstspan_input.text())
-            side_height = float(self.sideheight_input.text())
-
             model_list = client.service.get_model_list()
-            if len(model_list) == 0:
-                Model(True, "MyTruss", reset=True)
+            if not model_list:
+                Model(True, "MyTruss")
+            else:
+                if Model.clientModel is None:
+                    Model(False, "MyTruss")
 
-            elif len(model_list) == 1:
-                name = model_list[0]
-                Model(False, name, reset=True)
-
+            Model.clientModel.service.reset()
             Model.clientModel.service.begin_modification()
 
             # Create Materials
-            Material(1, upper_chord_material)
-            Material(2, lower_chord_material)
-            Material(3, diagonal_material)
-            Material(4, vertical_material)
+            try:
+                Material(1, upper_chord_material)
+                Material(2, lower_chord_material)
+                Material(3, diagonal_material)
+                Material(4, vertical_material)
+            except:
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Critical)
+                msg.setText("WARNING")
+                msg.setInformativeText("WARNING: Please enter valid material values.")
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
 
             # Create Sections
-            Section(1, upper_chord_section, 1)
-            Section(2, lower_chord_section, 2)
-            Section(3, diagonal_section, 3)
-            Section(4, vertical_section, 4)
+            try:
+                Section(1, upper_chord_section, 1)
+                Section(2, lower_chord_section, 2)
+                Section(3, diagonal_section, 3)
+                Section(4, vertical_section, 4)
+            except:
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Critical)
+                msg.setText("WARNING")
+                msg.setInformativeText("WARNING: Please enter valid section values.")
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
 
             # Create Nodes
             x_nodes = np.repeat(np.arange(0, total_length + total_length/number_of_bays, total_length/number_of_bays), 2)
@@ -786,36 +835,43 @@ class Ui_MainWindow(object):
 
         elif self.truss_2.isChecked():
 
-            upper_chord_material = self.upperchord_mat.text()
-            lower_chord_material = self.lowerchord_mat.text()
-            diagonal_material = self.diagonals_mat.text()
-            vertical_material = self.verticals_mat.text()
+            model_list = client.service.get_model_list()
+            if not model_list:
+                Model(True, "MyTruss")
+            else:
+                if Model.clientModel is None:
+                    Model(False, "MyTruss")
 
-            upper_chord_section = self.upperchord_section.text()
-            lower_chord_section = self.lowerchord_section.text()
-            diagonal_section = self.diagonals_section.text()
-            vertical_section = self.verticals_section.text()
-
-            number_of_bays = int(self.bay_input.text())
-            total_length = float(self.length_input.text())
-            total_height = float(self.height_input.text())
-            first_span = float(self.firstspan_input.text())
-            side_height = float(self.sideheight_input.text())
-
-            Model(False, reset=True)
+            Model.clientModel.service.reset()
             Model.clientModel.service.begin_modification()
 
             # Create Materials
-            Material(1, upper_chord_material)
-            Material(2, lower_chord_material)
-            Material(3, diagonal_material)
-            Material(4, vertical_material)
+            try:
+                Material(1, upper_chord_material)
+                Material(2, lower_chord_material)
+                Material(3, diagonal_material)
+                Material(4, vertical_material)
+            except:
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Critical)
+                msg.setText("WARNING")
+                msg.setInformativeText("WARNING: Please enter valid material values.")
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
 
             # Create Sections
-            Section(1, upper_chord_section, 1)
-            Section(2, lower_chord_section, 2)
-            Section(3, diagonal_section, 3)
-            Section(4, vertical_section, 4)
+            try:
+                Section(1, upper_chord_section, 1)
+                Section(2, lower_chord_section, 2)
+                Section(3, diagonal_section, 3)
+                Section(4, vertical_section, 4)
+            except:
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Critical)
+                msg.setText("WARNING")
+                msg.setInformativeText("WARNING: Please enter valid section values.")
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
 
             # Create Nodes
             x_nodes = np.repeat(np.arange(0, total_length + total_length/number_of_bays, total_length/number_of_bays), 2)
@@ -970,7 +1026,7 @@ class Ui_MainWindow(object):
                     i = int(len(tag_nodes)/2) + 1
                     j = int(diagonal_tag[int(len(diagonal_tag)/2)])
                     while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
-                        Member.Truss(0, j, MemberType.TYPE_TRUSS, i, i+1, section_no=3)
+                        Member.Truss(0, j, i, i+1, section_no=3)
                         i += 2
                         j += 1
                     #Add first span
@@ -1020,43 +1076,46 @@ class Ui_MainWindow(object):
                 Member((int(diagonal_tag[2])), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
 
                 Member.Truss(0, (int(diagonal_tag[3])), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
-                Member.Truss(0, (int(diagonal_tag[4])), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
+                Member.Truss(0, (int(diagonal_tag[3]) + 1), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
 
             Model.clientModel.service.finish_modification()
 
         elif self.truss_3.isChecked():
 
-            upper_chord_material = self.upperchord_mat.text()
-            lower_chord_material = self.lowerchord_mat.text()
-            diagonal_material = self.diagonals_mat.text()
-            vertical_material = self.verticals_mat.text()
-
-            upper_chord_section = self.upperchord_section.text()
-            lower_chord_section = self.lowerchord_section.text()
-            diagonal_section = self.diagonals_section.text()
-            vertical_section = self.verticals_section.text()
-
-            number_of_bays = int(self.bay_input.text())
-            total_length = float(self.length_input.text())
-            total_height = float(self.height_input.text())
-            first_span = float(self.firstspan_input.text())
-            side_height = float(self.sideheight_input.text())
-
-            Model(False)
-            Model.clientModel.service.reset()
-            Model.clientModel.service.begin_modification('new')
+            model_list = client.service.get_model_list()
+            if not model_list:
+                Model(True, "MyTruss")
+            else:
+                if Model.clientModel is None:
+                    Model(False, "MyTruss")
 
             # Create Materials
-            Material(1, upper_chord_material)
-            Material(2, lower_chord_material)
-            Material(3, diagonal_material)
-            Material(4, vertical_material)
+            try:
+                Material(1, upper_chord_material)
+                Material(2, lower_chord_material)
+                Material(3, diagonal_material)
+                Material(4, vertical_material)
+            except:
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Critical)
+                msg.setText("WARNING")
+                msg.setInformativeText("WARNING: Please enter valid material values.")
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
 
             # Create Sections
-            Section(1, upper_chord_section, 1)
-            Section(2, lower_chord_section, 2)
-            Section(3, diagonal_section, 3)
-            Section(4, vertical_section, 4)
+            try:
+                Section(1, upper_chord_section, 1)
+                Section(2, lower_chord_section, 2)
+                Section(3, diagonal_section, 3)
+                Section(4, vertical_section, 4)
+            except:
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Critical)
+                msg.setText("WARNING")
+                msg.setInformativeText("WARNING: Please enter valid section values.")
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
 
             # Create Nodes
             x_nodes = np.repeat(np.arange(0, total_length + total_length/number_of_bays, total_length/number_of_bays), 2)
@@ -1067,10 +1126,10 @@ class Ui_MainWindow(object):
                 Node(tag, x, 0, z)
 
             # Create Lower Chord
-            Member(1, MemberType.TYPE_BEAM, 1, tag_nodes[-2], 0, 2, 2)
+            Member(1, 1, tag_nodes[-2], 0, 2, 2)
 
             # Create Upper Chord
-            Member(2, MemberType.TYPE_BEAM, 2, tag_nodes[-1], 0, 1, 1)
+            Member(2, 2, tag_nodes[-1], 0, 1, 1)
 
             # Create Verticals
             i = 1
@@ -1264,37 +1323,43 @@ class Ui_MainWindow(object):
 
         elif self.truss_4.isChecked():
 
-            upper_chord_material = self.upperchord_mat.text()
-            lower_chord_material = self.lowerchord_mat.text()
-            diagonal_material = self.diagonals_mat.text()
-            vertical_material = self.verticals_mat.text()
+            model_list = client.service.get_model_list()
+            if not model_list:
+                Model(True, "MyTruss")
+            else:
+                if Model.clientModel is None:
+                    Model(False, "MyTruss")
 
-            upper_chord_section = self.upperchord_section.text()
-            lower_chord_section = self.lowerchord_section.text()
-            diagonal_section = self.diagonals_section.text()
-            vertical_section = self.verticals_section.text()
-
-            number_of_bays = int(self.bay_input.text())
-            total_length = float(self.length_input.text())
-            total_height = float(self.height_input.text())
-            first_span = float(self.firstspan_input.text())
-            side_height = float(self.sideheight_input.text())
-
-            Model(False)
             Model.clientModel.service.reset()
-            Model.clientModel.service.begin_modification('new')
+            Model.clientModel.service.begin_modification()
 
             # Create Materials
-            Material(1, upper_chord_material)
-            Material(2, lower_chord_material)
-            Material(3, diagonal_material)
-            Material(4, vertical_material)
+            try:
+                Material(1, upper_chord_material)
+                Material(2, lower_chord_material)
+                Material(3, diagonal_material)
+                Material(4, vertical_material)
+            except:
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Critical)
+                msg.setText("WARNING")
+                msg.setInformativeText("WARNING: Please enter valid material values.")
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
 
             # Create Sections
-            Section(1, upper_chord_section, 1)
-            Section(2, lower_chord_section, 2)
-            Section(3, diagonal_section, 3)
-            Section(4, vertical_section, 4)
+            try:
+                Section(1, upper_chord_section, 1)
+                Section(2, lower_chord_section, 2)
+                Section(3, diagonal_section, 3)
+                Section(4, vertical_section, 4)
+            except:
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Critical)
+                msg.setText("WARNING")
+                msg.setInformativeText("WARNING: Please enter valid section values.")
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
 
             # Create Nodes
             x_nodes = [0]
@@ -1316,7 +1381,7 @@ class Ui_MainWindow(object):
                 Node(tag, x, 0, z)
 
             # Create Lower Chord
-            Member(1, MemberType.TYPE_BEAM, 1, tag_nodes[-1], 0, 2, 2)
+            Member(1, 1, tag_nodes[-1], 0, 2, 2)
 
             # Create Upper Chord
             Member(2, 1, int(sum(tag_nodes) / len(tag_nodes) + 0.5), 0, 1, 1)
@@ -1331,7 +1396,7 @@ class Ui_MainWindow(object):
                 j += 1
 
             #Create Diagonals
-            if self.truss_1.isChecked():
+            if self.diag_1.isChecked():
                 diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
                 i = 1
                 j = int(diagonal_tag[0])
@@ -1340,7 +1405,7 @@ class Ui_MainWindow(object):
                     i +=2
                     j +=1
 
-            elif self.truss_2.isChecked():
+            elif self.diag_2.isChecked():
                 diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
                 i = 1
                 j = int(diagonal_tag[0])
@@ -1349,7 +1414,7 @@ class Ui_MainWindow(object):
                     i +=2
                     j +=1
 
-            elif self.truss_3.isChecked():
+            elif self.diag_3.isChecked():
                 diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
                 i = 1
                 j = int(diagonal_tag[0])
@@ -1362,7 +1427,7 @@ class Ui_MainWindow(object):
                     k += 4
                     j += 1
 
-            elif self.truss_4.isChecked():
+            elif self.diag_4.isChecked():
                 diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
                 i = 1
                 j = int(diagonal_tag[0])
@@ -1375,7 +1440,7 @@ class Ui_MainWindow(object):
                     k += 4
                     j += 1
 
-            elif self.truss_5.isChecked():
+            elif self.diag_5.isChecked():
                 if (number_of_bays % 2) == 0:
                     diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
                     i = 1
@@ -1398,7 +1463,7 @@ class Ui_MainWindow(object):
                     msg.setWindowTitle("WARNING")
                     msg.exec_()
 
-            elif self.truss_6.isChecked():
+            elif self.diag_6.isChecked():
                 if (number_of_bays % 2) == 0:
                     diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
                     i = 1
@@ -1421,7 +1486,7 @@ class Ui_MainWindow(object):
                     msg.setWindowTitle("WARNING")
                     msg.exec_()
 
-            elif self.truss_7.isChecked():
+            elif self.diag_7.isChecked():
                 diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
                 i = 1
                 j = int(diagonal_tag[0])
@@ -1432,44 +1497,50 @@ class Ui_MainWindow(object):
                     i +=2
                     j +=1
 
-            elif self.truss_8.isChecked():
+            elif self.diag_8.isChecked():
                 pass
 
             Model.clientModel.service.finish_modification()
 
-        elif self.truss_4.isChecked():
+        elif self.truss_5.isChecked():
 
-            upper_chord_material = self.upperchord_mat.text()
-            lower_chord_material = self.lowerchord_mat.text()
-            diagonal_material = self.diagonals_mat.text()
-            vertical_material = self.verticals_mat.text()
+            model_list = client.service.get_model_list()
+            if not model_list:
+                Model(True, "MyTruss")
+            else:
+                if Model.clientModel is None:
+                    Model(False, "MyTruss")
 
-            upper_chord_section = self.upperchord_section.text()
-            lower_chord_section = self.lowerchord_section.text()
-            diagonal_section = self.diagonals_section.text()
-            vertical_section = self.verticals_section.text()
-
-            number_of_bays = int(self.bay_input.text())
-            total_length = float(self.length_input.text())
-            total_height = float(self.height_input.text())
-            first_span = float(self.firstspan_input.text())
-            side_height = float(self.sideheight_input.text())
-
-            Model(False)
             Model.clientModel.service.reset()
-            Model.clientModel.service.begin_modification('new')
+            Model.clientModel.service.begin_modification()
 
             # Create Materials
-            Material(1, upper_chord_material)
-            Material(2, lower_chord_material)
-            Material(3, diagonal_material)
-            Material(4, vertical_material)
+            try:
+                Material(1, upper_chord_material)
+                Material(2, lower_chord_material)
+                Material(3, diagonal_material)
+                Material(4, vertical_material)
+            except:
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Critical)
+                msg.setText("WARNING")
+                msg.setInformativeText("WARNING: Please enter valid material values.")
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
 
             # Create Sections
-            Section(1, upper_chord_section, 1)
-            Section(2, lower_chord_section, 2)
-            Section(3, diagonal_section, 3)
-            Section(4, vertical_section, 4)
+            try:
+                Section(1, upper_chord_section, 1)
+                Section(2, lower_chord_section, 2)
+                Section(3, diagonal_section, 3)
+                Section(4, vertical_section, 4)
+            except:
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Critical)
+                msg.setText("WARNING")
+                msg.setInformativeText("WARNING: Please enter valid section values.")
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
 
             # Create Nodes
             x_nodes = [0, 0]
@@ -1507,7 +1578,7 @@ class Ui_MainWindow(object):
                 j += 1
 
             #Create Diagonals
-            if self.truss_1.isChecked():
+            if self.diag_1.isChecked():
                 diagonal_tag = np.arange(number_of_bays+5, 2*number_of_bays+4, 1)
                 i = 1
                 j = int(diagonal_tag[0])
@@ -1516,7 +1587,7 @@ class Ui_MainWindow(object):
                     i +=2
                     j +=1
 
-            elif self.truss_2.isChecked():
+            elif self.diag_2.isChecked():
                 diagonal_tag = np.arange(number_of_bays+5, 2*number_of_bays+4, 1)
                 i = 1
                 j = int(diagonal_tag[0])
@@ -1525,7 +1596,7 @@ class Ui_MainWindow(object):
                     i +=2
                     j +=1
 
-            elif self.truss_3.isChecked():
+            elif self.diag_3.isChecked():
                 diagonal_tag = np.arange(number_of_bays+5, 2*number_of_bays+4, 1)
                 i = 1
                 j = int(diagonal_tag[0])
@@ -1538,20 +1609,20 @@ class Ui_MainWindow(object):
                     k += 4
                     j += 1
 
-            elif self.truss_4.isChecked():
+            elif self.diag_4.isChecked():
                 diagonal_tag = np.arange(number_of_bays+5, 2*number_of_bays+4, 1)
                 i = 1
                 j = int(diagonal_tag[0])
                 k = 1
                 while i < len(tag_nodes) +2 and j < diagonal_tag[-1] + 2  and k < len(tag_nodes) :
-                    Member.Truss(0, j, MemberType.TYPE_TRUSS, i, i+3, section_no=3)
+                    Member.Truss(0, j, i, i+3, section_no=3)
                     j += 1
                     Member.Truss(0, j, k+3, k+4, section_no=3)
                     i += 4
                     k += 4
                     j += 1
 
-            elif self.truss_5.isChecked():
+            elif self.diag_5.isChecked():
                 if (number_of_bays % 2) == 0:
                     diagonal_tag = np.arange(number_of_bays+5, 2*number_of_bays+4, 1)
                     i = 1
@@ -1564,7 +1635,7 @@ class Ui_MainWindow(object):
                     i = int(len(tag_nodes)/2)
                     j = int(diagonal_tag[int(len(diagonal_tag)/2)]) +1
                     while i < tag_nodes[-1] + 2 and j <diagonal_tag[-1] + 2:
-                        Member.Truss(0, j, MemberType.TYPE_TRUSS, i, i+3, section_no=3)
+                        Member.Truss(0, j, i, i+3, section_no=3)
                         i += 2
                         j += 1
                 else:
@@ -1575,7 +1646,7 @@ class Ui_MainWindow(object):
                     msg.setWindowTitle("WARNING")
                     msg.exec_()
 
-            elif self.truss_6.isChecked():
+            elif self.diag_6.isChecked():
                 if (number_of_bays % 2) == 0:
                     diagonal_tag = np.arange(number_of_bays+5, 2*number_of_bays+4, 1)
                     i = 1
@@ -1599,18 +1670,18 @@ class Ui_MainWindow(object):
                     msg.setWindowTitle("WARNING")
                     msg.exec_()
 
-            elif self.truss_7.isChecked():
-                diagonal_tag = np.arange(number_of_bays+5, 2*number_of_bays+4, 1)
+            elif self.diag_7.isChecked():
+                diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
                 i = 1
-                j = int(diagonal_tag[0])
-                while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1)*2:
-                    Member.Truss(0, j, i, i+3, section_no=3)
+                j = int(diagonal_tag[0]) +2
+                while i < len(tag_nodes) and j < int(diagonal_tag[-1])*2:
+                    Member.Truss(0, j, i+1, i+2, section_no=3)
                     j +=1
-                    Member.Truss(j, i+1, i+2, section_no=3)
+                    Member.Truss(0, j, i, i+3, section_no=3)
                     i +=2
                     j +=1
 
-            elif self.truss_8.isChecked():
+            elif self.diag_8.isChecked():
                 pass
 
             Model.clientModel.service.finish_modification()
