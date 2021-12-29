@@ -1,4 +1,6 @@
 import sys
+
+from suds import transport
 from RFEM.enums import *
 #import json
 #import xml.etree.ElementTree as ET
