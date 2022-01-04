@@ -369,7 +369,7 @@ class Ui_MainWindow(object):
         font.setFamily("Verdana")
         font.setPointSize(8)
         self.diag_8.setFont(font)
-        self.diag_8.setText("")
+        self.diag_8.setText("No Diagonals")
         self.diag_8.setIconSize(QtCore.QSize(120, 32))
         self.diag_8.setObjectName("diag_8")
         self.gridLayout.addWidget(self.diag_8, 1, 3, 1, 1)
@@ -399,6 +399,11 @@ class Ui_MainWindow(object):
         self.bay_input.setObjectName("bay_input")
         self.horizontalLayout.addWidget(self.bay_input)
         self.verticalLayout_2.addLayout(self.horizontalLayout)
+        self.line_17 = QtWidgets.QFrame(self.verticalLayoutWidget_2)
+        self.line_17.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_17.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_17.setObjectName("line_17")
+        self.verticalLayout_2.addWidget(self.line_17)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.length_label = QtWidgets.QLabel(self.verticalLayoutWidget_2)
@@ -411,6 +416,11 @@ class Ui_MainWindow(object):
         self.length_input.setObjectName("length_input")
         self.horizontalLayout_2.addWidget(self.length_input)
         self.verticalLayout_2.addLayout(self.horizontalLayout_2)
+        self.line_18 = QtWidgets.QFrame(self.verticalLayoutWidget_2)
+        self.line_18.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_18.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_18.setObjectName("line_18")
+        self.verticalLayout_2.addWidget(self.line_18)
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.height_label = QtWidgets.QLabel(self.verticalLayoutWidget_2)
@@ -423,6 +433,11 @@ class Ui_MainWindow(object):
         self.height_input.setObjectName("height_input")
         self.horizontalLayout_3.addWidget(self.height_input)
         self.verticalLayout_2.addLayout(self.horizontalLayout_3)
+        self.line_20 = QtWidgets.QFrame(self.verticalLayoutWidget_2)
+        self.line_20.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_20.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_20.setObjectName("line_20")
+        self.verticalLayout_2.addWidget(self.line_20)
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.height_label_2 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
@@ -435,6 +450,11 @@ class Ui_MainWindow(object):
         self.firstspan_input.setObjectName("firstspan_input")
         self.horizontalLayout_4.addWidget(self.firstspan_input)
         self.verticalLayout_2.addLayout(self.horizontalLayout_4)
+        self.line_19 = QtWidgets.QFrame(self.verticalLayoutWidget_2)
+        self.line_19.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line_19.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_19.setObjectName("line_19")
+        self.verticalLayout_2.addWidget(self.line_19)
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         self.sideheight_label = QtWidgets.QLabel(self.verticalLayoutWidget_2)
@@ -621,7 +641,36 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
+
+        # Tab Order
         MainWindow.setStatusBar(self.statusbar)
+        MainWindow.setTabOrder(self.sideheight_input, self.lowerchord_section)
+        MainWindow.setTabOrder(self.lowerchord_section, self.upperchord_section)
+        MainWindow.setTabOrder(self.upperchord_section, self.diagonals_section)
+        MainWindow.setTabOrder(self.diagonals_section, self.verticals_section)
+        MainWindow.setTabOrder(self.verticals_section, self.lowerchord_mat)
+        MainWindow.setTabOrder(self.lowerchord_mat, self.upperchord_mat)
+        MainWindow.setTabOrder(self.upperchord_mat, self.diagonals_mat)
+        MainWindow.setTabOrder(self.diagonals_mat, self.verticals_mat)
+
+        # Default Values
+        self.truss_1.setChecked(True)
+        self.diag_1.setChecked(True)
+        self.bay_input.setValue(4)
+        self.length_input.setText("24")
+        self.height_input.setText("6")
+        self.sideheight_input.setText("3")
+        self.firstspan_input.setText("4")
+
+        self.lowerchord_section.setText("IPE 200")
+        self.upperchord_section.setText("IPE 140")
+        self.diagonals_section.setText("CHS 76.1x3")
+        self.verticals_section.setText("CHS 88.9x4")
+
+        self.lowerchord_mat.setText("S235")
+        self.upperchord_mat.setText("S235")
+        self.diagonals_mat.setText("S235")
+        self.verticals_mat.setText("S235")
 
         self.create_button.clicked.connect(self.click)
         self.done_button.clicked.connect(self.close)
@@ -636,7 +685,7 @@ class Ui_MainWindow(object):
         self.length_label.setText(_translate("MainWindow", "Total Length (m):     "))
         self.height_label.setText(_translate("MainWindow", "Total Height (m):     "))
         self.height_label_2.setText(_translate("MainWindow", "First Span (m):       "))
-        self.sideheight_label.setText(_translate("MainWindow", "Side Height (m):    "))
+        self.sideheight_label.setText(_translate("MainWindow", "Side Height (m):     "))
         self.upperchord_label.setText(_translate("MainWindow", "Upper Chord"))
         self.verticals_label.setText(_translate("MainWindow", "Verticals      "))
         self.lowerchord_label.setText(_translate("MainWindow", "Lower Chord"))
@@ -644,7 +693,7 @@ class Ui_MainWindow(object):
         self.label_7.setText(_translate("MainWindow", "  Material"))
         self.diagonals_label.setText(_translate("MainWindow", "Diagonals    "))
         self.create_button.setText(_translate("MainWindow", "Create Model"))
-        self.done_button.setText(_translate("MainWindow", "Done"))
+        self.done_button.setText(_translate("MainWindow", "Close"))
 
     def click(self):
 
@@ -900,19 +949,19 @@ class Ui_MainWindow(object):
                 diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
                 i = 1
                 j = int(diagonal_tag[0])
-                while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1):
+                while i < len(tag_nodes) +2 and j < int(diagonal_tag[-1] + 2):
                     Member.Truss(0, j, i, i+3, section_no=3)
                     i +=2
                     j +=1
                 #Add first span
-                Node(tag_nodes[-1]+1, (-first_span), 0, -total_height)
-                Node(tag_nodes[-1]+2, (total_length+first_span), 0, -total_height)
+                # Node(tag_nodes[-1]+1, (-first_span), 0, -total_height)
+                # Node(tag_nodes[-1]+2, (total_length+first_span), 0, -total_height)
 
-                Member((int(diagonal_tag[-1])+1), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
-                Member((int(diagonal_tag[-1])+2), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
+                # Member((int(diagonal_tag[-1])+1), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
+                # Member((int(diagonal_tag[-1])+2), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
 
-                Member.Truss(0, (int(diagonal_tag[-1])+3), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
-                Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
+                # Member.Truss(0, (int(diagonal_tag[-1])+3), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
+                # Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
 
             elif self.diag_2.isChecked():
                 diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
@@ -1088,6 +1137,9 @@ class Ui_MainWindow(object):
             else:
                 if Model.clientModel is None:
                     Model(False, "MyTruss")
+
+            Model.clientModel.service.reset()
+            Model.clientModel.service.begin_modification()
 
             # Create Materials
             try:
