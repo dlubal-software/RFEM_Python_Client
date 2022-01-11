@@ -70,3 +70,5 @@ Contributions are always welcome! Please ensure your pull request adheres to the
 * Check your spelling and grammar.
 * Make sure your text editor is set to remove trailing whitespace.
 * Use the #readme anchor for GitHub READMEs to link them directly
+
+NOTE: Development is in early stages so please respect that. There will be broken objects or adjustments affecting backward compatibility. Use Issues section to point out any problems. Thank you for your understanding.
