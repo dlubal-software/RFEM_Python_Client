@@ -51,14 +51,27 @@ def template():
     Model.clientModel.service.begin_modification()
 
     # Body of testing procedure
+
     # IMPORTANT:
     # Every functionality needs to be tested only once.
-    # Avoid duplicating since it only adds to cost of maintaining tests.
+    # Avoid extensive duplicating since it only adds to cost of maintaining tests.
+    # DON'T USE Calculate_all function in unit tests. It works when executing tests
+    # individualy but when running all of them it causes RFEM to stuck and generates
+    # failures, which are hard to investigate.
 
-    # The best way to test corrrectness is either run Calculate_all or asserts.
+    # The best way to test corrrectness is by using asserts.
     # Get the object set by test and verify its parameterts. Asserts are
     # well recieved by pytest and messages are reported to user.
+    # Always test type specific parameters if possible.
+    # If not, test some general ones like type or length.
     assert Model.clientModel is not None, "WARNING: clientModel is not initialized"
+    #assert member.length == 5
+    #assert member.result_beam_z_minus == 4
+
+    # COMMENTS
+    # Broken object or type can by commented out assuming author will add
+    # associated bug number so everybody else can understand and track the issue.
+
 
     Model.clientModel.service.finish_modification()
 

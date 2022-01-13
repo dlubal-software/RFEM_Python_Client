@@ -209,6 +209,6 @@ def test_free_load():
                          [[1, 4], [0, 6], [2, 6]],
                          [1500, 7500, 2, 1])
 
-    #Calculate_all()
+    #Calculate_all() # Don't use in unit tests. See template for more info.
 
     Model.clientModel.service.finish_modification()

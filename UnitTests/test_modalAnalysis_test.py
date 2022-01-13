@@ -60,7 +60,7 @@ def test_modal_analysis_settings():
     # Load Case Modal
     LoadCase(2, 'MODAL',params=modalParams)
 
-    Calculate_all()
+    #Calculate_all() # Don't use in unit tests. See template for more info.
 
     Model.clientModel.service.finish_modification()
 

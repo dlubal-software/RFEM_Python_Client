@@ -99,7 +99,7 @@ class Member():
             end_node_no (int): Tag of End Node
             section_distribution_type (enum): Section Distribution Type Enumeration
             rotation_specification_type (enum): Rotation Specification Type Enumeration
-            rotation_parameters (list): Rotation Parameters
+            rotation_parameters (list): Rotation Parameters; 1 or 2 params
             start_section_no (int): Tag of Start Section
             end_section_no (int): End of End Section
             distribution_parameters (list): Distribution Parameters

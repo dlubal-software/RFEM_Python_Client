@@ -69,10 +69,7 @@ def test_solid_loads():
 
     Solid(1, '1-6', 1)
 
-    NodalSupport(1, '1', NodalSupportType.HINGED)
-    NodalSupport(2, '2', NodalSupportType.HINGED)
-    NodalSupport(3, '3', NodalSupportType.HINGED)
-    NodalSupport(4, '4', NodalSupportType.HINGED)
+    NodalSupport(1, '1 2 3 4 9 12 10 11 17 18 ', NodalSupportType.HINGED)
 
     StaticAnalysisSettings(1, 'Geometric linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
@@ -163,9 +160,7 @@ def test_solid_loads():
     SolidSetLoad.Strain(SolidSetLoad, 5, 1, '1', SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, [0.1, 0.2, 0.3], 'My Comment')
     SolidSetLoad.Strain(SolidSetLoad, 6, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y, [0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 13, 16])
     SolidSetLoad.Motion(SolidSetLoad, 7, 1, '1', [1.5, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0])
-    SolidSetLoad.Buoyancy()
-    SolidSetLoad.Gass()
 
-    #Calculate_all()
+    #Calculate_all() # Don't use in unit tests. See template for more info.
 
     Model.clientModel.service.finish_modification()

@@ -101,6 +101,6 @@ def test_surface_loads():
     ## Mass Type Surface Load ##
     SurfaceLoad.Mass(0, 14, 1, '1', individual_mass_components=True, mass_parameter=[500, 600, 700])
 
-    Calculate_all()
+    #Calculate_all() # Don't use in unit tests. See template for more info.
 
     Model.clientModel.service.finish_modification()

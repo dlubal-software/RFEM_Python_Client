@@ -148,7 +148,6 @@ class Line():
 
     def EllipticalArc(self,
                       no: int = 72,
-                      nodes_no: list = [6,10],
                       p1_control_point = [0,-6,0],
                       p2_control_point = [20,-6,0],
                       p3_control_point = [10,10,3],
@@ -165,11 +164,6 @@ class Line():
 
         # Line No.
         clientObject.no = no
-
-        # Nodes No.
-        clientObject.definition_nodes = ConvertToDlString(nodes_no)
-        clientObject.elliptical_arc_first_node = nodes_no[0]
-        clientObject.elliptical_arc_second_node = nodes_no[1]
 
         # Type
         clientObject.type = LineType.TYPE_ELLIPTICAL_ARC.name

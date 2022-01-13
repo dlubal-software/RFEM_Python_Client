@@ -37,7 +37,6 @@ class LineSet():
     def ContinuousLines(self,
                  no: int = 1,
                  lines_no: str = '33 36 39 42 45',
-                 line_set_type = SetType.SET_TYPE_CONTINUOUS,
                  comment: str = '',
                  params: dict = {}):
 
@@ -54,7 +53,7 @@ class LineSet():
         clientObject.lines = ConvertToDlString(lines_no)
 
         # Line Set Type
-        clientObject.set_type = line_set_type.name
+        clientObject.set_type = SetType.SET_TYPE_CONTINUOUS.name
 
         # Comment
         clientObject.comment = comment
@@ -69,7 +68,6 @@ class LineSet():
     def GroupOfLines(self,
                  no: int = 1,
                  lines_no: str = '33 36 39 42 45',
-                 line_set_type = SetType.SET_TYPE_CONTINUOUS,
                  comment: str = '',
                  params: dict = {}):
 
@@ -86,7 +84,7 @@ class LineSet():
         clientObject.lines = ConvertToDlString(lines_no)
 
         # Line Set Type
-        clientObject.set_type = line_set_type.name
+        clientObject.set_type = SetType.SET_TYPE_GROUP.name
 
         # Comment
         clientObject.comment = comment

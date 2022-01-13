@@ -319,7 +319,7 @@ class StaticAnalysisSettings():
         # Add Static Analysis Settings to client model
         Model.clientModel.service.set_static_analysis_settings(clientObject)
 
-    def SecondOrderPDelta (self,
+    def SecondOrderPDelta(self,
                   no: int = 1,
                   name: str = None,
                   iterative_method = StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis.NEWTON_RAPHSON,

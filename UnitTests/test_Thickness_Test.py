@@ -104,6 +104,4 @@ def test_thickness():
                      coefficient_of_thermal_expansion= 1,
                      comment= 'Comment')
 
-    #Calculate_all()
-
     Model.clientModel.service.finish_modification()

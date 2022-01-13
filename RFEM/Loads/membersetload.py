@@ -2259,18 +2259,28 @@ class MemberSetLoad():
 
         #Axis definition
         if axis_definition_type == MemberSetLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS.name:
-            clientObject.axis_definition_p1_x = axis_definition_p1[0]
-            clientObject.axis_definition_p1_y = axis_definition_p1[1]
-            clientObject.axis_definition_p1_z = axis_definition_p1[2]
+            ##clientObject.axis_definition_p1_x = axis_definition_p1[0]
+            p1 = {}
+            p1['x'] = axis_definition_p1[0]
+            p1['y'] = axis_definition_p1[1]
+            p1['z'] = axis_definition_p1[2]
+            clientObject.axis_definition_p1 = p1
 
-            clientObject.axis_definition_p2_x = axis_definition_p2[0]
-            clientObject.axis_definition_p2_y = axis_definition_p2[1]
-            clientObject.axis_definition_p2_z = axis_definition_p2[2]
+            ##clientObject.axis_definition_p2_x = axis_definition_p2[0]
+            p2 = {}
+            p2['x'] = axis_definition_p2[0]
+            p2['y'] = axis_definition_p2[1]
+            p2['z'] = axis_definition_p2[2]
+            clientObject.axis_definition_p2 = p2
+            pass
 
         elif axis_definition_type == MemberSetLoadAxisDefinitionType.AXIS_DEFINITION_POINT_AND_AXIS.name:
-            clientObject.axis_definition_p1_x = axis_definition_p1[0]
-            clientObject.axis_definition_p1_y = axis_definition_p1[1]
-            clientObject.axis_definition_p1_z = axis_definition_p1[2]
+            ##clientObject.axis_definition_p1_x = axis_definition_p1[0]
+            p1 = {}
+            p1['x'] = axis_definition_p1[0]
+            p1['y'] = axis_definition_p1[1]
+            p1['z'] = axis_definition_p1[2]
+            clientObject.axis_definition_p1 = p1
 
             clientObject.axis_definition_axis = axis_definition.name
             clientObject.axis_definition_axis_orientation = axis_orientation.name

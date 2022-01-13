@@ -198,7 +198,10 @@ def insertSpaces(lst: list):
 
 def Calculate_all(generateXmlSolverInput: bool = False):
     '''
-    Calculates model
+    Calculates model.
+    CAUTION: Don't use it in unit tests!
+    It works when executing tests individualy but when running all of them
+    it causes RFEM to stuck and generates failures, which are hard to investigate.
 
     Params:
     - generateXmlSolverInput: generate XML solver input
@@ -220,9 +223,14 @@ def ConvertToDlString(s):
 
     Returns a WS conform string.
     '''
+
+    # Parameter is not of required type.
+    assert isinstance(s, (list, str))
+
     if isinstance(s, list):
         return ' '.join(map(str, s))
 
+    s = s.strip()
     s = s.replace(',', ' ')
     s = s.replace('  ', ' ')
     lst = s.split(' ')

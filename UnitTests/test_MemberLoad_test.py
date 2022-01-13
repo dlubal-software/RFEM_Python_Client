@@ -257,7 +257,9 @@ def test_member_loads():
     ## PipeContentFull Type Member Load ##
     MemberLoad.PipeContentFull(0, 68, 1, '2', MemberLoadDirectionOrientation.LOAD_DIRECTION_FORWARD, 50)
 
-    Calculate_all()
+    MemberLoad.RotaryMotion(0, 69, 1, '2', 2, 3, MemberLoadAxisDefinitionType.AXIS_DEFINITION_POINT_AND_AXIS, axis_definition_p1=[1,1,0])
+
+    #Calculate_all() # Don't use in unit tests. See template for more info.
 
     Model.clientModel.service.finish_modification()
 

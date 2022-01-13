@@ -31,7 +31,7 @@ def test_load_distribution_surface():
     Line(1, '1 2'), Line(2, '2 3'), Line(3, '3 4'), Line(4, '4 1')
     Material(name='C30/37')
     Thickness()
-    Surface()
+    Surface(params={'grid_enabled':True})
 
     # Standard Even Load Distribution
     Node(5, 0, -15, 0), Node(6, 10, -15, 0), Node(7, 10, -5, 0), Node(8, 0, -5, 0)
