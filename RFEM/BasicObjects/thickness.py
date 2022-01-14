@@ -123,11 +123,10 @@ class Thickness():
             no (int): Thickness Tag
             name (str): Thickness Name
             material_no (int): Tag of Material assigned to Thickness
-            properties (list): Properties for 3 Nodes Variable Thickness Definition (See Below)
+            properties (list): Properties for 3 Nodes Variable Thickness Definition
+                properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, thickness_d3, node_no_3]
             comment (str, optional): Comments
             params (dict, optional): Parameters
-
-            properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, thickness_d3, node_no_3]
         '''
 
         # Client model | Thickness
@@ -185,11 +184,11 @@ class Thickness():
             no (int): Thickness Tag
             name (str): Thickness Name
             material_no (int): Tag of Material assigned to Thickness
-            properties (list): Properties for 2 Nodes and Direction Variable Thickness Definition (See Below)
+            properties (list): Properties for 2 Nodes and Direction Variable Thickness Definition
+                properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, direction]
             comment (str, optional): Comments
             params (dict, optional): Parameters
 
-            properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, direction]
         '''
 
         # Client model | Thickness
@@ -244,11 +243,11 @@ class Thickness():
             no (int): Thickness Tag
             name (str): Thickness Name
             material_no (int): Tag of Material assigned to Thickness
-            properties (list): Properties for 4 Surface Corners Variable Definition (See Below)
+            properties (list): Properties for 4 Surface Corners Variable Definition
+                properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, thickness_d3, node_no_3, thickness_d4, node_no_4]
             comment (str, optional): Comments
             params (dict, optional): Parameters
 
-            properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, thickness_d3, node_no_3, thickness_d4, node_no_4]
         '''
 
         # Client model | Thickness
@@ -308,11 +307,10 @@ class Thickness():
             no (int): Thickness Tag
             name (str): Thickness Name
             material_no (int): Tag of Material assigned to Thickness
-            properties (list): Properties for Circular Thickness Definition (See Below)
+            properties (list): Properties for Circular Thickness Definition
+                properties = [thickness_circle_center_dC, thickness_circle_line_dR]
             comment (str, optional): Comments
             params (dict, optional): Parameters
-
-            properties = [thickness_circle_center_dC, thickness_circle_line_dR]
         '''
 
         # Client model | Thickness
@@ -367,11 +365,10 @@ class Thickness():
             no (int): Thickness Tag
             name (str): Thickness Name
             material_no (int): Tag of Material assigned to Thickness
-            properties (list): Nested List of Layer Properties (See Below)
+            properties (list): Nested List of Layer Properties
+                properties: [[thickness_type, material, thickness, rotation, comment], ...]
             comment (str, optional): Comments
             params (dict, optional): Parameters
-
-            properties: [[thickness_type, material, thickness, rotation, comment], ...]
         '''
 
         # Check if Multilayer Surfaces Add-on is ON.
@@ -443,31 +440,29 @@ class Thickness():
             orthotropy_type (enum): Thickness Orthotropy Type
             rotation_beta (float): Rotation
             consideration_of_self_weight (list): Consideration of Self-Weight Parameters
+                for consideration_of_self_weight == 'parameter defined'
+                    consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, fictitious_thickness]
+                for consideration_of_self_weight == 'user-defined fictitious thickness'
+                    consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, fictitious_thickness]
+                for consideration_of_self_weight == 'user-defined'
+                    consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_WEIGHT, self_weight]
             parameters (list): Parameters List of chosen Orthotropy Type
+                for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS:
+                    parameters = [effective_thickness_x, effective_thickness_y]
+                for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_COUPLING:
+                    parameters = [coupling_thickness, coupling_spacing, coupling_width]
+                for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE:
+                    parameters = [slab_thickness, rib_height, rib_spacing, rib_width]
+                for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_BIDIRECTIONAL_RIBBED_PLATE:
+                    parameters = [slab_thickness, rib_height_x, rib_height_y, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
+                for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET:
+                    parameters = [sheet_thickness, total_profile_height, rib_spacing, top_flange_width, bottom_flange_width]
+                for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB:
+                    parameters = [slab_thickness, void_spacing, void_diameter]
+                for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE:
+                    parameters = [slab_thickness, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
             comment (str, optional): Comments
             params (dict, optional): Parameters
-
-            for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS:
-                parameters = [effective_thickness_x, effective_thickness_y]
-            for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_COUPLING:
-                parameters = [coupling_thickness, coupling_spacing, coupling_width]
-            for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE:
-                parameters = [slab_thickness, rib_height, rib_spacing, rib_width]
-            for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_BIDIRECTIONAL_RIBBED_PLATE:
-                parameters = [slab_thickness, rib_height_x, rib_height_y, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
-            for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET:
-                parameters = [sheet_thickness, total_profile_height, rib_spacing, top_flange_width, bottom_flange_width]
-            for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB:
-                parameters = [slab_thickness, void_spacing, void_diameter]
-            for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE:
-                parameters = [slab_thickness, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
-
-            for consideration_of_self_weight == 'parameter defined'
-                consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, fictitious_thickness]
-            for consideration_of_self_weight == 'user-defined fictitious thickness'
-                consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, fictitious_thickness]
-            for consideration_of_self_weight == 'user-defined'
-                consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_WEIGHT, self_weight]
         '''
 
         # Client model | Thickness
@@ -585,19 +580,14 @@ class Thickness():
             material_no (int): Tag of Material assigned to Thickness
             rotation_beta (float): Rotation
             consideration_of_self_weight (list): Self-Weight Consideration Parameters
+                for consideration_of_self_weight == 'fictitious thickness and bulk density'
+                    consideration_of_self_weight = [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_BULK_DENSITY, fictitious_thickness, stiffness_matrix_bulk_density]
+                for consideration_of_self_weight == 'fictitious thickness and area density'
+                    consideration_of_self_weight = [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_AREA_DENSITY, stiffness_matrix_bulk_density, stiffness_matrix_area_density]
+                for consideration_of_self_weight == 'bulk density and area density'
+                    consideration_of_self_weight = [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_BULK_DENSITY_AND_AREA_DENSITY, fictitious_thickness, stiffness_matrix_area_density]
             coefficient_of_thermal_expansion (float): Coefficient of Thermal Expansion
             stiffness_matrix (list): Nested List of Stiffness Matrix Entries (See Below)
-            comment (str, optional): Comments
-            params (dict, optional): Parameters
-
-            for consideration_of_self_weight == 'fictitious thickness and bulk density'
-                consideration_of_self_weight = [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_BULK_DENSITY, fictitious_thickness, stiffness_matrix_bulk_density]
-            for consideration_of_self_weight == 'fictitious thickness and area density'
-                consideration_of_self_weight = [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_AREA_DENSITY, stiffness_matrix_bulk_density, stiffness_matrix_area_density]
-            for consideration_of_self_weight == 'bulk density and area density'
-                consideration_of_self_weight = [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_BULK_DENSITY_AND_AREA_DENSITY, fictitious_thickness, stiffness_matrix_area_density]
-
-            stiffness_matrix:
                 Element entry overview : [[Bending/Torsional Stiffness Elements (Nm)],
                                             [Shear Stiffness Elements (N/m)],
                                             [Membrane Stiffness Elements (N/m)],
@@ -606,6 +596,8 @@ class Thickness():
                                             [D44, D45, D55],
                                             [D66, D67, D68, D77, D78, D88],
                                             [D16, D17, D18, D27, D28, D38]]
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
         '''
 
         # Client model | Thickness
