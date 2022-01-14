@@ -14,14 +14,17 @@ class LoadCase():
     def __init__(self,
                  no: int = 1,
                  name: str = 'Self-weight',
-                 self_weight = [True, 0.0, 0.0, 1.0],
+                 self_weight: list = [True, 0.0, 0.0, 1.0],
                  comment: str = 'Comment',
                  params: dict = {}):
         '''
-        Creates a default load case with no further options.
-        Analysis type is static by default.
-        Static analysis settings defaults to 1.
-        Action category is Permanent | G by default.
+        Args:
+            no (int): Load Case Tag
+            name (str): Load Case Name
+            self_weight (list): Self-Weight Parameters
+                self_weight = [self_weight_active, self_weight_factor_x, self_weight_factor_y, self_weight_factor_z]
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
         '''
 
         # Client model | Load Case
@@ -109,9 +112,9 @@ class LoadCase():
                     10      =   Seismic actions | AE
                     None    =   None | None
             self_weight (list): Self-weight Considerations
-                For self-weight considerations;
+                for self-weight considerations;
                     self_weight = [True, self_weight_factor_x, self_weight_factor_y, self_weight_factor_z]
-                For no self-weight considerations;
+                for no self-weight considerations;
                     self_weight = [False]
             comment (str, optional): Comments
             params (dict, optional): Parameters

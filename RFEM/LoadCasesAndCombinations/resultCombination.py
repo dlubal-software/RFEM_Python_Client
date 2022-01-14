@@ -6,6 +6,13 @@ class ResultCombination():
                  comment: str = '',
                  params: dict = {}):
 
+        '''
+        Args:
+            no (int): Result Combination Tag
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+
         # Client model | Result Combination
         clientObject = Model.clientModel.factory.create('ns0:result_combination')
 
