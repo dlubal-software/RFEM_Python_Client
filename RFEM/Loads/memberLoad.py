@@ -2032,13 +2032,13 @@ class MemberLoad():
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
-                 angular_acceleration : float = 0.0,
-                 angular_velocity : float = 0.0,
+                 angular_acceleration : float = 1.0,
+                 angular_velocity : float = 2.0,
                  axis_definition_type = MemberLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS,
                  axis_orientation = MemberLoadAxisDefinitionAxisOrientation.AXIS_POSITIVE,
                  axis_definition = MemberLoadAxisDefinition.AXIS_X,
-                 axis_definition_p1 = [],
-                 axis_definition_p2 = [],
+                 axis_definition_p1 = [1,0,1],
+                 axis_definition_p2 = [0,1,0],
                  comment: str = '',
                  params: dict = {}):
         """
