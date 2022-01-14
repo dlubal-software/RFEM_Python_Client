@@ -9,6 +9,15 @@ class SolidSet():
                  comment: str = '',
                  params: dict = {}):
 
+        '''
+        Args:
+            no (int): Solid Set Tag
+            solids_no (str): Tags of Solids Contained Within Solid Set
+            solid_set_type (enum): Solid Set Type Enumeration
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+
         # Client model | Solid Set
         clientObject = Model.clientModel.factory.create('ns0:solid_set')
 
@@ -41,6 +50,15 @@ class SolidSet():
                  comment: str = '',
                  params: dict = {}):
 
+        '''
+        Args:
+            no (int): Solid Set Tag
+            solids_no (str): Tags of Solids Contained Within Continuous Solid Set
+            solid_set_type (enum): Solid Set Type Enumeration
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+
         # Client model | Solid Set
         clientObject = Model.clientModel.factory.create('ns0:solid_set')
 
@@ -72,6 +90,15 @@ class SolidSet():
                  solid_set_type = SetType.SET_TYPE_GROUP,
                  comment: str = '',
                  params: dict = {}):
+
+        '''
+        Args:
+            no (int): Solid Set Tag
+            solids_no (str): Tags of Solids Contained Within Group of Solids Solid Set
+            solid_set_type (enum): Solid Set Type Enumeration
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
 
         # Client model | Solid Set
         clientObject = Model.clientModel.factory.create('ns0:solid_set')

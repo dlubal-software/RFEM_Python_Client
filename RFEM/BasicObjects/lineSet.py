@@ -9,6 +9,15 @@ class LineSet():
                  comment: str = '',
                  params: dict = {}):
 
+        '''
+        Args:
+            no (int): Line Set Tag
+            lines_no (str): Tags of Lines Contained Within Line Set
+            line_set_type (enum): Line Set Type Enumeration
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+
         # Client model | Line Set
         clientObject = Model.clientModel.factory.create('ns0:line_set')
 
@@ -40,6 +49,14 @@ class LineSet():
                  comment: str = '',
                  params: dict = {}):
 
+        '''
+        Args:
+            no (int): Line Set Tag
+            lines_no (str): Tags of Lines Contained Within Continuous Line Set
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+
         # Client model | Line Set
         clientObject = Model.clientModel.factory.create('ns0:line_set')
 
@@ -70,6 +87,14 @@ class LineSet():
                  lines_no: str = '33 36 39 42 45',
                  comment: str = '',
                  params: dict = {}):
+
+        '''
+        Args:
+            no (int): Line Set Tag
+            lines_no (str): Tags of Lines Contained Within Group of Lines Line Set
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
 
         # Client model | Line Set
         clientObject = Model.clientModel.factory.create('ns0:line_set')

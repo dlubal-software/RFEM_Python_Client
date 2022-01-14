@@ -9,6 +9,15 @@ class SurfaceSet():
                  comment: str = '',
                  params: dict = {}):
 
+        '''
+        Args:
+            no (int): Surfaces Set Tag
+            surfaces_no (str): Tags of Surfaces Contained Within Surface Set
+            surfaces_set_type (enum): Surface Set Type Enumeration
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+
         # Client model | Surface Set
         clientObject = Model.clientModel.factory.create('ns0:surface_set')
 
@@ -40,6 +49,15 @@ class SurfaceSet():
                  comment: str = '',
                  params: dict = {}):
 
+        '''
+        Args:
+            no (int): Surfaces Set Tag
+            surfaces_no (str): Tags of Surfaces Contained Within Continuous Surface Set
+            surfaces_set_type (enum): Surface Set Type Enumeration
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+
         # Client model | Surface Set
         clientObject = Model.clientModel.factory.create('ns0:surface_set')
 
@@ -70,6 +88,14 @@ class SurfaceSet():
                  surfaces_no: str = '2 4 7',
                  comment: str = '',
                  params: dict = {}):
+
+        '''
+        Args:
+            no (int): Surfaces Set Tag
+            surfaces_no (str): Tags of Surfaces Contained Within Group of Surfaces Surface Set
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
 
         # Client model | Surface Set
         clientObject = Model.clientModel.factory.create('ns0:surface_set')

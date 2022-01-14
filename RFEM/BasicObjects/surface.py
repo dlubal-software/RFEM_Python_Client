@@ -10,8 +10,12 @@ class Surface():
                  params: dict = {}):
 
         '''
-        Assigns surface without any further options.
-        Surface is a Standard planar surface by default.
+        Args:
+            no (int): Surface Tag
+            boundary_lines_no (str): Tags of Lines defining Surface
+            thickness (int): Tag of Thickness assigned to Surface
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
         '''
 
         # Client model | Surface
@@ -49,13 +53,20 @@ class Surface():
                  params: dict = {}):
 
         '''
-        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
+        Args:
+            no (int): Surface Tag
+            geometry_type (enum): Surface Geometry Type Enumeration
+            geometry_type_parameters (list): Geometry Type Parameters
+            boundary_lines_no (str): Tags of Lines defining Standard Surface
+            thickness (int): Tag of Thickness assigned to Standard Surface
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+
+        for geometry_type == SurfaceGeometry.GEOMETRY_NURBS:
             geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-
-        for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
+        for geometry_type == SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
-
-        for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
+        for geometry_type == SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
         '''
 
@@ -91,13 +102,19 @@ class Surface():
                  params: dict = {}):
 
         '''
-        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
+        Args:
+            no (int): Surface Tag
+            geometry_type (enum): Surface Geometry Type Enumeration
+            geometry_type_parameters (list): Geometry Type Parameters
+            boundary_lines_no (str): Tags of Lines defining Without Thickness Surface
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+
+        for geometry_type == SurfaceGeometry.GEOMETRY_NURBS:
             geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-
-        for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
+        for geometry_type == SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
-
-        for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
+        for geometry_type == SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
         '''
 
@@ -132,13 +149,19 @@ class Surface():
                  params: dict = {}):
 
         '''
-        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
+        Args:
+            no (int): Surface Tag
+            geometry_type (enum): Surface Geometry Type Enumeration
+            geometry_type_parameters (list): Geometry Type Parameters
+            boundary_lines_no (str): Tags of Lines defining Rigid Surface
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+
+        for geometry_type == SurfaceGeometry.GEOMETRY_NURBS:
             geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-
-        for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
+        for geometry_type == SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
-
-        for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
+        for geometry_type == SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
         '''
 
@@ -174,13 +197,20 @@ class Surface():
                  params: dict = {}):
 
         '''
-        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
+        Args:
+            no (int): Surface Tag
+            geometry_type (enum): Surface Geometry Type Enumeration
+            geometry_type_parameters (list): Geometry Type Parameters
+            boundary_lines_no (str): Tags of Lines defining Membrane Surface
+            thickness (int): Tag of Thickness assigned to Membrane Surface
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+
+        for geometry_type == SurfaceGeometry.GEOMETRY_NURBS:
             geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-
-        for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
+        for geometry_type == SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
-
-        for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
+        for geometry_type == SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
         '''
 
@@ -217,13 +247,20 @@ class Surface():
                  params: dict = {}):
 
         '''
-        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
+        Args:
+            no (int): Surface Tag
+            geometry_type (enum): Surface Geometry Type Enumeration
+            geometry_type_parameters (list): Geometry Type Parameters
+            boundary_lines_no (str): Tags of Lines defining Without Membrane Tension Surface
+            thickness (int): Tag of Thickness assigned to Without Membrane Tension Surface
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+
+        for geometry_type == SurfaceGeometry.GEOMETRY_NURBS:
             geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-
-        for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
+        for geometry_type == SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
-
-        for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
+        for geometry_type == SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
         '''
 
@@ -266,13 +303,26 @@ class Surface():
                  params: dict = {}):
 
         '''
-        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
+        Args:
+            no (int): Surface Tag
+            boundary_lines_no (str): Tags of Lines defining Load Distribution Surface
+            load_transfer_direction (enum): Surface Load Transfer Direction Enumeration
+            surface_weight_enabled (bool): Activate/De-Activate Surface Weight
+            surface_weight (float): Magnitude of Surface Weight
+            excluded_members (str): Tag of Members to be excluded from Load Distribution
+            excluded_parallel_to_members (str): Tag of Members to which parallel Members are excluded from Load Distribution
+            excluded_lines (str): Tag of Lines to be excluded from Load Distribution
+            excluded_parallel_to_lines (str): Tag of Lines to which parallel Lines are excluded from Load Distribution
+            loaded_members (str): Tag of Loaded Members
+            loaded_lines (str): Tag of Loaded Lines
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+
+        for geometry_type == SurfaceGeometry.GEOMETRY_NURBS:
             geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-
-        for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
+        for geometry_type == SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
-
-        for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
+        for geometry_type == SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
         '''
 

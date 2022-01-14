@@ -13,6 +13,19 @@
 #                  comment: str = '',
 #                  params: dict = {}):
 
+#        '''
+#        Args:
+#            no (int): Bracing Tag
+#            member_type (enum): Bracing Type Enumeration
+#            start_node_no (int): Start Node
+#            end_node_no (int): End Node
+#            rotation_angle (float): Rotation Angle
+#            start_section_no (int): Tag of Start Section
+#            end_section_no (int): End of End Section
+#            comment (str, optional): Comment
+#            params (dict, optional): Parameters
+#        '''
+
 #         # Client model | Bracing
 #         clientObject = Model.clientModel.factory.create('ns0:bracing')
 
@@ -69,6 +82,21 @@
 #             comment: str = '',
 #             params: dict = {}):
 
+#             '''
+#            Args:
+#                no (int): Bracing Tag
+#                bracing_type (enum): Bracing Type Enumeration
+#                start_node_no (int): Start Node
+#                end_node_no (int): End Node
+#                rotation_angle (float): Rotation Angle
+#                start_section_no (int): Tag of Start Section
+#                end_section_no (int): End of End Section
+#                start_bracing_hinge_no (int): Hinge at Bracing Start
+#                end_bracing_hinge_no (int): Hinge at Bracing End
+#                comment (str, optional): Comment
+#                params (dict, optional): Parameters
+#             '''
+
 #         # Client model | Bracing
 #         clientObject = Model.clientModel.factory.create('ns0:bracing')
 
@@ -124,6 +152,21 @@
 #             end_bracing_hinge_no: int = 0,
 #             comment: str = '',
 #             params: dict = {}):
+
+#            '''
+#            Args:
+#                no (int): Bracing Tag
+#                bracing_type (enum): Bracing Type Enumeration
+#                start_node_no (int): Start Node
+#                end_node_no (int): End Node
+#                rotation_angle (float): Rotation Angle
+#                start_section_no (int): Tag of Start Section
+#                end_section_no (int): End of End Section
+#                start_bracing_hinge_no (int): Hinge at Bracing Start
+#                end_bracing_hinge_no (int): Hinge at Bracing End
+#                comment (str, optional): Comment
+#                params (dict, optional): Parameters
+#            '''
 
 #         # Client model | Bracing
 #         clientObject = Model.clientModel.factory.create('ns0:bracing')

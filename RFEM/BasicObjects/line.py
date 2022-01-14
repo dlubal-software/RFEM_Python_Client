@@ -8,6 +8,14 @@ class Line():
                  comment: str = '',
                  params: dict = {}):
 
+        '''
+        Args:
+            no (int): Line Tag
+            nodes_no (str): Nodes Defining Line
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+
         # Client model | Line
         clientObject = Model.clientModel.factory.create('ns0:line')
 
@@ -36,6 +44,14 @@ class Line():
                  comment: str = '',
                  params: dict = {}):
 
+        '''
+        Args:
+            no (int): Line Tag
+            nodes_no (str): Nodes Defining Polyline
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+
         # Client model | Line
         clientObject = Model.clientModel.factory.create('ns0:line')
 
@@ -63,11 +79,21 @@ class Line():
 
     def Arc(self,
             no: int = 1,
-            nodes_no: list = [1,2],
+            nodes_no: str = '1 2',
             control_point: list = [10,0,0], # X,Y,Z
             alpha_adjustment_target = LineArcAlphaAdjustmentTarget.ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC,
             comment: str = '',
             params: dict = {}):
+
+        '''
+        Args:
+            no (int): Line Tag
+            nodes_no (str): Nodes Defining Arc
+            control_point (list): Control Point for Arc in [X, Y, Z]
+            alpha_adjustment_target (enum): Line Arc Alpha Adjustment Target Enumeration
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
 
         # Client model | Line
         clientObject = Model.clientModel.factory.create('ns0:line')
@@ -103,11 +129,22 @@ class Line():
     def Circle(self,
                 no: int = 1,
                 nodes_no: str = '1',
-                center_of_cirle = [20,0,0],
-                circle_radius = 1,
-                point_of_normal_to_circle_plane = [1,0,0],
+                center_of_cirle: list = [20,0,0],
+                circle_radius: float = 1.0,
+                point_of_normal_to_circle_plane: list = [1,0,0],
                 comment: str = '',
                 params: dict = {}):
+
+        '''
+        Args:
+            no (int): Line Tag
+            nodes_no (str): Nodes on Line of Circle
+            center_of_circle (list): Cartesian Co-Ordinates of Circle Centre [X, Y, Z]
+            circle_radius (float): Magnitude of Circle Radius
+            point_of_normal_to_circle_plane (list): Vector from Circle Centre to this Point [X, Y, Z] defines Vector Normal to Circle Plane
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
 
         # Client model | Line
         clientObject = Model.clientModel.factory.create('ns0:line')
@@ -147,14 +184,26 @@ class Line():
         Model.clientModel.service.set_line(clientObject)
 
     def EllipticalArc(self,
-                      no: int = 72,
-                      p1_control_point = [0,-6,0],
-                      p2_control_point = [20,-6,0],
-                      p3_control_point = [10,10,3],
-                      arc_angle_alpha = 0,
-                      arc_angle_beta = 3.141592653589793,
+                      no: int = 1,
+                      p1_control_point: list = [0,-6,0],
+                      p2_control_point: list = [20,-6,0],
+                      p3_control_point: list = [10,10,3],
+                      arc_angle_alpha: float = 0,
+                      arc_angle_beta: float = 3.141592653589793,
                       comment: str = '',
                       params: dict = {}):
+
+        '''
+        Args:
+            no (int): Line Tag
+            p1_control_point (list): Control Point 1 [X, Y, Z]
+            p2_control_point (list): Control Point 2 [X, Y, Z]
+            p3_control_point (list): Control Point 3 [X, Y, Z]
+            arc_angle_alpha (float): Alpha Arc Angle (in Radians)
+            arc_angle_beta (float): Beta Arc Angle (in Radians)
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
 
         # Client model | Line
         clientObject = Model.clientModel.factory.create('ns0:line')
@@ -196,10 +245,19 @@ class Line():
 
     def Ellipse(self,
                 no: int = 1,
-                nodes_no: list = [5,10],
-                p3_control_point = [18,-4.8,0],
+                nodes_no: str = '1 2',
+                ellipse_control_point: list = [18,-4.8,0],
                 comment: str = '',
                 params: dict = {}):
+
+        '''
+        Args:
+            no (int): Line Tag
+            nodes_no (str): Node Tags on Line of Ellipse
+            ellipse_control_point (list): Ellipse Control Point [X, Y, Z]
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
 
         # Client model | Line
         clientObject = Model.clientModel.factory.create('ns0:line')
@@ -219,9 +277,9 @@ class Line():
         clientObject.type = LineType.TYPE_ELLIPSE.name
 
         # Control point
-        clientObject.ellipse_control_point_x = p3_control_point[0]
-        clientObject.ellipse_control_point_y = p3_control_point[1]
-        clientObject.ellipse_control_point_z = p3_control_point[2]
+        clientObject.ellipse_control_point_x = ellipse_control_point[0]
+        clientObject.ellipse_control_point_y = ellipse_control_point[1]
+        clientObject.ellipse_control_point_z = ellipse_control_point[2]
 
         # Comment
         clientObject.comment = comment
@@ -235,11 +293,21 @@ class Line():
 
     def Parabola(self,
                  no: int = 1,
-                 nodes_no: list = [3, 8],
-                 p3_control_point = [10,-3,0],
-                 parabola_alpha = 0,
+                 nodes_no: str = '1 2',
+                 parabola_control_point: list = [10,-3,0],
+                 parabola_alpha: float = 0,
                  comment: str = '',
                  params: dict = {}):
+
+        '''
+        Args:
+            no (int): Line Tag
+            nodes_no (str): Node Tags on Line of Parabola
+            parabola_control_point (list): Parabola Control Point [X, Y, Z]
+            parabola_alpha (float): Alpha Angle (in Radians)
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
 
         # Client model | Line
         clientObject = Model.clientModel.factory.create('ns0:line')
@@ -261,9 +329,9 @@ class Line():
         clientObject.type = LineType.TYPE_PARABOLA.name
 
         # Control point
-        clientObject.parabola_control_point_x = p3_control_point[0]
-        clientObject.parabola_control_point_y = p3_control_point[1]
-        clientObject.parabola_control_point_z = p3_control_point[2]
+        clientObject.parabola_control_point_x = parabola_control_point[0]
+        clientObject.parabola_control_point_y = parabola_control_point[1]
+        clientObject.parabola_control_point_z = parabola_control_point[2]
 
         # Comment
         clientObject.comment = comment
@@ -280,6 +348,14 @@ class Line():
                nodes_no: str = '1 3 5',
                comment: str = '',
                params: dict = {}):
+
+        '''
+        Args:
+            no (int): Line Tag
+            nodes_no (str): Node Tags on Line of Spline
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
 
         # Client model | Line
         clientObject = Model.clientModel.factory.create('ns0:line')
@@ -314,6 +390,16 @@ class Line():
               comment: str = '',
               params: dict = {}):
 
+        '''
+        Args:
+            no (int): Line Tag
+            nodes_no (str): Node Tags on Line of NURBS Curve
+            control_points (list): Nested List of Respective Control Point's Cartesian Co-Ordinates
+            weights (list): Weights of Control Points
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+
         # Client model | Line
         clientObject = Model.clientModel.factory.create('ns0:line')
 
@@ -330,7 +416,7 @@ class Line():
         clientObject.type = LineType.TYPE_NURBS.name
 
         if len(control_points) != len(weights):
-            print("Number of control points must comply with number of weights!")
+            print("WARNING: The number of weigths prescribed must equal the number of control points defined.")
 
         nurbs_control_points = []
         for i,j in enumerate(control_points):
