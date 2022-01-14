@@ -144,14 +144,21 @@ class Model():
                  reset: bool=False):
 
         cModel = None
+        modelLs = client.service.get_model_list()
+
         if new_model:
-            new = client.service.new_model(model_name) + 'wsdl'
-            cModel = Client(new, transport=trans)
+            if modelLs and model_name in modelLs.name:
+                new = client.service.open_model(model_name) + 'wsdl'
+                cModel = Client(new, transport=trans)
+                cModel.service.delete_all_results()
+                cModel.service.reset()
+            else:
+                new = client.service.new_model(model_name) + 'wsdl'
+                cModel = Client(new, transport=trans)
         else:
-            modelLst = client.service.get_model_list()
             modelIndex = 0
-            for i in range(len(modelLst)):
-                if modelLst[i] == model_name:
+            for i,j in enumerate(modelLs):
+                if modelLs[i] == model_name:
                     modelIndex = i
             new = client.service.get_model(modelIndex) + 'wsdl'
             cModel = Client(new, transport=trans)
@@ -163,7 +170,6 @@ class Model():
                 cModel.service.reset()
 
         Model.clientModel = cModel
-        print('Geometry...')
 
 def clearAtributes(obj):
     '''
