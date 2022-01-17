@@ -102,7 +102,6 @@ class Line():
 
     def Circle(self,
                 no: int = 1,
-                nodes_no: str = '1',
                 center_of_cirle = [20,0,0],
                 circle_radius = 1,
                 point_of_normal_to_circle_plane = [1,0,0],
@@ -120,9 +119,6 @@ class Line():
 
         # Type
         clientObject.type = LineType.TYPE_CIRCLE.name
-
-        # Nodes No.
-        clientObject.definition_nodes = ConvertToDlString(nodes_no)
 
         # Center of circle
         clientObject.circle_center_coordinate_1 = center_of_cirle[0]

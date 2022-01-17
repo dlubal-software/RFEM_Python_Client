@@ -78,7 +78,7 @@ def test_line_circle():
     Model.clientModel.service.reset()
     Model.clientModel.service.begin_modification()
 
-    Line.Circle(0, 1, '1', [0, 0, 0], 3, [0, 0, 1])
+    Line.Circle(0, 1, [0, 0, 0], 3, [0, 0, 1])
 
     Model.clientModel.service.finish_modification()
 
