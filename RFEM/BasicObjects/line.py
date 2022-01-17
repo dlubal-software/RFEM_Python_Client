@@ -79,7 +79,7 @@ class Line():
 
     def Arc(self,
             no: int = 1,
-            nodes_no: str = '1 2',
+            nodes_no: str = [1,2],
             control_point: list = [10,0,0], # X,Y,Z
             alpha_adjustment_target = LineArcAlphaAdjustmentTarget.ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC,
             comment: str = '',
@@ -88,7 +88,7 @@ class Line():
         '''
         Args:
             no (int): Line Tag
-            nodes_no (str): Nodes Defining Arc
+            nodes_no (list): Node Tags Defining Arc
             control_point (list): Control Point for Arc in [X, Y, Z]
             alpha_adjustment_target (enum): Line Arc Alpha Adjustment Target Enumeration
             comment (str, optional): Comments
@@ -245,7 +245,7 @@ class Line():
 
     def Ellipse(self,
                 no: int = 1,
-                nodes_no: str = '1 2',
+                nodes_no: list = [5,10],
                 ellipse_control_point: list = [18,-4.8,0],
                 comment: str = '',
                 params: dict = {}):
@@ -253,7 +253,7 @@ class Line():
         '''
         Args:
             no (int): Line Tag
-            nodes_no (str): Node Tags on Line of Ellipse
+            nodes_no (list): Node Tags on Line of Ellipse
             ellipse_control_point (list): Ellipse Control Point [X, Y, Z]
             comment (str, optional): Comments
             params (dict, optional): Parameters
@@ -293,7 +293,7 @@ class Line():
 
     def Parabola(self,
                  no: int = 1,
-                 nodes_no: str = '1 2',
+                 nodes_no: str = [3,8],
                  parabola_control_point: list = [10,-3,0],
                  parabola_alpha: float = 0,
                  comment: str = '',
@@ -302,7 +302,7 @@ class Line():
         '''
         Args:
             no (int): Line Tag
-            nodes_no (str): Node Tags on Line of Parabola
+            nodes_no (list): Node Tags on Line of Parabola
             parabola_control_point (list): Parabola Control Point [X, Y, Z]
             parabola_alpha (float): Alpha Angle (in Radians)
             comment (str, optional): Comments
