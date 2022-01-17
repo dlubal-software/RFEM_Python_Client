@@ -16,9 +16,12 @@ from RFEM.BasicObjects.material import Material
 from RFEM.initModel import *
 from RFEM.enums import *
 
+if Model.clientModel is None:
+    Model()
 
 def test_nodal_load():
-    Model(True, "NodalLoad")
+
+    Model.clientModel.service.reset()
     Model.clientModel.service.begin_modification()
 
     # Create Material
@@ -73,9 +76,6 @@ def test_nodal_load():
     #Mass Type Nodal Load
     NodalLoad.Mass(0, 5, 1, '8', True, [5000, 5000, 0, 0, 5000, 0])
 
-    Calculate_all()
-
-    print('Ready!')
+    #Calculate_all() # Don't use in unit tests. See template for more info.
 
     Model.clientModel.service.finish_modification()
-

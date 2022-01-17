@@ -29,7 +29,7 @@ if __name__ == '__main__':
     l = float(input('Length of the cantilever in m: '))
     f = float(input('Force in kN: '))
 
-    clientModel.service.begin_modification('new')
+    clientModel.service.begin_modification()
 
     Material(1, 'S235')
 

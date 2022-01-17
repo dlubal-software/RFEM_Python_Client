@@ -137,7 +137,7 @@ class StaticAnalysisSettings():
         #     raise Exception ('WARNING: Mass conversion factor in direction z at index 3 has to be of type "float" or "int"')
 
         clientObject.mass_conversion_enabled = mass_conversion[0]
-        if mass_conversion[0] != False:
+        if mass_conversion[0]:
             clientObject.mass_conversion_factor_in_direction_x = mass_conversion[1]
             clientObject.mass_conversion_factor_in_direction_y = mass_conversion[2]
             clientObject.mass_conversion_factor_in_direction_z = mass_conversion[3]
@@ -319,7 +319,7 @@ class StaticAnalysisSettings():
         # Add Static Analysis Settings to client model
         Model.clientModel.service.set_static_analysis_settings(clientObject)
 
-    def SecondOrderPDelta (self,
+    def SecondOrderPDelta(self,
                   no: int = 1,
                   name: str = None,
                   iterative_method = StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis.NEWTON_RAPHSON,
@@ -473,7 +473,7 @@ class StaticAnalysisSettings():
         #     raise Exception ('WARNING: Mass conversion factor in direction z at index 3 has to be of type "float" or "int"')
 
         clientObject.mass_conversion_enabled = mass_conversion[0]
-        if mass_conversion[0] != False:
+        if mass_conversion[0]:
             clientObject.mass_conversion_factor_in_direction_x = mass_conversion[1]
             clientObject.mass_conversion_factor_in_direction_y = mass_conversion[2]
             clientObject.mass_conversion_factor_in_direction_z = mass_conversion[3]

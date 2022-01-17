@@ -25,7 +25,7 @@ if __name__ == '__main__':
     f = float(input('Force in kN: '))
 
     Model(True, "Demo1") # crete new model called Demo1
-    Model.clientModel.service.begin_modification('new')
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
 
@@ -65,4 +65,3 @@ if __name__ == '__main__':
     print ("Model dimension x " + str(modelStatus.property_dimensions.x))
     print ("Model dimension y " + str(modelStatus.property_dimensions.y))
     print ("Model dimension z " + str(modelStatus.property_dimensions.z))
-

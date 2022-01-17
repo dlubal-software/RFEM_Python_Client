@@ -6,7 +6,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.thickness import Thickness
@@ -21,10 +21,12 @@ from RFEM.Loads.memberLoad import MemberLoad
 from RFEM.Loads.lineLoad import LineLoad
 from RFEM.Loads.nodalLoad import NodalLoad
 from RFEM.Loads.surfaceLoad import SurfaceLoad
-from RFEM.Loads.lineLoad import LineLoad
+from RFEM.Loads.freeLoad import FreeLoad
+
+if Model.clientModel is None:
+    Model()
 
 ### Nodal Load Unit Tests ###
-
 def test_nodal_load_init():
 
     Model.clientModel.service.reset()
@@ -1099,4 +1101,3 @@ def test_free_polygon_load():
 
     assert free_load.no == 1
     assert free_load.magnitude_uniform == 5000
-

@@ -5,7 +5,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.Loads.surfaceSetLoad import SurfaceSetLoad
+from RFEM.Loads.surfacesetload import SurfaceSetLoad
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
@@ -15,12 +15,15 @@ from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.material import Material
-from RFEM.initModel import *
+from RFEM.initModel import Model, Calculate_all
 from RFEM.enums import *
+
+if Model.clientModel is None:
+    Model()
 
 def test_surface_set_load():
 
-    Model(True, "SurfaceSetLoad")
+    Model.clientModel.service.reset()
     Model.clientModel.service.begin_modification()
 
     # Create Material
@@ -69,8 +72,11 @@ def test_surface_set_load():
     Surface(4, '12 13 14 9', 1)
 
     # Create Surface Set
+    # Added types and functions just to cover SurfaceSet completely
     SurfaceSet(1, '1 2', SetType.SET_TYPE_GROUP)
     SurfaceSet(2, '3 4', SetType.SET_TYPE_GROUP)
+    SurfaceSet.ContinuousSurfaces(SurfaceSet, 3, '3 4')
+    SurfaceSet.GroupOfSurfaces(SurfaceSet, 4, '1 2')
 
     # Create Nodal Supports
     NodalSupport(1, '1', NodalSupportType.FIXED)
@@ -135,11 +141,9 @@ def test_surface_set_load():
     SurfaceSetLoad.RotaryMotion(0, 13, 1, '1', load_parameter=[1, 2, SurfaceSetLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS, [1,2,3], [4,5,6]])
 
     ## Mass Type Surface Load ##
-    #SurfaceSetLoad.Mass(0, 14, 1, '1', individual_mass_components=True, mass_parameter=[500, 600, 700])
+    SurfaceSetLoad.Mass(0, 14, 1, '1', True, [500, 600, 700])
+    SurfaceSetLoad.Mass(0, 15, 1, '1', False, [0.5])
 
-    Calculate_all()
-
-    print('Ready!')
+    #Calculate_all() # Don't use in unit tests. See template for more info.
 
     Model.clientModel.service.finish_modification()
-

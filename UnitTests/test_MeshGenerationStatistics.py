@@ -12,17 +12,16 @@ from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.material import Material
-from RFEM.initModel import *
+from RFEM.initModel import Model, CheckIfMethodOrTypeExists, GenerateMesh, GetMeshStatics
 from RFEM.enums import *
 
-def test_generation_mesh_implemented():
+if Model.clientModel is None:
+    Model()
 
-    exist = method_exists(clientModel,'generate_mesh')
-    assert exist == False #test fail once method is in T9 master or GM
-
-@pytest.mark.skip("all tests still WIP")
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'generate_mesh', True), reason="generate_mesh not in RFEM yet")
 def test_generation_of_mesh_statistics():
-    # modal analysis not yet implemmented in released RFEM6
+
+    Model.clientModel.service.reset()
     Model.clientModel.service.begin_modification()
 
     # Create Material
@@ -45,11 +44,7 @@ def test_generation_of_mesh_statistics():
 
     GenerateMesh()
 
-    print('Ready!')
-
     Model.clientModel.service.finish_modification()
 
+    # Missing validation
     mesh_stats = GetMeshStatics()
-
-    print(mesh_stats)
-

@@ -18,9 +18,13 @@ from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.surface import Surface
 
+if Model.clientModel is None:
+    Model()
+
 def test_rigid_surface():
-    Model(True, "RigidSurface")
-    Model.clientModel.service.begin_modification('new')
+
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     # Testing the standard surface function
     Node(1, 0, -30, 0), Node(2, 10, -30, 0), Node(3, 10, -20, 0), Node(4, 0, -20, 0)

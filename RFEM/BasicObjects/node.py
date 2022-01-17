@@ -3,6 +3,7 @@ from RFEM.enums import NodeCoordinateSystemType
 from RFEM.enums import NodeReferenceType
 from RFEM.initModel import *
 from math import pi
+
 class Node():
     def __init__(self,
                  no: int = 1,
@@ -81,11 +82,11 @@ class Node():
         clientObject.no = no
 
         # Node Type
-        clientObject.type = NodeType.STANDARD.name
+        clientObject.type = NodeType.TYPE_STANDARD.name
 
         # Coordinates
 
-        clientObject.coordinate_system_type= coordinate_system_type.name
+        clientObject.coordinate_system_type = coordinate_system_type.name
 
         if len(coordinate_system) != 3:
             raise Exception('WARNING: The coordinate system needs to be of length 3. Kindly check list inputs for completeness and correctness.')
@@ -99,32 +100,27 @@ class Node():
         if not isinstance(coordinate_system[2], (int, float)):
             raise Exception ('WARNING: Coordinate system at index 2 to be of type "int" or ''float''')
 
-        if coordinate_system_type.name == "COORDINATE_SYSTEM_CARTESIAN":
-            clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN
+        if clientObject.coordinate_system_type == "COORDINATE_SYSTEM_CARTESIAN":
             clientObject.coordinate_1 = coordinate_system[0]
             clientObject.coordinate_2 = coordinate_system[1]
             clientObject.coordinate_3 = coordinate_system[2]
 
-        elif coordinate_system_type.name == "COORDINATE_SYSTEM_X_CYLINDRICAL":
-            clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_X_CYLINDRICAL
+        elif clientObject.coordinate_system_type == "COORDINATE_SYSTEM_X_CYLINDRICAL":
             clientObject.coordinate_1 = coordinate_system[0]
             clientObject.coordinate_2 = coordinate_system[1]
             clientObject.coordinate_3 = coordinate_system[2] * (pi/180)
 
-        elif coordinate_system_type.name == "COORDINATE_SYSTEM_Y_CYLINDRICAL":
-            clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Y_CYLINDRICAL
+        elif clientObject.coordinate_system_type == "COORDINATE_SYSTEM_Y_CYLINDRICAL":
             clientObject.coordinate_1 = coordinate_system[0]
             clientObject.coordinate_2 = coordinate_system[1]
             clientObject.coordinate_3 = coordinate_system[2] * (pi/180)
 
-        elif coordinate_system_type.name == "COORDINATE_SYSTEM_Z_CYLINDRICAL":
-            clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Z_CYLINDRICAL
+        elif clientObject.coordinate_system_type == "COORDINATE_SYSTEM_Z_CYLINDRICAL":
             clientObject.coordinate_1 = coordinate_system[0]
             clientObject.coordinate_2 = coordinate_system[1] * (pi/180)
             clientObject.coordinate_3 = coordinate_system[2]
 
-        elif coordinate_system_type.name == "COORDINATE_SYSTEM_POLAR":
-            clientObject.coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_POLAR
+        elif clientObject.coordinate_system_type == "COORDINATE_SYSTEM_POLAR":
             clientObject.coordinate_1 = coordinate_system[0]
             clientObject.coordinate_2 = coordinate_system[1] * (pi/180)
             clientObject.coordinate_3 = coordinate_system[2] * (pi/180)
@@ -299,6 +295,7 @@ class Node():
         Model.clientModel.service.set_node(clientObject)
 
     def OnLine(self,
+                 no: int = 1,
                  line_number: int = 1,
                  node_reference = NodeReferenceType.REFERENCE_TYPE_L,
                  length_between_i_and_j: int = 1,
@@ -327,6 +324,9 @@ class Node():
         clearAtributes(clientObject)
 
         # Node No.
+        clientObject.no = no
+
+        # Reference Line
         clientObject.on_line_reference_line = line_number
 
         # Node Type

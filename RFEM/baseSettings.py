@@ -1,5 +1,5 @@
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAtributes
+from RFEM.enums import GlobalAxesOrientationType, LocalAxesOrientationType
 
 class BaseSettings():
     def __init__(self,

@@ -13,10 +13,13 @@ from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 
+if Model.clientModel is None:
+    Model()
+
 def test_thickness():
 
-    Model(True, "Thickness")
-    Model.clientModel.service.begin_modification('new')
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
     Material(1, 'C30/37')
 
     ##  THICKNESS TYPE
@@ -68,13 +71,15 @@ def test_thickness():
                      properties= [0.1, 0.5],
                      comment= 'Comment')
 
-    # # Layers
+    # Layers
+    """ skipped
     Thickness.Layers(Thickness,
                      no= 7,
                      name= 'Layers',
                      layers= [[1, 1, 0.123, 0, 'Schicht 1'],
                                        [0, 1, 0.456, 90, 'Schicht 2']],
                      comment= 'Comment')
+    """
 
     # Shape Orthotropy
     Thickness.ShapeOrthotropy(Thickness,
@@ -98,8 +103,5 @@ def test_thickness():
                      consideration_of_self_weight= [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_BULK_DENSITY_AND_AREA_DENSITY, 10, 10],
                      coefficient_of_thermal_expansion= 1,
                      comment= 'Comment')
-
-    #Calculate_all()
-    print('Ready!')
 
     Model.clientModel.service.finish_modification()

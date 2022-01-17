@@ -606,6 +606,18 @@ class FreePolygonLoadLoadDistribution(Enum):
     '''
     LOAD_DISTRIBUTION_LINEAR, LOAD_DISTRIBUTION_LINEAR_FIRST, LOAD_DISTRIBUTION_LINEAR_SECOND, LOAD_DISTRIBUTION_UNIFORM = range(4)
 
+class RigidLinkType(Enum):
+    '''
+    Rigid Link Type | Enum
+    '''
+    TYPE_LINE_TO_LINE, TYPE_LINE_TO_SURFACE, TYPE_DIAPHRAGM = range(3)
+
+class SolidType(Enum):
+    '''
+    Solid Type | Enum
+    '''
+    TYPE_STANDARD, TYPE_GAS, TYPE_CONTACT, TYPE_HOLE, TYPE_SOIL = range(5)
+
 class SolidLoadType(Enum):
     '''
     Solid Load Load Type | Enum

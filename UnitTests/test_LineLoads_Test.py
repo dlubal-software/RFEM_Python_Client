@@ -20,10 +20,13 @@ from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.surface import Surface
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 
+if Model.clientModel is None:
+    Model()
+
 def test_line_loads():
 
-    Model(True, "LineLoads")
-    Model.clientModel.service.begin_modification('new')
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     # Creating a lot of lines for line load testing
 
@@ -154,8 +157,6 @@ def test_line_loads():
     LineLoad.Mass(LineLoad, 2, 4, '2',
                      individual_mass_components=True,
                      mass_components=[1000,1000,10000])
-
-    print('Ready!')
 
     Model.clientModel.service.finish_modification()
 

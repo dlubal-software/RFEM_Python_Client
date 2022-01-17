@@ -10,13 +10,17 @@ sys.path.append(PROJECT_ROOT)
 
 # Import der Bibliotheken
 from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.initModel import Model
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.designSituation import DesignSituation
 
+if Model.clientModel is None:
+    Model()
+
 def test_design_situation():
 
-    Model.clientModel.service.begin_modification('new')
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     StaticAnalysisSettings()
 

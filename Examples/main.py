@@ -1,14 +1,19 @@
 import sys
 import os
+baseName = os.path.basename(__file__)
+dirName = os.path.dirname(__file__)
+print('basename:    ', baseName)
+print('dirname:     ', dirName)
+
 PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.path.dirname(__file__),
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType, MemberLoadDistribution, MemberLoadDirection
+from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType, MemberLoadDistribution, MemberLoadDirection, MemberRotationSpecificationType
 from RFEM.window import window
 from RFEM.dataTypes import inf
-from RFEM.initModel import Model, MemberRotationSpecificationType, Calculate_all, insertSpaces, modelLst
+from RFEM.initModel import Model, Calculate_all, insertSpaces, modelLst
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.thickness import Thickness
@@ -32,7 +37,7 @@ from RFEM.Loads.surfaceLoad import SurfaceLoad
 def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_spacing, new_model, model_name, delete, reset):
 # -------------------------------------------------------------
     Model(new_model, model_name, delete, reset)
-    Model.clientModel.service.begin_modification('new')
+    Model.clientModel.service.begin_modification()
 # -------------------------------------------------------------
     # Materials
     Material(1)
@@ -198,7 +203,6 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
     LineSet()
     MemberSet()
     SurfaceSet()
-    #SolidSet()
 
 # -------------------------------------------------------------
     print('Load Cases/Loads...')

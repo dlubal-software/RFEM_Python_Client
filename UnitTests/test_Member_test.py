@@ -6,7 +6,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.thickness import Thickness
@@ -15,9 +15,13 @@ from RFEM.BasicObjects.member import Member
 from RFEM.TypesForMembers.memberHinge import MemberHinge
 from RFEM.TypesForMembers.memberDefinableStiffness import MemberDefinableStiffness
 
-if __name__ == '__main__':
+if Model.clientModel is None:
+    Model()
 
-    Model.clientModel.service.begin_modification('new')
+def test_all_member_types():
+
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
     Material(2, 'C30/37')
@@ -130,7 +134,5 @@ if __name__ == '__main__':
 
     # Member Coupling Hinge Hinge
     Member.CouplingHingeHinge(0, 30, 59, 60)
-
-    print('Ready!')
 
     Model.clientModel.service.finish_modification()

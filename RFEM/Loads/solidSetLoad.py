@@ -271,8 +271,8 @@ class SolidSetLoad():
         # Add Solid Load to client model
         Model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
 
-    def Buoyancy():
-        print('The function Buoyancy() is not implemented yet.')
+    #def Buoyancy():
+    #    print('The function Buoyancy() is not implemented yet.')
 
-    def Gass():
-        print('The function Gass() is not implemented yet.')
+    #def Gas():
+    #    print('The function Gas() is not implemented yet.')

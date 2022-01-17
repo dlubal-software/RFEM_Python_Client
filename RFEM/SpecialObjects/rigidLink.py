@@ -1,8 +1,12 @@
 from RFEM.initModel import *
+from RFEM.enums import *
 
 class RigidLink():
     def __init__(self,
                  no: int = 1,
+                 line_1: int = 1,
+                 line_2: int = 2,
+                 ignore_relative_position: bool = True,
                  comment: str = '',
                  params: dict = {}):
 
@@ -12,8 +16,18 @@ class RigidLink():
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
 
+        # Type
+        #clientObject.type = RigidLinkType.TYPE_LINE_TO_LINE.name
+
         # Rigid Link No.
         clientObject.no = no
+
+        # Attached lines
+        clientObject.line1 = line_1
+        clientObject.line2 = line_2
+
+        # Ignore relative possition
+        clientObject.ignore_relative_position = ignore_relative_position
 
         # Comment
         clientObject.comment = comment
@@ -27,6 +41,9 @@ class RigidLink():
 
     def LineToLine(self,
                  no: int = 1,
+                 line_1: int = 1,
+                 line_2: int = 2,
+                 ignore_relative_position: bool = True,
                  comment: str = '',
                  params: dict = {}):
 
@@ -36,8 +53,18 @@ class RigidLink():
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
 
+        # Type
+        clientObject.type = RigidLinkType.TYPE_LINE_TO_LINE.name
+
         # Rigid Link No.
         clientObject.no = no
+
+        # Attached lines
+        clientObject.line1 = line_1
+        clientObject.line2 = line_2
+
+        # Ignore relative possition
+        clientObject.ignore_relative_position = ignore_relative_position
 
         # Comment
         clientObject.comment = comment
@@ -51,6 +78,10 @@ class RigidLink():
 
     def LineToSurface(self,
                  no: int = 1,
+                 line_1: int = 1,
+                 line_2: int = 2,
+                 surface: int = 1,
+                 ignore_relative_position: bool = True,
                  comment: str = '',
                  params: dict = {}):
 
@@ -62,6 +93,18 @@ class RigidLink():
 
         # Rigid Link No.
         clientObject.no = no
+
+        # Type
+        clientObject.type = RigidLinkType.TYPE_LINE_TO_SURFACE.name
+
+        # Attached lines
+        clientObject.line1 = line_1
+        #clientObject.line2 = line_2
+
+        clientObject.surface = surface
+
+        # Ignore relative possition
+        clientObject.ignore_relative_position = ignore_relative_position
 
         # Comment
         clientObject.comment = comment
@@ -75,6 +118,8 @@ class RigidLink():
 
     def Diapragm(self,
                  no: int = 1,
+                 nodes: str = '3 4',
+                 lines: str = '6 7',
                  comment: str = '',
                  params: dict = {}):
 
@@ -86,6 +131,15 @@ class RigidLink():
 
         # Rigid Link No.
         clientObject.no = no
+
+        # Type
+        clientObject.type = RigidLinkType.TYPE_DIAPHRAGM.name
+
+        # Attached nodes
+        clientObject.nodes = nodes
+
+        # Attached lines
+        clientObject.lines = lines
 
         # Comment
         clientObject.comment = comment

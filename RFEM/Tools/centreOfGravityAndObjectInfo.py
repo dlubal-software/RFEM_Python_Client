@@ -1,7 +1,9 @@
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model
+from RFEM.enums import ObjectTypes, SelectedObjectInformation
 
 class ObjectInformation():
+    # missing def __init__( with definition of self and its variables
+    # object_type, no, parent_no, information, row_key and result.
 
     def CentreOfGravity(self,
                         type = ObjectTypes.E_OBJECT_TYPE_MEMBER,
