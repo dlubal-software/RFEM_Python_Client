@@ -49,14 +49,21 @@ class Surface():
                  params: dict = {}):
 
         '''
-        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
-            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
 
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
+            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_ROTATED:
+            geometry_type_parameters = [rotated_boundary_line, rotated_angle_of_rotation, rotated_point_p_x, rotated_point_p_y, rotated_point_p_z,
+                                        rotated_point_r_x, rotated_point_r_y, rotated_point_r_z]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_PIPE:
+            geometry_type_parameters = [pipe_radius, pipe_center_line]
         '''
 
         # Client model | Surface
@@ -91,14 +98,21 @@ class Surface():
                  params: dict = {}):
 
         '''
-        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
-            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
 
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
+            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_ROTATED:
+            geometry_type_parameters = [rotated_boundary_line, rotated_angle_of_rotation, rotated_point_p_x, rotated_point_p_y, rotated_point_p_z,
+                                        rotated_point_r_x, rotated_point_r_y, rotated_point_r_z]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_PIPE:
+            geometry_type_parameters = [pipe_radius, pipe_center_line]
         '''
 
         # Client model | Surface
@@ -132,14 +146,21 @@ class Surface():
                  params: dict = {}):
 
         '''
-        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
-            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
 
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
+            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_ROTATED:
+            geometry_type_parameters = [rotated_boundary_line, rotated_angle_of_rotation, rotated_point_p_x, rotated_point_p_y, rotated_point_p_z,
+                                        rotated_point_r_x, rotated_point_r_y, rotated_point_r_z]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_PIPE:
+            geometry_type_parameters = [pipe_radius, pipe_center_line]
         '''
 
         # Client model | Surface
@@ -174,14 +195,21 @@ class Surface():
                  params: dict = {}):
 
         '''
-        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
-            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
 
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
+            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_ROTATED:
+            geometry_type_parameters = [rotated_boundary_line, rotated_angle_of_rotation, rotated_point_p_x, rotated_point_p_y, rotated_point_p_z,
+                                        rotated_point_r_x, rotated_point_r_y, rotated_point_r_z]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_PIPE:
+            geometry_type_parameters = [pipe_radius, pipe_center_line]
         '''
 
         # Client model | Surface
@@ -217,14 +245,21 @@ class Surface():
                  params: dict = {}):
 
         '''
-        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
-            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
 
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
+            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_ROTATED:
+            geometry_type_parameters = [rotated_boundary_line, rotated_angle_of_rotation, rotated_point_p_x, rotated_point_p_y, rotated_point_p_z,
+                                        rotated_point_r_x, rotated_point_r_y, rotated_point_r_z]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_PIPE:
+            geometry_type_parameters = [pipe_radius, pipe_center_line]
         '''
 
         # Client model | Surface
@@ -266,14 +301,21 @@ class Surface():
                  params: dict = {}):
 
         '''
-        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
-            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
 
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
+            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_ROTATED:
+            geometry_type_parameters = [rotated_boundary_line, rotated_angle_of_rotation, rotated_point_p_x, rotated_point_p_y, rotated_point_p_z,
+                                        rotated_point_r_x, rotated_point_r_y, rotated_point_r_z]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_PIPE:
+            geometry_type_parameters = [pipe_radius, pipe_center_line]
         '''
 
         # Client model | Surface

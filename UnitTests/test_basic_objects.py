@@ -78,7 +78,7 @@ def test_line_circle():
     Model.clientModel.service.reset()
     Model.clientModel.service.begin_modification()
 
-    Line.Circle(0, 1, [0, 0, 0], 3, [0, 0, 1])
+    Line.Circle(0, 1, [5, 6, 7], 3, [0, 0, 1])
 
     Model.clientModel.service.finish_modification()
 
@@ -86,6 +86,9 @@ def test_line_circle():
 
     assert line.no == 1
     assert line.circle_radius == 3
+    assert line.circle_center_coordinate_1 == 5
+    assert line.circle_center_coordinate_2 == 6
+    assert line.circle_center_coordinate_3 == 7
 
 def test_line_ellipse():
 

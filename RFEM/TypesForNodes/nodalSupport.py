@@ -77,6 +77,10 @@ class NodalSupport():
             # ROLLER_IN_Z 'xx- --x'
             clientObject = setNodalSupportConditions(clientObject, inf, inf, 0.0, 0.0, 0.0, inf)
 
+        elif support_type == NodalSupportType.FREE:
+            # FREE '--- ---'
+            clientObject = setNodalSupportConditions(clientObject, 0, 0, 0, 0, 0, 0)
+
         # Comment
         clientObject.comment = comment
 

@@ -79,7 +79,6 @@ class RigidLink():
     def LineToSurface(self,
                  no: int = 1,
                  line_1: int = 1,
-                 line_2: int = 2,
                  surface: int = 1,
                  ignore_relative_position: bool = True,
                  comment: str = '',
@@ -99,7 +98,6 @@ class RigidLink():
 
         # Attached lines
         clientObject.line1 = line_1
-        #clientObject.line2 = line_2
 
         clientObject.surface = surface
 

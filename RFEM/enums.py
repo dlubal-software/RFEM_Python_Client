@@ -12,7 +12,13 @@ class NodalSupportType(Enum):
     '''
     Nodal Support Type
     '''
-    FIXED, HINGED, ROLLER, ROLLER_IN_X, ROLLER_IN_Y, ROLLER_IN_Z = range(6)
+    FIXED, HINGED, ROLLER, ROLLER_IN_X, ROLLER_IN_Y, ROLLER_IN_Z, FREE = range(7)
+
+class LineSupportType(Enum):
+    '''
+    Nodal Support Type
+    '''
+    FIXED, HINGED, SLIDING_IN_X_AND_Y, SLIDING_IN_X, SLIDING_IN_Y, SLIDING_IN_Z, FREE = range(7)
 
 class StaticAnalysisType(Enum):
     '''
@@ -112,7 +118,7 @@ class SurfaceGeometry(Enum):
     '''
     Geometry Type
     '''
-    GEOMETRY_NURBS, GEOMETRY_PLANE, GEOMETRY_QUADRANGLE = range(3)
+    GEOMETRY_PLANE, GEOMETRY_QUADRANGLE, GEOMETRY_NURBS, GEOMETRY_ROTATED, GEOMETRY_PIPE = range(5)
 
 class SurfaceType(Enum):
     '''
