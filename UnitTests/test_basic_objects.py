@@ -467,4 +467,19 @@ def test_thickness_layers():
     assert thickness.type == "TYPE_LAYERS"
     assert round(thickness.layers_total_thickness, 2) == 0.3
 
-## Thickness type Shape Orthotropy has bugs. Need to be updated
+def test_thickness_shape_orthotropy():
+
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
+
+    Material(1, 'S275')
+
+    Thickness.ShapeOrthotropy(0, 1, 'EFFECTIVE_THICKNESS', 1, ThicknessOrthotropyType.EFFECTIVE_THICKNESS, 7)
+    Thickness.ShapeOrthotropy(0, 2, 'COUPLING', 1, ThicknessOrthotropyType.COUPLING, 8, parameters=[0.15,0.18,0.16])
+    Thickness.ShapeOrthotropy(0, 3, 'UNIDIRECTIONAL_RIBBED_PLATE', 1, ThicknessOrthotropyType.UNIDIRECTIONAL_RIBBED_PLATE, 9, parameters=[0.15, 0.15,0.18,0.16])
+    Thickness.ShapeOrthotropy(0, 4, 'BIDIRECTIONAL_RIBBED_PLATE', 1, ThicknessOrthotropyType.BIDIRECTIONAL_RIBBED_PLATE, 10, parameters=[0.15, 0.3,0.25, 0.8,0.75,0.2,0.15])
+    Thickness.ShapeOrthotropy(0, 5, 'TRAPEZOIDAL_SHEET', 1, ThicknessOrthotropyType.TRAPEZOIDAL_SHEET, 11, parameters=[0.15, 0.45,0.4,0.14,0.14])
+    Thickness.ShapeOrthotropy(0, 6, 'HOLLOW_CORE_SLAB', 1, ThicknessOrthotropyType.HOLLOW_CORE_SLAB, 12, parameters=[0.2, 0.15, 0.1])
+    Thickness.ShapeOrthotropy(0, 7, 'GRILLAGE', 1, ThicknessOrthotropyType.GRILLAGE, 13,[ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, 0.15], [0.15,0.8,0.75,0.2,0.15])
+
+    Model.clientModel.service.finish_modification()

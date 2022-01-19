@@ -85,7 +85,7 @@ def test_thickness():
     Thickness.ShapeOrthotropy(Thickness,
                      no= 8,
                      name= 'Shape Orthotropy',
-                     orthotropy_type= ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB,
+                     orthotropy_type= ThicknessOrthotropyType.HOLLOW_CORE_SLAB,
                      rotation_beta= 180,
                      consideration_of_self_weight= [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, 0.234],
                      parameters= [0.4, 0.125, 0.05],

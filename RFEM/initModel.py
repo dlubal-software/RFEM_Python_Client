@@ -252,6 +252,24 @@ def ConvertToDlString(s):
     s = ' '.join(new_lst)
     return s
 
+def ConvertStrToListOfInt(st):
+    """
+    This function coverts string to list of integers.
+    """
+    st = ConvertToDlString(st)
+    lstInt = []
+    while st:
+        intNumber = 0
+        if ' ' in st:
+            idx = st.index(' ')
+            intNumber = int(st[:idx])
+            st = st[idx+1:]
+        else:
+            intNumber = int(st)
+            st = ''
+        lstInt.append(intNumber)
+    return lstInt
+
 def CheckIfMethodOrTypeExists(modelClient, method_or_type, unitTestMode=False):
     """
     Check if SOAP method or type is present in your version of RFEM/RSTAB.

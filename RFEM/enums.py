@@ -20,12 +20,37 @@ class LineSupportType(Enum):
     '''
     FIXED, HINGED, SLIDING_IN_X_AND_Y, SLIDING_IN_X, SLIDING_IN_Y, SLIDING_IN_Z, FREE = range(7)
 
+class LineWeldedJointType(Enum):
+    """
+    Line Welded Joint Type | Enum
+    """
+    BUTT_JOINT, CORNER_JOINT, LAP_JOINT, TEE_JOINT = range(4)
+
+class WeldType(Enum):
+    """
+    Welded Type | Enum
+    """
+    WELD_BEVEL_AND_FILLET, WELD_DOUBLE_BEVEL, WELD_DOUBLE_FILLET, WELD_DOUBLE_J,\
+    WELD_DOUBLE_SQUARE, WELD_DOUBLE_U, WELD_DOUBLE_V, WELD_J_AND_FILLET, WELD_SINGLE_BEVEL,\
+    WELD_SINGLE_FILLET, WELD_SINGLE_J, WELD_SINGLE_SQUARE, WELD_SINGLE_U, WELD_SINGLE_V, WELD_V_AND_FILLET = range(15)
+
+class WeldLongitudalArrangement(Enum):
+    """
+    Weld Longitudat Arrangement Type | Enum
+    """
+    CHAIN_INTERMITTENT, CONTINUOUS, STAGGERED_INTERMITTENT = range(3)
+
+class LineMeshRefinementsType(Enum):
+    """
+    Line Mesh Refinements Type | Enum
+    """
+    TYPE_LENGTH, TYPE_ELEMENTS, TYPE_GRADUAL = range(3)
+
 class StaticAnalysisType(Enum):
     '''
     Static Analysis Type
     '''
     GEOMETRICALLY_LINEAR, LARGE_DEFORMATIONS, LARGE_DEFORMATIONS_POSTRCRITICAL, SECOND_ORDER_P_DELTA = range(4)
-
 
 class StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis(Enum):
     '''
@@ -191,22 +216,28 @@ class ThicknessSelfWeightDefinitionType(Enum):
     '''
     SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, \
     SELF_WEIGHT_DEFINED_VIA_WEIGHT = range(3)
+
 class ThicknessShapeOrthotropySelfWeightDefinitionType(Enum):
+    '''
+    Thickness Shape Orthotropy Self Weight Definition Type | Enum
+    '''
     SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, \
     SELF_WEIGHT_DEFINED_VIA_WEIGHT = range(3)
 
 class ThicknessStiffnessMatrixSelfWeightDefinitionType(Enum):
+    '''
+    Thickness Stiffness Matrix Self Weight Definition Type | Enum
+    '''
     SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_BULK_DENSITY_AND_AREA_DENSITY, \
     SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_AREA_DENSITY, \
     SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_BULK_DENSITY = range(3)
+
 class ThicknessOrthotropyType(Enum):
     '''
     Thickness Orthotropy Type | Enum
     '''
-    ORTHOTROPIC_THICKNESS_TYPE_BIDIRECTIONAL_RIBBED_PLATE, ORTHOTROPIC_THICKNESS_TYPE_COUPLING, \
-    ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS, ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE, \
-    ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB, ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET, \
-    ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE = range(7)
+    BIDIRECTIONAL_RIBBED_PLATE, COUPLING, EFFECTIVE_THICKNESS, GRILLAGE, \
+    HOLLOW_CORE_SLAB, TRAPEZOIDAL_SHEET, UNIDIRECTIONAL_RIBBED_PLATE = range(7)
 
 class LineLoadDirection(Enum):
     '''

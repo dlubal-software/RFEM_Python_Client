@@ -50,7 +50,7 @@ class LineSupport():
         clientObject.no = no
 
         # Nodes No. (e.g. "5 6 7 12")
-        clientObject.nodes = ConvertToDlString(lines_no)
+        clientObject.lines = ConvertToDlString(lines_no)
 
         # Nodal Support Conditions
         if   support_type == LineSupportType.FIXED:
