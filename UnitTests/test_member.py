@@ -19,7 +19,7 @@ if Model.clientModel is None:
 
 def test_init():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -39,7 +39,7 @@ def test_init():
 
 def test_member_beam():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -59,7 +59,7 @@ def test_member_beam():
 
 def test_member_rigid():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -80,7 +80,7 @@ def test_member_rigid():
 """
 def test_member_rib():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -101,7 +101,7 @@ def test_member_rib():
 
 def test_member_truss():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -121,7 +121,7 @@ def test_member_truss():
 
 def test_member_trussOnlyN():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -141,7 +141,7 @@ def test_member_trussOnlyN():
 
 def test_member_tension():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -161,7 +161,7 @@ def test_member_tension():
 
 def test_member_compression():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -181,7 +181,7 @@ def test_member_compression():
 
 def test_member_buckling():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -201,7 +201,7 @@ def test_member_buckling():
 
 def test_member_cable():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -221,7 +221,7 @@ def test_member_cable():
 
 def test_member_resultBeam():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -244,7 +244,7 @@ def test_member_resultBeam():
 
 def test_member_definableStiffness():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -264,7 +264,7 @@ def test_member_definableStiffness():
 
 def test_member_couplingRigidRigid():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -284,7 +284,7 @@ def test_member_couplingRigidRigid():
 
 def test_member_couplingRigidHinge():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -304,7 +304,7 @@ def test_member_couplingRigidHinge():
 
 def test_member_couplingHingeRigid():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -324,7 +324,7 @@ def test_member_couplingHingeRigid():
 
 def test_member_couplingHingeHinge():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')

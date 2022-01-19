@@ -27,7 +27,7 @@ if Model.clientModel is None:
 
 def test_solid_loads():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')

@@ -25,7 +25,7 @@ if Model.clientModel is None:
 
 def test_line_loads():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     # Creating a lot of lines for line load testing

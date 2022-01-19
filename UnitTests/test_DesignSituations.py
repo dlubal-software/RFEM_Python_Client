@@ -19,7 +19,7 @@ if Model.clientModel is None:
 
 def test_design_situation():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     StaticAnalysisSettings()

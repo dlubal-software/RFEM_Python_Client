@@ -17,7 +17,7 @@ def test_spectral_analysis_settings():
 
     CheckIfMethodOrTypeExists(Model.clientModel,'set_spectral_analysis_settings')
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     # Create Material

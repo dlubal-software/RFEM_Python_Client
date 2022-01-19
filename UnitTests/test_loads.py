@@ -29,7 +29,7 @@ if Model.clientModel is None:
 ### Nodal Load Unit Tests ###
 def test_nodal_load_init():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 2, 0, 0)
@@ -48,7 +48,7 @@ def test_nodal_load_init():
 
 def test_nodal_load_force():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 2, 0, 0)
@@ -66,7 +66,7 @@ def test_nodal_load_force():
 
 def test_nodal_load_moment():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 2, 0, 0)
@@ -85,7 +85,7 @@ def test_nodal_load_moment():
 
 def test_nodal_load_components():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 2, 0, 0)
@@ -104,7 +104,7 @@ def test_nodal_load_components():
 
 def test_nodal_load_mass():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 2, 0, 0)
@@ -125,7 +125,7 @@ def test_nodal_load_mass():
 
 def test_member_load_init():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -149,7 +149,7 @@ def test_member_load_init():
 
 def test_member_load_force():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -173,7 +173,7 @@ def test_member_load_force():
 
 def test_member_load_moment():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -197,7 +197,7 @@ def test_member_load_moment():
 
 def test_member_load_mass():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -220,7 +220,7 @@ def test_member_load_mass():
 
 def test_member_load_temperature():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -244,7 +244,7 @@ def test_member_load_temperature():
 
 def test_member_load_temperature_change():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -268,7 +268,7 @@ def test_member_load_temperature_change():
 
 def test_member_load_axial_strain():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -292,7 +292,7 @@ def test_member_load_axial_strain():
 
 def test_member_load_axial_displacement():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -316,7 +316,7 @@ def test_member_load_axial_displacement():
 
 def test_member_load_precamber():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -340,7 +340,7 @@ def test_member_load_precamber():
 
 def test_member_load_initial_prestress():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -364,7 +364,7 @@ def test_member_load_initial_prestress():
 
 def test_member_load_displacement():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -388,7 +388,7 @@ def test_member_load_displacement():
 
 def test_member_load_rotation():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -412,7 +412,7 @@ def test_member_load_rotation():
 
 def test_member_load_pipecontentfull():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -436,7 +436,7 @@ def test_member_load_pipecontentfull():
 
 def test_member_load_pipecontentpartial():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -460,7 +460,7 @@ def test_member_load_pipecontentpartial():
 
 def test_member_load_pipeinternalpressure():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -486,7 +486,7 @@ def test_member_load_pipeinternalpressure():
 
 def test_surface_load_init():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -525,7 +525,7 @@ def test_surface_load_init():
 
 def test_surface_load_force():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -564,7 +564,7 @@ def test_surface_load_force():
 
 def test_surface_load_temperature():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -603,7 +603,7 @@ def test_surface_load_temperature():
 
 def test_surface_load_axial_strain():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -642,7 +642,7 @@ def test_surface_load_axial_strain():
 
 def test_surface_load_precamber():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -681,7 +681,7 @@ def test_surface_load_precamber():
 
 def test_surface_load_mass():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -721,7 +721,7 @@ def test_surface_load_mass():
 
 def test_line_load_init():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -760,7 +760,7 @@ def test_line_load_init():
 
 def test_line_load_force():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -801,7 +801,7 @@ def test_line_load_force():
 
 def test_line_load_moment():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -842,7 +842,7 @@ def test_line_load_moment():
 
 def test_line_load_mass():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -885,7 +885,7 @@ def test_line_load_mass():
 
 def test_free_concentrated_load():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -925,7 +925,7 @@ def test_free_concentrated_load():
 
 def test_free_line_load():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -969,7 +969,7 @@ def test_free_line_load():
 
 def test_free_rectangular_load():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -1015,7 +1015,7 @@ def test_free_rectangular_load():
 
 def test_free_circular_load():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -1059,7 +1059,7 @@ def test_free_circular_load():
 
 def test_free_polygon_load():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')

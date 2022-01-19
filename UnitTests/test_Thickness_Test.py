@@ -18,7 +18,7 @@ if Model.clientModel is None:
 
 def test_thickness():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
     Material(1, 'C30/37')
 

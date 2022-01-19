@@ -42,10 +42,12 @@ def template():
     """
     Optional docstring describing the testing procedure
     """
-    # In every test function run 'reset' first to clean up the model.
-    # It is important to run it before begin_modification or after finish_modification,
-    # otherwise begin_modification doesn't take effect.
-    Model.clientModel.service.reset()
+    # In every test function run 'delete_all' first to clean up the model.
+    # It deletes mesh, results and all objects.
+    # delete_all() erases modification stack and all objects.
+    # If you run it inside modification stack (from begin_modification to finish_modification),
+    # all modifications will not take place.
+    Model.clientModel.service.delete_all()
 
     # Speed up the execution of the test.
     Model.clientModel.service.begin_modification()

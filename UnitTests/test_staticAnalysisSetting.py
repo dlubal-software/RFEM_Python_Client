@@ -15,7 +15,7 @@ if Model.clientModel is None:
 
 def test_StaticAnalysisSettings():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     # Set Static Analysis Settings

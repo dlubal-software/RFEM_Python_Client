@@ -140,7 +140,7 @@ class Model():
                  new_model: bool=True,
                  model_name: str="MyModel",
                  delete: bool=False,
-                 reset: bool=False):
+                 delete_all: bool=False):
 
         cModel = None
         modelLs = client.service.get_model_list()
@@ -150,7 +150,7 @@ class Model():
                 new = client.service.open_model(model_name) + 'wsdl'
                 cModel = Client(new, transport=trans)
                 cModel.service.delete_all_results()
-                cModel.service.reset()
+                cModel.service.delete_all()
             else:
                 new = client.service.new_model(model_name) + 'wsdl'
                 cModel = Client(new, transport=trans)
@@ -164,9 +164,9 @@ class Model():
             if delete:
                 print('Deleting results...')
                 cModel.service.delete_all_results()
-            if reset:
-                print('Resetting model...')
-                cModel.service.reset()
+            if delete_all:
+                print('Delete all...')
+                cModel.service.delete_all()
 
         Model.clientModel = cModel
 

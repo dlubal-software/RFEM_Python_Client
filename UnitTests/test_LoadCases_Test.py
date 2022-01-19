@@ -19,7 +19,7 @@ if Model.clientModel is None:
 @pytest.mark.skip("all tests still WIP")
 def test_load_case():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     StaticAnalysisSettings()

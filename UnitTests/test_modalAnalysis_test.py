@@ -24,7 +24,7 @@ if Model.clientModel is None:
 @pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'set_modal_analysis_settings', True), reason="set_modal_analysis_settings not in RFEM yet")
 def test_modal_analysis_settings():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     # Create Material

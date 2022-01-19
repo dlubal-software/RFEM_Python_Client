@@ -22,7 +22,7 @@ if Model.clientModel is None:
 
 def test_surface_loads():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     # Create Material
