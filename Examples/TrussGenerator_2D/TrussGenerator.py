@@ -681,11 +681,11 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "2D Truss Generator"))
-        self.bay_label.setText(_translate("MainWindow", "Number of Bays:      "))
-        self.length_label.setText(_translate("MainWindow", "Total Length (m):     "))
-        self.height_label.setText(_translate("MainWindow", "Total Height (m):     "))
-        self.height_label_2.setText(_translate("MainWindow", "First Span (m):       "))
-        self.sideheight_label.setText(_translate("MainWindow", "Side Height (m):     "))
+        self.bay_label.setText(_translate("MainWindow", "Number of Bays:\t"))
+        self.length_label.setText(_translate("MainWindow", "Total Length (m):\t"))
+        self.height_label.setText(_translate("MainWindow", "Total Height (m):\t"))
+        self.height_label_2.setText(_translate("MainWindow", "First Span (m):\t"))
+        self.sideheight_label.setText(_translate("MainWindow", "Side Height (m):\t"))
         self.upperchord_label.setText(_translate("MainWindow", "Upper Chord"))
         self.verticals_label.setText(_translate("MainWindow", "Verticals      "))
         self.lowerchord_label.setText(_translate("MainWindow", "Lower Chord"))
@@ -716,7 +716,7 @@ class Ui_MainWindow(object):
         if Model.clientModel is None:
             Model(True, "MyTruss")
 
-        Model.clientModel.service.reset()
+        Model.clientModel.service.delete_all()
         Model.clientModel.service.begin_modification()
         # Create Materials
         try:
