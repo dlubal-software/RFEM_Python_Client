@@ -126,13 +126,10 @@ except:
 # the message: 'Application is locked by external connection'
 # is blinking whole time and the execution is unnecessarily long.
 # This solution works with unit-tests.
-def persistent():
-    session = requests.Session()
-    adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
-    session.mount('http://', adapter)
-    return suds_requests.RequestsTransport(session)
-
-trans = persistent()
+session = requests.Session()
+adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
+session.mount('http://', adapter)
+trans = suds_requests.RequestsTransport(session)
 
 class Model():
     clientModel = None
