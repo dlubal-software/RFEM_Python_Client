@@ -681,11 +681,11 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "2D Truss Generator"))
-        self.bay_label.setText(_translate("MainWindow", "Number of Bays:\t"))
-        self.length_label.setText(_translate("MainWindow", "Total Length (m):\t"))
-        self.height_label.setText(_translate("MainWindow", "Total Height (m):\t"))
-        self.height_label_2.setText(_translate("MainWindow", "First Span (m):\t"))
-        self.sideheight_label.setText(_translate("MainWindow", "Side Height (m):\t"))
+        self.bay_label.setText(_translate("MainWindow", "Number of Bays:      "))
+        self.length_label.setText(_translate("MainWindow", "Total Length (m):     "))
+        self.height_label.setText(_translate("MainWindow", "Total Height (m):     "))
+        self.height_label_2.setText(_translate("MainWindow", "First Span (m):       "))
+        self.sideheight_label.setText(_translate("MainWindow", "Side Height (m):     "))
         self.upperchord_label.setText(_translate("MainWindow", "Upper Chord"))
         self.verticals_label.setText(_translate("MainWindow", "Verticals      "))
         self.lowerchord_label.setText(_translate("MainWindow", "Lower Chord"))
@@ -711,19 +711,32 @@ class Ui_MainWindow(object):
         first_span = float(self.firstspan_input.text())
         side_height = float(self.sideheight_input.text())
 
-        allGood = True
+        if self.truss_1.isChecked():
 
-        if Model.clientModel is None:
-            Model(True, "MyTruss")
+            model_list = client.service.get_model_list()
+            if not model_list:
+                Model(True, "MyTruss")
+            else:
+                if Model.clientModel is None:
+                    Model(False, "MyTruss")
 
-        Model.clientModel.service.delete_all()
-        Model.clientModel.service.begin_modification()
-        # Create Materials
-        try:
-            Material(1, upper_chord_material)
-            Material(2, lower_chord_material)
-            Material(3, diagonal_material)
-            Material(4, vertical_material)
+            Model.clientModel.service.reset()
+            Model.clientModel.service.begin_modification()
+
+            # Create Materials
+            try:
+                Material(1, upper_chord_material)
+                Material(2, lower_chord_material)
+                Material(3, diagonal_material)
+                Material(4, vertical_material)
+            except:
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Critical)
+                msg.setText("WARNING")
+                msg.setInformativeText("WARNING: Please enter valid material values.")
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
+
             # Create Sections
             try:
                 Section(1, upper_chord_section, 1)
@@ -731,7 +744,6 @@ class Ui_MainWindow(object):
                 Section(3, diagonal_section, 3)
                 Section(4, vertical_section, 4)
             except:
-                allGood = False
                 msg = QtWidgets.QMessageBox()
                 msg.setIcon(QtWidgets.QMessageBox.Critical)
                 msg.setText("WARNING")
@@ -739,254 +751,300 @@ class Ui_MainWindow(object):
                 msg.setWindowTitle("WARNING")
                 msg.exec_()
 
-        except:
-            allGood = False
-            msg = QtWidgets.QMessageBox()
-            msg.setIcon(QtWidgets.QMessageBox.Critical)
-            msg.setText("WARNING")
-            msg.setInformativeText("WARNING: Please enter valid material values.")
-            msg.setWindowTitle("WARNING")
-            msg.exec_()
+            # Create Nodes
+            x_nodes = np.repeat(np.arange(0, total_length + total_length/number_of_bays -0.1, total_length/number_of_bays), 2)
+            z_nodes = (0, (-total_height))*int((len(x_nodes)/2))
+            tag_nodes = np.arange(1, len(x_nodes)+1, 1)
 
-        Model.clientModel.service.finish_modification()
+            for tag,x,z in zip(tag_nodes, x_nodes, z_nodes):
+                Node(tag, x, 0, z)
 
-        if allGood:
-            if self.truss_1.isChecked():
-                Model.clientModel.service.begin_modification()
+            # Create Lower Chord
+            Member(1, 1, tag_nodes[-2], 0, 2, 2)
 
-                # Create Nodes
-                x_nodes = np.repeat(np.arange(0, total_length + total_length/number_of_bays -0.1, total_length/number_of_bays), 2)
-                z_nodes = (0, (-total_height))*int((len(x_nodes)/2))
-                tag_nodes = np.arange(1, len(x_nodes)+1, 1)
+            # Create Upper Chord
+            Member(2, 2, tag_nodes[-1], 0, 1, 1)
 
-                for tag,x,z in zip(tag_nodes, x_nodes, z_nodes):
-                    Node(tag, x, 0, z)
+            # Create Verticals
+            i = 1
+            j = 1
+            while j<len(tag_nodes) and i<len(tag_nodes):
+                Member.Truss(0, j+2, i, i+1, section_no=4)
+                i += 2
+                j += 1
 
-                # Create Lower Chord
-                Member(1, 1, tag_nodes[-2], 0, 2, 2)
-
-                # Create Upper Chord
-                Member(2, 2, tag_nodes[-1], 0, 1, 1)
-
-                # Create Verticals
+            # Create Diagonals
+            if self.diag_1.isChecked():
+                diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
                 i = 1
-                j = 1
-                while j<len(tag_nodes) and i<len(tag_nodes):
-                    Member.Truss(0, j+2, i, i+1, section_no=4)
-                    i += 2
+                j = int(diagonal_tag[0])
+                while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1):
+                    Member.Truss(0, j, i, i+3, section_no=3)
+                    i +=2
+                    j +=1
+
+            elif self.diag_2.isChecked():
+                diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
+                i = 1
+                j = int(diagonal_tag[0])
+                while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 2):
+                    Member.Truss(0, j, i+1, i+2, section_no=3)
+                    i +=2
+                    j +=1
+
+            elif self.diag_3.isChecked():
+                diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
+                i = 1
+                j = int(diagonal_tag[0])
+                k = 1
+
+                while i < len(tag_nodes) -1 and j < diagonal_tag[-1] +2  and k < len(tag_nodes) :
+                    Member.Truss(0, j, i, i+3, section_no=3)
+                    j += 1
+                    Member.Truss(0, j, k+3, k+4, section_no=3)
+                    i += 4
+                    k += 4
                     j += 1
 
-                # Create Diagonals
-                if self.diag_1.isChecked():
-                    diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
-                    i = 1
-                    j = int(diagonal_tag[0])
-                    while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1):
-                        Member.Truss(0, j, i, i+3, section_no=3)
-                        i +=2
-                        j +=1
-
-                elif self.diag_2.isChecked():
-                    diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
-                    i = 1
-                    j = int(diagonal_tag[0])
-                    while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 2):
-                        Member.Truss(0, j, i+1, i+2, section_no=3)
-                        i +=2
-                        j +=1
-
-                elif self.diag_3.isChecked():
-                    diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
-                    i = 1
-                    j = int(diagonal_tag[0])
-                    k = 1
-
-                    while i < len(tag_nodes) -1 and j < diagonal_tag[-1] +2  and k < len(tag_nodes) :
-                        Member.Truss(0, j, i, i+3, section_no=3)
-                        j += 1
-                        Member.Truss(0, j, k+3, k+4, section_no=3)
-                        i += 4
-                        k += 4
-                        j += 1
-
-                elif self.diag_4.isChecked():
-                    diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
-                    i = 1
-                    j = int(diagonal_tag[0])
-                    k = 1
-
-                    while i < len(tag_nodes) -1 and j < diagonal_tag[-1] +1  and k < len(tag_nodes) :
-                        Member.Truss(0, j, i+2, i+5, section_no=3)
-                        j += 1
-                        Member.Truss(0, j, k+1, k+2, section_no=3)
-                        i += 4
-                        k += 4
-                        j += 1
-
-                elif self.diag_5.isChecked():
-                    if (number_of_bays % 2) == 0:
-                        diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
-                            i += 2
-                            j += 1
-                        i = int(len(tag_nodes)/2)
-                        j = int(diagonal_tag[int(len(diagonal_tag)/2)])
-                        while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+3, section_no=3)
-                            i += 2
-                            j += 1
-                    else:
-                        msg = QtWidgets.QMessageBox()
-                        msg.setIcon(QtWidgets.QMessageBox.Critical)
-                        msg.setText("WARNING")
-                        msg.setInformativeText("WARNING: Please enter an even number of spans for a symmetrical net.")
-                        msg.setWindowTitle("WARNING")
-                        msg.exec_()
-
-                elif self.diag_6.isChecked():
-                    if (number_of_bays % 2) == 0:
-                        diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        while i < ((tag_nodes[-1]/2) + 1) and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+3, section_no=3)
-                            i += 2
-                            j += 1
-                        i = int(len(tag_nodes)/2) + 1
-                        j = int(diagonal_tag[int(len(diagonal_tag)/2)])
-                        while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+1, section_no=3)
-                            i += 2
-                            j += 1
-                    else:
-                        msg = QtWidgets.QMessageBox()
-                        msg.setIcon(QtWidgets.QMessageBox.Critical)
-                        msg.setText("WARNING")
-                        msg.setInformativeText("WARNING: Please enter an even number of spans for a symmetrical net.")
-                        msg.setWindowTitle("WARNING")
-                        msg.exec_()
-
-                elif self.diag_7.isChecked():
-                    diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
-                    i = 1
-                    j = int(diagonal_tag[0])
-                    while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1)*2:
-                        Member.Truss(0, j, i, i+3, section_no=3)
-                        j +=1
-                        Member.Truss(0, j, i+1, i+2, section_no=3)
-                        i +=2
-                        j +=1
-
-                elif self.diag_8.isChecked():
-                    pass
-
-                Model.clientModel.service.finish_modification()
-
-            elif self.truss_2.isChecked():
-
-                Model.clientModel.service.begin_modification()
-
-                # Create Nodes
-                x_nodes = np.repeat(np.arange(0, total_length + total_length/number_of_bays -0.1, total_length/number_of_bays), 2)
-                z_nodes = (0, (-total_height))*int((len(x_nodes)/2))
-                tag_nodes = np.arange(1, len(x_nodes)+1, 1)
-
-                for tag,x,z in zip(tag_nodes, x_nodes, z_nodes):
-                    Node(tag, x, 0, z)
-
-                # Create Lower Chord
-                Member(1, 1, tag_nodes[-2], 0, 2, 2)
-
-                # Create Upper Chord
-                Member(2, 2, tag_nodes[-1], 0, 1, 1)
-
-                # Create Verticals
+            elif self.diag_4.isChecked():
+                diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
                 i = 1
-                j = 1
-                while j<len(tag_nodes) and i<len(tag_nodes):
-                    Member.Truss(0, j+2, i, i+1, section_no=4)
-                    i += 2
+                j = int(diagonal_tag[0])
+                k = 1
+
+                while i < len(tag_nodes) -1 and j < diagonal_tag[-1] +1  and k < len(tag_nodes) :
+                    Member.Truss(0, j, i+2, i+5, section_no=3)
+                    j += 1
+                    Member.Truss(0, j, k+1, k+2, section_no=3)
+                    i += 4
+                    k += 4
                     j += 1
 
-                # Create Diagonals
-                if self.diag_1.isChecked():
+            elif self.diag_5.isChecked():
+                if (number_of_bays % 2) == 0:
                     diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
                     i = 1
                     j = int(diagonal_tag[0])
-                    while i < len(tag_nodes) +2 and j < int(diagonal_tag[-1] + 2):
-                        Member.Truss(0, j, i, i+3, section_no=3)
-                        i +=2
-                        j +=1
-                    #Add first span
-                    Node(tag_nodes[-1]+1, (-first_span), 0, -total_height)
-                    Node(tag_nodes[-1]+2, (total_length+first_span), 0, -total_height)
-
-                    Member((int(diagonal_tag[-1])+1), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
-                    Member((int(diagonal_tag[-1])+2), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
-
-                    Member.Truss(0, (int(diagonal_tag[-1])+3), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
-
-                elif self.diag_2.isChecked():
-                    diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
-                    i = 1
-                    j = int(diagonal_tag[0])
-                    while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 2):
+                    while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] +1:
                         Member.Truss(0, j, i+1, i+2, section_no=3)
-                        i +=2
-                        j +=1
-
-                    #Add first span
-                    Node(tag_nodes[-1]+1, (-first_span), 0, -total_height)
-                    Node(tag_nodes[-1]+2, (total_length+first_span), 0, -total_height)
-
-                    Member((int(diagonal_tag[-1])+1), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
-                    Member((int(diagonal_tag[-1])+2), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
-
-                    Member.Truss(0, (int(diagonal_tag[-1])+3), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
-
-                elif self.diag_3.isChecked():
-                    diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
-                    i = 1
-                    j = int(diagonal_tag[0])
-                    k = 1
-
-                    while i < len(tag_nodes) -1 and j < diagonal_tag[-1] +2  and k < len(tag_nodes) :
+                        i += 2
+                        j += 1
+                    i = int(len(tag_nodes)/2)
+                    j = int(diagonal_tag[int(len(diagonal_tag)/2)])
+                    while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
                         Member.Truss(0, j, i, i+3, section_no=3)
+                        i += 2
                         j += 1
-                        Member.Truss(0, j, k+3, k+4, section_no=3)
-                        i += 4
-                        k += 4
-                        j += 1
+                else:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setIcon(QtWidgets.QMessageBox.Critical)
+                    msg.setText("WARNING")
+                    msg.setInformativeText("WARNING: Please enter an even number of spans for a symmetrical net.")
+                    msg.setWindowTitle("WARNING")
+                    msg.exec_()
 
-                    #Add first span
-                    Node(tag_nodes[-1]+1, (-first_span), 0, -total_height)
-                    Node(tag_nodes[-1]+2, (total_length+first_span), 0, -total_height)
-
-                    Member((int(diagonal_tag[-1])+1), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
-                    Member((int(diagonal_tag[-1])+2), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
-
-                    Member.Truss(0, (int(diagonal_tag[-1])+3), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
-
-                elif self.diag_4.isChecked():
+            elif self.diag_6.isChecked():
+                if (number_of_bays % 2) == 0:
                     diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
                     i = 1
                     j = int(diagonal_tag[0])
-                    k = 1
-
-                    while i < len(tag_nodes) -1 and j < diagonal_tag[-1]+1  and k < len(tag_nodes) :
-                        Member.Truss(0, j, i+2, i+5, section_no=3)
+                    while i < ((tag_nodes[-1]/2) + 1) and j <diagonal_tag[-1] +1:
+                        Member.Truss(0, j, i, i+3, section_no=3)
+                        i += 2
                         j += 1
-                        Member.Truss(0, j, k+1, k+2, section_no=3)
-                        i += 4
-                        k += 4
+                    i = int(len(tag_nodes)/2) + 1
+                    j = int(diagonal_tag[int(len(diagonal_tag)/2)])
+                    while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
+                        Member.Truss(0, j, i, i+1, section_no=3)
+                        i += 2
                         j += 1
+                else:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setIcon(QtWidgets.QMessageBox.Critical)
+                    msg.setText("WARNING")
+                    msg.setInformativeText("WARNING: Please enter an even number of spans for a symmetrical net.")
+                    msg.setWindowTitle("WARNING")
+                    msg.exec_()
 
+            elif self.diag_7.isChecked():
+                diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
+                i = 1
+                j = int(diagonal_tag[0])
+                while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1)*2:
+                    Member.Truss(0, j, i, i+3, section_no=3)
+                    j +=1
+                    Member.Truss(0, j, i+1, i+2, section_no=3)
+                    i +=2
+                    j +=1
+
+            elif self.diag_8.isChecked():
+                pass
+
+            Model.clientModel.service.finish_modification()
+
+        elif self.truss_2.isChecked():
+
+            model_list = client.service.get_model_list()
+            if not model_list:
+                Model(True, "MyTruss")
+            else:
+                if Model.clientModel is None:
+                    Model(False, "MyTruss")
+
+            Model.clientModel.service.reset()
+            Model.clientModel.service.begin_modification()
+
+            # Create Materials
+            try:
+                Material(1, upper_chord_material)
+                Material(2, lower_chord_material)
+                Material(3, diagonal_material)
+                Material(4, vertical_material)
+            except:
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Critical)
+                msg.setText("WARNING")
+                msg.setInformativeText("WARNING: Please enter valid material values.")
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
+
+            # Create Sections
+            try:
+                Section(1, upper_chord_section, 1)
+                Section(2, lower_chord_section, 2)
+                Section(3, diagonal_section, 3)
+                Section(4, vertical_section, 4)
+            except:
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Critical)
+                msg.setText("WARNING")
+                msg.setInformativeText("WARNING: Please enter valid section values.")
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
+
+            # Create Nodes
+            x_nodes = np.repeat(np.arange(0, total_length + total_length/number_of_bays -0.1, total_length/number_of_bays), 2)
+            z_nodes = (0, (-total_height))*int((len(x_nodes)/2))
+            tag_nodes = np.arange(1, len(x_nodes)+1, 1)
+
+            for tag,x,z in zip(tag_nodes, x_nodes, z_nodes):
+                Node(tag, x, 0, z)
+
+            # Create Lower Chord
+            Member(1, 1, tag_nodes[-2], 0, 2, 2)
+
+            # Create Upper Chord
+            Member(2, 2, tag_nodes[-1], 0, 1, 1)
+
+            # Create Verticals
+            i = 1
+            j = 1
+            while j<len(tag_nodes) and i<len(tag_nodes):
+                Member.Truss(0, j+2, i, i+1, section_no=4)
+                i += 2
+                j += 1
+
+            # Create Diagonals
+            if self.diag_1.isChecked():
+                diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
+                i = 1
+                j = int(diagonal_tag[0])
+                while i < len(tag_nodes) +2 and j < int(diagonal_tag[-1] + 2):
+                    Member.Truss(0, j, i, i+3, section_no=3)
+                    i +=2
+                    j +=1
+                #Add first span
+                Node(tag_nodes[-1]+1, (-first_span), 0, -total_height)
+                Node(tag_nodes[-1]+2, (total_length+first_span), 0, -total_height)
+
+                Member((int(diagonal_tag[-1])+1), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
+                Member((int(diagonal_tag[-1])+2), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
+
+                Member.Truss(0, (int(diagonal_tag[-1])+3), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
+                Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
+
+            elif self.diag_2.isChecked():
+                diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
+                i = 1
+                j = int(diagonal_tag[0])
+                while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 2):
+                    Member.Truss(0, j, i+1, i+2, section_no=3)
+                    i +=2
+                    j +=1
+
+                #Add first span
+                Node(tag_nodes[-1]+1, (-first_span), 0, -total_height)
+                Node(tag_nodes[-1]+2, (total_length+first_span), 0, -total_height)
+
+                Member((int(diagonal_tag[-1])+1), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
+                Member((int(diagonal_tag[-1])+2), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
+
+                Member.Truss(0, (int(diagonal_tag[-1])+3), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
+                Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
+
+            elif self.diag_3.isChecked():
+                diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
+                i = 1
+                j = int(diagonal_tag[0])
+                k = 1
+
+                while i < len(tag_nodes) -1 and j < diagonal_tag[-1] +2  and k < len(tag_nodes) :
+                    Member.Truss(0, j, i, i+3, section_no=3)
+                    j += 1
+                    Member.Truss(0, j, k+3, k+4, section_no=3)
+                    i += 4
+                    k += 4
+                    j += 1
+
+                #Add first span
+                Node(tag_nodes[-1]+1, (-first_span), 0, -total_height)
+                Node(tag_nodes[-1]+2, (total_length+first_span), 0, -total_height)
+
+                Member((int(diagonal_tag[-1])+1), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
+                Member((int(diagonal_tag[-1])+2), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
+
+                Member.Truss(0, (int(diagonal_tag[-1])+3), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
+                Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
+
+            elif self.diag_4.isChecked():
+                diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
+                i = 1
+                j = int(diagonal_tag[0])
+                k = 1
+
+                while i < len(tag_nodes) -1 and j < diagonal_tag[-1]+1  and k < len(tag_nodes) :
+                    Member.Truss(0, j, i+2, i+5, section_no=3)
+                    j += 1
+                    Member.Truss(0, j, k+1, k+2, section_no=3)
+                    i += 4
+                    k += 4
+                    j += 1
+
+                #Add first span
+                Node(tag_nodes[-1]+1, (-first_span), 0, -total_height)
+                Node(tag_nodes[-1]+2, (total_length+first_span), 0, -total_height)
+
+                Member((int(diagonal_tag[-1])+2), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
+                Member((int(diagonal_tag[-1])+3), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
+
+                Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
+                Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
+
+            elif self.diag_5.isChecked():
+                if (number_of_bays % 2) == 0:
+                    diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
+                    i = 1
+                    j = int(diagonal_tag[0])
+                    while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] +1:
+                        Member.Truss(0, j, i+1, i+2, section_no=3)
+                        i += 2
+                        j += 1
+                    i = int(len(tag_nodes)/2)
+                    j = int(diagonal_tag[int(len(diagonal_tag)/2)])
+                    while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
+                        Member.Truss(0, j, i, i+3, section_no=3)
+                        i += 2
+                        j += 1
                     #Add first span
                     Node(tag_nodes[-1]+1, (-first_span), 0, -total_height)
                     Node(tag_nodes[-1]+2, (total_length+first_span), 0, -total_height)
@@ -997,203 +1055,240 @@ class Ui_MainWindow(object):
                     Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
                     Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
 
-                elif self.diag_5.isChecked():
-                    if (number_of_bays % 2) == 0:
-                        diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
-                            i += 2
-                            j += 1
-                        i = int(len(tag_nodes)/2)
-                        j = int(diagonal_tag[int(len(diagonal_tag)/2)])
-                        while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+3, section_no=3)
-                            i += 2
-                            j += 1
-                        #Add first span
-                        Node(tag_nodes[-1]+1, (-first_span), 0, -total_height)
-                        Node(tag_nodes[-1]+2, (total_length+first_span), 0, -total_height)
+                else:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setIcon(QtWidgets.QMessageBox.Critical)
+                    msg.setText("WARNING")
+                    msg.setInformativeText("WARNING: Please enter an even number of spans for a symmetrical net.")
+                    msg.setWindowTitle("WARNING")
+                    msg.exec_()
 
-                        Member((int(diagonal_tag[-1])+2), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
-                        Member((int(diagonal_tag[-1])+3), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
-
-                        Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
-                        Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
-
-                    else:
-                        msg = QtWidgets.QMessageBox()
-                        msg.setIcon(QtWidgets.QMessageBox.Critical)
-                        msg.setText("WARNING")
-                        msg.setInformativeText("WARNING: Please enter an even number of spans for a symmetrical net.")
-                        msg.setWindowTitle("WARNING")
-                        msg.exec_()
-
-                elif self.diag_6.isChecked():
-                    if (number_of_bays % 2) == 0:
-                        diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        while i < ((tag_nodes[-1]/2) + 1) and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+3, section_no=3)
-                            i += 2
-                            j += 1
-                        i = int(len(tag_nodes)/2) + 1
-                        j = int(diagonal_tag[int(len(diagonal_tag)/2)])
-                        while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+1, section_no=3)
-                            i += 2
-                            j += 1
-                        #Add first span
-                        Node(tag_nodes[-1]+1, (-first_span), 0, -total_height)
-                        Node(tag_nodes[-1]+2, (total_length+first_span), 0, -total_height)
-
-                        Member((int(diagonal_tag[-1])+2), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
-                        Member((int(diagonal_tag[-1])+3), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
-
-                        Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
-                        Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
-                    else:
-                        msg = QtWidgets.QMessageBox()
-                        msg.setIcon(QtWidgets.QMessageBox.Critical)
-                        msg.setText("WARNING")
-                        msg.setInformativeText("WARNING: Please enter an even number of spans for a symmetrical net.")
-                        msg.setWindowTitle("WARNING")
-                        msg.exec_()
-
-                elif self.diag_7.isChecked():
+            elif self.diag_6.isChecked():
+                if (number_of_bays % 2) == 0:
                     diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
                     i = 1
                     j = int(diagonal_tag[0])
-                    while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1)*2:
+                    while i < ((tag_nodes[-1]/2) + 1) and j <diagonal_tag[-1] +1:
                         Member.Truss(0, j, i, i+3, section_no=3)
-                        j +=1
-                        Member.Truss(0, j, i+1, i+2, section_no=3)
-                        i +=2
-                        j +=1
+                        i += 2
+                        j += 1
+                    i = int(len(tag_nodes)/2) + 1
+                    j = int(diagonal_tag[int(len(diagonal_tag)/2)])
+                    while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
+                        Member.Truss(0, j, i, i+1, section_no=3)
+                        i += 2
+                        j += 1
                     #Add first span
                     Node(tag_nodes[-1]+1, (-first_span), 0, -total_height)
                     Node(tag_nodes[-1]+2, (total_length+first_span), 0, -total_height)
 
-                    Member((int(diagonal_tag[-1])*2+1), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
-                    Member((int(diagonal_tag[-1])*2+2), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
+                    Member((int(diagonal_tag[-1])+2), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
+                    Member((int(diagonal_tag[-1])+3), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
 
-                    Member.Truss(0, (int(diagonal_tag[-1])*2+3), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[-1])*2+4), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
+                    Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
+                    Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
+                else:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setIcon(QtWidgets.QMessageBox.Critical)
+                    msg.setText("WARNING")
+                    msg.setInformativeText("WARNING: Please enter an even number of spans for a symmetrical net.")
+                    msg.setWindowTitle("WARNING")
+                    msg.exec_()
 
-                elif self.diag_8.isChecked():
-                    #Add first span
-                    diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
-                    Node(tag_nodes[-1]+1, (-first_span), 0, -total_height)
-                    Node(tag_nodes[-1]+2, (total_length+first_span), 0, -total_height)
-
-                    Member((int(diagonal_tag[1])), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
-                    Member((int(diagonal_tag[2])), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
-
-                    Member.Truss(0, (int(diagonal_tag[3])), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[3]) + 1), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
-
-                Model.clientModel.service.finish_modification()
-
-            elif self.truss_3.isChecked():
-
-                Model.clientModel.service.begin_modification()
-
-                # Create Nodes
-                x_nodes = np.repeat(np.arange(0, total_length + total_length/number_of_bays -0.1, total_length/number_of_bays), 2)
-                z_nodes = (0, (-total_height))*int((len(x_nodes)/2))
-                tag_nodes = np.arange(1, len(x_nodes)+1, 1)
-
-                for tag,x,z in zip(tag_nodes, x_nodes, z_nodes):
-                    Node(tag, x, 0, z)
-
-                # Create Lower Chord
-                Member(1, 1, tag_nodes[-2], 0, 2, 2)
-
-                # Create Upper Chord
-                Member(2, 2, tag_nodes[-1], 0, 1, 1)
-
-                # Create Verticals
+            elif self.diag_7.isChecked():
+                diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
                 i = 1
-                j = 1
-                while j<len(tag_nodes) and i<len(tag_nodes):
-                    Member.Truss(0, j+2, i, i+1, section_no=4)
-                    i += 2
+                j = int(diagonal_tag[0])
+                while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1)*2:
+                    Member.Truss(0, j, i, i+3, section_no=3)
+                    j +=1
+                    Member.Truss(0, j, i+1, i+2, section_no=3)
+                    i +=2
+                    j +=1
+                #Add first span
+                Node(tag_nodes[-1]+1, (-first_span), 0, -total_height)
+                Node(tag_nodes[-1]+2, (total_length+first_span), 0, -total_height)
+
+                Member((int(diagonal_tag[-1])*2+1), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
+                Member((int(diagonal_tag[-1])*2+2), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
+
+                Member.Truss(0, (int(diagonal_tag[-1])*2+3), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
+                Member.Truss(0, (int(diagonal_tag[-1])*2+4), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
+
+            elif self.diag_8.isChecked():
+
+                #Add first span
+                diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays + 2, 1)
+
+                Node(tag_nodes[-1]+1, (-first_span), 0, -total_height)
+                Node(tag_nodes[-1]+2, (total_length+first_span), 0, -total_height)
+
+                Member((int(diagonal_tag[0])), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
+                Member((int(diagonal_tag[1])), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
+                Member.Truss(0, (int(diagonal_tag[2])), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
+                Member.Truss(0, (int(diagonal_tag[2]) + 1), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
+
+            Model.clientModel.service.finish_modification()
+
+        elif self.truss_3.isChecked():
+
+            model_list = client.service.get_model_list()
+            if not model_list:
+                Model(True, "MyTruss")
+            else:
+                if Model.clientModel is None:
+                    Model(False, "MyTruss")
+
+            Model.clientModel.service.reset()
+            Model.clientModel.service.begin_modification()
+
+            # Create Materials
+            try:
+                Material(1, upper_chord_material)
+                Material(2, lower_chord_material)
+                Material(3, diagonal_material)
+                Material(4, vertical_material)
+            except:
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Critical)
+                msg.setText("WARNING")
+                msg.setInformativeText("WARNING: Please enter valid material values.")
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
+
+            # Create Sections
+            try:
+                Section(1, upper_chord_section, 1)
+                Section(2, lower_chord_section, 2)
+                Section(3, diagonal_section, 3)
+                Section(4, vertical_section, 4)
+            except:
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Critical)
+                msg.setText("WARNING")
+                msg.setInformativeText("WARNING: Please enter valid section values.")
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
+
+            # Create Nodes
+            x_nodes = np.repeat(np.arange(0, total_length + total_length/number_of_bays -0.1, total_length/number_of_bays), 2)
+            z_nodes = (0, (-total_height))*int((len(x_nodes)/2))
+            tag_nodes = np.arange(1, len(x_nodes)+1, 1)
+
+            for tag,x,z in zip(tag_nodes, x_nodes, z_nodes):
+                Node(tag, x, 0, z)
+
+            # Create Lower Chord
+            Member(1, 1, tag_nodes[-2], 0, 2, 2)
+
+            # Create Upper Chord
+            Member(2, 2, tag_nodes[-1], 0, 1, 1)
+
+            # Create Verticals
+            i = 1
+            j = 1
+            while j<len(tag_nodes) and i<len(tag_nodes):
+                Member.Truss(0, j+2, i, i+1, section_no=4)
+                i += 2
+                j += 1
+
+            # Create Diagonals
+            if self.diag_1.isChecked():
+                diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
+                i = 1
+                j = int(diagonal_tag[0])
+                while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1):
+                    Member.Truss(0, j, i, i+3, section_no=3)
+                    i +=2
+                    j +=1
+                #Add first span
+                Node(tag_nodes[-1]+1, (-first_span), 0, 0)
+                Node(tag_nodes[-1]+2, (total_length+first_span), 0, 0)
+
+                Member((int(diagonal_tag[-1])+1), tag_nodes[0], tag_nodes[-1]+1, 0, 1, 1, 0, 0)
+                Member((int(diagonal_tag[-1])+2), tag_nodes[-2], tag_nodes[-1]+2, 0, 2, 2, 0, 0)
+
+                Member.Truss(0, (int(diagonal_tag[-1])+3), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
+                Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
+
+            elif self.diag_2.isChecked():
+                diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
+                i = 1
+                j = int(diagonal_tag[0])
+                while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 2):
+                    Member.Truss(0, j, i+1, i+2, section_no=3)
+                    i +=2
+                    j +=1
+                #Add first span
+                Node(tag_nodes[-1]+1, (-first_span), 0, 0)
+                Node(tag_nodes[-1]+2, (total_length+first_span), 0, 0)
+
+                Member((int(diagonal_tag[-1])+1), tag_nodes[0], tag_nodes[-1]+1, 0, 1, 1, 0, 0)
+                Member((int(diagonal_tag[-1])+2), tag_nodes[-2], tag_nodes[-1]+2, 0, 2, 2, 0, 0)
+
+                Member.Truss(0, (int(diagonal_tag[-1])+3), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
+                Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
+
+            elif self.diag_3.isChecked():
+                diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
+                i = 1
+                j = int(diagonal_tag[0])
+                k = 1
+
+                while i < len(tag_nodes) -1 and j < diagonal_tag[-1] +2  and k < len(tag_nodes) :
+                    Member.Truss(0, j, i, i+3, section_no=3)
                     j += 1
+                    Member.Truss(0, j, k+3, k+4, section_no=3)
+                    i += 4
+                    k += 4
+                    j += 1
+                #Add first span
+                Node(tag_nodes[-1]+1, (-first_span), 0, 0)
+                Node(tag_nodes[-1]+2, (total_length+first_span), 0, 0)
 
-                # Create Diagonals
-                if self.diag_1.isChecked():
+                Member((int(diagonal_tag[-1])+1), tag_nodes[0], tag_nodes[-1]+1, 0, 1, 1, 0, 0)
+                Member((int(diagonal_tag[-1])+2), tag_nodes[-2], tag_nodes[-1]+2, 0, 2, 2, 0, 0)
+
+                Member.Truss(0, (int(diagonal_tag[-1])+3), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
+                Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
+
+            elif self.diag_4.isChecked():
+                diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
+                i = 1
+                j = int(diagonal_tag[0])
+                k = 1
+
+                while i < len(tag_nodes) -1 and j < diagonal_tag[-1]+1  and k < len(tag_nodes) :
+                    Member.Truss(0, j, i+2, i+5, section_no=3)
+                    j += 1
+                    Member.Truss(0, j, k+1, k+2, section_no=3)
+                    i += 4
+                    k += 4
+                    j += 1
+                #Add first span
+                Node(tag_nodes[-1]+1, (-first_span), 0, 0)
+                Node(tag_nodes[-1]+2, (total_length+first_span), 0, 0)
+
+                Member((int(diagonal_tag[-1])+2), tag_nodes[0], tag_nodes[-1]+1, 0, 1, 1, 0, 0)
+                Member((int(diagonal_tag[-1])+3), tag_nodes[-2], tag_nodes[-1]+2, 0, 2, 2, 0, 0)
+
+                Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
+                Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
+
+            elif self.diag_5.isChecked():
+                if (number_of_bays % 2) == 0:
                     diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
                     i = 1
                     j = int(diagonal_tag[0])
-                    while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1):
-                        Member.Truss(0, j, i, i+3, section_no=3)
-                        i +=2
-                        j +=1
-                    #Add first span
-                    Node(tag_nodes[-1]+1, (-first_span), 0, 0)
-                    Node(tag_nodes[-1]+2, (total_length+first_span), 0, 0)
-
-                    Member((int(diagonal_tag[-1])+1), tag_nodes[0], tag_nodes[-1]+1, 0, 1, 1, 0, 0)
-                    Member((int(diagonal_tag[-1])+2), tag_nodes[-2], tag_nodes[-1]+2, 0, 2, 2, 0, 0)
-
-                    Member.Truss(0, (int(diagonal_tag[-1])+3), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
-
-                elif self.diag_2.isChecked():
-                    diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
-                    i = 1
-                    j = int(diagonal_tag[0])
-                    while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 2):
+                    while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] +1:
                         Member.Truss(0, j, i+1, i+2, section_no=3)
-                        i +=2
-                        j +=1
-                    #Add first span
-                    Node(tag_nodes[-1]+1, (-first_span), 0, 0)
-                    Node(tag_nodes[-1]+2, (total_length+first_span), 0, 0)
-
-                    Member((int(diagonal_tag[-1])+1), tag_nodes[0], tag_nodes[-1]+1, 0, 1, 1, 0, 0)
-                    Member((int(diagonal_tag[-1])+2), tag_nodes[-2], tag_nodes[-1]+2, 0, 2, 2, 0, 0)
-
-                    Member.Truss(0, (int(diagonal_tag[-1])+3), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
-
-                elif self.diag_3.isChecked():
-                    diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
-                    i = 1
-                    j = int(diagonal_tag[0])
-                    k = 1
-
-                    while i < len(tag_nodes) -1 and j < diagonal_tag[-1] +2  and k < len(tag_nodes) :
+                        i += 2
+                        j += 1
+                    i = int(len(tag_nodes)/2)
+                    j = int(diagonal_tag[int(len(diagonal_tag)/2)])
+                    while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
                         Member.Truss(0, j, i, i+3, section_no=3)
-                        j += 1
-                        Member.Truss(0, j, k+3, k+4, section_no=3)
-                        i += 4
-                        k += 4
-                        j += 1
-                    #Add first span
-                    Node(tag_nodes[-1]+1, (-first_span), 0, 0)
-                    Node(tag_nodes[-1]+2, (total_length+first_span), 0, 0)
-
-                    Member((int(diagonal_tag[-1])+1), tag_nodes[0], tag_nodes[-1]+1, 0, 1, 1, 0, 0)
-                    Member((int(diagonal_tag[-1])+2), tag_nodes[-2], tag_nodes[-1]+2, 0, 2, 2, 0, 0)
-
-                    Member.Truss(0, (int(diagonal_tag[-1])+3), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
-
-                elif self.diag_4.isChecked():
-                    diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
-                    i = 1
-                    j = int(diagonal_tag[0])
-                    k = 1
-
-                    while i < len(tag_nodes) -1 and j < diagonal_tag[-1]+1  and k < len(tag_nodes) :
-                        Member.Truss(0, j, i+2, i+5, section_no=3)
-                        j += 1
-                        Member.Truss(0, j, k+1, k+2, section_no=3)
-                        i += 4
-                        k += 4
+                        i += 2
                         j += 1
                     #Add first span
                     Node(tag_nodes[-1]+1, (-first_span), 0, 0)
@@ -1205,382 +1300,427 @@ class Ui_MainWindow(object):
                     Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
                     Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
 
-                elif self.diag_5.isChecked():
-                    if (number_of_bays % 2) == 0:
-                        diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
-                            i += 2
-                            j += 1
-                        i = int(len(tag_nodes)/2)
-                        j = int(diagonal_tag[int(len(diagonal_tag)/2)])
-                        while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+3, section_no=3)
-                            i += 2
-                            j += 1
-                        #Add first span
-                        Node(tag_nodes[-1]+1, (-first_span), 0, 0)
-                        Node(tag_nodes[-1]+2, (total_length+first_span), 0, 0)
+                else:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setIcon(QtWidgets.QMessageBox.Critical)
+                    msg.setText("WARNING")
+                    msg.setInformativeText("WARNING: Please enter an even number of spans for a symmetrical net.")
+                    msg.setWindowTitle("WARNING")
+                    msg.exec_()
 
-                        Member((int(diagonal_tag[-1])+2), tag_nodes[0], tag_nodes[-1]+1, 0, 1, 1, 0, 0)
-                        Member((int(diagonal_tag[-1])+3), tag_nodes[-2], tag_nodes[-1]+2, 0, 2, 2, 0, 0)
-
-                        Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
-                        Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
-
-                    else:
-                        msg = QtWidgets.QMessageBox()
-                        msg.setIcon(QtWidgets.QMessageBox.Critical)
-                        msg.setText("WARNING")
-                        msg.setInformativeText("WARNING: Please enter an even number of spans for a symmetrical net.")
-                        msg.setWindowTitle("WARNING")
-                        msg.exec_()
-
-                elif self.diag_6.isChecked():
-                    if (number_of_bays % 2) == 0:
-                        diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        while i < ((tag_nodes[-1]/2) + 1) and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+3, section_no=3)
-                            i += 2
-                            j += 1
-                        i = int(len(tag_nodes)/2) + 1
-                        j = int(diagonal_tag[int(len(diagonal_tag)/2)])
-                        while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+1, section_no=3)
-                            i += 2
-                            j += 1
-                        #Add first span
-                        Node(tag_nodes[-1]+1, (-first_span), 0, 0)
-                        Node(tag_nodes[-1]+2, (total_length+first_span), 0, 0)
-
-                        Member((int(diagonal_tag[-1])+2), tag_nodes[0], tag_nodes[-1]+1, 0, 1, 1, 0, 0)
-                        Member((int(diagonal_tag[-1])+3), tag_nodes[-2], tag_nodes[-1]+2, 0, 2, 2, 0, 0)
-
-                        Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
-                        Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
-                    else:
-                        msg = QtWidgets.QMessageBox()
-                        msg.setIcon(QtWidgets.QMessageBox.Critical)
-                        msg.setText("WARNING")
-                        msg.setInformativeText("WARNING: Please enter an even number of spans for a symmetrical net.")
-                        msg.setWindowTitle("WARNING")
-                        msg.exec_()
-
-                elif self.diag_7.isChecked():
+            elif self.diag_6.isChecked():
+                if (number_of_bays % 2) == 0:
                     diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
                     i = 1
                     j = int(diagonal_tag[0])
-                    while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1)*2:
+                    while i < ((tag_nodes[-1]/2) + 1) and j <diagonal_tag[-1] +1:
                         Member.Truss(0, j, i, i+3, section_no=3)
-                        j +=1
-                        Member.Truss(0, j, i+1, i+2, section_no=3)
+                        i += 2
+                        j += 1
+                    i = int(len(tag_nodes)/2) + 1
+                    j = int(diagonal_tag[int(len(diagonal_tag)/2)])
+                    while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
+                        Member.Truss(0, j, i, i+1, section_no=3)
+                        i += 2
+                        j += 1
+                    #Add first span
+                    Node(tag_nodes[-1]+1, (-first_span), 0, 0)
+                    Node(tag_nodes[-1]+2, (total_length+first_span), 0, 0)
+
+                    Member((int(diagonal_tag[-1])+2), tag_nodes[0], tag_nodes[-1]+1, 0, 1, 1, 0, 0)
+                    Member((int(diagonal_tag[-1])+3), tag_nodes[-2], tag_nodes[-1]+2, 0, 2, 2, 0, 0)
+
+                    Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
+                    Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
+                else:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setIcon(QtWidgets.QMessageBox.Critical)
+                    msg.setText("WARNING")
+                    msg.setInformativeText("WARNING: Please enter an even number of spans for a symmetrical net.")
+                    msg.setWindowTitle("WARNING")
+                    msg.exec_()
+
+            elif self.diag_7.isChecked():
+                diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
+                i = 1
+                j = int(diagonal_tag[0])
+                while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1)*2:
+                    Member.Truss(0, j, i, i+3, section_no=3)
+                    j +=1
+                    Member.Truss(0, j, i+1, i+2, section_no=3)
+                    i +=2
+                    j +=1
+                #Add first span
+                Node(tag_nodes[-1]+3, (-first_span), 0, 0)
+                Node(tag_nodes[-1]+4, (total_length+first_span), 0, 0)
+
+                Member((int(diagonal_tag[-1])*2+1), tag_nodes[-1]+3, tag_nodes[0], 0, 1, 1, 0, 0)
+                Member((int(diagonal_tag[-1])*2+2), tag_nodes[-1]+4, tag_nodes[-2], 0, 2, 2, 0, 0)
+
+                Member.Truss(0, (int(diagonal_tag[-1])*2+3), tag_nodes[-1]+3, tag_nodes[1], section_no=3)
+                Member.Truss(0, (int(diagonal_tag[-1])*2+4), tag_nodes[-1], tag_nodes[-1]+4, section_no=3)
+
+            elif self.diag_8.isChecked():
+                #Add first span
+                diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
+                Node(tag_nodes[-1]+3, (-first_span), 0, 0)
+                Node(tag_nodes[-1]+4, (total_length+first_span), 0, 0)
+
+                Member((int(diagonal_tag[-1])*2+1), tag_nodes[-1]+3, tag_nodes[0], 0, 1, 1, 0, 0)
+                Member((int(diagonal_tag[-1])*2+2), tag_nodes[-1]+4, tag_nodes[-2], 0, 2, 2, 0, 0)
+
+                Member.Truss(0, (int(diagonal_tag[-1])*2+3), tag_nodes[-1]+3, tag_nodes[1], section_no=3)
+                Member.Truss(0, (int(diagonal_tag[-1])*2+4), tag_nodes[-1], tag_nodes[-1]+4, section_no=3)
+
+            Model.clientModel.service.finish_modification()
+
+        elif self.truss_4.isChecked():
+
+            if (number_of_bays % 2) == 0:
+                model_list = client.service.get_model_list()
+                if not model_list:
+                    Model(True, "MyTruss")
+                else:
+                    if Model.clientModel is None:
+                        Model(False, "MyTruss")
+
+                Model.clientModel.service.reset()
+                Model.clientModel.service.begin_modification()
+
+                # Create Materials
+                try:
+                    Material(1, upper_chord_material)
+                    Material(2, lower_chord_material)
+                    Material(3, diagonal_material)
+                    Material(4, vertical_material)
+                except:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setIcon(QtWidgets.QMessageBox.Critical)
+                    msg.setText("WARNING")
+                    msg.setInformativeText("WARNING: Please enter valid material values.")
+                    msg.setWindowTitle("WARNING")
+                    msg.exec_()
+
+                # Create Sections
+                try:
+                    Section(1, upper_chord_section, 1)
+                    Section(2, lower_chord_section, 2)
+                    Section(3, diagonal_section, 3)
+                    Section(4, vertical_section, 4)
+                except:
+                    msg = QtWidgets.QMessageBox()
+                    msg.setIcon(QtWidgets.QMessageBox.Critical)
+                    msg.setText("WARNING")
+                    msg.setInformativeText("WARNING: Please enter valid section values.")
+                    msg.setWindowTitle("WARNING")
+                    msg.exec_()
+
+                # Create Nodes
+                x_nodes = [0]
+                for i in np.arange(total_length/number_of_bays, total_length - 0.1, total_length/number_of_bays):
+                    x_nodes.append(i)
+                    x_nodes.append(i)
+                x_nodes.append(total_length)
+
+                z_nodes = [0]
+                for i in np.arange(((total_length/number_of_bays) * total_height)/(total_length/2), total_height + 0.1, ((total_length/number_of_bays) * total_height)/(total_length/2)):
+                    z_nodes.append(0)
+                    z_nodes.append(-i)
+                for i in z_nodes[::-1][1:-1]:
+                    z_nodes.append(i)
+
+                tag_nodes = np.arange(1, len(x_nodes)+1, 1)
+
+                for tag,x,z in zip(tag_nodes, x_nodes, z_nodes):
+                    Node(tag, x, 0, z)
+
+                # Create Lower Chord
+                Member(1, 1, tag_nodes[-1], 0, 2, 2)
+
+                # Create Upper Chord
+                Member(2, 1, int(sum(tag_nodes) / len(tag_nodes) + 0.5), 0, 1, 1)
+                Member(3, int(sum(tag_nodes) / len(tag_nodes) + 0.5), tag_nodes[-1], 0, 1, 1)
+
+                # Create Verticals
+                i = 1
+                j = 1
+                while j<len(tag_nodes)-1 and i<len(tag_nodes):
+                    Member.Truss(0, j+3, i+1, i+2, section_no=4)
+                    i += 2
+                    j += 1
+
+                #Create Diagonals
+                if self.diag_1.isChecked():
+                    diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
+                    i = 1
+                    j = int(diagonal_tag[0])
+                    while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1):
+                        Member.Truss(0, j, i+2, i+3, section_no=3)
                         i +=2
                         j +=1
-                    #Add first span
-                    Node(tag_nodes[-1]+3, (-first_span), 0, 0)
-                    Node(tag_nodes[-1]+4, (total_length+first_span), 0, 0)
 
-                    Member((int(diagonal_tag[-1])*2+1), tag_nodes[-1]+3, tag_nodes[0], 0, 1, 1, 0, 0)
-                    Member((int(diagonal_tag[-1])*2+2), tag_nodes[-1]+4, tag_nodes[-2], 0, 2, 2, 0, 0)
+                elif self.diag_2.isChecked():
+                    diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
+                    i = 1
+                    j = int(diagonal_tag[0])
+                    while i < len(tag_nodes)-1 and j < int(diagonal_tag[-1]):
+                        Member.Truss(0, j, i+1, i+4, section_no=3)
+                        i +=2
+                        j +=1
 
-                    Member.Truss(0, (int(diagonal_tag[-1])*2+3), tag_nodes[-1]+3, tag_nodes[1], section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[-1])*2+4), tag_nodes[-1], tag_nodes[-1]+4, section_no=3)
+                elif self.diag_3.isChecked():
+                    diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
+                    i = 1
+                    j = int(diagonal_tag[0])
+                    k = 1
+                    while i < len(tag_nodes) -2 and j < diagonal_tag[-1]  and k < len(tag_nodes) :
+                        Member.Truss(0, j, i+1, i+4, section_no=3)
+                        j += 1
+                        Member.Truss(0, j,  k+4, k+5, section_no=3)
+                        i += 4
+                        k += 4
+                        j += 1
+
+                elif self.diag_4.isChecked():
+                    diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
+                    i = 1
+                    j = int(diagonal_tag[0])
+                    k = 1
+                    while i < len(tag_nodes) -2 and j < diagonal_tag[-1]  and k < len(tag_nodes) :
+                        Member.Truss(0, j, i+2, i+3, section_no=3)
+                        j += 1
+                        Member.Truss(0, j, k+3, k+6, section_no=3)
+                        i += 4
+                        k += 4
+                        j += 1
+
+                elif self.diag_5.isChecked():
+                    diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
+                    i = 1
+                    j = int(diagonal_tag[0])
+                    while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1]:
+                        Member.Truss(0, j, i+2, i+3, section_no=3)
+                        i += 2
+                        j += 1
+                    i = int(len(tag_nodes)/2)
+                    j = int(diagonal_tag[int(len(diagonal_tag)/2)])
+                    while i < tag_nodes[-1] and j <diagonal_tag[-1]:
+                        Member.Truss(0, j, i, i+3, section_no=3)
+                        i += 2
+                        j += 1
+
+                elif self.diag_6.isChecked():
+                    diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
+                    i = 1
+                    j = int(diagonal_tag[0])
+                    while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1]:
+                        Member.Truss(0, j, i+1, i+4, section_no=3)
+                        i += 2
+                        j += 1
+                    i = int(len(tag_nodes)/2)
+                    j = int(diagonal_tag[int(len(diagonal_tag)/2)])
+                    while i < tag_nodes[-1] and j <diagonal_tag[-1]:
+                        Member.Truss(0, j, i+1, i+2, section_no=3)
+                        i += 2
+                        j += 1
+
+                elif self.diag_7.isChecked():
+                    diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
+                    i = 1
+                    j = int(diagonal_tag[0])
+                    while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1)*2:
+                        Member.Truss(0, j, i+2, i+3, section_no=3)
+                        j +=1
+                        Member.Truss(0, j, i+1, i+4, section_no=3)
+                        i +=2
+                        j +=1
 
                 elif self.diag_8.isChecked():
-                    #Add first span
-                    diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
-                    Node(tag_nodes[-1]+3, (-first_span), 0, 0)
-                    Node(tag_nodes[-1]+4, (total_length+first_span), 0, 0)
-
-                    Member((int(diagonal_tag[-1])*2+1), tag_nodes[-1]+3, tag_nodes[0], 0, 1, 1, 0, 0)
-                    Member((int(diagonal_tag[-1])*2+2), tag_nodes[-1]+4, tag_nodes[-2], 0, 2, 2, 0, 0)
-
-                    Member.Truss(0, (int(diagonal_tag[-1])*2+3), tag_nodes[-1]+3, tag_nodes[1], section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[-1])*2+4), tag_nodes[-1], tag_nodes[-1]+4, section_no=3)
+                    pass
 
                 Model.clientModel.service.finish_modification()
 
-            elif self.truss_4.isChecked():
+            else:
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Critical)
+                msg.setText("WARNING")
+                msg.setInformativeText("WARNING: Please enter an even number of spans for a symmetrical net.")
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
 
-                if (number_of_bays % 2) == 0:
-                    Model.clientModel.service.begin_modification()
+        elif self.truss_5.isChecked():
 
-                    # Create Nodes
-                    x_nodes = [0]
-                    for i in np.arange(total_length/number_of_bays, total_length, total_length/number_of_bays):
-                        x_nodes.append(i)
-                        x_nodes.append(i)
-                    x_nodes.append(total_length)
-
-                    z_nodes = [0]
-                    for i in np.arange(((total_length/number_of_bays) * total_height)/(total_length/2), total_height + 0.1, ((total_length/number_of_bays) * total_height)/(total_length/2)):
-                        z_nodes.append(0)
-                        z_nodes.append(-i)
-                    for i in z_nodes[::-1][1:-1]:
-                        z_nodes.append(i)
-
-                    tag_nodes = np.arange(1, len(x_nodes)+1, 1)
-
-                    for tag,x,z in zip(tag_nodes, x_nodes, z_nodes):
-                        Node(tag, x, 0, z)
-
-                    # Create Lower Chord
-                    Member(1, 1, tag_nodes[-1], 0, 2, 2)
-
-                    # Create Upper Chord
-                    Member(2, 1, int(sum(tag_nodes) / len(tag_nodes) + 0.5), 0, 1, 1)
-                    Member(3, int(sum(tag_nodes) / len(tag_nodes) + 0.5), tag_nodes[-1], 0, 1, 1)
-
-                    # Create Verticals
-                    i = 1
-                    j = 1
-                    while j<len(tag_nodes)-1 and i<len(tag_nodes):
-                        Member.Truss(0, j+3, i+1, i+2, section_no=4)
-                        i += 2
-                        j += 1
-
-                    #Create Diagonals
-                    if self.diag_1.isChecked():
-                        diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1):
-                            Member.Truss(0, j, i+2, i+3, section_no=3)
-                            i +=2
-                            j +=1
-
-                    elif self.diag_2.isChecked():
-                        diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        while i < len(tag_nodes)-1 and j < int(diagonal_tag[-1]):
-                            Member.Truss(0, j, i+1, i+4, section_no=3)
-                            i +=2
-                            j +=1
-
-                    elif self.diag_3.isChecked():
-                        diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        k = 1
-                        while i < len(tag_nodes) -2 and j < diagonal_tag[-1]  and k < len(tag_nodes) :
-                            Member.Truss(0, j, i+1, i+4, section_no=3)
-                            j += 1
-                            Member.Truss(0, j,  k+4, k+5, section_no=3)
-                            i += 4
-                            k += 4
-                            j += 1
-
-                    elif self.diag_4.isChecked():
-                        diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        k = 1
-                        while i < len(tag_nodes) -2 and j < diagonal_tag[-1]  and k < len(tag_nodes) :
-                            Member.Truss(0, j, i+2, i+3, section_no=3)
-                            j += 1
-                            Member.Truss(0, j, k+3, k+6, section_no=3)
-                            i += 4
-                            k += 4
-                            j += 1
-
-                    elif self.diag_5.isChecked():
-                        diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1]:
-                            Member.Truss(0, j, i+2, i+3, section_no=3)
-                            i += 2
-                            j += 1
-                        i = int(len(tag_nodes)/2)
-                        j = int(diagonal_tag[int(len(diagonal_tag)/2)])
-                        while i < tag_nodes[-1] and j <diagonal_tag[-1]:
-                            Member.Truss(0, j, i, i+3, section_no=3)
-                            i += 2
-                            j += 1
-
-                    elif self.diag_6.isChecked():
-                        diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1]:
-                            Member.Truss(0, j, i+1, i+4, section_no=3)
-                            i += 2
-                            j += 1
-                        i = int(len(tag_nodes)/2)
-                        j = int(diagonal_tag[int(len(diagonal_tag)/2)])
-                        while i < tag_nodes[-1] and j <diagonal_tag[-1]:
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
-                            i += 2
-                            j += 1
-
-                    elif self.diag_7.isChecked():
-                        diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1)*2:
-                            Member.Truss(0, j, i+2, i+3, section_no=3)
-                            j +=1
-                            Member.Truss(0, j, i+1, i+4, section_no=3)
-                            i +=2
-                            j +=1
-
-                    elif self.diag_8.isChecked():
-                        pass
-
-                    Model.clientModel.service.finish_modification()
-
+            if (number_of_bays % 2) == 0:
+                model_list = client.service.get_model_list()
+                if not model_list:
+                    Model(True, "MyTruss")
                 else:
+                    if Model.clientModel is None:
+                        Model(False, "MyTruss")
+
+                Model.clientModel.service.reset()
+                Model.clientModel.service.begin_modification()
+
+                # Create Materials
+                try:
+                    Material(1, upper_chord_material)
+                    Material(2, lower_chord_material)
+                    Material(3, diagonal_material)
+                    Material(4, vertical_material)
+                except:
                     msg = QtWidgets.QMessageBox()
                     msg.setIcon(QtWidgets.QMessageBox.Critical)
                     msg.setText("WARNING")
-                    msg.setInformativeText("WARNING: Please enter an even number of spans for a symmetrical net.")
+                    msg.setInformativeText("WARNING: Please enter valid material values.")
                     msg.setWindowTitle("WARNING")
                     msg.exec_()
 
-            elif self.truss_5.isChecked():
-
-                if (number_of_bays % 2) == 0:
-                    Model.clientModel.service.begin_modification()
-
-                    # Create Nodes
-                    x_nodes = [0, 0]
-                    for i in np.arange(total_length/number_of_bays, total_length, total_length/number_of_bays):
-                        x_nodes.append(i)
-                        x_nodes.append(i)
-                    x_nodes.append(total_length)
-                    x_nodes.append(total_length)
-
-                    z_nodes = []
-                    for i in np.arange(side_height, total_height +0.1, (total_height-side_height)/(number_of_bays/2)):
-                        z_nodes.append(0)
-                        z_nodes.append(-i)
-                    for i in z_nodes[::-1][1:-1]:
-                        z_nodes.append(i)
-
-                    tag_nodes = np.arange(1, len(x_nodes)+1, 1)
-
-                    for tag,x,z in zip(tag_nodes, x_nodes, z_nodes):
-                        Node(tag, x, 0, z)
-
-                    # Create Lower Chord
-                    Member(1, 1, tag_nodes[-2], 0, 2, 2)
-
-                    # Create Upper Chord
-                    Member(2, 2, int(sum(tag_nodes) / len(tag_nodes) + 0.5), 0, 1, 1)
-                    Member(3, int(sum(tag_nodes) / len(tag_nodes) + 0.5), tag_nodes[-1], 0, 1, 1)
-
-                    # Create Verticals
-                    i = 1
-                    j = 1
-                    while j<len(tag_nodes)-1 and i<len(tag_nodes):
-                        Member.Truss(0, j+3, i, i+1, section_no=4)
-                        i += 2
-                        j += 1
-
-                    #Create Diagonals
-                    if self.diag_1.isChecked():
-                        diagonal_tag = np.arange(number_of_bays+5, 2*number_of_bays+4, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 2):
-                            Member.Truss(0, j, i, i+3, section_no=3)
-                            i +=2
-                            j +=1
-
-                    elif self.diag_2.isChecked():
-                        diagonal_tag = np.arange(number_of_bays+5, 2*number_of_bays+4, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        while i < len(tag_nodes)-1 and j < int(diagonal_tag[-1] + 2):
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
-                            i +=2
-                            j +=1
-
-                    elif self.diag_3.isChecked():
-                        diagonal_tag = np.arange(number_of_bays+5, 2*number_of_bays+4, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        k = 1
-                        while i < len(tag_nodes) +2  and j < diagonal_tag[-1] + 2  and k < len(tag_nodes) :
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
-                            j += 1
-                            Member.Truss(0, j, k+2, k+5, section_no=3)
-                            i += 4
-                            k += 4
-                            j += 1
-
-                    elif self.diag_4.isChecked():
-                        diagonal_tag = np.arange(number_of_bays+5, 2*number_of_bays+4, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        k = 1
-                        while i < len(tag_nodes) +2 and j < diagonal_tag[-1] + 2  and k < len(tag_nodes) :
-                            Member.Truss(0, j, i, i+3, section_no=3)
-                            j += 1
-                            Member.Truss(0, j, k+3, k+4, section_no=3)
-                            i += 4
-                            k += 4
-                            j += 1
-
-                    elif self.diag_5.isChecked():
-                        diagonal_tag = np.arange(number_of_bays+5, 2*number_of_bays+4, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] + 10:
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
-                            i += 2
-                            j += 1
-                        i = int(len(tag_nodes)/2)
-                        j = int(diagonal_tag[int(len(diagonal_tag)/2)]) +1
-                        while i < tag_nodes[-1] + 2 and j <diagonal_tag[-1] + 2:
-                            Member.Truss(0, j, i, i+3, section_no=3)
-                            i += 2
-                            j += 1
-
-                    elif self.diag_6.isChecked():
-                        diagonal_tag = np.arange(number_of_bays+5, 2*number_of_bays+4, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] + 10:
-                            Member.Truss(0, j, i, i+3, section_no=3)
-                            i += 2
-                            j += 1
-                        i = int(len(tag_nodes)/2)
-                        j = int(diagonal_tag[int(len(diagonal_tag)/2)]) +1
-                        while i < tag_nodes[-1] + 2 and j <diagonal_tag[-1] + 2:
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
-                            i += 2
-                            j += 1
-
-                    elif self.diag_7.isChecked():
-                        diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
-                        i = 1
-                        j = int(diagonal_tag[0]) +2
-                        while i < len(tag_nodes) and j < int(diagonal_tag[-1])*2:
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
-                            j +=1
-                            Member.Truss(0, j, i, i+3, section_no=3)
-                            i +=2
-                            j +=1
-
-                    elif self.diag_8.isChecked():
-                        pass
-
-                    Model.clientModel.service.finish_modification()
-                else:
+                # Create Sections
+                try:
+                    Section(1, upper_chord_section, 1)
+                    Section(2, lower_chord_section, 2)
+                    Section(3, diagonal_section, 3)
+                    Section(4, vertical_section, 4)
+                except:
                     msg = QtWidgets.QMessageBox()
                     msg.setIcon(QtWidgets.QMessageBox.Critical)
                     msg.setText("WARNING")
-                    msg.setInformativeText("WARNING: Please enter an even number of spans for a symmetrical net.")
+                    msg.setInformativeText("WARNING: Please enter valid section values.")
                     msg.setWindowTitle("WARNING")
                     msg.exec_()
 
-        session.close()
+                # Create Nodes
+                x_nodes = [0, 0]
+                for i in np.arange(total_length/number_of_bays, total_length - 0.1, total_length/number_of_bays):
+                    x_nodes.append(i)
+                    x_nodes.append(i)
+                x_nodes.append(total_length)
+                x_nodes.append(total_length)
+
+                z_nodes = []
+                for i in np.arange(side_height, total_height +0.1, (total_height-side_height)/(number_of_bays/2)):
+                    z_nodes.append(0)
+                    z_nodes.append(-i)
+                for i in z_nodes[::-1][1:-1]:
+                    z_nodes.append(i)
+
+                tag_nodes = np.arange(1, len(x_nodes)+1, 1)
+
+                for tag,x,z in zip(tag_nodes, x_nodes, z_nodes):
+                    Node(tag, x, 0, z)
+
+                # Create Lower Chord
+                Member(1, 1, tag_nodes[-2], 0, 2, 2)
+
+                # Create Upper Chord
+                Member(2, 2, int(sum(tag_nodes) / len(tag_nodes) + 0.5), 0, 1, 1)
+                Member(3, int(sum(tag_nodes) / len(tag_nodes) + 0.5), tag_nodes[-1], 0, 1, 1)
+
+                # Create Verticals
+                i = 1
+                j = 1
+                while j<len(tag_nodes)-1 and i<len(tag_nodes):
+                    Member.Truss(0, j+3, i, i+1, section_no=4)
+                    i += 2
+                    j += 1
+
+                #Create Diagonals
+                if self.diag_1.isChecked():
+                    diagonal_tag = np.arange(number_of_bays+5, 2*number_of_bays+4, 1)
+                    i = 1
+                    j = int(diagonal_tag[0])
+                    while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 2):
+                        Member.Truss(0, j, i, i+3, section_no=3)
+                        i +=2
+                        j +=1
+
+                elif self.diag_2.isChecked():
+                    diagonal_tag = np.arange(number_of_bays+5, 2*number_of_bays+4, 1)
+                    i = 1
+                    j = int(diagonal_tag[0])
+                    while i < len(tag_nodes)-1 and j < int(diagonal_tag[-1] + 2):
+                        Member.Truss(0, j, i+1, i+2, section_no=3)
+                        i +=2
+                        j +=1
+
+                elif self.diag_3.isChecked():
+                    diagonal_tag = np.arange(number_of_bays+5, 2*number_of_bays+4, 1)
+                    i = 1
+                    j = int(diagonal_tag[0])
+                    k = 1
+                    while i < len(tag_nodes) +2  and j < diagonal_tag[-1] + 2  and k < len(tag_nodes) :
+                        Member.Truss(0, j, i+1, i+2, section_no=3)
+                        j += 1
+                        Member.Truss(0, j, k+2, k+5, section_no=3)
+                        i += 4
+                        k += 4
+                        j += 1
+
+                elif self.diag_4.isChecked():
+                    diagonal_tag = np.arange(number_of_bays+5, 2*number_of_bays+4, 1)
+                    i = 1
+                    j = int(diagonal_tag[0])
+                    k = 1
+                    while i < len(tag_nodes) +2 and j < diagonal_tag[-1] + 2  and k < len(tag_nodes) :
+                        Member.Truss(0, j, i, i+3, section_no=3)
+                        j += 1
+                        Member.Truss(0, j, k+3, k+4, section_no=3)
+                        i += 4
+                        k += 4
+                        j += 1
+
+                elif self.diag_5.isChecked():
+                    diagonal_tag = np.arange(number_of_bays+5, 2*number_of_bays+4, 1)
+                    i = 1
+                    j = int(diagonal_tag[0])
+                    while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] + 10:
+                        Member.Truss(0, j, i+1, i+2, section_no=3)
+                        i += 2
+                        j += 1
+                    i = int(len(tag_nodes)/2)
+                    j = int(diagonal_tag[int(len(diagonal_tag)/2)]) +1
+                    while i < tag_nodes[-1] + 2 and j <diagonal_tag[-1] + 2:
+                        Member.Truss(0, j, i, i+3, section_no=3)
+                        i += 2
+                        j += 1
+
+                elif self.diag_6.isChecked():
+                    diagonal_tag = np.arange(number_of_bays+5, 2*number_of_bays+4, 1)
+                    i = 1
+                    j = int(diagonal_tag[0])
+                    while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] + 10:
+                        Member.Truss(0, j, i, i+3, section_no=3)
+                        i += 2
+                        j += 1
+                    i = int(len(tag_nodes)/2)
+                    j = int(diagonal_tag[int(len(diagonal_tag)/2)]) +1
+                    while i < tag_nodes[-1] + 2 and j <diagonal_tag[-1] + 2:
+                        Member.Truss(0, j, i+1, i+2, section_no=3)
+                        i += 2
+                        j += 1
+
+                elif self.diag_7.isChecked():
+                    diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
+                    i = 1
+                    j = int(diagonal_tag[0]) +2
+                    while i < len(tag_nodes) and j < int(diagonal_tag[-1])*2:
+                        Member.Truss(0, j, i+1, i+2, section_no=3)
+                        j +=1
+                        Member.Truss(0, j, i, i+3, section_no=3)
+                        i +=2
+                        j +=1
+
+                elif self.diag_8.isChecked():
+                    pass
+
+                Model.clientModel.service.finish_modification()
+            else:
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Critical)
+                msg.setText("WARNING")
+                msg.setInformativeText("WARNING: Please enter an even number of spans for a symmetrical net.")
+                msg.setWindowTitle("WARNING")
+                msg.exec_()
 
     def close(self):
         sys.exit(app.exec_())
