@@ -828,14 +828,14 @@ class Ui_MainWindow(object):
                         diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
                         i = 1
                         j = int(diagonal_tag[0])
-                        while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
+                        while i < ((tag_nodes[-1]/2) + 1) and j <diagonal_tag[-1] +1:
+                            Member.Truss(0, j, i, i+3, section_no=3)
                             i += 2
                             j += 1
-                        i = int(len(tag_nodes)/2)
+                        i = int(len(tag_nodes)/2) + 1
                         j = int(diagonal_tag[int(len(diagonal_tag)/2)])
                         while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+3, section_no=3)
+                            Member.Truss(0, j, i, i+1, section_no=3)
                             i += 2
                             j += 1
                     else:
@@ -851,14 +851,14 @@ class Ui_MainWindow(object):
                         diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
                         i = 1
                         j = int(diagonal_tag[0])
-                        while i < ((tag_nodes[-1]/2) + 1) and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+3, section_no=3)
+                        while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] +1:
+                            Member.Truss(0, j, i+1, i+2, section_no=3)
                             i += 2
                             j += 1
-                        i = int(len(tag_nodes)/2) + 1
+                        i = int(len(tag_nodes)/2)
                         j = int(diagonal_tag[int(len(diagonal_tag)/2)])
                         while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+1, section_no=3)
+                            Member.Truss(0, j, i, i+3, section_no=3)
                             i += 2
                             j += 1
                     else:
