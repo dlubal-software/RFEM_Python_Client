@@ -1348,8 +1348,8 @@ class Ui_MainWindow(object):
                         diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
                         i = 1
                         j = int(diagonal_tag[0])
-                        while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1):
-                            Member.Truss(0, j, i+2, i+3, section_no=3)
+                        while i < len(tag_nodes)-1 and j < int(diagonal_tag[-1]):
+                            Member.Truss(0, j, i+1, i+4, section_no=3)
                             i +=2
                             j +=1
 
@@ -1357,8 +1357,8 @@ class Ui_MainWindow(object):
                         diagonal_tag = np.arange(number_of_bays+3, 2*number_of_bays+2, 1)
                         i = 1
                         j = int(diagonal_tag[0])
-                        while i < len(tag_nodes)-1 and j < int(diagonal_tag[-1]):
-                            Member.Truss(0, j, i+1, i+4, section_no=3)
+                        while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1):
+                            Member.Truss(0, j, i+2, i+3, section_no=3)
                             i +=2
                             j +=1
 
@@ -1393,13 +1393,13 @@ class Ui_MainWindow(object):
                         i = 1
                         j = int(diagonal_tag[0])
                         while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1]:
-                            Member.Truss(0, j, i+2, i+3, section_no=3)
+                            Member.Truss(0, j, i+1, i+4, section_no=3)
                             i += 2
                             j += 1
                         i = int(len(tag_nodes)/2)
                         j = int(diagonal_tag[int(len(diagonal_tag)/2)])
                         while i < tag_nodes[-1] and j <diagonal_tag[-1]:
-                            Member.Truss(0, j, i, i+3, section_no=3)
+                            Member.Truss(0, j, i+1, i+2, section_no=3)
                             i += 2
                             j += 1
 
@@ -1408,13 +1408,13 @@ class Ui_MainWindow(object):
                         i = 1
                         j = int(diagonal_tag[0])
                         while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1]:
-                            Member.Truss(0, j, i+1, i+4, section_no=3)
+                            Member.Truss(0, j, i+2, i+3, section_no=3)
                             i += 2
                             j += 1
                         i = int(len(tag_nodes)/2)
                         j = int(diagonal_tag[int(len(diagonal_tag)/2)])
                         while i < tag_nodes[-1] and j <diagonal_tag[-1]:
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
+                            Member.Truss(0, j, i, i+3, section_no=3)
                             i += 2
                             j += 1
 
@@ -1532,13 +1532,13 @@ class Ui_MainWindow(object):
                         i = 1
                         j = int(diagonal_tag[0])
                         while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] + 10:
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
+                            Member.Truss(0, j, i, i+3, section_no=3)
                             i += 2
                             j += 1
                         i = int(len(tag_nodes)/2)
                         j = int(diagonal_tag[int(len(diagonal_tag)/2)]) +1
                         while i < tag_nodes[-1] + 2 and j <diagonal_tag[-1] + 2:
-                            Member.Truss(0, j, i, i+3, section_no=3)
+                            Member.Truss(0, j, i+1, i+2, section_no=3)
                             i += 2
                             j += 1
 
@@ -1547,13 +1547,13 @@ class Ui_MainWindow(object):
                         i = 1
                         j = int(diagonal_tag[0])
                         while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] + 10:
-                            Member.Truss(0, j, i, i+3, section_no=3)
+                            Member.Truss(0, j, i+1, i+2, section_no=3)
                             i += 2
                             j += 1
                         i = int(len(tag_nodes)/2)
                         j = int(diagonal_tag[int(len(diagonal_tag)/2)]) +1
                         while i < tag_nodes[-1] + 2 and j <diagonal_tag[-1] + 2:
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
+                            Member.Truss(0, j, i, i+3, section_no=3)
                             i += 2
                             j += 1
 
