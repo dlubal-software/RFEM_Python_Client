@@ -1002,6 +1002,38 @@ class Ui_MainWindow(object):
                         diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
                         i = 1
                         j = int(diagonal_tag[0])
+                        while i < ((tag_nodes[-1]/2) + 1) and j <diagonal_tag[-1] +1:
+                            Member.Truss(0, j, i, i+3, section_no=3)
+                            i += 2
+                            j += 1
+                        i = int(len(tag_nodes)/2) + 1
+                        j = int(diagonal_tag[int(len(diagonal_tag)/2)])
+                        while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
+                            Member.Truss(0, j, i, i+1, section_no=3)
+                            i += 2
+                            j += 1
+                        #Add first span
+                        Node(tag_nodes[-1]+1, (-first_span), 0, -total_height)
+                        Node(tag_nodes[-1]+2, (total_length+first_span), 0, -total_height)
+
+                        Member((int(diagonal_tag[-1])+2), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
+                        Member((int(diagonal_tag[-1])+3), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
+
+                        Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
+                        Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
+                    else:
+                        msg = QtWidgets.QMessageBox()
+                        msg.setIcon(QtWidgets.QMessageBox.Critical)
+                        msg.setText("WARNING")
+                        msg.setInformativeText("WARNING: Please enter an even number of spans for a symmetrical net.")
+                        msg.setWindowTitle("WARNING")
+                        msg.exec_()
+
+                elif self.diag_6.isChecked():
+                    if (number_of_bays % 2) == 0:
+                        diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
+                        i = 1
+                        j = int(diagonal_tag[0])
                         while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] +1:
                             Member.Truss(0, j, i+1, i+2, section_no=3)
                             i += 2
@@ -1022,38 +1054,6 @@ class Ui_MainWindow(object):
                         Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
                         Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
 
-                    else:
-                        msg = QtWidgets.QMessageBox()
-                        msg.setIcon(QtWidgets.QMessageBox.Critical)
-                        msg.setText("WARNING")
-                        msg.setInformativeText("WARNING: Please enter an even number of spans for a symmetrical net.")
-                        msg.setWindowTitle("WARNING")
-                        msg.exec_()
-
-                elif self.diag_6.isChecked():
-                    if (number_of_bays % 2) == 0:
-                        diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        while i < ((tag_nodes[-1]/2) + 1) and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+3, section_no=3)
-                            i += 2
-                            j += 1
-                        i = int(len(tag_nodes)/2) + 1
-                        j = int(diagonal_tag[int(len(diagonal_tag)/2)])
-                        while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+1, section_no=3)
-                            i += 2
-                            j += 1
-                        #Add first span
-                        Node(tag_nodes[-1]+1, (-first_span), 0, -total_height)
-                        Node(tag_nodes[-1]+2, (total_length+first_span), 0, -total_height)
-
-                        Member((int(diagonal_tag[-1])+2), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
-                        Member((int(diagonal_tag[-1])+3), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
-
-                        Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
-                        Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
                     else:
                         msg = QtWidgets.QMessageBox()
                         msg.setIcon(QtWidgets.QMessageBox.Critical)
@@ -1210,6 +1210,38 @@ class Ui_MainWindow(object):
                         diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
                         i = 1
                         j = int(diagonal_tag[0])
+                        while i < ((tag_nodes[-1]/2) + 1) and j <diagonal_tag[-1] +1:
+                            Member.Truss(0, j, i, i+3, section_no=3)
+                            i += 2
+                            j += 1
+                        i = int(len(tag_nodes)/2) + 1
+                        j = int(diagonal_tag[int(len(diagonal_tag)/2)])
+                        while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
+                            Member.Truss(0, j, i, i+1, section_no=3)
+                            i += 2
+                            j += 1
+                        #Add first span
+                        Node(tag_nodes[-1]+1, (-first_span), 0, 0)
+                        Node(tag_nodes[-1]+2, (total_length+first_span), 0, 0)
+
+                        Member((int(diagonal_tag[-1])+2), tag_nodes[0], tag_nodes[-1]+1, 0, 1, 1, 0, 0)
+                        Member((int(diagonal_tag[-1])+3), tag_nodes[-2], tag_nodes[-1]+2, 0, 2, 2, 0, 0)
+
+                        Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
+                        Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
+                    else:
+                        msg = QtWidgets.QMessageBox()
+                        msg.setIcon(QtWidgets.QMessageBox.Critical)
+                        msg.setText("WARNING")
+                        msg.setInformativeText("WARNING: Please enter an even number of spans for a symmetrical net.")
+                        msg.setWindowTitle("WARNING")
+                        msg.exec_()
+
+                elif self.diag_6.isChecked():
+                    if (number_of_bays % 2) == 0:
+                        diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
+                        i = 1
+                        j = int(diagonal_tag[0])
                         while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] +1:
                             Member.Truss(0, j, i+1, i+2, section_no=3)
                             i += 2
@@ -1230,38 +1262,6 @@ class Ui_MainWindow(object):
                         Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
                         Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
 
-                    else:
-                        msg = QtWidgets.QMessageBox()
-                        msg.setIcon(QtWidgets.QMessageBox.Critical)
-                        msg.setText("WARNING")
-                        msg.setInformativeText("WARNING: Please enter an even number of spans for a symmetrical net.")
-                        msg.setWindowTitle("WARNING")
-                        msg.exec_()
-
-                elif self.diag_6.isChecked():
-                    if (number_of_bays % 2) == 0:
-                        diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
-                        i = 1
-                        j = int(diagonal_tag[0])
-                        while i < ((tag_nodes[-1]/2) + 1) and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+3, section_no=3)
-                            i += 2
-                            j += 1
-                        i = int(len(tag_nodes)/2) + 1
-                        j = int(diagonal_tag[int(len(diagonal_tag)/2)])
-                        while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+1, section_no=3)
-                            i += 2
-                            j += 1
-                        #Add first span
-                        Node(tag_nodes[-1]+1, (-first_span), 0, 0)
-                        Node(tag_nodes[-1]+2, (total_length+first_span), 0, 0)
-
-                        Member((int(diagonal_tag[-1])+2), tag_nodes[0], tag_nodes[-1]+1, 0, 1, 1, 0, 0)
-                        Member((int(diagonal_tag[-1])+3), tag_nodes[-2], tag_nodes[-1]+2, 0, 2, 2, 0, 0)
-
-                        Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
-                        Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
                     else:
                         msg = QtWidgets.QMessageBox()
                         msg.setIcon(QtWidgets.QMessageBox.Critical)
