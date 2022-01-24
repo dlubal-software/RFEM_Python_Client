@@ -1,8 +1,7 @@
-from RFEM.initModel import *
-from RFEM.enums import StaticAnalysisType
+from RFEM.initModel import Model, clearAtributes
 from RFEM.enums import StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis
 from RFEM.enums import StaticAnalysisSettingsMethodOfEquationSystem
-from RFEM.enums import StaticAnalysisSettingsPlateBendingTheory
+from RFEM.enums import StaticAnalysisSettingsPlateBendingTheory, StaticAnalysisType
 
 class StaticAnalysisSettings():
     def __init__(self,

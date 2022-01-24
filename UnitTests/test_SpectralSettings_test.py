@@ -5,8 +5,8 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.enums import PeriodicResponseCombinationRule, DirectionalComponentCombinationRule, CqsDampingRule
+from RFEM.initModel import Model, CheckIfMethodOrTypeExists
 from RFEM.BasicObjects.material import Material
 from RFEM.LoadCasesAndCombinations.spectralAnalysisSettings import SpectralAnalysisSettings
 

@@ -7,8 +7,8 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.enums import MemberType, NodalSupportType, StaticAnalysisType, ModalSolutionMethod, ModalMassConversionType, ModalMassMatrixType, AnalysisType
+from RFEM.initModel import Model, CheckIfMethodOrTypeExists
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node

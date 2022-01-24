@@ -1,4 +1,4 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes
 from RFEM.enums import AnalysisType
 
 DIN_Action_Category = {'1A': 'Permanent | G', '1B': 'Permanent - small fluctuations | G*', '1C': 'Permanent/Imposed | Gq', '2': 'Prestress | P',

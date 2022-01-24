@@ -1,4 +1,4 @@
-# from RFEM.initModel import *
+# from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 # from RFEM.enums import BracingType
 
 # class Bracing():

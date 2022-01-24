@@ -1,5 +1,8 @@
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.enums import FreeConcentratedLoadLoadType, FreeConcentratedLoadLoadDirection, FreeLoadLoadProjection
+from RFEM.enums import FreeLineLoadLoadDistribution, FreeLineLoadLoadDirection, FreeRectangularLoadLoadDistribution
+from RFEM.enums import FreeRectangularLoadLoadDirection, FreeRectangularLoadLoadLocationRectangle, FreeCircularLoadLoadDistribution
+from RFEM.enums import  FreeCircularLoadLoadDirection, FreePolygonLoadLoadDistribution, FreePolygonLoadLoadDirection
 from math import pi
 
 class FreeLoad():

@@ -1,5 +1,5 @@
 from RFEM.enums import SurfaceGeometry, SurfaceLoadTransferDirection, SurfaceType
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 
 class Surface():
     def __init__(self,

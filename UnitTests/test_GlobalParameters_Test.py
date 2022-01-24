@@ -10,9 +10,9 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 # Importing the relevant libraries
-from RFEM.enums import *
+from RFEM.enums import GlobalParameterUnitGroup, GlobalParameterDefinitionType
 from RFEM.globalParameter import GlobalParameter
-from RFEM.initModel import *
+from RFEM.initModel import Model
 
 if Model.clientModel is None:
     Model()
@@ -30,7 +30,7 @@ def test_global_parameters():
                                  definition_type= GlobalParameterDefinitionType.DEFINITION_TYPE_FORMULA,
                                  definition_parameter= ['1+1'],
                                  comment= 'Comment_1')
-    # issue with optimization type
+    # TODO: issue with optimization type
     # GlobalParameter.AddParameter(GlobalParameter,
     #                              no= 2,
     #                              name= 'Test_2',

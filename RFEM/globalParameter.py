@@ -1,4 +1,4 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes
 from RFEM.enums import GlobalParameterUnitGroup, GlobalParameterDefinitionType
 
 class GlobalParameter():

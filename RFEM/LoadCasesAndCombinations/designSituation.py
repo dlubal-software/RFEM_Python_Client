@@ -1,4 +1,4 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model,clearAtributes
 
 class DesignSituation():
     def __init__(self,

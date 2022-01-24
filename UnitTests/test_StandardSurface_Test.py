@@ -10,8 +10,8 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 # Import the relevant Libraries
-from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.enums import SurfaceGeometry
+from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node

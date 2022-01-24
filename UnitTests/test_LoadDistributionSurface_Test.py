@@ -11,7 +11,7 @@ sys.path.append(PROJECT_ROOT)
 
 # Import the relevant Libraries
 from RFEM.enums import SurfaceLoadTransferDirection
-from RFEM.initModel import *
+from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node

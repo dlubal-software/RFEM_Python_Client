@@ -1,4 +1,4 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes, ConvertStrToListOfInt
 from RFEM.enums import LineWeldedJointType, WeldType, WeldLongitudalArrangement
 
 class LineWeldedJoint():

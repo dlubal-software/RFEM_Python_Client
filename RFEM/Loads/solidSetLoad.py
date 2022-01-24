@@ -1,5 +1,5 @@
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.enums import SolidSetLoadType, SolidSetLoadDistribution, SolidSetLoadDirection
 
 class SolidSetLoad():
 

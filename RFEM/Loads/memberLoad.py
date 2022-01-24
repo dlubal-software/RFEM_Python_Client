@@ -1,5 +1,7 @@
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.enums import LoadDirectionType, MemberLoadType, MemberLoadDistribution, MemberLoadDirection, MemberLoadDirectionOrientation
+from RFEM.enums import MemberLoadEccentricityHorizontalAlignment, MemberLoadEccentricityVerticalAlignment, MemberLoadEccentricitySectionMiddle
+from RFEM.enums import MemberLoadAxisDefinitionType, MemberLoadAxisDefinitionAxisOrientation, MemberLoadAxisDefinition
 
 class MemberLoad():
     def __init__(self,

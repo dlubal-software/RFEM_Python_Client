@@ -13,8 +13,8 @@ from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.material import Material
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model
+from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType
 
 if Model.clientModel is None:
     Model()

@@ -8,7 +8,7 @@ sys.path.append(PROJECT_ROOT)
 
 from RFEM.Loads.freeLoad import FreeLoad
 from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node

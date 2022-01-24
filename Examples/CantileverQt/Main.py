@@ -6,8 +6,8 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType
+from RFEM.initModel import Model, Calculate_all
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
