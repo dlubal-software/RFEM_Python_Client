@@ -44,8 +44,8 @@ def template():
     """
     # In every test function run 'delete_all' first to clean up the model.
     # It deletes mesh, results and all objects.
-    # delete_all() erases modification stack and all objects.
-    # If you run it inside modification stack (from begin_modification to finish_modification),
+    # reset() on the other hand erases modification stack and all objects.
+    # If you run reset() inside modification stack (from begin_modification to finish_modification),
     # all modifications will not take place.
     Model.clientModel.service.delete_all()
 
@@ -73,6 +73,7 @@ def template():
     # COMMENTS
     # Broken object or type can by commented out assuming author will add
     # associated bug number so everybody else can understand and track the issue.
+    # Also adding 'TODO' keyword is prudent practise.
 
 
     Model.clientModel.service.finish_modification()
