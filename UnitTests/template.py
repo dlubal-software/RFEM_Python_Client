@@ -6,11 +6,11 @@
 #########################################################
 
 # Name of the test module/file starts with test_...
-# Feel free to start the unit test by copying the content of this file
+# Start the unit test by copying the content of this file
 # to ensure that the latest requirements are met.
 
 # import only used modules
-# avoid wild-card import (from RFEM.enums import *) is possible
+# avoid wild-card import (from RFEM.enums import *) if possible
 import os
 import sys
 PROJECT_ROOT = os.path.abspath(os.path.join(
@@ -21,7 +21,7 @@ sys.path.append(PROJECT_ROOT)
 
 import pytest
 from RFEM.initModel import Model, CheckIfMethodOrTypeExists
-# Unused imports are displayed in dark green.
+# Unused imports are displayed in dark green as one below.
 from RFEM.enums import MemberType
 
 # When running tests individually the Model needs to be explicitly initialized.
@@ -36,14 +36,13 @@ if Model.clientModel is None:
 @pytest.mark.skipif(CheckIfMethodOrTypeExists(Model().clientModel,'set_model_settings_and_options', True), reason="set_model_settings_and_options not in RFEM yet")
 
 # Name of the test function starts with test_...
-# If no specific need to atomize the testing procedure, pack as much funtionality as possible in one test.
+# If no specific need to atomize the testing procedure, pack as much funtionality as possible in one test function.
 # Write sepatate test when used method/type is not in RFEM yet, to be able to skip it for example.
 def template():
     """
     Optional docstring describing the testing procedure
     """
-    # In every test function run 'delete_all' first to clean up the model.
-    # It deletes mesh, results and all objects.
+    # In every test function run 'delete_all' first to clean up the model. It deletes mesh, results and all objects.
     # reset() on the other hand erases modification stack and all objects.
     # If you run reset() inside modification stack (from begin_modification to finish_modification),
     # all modifications will not take place.
@@ -78,7 +77,7 @@ def template():
 
     Model.clientModel.service.finish_modification()
 
-# No print("Ready") is necessary. Pytest doesnt print stdout to user if not specified.
+# No print("Ready") is necessary. Pytest doesn't print stdout to user if not specified or asserted.
 # No return code is necessary. Pytest doesn't use it.
 
 # BEFORE COMMIT:
