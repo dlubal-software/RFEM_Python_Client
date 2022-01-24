@@ -57,7 +57,7 @@ def test_membrane_surface():
     Line.NURBS(Line, 12, '11 16 14', control_points= [[10, 0, 0], [10, 5, -2.5], [10, 5, -2.5]], weights= [1, 1, 1], params= {'nurbs_order':3})
 
     # Surfaces Definition
-    Surface.Membrane(Surface, 4, SurfaceGeometry.GEOMETRY_NURBS, [3,3,3,3], '9 10 11 12')
+    Surface.Membrane(Surface, 3, SurfaceGeometry.GEOMETRY_NURBS, [3,3,3,3], '9 10 11 12')
 
     # Standard Quadrangle
 
@@ -74,6 +74,6 @@ def test_membrane_surface():
     Line(16, '18 20')
 
     # Quadrangle Defintion
-    Surface.Membrane(Surface, 5, SurfaceGeometry.GEOMETRY_QUADRANGLE, [17, 18, 19, 20], '13 14 15 16')
+    Surface.Membrane(Surface, 4, SurfaceGeometry.GEOMETRY_QUADRANGLE, [17, 18, 19, 20], '13 14 15 16')
 
     Model.clientModel.service.finish_modification()

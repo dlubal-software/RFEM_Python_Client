@@ -328,6 +328,8 @@ class Line():
         if len(control_points) != len(weights):
             print("Number of control points must comply with number of weights!")
 
+        '''
+        TODO: bug 24721
         nurbs_control_points = []
         for i,j in enumerate(control_points):
             point = Model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
@@ -337,8 +339,8 @@ class Line():
             point.global_coordinate_z = control_points[i][2]
             point.weight = weights[i]
             nurbs_control_points.append(point)
-        clientObject.nurbs_control_points_by_components = Model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
-
+        #clientObject.nurbs_control_points_by_components = Model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
+        '''
         # Comment
         clientObject.comment = comment
 
