@@ -1,36 +1,32 @@
 import sys
-sys.path.append(".")
-from RFEM.Loads.surfaceLoad import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.Loads.surfacesetload import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
-from RFEM.TypesForMembers.memberHinge import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.BasicObjects.solidSet import *
-from RFEM.BasicObjects.surfaceSet import *
-from RFEM.BasicObjects.memberSet import *
-from RFEM.BasicObjects.lineSet import *
-from RFEM.BasicObjects.opening import *
-from RFEM.BasicObjects.solid import *
-from RFEM.BasicObjects.surface import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.material import *
-from RFEM.initModel import *
-from RFEM.dataTypes import *
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
+from RFEM.Loads.surfacesetload import SurfaceSetLoad
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.BasicObjects.surfaceSet import SurfaceSet
+from RFEM.BasicObjects.surface import Surface
+from RFEM.BasicObjects.line import Line
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.thickness import Thickness
+from RFEM.BasicObjects.material import Material
+from RFEM.initModel import Model, Calculate_all
 from RFEM.enums import *
 
+if Model.clientModel is None:
+    Model()
 
 def test_surface_set_load():
 
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
-    # Create Material 
+    # Create Material
     Material(1, 'S235')
 
     # Create Thickness
@@ -68,7 +64,6 @@ def test_surface_set_load():
     Line(13, '12 11')
     Line(14, '11 7')
 
-
     # Create Surfaces
     Surface(1, '1 2 3 4', 1)
     Surface(2, '2 5 6 7', 1)
@@ -77,8 +72,11 @@ def test_surface_set_load():
     Surface(4, '12 13 14 9', 1)
 
     # Create Surface Set
+    # Added types and functions just to cover SurfaceSet completely
     SurfaceSet(1, '1 2', SetType.SET_TYPE_GROUP)
     SurfaceSet(2, '3 4', SetType.SET_TYPE_GROUP)
+    SurfaceSet.ContinuousSurfaces(SurfaceSet, 3, '3 4')
+    SurfaceSet.GroupOfSurfaces(SurfaceSet, 4, '1 2')
 
     # Create Nodal Supports
     NodalSupport(1, '1', NodalSupportType.FIXED)
@@ -117,7 +115,7 @@ def test_surface_set_load():
 
     ## Force Type Surface Set Load with varying in Z
     SurfaceSetLoad.Force(0, 32, 1, '2', SurfaceSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, load_parameter=[[1, 1, 1000], [2, 1, 2000]])
-    
+
     ## Temperature Type Surface Load with UNIFORM Load Distribution ##
     SurfaceSetLoad.Temperature(0, 6, 1, '1', SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, load_parameter=[18, 2])
 
@@ -143,12 +141,9 @@ def test_surface_set_load():
     SurfaceSetLoad.RotaryMotion(0, 13, 1, '1', load_parameter=[1, 2, SurfaceSetLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS, [1,2,3], [4,5,6]])
 
     ## Mass Type Surface Load ##
-    #SurfaceSetLoad.Mass(0, 14, 1, '1', individual_mass_components=True, mass_parameter=[500, 600, 700])
+    # SurfaceSetLoad.Mass(0, 14, 1, '1', True, [500, 600, 700]) # bug 24241
+    SurfaceSetLoad.Mass(0, 15, 1, '1', False, [0.5])
 
+    #Calculate_all() # Don't use in unit tests. See template for more info.
 
-    Calculate_all()
-
-    print('Ready!')
-
-    clientModel.service.finish_modification()
-
+    Model.clientModel.service.finish_modification()

@@ -1,0 +1,32 @@
+**Types for Timber Design**
+============================
+
+#. :doc:`3.18.2.1-effectivelengths`
+#. :doc:`3.18.2.3-memberlocalsectionreductions`
+#. :doc:`3.18.2.3-membershearpanels`
+#. :doc:`3.18.2.4-memberrotaionalrestraints`
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   3.18.2.1-effectivelengths
+   3.18.2.2-memberlocalsectionreductions
+   3.18.2.3-membershearpanels
+   3.18.2.4-memberrotaionalrestraints
+
+
+   
+   
+
+   
+
+
+
+
+   
+   
+   
+   
+   
+   

@@ -1,5 +1,4 @@
-from RFEM.initModel import *
-from RFEM.enums import SetType
+from RFEM.initModel import Model, clearAtributes
 
 class SurfaceResultsAdjustment():
     def __init__(self,
@@ -8,7 +7,7 @@ class SurfaceResultsAdjustment():
                  params: dict = {}):
 
         # Client model | Surface Result Adjustment
-        clientObject = clientModel.factory.create('ns0:surface_results_adjustment')
+        clientObject = Model.clientModel.factory.create('ns0:surface_results_adjustment')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +23,4 @@ class SurfaceResultsAdjustment():
             clientObject[key] = params[key]
 
         # Add Surface Result Adjustmentto client model
-        clientModel.service.set_surface_results_adjustment(clientObject)
+        Model.clientModel.service.set_surface_results_adjustment(clientObject)

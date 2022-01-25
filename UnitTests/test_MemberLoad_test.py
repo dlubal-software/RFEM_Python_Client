@@ -1,34 +1,30 @@
 import sys
-sys.path.append(".")
-from RFEM.Loads.surfaceLoad import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
-from RFEM.TypesForMembers.memberHinge import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.BasicObjects.solidSet import *
-from RFEM.BasicObjects.surfaceSet import *
-from RFEM.BasicObjects.memberSet import *
-from RFEM.BasicObjects.lineSet import *
-from RFEM.BasicObjects.opening import *
-from RFEM.BasicObjects.solid import *
-from RFEM.BasicObjects.surface import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.material import *
-from RFEM.initModel import *
-from RFEM.dataTypes import *
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
+from RFEM.Loads.memberLoad import MemberLoad
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.BasicObjects.member import Member
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.material import Material
+from RFEM.initModel import Model, Calculate_all
 from RFEM.enums import *
+
+if Model.clientModel is None:
+    Model()
 
 def test_member_loads():
 
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
-    # Create Material 
+    # Create Material
     Material(1, 'S235')
 
     # Create Thickness
@@ -42,8 +38,8 @@ def test_member_loads():
     Node(3, 0, 5, 0)
     Node(4, 4, 5, 0)
 
-    Member(1, MemberType.TYPE_BEAM, '1', '2', 0, 1, 1)
-    Member(2, MemberType.TYPE_BEAM, '3', '4', 0, 2, 2)
+    Member(1, 1, 2, 0, 1, 1)
+    Member(2, 3, 4, 0, 2, 2)
 
     # Create Nodal Supports
     NodalSupport(1, '1', NodalSupportType.FIXED)
@@ -77,7 +73,7 @@ def test_member_loads():
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x2 ##
     MemberLoad.Force(0, 7, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, False, 5000, 1, 2, 3])
-    
+
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x ##
     MemberLoad.Force(0, 8, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 6000, 1, 2])
 
@@ -92,13 +88,12 @@ def test_member_loads():
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
     MemberLoad.Force(0, 12, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[4000, 8000, 12000])
-     
+
     ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING ##
     MemberLoad.Force(0, 13, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
-     
+
     ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING_IN_Z ##
     MemberLoad.Force(0, 14, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
-     
 
     ## Moment Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
     MemberLoad.Moment(0, 15, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])
@@ -111,7 +106,7 @@ def test_member_loads():
 
     ## Moment Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x2 ##
     MemberLoad.Moment(0, 18, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, False, 5000, 1, 2, 3])
-    
+
     ## Moment Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x ##
     MemberLoad.Moment(0, 19, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 6000, 1, 2])
 
@@ -126,14 +121,12 @@ def test_member_loads():
 
     ## Moment Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
     MemberLoad.Moment(0, 23, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[4000, 8000, 12000])
-     
+
     ## Moment Type Member Load with LOAD_DISTRIBUTION_VARYING ##
     MemberLoad.Moment(0, 24, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
-  
 
     ## Mass Type Member Load ##
     MemberLoad.Mass(0, 25, 1, mass_components=[1000])
-
 
     ## Temperature Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
     MemberLoad.Temperature(0, 26, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[18, 2])
@@ -146,11 +139,10 @@ def test_member_loads():
 
     ## Temperature Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
     MemberLoad.Temperature(0, 29, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3, 4, 5, 6])
-     
+
     ## Temperature Type Member Load with LOAD_DISTRIBUTION_VARYING ##
     MemberLoad.Temperature(0, 30, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])
 
-    
     ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
     MemberLoad.TemperatureChange(0, 31, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[18, 2])
 
@@ -162,7 +154,7 @@ def test_member_loads():
 
     ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
     MemberLoad.TemperatureChange(0, 34, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3, 4, 5, 6])
-     
+
     ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_VARYING ##
     MemberLoad.TemperatureChange(0, 35, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])
 
@@ -177,14 +169,12 @@ def test_member_loads():
 
     ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
     MemberLoad.AxialStrain(0, 39, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[1, 2, 3])
-     
+
     ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_VARYING ##
     MemberLoad.AxialStrain(0, 40, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])
 
-
     ## AxialDisplacement Type Member Load ##
     MemberLoad.AxialDisplacement(0, 41, 1, '1', MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, 0.05)
-
 
     ## Precamber Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
     MemberLoad.Precamber(0, 42, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[0.005])
@@ -197,14 +187,12 @@ def test_member_loads():
 
     ## Precamber Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
     MemberLoad.Precamber(0, 45, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3])
-     
+
     ## Precamber Type Member Load with LOAD_DISTRIBUTION_VARYING ##
     MemberLoad.Precamber(0, 46, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])
 
-
     ## InitialPrestress Type Member Load ##
     MemberLoad.InitialPrestress(0, 47, 1, '1', MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, 50)
-
 
     ## Displacement Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
     MemberLoad.Displacement(0, 48, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5])
@@ -232,10 +220,9 @@ def test_member_loads():
 
     ## Displacement Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
     MemberLoad.Displacement(0, 56, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3])
-     
+
     ## Displacement Type Member Load with LOAD_DISTRIBUTION_VARYING ##
     MemberLoad.Displacement(0, 57, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])
-
 
     ## Rotation Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
     MemberLoad.Rotation(0, 58, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5])
@@ -263,16 +250,16 @@ def test_member_loads():
 
     ## Rotation Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
     MemberLoad.Rotation(0, 66, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3])
-     
+
     ## Rotation Type Member Load with LOAD_DISTRIBUTION_VARYING ##
     MemberLoad.Rotation(0, 67, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])
 
-    ## PipeContentFull Type Member Load ## 
+    ## PipeContentFull Type Member Load ##
     MemberLoad.PipeContentFull(0, 68, 1, '2', MemberLoadDirectionOrientation.LOAD_DIRECTION_FORWARD, 50)
-    
-    Calculate_all()
 
-    print('Ready!')
+    MemberLoad.RotaryMotion(0, 69, 1, '2', 2, 3, MemberLoadAxisDefinitionType.AXIS_DEFINITION_POINT_AND_AXIS, axis_definition_p1=[1,1,0])
 
-    clientModel.service.finish_modification()
+    #Calculate_all() # Don't use in unit tests. See template for more info.
+
+    Model.clientModel.service.finish_modification()
 

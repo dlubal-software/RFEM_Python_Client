@@ -1,5 +1,4 @@
-from RFEM.initModel import *
-from RFEM.enums import SetType
+from RFEM.initModel import Model, clearAtributes
 
 class MemberNonlinearity():
     def __init__(self,
@@ -8,7 +7,7 @@ class MemberNonlinearity():
                  params: dict = {}):
 
         # Client model | Member Nonlinearity
-        clientObject = clientModel.factory.create('ns0:member_nonlinearity')
+        clientObject = Model.clientModel.factory.create('ns0:member_nonlinearity')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +23,4 @@ class MemberNonlinearity():
             clientObject[key] = params[key]
 
         # Add Member Nonlinearity to client model
-        clientModel.service.set_member_nonlinearity(clientObject)
+        Model.clientModel.service.set_member_nonlinearity(clientObject)

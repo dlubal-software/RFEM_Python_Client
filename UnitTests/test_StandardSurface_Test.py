@@ -2,38 +2,29 @@
 # -*- coding: utf-8 -*-
 
 import sys
-sys.path.append(".")
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
 
 # Import the relevant Libraries
-from os import name
-from RFEM.enums import *
-#from RFEM.window import *
-from RFEM.dataTypes import *
-from RFEM.initModel import *
-from RFEM.BasicObjects.material import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.surface import *
-from RFEM.BasicObjects.solid import *
-from RFEM.BasicObjects.opening import *
-from RFEM.BasicObjects.lineSet import *
-from RFEM.BasicObjects.memberSet import *
-from RFEM.BasicObjects.surfaceSet import *
-from RFEM.BasicObjects.solidSet import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.TypesForMembers.memberHinge import *
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.surfaceLoad import *
+from RFEM.enums import SurfaceGeometry
+from RFEM.initModel import Model
+from RFEM.BasicObjects.material import Material
+from RFEM.BasicObjects.thickness import Thickness
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.line import Line
+from RFEM.BasicObjects.surface import Surface
+
+if Model.clientModel is None:
+    Model()
 
 def test_standard_surface():
 
-    clientModel.service.begin_modification('new')
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     # Testing the standard surface function
     Node(1, 0, -30, 0), Node(2, 10, -30, 0), Node(3, 10, -20, 0), Node(4, 0, -20, 0)
@@ -85,5 +76,4 @@ def test_standard_surface():
     # Quadrangle Defintion
     Surface.Standard(Surface, 4, SurfaceGeometry.GEOMETRY_QUADRANGLE, [17, 18, 19, 20], '13 14 15 16')
 
-    clientModel.service.finish_modification()
-
+    Model.clientModel.service.finish_modification()

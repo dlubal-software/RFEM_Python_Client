@@ -1,5 +1,4 @@
-from RFEM.initModel import *
-from RFEM.enums import SetType
+from RFEM.initModel import Model, clearAtributes
 
 class NodalMeshRefinement():
     def __init__(self,
@@ -8,7 +7,7 @@ class NodalMeshRefinement():
                  params: dict = {}):
 
         # Client model | Nodal Mesh Refinement
-        clientObject = clientModel.factory.create('ns0:nodal_mesh_refinement')
+        clientObject = Model.clientModel.factory.create('ns0:nodal_mesh_refinement')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +23,4 @@ class NodalMeshRefinement():
             clientObject[key] = params[key]
 
         # Add Nodal Mesh Refinement to client model
-        clientModel.service.set_nodal_mesh_refinement(clientObject)
+        Model.clientModel.service.set_nodal_mesh_refinement(clientObject)

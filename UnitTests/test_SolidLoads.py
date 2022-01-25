@@ -1,34 +1,38 @@
+import sys
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
+
 from RFEM.Loads.solidLoad import SolidLoad
-from RFEM.enums import *
-from RFEM.window import *
-from RFEM.dataTypes import *
-from RFEM.initModel import *
-from RFEM.BasicObjects.material import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.surface import *
-from RFEM.BasicObjects.solid import *
-from RFEM.BasicObjects.opening import *
-from RFEM.BasicObjects.lineSet import *
-from RFEM.BasicObjects.memberSet import *
-from RFEM.BasicObjects.surfaceSet import *
-from RFEM.BasicObjects.solidSet import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.TypesForMembers.memberHinge import *
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.surfaceLoad import *
+from RFEM.Loads.solidSetLoad import SolidSetLoad
+from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType, SolidLoadType, SolidLoadDistribution
+from RFEM.enums import SolidLoadDirection, SolidSetLoadType, SolidSetLoadDistribution, SolidSetLoadDirection
+from RFEM.initModel import Model
+from RFEM.BasicObjects.material import Material
+from RFEM.BasicObjects.thickness import Thickness
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.line import Line
+from RFEM.BasicObjects.surface import Surface
+from RFEM.BasicObjects.solid import Solid
+from RFEM.BasicObjects.solidSet import SolidSet
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.Loads.nodalLoad import NodalLoad
+
+if Model.clientModel is None:
+    Model()
 
 def test_solid_loads():
-    clientModel.service.begin_modification('new')
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    
+
     # Solid 1
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 10.0, 0.0, 0.0)
@@ -54,7 +58,7 @@ def test_solid_loads():
     Line(10, '2 6')
     Line(11, '3 7')
     Line(12, '4 8')
-    
+
     Thickness(1, 'My Test Thickness', 1, 0.05)
 
     Surface(1, '1-4', 1)
@@ -63,20 +67,17 @@ def test_solid_loads():
     Surface(4, '2 10 6 11', 1)
     Surface(5, '3 11 7 12', 1)
     Surface(6, '4 12 8 9', 1)
-    
+
     Solid(1, '1-6', 1)
-    
-    NodalSupport(1, '1', NodalSupportType.HINGED)
-    NodalSupport(2, '2', NodalSupportType.HINGED)
-    NodalSupport(3, '3', NodalSupportType.HINGED)
-    NodalSupport(4, '4', NodalSupportType.HINGED)
-    
+
+    NodalSupport(1, '1 2 3 4 9 12 10 11 17 18 ', NodalSupportType.HINGED)
+
     StaticAnalysisSettings(1, 'Geometric linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    
+
     LoadCase(1 , 'Test load case', [True, 0.0, 0.0, 1.0])
 
     NodalLoad(1, 1, '1', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 12.8)
-    
+
     SolidLoad(1, 1, '1', SolidLoadType.LOAD_TYPE_FORCE, SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 1289.0, 'My Comment')
     SolidLoad.Force(SolidLoad, 2, 1, '1', SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 8569.21, 'My 2nd Comment')
     SolidLoad.Force(SolidLoad, 3, 1, '1', SolidLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 78548.21, 'My 2nd Comment')
@@ -84,7 +85,7 @@ def test_solid_loads():
     SolidLoad.Temperature(SolidLoad, 5, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, [105.4, 507.8, 4, 3])
     SolidLoad.Temperature(SolidLoad, 6, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y, [237, -8.9, 5, 7])
     SolidLoad.Temperature(SolidLoad, 7, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z, [-2587.98, -8.9, 5, 2])
-    
+
     SolidLoad.Strain(SolidLoad, 8, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, [0.01, 0.02, 0.03])
     SolidLoad.Strain(SolidLoad, 9, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 5, 6])
     SolidLoad.Strain(SolidLoad, 10, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y, [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 5, 8])
@@ -153,7 +154,14 @@ def test_solid_loads():
     # Solid Set
     SolidSet.ContinuousSolids(SolidSet, 1, '2 3')
 
-    #Calculate_all()
-    print('Ready!')
-    
-    clientModel.service.finish_modification()
+    SolidSetLoad(1, 1, '1', SolidSetLoadType.LOAD_TYPE_FORCE, SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, SolidSetLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 58.9*1000, 'My Comment')
+    SolidSetLoad.Force(SolidSetLoad, 2, 1, '1', SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 8974.123, 'My 2nd Comment')
+    SolidSetLoad.Temperature(SolidSetLoad, 3, 1, '1', SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, [25489], 'My 3rd Comment')
+    SolidSetLoad.Temperature(SolidSetLoad, 4, 1, '1', SolidSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, [1.5, 8.9, 16, 15], 'My 3rd Comment')
+    SolidSetLoad.Strain(SolidSetLoad, 5, 1, '1', SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, [0.1, 0.2, 0.3], 'My Comment')
+    SolidSetLoad.Strain(SolidSetLoad, 6, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y, [0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 13, 16])
+    SolidSetLoad.Motion(SolidSetLoad, 7, 1, '1', [1.5, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0])
+
+    #Calculate_all() # Don't use in unit tests. See template for more info.
+
+    Model.clientModel.service.finish_modification()

@@ -1,59 +1,55 @@
 import sys
-sys.path.append(".")
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
 
-from RFEM.Loads.freeLoad import *
+from RFEM.Loads.freeLoad import FreeLoad
 from RFEM.enums import *
-from RFEM.window import *
-from RFEM.dataTypes import *
-from RFEM.initModel import *
-from RFEM.BasicObjects.material import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.surface import *
-from RFEM.BasicObjects.solid import *
-from RFEM.BasicObjects.opening import *
-from RFEM.BasicObjects.lineSet import *
-from RFEM.BasicObjects.memberSet import *
-from RFEM.BasicObjects.surfaceSet import *
-from RFEM.BasicObjects.solidSet import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.TypesForMembers.memberHinge import *
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.surfaceLoad import *
+from RFEM.initModel import Model
+from RFEM.BasicObjects.material import Material
+from RFEM.BasicObjects.thickness import Thickness
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.line import Line
+from RFEM.BasicObjects.surface import Surface
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+
+if Model.clientModel is None:
+    Model()
 
 def test_free_load():
-    clientModel.service.begin_modification('new')
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    
+
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 10.0, 0.0, 0.0)
     Node(3, 10.0, 10.0, 0.0)
     Node(4, 0.0, 10.0, 0.0)
     Node(5, 0.0, 0.0, 10.0)
     Node(6, 0.0, 10.0, 10.0)
-    
+
     Line(1, '1 2')
     Line(2, '2 3')
     Line(3, '3 4')
     Line(4, '4 1')
-    
+
     Thickness(1, 'Dicke', 1, 0.05)
     Surface(1, '1-4', 1)
-    
+
     NodalSupport(1, '1', NodalSupportType.HINGED)
     NodalSupport(2, '2', NodalSupportType.HINGED)
     NodalSupport(3, '3', NodalSupportType.HINGED)
     NodalSupport(4, '4', NodalSupportType.HINGED)
-    
+
     StaticAnalysisSettings(1, 'Geometrisch-linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    
+
     LoadCase(1 , 'Einzell- u. Linienlast')
     LoadCase(2 , 'Rechtecklast 1')
     LoadCase(3 , 'Rechtecklast 2')
@@ -68,9 +64,9 @@ def test_free_load():
     FreeLoad.LineLoad(FreeLoad, 3, 1, '1',
                         FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                         FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
-                        FreeLineLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE, 
+                        FreeLineLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
                         [5000, 2, 2, 4, 4])
-    
+
     # Prüfung der freien Rechtecklasten
 
     ##  LOAD_LOCATION_RECTANGLE_CORNER_POINTS
@@ -78,7 +74,7 @@ def test_free_load():
                              FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                              FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                              FreeRectangularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
-                             [5000], 
+                             [5000],
                              FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CORNER_POINTS,
                              [1, 8, 3, 10, 0])
 
@@ -86,7 +82,7 @@ def test_free_load():
                             FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_FIRST,
                             FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                             FreeRectangularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
-                            [5000, 2000], 
+                            [5000, 2000],
                             FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CORNER_POINTS,
                             [4, 8, 6, 10, 0])
 
@@ -94,7 +90,7 @@ def test_free_load():
                             FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_SECOND,
                             FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                             FreeRectangularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
-                            [5000, 2000], 
+                            [5000, 2000],
                             FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CORNER_POINTS,
                             [7, 8, 9, 10, 0])
 
@@ -102,7 +98,7 @@ def test_free_load():
                              FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z,
                              FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                              FreeRectangularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
-                             [5000], 
+                             [5000],
                              FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CORNER_POINTS,
                              [1, 5, 3, 7, [[-3, 0.3], [-1, 0.4], [0, 1]]])
 
@@ -110,7 +106,7 @@ def test_free_load():
                             FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER,
                             FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                             FreeRectangularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
-                            [5000], 
+                            [5000],
                             FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CORNER_POINTS,
                             [4, 5, 6, 7, [5, 7, 0], [5, 9, 2], 0, [[0, 0.5], [90, 1.75], [180, 1.25], [270, 1], [360, 0.5]]])
 
@@ -118,7 +114,7 @@ def test_free_load():
                             FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER,
                             FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                             FreeRectangularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
-                            [5000], 
+                            [5000],
                             FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CORNER_POINTS,
                             [7, 5, 9, 7, [[-3, 0.3], [-1, 0.4], [0, 1]], [5, 7, 0], [5, 9, 2], 0, [[0, 0.5], [90, 1.75], [180, 1.25], [270, 1], [360, 0.5]]])
 
@@ -127,7 +123,7 @@ def test_free_load():
                              FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                              FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                              FreeRectangularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
-                             [5000], 
+                             [5000],
                              FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CENTER_AND_SIDES,
                              [2, 9, 2, 2, 0])
 
@@ -135,7 +131,7 @@ def test_free_load():
                             FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_FIRST,
                             FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                             FreeRectangularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
-                            [5000, 2000], 
+                            [5000, 2000],
                             FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CENTER_AND_SIDES,
                             [5, 9, 2, 2, 0])
 
@@ -143,7 +139,7 @@ def test_free_load():
                             FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_SECOND,
                             FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                             FreeRectangularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
-                            [5000, 2000], 
+                            [5000, 2000],
                             FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CENTER_AND_SIDES,
                             [8, 9, 2, 2, 0])
 
@@ -151,7 +147,7 @@ def test_free_load():
                              FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z,
                              FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                              FreeRectangularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
-                             [5000], 
+                             [5000],
                              FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CENTER_AND_SIDES,
                              [2, 6, 2, 2, [[-3, 0.3], [-1, 0.4], [0, 1]]])
 
@@ -159,7 +155,7 @@ def test_free_load():
                             FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER,
                             FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                             FreeRectangularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
-                            [5000], 
+                            [5000],
                             FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CENTER_AND_SIDES,
                             [5, 6, 2, 2, [5, 7, 0], [5, 9, 2], 0, [[0, 0.5], [90, 1.75], [180, 1.25], [270, 1], [360, 0.5]]])
 
@@ -167,7 +163,7 @@ def test_free_load():
                             FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER,
                             FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                             FreeRectangularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
-                            [5000], 
+                            [5000],
                             FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CENTER_AND_SIDES,
                             [8, 6, 2, 2, [[-3, 0.3], [-1, 0.4], [0, 1]], [5, 7, 0], [5, 9, 2], 0, [[0, 0.5], [90, 1.75], [180, 1.25], [270, 1], [360, 0.5]]])
 
@@ -213,8 +209,6 @@ def test_free_load():
                          [[1, 4], [0, 6], [2, 6]],
                          [1500, 7500, 2, 1])
 
-    #print(clientModel)
-    #Calculate_all()
-    print('Ready!')
-    
-    clientModel.service.finish_modification()
+    #Calculate_all() # Don't use in unit tests. See template for more info.
+
+    Model.clientModel.service.finish_modification()

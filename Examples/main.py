@@ -1,41 +1,43 @@
-import os
 import sys
-import math
+import os
 baseName = os.path.basename(__file__)
 dirName = os.path.dirname(__file__)
 print('basename:    ', baseName)
 print('dirname:     ', dirName)
-sys.path.append(r'.')
-from RFEM.enums import *
-from RFEM.window import *
-from RFEM.dataTypes import *
-from RFEM.initModel import *
-from RFEM.BasicObjects.material import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.surface import *
-from RFEM.BasicObjects.solid import *
-from RFEM.BasicObjects.opening import *
-from RFEM.BasicObjects.lineSet import *
-from RFEM.BasicObjects.memberSet import *
-from RFEM.BasicObjects.surfaceSet import *
-from RFEM.BasicObjects.solidSet import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.TypesForMembers.memberHinge import *
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.surfaceLoad import *
 
-def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_spacing):
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
+from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType, MemberLoadDistribution, MemberLoadDirection, MemberRotationSpecificationType
+from RFEM.window import window
+from RFEM.dataTypes import inf
+from RFEM.initModel import Model, Calculate_all, insertSpaces, modelLst
+from RFEM.BasicObjects.material import Material
+from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.thickness import Thickness
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.line import Line
+from RFEM.BasicObjects.member import Member
+from RFEM.BasicObjects.surface import Surface
+from RFEM.BasicObjects.solid import Solid
+from RFEM.BasicObjects.opening import Opening
+from RFEM.BasicObjects.lineSet import LineSet
+from RFEM.BasicObjects.memberSet import MemberSet
+from RFEM.BasicObjects.surfaceSet import SurfaceSet
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.TypesForMembers.memberHinge import MemberHinge
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.Loads.nodalLoad import NodalLoad
+from RFEM.Loads.memberLoad import MemberLoad
+from RFEM.Loads.surfaceLoad import SurfaceLoad
+
+def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_spacing, new_model, model_name, delete_res, delete_all):
 # -------------------------------------------------------------
-    clientModel.service.begin_modification('new')
-    print('Geometry...')
-
+    Model(new_model, model_name, delete_res, delete_all)
+    Model.clientModel.service.begin_modification()
 # -------------------------------------------------------------
     # Materials
     Material(1)
@@ -125,19 +127,19 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
     while i <= number_frames:
         j = (i-1) * 5
         k = (i-1) * 4
-        Member(k+1, MemberType.TYPE_BEAM, j+1, j+2, 0.0,  1, 1)
-        Member(k+2, MemberType.TYPE_BEAM, j+2, j+3, 0.0,  2, 2)
-        Member(k+3, MemberType.TYPE_BEAM, j+3, j+4, 0.0,  2, 2)
-        Member(k+4, MemberType.TYPE_BEAM, j+4, j+5, 0.0,  1, 1)
+        Member(k+1,  j+1, j+2, 0.0,  1, 1)
+        Member(k+2,  j+2, j+3, 0.0,  2, 2)
+        Member(k+3,  j+3, j+4, 0.0,  2, 2)
+        Member(k+4,  j+4, j+5, 0.0,  1, 1)
         i += 1
 
     # Purlins
     i = 1
     while i <= number_frames-1:
         j = (i-1) * 5
-        Member(4*number_frames+i                    , MemberType.TYPE_BEAM, j+2, j+7,   0.0,  3, 3,  1, 1)
-        Member(4*number_frames+i +   number_frames-1, MemberType.TYPE_BEAM, j+3, j+8,   0.0,  3, 3)
-        Member(4*number_frames+i + 2*number_frames-2, MemberType.TYPE_BEAM, j+4, j+9, 180.0,  3, 3,  1, 1)
+        Member(4*number_frames+i                    ,  j+2, j+7,   0.0,  3, 3,  1, 1)
+        Member(4*number_frames+i +   number_frames-1,  j+3, j+8,   0.0,  3, 3)
+        Member(4*number_frames+i + 2*number_frames-2,  j+4, j+9, 180.0,  3, 3,  1, 1)
         i += 1
 
     # Diagonals on the wall
@@ -145,21 +147,19 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
     j = 4*number_frames + 3*(number_frames-1)
     while i <= number_frames-1:
         k = j + (i-1)*4
-        Member(k+1, MemberType.TYPE_TENSION, (i-1)*5+1, (i-1)*5+7 , 0.0,  4, 4)
-        Member(k+2, MemberType.TYPE_TENSION, (i-1)*5+2, (i-1)*5+6 , 0.0,  4, 4)
-        Member(k+3, MemberType.TYPE_TENSION, (i-1)*5+5, (i-1)*5+9 , 0.0,  4, 4)
-        Member(k+4, MemberType.TYPE_TENSION, (i-1)*5+4, (i-1)*5+10, 0.0,  4, 4)
+        Member.Tension(0,k+1, (i-1)*5+1, (i-1)*5+7 , MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
+        Member.Tension(0,k+2, (i-1)*5+2, (i-1)*5+6 , MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
+        Member.Tension(0,k+3, (i-1)*5+5, (i-1)*5+9 , MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
+        Member.Tension(0,k+4, (i-1)*5+4, (i-1)*5+10, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
         i += 1
-
 
     # Diagonals on the roof
     j += 4*(number_frames-1)
     if number_frames > 1:
-        Member(j+1, MemberType.TYPE_TENSION, 2, 8, 0.0,  4, 4)
-        Member(j+2, MemberType.TYPE_TENSION, 7, 3, 0.0,  4, 4)
-        Member(j+3, MemberType.TYPE_TENSION, 3, 9, 0.0,  4, 4)
-        Member(j+4, MemberType.TYPE_TENSION, 4, 8, 0.0,  4, 4)
-
+        Member.Tension(0,j+1, 2, 8, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
+        Member.Tension(0,j+2, 7, 3, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
+        Member.Tension(0,j+3, 3, 9, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
+        Member.Tension(0,j+4, 4, 8, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
 
 # -------------------------------------------------------------
     # Surfaces
@@ -203,7 +203,6 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
     LineSet()
     MemberSet()
     SurfaceSet()
-    #SolidSet()
 
 # -------------------------------------------------------------
     print('Load Cases/Loads...')
@@ -231,7 +230,7 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 
 # -------------------------------------------------------------
     # Nodal Forces
-    NodalLoad(1, 1, "9 4 7 2", LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 2000.0)
+    NodalLoad(1, 3, "9 4 7 2", LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 2000.0)
 
 # -------------------------------------------------------------
     # Member Loads
@@ -251,7 +250,7 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x2 ##
     MemberLoad.Force(0, 7, 6, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, False, 5000, 1, 2, 3])
-    
+
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x ##
     MemberLoad.Force(0, 8, 7, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 6000, 1, 2])
 
@@ -266,14 +265,12 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
     MemberLoad.Force(0, 12, 11, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[4000, 8000, 12000])
-     
+
     ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING ##
     MemberLoad.Force(0, 13, 12, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
-     
+
     ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING_IN_Z ##
     MemberLoad.Force(0, 14, 13, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
-    
-
 
 # -------------------------------------------------------------
     # Surface Loads
@@ -282,7 +279,7 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 # -------------------------------------------------------------
     # Finish client model
     print("Calculating...")
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
 # -------------------------------------------------------------
     # Calculate all
@@ -290,4 +287,4 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
     print("Done")
 
 if __name__ == '__main__':
-    window(main)
+    window(main, modelLst)

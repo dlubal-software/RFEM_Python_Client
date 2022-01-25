@@ -1,5 +1,4 @@
-from RFEM.initModel import *
-from RFEM.enums import SetType
+from RFEM.initModel import Model, clearAtributes
 
 class MemberStiffnessModification():
     def __init__(self,
@@ -8,7 +7,7 @@ class MemberStiffnessModification():
                  params: dict = {}):
 
         # Client model | Member Stiffness Modification
-        clientObject = clientModel.factory.create('ns0:smember_stiffness_modification')
+        clientObject = Model.clientModel.factory.create('ns0:smember_stiffness_modification')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +23,4 @@ class MemberStiffnessModification():
             clientObject[key] = params[key]
 
         # Add Member Stiffness Modification to client model
-        clientModel.service.set_member_stiffness_modification(clientObject)
+        Model.clientModel.service.set_member_stiffness_modification(clientObject)

@@ -1,4 +1,4 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 from RFEM.enums import SetType
 
 class SolidSet():
@@ -10,7 +10,7 @@ class SolidSet():
                  params: dict = {}):
 
         # Client model | Solid Set
-        clientObject = clientModel.factory.create('ns0:solid_set')
+        clientObject = Model.clientModel.factory.create('ns0:solid_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -32,7 +32,7 @@ class SolidSet():
             clientObject[key] = params[key]
 
         # Add Solid Set to client model
-        clientModel.service.set_solid_set(clientObject)
+        Model.clientModel.service.set_solid_set(clientObject)
 
     def ContinuousSolids(self,
                  no: int = 1,
@@ -42,8 +42,8 @@ class SolidSet():
                  params: dict = {}):
 
         # Client model | Solid Set
-        clientObject = clientModel.factory.create('ns0:solid_set')
-       
+        clientObject = Model.clientModel.factory.create('ns0:solid_set')
+
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
 
@@ -64,7 +64,7 @@ class SolidSet():
             clientObject[key] = params[key]
 
         # Add Solid Set to client model
-        clientModel.service.set_solid_set(clientObject)
+        Model.clientModel.service.set_solid_set(clientObject)
 
     def GroupOfSolids(self,
                  no: int = 1,
@@ -74,7 +74,7 @@ class SolidSet():
                  params: dict = {}):
 
         # Client model | Solid Set
-        clientObject = clientModel.factory.create('ns0:solid_set')
+        clientObject = Model.clientModel.factory.create('ns0:solid_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -83,7 +83,7 @@ class SolidSet():
         clientObject.no = no
 
         # Solids number
-        clientObject.solides = ConvertToDlString(solids_no)
+        clientObject.solids = ConvertToDlString(solids_no)
 
         # Solid Set Type
         clientObject.set_type = solid_set_type.name
@@ -96,4 +96,4 @@ class SolidSet():
             clientObject[key] = params[key]
 
         # Add Solid Set to client model
-        clientModel.service.set_solid_set(clientObject)
+        Model.clientModel.service.set_solid_set(clientObject)

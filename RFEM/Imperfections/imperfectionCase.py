@@ -1,5 +1,4 @@
-from RFEM.initModel import *
-from RFEM.enums import SetType
+from RFEM.initModel import Model, clearAtributes
 
 class ImperfectionCase():
     def __init__(self,
@@ -8,7 +7,7 @@ class ImperfectionCase():
                  params: dict = {}):
 
         # Client model | Imperfection Case
-        clientObject = clientModel.factory.create('ns0:imperfection_case')
+        clientObject = Model.clientModel.factory.create('ns0:imperfection_case')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -16,9 +15,12 @@ class ImperfectionCase():
         # Imperfection Case No.
         clientObject.no = no
 
+        # Comment
+        clientObject.comment = comment
+
         # Adding optional parameters via dictionary
         for key in params:
             clientObject[key] = params[key]
 
         # Add Imperfection Case to client model
-        clientModel.service.set_imperfection_case(clientObject)
+        Model.clientModel.service.set_imperfection_case(clientObject)

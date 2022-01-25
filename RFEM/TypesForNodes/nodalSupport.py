@@ -1,6 +1,6 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.dataTypes import inf
 from RFEM.enums import NodalSupportType
-from enum import Enum
 
 def setNodalSupportConditions(clientObject,
                               C_u_X: float,
@@ -32,7 +32,6 @@ def setNodalSupportConditions(clientObject,
 
     return clientObject
 
-
 class NodalSupport():
     def __init__(self,
                  no: int = 1,
@@ -42,7 +41,7 @@ class NodalSupport():
                  params: dict = {}):
 
         # Client model | Nodal Support
-        clientObject = clientModel.factory.create('ns0:nodal_support')
+        clientObject = Model.clientModel.factory.create('ns0:nodal_support')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -54,7 +53,6 @@ class NodalSupport():
         clientObject.nodes = ConvertToDlString(nodes_no)
 
         # Nodal Support Conditions
-        inf = float('inf')
         if   support_type == NodalSupportType.FIXED:
             # FIXED       'xxx xxx'
             clientObject = setNodalSupportConditions(clientObject, inf, inf, inf, inf, inf, inf)
@@ -79,6 +77,10 @@ class NodalSupport():
             # ROLLER_IN_Z 'xx- --x'
             clientObject = setNodalSupportConditions(clientObject, inf, inf, 0.0, 0.0, 0.0, inf)
 
+        elif support_type == NodalSupportType.FREE:
+            # FREE '--- ---'
+            clientObject = setNodalSupportConditions(clientObject, 0, 0, 0, 0, 0, 0)
+
         # Comment
         clientObject.comment = comment
 
@@ -87,4 +89,4 @@ class NodalSupport():
             clientObject[key] = params[key]
 
         # Add Nodal Support to client model
-        clientModel.service.set_nodal_support(clientObject)
+        Model.clientModel.service.set_nodal_support(clientObject)

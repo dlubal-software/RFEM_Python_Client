@@ -1,6 +1,5 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes
 from RFEM.enums import GlobalParameterUnitGroup, GlobalParameterDefinitionType
-from enum import Enum
 
 class GlobalParameter():
 
@@ -31,7 +30,7 @@ class GlobalParameter():
         '''
 
         # Client model | Global Parameter
-        clientObject = clientModel.factory.create('ns0:global_parameter')
+        clientObject = Model.clientModel.factory.create('ns0:global_parameter')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -50,7 +49,7 @@ class GlobalParameter():
 
         # Definition Type
         clientObject.definition_type = definition_type.name
-        
+
         if definition_type.name == 'DEFINITION_TYPE_FORMULA':
             if len(definition_parameter) != 1:
                 raise Exception('WARNING: The definition parameter needs to be of length 1. Kindly check list inputs for completeness and correctness.')
@@ -76,5 +75,5 @@ class GlobalParameter():
         for key in params:
             clientObject[key] = params[key]
 
-        # Add Global Parameter to client model          
-        clientModel.service.set_global_parameter(clientObject)
+        # Add Global Parameter to client model
+        Model.clientModel.service.set_global_parameter(clientObject)
