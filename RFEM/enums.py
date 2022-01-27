@@ -986,3 +986,16 @@ class CqsDampingRule(Enum):
     Spectal Analysis Settings Damping for CQC Rule
     '''
     CONSTANT_FOR_EACH_MODE, DIFFERENT_FOR_EACH_MODE = range(2)
+
+class OptimizeOnType(Enum):
+    '''
+    Optimization Settings Optimize On Type
+    '''
+    E_OPTIMIZE_ON_TYPE_MIN_WHOLE_WEIGHT, E_OPTIMIZE_ON_TYPE_MIN_VECTORIAL_DISPLACEMENT, E_OPTIMIZE_ON_TYPE_MIN_MEMBER_DEFORMATION, \
+    E_OPTIMIZE_ON_TYPE_MIN_SURFACE_DEFORMATION, E_OPTIMIZE_ON_TYPE_MIN_COST, E_OPTIMIZE_ON_TYPE_MIN_CO2_EMISSIONS = range(6)
+
+class Optimizer(Enum):
+    '''
+    Optimization Settings Optimizer
+    '''
+    E_OPTIMIZER_TYPE_ALL_MUTATIONS, E_OPTIMIZER_TYPE_PERCENTS_OF_RANDOM_MUTATIONS, E_OPTIMIZER_TYPE_PARTICLE_SWARM = range(3)
