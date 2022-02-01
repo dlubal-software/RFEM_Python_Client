@@ -3,6 +3,7 @@ from RFEM.initModel import Model, clearAtributes
 class ImperfectionCase():
     def __init__(self,
                  no: int = 1,
+                 v: str = '1',
                  comment: str = '',
                  params: dict = {}):
 
@@ -14,6 +15,9 @@ class ImperfectionCase():
 
         # Imperfection Case No.
         clientObject.no = no
+
+        # Assign to Load Cases
+        clientObject.assigned_to_load_cases = assigned_to_load_cases
 
         # Comment
         clientObject.comment = comment
