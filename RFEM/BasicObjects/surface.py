@@ -1,4 +1,4 @@
-from RFEM.enums import SurfaceGeometry, SurfaceLoadTransferDirection, SurfaceType
+from RFEM.enums import SurfaceGeometry, SurfaceLoadDistributionDirection, SurfaceType
 from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 
 class Surface():
@@ -288,7 +288,7 @@ class Surface():
     def LoadTransfer(self,
                      no: int = 1,
                      boundary_lines_no: str = '1 2 3 4',
-                     load_transfer_direction = SurfaceLoadTransferDirection.LOAD_TRANSFER_DIRECTION_IN_X,
+                     load_transfer_direction = SurfaceLoadDistributionDirection.LOAD_TRANSFER_DIRECTION_IN_X,
                      surface_weight_enabled: bool = False,
                      surface_weight: float = None,
                      excluded_members = None,
