@@ -1,5 +1,5 @@
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.enums import LoadDirectionType, NodalLoadType, NodalLoadSpecificDirectionType
 
 class NodalLoad():
 
@@ -121,7 +121,7 @@ class NodalLoad():
         clientObject.force_magnitude = magnitude
 
         #Option Check
-        if force_eccentricity == True and shifted_display==True:
+        if force_eccentricity and shifted_display:
             raise Exception("Only one of force_eccentiricity and shifted_display could be TRUE")
 
         # Specific Direction
@@ -158,7 +158,7 @@ class NodalLoad():
                 clientObject.parallel_to_member = params_s[1]
 
         #Force Eccentiricity
-        if force_eccentricity == True:
+        if force_eccentricity:
 
             if 'force_eccentricity' not in list(params.keys()):
                 raise Exception("Required key is missing")
@@ -384,7 +384,7 @@ class NodalLoad():
             raise Exception("WARNING: The components must contain 6 elements. Kindly check list inputs for completeness and correctness.")
 
         #Option Check
-        if force_eccentricity == True and shifted_display==True:
+        if force_eccentricity and shifted_display:
             raise Exception("WARNING: Only one of force_eccentiricity and shifted_display could be TRUE")
 
         # Specific Direction

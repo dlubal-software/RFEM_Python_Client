@@ -1,4 +1,4 @@
-# from RFEM.initModel import *
+# from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 # from RFEM.enums import BracingType
 
 # class Bracing():
@@ -14,7 +14,7 @@
 #                  params: dict = {}):
 
 #         # Client model | Bracing
-#         clientObject = clientModel.factory.create('ns0:bracing')
+#         clientObject = Model.clientModel.factory.create('ns0:bracing')
 
 #         # Clears object atributes | Sets all atributes to None
 #         clearAtributes(clientObject)
@@ -54,7 +54,7 @@
 #             clientObject[key] = params[key]
 
 #         # Add Member to client model
-#         clientModel.service.set_bracing(clientObject)
+#         Model.clientModel.service.set_bracing(clientObject)
 
 #       def Horizontal(self,
 #             no: int = 1,
@@ -70,7 +70,7 @@
 #             params: dict = {}):
 
 #         # Client model | Bracing
-#         clientObject = clientModel.factory.create('ns0:bracing')
+#         clientObject = Model.clientModel.factory.create('ns0:bracing')
 
 #         # Clears object atributes | Sets all atributes to None
 #         clearAtributes(clientObject)
@@ -110,7 +110,7 @@
 #             clientObject[key] = params[key]
 
 #         # Add Bracing to client model
-#         clientModel.service.set_bracing(clientObject)
+#         Model.clientModel.service.set_bracing(clientObject)
 
 #         def Vertical(self,
 #             no: int = 1,
@@ -126,7 +126,7 @@
 #             params: dict = {}):
 
 #         # Client model | Bracing
-#         clientObject = clientModel.factory.create('ns0:bracing')
+#         clientObject = Model.clientModel.factory.create('ns0:bracing')
 
 #         # Clears object atributes | Sets all atributes to None
 #         clearAtributes(clientObject)
@@ -166,5 +166,5 @@
 #             clientObject[key] = params[key]
 
 #         # Add Bracing to client model
-#         clientModel.service.set_bracing(clientObject)
+#         Model.clientModel.service.set_bracing(clientObject)
 

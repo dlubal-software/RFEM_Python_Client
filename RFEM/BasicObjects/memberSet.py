@@ -1,4 +1,4 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 from RFEM.enums import SetType
 
 class MemberSet():
@@ -37,7 +37,6 @@ class MemberSet():
     def ContinuousMembers(self,
                           no: int = 1,
                           members_no: str = '1 4 5 8 9 12 13 16 17 20 21 24',
-                          member_set_type = SetType.SET_TYPE_CONTINUOUS,
                           comment: str = '',
                           params: dict = {}):
 
@@ -54,7 +53,7 @@ class MemberSet():
         clientObject.members = ConvertToDlString(members_no)
 
         # Member Set Type
-        clientObject.set_type = member_set_type.name
+        clientObject.set_type = SetType.SET_TYPE_CONTINUOUS.name
 
         # Comment
         clientObject.comment = comment
@@ -69,7 +68,6 @@ class MemberSet():
     def GroupOfmembers(self,
                        no: int = 1,
                        members_no: str = '1 4 5 8 9 12 13 16 17 20 21 24',
-                       member_set_type = SetType.SET_TYPE_GROUP,
                        comment: str = '',
                        params: dict = {}):
 
@@ -86,7 +84,7 @@ class MemberSet():
         clientObject.members = ConvertToDlString(members_no)
 
         # Member Set Type
-        clientObject.set_type = member_set_type.name
+        clientObject.set_type = SetType.SET_TYPE_GROUP.name
 
         # Comment
         clientObject.comment = comment

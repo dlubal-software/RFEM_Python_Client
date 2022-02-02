@@ -1,41 +1,30 @@
-from RFEM.enums import *
-from RFEM.dataTypes import *
-from RFEM.initModel import *
-from RFEM.BasicObjects.material import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.surface import *
-from RFEM.BasicObjects.solid import *
-from RFEM.BasicObjects.opening import *
-from RFEM.BasicObjects.lineSet import *
-from RFEM.BasicObjects.memberSet import *
-from RFEM.BasicObjects.surfaceSet import *
-from RFEM.BasicObjects.solidSet import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.TypesForMembers.memberHinge import *
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.surfaceLoad import *
-from RFEM.LoadCasesAndCombinations.modalAnalysisSettings import ModalAnalysisSettings
 import sys
 import pytest
-sys.path.append(".")
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
 
-def test_modal_analysis_implemented():
+from RFEM.enums import MemberType, NodalSupportType, StaticAnalysisType, ModalSolutionMethod, ModalMassConversionType, ModalMassMatrixType, AnalysisType
+from RFEM.initModel import Model, CheckIfMethodOrTypeExists
+from RFEM.BasicObjects.material import Material
+from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.member import Member
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.LoadCasesAndCombinations.modalAnalysisSettings import ModalAnalysisSettings
 
-    exist = method_exists(clientModel,'set_modal_analysis_settings')
-    assert exist == False #test fail once method is in T9 master or GM
+if Model.clientModel is None:
+    Model()
 
-@pytest.mark.skip("all tests still WIP")
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'set_modal_analysis_settings', True), reason="set_modal_analysis_settings not in RFEM yet")
 def test_modal_analysis_settings():
 
-    # modal analysis not yet implemmented in released RFEM6
-    Model(True, "ModalAnalysis")
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     # Create Material
@@ -70,9 +59,8 @@ def test_modal_analysis_settings():
     }
     # Load Case Modal
     LoadCase(2, 'MODAL',params=modalParams)
-    Calculate_all()
 
-    print('Ready!')
+    #Calculate_all() # Don't use in unit tests. See template for more info.
 
     Model.clientModel.service.finish_modification()
 

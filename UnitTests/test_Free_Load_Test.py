@@ -1,35 +1,30 @@
 import sys
-sys.path.append(".")
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
 
-from RFEM.Loads.freeLoad import *
+from RFEM.Loads.freeLoad import FreeLoad
 from RFEM.enums import *
-from RFEM.window import *
-from RFEM.dataTypes import *
-from RFEM.initModel import *
-from RFEM.BasicObjects.material import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.surface import *
-from RFEM.BasicObjects.solid import *
-from RFEM.BasicObjects.opening import *
-from RFEM.BasicObjects.lineSet import *
-from RFEM.BasicObjects.memberSet import *
-from RFEM.BasicObjects.surfaceSet import *
-from RFEM.BasicObjects.solidSet import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.TypesForMembers.memberHinge import *
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.surfaceLoad import *
+from RFEM.initModel import Model
+from RFEM.BasicObjects.material import Material
+from RFEM.BasicObjects.thickness import Thickness
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.line import Line
+from RFEM.BasicObjects.surface import Surface
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+
+if Model.clientModel is None:
+    Model()
 
 def test_free_load():
-    Model(True, "FreeLoad")
-    Model.clientModel.service.begin_modification('new')
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
 
@@ -214,8 +209,6 @@ def test_free_load():
                          [[1, 4], [0, 6], [2, 6]],
                          [1500, 7500, 2, 1])
 
-    #print(Model.clientModel)
-    #Calculate_all()
-    print('Ready!')
-    
+    #Calculate_all() # Don't use in unit tests. See template for more info.
+
     Model.clientModel.service.finish_modification()

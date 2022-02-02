@@ -1,5 +1,5 @@
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.enums import SolidLoadType, SolidLoadDistribution, SolidLoadDirection
 
 class SolidLoad():
 
@@ -270,10 +270,8 @@ class SolidLoad():
         # Add Solid Load to client model
         Model.clientModel.service.set_solid_load(load_case_no, clientObject)
 
-    def Buoyancy():
-        print('The function Buoyancy() is not implemented yet.')
-        pass
+    #def Buoyancy():
+    #    print('The function Buoyancy() is not implemented yet.')
 
-    def Gass():
-        print('The function Gass() is not implemented yet.')
-        pass
+    #def Gas():
+    #    print('The function Gas() is not implemented yet.')

@@ -1,27 +1,22 @@
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 
 class ImposedLineDeformation():
+
+    LineDeformationParams = {'imposed_displacement_line_start_x' : 0.0,
+                            'imposed_displacement_line_start_y' : 0.0,
+                            'imposed_displacement_line_start_z': 0.003,
+                            'imposed_rotation_line_start' : 0.0,
+                            'imposed_displacement_line_end_x': 0.0,
+                            'imposed_displacement_line_end_y': 0.0,
+                            'imposed_displacement_line_end_z': 0.0002,
+                            'imposed_rotation_line_end': 0.0}
 
     def __init__(self,
                  no: int = 1,
                  load_case_no: int = 1,
-                 line_no: str = '',
-                 load_parameter = None,
+                 line_no: str = '1',
                  comment: str = '',
-                 params: dict = {}):
-
-        '''
-        load_parameter:
-            load_parameter = [imposed_displacement_line_start_x, 
-                              imposed_displacement_line_start_y, 
-                              imposed_displacement_line_start_z, 
-                              imposed_rotation_line_start, 
-                              imposed_displacement_line_end_x, 
-                              imposed_displacement_line_end_y, 
-                              imposed_displacement_line_end_z, 
-                              imposed_rotation_line_end]
-        '''
+                 params: dict = LineDeformationParams):
 
         # Client model | Imposed Line Deformation
         clientObject = Model.clientModel.factory.create('ns0:imposed_line_deformation')
@@ -37,16 +32,6 @@ class ImposedLineDeformation():
 
         # Line No.
         clientObject.lines = ConvertToDlString(line_no)
-
-        # Load Parameter
-        clientObject.imposed_displacement_line_start_x = load_parameter[0]
-        clientObject.imposed_displacement_line_start_y = load_parameter[1]
-        clientObject.imposed_displacement_line_start_z = load_parameter[2]
-        clientObject.imposed_rotation_line_start = load_parameter[3]
-        clientObject.imposed_displacement_line_end_x = load_parameter[4]
-        clientObject.imposed_displacement_line_end_y = load_parameter[5]
-        clientObject.imposed_displacement_line_end_z = load_parameter[6]
-        clientObject.imposed_rotation_line_end = load_parameter[7]
 
         # Comment
         clientObject.comment = comment

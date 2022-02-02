@@ -1,4 +1,4 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 from RFEM.enums import SetType
 
 class SurfaceSet():
@@ -37,7 +37,6 @@ class SurfaceSet():
     def ContinuousSurfaces(self,
                  no: int = 1,
                  surfaces_no: str = '2 4 7',
-                 surface_set_type = SetType.SET_TYPE_CONTINUOUS,
                  comment: str = '',
                  params: dict = {}):
 
@@ -54,7 +53,7 @@ class SurfaceSet():
         clientObject.surfaces = ConvertToDlString(surfaces_no)
 
         # Surface Set Type
-        clientObject.set_type = surface_set_type.name
+        clientObject.set_type = SetType.SET_TYPE_CONTINUOUS.name
 
         # Comment
         clientObject.comment = comment
@@ -69,7 +68,6 @@ class SurfaceSet():
     def GroupOfSurfaces(self,
                  no: int = 1,
                  surfaces_no: str = '2 4 7',
-                 surface_set_type = SetType.SET_TYPE_GROUP,
                  comment: str = '',
                  params: dict = {}):
 
@@ -86,7 +84,7 @@ class SurfaceSet():
         clientObject.surfaces = ConvertToDlString(surfaces_no)
 
         # Surface Set Type
-        clientObject.set_type = surface_set_type.name
+        clientObject.set_type = SetType.SET_TYPE_GROUP.name
 
         # Comment
         clientObject.comment = comment

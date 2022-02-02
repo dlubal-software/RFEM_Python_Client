@@ -1,47 +1,56 @@
 import sys
-sys.path.append(".")
-from RFEM.enums import *
-from RFEM.window import *
-from RFEM.dataTypes import *
-from RFEM.initModel import *
-from RFEM.BasicObjects.material import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.surface import *
-from RFEM.BasicObjects.solid import *
-from RFEM.BasicObjects.opening import *
-from RFEM.BasicObjects.lineSet import *
-from RFEM.BasicObjects.memberSet import *
-from RFEM.BasicObjects.surfaceSet import *
-from RFEM.BasicObjects.solidSet import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.TypesForMembers.memberHinge import *
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.surfaceLoad import *
+import os
+baseName = os.path.basename(__file__)
+dirName = os.path.dirname(__file__)
+print('basename:    ', baseName)
+print('dirname:     ', dirName)
 
-def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_spacing, new_model, model_name, delete, reset):
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
+from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType, MemberLoadDistribution, MemberLoadDirection, MemberRotationSpecificationType
+from RFEM.window import window
+from RFEM.dataTypes import inf
+from RFEM.initModel import Model, Calculate_all, insertSpaces, modelLst
+from RFEM.BasicObjects.material import Material
+from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.thickness import Thickness
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.line import Line
+from RFEM.BasicObjects.member import Member
+from RFEM.BasicObjects.surface import Surface
+from RFEM.BasicObjects.solid import Solid
+from RFEM.BasicObjects.opening import Opening
+from RFEM.BasicObjects.lineSet import LineSet
+from RFEM.BasicObjects.memberSet import MemberSet
+from RFEM.BasicObjects.surfaceSet import SurfaceSet
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.TypesForMembers.memberHinge import MemberHinge
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.Loads.nodalLoad import NodalLoad
+from RFEM.Loads.memberLoad import MemberLoad
+from RFEM.Loads.surfaceLoad import SurfaceLoad
+
+def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_spacing, new_model, model_name, delete_res, delete_all):
 # -------------------------------------------------------------
-    Model(new_model, model_name, delete, reset)
-    Model.clientModel.service.begin_modification('new')
+    Model(new_model, model_name, delete_res, delete_all)
+    Model.clientModel.service.begin_modification()
 # -------------------------------------------------------------
     # Materials
     Material(1)
     Material(2, "S275", "Test")
     Material(3, "Concrete f'c = 20 MPa | CSA A23.3-19", "Test")
-    
+
 # -------------------------------------------------------------
     # Sections
     Section(1, "HEB 220")
     Section(2, "IPE 300")
     Section(3, "U 100", 2)
     Section(4, "Cable 14.00", 2)
-    
+
 # -------------------------------------------------------------
     # Thicknesses
     Thickness(1, "Slab", 3, 0.24, "Test")
@@ -194,7 +203,6 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
     LineSet()
     MemberSet()
     SurfaceSet()
-    #SolidSet()
 
 # -------------------------------------------------------------
     print('Load Cases/Loads...')
@@ -242,7 +250,7 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x2 ##
     MemberLoad.Force(0, 7, 6, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, False, 5000, 1, 2, 3])
-    
+
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x ##
     MemberLoad.Force(0, 8, 7, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 6000, 1, 2])
 
@@ -257,13 +265,13 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
     MemberLoad.Force(0, 12, 11, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[4000, 8000, 12000])
-     
+
     ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING ##
     MemberLoad.Force(0, 13, 12, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
-     
+
     ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING_IN_Z ##
     MemberLoad.Force(0, 14, 13, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
-    
+
 # -------------------------------------------------------------
     # Surface Loads
     SurfaceLoad(1, 3, "3", 20000)

@@ -6,35 +6,19 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.enums import *
-#from RFEM.window import *
-from RFEM.dataTypes import *
-from RFEM.initModel import *
-from RFEM.BasicObjects.material import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.surface import *
-from RFEM.BasicObjects.solid import *
-from RFEM.BasicObjects.opening import *
-from RFEM.BasicObjects.lineSet import *
-from RFEM.BasicObjects.memberSet import *
-from RFEM.BasicObjects.surfaceSet import *
-from RFEM.BasicObjects.solidSet import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.TypesForMembers.memberHinge import *
-from RFEM.TypesForSurfaces.surfaceSupport import *
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.lineLoad import *
-from RFEM.Loads.surfaceLoad import *
+from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType
+from RFEM.initModel import Model, Calculate_all
+from RFEM.BasicObjects.material import Material
+from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.member import Member
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.Loads.nodalLoad import NodalLoad
 
 try:
-    from PyQt5 import QtWidgets, QtCore, uic
+    from PyQt5 import QtWidgets, uic
 except:
     print('PyQt5 library is not installed in your Python env.')
     instPyQt5 = input('Do you want to install it (y/n)? ')
@@ -74,7 +58,7 @@ class MyDialog(QtWidgets.QDialog):
 
         # RFEM 6
         Model(True, "CantileverQt") # crete new model called CantileverQt
-        Model.clientModel.service.begin_modification('new')
+        Model.clientModel.service.begin_modification()
 
         Material(1, 'S235')
 
