@@ -33,7 +33,7 @@ if Model.clientModel is None:
 #pytestmark = pytest.mark.skipif(CheckIfMethodOrTypeExists(Model...
 
 # Use 'skipif' if you wish to skip individual test function conditionally
-@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model().clientModel,'set_model_settings_and_options', True), reason="set_model_settings_and_options not in RFEM yet")
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'set_model_settings_and_options', True), reason="set_model_settings_and_options not in RFEM yet")
 
 # Name of the test function starts with test_...
 # If no specific need to atomize the testing procedure, pack as much funtionality as possible in one test function.
