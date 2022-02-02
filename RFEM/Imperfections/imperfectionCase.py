@@ -3,7 +3,7 @@ from RFEM.initModel import Model, clearAtributes
 class ImperfectionCase():
     def __init__(self,
                  no: int = 1,
-                 v: str = '1',
+                 assigned_to_load_cases: str = '1',
                  comment: str = '',
                  params: dict = {}):
 
