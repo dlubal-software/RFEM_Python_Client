@@ -987,6 +987,12 @@ class CqsDampingRule(Enum):
     '''
     CONSTANT_FOR_EACH_MODE, DIFFERENT_FOR_EACH_MODE = range(2)
 
+class AmplitudeFunctionType(Enum):
+    '''
+    Amplitude Function Type
+    '''
+    CONSTANT, LINEAR, QUADRATIC = range(3)
+
 class PlausibilityCheckResult(Enum):
     '''
     Plausibility Check Result
