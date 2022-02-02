@@ -1,6 +1,5 @@
-#pylint: disable=W0614, W0401, W0622, C0103, C0114, C0115, C0116, C0301, C0413, R0913, R0914, R0915, C0305, C0411, W0102, W0702, E0602, E0401
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model
+from RFEM.enums import ModelCheckGetOptionType, ModelCheckProcessOptionType
 
 class ModelCheck():
 
@@ -16,7 +15,7 @@ class ModelCheck():
         """
 
         operation = ModelCheckGetOptionType.IDENTICAL_NODES.name
-        object_groups = clientModel.service.model_check__get_object_groups_operation(operation, tolerance)
+        object_groups = Model.clientModel.service.model_check__get_object_groups_operation(operation, tolerance)
 
         return object_groups
 
@@ -28,7 +27,7 @@ class ModelCheck():
         """
 
         process = ModelCheckProcessOptionType.DELETE_UNUSED_NODES.name
-        clientModel.service.model_check__process_object_groups_operation(process, tolerance, object_groups)
+        Model.clientModel.service.model_check__process_object_groups_operation(process, tolerance, object_groups)
 
     def UniteNodes(self, tolerance, object_groups):
         """
@@ -38,7 +37,7 @@ class ModelCheck():
         """
 
         process = ModelCheckProcessOptionType.UNITE_NODES_AND_DELETE_UNUSED_NODES.name
-        clientModel.service.model_check__process_object_groups_operation(process, tolerance, object_groups)
+        Model.clientModel.service.model_check__process_object_groups_operation(process, tolerance, object_groups)
 
     def GetNotConnectedLines(self, tolerance):
         """
@@ -49,7 +48,7 @@ class ModelCheck():
         """
 
         operation = ModelCheckGetOptionType.CROSSING_LINES.name
-        line_groups = clientModel.service.model_check__get_object_groups_operation(operation, tolerance)
+        line_groups = Model.clientModel.service.model_check__get_object_groups_operation(operation, tolerance)
 
         return line_groups
 
@@ -61,7 +60,7 @@ class ModelCheck():
         """
 
         process = ModelCheckProcessOptionType.CROSS_LINES.name
-        clientModel.service.model_check__process_object_groups_operation(process, tolerance, line_groups)
+        Model.clientModel.service.model_check__process_object_groups_operation(process, tolerance, line_groups)
 
     def GetNotConnectedMembers(self, tolerance):
         """
@@ -72,7 +71,7 @@ class ModelCheck():
         """
 
         operation = ModelCheckGetOptionType.CROSSING_MEMBERS.name
-        member_groups = clientModel.service.model_check__get_object_groups_operation(operation, tolerance)
+        member_groups = Model.clientModel.service.model_check__get_object_groups_operation(operation, tolerance)
 
         return member_groups
 
@@ -84,7 +83,7 @@ class ModelCheck():
         """
 
         process = ModelCheckProcessOptionType.CROSS_MEMBERS.name
-        clientModel.service.model_check__process_object_groups_operation(process, tolerance, member_groups)
+        Model.clientModel.service.model_check__process_object_groups_operation(process, tolerance, member_groups)
 
     def GetOverlappingLines(self):
         """
@@ -93,7 +92,7 @@ class ModelCheck():
         """
 
         operation = ModelCheckGetOptionType.OVERLAPPING_LINES.name
-        overlapping_lines = clientModel.service.model_check__get_object_groups_operation(operation)
+        overlapping_lines = Model.clientModel.service.model_check__get_object_groups_operation(operation)
 
         return overlapping_lines
 
@@ -104,6 +103,6 @@ class ModelCheck():
         """
 
         operation = ModelCheckGetOptionType.OVERLAPPING_MEMBERS.name
-        overlapping_members = clientModel.service.model_check__get_object_groups_operation(operation)
+        overlapping_members = Model.clientModel.service.model_check__get_object_groups_operation(operation)
 
         return overlapping_members

@@ -1,33 +1,28 @@
-#pylint: disable=W0614, W0401, W0622, C0103, C0114, C0115, C0116, C0301, C0413, R0913, R0914, R0915, C0305, C0411, W0102, W0702, E0602, E0401
 import sys
-sys.path.append(".")
-from RFEM.Loads.surfaceLoad import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.BasicObjects.solidSet import *
-from RFEM.BasicObjects.surfaceSet import *
-from RFEM.BasicObjects.memberSet import *
-from RFEM.BasicObjects.lineSet import *
-from RFEM.BasicObjects.opening import *
-from RFEM.BasicObjects.solid import *
-from RFEM.BasicObjects.surface import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.material import *
-from RFEM.initModel import *
-from RFEM.dataTypes import *
-from RFEM.enums import *
-from RFEM.Tools.modelCheck import ModelCheck
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
 
+from RFEM.BasicObjects.member import Member
+from RFEM.BasicObjects.line import Line
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.material import Material
+from RFEM.initModel import Model, CheckIfMethodOrTypeExists
+from RFEM.Tools.ModelCheck import ModelCheck
+import pytest
 
-if __name__ == '__main__':
+if Model.clientModel is None:
+    Model()
 
-    clientModel.service.begin_modification()
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'model_check__get_object_groups_operation', True), reason="model_check__get_object_groups_operation not in RFEM yet")
+def test_model_check():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
@@ -59,30 +54,27 @@ if __name__ == '__main__':
     Line(3, '13 14')
     Line(4, '13 14')
 
-    Member(1, MemberType.TYPE_BEAM, 9, 10, 0, 1, 1)
-    Member(2, MemberType.TYPE_BEAM, 11, 12, 0, 1, 1)
-    Member(3, MemberType.TYPE_BEAM, 15, 16, 0, 1, 1)
-    Member(4, MemberType.TYPE_BEAM, 15, 16, 0, 1, 1)
+    Member(1, 9, 10, 0, 1, 1)
+    Member(2, 11, 12, 0, 1, 1)
+    Member(3, 15, 16, 0, 1, 1)
+    Member(4, 15, 16, 0, 1, 1)
 
-    print('Ready!')
+    Model.clientModel.service.finish_modification()
 
-    clientModel.service.finish_modification()
-
-
+    # TODO: UniteNodes(), CrossMembers() not covered
+    # US-8140 ToReview
     identical_nodes = ModelCheck.GetIdenticalNodes(0, 0.0005)
-
+    assert identical_nodes[0][0] == "1,2"
+    assert identical_nodes[0][1] == "3,4"
     ModelCheck.DeleteUnusedNodes(0, 0.0005, identical_nodes)
-
-    crossing_lines = ModelCheck.GetNotConnectedLines(0, 0.0005)
-
-    ModelCheck.CrossLines(0, 0.0005, crossing_lines)
-
-    crossing_members = ModelCheck.GetNotConnectedMembers(0, 0.0005)
-
+    connected_lines = ModelCheck.GetNotConnectedLines(0, 0.0005)
+    assert connected_lines[0][0] == "1,2"
+    assert connected_lines[0][1] == "5,6"
+    ModelCheck.CrossLines(0, 0.0005, connected_lines)
+    ModelCheck.GetNotConnectedMembers(0, 0.0005)
     overlapping_lines = ModelCheck.GetOverlappingLines(0)
-
-    print(overlapping_lines)
-
+    assert overlapping_lines[0][0] == "3,4"
+    assert overlapping_lines[0][1] == "7,8"
     overlapping_members = ModelCheck.GetOverlappingMembers(0)
+    assert overlapping_members[0][0] == "3,4"
 
-    print(overlapping_members)

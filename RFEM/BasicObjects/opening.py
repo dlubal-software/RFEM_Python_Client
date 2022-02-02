@@ -1,4 +1,4 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 
 class Opening():
     def __init__(self,
@@ -8,7 +8,7 @@ class Opening():
                  params: dict = {}):
 
         # Client model | Opening
-        clientObject = clientModel.factory.create('ns0:opening')
+        clientObject = Model.clientModel.factory.create('ns0:opening')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -27,4 +27,4 @@ class Opening():
             clientObject[key] = params[key]
 
         # Add Opening to client model
-        clientModel.service.set_opening(clientObject)
+        Model.clientModel.service.set_opening(clientObject)

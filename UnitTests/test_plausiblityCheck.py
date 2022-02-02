@@ -22,7 +22,7 @@ from RFEM.BasicObjects.material import *
 from RFEM.initModel import *
 from RFEM.dataTypes import *
 from RFEM.enums import *
-from RFEM.Tools.plausibilityCheck import PlausiblityCheck
+from RFEM.Tools.PlausibilityCheck import PlausiblityCheck
 
 
 if __name__ == '__main__':

@@ -1,6 +1,5 @@
-from RFEM.initModel import *
-from RFEM.enums import *
-from enum import Enum
+from RFEM.initModel import Model, clearAtributes
+from RFEM.enums import GlobalAxesOrientationType, LocalAxesOrientationType
 
 class BaseSettings():
     def __init__(self,
@@ -22,7 +21,7 @@ class BaseSettings():
         tolerances = [tolerance_for_nodes, tolerance_for_lines, tolerance_for_surfaces_and_planes, tolerance_for_directions]
         """
         # Client model | Load Case
-        clientObject = clientModel.factory.create('ns0:model_settings_and_options_type')
+        clientObject = Model.clientModel.factory.create('ns0:model_settings_and_options_type')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -54,4 +53,4 @@ class BaseSettings():
         clientObject.member_set_representatives_active = member_set_representatives
 
         # Add Base Data Settings to client model
-        clientModel.service.set_model_settings_and_options(clientObject)
+        Model.clientModel.service.set_model_settings_and_options(clientObject)

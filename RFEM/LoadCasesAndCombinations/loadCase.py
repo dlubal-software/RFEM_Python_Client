@@ -1,4 +1,4 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes
 from RFEM.enums import AnalysisType
 
 DIN_Action_Category = {'1A': 'Permanent | G', '1B': 'Permanent - small fluctuations | G*', '1C': 'Permanent/Imposed | Gq', '2': 'Prestress | P',
@@ -14,7 +14,7 @@ class LoadCase():
     def __init__(self,
                  no: int = 1,
                  name: str = 'Self-weight',
-                 self_weight = [True, 0.0, 0.0, 10.0],
+                 self_weight = [True, 0.0, 0.0, 1.0],
                  comment: str = 'Comment',
                  params: dict = {}):
         '''
@@ -25,7 +25,7 @@ class LoadCase():
         '''
 
         # Client model | Load Case
-        clientObject = clientModel.factory.create('ns0:load_case')
+        clientObject = Model.clientModel.factory.create('ns0:load_case')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -48,15 +48,15 @@ class LoadCase():
 
         # Self-weight Considerations
         clientObject.self_weight_active = self_weight[0]
-        if type(self_weight[0]) != bool:
+        if not isinstance(self_weight[0], bool):
             raise Exception('WARNING: Entry at index 0 of Self-Weight parameter to be of type bool')
-        if self_weight[0] == True:
+        if self_weight[0]:
             if len(self_weight) != 4:
                 raise Exception('WARNING: Self-weight is activated and therefore requires a list definition of length 4. Kindly check list inputs for completeness and correctness.')
             clientObject.self_weight_factor_x = self_weight[1]
             clientObject.self_weight_factor_y = self_weight[2]
             clientObject.self_weight_factor_z = self_weight[3]
-        elif self_weight[0] == False:
+        else:
             if len(self_weight) != 1:
                 raise Exception('WARNING: Self-weight is deactivated and therefore requires a list definition of length 1. Kindly check list inputs for completeness and correctness.')
 
@@ -68,7 +68,7 @@ class LoadCase():
             clientObject[key] = params[key]
 
         # Add Load Case to client model
-        clientModel.service.set_load_case(clientObject)
+        Model.clientModel.service.set_load_case(clientObject)
 
     def StaticAnalysis(self,
                  no: int = 1,
@@ -118,7 +118,7 @@ class LoadCase():
         '''
 
         # Client model | Load Case
-        clientObject = clientModel.factory.create('ns0:load_case')
+        clientObject = Model.clientModel.factory.create('ns0:load_case')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -141,15 +141,15 @@ class LoadCase():
 
         # Self-weight Considerations
         clientObject.self_weight_active = self_weight[0]
-        if type(self_weight[0]) != bool:
+        if not isinstance(self_weight[0], bool):
             raise Exception('WARNING: Entry at index 0 of Self-Weight parameter to be of type bool')
-        if self_weight[0] == True:
+        if self_weight[0]:
             if len(self_weight) != 4:
                 raise Exception('WARNING: Self-weight is activated and therefore requires a list definition of length 4. Kindly check list inputs for completeness and correctness.')
             clientObject.self_weight_factor_x = self_weight[1]
             clientObject.self_weight_factor_y = self_weight[2]
             clientObject.self_weight_factor_z = self_weight[3]
-        elif self_weight[0] == False:
+        else:
             if len(self_weight) != 1:
                 raise Exception('WARNING: Self-weight is deactivated and therefore requires a list definition of length 1. Kindly check list inputs for completeness and correctness.')
 
@@ -161,4 +161,4 @@ class LoadCase():
             clientObject[key] = params[key]
 
         # Add Load Case to client model
-        clientModel.service.set_load_case(clientObject)
+        Model.clientModel.service.set_load_case(clientObject)

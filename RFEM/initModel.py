@@ -1,7 +1,6 @@
 import sys
-from RFEM.enums import *
-#import json
-#import xml.etree.ElementTree as ET
+import csv
+from RFEM.enums import ObjectTypes, ModelType
 
 # Import SUDS module
 try:
@@ -90,7 +89,7 @@ except:
         import subprocess
         try:
             subprocess.call('python -m pip install xmltodict --user')
-            import requests
+            import xmltodict
         except:
             print('WARNING: Installation of xmltodict library failed!')
             print('Please use command "pip install xmltodict --user" in your Command Prompt.')
@@ -99,8 +98,6 @@ except:
     else:
         input('Press Enter to exit...')
         sys.exit()
-
-import csv
 
 # Connect to server
 # Check server port range set in "Program Options & Settings"
@@ -117,8 +114,6 @@ except:
     print('- Check Program Options & Settings > Web Services')
     sys.exit()
 
-# Instantiate SOAP client model
-cModel = modelLst = None
 try:
     modelLst = client.service.get_model_list()
 except:
@@ -130,25 +125,47 @@ except:
 # Without next 4 lines the connection lasts only 1 request,
 # the message: 'Application is locked by external connection'
 # is blinking whole time and the execution is unnecessarily long.
+# This solution works with unit-tests.
 session = requests.Session()
 adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
 session.mount('http://', adapter)
 trans = suds_requests.RequestsTransport(session)
 
-if modelLst:
-    new = client.service.get_active_model() + 'wsdl'
-    cModel = Client(new, transport=trans)
-    print('Resetting model...')
-    cModel.service.delete_all_results()
-    cModel.service.reset()
-else:
-    new = client.service.new_model('My Model') + 'wsdl'
-    # If a new model is created, I thought we can create an input list for the user to define the model type
-    # new = client.service.set_model_type('E_MODEL_TYPE_2D_XZ_PLANE_STRESS')
-    cModel = Client(new, transport=trans)
+class Model():
+    clientModel = None
+    def __init__(self,
+                 new_model: bool=True,
+                 model_name: str="MyModel",
+                 delete: bool=False,
+                 delete_all: bool=False):
 
-# Init client model
-clientModel = cModel
+        cModel = None
+        modelLs = client.service.get_model_list()
+
+        if new_model:
+            if modelLs and model_name in modelLs.name:
+                new = client.service.open_model(model_name) + 'wsdl'
+                cModel = Client(new, transport=trans)
+                cModel.service.delete_all_results()
+                cModel.service.delete_all()
+            else:
+                new = client.service.new_model(model_name) + 'wsdl'
+                cModel = Client(new, transport=trans)
+        else:
+            modelIndex = 0
+            for i,j in enumerate(modelLs):
+                if modelLs[i] == model_name:
+                    modelIndex = i
+            new = client.service.get_model(modelIndex) + 'wsdl'
+            cModel = Client(new, transport=trans)
+            if delete:
+                print('Deleting results...')
+                cModel.service.delete_all_results()
+            if delete_all:
+                print('Delete all...')
+                cModel.service.delete_all()
+
+        Model.clientModel = cModel
 
 def clearAtributes(obj):
     '''
@@ -178,12 +195,15 @@ def insertSpaces(lst: list):
 
 def Calculate_all(generateXmlSolverInput: bool = False):
     '''
-    Calculates model
+    Calculates model.
+    CAUTION: Don't use it in unit tests!
+    It works when executing tests individualy but when running all of them
+    it causes RFEM to stuck and generates failures, which are hard to investigate.
 
     Params:
     - generateXmlSolverInput: generate XML solver input
     '''
-    clientModel.service.calculate_all(generateXmlSolverInput)
+    Model.clientModel.service.calculate_all(generateXmlSolverInput)
 
 def ConvertToDlString(s):
     '''
@@ -200,15 +220,20 @@ def ConvertToDlString(s):
 
     Returns a WS conform string.
     '''
-    if type(s)==list:
+
+    # Parameter is not of required type.
+    assert isinstance(s, (list, str))
+
+    if isinstance(s, list):
         return ' '.join(map(str, s))
 
+    s = s.strip()
     s = s.replace(',', ' ')
     s = s.replace('  ', ' ')
     lst = s.split(' ')
     new_lst = []
     for element in lst:
-        if('-' in element):
+        if '-' in element:
             inLst = element.split('-')
             start = int(inLst[0])
             end   = int(inLst[1])
@@ -224,8 +249,108 @@ def ConvertToDlString(s):
     s = ' '.join(new_lst)
     return s
 
-def method_exists(instance, method):
-    return hasattr(instance, method) and callable(instance.method)
+def ConvertStrToListOfInt(st):
+    """
+    This function coverts string to list of integers.
+    """
+    st = ConvertToDlString(st)
+    lstInt = []
+    while st:
+        intNumber = 0
+        if ' ' in st:
+            idx = st.index(' ')
+            intNumber = int(st[:idx])
+            st = st[idx+1:]
+        else:
+            intNumber = int(st)
+            st = ''
+        lstInt.append(intNumber)
+    return lstInt
+
+def CheckIfMethodOrTypeExists(modelClient, method_or_type, unitTestMode=False):
+    """
+    Check if SOAP method or type is present in your version of RFEM/RSTAB.
+    Use it only in your examples.
+    Unit tests except msg from SUDS where this is checked already.
+
+    Args:
+        modelClient (Model.clientModel)
+        method_or_type (string): method or type of SOAP client
+
+    Returns:
+        bool: Status of method or type.
+
+    Note:
+        To get list of methods invoke:
+        list_of_methods = [method for method in Model.clientModel.wsdl.services[0].ports[0]]
+    """
+    assert modelClient is not None, "WARNING: modelClient is not initialized."
+
+    if method_or_type not in str(modelClient):
+        if unitTestMode:
+            return True
+        else:
+            assert False, "WARNING: Used method/type: %s is not implemented in Web Services yet." % (method_or_type)
+
+    return not unitTestMode
+
+
+def CheckAddonStatus(modelClient, addOn = "stress_analysis_active"):
+    """
+    Check if Add-on is reachable and active.
+    For some types of objects, specific Add-ons need to be ennabled.
+
+    Args:
+        modelClient (Model.clientModel)
+        method_or_type (string): method or type of SOAP client
+
+    Returns:
+        (bool): Status of Add-on
+    """
+    if modelClient is None:
+        print("WARNING: modelClient is not initialized.")
+        return False
+
+    addons = modelClient.service.get_addon_statuses()
+    dct = {}
+    for lstType in addons:
+        if not isinstance(lstType[1], bool) and len(lstType[1]) > 1:
+            addon = [lst for lst in lstType[1]]
+            for item in addon:
+                dct[str(item[0])] = bool(item[1])
+        elif isinstance(lstType[1], bool):
+            dct[str(lstType[0])] = bool(lstType[1])
+        else:
+            assert False
+
+    # sanity check
+    assert addOn in dct, "WARNING: %s Add-on can not be reached." % (addOn)
+
+    return dct[addOn]
+
+def SetAddonStatus(modelClient, addOn = "stress_analysis_active", status = True):
+    """
+    Activate or deactivate Add-on.
+    For some types of objects, specific Add-ons need to be ennabled.
+
+    Args:
+        modelClient (Model.clientModel)
+        method_or_type (string): method or type of SOAP client
+        status (bool): in/active
+    """
+
+    # this will also provide sanity check
+    currentStatus = CheckAddonStatus(modelClient, addOn)
+    if currentStatus != status:
+        addonLst = modelClient.service.get_addon_statuses()
+        if addOn in addonLst['__keylist__']:
+            addonLst[addOn] = status
+        else:
+            for listType in addonLst['__keylist__']:
+                if not isinstance(addonLst[listType], bool) and addOn in addonLst[listType]:
+                    addonLst[listType][addOn] = status
+
+        modelClient.service.set_addon_statuses(addonLst)
 
 def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None):
     '''
@@ -235,10 +360,10 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
         designSituations (list, optional): [description]. Defaults to None.
         loadCombinations (list, optional): [description]. Defaults to None.
     '''
-    specificObjectsToCalculate = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements')
+    specificObjectsToCalculate = Model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements')
     if loadCases is not None:
         for loadCase in loadCases:
-            specificObjectsToCalculateLC = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
+            specificObjectsToCalculateLC = Model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
             specificObjectsToCalculateLC.no = loadCase
             specificObjectsToCalculateLC.parent_no = 0
             specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
@@ -246,7 +371,7 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
 
     if designSituations is not None:
         for designSituation in designSituations:
-            specificObjectsToCalculateDS = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
+            specificObjectsToCalculateDS = Model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
             specificObjectsToCalculateDS.no = designSituation
             specificObjectsToCalculateDS.parent_no = 0
             specificObjectsToCalculateDS.type = ObjectTypes.E_OBJECT_TYPE_DESIGN_SITUATION.name
@@ -254,29 +379,29 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
 
     if loadCombinations is not None:
         for loadCombination in loadCombinations:
-            specificObjectsToCalculateLC = clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
+            specificObjectsToCalculateLC = Model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
             specificObjectsToCalculateLC.no = loadCombination
             specificObjectsToCalculateLC.parent_no = 0
             specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
             specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
 
-    clientModel.service.calculate_specific_objects(specificObjectsToCalculate)
+    Model.clientModel.service.calculate_specific_objects(specificObjectsToCalculate)
 
 def ExportResultTablesToCsv(TargetDirectoryPath: str):
 
-    clientModel.service.export_result_tables_to_csv(TargetDirectoryPath)
+    Model.clientModel.service.export_result_tables_to_csv(TargetDirectoryPath)
 
 def ExportResultTablesToXML(TargetFilePath: str):
 
-    clientModel.service.export_result_tables_to_xml(TargetFilePath)
+    Model.clientModel.service.export_result_tables_to_xml(TargetFilePath)
 
 def ExportResultTablesWithDetailedMembersResultsToCsv(TargetDirectoryPath: str):
 
-    clientModel.service.export_result_tables_with_detailed_members_results_to_csv(TargetDirectoryPath)
+    Model.clientModel.service.export_result_tables_with_detailed_members_results_to_csv(TargetDirectoryPath)
 
 def ExportResultTablesWithDetailedMembersResultsToXML(TargetFilePath: str):
 
-    clientModel.service.export_result_tables_with_detailed_members_results_to_xml(TargetFilePath)
+    Model.clientModel.service.export_result_tables_with_detailed_members_results_to_xml(TargetFilePath)
 
 def  __parseXMLAsDictionary(path: str =""):
     with open(path, "rb") as f:
@@ -301,30 +426,26 @@ def ParseXMLResultsFromSelectedFileToDict(filePath: str):
 
 def GenerateMesh():
 
-    clientModel.service.generate_mesh()
+    Model.clientModel.service.generate_mesh()
 
 def GetMeshStatics():
 
-    mesh_stats = clientModel.service.get_mesh_statistics()
-    return clientModel.dict(mesh_stats)
+    mesh_stats = Model.clientModel.service.get_mesh_statistics()
+    return Model.clientModel.dict(mesh_stats)
 
-def FirstFreeIdNumber(type = ObjectTypes.E_OBJECT_TYPE_MEMBER,
-            parent_no: int = 0):
+def FirstFreeIdNumber(memType = ObjectTypes.E_OBJECT_TYPE_MEMBER, parent_no: int = 0):
+    '''
+    This method returns the next available Id Number for the selected object type
+    Args:
+        type (enum): Object Type
+        parent_no (int): Object Parent Number
+            Note:
+            (1) A geometric object has, in general, a parent_no = 0
+            (2) The parent_no parameter becomes significant for example with loads
+    '''
+    return Model.clientModel.service.get_first_free_number(memType.name, parent_no)
 
-            '''
-            This method returns the next available Id Number for the selected object type.
-
-            Args:
-                type (enum): Object Type
-                parent_no (int): Object Parent Number
-                    Note:
-                    (1) A geometric object has, in general, a parent_no = 0
-                    (2) The parent_no parameter becomes significant for example with loads
-            '''
-
-            return clientModel.service.get_first_free_number(type.name, parent_no)
 def SetModelType(model_type = ModelType.E_MODEL_TYPE_3D):
-
     '''
     This method sets the model type. The model type is E_MODEL_TYPE_3D by default.
 
@@ -340,7 +461,7 @@ def SetModelType(model_type = ModelType.E_MODEL_TYPE_3D):
             ModelType.E_MODEL_TYPE_3D
     '''
 
-    clientModel.service.set_model_type(model_type.name)
+    Model.clientModel.service.set_model_type(model_type.name)
 
 def GetModelType():
 
@@ -348,4 +469,4 @@ def GetModelType():
     The method returns a string of the current model type.
     '''
 
-    return clientModel.service.get_model_type()
+    return Model.clientModel.service.get_model_type()

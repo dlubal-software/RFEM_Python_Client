@@ -1,13 +1,11 @@
-#pylint: disable=W0614, W0401, W0622, C0103, C0114, C0115, C0116, C0301, C0413, R0913, R0914, R0915, C0305, C0411, W0102, W0702, E0602, E0401
-
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model
+from RFEM.enums import PlausibilityCheckResult
 
 class PlausiblityCheck():
 
     def __init__(self):
 
-        response = clientModel.service.plausibility_check()
+        response = Model.clientModel.service.plausibility_check()
 
         if "failed" in response:
             self.checkresult = PlausibilityCheckResult.CHECK_FAILED
@@ -19,7 +17,7 @@ class PlausiblityCheck():
 
     def IsModelOK(self):
 
-        if self.checkresult == PlausibilityCheckResult.CHECK_FAILED:
+        if self.checkresult == PlausibilityCheckResult.CHECK_IS_OK:
             return True
         else:
             return False

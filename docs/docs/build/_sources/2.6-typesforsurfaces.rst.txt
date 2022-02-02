@@ -1,0 +1,16 @@
+**Types for Surfaces**
+=========================
+#. :doc:`2.6.1-surfacesupports`
+#. :doc:`2.6.2-surfaceeccentricities`
+#. :doc:`2.6.3-surfacestiffnessmodifications`
+#. :doc:`2.6.4-surfacemeshrefinements`
+
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+
+   2.6.1-surfacesupports
+   2.6.2-surfaceeccentricities
+   2.6.3-surfacestiffnessmodifications
+   2.6.4-surfacemeshrefinements
