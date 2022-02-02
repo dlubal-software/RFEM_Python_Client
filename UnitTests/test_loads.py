@@ -23,7 +23,8 @@ from RFEM.Loads.nodalLoad import NodalLoad
 from RFEM.Loads.surfaceLoad import SurfaceLoad
 from RFEM.Loads.freeLoad import FreeLoad
 from RFEM.Loads.imposedNodalDeformation import ImposedNodalDeformation
-
+from RFEM.TypesForLines.lineSupport import LineSupport
+from RFEM.Loads.imposedLineDeformation import ImposedLineDeformation
 if Model.clientModel is None:
     Model()
 
@@ -1134,3 +1135,32 @@ def test_imposed_nodal_deformation():
 
     assert imposed_nodal_deformation.imposed_displacement.x == 0.005
     assert imposed_nodal_deformation.imposed_rotation.y == 0.02
+
+
+### Imposed Line Deformation ###
+
+def test_imposed_line_deformation():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Node(1, 0.0, 0.0, 0.0)
+    Node(2, 10.0, 0.0, 0.0)
+
+    Line(1, '1 2')
+
+    LineSupport(1,'1', LineSupportType.FIXED)
+
+    StaticAnalysisSettings(1, 'LINEAR', StaticAnalysisType.GEOMETRICALLY_LINEAR)
+
+    LoadCase(1, 'DEAD')
+
+    ImposedLineDeformation(1, 1, '1')
+
+    Model.clientModel.service.finish_modification()
+
+    imposed_line_deformation = Model.clientModel.service.get_imposed_line_deformation(1, 1)
+
+    assert imposed_line_deformation.imposed_displacement_line_start_z == 0.003
+    assert imposed_line_deformation.imposed_displacement_line_end_z == 0.0002
+
