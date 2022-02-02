@@ -1,34 +1,49 @@
 import sys
-sys.path.append(".")
+import os
+import pytest
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
+
+from RFEM.initModel import Model, CheckIfMethodOrTypeExists
+from RFEM.Tools.sectionDialogue import *
 from RFEM.BasicObjects.section import Section
-from RFEM.initModel import *
-from RFEM.Tools.sectionDialogue import SectionDialogue
+from RFEM.BasicObjects.material import Material
 
+if Model.clientModel is None:
+    Model()
 
-if __name__ == '__main__':
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'create_section_favorite_list', True), reason="create_section_favorite_list not in RFEM yet")
+def test_section_dialogue():
 
-    Model(True, "SectionDialogue")
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
-          
+
+    Material()
+    Section(1, "IPE 300")
+    Section(2, "HEA 200")
+
     #Create a Section Favorite List
-    SectionDialogue.CreateSectionFavoriteList(0, "Favs_1")
-    SectionDialogue.CreateSectionFavoriteList(0, "Favs_2")
+    CreateSectionFavoriteList("Favs_1")
+    CreateSectionFavoriteList("Favs_2")
 
     #Add Section to Favorite List
-    SectionDialogue.AddSectionToFavoriteList(0, "Favs_1", "IPE 300")
-    SectionDialogue.AddSectionToFavoriteList(0, "Favs_1", "HEA 200")
+    AddSectionToFavoriteList("Favs_1", "IPE 300")
+    AddSectionToFavoriteList("Favs_1", "HEA 200")
 
     #Delete Section From Favorite List
-    SectionDialogue.DeleteSectionFromFavoriteList(0, "Favs_1", "HEA 200")
+    DeleteSectionFromFavoriteList("Favs_1", "HEA 200")
 
     #Get Section Favorite List
-    fav_list = SectionDialogue.GetSectionFavoriteLists(0)
-    print(fav_list)
+    fav_list = GetSectionFavoriteLists()
 
     #Delete Section Favorite List
-    SectionDialogue.DeleteSectionFavoriteList(0, "Favs_2")
+    DeleteSectionFavoriteList("Favs_2")
+    DeleteSectionFavoriteList("Favs_1")
 
     #Create Section from Rsection File
-    SectionDialogue.CreateSectionFromRsectionFile(0, 3, 'UnitTests\\src\\rsection_test.rsc')
-    
+    CreateSectionFromRsectionFile(3, os.path.dirname(__file__)+'\\src\\rsection_test.rsc')
+
     Model.clientModel.service.finish_modification()

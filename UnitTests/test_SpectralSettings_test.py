@@ -1,5 +1,6 @@
 import sys
 import os
+import pytest
 PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.path.dirname(__file__),
                   os.pardir)
@@ -13,9 +14,8 @@ from RFEM.LoadCasesAndCombinations.spectralAnalysisSettings import SpectralAnaly
 if Model.clientModel is None:
     Model()
 
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'set_spectral_analysis_settings', True), reason="set_spectral_analysis_settings not in RFEM yet")
 def test_spectral_analysis_settings():
-
-    CheckIfMethodOrTypeExists(Model.clientModel,'set_spectral_analysis_settings')
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()

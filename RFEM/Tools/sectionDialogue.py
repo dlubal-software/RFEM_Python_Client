@@ -1,55 +1,43 @@
-from RFEM.initModel import *
-from RFEM.enums import *
-from enum import Enum
+from RFEM.initModel import Model
 
-class SectionDialogue():
+def CreateSectionFavoriteList(name: str = "Favorites"):
 
-    def __init__(self):
-        pass
+    if isinstance(name, str):
+        Model.clientModel.service.create_section_favorite_list(name)
+    else:
+        print("WARNING:Name of the section favorite list should be a string. Please kindly check the inputs.")
 
-    def CreateSectionFavoriteList(self,
-                                  name: str = "Favorites"):
+def AddSectionToFavoriteList(list_name: str = "Favorites",
+                             section_name: str = "IPE 300"):
 
-        if type(name) == str:
-            Model.clientModel.service.create_section_favorite_list(name)            
-        else:
-            print("WARNING:Name of the section favorite list should be a string. Please kindly check the inputs.")
+    if isinstance(list_name, str) and isinstance(section_name, str):
+        Model.clientModel.service.add_section_to_favorite_list(list_name, section_name)
+    else:
+        print("WARNING:Name of the section favorite list and the section should be a string. Please kindly check the inputs.")
 
-    def AddSectionToFavoriteList(self,
-                                 list_name: str = "Favorites",
-                                 section_name: str = "IPE 300"):
+def DeleteSectionFromFavoriteList(list_name: str = "Favorites",
+                                  section_name: str = "IPE 300"):
 
-        if type(list_name) == str and type(section_name) == str:
-            return Model.clientModel.service.add_section_to_favorite_list(list_name, section_name)
-        else:
-            print("WARNING:Name of the section favorite list and the section should be a string. Please kindly check the inputs.")
+    if isinstance(list_name, str) and isinstance(section_name, str):
+        Model.clientModel.service.delete_section_from_favorite_list(list_name, section_name)
+    else:
+        print("WARNING:Name of the section favorite list and the section should be a string. Please kindly check the inputs.")
 
-    def DeleteSectionFromFavoriteList(self,
-                                     list_name: str = "Favorites",
-                                     section_name: str = "IPE 300"):
+def GetSectionFavoriteLists():
 
-        if type(list_name) == str and type(section_name) == str:
-            return Model.clientModel.service.delete_section_from_favorite_list(list_name, section_name)
-        else:
-            print("WARNING:Name of the section favorite list and the section should be a string. Please kindly check the inputs.")
+    return Model.clientModel.service.get_section_favorite_lists()
 
-    def GetSectionFavoriteLists(self):
+def DeleteSectionFavoriteList(name: str = "Favorites"):
 
-        return Model.clientModel.service.get_section_favorite_lists()
+    if isinstance(name, str):
+        Model.clientModel.service.delete_section_favorite_list(name)
+    else:
+        print("WARNING:Name of the section favorite list should be a string. Please kindly check the inputs.")
 
-    def DeleteSectionFavoriteList(self,
-                                  name: str = "Favorites"):
+def CreateSectionFromRsectionFile(no: int = 1,
+                                  file_path: str = "/rsection_file_path/"):
 
-        if type(name) == str:
-            return Model.clientModel.service.delete_section_favorite_list(name)
-        else:
-            print("WARNING:Name of the section favorite list should be a string. Please kindly check the inputs.")
-
-    def CreateSectionFromRsectionFile(self,
-                                      no: int = 1, 
-                                      file_path: str = "/rsection_file_path/"):
-        
-        if type(no) == int and type(file_path) == str:
-            return Model.clientModel.service.create_section_from_rsection_file(no, file_path)
-        else:
-            print("WARNING:Type of file_path argument should be string and the type of the no argument should be integer. Please kindly check the inputs.")
+    if isinstance(no, int) and isinstance(file_path, str):
+        Model.clientModel.service.create_section_from_rsection_file(no, file_path)
+    else:
+        print("WARNING: Type of file_path argument should be string and the type of the no argument should be integer. Please kindly check the inputs.")
