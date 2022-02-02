@@ -25,5 +25,5 @@ def test_member_set():
     Model.clientModel.service.finish_modification()
 
     imp = Model.clientModel.service.get_imperfection_case(2)
-    assert imp.type == 'IMPERFECTION_TYPE_LOCAL_IMPERFECTIONS_ONLY'
+    assert imp.type == 'IMPERFECTION_TYPE_LOCAL_IMPERFECTIONS'
     assert imp.assigned_to_load_cases == '2'
