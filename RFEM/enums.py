@@ -992,3 +992,21 @@ class AmplitudeFunctionType(Enum):
     Amplitude Function Type
     '''
     CONSTANT, LINEAR, QUADRATIC = range(3)
+
+class PlausibilityCheckResult(Enum):
+    '''
+    Plausibility Check Result
+    '''
+    CHECK_IS_OK, CHECK_FAILED = range(2)
+
+class ModelCheckGetOptionType(Enum):
+    '''
+    Model Check Get Object Groups Option Type
+    '''
+    CROSSING_LINES, CROSSING_MEMBERS, IDENTICAL_NODES, OVERLAPPING_LINES, OVERLAPPING_MEMBERS = range(5)
+
+class ModelCheckProcessOptionType(Enum):
+    '''
+    Model Check Process Object Groups Option Type
+    '''
+    CROSS_LINES, CROSS_MEMBERS, DELETE_UNUSED_NODES, UNITE_NODES_AND_DELETE_UNUSED_NODES = range(4)

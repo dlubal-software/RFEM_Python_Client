@@ -1,7 +1,5 @@
-from http import client
-from pydoc import cli
 from RFEM.initModel import Model, clearAtributes
-from RFEM.enums import *
+from RFEM.enums import AnalysisType
 
 class LoadCombination():
     def __init__(self,
@@ -34,11 +32,9 @@ class LoadCombination():
         clientObject.design_situation = design_situation
 
         # Combination Name
+        clientObject.user_defined_name_enabled = user_defined_name[0]
         if user_defined_name[0]:
-            clientObject.user_defined_name_enabled = True
             clientObject.name = user_defined_name[1]
-        else:
-            clientObject.user_defined_name_enabled = False
 
         # Analysis Settings Assignment
         clientObject.static_analysis_settings = static_analysis_settings

@@ -6,13 +6,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.enums import *
 from RFEM.initModel import Model
-from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
-from RFEM.BasicObjects.node import Node
-from RFEM.BasicObjects.line import Line
-from RFEM.BasicObjects.member import Member
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.loadCombination import *
@@ -37,6 +31,6 @@ def test_loadCombination():
 
     combination = Model.clientModel.service.get_load_combination(1)
 
-    assert round(combination.items[0][0][1]) == 1.2
-    assert combination.items[0][0][4] == False
+    assert round(combination.items[0][0][1], 2) == 1.20
+    assert not combination.items[0][0][4]
 
