@@ -1,5 +1,5 @@
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.enums import LineType, LineArcAlphaAdjustmentTarget
 
 class Line():
     def __init__(self,
@@ -102,7 +102,6 @@ class Line():
 
     def Circle(self,
                 no: int = 1,
-                nodes_no: str = '1',
                 center_of_cirle = [20,0,0],
                 circle_radius = 1,
                 point_of_normal_to_circle_plane = [1,0,0],
@@ -121,20 +120,17 @@ class Line():
         # Type
         clientObject.type = LineType.TYPE_CIRCLE.name
 
-        # Nodes No.
-        clientObject.definition_nodes = ConvertToDlString(nodes_no)
-
         # Center of circle
-        clientObject.circle_center_coordinate_1 = center_of_cirle[0],
-        clientObject.circle_center_coordinate_2 = center_of_cirle[1],
-        clientObject.circle_center_coordinate_3 = center_of_cirle[2],
+        clientObject.circle_center_coordinate_1 = center_of_cirle[0]
+        clientObject.circle_center_coordinate_2 = center_of_cirle[1]
+        clientObject.circle_center_coordinate_3 = center_of_cirle[2]
 
-        clientObject.circle_radius = circle_radius,
+        clientObject.circle_radius = circle_radius
 
         # Point of normal to circle plane
-        clientObject.circle_normal_coordinate_1 = point_of_normal_to_circle_plane[0],
-        clientObject.circle_normal_coordinate_2 = point_of_normal_to_circle_plane[1],
-        clientObject.circle_normal_coordinate_3 = point_of_normal_to_circle_plane[2],
+        clientObject.circle_normal_coordinate_1 = point_of_normal_to_circle_plane[0]
+        clientObject.circle_normal_coordinate_2 = point_of_normal_to_circle_plane[1]
+        clientObject.circle_normal_coordinate_3 = point_of_normal_to_circle_plane[2]
 
         # Comment
         clientObject.comment = comment
@@ -148,7 +144,6 @@ class Line():
 
     def EllipticalArc(self,
                       no: int = 72,
-                      nodes_no: list = [6,10],
                       p1_control_point = [0,-6,0],
                       p2_control_point = [20,-6,0],
                       p3_control_point = [10,10,3],
@@ -165,11 +160,6 @@ class Line():
 
         # Line No.
         clientObject.no = no
-
-        # Nodes No.
-        clientObject.definition_nodes = ConvertToDlString(nodes_no)
-        clientObject.elliptical_arc_first_node = nodes_no[0]
-        clientObject.elliptical_arc_second_node = nodes_no[1]
 
         # Type
         clientObject.type = LineType.TYPE_ELLIPTICAL_ARC.name
@@ -338,8 +328,10 @@ class Line():
         if len(control_points) != len(weights):
             print("Number of control points must comply with number of weights!")
 
+        '''
+        TODO: bug 24721
         nurbs_control_points = []
-        for i in range(len(control_points)):
+        for i,j in enumerate(control_points):
             point = Model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
             point.no = i+1
             point.global_coordinate_x = control_points[i][0]
@@ -347,8 +339,8 @@ class Line():
             point.global_coordinate_z = control_points[i][2]
             point.weight = weights[i]
             nurbs_control_points.append(point)
-        clientObject.nurbs_control_points_by_components = Model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
-
+        #clientObject.nurbs_control_points_by_components = Model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
+        '''
         # Comment
         clientObject.comment = comment
 

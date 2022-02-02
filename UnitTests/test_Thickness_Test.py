@@ -1,35 +1,26 @@
 import sys
-sys.path.append(".")
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
 
 # Import der Bibliotheken
-from os import name
-from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.enums import ThicknessDirection, ThicknessOrthotropyType
+from RFEM.enums import ThicknessShapeOrthotropySelfWeightDefinitionType, ThicknessStiffnessMatrixSelfWeightDefinitionType
+from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
-from RFEM.BasicObjects.thickness import Thickness 
+from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
-from RFEM.BasicObjects.line import Line
-from RFEM.BasicObjects.member import Member
-from RFEM.BasicObjects.surface import Surface
-from RFEM.BasicObjects.solid import Solid
-from RFEM.BasicObjects.opening import Opening
-from RFEM.BasicObjects.lineSet import LineSet
-from RFEM.BasicObjects.memberSet import MemberSet
-from RFEM.BasicObjects.surfaceSet import SurfaceSet
-from RFEM.BasicObjects.solidSet import SolidSet
-from RFEM.TypesForNodes.nodalSupport import NodalSupport
-from RFEM.TypesForMembers.memberHinge import MemberHinge
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
-from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
-from RFEM.Loads.nodalLoad import NodalLoad
-from RFEM.Loads.memberLoad import MemberLoad
-from RFEM.Loads.surfaceLoad import SurfaceLoad
+
+if Model.clientModel is None:
+    Model()
 
 def test_thickness():
-    
-    Model(True, "Thickness")
-    Model.clientModel.service.begin_modification('new')
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
     Material(1, 'C30/37')
 
     ##  THICKNESS TYPE
@@ -81,19 +72,21 @@ def test_thickness():
                      properties= [0.1, 0.5],
                      comment= 'Comment')
 
-    # # Layers
+    # Layers
+    """ skipped
     Thickness.Layers(Thickness,
                      no= 7,
                      name= 'Layers',
                      layers= [[1, 1, 0.123, 0, 'Schicht 1'],
                                        [0, 1, 0.456, 90, 'Schicht 2']],
                      comment= 'Comment')
+    """
 
     # Shape Orthotropy
     Thickness.ShapeOrthotropy(Thickness,
                      no= 8,
                      name= 'Shape Orthotropy',
-                     orthotropy_type= ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB,
+                     orthotropy_type= ThicknessOrthotropyType.HOLLOW_CORE_SLAB,
                      rotation_beta= 180,
                      consideration_of_self_weight= [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, 0.234],
                      parameters= [0.4, 0.125, 0.05],
@@ -112,7 +105,4 @@ def test_thickness():
                      coefficient_of_thermal_expansion= 1,
                      comment= 'Comment')
 
-    #Calculate_all()
-    print('Ready!')
-    
     Model.clientModel.service.finish_modification()

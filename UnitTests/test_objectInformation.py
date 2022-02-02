@@ -1,23 +1,35 @@
 import sys
-sys.path.append(".")
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
 
 # Import the relevant Libraries
-from os import name
-from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.enums import SelectedObjectInformation
+from RFEM.initModel import CheckIfMethodOrTypeExists, Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
-from RFEM.BasicObjects.thickness import Thickness 
+from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.surface import Surface
-from RFEM.BasicObjects.solid import Solid
 from RFEM.Tools.centreOfGravityAndObjectInfo import ObjectInformation
+from math import sqrt
+import pytest
 
+if Model.clientModel is None:
+    Model()
+
+# pytestmark sets same parameters (in this case skipif) to all functions in the module or class
+pytestmark = pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:array_of_get_center_of_gravity_and_objects_info_elements_type', True),
+             reason="ns0:array_of_get_center_of_gravity_and_objects_info_elements_type not in RFEM yet")
 def test_centre_of_gravity():
 
-    clientModel.service.begin_modification('new')
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     x1, y1, z1, = 0, 0, 0
     x2, y2, z2 = 4, 10, -6
@@ -26,12 +38,11 @@ def test_centre_of_gravity():
     Section()
     Member(1, start_node_no= 1, end_node_no= 2)
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
     CoG_X = (x2 - x1) / 2
     CoG_Y = (y2 - y1) / 2
     CoG_Z = (z2 - z1) / 2
-    L = round(sqrt((x2 - x1)**2 + (y2 - y1)**2 + (z2 - z1)**2),3)
 
     assert CoG_X == ObjectInformation.CentreOfGravity(ObjectInformation, coord= 'X')
     assert CoG_Y == ObjectInformation.CentreOfGravity(ObjectInformation, coord= 'Y')
@@ -39,7 +50,8 @@ def test_centre_of_gravity():
 
 def test_member_information():
 
-    clientModel.service.begin_modification('new')
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     x1, y1, z1, = 0, 0, 0
     x2, y2, z2 = 4, 10, -6
@@ -48,7 +60,7 @@ def test_member_information():
     Section()
     Member(1, start_node_no= 1, end_node_no= 2)
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
     L = sqrt((x2 - x1)**2 + (y2 - y1)**2 + (z2 - z1)**2)
     A = 53.80 / (100 * 100)
@@ -61,7 +73,8 @@ def test_member_information():
 
 def test_surface_information():
 
-    clientModel.service.begin_modification('new')
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     x1, y1, z1 = 0 , 0, 0
     x2, y2, z2 = 10, 0, 0
@@ -74,7 +87,7 @@ def test_surface_information():
     Thickness(material_no= 2)
     Surface()
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
     A = (x2 - x1) * (y4 - y1)
     V = A * 0.2

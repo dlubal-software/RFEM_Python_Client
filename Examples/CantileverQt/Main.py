@@ -6,33 +6,19 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType
+from RFEM.initModel import Model, Calculate_all
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
-from RFEM.BasicObjects.thickness import Thickness 
 from RFEM.BasicObjects.node import Node
-from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.member import Member
-from RFEM.BasicObjects.surface import Surface
-from RFEM.BasicObjects.solid import Solid
-from RFEM.BasicObjects.opening import Opening
-from RFEM.BasicObjects.lineSet import LineSet
-from RFEM.BasicObjects.memberSet import MemberSet
-from RFEM.BasicObjects.surfaceSet import SurfaceSet
-from RFEM.BasicObjects.solidSet import SolidSet
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
-from RFEM.TypesForMembers.memberHinge import MemberHinge
-from RFEM.TypesForSurfaces.surfaceSupport import SurfaceSupport 
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.Loads.nodalLoad import NodalLoad
-from RFEM.Loads.memberLoad import MemberLoad
-from RFEM.Loads.lineLoad import LineLoad
-from RFEM.Loads.surfaceLoad import SurfaceLoad
 
 try:
-    from PyQt5 import QtWidgets, QtCore, uic
+    from PyQt5 import QtWidgets, uic
 except:
     print('PyQt5 library is not installed in your Python env.')
     instPyQt5 = input('Do you want to install it (y/n)? ')
@@ -72,7 +58,7 @@ class MyDialog(QtWidgets.QDialog):
 
         # RFEM 6
         Model(True, "CantileverQt") # crete new model called CantileverQt
-        Model.clientModel.service.begin_modification('new')
+        Model.clientModel.service.begin_modification()
 
         Material(1, 'S235')
 

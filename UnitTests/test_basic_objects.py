@@ -1,91 +1,160 @@
 import sys
-sys.path.append(".")
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
+import pytest
 from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
-from RFEM.BasicObjects.thickness import Thickness 
+from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.surface import Surface
-from RFEM.BasicObjects.solid import Solid
 from RFEM.BasicObjects.opening import Opening
 from RFEM.BasicObjects.lineSet import LineSet
 from RFEM.BasicObjects.memberSet import MemberSet
-from RFEM.BasicObjects.surfaceSet import SurfaceSet
-from RFEM.BasicObjects.solidSet import SolidSet
-from RFEM.BasicObjects.memberByLine import MemberByLine
+
+if Model.clientModel is None:
+    Model()
 
 def test_line_init():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Node(1, 2, 0, 0)
     Node(2, 4, 0, 0)
 
     Line(1, '1 2')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    line = clientModel.service.get_line(1)
+    line = Model.clientModel.service.get_line(1)
 
     assert line.no == 1
     assert line.length == 2
 
 def test_line_polyline():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
     Node(2, 5, 0, 0)
 
     Line.Polyline(0, 1, '1 2')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    line = clientModel.service.get_line(1)
+    line = Model.clientModel.service.get_line(1)
 
     assert line.no == 1
     assert line.length == 5
 
 def test_line_arc():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Node(1, 2, 0, 0)
     Node(2, 4, 0, 0)
 
     Line.Arc(0, 1, [1, 2], [3, 3, 0], LineArcAlphaAdjustmentTarget.ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC)
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    line = clientModel.service.get_line(1)
+    line = Model.clientModel.service.get_line(1)
 
     assert line.no == 1
     assert line.type == "TYPE_ARC"
 
 def test_line_circle():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
-    Line.Circle(0, 1, '1', [0, 0, 0], 3, [0, 0, 1])
+    Line.Circle(0, 1, [5, 6, 7], 3, [0, 0, 1])
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    line = clientModel.service.get_line(1)
+    line = Model.clientModel.service.get_line(1)
 
     assert line.no == 1
     assert line.circle_radius == 3
+    assert line.circle_center_coordinate_1 == 5
+    assert line.circle_center_coordinate_2 == 6
+    assert line.circle_center_coordinate_3 == 7
 
-def test_lineSet():
+def test_line_ellipse():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Node(1,2,0,0)
+    Node(2,-2,0,0)
+    Line.Ellipse(0, 2,[1,2],[0,1,0])
+
+    Model.clientModel.service.finish_modification()
+
+    line = Model.clientModel.service.get_line(2)
+
+    assert round(line.length, 4) == 9.6884
+
+def test_line_parabola():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Node(1,2,0,0)
+    Node(2,-2,0,0)
+    Line.Parabola(0, 3,[1,2],[0,1,0],0.17453)
+
+    Model.clientModel.service.finish_modification()
+
+    line = Model.clientModel.service.get_line(3)
+
+    assert round(line.length, 3) == 4.605
+
+def test_line_spline():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Node(1,2,0,0)
+    Node(2,1,1,0)
+    Node(3,0,-1,0)
+    Node(4,-1,1,0)
+    Node(5,-2,0,0)
+    Line.Spline(0, 1, "1-5")
+
+    Model.clientModel.service.finish_modification()
+
+    line = Model.clientModel.service.get_line(1)
+
+    assert round(line.length, 4) == 8.42290
+
+def test_line_elipticalArc():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Line.EllipticalArc(Line, 1)
+    Line.EllipticalArc(Line, 2, [2,0,0], [-2,0,0], [0,-3,0], 0.17453, 2.79252)
+
+    Model.clientModel.service.finish_modification()
+
+    line = Model.clientModel.service.get_line(2)
+    assert round(line.length, 4) == 7.2315
+
+def test_lineSetInit():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Node(1, 2, 0, 0)
     Node(2, 4, 0, 0)
@@ -94,67 +163,83 @@ def test_lineSet():
     Line(1, '1 2')
     Line(2, '2 3')
 
-    LineSet(1, '1 2', SetType.SET_TYPE_CONTINUOUS)
+    LineSet(1, '1 2')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    line_set = clientModel.service.get_line_set(1)
+    line_set = Model.clientModel.service.get_line_set(1)
 
-    assert line_set.no == 1
     assert line_set.length == 4
+
+def test_lineSetContinuous():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Node(1, 2, 0, 0)
+    Node(2, 4, 0, 0)
+    Node(3, 6, 1, 0)
+
+    Line(1, '1 2')
+    Line(2, '2 3')
+
+    LineSet.ContinuousLines(0, 1, '1 2')
+
+    Model.clientModel.service.finish_modification()
+
+    line_set = Model.clientModel.service.get_line_set(1)
+
+    assert round(line_set.length, 5) == 4.23607
+
+def test_lineSetGroup():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Node(1, 2, 0, 0)
+    Node(2, 4, 1, 0)
+    Node(3, 6, 0, 0)
+
+    Line(1, '1 2')
+    Line(2, '2 3')
+
+    LineSet.GroupOfLines(0, 2, '1 2')
+
+    Model.clientModel.service.finish_modification()
+
+    line_set = Model.clientModel.service.get_line_set(2)
+
+    assert round(line_set.length, 6) == 4.472136
 
 def test_material():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    material = clientModel.service.get_material(1)
+    material = Model.clientModel.service.get_material(1)
     assert material.no == 1
     assert material.name == 'S235'
 
 def test_node_init():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Node(1, 2, 0, 0)
 
-    node = clientModel.service.get_node(1)
+    node = Model.clientModel.service.get_node(1)
 
     assert node.no == 1
     assert node.coordinate_1 == 2
 
-def test_memberbyline_init():
-
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
-
-    Material(1, 'S235')
-    Node(1, 0, 0, 0)
-    Node(2, 4, 0, 0)
-    Node(3, )
-
-    Line(1, '1 2')
-
-    Section(1, 'IPE 240', 1)
-
-    MemberByLine(1, MemberType.TYPE_BEAM, 1, 0, 1, 1)
-
-    clientModel.service.finish_modification()
-
-    member = clientModel.service.get_member(1)
-
-    assert member.analytical_length == 4
-    assert member.section_start == 1
-
 def test_member_init():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
     Node(2, 5, 0, 0)
@@ -165,40 +250,17 @@ def test_member_init():
 
     Member(1,  1, 2, 0, 1, 1)
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    member = clientModel.service.get_member(1)
+    member = Model.clientModel.service.get_member(1)
 
     assert member.analytical_length == 5
     assert member.section_start == 1
 
-def test_member_beam():
-
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
-
-    Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
-
-    Node(1, 0, 0, 0)
-    Node(2, 5, 0, 0)
-
-    Member.Beam(0, 1, 1, 2, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [15], 1, 1)
-
-
-    clientModel.service.finish_modification()
-
-    member = clientModel.service.get_member(1)
-
-    assert member.analytical_length == 5
-    assert member.type == "TYPE_BEAM"
-
-## Other Member Types must be added to the main code.
-
 def test_member_set():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
     Node(2, 5, 0, 0)
@@ -213,9 +275,9 @@ def test_member_set():
 
     MemberSet(1, '1 2', SetType.SET_TYPE_GROUP)
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    member_set = clientModel.service.get_member_set(1)
+    member_set = Model.clientModel.service.get_member_set(1)
 
     assert member_set.members == '1 2'
     assert member_set.length == 10
@@ -224,8 +286,8 @@ def test_member_set():
 
 def test_opening():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
     Node(2, 4, 0, 0)
@@ -254,24 +316,24 @@ def test_opening():
 
     Opening(1, '5 6 7 8')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    opening = clientModel.service.get_opening(1)
+    opening = Model.clientModel.service.get_opening(1)
 
     assert opening.area == 1
     assert opening.center_of_opening_x == 2.5
 
 def test_section():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
     Section(1, 'IPE 300')
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    section = clientModel.service.get_section(1)
+    section = Model.clientModel.service.get_section(1)
 
     assert section.no == 1
     assert section.name == 'IPE 300'
@@ -284,40 +346,40 @@ def test_section():
 
 def test_thickness_init():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
 
     Thickness(1, '20 mm', 1, 0.02)
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    thickness = clientModel.service.get_thickness(1)
+    thickness = Model.clientModel.service.get_thickness(1)
 
     assert thickness.type == "TYPE_UNIFORM"
     assert thickness.uniform_thickness == 0.02
 
 def test_thickness_uniform():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
 
     Thickness.Uniform(0, 1, '1', 1, [0.03])
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    thickness = clientModel.service.get_thickness(1)
+    thickness = Model.clientModel.service.get_thickness(1)
 
     assert thickness.type == "TYPE_UNIFORM"
     assert thickness.uniform_thickness == 0.03
 
 def test_thickness_3nodes():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
 
@@ -327,17 +389,17 @@ def test_thickness_3nodes():
 
     Thickness.Variable_3Nodes(0, 1, '2', 1, [0.2, 1, 0.1, 2, 0.05, 3])
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    thickness = clientModel.service.get_thickness(1)
+    thickness = Model.clientModel.service.get_thickness(1)
 
     assert thickness.type == "TYPE_VARIABLE_THREE_NODES"
     assert thickness.thickness_1 == 0.2
 
 def test_thickness_2nodes():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
 
@@ -345,17 +407,17 @@ def test_thickness_2nodes():
     Node(2, 2, 2, 0)
 
     Thickness.Variable_2NodesAndDirection(0, 1, '3', 1, [0.2, 1, 0.1, 2, ThicknessDirection.THICKNESS_DIRECTION_IN_X])
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    thickness = clientModel.service.get_thickness(1)
+    thickness = Model.clientModel.service.get_thickness(1)
 
     assert thickness.type == "TYPE_VARIABLE_TWO_NODES_AND_DIRECTION"
     assert thickness.thickness_2 == 0.1
 
 def test_thickness_4corners():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
 
@@ -364,45 +426,60 @@ def test_thickness_4corners():
     Node(3, 3, 3, 0)
     Node(4, 0, 3, 0)
 
-    Thickness.Variable_4SurfaceCorners
-    clientModel.service.finish_modification()
-
     Thickness.Variable_4SurfaceCorners(0, 1, '4', 1, [0.2, 1, 0.15, 2, 0.1, 3, 0.05, 4])
 
-    thickness = clientModel.service.get_thickness(1)
+    Model.clientModel.service.finish_modification()
+
+    thickness = Model.clientModel.service.get_thickness(1)
 
     assert thickness.type == "TYPE_VARIABLE_FOUR_SURFACE_CORNERS"
     assert thickness.thickness_2 == 0.15
 
 def test_thickness_circle():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
 
     Thickness.Variable_Circle(0, 1, '5', 1, [0.2, 0.1])
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    thickness = clientModel.service.get_thickness(1)
+    thickness = Model.clientModel.service.get_thickness(1)
 
     assert thickness.type == "TYPE_VARIABLE_CIRCLE"
     assert thickness.thickness_circle_line == 0.1
 
+@pytest.mark.skip("all tests still WIP")
 def test_thickness_layers():
 
-    clientModel.service.reset()
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
 
     Thickness.Layers(0, 1, '6', [[0, 1, 0.1, 0, ''], [0, 1, 0.2, 0, '']])
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-    thickness = clientModel.service.get_thickness(1)
+    thickness = Model.clientModel.service.get_thickness(1)
 
     assert thickness.type == "TYPE_LAYERS"
     assert round(thickness.layers_total_thickness, 2) == 0.3
 
-## Thickness type Shape Orthotropy has bugs. Need to be updated
+def test_thickness_shape_orthotropy():
+
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
+
+    Material(1, 'S275')
+
+    Thickness.ShapeOrthotropy(0, 1, 'EFFECTIVE_THICKNESS', 1, ThicknessOrthotropyType.EFFECTIVE_THICKNESS, 7)
+    Thickness.ShapeOrthotropy(0, 2, 'COUPLING', 1, ThicknessOrthotropyType.COUPLING, 8, parameters=[0.15,0.18,0.16])
+    Thickness.ShapeOrthotropy(0, 3, 'UNIDIRECTIONAL_RIBBED_PLATE', 1, ThicknessOrthotropyType.UNIDIRECTIONAL_RIBBED_PLATE, 9, parameters=[0.15, 0.15,0.18,0.16])
+    Thickness.ShapeOrthotropy(0, 4, 'BIDIRECTIONAL_RIBBED_PLATE', 1, ThicknessOrthotropyType.BIDIRECTIONAL_RIBBED_PLATE, 10, parameters=[0.15, 0.3,0.25, 0.8,0.75,0.2,0.15])
+    Thickness.ShapeOrthotropy(0, 5, 'TRAPEZOIDAL_SHEET', 1, ThicknessOrthotropyType.TRAPEZOIDAL_SHEET, 11, parameters=[0.15, 0.45,0.4,0.14,0.14])
+    Thickness.ShapeOrthotropy(0, 6, 'HOLLOW_CORE_SLAB', 1, ThicknessOrthotropyType.HOLLOW_CORE_SLAB, 12, parameters=[0.2, 0.15, 0.1])
+    Thickness.ShapeOrthotropy(0, 7, 'GRILLAGE', 1, ThicknessOrthotropyType.GRILLAGE, 13,[ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, 0.15], [0.15,0.8,0.75,0.2,0.15])
+
+    Model.clientModel.service.finish_modification()

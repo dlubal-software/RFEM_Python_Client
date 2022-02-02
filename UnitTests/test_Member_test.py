@@ -1,7 +1,12 @@
 import sys
-sys.path.append(".")
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
 from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.thickness import Thickness
@@ -10,17 +15,21 @@ from RFEM.BasicObjects.member import Member
 from RFEM.TypesForMembers.memberHinge import MemberHinge
 from RFEM.TypesForMembers.memberDefinableStiffness import MemberDefinableStiffness
 
-if __name__ == '__main__':
-    
-    clientModel.service.begin_modification('new')
-    
+if Model.clientModel is None:
+    Model()
+
+def test_all_member_types():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
     Material(1, 'S235')
     Material(2, 'C30/37')
 
     Section(1, 'IPE 300', 1)
     Section(2, 'IPE 500', 1)
     Section(3, 'R_M1 500/500')
-    
+
     Thickness(1, '180 mm', 2, 0.18)
 
     node_tag_lst = list(range(1, 62, 1))
@@ -47,7 +56,7 @@ if __name__ == '__main__':
     Member.Beam(0, 4, 7, 8, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 1, params={'member_hinge_start': 1, 'member_hinge_end' : 1})
 
     # Beam Member with End Modifications
-    Member.Beam(0, 5, 9, 10, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 1, 
+    Member.Beam(0, 5, 9, 10, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 1,
     params={'end_modifications_member_start_extension': 1, 'end_modifications_member_start_slope_y': 0.03, 'end_modifications_member_start_slope_z': 0.05, 'end_modifications_member_end_extension': 4, 'end_modifications_member_end_slope_y': 0.08, 'end_modifications_member_end_slope_z': 0.1})
 
     # Beam Member with Linear Distribution
@@ -61,19 +70,19 @@ if __name__ == '__main__':
 
     # Beam Member with Tapered at the End
     Member.Beam(0, 9, 17, 18, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 2, [True, 0.25, MemberSectionAlignment.SECTION_ALIGNMENT_CENTRIC])
-    
+
     # Beam Member with Tapered at the End
     Member.Beam(0, 10, 19, 20, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_SADDLE, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 1, [True, 0.5, MemberSectionAlignment.SECTION_ALIGNMENT_CENTRIC, 2])
-    
+
     # Beam Member with Offset at Both End
     Member.Beam(0, 11, 21, 22, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 1, [True, True, 0.25, 0.25, MemberSectionAlignment.SECTION_ALIGNMENT_CENTRIC, 2])
 
     # Beam Member with Offset at Start
     Member.Beam(0, 12, 23, 24, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 2, [True, 0.25, MemberSectionAlignment.SECTION_ALIGNMENT_CENTRIC])
-    
+
     # Beam Member with Offset at End
     Member.Beam(0, 13, 25, 26, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 2, [True, 0.25, MemberSectionAlignment.SECTION_ALIGNMENT_CENTRIC])
-    
+
     # Rigid Member
     Member.Rigid(0, 14, 27, 28, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0])
 
@@ -93,7 +102,7 @@ if __name__ == '__main__':
     Member.Compression(0, 19, 37, 38, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0])
 
     # Buckling Member
-    Member.Buckling(0, 20, 39, 40, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0]) 
+    Member.Buckling(0, 20, 39, 40, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0])
 
     # Cable Member
     Member.Cable(0, 21, 41, 42, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0])
@@ -125,7 +134,5 @@ if __name__ == '__main__':
 
     # Member Coupling Hinge Hinge
     Member.CouplingHingeHinge(0, 30, 59, 60)
-    
-    print('Ready!')
-    
-    clientModel.service.finish_modification()
+
+    Model.clientModel.service.finish_modification()

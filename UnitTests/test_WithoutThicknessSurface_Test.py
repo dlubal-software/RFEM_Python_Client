@@ -2,37 +2,29 @@
 # -*- coding: utf-8 -*-
 
 import sys
-sys.path.append(".")
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
 
 ## Import the relevant Libraries
-from os import name
 from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
-from RFEM.BasicObjects.thickness import Thickness 
+from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
-from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.surface import Surface
-from RFEM.BasicObjects.solid import Solid
-from RFEM.BasicObjects.opening import Opening
-from RFEM.BasicObjects.lineSet import LineSet
-from RFEM.BasicObjects.memberSet import MemberSet
-from RFEM.BasicObjects.surfaceSet import SurfaceSet
-from RFEM.BasicObjects.solidSet import SolidSet
-from RFEM.TypesForNodes.nodalSupport import NodalSupport
-from RFEM.TypesForMembers.memberHinge import MemberHinge
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
-from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
-from RFEM.Loads.nodalLoad import NodalLoad
-from RFEM.Loads.memberLoad import MemberLoad
-from RFEM.Loads.surfaceLoad import SurfaceLoad
+
+if Model.clientModel is None:
+    Model()
 
 def test_without_thickness_surface():
 
-    Model(True, "WithoutThicknessSurface")
-    Model.clientModel.service.begin_modification('new')
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     # Testing the standard surface function
     Node(1, 0, -30, 0), Node(2, 10, -30, 0), Node(3, 10, -20, 0), Node(4, 0, -20, 0)
@@ -85,4 +77,3 @@ def test_without_thickness_surface():
     Surface.WithoutThickness(Surface, 4, SurfaceGeometry.GEOMETRY_QUADRANGLE, [17, 18, 19, 20], '13 14 15 16')
 
     Model.clientModel.service.finish_modification()
-

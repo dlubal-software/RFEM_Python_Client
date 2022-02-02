@@ -1,5 +1,5 @@
-from RFEM.enums import MemberType
-from RFEM.initModel import *
+from RFEM.enums import MemberType, MemberRotationSpecificationType, MemberSectionDistributionType, MemberTypeRibAlignment, MemberReferenceLengthWidthType, MemberResultBeamIntegration
+from RFEM.initModel import Model, clearAtributes
 
 class Member():
     def __init__(self,
@@ -68,8 +68,8 @@ class Member():
             clientObject[key] = params[key]
 
         # Add Member to client model
-        Model.clientModel.service.set_member(clientObject)    
-    
+        Model.clientModel.service.set_member(clientObject)
+
     def Beam(self,
             no: int = 1,
             start_node_no: int = 1,
@@ -95,21 +95,21 @@ class Member():
         """
         Args:
             no (int): Member Tag
-            start_node_no (int): Tag of Start Node 
+            start_node_no (int): Tag of Start Node
             end_node_no (int): Tag of End Node
             section_distribution_type (enum): Section Distribution Type Enumeration
             rotation_specification_type (enum): Rotation Specification Type Enumeration
-            rotation_parameters (list): Rotation Parameters
+            rotation_parameters (list): Rotation Parameters; 1 or 2 params
             start_section_no (int): Tag of Start Section
             end_section_no (int): End of End Section
-            distribution_parameters (list): Distrobution Parameters
+            distribution_parameters (list): Distribution Parameters
             comment (str, optional): Comment
             params (dict, optional): Parameters
-        
+
         for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR:
             distribution_parameters[section_alignment]
         for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES:
-            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_end_is_defined_as_relative, 
+            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_end_is_defined_as_relative,
                                     section_distance_from_start_relative/absolute, section_distance_from_end_relative/absolute,
                                     section_alignment, section_internal]
         for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER:
@@ -119,14 +119,14 @@ class Member():
         for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_SADDLE:
             distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment, section_internal]
         for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES:
-            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_end_is_defined_as_relative, 
+            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_end_is_defined_as_relative,
                                     section_distance_from_start_relative/absolute, section_distance_from_end_relative/absolute,
                                     section_alignment, section_internal]
         for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER:
             distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment]
         for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER:
             distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment]
-            
+
 
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
             rotation_parameters[rotation_angle]
@@ -159,103 +159,103 @@ class Member():
         clientObject.section_distribution_type = section_distribution_type.name
 
         if section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR:
-            clientObject.section_alignment == distribution_parameters[0]
+            clientObject.section_alignment = distribution_parameters[0].name
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES:
             try:
-                type(distribution_parameters[0]) == bool
-                type(distribution_parameters[1]) == bool
+                isinstance(distribution_parameters[0], bool)
+                isinstance(distribution_parameters[1], bool)
             except:
-                raise Exception("WARNING: First two parameters should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First two parameters should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_start_is_defined_as_relative = distribution_parameters[0]
             clientObject.section_distance_from_end_is_defined_as_relative = distribution_parameters[1]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_start_relative = distribution_parameters[2]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_start_absolute = distribution_parameters[2]
-            if distribution_parameters[1] == True:
+            if distribution_parameters[1]:
                 clientObject.section_distance_from_end_relative = distribution_parameters[3]
-            elif distribution_parameters[1] == False:
+            else:
                 clientObject.section_distance_from_end_absolute = distribution_parameters[3]
             clientObject.section_alignment = distribution_parameters[4].name
             clientObject.section_internal = distribution_parameters[5]
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER:
             try:
-                type(distribution_parameters[0]) == bool
+                isinstance(distribution_parameters[0], bool)
             except:
-                raise Exception("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_start_is_defined_as_relative = distribution_parameters[0]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_start_relative = distribution_parameters[1]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_start_absolute = distribution_parameters[1]
             clientObject.section_alignment = distribution_parameters[2].name
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER:
             try:
-                type(distribution_parameters[0]) == bool
+                isinstance(distribution_parameters[0], bool)
             except:
-                raise Exception("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_end_is_defined_as_relative = distribution_parameters[0]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_end_relative = distribution_parameters[1]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_end_absolute = distribution_parameters[1]
             clientObject.section_alignment = distribution_parameters[2].name
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_SADDLE:
             try:
-                type(distribution_parameters[0]) == bool
+                isinstance(distribution_parameters[0], bool)
             except:
-                raise Exception("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_SADDLE. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_SADDLE. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_end_is_defined_as_relative = distribution_parameters[0]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_end_relative = distribution_parameters[1]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_end_absolute = distribution_parameters[1]
             clientObject.section_alignment = distribution_parameters[2].name
             clientObject.section_internal = distribution_parameters[3]
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES:
             try:
-                type(distribution_parameters[0]) == bool
-                type(distribution_parameters[1]) == bool
+                isinstance(distribution_parameters[0], bool)
+                isinstance(distribution_parameters[1], bool)
             except:
-                raise Exception("WARNING: First two parameters should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First two parameters should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_start_is_defined_as_relative = distribution_parameters[0]
             clientObject.section_distance_from_end_is_defined_as_relative = distribution_parameters[1]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_start_relative = distribution_parameters[2]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_start_absolute = distribution_parameters[2]
-            if distribution_parameters[1] == True:
+            if distribution_parameters[1]:
                 clientObject.section_distance_from_end_relative = distribution_parameters[3]
-            elif distribution_parameters[1] == False:
+            else:
                 clientObject.section_distance_from_end_absolute = distribution_parameters[3]
             clientObject.section_alignment = distribution_parameters[4].name
             clientObject.section_internal = distribution_parameters[5]
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER:
             try:
-                type(distribution_parameters[0]) == bool
+                isinstance(distribution_parameters[0], bool)
             except:
-                raise Exception("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_start_is_defined_as_relative = distribution_parameters[0]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_start_relative = distribution_parameters[1]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_start_absolute = distribution_parameters[1]
             clientObject.section_alignment = distribution_parameters[2].name
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER:
             try:
-                type(distribution_parameters[0]) == bool
+                isinstance(distribution_parameters[0], bool)
             except:
-                raise Exception("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_end_is_defined_as_relative = distribution_parameters[0]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_end_relative = distribution_parameters[1]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_end_absolute = distribution_parameters[1]
             clientObject.section_alignment = distribution_parameters[2].name
 
@@ -267,12 +267,12 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
-            
-        
+
+
         # Start Section No.
         clientObject.section_start = start_section_no
 
@@ -291,9 +291,9 @@ class Member():
                         'end_modifications_member_end_slope_z': 0,
                         'member_result_intermediate_point' : 0,
                         'is_deactivated_for_calculation' : False }
-        
+
         params_up.update(params)
-        
+
         # Member Hinges
         clientObject.member_hinge_start = params_up['member_hinge_start']
         clientObject.member_hinge_end = params_up['member_hinge_end']
@@ -347,11 +347,11 @@ class Member():
         """
         Args:
             no (int): Member Tag
-            start_node_no (int): Tag of Start Node 
+            start_node_no (int): Tag of Start Node
             end_node_no (int): Tag of End Node
-            rotation_specification_type (enum): Rotation Specification Type Enumeration 
+            rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
-            comment (str, optional): Comment 
+            comment (str, optional): Comment
             params (dict, optional): Parameters
 
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
@@ -389,7 +389,7 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
@@ -400,9 +400,9 @@ class Member():
                           'support':0, 'member_nonlinearity': 0,
                           'member_result_intermediate_point' : 0,
                           'is_deactivated_for_calculation' : False }
-        
+
         params_up.update(params)
-        
+
         # Member Hinges
         clientObject.member_hinge_start = params_up['member_hinge_start']
         clientObject.member_hinge_end = params_up['member_hinge_end']
@@ -468,7 +468,7 @@ class Member():
             reference_width_type (enum): Reference Width Type Enumeration
             comment (str, optional): Comment
             params (dict, optional): Parameters
-        
+
         for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR:
             distribution_parameters[section_alignment]
         """
@@ -493,10 +493,10 @@ class Member():
 
         # Section Distribution
         clientObject.section_distribution_type = section_distribution_type.name
-        try: 
+        try:
             section_distribution_type.name == "MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM" or section_distribution_type.name == "MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR"
         except:
-            raise Exception("WARNING: Only Uniform and Linear section distributions are available for Rib member. Kindly check inputs and correctness.")
+            raise TypeError("WARNING: Only Uniform and Linear section distributions are available for Rib member. Kindly check inputs and correctness.")
 
         # Start Section No.
         clientObject.section_start = start_section_no
@@ -525,9 +525,9 @@ class Member():
                         'end_modifications_member_end_slope_z': 0,
                         'member_result_intermediate_point' : 0,
                         'is_deactivated_for_calculation' : False }
-        
+
         params_up.update(params)
-        
+
         # Member Hinges
         clientObject.member_hinge_start = params_up['member_hinge_start']
         clientObject.member_hinge_end = params_up['member_hinge_end']
@@ -579,14 +579,14 @@ class Member():
         """
         Args:
             no (int): Member Tag
-            start_node_no (int): Tag of Start Node 
+            start_node_no (int): Tag of Start Node
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
             section_no (int): Section Tag
             comment (str, optional): Comment
             params (dict, optional): Parameters
-        
+
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
             rotation_parameters[rotation_angle]
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
@@ -622,11 +622,11 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
-        
+
         # Start Section No.
         clientObject.section_start = section_no
 
@@ -643,7 +643,7 @@ class Member():
                             'end_modifications_member_end_slope_y': 0,
                             'end_modifications_member_end_slope_z': 0,
                             'is_deactivated_for_calculation' : False }
-        
+
         params_up.update(params)
 
         # Member Eccentricity
@@ -694,14 +694,14 @@ class Member():
         """
         Args:
             no (int): Member Tag
-            start_node_no (int): Tag of Start Node 
+            start_node_no (int): Tag of Start Node
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
             section_no (int): Section Tag
             comment (str, optional): Comment
             params (dict, optional): Parameters
-        
+
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
             rotation_parameters[rotation_angle]
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
@@ -737,11 +737,11 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
-        
+
         # Start Section No.
         clientObject.section_start = section_no
 
@@ -758,7 +758,7 @@ class Member():
                             'end_modifications_member_end_slope_y': 0,
                             'end_modifications_member_end_slope_z': 0,
                             'is_deactivated_for_calculation' : False }
-        
+
         params_up.update(params)
 
         # Member Eccentricity
@@ -809,14 +809,14 @@ class Member():
         """
         Args:
             no (int): Member Tag
-            start_node_no (int): Tag of Start Node 
+            start_node_no (int): Tag of Start Node
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
             section_no (int): Section Tag
             comment (str, optional): Comment
             params (dict, optional): Parameters
-        
+
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
             rotation_parameters[rotation_angle]
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
@@ -852,11 +852,11 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
-        
+
         # Start Section No.
         clientObject.section_start = section_no
 
@@ -873,7 +873,7 @@ class Member():
                             'end_modifications_member_end_slope_y': 0,
                             'end_modifications_member_end_slope_z': 0,
                             'is_deactivated_for_calculation' : False }
-        
+
         params_up.update(params)
 
         # Member Eccentricity
@@ -924,14 +924,14 @@ class Member():
         """
         Args:
             no (int): Member Tag
-            start_node_no (int): Tag of Start Node 
+            start_node_no (int): Tag of Start Node
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
             section_no (int): Section Tag
             comment (str, optional): Comment
             params (dict, optional): Parameters
-        
+
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
             rotation_parameters[rotation_angle]
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
@@ -967,11 +967,11 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
-        
+
         # Start Section No.
         clientObject.section_start = section_no
 
@@ -988,7 +988,7 @@ class Member():
                             'end_modifications_member_end_slope_y': 0,
                             'end_modifications_member_end_slope_z': 0,
                             'is_deactivated_for_calculation' : False }
-        
+
         params_up.update(params)
 
         # Member Eccentricity
@@ -1039,14 +1039,14 @@ class Member():
         """
         Args:
             no (int): Member Tag
-            start_node_no (int): Tag of Start Node 
+            start_node_no (int): Tag of Start Node
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
             section_no (int): Section Tag
             comment (str, optional): Comment
             params (dict, optional): Parameters
-        
+
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
             rotation_parameters[rotation_angle]
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
@@ -1082,11 +1082,11 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
-        
+
         # Start Section No.
         clientObject.section_start = section_no
 
@@ -1094,7 +1094,7 @@ class Member():
         clientObject.section_end = section_no
 
         # Update parameters
-        params_up: dict = {'member_eccentricity_start': 0, 'member_eccentricity_end': 0, 
+        params_up: dict = {'member_eccentricity_start': 0, 'member_eccentricity_end': 0,
                             'member_nonlinearity': 0,
                             'end_modifications_member_start_extension': 0,
                             'end_modifications_member_start_slope_y': 0,
@@ -1103,7 +1103,7 @@ class Member():
                             'end_modifications_member_end_slope_y': 0,
                             'end_modifications_member_end_slope_z': 0,
                             'is_deactivated_for_calculation' : False }
-        
+
         params_up.update(params)
 
         # Member Eccentricity
@@ -1152,14 +1152,14 @@ class Member():
         """
         Args:
             no (int): Member Tag
-            start_node_no (int): Tag of Start Node 
+            start_node_no (int): Tag of Start Node
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
             section_no (int): Section Tag
             comment (str, optional): Comment
             params (dict, optional): Parameters
-        
+
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
             rotation_parameters[rotation_angle]
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
@@ -1195,11 +1195,11 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
-        
+
         # Start Section No.
         clientObject.section_start = section_no
 
@@ -1214,7 +1214,7 @@ class Member():
                             'end_modifications_member_end_slope_y': 0,
                             'end_modifications_member_end_slope_z': 0,
                             'is_deactivated_for_calculation' : False }
-        
+
         params_up.update(params)
 
         # End Modifications
@@ -1276,7 +1276,7 @@ class Member():
         for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR:
             distribution_parameters[section_alignment]
         for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES:
-            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_end_is_defined_as_relative, 
+            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_end_is_defined_as_relative,
                                     section_distance_from_start_relative/absolute, section_distance_from_end_relative/absolute,
                                     section_alignment, section_internal]
         for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER:
@@ -1286,7 +1286,7 @@ class Member():
         for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_SADDLE:
             distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment, section_internal]
         for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES:
-            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_end_is_defined_as_relative, 
+            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_end_is_defined_as_relative,
                                     section_distance_from_start_relative/absolute, section_distance_from_end_relative/absolute,
                                     section_alignment, section_internal]
         for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER:
@@ -1342,105 +1342,105 @@ class Member():
             clientObject.result_beam_z_minus = integration_parameters[3]
         elif result_beam_integrate_stresses_and_forces.name == "INTEGRATE_WITHIN_CYLINDER":
             clientObject.result_beam_radius = integration_parameters[0]
-        
+
         if section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR:
-            clientObject.section_alignment == distribution_parameters[0]
+            clientObject.section_alignment = distribution_parameters[0].name
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES:
             try:
-                type(distribution_parameters[0]) == bool
-                type(distribution_parameters[1]) == bool
+                isinstance(distribution_parameters[0], bool)
+                isinstance(distribution_parameters[1], bool)
             except:
-                raise Exception("WARNING: First two parameters should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First two parameters should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_start_is_defined_as_relative = distribution_parameters[0]
             clientObject.section_distance_from_end_is_defined_as_relative = distribution_parameters[1]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_start_relative = distribution_parameters[2]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_start_absolute = distribution_parameters[2]
-            if distribution_parameters[1] == True:
+            if distribution_parameters[1]:
                 clientObject.section_distance_from_end_relative = distribution_parameters[3]
-            elif distribution_parameters[1] == False:
+            else:
                 clientObject.section_distance_from_end_absolute = distribution_parameters[3]
             clientObject.section_alignment = distribution_parameters[4].name
             clientObject.section_internal = distribution_parameters[5]
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER:
             try:
-                type(distribution_parameters[0]) == bool
+                isinstance(distribution_parameters[0], bool)
             except:
-                raise Exception("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_start_is_defined_as_relative = distribution_parameters[0]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_start_relative = distribution_parameters[1]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_start_absolute = distribution_parameters[1]
             clientObject.section_alignment = distribution_parameters[2].name
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER:
             try:
-                type(distribution_parameters[0]) == bool
+                isinstance(distribution_parameters[0], bool)
             except:
-                raise Exception("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_end_is_defined_as_relative = distribution_parameters[0]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_end_relative = distribution_parameters[1]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_end_absolute = distribution_parameters[1]
             clientObject.section_alignment = distribution_parameters[2].name
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_SADDLE:
             try:
-                type(distribution_parameters[0]) == bool
+                isinstance(distribution_parameters[0], bool)
             except:
-                raise Exception("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_SADDLE. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_SADDLE. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_end_is_defined_as_relative = distribution_parameters[0]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_end_relative = distribution_parameters[1]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_end_absolute = distribution_parameters[1]
             clientObject.section_alignment = distribution_parameters[2].name
             clientObject.section_internal = distribution_parameters[3]
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES:
             try:
-                type(distribution_parameters[0]) == bool
-                type(distribution_parameters[1]) == bool
+                isinstance(distribution_parameters[0], bool)
+                isinstance(distribution_parameters[1], bool)
             except:
-                raise Exception("WARNING: First two parameters should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First two parameters should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_start_is_defined_as_relative = distribution_parameters[0]
             clientObject.section_distance_from_end_is_defined_as_relative = distribution_parameters[1]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_start_relative = distribution_parameters[2]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_start_absolute = distribution_parameters[2]
-            if distribution_parameters[1] == True:
+            if distribution_parameters[1]:
                 clientObject.section_distance_from_end_relative = distribution_parameters[3]
-            elif distribution_parameters[1] == False:
+            else:
                 clientObject.section_distance_from_end_absolute = distribution_parameters[3]
             clientObject.section_alignment = distribution_parameters[4].name
             clientObject.section_internal = distribution_parameters[5]
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER:
             try:
-                type(distribution_parameters[0]) == bool
+                isinstance(distribution_parameters[0], bool)
             except:
-                raise Exception("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_start_is_defined_as_relative = distribution_parameters[0]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_start_relative = distribution_parameters[1]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_start_absolute = distribution_parameters[1]
             clientObject.section_alignment = distribution_parameters[2].name
 
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER:
             try:
-                type(distribution_parameters[0]) == bool
+                isinstance(distribution_parameters[0], bool)
             except:
-                raise Exception("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER. Kindly check list inputs completeness and correctness.")
+                raise TypeError("WARNING: First parameter should be type bool for SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER. Kindly check list inputs completeness and correctness.")
             clientObject.section_distance_from_end_is_defined_as_relative = distribution_parameters[0]
-            if distribution_parameters[0] == True:
+            if distribution_parameters[0]:
                 clientObject.section_distance_from_end_relative = distribution_parameters[1]
-            elif distribution_parameters[0] == False:
+            else:
                 clientObject.section_distance_from_end_absolute = distribution_parameters[1]
             clientObject.section_alignment = distribution_parameters[2].name
 
@@ -1452,11 +1452,11 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
-        
+
         # Start Section No.
         clientObject.section_start = start_section_no
 
@@ -1471,9 +1471,9 @@ class Member():
                         'end_modifications_member_end_slope_y': 0,
                         'end_modifications_member_end_slope_z': 0,
                         'member_result_intermediate_point' : 0}
-        
+
         params_up.update(params)
-        
+
         # End Modifications
         clientObject.end_modifications_member_start_extension = params_up['end_modifications_member_start_extension']
         clientObject.end_modifications_member_start_slope_y = params_up['end_modifications_member_start_slope_y']
@@ -1511,14 +1511,14 @@ class Member():
         """
         Args:
             no (int): Member Tag
-            start_node_no (int): Tag of Start Node 
+            start_node_no (int): Tag of Start Node
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
             definable_stiffness (int): Definable Stiffness Tag
             comment (str, optional): Comment
             params (dict, optional): Parameters
-        
+
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
             rotation_parameters[rotation_angle]
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
@@ -1560,7 +1560,7 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
@@ -1571,9 +1571,9 @@ class Member():
                         'member_nonlinearity': 0,
                         'member_result_intermediate_point' : 0,
                         'is_deactivated_for_calculation' : False}
-        
+
         params_up.update(params)
-        
+
         # Member Hinges
         clientObject.member_hinge_start = params_up['member_hinge_start']
         clientObject.member_hinge_end = params_up['member_hinge_end']
@@ -1612,13 +1612,13 @@ class Member():
         """
         Args:
             no (int): Member Tag
-            start_node_no (int): Tag of Start Node 
+            start_node_no (int): Tag of Start Node
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
             comment (str, optional): Comment
             params (dict, optional): Parameters
-        
+
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
             rotation_parameters[rotation_angle]
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
@@ -1654,14 +1654,14 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
 
         # Update parameters
         params_up: dict = {'is_deactivated_for_calculation' : False}
-        
+
         params_up.update(params)
 
         # Deactivation for Calculation
@@ -1688,13 +1688,13 @@ class Member():
         """
         Args:
             no (int): Member Tag
-            start_node_no (int): Tag of Start Node 
+            start_node_no (int): Tag of Start Node
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
             comment (str, optional): Comment
             params (dict, optional): Parameters
-        
+
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
             rotation_parameters[rotation_angle]
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
@@ -1730,14 +1730,14 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
 
         # Update parameters
         params_up: dict = {'is_deactivated_for_calculation' : False}
-        
+
         params_up.update(params)
 
         # Deactivation for Calculation
@@ -1764,13 +1764,13 @@ class Member():
         """
         Args:
             no (int): Member Tag
-            start_node_no (int): Tag of Start Node 
+            start_node_no (int): Tag of Start Node
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
             comment (str, optional): Comment
             params (dict, optional): Parameters
-        
+
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
             rotation_parameters[rotation_angle]
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
@@ -1806,14 +1806,14 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
 
         # Update parameters
         params_up: dict = {'is_deactivated_for_calculation' : False}
-        
+
         params_up.update(params)
 
         # Deactivation for Calculation
@@ -1840,13 +1840,13 @@ class Member():
         """
         Args:
             no (int): Member Tag
-            start_node_no (int): Tag of Start Node 
+            start_node_no (int): Tag of Start Node
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
             comment (str, optional): Comment
             params (dict, optional): Parameters
-        
+
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
             rotation_parameters[rotation_angle]
         for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
@@ -1882,14 +1882,14 @@ class Member():
             clientObject.rotation_help_node = rotation_parameters[0]
             clientObject.rotation_plane_type = rotation_parameters[1].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            clientObject.rotation_plane_type == rotation_parameters[0].name
+            clientObject.rotation_plane_type = rotation_parameters[0].name
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
 
         # Update parameters
         params_up: dict = {'is_deactivated_for_calculation' : False}
-        
+
         params_up.update(params)
 
         # Deactivation for Calculation

@@ -1,5 +1,4 @@
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAtributes
 
 class ImposedNodalDeformation():
 
@@ -15,7 +14,7 @@ class ImposedNodalDeformation():
             load_parameter = [imposed_displacement_x, imposed_displacement_y, imposed_displacement_z, imposed_rotation_x, imposed_rotation_y imposed_rotation_z]
         '''
         # Client model | Imposed Nodal Deformation
-        clientObject = clientModel.factory.create('ns0:imposed_nodal_deformation')
+        clientObject = Model.clientModel.factory.create('ns0:imposed_nodal_deformation')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -47,4 +46,4 @@ class ImposedNodalDeformation():
             clientObject[key] = params[key]
 
         # Add Imposed Nodal Deformation to client model
-        clientModel.service.set_imposed_nodal_deformation(load_case_no, clientObject)
+        Model.clientModel.service.set_imposed_nodal_deformation(load_case_no, clientObject)

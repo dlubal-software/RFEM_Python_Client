@@ -2,7 +2,7 @@ from RFEM.enums import ThicknessDirection, ThicknessType
 from RFEM.enums import ThicknessOrthotropyType
 from RFEM.enums import ThicknessShapeOrthotropySelfWeightDefinitionType
 from RFEM.enums import ThicknessStiffnessMatrixSelfWeightDefinitionType
-from RFEM.initModel import *
+from RFEM.initModel import Model, CheckAddonStatus, clearAtributes, SetAddonStatus
 from math import pi
 
 class Thickness():
@@ -29,7 +29,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -80,7 +80,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -91,7 +91,7 @@ class Thickness():
         clientObject.material = material_no
 
         # Thickness Parameters
-        if properties == None:
+        if properties is None:
             raise Exception('WARNING: The properties parameter cannot be empty.')
         clientObject.uniform_thickness = properties[0]
 
@@ -133,7 +133,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -144,7 +144,7 @@ class Thickness():
         clientObject.material = material_no
 
         # Thickness Properties
-        if properties == None:
+        if properties is None:
             raise Exception('WARNING: The properties parameter cannot be empty')
         elif len(properties) != 6:
             raise Exception('WARNING: The properties parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.')
@@ -193,7 +193,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -250,7 +250,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -261,7 +261,7 @@ class Thickness():
         clientObject.material = material_no
 
         # Thickness Properties
-        if properties == None:
+        if properties is None:
             raise Exception('WARNING: The properties parameter cannot be empty')
         elif len(properties) != 8:
             raise Exception('WARNING: The properties parameter needs to be of length 8. Kindly check list inputs for completeness and correctness.')
@@ -312,7 +312,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -323,7 +323,7 @@ class Thickness():
         clientObject.material = material_no
 
         # Thickness Properties
-        if properties == None:
+        if properties is None:
             raise Exception('WARNING: The properties parameter cannot be empty')
         elif len(properties) != 2:
             raise Exception('WARNING: The properties parameter needs to be of length 2. Kindly check list inputs for completeness and correctness.')
@@ -348,6 +348,8 @@ class Thickness():
                  params: dict = {}):
 
         '''
+        Available only for Special Solution Add-on Multilayer Surfaces.
+
         Args:
             no (int): Thickness Tag
             name (str): Thickness Name
@@ -356,6 +358,10 @@ class Thickness():
             comment (str, optional): Comments
             params (dict, optional): Parameters
         '''
+
+        # Check if Multilayer Surfaces Add-on is ON.
+        if not CheckAddonStatus(Model.clientModel, "multilayer_surfaces_active"):
+            SetAddonStatus(Model.clientModel, "multilayer_surfaces_active", True)
 
         # Client model | Thickness
         clientObject = Model.clientModel.factory.create('ns0:thickness')
@@ -367,7 +373,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name != None:
+        if name:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -377,7 +383,7 @@ class Thickness():
         # Layers
         clientObject.layers_reference_table = Model.clientModel.factory.create('ns0:thickness.layers_reference_table')
 
-        for i in range(len(layers)):
+        for i,j in enumerate(layers):
             tlrt = Model.clientModel.factory.create('ns0:thickness_layers_reference_table')
             tlrt.no = no
             tlrt.layer_no = i+1
@@ -407,7 +413,7 @@ class Thickness():
                  no: int = 1,
                  name: str = None,
                  material_no: int = 1,
-                 orthotropy_type = ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS,
+                 orthotropy_type = ThicknessOrthotropyType.EFFECTIVE_THICKNESS,
                  rotation_beta: float = 0,
                  consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, 0.18],
                  parameters = [0.18, 0.18],
@@ -421,22 +427,22 @@ class Thickness():
             material_no (int): Assigned Material Number
             orthotropy_type (enum): Thickness Orthotropy Type
 
-                For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS:
+                For ThicknessOrthotropyType.EFFECTIVE_THICKNESS:
                     parameters = [effective_thickness_x, effective_thickness_y]
-                For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_COUPLING:
+                For ThicknessOrthotropyType.COUPLING:
                     parameters = [coupling_thickness, coupling_spacing, coupling_width]
-                For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE:
+                For ThicknessOrthotropyType.UNIDIRECTIONAL_RIBBED_PLATE:
                     parameters = [slab_thickness, rib_height, rib_spacing, rib_width]
-                For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_BIDIRECTIONAL_RIBBED_PLATE:
+                For ThicknessOrthotropyType.BIDIRECTIONAL_RIBBED_PLATE:
                     parameters = [slab_thickness, rib_height_x, rib_height_y, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
-                For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET:
+                For ThicknessOrthotropyType.TRAPEZOIDAL_SHEET:
                     parameters = [sheet_thickness, total_profile_height, rib_spacing, top_flange_width, bottom_flange_width]
-                For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB:
+                For ThicknessOrthotropyType.HOLLOW_CORE_SLAB:
                     parameters = [slab_thickness, void_spacing, void_diameter]
-                For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE:
+                For ThicknessOrthotropyType.GRILLAGE:
                     parameters = [slab_thickness, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
 
-            rotation_beta (float):
+            rotation_beta (float): Rotation in deg.
             consideration_of_self_weight (list):
 
                 For parameter defined self-weight:
@@ -461,7 +467,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -472,7 +478,7 @@ class Thickness():
         clientObject.material = material_no
 
         # Orthotropy Type
-        clientObject.orthotropy_type = orthotropy_type.name
+        clientObject.orthotropy_type = 'ORTHOTROPIC_THICKNESS_TYPE_' + orthotropy_type.name
 
         # Rotation Beta
         clientObject.orthotropy_rotation_beta = rotation_beta * (pi/180)
@@ -487,25 +493,25 @@ class Thickness():
             clientObject.shape_orthotropy_self_weight = consideration_of_self_weight[1]
 
         # Shape Orthotropy Parameters
-        if orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS':
+        if orthotropy_type.name == 'EFFECTIVE_THICKNESS':
             if len(parameters) != 2:
                 raise Exception('WARNING: The parameters needs to be of length 2. Kindly check list inputs for completeness and correctness.')
-            clientObject.effective_thickness_x = parameters[0]
-            clientObject.effective_thickness_y = parameters[1]
-        elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_COUPLING':
+            clientObject.shape_orthotropy_effective_thickness_x = parameters[0]
+            clientObject.shape_orthotropy_effective_thickness_y = parameters[1]
+        elif orthotropy_type.name == 'COUPLING':
             if len(parameters) != 3:
                 raise Exception('WARNING: The parameters needs to be of length 3. Kindly check list inputs for completeness and correctness.')
             clientObject.coupling_thickness = parameters[0]
             clientObject.coupling_spacing = parameters[1]
             clientObject.coupling_width = parameters[2]
-        elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE':
+        elif orthotropy_type.name == 'UNIDIRECTIONAL_RIBBED_PLATE':
             if len(parameters) != 4:
                 raise Exception('WARNING: The parameters needs to be of length 4. Kindly check list inputs for completeness and correctness.')
             clientObject.slab_thickness = parameters[0]
             clientObject.rib_height = parameters[1]
             clientObject.rib_spacing = parameters[2]
             clientObject.rib_width = parameters[3]
-        elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_BIDIRECTIONAL_RIBBED_PLATE':
+        elif orthotropy_type.name == 'BIDIRECTIONAL_RIBBED_PLATE':
             if len(parameters) != 7:
                 raise Exception('WARNING: The parameters needs to be of length 7. Kindly check list inputs for completeness and correctness.')
             clientObject.slab_thickness = parameters[0]
@@ -515,7 +521,7 @@ class Thickness():
             clientObject.rib_spacing_y = parameters[4]
             clientObject.rib_width_x = parameters[5]
             clientObject.rib_width_y = parameters[6]
-        elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET':
+        elif orthotropy_type.name == 'TRAPEZOIDAL_SHEET':
             if len(parameters) != 5:
                 raise Exception('WARNING: The parameters needs to be of length 5. Kindly check list inputs for completeness and correctness.')
             clientObject.sheet_thickness = parameters[0]
@@ -523,13 +529,13 @@ class Thickness():
             clientObject.rib_spacing = parameters[2]
             clientObject.top_flange_width = parameters[3]
             clientObject.bottom_flange_width = parameters[4]
-        elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB':
+        elif orthotropy_type.name == 'HOLLOW_CORE_SLAB':
             if len(parameters) != 3:
                 raise Exception('WARNING: The parameters needs to be of length 3. Kindly check list inputs for completeness and correctness.')
             clientObject.slab_thickness = parameters[0]
             clientObject.void_spacing = parameters[1]
             clientObject.void_diameter = parameters[2]
-        elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE':
+        elif orthotropy_type.name == 'GRILLAGE':
             if len(parameters) != 5:
                 raise Exception('WARNING: The parameters needs to be of length 5. Kindly check list inputs for completeness and correctness.')
             clientObject.slab_thickness = parameters[0]
@@ -600,7 +606,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -630,7 +636,8 @@ class Thickness():
 
         # Stiffness Matrix - Bending/Torsional Stiffness Elements
         array_count = []
-        [array_count.append(len(item_length)) for item_length in stiffness_matrix]
+        for item_length in stiffness_matrix:
+            array_count.append(len(item_length))
         if array_count != [6, 3, 6, 6]:
             raise Exception('WARNING: Kindly check Stiffness Matrix inputs for completeness and correctness.')
         clientObject.D11, clientObject.D12, clientObject.D13 = stiffness_matrix[0][0], stiffness_matrix[0][1], stiffness_matrix[0][2]

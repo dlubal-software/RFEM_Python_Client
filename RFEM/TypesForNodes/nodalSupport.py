@@ -1,4 +1,4 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 from RFEM.dataTypes import inf
 from RFEM.enums import NodalSupportType
 
@@ -76,6 +76,10 @@ class NodalSupport():
         elif support_type == NodalSupportType.ROLLER_IN_Z:
             # ROLLER_IN_Z 'xx- --x'
             clientObject = setNodalSupportConditions(clientObject, inf, inf, 0.0, 0.0, 0.0, inf)
+
+        elif support_type == NodalSupportType.FREE:
+            # FREE '--- ---'
+            clientObject = setNodalSupportConditions(clientObject, 0, 0, 0, 0, 0, 0)
 
         # Comment
         clientObject.comment = comment

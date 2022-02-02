@@ -1,5 +1,4 @@
-from RFEM.initModel import *
-from RFEM.enums import SetType
+from RFEM.initModel import Model, clearAtributes
 
 class EnlargedColumnHead():
     def __init__(self,
@@ -15,6 +14,9 @@ class EnlargedColumnHead():
 
         # Enlarged Column Head No.
         clientObject.no = no
+
+        # Comment
+        clientObject.comment = comment
 
         # Adding optional parameters via dictionary
         for key in params:

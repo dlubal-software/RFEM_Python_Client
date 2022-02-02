@@ -1,31 +1,35 @@
+import sys
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
+
 from RFEM.Loads.solidLoad import SolidLoad
 from RFEM.Loads.solidSetLoad import SolidSetLoad
-from RFEM.enums import *
-from RFEM.window import window
-from RFEM.initModel import *
+from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType, SolidLoadType, SolidLoadDistribution
+from RFEM.enums import SolidLoadDirection, SolidSetLoadType, SolidSetLoadDistribution, SolidSetLoadDirection
+from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
-from RFEM.BasicObjects.thickness import Thickness 
+from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
-from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.surface import Surface
 from RFEM.BasicObjects.solid import Solid
-from RFEM.BasicObjects.opening import Opening
-from RFEM.BasicObjects.lineSet import LineSet
-from RFEM.BasicObjects.memberSet import MemberSet
-from RFEM.BasicObjects.surfaceSet import SurfaceSet
 from RFEM.BasicObjects.solidSet import SolidSet
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
-from RFEM.TypesForMembers.memberHinge import MemberHinge
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.Loads.nodalLoad import NodalLoad
-from RFEM.Loads.memberLoad import MemberLoad
-from RFEM.Loads.surfaceLoad import SurfaceLoad
+
+if Model.clientModel is None:
+    Model()
 
 def test_solid_loads():
-    clientModel.service.begin_modification('new')
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
 
@@ -66,10 +70,7 @@ def test_solid_loads():
 
     Solid(1, '1-6', 1)
 
-    NodalSupport(1, '1', NodalSupportType.HINGED)
-    NodalSupport(2, '2', NodalSupportType.HINGED)
-    NodalSupport(3, '3', NodalSupportType.HINGED)
-    NodalSupport(4, '4', NodalSupportType.HINGED)
+    NodalSupport(1, '1 2 3 4 9 12 10 11 17 18 ', NodalSupportType.HINGED)
 
     StaticAnalysisSettings(1, 'Geometric linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
@@ -160,10 +161,7 @@ def test_solid_loads():
     SolidSetLoad.Strain(SolidSetLoad, 5, 1, '1', SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, [0.1, 0.2, 0.3], 'My Comment')
     SolidSetLoad.Strain(SolidSetLoad, 6, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y, [0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 13, 16])
     SolidSetLoad.Motion(SolidSetLoad, 7, 1, '1', [1.5, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0])
-    SolidSetLoad.Buoyancy()
-    SolidSetLoad.Gass()
 
-    #Calculate_all()
-    print('Ready!')
+    #Calculate_all() # Don't use in unit tests. See template for more info.
 
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()

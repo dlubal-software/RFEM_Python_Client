@@ -1,5 +1,4 @@
-from os import close
-from RFEM.initModel import *
+from RFEM.initModel import Model, ConvertToDlString, clearAtributes
 from RFEM.enums import *
 
 class LineLoad():
@@ -114,10 +113,10 @@ class LineLoad():
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_1":
             if len(load_parameter) != 3:
                 raise Exception('WARNING: The load parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
-            if type(load_parameter[0]) != bool:
+            if not isinstance(load_parameter[0], bool):
                 raise Exception ('WARNING: Load parameter at index 0 to be of type "bool"')
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
-            if load_parameter[0] == False:
+            if not load_parameter[0]:
                 clientObject.magnitude = load_parameter[1]
                 clientObject.distance_a_absolute = load_parameter[2]
             else:
@@ -127,19 +126,19 @@ class LineLoad():
         elif load_distribution.name ==  "LOAD_DISTRIBUTION_CONCENTRATED_N":
             if len(load_parameter) != 6:
                 raise Exception('WARNING: The load parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.')
-            if type(load_parameter[0]) != bool:
+            if not isinstance(load_parameter[0], bool):
                 raise Exception ('WARNING: Load parameter at index 0 to be of type "bool"')
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
             clientObject.magnitude = load_parameter[2]
             clientObject.count_n = load_parameter[3]
 
-            if load_parameter[0] == False:
+            if not load_parameter[0]:
                 clientObject.distance_a_absolute = load_parameter[4]
             else:
                 clientObject.distance_a_relative = load_parameter[4]
 
-            if load_parameter[1] == False:
+            if not load_parameter[1]:
                 clientObject.distance_b_absolute = load_parameter[5]
             else:
                 clientObject.distance_b_relative = load_parameter[5]
@@ -147,24 +146,24 @@ class LineLoad():
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_2x2":
             if len(load_parameter) != 7:
                 raise Exception('WARNING: The load parameter needs to be of length 7. Kindly check list inputs for completeness and correctness.')
-            if type(load_parameter[0]) != bool and type(load_parameter[1]) != bool and type(load_parameter[2]) != bool:
+            if not isinstance(load_parameter[0], bool) or not isinstance(load_parameter[1], bool) or not isinstance(load_parameter[2], bool):
                 raise Exception ('WARNING: Load parameter at index 0, 1 and 2 to be of type "bool"')
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
             clientObject.distance_c_is_defined_as_relative = load_parameter[2]
             clientObject.magnitude = load_parameter[3]
 
-            if load_parameter[0] == False:
+            if not load_parameter[0]:
                 clientObject.distance_a_absolute = load_parameter[4]
             else:
                 clientObject.distance_a_relative = load_parameter[4]
 
-            if load_parameter[1] == False:
+            if not load_parameter[1]:
                 clientObject.distance_b_absolute = load_parameter[5]
             else:
                 clientObject.distance_b_relative = load_parameter[5]
 
-            if load_parameter[2] == False:
+            if not load_parameter[2]:
                 clientObject.distance_c_absolute = load_parameter[6]
             else:
                 clientObject.distance_c_relative = load_parameter[6]
@@ -172,19 +171,19 @@ class LineLoad():
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_2":
             if len(load_parameter) != 6:
                 raise Exception('WARNING: The load parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.')
-            if type(load_parameter[0]) != bool and type(load_parameter[1]) != bool:
+            if not isinstance(load_parameter[0], bool) or not isinstance(load_parameter[1], bool):
                 raise Exception ('WARNING: Load parameter at index 0 and 1 to be of type "bool"')
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
             clientObject.magnitude_1 = load_parameter[2]
             clientObject.magnitude_2 = load_parameter[3]
 
-            if load_parameter[0] == False:
+            if not load_parameter[0]:
                 clientObject.distance_a_absolute = load_parameter[4]
             else:
                 clientObject.distance_a_relative = load_parameter[4]
 
-            if load_parameter[1] == False:
+            if not load_parameter[1]:
                 clientObject.distance_b_absolute = load_parameter[5]
             else:
                 clientObject.distance_b_relative = load_parameter[5]
@@ -197,7 +196,7 @@ class LineLoad():
 
             clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:line_load.varying_load_parameters')
 
-            for i in range(len(load_parameter)):
+            for i,j in enumerate(load_parameter):
                 if len(load_parameter[i]) != 3:
                     raise Exception('WARNING: The load parameter sub-lists need to be of length 3. Kindly check sub-list inputs for completeness and correctness.')
                 mlvlp = Model.clientModel.factory.create('ns0:line_load_varying_load_parameters')
@@ -212,19 +211,19 @@ class LineLoad():
         elif load_distribution.name == "LOAD_DISTRIBUTION_TRAPEZOIDAL":
             if len(load_parameter) != 6:
                 raise Exception('WARNING: The load parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.')
-            if type(load_parameter[0]) != bool and type(load_parameter[1]) != bool:
+            if not isinstance(load_parameter[0], bool) or not isinstance(load_parameter[1], bool):
                 raise Exception ('WARNING: Load parameter at index 0 and 1 to be of type "bool"')
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
             clientObject.magnitude_1 = load_parameter[2]
             clientObject.magnitude_2 = load_parameter[3]
 
-            if load_parameter[0] == False:
+            if not load_parameter[0]:
                 clientObject.distance_a_absolute = load_parameter[4]
             else:
                 clientObject.distance_a_relative = load_parameter[4]
 
-            if load_parameter[1] == False:
+            if not load_parameter[1]:
                 clientObject.distance_b_absolute = load_parameter[5]
             else:
                 clientObject.distance_b_relative = load_parameter[5]
@@ -232,19 +231,19 @@ class LineLoad():
         elif load_distribution.name == "LOAD_DISTRIBUTION_TAPERED":
             if len(load_parameter) != 6:
                 raise Exception('WARNING: The load parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.')
-            if type(load_parameter[0]) != bool and type(load_parameter[1]) != bool:
+            if not isinstance(load_parameter[0], bool) or not isinstance(load_parameter[1], bool):
                 raise Exception ('WARNING: Load parameter at index 0 and 1 to be of type "bool"')
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
             clientObject.magnitude_1 = load_parameter[2]
             clientObject.magnitude_2 = load_parameter[3]
 
-            if load_parameter[0] == False:
+            if not load_parameter[0]:
                 clientObject.distance_a_absolute = load_parameter[4]
             else:
                 clientObject.distance_a_relative = load_parameter[4]
 
-            if load_parameter[1] == False:
+            if not load_parameter[1]:
                 clientObject.distance_b_absolute = load_parameter[5]
             else:
                 clientObject.distance_b_relative = load_parameter[5]
@@ -263,7 +262,7 @@ class LineLoad():
                 print("WARNING: LineLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
             clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:line_load.varying_load_parameters')
-            for i in range(len(load_parameter)):
+            for i,j in enumerate(load_parameter):
                 if len(load_parameter[i]) != 3:
                     raise Exception('WARNING: The load parameter sub-lists need to be of length 3. Kindly check sub-list inputs for completeness and correctness.')
                 mlvlp = Model.clientModel.factory.create('ns0:line_load_varying_load_parameters')
@@ -344,10 +343,10 @@ class LineLoad():
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_1":
             if len(load_parameter) != 3:
                 raise Exception('WARNING: The load parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
-            if type(load_parameter[0]) != bool:
+            if not isinstance(load_parameter[0], bool):
                 raise Exception ('WARNING: Load parameter at index 0 to be of type "bool"')
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
-            if load_parameter[0] == False:
+            if not load_parameter[0]:
                 clientObject.magnitude = load_parameter[1]
                 clientObject.distance_a_absolute = load_parameter[2]
             else:
@@ -357,19 +356,19 @@ class LineLoad():
         elif load_distribution.name ==  "LOAD_DISTRIBUTION_CONCENTRATED_N":
             if len(load_parameter) != 6:
                 raise Exception('WARNING: The load parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.')
-            if type(load_parameter[0]) != bool and type(load_parameter[1]) != bool:
+            if not isinstance(load_parameter[0], bool) or not isinstance(load_parameter[1], bool):
                 raise Exception ('WARNING: Load parameter at index 0 and 1 to be of type "bool"')
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
             clientObject.magnitude = load_parameter[2]
             clientObject.count_n = load_parameter[3]
 
-            if load_parameter[0] == False:
+            if not load_parameter[0]:
                 clientObject.distance_a_absolute = load_parameter[4]
             else:
                 clientObject.distance_a_relative = load_parameter[4]
 
-            if load_parameter[1] == False:
+            if not load_parameter[1]:
                 clientObject.distance_b_absolute = load_parameter[5]
             else:
                 clientObject.distance_b_relative = load_parameter[5]
@@ -377,24 +376,24 @@ class LineLoad():
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_2x2":
             if len(load_parameter) != 7:
                 raise Exception('WARNING: The load parameter needs to be of length 7. Kindly check list inputs for completeness and correctness.')
-            if type(load_parameter[0]) != bool and type(load_parameter[1]) != bool and type(load_parameter[2]) != bool:
+            if not isinstance(load_parameter[0], bool) or not isinstance(load_parameter[1], bool) or not isinstance(load_parameter[2], bool):
                 raise Exception ('WARNING: Load parameter at index 0 and 1 to be of type "bool"')
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
             clientObject.distance_c_is_defined_as_relative = load_parameter[2]
             clientObject.magnitude = load_parameter[3]
 
-            if load_parameter[0] == False:
+            if not load_parameter[0]:
                 clientObject.distance_a_absolute = load_parameter[4]
             else:
                 clientObject.distance_a_relative = load_parameter[4]
 
-            if load_parameter[1] == False:
+            if not load_parameter[1]:
                 clientObject.distance_b_absolute = load_parameter[5]
             else:
                 clientObject.distance_b_relative = load_parameter[5]
 
-            if load_parameter[2] == False:
+            if not load_parameter[2]:
                 clientObject.distance_c_absolute = load_parameter[6]
             else:
                 clientObject.distance_c_relative = load_parameter[6]
@@ -402,19 +401,19 @@ class LineLoad():
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_2":
             if len(load_parameter) != 6:
                 raise Exception('WARNING: The load parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.')
-            if type(load_parameter[0]) != bool and type(load_parameter[1]) != bool:
+            if not isinstance(load_parameter[0], bool) or not isinstance(load_parameter[1], bool):
                 raise Exception ('WARNING: Load parameter at index 0 and 1 to be of type "bool"')
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
             clientObject.magnitude_1 = load_parameter[2]
             clientObject.magnitude_2 = load_parameter[3]
 
-            if load_parameter[0] == False:
+            if not load_parameter[0]:
                 clientObject.distance_a_absolute = load_parameter[4]
             else:
                 clientObject.distance_a_relative = load_parameter[4]
 
-            if load_parameter[1] == False:
+            if not load_parameter[1]:
                 clientObject.distance_b_absolute = load_parameter[5]
             else:
                 clientObject.distance_b_relative = load_parameter[5]
@@ -427,7 +426,7 @@ class LineLoad():
 
             clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:line_load.varying_load_parameters')
 
-            for i in range(len(load_parameter)):
+            for i,j in enumerate(load_parameter):
                 if len(load_parameter[i]) != 3:
                     raise Exception('WARNING: The load parameter sub-lists need to be of length 3. Kindly check sub-list inputs for completeness and correctness.')
                 mlvlp = Model.clientModel.factory.create('ns0:line_load_varying_load_parameters')
@@ -442,19 +441,19 @@ class LineLoad():
         elif load_distribution.name == "LOAD_DISTRIBUTION_TRAPEZOIDAL":
             if len(load_parameter) != 6:
                 raise Exception('WARNING: The load parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.')
-            if type(load_parameter[0]) != bool and type(load_parameter[1]) != bool:
+            if not isinstance(load_parameter[0], bool) or not isinstance(load_parameter[1], bool):
                 raise Exception ('WARNING: Load parameter at index 0 and 1 to be of type "bool"')
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
             clientObject.magnitude_1 = load_parameter[2]
             clientObject.magnitude_2 = load_parameter[3]
 
-            if load_parameter[0] == False:
+            if not load_parameter[0]:
                 clientObject.distance_a_absolute = load_parameter[4]
             else:
                 clientObject.distance_a_relative = load_parameter[4]
 
-            if load_parameter[1] == False:
+            if not load_parameter[1]:
                 clientObject.distance_b_absolute = load_parameter[5]
             else:
                 clientObject.distance_b_relative = load_parameter[5]
@@ -462,19 +461,19 @@ class LineLoad():
         elif load_distribution.name == "LOAD_DISTRIBUTION_TAPERED":
             if len(load_parameter) != 6:
                 raise Exception('WARNING: The load parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.')
-            if type(load_parameter[0]) != bool and type(load_parameter[1]) != bool:
+            if not isinstance(load_parameter[0], bool) or not isinstance(load_parameter[1], bool):
                 raise Exception ('WARNING: Load parameter at index 0 and 1 to be of type "bool"')
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
             clientObject.magnitude_1 = load_parameter[2]
             clientObject.magnitude_2 = load_parameter[3]
 
-            if load_parameter[0] == False:
+            if not load_parameter[0]:
                 clientObject.distance_a_absolute = load_parameter[4]
             else:
                 clientObject.distance_a_relative = load_parameter[4]
 
-            if load_parameter[1] == False:
+            if not load_parameter[1]:
                 clientObject.distance_b_absolute = load_parameter[5]
             else:
                 clientObject.distance_b_relative = load_parameter[5]
@@ -493,7 +492,7 @@ class LineLoad():
                 print("WARNING: LineLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
             clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:line_load.varying_load_parameters')
-            for i in range(len(load_parameter)):
+            for i,j in enumerate(load_parameter):
                 if len(load_parameter[i]) != 3:
                     raise Exception('WARNING: The load parameter sub-lists need to be of length 3. Kindly check sub-list inputs for completeness and correctness.')
                 mlvlp = Model.clientModel.factory.create('ns0:line_load_varying_load_parameters')
@@ -561,12 +560,12 @@ class LineLoad():
         clientObject.load_distribution= load_distribution.name
 
         # Individual Mass Components
-        if type(individual_mass_components) != bool:
+        if not isinstance(individual_mass_components, bool):
             raise Exception('WARNING: Input to be of type "bool"')
         clientObject.individual_mass_components = individual_mass_components
 
         # Mass magnitude
-        if individual_mass_components == False:
+        if not individual_mass_components:
             if len(mass_components) != 1:
                 raise Exception('WARNING: The mass components parameter for global mass assignment needs to be of length 1. Kindly check list inputs for completeness and correctness.')
             clientObject.mass_global = mass_components[0]

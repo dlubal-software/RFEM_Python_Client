@@ -1,6 +1,5 @@
-from os import sep
 from RFEM.enums import SurfaceGeometry, SurfaceLoadTransferDirection, SurfaceType
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 
 class Surface():
     def __init__(self,
@@ -50,14 +49,21 @@ class Surface():
                  params: dict = {}):
 
         '''
-        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
-            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
 
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
+            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_ROTATED:
+            geometry_type_parameters = [rotated_boundary_line, rotated_angle_of_rotation, rotated_point_p_x, rotated_point_p_y, rotated_point_p_z,
+                                        rotated_point_r_x, rotated_point_r_y, rotated_point_r_z]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_PIPE:
+            geometry_type_parameters = [pipe_radius, pipe_center_line]
         '''
 
         # Client model | Surface
@@ -92,14 +98,21 @@ class Surface():
                  params: dict = {}):
 
         '''
-        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
-            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
 
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
+            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_ROTATED:
+            geometry_type_parameters = [rotated_boundary_line, rotated_angle_of_rotation, rotated_point_p_x, rotated_point_p_y, rotated_point_p_z,
+                                        rotated_point_r_x, rotated_point_r_y, rotated_point_r_z]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_PIPE:
+            geometry_type_parameters = [pipe_radius, pipe_center_line]
         '''
 
         # Client model | Surface
@@ -133,14 +146,21 @@ class Surface():
                  params: dict = {}):
 
         '''
-        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
-            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
 
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
+            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_ROTATED:
+            geometry_type_parameters = [rotated_boundary_line, rotated_angle_of_rotation, rotated_point_p_x, rotated_point_p_y, rotated_point_p_z,
+                                        rotated_point_r_x, rotated_point_r_y, rotated_point_r_z]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_PIPE:
+            geometry_type_parameters = [pipe_radius, pipe_center_line]
         '''
 
         # Client model | Surface
@@ -175,14 +195,21 @@ class Surface():
                  params: dict = {}):
 
         '''
-        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
-            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
 
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
+            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_ROTATED:
+            geometry_type_parameters = [rotated_boundary_line, rotated_angle_of_rotation, rotated_point_p_x, rotated_point_p_y, rotated_point_p_z,
+                                        rotated_point_r_x, rotated_point_r_y, rotated_point_r_z]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_PIPE:
+            geometry_type_parameters = [pipe_radius, pipe_center_line]
         '''
 
         # Client model | Surface
@@ -218,14 +245,21 @@ class Surface():
                  params: dict = {}):
 
         '''
-        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
-            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
 
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
+            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_ROTATED:
+            geometry_type_parameters = [rotated_boundary_line, rotated_angle_of_rotation, rotated_point_p_x, rotated_point_p_y, rotated_point_p_z,
+                                        rotated_point_r_x, rotated_point_r_y, rotated_point_r_z]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_PIPE:
+            geometry_type_parameters = [pipe_radius, pipe_center_line]
         '''
 
         # Client model | Surface
@@ -251,30 +285,37 @@ class Surface():
         self.clientObject = clientObject
         self.__CreateGeometryAndSetToModel(self)
 
-    def LoadDistribution(self,
-                 no: int = 1,
-                 boundary_lines_no: str = '1 2 3 4',
-                 load_transfer_direction = SurfaceLoadTransferDirection.LOAD_TRANSFER_DIRECTION_IN_X,
-                 surface_weight_enabled: bool = False,
-                 surface_weight: float = None,
-                 excluded_members = None,
-                 excluded_parallel_to_members = None,
-                 excluded_lines = None,
-                 excluded_parallel_to_lines = None,
-                 loaded_members = None,
-                 loaded_lines = None,
-                 comment: str = '',
-                 params: dict = {}):
+    def LoadTransfer(self,
+                     no: int = 1,
+                     boundary_lines_no: str = '1 2 3 4',
+                     load_transfer_direction = SurfaceLoadTransferDirection.LOAD_TRANSFER_DIRECTION_IN_X,
+                     surface_weight_enabled: bool = False,
+                     surface_weight: float = None,
+                     excluded_members = None,
+                     excluded_parallel_to_members = None,
+                     excluded_lines = None,
+                     excluded_parallel_to_lines = None,
+                     loaded_members = None,
+                     loaded_lines = None,
+                     comment: str = '',
+                     params: dict = {}):
 
         '''
-        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
-            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
-
         for geometry_type = SurfaceGeometry.GEOMETRY_PLANE:
             geometry_type_parameters = None
 
         for geometry_type = SurfaceGeometry.GEOMETRY_QUADRANGLE:
             geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_NURBS:
+            geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_ROTATED:
+            geometry_type_parameters = [rotated_boundary_line, rotated_angle_of_rotation, rotated_point_p_x, rotated_point_p_y, rotated_point_p_z,
+                                        rotated_point_r_x, rotated_point_r_y, rotated_point_r_z]
+
+        for geometry_type = SurfaceGeometry.GEOMETRY_PIPE:
+            geometry_type_parameters = [pipe_radius, pipe_center_line]
         '''
 
         # Client model | Surface
@@ -303,19 +344,19 @@ class Surface():
         clientObject.surface_weight = surface_weight
 
         # Loading Parameters
-        if excluded_members != None:
+        if excluded_members is not None:
             clientObject.excluded_members = ConvertToDlString(excluded_members)
-        if excluded_parallel_to_members != None:
+        if excluded_parallel_to_members is not None:
             clientObject.excluded_parallel_to_members = ConvertToDlString(excluded_parallel_to_members)
-        if excluded_lines != None:
+        if excluded_lines is not None:
             clientObject.excluded_lines = ConvertToDlString(excluded_lines)
-        if excluded_parallel_to_lines != None:
+        if excluded_parallel_to_lines is not None:
             clientObject.excluded_parallel_to_lines = ConvertToDlString(excluded_parallel_to_lines)
-        if loaded_members != None:
+        if loaded_members is not None:
             clientObject.loaded_members = ConvertToDlString(loaded_members)
-        if loaded_lines != None:
+        if loaded_lines is not None:
             clientObject.loaded_lines = ConvertToDlString(loaded_lines)
-        if loaded_lines == None and loaded_members == None:
+        if loaded_lines is None and loaded_members is None:
             raise Exception('WARNING: Loaded lines and/or members need to be specified.')
 
         # Comment
@@ -327,7 +368,7 @@ class Surface():
 
         # Add Surface to client model
         Model.clientModel.service.set_surface(clientObject)
-    
+
     def __CreateGeometryAndSetToModel(self):
 
         # Geometry Type
@@ -361,7 +402,7 @@ class Surface():
         self.clientObject.boundary_lines = ConvertToDlString(self.boundary_lines_no)
 
         # Thickness
-        if self.type == 'TYPE_STANDARD'or self.type == 'TYPE_MEMBRANE' or self.type == 'TYPE_WITHOUT_MEMBRANE_TENSION':
+        if self.type == 'TYPE_STANDARD' or self.type == 'TYPE_MEMBRANE' or self.type == 'TYPE_WITHOUT_MEMBRANE_TENSION':
             self.clientObject.thickness = self.thickness
 
         # Comment
