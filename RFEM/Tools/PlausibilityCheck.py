@@ -3,9 +3,10 @@ from RFEM.enums import PlausibilityCheckResult
 
 class PlausiblityCheck():
 
-    def __init__(self):
+    def __init__(self,
+                 skip_warnings:bool = False):
 
-        response = Model.clientModel.service.plausibility_check()
+        response = Model.clientModel.service.plausibility_check(skip_warnings)
 
         if "failed" in response:
             self.checkresult = PlausibilityCheckResult.CHECK_FAILED
@@ -13,24 +14,13 @@ class PlausiblityCheck():
             self.errormessage = self.message.split("Result 'false'", 1)[0]
         else:
             self.checkresult = PlausibilityCheckResult.CHECK_IS_OK
+            self.message = 'Success'
             self.errormessage = ""
 
     def IsModelOK(self):
 
-        if self.checkresult == PlausibilityCheckResult.CHECK_IS_OK:
-            return True
-        else:
-            return False
+        return self.checkresult == PlausibilityCheckResult.CHECK_IS_OK
 
     def GetErrorMessage(self):
 
         return self.errormessage
-
-    def GetModelCheckStatus(self):
-
-        if self.checkresult == PlausibilityCheckResult.CHECK_IS_OK:
-            print("Plausibility check succeeded.\nModel is OK")
-        elif self.checkresult == PlausibilityCheckResult.CHECK_FAILED:
-            print("Plausibility check failed.\nModel is not OK")
-        else:
-            print("No plausibility check result.")

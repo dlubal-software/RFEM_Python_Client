@@ -1,34 +1,25 @@
-#pylint: disable=W0614, W0401, W0622, C0103, C0114, C0115, C0116, C0301, C0413, R0913, R0914, R0915, C0305, C0411, W0102, W0702, E0602, E0401
+import os
 import sys
-sys.path.append(".")
-from RFEM.Loads.surfaceLoad import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.BasicObjects.solidSet import *
-from RFEM.BasicObjects.surfaceSet import *
-from RFEM.BasicObjects.memberSet import *
-from RFEM.BasicObjects.lineSet import *
-from RFEM.BasicObjects.opening import *
-from RFEM.BasicObjects.solid import *
-from RFEM.BasicObjects.surface import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.material import *
-from RFEM.initModel import *
-from RFEM.dataTypes import *
-from RFEM.enums import *
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
+from RFEM.TypesForNodes.nodalSupport import NodalSupport, NodalSupportType
+from RFEM.BasicObjects.member import Member
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.material import Material
+from RFEM.initModel import Model
 from RFEM.Tools.PlausibilityCheck import PlausiblityCheck
 
+if Model.clientModel is None:
+    Model()
 
-if __name__ == '__main__':
+def test_plausibility_check():
 
-    # modal analysis not yet implemmented in released RFEM6
-    clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     # Create Material
     Material(1, 'S235')
@@ -41,14 +32,13 @@ if __name__ == '__main__':
     Node(2, 6, 0, 0)
 
     # Create Members
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
-
+    Member(1, 1, 2, 0, 1, 1)
 
     # Create Nodal Supports
     NodalSupport(1, '1', NodalSupportType.FIXED)
 
-    print('Ready!')
-    clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
     check = PlausiblityCheck()
-    print(check.GetErrorMessage())
+    assert check.message == 'Success'
+    assert check.errormessage == ''
