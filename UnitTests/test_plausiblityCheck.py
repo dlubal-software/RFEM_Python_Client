@@ -42,3 +42,5 @@ def test_plausibility_check():
     check = PlausiblityCheck()
     assert check.message == 'Success'
     assert check.errormessage == ''
+    assert check.IsModelOK()
+    assert check.GetErrorMessage() == ''
