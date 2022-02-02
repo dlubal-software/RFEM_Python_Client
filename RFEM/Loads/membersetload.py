@@ -1,5 +1,7 @@
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.enums import MemberSetLoadType, LoadDirectionType, MemberSetLoadDistribution, MemberSetLoadDirection, MemberSetLoadDirectionOrientation
+from RFEM.enums import MemberSetLoadEccentricityHorizontalAlignment, MemberSetLoadEccentricityVerticalAlignment, MemberSetLoadEccentricitySectionMiddle
+from RFEM.enums import MemberSetLoadAxisDefinitionType, MemberSetLoadAxisDefinitionAxisOrientation, MemberSetLoadAxisDefinition
 
 class MemberSetLoad():
 
@@ -232,7 +234,7 @@ class MemberSetLoad():
 
                 clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
 
-                for i in range(len(load_parameter)):
+                for i,j in enumerate(load_parameter):
                     mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                     mlvlp.no = i+1
                     mlvlp.distance = load_parameter[i][0]
@@ -298,7 +300,7 @@ class MemberSetLoad():
                     print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
                 clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
-                for i in range(len(load_parameter)):
+                for i,j in enumerate(load_parameter):
                     mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                     mlvlp.no = i+1
                     mlvlp.distance = load_parameter[i][0]
@@ -319,7 +321,7 @@ class MemberSetLoad():
                     print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
                 clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
-                for i in range(len(load_parameter)):
+                for i,j in enumerate(load_parameter):
                     mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                     mlvlp.no = i+1
                     mlvlp.distance = load_parameter[i][0]
@@ -550,7 +552,7 @@ class MemberSetLoad():
 
             clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
 
-            for i in range(len(load_parameter)):
+            for i,j in enumerate(load_parameter):
                 mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
@@ -620,7 +622,7 @@ class MemberSetLoad():
                 print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
             clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
-            for i in range(len(load_parameter)):
+            for i,j in enumerate(load_parameter):
                 mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
@@ -867,7 +869,7 @@ class MemberSetLoad():
                 print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
             clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
-            for i in range(len(load_parameter)):
+            for i,j in enumerate(load_parameter):
                 mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
@@ -1037,7 +1039,7 @@ class MemberSetLoad():
                 print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
             clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
-            for i in range(len(load_parameter)):
+            for i,j in enumerate(load_parameter):
                 mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
@@ -1060,7 +1062,7 @@ class MemberSetLoad():
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
-        
+
     def AxialStrain(self,
                     no: int = 1,
                     load_case_no: int = 1,
@@ -1196,7 +1198,7 @@ class MemberSetLoad():
                 print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
             clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
-            for i in range(len(load_parameter)):
+            for i,j in enumerate(load_parameter):
                 mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
@@ -1412,7 +1414,7 @@ class MemberSetLoad():
                 print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
             clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
-            for i in range(len(load_parameter)):
+            for i,j in enumerate(load_parameter):
                 mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
@@ -1652,7 +1654,7 @@ class MemberSetLoad():
                 print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
             clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
-            for i in range(len(load_parameter)):
+            for i,j in enumerate(load_parameter):
                 mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
@@ -1734,7 +1736,7 @@ class MemberSetLoad():
                 print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
             clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
-            for i in range(len(load_parameter)):
+            for i,j in enumerate(load_parameter):
                 mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
@@ -1918,7 +1920,7 @@ class MemberSetLoad():
                 print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
             clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
-            for i in range(len(load_parameter)):
+            for i,j in enumerate(load_parameter):
                 mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
@@ -2000,7 +2002,7 @@ class MemberSetLoad():
                 print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
             clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
-            for i in range(len(load_parameter)):
+            for i,j in enumerate(load_parameter):
                 mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
@@ -2258,7 +2260,7 @@ class MemberSetLoad():
         clientObject.axis_definition_type = axis_definition_type.name
 
         #Axis definition
-        if axis_definition_type == MemberSetLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS.name:
+        if clientObject.axis_definition_type == "AXIS_DEFINITION_TWO_POINTS":
             clientObject.axis_definition_p1_x = axis_definition_p1[0]
             clientObject.axis_definition_p1_y = axis_definition_p1[1]
             clientObject.axis_definition_p1_z = axis_definition_p1[2]
@@ -2267,7 +2269,7 @@ class MemberSetLoad():
             clientObject.axis_definition_p2_y = axis_definition_p2[1]
             clientObject.axis_definition_p2_z = axis_definition_p2[2]
 
-        elif axis_definition_type == MemberSetLoadAxisDefinitionType.AXIS_DEFINITION_POINT_AND_AXIS.name:
+        elif clientObject.axis_definition_type == "AXIS_DEFINITION_POINT_AND_AXIS":
             clientObject.axis_definition_p1_x = axis_definition_p1[0]
             clientObject.axis_definition_p1_y = axis_definition_p1[1]
             clientObject.axis_definition_p1_z = axis_definition_p1[2]

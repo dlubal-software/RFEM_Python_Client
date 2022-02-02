@@ -1,8 +1,7 @@
-from RFEM.initModel import *
-from RFEM.enums import StaticAnalysisType
+from RFEM.initModel import Model, clearAtributes
 from RFEM.enums import StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis
 from RFEM.enums import StaticAnalysisSettingsMethodOfEquationSystem
-from RFEM.enums import StaticAnalysisSettingsPlateBendingTheory
+from RFEM.enums import StaticAnalysisSettingsPlateBendingTheory, StaticAnalysisType
 
 class StaticAnalysisSettings():
     def __init__(self,
@@ -33,7 +32,7 @@ class StaticAnalysisSettings():
         clientObject.name = name
 
         # Analysis Type
-        clientObject.analysis_type = StaticAnalysisType.GEOMETRICALLY_LINEAR.name
+        clientObject.analysis_type = analysis_type.name
 
         # Comment
         clientObject.comment = comment
@@ -81,7 +80,7 @@ class StaticAnalysisSettings():
         clientObject.no = no
 
         # Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -110,7 +109,7 @@ class StaticAnalysisSettings():
         # if type(load_modification[2]) != bool :
         #     raise Exception ('WARNING: Dividing results parameter at index 2 to be of type "bool"')
 
-        if load_modification[0] == True:
+        if load_modification[0]:
             clientObject.modify_loading_by_multiplier_factor = True
             clientObject.loading_multiplier_factor = load_modification[1]
             clientObject.divide_results_by_loading_factor = load_modification[2]
@@ -137,7 +136,7 @@ class StaticAnalysisSettings():
         #     raise Exception ('WARNING: Mass conversion factor in direction z at index 3 has to be of type "float" or "int"')
 
         clientObject.mass_conversion_enabled = mass_conversion[0]
-        if mass_conversion[0] != False:
+        if mass_conversion[0]:
             clientObject.mass_conversion_factor_in_direction_x = mass_conversion[1]
             clientObject.mass_conversion_factor_in_direction_y = mass_conversion[2]
             clientObject.mass_conversion_factor_in_direction_z = mass_conversion[3]
@@ -192,7 +191,7 @@ class StaticAnalysisSettings():
         """
 
         # Client model
-        Model.clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
+        clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -201,7 +200,7 @@ class StaticAnalysisSettings():
         clientObject.no = no
 
         # Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -210,12 +209,13 @@ class StaticAnalysisSettings():
 
         # Iterative Method
         clientObject.iterative_method_for_nonlinear_analysis = iterative_method.name
-        if iterative_method.name == "NEWTON_RAPHSON" or iterative_method.name == "NEWTON_RAPHSON_COMBINED_WITH_PICARD" or iterative_method.name == "PICARD" or iterative_method.name == "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS":
-            max_number_of_iterations = int
-            number_of_load_increments = int
-        elif iterative_method.name == "DYNAMIC_RELAXATION":
-            max_number_of_iterations = None
-            number_of_load_increments = None
+        # not used anywhere
+        #if iterative_method.name == "NEWTON_RAPHSON" or iterative_method.name == "NEWTON_RAPHSON_COMBINED_WITH_PICARD" or iterative_method.name == "PICARD" or iterative_method.name == "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS":
+        #    max_number_of_iterations = int
+        #    number_of_load_increments = int
+        #elif iterative_method.name == "DYNAMIC_RELAXATION":
+        #    max_number_of_iterations = None
+        #    number_of_load_increments = None
 
         # Standard Precision and Tolerance
         # if standard_precision_and_tolerance_settings_enabled != False:
@@ -225,7 +225,7 @@ class StaticAnalysisSettings():
         if len(standard_precision_and_tolerance_settings) != 4:
             raise Exception('WARNING: The standard precision and tolerance settings parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
 
-        if type(standard_precision_and_tolerance_settings[0]) != bool :
+        if not isinstance(standard_precision_and_tolerance_settings[0], bool):
             raise Exception ('WARNING: Enabling the standard precision and tolerance settings at index 0 to be of type "bool"')
         # if type(standard_precision_and_tolerance_settings[1]) != float or type(standard_precision_and_tolerance_settings[1]) != int:
         #     raise Exception ('WARNING: Precision of convergence criteria for nonlinear calculation factor at index 1 to be of type "float" or "int"')
@@ -242,7 +242,7 @@ class StaticAnalysisSettings():
 
         # while not float(standard_precision_and_tolerance_settings[3]) or not int(standard_precision_and_tolerance_settings[3]) in range(1.00,100):
         #     raise Exception ('WARNING: Robustness of iterative calculation at index 3 is out of range. Input has to be in the range [1.00 ... 100].')
-        if standard_precision_and_tolerance_settings[0] == True:
+        if standard_precision_and_tolerance_settings[0]:
             clientObject.standard_precision_and_tolerance_settings_enabled = True
             clientObject.precision_of_convergence_criteria_for_nonlinear_calculation = standard_precision_and_tolerance_settings[1]
             clientObject.instability_detection_tolerance = standard_precision_and_tolerance_settings[2]
@@ -252,9 +252,9 @@ class StaticAnalysisSettings():
         if len(control_nonlinear_analysis) != 2:
             raise Exception('WARNING: The nonlinear analysis control parameter needs to be of length 2. Kindly check list inputs for completeness and correctness.')
 
-        if type(control_nonlinear_analysis[0]) != int :
+        if not isinstance(control_nonlinear_analysis[0],int):
             raise Exception ('WARNING: Enabling the standard precision and tolerance settings at index 0 has to be of type "int"')
-        if type(control_nonlinear_analysis[1]) != int :
+        if not isinstance(control_nonlinear_analysis[1], int):
             raise Exception ('WARNING: Precision of convergence criteria for nonlinear calculation factor at index 1 has to be of type "int"')
 
         clientObject.max_number_of_iterations = control_nonlinear_analysis[0]
@@ -270,7 +270,7 @@ class StaticAnalysisSettings():
         # if type(load_modification[2]) != bool :
         #     raise Exception ('WARNING: Dividing results parameter at index 2 to be of type "bool"')
 
-        if load_modification[0] == True:
+        if load_modification[0]:
             clientObject.modify_loading_by_multiplier_factor = True
             clientObject.loading_multiplier_factor = load_modification[1]
             clientObject.divide_results_by_loading_factor = load_modification[2]
@@ -303,7 +303,7 @@ class StaticAnalysisSettings():
         #     raise Exception ('WARNING: Mass conversion factor in direction z at index 3 has to be of type "float" or "int"')
 
         clientObject.mass_conversion_enabled = mass_conversion[0]
-        if mass_conversion[0] != False:
+        if mass_conversion[0]:
             clientObject.mass_conversion_factor_in_direction_x = mass_conversion[1]
             clientObject.mass_conversion_factor_in_direction_y = mass_conversion[2]
             clientObject.mass_conversion_factor_in_direction_z = mass_conversion[3]
@@ -318,7 +318,7 @@ class StaticAnalysisSettings():
         # Add Static Analysis Settings to client model
         Model.clientModel.service.set_static_analysis_settings(clientObject)
 
-    def SecondOrderPDelta (self,
+    def SecondOrderPDelta(self,
                   no: int = 1,
                   name: str = None,
                   iterative_method = StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis.NEWTON_RAPHSON,
@@ -353,7 +353,7 @@ class StaticAnalysisSettings():
         """
 
         # Client model
-        Model.clientObject = clientModel.factory.create('ns0:static_analysis_settings')
+        clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -362,9 +362,9 @@ class StaticAnalysisSettings():
         clientObject.no = no
 
         # Name
-        if name != None:
-         clientObject.user_defined_name_enabled = True
-         clientObject.name = name
+        if name is not None:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Static Analysis Type
         clientObject.analysis_type = StaticAnalysisType.SECOND_ORDER_P_DELTA.name
@@ -380,7 +380,7 @@ class StaticAnalysisSettings():
         if len(standard_precision_and_tolerance_settings) != 4:
             raise Exception('WARNING: The standard precision and tolerance settings parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
 
-        if type(standard_precision_and_tolerance_settings[0]) != bool :
+        if not isinstance(standard_precision_and_tolerance_settings[0], bool):
             raise Exception ('WARNING: Enabling the standard precision and tolerance settings at index 0 to be of type "bool"')
         # if type(standard_precision_and_tolerance_settings[1]) != float or type(standard_precision_and_tolerance_settings[1]) != int:
         #     raise Exception ('WARNING: Precision of convergence criteria for nonlinear calculation factor at index 1 to be of type "float" or "int"')
@@ -397,7 +397,7 @@ class StaticAnalysisSettings():
 
         # while not float(standard_precision_and_tolerance_settings[3]) or not int(standard_precision_and_tolerance_settings[3]) in range(1.00,100):
         #     raise Exception ('WARNING: Robustness of iterative calculation at index 3 is out of range. Input has to be in the range [1.00 ... 100].')
-        if standard_precision_and_tolerance_settings[0] == True:
+        if standard_precision_and_tolerance_settings[0]:
             clientObject.standard_precision_and_tolerance_settings_enabled = True
             clientObject.precision_of_convergence_criteria_for_nonlinear_calculation = standard_precision_and_tolerance_settings[1]
             clientObject.instability_detection_tolerance = standard_precision_and_tolerance_settings[2]
@@ -407,9 +407,9 @@ class StaticAnalysisSettings():
         if len(control_nonlinear_analysis) != 2:
             raise Exception('WARNING: The nonlinear analysis control parameter needs to be of length 2. Kindly check list inputs for completeness and correctness.')
 
-        if type(control_nonlinear_analysis[0]) != int :
+        if not isinstance(control_nonlinear_analysis[0], int):
             raise Exception ('WARNING: Enabling the standard precision and tolerance settings at index 0 has to be of type "int"')
-        if type(control_nonlinear_analysis[1]) != int :
+        if not isinstance(control_nonlinear_analysis[1], int):
             raise Exception ('WARNING: Precision of convergence criteria for nonlinear calculation factor at index 1 has to be of type "int"')
 
         clientObject.max_number_of_iterations = control_nonlinear_analysis[0]
@@ -426,7 +426,7 @@ class StaticAnalysisSettings():
         # if type(load_modification[2]) != bool :
         #     raise Exception ('WARNING: Dividing results parameter at index 2 to be of type "bool"')
 
-        if load_modification[0] == True:
+        if load_modification[0]:
             clientObject.modify_loading_by_multiplier_factor = True
             clientObject.loading_multiplier_factor = load_modification[1]
             clientObject.divide_results_by_loading_factor = load_modification[2]
@@ -447,7 +447,7 @@ class StaticAnalysisSettings():
         # if type(mass_conversion[3]) != bool :
         #     raise Exception ('WARNING: Internal forces to deformed structure for shear forces at index 3 to be of type "bool"')
          # Internal Forces to Deformed Structure
-        if internal_forces_to_deformed_structure[0] == True:
+        if internal_forces_to_deformed_structure[0]:
             clientObject.refer_internal_forces_to_deformed_structure = internal_forces_to_deformed_structure[0]
             clientObject.refer_internal_forces_to_deformed_structure_for_moments = internal_forces_to_deformed_structure[1]
             clientObject.refer_internal_forces_to_deformed_structure_for_normal_forces = internal_forces_to_deformed_structure[2]
@@ -472,7 +472,7 @@ class StaticAnalysisSettings():
         #     raise Exception ('WARNING: Mass conversion factor in direction z at index 3 has to be of type "float" or "int"')
 
         clientObject.mass_conversion_enabled = mass_conversion[0]
-        if mass_conversion[0] != False:
+        if mass_conversion[0]:
             clientObject.mass_conversion_factor_in_direction_x = mass_conversion[1]
             clientObject.mass_conversion_factor_in_direction_y = mass_conversion[2]
             clientObject.mass_conversion_factor_in_direction_z = mass_conversion[3]

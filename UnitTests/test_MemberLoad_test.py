@@ -1,31 +1,27 @@
 import sys
-sys.path.append(".")
-from RFEM.Loads.surfaceLoad import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
-from RFEM.TypesForMembers.memberHinge import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.BasicObjects.solidSet import *
-from RFEM.BasicObjects.surfaceSet import *
-from RFEM.BasicObjects.memberSet import *
-from RFEM.BasicObjects.lineSet import *
-from RFEM.BasicObjects.opening import *
-from RFEM.BasicObjects.solid import *
-from RFEM.BasicObjects.surface import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.material import *
-from RFEM.initModel import *
-from RFEM.dataTypes import *
+import os
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
+from RFEM.Loads.memberLoad import MemberLoad
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.BasicObjects.member import Member
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.material import Material
+from RFEM.initModel import Model, Calculate_all
 from RFEM.enums import *
 
+if Model.clientModel is None:
+    Model()
+
 def test_member_loads():
-    Model(True, "MemberLoad")
+
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     # Create Material
@@ -261,9 +257,9 @@ def test_member_loads():
     ## PipeContentFull Type Member Load ##
     MemberLoad.PipeContentFull(0, 68, 1, '2', MemberLoadDirectionOrientation.LOAD_DIRECTION_FORWARD, 50)
 
-    Calculate_all()
+    MemberLoad.RotaryMotion(0, 69, 1, '2', 2, 3, MemberLoadAxisDefinitionType.AXIS_DEFINITION_POINT_AND_AXIS, axis_definition_p1=[1,1,0])
 
-    print('Ready!')
+    #Calculate_all() # Don't use in unit tests. See template for more info.
 
     Model.clientModel.service.finish_modification()
 

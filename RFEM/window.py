@@ -1,6 +1,5 @@
-from RFEM.initModel import *
-from tkinter import *
-from tkinter import ttk, Entry
+from tkinter import Tk
+from tkinter import ttk, Entry, Label, Button, Radiobutton, Checkbutton, CENTER, VERTICAL, INSERT, NORMAL, DISABLED, LEFT, W, IntVar, StringVar
 
 def window(mainFunc, lstOfModels):
     color = '#F2F3F4'
@@ -9,7 +8,7 @@ def window(mainFunc, lstOfModels):
     win.resizable(False, False)
     win.title('Power of automation with RFEM6')
     win.geometry("550x280")
-    
+
     win.configure(bg=color)
     win.grid_columnconfigure(index=0, minsize=140)
     win.grid_columnconfigure(index=1, minsize=80)
@@ -87,12 +86,9 @@ def window(mainFunc, lstOfModels):
     e5.grid(row=5, column=4)
     e5.insert(INSERT, 6)
 
-    model_name = ""
-    delete = False
-    reset = False
 
     def start(val):
-        # hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_spacing, new_model, model_name, delete, reset
+        # hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_spacing, new_model, model_name, delete, delete_all
         model_name = e6.get() if var1.get() else modeCombo.get()
         mainFunc(float(e1.get()),float(e2.get()),float(e3.get()),int(e5.get()),float(e4.get()),var1.get(),model_name,int(var2.get()),int(var3.get()))
     def close_window(val):
@@ -147,13 +143,13 @@ def window(mainFunc, lstOfModels):
         modeCombo['values'] = lst
         modeCombo.current(0)
     modeCombo.grid(row=8, column=1, sticky=W)
-    
+
     # Checkboxes
     var2 = IntVar()
     c2 = Checkbutton(win, text='delete results', state=DISABLED, variable=var2, onvalue=1, offvalue=0)
     c2.grid(row=9, column=0, sticky=W)
     var3 = IntVar()
-    c3 = Checkbutton(win, text='reset model', state=DISABLED, variable=var3, onvalue=1, offvalue=0)
+    c3 = Checkbutton(win, text='delete_all model', state=DISABLED, variable=var3, onvalue=1, offvalue=0)
     c3.grid(row=10, column=0, sticky=W)
 
     button1=Button(text='Run', anchor=CENTER, width=12, height=1, bg=color, state="normal") # width=16

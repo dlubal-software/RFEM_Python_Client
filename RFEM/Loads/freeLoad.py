@@ -1,7 +1,9 @@
-from RFEM.initModel import *
-from RFEM.enums import *
-from enum import Enum
-from math import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.enums import FreeConcentratedLoadLoadType, FreeConcentratedLoadLoadDirection, FreeLoadLoadProjection
+from RFEM.enums import FreeLineLoadLoadDistribution, FreeLineLoadLoadDirection, FreeRectangularLoadLoadDistribution
+from RFEM.enums import FreeRectangularLoadLoadDirection, FreeRectangularLoadLoadLocationRectangle, FreeCircularLoadLoadDistribution
+from RFEM.enums import  FreeCircularLoadLoadDirection, FreePolygonLoadLoadDistribution, FreePolygonLoadLoadDirection
+from math import pi
 
 class FreeLoad():
 
@@ -65,7 +67,7 @@ class FreeLoad():
         for key in params:
             clientObject[key] = params[key]
 
-        # Add Free Concentrated Load to client model          
+        # Add Free Concentrated Load to client model
         Model.clientModel.service.set_free_concentrated_load(load_case_no, clientObject)
 
     def LineLoad(self,
@@ -137,7 +139,7 @@ class FreeLoad():
         for key in params:
             clientObject[key] = params[key]
 
-        # Add Free Concentrated Load to client model          
+        # Add Free Concentrated Load to client model
         Model.clientModel.service.set_free_line_load(load_case_no, clientObject)
 
     def RectangularLoad(self,
@@ -249,7 +251,7 @@ class FreeLoad():
 
                 clientObject.load_varying_in_z_parameters = Model.clientModel.factory.create('ns0:free_rectangular_load.load_varying_in_z_parameters')
                 varying_in_z = load_location_parameter[4]
-                for i in range(len(varying_in_z)):
+                for i,j in enumerate(varying_in_z):
                     frllvp = Model.clientModel.factory.create('ns0:free_rectangular_load_load_varying_in_z_parameters')
                     frllvp.no = i+1
                     frllvp.distance = varying_in_z[i][0]
@@ -273,7 +275,7 @@ class FreeLoad():
 
                 clientObject.load_varying_along_perimeter_parameters = Model.clientModel.factory.create('ns0:free_rectangular_load.load_varying_along_perimeter_parameters')
                 varying_along_perimeter = load_location_parameter[7]
-                for i in range(len(varying_along_perimeter)):
+                for i,j in enumerate(varying_along_perimeter):
                     frllvapp = Model.clientModel.factory.create('ns0:free_rectangular_load_load_varying_along_perimeter_parameters')
                     frllvapp.no = i+1
                     frllvapp.alpha = varying_along_perimeter[i][0] * (pi/180)
@@ -290,7 +292,7 @@ class FreeLoad():
 
                 clientObject.load_varying_in_z_parameters = Model.clientModel.factory.create('ns0:free_rectangular_load.load_varying_in_z_parameters')
                 varying_in_z = load_location_parameter[4]
-                for i in range(len(varying_in_z)):
+                for i,j in enumerate(varying_in_z):
                     frllvp = Model.clientModel.factory.create('ns0:free_rectangular_load_load_varying_in_z_parameters')
                     frllvp.no = i+1
                     frllvp.distance = varying_in_z[i][0]
@@ -307,7 +309,7 @@ class FreeLoad():
 
                 clientObject.load_varying_along_perimeter_parameters = Model.clientModel.factory.create('ns0:free_rectangular_load.load_varying_along_perimeter_parameters')
                 varying_along_perimeter = load_location_parameter[8]
-                for i in range(len(varying_along_perimeter)):
+                for i,j in enumerate(varying_along_perimeter):
                     frllvapp = Model.clientModel.factory.create('ns0:free_rectangular_load_load_varying_along_perimeter_parameters')
                     frllvapp.no = i+1
                     frllvapp.alpha = varying_along_perimeter[i][0] * (pi/180)
@@ -335,7 +337,7 @@ class FreeLoad():
 
                 clientObject.load_varying_in_z_parameters = Model.clientModel.factory.create('ns0:free_rectangular_load.load_varying_in_z_parameters')
                 varying_in_z = load_location_parameter[4]
-                for i in range(len(varying_in_z)):
+                for i,j in enumerate(varying_in_z):
                     frllvp = Model.clientModel.factory.create('ns0:free_rectangular_load_load_varying_in_z_parameters')
                     frllvp.no = i+1
                     frllvp.distance = varying_in_z[i][0]
@@ -359,7 +361,7 @@ class FreeLoad():
 
                 clientObject.load_varying_along_perimeter_parameters = Model.clientModel.factory.create('ns0:free_rectangular_load.load_varying_along_perimeter_parameters')
                 varying_along_perimeter = load_location_parameter[7]
-                for i in range(len(varying_along_perimeter)):
+                for i,j in enumerate(varying_along_perimeter):
                     frllvapp = Model.clientModel.factory.create('ns0:free_rectangular_load_load_varying_along_perimeter_parameters')
                     frllvapp.no = i+1
                     frllvapp.alpha = varying_along_perimeter[i][0] * (pi/180)
@@ -376,7 +378,7 @@ class FreeLoad():
 
                 clientObject.load_varying_in_z_parameters = Model.clientModel.factory.create('ns0:free_rectangular_load.load_varying_in_z_parameters')
                 varying_in_z = load_location_parameter[4]
-                for i in range(len(varying_in_z)):
+                for i,j in enumerate(varying_in_z):
                     frllvp = Model.clientModel.factory.create('ns0:free_rectangular_load_load_varying_in_z_parameters')
                     frllvp.no = i+1
                     frllvp.distance = varying_in_z[i][0]
@@ -393,7 +395,7 @@ class FreeLoad():
 
                 clientObject.load_varying_along_perimeter_parameters = Model.clientModel.factory.create('ns0:free_rectangular_load.load_varying_along_perimeter_parameters')
                 varying_along_perimeter = load_location_parameter[8]
-                for i in range(len(varying_along_perimeter)):
+                for i,j in enumerate(varying_along_perimeter):
                     frllvapp = Model.clientModel.factory.create('ns0:free_rectangular_load_load_varying_along_perimeter_parameters')
                     frllvapp.no = i+1
                     frllvapp.alpha = varying_along_perimeter[i][0] * (pi/180)
@@ -407,7 +409,7 @@ class FreeLoad():
         for key in params:
             clientObject[key] = params[key]
 
-        # Add Free Concentrated Load to client model          
+        # Add Free Concentrated Load to client model
         Model.clientModel.service.set_free_rectangular_load(load_case_no, clientObject)
 
     def CircularLoad(self,
@@ -478,7 +480,7 @@ class FreeLoad():
         for key in params:
             clientObject[key] = params[key]
 
-        # Add Free Concentrated Load to client model          
+        # Add Free Concentrated Load to client model
         Model.clientModel.service.set_free_circular_load(load_case_no, clientObject)
 
     def PolygonLoad(self,
@@ -537,7 +539,7 @@ class FreeLoad():
 
         # Load Location
         clientObject.load_location = Model.clientModel.factory.create('ns0:free_polygon_load.load_location')
-        for i in range(len(load_location)):
+        for i,j in enumerate(load_location):
             fplld = Model.clientModel.factory.create('ns0:free_polygon_load_load_location')
             fplld.no = i+1
             fplld.first_coordinate = load_location[i][0]
@@ -575,5 +577,5 @@ class FreeLoad():
         for key in params:
             clientObject[key] = params[key]
 
-        # Add Free Concentrated Load to client model          
+        # Add Free Concentrated Load to client model
         Model.clientModel.service.set_free_polygon_load(load_case_no, clientObject)
