@@ -1,5 +1,4 @@
-from RFEM.initModel import *
-from RFEM.enums import SetType
+from RFEM.initModel import Model, clearAtributes
 
 class SurfaceContactType():
     def __init__(self,
@@ -8,7 +7,7 @@ class SurfaceContactType():
                  params: dict = {}):
 
         # Client model | Surface Contact Type
-        clientObject = clientModel.factory.create('ns0:surfaces_contact_type')
+        clientObject = Model.clientModel.factory.create('ns0:surfaces_contact_type')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +23,4 @@ class SurfaceContactType():
             clientObject[key] = params[key]
 
         # Add Surface Contact Type to client model
-        clientModel.service.set_surfaces_contact_type(clientObject)
+        Model.clientModel.service.set_surfaces_contact_type(clientObject)

@@ -1,4 +1,4 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 from RFEM.enums import SetType
 
 class MemberSet():
@@ -10,7 +10,7 @@ class MemberSet():
                  params: dict = {}):
 
         # Client model | Member Set
-        clientObject = clientModel.factory.create('ns0:member_set')
+        clientObject = Model.clientModel.factory.create('ns0:member_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -32,17 +32,16 @@ class MemberSet():
             clientObject[key] = params[key]
 
         # Add Member Set to client model
-        clientModel.service.set_member_set(clientObject)
+        Model.clientModel.service.set_member_set(clientObject)
 
     def ContinuousMembers(self,
                           no: int = 1,
                           members_no: str = '1 4 5 8 9 12 13 16 17 20 21 24',
-                          member_set_type = SetType.SET_TYPE_CONTINUOUS,
                           comment: str = '',
                           params: dict = {}):
 
         # Client model | Member Set
-        clientObject = clientModel.factory.create('ns0:member_set')
+        clientObject = Model.clientModel.factory.create('ns0:member_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -54,7 +53,7 @@ class MemberSet():
         clientObject.members = ConvertToDlString(members_no)
 
         # Member Set Type
-        clientObject.set_type = member_set_type.name
+        clientObject.set_type = SetType.SET_TYPE_CONTINUOUS.name
 
         # Comment
         clientObject.comment = comment
@@ -64,17 +63,16 @@ class MemberSet():
             clientObject[key] = params[key]
 
         # Add Member Set to client model
-        clientModel.service.set_member_set(clientObject)
+        Model.clientModel.service.set_member_set(clientObject)
 
     def GroupOfmembers(self,
                        no: int = 1,
                        members_no: str = '1 4 5 8 9 12 13 16 17 20 21 24',
-                       member_set_type = SetType.SET_TYPE_GROUP,
                        comment: str = '',
                        params: dict = {}):
 
         # Client model | Member Set
-        clientObject = clientModel.factory.create('ns0:member_set')
+        clientObject = Model.clientModel.factory.create('ns0:member_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -86,7 +84,7 @@ class MemberSet():
         clientObject.members = ConvertToDlString(members_no)
 
         # Member Set Type
-        clientObject.set_type = member_set_type.name
+        clientObject.set_type = SetType.SET_TYPE_GROUP.name
 
         # Comment
         clientObject.comment = comment
@@ -96,4 +94,4 @@ class MemberSet():
             clientObject[key] = params[key]
 
         # Add Member Set to client model
-        clientModel.service.set_member_set(clientObject)
+        Model.clientModel.service.set_member_set(clientObject)

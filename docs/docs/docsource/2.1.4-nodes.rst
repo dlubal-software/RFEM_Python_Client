@@ -1,0 +1,128 @@
+Node
+========
+.. function:: Node(no, coordinate_X, coordinate_Y, coordinate_Z, comment*, params*)
+
+* Parameters
+
+		* **no** (*int*): Line Tag
+		* **coordinate_X** (*float*): X-Coordinate
+		* **coordinate_Y** (*float*): Y-Coordinate
+		* **coordinate_Z** (*float*): Z-Coordinate
+		* **comment** ( *str, optional*): Comments
+		* **params** (*dict, optional*): Parameters
+
+====================================================================================================================================================================================================
+
+.. function:: Node.Standard(no, coordinate_system, coordinate_system_type, comment*, params*)
+
+* Parameters
+
+		* **no** (*int*): Line Tag
+		* **coordinate_sytem** (*list*): Coordinate System Parameters
+		* **coordinate_sytem_type** (*enum*): Coordinate System Type Enumeration
+		* **comment** ( *str, optional*): Comments
+		* **params** (*dict, optional*): Parameters
+		
+			``For coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN:``
+				``coordinate_system = [X, Y, Z]``
+			  
+			``For coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_X_CYLINDRICAL:``
+				``coordinate_system = [X, R, θ]``
+			  
+			``For coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Y_CYLINDRICAL:``
+				``coordinate_system = [R, Ύ, θ]``
+			  
+			``For coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_Z_CYLINDRICAL:``
+				``coordinate_system = [R, θ, Z]``
+			  
+			``For coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_POLAR:``
+				``coordinate_system = [R, θ, φ]``
+
+====================================================================================================================================================================================================
+
+.. function:: Node.BetweenTwoNodes(no, start_node_no, end_node_no, node_reference, length_between_i_and_j, parameters, offset_y, offset_z, comment*, params*)
+
+* Parameters
+
+		* **no** (*int*): Line Tag
+		* **start_node_no** (*int*): Start Node
+		* **end_node_no** (*int*): End Node
+		* **node_reference** (*enum*): Node Reference Enumeration
+		* **length_between_i_and_j** (*int*): Length Between 2 Nodes
+		* **parameters** (*list*): Parameter List
+		* **offset_y** (*int*): Offset in Y-Direction
+		* **offset_z** (*int*): Offset in Z-Direction
+		* **comment** ( *str, optional*): Comments
+		* **params** (*dict, optional*): Parameters
+		
+			``If distance_from_start_relative:``
+				``parameters = [True, %]``
+				
+			``If distance_from_start_absolute:``
+				``parameters = [False, magnitude]``
+				
+====================================================================================================================================================================================================
+
+.. function:: Node.BetweenTwoPoints(no, start_point_x, start_point_y, start_point_z, end_point_x, end_point_y, end_point_z, node_reference, parameters, offset_y, offset_z, comment*, params*)
+
+* Parameters
+
+		* **no** (*int*): Line Tag
+		* **start_point_x** (*float*): Start Point in X-Coordinate
+		* **start_point_y** (*float*): Start Point in Y-Coordinate
+		* **start_point_z** (*float*): Start Point in Z-Coordinate
+		* **end_point_x** (*float*): End Point in X-Coordinate
+		* **end_point_y** (*float*): End Point in Y-Coordinate
+		* **end_point_z** (*float*): End Point in Z-Coordinate
+		* **node_reference** (*enum*) : Node Reference Enumeration
+		* **parameters** (*list*): Parameter List
+		* **offset_y** (*int*): Offset in Y-Direction
+		* **offset_z** (*int*): Offset in Z-Direction
+		* **comment** ( *str, optional*): Comments
+		* **params** (*dict, optional*): Parameters
+		
+			``if distance_from_start_relative:``
+				``parameters = [True, %]``
+				
+			``if distance_from_start_absolute:``
+				``parameters = [False, magnitude]``
+	
+====================================================================================================================================================================================================
+
+.. function:: Node.OnLine(no, line_number, node_reference, length_between_i_and_j, parameters, comment*, params*)
+
+* Parameters
+
+		* **no** (*int*): Line Tag
+		* **line_number** (*int*) : Line Tag
+		* **node_reference** (*enum*) : Node Reference Enumeration
+		* **length_between_i_and_j** (*int*): Length Between 2 Nodes
+		* **parameters** (*list*): Parameter List
+		* **comment** ( *str, optional*): Comments
+		* **params** (*dict, optional*): Parameters
+		
+			``if distance_from_start_relative:``
+				``parameters = [True, %]``
+				
+			``if distance_from_start_absolute:``
+				``parameters = [False, magnitude]``
+
+====================================================================================================================================================================================================
+
+.. function:: Node.OnMember(no, member_number, node_reference, length_between_i_and_j, parameters, comment*, params*)
+
+* Parameters
+
+		* **no** (*int*): Line Tag
+		* **member_number** (*int*) : Member Tag
+		* **node_reference** (*enum*) : Node Reference Enumeration
+		* **length_between_i_and_j** (*int*): Length Between 2 Nodes
+		* **parameters** (*list*): Parameter List
+		* **comment** ( *str, optional*): Comments
+		* **params** (*dict, optional*): Parameters
+		
+			``if distance_from_start_relative:``
+				``parameters = [True, %]``
+							
+			``if distance_from_start_absolute:``
+				``parameters = [False, magnitude]``

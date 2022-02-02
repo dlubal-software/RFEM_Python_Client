@@ -1,4 +1,4 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 from RFEM.enums import SetType
 
 class SurfaceSet():
@@ -10,7 +10,7 @@ class SurfaceSet():
                  params: dict = {}):
 
         # Client model | Surface Set
-        clientObject = clientModel.factory.create('ns0:surface_set')
+        clientObject = Model.clientModel.factory.create('ns0:surface_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -32,17 +32,16 @@ class SurfaceSet():
             clientObject[key] = params[key]
 
         # Add Surface Set to client model
-        clientModel.service.set_surface_set(clientObject)
+        Model.clientModel.service.set_surface_set(clientObject)
 
     def ContinuousSurfaces(self,
                  no: int = 1,
                  surfaces_no: str = '2 4 7',
-                 surface_set_type = SetType.SET_TYPE_CONTINUOUS,
                  comment: str = '',
                  params: dict = {}):
 
         # Client model | Surface Set
-        clientObject = clientModel.factory.create('ns0:surface_set')
+        clientObject = Model.clientModel.factory.create('ns0:surface_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -54,7 +53,7 @@ class SurfaceSet():
         clientObject.surfaces = ConvertToDlString(surfaces_no)
 
         # Surface Set Type
-        clientObject.set_type = surface_set_type.name
+        clientObject.set_type = SetType.SET_TYPE_CONTINUOUS.name
 
         # Comment
         clientObject.comment = comment
@@ -64,17 +63,16 @@ class SurfaceSet():
             clientObject[key] = params[key]
 
         # Add Surface Set to client model
-        clientModel.service.set_surface_set(clientObject)
+        Model.clientModel.service.set_surface_set(clientObject)
 
     def GroupOfSurfaces(self,
                  no: int = 1,
                  surfaces_no: str = '2 4 7',
-                 surface_set_type = SetType.SET_TYPE_GROUP,
                  comment: str = '',
                  params: dict = {}):
 
         # Client model | Surface Set
-        clientObject = clientModel.factory.create('ns0:surface_set')
+        clientObject = Model.clientModel.factory.create('ns0:surface_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -86,7 +84,7 @@ class SurfaceSet():
         clientObject.surfaces = ConvertToDlString(surfaces_no)
 
         # Surface Set Type
-        clientObject.set_type = surface_set_type.name
+        clientObject.set_type = SetType.SET_TYPE_GROUP.name
 
         # Comment
         clientObject.comment = comment
@@ -96,4 +94,4 @@ class SurfaceSet():
             clientObject[key] = params[key]
 
         # Add Surface Set to client model
-        clientModel.service.set_surface_set(clientObject)
+        Model.clientModel.service.set_surface_set(clientObject)

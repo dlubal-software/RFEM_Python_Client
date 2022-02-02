@@ -1,5 +1,5 @@
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAtributes
+from RFEM.enums import ModalSolutionMethod, ModalMassConversionType, ModalMassMatrixType, ModalNeglectMasses
 
 class ModalAnalysisSettings():
     def __init__(self,
@@ -17,7 +17,7 @@ class ModalAnalysisSettings():
         Args:
             no (int): Setting Tag
             name (str): Setting Name
-            solution_method (enum): Solution Method Enumeration 
+            solution_method (enum): Solution Method Enumeration
             mass_conversion_type (enum): Mass Conversion Type Enumeration
             mass_matrix_type (enum): Mass Matrix Type Enumeration
             number_of_modes (int): Number of Modes
@@ -27,7 +27,7 @@ class ModalAnalysisSettings():
             params (dict, optional): Parameters
         """
         # Client model | Surface
-        clientObject = clientModel.factory.create('ns0:modal_analysis_settings')
+        clientObject = Model.clientModel.factory.create('ns0:modal_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -74,4 +74,4 @@ class ModalAnalysisSettings():
             clientObject[key] = params[key]
 
         # Add Static Analysis Settings to client model
-        clientModel.service.set_modal_analysis_settings(clientObject)
+        Model.clientModel.service.set_modal_analysis_settings(clientObject)

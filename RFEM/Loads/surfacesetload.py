@@ -1,8 +1,8 @@
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.enums import SurfaceSetLoadType, SurfaceSetLoadDirection, SurfaceSetLoadDistribution, SurfaceSetLoadAxisDefinitionType
 
 class SurfaceSetLoad():
-    
+
     def __init__(self,
                  no: int = 1,
                  load_case_no: int = 1,
@@ -12,15 +12,15 @@ class SurfaceSetLoad():
                  params: dict = {}):
         """
         Args:
-            no (int): Load Tag 
-            load_case_no (int): Assigned Load Case 
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
             surface_sets (str): Assigned Surface Sets
-            magnitude (float): Load Magnitude 
+            magnitude (float): Load Magnitude
             comment (str, optional): Comment
             params (dict, optional): Parameters
         """
         # Client model | Surface Load
-        clientObject = clientModel.factory.create('ns0:surface_set_load')
+        clientObject = Model.clientModel.factory.create('ns0:surface_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -53,7 +53,7 @@ class SurfaceSetLoad():
             clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        clientModel.service.set_surface_set_load(load_case_no, clientObject)
+        Model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
 
     def Force(self,
                  no: int = 1,
@@ -67,7 +67,7 @@ class SurfaceSetLoad():
         """
         Args:
             no (int): Load Tag
-            load_case_no (int): Assigned Load Case 
+            load_case_no (int): Assigned Load Case
             surface_sets (str): Assigned Surface Sets
             load_direction (enum): Load Direction Enumeration
             load_distribution (enum): Load Distribution Enumeration
@@ -92,7 +92,7 @@ class SurfaceSetLoad():
             load_parameter = [[distance_1, delta_distance_1, magnitude_1], [distance_2, delta_distance_2, magnitude_2]...]
         """
         # Client model | Surface Load
-        clientObject = clientModel.factory.create('ns0:surface_set_load')
+        clientObject = Model.clientModel.factory.create('ns0:surface_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -126,20 +126,21 @@ class SurfaceSetLoad():
             clientObject.node_1 = load_parameter[3]
             clientObject.node_2 = load_parameter[4]
             clientObject.node_3 = load_parameter[5]
-        
-        elif load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X or load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y\
-            or load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z:
+
+        elif load_distribution in (SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X,
+                                   SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y,
+                                   SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z):
 
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
-            
+
             clientObject.node_1 = load_parameter[2]
             clientObject.node_2 = load_parameter[3]
-            
+
         elif load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_RADIAL:
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
-            
+
             clientObject.node_1 = load_parameter[2]
             clientObject.node_2 = load_parameter[3]
 
@@ -151,7 +152,7 @@ class SurfaceSetLoad():
                 clientObject.axis_definition_p2_x = load_parameter[6][0]
                 clientObject.axis_definition_p2_y = load_parameter[6][1]
                 clientObject.axis_definition_p2_z = load_parameter[6][2]
-                
+
             else:
                 clientObject.axis_definition_axis = load_parameter[5].name
                 clientObject.axis_definition_p1_x = load_parameter[6][0]
@@ -160,9 +161,9 @@ class SurfaceSetLoad():
 
         elif load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
 
-            clientObject.varying_load_parameters = clientModel.factory.create('ns0:surface_set_load.varying_load_parameters')
-            for i in range(len(load_parameter)):
-                mlvlp = clientModel.factory.create('ns0:surface_set_load_varying_load_parameters')
+            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:surface_set_load.varying_load_parameters')
+            for i,j in enumerate(load_parameter):
+                mlvlp = Model.clientModel.factory.create('ns0:surface_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
                 mlvlp.delta_distance = load_parameter[i][1]
@@ -179,7 +180,7 @@ class SurfaceSetLoad():
             clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        clientModel.service.set_surface_set_load(load_case_no, clientObject)
+        Model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
 
     def Temperature(self,
                  no: int = 1,
@@ -192,13 +193,13 @@ class SurfaceSetLoad():
         """
         Args:
             no (int): Load Tag
-            load_case_no (int): Assigned Load Case 
+            load_case_no (int): Assigned Load Case
             surface_sets (str): Assigned Surface Sets
             load_distribution (enum): Load Distribution Enumeration
             load_parameter (enum): Load Parameter Enumeration
             comment (str, optional): Comment
             params (dict, optional): Parameters
-        
+
         for load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             load_parameter = [t_c, delta_t]
         for load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
@@ -214,7 +215,7 @@ class SurfaceSetLoad():
                 load_parameter = [t_c_1, delta_t_1, t_c_2, delta_t_2, node_1, node_2, SurfaceLoadAxisDefinitionType, SurfaceLoadAxisDefinitionAxis, axis_definition_p1]
         """
         # Client model | Surface Load
-        clientObject = clientModel.factory.create('ns0:surface_set_load')
+        clientObject = Model.clientModel.factory.create('ns0:surface_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -245,13 +246,14 @@ class SurfaceSetLoad():
             clientObject.magnitude_delta_t_2 = load_parameter[3]
             clientObject.magnitude_t_c_3 = load_parameter[4]
             clientObject.magnitude_delta_t_3 = load_parameter[5]
-    
+
             clientObject.node_1 = load_parameter[6]
             clientObject.node_2 = load_parameter[7]
             clientObject.node_3 = load_parameter[8]
-        
-        elif load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X or load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y\
-            or load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z:
+
+        elif load_distribution in (SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X,
+                                   SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y,
+                                   SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z):
             clientObject.magnitude_t_c_1 = load_parameter[0]
             clientObject.magnitude_delta_t_1 = load_parameter[1]
             clientObject.magnitude_t_c_2 = load_parameter[2]
@@ -288,7 +290,7 @@ class SurfaceSetLoad():
             clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        clientModel.service.set_surface_set_load(load_case_no, clientObject)
+        Model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
 
     def AxialStrain(self,
                  no: int = 1,
@@ -307,20 +309,20 @@ class SurfaceSetLoad():
             load_parameter (list): Load Parameter
             comment (str, optional): Comment
             params (dict, optional): Parameters
-        
+
         for load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             load_parameter = [axial_strain_x, axial_strain_y]
 
         for load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
             load_parameter = [magnitude_axial_strain_1x, magnitude_axial_strain_1y, magnitude_axial_strain_2x, magnitude_axial_strain_2y, magnitude_axial_strain_3x, magnitude_axial_strain_3y, node_1, node_2, node_3]
-        
+
         for load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_X:
                                  SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Y:
                                  SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Z:
             load_parameter = [magnitude_axial_strain_1x, magnitude_axial_strain_1y, magnitude_axial_strain_2x, magnitude_axial_strain_2y, node_1, node_2]
         """
         # Client model | Surface Load
-        clientObject = clientModel.factory.create('ns0:surface_set_load')
+        clientObject = Model.clientModel.factory.create('ns0:surface_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -351,13 +353,14 @@ class SurfaceSetLoad():
             clientObject.magnitude_axial_strain_2y = load_parameter[3]
             clientObject.magnitude_axial_strain_3x = load_parameter[4]
             clientObject.magnitude_axial_strain_3y = load_parameter[5]
-    
+
             clientObject.node_1 = load_parameter[6]
             clientObject.node_2 = load_parameter[7]
             clientObject.node_3 = load_parameter[8]
-        
-        elif load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X or load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y\
-            or load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z:
+
+        elif load_distribution in (SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X,
+                                   SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y,
+                                   SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z):
             clientObject.magnitude_axial_strain_1x = load_parameter[0]
             clientObject.magnitude_axial_strain_1y = load_parameter[1]
             clientObject.magnitude_axial_strain_2x = load_parameter[2]
@@ -374,7 +377,7 @@ class SurfaceSetLoad():
             clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        clientModel.service.set_surface_set_load(load_case_no, clientObject)
+        Model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
 
     def Precamber(self,
                  no: int = 1,
@@ -393,7 +396,7 @@ class SurfaceSetLoad():
             params (dict, optional): Parameters
         """
         # Client model | Surface Load
-        clientObject = clientModel.factory.create('ns0:surface_set_load')
+        clientObject = Model.clientModel.factory.create('ns0:surface_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -426,7 +429,7 @@ class SurfaceSetLoad():
             clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        clientModel.service.set_surface_set_load(load_case_no, clientObject)
+        Model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
 
     def RotaryMotion(self,
                  no: int = 1,
@@ -438,19 +441,19 @@ class SurfaceSetLoad():
         """
         Args:
             no (int): Load Tag
-            load_case_no (int): Assigned Load Case 
+            load_case_no (int): Assigned Load Case
             surface_sets (str): Assigned Surface Sets
             load_parameter (list): Load Parameters
             comment (str, optional): Comment
             params (dict, optional): Parameters
-        
+
         for axis_definition_type = SurfaceSetLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS:
             load_parameter = [angular_velocity, angular_acceleration, SurfaceLoadAxisDefinitionType, [x1, y1, z1], [x2, y2, z2]]
         for axis_definition_type = SurfaceSetLoadAxisDefinitionType.AXIS_DEFINITION_POINT_AND_AXIS:
-            load_parameter = [angular_velocity, angular_acceleration, SurfaceLoadAxisDefinitionType, SurfaceLoadAxisDefinitionAxis, SurfaceLoadAxisDirectionType; [x1, y1, z1]]   
+            load_parameter = [angular_velocity, angular_acceleration, SurfaceLoadAxisDefinitionType, SurfaceLoadAxisDefinitionAxis, SurfaceLoadAxisDirectionType; [x1, y1, z1]]
         """
         # Client model | Surface Load
-        clientObject = clientModel.factory.create('ns0:surface_set_load')
+        clientObject = Model.clientModel.factory.create('ns0:surface_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -494,7 +497,7 @@ class SurfaceSetLoad():
             clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        clientModel.service.set_surface_set_load(load_case_no, clientObject)
+        Model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
 
     def Mass(self,
                  no: int = 1,
@@ -507,7 +510,7 @@ class SurfaceSetLoad():
         """
         Args:
             no (int): Load Tag
-            load_case_no (int): Assigned Load Case 
+            load_case_no (int): Assigned Load Case
             surface_sets (str): Assigned Surface Sets
             individual_mass_components (bool): Individiual Mass Components Option
             mass_parameter (list): Mass Parameters
@@ -520,7 +523,7 @@ class SurfaceSetLoad():
             mass_parameter = [mass_x, mass_y, mass_z]
         """
         # Client model | Surface Load
-        clientObject = clientModel.factory.create('ns0:surface_set_load')
+        clientObject = Model.clientModel.factory.create('ns0:surface_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -535,12 +538,6 @@ class SurfaceSetLoad():
 
         # Surfaces No. (e.g. '5 6 7 12')
         clientObject.surface_sets = ConvertToDlString(surface_sets)
-
-        # Load Distribution
-        clientObject.load_distribution = SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM.name
-
-        #Load Direction
-        clientObject.load_direction = SurfaceSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE.name
 
         #Individual Mass Components
         clientObject.individual_mass_components = individual_mass_components
@@ -561,4 +558,4 @@ class SurfaceSetLoad():
             clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        clientModel.service.set_surface_set_load(load_case_no, clientObject)
+        Model.clientModel.service.set_surface_set_load(load_case_no, clientObject)

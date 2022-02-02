@@ -1,30 +1,29 @@
-from RFEM.initModel import *
-from RFEM.enums import *
-from enum import *
-import math
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.enums import ReinforcementDirectionType
+from math import pi
 
 class ConcreteReinforcementDirection():
     def __init__(self,
-                no: int = 1, 
+                no: int = 1,
                 name: str = "RD 1",
                 surfaces = "1",
                 reinforcement_direction_type = ReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_FIRST_REINFORCEMENT_IN_X,
                 rotation_parameters = [],
-                comment: str = '', 
+                comment: str = '',
                 params: dict = {}):
         """
         Args:
             no (int): Reinforcement Direction Tag
             name (str): User Defined Name
             surfaces (str): Assigned Surfaces
-            reinforcement_direction_type (enum): Reinforcement Direction Enumeration 
+            reinforcement_direction_type (enum): Reinforcement Direction Enumeration
             rotation_parameters (list): Rotation Parameters
             comment (str, optional): Comments
             params (dict, optional): Parameters
         """
 
         # Client model | Concrete Durabilities
-        clientObject = clientModel.factory.create('ns0:reinforcement_direction')
+        clientObject = Model.clientModel.factory.create('ns0:reinforcement_direction')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -40,12 +39,12 @@ class ConcreteReinforcementDirection():
         clientObject.reinforcement_direction_type = reinforcement_direction_type.name
 
         if reinforcement_direction_type.name == "REINFORCEMENT_DIRECTION_TYPE_ROTATED":
-            clientObject.first_reinforcement_angle = rotation_parameters[0] * math.pi/180
-            clientObject.second_reinforcement_angle = rotation_parameters[1] * math.pi/180
+            clientObject.first_reinforcement_angle = rotation_parameters[0] * pi/180
+            clientObject.second_reinforcement_angle = rotation_parameters[1] * pi/180
 
         # Assigned Surfaces
         clientObject.surfaces = ConvertToDlString(surfaces)
-            
+
         # Comment
         clientObject.comment = comment
 
@@ -53,13 +52,13 @@ class ConcreteReinforcementDirection():
         for key in params:
             clientObject[key] = params[key]
 
-        # Add Global Parameter to client model          
-        clientModel.service.set_reinforcement_direction(clientObject)
+        # Add Global Parameter to client model
+        Model.clientModel.service.set_reinforcement_direction(clientObject)
 
 
 
 
 
-        
-        
+
+
 

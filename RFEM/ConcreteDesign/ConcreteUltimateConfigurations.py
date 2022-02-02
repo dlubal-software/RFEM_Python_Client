@@ -1,4 +1,4 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 from RFEM.enums import *
 
 class ConcreteUltimateConfiguration():
@@ -11,7 +11,7 @@ class ConcreteUltimateConfiguration():
                 surfaces = '',
                 surface_sets = '',
                 nodes = '',
-                comment: str = '', 
+                comment: str = '',
                 params: dict = {}):
         """
         Args:
@@ -25,9 +25,9 @@ class ConcreteUltimateConfiguration():
             comment (str, optional): Comment
             params (dict, optional): Parameters
         """
-        
+
         # Client model | Concrete Durabilities
-        clientObject = clientModel.factory.create('ns0:uls_configuration')
+        clientObject = Model.clientModel.factory.create('ns0:uls_configuration')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -50,7 +50,7 @@ class ConcreteUltimateConfiguration():
 
         # Assigned Surface Sets
         clientObject.assigned_to_surface_sets = ConvertToDlString(surface_sets)
-        
+
         #Assinged Nodes
         clientObject.assigned_to_nodes = ConvertToDlString(nodes)
 
@@ -61,5 +61,5 @@ class ConcreteUltimateConfiguration():
         for key in params:
             clientObject[key] = params[key]
 
-        # Add Global Parameter to client model          
-        clientModel.service.set_uls_configuration(clientObject)
+        # Add Global Parameter to client model
+        Model.clientModel.service.set_uls_configuration(clientObject)

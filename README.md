@@ -14,19 +14,20 @@ Python client (or high-level functions) for [RFEM 6](https://www.dlubal.com/en/p
     + [Dependencies](#dependencies)
     + [Step by step](#step-by-step)
     + [Examples](#examples)
+    + [Unit Tets](#unit-tests)
   * [License](#license)
   * [Contribute](#contribute)
 
 ## Description
-This Python project is focused on opening RFEM 6 to all our customers, enabling them to interact with RFEM on much higher level. If you are looking for tool to help you solve parametric models or optimization tasks, you are on the right place. This project and community will create support for all your projects. The goal is to create easily expandable Python library communicating instructions to RFEM through WS. WS enable you to access your local version of RFEM or remote via internet connection.
+This Python project is focused on opening RFEM 6 to all of our customers, enabling them to interact with RFEM 6 on a much higher level. If you are looking for a tool to help you solve parametric models or optimization tasks, you have come to the right place. This community serves as a support portal and base for all of your future projects. The goal is to create an easily expandable Python library, which communicates instructions to RFEM 6 through WebServices (WS). WS enables access to RFEM 6 either via a local instance or a remote internet connection.
 
 ## Architecture
 ![image](https://user-images.githubusercontent.com/37547309/118119185-44a22f00-b3ee-11eb-9d60-3d74a4a96f81.png)
 ### Data Structure
 * [main.py](main.py): setting of individual objects by one line entry
 * [window.py](/RFEM/window.py): definition of GUI layer; called first
-* [initModel.py](/RFEM/initModel.py): runs after window and initializes suds.Client by connecting to `http://localhost:8081/wsdl` and active model in RFEM
-* [enums.py](/RFEM/enums.py): definition of enums
+* [initModel.py](/RFEM/initModel.py): runs after window and initializes suds.Client by connecting to `http://localhost:8081/wsdl` and active model in RFEM. It also evelops esential global functions.
+* [enums.py](/RFEM/enums.py): definition of enumerations
 * [dataTypes.py](/RFEM/dataTypes.py): definition of special data types
 * [RFEM](/RFEM): folder following structure of RFEM 6 navigator containing individual types of objects
 
@@ -41,10 +42,16 @@ Dependency check is implemented inside [initModel.py](/RFEM/initModel.py) with o
 1) Clone this repository (if you have GitHub account) or download actual [release](https://github.com/Dlubal-Software/RFEM_Python_Client/releases/tag/R-v1.0.0)
 2) Open RFEM 6 application
 3) Check if there are no opened dialogues in RFEM and server port range under *Options-Web Services* corresponds to the one set in initModel
-4) Update main.py and run from the same file
+4) Run your script. Inspirations can be found in Examples.
 
 ### Examples
-Examples can be found under [Examples](/Examples) folder.
+Scripts intended to be used as templates or examples. Also can be used for testing of backward compatibility.
+
+### Unit Tests
+Collection of scripts to support further development.
+
+## API Documentation
+Visit our [GitHub page](https://dlubal-software.github.io/RFEM_Python_Client/)
 
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -63,3 +70,5 @@ Contributions are always welcome! Please ensure your pull request adheres to the
 * Check your spelling and grammar.
 * Make sure your text editor is set to remove trailing whitespace.
 * Use the #readme anchor for GitHub READMEs to link them directly
+
+NOTE: Development is in early stages so please respect that. There will be broken objects or adjustments affecting backward compatibility. Use Issues section to point out any problems. Thank you for your understanding.

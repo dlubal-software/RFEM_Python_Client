@@ -1,8 +1,7 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes
 from RFEM.enums import StabilityAnalysisSettingsAnalysisType
 from RFEM.enums import StabilityAnalysisSettingsEigenvalueMethod
 from RFEM.enums import StabilityAnalysisSettingsMatrixType
-from RFEM.enums import StabilityAnalysisSettingsStoppingOfLoadIncreasingResult
 
 class StabilityAnalysisSettings():
     def __init__(self,
@@ -11,14 +10,14 @@ class StabilityAnalysisSettings():
                  comment: str = '',
                  params: dict = {}):
         '''
-        Creates default stability analysis settings with no further options. 
+        Creates default stability analysis settings with no further options.
         Stability analysis type is Eigenvalue by default.
         Eigenvalue method is Lanczos by default.
         Matrix type is Standard by default.
         '''
 
         # Client model | Stability Analysis Settings
-        clientObject = clientModel.factory.create('ns0:stability_analysis_settings')
+        clientObject = Model.clientModel.factory.create('ns0:stability_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -27,7 +26,7 @@ class StabilityAnalysisSettings():
         clientObject.no = no
 
         # Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -40,7 +39,7 @@ class StabilityAnalysisSettings():
         # Eigenvalue Method
         clientObject.eigenvalue_method = StabilityAnalysisSettingsEigenvalueMethod.EIGENVALUE_METHOD_LANCZOS.name
 
-        # Matrix Type 
+        # Matrix Type
         clientObject.matrix_type = StabilityAnalysisSettingsMatrixType.MATRIX_TYPE_STANDARD.name
 
         # Comment
@@ -51,7 +50,7 @@ class StabilityAnalysisSettings():
             clientObject[key] = params[key]
 
         # Add Stability Analysis Settings to client model
-        clientModel.service.set_stability_analysis_settings(clientObject)
+        Model.clientModel.service.set_stability_analysis_settings(clientObject)
 
     def EigenvalueMethod(self,
                  no: int = 1,
@@ -67,7 +66,7 @@ class StabilityAnalysisSettings():
                  params: dict = {}):
         '''
         Args:
-            no (int): 
+            no (int):
             name (str, optional): Stability Analysis Name
             number_of_lowest_eigenvalues (int): Number of Lowest Eigenvalues
             considered_favored_effect (bool): Considered Favored Effect
@@ -78,9 +77,9 @@ class StabilityAnalysisSettings():
                     critical_load_factor = int
             minimum_initial_strain (optional):
                 For minimum initial strain application:
-                    minimum_initial_strain != 0 or minimum_initial_strain != None
+                    minimum_initial_strain != 0 or minimum_initial_strain is not None
                 For no minimum initial strain application:
-                    minimum_initial_strain == 0 or minimum_initial_strain == None
+                    minimum_initial_strain == 0 or minimum_initial_strain is None
             local_torsional_rotations (optional):
                 For no local torsional rotations display:
                     local_torsional_rotations = None
@@ -92,7 +91,7 @@ class StabilityAnalysisSettings():
             params (dict, optional):
         '''
         # Client model | Stability Analysis Settings
-        clientObject = clientModel.factory.create('ns0:stability_analysis_settings')
+        clientObject = Model.clientModel.factory.create('ns0:stability_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -101,7 +100,7 @@ class StabilityAnalysisSettings():
         clientObject.no = no
 
         # Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -115,28 +114,27 @@ class StabilityAnalysisSettings():
         clientObject.considered_favored_effect = considered_favored_effect
 
         # Finding Eigenvectors Beyond Critical Load Factor
-        if critical_load_factor != None:
+        if critical_load_factor is not None:
             clientObject.find_eigenvectors_beyond_critical_load_factor = True
             clientObject.critical_load_factor = critical_load_factor
-        
+
         # Minimum Initial Strain
-        if minimum_initial_strain == None or minimum_initial_strain == 0:
+        if minimum_initial_strain in (None, 0):
             clientObject.activate_minimum_initial_prestress = False
-        elif minimum_initial_strain != None or minimum_initial_strain != 0:
+        else:
             clientObject.activate_minimum_initial_prestress = True
             clientObject.minimum_initial_strain = minimum_initial_strain
-        
+
         # Local Torsional Relations
-        if local_torsional_rotations != None:
+        if local_torsional_rotations is not None:
             clientObject.display_local_torsional_rotations = True
-            clientObject.local_torsional_rotations
 
         # Eigenvalue Method
         clientObject.eigenvalue_method = eigenvalue_method.name
 
         # Matrix Type
         clientObject.matrix_type = matrix_type.name
-        
+
         # Comment
         clientObject.comment = comment
 
@@ -145,7 +143,7 @@ class StabilityAnalysisSettings():
             clientObject[key] = params[key]
 
         # Add Stability Analysis Settings to client model
-        clientModel.service.set_stability_analysis_settings(clientObject)
+        Model.clientModel.service.set_stability_analysis_settings(clientObject)
 
     def IncrementalyMethodWithEigenvalue(self,
                  no: int = 1,
@@ -164,7 +162,7 @@ class StabilityAnalysisSettings():
                  params: dict = {}):
         '''
         Args:
-            no (int): 
+            no (int):
             name (str, optional): Stability Analysis Name
             number_of_lowest_eigenvalues (int): Number of Lowest Eigenvalues
             considered_favored_effect (bool): Considered Favored Effect
@@ -175,9 +173,9 @@ class StabilityAnalysisSettings():
                     critical_load_factor = int
             minimum_initial_strain (optional):
                 For minimum initial strain application:
-                    minimum_initial_strain != 0 or minimum_initial_strain != None
+                    minimum_initial_strain != 0 or minimum_initial_strain is not None
                 For no minimum initial strain application:
-                    minimum_initial_strain == None
+                    minimum_initial_strain is None
             local_torsional_rotations (optional):
                 For no local torsional rotations display:
                     local_torsional_rotations = None
@@ -210,7 +208,7 @@ class StabilityAnalysisSettings():
             params (dict, optional):
         '''
         # Client model | Stability Analysis Settings
-        clientObject = clientModel.factory.create('ns0:stability_analysis_settings')
+        clientObject = Model.clientModel.factory.create('ns0:stability_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -219,7 +217,7 @@ class StabilityAnalysisSettings():
         clientObject.no = no
 
         # Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -233,22 +231,21 @@ class StabilityAnalysisSettings():
         clientObject.considered_favored_effect = considered_favored_effect
 
         # Finding Eigenvectors Beyond Critical Load Factor
-        if critical_load_factor != None:
+        if critical_load_factor is not None:
             clientObject.find_eigenvectors_beyond_critical_load_factor = True
             clientObject.critical_load_factor = critical_load_factor
-        
+
         # Minimum Initial Strain
-        if minimum_initial_strain == None or minimum_initial_strain == 0:
+        if minimum_initial_strain in (None, 0):
             clientObject.activate_minimum_initial_prestress = False
-        elif minimum_initial_strain != None or minimum_initial_strain != 0:
+        else:
             clientObject.activate_minimum_initial_prestress = True
             clientObject.minimum_initial_strain = minimum_initial_strain
-        
+
         # Local Torsional Relations
-        if local_torsional_rotations != None:
+        if local_torsional_rotations is not None:
             clientObject.display_local_torsional_rotations = True
-            clientObject.local_torsional_rotations
-        
+
         # Increase Loading
         if len(incrementally_increasing_loading) != 4:
             raise Exception('WARNING: The incrementally increasing loading parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
@@ -258,7 +255,7 @@ class StabilityAnalysisSettings():
         clientObject.maximum_number_of_load_increments = incrementally_increasing_loading[3]
 
         # Stopping of Load-Increasing
-        if stopping_of_load_increasing != None:
+        if stopping_of_load_increasing is not None:
             if len(stopping_of_load_increasing) != 3:
                 raise Exception('WARNING: For active stopping of load-increasing, the stopping of load increasing parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
             clientObject.activate_stopping_of_load_increasing = True
@@ -271,13 +268,13 @@ class StabilityAnalysisSettings():
 
         # Save Results of All Increments
         clientObject.save_results_of_all_increments = save_results_of_all_increments
-        
+
         # Eigenvalue Method
         clientObject.eigenvalue_method = eigenvalue_method.name
 
         # Matrix Type
         clientObject.matrix_type = matrix_type.name
-        
+
         # Comment
         clientObject.comment = comment
 
@@ -286,7 +283,7 @@ class StabilityAnalysisSettings():
             clientObject[key] = params[key]
 
         # Add Stability Analysis Settings to client model
-        clientModel.service.set_stability_analysis_settings(clientObject)
+        Model.clientModel.service.set_stability_analysis_settings(clientObject)
 
     def IncrementalyMethodWithoutEigenvalue(self,
                  no: int = 1,
@@ -300,13 +297,13 @@ class StabilityAnalysisSettings():
                  params: dict = {}):
         '''
         Args:
-            no (int): 
+            no (int):
             name (str, optional): Stability Analysis Name
             minimum_initial_strain (optional):
                 For minimum initial strain application:
-                    minimum_initial_strain != 0 or minimum_initial_strain != None
+                    minimum_initial_strain != 0 or minimum_initial_strain is not None
                 For no minimum initial strain application:
-                    minimum_initial_strain == 0 or minimum_initial_strain == None
+                    minimum_initial_strain == 0 or minimum_initial_strain is None
             local_torsional_rotations (optional):
                 For no local torsional rotations display:
                     local_torsional_rotations = None
@@ -337,7 +334,7 @@ class StabilityAnalysisSettings():
             params (dict, optional):
         '''
         # Client model | Stability Analysis Settings
-        clientObject = clientModel.factory.create('ns0:stability_analysis_settings')
+        clientObject = Model.clientModel.factory.create('ns0:stability_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -346,25 +343,24 @@ class StabilityAnalysisSettings():
         clientObject.no = no
 
         # Name
-        if name != None:
+        if name is not None:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
         # Stability Analysis Type
         clientObject.analysis_type = StabilityAnalysisSettingsAnalysisType.INCREMENTALY_METHOD_WITHOUT_EIGENVALUE.name
-        
+
         # Minimum Initial Strain
-        if minimum_initial_strain == None or minimum_initial_strain == 0:
+        if minimum_initial_strain in (None, 0):
             clientObject.activate_minimum_initial_prestress = False
-        elif minimum_initial_strain != None or minimum_initial_strain != 0:
+        else:
             clientObject.activate_minimum_initial_prestress = True
             clientObject.minimum_initial_strain = minimum_initial_strain
-        
+
         # Local Torsional Relations
-        if local_torsional_rotations != None:
+        if local_torsional_rotations is not None:
             clientObject.display_local_torsional_rotations = True
-            clientObject.local_torsional_rotations
-        
+
         # Increase Loading
         if len(incrementally_increasing_loading) != 4:
             raise Exception('WARNING: The incrementally increasing loading parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
@@ -374,7 +370,7 @@ class StabilityAnalysisSettings():
         clientObject.maximum_number_of_load_increments = incrementally_increasing_loading[3]
 
         # Stopping of Load-Increasing
-        if stopping_of_load_increasing != None:
+        if stopping_of_load_increasing is not None:
             if len(stopping_of_load_increasing) != 3:
                 raise Exception('WARNING: For active stopping of load-increasing, the stopping of load increasing parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
             clientObject.activate_stopping_of_load_increasing = True
@@ -387,7 +383,7 @@ class StabilityAnalysisSettings():
 
         # Save Results of All Increments
         clientObject.save_results_of_all_increments = save_results_of_all_increments
-        
+
         # Comment
         clientObject.comment = comment
 
@@ -396,4 +392,4 @@ class StabilityAnalysisSettings():
             clientObject[key] = params[key]
 
         # Add Stability Analysis Settings to client model
-        clientModel.service.set_stability_analysis_settings(clientObject)
+        Model.clientModel.service.set_stability_analysis_settings(clientObject)

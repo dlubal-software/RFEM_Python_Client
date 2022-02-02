@@ -1,11 +1,9 @@
-from os import name
-from RFEM.initModel import *
-from RFEM.enums import *
-from enum import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.enums import DurabilityStructuralClassType, DurabilityAllowanceDeviationType
 
 class ConcreteDurability():
     def __init__(self,
-                no: int = 1, 
+                no: int = 1,
                 name: str = "XC 1",
                 members_no: str = "1",
                 member_sets_no: str = "1",
@@ -18,16 +16,16 @@ class ConcreteDurability():
                 stainless_steel_reduction = [False],
                 additional_protection_reduction = [False],
                 allowance_deviation = [DurabilityAllowanceDeviationType.STANDARD, False],
-                comment: str = '', 
+                comment: str = '',
                 params: dict = {}):
         """
         Args:
             no (int): Concrete Durability Tag
-            name (str): User Defined Name  
+            name (str): User Defined Name
             members_no (str): Assigned Members
             member_sets_no (str): Assigned Member Sets
             surfaces_no (str): Assigned Surfaces
-            exposure_classes_reinforcement (list): Exposure Classes Reinforcement Parameters 
+            exposure_classes_reinforcement (list): Exposure Classes Reinforcement Parameters
             exposure_classes_reinforcement_types (list): Exposure Classes Reinforcement Parameters
             exposure_classes_concrete (list): Exposure Classes Concrete Parameters
             exposure_classes_concrete_types (list): Exposure Classes Concrete Parameters
@@ -38,9 +36,9 @@ class ConcreteDurability():
             comment (str, optional): Comments
             params (dict, optional): Parameters
         """
-        
+
         # Client model | Concrete Durabilities
-        clientObject = clientModel.factory.create('ns0:concrete_durability')
+        clientObject = Model.clientModel.factory.create('ns0:concrete_durability')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -67,22 +65,18 @@ class ConcreteDurability():
         clientObject.corrosion_induced_by_chlorides_enabled = exposure_classes_reinforcement[2]
         clientObject.corrosion_induced_by_chlorides_from_sea_water_enabled = exposure_classes_reinforcement[3]
 
-        if all(exposure_classes_reinforcement) == True:
+        if all(exposure_classes_reinforcement):
             raise Exception("WARNING: At least one reinforcement exposure class must be selected.")
 
         for i in exposure_classes_reinforcement:
-            if type(i) == bool:
-                pass
-            else:
+            if not isinstance(i, bool):
                 raise Exception('WARNING: The type of parameters should be bool. Kindly check list inputs for completeness and correctness.')
 
-        if exposure_classes_reinforcement[0] == True:
+        if exposure_classes_reinforcement[0]:
             clientObject.no_risk_of_corrosion_or_attack = "VERY_DRY"
             for i in exposure_classes_reinforcement[1:]:
-             if i == True:
-                 raise Exception('WARNING: If No Risk of Corrosion is True, other parameters cannot be selected. Kindly check list inputs for completeness and correctness.')
-             else:
-                 pass
+                if i:
+                    raise Exception('WARNING: If No Risk of Corrosion is True, other parameters cannot be selected. Kindly check list inputs for completeness and correctness.')
 
         if exposure_classes_reinforcement[1] :
             clientObject.corrosion_induced_by_carbonation = exposure_classes_reinforcement_types[0].name
@@ -90,12 +84,10 @@ class ConcreteDurability():
             clientObject.corrosion_induced_by_chlorides = exposure_classes_reinforcement_types[1].name
         if exposure_classes_reinforcement[3]:
             clientObject.corrosion_induced_by_chlorides_from_sea_water = exposure_classes_reinforcement_types[2].name
-        
+
         # Exposure Classes for Concrete
         for i in exposure_classes_concrete:
-            if type(i) == bool:
-                pass
-            else:
+            if not isinstance(i, bool):
                 raise Exception('WARNING: The type of parameters should be bool. Kindly check list inputs for completeness and correctness.')
 
         if exposure_classes_concrete[0]:
@@ -113,9 +105,7 @@ class ConcreteDurability():
 
         if structural_class[0].name == "STANDARD":
             for i in structural_class[1:]:
-                if type(i) == bool:
-                    pass
-                else:
+                if not isinstance(i, bool):
                     raise Exception('WARNING: The type of last three parameters should be bool. Kindly check list inputs for completeness and correctness.')
 
             clientObject.increase_design_working_life_from_50_to_100_years_enabled = structural_class[1]
@@ -128,37 +118,25 @@ class ConcreteDurability():
         # Stainless Steel Concrete Cover Reduction
         clientObject.stainless_steel_enabled = stainless_steel_reduction[0]
 
-        if type(stainless_steel_reduction[0]) == bool:
-            pass
-        else:
+        if not isinstance(stainless_steel_reduction[0], bool):
             raise Exception('WARNING: The type of the first parameter should be bool. Kindly check list inputs for completeness and correctness.')
 
-        if stainless_steel_reduction[0] == False:
-            pass
-        else:
+        if stainless_steel_reduction[0]:
             clientObject.stainless_steel_type = stainless_steel_reduction[1].name
 
-            if stainless_steel_reduction[1].name == "STANDARD":
-                pass
-            elif stainless_steel_reduction[1].name == "DEFINED":
+            if stainless_steel_reduction[1].name == "DEFINED":
                 clientObject.stainless_steel_factor = stainless_steel_reduction[2]
-            
+
         # Additional Protection Concrete Cover Reduction
         clientObject.additional_protection_enabled = additional_protection_reduction[0]
 
-        if type(additional_protection_reduction[0]) == bool:
-            pass
-        else:
+        if not isinstance(additional_protection_reduction[0], bool):
             raise Exception('WARNING: The type of the first parameter should be bool. Kindly check list inputs for completeness and correctness.')
 
-        if additional_protection_reduction[0] == False:
-            pass
-        else:
+        if additional_protection_reduction[0]:
             clientObject.additional_protection_type = additional_protection_reduction[1].name
 
-            if additional_protection_reduction[1].name == "STANDARD":
-                pass
-            elif additional_protection_reduction[1].name == "DEFINED":
+            if additional_protection_reduction[1].name == "DEFINED":
                 clientObject.additional_protection_factor = additional_protection_reduction[2]
 
         # Allowance for Deviation
@@ -167,15 +145,11 @@ class ConcreteDurability():
         if allowance_deviation[0].name == "STANDARD":
             clientObject.concrete_cast_enabled = allowance_deviation[1]
 
-            if type(allowance_deviation[1]) == bool:
-                pass
-            else:
+            if not isinstance(allowance_deviation[1], bool):
                 raise Exception('WARNING: The type of the second parameter should be bool. Kindly check list inputs for completeness and correctness.')
 
             if allowance_deviation[1]:
                 clientObject.concrete_cast = allowance_deviation[2].name
-            else:
-                pass
 
         elif allowance_deviation[0].name == "DEFINED":
             clientObject.userdefined_allowance_of_deviation_factor = allowance_deviation[1]
@@ -187,13 +161,13 @@ class ConcreteDurability():
         for key in params:
             clientObject[key] = params[key]
 
-        # Add Global Parameter to client model          
-        clientModel.service.set_concrete_durability(clientObject)
+        # Add Global Parameter to client model
+        Model.clientModel.service.set_concrete_durability(clientObject)
 
 
 
 
 
-        
-        
+
+
 

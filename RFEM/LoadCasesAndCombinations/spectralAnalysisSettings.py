@@ -1,5 +1,5 @@
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAtributes
+from RFEM.enums import DirectionalComponentCombinationRule, PeriodicResponseCombinationRule, CqsDampingRule
 
 class SpectralAnalysisSettings():
     def __init__(self,
@@ -17,7 +17,7 @@ class SpectralAnalysisSettings():
                  params: dict = {}):
 
         # Client model | Surface
-        clientObject = clientModel.factory.create('ns0:spectral_analysis_settings')
+        clientObject = Model.clientModel.factory.create('ns0:spectral_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -48,12 +48,12 @@ class SpectralAnalysisSettings():
             if directional_combination == DirectionalComponentCombinationRule.SCALED_SUM:
                 pass
             else:
-                raise("WARNING: Signed results using dominant mode is only available with Scaled Sum Directional Combination!")
+                raise "WARNING: Signed results using dominant mode is only available with Scaled Sum Directional Combination!"
 
         # Further Options
         if directional_combination == DirectionalComponentCombinationRule.SCALED_SUM:
             clientObject.combination_rule_for_directional_components_value = directional_component_scale_value
-        
+
         if periodic_combination == PeriodicResponseCombinationRule.CQC:
             clientObject.damping_for_cqc_rule = damping_for_cqc_rule.name
             clientObject.constant_d_for_each_mode = constant_d_for_each_mode
@@ -65,4 +65,4 @@ class SpectralAnalysisSettings():
         for key in params:
             clientObject[key] = params[key]
         # Add Static Analysis Settings to client model
-        clientModel.service.set_spectral_analysis_settings(clientObject)
+        Model.clientModel.service.set_spectral_analysis_settings(clientObject)

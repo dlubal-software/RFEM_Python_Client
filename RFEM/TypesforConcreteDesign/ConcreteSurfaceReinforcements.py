@@ -1,11 +1,10 @@
-from RFEM.initModel import *
-from RFEM.enums import *
-from enum import *
-import math
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.enums import SurfaceReinforcementLocationType, SurfaceReinforcementType, SurfaceReinforcementDirectionType, SurfaceReinforcementDesignDirection
+from math import pi
 
 class ConcreteSurfaceReinforcements():
     def __init__(self,
-                no: int = 1, 
+                no: int = 1,
                 name: str = "RD 1",
                 surfaces = "1",
                 material = "2",
@@ -13,11 +12,11 @@ class ConcreteSurfaceReinforcements():
                 reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_REBARS,
                 reinforcement_type_parameters = [0.01, 0.15, False],
                 cover_offset = [True, True, 0, 0],
-                reinforcement_direction = SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION, 
+                reinforcement_direction = SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION,
                 reinforcement_direction_parameters = [SurfaceReinforcementDesignDirection.DESIGN_REINFORCEMENT_DIRECTION_A_S_1],
                 reinforcement_location = [],
                 reinforcement_acting_region = [],
-                comment: str = '', 
+                comment: str = '',
                 params: dict = {}):
         """
         Args:
@@ -35,7 +34,7 @@ class ConcreteSurfaceReinforcements():
             reinforcement_acting_region (list): Reinforcement Acting Region Parameters
             comment (str, optional): Comments
             params (dict, optional): Parameters
-        
+
         for reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_REBARS:
             reinforcement_type_parameters = [rebar_diameter, rebar_spacing, additional_transverse_reinforcement_enabled]
             if additional_transverse_reinforcement_enabled == True:
@@ -43,13 +42,13 @@ class ConcreteSurfaceReinforcements():
         for reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_STIRRUPS:
             reinforcement_type_parameters = [stirrup_diameter, stirrup_spacing]
         for reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_MESH:
-            reinforcement_type_parameters = [mesh_product_range, mesh_shape, mesh_name]   
+            reinforcement_type_parameters = [mesh_product_range, mesh_shape, mesh_name]
 
         cover_offset = [alignment_top_enabled, alignment_bottom_enabled, additional_offset_to_concrete_cover_top, additional_offset_to_concrete_cover_bottom]
         """
 
         # Client model | Concrete Durabilities
-        clientObject = clientModel.factory.create('ns0:surface_reinforcement')
+        clientObject = Model.clientModel.factory.create('ns0:surface_reinforcement')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -77,14 +76,10 @@ class ConcreteSurfaceReinforcements():
             clientObject.rebar_spacing = reinforcement_type_parameters[1]
 
             clientObject.additional_transverse_reinforcement_enabled = reinforcement_type_parameters[2]
-            if type(reinforcement_type_parameters[2]) == bool:
-                pass
-            else:
+            if not isinstance(reinforcement_type_parameters[2], bool):
                 raise Exception("WARNING: Last parameter should be type bool for cover_offset. Kindly check list inputs completeness and correctness.")
 
-            if reinforcement_type_parameters[2] == False:
-                pass
-            else:
+            if reinforcement_type_parameters[2]:
                 clientObject.additional_rebar_diameter = reinforcement_type_parameters[3]
                 clientObject.additional_rebar_spacing = reinforcement_type_parameters[4]
         elif reinforcement_type.name == "REINFORCEMENT_TYPE_STIRRUPS":
@@ -94,11 +89,9 @@ class ConcreteSurfaceReinforcements():
             clientObject.mesh_product_range = reinforcement_type_parameters[0]
             clientObject.mesh_shape = reinforcement_type_parameters[1]
             clientObject.mesh_name = reinforcement_type_parameters[2]
-            
+
         # Concrete Cover Assignment
-        if type(cover_offset[0]) == bool and type(cover_offset[1]) == bool:
-            pass
-        else:
+        if not isinstance(cover_offset[0], bool) and not isinstance(cover_offset[1], bool):
             raise Exception("WARNING: First two parameters should be type bool for cover_offset. Kindly check list inputs completeness and correctness.")
         clientObject.alignment_top_enabled = cover_offset[0]
         clientObject.alignment_bottom_enabled = cover_offset[1]
@@ -135,40 +128,36 @@ class ConcreteSurfaceReinforcements():
                 clientObject.projection_plane = reinforcement_direction_parameters[5].name
 
         # Reinforcement Location
-        if location_type.name == "LOCATION_TYPE_ON_SURFACE":
-            pass
-        elif location_type.name == "LOCATION_TYPE_FREE_RECTANGULAR":
+        if location_type.name == "LOCATION_TYPE_FREE_RECTANGULAR":
             clientObject.location_rectangle_type = reinforcement_location[0].name
             if reinforcement_location[0].name == "RECTANGLE_TYPE_CORNER_POINTS":
                 clientObject.location_first_x = reinforcement_location[1]
                 clientObject.location_first_y = reinforcement_location[2]
                 clientObject.location_second_x = reinforcement_location[3]
                 clientObject.location_second_y = reinforcement_location[4]
-                clientObject.location_rotation = reinforcement_location[5]*math.pi/180
+                clientObject.location_rotation = reinforcement_location[5]* pi/180
             elif reinforcement_location[0].name == "RECTANGLE_TYPE_CENTER_AND_SIDES":
                 clientObject.location_center_x = reinforcement_location[1]
                 clientObject.location_center_y = reinforcement_location[2]
                 clientObject.location_center_side_a = reinforcement_location[3]
                 clientObject.location_center_side_b = reinforcement_location[4]
-                clientObject.location_rotation = reinforcement_location[5] *math.pi/180
+                clientObject.location_rotation = reinforcement_location[5] * pi/180
         elif location_type.name == "LOCATION_TYPE_FREE_CIRCULAR":
             clientObject.location_center_x = reinforcement_location[0]
             clientObject.location_center_y = reinforcement_location[1]
             clientObject.location_radius = reinforcement_location[2]
-        elif location_type.name == "LOCATION_TYPE_FREE_POLYGON":    
-            clientObject.polygon_points = clientModel.factory.create('ns0:surface_reinforcement.polygon_points')
+        elif location_type.name == "LOCATION_TYPE_FREE_POLYGON":
+            clientObject.polygon_points = Model.clientModel.factory.create('ns0:surface_reinforcement.polygon_points')
             for i in range(len(reinforcement_location)):
-                mlvlp = clientModel.factory.create('ns0:surface_reinforcement_polygon_points')
+                mlvlp = Model.clientModel.factory.create('ns0:surface_reinforcement_polygon_points')
                 mlvlp.no = i+1
                 mlvlp.first_coordinate = reinforcement_location[i][0]
                 mlvlp.second_coordinate = reinforcement_location[i][1]
                 mlvlp.comment = reinforcement_location[i][2]
                 clientObject.polygon_points.surface_reinforcement_polygon_points.append(mlvlp)
-            
+
         # Reinforcement Acting Region
-        if location_type.name == "LOCATION_TYPE_ON_SURFACE":
-            pass
-        else:
+        if location_type.name != "LOCATION_TYPE_ON_SURFACE":
             clientObject.acting_region_from = reinforcement_acting_region[0]
             clientObject.acting_region_to = reinforcement_acting_region[1]
 
@@ -179,13 +168,13 @@ class ConcreteSurfaceReinforcements():
         for key in params:
             clientObject[key] = params[key]
 
-        # Add Global Parameter to client model          
-        clientModel.service.set_surface_reinforcement(clientObject)
+        # Add Global Parameter to client model
+        Model.clientModel.service.set_surface_reinforcement(clientObject)
 
 
 
 
 
-        
-        
+
+
 

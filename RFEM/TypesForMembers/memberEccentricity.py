@@ -1,5 +1,4 @@
-from RFEM.initModel import *
-from RFEM.enums import SetType
+from RFEM.initModel import Model, clearAtributes
 
 class MemberEccentricity():
     def __init__(self,
@@ -8,7 +7,7 @@ class MemberEccentricity():
                  params: dict = {}):
 
         # Client model | Member Eccentricity
-        clientObject = clientModel.factory.create('ns0:member_eccentricity')
+        clientObject = Model.clientModel.factory.create('ns0:member_eccentricity')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +23,4 @@ class MemberEccentricity():
             clientObject[key] = params[key]
 
         # Add Member Eccentricity to client model
-        clientModel.service.set_member_eccentricity(clientObject)
+        Model.clientModel.service.set_member_eccentricity(clientObject)

@@ -1,5 +1,5 @@
-from RFEM.initModel import *
-from RFEM.dataTypes import *
+from RFEM.initModel import Model, clearAtributes
+from RFEM.dataTypes import inf
 
 class MemberHinge():
     def __init__(self,
@@ -15,7 +15,7 @@ class MemberHinge():
                  params: dict = {}):
 
         # Client model | Member Hinge
-        clientObject = clientModel.factory.create('ns0:member_hinge')
+        clientObject = Model.clientModel.factory.create('ns0:member_hinge')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -52,4 +52,4 @@ class MemberHinge():
             clientObject[key] = params[key]
 
         # Add Line to client model
-        clientModel.service.set_member_hinge(clientObject)
+        Model.clientModel.service.set_member_hinge(clientObject)
