@@ -60,11 +60,9 @@ class SpectralAnalysisSettings():
         # Signed Results Using Dominant Mode
         clientObject.signed_results_using_dominant_mode = signed_dominant_mode_results
 
-        if signed_dominant_mode_results :
-            if directional_combination == DirectionalComponentCombinationRule.SCALED_SUM:
-                pass
-            else:
-                raise "WARNING: Signed results using dominant mode is only available with Scaled Sum Directional Combination."
+        if signed_dominant_mode_results:
+            if directional_combination != DirectionalComponentCombinationRule.SCALED_SUM:
+                raise Exception("WARNING: Signed results using dominant mode is only available with Scaled Sum Directional Combination.")
 
         # Further Options
         if directional_combination == DirectionalComponentCombinationRule.SCALED_SUM:

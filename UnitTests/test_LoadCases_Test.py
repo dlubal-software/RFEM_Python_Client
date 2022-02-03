@@ -11,7 +11,7 @@ import pytest
 from RFEM.enums import *
 from RFEM.initModel import Model
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
-from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase, DIN_Action_Category
 
 if Model.clientModel is None:
     Model()

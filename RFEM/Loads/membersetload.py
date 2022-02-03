@@ -689,9 +689,7 @@ class MemberSetLoad():
         clientObject.load_distribution= MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM.name
 
         # Individual Mass Components
-        if type(individual_mass_components) == bool:
-            pass
-        else:
+        if not isinstance(individual_mass_components, bool):
             raise Exception("WARNING: Type of individual mass components should be bool. Kindly check inputs correctness.")
         clientObject.individual_mass_components = individual_mass_components
 
@@ -793,9 +791,7 @@ class MemberSetLoad():
             clientObject.magnitude_t_t_1 = load_parameter[2]
             clientObject.magnitude_t_t_2 = load_parameter[3]
 
-            if type(load_over_total_length) == bool:
-                pass
-            else:
+            if not isinstance(load_over_total_length, bool):
                 raise Exception("WARNING: Type of load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
@@ -826,9 +822,7 @@ class MemberSetLoad():
             clientObject.magnitude_t_t_1 = load_parameter[2]
             clientObject.magnitude_t_t_2 = load_parameter[3]
 
-            if type(load_parameter[4]) == bool:
-                pass
-            else:
+            if not isinstance(load_parameter[4], bool):
                 raise Exception("WARNING: Type of the fourth load parameter should be bool. Kindly check inputs correctness.")
 
             if load_parameter[4] == True:
@@ -838,9 +832,7 @@ class MemberSetLoad():
                 clientObject.distance_a_is_defined_as_relative = False
                 clientObject.distance_a_absolute = load_parameter[6]
 
-            if type(load_parameter[5]) == bool:
-                pass
-            else:
+            if not isinstance(load_parameter[5], bool):
                 raise Exception("WARNING: Type of the fifth load parameter should be bool. Kindly check inputs correctness.")
 
             if load_parameter[5] == True:
@@ -973,9 +965,7 @@ class MemberSetLoad():
             clientObject.magnitude_t_c_1 = load_parameter[2]
             clientObject.magnitude_t_c_2 = load_parameter[3]
 
-            if type(load_over_total_length) == bool:
-                pass
-            else:
+            if not isinstance(load_over_total_length, bool):
                 raise Exception("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
@@ -1137,9 +1127,7 @@ class MemberSetLoad():
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
-            if type(load_over_total_length) == bool:
-                pass
-            else:
+            if not isinstance(load_over_total_length, bool):
                 raise Exception("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
@@ -1352,9 +1340,7 @@ class MemberSetLoad():
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
-            if type(load_over_total_length) == bool:
-                pass
-            else:
+            if not isinstance(load_over_total_length, bool):
                 raise Exception("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
@@ -1676,9 +1662,7 @@ class MemberSetLoad():
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
-            if type(load_over_total_length) == bool:
-                pass
-            else:
+            if not isinstance(load_over_total_length, bool):
                 raise Exception("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
@@ -1942,9 +1926,7 @@ class MemberSetLoad():
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
-            if type(load_over_total_length) == bool:
-                pass
-            else:
+            if not isinstance(load_over_total_length, bool):
                 raise Exception("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:

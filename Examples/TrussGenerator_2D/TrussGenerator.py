@@ -904,8 +904,8 @@ class Ui_MainWindow(object):
                         i +=2
                         j +=1
 
-                elif self.diag_8.isChecked():
-                    pass
+                #elif self.diag_8.isChecked():
+                #    pass
 
                 Model.clientModel.service.finish_modification()
 
@@ -1453,8 +1453,8 @@ class Ui_MainWindow(object):
                             i +=2
                             j +=1
 
-                    elif self.diag_8.isChecked():
-                        pass
+                    #elif self.diag_8.isChecked():
+                    #    pass
 
                     Model.clientModel.service.finish_modification()
 
@@ -1592,8 +1592,8 @@ class Ui_MainWindow(object):
                             i +=2
                             j +=1
 
-                    elif self.diag_8.isChecked():
-                        pass
+                    #elif self.diag_8.isChecked():
+                    #    pass
 
                     Model.clientModel.service.finish_modification()
                 else:

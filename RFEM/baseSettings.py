@@ -36,9 +36,7 @@ class BaseSettings():
         clientObject.local_axes_orientation = local_axes_orientation.name
 
         # Tolerances
-        if len(tolerances) == 4:
-            pass
-        else:
+        if len(tolerances) != 4:
             raise Exception("WARNING:Expected size of the array. Kindly check the list correctness.")
 
         clientObject.tolerance_for_nodes = tolerances[0]

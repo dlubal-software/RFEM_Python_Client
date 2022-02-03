@@ -517,9 +517,7 @@ class NodalLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        if 'individual_mass_components' in params.keys():
-            pass
-        else:
+        if 'individual_mass_components' not in params.keys():
             for key in params:
                 clientObject[key] = params[key]
 
