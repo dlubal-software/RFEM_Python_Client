@@ -158,11 +158,28 @@ class SurfaceLoadDistribution(Enum):
     LOAD_DISTRIBUTION_LINEAR, LOAD_DISTRIBUTION_LINEAR_IN_X, LOAD_DISTRIBUTION_LINEAR_IN_Y, LOAD_DISTRIBUTION_LINEAR_IN_Z,\
     LOAD_DISTRIBUTION_RADIAL, LOAD_DISTRIBUTION_UNIFORM, LOAD_DISTRIBUTION_VARYING_IN_Z = range(7)
 
-class SurfaceLoadTransferDirection(Enum):
+class SurfaceLoadDirection(Enum):
+    '''
+    Surface Load Direction | Enum
+    '''
+    LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED, LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE,\
+    LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE,\
+    LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,\
+    LOAD_DIRECTION_LOCAL_X, LOAD_DIRECTION_LOCAL_Y, LOAD_DIRECTION_LOCAL_Z = range(9)
+
+class SurfaceLoadType(Enum):
+    '''
+    Surface Load Type | Enum
+    '''
+    LOAD_TYPE_AXIAL_STRAIN, LOAD_TYPE_FORCE, LOAD_TYPE_FORM_FINDING, LOAD_TYPE_MASS, LOAD_TYPE_PRECAMBER,\
+    LOAD_TYPE_ROTARY_MOTION, LOAD_TYPE_TEMPERATURE = range(7)
+
+class SurfaceLoadDistributionDirection(Enum):
     '''
     Surface Load Distribution Direction
     '''
     LOAD_TRANSFER_DIRECTION_IN_BOTH, LOAD_TRANSFER_DIRECTION_IN_X, LOAD_TRANSFER_DIRECTION_IN_Y = range(3)
+    #LOAD_DISTRIBUTION_DIRECTION_IN_BOTH, LOAD_DISTRIBUTION_DIRECTION_IN_X, LOAD_DISTRIBUTION_DIRECTION_IN_Y = range(3)
 
 class SetType(Enum):
     '''
@@ -211,9 +228,6 @@ class ThicknessDirection(Enum):
     THICKNESS_DIRECTION_IN_Y, THICKNESS_DIRECTION_IN_Z = range(5)
 
 class ThicknessSelfWeightDefinitionType(Enum):
-    '''
-    Thickness Self Weight Definition Type | Enum
-    '''
     SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, \
     SELF_WEIGHT_DEFINED_VIA_WEIGHT = range(3)
 
@@ -233,9 +247,6 @@ class ThicknessStiffnessMatrixSelfWeightDefinitionType(Enum):
     SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_BULK_DENSITY = range(3)
 
 class ThicknessOrthotropyType(Enum):
-    '''
-    Thickness Orthotropy Type | Enum
-    '''
     BIDIRECTIONAL_RIBBED_PLATE, COUPLING, EFFECTIVE_THICKNESS, GRILLAGE, \
     HOLLOW_CORE_SLAB, TRAPEZOIDAL_SHEET, UNIDIRECTIONAL_RIBBED_PLATE = range(7)
 
@@ -248,22 +259,26 @@ class LineLoadDirection(Enum):
     LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,\
     LOAD_DIRECTION_LOCAL_X, LOAD_DIRECTION_LOCAL_Y, LOAD_DIRECTION_LOCAL_Z = range(9)
 
+
 class MemberLoadEccentricityHorizontalAlignment(Enum):
     '''
     Member Load Eccentricity Horizontal Alignment
     '''
+
     ALIGN_LEFT, ALIGN_MIDDLE, ALIGN_NONE, ALIGN_TOP = range(4)
 
 class MemberLoadEccentricityVerticalAlignment(Enum):
     '''
     Member Load Eccentricity Vertical Alignment
     '''
+
     ALIGN_LEFT, ALIGN_MIDDLE, ALIGN_NONE, ALIGN_TOP = range(4)
 
 class MemberLoadEccentricitySectionMiddle(Enum):
     '''
     Member Load Eccentricity Section Middle
     '''
+
     LOAD_ECCENTRICITY_SECTION_MIDDLE_CENTER_OF_GRAVITY, LOAD_ECCENTRICITY_SECTION_MIDDLE_NONE, LOAD_ECCENTRICITY_SECTION_MIDDLE_SHEAR_CENTER = range(3)
 
 class MemberLoadFormFindingDefinitionType(Enum):
@@ -986,6 +1001,210 @@ class CqsDampingRule(Enum):
     Spectal Analysis Settings Damping for CQC Rule
     '''
     CONSTANT_FOR_EACH_MODE, DIFFERENT_FOR_EACH_MODE = range(2)
+
+class DurabilityCorrosionCarbonation(Enum):
+    '''
+    Concrete Durability Corrosion Induced by Carbonation
+    '''
+    CORROSION_INDUCED_BY_CARBONATION_TYPE_CYCLIC_WET_AND_DRY, CORROSION_INDUCED_BY_CARBONATION_TYPE_DRY_OR_PERMANENTLY_WET,\
+    CORROSION_INDUCED_BY_CARBONATION_TYPE_MODERATE_HUMIDITY, CORROSION_INDUCED_BY_CARBONATION_TYPE_WET_RARELY_DRY = range(4)
+
+class DurabilityCorrosionChlorides(Enum):
+    '''
+    Concrete Durability Corrosion Induced by Chlorides
+    '''
+    CORROSION_INDUCED_BY_CHLORIDES_TYPE_CYCLIC_WET_AND_DRY, CORROSION_INDUCED_BY_CHLORIDES_TYPE_MODERATE_HUMIDITY, CORROSION_INDUCED_BY_CHLORIDES_TYPE_WET_RARELY_DRY = range(3)
+
+class DurabilityCorrosionSeaWater(Enum):
+    '''
+    Concrete Durability Corrosion Induced by Chlorised From Sea Water
+    '''
+    CORROSION_INDUCED_BY_CHLORIDES_FROM_SEA_WATER_TYPE_AIRBORNE_SALT, CORROSION_INDUCED_BY_CHLORIDES_FROM_SEA_WATER_TYPE_PERMANENTLY_SUBMERGED,\
+    CORROSION_INDUCED_BY_CHLORIDES_FROM_SEA_WATER_TYPE_SPLASH_AND_SPRAY_ZONES = range(3)
+
+class DurabilityFreezeThawAttack(Enum):
+    '''
+    Concrete Durability Freeze Thaw Attack
+    '''
+    FREEZE_THAW_ATTACK_TYPE_HIGH_SATURATION_DEICING, FREEZE_THAW_ATTACK_TYPE_HIGH_SATURATION_NO_DEICING,\
+     FREEZE_THAW_ATTACK_TYPE_MODERATE_SATURATION_DEICING, FREEZE_THAW_ATTACK_TYPE_MODERATE_SATURATION_NO_DEICING = range(4)
+
+class DurabilityChemicalAttack(Enum):
+    '''
+    Concrete Durability Chemical Attack
+    '''
+    CHEMICAL_ATTACK_TYPE_HIGHLY_AGGRESSIVE, CHEMICAL_ATTACK_TYPE_MODERATELY_AGGRESSIVE, CHEMICAL_ATTACK_TYPE_SLIGHTLY_AGGRESSIVE = range(3)
+
+class DurabilityCorrosionWear(Enum):
+    '''
+    Concrete Durability Concrete Corrosion Induced by the Wear
+    '''
+    CONCRETE_CORROSION_INDUCED_BY_WEAR_TYPE_HIGH, CONCRETE_CORROSION_INDUCED_BY_WEAR_TYPE_MODERATE, CONCRETE_CORROSION_INDUCED_BY_WEAR_TYPE_VERY_HIGH = range(3)
+
+class DurabilityStructuralClassType(Enum):
+    '''
+    Concrete Durability Structural Class Type
+    '''
+    DEFINED, STANDARD = range(2)
+
+class DurabilityStructuralClass(Enum):
+    '''
+    Concrete Durability User Defined Structural Class
+    '''
+    S1, S2, S3, S4, S5, S6 = range(6)
+
+class DurabilityMaxWaterToCementRatio(Enum):
+    '''
+    Concrete Durability Maximum Equivalent Water To Cement Ratio
+    '''
+    ZERO_POINT_FIVE, ZERO_POINT_FIVE_FIVE, ZERO_POINT_FOUR, ZERO_POINT_FOUR_FIVE, ZERO_POINT_NINE, ZERO_POINT_SIX, ZERO_POINT_THREE_FIVE = range(7)
+
+class DurabilityConcreteCoverType(Enum):
+    '''
+    Concrete Durability Increase of Minimum Concrete Cover Type
+    '''
+    DEFINED, STANDARD = range(2)
+
+class DurabilityStainlessSteelType(Enum):
+    '''
+    Concrete Durability Additional Protection Type
+    '''
+    DEFINED, STANDARD = range(2)
+
+class DurabilityAdditionalProtectionType(Enum):
+    '''
+    Concrete Durability Additional Protection Type
+    '''
+    DEFINED, STANDARD = range(2)
+
+class DurabilityAllowanceDeviationType(Enum):
+    '''
+    Concrete Durability Allowance of Deviation Type
+    '''
+    DEFINED, STANDARD = range(2)
+
+class DurabilityConcreteCast(Enum):
+    '''
+    Concrete Durability Concrete Cast
+    '''
+    AGAINST_PREPARED_GROUND, DIRECTLY_AGAINST_SOIL = range(2)
+
+class ConcreteEffectiveLengthsAxisZ(Enum):
+    '''
+    Concrete Effective Lengths Structure Type About Axis Z
+    '''
+    STRUCTURE_TYPE_BRACED, STRUCTURE_TYPE_UNBRACED = range(2)
+
+class ConcreteEffectiveLengthAxisY(Enum):
+    '''
+    Concrete Effective Lengths Structure Type About Axis Y
+    '''
+    STRUCTURE_TYPE_BRACED, STRUCTURE_TYPE_UNBRACED = range(2)
+
+class EffectiveLengthSupportType(Enum):
+    '''
+    Effective Length Nodal Support Type
+    '''
+    SUPPORT_TYPE_FIXED_ALL, SUPPORT_TYPE_FIXED_IN_Y, SUPPORT_TYPE_FIXED_IN_Z, SUPPORT_TYPE_FIXED_IN_Z_AND_TORSION,\
+    SUPPORT_TYPE_FIXED_IN_Z_AND_TORSION_AND_WARPING, SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION, SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION_AND_WARPING,\
+    SUPPORT_TYPE_INDIVIDUALLY, SUPPORT_TYPE_NONE, SUPPORT_TYPE_RESTRAINT_ABOUT_X = range(10)
+
+class EffectiveLengthEccentricityType(Enum):
+    '''
+    Effective Length Eccentricity Type
+    '''
+    ECCENTRICITY_TYPE_AT_LOWER_FLANGE, ECCENTRICITY_TYPE_AT_UPPER_FLANGE, ECCENTRICITY_TYPE_NONE, ECCENTRICITY_TYPE_USER_VALUE = range(4)
+
+class SupportStatus(Enum):
+    '''
+    Support Status
+    '''
+    SUPPORT_STATUS_NO, SUPPORT_STATUS_SPRING, SUPPORT_STATUS_YES = range(3)
+
+class RestraintTypeAboutX(Enum):
+    '''
+    Restraint About X Type
+    '''
+    SUPPORT_STATUS_NO, SUPPORT_STATUS_SPRING, SUPPORT_STATUS_YES = range(3)
+
+class RestraintTypeAboutZ(Enum):
+    '''
+    Restraint About X Type
+    '''
+    SUPPORT_STATUS_NO, SUPPORT_STATUS_SPRING, SUPPORT_STATUS_YES = range(3)
+
+class RestraintTypeWarping(Enum):
+    '''
+    Restraint About Warping
+    '''
+    SUPPORT_STATUS_NO, SUPPORT_STATUS_SPRING, SUPPORT_STATUS_YES = range(3)
+
+class ReinforcementDirectionType(Enum):
+    '''
+    Reinforcement Direction Type
+    '''
+    REINFORCEMENT_DIRECTION_TYPE_FIRST_REINFORCEMENT_IN_X, REINFORCEMENT_DIRECTION_TYPE_FIRST_REINFORCEMENT_IN_Y, REINFORCEMENT_DIRECTION_TYPE_ROTATED = range(3)
+
+class SurfaceReinforcementLocationType(Enum):
+    '''
+    Surface Reinforcement Location Type
+    '''
+    LOCATION_TYPE_FREE_CIRCULAR, LOCATION_TYPE_FREE_POLYGON, LOCATION_TYPE_FREE_RECTANGULAR, LOCATION_TYPE_ON_SURFACE = range(4)
+
+class SurfaceReinforcementType(Enum):
+    '''
+    Surface Reinforcement Type
+    '''
+    REINFORCEMENT_TYPE_MESH, REINFORCEMENT_TYPE_REBARS, REINFORCEMENT_TYPE_STIRRUPS = range(3)
+
+class SurfaceReinforcementDirectionType(Enum):
+    '''
+    Surface Reinforcement Direction Type
+    '''
+    REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION, REINFORCEMENT_DIRECTION_TYPE_PARALLEL_TO_TWO_POINTS = range(2)
+
+class SurfaceReinforcementDesignDirection(Enum):
+    '''
+    Surface Design Reinforcement Direction
+    '''
+    DESIGN_REINFORCEMENT_DIRECTION_A_S_1, DESIGN_REINFORCEMENT_DIRECTION_A_S_2 = range(2)
+
+class SurfaceReinforcementProjectionPlane(Enum):
+    '''
+    Surface Reinforcement Projection Plane
+    '''
+
+    PROJECTION_PLANE_XY_OR_UV, PROJECTION_PLANE_XZ_OR_UW, PROJECTION_PLANE_YZ_OR_VW = range(3)
+
+class SurfaceReinforcementLocationRectangleType(Enum):
+    '''
+    Surface Reinforcement Location Type
+    '''
+    RECTANGLE_TYPE_CENTER_AND_SIDES, RECTANGLE_TYPE_CORNER_POINTS = range(2)
+
+class AmplitudeFunctionType(Enum):
+    '''
+    Amplitude Function Type
+    '''
+    CONSTANT, LINEAR, QUADRATIC = range(3)
+
+class PlausibilityCheckResult(Enum):
+    '''
+    Plausibility Check Result
+    '''
+    CHECK_IS_OK, CHECK_FAILED = range(2)
+
+class ModelCheckGetOptionType(Enum):
+    '''
+    Model Check Get Object Groups Option Type
+    '''
+    CROSSING_LINES, CROSSING_MEMBERS, IDENTICAL_NODES, OVERLAPPING_LINES, OVERLAPPING_MEMBERS = range(5)
+
+class ModelCheckProcessOptionType(Enum):
+    '''
+    Model Check Process Object Groups Option Type
+    '''
+    CROSS_LINES, CROSS_MEMBERS, DELETE_UNUSED_NODES, UNITE_NODES_AND_DELETE_UNUSED_NODES = range(4)
 
 class OptimizeOnType(Enum):
     '''

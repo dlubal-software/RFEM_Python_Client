@@ -24,6 +24,7 @@ if Model.clientModel is None:
     Model()
 
 # pytestmark sets same parameters (in this case skipif) to all functions in the module or class
+# TODO: US-8142
 pytestmark = pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:array_of_get_center_of_gravity_and_objects_info_elements_type', True),
              reason="ns0:array_of_get_center_of_gravity_and_objects_info_elements_type not in RFEM yet")
 def test_centre_of_gravity():

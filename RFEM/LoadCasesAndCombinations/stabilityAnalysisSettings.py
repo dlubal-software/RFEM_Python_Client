@@ -10,10 +10,11 @@ class StabilityAnalysisSettings():
                  comment: str = '',
                  params: dict = {}):
         '''
-        Creates default stability analysis settings with no further options.
-        Stability analysis type is Eigenvalue by default.
-        Eigenvalue method is Lanczos by default.
-        Matrix type is Standard by default.
+        Args:
+            no (int): Stability Analysis Setting Tag
+            name (str): Stability Analysis Setting Name
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
         '''
 
         # Client model | Stability Analysis Settings
@@ -66,24 +67,24 @@ class StabilityAnalysisSettings():
                  params: dict = {}):
         '''
         Args:
-            no (int):
-            name (str, optional): Stability Analysis Name
+            no (int): Stability Analysis Setting Tag
+            name (str, optional): Stability Analysis Setting Name
             number_of_lowest_eigenvalues (int): Number of Lowest Eigenvalues
             considered_favored_effect (bool): Considered Favored Effect
             critical_load_factor (int, optional):
-                For find_eigenvectors_beyond_critical_load_factor == False:
+                for find_eigenvectors_beyond_critical_load_factor == False:
                     critical_load_factor = None
-                For find_eigenvectors_beyond_critical_load_factor == True:
+                for find_eigenvectors_beyond_critical_load_factor == True:
                     critical_load_factor = int
             minimum_initial_strain (optional):
-                For minimum initial strain application:
+                for minimum initial strain application:
                     minimum_initial_strain != 0 or minimum_initial_strain is not None
-                For no minimum initial strain application:
+                for no minimum initial strain application:
                     minimum_initial_strain == 0 or minimum_initial_strain is None
             local_torsional_rotations (optional):
-                For no local torsional rotations display:
+                for no local torsional rotations display:
                     local_torsional_rotations = None
-                For local torsional rotations display:
+                for local torsional rotations display:
                     local_torsional_rotations = double
             eigenvalue_method (enum): Eigenvalue Method Enumeration
             matrix_type (enum): Matrix Type Enumeration
@@ -162,50 +163,50 @@ class StabilityAnalysisSettings():
                  params: dict = {}):
         '''
         Args:
-            no (int):
-            name (str, optional): Stability Analysis Name
+            no (int): Stability Analysis Setting Tag
+            name (str, optional): Stability Analysis Setting Name
             number_of_lowest_eigenvalues (int): Number of Lowest Eigenvalues
             considered_favored_effect (bool): Considered Favored Effect
             critical_load_factor (int, optional):
-                For find_eigenvectors_beyond_critical_load_factor == False:
+                for find_eigenvectors_beyond_critical_load_factor == False:
                     critical_load_factor = None
-                For find_eigenvectors_beyond_critical_load_factor == True:
+                for find_eigenvectors_beyond_critical_load_factor == True:
                     critical_load_factor = int
             minimum_initial_strain (optional):
-                For minimum initial strain application:
+                for minimum initial strain application:
                     minimum_initial_strain != 0 or minimum_initial_strain is not None
-                For no minimum initial strain application:
+                for no minimum initial strain application:
                     minimum_initial_strain is None
             local_torsional_rotations (optional):
-                For no local torsional rotations display:
+                for no local torsional rotations display:
                     local_torsional_rotations = None
-                For local torsional rotations display:
+                for local torsional rotations display:
                     local_torsional_rotations = double
             incrementally_increasing_loading (list): [initial_load_factor, load_factor_increment, refinement_of_the_last_load_increment, maximum_number_of_load_increments]
             stopping_of_load_increasing (list, optional):
-                For stopping of load increasing deactivated:
-                    stopping_of_load_increasing : None
-                For result u:
-                    stopping_of_load_increasing : [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U, limit_result_displacement, limit_node]
-                For result uX:
-                    stopping_of_load_increasing : [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U_X, limit_result_displacement, limit_node]
-                For result uY:
-                    stopping_of_load_increasing : [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U_Y, limit_result_displacement, limit_node]
-                For result uZ:
-                    stopping_of_load_increasing : [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U_Z, limit_result_displacement, limit_node]
-                For result phi:
-                    stopping_of_load_increasing : [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI, limit_result_rotation, limit_node]
-                For result phiX:
-                    stopping_of_load_increasing : [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI_X, limit_result_rotation, limit_node]
-                For result phiY:
-                    stopping_of_load_increasing : [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI_Y, limit_result_rotation, limit_node]
-                For result phiZ:
-                    stopping_of_load_increasing : [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI_Z, limit_result_rotation, limit_node]
+                for stopping of load increasing deactivated:
+                    stopping_of_load_increasing = None
+                for result u:
+                    stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U, limit_result_displacement, limit_node]
+                for result uX:
+                    stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U_X, limit_result_displacement, limit_node]
+                for result uY:
+                    stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U_Y, limit_result_displacement, limit_node]
+                for result uZ:
+                    stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U_Z, limit_result_displacement, limit_node]
+                for result phi:
+                    stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI, limit_result_rotation, limit_node]
+                for result phiX:
+                    stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI_X, limit_result_rotation, limit_node]
+                for result phiY:
+                    stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI_Y, limit_result_rotation, limit_node]
+                for result phiZ:
+                    stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI_Z, limit_result_rotation, limit_node]
             save_results_of_all_increments (bool, optional): Save Results of All Increments
             eigenvalue_method (enum): Eigenvalue Method Enumeration
             matrix_type (enum): Matrix Type Enumeration
-            comment (str, optional):
-            params (dict, optional):
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
         '''
         # Client model | Stability Analysis Settings
         clientObject = Model.clientModel.factory.create('ns0:stability_analysis_settings')
@@ -297,41 +298,41 @@ class StabilityAnalysisSettings():
                  params: dict = {}):
         '''
         Args:
-            no (int):
-            name (str, optional): Stability Analysis Name
+            no (int): Stability Analysis Setting Tag
+            name (str, optional): Stability Analysis Setting Name
             minimum_initial_strain (optional):
-                For minimum initial strain application:
+                for minimum initial strain application:
                     minimum_initial_strain != 0 or minimum_initial_strain is not None
-                For no minimum initial strain application:
+                for no minimum initial strain application:
                     minimum_initial_strain == 0 or minimum_initial_strain is None
             local_torsional_rotations (optional):
-                For no local torsional rotations display:
+                for no local torsional rotations display:
                     local_torsional_rotations = None
-                For local torsional rotations display:
+                for local torsional rotations display:
                     local_torsional_rotations = double
             incrementally_increasing_loading (list): [initial_load_factor, load_factor_increment, refinement_of_the_last_load_increment, maximum_number_of_load_increments]
             stopping_of_load_increasing (list, optional):
-                For stopping of load increasing deactivated:
-                    stopping_of_load_increasing : None
-                For result u:
-                    stopping_of_load_increasing : [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U, limit_result_displacement, limit_node]
-                For result uX:
-                    stopping_of_load_increasing : [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U_X, limit_result_displacement, limit_node]
-                For result uY:
-                    stopping_of_load_increasing : [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U_Y, limit_result_displacement, limit_node]
-                For result uZ:
-                    stopping_of_load_increasing : [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U_Z, limit_result_displacement, limit_node]
-                For result phi:
-                    stopping_of_load_increasing : [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI, limit_result_rotation, limit_node]
-                For result phiX:
-                    stopping_of_load_increasing : [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI_X, limit_result_rotation, limit_node]
-                For result phiY:
-                    stopping_of_load_increasing : [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI_Y, limit_result_rotation, limit_node]
-                For result phiZ:
-                    stopping_of_load_increasing : [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI_Z, limit_result_rotation, limit_node]
+                for stopping of load increasing deactivated:
+                    stopping_of_load_increasing = None
+                for result u:
+                    stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U, limit_result_displacement, limit_node]
+                for result uX:
+                    stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U_X, limit_result_displacement, limit_node]
+                for result uY:
+                    stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U_Y, limit_result_displacement, limit_node]
+                for result uZ:
+                    stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U_Z, limit_result_displacement, limit_node]
+                for result phi:
+                    stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI, limit_result_rotation, limit_node]
+                for result phiX:
+                    stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI_X, limit_result_rotation, limit_node]
+                for result phiY:
+                    stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI_Y, limit_result_rotation, limit_node]
+                for result phiZ:
+                    stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI_Z, limit_result_rotation, limit_node]
             save_results_of_all_increments (bool, optional): Save Results of All Increments
-            comment (str, optional):
-            params (dict, optional):
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
         '''
         # Client model | Stability Analysis Settings
         clientObject = Model.clientModel.factory.create('ns0:stability_analysis_settings')

@@ -2,10 +2,18 @@ from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 
 class Opening():
     def __init__(self,
-                 no: int,
-                 lines_no: str,
+                 no: int = 1,
+                 lines_no: str = '1 2 3 4',
                  comment: str = '',
                  params: dict = {}):
+
+        '''
+        Args:
+            no (int): Opening Tag
+            lines_no (str): Tags of Lines defining Opening
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
 
         # Client model | Opening
         clientObject = Model.clientModel.factory.create('ns0:opening')

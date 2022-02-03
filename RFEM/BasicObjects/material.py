@@ -7,6 +7,14 @@ class Material():
                  comment: str = '',
                  params: dict = {}):
 
+        '''
+        Args:
+            no (int): Material Tag
+            name (str): Name of Desired Material (As Named in RFEM Database)
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+
         # Client model | Material
         clientObject = Model.clientModel.factory.create('ns0:material')
 

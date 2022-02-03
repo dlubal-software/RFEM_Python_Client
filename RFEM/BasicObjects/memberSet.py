@@ -9,6 +9,15 @@ class MemberSet():
                  comment: str = '',
                  params: dict = {}):
 
+        '''
+        Args:
+            no (int): Member Set Tag
+            members_no (str): Tags of Members Contained Within Member Set
+            member_set_type (enum): Member Set Type Enumeration
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+
         # Client model | Member Set
         clientObject = Model.clientModel.factory.create('ns0:member_set')
 
@@ -40,6 +49,14 @@ class MemberSet():
                           comment: str = '',
                           params: dict = {}):
 
+        '''
+        Args:
+            no (int): Member Set Tag
+            members_no (str): Tags of Members Contained Within Continuous Member Set
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+
         # Client model | Member Set
         clientObject = Model.clientModel.factory.create('ns0:member_set')
 
@@ -70,6 +87,14 @@ class MemberSet():
                        members_no: str = '1 4 5 8 9 12 13 16 17 20 21 24',
                        comment: str = '',
                        params: dict = {}):
+
+        '''
+        Args:
+            no (int): Member Set Tag
+            members_no (str): Tags of Members Contained Within Group of Members Member Set
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
 
         # Client model | Member Set
         clientObject = Model.clientModel.factory.create('ns0:member_set')

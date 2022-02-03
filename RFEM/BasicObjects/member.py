@@ -98,44 +98,41 @@ class Member():
             start_node_no (int): Tag of Start Node
             end_node_no (int): Tag of End Node
             section_distribution_type (enum): Section Distribution Type Enumeration
+                for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR:
+                    distribution_parameters = [section_alignment]
+                for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES:
+                    distribution_parameters = [section_distance_from_start_is_defined_as_relative, section_distance_from_end_is_defined_as_relative,
+                                                section_distance_from_start_relative/absolute, section_distance_from_end_relative/absolute,
+                                                section_alignment, section_internal]
+                for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER:
+                    distribution_parameters = [section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment]
+                for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER:
+                    distribution_parameters = [section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment]
+                for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_SADDLE:
+                    distribution_parameters = [section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment, section_internal]
+                for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES:
+                    distribution_parameters = [section_distance_from_start_is_defined_as_relative, section_distance_from_end_is_defined_as_relative,
+                                               section_distance_from_start_relative/absolute, section_distance_from_end_relative/absolute,
+                                               section_alignment, section_internal]
+                for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER:
+                    distribution_parameters = [section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment]
+                for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER:
+                    distribution_parameters = [section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment]
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters; 1 or 2 params
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
+                    rotation_parameters = [rotation_angle]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
+                    rotation_parameters = [rotation_help_node, rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
+                    rotation_parameters = [rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
+                    rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             start_section_no (int): Tag of Start Section
             end_section_no (int): End of End Section
             distribution_parameters (list): Distribution Parameters
             comment (str, optional): Comment
             params (dict, optional): Parameters
-
-        for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR:
-            distribution_parameters[section_alignment]
-        for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES:
-            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_end_is_defined_as_relative,
-                                    section_distance_from_start_relative/absolute, section_distance_from_end_relative/absolute,
-                                    section_alignment, section_internal]
-        for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER:
-            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment]
-        for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER:
-            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment]
-        for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_SADDLE:
-            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment, section_internal]
-        for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES:
-            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_end_is_defined_as_relative,
-                                    section_distance_from_start_relative/absolute, section_distance_from_end_relative/absolute,
-                                    section_alignment, section_internal]
-        for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER:
-            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment]
-        for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER:
-            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment]
-
-
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
-            rotation_parameters[rotation_angle]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
-            rotation_parameters[rotation_help_node, rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            rotation_parameters[rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
-            rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -351,17 +348,16 @@ class Member():
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
+                        rotation_parameters = [rotation_angle]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
+                    rotation_parameters = [rotation_help_node, rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
+                    rotation_parameters = [rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
+                    rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Parameters
-
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
-            rotation_parameters[rotation_angle]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
-            rotation_parameters[rotation_help_node, rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            rotation_parameters[rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
-            rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -470,7 +466,7 @@ class Member():
             params (dict, optional): Parameters
 
         for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR:
-            distribution_parameters[section_alignment]
+            distribution_parameters[section_alignment] BJÖRN: Where is this parameter used?
         """
 
         # Client model | Member
@@ -583,18 +579,17 @@ class Member():
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
+                        rotation_parameters = [rotation_angle]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
+                    rotation_parameters = [rotation_help_node, rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
+                    rotation_parameters = [rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
+                    rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             section_no (int): Section Tag
             comment (str, optional): Comment
             params (dict, optional): Parameters
-
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
-            rotation_parameters[rotation_angle]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
-            rotation_parameters[rotation_help_node, rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            rotation_parameters[rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
-            rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -698,18 +693,17 @@ class Member():
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
+                    rotation_parameters = [rotation_angle]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
+                    rotation_parameters = [rotation_help_node, rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
+                    rotation_parameters = [rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
+                    rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             section_no (int): Section Tag
             comment (str, optional): Comment
             params (dict, optional): Parameters
-
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
-            rotation_parameters[rotation_angle]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
-            rotation_parameters[rotation_help_node, rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            rotation_parameters[rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
-            rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -813,18 +807,17 @@ class Member():
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
+                    rotation_parameters = [rotation_angle]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
+                    rotation_parameters = [rotation_help_node, rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
+                    rotation_parameters = [rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
+                    rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             section_no (int): Section Tag
             comment (str, optional): Comment
             params (dict, optional): Parameters
-
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
-            rotation_parameters[rotation_angle]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
-            rotation_parameters[rotation_help_node, rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            rotation_parameters[rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
-            rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -928,18 +921,17 @@ class Member():
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
+                    rotation_parameters = [rotation_angle]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
+                    rotation_parameters = [rotation_help_node, rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
+                    rotation_parameters = [rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
+                    rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             section_no (int): Section Tag
             comment (str, optional): Comment
             params (dict, optional): Parameters
-
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
-            rotation_parameters[rotation_angle]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
-            rotation_parameters[rotation_help_node, rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            rotation_parameters[rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
-            rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -1043,18 +1035,17 @@ class Member():
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
+                    rotation_parameters = [rotation_angle]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
+                    rotation_parameters = [rotation_help_node, rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
+                    rotation_parameters = [rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
+                    rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             section_no (int): Section Tag
             comment (str, optional): Comment
             params (dict, optional): Parameters
-
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
-            rotation_parameters[rotation_angle]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
-            rotation_parameters[rotation_help_node, rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            rotation_parameters[rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
-            rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -1156,18 +1147,17 @@ class Member():
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
+                    rotation_parameters = [rotation_angle]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
+                    rotation_parameters = [rotation_help_node, rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
+                    rotation_parameters = [rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
+                    rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             section_no (int): Section Tag
             comment (str, optional): Comment
             params (dict, optional): Parameters
-
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
-            rotation_parameters[rotation_angle]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
-            rotation_parameters[rotation_help_node, rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            rotation_parameters[rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
-            rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -1266,49 +1256,46 @@ class Member():
             section_distribution_type (enum): Section Distribution Type Enumeration
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
+                    rotation_parameters = [rotation_angle]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
+                    rotation_parameters = [rotation_help_node, rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
+                    rotation_parameters = [rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
+                    rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             start_section_no (int): Tag of Start Section
             end_section_no (int): Tag of End Section
             distribution_parameters (list): Distribution Parameters
+                for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR:
+                    distribution_parameters = [section_alignment]
+                for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES:
+                    distribution_parameters = [section_distance_from_start_is_defined_as_relative, section_distance_from_end_is_defined_as_relative,
+                                               section_distance_from_start_relative/absolute, section_distance_from_end_relative/absolute,
+                                               section_alignment, section_internal]
+                for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER:
+                    distribution_parameters = [section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment]
+                for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER:
+                    distribution_parameters = [section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment]
+                for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_SADDLE:
+                    distribution_parameters = [section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment, section_internal]
+                for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES:
+                    distribution_parameters = [section_distance_from_start_is_defined_as_relative, section_distance_from_end_is_defined_as_relative,
+                                               section_distance_from_start_relative/absolute, section_distance_from_end_relative/absolute,
+                                               section_alignment, section_internal]
+                for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER:
+                    distribution_parameters = [section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment]
+                for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER:
+                    distribution_parameters = [section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment]
             integration_parameters (list): Integration Parameters
+                for result_beam_integrate_stresses_and_forces.name == "INTEGRATE_WITHIN_CUBOID_QUADRATIC":
+                    integration_parameters = [result_beam_y_z]
+                for result_beam_integrate_stresses_and_forces.name == "INTEGRATE_WITHIN_CUBOID_GENERAL":
+                    integration_parameters = [result_beam_y_plus, result_beam_z_plus, result_beam_y_minus, result_beam_z_minus]
+                for result_beam_integrate_stresses_and_forces.name == "INTEGRATE_WITHIN_CYLINDER":
+                    integration_parameters = [result_beam_radius]
             comment (str, optional): Comment
             params (dict, optional): Parameters
-
-        for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR:
-            distribution_parameters[section_alignment]
-        for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES:
-            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_end_is_defined_as_relative,
-                                    section_distance_from_start_relative/absolute, section_distance_from_end_relative/absolute,
-                                    section_alignment, section_internal]
-        for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER:
-            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment]
-        for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER:
-            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment]
-        for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_SADDLE:
-            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment, section_internal]
-        for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES:
-            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_end_is_defined_as_relative,
-                                    section_distance_from_start_relative/absolute, section_distance_from_end_relative/absolute,
-                                    section_alignment, section_internal]
-        for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER:
-            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment]
-        for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER:
-            distribution_parameters[section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment]
-
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
-            rotation_parameters[rotation_angle]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
-            rotation_parameters[rotation_help_node, rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            rotation_parameters[rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
-            rotation_parameters[rotation_surface, rotation_surface_plane_type]
-
-        for result_beam_integrate_stresses_and_forces.name == "INTEGRATE_WITHIN_CUBOID_QUADRATIC":
-            integration_parameters[result_beam_y_z]
-        for result_beam_integrate_stresses_and_forces.name == "INTEGRATE_WITHIN_CUBOID_GENERAL":
-            integration_parameters[result_beam_y_plus, result_beam_z_plus, result_beam_y_minus, result_beam_z_minus]
-        for result_beam_integrate_stresses_and_forces.name == "INTEGRATE_WITHIN_CYLINDER":
-            integration_parameters[result_beam_radius]
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -1515,18 +1502,17 @@ class Member():
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
+                    rotation_parameters = [rotation_angle]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
+                    rotation_parameters = [rotation_help_node, rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
+                    rotation_parameters = [rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
+                    rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             definable_stiffness (int): Definable Stiffness Tag
             comment (str, optional): Comment
             params (dict, optional): Parameters
-
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
-            rotation_parameters[rotation_angle]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
-            rotation_parameters[rotation_help_node, rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            rotation_parameters[rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
-            rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -1616,17 +1602,16 @@ class Member():
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
+                    rotation_parameters = [rotation_angle]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
+                    rotation_parameters = [rotation_help_node, rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
+                    rotation_parameters = [rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
+                    rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Parameters
-
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
-            rotation_parameters[rotation_angle]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
-            rotation_parameters[rotation_help_node, rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            rotation_parameters[rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
-            rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -1692,17 +1677,16 @@ class Member():
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
+                    rotation_parameters = [rotation_angle]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
+                    rotation_parameters = [rotation_help_node, rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
+                    rotation_parameters = [rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
+                    rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Parameters
-
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
-            rotation_parameters[rotation_angle]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
-            rotation_parameters[rotation_help_node, rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            rotation_parameters[rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
-            rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -1768,17 +1752,16 @@ class Member():
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
+                    rotation_parameters = [rotation_angle]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
+                    rotation_parameters = [rotation_help_node, rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
+                    rotation_parameters = [rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
+                    rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Parameters
-
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
-            rotation_parameters[rotation_angle]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
-            rotation_parameters[rotation_help_node, rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            rotation_parameters[rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
-            rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -1844,17 +1827,16 @@ class Member():
             end_node_no (int): Tag of End Node
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
+                    rotation_parameters = [rotation_angle]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
+                    rotation_parameters = [rotation_help_node, rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
+                    rotation_parameters = [rotation_plane_type]
+                for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
+                    rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Parameters
-
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
-            rotation_parameters[rotation_angle]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
-            rotation_parameters[rotation_help_node, rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
-            rotation_parameters[rotation_plane_type]
-        for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
-            rotation_parameters[rotation_surface, rotation_surface_plane_type]
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
