@@ -14,7 +14,6 @@ from RFEM.LoadCasesAndCombinations.spectralAnalysisSettings import SpectralAnaly
 if Model.clientModel is None:
     Model()
 
-@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'set_spectral_analysis_settings', True), reason="set_spectral_analysis_settings not in RFEM yet")
 def test_spectral_analysis_settings():
 
     Model.clientModel.service.delete_all()

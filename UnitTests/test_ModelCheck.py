@@ -18,6 +18,7 @@ import pytest
 if Model.clientModel is None:
     Model()
 
+# TODO: US-8140
 @pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'model_check__get_object_groups_operation', True), reason="model_check__get_object_groups_operation not in RFEM yet")
 def test_model_check():
 
@@ -61,8 +62,6 @@ def test_model_check():
 
     Model.clientModel.service.finish_modification()
 
-    # TODO: UniteNodes(), CrossMembers() not covered
-    # US-8140 ToReview
     identical_nodes = ModelCheck.GetIdenticalNodes(0, 0.0005)
     assert identical_nodes[0][0] == "1,2"
     assert identical_nodes[0][1] == "3,4"

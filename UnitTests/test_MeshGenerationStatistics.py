@@ -18,6 +18,7 @@ from RFEM.enums import *
 if Model.clientModel is None:
     Model()
 
+# TODO: US-7906
 @pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'generate_mesh', True), reason="generate_mesh not in RFEM yet")
 def test_generation_of_mesh_statistics():
 

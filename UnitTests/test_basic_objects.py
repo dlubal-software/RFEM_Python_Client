@@ -7,7 +7,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 import pytest
 from RFEM.enums import *
-from RFEM.initModel import Model
+from RFEM.initModel import Model, SetAddonStatus
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.thickness import Thickness
@@ -452,10 +452,13 @@ def test_thickness_circle():
     assert thickness.thickness_circle_line == 0.1
 
 @pytest.mark.skip("all tests still WIP")
+# TODO: AssertionError: WARNING: multilayer_surfaces_active Add-on can not be reached.
 def test_thickness_layers():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
+
+    SetAddonStatus(Model.clientModel, 'multilayer_surfaces_design_active')
 
     Material(1, 'S235')
 

@@ -10,6 +10,7 @@ from RFEM.enums import GlobalAxesOrientationType, LocalAxesOrientationType
 from RFEM.baseSettings import BaseSettings
 from RFEM.initModel import Model, CheckIfMethodOrTypeExists
 
+# TODO: US-8005
 @pytest.mark.skipif(CheckIfMethodOrTypeExists(Model().clientModel,'set_model_settings_and_options', True), reason="set_model_settings_and_options not in RFEM yet")
 def test_baseSettings():
     if Model.clientModel is None:

@@ -24,6 +24,7 @@ def test_load_case():
 
     StaticAnalysisSettings()
     # TODO: DIN_Action_Category will only work with German localization
+    # The action cat. is language dependent, which needs to be corrected.
     LoadCase.StaticAnalysis(LoadCase, 1, 'SW', True, 1, DIN_Action_Category['1A'], [True, 0, 0, 1])
     LoadCase.StaticAnalysis(LoadCase, 2, 'SDL', True,  1, DIN_Action_Category['1C'], [True, 0.1, 0.1, 0])
     LoadCase.StaticAnalysis(LoadCase, 3, 'Snow', True,  1, DIN_Action_Category['4A'], [False])

@@ -13,6 +13,7 @@ from RFEM.LoadCasesAndCombinations.stabilityAnalysisSettings import StabilityAna
 if Model.clientModel is None:
     Model()
 
+# TODO: US-7699
 pytestmark = pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:stability_analysis_settings', True), reason="Type ns0:stability_analysis_settings not in RFEM yet")
 def test_stability_analysis_settings_init():
 
