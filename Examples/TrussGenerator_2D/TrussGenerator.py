@@ -1,35 +1,5 @@
 import os
 import sys
-import numpy as np
-baseName = os.path.basename(__file__)
-dirName = os.path.dirname(__file__)
-print('basename:    ', baseName)
-print('dirname:     ', dirName)
-sys.path.append(dirName + r'/../..')
-from RFEM.enums import *
-from RFEM.window import *
-from RFEM.dataTypes import *
-from RFEM.initModel import *
-from RFEM.BasicObjects.material import *
-from RFEM.BasicObjects.section import *
-from RFEM.BasicObjects.thickness import *
-from RFEM.BasicObjects.node import *
-from RFEM.BasicObjects.line import *
-from RFEM.BasicObjects.member import *
-from RFEM.BasicObjects.surface import *
-from RFEM.BasicObjects.solid import *
-from RFEM.BasicObjects.opening import *
-from RFEM.BasicObjects.lineSet import *
-from RFEM.BasicObjects.memberSet import *
-from RFEM.BasicObjects.surfaceSet import *
-from RFEM.BasicObjects.solidSet import *
-from RFEM.TypesForNodes.nodalSupport import *
-from RFEM.TypesForMembers.memberHinge import *
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
-from RFEM.LoadCasesAndCombinations.loadCase import *
-from RFEM.Loads.nodalLoad import *
-from RFEM.Loads.memberLoad import *
-from RFEM.Loads.surfaceLoad import *
 
 try:
     from PyQt5 import QtCore, QtGui, QtWidgets
@@ -68,6 +38,55 @@ except:
     else:
         input('Press Enter to exit...')
         sys.exit()
+
+try:
+    import numpy as np
+except:
+    print('numpy library is not installed in your Python env.')
+    instqdark = input('Do you want to install it (y/n)? ')
+    instqdark = instPyQt5.lower()
+    if instqdark == 'y':
+        import subprocess
+        try:
+            subprocess.call('python -m pip install numpy')
+        except:
+            print('WARNING: Installation of numpy library failed!')
+            print('Please use command "pip install numpy" in your Command Prompt.')
+            input('Press Enter to exit...')
+            sys.exit()
+    else:
+        input('Press Enter to exit...')
+        sys.exit()
+
+baseName = os.path.basename(__file__)
+dirName = os.path.dirname(__file__)
+print('basename:    ', baseName)
+print('dirname:     ', dirName)
+sys.path.append(dirName + r'/../..')
+from RFEM.enums import *
+from RFEM.window import *
+from RFEM.dataTypes import *
+from RFEM.initModel import *
+from RFEM.BasicObjects.material import *
+from RFEM.BasicObjects.section import *
+from RFEM.BasicObjects.thickness import *
+from RFEM.BasicObjects.node import *
+from RFEM.BasicObjects.line import *
+from RFEM.BasicObjects.member import *
+from RFEM.BasicObjects.surface import *
+from RFEM.BasicObjects.solid import *
+from RFEM.BasicObjects.opening import *
+from RFEM.BasicObjects.lineSet import *
+from RFEM.BasicObjects.memberSet import *
+from RFEM.BasicObjects.surfaceSet import *
+from RFEM.BasicObjects.solidSet import *
+from RFEM.TypesForNodes.nodalSupport import *
+from RFEM.TypesForMembers.memberHinge import *
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import *
+from RFEM.LoadCasesAndCombinations.loadCase import *
+from RFEM.Loads.nodalLoad import *
+from RFEM.Loads.memberLoad import *
+from RFEM.Loads.surfaceLoad import *
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
