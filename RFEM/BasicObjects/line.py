@@ -1,5 +1,5 @@
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.enums import LineType, LineArcAlphaAdjustmentTarget
 
 class Line():
     def __init__(self,
@@ -128,7 +128,6 @@ class Line():
 
     def Circle(self,
                 no: int = 1,
-                nodes_no: str = '1',
                 center_of_cirle: list = [20,0,0],
                 circle_radius: float = 1.0,
                 point_of_normal_to_circle_plane: list = [1,0,0],
@@ -157,9 +156,6 @@ class Line():
 
         # Type
         clientObject.type = LineType.TYPE_CIRCLE.name
-
-        # Nodes No.
-        clientObject.definition_nodes = ConvertToDlString(nodes_no)
 
         # Center of circle
         clientObject.circle_center_coordinate_1 = center_of_cirle[0]
@@ -418,6 +414,8 @@ class Line():
         if len(control_points) != len(weights):
             print("WARNING: The number of weigths prescribed must equal the number of control points defined.")
 
+        '''
+        TODO: bug 24721
         nurbs_control_points = []
         for i,j in enumerate(control_points):
             point = Model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
@@ -427,8 +425,8 @@ class Line():
             point.global_coordinate_z = control_points[i][2]
             point.weight = weights[i]
             nurbs_control_points.append(point)
-        clientObject.nurbs_control_points_by_components = Model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
-
+        #clientObject.nurbs_control_points_by_components = Model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
+        '''
         # Comment
         clientObject.comment = comment
 

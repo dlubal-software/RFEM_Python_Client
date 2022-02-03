@@ -126,13 +126,10 @@ except:
 # the message: 'Application is locked by external connection'
 # is blinking whole time and the execution is unnecessarily long.
 # This solution works with unit-tests.
-def persistent():
-    session = requests.Session()
-    adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
-    session.mount('http://', adapter)
-    return suds_requests.RequestsTransport(session)
-
-trans = persistent()
+session = requests.Session()
+adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
+session.mount('http://', adapter)
+trans = suds_requests.RequestsTransport(session)
 
 class Model():
     clientModel = None
@@ -140,7 +137,7 @@ class Model():
                  new_model: bool=True,
                  model_name: str="MyModel",
                  delete: bool=False,
-                 reset: bool=False):
+                 delete_all: bool=False):
 
         cModel = None
         modelLs = client.service.get_model_list()
@@ -150,7 +147,7 @@ class Model():
                 new = client.service.open_model(model_name) + 'wsdl'
                 cModel = Client(new, transport=trans)
                 cModel.service.delete_all_results()
-                cModel.service.reset()
+                cModel.service.delete_all()
             else:
                 new = client.service.new_model(model_name) + 'wsdl'
                 cModel = Client(new, transport=trans)
@@ -164,9 +161,9 @@ class Model():
             if delete:
                 print('Deleting results...')
                 cModel.service.delete_all_results()
-            if reset:
-                print('Resetting model...')
-                cModel.service.reset()
+            if delete_all:
+                print('Delete all...')
+                cModel.service.delete_all()
 
         Model.clientModel = cModel
 
@@ -251,6 +248,24 @@ def ConvertToDlString(s):
 
     s = ' '.join(new_lst)
     return s
+
+def ConvertStrToListOfInt(st):
+    """
+    This function coverts string to list of integers.
+    """
+    st = ConvertToDlString(st)
+    lstInt = []
+    while st:
+        intNumber = 0
+        if ' ' in st:
+            idx = st.index(' ')
+            intNumber = int(st[:idx])
+            st = st[idx+1:]
+        else:
+            intNumber = int(st)
+            st = ''
+        lstInt.append(intNumber)
+    return lstInt
 
 def CheckIfMethodOrTypeExists(modelClient, method_or_type, unitTestMode=False):
     """

@@ -16,7 +16,7 @@ if Model.clientModel is None:
 pytestmark = pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:stability_analysis_settings', True), reason="Type ns0:stability_analysis_settings not in RFEM yet")
 def test_stability_analysis_settings_init():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     StabilityAnalysisSettings()
@@ -38,7 +38,7 @@ def test_stability_analysis_settings_init():
 
 def test_stability_analysis_settings_eigenvalue_method():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     StabilityAnalysisSettings.EigenvalueMethod(StabilityAnalysisSettings, no= 1,
@@ -70,7 +70,7 @@ def test_stability_analysis_settings_eigenvalue_method():
 
 def test_stability_analysis_settings_incrementaly_method_with_eigenvalue():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     StabilityAnalysisSettings.IncrementalyMethodWithEigenvalue(StabilityAnalysisSettings, no= 1,
@@ -113,7 +113,7 @@ def test_stability_analysis_settings_incrementaly_method_with_eigenvalue():
 
 def test_stability_analysis_settings_incrementaly_method_without_eigenvalue():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     StabilityAnalysisSettings.IncrementalyMethodWithoutEigenvalue(StabilityAnalysisSettings, no= 1,

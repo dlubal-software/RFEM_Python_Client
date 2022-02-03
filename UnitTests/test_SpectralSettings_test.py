@@ -1,23 +1,23 @@
 import sys
 import os
+import pytest
 PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.path.dirname(__file__),
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.enums import PeriodicResponseCombinationRule, DirectionalComponentCombinationRule, CqsDampingRule
+from RFEM.initModel import Model, CheckIfMethodOrTypeExists
 from RFEM.BasicObjects.material import Material
 from RFEM.LoadCasesAndCombinations.spectralAnalysisSettings import SpectralAnalysisSettings
 
 if Model.clientModel is None:
     Model()
 
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'set_spectral_analysis_settings', True), reason="set_spectral_analysis_settings not in RFEM yet")
 def test_spectral_analysis_settings():
 
-    CheckIfMethodOrTypeExists(Model.clientModel,'set_spectral_analysis_settings')
-
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     # Create Material

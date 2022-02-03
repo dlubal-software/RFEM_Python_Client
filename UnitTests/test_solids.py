@@ -6,8 +6,8 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.enums import SetType
+from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
@@ -24,7 +24,7 @@ if Model.clientModel is None:
 def test_solids_and_solid_sets():
 
     # Testing solids
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')

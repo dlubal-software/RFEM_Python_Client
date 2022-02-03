@@ -425,7 +425,7 @@ class Thickness():
                  no: int = 1,
                  name: str = None,
                  material_no: int = 1,
-                 orthotropy_type = ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS,
+                 orthotropy_type = ThicknessOrthotropyType.EFFECTIVE_THICKNESS,
                  rotation_beta: float = 0,
                  consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, 0.18],
                  parameters = [0.18, 0.18],
@@ -447,19 +447,19 @@ class Thickness():
                 for consideration_of_self_weight == 'user-defined'
                     consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_WEIGHT, self_weight]
             parameters (list): Parameters List of chosen Orthotropy Type
-                for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS:
+                for orthotropy_type == ThicknessOrthotropyType.EFFECTIVE_THICKNESS:
                     parameters = [effective_thickness_x, effective_thickness_y]
-                for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_COUPLING:
+                for orthotropy_type == ThicknessOrthotropyType.COUPLING:
                     parameters = [coupling_thickness, coupling_spacing, coupling_width]
-                for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE:
+                for orthotropy_type == ThicknessOrthotropyType.UNIDIRECTIONAL_RIBBED_PLATE:
                     parameters = [slab_thickness, rib_height, rib_spacing, rib_width]
-                for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_BIDIRECTIONAL_RIBBED_PLATE:
+                for orthotropy_type == ThicknessOrthotropyType.BIDIRECTIONAL_RIBBED_PLATE:
                     parameters = [slab_thickness, rib_height_x, rib_height_y, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
-                for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET:
+                for orthotropy_type == ThicknessOrthotropyType.TRAPEZOIDAL_SHEET:
                     parameters = [sheet_thickness, total_profile_height, rib_spacing, top_flange_width, bottom_flange_width]
-                for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB:
+                for orthotropy_type == ThicknessOrthotropyType.HOLLOW_CORE_SLAB:
                     parameters = [slab_thickness, void_spacing, void_diameter]
-                for orthotropy_type == ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE:
+                for orthotropy_type == ThicknessOrthotropyType.GRILLAGE:
                     parameters = [slab_thickness, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
             comment (str, optional): Comments
             params (dict, optional): Parameters
@@ -486,7 +486,7 @@ class Thickness():
         clientObject.material = material_no
 
         # Orthotropy Type
-        clientObject.orthotropy_type = orthotropy_type.name
+        clientObject.orthotropy_type = 'ORTHOTROPIC_THICKNESS_TYPE_' + orthotropy_type.name
 
         # Rotation Beta
         clientObject.orthotropy_rotation_beta = rotation_beta * (pi/180)
@@ -501,25 +501,25 @@ class Thickness():
             clientObject.shape_orthotropy_self_weight = consideration_of_self_weight[1]
 
         # Shape Orthotropy Parameters
-        if orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS':
+        if orthotropy_type.name == 'EFFECTIVE_THICKNESS':
             if len(parameters) != 2:
                 raise Exception('WARNING: The parameters needs to be of length 2. Kindly check list inputs for completeness and correctness.')
-            clientObject.effective_thickness_x = parameters[0]
-            clientObject.effective_thickness_y = parameters[1]
-        elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_COUPLING':
+            clientObject.shape_orthotropy_effective_thickness_x = parameters[0]
+            clientObject.shape_orthotropy_effective_thickness_y = parameters[1]
+        elif orthotropy_type.name == 'COUPLING':
             if len(parameters) != 3:
                 raise Exception('WARNING: The parameters needs to be of length 3. Kindly check list inputs for completeness and correctness.')
             clientObject.coupling_thickness = parameters[0]
             clientObject.coupling_spacing = parameters[1]
             clientObject.coupling_width = parameters[2]
-        elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE':
+        elif orthotropy_type.name == 'UNIDIRECTIONAL_RIBBED_PLATE':
             if len(parameters) != 4:
                 raise Exception('WARNING: The parameters needs to be of length 4. Kindly check list inputs for completeness and correctness.')
             clientObject.slab_thickness = parameters[0]
             clientObject.rib_height = parameters[1]
             clientObject.rib_spacing = parameters[2]
             clientObject.rib_width = parameters[3]
-        elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_BIDIRECTIONAL_RIBBED_PLATE':
+        elif orthotropy_type.name == 'BIDIRECTIONAL_RIBBED_PLATE':
             if len(parameters) != 7:
                 raise Exception('WARNING: The parameters needs to be of length 7. Kindly check list inputs for completeness and correctness.')
             clientObject.slab_thickness = parameters[0]
@@ -529,7 +529,7 @@ class Thickness():
             clientObject.rib_spacing_y = parameters[4]
             clientObject.rib_width_x = parameters[5]
             clientObject.rib_width_y = parameters[6]
-        elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET':
+        elif orthotropy_type.name == 'TRAPEZOIDAL_SHEET':
             if len(parameters) != 5:
                 raise Exception('WARNING: The parameters needs to be of length 5. Kindly check list inputs for completeness and correctness.')
             clientObject.sheet_thickness = parameters[0]
@@ -537,13 +537,13 @@ class Thickness():
             clientObject.rib_spacing = parameters[2]
             clientObject.top_flange_width = parameters[3]
             clientObject.bottom_flange_width = parameters[4]
-        elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB':
+        elif orthotropy_type.name == 'HOLLOW_CORE_SLAB':
             if len(parameters) != 3:
                 raise Exception('WARNING: The parameters needs to be of length 3. Kindly check list inputs for completeness and correctness.')
             clientObject.slab_thickness = parameters[0]
             clientObject.void_spacing = parameters[1]
             clientObject.void_diameter = parameters[2]
-        elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE':
+        elif orthotropy_type.name == 'GRILLAGE':
             if len(parameters) != 5:
                 raise Exception('WARNING: The parameters needs to be of length 5. Kindly check list inputs for completeness and correctness.')
             clientObject.slab_thickness = parameters[0]

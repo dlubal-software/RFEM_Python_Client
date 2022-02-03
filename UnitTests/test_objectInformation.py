@@ -28,7 +28,7 @@ pytestmark = pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0
              reason="ns0:array_of_get_center_of_gravity_and_objects_info_elements_type not in RFEM yet")
 def test_centre_of_gravity():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     x1, y1, z1, = 0, 0, 0
@@ -50,7 +50,7 @@ def test_centre_of_gravity():
 
 def test_member_information():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     x1, y1, z1, = 0, 0, 0
@@ -73,7 +73,7 @@ def test_member_information():
 
 def test_surface_information():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     x1, y1, z1 = 0 , 0, 0

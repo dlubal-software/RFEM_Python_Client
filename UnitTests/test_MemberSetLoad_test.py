@@ -22,7 +22,7 @@ if Model.clientModel is None:
 
 def test_member_set_load():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     # Create Material
@@ -271,12 +271,11 @@ def test_member_set_load():
     MemberSetLoad.PipeInternalPressure(0, 70, 1, '2', 2000)
 
     ## Pipe Rotary Motion Type Member Set Load ##
-    #MemberSetLoad.RotaryMotion(0, 71, 1, '2', 3.5, 5, # bug 24247
-    #                           MemberSetLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS,
-    #                           MemberLoadAxisDefinitionAxisOrientation.AXIS_NEGATIVE,
-    #                           MemberSetLoadAxisDefinition.AXIS_Y, [10,11,12], [0,5,6])
+    MemberSetLoad.RotaryMotion(0, 71, 1, '2', 3.5, 5,
+                               MemberSetLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS,
+                               MemberLoadAxisDefinitionAxisOrientation.AXIS_NEGATIVE,
+                               MemberSetLoadAxisDefinition.AXIS_Y, [10,11,12], [0,5,6])
 
     #Calculate_all() # Don't use in unit tests. See template for more info.
 
     Model.clientModel.service.finish_modification()
-

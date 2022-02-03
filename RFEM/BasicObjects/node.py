@@ -1,7 +1,7 @@
 from RFEM.enums import NodeType
 from RFEM.enums import NodeCoordinateSystemType
 from RFEM.enums import NodeReferenceType
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes
 from math import pi
 
 class Node():

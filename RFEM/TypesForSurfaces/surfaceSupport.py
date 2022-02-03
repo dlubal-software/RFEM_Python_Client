@@ -1,4 +1,4 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, ConvertToDlString, clearAtributes
 
 class SurfaceSupport():
     def __init__(self,

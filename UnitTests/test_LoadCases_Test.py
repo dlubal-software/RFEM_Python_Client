@@ -9,7 +9,7 @@ sys.path.append(PROJECT_ROOT)
 # Import der Bibliotheken
 import pytest
 from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.initModel import Model
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 
@@ -19,11 +19,11 @@ if Model.clientModel is None:
 @pytest.mark.skip("all tests still WIP")
 def test_load_case():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     StaticAnalysisSettings()
-    # DIN_Action_Category will only work with German localization
+    # TODO: DIN_Action_Category will only work with German localization
     LoadCase.StaticAnalysis(LoadCase, 1, 'SW', True, 1, DIN_Action_Category['1A'], [True, 0, 0, 1])
     LoadCase.StaticAnalysis(LoadCase, 2, 'SDL', True,  1, DIN_Action_Category['1C'], [True, 0.1, 0.1, 0])
     LoadCase.StaticAnalysis(LoadCase, 3, 'Snow', True,  1, DIN_Action_Category['4A'], [False])

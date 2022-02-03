@@ -17,11 +17,11 @@ if Model.clientModel is None:
 
 def test_member_set():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
     StaticAnalysisSettings()
     LoadCase(2, 'LC2')
-    ImperfectionCase(2, '', {'assigned_to_load_cases':'2'})
+    ImperfectionCase(2, '2')
     Model.clientModel.service.finish_modification()
 
     imp = Model.clientModel.service.get_imperfection_case(2)

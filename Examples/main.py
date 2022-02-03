@@ -34,9 +34,9 @@ from RFEM.Loads.nodalLoad import NodalLoad
 from RFEM.Loads.memberLoad import MemberLoad
 from RFEM.Loads.surfaceLoad import SurfaceLoad
 
-def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_spacing, new_model, model_name, delete, reset):
+def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_spacing, new_model, model_name, delete_res, delete_all):
 # -------------------------------------------------------------
-    Model(new_model, model_name, delete, reset)
+    Model(new_model, model_name, delete_res, delete_all)
     Model.clientModel.service.begin_modification()
 # -------------------------------------------------------------
     # Materials

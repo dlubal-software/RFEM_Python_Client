@@ -23,7 +23,7 @@ if Model.clientModel is None:
 
 def test_surface_set_load():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     # Create Material
@@ -141,8 +141,8 @@ def test_surface_set_load():
     SurfaceSetLoad.RotaryMotion(0, 13, 1, '1', load_parameter=[1, 2, SurfaceSetLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS, [1,2,3], [4,5,6]])
 
     ## Mass Type Surface Load ##
-    #SurfaceSetLoad.Mass(0, 14, 1, '1', True, [500, 600, 700]) # bug 24241
-    SurfaceSetLoad.Mass(0, 14, 1, '1', False, [0.5])
+    # SurfaceSetLoad.Mass(0, 14, 1, '1', True, [500, 600, 700]) # bug 24241
+    SurfaceSetLoad.Mass(0, 15, 1, '1', False, [0.5])
 
     #Calculate_all() # Don't use in unit tests. See template for more info.
 

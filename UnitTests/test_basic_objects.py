@@ -24,7 +24,7 @@ if Model.clientModel is None:
 
 def test_line_init():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 2, 0, 0)
@@ -41,7 +41,7 @@ def test_line_init():
 
 def test_line_polyline():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -58,7 +58,7 @@ def test_line_polyline():
 
 def test_line_arc():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 2, 0, 0)
@@ -75,10 +75,10 @@ def test_line_arc():
 
 def test_line_circle():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    Line.Circle(0, 1, '1', [0, 0, 0], 3, [0, 0, 1])
+    Line.Circle(0, 1, [5, 6, 7], 3, [0, 0, 1])
 
     Model.clientModel.service.finish_modification()
 
@@ -86,10 +86,13 @@ def test_line_circle():
 
     assert line.no == 1
     assert line.circle_radius == 3
+    assert line.circle_center_coordinate_1 == 5
+    assert line.circle_center_coordinate_2 == 6
+    assert line.circle_center_coordinate_3 == 7
 
 def test_line_ellipse():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1,2,0,0)
@@ -104,7 +107,7 @@ def test_line_ellipse():
 
 def test_line_parabola():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1,2,0,0)
@@ -119,7 +122,7 @@ def test_line_parabola():
 
 def test_line_spline():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1,2,0,0)
@@ -137,20 +140,20 @@ def test_line_spline():
 
 def test_line_elipticalArc():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    Line.EllipticalArc(0, 1, [2,0,0], [-2,0,0], [0,-3,0], 0.17453, 2.79252)
+    Line.EllipticalArc(Line, 1)
+    Line.EllipticalArc(Line, 2, [2,0,0], [-2,0,0], [0,-3,0], 0.17453, 2.79252)
 
     Model.clientModel.service.finish_modification()
 
-    line = Model.clientModel.service.get_line(1)
-
+    line = Model.clientModel.service.get_line(2)
     assert round(line.length, 4) == 7.2315
 
 def test_lineSetInit():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 2, 0, 0)
@@ -170,7 +173,7 @@ def test_lineSetInit():
 
 def test_lineSetContinuous():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 2, 0, 0)
@@ -190,7 +193,7 @@ def test_lineSetContinuous():
 
 def test_lineSetGroup():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 2, 0, 0)
@@ -210,7 +213,7 @@ def test_lineSetGroup():
 
 def test_material():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -223,7 +226,7 @@ def test_material():
 
 def test_node_init():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 2, 0, 0)
@@ -235,7 +238,7 @@ def test_node_init():
 
 def test_member_init():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -256,7 +259,7 @@ def test_member_init():
 
 def test_member_set():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -283,7 +286,7 @@ def test_member_set():
 
 def test_opening():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -322,7 +325,7 @@ def test_opening():
 
 def test_section():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -343,7 +346,7 @@ def test_section():
 
 def test_thickness_init():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -359,7 +362,7 @@ def test_thickness_init():
 
 def test_thickness_uniform():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -375,7 +378,7 @@ def test_thickness_uniform():
 
 def test_thickness_3nodes():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -395,7 +398,7 @@ def test_thickness_3nodes():
 
 def test_thickness_2nodes():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -413,7 +416,7 @@ def test_thickness_2nodes():
 
 def test_thickness_4corners():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -434,7 +437,7 @@ def test_thickness_4corners():
 
 def test_thickness_circle():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -451,7 +454,7 @@ def test_thickness_circle():
 @pytest.mark.skip("all tests still WIP")
 def test_thickness_layers():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -464,4 +467,19 @@ def test_thickness_layers():
     assert thickness.type == "TYPE_LAYERS"
     assert round(thickness.layers_total_thickness, 2) == 0.3
 
-## Thickness type Shape Orthotropy has bugs. Need to be updated
+def test_thickness_shape_orthotropy():
+
+    Model.clientModel.service.reset()
+    Model.clientModel.service.begin_modification()
+
+    Material(1, 'S275')
+
+    Thickness.ShapeOrthotropy(0, 1, 'EFFECTIVE_THICKNESS', 1, ThicknessOrthotropyType.EFFECTIVE_THICKNESS, 7)
+    Thickness.ShapeOrthotropy(0, 2, 'COUPLING', 1, ThicknessOrthotropyType.COUPLING, 8, parameters=[0.15,0.18,0.16])
+    Thickness.ShapeOrthotropy(0, 3, 'UNIDIRECTIONAL_RIBBED_PLATE', 1, ThicknessOrthotropyType.UNIDIRECTIONAL_RIBBED_PLATE, 9, parameters=[0.15, 0.15,0.18,0.16])
+    Thickness.ShapeOrthotropy(0, 4, 'BIDIRECTIONAL_RIBBED_PLATE', 1, ThicknessOrthotropyType.BIDIRECTIONAL_RIBBED_PLATE, 10, parameters=[0.15, 0.3,0.25, 0.8,0.75,0.2,0.15])
+    Thickness.ShapeOrthotropy(0, 5, 'TRAPEZOIDAL_SHEET', 1, ThicknessOrthotropyType.TRAPEZOIDAL_SHEET, 11, parameters=[0.15, 0.45,0.4,0.14,0.14])
+    Thickness.ShapeOrthotropy(0, 6, 'HOLLOW_CORE_SLAB', 1, ThicknessOrthotropyType.HOLLOW_CORE_SLAB, 12, parameters=[0.2, 0.15, 0.1])
+    Thickness.ShapeOrthotropy(0, 7, 'GRILLAGE', 1, ThicknessOrthotropyType.GRILLAGE, 13,[ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, 0.15], [0.15,0.8,0.75,0.2,0.15])
+
+    Model.clientModel.service.finish_modification()

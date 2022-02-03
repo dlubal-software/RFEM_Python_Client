@@ -7,8 +7,9 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 # Import der Bibliotheken
-from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.enums import ThicknessDirection, ThicknessOrthotropyType
+from RFEM.enums import ThicknessShapeOrthotropySelfWeightDefinitionType, ThicknessStiffnessMatrixSelfWeightDefinitionType
+from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
@@ -18,7 +19,7 @@ if Model.clientModel is None:
 
 def test_thickness():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
     Material(1, 'C30/37')
 
@@ -85,7 +86,7 @@ def test_thickness():
     Thickness.ShapeOrthotropy(Thickness,
                      no= 8,
                      name= 'Shape Orthotropy',
-                     orthotropy_type= ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB,
+                     orthotropy_type= ThicknessOrthotropyType.HOLLOW_CORE_SLAB,
                      rotation_beta= 180,
                      consideration_of_self_weight= [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, 0.234],
                      parameters= [0.4, 0.125, 0.05],

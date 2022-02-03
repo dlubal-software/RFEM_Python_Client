@@ -15,7 +15,7 @@ def test_baseSettings():
     if Model.clientModel is None:
         Model()
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     # Set Base Settings
