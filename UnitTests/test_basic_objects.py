@@ -149,7 +149,8 @@ def test_line_elipticalArc():
     Model.clientModel.service.finish_modification()
 
     line = Model.clientModel.service.get_line(2)
-    assert line.arc_angle_beta == 2.79252
+    assert line.type == 'TYPE_ELLIPTICAL_ARC'
+    assert round(line.length, 4) == 7.2315
 
 def test_lineSetInit():
 
