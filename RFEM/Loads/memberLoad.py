@@ -76,42 +76,39 @@ class MemberLoad():
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            members_no (str): Assigned Members
+            members_no (str): Assigned Member(s)
             load_distribution (enum): Load Distribution Enumeration
             load_direction (enum): Load Direction Enumeration
-            load_parameter (list):
-
-                for LOAD_DISTRIBUTION_UNIFORM:
+            load_parameter (list): Load Parameter List
+                for load_distribution == LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [magnitude]
-                for LOAD_DISTRIBUTION_UNIFORM_TOTAL:
+                for load_distribution == LOAD_DISTRIBUTION_UNIFORM_TOTAL:
                     load_parameter = [magnitude]
-                for LOAD_DISTRIBUTION_CONCENTRATED_1:
+                for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_1:
                     load_parameter = [relative_distance = False, magnitude, distance_a]
-                for LOAD_DISTRIBUTION_CONCENTRATED_N:
+                for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_N:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude, count_n, distance_a, distance_b]
-                for LOAD_DISTRIBUTION_CONCENTRATED_2x2:
+                for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_2x2:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, relative_distance_c = False, magnitude, distance_a, distance_b, distance_c]
-                for LOAD_DISTRIBUTION_CONCENTRATED_2:
+                for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_2:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
-                for LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
+                for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
                     load_parameter = [[distance, delta_distance, magnitude], ...]
-                for LOAD_DISTRIBUTION_TRAPEZOIDAL:
+                for load_distribution == LOAD_DISTRIBUTION_TRAPEZOIDAL:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-                for LOAD_DISTRIBUTION_TAPERED:
+                for load_distribution == LOAD_DISTRIBUTION_TAPERED:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-                for  LOAD_DISTRIBUTION_PARABOLIC:
+                for load_distribution == LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-                for LOAD_DISTRIBUTION_VARYING:
+                for load_distribution == LOAD_DISTRIBUTION_VARYING:
                     load_parameter = [[distance, delta_distance, magnitude], ...]
-                for LOAD_DISTRIBUTION_VARYING_IN_Z:
+                for load_distribution == LOAD_DISTRIBUTION_VARYING_IN_Z:
                     load_parameter = [[distance, delta_distance, magnitude], ...]
-
             force_eccentricity (bool): Enable/Disable Force Eccentricity Option
             list_reference (bool): Enable/Disable List Reference Option
-            comment (str):
-            params (dict):
-
-                For force_eccentricity == True:
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+                for force_eccentricity == True:
                 {'eccentricity_horizontal_alignment': MemberLoadEccentricityHorizontalAlignment.ALIGN_NONE,
                 'eccentricity_vertical_alignment': MemberLoadEccentricityVerticalAlignment.ALIGN_NONE,
                 'eccentricity_section_middle': MemberLoadEccentricitySectionMiddle.LOAD_ECCENTRICITY_SECTION_MIDDLE_CENTER_OF_GRAVITY,
@@ -379,32 +376,30 @@ class MemberLoad():
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            members_no (str): Assigned Members
+            members_no (str): Assigned Member(s)
             load_distribution (enum): Load Distribution Enumeration
             load_direction (enum): Load Direction Enumeration
-            load_parameter (list):
-
-                for LOAD_DISTRIBUTION_UNIFORM:
+            load_parameter (list): Load Parameter List
+                for load_distribution == LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = magnitude
-                for LOAD_DISTRIBUTION_CONCENTRATED_1:
+                for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_1:
                     load_parameter = [relative_distance = False, magnitude, distance_a]
-                for LOAD_DISTRIBUTION_CONCENTRATED_N:
+                for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_N:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude, count_n, distance_a, distance_b]
-                for LOAD_DISTRIBUTION_CONCENTRATED_2x2:
+                for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_2x2:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, relative_distance_c = False, magnitude, distance_a, distance_b, distance_c]
-                for LOAD_DISTRIBUTION_CONCENTRATED_2:
+                for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_2:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
-                for LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
+                for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
                     load_parameter = [[distance, delta_distance, magnitude], ...]
-                for LOAD_DISTRIBUTION_TRAPEZOIDAL:
+                for load_distribution == LOAD_DISTRIBUTION_TRAPEZOIDAL:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-                for LOAD_DISTRIBUTION_TAPERED:
+                for load_distribution == LOAD_DISTRIBUTION_TAPERED:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-                for LOAD_DISTRIBUTION_PARABOLIC:
+                for load_distribution == LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-                for LOAD_DISTRIBUTION_VARYING:
+                for load_distribution == LOAD_DISTRIBUTION_VARYING:
                     load_parameter = [[distance, delta_distance, magnitude], ...]
-
             list_reference (bool): Enable/Disable List Reference Option
             comment (str, optional): Comments
             params (dict, optional): Parameters
@@ -605,15 +600,13 @@ class MemberLoad():
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            members_no (str):Assigned Members
+            members_no (str):Assigned Member(s)
             individual_mass_components (bool): Enable/Disable Individual Mass Components Option
-            mass_components (list):
-
+            mass_components (list): Mass Components List
                 if individual_mass_components == False:
                     mass_components = [M]
                 else:
                     mass_components = [Mx, My, Mz, Ix, Iy, Iz]
-
             comment (str, optional): Comments
             params (dict, optional): Parameters
         """
@@ -670,38 +663,34 @@ class MemberLoad():
                  load_over_total_length: bool= False,
                  comment: str = '',
                  params: dict = {}):
-        """
+
+        '''
         Args:
             no (int): Load Tag
-            load_case_no (int):
-            members_no (str):
-            load_distribution (enum):
-            load_direction (enum):
-            load_parameter (list):
-            list_reference (bool):
-            load_over_total_length (bool):
-            comment (str, optional):
-            params (dict, optional):
-        """
+            load_case_no (int): Assigned Load Case
+            members_no (str): Assigned Member(s)
+            load_distribution (enum): Load Distribution Enumeration
+            load_direction (enum): Load Direction Enumeration
+            load_parameter (list): Load Parameter List
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+                    load_parameter = [tt, tb]
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
+                    for load_over_total_length == False:
+                        load_parameter = [tt1, tt2, tb1, tb2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
+                    for load_over_total_length == True:
+                        load_parameter = [tt1, tt2, tb1, tb2]
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
+                    load_parameter = [tt1, tt2, tb1, tb2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
+                    load_parameter = [tb1, tb2, tb3, tt1, tt2, tt3]
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING:
+                    load_parameter = [[distance, delta_distance, magnitude], ...]
+            list_reference (bool): List Reference Boolean
+            load_over_total_length (bool): Enable/Disable Load Over Total Length Option
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
         '''
-        for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            load_parameter = [tt, tb]
 
-        for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
-            for load_over_total_length: bool= False:
-                load_parameter = [tt1, tt2, tb1, tb2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-            for load_over_total_length: bool= True:
-                load_parameter = [tt1, tt2, tb1, tb2]
-
-        for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
-            load_parameter = [tt1, tt2, tb1, tb2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-
-        for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
-            load_parameter = [tb1, tb2, tb3, tt1, tt2, tt3]
-
-        for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-            load_parameter = [[distance, delta_distance, magnitude], ...]
-        '''
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_load')
 
@@ -831,34 +820,34 @@ class MemberLoad():
                            load_over_total_length: bool= False,
                            comment: str = '',
                            params: dict = {}):
-        """
+
+        '''
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            members_no (str): Assigned Members
+            members_no (str): Assigned Member(s)
             load_distribution (enum): Load Distribution
             load_direction (enum): Load Direction Enumeration
-            load_parameter (list):
-
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+            load_parameter (list): Load Parameter List
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [tc, delta_t]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
-                    for load_over_total_length: bool= False:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
+                    for load_over_total_length == False:
                         load_parameter = [delta_t_1, delta_t_2, t_c_1, t_c_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-                    for load_over_total_length: bool= True:
+                    for load_over_total_length == True:
                         load_parameter = [delta_t_1, delta_t_2, t_c_1, t_c_2]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
                     load_parameter = [delta_t_1, delta_t_2, t_c_1, t_c_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [delta_t_1, delta_t_2, delta_t_3, t_c_1, t_c_2, t_c_3]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING:
                     load_parameter = [[distance, delta_distance, magnitude], ...]
-
             list_reference (bool): Enable/Disable List Reference Option
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
             params (dict, optional): Parameters
-        """
+        '''
+
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_load')
 
@@ -988,31 +977,31 @@ class MemberLoad():
                     load_over_total_length: bool= False,
                     comment: str = '',
                     params: dict = {}):
-        """
+
+        '''
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            members_no (str): Assigned Members
+            members_no (str): Assigned Member(s)
             load_distribution (enum): Load Distribution Enumeration
             load_direction (enum): Load Direction Enumeration
-            load_parameter (list):
-
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+            load_parameter (list): Load Parameter List
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [epsilon]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
                     load_parameter = [epsilon1, epsilon2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
                     load_parameter = [epsilon1, epsilon2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
                     load_parameter = [epsilon1, epsilon2, epsilon3]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING:
                     load_parameter = [[distance, delta_distance, magnitude], ...]
-
             list_reference (bool): Enable/Disable List Reference Option
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
             params (dict, optional): Parameters
-        """
+        '''
+
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_load')
 
@@ -1131,17 +1120,17 @@ class MemberLoad():
                     magnitude : float = 0.0,
                     comment: str = '',
                     params: dict = {}):
-        """
 
+        '''
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            members_no (str): Assigned Members
+            members_no (str): Assigned Member(s)
             load_direction (enum): Load Direction Enumeration
             magnitude (float): Load Magnitude
             comment (str, optional): Comments
             params (dict, optional): Parameters
-        """
+        '''
 
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_load')
@@ -1192,31 +1181,31 @@ class MemberLoad():
                  load_over_total_length: bool= False,
                  comment: str = '',
                  params: dict = {}):
-        """
+
+        '''
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            members_no (str): Assigned Members
+            members_no (str): Assigned Member(s)
             load_distribution (enum):Load Distribution Enumeration
             load_direction (enum): Load Direction Enumeration
-            load_parameter (list):
-
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+            load_parameter (list): Load Parameter List
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [magnitude]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
                     load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
                     load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING:
                     load_parameter = [[distance, delta_distance, magnitude], ...]
-
             list_reference (bool): Enable/Disable List Reference Option
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
             params (dict, optional): Parameters
-        """
+        '''
+
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_load')
 
@@ -1335,16 +1324,18 @@ class MemberLoad():
                  magnitude : float = 0.0,
                  comment: str = '',
                  params: dict = {}):
-        """
+
+        '''
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            members_no (str): Assigned Members
+            members_no (str): Assigned Member(s)
             load_direction (enum): Load Direction Enumeration
             magnitude (float): Load Magnitude
             comment (str, optional): Comments
             params (dict, optional): Parameters
-        """
+        '''
+
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_load')
 
@@ -1394,41 +1385,41 @@ class MemberLoad():
                  load_over_total_length: bool= False,
                  comment: str = '',
                  params: dict = {}):
-        """
+
+        '''
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            members_no (str): Assigned Members
+            members_no (str): Assigned Member(s)
             load_distribution (enum): Load Distribution Enumeration
             load_direction (enum): Load Direction Enumeration
-            load_parameter (list):
-
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+            load_parameter (list): Load Parameter List
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [magnitude]
-                for load_distrubition = MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1:
+                for load_distrubition == MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1:
                     load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_a]
-                for load_distrubition = MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N:
+                for load_distrubition == MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N:
                     load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
-                for load_distrubition = MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2:
+                for load_distrubition == MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2:
                     load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_c_is_defined_as_relative = False, distance_a, distance_b, distance_c]
-                for load_distrubition = MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
+                for load_distrubition == MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
                     load_parameter = [magnitude_1, magnitude_2, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
                     load_parameter = [[distance, delta_distance, magnitude], ...]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
                     load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
                     load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING:
                     load_parameter = [[distance, delta_distance, magnitude], ...]
-
             list_reference (bool): Enable/Disable List Reference Option
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
             params (dict, optional): Parameters
-        """
+        '''
+
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_load')
 
@@ -1629,41 +1620,41 @@ class MemberLoad():
                  load_over_total_length: bool= False,
                  comment: str = '',
                  params: dict = {}):
-        """
+
+        '''
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            members_no (str): Assigned Members
+            members_no (str): Assigned Member(s)
             load_distribution (enum): Load Distribution Enumeration
             load_direction (enum): Load Direction Enumeration
-            load_parameter (list):
-
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+            load_parameter (list): Load Parameter List
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [magnitude]
-                for load_distrubition = MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1:
+                for load_distrubition == MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1:
                     load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_a]
-                for load_distrubition = MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N:
+                for load_distrubition == MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N:
                     load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
-                for load_distrubition = MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2:
+                for load_distrubition == MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2:
                     load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_c_is_defined_as_relative = False, distance_a, distance_b, distance_c]
-                for load_distrubition = MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
+                for load_distrubition == MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
                     load_parameter = [magnitude_1, magnitude_2, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
                     load_parameter = [[distance, delta_distance, magnitude], ...]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
                     load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
                     load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-                for load_distribution = MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING:
+                for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING:
                     load_parameter = [[distance, delta_distance, magnitude], ...]
-
             list_reference (bool): Enable/Disable List Reference Option
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
             params (dict, optional): Parameters
-        """
+        '''
+
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_load')
 
@@ -1861,16 +1852,18 @@ class MemberLoad():
                  specific_weight : float = 0.0,
                  comment: str = '',
                  params: dict = {}):
-        """
+
+        '''
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            members_no (str): Assigned Members
+            members_no (str): Assigned Member(s)
             load_direction_orientation (enum): Load Direction Enumeration
             specific_weight (float): Specific Weight
             comment (str, optional): Comments
             params (dict, optional): Parameters
-        """
+        '''
+
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_load')
 
@@ -1921,17 +1914,19 @@ class MemberLoad():
                  filling_height : float = 0.0,
                  comment: str = '',
                  params: dict = {}):
-        """
+
+        '''
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            members_no (str): Assigned Members
+            members_no (str): Assigned Member(s)
             load_direction_orientation (enum): Load Direction Enumeration
             specific_weight (float): Specific Weight
             filling_height (float): Filling Height
             comment (str, optional): Comments
             params (dict, optional): Parameters
-        """
+        '''
+
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_load')
 
@@ -1983,15 +1978,17 @@ class MemberLoad():
                  pressure : float = 0.0,
                  comment: str = '',
                  params: dict = {}):
-        """
+
+        '''
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            members_no (str): Assigned Members
+            members_no (str): Assigned Member(s)
             pressure (float): Pressure
             comment (str, optional): Comments
             params (dict, optional): Parameters
-        """
+        '''
+
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_load')
 
@@ -2043,21 +2040,23 @@ class MemberLoad():
                  axis_definition_p2 = [0,1,0],
                  comment: str = '',
                  params: dict = {}):
-        """
+
+        '''
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            members_no (str): Assigned Members No
+            members_no (str): Assigned Member(s)
             angular_acceleration (float): Angular Acceleration
             angular_velocity (float): Angular Velocity
             axis_definition_type (enum): Axis Definition Type Enumeration
             axis_orientation (enum): Axis Orientation Enumeration
             axis_definition (enum): Axis Definition Enumeration
-            axis_definition_p1 (list): P1 List
-            axis_definition_p2 (list): P2 List
+            axis_definition_p1 (list): P1 List [X, Y, Z]
+            axis_definition_p2 (list): P2 List [X, Y, Z]
             comment (str, optional): Comments
             params (dict, optional): Parameters
-        """
+        '''
+
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_load')
 

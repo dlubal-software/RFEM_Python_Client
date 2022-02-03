@@ -7,6 +7,13 @@ class ImperfectionCase():
                  comment: str = '',
                  params: dict = {}):
 
+        '''
+        Args:
+            no (int): Imperfection Case Tag
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+
         # Client model | Imperfection Case
         clientObject = Model.clientModel.factory.create('ns0:imperfection_case')
 

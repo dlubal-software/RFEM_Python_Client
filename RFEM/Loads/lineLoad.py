@@ -11,10 +11,16 @@ class LineLoad():
                  magnitude: float = 0,
                  comment: str = '',
                  params: dict = {}):
+
         '''
-        Assigns line load without any further options.
-        Load type is Force by default.
-        Load distribution is Uniform by default.
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            lines_no (str): Assigned Line(s)
+            load_direction (enum): Load Direction Enumeration
+            magnitude (float): Magnitude of Line Load
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
         '''
 
         # Client model | Line Load
@@ -68,20 +74,38 @@ class LineLoad():
                 params: dict = {}):
 
         '''
-        load_parameter:
-            LOAD_DISTRIBUTION_UNIFORM: load_parameter = magnitude
-            LOAD_DISTRIBUTION_UNIFORM_TOTAL: load_parameter = magnitude
-            LOAD_DISTRIBUTION_CONCENTRATED_1: load_parameter = [relative_distance = False, magnitude, distance_a]
-            LOAD_DISTRIBUTION_CONCENTRATED_N: load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude, count_n, distance_a, distance_b]
-            LOAD_DISTRIBUTION_CONCENTRATED_2x2: load_parameter = [relative_distance_a = False, relative_distance_b = False, relative_distance_c = False, magnitude, distance_a, distance_b, distance_c]
-            LOAD_DISTRIBUTION_CONCENTRATED_2: load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
-            LOAD_DISTRIBUTION_CONCENTRATED_VARYING: load_parameter = [[distance, delta_distance, magnitude], ...]
-            LOAD_DISTRIBUTION_TRAPEZOIDAL: load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-            LOAD_DISTRIBUTION_TAPERED: load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-            LOAD_DISTRIBUTION_PARABOLIC: load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-            LOAD_DISTRIBUTION_VARYING: load_parameter = [[distance, delta_distance, magnitude], ...]
-        params:
-            {''}
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            lines_no (str): Assigned Line(s)
+            load_distribution (enum): Load Distribution Enumeration
+            load_direction (enum): Load Direction Enumeration
+            load_parameter: Load Parameter
+                for load_distribution == LOAD_DISTRIBUTION_UNIFORM:
+                    load_parameter = magnitude
+                for load_distribution == LOAD_DISTRIBUTION_UNIFORM_TOTAL:
+                    load_parameter = magnitude
+                for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_1:
+                    load_parameter = [relative_distance = False, magnitude, distance_a]
+                for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_N:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude, count_n, distance_a, distance_b]
+                for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_2x2:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, relative_distance_c = False, magnitude, distance_a, distance_b, distance_c]
+                for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_2:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
+                for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
+                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                for load_distribution == LOAD_DISTRIBUTION_TRAPEZOIDAL:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
+                for load_distribution == LOAD_DISTRIBUTION_TAPERED:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
+                for load_distribution == LOAD_DISTRIBUTION_PARABOLIC:
+                    load_parameter = [magnitude_1, magnitude_2, magnitude_3]
+                for load_distribution == LOAD_DISTRIBUTION_VARYING:
+                    load_parameter = [[distance, delta_distance, magnitude], ...]
+            list_reference (bool): List Reference Bool
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
         '''
 
         # Client model | Line Load
@@ -300,18 +324,38 @@ class LineLoad():
                  list_reference: bool = False,
                  comment: str = '',
                  params: dict = {}):
+
         '''
-        load_parameter:
-            LOAD_DISTRIBUTION_UNIFORM: load_parameter = magnitude
-            LOAD_DISTRIBUTION_CONCENTRATED_1: load_parameter = [relative_distance = False, magnitude, distance_a]
-            LOAD_DISTRIBUTION_CONCENTRATED_N: load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude, count_n, distance_a, distance_b]
-            LOAD_DISTRIBUTION_CONCENTRATED_2x2: load_parameter = [relative_distance_a = False, relative_distance_b = False, relative_distance_c = False, magnitude, distance_a, distance_b, distance_c]
-            LOAD_DISTRIBUTION_CONCENTRATED_2: load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
-            LOAD_DISTRIBUTION_CONCENTRATED_VARYING: load_parameter = [[distance, delta_distance, magnitude], ...]
-            LOAD_DISTRIBUTION_TRAPEZOIDAL: load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-            LOAD_DISTRIBUTION_TAPERED: load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-            LOAD_DISTRIBUTION_PARABOLIC: load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-            LOAD_DISTRIBUTION_VARYING: load_parameter = [[distance, delta_distance, magnitude], ...]
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            lines_no (str): Assigned Line(s)
+            load_distribution (enum): Load Distribution Enumeration
+            load_direction (enum): Load Direction Enumeration
+            load_parameter: Load Parameter
+                load_parameter == LOAD_DISTRIBUTION_UNIFORM:
+                    load_parameter = magnitude
+                load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_1:
+                    load_parameter = [relative_distance = False, magnitude, distance_a]
+                load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_N:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude, count_n, distance_a, distance_b]
+                load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_2x2:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, relative_distance_c = False, magnitude, distance_a, distance_b, distance_c]
+                load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_2:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
+                load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
+                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                load_parameter == LOAD_DISTRIBUTION_TRAPEZOIDAL:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
+                load_parameter == LOAD_DISTRIBUTION_TAPERED:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
+                load_parameter == LOAD_DISTRIBUTION_PARABOLIC:
+                    load_parameter = [magnitude_1, magnitude_2, magnitude_3]
+                load_parameter == LOAD_DISTRIBUTION_VARYING:
+                    load_parameter = [[distance, delta_distance, magnitude], ...]
+            list_reference (bool): List Reference Bool
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
         '''
 
         # Client model | Line Load
@@ -529,11 +573,18 @@ class LineLoad():
                 comment: str = '',
                 params: dict = {}):
         '''
-        if individual_mass_components == False:
-            mass_components = [mass_global]
-
-        if individual_mass_components == True:
-            mass_components = [mass_x, mass_y, mass_z]
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            lines_no (str): Assigned Line(s)
+            individual_mass_components (bool): Individual Mass Components Boolean
+            mass_components (list): Mass Components
+                for individual_mass_components == False:
+                    mass_components = [mass_global]
+                for individual_mass_components == True:
+                    mass_components = [mass_x, mass_y, mass_z]
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
         '''
 
         # Client model | Line Load

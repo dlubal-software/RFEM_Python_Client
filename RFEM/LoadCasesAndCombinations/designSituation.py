@@ -17,7 +17,6 @@ class DesignSituation():
             name (str, optional): User-Defined Name (Applicable when user_defined_name = TRUE)
             active (bool): Enable/Disable Design Situation Activity
             design_situation_type (int): Design Situation Numeric Code (Variable key inputs, dependant on Standards defined in the model)
-
                 Applicable to Standard Group EN 1990 with National Annex CEN | 2010-04 (See Model Base Data > Standards I)
                     6122 = ULS (EQU) - Permanent and transient,
                     6993 = ULS (EQU) - Accidental - psi-1,1,
@@ -31,7 +30,6 @@ class DesignSituation():
                     6193 = SLS - Characteristic,
                     6194 = SLS - Frequent,
                     6195 = SLS - Quasi-permanent.
-
                 Applicable to Standard Group EN 1990 with National Annex DIN | 2012-08 (See Model Base Data > Standards I)
                     6122 = ULS (EQU) - Permanent and transient,
                     6993 = ULS (EQU) - Accidental - psi-1,1,
@@ -48,7 +46,6 @@ class DesignSituation():
                     6193 = SLS - Characteristic,
                     6194 = SLS - Frequent,
                     6195 = SLS - Quasi-permanent.
-
             comment (str, optional): Comments
             params (dict, optional): Parameters
         """

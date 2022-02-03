@@ -9,6 +9,15 @@ class Solid():
                  comment: str = '',
                  params: dict = {}):
 
+        '''
+        Args:
+            no (int): Solid Tag
+            boundary_surfaces_no (str): Tags of Surfaces defining Solid
+            material_no (int): Tag of Material assigned to Solid
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+
         # Client model | Solid
         clientObject = Model.clientModel.factory.create('ns0:solid')
 
@@ -40,6 +49,15 @@ class Solid():
                  material_no: int = 1,
                  comment: str = '',
                  params: dict = {}):
+
+        '''
+        Args:
+            no (int): Solid Tag
+            boundary_surfaces_no (str): Tags of Surfaces defining Solid
+            material_no (int): Tag of Material assigned to Solid
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
 
         # Client model | Solid
         clientObject = Model.clientModel.factory.create('ns0:solid')
@@ -76,6 +94,15 @@ class Solid():
                  comment: str = '',
                  params: dict = {}):
 
+        '''
+        Args:
+            no (int): Solid Tag
+            boundary_surfaces_no (str): Tags of Surfaces defining Gas
+            material_no (int): Tag of Material assigned to Solid
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+
         # Client model | Solid
         clientObject = Model.clientModel.factory.create('ns0:solid')
 
@@ -111,6 +138,15 @@ class Solid():
                  comment: str = '',
                  params: dict = {}):
 
+        '''
+        Args:
+            no (int): Solid Tag
+            boundary_surfaces_no (str): Tags of Surfaces defining Contact
+            material_no (int): Tag of Material assigned to Solid
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+
         # Client model | Solid
         clientObject = Model.clientModel.factory.create('ns0:solid')
 
@@ -145,6 +181,15 @@ class Solid():
              material_no: int = 1,
              comment: str = '',
              params: dict = {}):
+
+        '''
+        Args:
+            no (int): Solid Tag
+            boundary_surfaces_no (str): Tags of Surfaces defining Soil
+            material_no (int): Tag of Material assigned to Solid
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
 
         # Client model | Solid
         clientObject = Model.clientModel.factory.create('ns0:solid')

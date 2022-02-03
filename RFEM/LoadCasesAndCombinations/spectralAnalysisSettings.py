@@ -16,6 +16,22 @@ class SpectralAnalysisSettings():
                  comment: str = '',
                  params: dict = {}):
 
+        '''
+        Args:
+            no (int): Sprectral Analysis Settings Tag
+            name (str): Sprectral Analysis Settings Name
+            periodic_combination (enum): Periodic Combination Rule Enumeration
+            directional_combination (enum): Directional Component Combination Rule Enumeration
+            equivalent_linear_combination (bool): Equivalent Linear Combination Boolean
+            save_mode_results (bool): Save Mode Results Boolean
+            signed_dominant_mode_results (bool): Signed Dominant Mode Results Boolean
+            directional_component_scale_value (float): Directional Component Scale Value
+            damping_for_cqc_rule (enum): Cqs Damping Rule Enumeration
+            constant_d_for_each_mode (float): Constant d for Each Mode
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+
         # Client model | Surface
         clientObject = Model.clientModel.factory.create('ns0:spectral_analysis_settings')
 
@@ -48,7 +64,7 @@ class SpectralAnalysisSettings():
             if directional_combination == DirectionalComponentCombinationRule.SCALED_SUM:
                 pass
             else:
-                raise "WARNING: Signed results using dominant mode is only available with Scaled Sum Directional Combination!"
+                raise "WARNING: Signed results using dominant mode is only available with Scaled Sum Directional Combination."
 
         # Further Options
         if directional_combination == DirectionalComponentCombinationRule.SCALED_SUM:

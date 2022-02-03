@@ -19,14 +19,22 @@ class FreeLoad():
                  params: dict = {}):
 
         '''
-        for load_projection = FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV:
-            load_parameter = [magnitude, X, Y]
-
-        for load_projection = FreeLoadLoadProjection.LOAD_PROJECTION_YZ_OR_VW:
-            load_parameter = [magnitude, Y, Z]
-
-        for load_projection = FreeLoadLoadProjection.LOAD_PROJECTION_XZ_OR_UW:
-            load_parameter = [magnitude, X, Z]
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            surfaces_no (int): Assigned Surface(s)
+            load_type (enum): Load Type Enumeration
+            load_projection (enum): Load Projection Enumeration
+            load_direction (enum): Load Direction Enumeration
+            load_parameter (list): Load Parameter List
+                for load_projection == FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV:
+                    load_parameter = [magnitude, X, Y]
+                for load_projection == FreeLoadLoadProjection.LOAD_PROJECTION_YZ_OR_VW:
+                    load_parameter = [magnitude, Y, Z]
+                for load_projection == FreeLoadLoadProjection.LOAD_PROJECTION_XZ_OR_UW:
+                    load_parameter = [magnitude, X, Z]
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
         '''
 
         # Client model | Free Concentrated Load
@@ -82,11 +90,20 @@ class FreeLoad():
                  params: dict = {}):
 
         '''
-        for load_distribution = FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            load_parameter = [magnitude_uniform, load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y]
-
-        for load_distribution = FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
-            load_parameter = [magnitude_first, magnitude_second, load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y]
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            surfaces_no (int): Assigned Surface(s)
+            load_distribution (enum): Load Distribution Enumeration
+            load_projection (enum): Load Projection Enumeration
+            load_direction (enum): Load Direction Enumeration
+            load_parameter (list): Load Parameter List
+                for load_distribution == FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+                    load_parameter = [magnitude_uniform, load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y]
+                for load_distribution == FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
+                    load_parameter = [magnitude_first, magnitude_second, load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y]
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
         '''
 
         # Client model | Free Concentrated Load
@@ -156,39 +173,40 @@ class FreeLoad():
                  params: dict = {}):
 
         '''
-        for load_distribution = FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            load_magnitude_parameter = [magnitude_uniform]
-
-        for load_distribution = FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_FIRST or FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_SECOND:
-            load_magnitude_parameter = [magnitude_linear_first, magnitude_linear_second]
-
-        for load_location = FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CORNER_POINTS:
-
-            for load_distribution = FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM or FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_FIRST or FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_SECOND:
-                load_location_parameter = [load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y, axis_start_angle]
-
-            for load_distribution = FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
-                    load_location_parameter = [load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y, [[distance, factor], ...]
-
-            for load_distribution = FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER:
-                    load_location_parameter = [load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y, [axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z], [axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z], axis_start_angle,[[alpha, factor], ...]
-
-            for load_distribution = FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER:
-                    load_location_parameter = [load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y, [[distance, factor], ...], [axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z], [axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z], axis_start_angle,[[alpha, factor], ...]
-
-        for load_location = FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CENTER_AND_SIDES:
-
-            for load_distribution = FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM or FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_FIRST or FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_SECOND:
-                load_location_parameter = [load_location_center_x, load_location_center_y, load_location_center_side_a, load_location_center_side_b, axis_start_angle]
-
-            for load_distribution = FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
-                    load_location_parameter = [load_location_center_x, load_location_center_y, load_location_center_side_a, load_location_center_side_b, [[distance, factor], ...]
-
-            for load_distribution = FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER:
-                    load_location_parameter = [load_location_center_x, load_location_center_y, load_location_center_side_a, load_location_center_side_b, [axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z], [axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z], axis_start_angle,[[alpha, factor], ...]
-
-            for load_distribution = FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER:
-                    load_location_parameter = [load_location_center_x, load_location_center_y, load_location_center_side_a, load_location_center_side_b, [[distance, factor], ...], [axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z], [axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z], axis_start_angle,[[alpha, factor], ...]
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            surfaces_no (int): Assigned Surface(s)
+            load_distribution (enum): Load Distribution Enumeration
+            load_projection (enum): Load Projection Enumeration
+            load_direction (enum): Load Direction Enumeration
+            load_magnitude_parameter (list): Load Magnitude Parameter
+                for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+                    load_magnitude_parameter = [magnitude_uniform]
+                for load_distribution == FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_FIRST or FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_SECOND:
+                    load_magnitude_parameter = [magnitude_linear_first, magnitude_linear_second]
+            load_location (enum): Load Location Enumeration
+            load_location_parameter (list): Load Location Parameters
+                for load_location == FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CORNER_POINTS:
+                    for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM or FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_FIRST or FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_SECOND:
+                        load_location_parameter = [load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y, axis_start_angle]
+                    for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
+                            load_location_parameter = [load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y, [[distance, factor], ...]
+                    for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER:
+                            load_location_parameter = [load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y, [axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z], [axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z], axis_start_angle,[[alpha, factor], ...]
+                    for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER:
+                            load_location_parameter = [load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y, [[distance, factor], ...], [axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z], [axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z], axis_start_angle,[[alpha, factor], ...]
+                for load_location == FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CENTER_AND_SIDES:
+                    for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM or FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_FIRST or FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_SECOND:
+                        load_location_parameter = [load_location_center_x, load_location_center_y, load_location_center_side_a, load_location_center_side_b, axis_start_angle]
+                    for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
+                            load_location_parameter = [load_location_center_x, load_location_center_y, load_location_center_side_a, load_location_center_side_b, [[distance, factor], ...]
+                    for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER:
+                            load_location_parameter = [load_location_center_x, load_location_center_y, load_location_center_side_a, load_location_center_side_b, [axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z], [axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z], axis_start_angle,[[alpha, factor], ...]
+                    for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER:
+                            load_location_parameter = [load_location_center_x, load_location_center_y, load_location_center_side_a, load_location_center_side_b, [[distance, factor], ...], [axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z], [axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z], axis_start_angle,[[alpha, factor], ...]
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
         '''
 
         # Client model | Free Concentrated Load
@@ -424,11 +442,20 @@ class FreeLoad():
                  params: dict = {}):
 
         '''
-        for load_distribution = FreeCircularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            load_parameter = [magnitude_uniform, load_location_x, load_location_y, load_location_radius]
-
-        for load_distribution = FreeCircularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
-            load_parameter = [magnitude_center, magnitude_radius, load_location_x, load_location_y, load_location_radius]
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            surfaces_no (int): Assigned Surface(s)
+            load_distribution (enum): Load Distribution Enumeration
+            load_projection (enum): Load Projection Enumeration
+            load_direction (enum): Load Direction Enumeration
+            load_parameter (list): Load Parameter
+                for load_distribution == FreeCircularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+                    load_parameter = [magnitude_uniform, load_location_x, load_location_y, load_location_radius]
+                for load_distribution == FreeCircularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
+                    load_parameter = [magnitude_center, magnitude_radius, load_location_x, load_location_y, load_location_radius]
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
         '''
 
         # Client model | Free Concentrated Load
@@ -496,21 +523,29 @@ class FreeLoad():
                  params: dict = {}):
 
         '''
-        for load_distribution = FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            load_location = [[first_coordinate, second_coordinate], ...]
-            load_parameter = [magnitude_uniform]
-
-       for load_distribution = FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
-            load_location = [[first_coordinate, second_coordinate], ...]
-            load_parameter = [magnitude_linear_1, magnitude_linear_2, magnitude_linear_3, magnitude_linear_location_1, magnitude_linear_location_2, magnitude_linear_location_3]
-
-       for load_distribution = FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_FIRST:
-            load_location = [[first_coordinate, second_coordinate], ...]
-            load_parameter = [magnitude_linear_1, magnitude_linear_2, magnitude_linear_location_1, magnitude_linear_location_2]
-
-       for load_distribution = FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_SECOND:
-            load_location = [[first_coordinate, second_coordinate], ...]
-            load_parameter = [magnitude_linear_1, magnitude_linear_2, magnitude_linear_location_1, magnitude_linear_location_2]
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            surfaces_no (int): Assigned Surface(s)
+            load_distribution (enum): Load Distribution Enumeration
+            load_projection (enum): Load Projection Enumeration
+            load_direction (enum): Load Direction Enumeration
+            load_location (list): Load Location Parameter
+            load_parameter (list): Load Parameter
+                for load_distribution == FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+                    load_location = [[first_coordinate, second_coordinate], ...]
+                    load_parameter = [magnitude_uniform]
+                for load_distribution == FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
+                    load_location = [[first_coordinate, second_coordinate], ...]
+                    load_parameter = [magnitude_linear_1, magnitude_linear_2, magnitude_linear_3, magnitude_linear_location_1, magnitude_linear_location_2, magnitude_linear_location_3]
+                for load_distribution == FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_FIRST:
+                    load_location = [[first_coordinate, second_coordinate], ...]
+                    load_parameter = [magnitude_linear_1, magnitude_linear_2, magnitude_linear_location_1, magnitude_linear_location_2]
+                for load_distribution == FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_SECOND:
+                    load_location = [[first_coordinate, second_coordinate], ...]
+                    load_parameter = [magnitude_linear_1, magnitude_linear_2, magnitude_linear_location_1, magnitude_linear_location_2]
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
         '''
 
         # Client model | Free Concentrated Load

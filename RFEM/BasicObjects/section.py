@@ -8,6 +8,15 @@ class Section():
                  comment: str = '',
                  params: dict = {}):
 
+        '''
+        Args:
+            no (int): Section Tag
+            name (str): Name of Desired Section (As Named in RFEM Database)
+            material_no (int): Tag of Material assigned to Section
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+
         # Client model | Section
         clientObject = Model.clientModel.factory.create('ns0:section')
 
