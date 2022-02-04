@@ -101,7 +101,7 @@ class LineLoadType(Enum):
 
 class LinesetLoadType(Enum):
     '''
-    Line Load Type
+    Lineset Load Type
     '''
     E_TYPE_MASS, LOAD_TYPE_FORCE, LOAD_TYPE_MOMENT = range(3)
 

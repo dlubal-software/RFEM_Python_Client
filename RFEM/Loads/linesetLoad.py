@@ -313,13 +313,13 @@ class LinesetLoad():
             LOAD_DISTRIBUTION_PARABOLIC: load_parameter = [magnitude_1, magnitude_2, magnitude_3]
             LOAD_DISTRIBUTION_VARYING: load_parameter = [[distance, delta_distance, magnitude], ...]
         '''
-        # Client model | Line Load
+        # Client model | Lineset Load
         clientObject = Model.clientModel.factory.create('ns0:line_set_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
 
-        # Line Load No.
+        # Lineset Load No.
         clientObject.no = no
 
         # Load Case No.
@@ -503,11 +503,77 @@ class LinesetLoad():
 
                 clientObject.varying_load_parameters.line_set_load_varying_load_parameters.append(mlvlp)
 
-        # Line Load Direction
+        # Lineset Load Direction
         clientObject.load_direction = load_direction.name
 
         # Reference to List of Lines
         clientObject.reference_to_list_of_line_sets = list_reference
+
+        # Comment
+        clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
+
+        # Add Load Lineset Load to client model
+        Model.clientModel.service.set_line_set_load(load_case_no, clientObject)
+
+    def Mass(self,
+                no: int = 1,
+                load_case_no: int = 1,
+                linesets_no: str = '1',
+                individual_mass_components: bool=True,
+                mass_components = None,
+                comment: str = '',
+                params: dict = {}):
+        '''
+        if individual_mass_components == False:
+            mass_components = [mass_global]
+
+        if individual_mass_components == True:
+            mass_components = [mass_x, mass_y, mass_z]
+        '''
+
+        # Client model | Line Load
+        clientObject = Model.clientModel.factory.create('ns0:line_set_load')
+
+        # Clears object atributes | Sets all atributes to None
+        clearAtributes(clientObject)
+
+        # Line Load No.
+        clientObject.no = no
+
+        # Load Case No.
+        clientObject.load_case = load_case_no
+
+        # Linesets No. (e.g. '5 6 7 12')
+        clientObject.line_sets = ConvertToDlString(linesets_no)
+
+        # Lineset Load Type
+        load_type = LinesetLoadType.E_TYPE_MASS
+        clientObject.load_type = load_type.name
+
+        # Lineset Load Distribution
+        load_distribution= LinesetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM
+        clientObject.load_distribution= load_distribution.name
+
+        # Individual Mass Components
+        if not isinstance(individual_mass_components, bool):
+            raise Exception('WARNING: Input to be of type "bool"')
+        clientObject.individual_mass_components = individual_mass_components
+
+        # Mass magnitude
+        if not individual_mass_components:
+            if len(mass_components) != 1:
+                raise Exception('WARNING: The mass components parameter for global mass assignment needs to be of length 1. Kindly check list inputs for completeness and correctness.')
+            clientObject.mass_global = mass_components[0]
+        else:
+            if len(mass_components) != 3:
+                raise Exception('WARNING: The mass components parameter for individual mass component assignment needs to be of length 3. Kindly check list inputs for completeness and correctness.')
+            clientObject.mass_x = mass_components[0]
+            clientObject.mass_y = mass_components[1]
+            clientObject.mass_z = mass_components[2]
 
         # Comment
         clientObject.comment = comment
