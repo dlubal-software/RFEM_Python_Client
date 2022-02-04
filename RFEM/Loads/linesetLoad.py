@@ -11,7 +11,6 @@ class LinesetLoad():
                  magnitude: float = 0,
                  comment: str = '',
                  params: dict = {}):
-
         '''
         Assigns lineset load without any further options.
         Load type is Force by default.
@@ -84,7 +83,7 @@ class LinesetLoad():
         params:
             {''}
         '''
-        # Client model | Line Load
+        # Client model | Lineset Load
         clientObject = Model.clientModel.factory.create('ns0:line_set_load')
 
         # Clears object attributes | Sets all attributes to None
