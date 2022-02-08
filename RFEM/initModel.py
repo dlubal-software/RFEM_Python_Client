@@ -135,7 +135,7 @@ class Model():
     clientModel = None
     def __init__(self,
                  new_model: bool=True,
-                 model_name: str="MyModel",
+                 model_name: str="TestModel",
                  delete: bool=False,
                  delete_all: bool=False):
 
