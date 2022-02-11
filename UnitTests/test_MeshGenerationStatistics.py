@@ -12,7 +12,7 @@ from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.material import Material
-from RFEM.initModel import Model, CheckIfMethodOrTypeExists, GenerateMesh, GetMeshStatics
+from RFEM.initModel import Model, CheckIfMethodOrTypeExists, GenerateMesh, GetMeshStatistics
 from RFEM.enums import *
 
 if Model.clientModel is None:
@@ -48,4 +48,4 @@ def test_generation_of_mesh_statistics():
     Model.clientModel.service.finish_modification()
 
     # Missing validation
-    mesh_stats = GetMeshStatics()
+    mesh_stats = GetMeshStatistics()
