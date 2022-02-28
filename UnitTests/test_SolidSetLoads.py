@@ -6,9 +6,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.Loads.solidLoad import SolidLoad
 from RFEM.Loads.solidSetLoad import SolidSetLoad
-from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType, SolidLoadType, SolidLoadDistribution
 from RFEM.enums import SolidLoadDirection, SolidSetLoadType, SolidSetLoadDistribution, SolidSetLoadDirection
 from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
@@ -18,10 +16,8 @@ from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.surface import Surface
 from RFEM.BasicObjects.solid import Solid
 from RFEM.BasicObjects.solidSet import SolidSet
-from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
-from RFEM.Loads.nodalLoad import NodalLoad
 
 if Model.clientModel is None:
     Model()
