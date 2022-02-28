@@ -7,7 +7,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.Loads.solidSetLoad import SolidSetLoad
-from RFEM.enums import SolidLoadDirection, SolidSetLoadType, SolidSetLoadDistribution, SolidSetLoadDirection
+from RFEM.enums import SolidLoadDirection, SolidSetLoadType, SolidSetLoadDistribution, SolidSetLoadDirection, StaticAnalysisType
 from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.thickness import Thickness
