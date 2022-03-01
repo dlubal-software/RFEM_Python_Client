@@ -333,6 +333,38 @@ def SetAddonStatus(modelClient, addOn = "stress_analysis_active", status = True)
     Activate or deactivate Add-on.
     For some types of objects, specific Add-ons need to be ennabled.
 
+    Analysis addOns list:
+        material_nonlinear_analysis_active
+        structure_stability_active
+        construction_stages_active
+        time_dependent_active
+        form_finding_active
+        cutting_patterns_active
+        torsional_warping_active
+        cost_estimation_active
+
+    Design addOns list:
+        stress_analysis_active
+        concrete_design_active
+        steel_design_active
+        timber_design_active
+        aluminum_design_active
+        steel_joints_active
+        timber_joints_active
+        craneway_design_active
+
+    Dynamic addOns list:
+        modal_active
+        spectral_active
+        time_history_active
+        pushover_active
+        harmonic_response_active
+
+    Special aadOns list:
+        building_model_active
+        wind_simulation_active
+        geotechnical_analysis_active
+
     Args:
         modelClient (Model.clientModel)
         method_or_type (string): method or type of SOAP client
