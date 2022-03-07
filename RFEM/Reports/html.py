@@ -9,7 +9,7 @@
 from fileinput import filename
 from os import listdir, walk, path
 from RFEM.initModel import ExportResultTablesToCsv
-from re import findall
+from re import findall, match
 
 columns = 0
 
@@ -59,6 +59,18 @@ def __numberOfPOsitiveItems(dividedLine):
 
     return counter
 
+def __isWords(word):
+    isWords = False
+    dividedWords = word.split(' ')
+
+    for oneWord in dividedWords:
+        if oneWord and bool(match(r"[A-Z]", oneWord[0])) and oneWord.isalpha():
+            isWords = True
+        else:
+            break
+
+    return isWords
+
 def __tableHeader(dividedLine_1, dividedLine_2):
     # define htnl of header lines, rowspan and colspan
     # parameters are lists of strings
@@ -80,7 +92,9 @@ def __tableHeader(dividedLine_1, dividedLine_2):
             elif dividedLine_1[i] and dividedLine_2[i]:
                 colspan = 1
                 for ii in range(i+1, columns):
-                    if not dividedLine_1[ii] and ('Comment' not in dividedLine_2[ii]) and dividedLine_2[ii]:
+                    if ii == columns-1 and not dividedLine_1[ii] and __isWords(dividedLine_2[ii]):
+                        break
+                    elif not dividedLine_1[ii] and dividedLine_2[ii]:
                         colspan += 1
                     else:
                         break
@@ -112,23 +126,33 @@ def __emptyLine():
 def __otherLines(dividedLine):
     # define html of other lines
     global columns
+    colspan = 1
     output = []
     for c in range(columns):
-        sCheckIfDigit = dividedLine[c].replace('.','',1)
-        sCheckIfDigit = sCheckIfDigit.replace(',','',1)
-        sCheckIfDigit = sCheckIfDigit.replace('-','',1)
-        sCheckIfDigit = sCheckIfDigit.replace('+','',1)
-        align = 'left'
-        tag = 'td'
-        if c == 0:
-            align = 'center'
-        elif sCheckIfDigit.isdigit():
-            align = 'right'
-        else:
-            if '<sub>' in dividedLine[c] or '[' in dividedLine[c]:
-                tag = 'th'
+        if colspan == 1:
+            sCheckIfDigit = dividedLine[c].replace('.','',1)
+            sCheckIfDigit = sCheckIfDigit.replace(',','',1)
+            sCheckIfDigit = sCheckIfDigit.replace('-','',1)
+            sCheckIfDigit = sCheckIfDigit.replace('+','',1)
+            align = 'left'
+            tag = 'td'
+            if c == 0:
                 align = 'center'
-        output.append(f'<{tag} align="{align}">{dividedLine[c]}</{tag}>')
+            elif sCheckIfDigit.isdigit():
+                align = 'right'
+            elif bool(match(r"^\D+\.$", dividedLine[c])) or "|" in dividedLine[c]:
+                for cc in range(c+1, columns-1):
+                    if not dividedLine[cc]:
+                        colspan += 1
+                    else:
+                        break
+            else:
+                if '<sub>' in dividedLine[c] or '[' in dividedLine[c]:
+                    tag = 'th'
+                    align = 'center'
+            output.append(f'<{tag} colspan="{colspan}"align="{align}">{dividedLine[c]}</{tag}>')
+        else:
+            colspan -= 1
     return output
 
 def ExportResultTablesToHtml(TargetFolderPath: str):
