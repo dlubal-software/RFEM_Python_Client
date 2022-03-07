@@ -1,0 +1,91 @@
+body{
+	background: white;
+	color: black;
+	font-family: sans-serif;
+}
+
+h1{
+	font-family: sans-serif;
+	letter-spacing: -0.01em;
+	font-weight: 700;
+	font-style: normal;
+	font-size: 60px;
+	margin-left: -3px;
+	line-height: 1em;
+	color: black;
+	text-align: center;
+	margin-bottom: 8px;
+	text-rendering: optimizeLegibility;
+}
+
+table{
+	width: 99%;
+	margin: auto;
+	font-size: 13px;
+	padding: 10px
+}
+
+table, th, td{
+	border: 1px solid #d7d4d4;
+	border-collapse: collapse;
+}
+
+th{
+	padding: 5px;
+	/*text-align: center;*/
+
+}
+td{
+	padding: 5px;
+	min-width: 40px;
+	/*text-align: right;*/
+}
+tr:nth-child(even) {background-color: #fffae6;}
+
+.tabContainer{
+	padding-top:10px;
+  visibility:hidden;
+}
+.button {
+  background-color: #D4E6F1; /* Blue Gray */
+  border: none;
+  color: black;
+  padding: 6px 3px;
+  font-family: sans-serif;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 11px;
+  transition-duration: 0.2s;
+  position: relative;
+  display: inline-block;
+}
+
+.button:hover {
+  background-color: #d7d4d4;
+  color: black;
+}
+
+.title{
+    font-family: sans-serif;
+    color: #ECF0F1;
+    text-align: top;
+}
+progress {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+};
+datalist {
+	overflow: scroll;
+	/*width: 1000px; datalist doesn't support width option*/
+}
+input {
+  /*border: 1px solid transparent;*/
+  height: 25px;
+  width: 500px;
+  border: solid 1px black;
+  border-radius: 3px;
+  padding-left: 5px;
+  cursor: pointer;
+}

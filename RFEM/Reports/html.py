@@ -7,21 +7,22 @@
 ## Result files are language dependent, so parsing based on strings is impossible.
 #################################
 from fileinput import filename
-from os import listdir, walk, path
+from os import listdir, walk, path, getcwd
 from RFEM.initModel import ExportResultTablesToCsv
 from re import findall, match
+from shutil import copy
 
 columns = 0
 
 def __HTMLheadAndHeader(modelName, fileNames):
     output = ['<head>',
-              '<script src="script.js"></script>',
+              '<script src="htmlScript.js"></script>',
               '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">',
               '<title>Results</title>',
               '<link rel="icon" sizes="32x32" href="favicon32.png">',
               '</head>',
               '<header>',
-              '<link rel="stylesheet" href="styles.css">',
+              '<link rel="stylesheet" href="htmlStyles.css">',
               '<div class="head">',
               '<img alt="Dlubal logo" width="77" height="77" src="favicon32.png" align="right">',
               '<h2>Results report</h2>',
@@ -157,7 +158,7 @@ def __otherLines(dividedLine):
 
 def ExportResultTablesToHtml(TargetFolderPath: str):
     # Run ExportResultTablesToCsv() to create collection of source files
-    #ExportResultTablesToCsv(TargetFolderPath)
+    ExportResultTablesToCsv(TargetFolderPath)
 
     modelName = next(walk(TargetFolderPath))[1][0]
     dirList = listdir(path.join(TargetFolderPath, modelName))
@@ -172,7 +173,6 @@ def ExportResultTablesToHtml(TargetFolderPath: str):
     print('')
 
     for fileName in dirList:
-        print(fileName)
         cats = fileName[:-4].split('_')
 
         fileNameCapitalized = ''
@@ -218,9 +218,14 @@ def ExportResultTablesToHtml(TargetFolderPath: str):
     output += __HTMLfooter()
     output = __HTMLheadAndHeader(modelName, fileNames) + output
 
+    # Copy basic files
+    dirname = path.join(getcwd(), path.dirname(__file__))
+    copy(path.join(dirname, 'htmlStyles.css'), TargetFolderPath)
+    copy(path.join(dirname, 'htmlScript.js'), TargetFolderPath)
+    copy(path.join(dirname, 'favicon32.png'), TargetFolderPath)
+
     # Write into html file
-    # Add lower index
-    with open('D:\\Sources\\sub_index.html', "w", encoding="utf-8") as f:
+    with open(path.join(TargetFolderPath,'index.html'), "w", encoding="utf-8") as f:
         for line in output:
             while '_' in line:
                 beginId = line.find('_')
