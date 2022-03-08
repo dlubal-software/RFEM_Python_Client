@@ -6,7 +6,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 from RFEM.enums import *
-from RFEM.initModel import Model, SetAddonStatus
+from RFEM.initModel import Model
 from RFEM.Calculate.meshSettings import MeshSettings
 from RFEM.Calculate.optimizationSettings import OptimizationSettings
 from UnitTests.test_solids import test_solids_and_solid_sets
@@ -19,6 +19,7 @@ def test_mesh_settings():
     common = MeshSettings.ComonMeshConfig
     common['general_target_length_of_fe'] = 0.4321
     common['members_number_of_divisions_for_special_types'] = 12
+    common['surfaces_shape_of_finite_elements'] = SurfacesShapeOfFiniteElements.E_SHAPE_OF_FINITE_ELEMENTS_FOR_SURFACES__TRIANGLES_ONLY.name
     surf = MeshSettings.SurfacesMeshQualityConfig
     surf['QualityCriteriaConfig']['quality_criterion_check_aspect_ratio_warning'] = 22
     solid = dict(MeshSettings.SolidsMeshQualityConfig)
@@ -30,6 +31,7 @@ def test_mesh_settings():
     control_mesh = mesh.get_mesh_settings()
     assert control_mesh['general_target_length_of_fe'] == 0.4321
     assert control_mesh['members_number_of_divisions_for_special_types'] == 12
+    assert control_mesh['surfaces_shape_of_finite_elements'] == SurfacesShapeOfFiniteElements.E_SHAPE_OF_FINITE_ELEMENTS_FOR_SURFACES__TRIANGLES_ONLY.name
     assert control_mesh['SurfacesMeshQualityConfig']['QualityCriteriaConfig']['quality_criterion_check_aspect_ratio_warning'] == 22
     assert control_mesh['SolidsMeshQualityConfig']['QualityCriteriaConfig']['quality_criterion_parallel_deviations_warning'] == 1.7
 
