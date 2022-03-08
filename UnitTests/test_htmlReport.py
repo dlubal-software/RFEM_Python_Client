@@ -18,5 +18,5 @@ def test_html_report():
     Model.clientModel.service.calculate_all(False)
 
     dirname = path.join(getcwd(), path.dirname(__file__))
-    print(dirname)
     ExportResultTablesToHtml(path.join(dirname, 'testResults'))
+    os.system(f"start {path.join(dirname, 'testResults', 'index.html')}")
