@@ -6,7 +6,6 @@
 ## It will also include dropdown menu with all tables/files.
 ## Result files are language dependent, so parsing based on strings is impossible.
 #################################
-# pylint: disable=W0614, W0401, W0622, C0103, C0114, C0115, C0116, C0301, C0413, R0913, R0914, R0915, C0305, C0411, W0102, W0702, E0602, E0401
 
 from os import listdir, walk, path, getcwd
 from RFEM.initModel import ExportResultTablesToCsv
