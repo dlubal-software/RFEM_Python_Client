@@ -1,5 +1,6 @@
 import sys
 import os
+from os import path, getcwd
 PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.path.dirname(__file__),
                   os.pardir)
@@ -7,7 +8,6 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 from RFEM.Reports.html import ExportResultTablesToHtml
 from RFEM.initModel import Model
-from os import path, getcwd
 
 if Model.clientModel is None:
     Model()

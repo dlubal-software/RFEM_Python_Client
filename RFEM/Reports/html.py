@@ -6,7 +6,8 @@
 ## It will also include dropdown menu with all tables/files.
 ## Result files are language dependent, so parsing based on strings is impossible.
 #################################
-from fileinput import filename
+# pylint: disable=W0614, W0401, W0622, C0103, C0114, C0115, C0116, C0301, C0413, R0913, R0914, R0915, C0305, C0411, W0102, W0702, E0602, E0401
+
 from os import listdir, walk, path, getcwd
 from RFEM.initModel import ExportResultTablesToCsv
 from re import findall, match
@@ -116,17 +117,14 @@ def __tableHeader(dividedLine_1, dividedLine_2):
 
 def __tableSubHeader(dividedLine):
     # sub header; one liner; in the body of table
-    global columns
     return f'<th align="left" colspan="{columns}">{dividedLine}</th>'
 
 def __emptyLine():
     # define html of empty lines
-    global columns
     return f'<th colspan="{columns}"></th>'
 
 def __otherLines(dividedLine):
     # define html of other lines
-    global columns
     colspan = 1
     output = []
     for c in range(columns):
@@ -167,7 +165,7 @@ def ExportResultTablesToHtml(TargetFolderPath: str):
 
     fileNames = []
 
-    dirlist = dirList.sort()
+    dirList.sort()
 
     output = ['<div class="tabContainer">']
     print('')
