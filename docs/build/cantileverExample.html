@@ -1,0 +1,290 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Steel Cantilever Beam Example &mdash; RFEM/RSTAB Webservices 1.0.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2D Truss Generator Example" href="trussExample.html" />
+    <link rel="prev" title="Examples" href="examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html"><strong>Introduction</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="globalCommands.html"><strong>Global Commands</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="addonCommands.html"><strong>Add-on Commands</strong></a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="examples.html"><strong>Examples</strong></a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Steel Cantilever Beam Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trussExample.html">2D Truss Generator Example</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RFEM/RSTAB Webservices</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="examples.html"><strong>Examples</strong></a> &raquo;</li>
+        
+      <li>Steel Cantilever Beam Example</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/cantileverExample.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="steel-cantilever-beam-example">
+<h1>Steel Cantilever Beam Example<a class="headerlink" href="#steel-cantilever-beam-example" title="Permalink to this headline">¶</a></h1>
+<a class="reference internal image-reference" href="_images/cantileverEx.png"><img alt="alternate text" class="align-center" src="_images/cantileverEx.png" style="width: 750px; height: 400px;" /></a>
+<p>This examples shows, how to create 2 dimensional cantilever steel beam with command window inputs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">baseName</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+<span class="n">dirName</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;basename:    &#39;</span><span class="p">,</span> <span class="n">baseName</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;dirname:     &#39;</span><span class="p">,</span> <span class="n">dirName</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dirName</span> <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;/../..&#39;</span><span class="p">)</span>
+
+<span class="c1"># Import Libraries</span>
+<span class="kn">from</span> <span class="nn">RFEM.enums</span> <span class="kn">import</span> <span class="n">NodalSupportType</span><span class="p">,</span> <span class="n">StaticAnalysisType</span><span class="p">,</span> <span class="n">LoadDirectionType</span>
+<span class="kn">from</span> <span class="nn">RFEM.initModel</span> <span class="kn">import</span> <span class="n">Model</span><span class="p">,</span> <span class="n">Calculate_all</span>
+<span class="kn">from</span> <span class="nn">RFEM.BasicObjects.material</span> <span class="kn">import</span> <span class="n">Material</span>
+<span class="kn">from</span> <span class="nn">RFEM.BasicObjects.section</span> <span class="kn">import</span> <span class="n">Section</span>
+<span class="kn">from</span> <span class="nn">RFEM.BasicObjects.node</span> <span class="kn">import</span> <span class="n">Node</span>
+<span class="kn">from</span> <span class="nn">RFEM.BasicObjects.member</span> <span class="kn">import</span> <span class="n">Member</span>
+<span class="kn">from</span> <span class="nn">RFEM.TypesForNodes.nodalSupport</span> <span class="kn">import</span> <span class="n">NodalSupport</span>
+<span class="kn">from</span> <span class="nn">RFEM.LoadCasesAndCombinations.staticAnalysisSettings</span> <span class="kn">import</span> <span class="n">StaticAnalysisSettings</span>
+<span class="kn">from</span> <span class="nn">RFEM.LoadCasesAndCombinations.loadCase</span> <span class="kn">import</span> <span class="n">LoadCase</span>
+<span class="kn">from</span> <span class="nn">RFEM.Loads.nodalLoad</span> <span class="kn">import</span> <span class="n">NodalLoad</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Length of the cantilever in m: &#39;</span><span class="p">))</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Force in kN: &#39;</span><span class="p">))</span>
+
+    <span class="n">Model</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;Demo1&quot;</span><span class="p">)</span> <span class="c1"># crete new model called Demo1</span>
+    <span class="n">Model</span><span class="o">.</span><span class="n">clientModel</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">begin_modification</span><span class="p">()</span>
+
+    <span class="n">Material</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;S235&#39;</span><span class="p">)</span>
+
+    <span class="n">Section</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;IPE 200&#39;</span><span class="p">)</span>
+
+    <span class="n">Node</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">Node</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+
+    <span class="n">Member</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">NodalSupport</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="n">NodalSupportType</span><span class="o">.</span><span class="n">FIXED</span><span class="p">)</span>
+
+    <span class="n">StaticAnalysisSettings</span><span class="o">.</span><span class="n">GeometricallyLinear</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Linear&quot;</span><span class="p">)</span>
+    <span class="n">StaticAnalysisSettings</span><span class="o">.</span><span class="n">SecondOrderPDelta</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;SecondOrder&quot;</span><span class="p">)</span>
+    <span class="n">StaticAnalysisSettings</span><span class="o">.</span><span class="n">LargeDeformation</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;LargeDeformation&quot;</span><span class="p">)</span>
+
+    <span class="n">LoadCase</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Self-Weight&#39;</span><span class="p">,</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+
+    <span class="n">NodalLoad</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="n">LoadDirectionType</span><span class="o">.</span><span class="n">LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W</span><span class="p">,</span> <span class="n">f</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="n">Model</span><span class="o">.</span><span class="n">clientModel</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">finish_modification</span><span class="p">()</span>
+
+    <span class="n">Calculate_all</span><span class="p">()</span>
+
+    <span class="c1"># Model Status</span>
+    <span class="n">modelStatus</span> <span class="o">=</span> <span class="n">Model</span><span class="o">.</span><span class="n">clientModel</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">get_model_info</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model is calculated&quot;</span> <span class="k">if</span> <span class="n">modelStatus</span><span class="o">.</span><span class="n">property_has_results</span> <span class="k">else</span> <span class="s2">&quot;Model is not calculated&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model contains printout report&quot;</span> <span class="k">if</span> <span class="n">modelStatus</span><span class="o">.</span><span class="n">property_has_printout_report</span> <span class="k">else</span> <span class="s2">&quot;Model has not printout report&quot;</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Model contains &quot;</span> <span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">modelStatus</span><span class="o">.</span><span class="n">property_node_count</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; nodes&quot;</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Model contains &quot;</span> <span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">modelStatus</span><span class="o">.</span><span class="n">property_line_count</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; lines&quot;</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Model contains &quot;</span> <span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">modelStatus</span><span class="o">.</span><span class="n">property_member_count</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; members&quot;</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Model contains &quot;</span> <span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">modelStatus</span><span class="o">.</span><span class="n">property_surface_count</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; surfaces&quot;</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Model contains &quot;</span> <span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">modelStatus</span><span class="o">.</span><span class="n">property_solid_count</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; solids&quot;</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Model contains &quot;</span> <span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">modelStatus</span><span class="o">.</span><span class="n">property_lc_count</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; load cases&quot;</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Model contains &quot;</span> <span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">modelStatus</span><span class="o">.</span><span class="n">property_co_count</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; load combinations&quot;</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Model contains &quot;</span> <span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">modelStatus</span><span class="o">.</span><span class="n">property_rc_count</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; result classes&quot;</span><span class="p">)</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Model weight &quot;</span> <span class="o">+</span>   <span class="nb">str</span><span class="p">(</span><span class="n">modelStatus</span><span class="o">.</span><span class="n">property_weight</span><span class="p">))</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Model dimension x &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">modelStatus</span><span class="o">.</span><span class="n">property_dimensions</span><span class="o">.</span><span class="n">x</span><span class="p">))</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Model dimension y &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">modelStatus</span><span class="o">.</span><span class="n">property_dimensions</span><span class="o">.</span><span class="n">y</span><span class="p">))</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Model dimension z &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">modelStatus</span><span class="o">.</span><span class="n">property_dimensions</span><span class="o">.</span><span class="n">z</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="trussExample.html" class="btn btn-neutral float-right" title="2D Truss Generator Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="examples.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Dlubal Software.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
