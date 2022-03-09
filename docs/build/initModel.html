@@ -1,0 +1,449 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>initModel &mdash; RFEM/RSTAB Webservices 1.0.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Add-on Commands" href="addonCommands.html" />
+    <link rel="prev" title="SpecialObjects" href="SpecialObjects.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html"><strong>Introduction</strong></a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="globalCommands.html"><strong>Global Commands</strong></a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="BasicObjects.html">BasicObjects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Imperfections.html">Imperfections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Loads.html">Loads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LoadCasesAndCombinations.html">LoadCasesAndCombinations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SpecialObjects.html">SpecialObjects</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">initModel</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="addonCommands.html"><strong>Add-on Commands</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html"><strong>Examples</strong></a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RFEM/RSTAB Webservices</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="globalCommands.html"><strong>Global Commands</strong></a> &raquo;</li>
+        
+      <li>initModel</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/initModel.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-initModel">
+<span id="initmodel"></span><h1>initModel<a class="headerlink" href="#module-initModel" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="initModel.CalculateSelectedCases">
+<span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">CalculateSelectedCases</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loadCases</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">designSituations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loadCombinations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initModel.CalculateSelectedCases" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method calculate just selected objects - load cases, desingSituations, loadCombinations
+:type loadCases: <code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>]
+:param loadCases: [description]. Defaults to None.
+:type loadCases: list, optional
+:type designSituations: <code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>]
+:param designSituations: [description]. Defaults to None.
+:type designSituations: list, optional
+:type loadCombinations: <code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>]
+:param loadCombinations: [description]. Defaults to None.
+:type loadCombinations: list, optional</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initModel.Calculate_all">
+<span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">Calculate_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">generateXmlSolverInput</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initModel.Calculate_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates model.
+CAUTION: Don’t use it in unit tests!
+It works when executing tests individualy but when running all of them
+it causes RFEM to stuck and generates failures, which are hard to investigate.</p>
+<p>Params:
+- generateXmlSolverInput: generate XML solver input</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initModel.CheckAddonStatus">
+<span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">CheckAddonStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modelClient</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addOn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'stress_analysis_active'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initModel.CheckAddonStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if Add-on is reachable and active.
+For some types of objects, specific Add-ons need to be ennabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelClient</strong> (<em>Model.clientModel</em>) – </p></li>
+<li><p><strong>method_or_type</strong> (<em>string</em>) – method or type of SOAP client</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Status of Add-on</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(bool)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initModel.CheckIfMethodOrTypeExists">
+<span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">CheckIfMethodOrTypeExists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modelClient</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method_or_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unitTestMode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initModel.CheckIfMethodOrTypeExists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if SOAP method or type is present in your version of RFEM/RSTAB.
+Use it only in your examples.
+Unit tests except msg from SUDS where this is checked already.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelClient</strong> (<em>Model.clientModel</em>) – </p></li>
+<li><p><strong>method_or_type</strong> (<em>string</em>) – method or type of SOAP client</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Status of method or type.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To get list of methods invoke:
+list_of_methods = [method for method in Model.clientModel.wsdl.services[0].ports[0]]</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initModel.ConvertStrToListOfInt">
+<span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">ConvertStrToListOfInt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">st</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initModel.ConvertStrToListOfInt" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function coverts string to list of integers.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initModel.ConvertToDlString">
+<span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">ConvertToDlString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initModel.ConvertToDlString" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function converts strings commonly used in RSTAB / RFEM so that they
+can be used In WebServices. It solved issue #4.
+Examples:
+‘1,3’       -&gt; ‘1 3’
+‘1, 3’      -&gt; ‘1 3’
+‘1-3’       -&gt; ‘1 2 3’
+‘1,3,5-9’   -&gt; ‘1 3 5 6 7 8 9’</p>
+<dl class="simple">
+<dt>Params:</dt><dd><p>RSTAB / RFEM common string</p>
+</dd>
+</dl>
+<p>Returns a WS conform string.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initModel.ExportResultTablesToCsv">
+<span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">ExportResultTablesToCsv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TargetDirectoryPath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initModel.ExportResultTablesToCsv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initModel.ExportResultTablesToXML">
+<span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">ExportResultTablesToXML</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TargetFilePath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initModel.ExportResultTablesToXML" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initModel.ExportResultTablesWithDetailedMembersResultsToCsv">
+<span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">ExportResultTablesWithDetailedMembersResultsToCsv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TargetDirectoryPath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initModel.ExportResultTablesWithDetailedMembersResultsToCsv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initModel.ExportResultTablesWithDetailedMembersResultsToXML">
+<span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">ExportResultTablesWithDetailedMembersResultsToXML</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TargetFilePath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initModel.ExportResultTablesWithDetailedMembersResultsToXML" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initModel.FirstFreeIdNumber">
+<span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">FirstFreeIdNumber</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ObjectTypes.E_OBJECT_TYPE_MEMBER</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initModel.FirstFreeIdNumber" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns the next available Id Number for the selected object type
+:param type: Object Type
+:type type: enum
+:type parent_no: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>
+:param parent_no: Object Parent Number</p>
+<blockquote>
+<div><p>Note:
+(1) A geometric object has, in general, a parent_no = 0
+(2) The parent_no parameter becomes significant for example with loads</p>
+</div></blockquote>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initModel.GenerateMesh">
+<span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">GenerateMesh</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#initModel.GenerateMesh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initModel.GetMeshStatistics">
+<span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">GetMeshStatistics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#initModel.GetMeshStatistics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initModel.GetModelType">
+<span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">GetModelType</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#initModel.GetModelType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The method returns a string of the current model type.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="initModel.Model">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">Model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'MyModel'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delete_all</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initModel.Model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="initModel.Model.clientModel">
+<span class="sig-name descname"><span class="pre">clientModel</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#initModel.Model.clientModel" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initModel.ParseCSVResultsFromSelectedFileToDict">
+<span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">ParseCSVResultsFromSelectedFileToDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filePath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initModel.ParseCSVResultsFromSelectedFileToDict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initModel.ParseXMLResultsFromSelectedFileToDict">
+<span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">ParseXMLResultsFromSelectedFileToDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filePath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initModel.ParseXMLResultsFromSelectedFileToDict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initModel.SetAddonStatus">
+<span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">SetAddonStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modelClient</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addOn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'stress_analysis_active'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initModel.SetAddonStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate or deactivate Add-on.
+For some types of objects, specific Add-ons need to be ennabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>modelClient</strong> (<em>Model.clientModel</em>) – </p></li>
+<li><p><strong>method_or_type</strong> (<em>string</em>) – method or type of SOAP client</p></li>
+<li><p><strong>status</strong> (<em>bool</em>) – in/active</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initModel.SetModelType">
+<span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">SetModelType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ModelType.E_MODEL_TYPE_3D</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initModel.SetModelType" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method sets the model type. The model type is E_MODEL_TYPE_3D by default.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>model_type</strong> (<em>enum</em>) – The available model types are listed below.
+ModelType.E_MODEL_TYPE_1D_X_3D
+ModelType.E_MODEL_TYPE_1D_X_AXIAL
+ModelType.E_MODEL_TYPE_2D_XY_3D
+ModelType.E_MODEL_TYPE_2D_XY_PLATE
+ModelType.E_MODEL_TYPE_2D_XZ_3D
+ModelType.E_MODEL_TYPE_2D_XZ_PLANE_STRAIN
+ModelType.E_MODEL_TYPE_2D_XZ_PLANE_STRESS
+ModelType.E_MODEL_TYPE_3D</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initModel.clearAtributes">
+<span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">clearAtributes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initModel.clearAtributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears object atributes.
+Sets all atributes to None.</p>
+<dl class="simple">
+<dt>Params:</dt><dd><p>obj: object to clear</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initModel.insertSpaces">
+<span class="sig-prename descclassname"><span class="pre">initModel.</span></span><span class="sig-name descname"><span class="pre">insertSpaces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initModel.insertSpaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add spaces between list of numbers.
+Returns list of values.</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="addonCommands.html" class="btn btn-neutral float-right" title="Add-on Commands" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="SpecialObjects.html" class="btn btn-neutral float-left" title="SpecialObjects" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Dlubal Software.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

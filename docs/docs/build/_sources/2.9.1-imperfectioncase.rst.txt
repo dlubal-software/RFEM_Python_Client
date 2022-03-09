@@ -1,4 +1,0 @@
-Imperfection Case
-==================
-
-
