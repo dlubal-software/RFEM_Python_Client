@@ -39,8 +39,11 @@ def __HTMLheadAndHeader(modelName, fileNames):
                '</div>',
                '</header>',
                '',
-               '<progress id="progressBar" value="0" max="100"></progress>',
-               '']
+               '<!--<progress id="progressBar" value="0" max="100"></progress>-->',
+               '',
+               '<div class="tabContainer">']
+    for f in fileNames:
+        output.append(f'<iframe src="{f}.html" loading="lazy" frameBorder="0"></iframe>')
     return output
 
 def __HTMLfooter():
@@ -77,8 +80,8 @@ def __tableHeader(dividedLine_1, dividedLine_2):
     # parameters are lists of strings
     global columns
     columns = max(len(dividedLine_1), len(dividedLine_2))
-    output = ['<script>updateProgressBar()</script>',
-              '<div class="tabPanel">',
+    output = ['<div class="tabPanel">',
+              '<link rel="stylesheet" href="htmlStyles.css">',
               '<table class="responsive-table">',
               '<thead>',
               '<tr>']
@@ -153,8 +156,32 @@ def __otherLines(dividedLine):
             colspan -= 1
     return output
 
+def __writeToFile(TargetFilePath, output):
+    # Write into html file
+    with open(TargetFilePath, "w", encoding="utf-8") as f:
+        for line in output:
+            while '_' in line:
+                beginId = line.find('_')
+                endBySpace = line[beginId:].find(' ')
+                endByArrow = line.rfind('<')
+                if endBySpace == -1:
+                    line = line[:beginId]+'<sub>'+line[beginId+1:endByArrow]+'</sub>'+line[endByArrow:]
+                else:
+                    endId = min(endBySpace + beginId, endByArrow)
+                    line = line[:beginId]+'<sub>'+line[beginId+1:endId]+'</sub>'+line[endId:]
+            while '^' in line:
+                beginId = line.find('^')
+                endBySpace = line[beginId:].find(' ')
+                endByArrow = line.rfind('<')
+                if endBySpace == -1:
+                    line = line[:beginId]+'<sup>'+line[beginId+1:endByArrow]+'</sup>'+line[endByArrow:]
+                else:
+                    endId = min(endBySpace + beginId, endByArrow)
+                    line = line[:beginId]+'<sup>'+line[beginId+1:endId]+'</sup>'+line[endId:]
+            f.write(line+'\n')
+
 def ExportResultTablesToHtml(TargetFolderPath: str):
-    # Run ExportResultTablesToCsv() to create collection of source files
+    # Create collection of source files
     ExportResultTablesToCsv(TargetFolderPath)
 
     modelName = next(walk(TargetFolderPath))[1][0]
@@ -166,7 +193,6 @@ def ExportResultTablesToHtml(TargetFolderPath: str):
 
     dirList.sort()
 
-    output = ['<div class="tabContainer">']
     print('')
 
     for fileName in dirList:
@@ -188,8 +214,8 @@ def ExportResultTablesToHtml(TargetFolderPath: str):
             line_1[-1] = line_1[-1].rstrip('\n')
             line_2 = lines[1].split(';')
             line_2[-1] = line_2[-1].rstrip('\n')
-            subOutput = __tableHeader(line_1, line_2)
-            output += subOutput
+
+            output = __tableHeader(line_1, line_2)
             output.append('<tbody>')
 
             for line in lines[2:]:
@@ -203,17 +229,22 @@ def ExportResultTablesToHtml(TargetFolderPath: str):
                 if __isEmpty(dividedLine):
                     # if empty line
                     output.append(__emptyLine())
+                elif __numberOfPOsitiveItems(dividedLine) == 1 and dividedLine[0]:
+                    # if only one string in the list, it is sub header consisting of only 1 line
+                    output.append(__tableSubHeader(dividedLine[0]))
                 elif __numberOfPOsitiveItems(dividedLine) == 1 and dividedLine[1]:
                     # if only one string in the list, it is sub header consisting of only 1 line
                     output.append(__tableSubHeader(dividedLine[1]))
                 else:
-                    subOutput = __otherLines(dividedLine)
-                    output += subOutput
+                    output += __otherLines(dividedLine)
 
             output += ['</tr>', '</tbody>', '</table>', '</div>']
 
-    output += __HTMLfooter()
-    output = __HTMLheadAndHeader(modelName, fileNames) + output
+        __writeToFile(path.join(TargetFolderPath, fileNameCapitalized+'.html'), output)
+
+    indexOutput = ['<div class="tabContainer">']
+    indexOutput += __HTMLfooter()
+    indexOutput = __HTMLheadAndHeader(modelName, fileNames) + indexOutput
 
     # Copy basic files
     dirname = path.join(getcwd(), path.dirname(__file__))
@@ -221,25 +252,6 @@ def ExportResultTablesToHtml(TargetFolderPath: str):
     copy(path.join(dirname, 'htmlScript.js'), TargetFolderPath)
     copy(path.join(dirname, 'favicon32.png'), TargetFolderPath)
 
-    # Write into html file
     with open(path.join(TargetFolderPath,'index.html'), "w", encoding="utf-8") as f:
-        for line in output:
-            while '_' in line:
-                beginId = line.find('_')
-                endBySpace = line[beginId:].find(' ')
-                endByArrow = line.rfind('<')
-                if endBySpace == -1:
-                    line = line[:beginId]+'<sub>'+line[beginId+1:endByArrow]+'</sub>'+line[endByArrow:]
-                else:
-                    endId = min(endBySpace + beginId, endByArrow)
-                    line = line[:beginId]+'<sub>'+line[beginId+1:endId]+'</sub>'+line[endId:]
-            while '^' in line:
-                beginId = line.find('^')
-                endBySpace = line[beginId:].find(' ')
-                endByArrow = line.rfind('<')
-                if endBySpace == -1:
-                    line = line[:beginId]+'<sup>'+line[beginId+1:endByArrow]+'</sup>'+line[endByArrow:]
-                else:
-                    endId = min(endBySpace + beginId, endByArrow)
-                    line = line[:beginId]+'<sup>'+line[beginId+1:endId]+'</sup>'+line[endId:]
+        for line in indexOutput:
             f.write(line+'\n')

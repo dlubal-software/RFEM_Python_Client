@@ -75,10 +75,6 @@ progress {
   position: absolute;
   left: 50%;
   top: 50%;
-};
-datalist {
-	overflow: scroll;
-	/*width: 1000px; datalist doesn't support width option*/
 }
 input {
   /*border: 1px solid transparent;*/
@@ -88,4 +84,8 @@ input {
   border-radius: 3px;
   padding-left: 5px;
   cursor: pointer;
+}
+iframe {
+  height: 86%;
+  width: 100%;
 }
