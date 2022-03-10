@@ -230,8 +230,8 @@ def ExportResultTablesToHtml(TargetFolderPath: str):
                     # if empty line
                     output.append(__emptyLine())
                 elif __numberOfPOsitiveItems(dividedLine) == 1 and dividedLine[0]:
-                    # if only one string in the list, it is sub header consisting of only 1 line
-                    output.append(__tableSubHeader(dividedLine[0]))
+                    # add empty line, these values doesn't make sence
+                    output.append(__emptyLine())
                 elif __numberOfPOsitiveItems(dividedLine) == 1 and dividedLine[1]:
                     # if only one string in the list, it is sub header consisting of only 1 line
                     output.append(__tableSubHeader(dividedLine[1]))
