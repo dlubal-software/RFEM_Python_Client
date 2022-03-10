@@ -7,12 +7,12 @@
 #. :doc:`LoadCasesAndCombinations`
 #. :doc:`SpecialObjects`
 #. :doc:`TypesforLines`
-#. :doc:`TypesforMembers`
-#. :doc:`TypesforNodes`
-#. :doc:`TypesforSolids`
-#. :doc:`TypesforSpecialObjects`
-#. :doc:`TypesforSurfaces`
-#. :doc:`TypesforSurfaces`
+#. :doc:`TypesForMembers`
+#. :doc:`TypesForNodes`
+#. :doc:`TypesForSolids`
+#. :doc:`TypesForSpecialObjects`
+#. :doc:`TypesForSurfaces`
+#. :doc:`TypesForSurfaces`
 #. :doc:`initModel`
 
 .. toctree::
@@ -24,12 +24,12 @@
    Loads
    LoadCasesAndCombinations
    SpecialObjects
-   TypesforLines
-   TypesforMembers
-   TypesforNodes
-   TypesforSolids
-   TypesforSpecialObjects
-   TypesforSurfaces
+   TypesForLines
+   TypesForMembers
+   TypesForNodes
+   TypesForSolids
+   TypesForSpecialObjects
+   TypesForSurfaces
    initModel
 
 
