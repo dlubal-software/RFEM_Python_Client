@@ -45,16 +45,9 @@ function switchButtonUp(){
 	searchField.value = datalist.options[index].label;
 	showPanel();
 };
-function updateProgressBar() {
-	var filters = document.getElementById('filter').options.length;
-	var pbv = document.getElementById('progressBar').value;
-	document.getElementById('progressBar').value = Math.fround(pbv + 100/filters);
-};
 function atTheEnd(){
 	var datalist = document.getElementById('filter');
 	var searchField = document.getElementById('fl');
 	searchField.value = datalist.options[0].label;
-	//document.getElementById("progressBar").style.display="none";
 	showPanel();
-	document.getElementsByClassName("tabContainer")[0].style.visibility = 'visible';
 };

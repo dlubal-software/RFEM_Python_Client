@@ -39,8 +39,6 @@ def __HTMLheadAndHeader(modelName, fileNames):
                '</div>',
                '</header>',
                '',
-               '<!--<progress id="progressBar" value="0" max="100"></progress>-->',
-               '',
                '<div class="tabContainer">']
     for f in fileNames:
         output.append(f'<iframe src="{f}.html" loading="lazy" frameBorder="0"></iframe>')
@@ -98,12 +96,14 @@ def __tableHeader(dividedLine_1, dividedLine_2):
                 for ii in range(i+1, columns):
                     if ii == columns-1 and not dividedLine_1[ii] and __isWords(dividedLine_2[ii]):
                         break
-                    elif not dividedLine_1[ii] and dividedLine_2[ii]:
+                    if not dividedLine_1[ii] and dividedLine_2[ii]:
                         colspan += 1
                     else:
                         break
                 output.append(f'<th colspan="{colspan}">{dividedLine_1[i]}</th>')
                 i += colspan-1
+            elif i==columns-1 and not dividedLine_1[i] and dividedLine_2[i]:
+                output.append('<th></th>')
     output += ['</tr>', '<tr>']
 
     for y in range(columns):

@@ -3,48 +3,31 @@ body{
 	color: black;
 	font-family: sans-serif;
 }
-
-h1{
-	font-family: sans-serif;
-	letter-spacing: -0.01em;
-	font-weight: 700;
-	font-style: normal;
-	font-size: 60px;
-	margin-left: -3px;
-	line-height: 1em;
-	color: black;
-	text-align: center;
-	margin-bottom: 8px;
-	text-rendering: optimizeLegibility;
-}
-
 table{
-	width: 99%;
+	width: 100%;
 	margin: auto;
 	font-size: 13px;
-	padding: 10px
 }
-
 table, th, td{
 	border: 1px solid #d7d4d4;
-	border-collapse: collapse;
+	border-collapse: separate; /* Don't collapse */
+  border-spacing: 0;
 }
-
 th{
 	padding: 5px;
-	/*text-align: center;*/
-
 }
 td{
 	padding: 5px;
 	min-width: 40px;
-	/*text-align: right;*/
 }
 tr:nth-child(even) {background-color: #fffae6;}
-
+thead{
+  position: sticky;
+  top: 0;
+  background-color: white;
+}
 .tabContainer{
 	padding-top:10px;
-  visibility:hidden;
 }
 .button {
   background-color: #D4E6F1; /* Blue Gray */
@@ -60,12 +43,10 @@ tr:nth-child(even) {background-color: #fffae6;}
   position: relative;
   display: inline-block;
 }
-
 .button:hover {
   background-color: #d7d4d4;
   color: black;
 }
-
 .title{
     font-family: sans-serif;
     color: #ECF0F1;
@@ -86,6 +67,6 @@ input {
   cursor: pointer;
 }
 iframe {
-  height: 86%;
+  height: 90%;
   width: 100%;
 }

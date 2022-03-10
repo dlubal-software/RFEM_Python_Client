@@ -15,8 +15,7 @@ if Model.clientModel is None:
 
 def test_html_report():
     Model.clientModel.service.delete_all()
-    #Model.clientModel.service.run_script('..\\scripts\\internal\\Demos\\Demo-003 Castellated Beam.js')
-    Model.clientModel.service.run_script('..\\scripts\\internal\\Demos\\Demo-001 Hall.js')
+    Model.clientModel.service.run_script('..\\scripts\\internal\\Demos\\Demo-003 Castellated Beam.js')
     Model.clientModel.service.calculate_all(False)
 
     dirname = path.join(getcwd(), path.dirname(__file__))
