@@ -11,7 +11,7 @@ from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.material import Material
 from RFEM.initModel import Model
-from RFEM.Tools.PlausibilityCheck import PlausiblityCheck
+from RFEM.Tools.PlausibilityCheck import PlausibilityCheck
 
 if Model.clientModel is None:
     Model()
@@ -39,7 +39,7 @@ def test_plausibility_check():
 
     Model.clientModel.service.finish_modification()
 
-    check = PlausiblityCheck()
+    check = PlausibilityCheck()
     assert check.message == 'Success'
     assert check.errormessage == ''
     assert check.IsModelOK()
