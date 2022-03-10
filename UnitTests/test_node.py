@@ -22,7 +22,8 @@ def test_node():
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    Node(1, 0, 0, 0)
+    Node(1, 0, 0, 0, params={"no": 5}) # try to override no
+    #Node(1, 0, 0, 0)
     Node(2, 5, 0, 0)
     Node.Standard(0, 3, [5, 5, 0],NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN)
     Node.BetweenTwoNodes(0,4,2,3,NodeReferenceType.REFERENCE_TYPE_L, 1, [True, 0.60])
@@ -40,6 +41,14 @@ def test_node():
 
     node = Model.clientModel.service.get_node(1)
     assert node.type == 'TYPE_STANDARD'
+    assert node.coordinate_1 == 0.0
+    assert node.coordinate_2 == 0.0
+    assert node.coordinate_3 == 0.0
+    node = Model.clientModel.service.get_node(2)
+    assert node.type == 'TYPE_STANDARD'
+    assert node.coordinate_1 == 5.0
+    assert node.coordinate_2 == 0.0
+    assert node.coordinate_3 == 0.0
     node = Model.clientModel.service.get_node(3)
     assert node.type == 'TYPE_STANDARD'
     node = Model.clientModel.service.get_node(4)

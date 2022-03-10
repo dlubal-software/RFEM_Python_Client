@@ -4,14 +4,17 @@ from RFEM.enums import NodeReferenceType
 from RFEM.initModel import Model, clearAtributes
 from math import pi
 
-class Node():
+from RFEM.rfemObject import RfemObject
+
+
+class Node(RfemObject):
     def __init__(self,
                  no: int = 1,
                  coordinate_X: float = 0.0,
                  coordinate_Y: float = 0.0,
                  coordinate_Z: float = 0.0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
          Args:
@@ -22,29 +25,18 @@ class Node():
             comment (str, optional): Comments
             params (dict, optional): Parameters
         '''
-        # Client model | Node
-        clientObject = Model.clientModel.factory.create('ns0:node')
-
-        # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        super().__init__('ns0:node', comment, params)
 
         # Node No.
-        clientObject.no = no
+        self.clientObject.no = no
 
         # Coordinates
-        clientObject.coordinate_1 = coordinate_X
-        clientObject.coordinate_2 = coordinate_Y
-        clientObject.coordinate_3 = coordinate_Z
-
-        # Comment
-        clientObject.comment = comment
-
-        # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        self.clientObject.coordinate_1 = coordinate_X
+        self.clientObject.coordinate_2 = coordinate_Y
+        self.clientObject.coordinate_3 = coordinate_Z
 
         # Add Node to client model
-        Model.clientModel.service.set_node(clientObject)
+        Model.clientModel.service.set_node(self.clientObject)
 
     def Standard(self,
                  no: int = 1,
