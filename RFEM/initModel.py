@@ -1,6 +1,6 @@
 import sys
 import csv
-from RFEM.enums import ObjectTypes, ModelType
+from RFEM.enums import ObjectTypes, ModelType, AddOn
 
 # Import SUDS module
 try:
@@ -295,7 +295,7 @@ def CheckIfMethodOrTypeExists(modelClient, method_or_type, unitTestMode=False):
     return not unitTestMode
 
 
-def CheckAddonStatus(modelClient, addOn = "stress_analysis_active"):
+def GetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active):
     """
     Check if Add-on is reachable and active.
     For some types of objects, specific Add-ons need to be ennabled.
@@ -324,11 +324,11 @@ def CheckAddonStatus(modelClient, addOn = "stress_analysis_active"):
             assert False
 
     # sanity check
-    assert addOn in dct, "WARNING: %s Add-on can not be reached." % (addOn)
+    assert addOn.name in dct, f"WARNING: {addOn.name} Add-on can not be reached."
 
-    return dct[addOn]
+    return dct[addOn.name]
 
-def SetAddonStatus(modelClient, addOn = "stress_analysis_active", status = True):
+def SetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active, status = True):
     """
     Activate or deactivate Add-on.
     For some types of objects, specific Add-ons need to be ennabled.
@@ -340,15 +340,15 @@ def SetAddonStatus(modelClient, addOn = "stress_analysis_active", status = True)
     """
 
     # this will also provide sanity check
-    currentStatus = CheckAddonStatus(modelClient, addOn)
+    currentStatus = GetAddonStatus(modelClient, addOn)
     if currentStatus != status:
         addonLst = modelClient.service.get_addon_statuses()
-        if addOn in addonLst['__keylist__']:
-            addonLst[addOn] = status
+        if addOn.name in addonLst['__keylist__']:
+            addonLst[addOn.name] = status
         else:
             for listType in addonLst['__keylist__']:
-                if not isinstance(addonLst[listType], bool) and addOn in addonLst[listType]:
-                    addonLst[listType][addOn] = status
+                if not isinstance(addonLst[listType], bool) and addOn.name in addonLst[listType]:
+                    addonLst[listType][addOn.name] = status
 
         modelClient.service.set_addon_statuses(addonLst)
 

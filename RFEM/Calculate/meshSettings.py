@@ -1,4 +1,5 @@
-from RFEM.initModel import Model, CheckAddonStatus, SetAddonStatus, clearAtributes
+from RFEM.initModel import Model, GetAddonStatus
+from RFEM.enums import AddOn
 
 class MeshSettings():
     ComonMeshConfig: dict = {
@@ -120,7 +121,7 @@ class MeshSettings():
         clientObject = {}
         for i in config:
             if i[0] == 'windSimulationMeshConfig':
-                if CheckAddonStatus(Model.clientModel, 'wind_simulation_active'):
+                if GetAddonStatus(Model.clientModel, AddOn.wind_simulation_active):
                     clientObject[i[0]] = config[i[0]]
             else:
                 clientObject[i[0]] = config[i[0]]
@@ -143,7 +144,7 @@ class MeshSettings():
                         clientObject['SolidsMeshQualityConfig']['QualityCriteriaConfig'][key_] = solidConfig['QualityCriteriaConfig'][key_]
             elif solidConfig[key]:
                 clientObject['SolidsMeshQualityConfig'][key] = solidConfig[key]
-        if  CheckAddonStatus(Model.clientModel, 'wind_simulation_active'):
+        if  GetAddonStatus(Model.clientModel, AddOn.wind_simulation_active):
             for key in windConfig:
                 if windConfig[key]:
                     clientObject['windSimulationMeshConfig'][key] = windConfig[key]
@@ -159,7 +160,7 @@ class MeshSettings():
 
         for i in all_settings:
             if i[0] == 'windSimulationMeshConfig':
-                if CheckAddonStatus(Model.clientModel, 'wind_simulation_active'):
+                if GetAddonStatus(Model.clientModel, AddOn.wind_simulation_active):
                     new_sett['wind_simulation_active'] = all_settings['wind_simulation_active']
             else:
                 new_sett[i[0]] = all_settings[i[0]]

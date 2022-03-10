@@ -6,7 +6,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 from RFEM.enums import *
-from RFEM.initModel import Model
+from RFEM.initModel import Model, client
 from RFEM.Calculate.meshSettings import MeshSettings
 from RFEM.Calculate.optimizationSettings import OptimizationSettings
 from UnitTests.test_solids import test_solids_and_solid_sets
@@ -14,6 +14,7 @@ from UnitTests.test_solids import test_solids_and_solid_sets
 if Model.clientModel is None:
     Model()
 
+# These tests needs to be executed last
 def test_mesh_settings():
 
     common = MeshSettings.ComonMeshConfig

@@ -7,21 +7,20 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 from RFEM.enums import *
-from RFEM.initModel import Model, CheckIfMethodOrTypeExists
+from RFEM.initModel import Model, CheckIfMethodOrTypeExists, SetAddonStatus
 from RFEM.LoadCasesAndCombinations.stabilityAnalysisSettings import StabilityAnalysisSettings
 
 if Model.clientModel is None:
     Model()
 
 # TODO: US-7699
-pytestmark = pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:stability_analysis_settings', True), reason="Type ns0:stability_analysis_settings not in RFEM yet")
+pytestmark = pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'get_stability_analysis_settings', True), reason="Type get_stability_analysis_settings not in RFEM yet")
 def test_stability_analysis_settings_init():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
-
+    SetAddonStatus(Model.clientModel, AddOn.structure_stability_active, True)
     StabilityAnalysisSettings()
-
     Model.clientModel.service.finish_modification()
 
     stability_analysis_settings = Model.clientModel.service.get_stability_analysis_settings(1)
@@ -37,10 +36,13 @@ def test_stability_analysis_settings_init():
     assert stability_analysis_settings.minimum_initial_strain == 1e-05
     assert stability_analysis_settings.number_of_lowest_eigenvalues == 4
 
+    SetAddonStatus(Model.clientModel, AddOn.structure_stability_active, False)
+
 def test_stability_analysis_settings_eigenvalue_method():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
+    SetAddonStatus(Model.clientModel, AddOn.structure_stability_active, True)
 
     StabilityAnalysisSettings.EigenvalueMethod(StabilityAnalysisSettings, no= 1,
                                             name= 'Eigenvalue Method Test',
@@ -69,10 +71,13 @@ def test_stability_analysis_settings_eigenvalue_method():
     assert stability_analysis_settings.minimum_initial_strain == 2.5e-05
     assert stability_analysis_settings.number_of_lowest_eigenvalues == 5
 
+    SetAddonStatus(Model.clientModel, AddOn.structure_stability_active, False)
+
 def test_stability_analysis_settings_incrementaly_method_with_eigenvalue():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
+    SetAddonStatus(Model.clientModel, AddOn.structure_stability_active, True)
 
     StabilityAnalysisSettings.IncrementalyMethodWithEigenvalue(StabilityAnalysisSettings, no= 1,
                                             name= 'Incrementaly Method with Eigenvalue Test',
@@ -112,10 +117,13 @@ def test_stability_analysis_settings_incrementaly_method_with_eigenvalue():
     assert stability_analysis_settings.stopping_of_load_increasing_limit_result_displacement == 0.1
     assert stability_analysis_settings.stopping_of_load_increasing_result == 'RESULT_TYPE_DISPLACEMENT_U'
 
+    SetAddonStatus(Model.clientModel, AddOn.structure_stability_active, False)
+
 def test_stability_analysis_settings_incrementaly_method_without_eigenvalue():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
+    SetAddonStatus(Model.clientModel, AddOn.structure_stability_active, True)
 
     StabilityAnalysisSettings.IncrementalyMethodWithoutEigenvalue(StabilityAnalysisSettings, no= 1,
                                             name= 'Incrementaly Method with Eigenvalue Test',
@@ -139,3 +147,5 @@ def test_stability_analysis_settings_incrementaly_method_without_eigenvalue():
     assert stability_analysis_settings.maximum_number_of_load_increments == 125
     assert stability_analysis_settings.refinement_of_the_last_load_increment == 5
     assert stability_analysis_settings.save_results_of_all_increments == False
+
+    SetAddonStatus(Model.clientModel, AddOn.structure_stability_active, False)

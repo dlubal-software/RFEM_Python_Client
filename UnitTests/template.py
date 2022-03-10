@@ -80,6 +80,9 @@ def template():
 # No print("Ready") is necessary. Pytest doesn't print stdout to user if not specified or asserted.
 # No return code is necessary. Pytest doesn't use it.
 
+# Make sure that all changed global settings have been switched back before the end of the test.
+# It could cause a mess in the results of tests that take place afterwards.
+
 # BEFORE COMMIT:
     # - use formating (SHIFT + ALT + F) & linter (pylint UnitTests\template.py)
     # - clean up all unused/prototype code
