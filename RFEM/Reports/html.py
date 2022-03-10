@@ -25,7 +25,7 @@ def __HTMLheadAndHeader(modelName, fileNames):
               '<link rel="stylesheet" href="htmlStyles.css">',
               '<div class="head">',
               '<img alt="Dlubal logo" width="77" height="77" src="favicon32.png" align="right">',
-              '<h2>Results report</h2>',
+              '<h2>Result report</h2>',
               f'<p>Model: {modelName}</p>',
               '</div>',
               '<div class="head2">',
