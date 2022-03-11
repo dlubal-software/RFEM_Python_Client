@@ -451,8 +451,6 @@ def test_thickness_circle():
     assert thickness.type == "TYPE_VARIABLE_CIRCLE"
     assert thickness.thickness_circle_line == 0.1
 
-@pytest.mark.skip("all tests still WIP")
-# TODO: AssertionError: WARNING: multilayer_surfaces_active Add-on can not be reached.
 def test_thickness_layers():
 
     Model.clientModel.service.delete_all()
