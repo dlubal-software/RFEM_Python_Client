@@ -19,6 +19,8 @@ def test_html_report():
     Model.clientModel.service.calculate_all(False)
 
     dirname = path.join(getcwd(), path.dirname(__file__))
-    # Remove any previous results
-    rmtree(path.join(dirname, 'testResults'))
+    # Remove any previous results if they exist
+    folderPath = path.join(dirname, 'testResults')
+    if path.isdir(folderPath):
+        rmtree(folderPath)
     ExportResultTablesToHtml(path.join(dirname, 'testResults'))
