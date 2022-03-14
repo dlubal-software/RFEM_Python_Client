@@ -7,7 +7,7 @@
 ## Result files are language dependent, so parsing based on strings is impossible.
 #################################
 
-from os import listdir, walk, path, getcwd
+from os import listdir, walk, path, getcwd, system
 from RFEM.initModel import ExportResultTablesToCsv
 from re import findall, match
 from shutil import copy
@@ -255,3 +255,6 @@ def ExportResultTablesToHtml(TargetFolderPath: str):
     with open(path.join(TargetFolderPath,'index.html'), "w", encoding="utf-8") as f:
         for line in indexOutput:
             f.write(line+'\n')
+
+    # Open result html page
+    system(f"start {path.join(TargetFolderPath, 'index.html')}")
