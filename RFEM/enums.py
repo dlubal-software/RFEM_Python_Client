@@ -1236,3 +1236,9 @@ class AddOn(Enum):
     form_finding_active, cutting_patterns_active, torsional_warping_active, cost_estimation_active, modal_active, spectral_active, \
     time_history_active, pushover_active, harmonic_response_active, building_model_active, wind_simulation_active, \
     geotechnical_analysis_active = range(26)
+
+class IFCExportType(Enum):
+    '''
+    IFC Export Type
+    '''
+    E_EXPORT_IFC4_REFERENCE_VIEW, E_EXPORT_IFC4_STRUCTURAL_ANALYSIS_VIEW = range(2)

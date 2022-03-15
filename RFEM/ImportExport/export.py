@@ -1,80 +1,167 @@
+from numpy import array
 from RFEM.initModel import Model
+import xmltodict
+import csv
+from RFEM.enums import IFCExportType, ObjectTypes
 
-# All export functions
 def ExportDetailsOfDesignToCSV(targetDirectoryPath: str):
+    '''
+    Export details of design to CSV format.
+
+    Args:
+        targetDirectoryPath (string): Destination path to the directory
+    '''
     Model.clientModel.service.export_details_of_design_to_csv(targetDirectoryPath)
 
 def ExportResultTablesToCSV(targetDirectoryPath: str):
+    '''
+    Export result tables to CSV format.
+
+    Args:
+        targetDirectoryPath (string): Destination path to the directory
+    '''
     Model.clientModel.service.export_result_tables_to_csv(targetDirectoryPath)
 
 def ExportResultTablesToXML(targetFilePath: str):
+    '''
+    Export result tables to XML format.
+
+    Args:
+        targetFilePath (string): Destination path to the file
+    '''
     Model.clientModel.service.export_result_tables_to_xml(targetFilePath)
 
-def ExportResultTablesWithDetaliedMmebersResultsToCSV(targetDirectoryPath: str):
+def ExportResultTablesWithDetaliedMembersResultsToCSV(targetDirectoryPath: str):
+    '''
+    Export result tables with detailed member results to CSV format.
+
+    Args:
+        targetDirectoryPath (string): Destination path to the directory
+    '''
     Model.clientModel.service.export_result_tables_with_detailed_members_results_to_csv(targetDirectoryPath)
 
-def ExportResultTablesWithDetaliedMmebersResultsToXML(targetFilePath: str):
+def ExportResultTablesWithDetaliedMembersResultsToXML(targetFilePath: str):
+    '''
+    Export result tables with detailed member results to XML format.
+
+    Args:
+        targetFilePath (string): Destination path to the file
+    '''
     Model.clientModel.service.export_result_tables_with_detailed_members_results_to_xml(targetFilePath)
 
 def ExportTo(targetFilePath: str):
+    '''
+    Export active model to format specified by suffix of the destination path to file.
+
+    Args:
+        targetFilePath (string): Destination path to the file
+    '''
     Model.clientModel.service.export_to(targetFilePath)
 
-def ExportToIFC(targetFilePath: str, IFCSettings, ObjectLocations):
-    # ns0:export_to_ifc_settings settings,
-    #(export_to_ifc_settings){
-	#(export_to_ifc_settings){
-	#   mirror_axis_x = None
-	#   mirror_axis_y = None
-	#   mirror_axis_z = None
-	#   origin_coordinate_x = None
-	#   origin_coordinate_y = None
-	#   origin_coordinate_z = None
-	#   axis_rotation_sequence =
-	#      (export_to_ifc_axis_rotation_sequence_type){
-	#         value = None
-	#      }
-	#   rotation_angle_0 = None
-	#   rotation_angle_1 = None
-	#   rotation_angle_2 = None
-	#   switch_axis_x =
-	#      (export_to_ifc_axis_type){
-	#         value = None
-	#      }
-	#   switch_axis_y =
-	#      (export_to_ifc_axis_type){
-	#         value = None
-	#      }
-	#   switch_axis_z =
-	#      (export_to_ifc_axis_type){
-	#         value = None
-	#      }
-	#   remove_accents = None
-	#   export_type =
-	#      (export_to_ifc_export_type){
-	#         value = None
-	#      }
-	#}
+IFCExportSettings = {
+    'mirror_axis_x': False, # bool
+    'mirror_axis_y': False, # bool
+    'mirror_axis_z': False, # bool
+    'origin_coordinate_x': 0, # float
+    'origin_coordinate_y': 0, # float
+    'origin_coordinate_z': 0, # float
+    'axis_rotation_sequence': 'X_Y_Z', # string
+    'rotation_angle_0': 0, # float
+    'rotation_angle_1': 0, # float
+    'rotation_angle_2': 0, # float
+    'switch_axis_x': 'X', # 'X','Y' or 'Z'
+    'switch_axis_y': 'Y', # 'X','Y' or 'Z'
+    'switch_axis_z': 'Z', # 'X','Y' or 'Z'
+    'remove_accents': False, # bool
+    'export_type': IFCExportType.E_EXPORT_IFC4_REFERENCE_VIEW.name # export to ifc type
+}
 
-    # ns0:export_to_ifc_object_locations object_locations
-    # (export_to_ifc_object_locations){
-    #   location[] = <empty>
-    #}
-    Model.clientModel.service.export_to_ifc(targetFilePath, IFCSettings, ObjectLocations)
+ObjectLocation = {
+    'type':ObjectTypes.E_OBJECT_TYPE_MEMBER.name,
+    'no': 1,
+    'parent_no': 1
+}
+'''
+Args:
+    type (enum): Type of object to be exported to IFC
+    no (int): Number of the object to be exoprted to IFC
+    parent_no (int): Parrent number  of the object to be exoprted to IFC, if there is one. Usually 1.
+'''
+
+def ObjectLocations(locationsVector: array):
+    '''
+    Use this function to obtain 3rd parameter of ExportToIFC() function.
+    If left out, all objects will be exported to IFC.
+
+    Args:
+        locationsVector (array): Array of ObjectLocation variables
+
+    {'location': {'type':ObjectTypes.E_OBJECT_TYPE_MEMBER.name, 'no': 1, 'parent_no': 1}}
+    '''
+
+    return {'location': locationsVector}
+
+
+def ExportToIFC(targetFilePath: str, IFCSettings: IFCExportSettings, ObjectLoc = None):
+    '''
+    Use this function to export active model t o IFC.
+
+    Args:
+        targetFilePath (string): Target file path incl. suffix.
+        IFCSettings (IFCExportSettings): IFC export settings dictionary.
+        ObjectLoc (array): array of ObjectLocation dictionary. If left out, all objects will be exported to IFC.
+    '''
+    if ObjectLoc:
+        Model.clientModel.service.export_to_ifc(targetFilePath, IFCSettings, ObjectLoc)
+    else:
+        Model.clientModel.service.export_to_ifc(targetFilePath, IFCSettings)
 
 def ExportToTables(targetDirectoryPath: str):
+    '''
+    Export active model to tables.
+
+    Args:
+        targetDirectoryPath (string): Destination path to the directory
+    '''
     Model.clientModel.service.export_to_tables(targetDirectoryPath)
 
 def GetTableExportConfigManager():
-    Model.clientModel.service.get_table_export_config_manager()
+    '''
+    Export active model to tables.
+    Use this fuction to obtain input parameter to SetTableExportConfigManager()
+
+    Return:
+        Table export configuration.
+    '''
+    return Model.clientModel.service.get_table_export_config_manager()
 
 def SetTableExportConfigManager(TableExportConfigManager):
-    # ns0:TableExportConfigManager value
+    '''
+    Create or change table export settings.
+    To obtain input data (TableExportConfigManager) call GetTableExportConfigManager() first.
 
-    #(TableExportConfigManager){
-    #   property_active_config = None
-    #   configs =
-    #       (TableExportConfigManager_configs){
-    #           config[] = <empty>
-    #       }
-    #}
+    Args:
+        TableExportConfigManager (dict): Table export config
+    '''
     Model.clientModel.service.set_table_export_config_manager(TableExportConfigManager)
+
+def  __parseXMLAsDictionary(path: str =""):
+    with open(path, "rb") as f:
+        my_dictionary = xmltodict.parse(f, xml_attribs=True)
+    return my_dictionary
+
+def __parseCSVAsDictionary(path: str =""):
+    with open(path, 'r') as f:
+        reader = csv.DictReader(f,delimiter=';')
+        my_dictionary = []
+        for line in reader:
+            my_dictionary.append(line)
+    return my_dictionary
+
+def ParseCSVResultsFromSelectedFileToDict(filePath: str):
+
+    return __parseCSVAsDictionary(filePath)
+
+def ParseXMLResultsFromSelectedFileToDict(filePath: str):
+
+    return __parseXMLAsDictionary(filePath)

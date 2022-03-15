@@ -1,5 +1,4 @@
 import sys
-import csv
 from RFEM.enums import ObjectTypes, ModelType, AddOn
 
 # Import SUDS module
@@ -386,52 +385,6 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
 
     Model.clientModel.service.calculate_specific_objects(specificObjectsToCalculate)
-
-def ExportResultTablesToCsv(TargetDirectoryPath: str):
-
-    Model.clientModel.service.export_result_tables_to_csv(TargetDirectoryPath)
-
-def ExportResultTablesToXML(TargetFilePath: str):
-
-    Model.clientModel.service.export_result_tables_to_xml(TargetFilePath)
-
-def ExportResultTablesWithDetailedMembersResultsToCsv(TargetDirectoryPath: str):
-
-    Model.clientModel.service.export_result_tables_with_detailed_members_results_to_csv(TargetDirectoryPath)
-
-def ExportResultTablesWithDetailedMembersResultsToXML(TargetFilePath: str):
-
-    Model.clientModel.service.export_result_tables_with_detailed_members_results_to_xml(TargetFilePath)
-
-def  __parseXMLAsDictionary(path: str =""):
-    with open(path, "rb") as f:
-        my_dictionary = xmltodict.parse(f, xml_attribs=True)
-    return my_dictionary
-
-def __parseCSVAsDictionary(path: str =""):
-    with open(path, mode='r') as f:
-        reader = csv.DictReader(f,delimiter=';')
-        my_dictionary = []
-        for line in reader:
-            my_dictionary.append(line)
-    return my_dictionary
-
-def ParseCSVResultsFromSelectedFileToDict(filePath: str):
-
-    return __parseCSVAsDictionary(filePath)
-
-def ParseXMLResultsFromSelectedFileToDict(filePath: str):
-
-    return __parseXMLAsDictionary(filePath)
-
-def GenerateMesh():
-
-    Model.clientModel.service.generate_mesh()
-
-def GetMeshStatistics():
-
-    mesh_stats = Model.clientModel.service.get_mesh_statistics()
-    return Model.clientModel.dict(mesh_stats)
 
 def FirstFreeIdNumber(memType = ObjectTypes.E_OBJECT_TYPE_MEMBER, parent_no: int = 0):
     '''

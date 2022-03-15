@@ -5,23 +5,27 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.enums import *
-from RFEM.initModel import Model, client
-from RFEM.Calculate.meshSettings import MeshSettings
+from RFEM.enums import SurfacesShapeOfFiniteElements, OptimizeOnType, Optimizer
+from RFEM.initModel import Model
+from RFEM.Calculate.meshSettings import GetMeshSettings, MeshSettings, GetModelInfo
 from RFEM.Calculate.optimizationSettings import OptimizationSettings
 from UnitTests.test_solids import test_solids_and_solid_sets
 
 if Model.clientModel is None:
     Model()
 
-# These tests needs to be executed last
+# CAUTION:
+# These tests needs to be executed last bacause they change global settings
 def test_mesh_settings():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
     common = MeshSettings.ComonMeshConfig
     common['general_target_length_of_fe'] = 0.4321
     common['members_number_of_divisions_for_special_types'] = 12
     common['surfaces_shape_of_finite_elements'] = SurfacesShapeOfFiniteElements.E_SHAPE_OF_FINITE_ELEMENTS_FOR_SURFACES__TRIANGLES_ONLY.name
-    surf = MeshSettings.SurfacesMeshQualityConfig
+    surf = dict(MeshSettings.SurfacesMeshQualityConfig)
     surf['QualityCriteriaConfig']['quality_criterion_check_aspect_ratio_warning'] = 22
     solid = dict(MeshSettings.SolidsMeshQualityConfig)
     solid['QualityCriteriaConfig']['quality_criterion_parallel_deviations_warning'] = 1.7
@@ -29,7 +33,7 @@ def test_mesh_settings():
 
     mesh = MeshSettings(common, surf, solid, wind)
 
-    control_mesh = mesh.get_mesh_settings()
+    control_mesh = GetMeshSettings()
     assert control_mesh['general_target_length_of_fe'] == 0.4321
     assert control_mesh['members_number_of_divisions_for_special_types'] == 12
     assert control_mesh['surfaces_shape_of_finite_elements'] == SurfacesShapeOfFiniteElements.E_SHAPE_OF_FINITE_ELEMENTS_FOR_SURFACES__TRIANGLES_ONLY.name
@@ -38,13 +42,14 @@ def test_mesh_settings():
 
     control_mesh['general_maximum_distance_between_node_and_line'] = 0.003
     mesh.set_mesh_settings(control_mesh)
-    control_mesh = mesh.get_mesh_settings()
+    control_mesh = GetMeshSettings()
     assert control_mesh['general_maximum_distance_between_node_and_line'] == 0.003
+
+    Model.clientModel.service.finish_modification()
 
     test_solids_and_solid_sets()
 
-    info = MeshSettings()
-    count = info.get_model_info()
+    count = GetModelInfo()
     assert count['property_node_count'] == 28
 
 def test_optimization_settings():

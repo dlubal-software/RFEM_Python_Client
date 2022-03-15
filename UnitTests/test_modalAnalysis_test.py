@@ -23,7 +23,7 @@ if Model.clientModel is None:
     Model()
 
 # TODO: US-7698
-@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'set_modal_analysis_settings', True), reason="set_modal_analysis_settings not in RFEM yet")
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'set_modal_analysis_settings', True), reason="set_modal_analysis_settings not in RFEM GM yet")
 def test_modal_analysis_settings():
 
     Model.clientModel.service.delete_all()
