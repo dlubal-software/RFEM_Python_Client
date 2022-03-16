@@ -1,6 +1,5 @@
 import sys
 import os
-from os import path, getcwd
 PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.path.dirname(__file__),
                   os.pardir)
@@ -18,9 +17,9 @@ def test_html_report():
     Model.clientModel.service.run_script('..\\scripts\\internal\\Demos\\Demo-003 Castellated Beam.js')
     Model.clientModel.service.calculate_all(False)
 
-    dirname = path.join(getcwd(), path.dirname(__file__))
+    dirname = os.path.join(os.getcwd(), os.path.dirname(__file__))
     # Remove any previous results if they exist
-    folderPath = path.join(dirname, 'testResults')
-    if path.isdir(folderPath):
+    folderPath = os.path.join(dirname, 'testResults')
+    if os.path.isdir(folderPath):
         rmtree(folderPath)
-    ExportResultTablesToHtml(path.join(dirname, 'testResults'))
+    ExportResultTablesToHtml(folderPath)
