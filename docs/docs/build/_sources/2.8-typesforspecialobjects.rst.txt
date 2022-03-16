@@ -1,9 +1,0 @@
-**Types for Special Objects**
-==============================
-#. :doc:`2.8.1-surfacecontacttype`
-
-.. toctree::
-   :maxdepth: 1
-   :hidden:
-
-   2.8.1-surfacecontacttype

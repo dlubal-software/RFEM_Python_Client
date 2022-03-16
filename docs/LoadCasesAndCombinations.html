@@ -1,0 +1,729 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>LoadCasesAndCombinations &mdash; RFEM/RSTAB Webservices 1.0.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SpecialObjects" href="SpecialObjects.html" />
+    <link rel="prev" title="Loads" href="Loads.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html"><strong>Introduction</strong></a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="globalCommands.html"><strong>Global Commands</strong></a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="BasicObjects.html">BasicObjects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Imperfections.html">Imperfections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Loads.html">Loads</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">LoadCasesAndCombinations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-LoadCasesAndCombinations.designSituation">DesignSituation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-LoadCasesAndCombinations.loadCase">LoadCase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-LoadCasesAndCombinations.loadCombination">LoadCombination</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-LoadCasesAndCombinations.modalAnalysisSettings">ModalAnalysisSettings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-LoadCasesAndCombinations.resultCombination">ResultCombination</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-LoadCasesAndCombinations.spectralAnalysisSettings">SpectralAnalysisSettings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-LoadCasesAndCombinations.stabilityAnalysisSettings">StabilityAnalysisSettings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-LoadCasesAndCombinations.staticAnalysisSettings">StaticAnalysisSettings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SpecialObjects.html">SpecialObjects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForLines.html">TypesForLines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForMembers.html">TypesForMembers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForNodes.html">TypesForNodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForSolids.html">TypesForSolids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForSpecialObjects.html">TypesForSpecialObjects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForSurfaces.html">TypesForSurfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="initModel.html">initModel</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="addonCommands.html"><strong>Add-on Commands</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html"><strong>Examples</strong></a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RFEM/RSTAB Webservices</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="globalCommands.html"><strong>Global Commands</strong></a> &raquo;</li>
+        
+      <li>LoadCasesAndCombinations</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/LoadCasesAndCombinations.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="loadcasesandcombinations">
+<h1>LoadCasesAndCombinations<a class="headerlink" href="#loadcasesandcombinations" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-LoadCasesAndCombinations.designSituation">
+<span id="designsituation"></span><h2>DesignSituation<a class="headerlink" href="#module-LoadCasesAndCombinations.designSituation" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="LoadCasesAndCombinations.designSituation.DesignSituation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">LoadCasesAndCombinations.designSituation.</span></span><span class="sig-name descname"><span class="pre">DesignSituation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_defined_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">design_situation_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6122</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#LoadCasesAndCombinations.designSituation.DesignSituation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>no</strong> (<em>int</em>) – Design Situation Tag</p></li>
+<li><p><strong>user_defined_name</strong> (<em>bool</em>) – Enable/Disable User-Defined Name</p></li>
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – User-Defined Name (Applicable when user_defined_name = TRUE)</p></li>
+<li><p><strong>active</strong> (<em>bool</em>) – Enable/Disable Design Situation Activity</p></li>
+<li><p><strong>design_situation_type</strong> (<em>int</em>) – <p>Design Situation Numeric Code (Variable key inputs, dependant on Standards defined in the model)
+Applicable to Standard Group EN 1990 with National Annex CEN | 2010-04 (See Model Base Data &gt; Standards I)</p>
+<blockquote>
+<div><p>6122 = ULS (EQU) - Permanent and transient,
+6993 = ULS (EQU) - Accidental - psi-1,1,
+6994 = ULS (EQU) - Accidental - psi-2,1,
+6997 = ULS (EQU) - Seismic,
+7007 = ULS (STR/GEO) - Permanent and transient - Eq. 6.10,
+7008 = ULS (STR/GEO) - Permanent and transient - Eq. 6.10a and 6.10b,
+7010 = ULS (STR/GEO) - Accidental - psi-1,1,
+7011 = ULS (STR/GEO) - Accidental - psi-2,1,
+7014 = ULS (STR/GEO) - Seismic,
+6193 = SLS - Characteristic,
+6194 = SLS - Frequent,
+6195 = SLS - Quasi-permanent.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Applicable to Standard Group EN 1990 with National Annex DIN | 2012-08 (See Model Base Data &gt; Standards I)</dt><dd><p>6122 = ULS (EQU) - Permanent and transient,
+6993 = ULS (EQU) - Accidental - psi-1,1,
+6994 = ULS (EQU) - Accidental - psi-2,1,
+6995 = ULS (EQU) - Accidental - Snow - psi-1,1,
+6996 = ULS (EQU) - Accidental - Snow - psi-2,1,
+6997 = ULS (EQU) - Seismic,
+7007 = ULS (STR/GEO) - Permanent and transient - Eq. 6.10,
+7010 = ULS (STR/GEO) - Accidental - psi-1,1,
+7011 = ULS (STR/GEO) - Accidental - psi-2,1,
+7012 = ULS (STR/GEO) - Accidental - Snow - psi-1,1,
+7013 = ULS (STR/GEO) - Accidental - Snow - psi-2,1,
+7014 = ULS (STR/GEO) - Seismic,
+6193 = SLS - Characteristic,
+6194 = SLS - Frequent,
+6195 = SLS - Quasi-permanent.</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>comment</strong> (<em>str</em><em>, </em><em>optional</em>) – Comments</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – Parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-LoadCasesAndCombinations.loadCase">
+<span id="loadcase"></span><h2>LoadCase<a class="headerlink" href="#module-LoadCasesAndCombinations.loadCase" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="LoadCasesAndCombinations.loadCase.LoadCase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">LoadCasesAndCombinations.loadCase.</span></span><span class="sig-name descname"><span class="pre">LoadCase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Self-weight'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">self_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[True,</span> <span class="pre">0.0,</span> <span class="pre">0.0,</span> <span class="pre">1.0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Comment'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#LoadCasesAndCombinations.loadCase.LoadCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>no</strong> (<em>int</em>) – Load Case Tag</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Load Case Name</p></li>
+<li><p><strong>self_weight</strong> (<em>list</em>) – Self-Weight Parameters
+self_weight = [self_weight_active, self_weight_factor_x, self_weight_factor_y, self_weight_factor_z]</p></li>
+<li><p><strong>comment</strong> (<em>str</em><em>, </em><em>optional</em>) – Comments</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – Parameters</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="LoadCasesAndCombinations.loadCase.LoadCase.StaticAnalysis">
+<span class="sig-name descname"><span class="pre">StaticAnalysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Self-weight'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_solve</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis_settings_no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action_category</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DIN_Action_Category['1A']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">self_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[True,</span> <span class="pre">0.0,</span> <span class="pre">0.0,</span> <span class="pre">10.0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Comment'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#LoadCasesAndCombinations.loadCase.LoadCase.StaticAnalysis" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>no</strong> (<em>int</em>) – Load Case Tag</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Load Case Name</p></li>
+<li><p><strong>to_solve</strong> (<em>bool</em>) – Enable/Disbale Load Case Solver Status</p></li>
+<li><p><strong>analysis_type</strong> (<em>enum</em>) – Analysis Type Enumeration</p></li>
+<li><p><strong>analysis_settings_no</strong> (<em>int</em>) – Analysis Settings Number</p></li>
+<li><p><strong>action_category</strong> (<em>dict</em>) – Action Category Key
+1A      =   Permanent | G
+1B      =   Permanent - small fluctuations | G*
+1C      =   Permanent/Imposed | Gq
+2       =   Prestress | P
+3A      =   Imposed loads - category A: domestic, residential areas | QI A
+3B      =   Imposed loads - category B: office areas | QI B
+3C      =   Imposed loads - category C: congregation areas | QI C
+3D      =   Imposed loads - category D: shopping areas | QI D
+3E      =   Imposed loads - category E: storage areas | QI E
+3F      =   Imposed loads - category F: traffic area - vehicle weight &lt;= 30 kN | QI F
+3G      =   Imposed loads - category G: traffic area - vehicle weight &lt;= 160 kN | QI G
+3H      =   Imposed loads - category H: roofs | QI H
+4A      =   Snow / Ice loads - H &lt;= 1000 m | Qs
+4B      =   Snow / Ice loads - H &gt; 1000 m | Qs
+5       =   Wind | Qw
+6       =   Temperature (non-fire) | QT
+7       =   Foundation subsidence | Qf
+8       =   Other actions | Qo
+9       =   Accidental actions | A
+10      =   Seismic actions | AE
+None    =   None | None</p></li>
+<li><p><strong>self_weight</strong> (<em>list</em>) – <p>Self-weight Considerations
+for self-weight considerations;</p>
+<blockquote>
+<div><p>self_weight = [True, self_weight_factor_x, self_weight_factor_y, self_weight_factor_z]</p>
+</div></blockquote>
+<dl class="simple">
+<dt>for no self-weight considerations;</dt><dd><p>self_weight = [False]</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>comment</strong> (<em>str</em><em>, </em><em>optional</em>) – Comments</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – Parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-LoadCasesAndCombinations.loadCombination">
+<span id="loadcombination"></span><h2>LoadCombination<a class="headerlink" href="#module-LoadCasesAndCombinations.loadCombination" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="LoadCasesAndCombinations.loadCombination.LoadCombination">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">LoadCasesAndCombinations.loadCombination.</span></span><span class="sig-name descname"><span class="pre">LoadCombination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">AnalysisType.ANALYSIS_TYPE_STATIC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">design_situation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_defined_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[False]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">static_analysis_settings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">consider_imperfection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">consider_initial_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">structure_modification</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_solve</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">combination_items</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[[1.5,</span> <span class="pre">1,</span> <span class="pre">0,</span> <span class="pre">False]]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#LoadCasesAndCombinations.loadCombination.LoadCombination" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-LoadCasesAndCombinations.modalAnalysisSettings">
+<span id="modalanalysissettings"></span><h2>ModalAnalysisSettings<a class="headerlink" href="#module-LoadCasesAndCombinations.modalAnalysisSettings" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="LoadCasesAndCombinations.modalAnalysisSettings.ModalAnalysisSettings">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">LoadCasesAndCombinations.modalAnalysisSettings.</span></span><span class="sig-name descname"><span class="pre">ModalAnalysisSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Modal</span> <span class="pre">Analysis</span> <span class="pre">Settings'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solution_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ModalSolutionMethod.METHOD_LANCZOS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass_conversion_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ModalMassConversionType.MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass_matrix_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ModalMassMatrixType.MASS_MATRIX_TYPE_CONSISTENT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_modes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acting_masses</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neglect_masses</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ModalNeglectMasses.E_NEGLECT_MASSES_NO_NEGLECTION</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#LoadCasesAndCombinations.modalAnalysisSettings.ModalAnalysisSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>no</strong> (<em>int</em>) – Setting Tag</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Setting Name</p></li>
+<li><p><strong>solution_method</strong> (<em>enum</em>) – Solution Method Enumeration</p></li>
+<li><p><strong>mass_conversion_type</strong> (<em>enum</em>) – Mass Conversion Type Enumeration</p></li>
+<li><p><strong>mass_matrix_type</strong> (<em>enum</em>) – Mass Matrix Type Enumeration</p></li>
+<li><p><strong>number_of_modes</strong> (<em>int</em>) – Number of Modes</p></li>
+<li><p><strong>acting_masses</strong> (<em>list</em>) – Acting Masses Directions List</p></li>
+<li><p><strong>neglect_masses</strong> (<em>enum</em>) – Neglect Masses Enumeration</p></li>
+<li><p><strong>comment</strong> (<em>str</em><em>, </em><em>optional</em>) – Comment</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – Parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-LoadCasesAndCombinations.resultCombination">
+<span id="resultcombination"></span><h2>ResultCombination<a class="headerlink" href="#module-LoadCasesAndCombinations.resultCombination" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="LoadCasesAndCombinations.resultCombination.ResultCombination">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">LoadCasesAndCombinations.resultCombination.</span></span><span class="sig-name descname"><span class="pre">ResultCombination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#LoadCasesAndCombinations.resultCombination.ResultCombination" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>no</strong> (<em>int</em>) – Result Combination Tag</p></li>
+<li><p><strong>comment</strong> (<em>str</em><em>, </em><em>optional</em>) – Comments</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – Parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-LoadCasesAndCombinations.spectralAnalysisSettings">
+<span id="spectralanalysissettings"></span><h2>SpectralAnalysisSettings<a class="headerlink" href="#module-LoadCasesAndCombinations.spectralAnalysisSettings" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="LoadCasesAndCombinations.spectralAnalysisSettings.SpectralAnalysisSettings">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">LoadCasesAndCombinations.spectralAnalysisSettings.</span></span><span class="sig-name descname"><span class="pre">SpectralAnalysisSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'SRSS</span> <span class="pre">|</span> <span class="pre">SRSS'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">periodic_combination</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">PeriodicResponseCombinationRule.SRSS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directional_combination</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DirectionalComponentCombinationRule.SRSS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equivalent_linear_combination</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_mode_results</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signed_dominant_mode_results</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directional_component_scale_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">damping_for_cqc_rule</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">CqsDampingRule.CONSTANT_FOR_EACH_MODE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant_d_for_each_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#LoadCasesAndCombinations.spectralAnalysisSettings.SpectralAnalysisSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>no</strong> (<em>int</em>) – Sprectral Analysis Settings Tag</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Sprectral Analysis Settings Name</p></li>
+<li><p><strong>periodic_combination</strong> (<em>enum</em>) – Periodic Combination Rule Enumeration</p></li>
+<li><p><strong>directional_combination</strong> (<em>enum</em>) – Directional Component Combination Rule Enumeration</p></li>
+<li><p><strong>equivalent_linear_combination</strong> (<em>bool</em>) – Equivalent Linear Combination Boolean</p></li>
+<li><p><strong>save_mode_results</strong> (<em>bool</em>) – Save Mode Results Boolean</p></li>
+<li><p><strong>signed_dominant_mode_results</strong> (<em>bool</em>) – Signed Dominant Mode Results Boolean</p></li>
+<li><p><strong>directional_component_scale_value</strong> (<em>float</em>) – Directional Component Scale Value</p></li>
+<li><p><strong>damping_for_cqc_rule</strong> (<em>enum</em>) – Cqs Damping Rule Enumeration</p></li>
+<li><p><strong>constant_d_for_each_mode</strong> (<em>float</em>) – Constant d for Each Mode</p></li>
+<li><p><strong>comment</strong> (<em>str</em><em>, </em><em>optional</em>) – Comments</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – Parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-LoadCasesAndCombinations.stabilityAnalysisSettings">
+<span id="stabilityanalysissettings"></span><h2>StabilityAnalysisSettings<a class="headerlink" href="#module-LoadCasesAndCombinations.stabilityAnalysisSettings" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="LoadCasesAndCombinations.stabilityAnalysisSettings.StabilityAnalysisSettings">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">LoadCasesAndCombinations.stabilityAnalysisSettings.</span></span><span class="sig-name descname"><span class="pre">StabilityAnalysisSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#LoadCasesAndCombinations.stabilityAnalysisSettings.StabilityAnalysisSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>no</strong> (<em>int</em>) – Stability Analysis Setting Tag</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Stability Analysis Setting Name</p></li>
+<li><p><strong>comment</strong> (<em>str</em><em>, </em><em>optional</em>) – Comments</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – Parameters</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="LoadCasesAndCombinations.stabilityAnalysisSettings.StabilityAnalysisSettings.EigenvalueMethod">
+<span class="sig-name descname"><span class="pre">EigenvalueMethod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_lowest_eigenvalues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">considered_favored_effect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">critical_load_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_initial_strain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_torsional_rotations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eigenvalue_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">StabilityAnalysisSettingsEigenvalueMethod.EIGENVALUE_METHOD_LANCZOS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">StabilityAnalysisSettingsMatrixType.MATRIX_TYPE_STANDARD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#LoadCasesAndCombinations.stabilityAnalysisSettings.StabilityAnalysisSettings.EigenvalueMethod" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>no</strong> (<em>int</em>) – Stability Analysis Setting Tag</p></li>
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – Stability Analysis Setting Name</p></li>
+<li><p><strong>number_of_lowest_eigenvalues</strong> (<em>int</em>) – Number of Lowest Eigenvalues</p></li>
+<li><p><strong>considered_favored_effect</strong> (<em>bool</em>) – Considered Favored Effect</p></li>
+<li><p><strong>critical_load_factor</strong> (<em>int</em><em>, </em><em>optional</em>) – <dl class="simple">
+<dt>for find_eigenvectors_beyond_critical_load_factor == False:</dt><dd><p>critical_load_factor = None</p>
+</dd>
+<dt>for find_eigenvectors_beyond_critical_load_factor == True:</dt><dd><p>critical_load_factor = int</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>minimum_initial_strain</strong> (<em>optional</em>) – <dl class="simple">
+<dt>for minimum initial strain application:</dt><dd><p>minimum_initial_strain != 0 or minimum_initial_strain is not None</p>
+</dd>
+<dt>for no minimum initial strain application:</dt><dd><p>minimum_initial_strain == 0 or minimum_initial_strain is None</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>local_torsional_rotations</strong> (<em>optional</em>) – <dl class="simple">
+<dt>for no local torsional rotations display:</dt><dd><p>local_torsional_rotations = None</p>
+</dd>
+<dt>for local torsional rotations display:</dt><dd><p>local_torsional_rotations = double</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>eigenvalue_method</strong> (<em>enum</em>) – Eigenvalue Method Enumeration</p></li>
+<li><p><strong>matrix_type</strong> (<em>enum</em>) – Matrix Type Enumeration</p></li>
+<li><p><strong>comment</strong> (<em>str</em><em>, </em><em>optional</em>) – </p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LoadCasesAndCombinations.stabilityAnalysisSettings.StabilityAnalysisSettings.IncrementalyMethodWithEigenvalue">
+<span class="sig-name descname"><span class="pre">IncrementalyMethodWithEigenvalue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_lowest_eigenvalues</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">considered_favored_effect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">critical_load_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_initial_strain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_torsional_rotations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incrementally_increasing_loading</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[1.0,</span> <span class="pre">0.1,</span> <span class="pre">10,</span> <span class="pre">100]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopping_of_load_increasing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_results_of_all_increments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eigenvalue_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">StabilityAnalysisSettingsEigenvalueMethod.EIGENVALUE_METHOD_LANCZOS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">StabilityAnalysisSettingsMatrixType.MATRIX_TYPE_STANDARD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#LoadCasesAndCombinations.stabilityAnalysisSettings.StabilityAnalysisSettings.IncrementalyMethodWithEigenvalue" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>no</strong> (<em>int</em>) – Stability Analysis Setting Tag</p></li>
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – Stability Analysis Setting Name</p></li>
+<li><p><strong>number_of_lowest_eigenvalues</strong> (<em>int</em>) – Number of Lowest Eigenvalues</p></li>
+<li><p><strong>considered_favored_effect</strong> (<em>bool</em>) – Considered Favored Effect</p></li>
+<li><p><strong>critical_load_factor</strong> (<em>int</em><em>, </em><em>optional</em>) – <dl class="simple">
+<dt>for find_eigenvectors_beyond_critical_load_factor == False:</dt><dd><p>critical_load_factor = None</p>
+</dd>
+<dt>for find_eigenvectors_beyond_critical_load_factor == True:</dt><dd><p>critical_load_factor = int</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>minimum_initial_strain</strong> (<em>optional</em>) – <dl class="simple">
+<dt>for minimum initial strain application:</dt><dd><p>minimum_initial_strain != 0 or minimum_initial_strain is not None</p>
+</dd>
+<dt>for no minimum initial strain application:</dt><dd><p>minimum_initial_strain is None</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>local_torsional_rotations</strong> (<em>optional</em>) – <dl class="simple">
+<dt>for no local torsional rotations display:</dt><dd><p>local_torsional_rotations = None</p>
+</dd>
+<dt>for local torsional rotations display:</dt><dd><p>local_torsional_rotations = double</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>incrementally_increasing_loading</strong> (<em>list</em>) – [initial_load_factor, load_factor_increment, refinement_of_the_last_load_increment, maximum_number_of_load_increments]</p></li>
+<li><p><strong>stopping_of_load_increasing</strong> (<em>list</em><em>, </em><em>optional</em>) – <dl class="simple">
+<dt>for stopping of load increasing deactivated:</dt><dd><p>stopping_of_load_increasing = None</p>
+</dd>
+<dt>for result u:</dt><dd><p>stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U, limit_result_displacement, limit_node]</p>
+</dd>
+<dt>for result uX:</dt><dd><p>stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U_X, limit_result_displacement, limit_node]</p>
+</dd>
+<dt>for result uY:</dt><dd><p>stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U_Y, limit_result_displacement, limit_node]</p>
+</dd>
+<dt>for result uZ:</dt><dd><p>stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U_Z, limit_result_displacement, limit_node]</p>
+</dd>
+<dt>for result phi:</dt><dd><p>stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI, limit_result_rotation, limit_node]</p>
+</dd>
+<dt>for result phiX:</dt><dd><p>stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI_X, limit_result_rotation, limit_node]</p>
+</dd>
+<dt>for result phiY:</dt><dd><p>stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI_Y, limit_result_rotation, limit_node]</p>
+</dd>
+<dt>for result phiZ:</dt><dd><p>stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI_Z, limit_result_rotation, limit_node]</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>save_results_of_all_increments</strong> (<em>bool</em><em>, </em><em>optional</em>) – Save Results of All Increments</p></li>
+<li><p><strong>eigenvalue_method</strong> (<em>enum</em>) – Eigenvalue Method Enumeration</p></li>
+<li><p><strong>matrix_type</strong> (<em>enum</em>) – Matrix Type Enumeration</p></li>
+<li><p><strong>comment</strong> (<em>str</em><em>, </em><em>optional</em>) – Comments</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – Parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LoadCasesAndCombinations.stabilityAnalysisSettings.StabilityAnalysisSettings.IncrementalyMethodWithoutEigenvalue">
+<span class="sig-name descname"><span class="pre">IncrementalyMethodWithoutEigenvalue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_initial_strain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_torsional_rotations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incrementally_increasing_loading</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[1.0,</span> <span class="pre">0.1,</span> <span class="pre">10,</span> <span class="pre">100]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stopping_of_load_increasing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_results_of_all_increments</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#LoadCasesAndCombinations.stabilityAnalysisSettings.StabilityAnalysisSettings.IncrementalyMethodWithoutEigenvalue" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>no</strong> (<em>int</em>) – Stability Analysis Setting Tag</p></li>
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – Stability Analysis Setting Name</p></li>
+<li><p><strong>minimum_initial_strain</strong> (<em>optional</em>) – <dl class="simple">
+<dt>for minimum initial strain application:</dt><dd><p>minimum_initial_strain != 0 or minimum_initial_strain is not None</p>
+</dd>
+<dt>for no minimum initial strain application:</dt><dd><p>minimum_initial_strain == 0 or minimum_initial_strain is None</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>local_torsional_rotations</strong> (<em>optional</em>) – <dl class="simple">
+<dt>for no local torsional rotations display:</dt><dd><p>local_torsional_rotations = None</p>
+</dd>
+<dt>for local torsional rotations display:</dt><dd><p>local_torsional_rotations = double</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>incrementally_increasing_loading</strong> (<em>list</em>) – [initial_load_factor, load_factor_increment, refinement_of_the_last_load_increment, maximum_number_of_load_increments]</p></li>
+<li><p><strong>stopping_of_load_increasing</strong> (<em>list</em><em>, </em><em>optional</em>) – <dl class="simple">
+<dt>for stopping of load increasing deactivated:</dt><dd><p>stopping_of_load_increasing = None</p>
+</dd>
+<dt>for result u:</dt><dd><p>stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U, limit_result_displacement, limit_node]</p>
+</dd>
+<dt>for result uX:</dt><dd><p>stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U_X, limit_result_displacement, limit_node]</p>
+</dd>
+<dt>for result uY:</dt><dd><p>stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U_Y, limit_result_displacement, limit_node]</p>
+</dd>
+<dt>for result uZ:</dt><dd><p>stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_DISPLACEMENT_U_Z, limit_result_displacement, limit_node]</p>
+</dd>
+<dt>for result phi:</dt><dd><p>stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI, limit_result_rotation, limit_node]</p>
+</dd>
+<dt>for result phiX:</dt><dd><p>stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI_X, limit_result_rotation, limit_node]</p>
+</dd>
+<dt>for result phiY:</dt><dd><p>stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI_Y, limit_result_rotation, limit_node]</p>
+</dd>
+<dt>for result phiZ:</dt><dd><p>stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI_Z, limit_result_rotation, limit_node]</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>save_results_of_all_increments</strong> (<em>bool</em><em>, </em><em>optional</em>) – Save Results of All Increments</p></li>
+<li><p><strong>comment</strong> (<em>str</em><em>, </em><em>optional</em>) – Comments</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – Parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-LoadCasesAndCombinations.staticAnalysisSettings">
+<span id="staticanalysissettings"></span><h2>StaticAnalysisSettings<a class="headerlink" href="#module-LoadCasesAndCombinations.staticAnalysisSettings" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="LoadCasesAndCombinations.staticAnalysisSettings.StaticAnalysisSettings">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">LoadCasesAndCombinations.staticAnalysisSettings.</span></span><span class="sig-name descname"><span class="pre">StaticAnalysisSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">StaticAnalysisType.GEOMETRICALLY_LINEAR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#LoadCasesAndCombinations.staticAnalysisSettings.StaticAnalysisSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>no</strong> (<em>int</em>) – Static Analysis Setting Tag</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Static Analysis Setting Name</p></li>
+<li><p><strong>analysis_type</strong> (<em>enum</em>) – Analysis Type Enumeration</p></li>
+<li><p><strong>comment</strong> (<em>str</em>) – Comments</p></li>
+<li><p><strong>params</strong> (<em>dict</em>) – Parameters</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="LoadCasesAndCombinations.staticAnalysisSettings.StaticAnalysisSettings.GeometricallyLinear">
+<span class="sig-name descname"><span class="pre">GeometricallyLinear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_modification</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[False,</span> <span class="pre">1,</span> <span class="pre">False]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bourdon_effect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonsymmetric_direct_solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method_of_equation_system</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plate_bending_theory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass_conversion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[False,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#LoadCasesAndCombinations.staticAnalysisSettings.StaticAnalysisSettings.GeometricallyLinear" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>no</strong> (<em>int</em>) – Static Analysis Setting Tag</p></li>
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – Static Analysis Setting Name</p></li>
+<li><p><strong>load_modification</strong> (<em>list</em><em>, </em><em>optional</em>) – Load Modification Parameters
+load_modification = [loading_by_multiplier_factor, multiplier_factor, dividing_results]</p></li>
+<li><p><strong>bourdon_effect</strong> (<em>bool</em><em>, </em><em>optional</em>) – Bourdon Effect Boolean</p></li>
+<li><p><strong>nonsymmetric_direct_solver</strong> (<em>bool</em><em>, </em><em>optional</em>) – Nonsymmetric Direct Solver Boolean</p></li>
+<li><p><strong>method_of_equation_system</strong> (<em>enum</em>) – Static Analysis Settings Method of Equation System Enumeration</p></li>
+<li><p><strong>plate_bending_theory</strong> (<em>enum</em>) – Static Analysis Settings Plate Bending Theory Enumeration</p></li>
+<li><p><strong>mass_conversion</strong> (<em>list</em><em>, </em><em>optional</em>) – Mass Conversion Parameters
+mass_conversion = [mass_conversion_enabled, mass_conversion_factor_in_direction_x, mass_conversion_factor_in_direction_y, mass_conversion_factor_in_direction_z]</p></li>
+<li><p><strong>comment</strong> (<em>str</em><em>, </em><em>optional</em>) – </p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LoadCasesAndCombinations.staticAnalysisSettings.StaticAnalysisSettings.LargeDeformation">
+<span class="sig-name descname"><span class="pre">LargeDeformation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iterative_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis.NEWTON_RAPHSON</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">standard_precision_and_tolerance_settings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[False,</span> <span class="pre">1.0,</span> <span class="pre">1.0,</span> <span class="pre">1.0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_nonlinear_analysis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[100,</span> <span class="pre">1]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_modification</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[False,</span> <span class="pre">1,</span> <span class="pre">False]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instabil_structure_calculation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bourdon_effect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonsymmetric_direct_solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method_of_equation_system</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plate_bending_theory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass_conversion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[False,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">1]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#LoadCasesAndCombinations.staticAnalysisSettings.StaticAnalysisSettings.LargeDeformation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>no</strong> (<em>int</em>) – Static Analysis Setting Tag</p></li>
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – Static Analysis Setting Name</p></li>
+<li><p><strong>iterative_method</strong> (<em>enum</em>) – Static Analysis Settings Iterative Method for Non-linear Analysis Enumeration</p></li>
+<li><p><strong>standard_precision_and_tolerance_settings</strong> (<em>list</em><em>, </em><em>optional</em>) – [standard_precision_and_tolerance_settings_enabled, precision_of_convergence_criteria_for_nonlinear_calculation, tolerance_for_detection_of_instability, robustness_of_iterative_calculation]</p></li>
+<li><p><strong>control_nonlinear_analysis</strong> (<em>list</em>) – <p>[max_number_of_iterations, number_of_load_increments]
+for iterative_method == “NEWTON_RAPHSON” or iterative_method.name == “NEWTON_RAPHSON_COMBINED_WITH_PICARD” or iterative_method.name == “PICARD” or iterative_method.name == “NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS”:</p>
+<blockquote>
+<div><p>control_nonlinear_analysis = [max_number_of_iterations = int, number_of_load_increments = int]</p>
+</div></blockquote>
+<dl class="simple">
+<dt>for iterative_method == “DYNAMIC_RELAXATION”:</dt><dd><p>control_nonlinear_analysis = [max_number_of_iterations = None, number_of_load_increments = None]</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>load_modification</strong> (<em>list</em><em>, </em><em>optional</em>) – Load Modification Parameters
+load_modification = [loading_by_multiplier_factor, multiplier_factor, dividing_results]</p></li>
+<li><p><strong>instabil_structure_calculation</strong> (<em>bool</em><em>, </em><em>optional</em>) – Instabil Structure Calculation Boolean</p></li>
+<li><p><strong>bourdon_effect</strong> (<em>bool</em><em>, </em><em>optional</em>) – Bourdon Effect Boolean</p></li>
+<li><p><strong>nonsymmetric_direct_solver</strong> (<em>bool</em><em>, </em><em>optional</em>) – Nonsymmetric Direct Solver Boolean</p></li>
+<li><p><strong>method_of_equation_system</strong> (<em>enum</em>) – Static Analysis Settings Method of Equation System Enumeration</p></li>
+<li><p><strong>plate_bending_theory</strong> (<em>enum</em>) – Static Analysis Settings Plate Bending Theory Enumeration</p></li>
+<li><p><strong>mass_conversion</strong> (<em>list</em><em>, </em><em>optional</em>) – Mass Conversion Parameters
+mass_conversion = [mass_conversion_enabled, mass_conversion_factor_in_direction_x, mass_conversion_factor_in_direction_y, mass_conversion_factor_in_direction_z]</p></li>
+<li><p><strong>comment</strong> (<em>str</em><em>, </em><em>optional</em>) – Comments</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – Parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="LoadCasesAndCombinations.staticAnalysisSettings.StaticAnalysisSettings.SecondOrderPDelta">
+<span class="sig-name descname"><span class="pre">SecondOrderPDelta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iterative_method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis.NEWTON_RAPHSON</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">standard_precision_and_tolerance_settings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[False,</span> <span class="pre">1.0,</span> <span class="pre">1.0,</span> <span class="pre">1.0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_nonlinear_analysis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[100,</span> <span class="pre">1]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_modification</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[False,</span> <span class="pre">0,</span> <span class="pre">False]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">favorable_effect_due_to_tension_in_members</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bourdon_effect</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nonsymmetric_direct_solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">internal_forces_to_deformed_structure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[True,</span> <span class="pre">True,</span> <span class="pre">True,</span> <span class="pre">True]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method_of_equation_system</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plate_bending_theory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass_conversion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[False,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">1]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#LoadCasesAndCombinations.staticAnalysisSettings.StaticAnalysisSettings.SecondOrderPDelta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>no</strong> (<em>int</em>) – Static Analysis Setting Tag</p></li>
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – Static Analysis Setting Name</p></li>
+<li><p><strong>iterative_method</strong> (<em>enum</em>) – Static Analysis Settings Iterative Method for Non-linear Analysis Enumeration</p></li>
+<li><p><strong>standard_precision_and_tolerance_settings</strong> (<em>list</em><em>, </em><em>optional</em>) – [Standard Precision and Tolerance Settings List
+standard_precision_and_tolerance_settings = [standard_precision_and_tolerance_settings_enabled, precision_of_convergence_criteria_for_nonlinear_calculation, tolerance_for_detection_of_instability, robustness_of_iterative_calculation]</p></li>
+<li><p><strong>control_nonlinear_analysis</strong> (<em>list</em>) – Nonlinear Analysis Control Parameters
+control_nonlinear_analysis = [max_number_of_iterations, number_of_load_increments]</p></li>
+<li><p><strong>favorable_effect_due_to_tension_in_members</strong> (<em>bool</em><em>, </em><em>optional</em>) – Favorable Effect due to Tension In Members Boolean</p></li>
+<li><p><strong>bourdon_effect</strong> (<em>bool</em><em>, </em><em>optional</em>) – Bourdon Effect Boolean</p></li>
+<li><p><strong>nonsymmetric_direct_solver</strong> (<em>bool</em><em>, </em><em>optional</em>) – Nonsymmetric Direct Solver Boolean</p></li>
+<li><p><strong>internal_forces_to_deformed_structure</strong> (<em>list</em><em>, </em><em>optional</em>) – Internal Forces to Deformed Structure List
+internal_forces_to_deformed_structure = [refer_internal_forces_to_deformed_structure, internal_forces_to_deformed_structure_for_moments, internal_forces_to_deformed_structure_for_normal_forces, internal_forces_to_deformed_structure_for_shear_forces]</p></li>
+<li><p><strong>method_of_equation_system</strong> (<em>enum</em>) – Static Analysis Settings Method of Equation System Enumeration</p></li>
+<li><p><strong>plate_bending_theory</strong> (<em>enum</em>) – Static Analysis Settings Plate Bending Theory Enumeration</p></li>
+<li><p><strong>mass_conversion</strong> (<em>list</em><em>, </em><em>optional</em>) – Mass Conversion Parameters
+mass_conversion = [mass_conversion_enabled, mass_conversion_factor_in_direction_x, mass_conversion_factor_in_direction_y, mass_conversion_factor_in_direction_z]</p></li>
+<li><p><strong>comment</strong> (<em>str</em><em>, </em><em>optional</em>) – </p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="SpecialObjects.html" class="btn btn-neutral float-right" title="SpecialObjects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Loads.html" class="btn btn-neutral float-left" title="Loads" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Dlubal Software.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

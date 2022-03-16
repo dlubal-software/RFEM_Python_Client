@@ -1,7 +1,7 @@
 from RFEM.initModel import Model
 from RFEM.enums import PlausibilityCheckResult
 
-class PlausiblityCheck():
+class PlausibilityCheck():
 
     def __init__(self,
                  skip_warnings:bool = False):

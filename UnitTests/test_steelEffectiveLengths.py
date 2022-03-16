@@ -1,5 +1,6 @@
 import sys
 import os
+import pytest
 PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.path.dirname(__file__),
                   os.pardir)
@@ -8,17 +9,20 @@ sys.path.append(PROJECT_ROOT)
 
 # Import der Bibliotheken
 from RFEM.enums import *
-from RFEM.initModel import Model, SetAddonStatus
-from RFEM.TypesForSteelDesign.steelEffectiveLengths import *
+from RFEM.initModel import Model, SetAddonStatus, CheckIfMethodOrTypeExists
+from RFEM.TypesForSteelDesign.steelEffectiveLengths import SteelEffectiveLengths
 
 if Model.clientModel is None:
     Model()
+
+# TODO: US-8965
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'get_stability_analysis_settings', True), reason="Type get_stability_analysis_settings not in RFEM yet")
 
 def test_steelEffectiveLengths():
 
     Model.clientModel.service.begin_modification()
 
-    SetAddonStatus(Model.clientModel, "steel_design_active", True)
+    SetAddonStatus(Model.clientModel, AddOn.steel_design_active, True)
 
     SteelEffectiveLengths(1, "", "", True, False, False, False, True, False, [False],
         [

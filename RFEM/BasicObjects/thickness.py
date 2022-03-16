@@ -1,8 +1,8 @@
 from RFEM.enums import ThicknessDirection, ThicknessType
-from RFEM.enums import ThicknessOrthotropyType
+from RFEM.enums import ThicknessOrthotropyType, AddOn
 from RFEM.enums import ThicknessShapeOrthotropySelfWeightDefinitionType
 from RFEM.enums import ThicknessStiffnessMatrixSelfWeightDefinitionType
-from RFEM.initModel import Model, CheckAddonStatus, clearAtributes, SetAddonStatus
+from RFEM.initModel import Model, GetAddonStatus, clearAtributes, SetAddonStatus
 from math import pi
 
 class Thickness():
@@ -372,8 +372,8 @@ class Thickness():
         '''
 
         # Check if Multilayer Surfaces Add-on is ON.
-        if not CheckAddonStatus(Model.clientModel, "multilayer_surfaces_active"):
-            SetAddonStatus(Model.clientModel, "multilayer_surfaces_active", True)
+        if not GetAddonStatus(Model.clientModel, AddOn.multilayer_surfaces_design_active):
+            SetAddonStatus(Model.clientModel, AddOn.multilayer_surfaces_design_active, True)
 
         # Client model | Thickness
         clientObject = Model.clientModel.factory.create('ns0:thickness')

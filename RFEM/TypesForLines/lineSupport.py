@@ -79,7 +79,7 @@ class LineSupport():
 
         elif support_type == LineSupportType.FREE:
             # FREE '--- ---'
-            clientObject = setLineSupportConditions(clientObject, 0, 0, 0, 0, 0, 0)
+            clientObject = setLineSupportConditions(clientObject, 10000, 0, 0, 0, 0, 0)
 
         # Comment
         clientObject.comment = comment

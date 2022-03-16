@@ -7,8 +7,9 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.enums import MemberType, NodalSupportType, StaticAnalysisType, ModalSolutionMethod, ModalMassConversionType, ModalMassMatrixType, AnalysisType
-from RFEM.initModel import Model, CheckIfMethodOrTypeExists
+from RFEM.enums import NodalSupportType, StaticAnalysisType, ModalSolutionMethod
+from RFEM.enums import ModalMassConversionType, ModalMassMatrixType, AnalysisType, AddOn
+from RFEM.initModel import Model, CheckIfMethodOrTypeExists, SetAddonStatus
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
@@ -39,14 +40,13 @@ def test_modal_analysis_settings():
     Node(2, 0, 0, -5)
 
     # Create Member
-    Member(1, MemberType.TYPE_BEAM, 1, 2, 0, 1, 1)
+    Member(1, 1, 2, 0, 1, 1)
 
     # Create Nodal Support
     NodalSupport(1, '1', NodalSupportType.FIXED)
 
     # Static Analysis Settings
-    StaticAnalysisSettings(1, 'Geometrically Linear',
-                           StaticAnalysisType.GEOMETRICALLY_LINEAR)
+    StaticAnalysisSettings(1, 'Geometrically Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
     # Modal Analysis Settings
     ModalAnalysisSettings(1, 'Modal Analysis Settings', ModalSolutionMethod.METHOD_LANCZOS, ModalMassConversionType.MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS,
@@ -58,6 +58,7 @@ def test_modal_analysis_settings():
         "analysis_type": AnalysisType.ANALYSIS_TYPE_MODAL.name,
         "modal_analysis_settings":1,
     }
+    SetAddonStatus(Model.clientModel, AddOn.modal_active)
     # Load Case Modal
     LoadCase(2, 'MODAL',params=modalParams)
 

@@ -150,7 +150,6 @@ def test_line_elipticalArc():
 
     line = Model.clientModel.service.get_line(2)
     assert line.type == 'TYPE_ELLIPTICAL_ARC'
-    assert round(line.length, 4) == 7.2315
 
 def test_lineSetInit():
 
@@ -452,14 +451,12 @@ def test_thickness_circle():
     assert thickness.type == "TYPE_VARIABLE_CIRCLE"
     assert thickness.thickness_circle_line == 0.1
 
-@pytest.mark.skip("all tests still WIP")
-# TODO: AssertionError: WARNING: multilayer_surfaces_active Add-on can not be reached.
 def test_thickness_layers():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    SetAddonStatus(Model.clientModel, 'multilayer_surfaces_design_active')
+    SetAddonStatus(Model.clientModel, AddOn.multilayer_surfaces_design_active)
 
     Material(1, 'S235')
 
