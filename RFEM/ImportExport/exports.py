@@ -1,7 +1,6 @@
-from numpy import array
-from RFEM.initModel import Model
 import xmltodict
 import csv
+from RFEM.initModel import Model
 from RFEM.enums import IFCExportType, ObjectTypes
 
 def ExportDetailsOfDesignToCSV(targetDirectoryPath: str):
@@ -52,6 +51,7 @@ def ExportResultTablesWithDetaliedMembersResultsToXML(targetFilePath: str):
 def ExportTo(targetFilePath: str):
     '''
     Export active model to format specified by suffix of the destination path to file.
+    Supported formats are .xml, .vtk, .xlsx, .saf, .gltf, and .glb.
 
     Args:
         targetFilePath (string): Destination path to the file
@@ -59,9 +59,9 @@ def ExportTo(targetFilePath: str):
     Model.clientModel.service.export_to(targetFilePath)
 
 IFCExportSettings = {
-    'mirror_axis_x': False, # bool
-    'mirror_axis_y': False, # bool
-    'mirror_axis_z': False, # bool
+    'mirror_axis_x': False,
+    'mirror_axis_y': False,
+    'mirror_axis_z': False,
     'origin_coordinate_x': 0, # float
     'origin_coordinate_y': 0, # float
     'origin_coordinate_z': 0, # float
@@ -72,7 +72,7 @@ IFCExportSettings = {
     'switch_axis_x': 'X', # 'X','Y' or 'Z'
     'switch_axis_y': 'Y', # 'X','Y' or 'Z'
     'switch_axis_z': 'Z', # 'X','Y' or 'Z'
-    'remove_accents': False, # bool
+    'remove_accents': False,
     'export_type': IFCExportType.E_EXPORT_IFC4_REFERENCE_VIEW.name # export to ifc type
 }
 
@@ -88,7 +88,7 @@ Args:
     parent_no (int): Parrent number  of the object to be exoprted to IFC, if there is one. Usually 1.
 '''
 
-def ObjectLocations(locationsVector: array):
+def ObjectLocations(locationsArray):
     '''
     Use this function to obtain 3rd parameter of ExportToIFC() function.
     If left out, all objects will be exported to IFC.
@@ -99,7 +99,7 @@ def ObjectLocations(locationsVector: array):
     {'location': {'type':ObjectTypes.E_OBJECT_TYPE_MEMBER.name, 'no': 1, 'parent_no': 1}}
     '''
 
-    return {'location': locationsVector}
+    return {'location': locationsArray}
 
 
 def ExportToIFC(targetFilePath: str, IFCSettings: IFCExportSettings, ObjectLoc = None):
