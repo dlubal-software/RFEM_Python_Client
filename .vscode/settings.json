@@ -20,5 +20,7 @@
         "MD025": {
             "front_matter_title": ""
         }
-    }
+    },
+    "esbonio.server.enabled": false,
+    "restructuredtext.languageServer.disabled": true
 }

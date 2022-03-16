@@ -145,23 +145,20 @@ def SetTableExportConfigManager(TableExportConfigManager):
     '''
     Model.clientModel.service.set_table_export_config_manager(TableExportConfigManager)
 
-def  __parseXMLAsDictionary(path: str =""):
-    with open(path, "rb") as f:
-        my_dictionary = xmltodict.parse(f, xml_attribs=True)
-    return my_dictionary
+def ParseCSVResultsFromSelectedFileToDict(filePath: str):
 
-def __parseCSVAsDictionary(path: str =""):
-    with open(path, 'r') as f:
+    # Using encoding parameter ensures proper data translation, leaving out BOM etc.
+    # TODO: fix the value assigment; it only works with simple one-line header
+    #       consider all corner cases
+    with open(filePath, mode='r', encoding='utf-8-sig') as f:
         reader = csv.DictReader(f,delimiter=';')
         my_dictionary = []
         for line in reader:
             my_dictionary.append(line)
     return my_dictionary
 
-def ParseCSVResultsFromSelectedFileToDict(filePath: str):
-
-    return __parseCSVAsDictionary(filePath)
-
 def ParseXMLResultsFromSelectedFileToDict(filePath: str):
 
-    return __parseXMLAsDictionary(filePath)
+    with open(filePath, "rb") as f:
+        my_dictionary = xmltodict.parse(f, xml_attribs=True)
+    return my_dictionary
