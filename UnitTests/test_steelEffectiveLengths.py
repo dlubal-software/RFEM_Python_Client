@@ -16,7 +16,7 @@ if Model.clientModel is None:
     Model()
 
 # TODO: US-8965
-@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'get_stability_analysis_settings', True), reason="Type get_stability_analysis_settings not in RFEM yet")
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:steel_effective_lengths', True), reason="Type ns0:steel_effective_lengths not in RFEM GM yet")
 
 def test_steelEffectiveLengths():
 
