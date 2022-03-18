@@ -1,0 +1,344 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Global Commands &mdash; RFEM/RSTAB Webservices 1.0.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="BasicObjects" href="BasicObjects.html" />
+    <link rel="prev" title="Create and Acces Files" href="createFile.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html"><strong>Introduction</strong></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>Global Commands</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="BasicObjects.html">BasicObjects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Imperfections.html">Imperfections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Loads.html">Loads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LoadCasesAndCombinations.html">LoadCasesAndCombinations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SpecialObjects.html">SpecialObjects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForLines.html">TypesForLines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForMembers.html">TypesForMembers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForNodes.html">TypesForNodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForSolids.html">TypesForSolids</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForSpecialObjects.html">TypesForSpecialObjects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForSurfaces.html">TypesForSurfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="initModel.html">initModel</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="addonCommands.html"><strong>Add-on Commands</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html"><strong>Examples</strong></a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RFEM/RSTAB Webservices</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><strong>Global Commands</strong></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/globalCommands.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="global-commands">
+<h1><strong>Global Commands</strong><a class="headerlink" href="#global-commands" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="BasicObjects.html"><span class="doc">BasicObjects</span></a></p></li>
+<li><p><a class="reference internal" href="Imperfections.html"><span class="doc">Imperfections</span></a></p></li>
+<li><p><a class="reference internal" href="Loads.html"><span class="doc">Loads</span></a></p></li>
+<li><p><a class="reference internal" href="LoadCasesAndCombinations.html"><span class="doc">LoadCasesAndCombinations</span></a></p></li>
+<li><p><a class="reference internal" href="SpecialObjects.html"><span class="doc">SpecialObjects</span></a></p></li>
+<li><p><span class="xref std std-doc">TypesforLines</span></p></li>
+<li><p><a class="reference internal" href="TypesForMembers.html"><span class="doc">TypesForMembers</span></a></p></li>
+<li><p><a class="reference internal" href="TypesForNodes.html"><span class="doc">TypesForNodes</span></a></p></li>
+<li><p><a class="reference internal" href="TypesForSolids.html"><span class="doc">TypesForSolids</span></a></p></li>
+<li><p><a class="reference internal" href="TypesForSpecialObjects.html"><span class="doc">TypesForSpecialObjects</span></a></p></li>
+<li><p><a class="reference internal" href="TypesForSurfaces.html"><span class="doc">TypesForSurfaces</span></a></p></li>
+<li><p><a class="reference internal" href="TypesForSurfaces.html"><span class="doc">TypesForSurfaces</span></a></p></li>
+<li><p><a class="reference internal" href="initModel.html"><span class="doc">initModel</span></a></p></li>
+</ol>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="BasicObjects.html">BasicObjects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="BasicObjects.html#module-BasicObjects.line">Line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BasicObjects.html#module-BasicObjects.lineSet">LineSet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BasicObjects.html#module-BasicObjects.material">Material</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BasicObjects.html#module-BasicObjects.member">Member</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BasicObjects.html#module-BasicObjects.memberSet">MemberSet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BasicObjects.html#module-BasicObjects.node">Node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BasicObjects.html#module-BasicObjects.opening">Opening</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BasicObjects.html#module-BasicObjects.section">Section</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BasicObjects.html#module-BasicObjects.solid">Solid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BasicObjects.html#module-BasicObjects.solidSet">SolidSet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BasicObjects.html#module-BasicObjects.surface">Surface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BasicObjects.html#module-BasicObjects.surfaceSet">SurfaceSet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="BasicObjects.html#module-BasicObjects.thickness">Thickness</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Imperfections.html">Imperfections</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Imperfections.html#module-Imperfections.imperfectionCase">ImperfectionCase</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Loads.html">Loads</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Loads.html#module-Loads.freeLoad">FreeLoad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Loads.html#module-Loads.imposedLineDeformation">ImposedLineDeformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Loads.html#module-Loads.imposedNodalDeformation">ImposedNodalDeformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Loads.html#lineload">LineLoad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Loads.html#module-Loads.memberLoad">MemberLoad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Loads.html#module-Loads.membersetload">Membersetload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Loads.html#module-Loads.nodalLoad">NodalLoad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Loads.html#module-Loads.solidLoad">SolidLoad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Loads.html#module-Loads.solidSetLoad">SolidSetLoad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Loads.html#module-Loads.surfaceLoad">SurfaceLoad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Loads.html#module-Loads.surfacesetload">Surfacesetload</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="LoadCasesAndCombinations.html">LoadCasesAndCombinations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="LoadCasesAndCombinations.html#module-LoadCasesAndCombinations.designSituation">DesignSituation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LoadCasesAndCombinations.html#module-LoadCasesAndCombinations.loadCase">LoadCase</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LoadCasesAndCombinations.html#module-LoadCasesAndCombinations.loadCombination">LoadCombination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LoadCasesAndCombinations.html#module-LoadCasesAndCombinations.modalAnalysisSettings">ModalAnalysisSettings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LoadCasesAndCombinations.html#module-LoadCasesAndCombinations.resultCombination">ResultCombination</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LoadCasesAndCombinations.html#module-LoadCasesAndCombinations.spectralAnalysisSettings">SpectralAnalysisSettings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LoadCasesAndCombinations.html#module-LoadCasesAndCombinations.stabilityAnalysisSettings">StabilityAnalysisSettings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LoadCasesAndCombinations.html#module-LoadCasesAndCombinations.staticAnalysisSettings">StaticAnalysisSettings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="SpecialObjects.html">SpecialObjects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="SpecialObjects.html#module-SpecialObjects.enlargedColumnHead">EnlargedColumnHead</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SpecialObjects.html#module-SpecialObjects.intersection">Intersection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SpecialObjects.html#module-SpecialObjects.resultSection">ResultSection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SpecialObjects.html#module-SpecialObjects.rigidLink">RigidLink</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SpecialObjects.html#module-SpecialObjects.structureModification">StructureModification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SpecialObjects.html#module-SpecialObjects.surfaceContact">SurfaceContact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SpecialObjects.html#module-SpecialObjects.surfaceResultAdjustment">SurfaceResultAdjustment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="TypesForLines.html">TypesForLines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="TypesForLines.html#linehinge">LineHinge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForLines.html#module-TypesForLines.lineMeshRefinements">LineMeshRefinements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForLines.html#linesupport">LineSupport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForLines.html#module-TypesForLines.lineWeldedJoint">LineWeldedJoint</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="TypesForMembers.html">TypesForMembers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="TypesForMembers.html#module-TypesForMembers.memberDefinableStiffness">MemberDefinableStiffness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForMembers.html#module-TypesForMembers.memberEccentricity">MemberEccentricity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForMembers.html#memberhinge">MemberHinge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForMembers.html#module-TypesForMembers.memberNonlinearity">MemberNonlinearity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForMembers.html#module-TypesForMembers.memberResultIntermediatePoints">MemberResultIntermediatePoints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForMembers.html#module-TypesForMembers.memberStiffnessModification">MemberStiffnessModification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForMembers.html#module-TypesForMembers.memberSupport">MemberSupport</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="TypesForNodes.html">TypesForNodes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="TypesForNodes.html#module-TypesForNodes.nodalMeshRefinement">NodalMeshRefinement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForNodes.html#nodalsupport">NodalSupport</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="TypesForSolids.html">TypesForSolids</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="TypesForSolids.html#module-TypesForSolids.solidContact">SolidContact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForSolids.html#module-TypesForSolids.solidGas">SolidGas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForSolids.html#module-TypesForSolids.solidMeshRefinement">SolidMeshRefinement</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="TypesForSpecialObjects.html">TypesForSpecialObjects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="TypesForSpecialObjects.html#module-TypesForSpecialObjects.surfaceContactType">SurfaceContactType</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="TypesForSurfaces.html">TypesForSurfaces</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="TypesForSurfaces.html#module-TypesForSurfaces.surfaceEccentricity">SurfaceEccentricity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForSurfaces.html#module-TypesForSurfaces.surfaceMeshRefinements">SurfaceMeshRefinements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForSurfaces.html#module-TypesForSurfaces.surfaceStiffnessModification">SurfaceStiffnessModification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TypesForSurfaces.html#module-TypesForSurfaces.surfaceSupport">SurfaceSupport</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="initModel.html">initModel</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="BasicObjects.html" class="btn btn-neutral float-right" title="BasicObjects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="createFile.html" class="btn btn-neutral float-left" title="Create and Acces Files" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Dlubal Software.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -122,6 +122,7 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 # -------------------------------------------------------------
     # Members
 
+    member = Member()
     # Frames
     i = 1
     while i <= number_frames:
@@ -147,19 +148,19 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
     j = 4*number_frames + 3*(number_frames-1)
     while i <= number_frames-1:
         k = j + (i-1)*4
-        Member.Tension(0,k+1, (i-1)*5+1, (i-1)*5+7 , MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
-        Member.Tension(0,k+2, (i-1)*5+2, (i-1)*5+6 , MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
-        Member.Tension(0,k+3, (i-1)*5+5, (i-1)*5+9 , MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
-        Member.Tension(0,k+4, (i-1)*5+4, (i-1)*5+10, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
+        member.Tension(k+1, (i-1)*5+1, (i-1)*5+7 , MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
+        member.Tension(k+2, (i-1)*5+2, (i-1)*5+6 , MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
+        member.Tension(k+3, (i-1)*5+5, (i-1)*5+9 , MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
+        member.Tension(k+4, (i-1)*5+4, (i-1)*5+10, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
         i += 1
 
     # Diagonals on the roof
     j += 4*(number_frames-1)
     if number_frames > 1:
-        Member.Tension(0,j+1, 2, 8, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
-        Member.Tension(0,j+2, 7, 3, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
-        Member.Tension(0,j+3, 3, 9, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
-        Member.Tension(0,j+4, 4, 8, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
+        member.Tension(j+1, 2, 8, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
+        member.Tension(j+2, 7, 3, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
+        member.Tension(j+3, 3, 9, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
+        member.Tension(j+4, 4, 8, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 4)
 
 # -------------------------------------------------------------
     # Surfaces
@@ -234,43 +235,45 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 
 # -------------------------------------------------------------
     # Member Loads
-    MemberLoad.Force(0, 2, 1, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])
+    memberLoad = MemberLoad()
+
+    memberLoad.Force(2, 1, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_UNIFORM with Eccentricity ##
-    MemberLoad.Force(0, 3, 2, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000], force_eccentricity=True, params={'eccentricity_y_at_start' : 0.01, 'eccentricity_z_at_start': 0.02})
+    memberLoad.Force(3, 2, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000], force_eccentricity=True, params={'eccentricity_y_at_start' : 0.01, 'eccentricity_z_at_start': 0.02})
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_UNIFORM_TOTAL ##
-    MemberLoad.Force(0, 4, 3, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM_TOTAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])
+    memberLoad.Force(4, 3, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM_TOTAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_1 ##
-    MemberLoad.Force(0, 5, 4, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, 5000, 1.2])
+    memberLoad.Force(5, 4, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, 5000, 1.2])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_N ##
-    MemberLoad.Force(0, 6, 5, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 2, 1, 2])
+    memberLoad.Force(6, 5, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 2, 1, 2])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x2 ##
-    MemberLoad.Force(0, 7, 6, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, False, 5000, 1, 2, 3])
+    memberLoad.Force(7, 6, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, False, 5000, 1, 2, 3])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x ##
-    MemberLoad.Force(0, 8, 7, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 6000, 1, 2])
+    memberLoad.Force(8, 7, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 6000, 1, 2])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_VARYING ##
-    MemberLoad.Force(0, 9, 8, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
+    memberLoad.Force(9, 8, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##
-    MemberLoad.Force(0, 10, 9, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])
+    memberLoad.Force(10, 9, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_TAPERED ##
-    MemberLoad.Force(0, 11, 10, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])
+    memberLoad.Force(11, 10, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
-    MemberLoad.Force(0, 12, 11, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[4000, 8000, 12000])
+    memberLoad.Force(12, 11, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[4000, 8000, 12000])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING ##
-    MemberLoad.Force(0, 13, 12, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
+    memberLoad.Force(13, 12, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING_IN_Z ##
-    MemberLoad.Force(0, 14, 13, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
+    memberLoad.Force(14, 13, "2 3 6 7", MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
 
 # -------------------------------------------------------------
     # Surface Loads

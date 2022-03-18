@@ -1205,3 +1205,176 @@ class ModelCheckProcessOptionType(Enum):
     Model Check Process Object Groups Option Type
     '''
     CROSS_LINES, CROSS_MEMBERS, DELETE_UNUSED_NODES, UNITE_NODES_AND_DELETE_UNUSED_NODES = range(4)
+class OptimizeOnType(Enum):
+    '''
+    Optimization Settings Optimize On Type
+    '''
+    E_OPTIMIZE_ON_TYPE_MIN_WHOLE_WEIGHT, E_OPTIMIZE_ON_TYPE_MIN_VECTORIAL_DISPLACEMENT, E_OPTIMIZE_ON_TYPE_MIN_MEMBER_DEFORMATION, \
+    E_OPTIMIZE_ON_TYPE_MIN_SURFACE_DEFORMATION, E_OPTIMIZE_ON_TYPE_MIN_COST, E_OPTIMIZE_ON_TYPE_MIN_CO2_EMISSIONS = range(6)
+
+class Optimizer(Enum):
+    '''
+    Optimization Settings Optimizer
+    '''
+    E_OPTIMIZER_TYPE_ALL_MUTATIONS, E_OPTIMIZER_TYPE_PERCENTS_OF_RANDOM_MUTATIONS, E_OPTIMIZER_TYPE_PARTICLE_SWARM = range(3)
+
+class SurfacesShapeOfFiniteElements(Enum):
+    '''
+    Surfaces Shape of Finite Elements
+    '''
+    E_SHAPE_OF_FINITE_ELEMENTS_FOR_SURFACES__TRIANGLES_AND_QUADRANGLES, E_SHAPE_OF_FINITE_ELEMENTS_FOR_SURFACES__QUADRANGLES_ONLY, \
+    E_SHAPE_OF_FINITE_ELEMENTS_FOR_SURFACES__TRIANGLES_ONLY = range(3)
+
+class AddOn(Enum):
+    '''
+    AddOn types
+    '''
+    stress_analysis_active, concrete_design_active, steel_design_active, timber_design_active, aluminum_design_active, \
+    steel_joints_active, timber_joints_active, craneway_design_active, masonry_design_active, multilayer_surfaces_design_active, \
+    material_nonlinear_analysis_active, structure_stability_active, construction_stages_active, time_dependent_active, \
+    form_finding_active, cutting_patterns_active, torsional_warping_active, cost_estimation_active, modal_active, spectral_active, \
+    time_history_active, pushover_active, harmonic_response_active, building_model_active, wind_simulation_active, \
+    geotechnical_analysis_active = range(26)
+
+class SteelEffectiveLengthsBucklingFactorValueType(Enum):
+    '''
+    Steel Effective Lengths Buckling Factor Value Type
+    '''
+    BUCKLING_FACTOR_VALUE_TYPE_RECOMMENDED, BUCKLING_FACTOR_VALUE_TYPE_THEORETICAL = range(2)
+
+class SteelEffectiveLengthsSupportType(Enum):
+    '''
+    Steel Effective Lengths Support Type
+    '''
+    SUPPORT_TYPE_FIXED_ALL, SUPPORT_TYPE_FIXED_IN_Y, SUPPORT_TYPE_FIXED_IN_Z, SUPPORT_TYPE_FIXED_IN_Z_AND_TORSION, \
+    SUPPORT_TYPE_FIXED_IN_Z_AND_TORSION_AND_WARPING, SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION, SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION_AND_WARPING, \
+    SUPPORT_TYPE_INDIVIDUALLY, SUPPORT_TYPE_NONE, SUPPORT_TYPE_RESTRAINT_ABOUT_X = range(10)
+
+class SteelEffectiveLengthsEccentricityType(Enum):
+    '''
+    Steel Effective Lengths Eccentricity Type
+    '''
+    ECCENTRICITY_TYPE_AT_LOWER_FLANGE, ECCENTRICITY_TYPE_AT_UPPER_FLANGE, ECCENTRICITY_TYPE_NONE, ECCENTRICITY_TYPE_USER_VALUE = range(4)
+
+class SteelEffectiveLengthsSupportTypeInY(Enum):
+    '''
+    Steel Effective Lengths Support in Y Type
+    '''
+    SUPPORT_STATUS_NO, SUPPORT_STATUS_SPRING, SUPPORT_STATUS_YES = range(3)
+
+class SteelEffectiveLengthsRestraintTypeAboutX(Enum):
+    '''
+    Steel Effective Lengths Restraint About X Type
+    '''
+    SUPPORT_STATUS_NO, SUPPORT_STATUS_SPRING, SUPPORT_STATUS_YES = range(3)
+
+class SteelEffectiveLengthsRestraintTypeAboutZ(Enum):
+    '''
+    Steel Effective Lengths Restraint About Z Type
+    '''
+    SUPPORT_STATUS_NO, SUPPORT_STATUS_SPRING, SUPPORT_STATUS_YES = range(3)
+
+class SteelEffectiveLengthsRestraintTypeWarping(Enum):
+    '''
+    Steel Effective Lengths Restraint Warping Type
+    '''
+    SUPPORT_STATUS_NO, SUPPORT_STATUS_SPRING, SUPPORT_STATUS_YES = range(3)
+
+
+class SteelEffectiveLengthsDeterminationMcrEurope(Enum):
+    '''
+    Steel Effective Lengths Determination MCR Europe
+    '''
+    DETERMINATION_EUROPE_EIGENVALUE, DETERMINATION_EUROPE_USER_DEFINED = range(2)
+
+class SteelEffectiveLengthsDeterminationMcrIs800(Enum):
+    '''
+    Steel Effective Lengths Determination MCR IS 800
+    '''
+    DETERMINATION_IS800_EIGENVALUE, DETERMINATION_IS800_USER_DEFINED = range(2)
+
+class SteelEffectiveLengthsDeterminationMcrAisc(Enum):
+    '''
+    Steel Effective Lengths Determination MCR AISC
+    '''
+    DETERMINATION_AISC_ACC_TO_CHAPTER_F, DETERMINATION_AISC_EIGENVALUE, DETERMINATION_AISC_USER_DEFINED = range(3)
+
+class SteelEffectiveLengthsDeterminationMcrGb50(Enum):
+    '''
+    Steel Effective Lengths Determination MCR GB 50
+    '''
+    DETERMINATION_GB50_EIGENVALUE, DETERMINATION_GB50_NOT_USED, DETERMINATION_GB50_USER_DEFINED = range(3)
+
+class SteelEffectiveLengthsDeterminationCbAisc(Enum):
+    '''
+    Steel Effective Lengths Determination CB AISC
+    '''
+    DETERMINATION_CB_ACC_TO_CHAPTER_F, DETERMINATION_CB_BASIC_VALUE, DETERMINATION_CB_USER_DEFINED = range(3)
+
+class SteelEffectiveLengthsDeterminationMcrCsa(Enum):
+    '''
+    Steel Effective Lengths Determination MCR CSA
+    '''
+    DETERMINATION_CSA_ACC_TO_CHAPTER_13_6, DETERMINATION_CSA_EIGENVALUE, DETERMINATION_CSA_USER_DEFINED = range(3)
+
+class SteelEffectiveLengthsDeterminationCbCsa(Enum):
+    '''
+    Steel Effective Lengths Determination CB CSA
+    '''
+    DETERMINATION_CB_ACC_TO_CHAPTER_13_6, DETERMINATION_CB_BASIC_VALUE, DETERMINATION_CB_USER_DEFINED = range(3)
+
+class SteelEffectiveLengthsDeterminationMcrBs5(Enum):
+    '''
+    Steel Effective Lengths Determination MCR BS5
+    '''
+    DETERMINATION_BS5_ACC_TO_CHAPTER_F, DETERMINATION_BS5_EIGENVALUE, DETERMINATION_BS5_USER_DEFINED = range(3)
+
+class SteelEffectiveLengthsDeterminationCbNbr(Enum):
+    '''
+    Steel Effective Lengths Determination CB NBR
+    '''
+    DETERMINATION_CB_ACC_TO_5423, DETERMINATION_CB_BASIC_VALUE, DETERMINATION_CB_USER_DEFINED = range(3)
+
+class SteelEffectiveLengthsMomentModificationRestrainedSegments(Enum):
+    '''
+    Steel Effective Lengths Moment Modification Restrained Segments
+    '''
+    MOMENT_ALPHA_ACC_TO_5611_II, MOMENT_ALPHA_ACC_TO_5611_III, MOMENT_ALPHA_BASIC_VALUE, \
+    MOMENT_ALPHA_EIGENVALUE_METHOD, MOMENT_ALPHA_USER_DEFINED = range(5)
+
+class SteelEffectiveLengthsMomentModificationUnrestrainedSegments(Enum):
+    '''
+    Steel Effective Lengths Moment Modification Unrestrained Segments
+    '''
+    MOMENT_ALPHA_ACC_TO_5611_II, MOMENT_ALPHA_BASIC_VALUE, MOMENT_ALPHA_USER_DEFINED = range(3)
+
+class SteelEffectiveLengthsSlendernessReductionRestrainedSegments(Enum):
+    '''
+    Steel Effective Lengths Slenderness Reduction Restrained Segments
+    '''
+    SLENDERNESS_ALPHA_ACC_TO_5611, SLENDERNESS_ALPHA_EIGENVALUE_METHOD = range(2)
+
+class SteelEffectiveLengthsSlendernessReductionUnrestrainedSegments(Enum):
+    '''
+    Steel Effective Lengths Slenderness Reduction Unrestrained Segments
+    '''
+    SLENDERNESS_ALPHA_ACC_TO_5611, SLENDERNESS_ALPHA_EIGENVALUE_METHOD = range(2)
+
+class SteelEffectiveLengthsMemberType(Enum):
+    '''
+    Steel Effective Lengths Member Type
+    '''
+    MEMBER_TYPE_BEAM, MEMBER_TYPE_CANTILEVER = range(2)
+
+class SteelEffectiveLengthsMemberTypeYY(Enum):
+    '''
+    Steel Effective Lengths Member Type YY
+    '''
+    MEMBER_TYPE_BEAM, MEMBER_TYPE_CANTILEVER = range(2)
+
+class SteelEffectiveLengthsMemberTypeZZ(Enum):
+    '''
+    Steel Effective Lengths Member Type ZZ
+    '''
+    MEMBER_TYPE_BEAM, MEMBER_TYPE_CANTILEVER = range(2)
+
