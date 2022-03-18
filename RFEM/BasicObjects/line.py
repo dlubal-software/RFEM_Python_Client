@@ -38,7 +38,8 @@ class Line():
         # Add Line to client model
         Model.clientModel.service.set_line(clientObject)
 
-    def Polyline(self,
+    @staticmethod
+    def Polyline(
                  no: int = 1,
                  nodes_no: str = '1 2',
                  comment: str = '',
@@ -77,7 +78,8 @@ class Line():
         # Add Line to client model
         Model.clientModel.service.set_line(clientObject)
 
-    def Arc(self,
+    @staticmethod
+    def Arc(
             no: int = 1,
             nodes_no: str = [1,2],
             control_point: list = [10,0,0], # X,Y,Z
@@ -126,7 +128,8 @@ class Line():
         # Add Line to client model
         Model.clientModel.service.set_line(clientObject)
 
-    def Circle(self,
+    @staticmethod
+    def Circle(
                 no: int = 1,
                 center_of_cirle: list = [20,0,0],
                 circle_radius: float = 1.0,
@@ -179,7 +182,8 @@ class Line():
         # Add Line to client model
         Model.clientModel.service.set_line(clientObject)
 
-    def EllipticalArc(self,
+    @staticmethod
+    def EllipticalArc(
                       no: int = 1,
                       p1_control_point: list = [0,-6,0],
                       p2_control_point: list = [20,-6,0],
@@ -239,7 +243,8 @@ class Line():
         # Add Line to client model
         Model.clientModel.service.set_line(clientObject)
 
-    def Ellipse(self,
+    @staticmethod
+    def Ellipse(
                 no: int = 1,
                 nodes_no: list = [5,10],
                 ellipse_control_point: list = [18,-4.8,0],
@@ -287,7 +292,8 @@ class Line():
         # Add Line to client model
         Model.clientModel.service.set_line(clientObject)
 
-    def Parabola(self,
+    @staticmethod
+    def Parabola(
                  no: int = 1,
                  nodes_no: str = [3,8],
                  parabola_control_point: list = [10,-3,0],
@@ -339,7 +345,8 @@ class Line():
         # Add Line to client model
         Model.clientModel.service.set_line(clientObject)
 
-    def Spline(self,
+    @staticmethod
+    def Spline(
                no: int = 1,
                nodes_no: str = '1 3 5',
                comment: str = '',
@@ -378,7 +385,8 @@ class Line():
         # Add Line to client model
         Model.clientModel.service.set_line(clientObject)
 
-    def NURBS(self,
+    @staticmethod
+    def NURBS(
               no: int = 1,
               nodes_no: str = '1 2',
               control_points: list = [[0,0,0],[2.33,0,-3,4],[10,0,-11],[17.66,0,-3.4],[20,0,0]],

@@ -56,7 +56,8 @@ class NodalLoad():
         # Add Nodal Force to client model
         Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
-    def Force(self,
+    @staticmethod
+    def Force(
               no: int= 1,
               load_case_no: int = 1,
               nodes_no: str= '1',
@@ -199,7 +200,8 @@ class NodalLoad():
         # Add Nodal Force to client model
         Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
-    def Moment(self,
+    @staticmethod
+    def Moment(
               no: int= 1,
               load_case_no: int= 1,
               nodes_no: str= '1',
@@ -319,7 +321,8 @@ class NodalLoad():
         # Add Nodal Force to client model
         Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
-    def Components(self,
+    @staticmethod
+    def Components(
               no: int= 1,
               load_case_no: int= 1,
               nodes_no: str= '1',
@@ -455,7 +458,8 @@ class NodalLoad():
         # Add Nodal Force to client model
         Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
-    def Mass(self,
+    @staticmethod
+    def Mass(
               no: int = 1,
               load_case_no: int = 1,
               nodes_no: str = '1',

@@ -9,7 +9,7 @@ class MemberLoad():
                  load_case_no: int = 1,
                  members_no: str = '1',
                  load_direction = LoadDirectionType.LOAD_DIRECTION_LOCAL_Z,
-                 magnitude: float = 0,
+                 magnitude: float = 2000,
                  comment: str = '',
                  params: dict = {}):
         """
@@ -61,7 +61,8 @@ class MemberLoad():
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def Force(self,
+    @staticmethod
+    def Force(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -362,7 +363,8 @@ class MemberLoad():
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def Moment(self,
+    @staticmethod
+    def Moment(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -588,7 +590,8 @@ class MemberLoad():
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def Mass(self,
+    @staticmethod
+    def Mass(
                 no: int = 1,
                 load_case_no: int = 1,
                 members_no: str = '1',
@@ -652,7 +655,8 @@ class MemberLoad():
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def Temperature(self,
+    @staticmethod
+    def Temperature(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -809,7 +813,8 @@ class MemberLoad():
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def TemperatureChange(self,
+    @staticmethod
+    def TemperatureChange(
                            no: int = 1,
                            load_case_no: int = 1,
                            members_no: str = '1',
@@ -966,7 +971,8 @@ class MemberLoad():
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def AxialStrain(self,
+    @staticmethod
+    def AxialStrain(
                     no: int = 1,
                     load_case_no: int = 1,
                     members_no: str = '1',
@@ -1112,7 +1118,8 @@ class MemberLoad():
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def AxialDisplacement(self,
+    @staticmethod
+    def AxialDisplacement(
                     no: int = 1,
                     load_case_no: int = 1,
                     members_no: str = '1',
@@ -1170,7 +1177,8 @@ class MemberLoad():
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def Precamber(self,
+    @staticmethod
+    def Precamber(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -1316,7 +1324,8 @@ class MemberLoad():
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def InitialPrestress(self,
+    @staticmethod
+    def InitialPrestress(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -1374,7 +1383,8 @@ class MemberLoad():
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def Displacement(self,
+    @staticmethod
+    def Displacement(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -1609,7 +1619,8 @@ class MemberLoad():
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def Rotation(self,
+    @staticmethod
+    def Rotation(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -1844,7 +1855,8 @@ class MemberLoad():
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def PipeContentFull(self,
+    @staticmethod
+    def PipeContentFull(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -1905,7 +1917,8 @@ class MemberLoad():
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def PipeContentPartial(self,
+    @staticmethod
+    def PipeContentPartial(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -1971,7 +1984,8 @@ class MemberLoad():
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def PipeInternalPressure(self,
+    @staticmethod
+    def PipeInternalPressure(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -2027,7 +2041,8 @@ class MemberLoad():
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def RotaryMotion(self,
+    @staticmethod
+    def RotaryMotion(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',

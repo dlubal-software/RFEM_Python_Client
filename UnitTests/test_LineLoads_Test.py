@@ -61,27 +61,27 @@ def test_line_loads():
 
     LoadCase(2 , 'TYPE: Force')
 
-    LineLoad.Force(LineLoad, 1, 2, '1',
+    LineLoad.Force(1, 2, '1',
                      load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                      load_parameter=[1000])
 
-    LineLoad.Force(LineLoad, 2, 2, '2',
+    LineLoad.Force(2, 2, '2',
                      load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1,
                      load_parameter=[False, 10000, 0.5])
 
-    LineLoad.Force(LineLoad, 3, 2, '3',
+    LineLoad.Force(3, 2, '3',
                      load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N,
                      load_parameter=[True, True, 25000, 3, 0.25, 0.5])
 
-    LineLoad.Force(LineLoad, 4, 2, '4',
+    LineLoad.Force(4, 2, '4',
                      load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2,
                      load_parameter=[True, True, True, 17000, 0.25, 0.5, 0.25])
 
-    LineLoad.Force(LineLoad, 5, 2, '5',
+    LineLoad.Force(5, 2, '5',
                      load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2,
                      load_parameter=[True, True, 5000, 7500, 0.4, 0.5])
 
-    LineLoad.Force(LineLoad, 6, 2, '6',
+    LineLoad.Force(6, 2, '6',
                      load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING,
                      load_parameter=[[0.2, 0.1, 200], [0.5, 0.2, 200]])
 
@@ -90,7 +90,7 @@ def test_line_loads():
     #                  load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL,
     #                  load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
 
-    LineLoad.Force(LineLoad, 8, 2, '8',
+    LineLoad.Force(8, 2, '8',
                      load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC,
                      load_parameter=[750, 1000, 2500])
 
@@ -103,27 +103,27 @@ def test_line_loads():
 
     LoadCase(3 , 'TYPE: Moment')
 
-    LineLoad.Moment(LineLoad, 1, 3, '1',
+    LineLoad.Moment(1, 3, '1',
                      load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                      load_parameter=[1000])
 
-    LineLoad.Moment(LineLoad, 2, 3, '2',
+    LineLoad.Moment(2, 3, '2',
                      load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1,
                      load_parameter=[False, 10000, 0.5])
 
-    LineLoad.Moment(LineLoad, 3, 3, '3',
+    LineLoad.Moment(3, 3, '3',
                      load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N,
                      load_parameter=[True, True, 25000, 3, 0.25, 0.5])
 
-    LineLoad.Moment(LineLoad, 4, 3, '4',
+    LineLoad.Moment(4, 3, '4',
                      load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2,
                      load_parameter=[True, True, True, 17000, 0.25, 0.5, 0.25])
 
-    LineLoad.Moment(LineLoad, 5, 3, '5',
+    LineLoad.Moment(5, 3, '5',
                      load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2,
                      load_parameter=[True, True, 5000, 7500, 0.4, 0.5])
 
-    LineLoad.Moment(LineLoad, 6, 3, '6',
+    LineLoad.Moment(6, 3, '6',
                      load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING,
                      load_parameter=[[0.2, 0.1, 200], [0.5, 0.2, 200]])
 
@@ -137,7 +137,7 @@ def test_line_loads():
     #                  load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_TAPERED,
     #                  load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
 
-    LineLoad.Moment(LineLoad, 9, 3, '9',
+    LineLoad.Moment(9, 3, '9',
                      load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC,
                      load_parameter=[750, 1000, 2500])
 
@@ -150,11 +150,11 @@ def test_line_loads():
 
     LoadCase(4 , 'TYPE: Mass')
 
-    LineLoad.Mass(LineLoad, 1, 4, '1',
+    LineLoad.Mass(1, 4, '1',
                      individual_mass_components= False,
                      mass_components= [10])
 
-    LineLoad.Mass(LineLoad, 2, 4, '2',
+    LineLoad.Mass(2, 4, '2',
                      individual_mass_components=True,
                      mass_components=[1000,1000,10000])
 

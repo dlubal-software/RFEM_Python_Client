@@ -43,7 +43,8 @@ class Solid():
         # Add Surface to client model
         Model.clientModel.service.set_solid(clientObject)
 
-    def Standard(self,
+    @staticmethod
+    def Standard(
                  no: int = 1,
                  boundary_surfaces_no: str = '1 2',
                  material_no: int = 1,
@@ -87,7 +88,8 @@ class Solid():
         # Add Surface to client model
         Model.clientModel.service.set_solid(clientObject)
 
-    def Gas(self,
+    @staticmethod
+    def Gas(
                  no: int = 1,
                  boundary_surfaces_no: str = '1 2',
                  material_no: int = 1,
@@ -131,7 +133,8 @@ class Solid():
         # Add Surface to client model
         Model.clientModel.service.set_solid(clientObject)
 
-    def Contact(self,
+    @staticmethod
+    def Contact(
                  no: int = 1,
                  boundary_surfaces_no: str = '1 2',
                  material_no: int = 1,
@@ -175,7 +178,8 @@ class Solid():
         # Add Surface to client model
         Model.clientModel.service.set_solid(clientObject)
 
-    def Soil(self,
+    @staticmethod
+    def Soil(
              no: int = 1,
              boundary_surfaces_no: str = '1 2',
              material_no: int = 1,

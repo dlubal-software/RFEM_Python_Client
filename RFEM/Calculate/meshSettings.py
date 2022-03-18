@@ -152,10 +152,12 @@ class MeshSettings():
         # Add Mesh Settings to client model
         Model.clientModel.service.set_mesh_settings(clientObject)
 
-    def get_mesh_settings(self):
+    @staticmethod
+    def get_mesh_settings():
         return Model.clientModel.service.get_mesh_settings()
 
-    def set_mesh_settings(self, all_settings):
+    @staticmethod
+    def set_mesh_settings(all_settings):
         new_sett = {}
 
         for i in all_settings:
@@ -167,5 +169,6 @@ class MeshSettings():
 
         Model.clientModel.service.set_mesh_settings(new_sett)
 
-    def get_model_info(self):
+    @staticmethod
+    def get_model_info():
         return Model.clientModel.service.get_model_info()

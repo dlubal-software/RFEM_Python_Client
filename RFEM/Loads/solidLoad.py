@@ -51,7 +51,8 @@ class SolidLoad():
         # Add Solid Load to client model
         Model.clientModel.service.set_solid_load(load_case_no, clientObject)
 
-    def Force(self,
+    @staticmethod
+    def Force(
               no: int =1,
               load_case_no: int = 1,
               solids_no: str= '1',
@@ -97,7 +98,8 @@ class SolidLoad():
         # Add Solid Load to client model
         Model.clientModel.service.set_solid_load(load_case_no, clientObject)
 
-    def Temperature(self,
+    @staticmethod
+    def Temperature(
                     no: int = 1,
                     load_case_no: int = 1,
                     solids_no: str= '1',
@@ -153,7 +155,8 @@ class SolidLoad():
         # Add Solid Load to client model
         Model.clientModel.service.set_solid_load(load_case_no, clientObject)
 
-    def Strain(self,
+    @staticmethod
+    def Strain(
                no: int = 1,
                load_case_no: int = 1,
                solids_no: str= '1',
@@ -215,7 +218,8 @@ class SolidLoad():
         # Add Solid Load to client model
         Model.clientModel.service.set_solid_load(load_case_no, clientObject)
 
-    def Motion(self,
+    @staticmethod
+    def Motion(
                no: int = 1,
                load_case_no: int = 1,
                solids_no: str= '1',

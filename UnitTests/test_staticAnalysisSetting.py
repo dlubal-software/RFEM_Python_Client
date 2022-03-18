@@ -20,11 +20,11 @@ def test_StaticAnalysisSettings():
 
     # Set Static Analysis Settings
     StaticAnalysisSettings(1, 'Geometrisch-linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    StaticAnalysisSettings.GeometricallyLinear(0,2,'Geometric-linear',[True, 1.5, True],True,True,
+    StaticAnalysisSettings.GeometricallyLinear(2,'Geometric-linear',[True, 1.5, True],True,True,
                                                StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_ITERATIVE,
                                                StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_KIRCHHOFF,[True,0,0,2.0])
-    StaticAnalysisSettings.LargeDeformation(0,3,standard_precision_and_tolerance_settings = [True, 0.02, 0.02, 2.0])
-    StaticAnalysisSettings.SecondOrderPDelta(0,4)
+    StaticAnalysisSettings.LargeDeformation(3,standard_precision_and_tolerance_settings = [True, 0.02, 0.02, 2.0])
+    StaticAnalysisSettings.SecondOrderPDelta(4)
 
     Model.clientModel.service.finish_modification()
 

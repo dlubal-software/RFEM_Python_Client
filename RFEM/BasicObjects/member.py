@@ -70,7 +70,8 @@ class Member():
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def Beam(self,
+    @staticmethod
+    def Beam(
             no: int = 1,
             start_node_no: int = 1,
             end_node_no: int = 2,
@@ -329,7 +330,8 @@ class Member():
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def Rigid(self,
+    @staticmethod
+    def Rigid(
                 no: int = 1,
                 start_node_no: int = 1,
                 end_node_no: int = 2,
@@ -429,8 +431,9 @@ class Member():
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-## Rib Member should be corrected.
-    def Rib(self,
+	## Rib Member should be corrected.
+    @staticmethod
+    def Rib(
             no: int = 1,
             start_node_no: int = 1,
             end_node_no: int = 2,
@@ -555,7 +558,8 @@ class Member():
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def Truss(self,
+    @staticmethod
+    def Truss(
             no: int = 1,
             start_node_no: int = 1,
             end_node_no: int = 2,
@@ -669,7 +673,8 @@ class Member():
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def TrussOnlyN(self,
+    @staticmethod
+    def TrussOnlyN(
             no: int = 1,
             start_node_no: int = 1,
             end_node_no: int = 2,
@@ -783,7 +788,8 @@ class Member():
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def Tension(self,
+    @staticmethod
+    def Tension(
             no: int = 1,
             start_node_no: int = 1,
             end_node_no: int = 2,
@@ -897,7 +903,8 @@ class Member():
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def Compression(self,
+    @staticmethod
+    def Compression(
             no: int = 1,
             start_node_no: int = 1,
             end_node_no: int = 2,
@@ -1011,7 +1018,8 @@ class Member():
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def Buckling(self,
+    @staticmethod
+    def Buckling(
             no: int = 1,
             start_node_no: int = 1,
             end_node_no: int = 2,
@@ -1125,7 +1133,8 @@ class Member():
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def Cable(self,
+    @staticmethod
+    def Cable(
             no: int = 1,
             start_node_no: int = 1,
             end_node_no: int = 2,
@@ -1228,7 +1237,8 @@ class Member():
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def ResultBeam(self,
+    @staticmethod
+    def ResultBeam(
             no: int = 1,
             start_node_no: int = 1,
             end_node_no: int = 2,
@@ -1482,7 +1492,8 @@ class Member():
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def DefinableStiffness(self,
+    @staticmethod
+    def DefinableStiffness(
             no: int = 1,
             start_node_no: int = 1,
             end_node_no: int = 2,
@@ -1587,7 +1598,8 @@ class Member():
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def CouplingRigidRigid(self,
+    @staticmethod
+    def CouplingRigidRigid(
                         no: int = 1,
                         start_node_no: int = 1,
                         end_node_no: int = 2,
@@ -1662,7 +1674,8 @@ class Member():
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def CouplingRigidHinge(self,
+    @staticmethod
+    def CouplingRigidHinge(
                         no: int = 1,
                         start_node_no: int = 1,
                         end_node_no: int = 2,
@@ -1737,7 +1750,8 @@ class Member():
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def CouplingHingeRigid(self,
+    @staticmethod
+    def CouplingHingeRigid(
                         no: int = 1,
                         start_node_no: int = 1,
                         end_node_no: int = 2,
@@ -1812,7 +1826,8 @@ class Member():
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def CouplingHingeHinge(self,
+    @staticmethod
+    def CouplingHingeHinge(
                         no: int = 1,
                         start_node_no: int = 1,
                         end_node_no: int = 2,

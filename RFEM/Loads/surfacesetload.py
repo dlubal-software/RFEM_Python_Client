@@ -55,7 +55,8 @@ class SurfaceSetLoad():
         # Add Surface Load to client model
         Model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
 
-    def Force(self,
+    @staticmethod
+    def Force(
                  no: int = 1,
                  load_case_no: int = 1,
                  surface_sets: str = '1',
@@ -182,7 +183,8 @@ class SurfaceSetLoad():
         # Add Surface Load to client model
         Model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
 
-    def Temperature(self,
+    @staticmethod
+    def Temperature(
                  no: int = 1,
                  load_case_no: int = 1,
                  surface_sets: str = '1',
@@ -292,7 +294,8 @@ class SurfaceSetLoad():
         # Add Surface Load to client model
         Model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
 
-    def AxialStrain(self,
+    @staticmethod
+    def AxialStrain(
                  no: int = 1,
                  load_case_no: int = 1,
                  surface_sets: str = '1',
@@ -379,7 +382,8 @@ class SurfaceSetLoad():
         # Add Surface Load to client model
         Model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
 
-    def Precamber(self,
+    @staticmethod
+    def Precamber(
                  no: int = 1,
                  load_case_no: int = 1,
                  surface_sets: str = '1',
@@ -431,7 +435,8 @@ class SurfaceSetLoad():
         # Add Surface Load to client model
         Model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
 
-    def RotaryMotion(self,
+    @staticmethod
+    def RotaryMotion(
                  no: int = 1,
                  load_case_no: int = 1,
                  surface_sets: str = '1',
@@ -499,7 +504,8 @@ class SurfaceSetLoad():
         # Add Surface Load to client model
         Model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
 
-    def Mass(self,
+    @staticmethod
+    def Mass(
                  no: int = 1,
                  load_case_no: int = 1,
                  surface_sets: str = '1',

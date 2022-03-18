@@ -43,7 +43,8 @@ class MemberSet():
         # Add Member Set to client model
         Model.clientModel.service.set_member_set(clientObject)
 
-    def ContinuousMembers(self,
+    @staticmethod
+    def ContinuousMembers(
                           no: int = 1,
                           members_no: str = '1 4 5 8 9 12 13 16 17 20 21 24',
                           comment: str = '',
@@ -82,7 +83,8 @@ class MemberSet():
         # Add Member Set to client model
         Model.clientModel.service.set_member_set(clientObject)
 
-    def GroupOfmembers(self,
+    @staticmethod
+    def GroupOfmembers(
                        no: int = 1,
                        members_no: str = '1 4 5 8 9 12 13 16 17 20 21 24',
                        comment: str = '',

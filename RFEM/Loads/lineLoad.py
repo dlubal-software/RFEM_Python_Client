@@ -62,7 +62,8 @@ class LineLoad():
         # Add Load Line Load to client model
         Model.clientModel.service.set_line_load(load_case_no, clientObject)
 
-    def Force(self,
+    @staticmethod
+    def Force(
                 no: int = 1,
                 load_case_no: int = 1,
                 lines_no: str = '1',
@@ -314,7 +315,8 @@ class LineLoad():
         # Add Load Line Load to client model
         Model.clientModel.service.set_line_load(load_case_no, clientObject)
 
-    def Moment(self,
+    @staticmethod
+    def Moment(
                  no: int = 1,
                  load_case_no: int = 1,
                  lines_no: str = '1',
@@ -564,7 +566,8 @@ class LineLoad():
         # Add Load Line Load to client model
         Model.clientModel.service.set_line_load(load_case_no, clientObject)
 
-    def Mass(self,
+    @staticmethod
+    def Mass(
                 no: int = 1,
                 load_case_no: int = 1,
                 lines_no: str = '1',

@@ -1,5 +1,75 @@
 from RFEM.enums import SurfaceGeometry, SurfaceLoadDistributionDirection, SurfaceType
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+
+def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_type, geometry_type_parameters, thickness = None, comment = None, params = None):
+    '''
+        Args:
+            no (int): Surface Tag
+            surface_type (enum): Surface Type Enumeration
+            boundary_lines_no (str): Tags of Lines defining Standard Surface
+            geometry_type (enum): Geometry Type Enumeration
+            geometry_type_parameters (list): Geometry Type Parameters
+                for geometry_type == SurfaceGeometry.GEOMETRY_NURBS:
+                    geometry_type_parameters = [nurbs_control_point_count_in_direction_u, nurbs_control_point_count_in_direction_v, nurbs_order_in_direction_u, nurbs_order_in_direction_v]
+                for geometry_type == SurfaceGeometry.GEOMETRY_PLANE:
+                    geometry_type_parameters = None
+                for geometry_type == SurfaceGeometry.GEOMETRY_QUADRANGLE:
+                    geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
+            thickness (int): Tag of Thickness assigned to Standard Surface
+            comment (str, optional): Comments
+            params (dict, optional): Parameters
+        '''
+    # Client model | Surface
+    clientObject = Model.clientModel.factory.create('ns0:surface')
+
+    # Clears object atributes | Sets all atributes to None
+    clearAtributes(clientObject)
+
+    # Surface No.
+    clientObject.no = no
+
+    # Surface Type
+    clientObject.type = surface_type.name
+
+    # Geometry Type
+    boundary_lines_list = boundary_lines_no.split(sep= ' ')
+    if geometry_type.name == 'GEOMETRY_NURBS':
+        if len(geometry_type_parameters) != 4:
+            raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
+        for line in boundary_lines_list:
+            if Model.clientModel.service.get_line(int(line))['type'] != 'TYPE_NURBS':
+                raise Exception('WARNING: For a NURBS Surface, the boundary lines need to be NURBS Curves')
+        clientObject.nurbs_control_point_count_in_direction_u = geometry_type_parameters[0]
+        clientObject.nurbs_control_point_count_in_direction_v = geometry_type_parameters[1]
+        clientObject.nurbs_order_in_direction_u = geometry_type_parameters[2]
+        clientObject.nurbs_order_in_direction_v = geometry_type_parameters[3]
+    elif geometry_type.name == 'GEOMETRY_PLANE':
+        geometry_type_parameters = None
+    elif geometry_type.name == 'GEOMETRY_QUADRANGLE':
+        if len(geometry_type_parameters) != 4:
+            raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
+        clientObject.quadrangle_corner_node_1 = geometry_type_parameters[0]
+        clientObject.quadrangle_corner_node_2 = geometry_type_parameters[1]
+        clientObject.quadrangle_corner_node_3 = geometry_type_parameters[2]
+        clientObject.quadrangle_corner_node_4 = geometry_type_parameters[3]
+    clientObject.geometry = geometry_type.name
+
+    # Lines No. (e.g. "5 7 8 12")
+    clientObject.boundary_lines = ConvertToDlString(boundary_lines_no)
+
+    # Thickness
+    if type == 'TYPE_STANDARD'or type == 'TYPE_MEMBRANE' or type == 'TYPE_WITHOUT_MEMBRANE_TENSION':
+        clientObject.thickness = thickness
+
+    # Comment
+    clientObject.comment = comment
+
+    # Adding optional parameters via dictionary
+    for key in params:
+        clientObject[key] = params[key]
+
+    # Add Surface to client model
+    Model.clientModel.service.set_surface(clientObject)
 
 class Surface():
     def __init__(self,
@@ -43,7 +113,8 @@ class Surface():
         # Add Surface to client model
         Model.clientModel.service.set_surface(clientObject)
 
-    def Standard(self,
+    @staticmethod
+    def Standard(
                  no: int = 1,
                  geometry_type = SurfaceGeometry.GEOMETRY_PLANE,
                  geometry_type_parameters = None,
@@ -69,30 +140,10 @@ class Surface():
             params (dict, optional): Parameters
         '''
 
-        # Client model | Surface
-        clientObject = Model.clientModel.factory.create('ns0:surface')
+        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_STANDARD, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params)
 
-        # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
-
-        # Surface No.
-        clientObject.no = no
-
-        # Surface Type
-        clientObject.type = SurfaceType.TYPE_STANDARD.name
-
-        # Reptitive code between various functions migrated to a private method
-        self.type = SurfaceType.TYPE_STANDARD.name
-        self.boundary_lines_no = boundary_lines_no
-        self.geometry_type = geometry_type
-        self.geometry_type_parameters = geometry_type_parameters
-        self.thickness = thickness
-        self.comment = comment
-        self.params = params
-        self.clientObject = clientObject
-        self.__CreateGeometryAndSetToModel(self)
-
-    def WithoutThickness(self,
+    @staticmethod
+    def WithoutThickness(
                  no: int = 1,
                  geometry_type = SurfaceGeometry.GEOMETRY_PLANE,
                  geometry_type_parameters = None,
@@ -116,29 +167,10 @@ class Surface():
             params (dict, optional): Parameters
         '''
 
-        # Client model | Surface
-        clientObject = Model.clientModel.factory.create('ns0:surface')
+        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, comment=comment, params=params)
 
-        # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
-
-        # Surface No.
-        clientObject.no = no
-
-        # Surface Type
-        clientObject.type = SurfaceType.TYPE_WITHOUT_THICKNESS.name
-
-        # Reptitive code between various functions migrated to a private method
-        self.type = SurfaceType.TYPE_WITHOUT_THICKNESS.name
-        self.boundary_lines_no = boundary_lines_no
-        self.geometry_type = geometry_type
-        self.geometry_type_parameters = geometry_type_parameters
-        self.comment = comment
-        self.params = params
-        self.clientObject = clientObject
-        self.__CreateGeometryAndSetToModel(self)
-
-    def Rigid(self,
+    @staticmethod
+    def Rigid(
                  no: int = 1,
                  geometry_type = SurfaceGeometry.GEOMETRY_PLANE,
                  geometry_type_parameters = None,
@@ -162,29 +194,10 @@ class Surface():
             params (dict, optional): Parameters
         '''
 
-        # Client model | Surface
-        clientObject = Model.clientModel.factory.create('ns0:surface')
+        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_RIGID, boundary_lines_no, geometry_type, geometry_type_parameters, comment=comment, params=params)
 
-        # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
-
-        # Surface No.
-        clientObject.no = no
-
-        # Surface Type
-        clientObject.type = SurfaceType.TYPE_RIGID.name
-
-        # Reptitive code between various functions migrated to a private method
-        self.type = SurfaceType.TYPE_RIGID.name
-        self.boundary_lines_no = boundary_lines_no
-        self.geometry_type = geometry_type
-        self.geometry_type_parameters = geometry_type_parameters
-        self.comment = comment
-        self.params = params
-        self.clientObject = clientObject
-        self.__CreateGeometryAndSetToModel(self)
-
-    def Membrane(self,
+    @staticmethod
+    def Membrane(
                  no: int = 1,
                  geometry_type = SurfaceGeometry.GEOMETRY_PLANE,
                  geometry_type_parameters = None,
@@ -210,30 +223,10 @@ class Surface():
             params (dict, optional): Parameters
         '''
 
-        # Client model | Surface
-        clientObject = Model.clientModel.factory.create('ns0:surface')
+        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params)
 
-        # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
-
-        # Surface No.
-        clientObject.no = no
-
-        # Surface Type
-        clientObject.type = SurfaceType.TYPE_MEMBRANE.name
-
-        # Reptitive code between various functions migrated to a private method
-        self.type = SurfaceType.TYPE_MEMBRANE.name
-        self.boundary_lines_no = boundary_lines_no
-        self.geometry_type = geometry_type
-        self.geometry_type_parameters = geometry_type_parameters
-        self.thickness = thickness
-        self.comment = comment
-        self.params = params
-        self.clientObject = clientObject
-        self.__CreateGeometryAndSetToModel(self)
-
-    def WithoutMemberaneTension(self,
+    @staticmethod
+    def WithoutMemberaneTension(
                  no: int = 1,
                  geometry_type = SurfaceGeometry.GEOMETRY_PLANE,
                  geometry_type_parameters = None,
@@ -259,30 +252,10 @@ class Surface():
             params (dict, optional): Parameters
         '''
 
-        # Client model | Surface
-        clientObject = Model.clientModel.factory.create('ns0:surface')
+        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params)
 
-        # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
-
-        # Surface No.
-        clientObject.no = no
-
-        # Surface Type
-        clientObject.type = SurfaceType.TYPE_WITHOUT_MEMBRANE_TENSION.name
-
-        # Reptitive code between various functions migrated to a private method
-        self.type = SurfaceType.TYPE_WITHOUT_MEMBRANE_TENSION.name
-        self.boundary_lines_no = boundary_lines_no
-        self.geometry_type = geometry_type
-        self.geometry_type_parameters = geometry_type_parameters
-        self.thickness = thickness
-        self.comment = comment
-        self.params = params
-        self.clientObject = clientObject
-        self.__CreateGeometryAndSetToModel(self)
-
-    def LoadDistribution(self,
+    @staticmethod
+    def LoadDistribution(
                  no: int = 1,
                  boundary_lines_no: str = '1 2 3 4',
                  load_transfer_direction = SurfaceLoadDistributionDirection.LOAD_TRANSFER_DIRECTION_IN_X,
@@ -364,49 +337,3 @@ class Surface():
 
         # Add Surface to client model
         Model.clientModel.service.set_surface(clientObject)
-
-    def __CreateGeometryAndSetToModel(self):
-
-        # Geometry Type
-        boundary_lines_list = self.boundary_lines_no.split(sep= ' ')
-
-        if self.geometry_type.name == 'GEOMETRY_NURBS':
-            if len(self.geometry_type_parameters) != 4:
-                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
-            for line in boundary_lines_list:
-                if Model.clientModel.service.get_line(int(line))['type'] != 'TYPE_NURBS':
-                    raise Exception('WARNING: For a NURBS Surface, the boundary lines need to be NURBS Curves')
-            self.clientObject.nurbs_control_point_count_in_direction_u = self.geometry_type_parameters[0]
-            self.clientObject.nurbs_control_point_count_in_direction_v = self.geometry_type_parameters[1]
-            self.clientObject.nurbs_order_in_direction_u = self.geometry_type_parameters[2]
-            self.clientObject.nurbs_order_in_direction_v = self.geometry_type_parameters[3]
-
-        elif self.geometry_type.name == 'GEOMETRY_PLANE':
-            self.geometry_type_parameters = None
-
-        elif self.geometry_type.name == 'GEOMETRY_QUADRANGLE':
-            if len(self.geometry_type_parameters) != 4:
-                raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
-            self.clientObject.quadrangle_corner_node_1 = self.geometry_type_parameters[0]
-            self.clientObject.quadrangle_corner_node_2 = self.geometry_type_parameters[1]
-            self.clientObject.quadrangle_corner_node_3 = self.geometry_type_parameters[2]
-            self.clientObject.quadrangle_corner_node_4 = self.geometry_type_parameters[3]
-
-        self.clientObject.geometry = self.geometry_type.name
-
-        # Lines No. (e.g. "5 7 8 12")
-        self.clientObject.boundary_lines = ConvertToDlString(self.boundary_lines_no)
-
-        # Thickness
-        if self.type == 'TYPE_STANDARD'or self.type == 'TYPE_MEMBRANE' or self.type == 'TYPE_WITHOUT_MEMBRANE_TENSION':
-            self.clientObject.thickness = self.thickness
-
-        # Comment
-        self.clientObject.comment = self.comment
-
-        # Adding optional parameters via dictionary
-        for key in self.params:
-            self.clientObject[key] = self.params[key]
-
-        # Add Surface to client model
-        Model.clientModel.service.set_surface(self.clientObject)

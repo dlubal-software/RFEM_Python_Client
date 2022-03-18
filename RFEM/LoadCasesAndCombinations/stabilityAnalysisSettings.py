@@ -53,7 +53,8 @@ class StabilityAnalysisSettings():
         # Add Stability Analysis Settings to client model
         Model.clientModel.service.set_stability_analysis_settings(clientObject)
 
-    def EigenvalueMethod(self,
+    @staticmethod
+    def EigenvalueMethod(
                  no: int = 1,
                  name: str = None,
                  number_of_lowest_eigenvalues: int = 4,
@@ -146,7 +147,8 @@ class StabilityAnalysisSettings():
         # Add Stability Analysis Settings to client model
         Model.clientModel.service.set_stability_analysis_settings(clientObject)
 
-    def IncrementalyMethodWithEigenvalue(self,
+    @staticmethod
+    def IncrementalyMethodWithEigenvalue(
                  no: int = 1,
                  name: str = None,
                  number_of_lowest_eigenvalues: int = 4,
@@ -286,7 +288,8 @@ class StabilityAnalysisSettings():
         # Add Stability Analysis Settings to client model
         Model.clientModel.service.set_stability_analysis_settings(clientObject)
 
-    def IncrementalyMethodWithoutEigenvalue(self,
+    @staticmethod
+    def IncrementalyMethodWithoutEigenvalue(
                  no: int = 1,
                  name: str = None,
                  minimum_initial_strain = 1e-05,

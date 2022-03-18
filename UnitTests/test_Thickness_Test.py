@@ -29,7 +29,7 @@ def test_thickness():
     Thickness()
 
     # Constant
-    Thickness.Uniform(Thickness,
+    Thickness.Uniform(
                      no= 2,
                      name= 'Constant',
                      properties= [0.2],
@@ -39,7 +39,7 @@ def test_thickness():
     Node(1, 5, 5, 0)
     Node(2, 5, 10, 0)
     Node(3, 10, 7.5, 0)
-    Thickness.Variable_3Nodes(Thickness,
+    Thickness.Variable_3Nodes(
                      no= 3,
                      name= 'Variable - 3 Nodes',
                      properties= [0.1, 1, 0.25, 2, 0.45, 3],
@@ -48,7 +48,7 @@ def test_thickness():
     # Variable - 2 Nodes and Direction
     Node(4, 20, -10, 0)
     Node(5, 20, 0, -5)
-    Thickness.Variable_2NodesAndDirection(Thickness,
+    Thickness.Variable_2NodesAndDirection(
                      no= 4,
                      name= 'Variable - 2 Nodes and Direction',
                      properties= [0.32, 4, 0.45, 5, ThicknessDirection.THICKNESS_DIRECTION_IN_Z],
@@ -59,14 +59,14 @@ def test_thickness():
     Node(7, 5, -25, 0)
     Node(8, 10, -25, 0)
     Node(9, 10, -20, 0)
-    Thickness.Variable_4SurfaceCorners(Thickness,
+    Thickness.Variable_4SurfaceCorners(
                      no= 5,
                      name= 'Variable - 4 Surface Corners',
                      properties= [0.15, 6, 0.25, 7, 0.32, 8, 0.15, 9],
                      comment= 'Comment')
 
     # Variable - Circle
-    Thickness.Variable_Circle(Thickness,
+    Thickness.Variable_Circle(
                      no= 6,
                      name= 'Variable - Circle',
                      properties= [0.1, 0.5],
@@ -74,7 +74,7 @@ def test_thickness():
 
     # Layers
     """ skipped
-    Thickness.Layers(Thickness,
+    Thickness.Layers(
                      no= 7,
                      name= 'Layers',
                      layers= [[1, 1, 0.123, 0, 'Schicht 1'],
@@ -83,7 +83,7 @@ def test_thickness():
     """
 
     # Shape Orthotropy
-    Thickness.ShapeOrthotropy(Thickness,
+    Thickness.ShapeOrthotropy(
                      no= 8,
                      name= 'Shape Orthotropy',
                      orthotropy_type= ThicknessOrthotropyType.HOLLOW_CORE_SLAB,
@@ -93,7 +93,7 @@ def test_thickness():
                      comment= 'Comment')
 
     # Stiffness Matrix
-    Thickness.StiffnessMatrix(Thickness,
+    Thickness.StiffnessMatrix(
                      no= 9,
                      name= 'Stiffness Matrix',
                      rotation_beta= 90,

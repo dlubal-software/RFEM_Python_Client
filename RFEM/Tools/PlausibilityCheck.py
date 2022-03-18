@@ -19,7 +19,7 @@ class PlausibilityCheck():
 
     def IsModelOK(self):
 
-        return self.checkresult == PlausibilityCheckResult.CHECK_IS_OK.name
+        return self.checkresult
 
     def GetErrorMessage(self):
 

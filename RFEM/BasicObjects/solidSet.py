@@ -43,7 +43,8 @@ class SolidSet():
         # Add Solid Set to client model
         Model.clientModel.service.set_solid_set(clientObject)
 
-    def ContinuousSolids(self,
+    @staticmethod
+    def ContinuousSolids(
                  no: int = 1,
                  solids_no: str = '1 2',
                  comment: str = '',
@@ -82,7 +83,8 @@ class SolidSet():
         # Add Solid Set to client model
         Model.clientModel.service.set_solid_set(clientObject)
 
-    def GroupOfSolids(self,
+    @staticmethod
+    def GroupOfSolids(
                  no: int = 1,
                  solids_no: str = '1 2',
                  comment: str = '',

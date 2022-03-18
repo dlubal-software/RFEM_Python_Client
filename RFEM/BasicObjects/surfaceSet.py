@@ -43,7 +43,8 @@ class SurfaceSet():
         # Add Surface Set to client model
         Model.clientModel.service.set_surface_set(clientObject)
 
-    def ContinuousSurfaces(self,
+    @staticmethod
+    def ContinuousSurfaces(
                  no: int = 1,
                  surfaces_no: str = '2 4 7',
                  comment: str = '',
@@ -83,7 +84,8 @@ class SurfaceSet():
         # Add Surface Set to client model
         Model.clientModel.service.set_surface_set(clientObject)
 
-    def GroupOfSurfaces(self,
+    @staticmethod
+    def GroupOfSurfaces(
                  no: int = 1,
                  surfaces_no: str = '2 4 7',
                  comment: str = '',

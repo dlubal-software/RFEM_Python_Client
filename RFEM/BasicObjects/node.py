@@ -46,7 +46,8 @@ class Node():
         # Add Node to client model
         Model.clientModel.service.set_node(clientObject)
 
-    def Standard(self,
+    @staticmethod
+    def Standard(
                  no: int = 1,
                  coordinate_system = [],
                  coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN,
@@ -135,7 +136,8 @@ class Node():
         Model.clientModel.service.set_node(clientObject)
 
 
-    def BetweenTwoNodes(self,
+    @staticmethod
+    def BetweenTwoNodes(
                  no: int = 1,
                  start_node_no: int = 1,
                  end_node_no: int = 2,
@@ -211,7 +213,8 @@ class Node():
         # Add Node to client model
         Model.clientModel.service.set_node(clientObject)
 
-    def BetweenTwoPoints(self,
+    @staticmethod
+    def BetweenTwoPoints(
                  no: int = 1,
                  start_point_x: float = 0.0,
                  start_point_y: float = 0.0,
@@ -294,7 +297,8 @@ class Node():
         # Add Node to client model
         Model.clientModel.service.set_node(clientObject)
 
-    def OnLine(self,
+    @staticmethod
+    def OnLine(
                  no: int = 1,
                  line_number: int = 1,
                  node_reference = NodeReferenceType.REFERENCE_TYPE_L,
@@ -354,7 +358,8 @@ class Node():
         # Add Node to client model
         Model.clientModel.service.set_node(clientObject)
 
-    def OnMember(self,
+    @staticmethod
+    def OnMember(
                  no: int = 1,
                  member_number: int = 1,
                  node_reference = NodeReferenceType.REFERENCE_TYPE_L,

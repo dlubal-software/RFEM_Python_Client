@@ -57,7 +57,8 @@ class Thickness():
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
 
-    def Uniform(self,
+    @staticmethod
+    def Uniform(
                  no: int = 1,
                  name: str = None,
                  material_no: int = 1,
@@ -110,7 +111,8 @@ class Thickness():
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
 
-    def Variable_3Nodes(self,
+    @staticmethod
+    def Variable_3Nodes(
                  no: int = 1,
                  name: str = None,
                  material_no: int = 1,
@@ -171,7 +173,8 @@ class Thickness():
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
 
-    def Variable_2NodesAndDirection(self,
+    @staticmethod
+    def Variable_2NodesAndDirection(
                  no: int = 1,
                  name: str = None,
                  material_no: int = 1,
@@ -230,7 +233,8 @@ class Thickness():
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
 
-    def Variable_4SurfaceCorners(self,
+    @staticmethod
+    def Variable_4SurfaceCorners(
                  no: int = 1,
                  name: str = None,
                  material_no: int = 1,
@@ -294,7 +298,8 @@ class Thickness():
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
 
-    def Variable_Circle(self,
+    @staticmethod
+    def Variable_Circle(
                  no: int = 1,
                  name: str = None,
                  material_no: int = 1,
@@ -351,7 +356,8 @@ class Thickness():
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
 
-    def Layers(self,
+    @staticmethod
+    def Layers(
                  no: int = 1,
                  name: str = None,
                  layers = [[0, 1, 200, 0.0, '']],
@@ -421,7 +427,8 @@ class Thickness():
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
 
-    def ShapeOrthotropy(self,
+    @staticmethod
+    def ShapeOrthotropy(
                  no: int = 1,
                  name: str = None,
                  material_no: int = 1,
@@ -562,7 +569,8 @@ class Thickness():
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
 
-    def StiffnessMatrix(self,
+    @staticmethod
+    def StiffnessMatrix(
                  no: int = 1,
                  name: str = None,
                  material_no: int = 1,

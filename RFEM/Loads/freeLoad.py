@@ -7,7 +7,8 @@ from math import pi
 
 class FreeLoad():
 
-    def ConcentratedLoad(self,
+    @staticmethod
+    def ConcentratedLoad(
                  no: int = 1,
                  load_case_no: int = 1,
                  surfaces_no = '1',
@@ -78,7 +79,8 @@ class FreeLoad():
         # Add Free Concentrated Load to client model
         Model.clientModel.service.set_free_concentrated_load(load_case_no, clientObject)
 
-    def LineLoad(self,
+    @staticmethod
+    def LineLoad(
                  no: int = 1,
                  load_case_no: int = 1,
                  surfaces_no = '1',
@@ -159,7 +161,8 @@ class FreeLoad():
         # Add Free Concentrated Load to client model
         Model.clientModel.service.set_free_line_load(load_case_no, clientObject)
 
-    def RectangularLoad(self,
+    @staticmethod
+    def RectangularLoad(
                  no: int = 1,
                  load_case_no: int = 1,
                  surfaces_no = '1',
@@ -430,7 +433,8 @@ class FreeLoad():
         # Add Free Concentrated Load to client model
         Model.clientModel.service.set_free_rectangular_load(load_case_no, clientObject)
 
-    def CircularLoad(self,
+    @staticmethod
+    def CircularLoad(
                  no: int = 1,
                  load_case_no: int = 1,
                  surfaces_no = '1',
@@ -510,7 +514,8 @@ class FreeLoad():
         # Add Free Concentrated Load to client model
         Model.clientModel.service.set_free_circular_load(load_case_no, clientObject)
 
-    def PolygonLoad(self,
+    @staticmethod
+    def PolygonLoad(
                  no: int = 1,
                  load_case_no: int = 1,
                  surfaces_no = '1',

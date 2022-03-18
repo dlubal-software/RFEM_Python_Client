@@ -73,7 +73,8 @@ class LoadCase():
         # Add Load Case to client model
         Model.clientModel.service.set_load_case(clientObject)
 
-    def StaticAnalysis(self,
+    @staticmethod
+    def StaticAnalysis(
                  no: int = 1,
                  name: str = 'Self-weight',
                  to_solve: bool = True,

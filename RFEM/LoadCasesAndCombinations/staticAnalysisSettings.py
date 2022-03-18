@@ -44,7 +44,8 @@ class StaticAnalysisSettings():
         # Add Static Analysis Settings to client model
         Model.clientModel.service.set_static_analysis_settings(clientObject)
 
-    def GeometricallyLinear(self,
+    @staticmethod
+    def GeometricallyLinear(
                   no: int = 1,
                   name: str = None,
                   load_modification = [False, 1, False],
@@ -128,7 +129,8 @@ class StaticAnalysisSettings():
         # Add Static Analysis Settings to client model
         Model.clientModel.service.set_static_analysis_settings(clientObject)
 
-    def LargeDeformation(self,
+    @staticmethod
+    def LargeDeformation(
                   no: int = 1,
                   name: str = None,
                   iterative_method = StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis.NEWTON_RAPHSON,
@@ -249,7 +251,8 @@ class StaticAnalysisSettings():
         # Add Static Analysis Settings to client model
         Model.clientModel.service.set_static_analysis_settings(clientObject)
 
-    def SecondOrderPDelta(self,
+    @staticmethod
+    def SecondOrderPDelta(
                   no: int = 1,
                   name: str = None,
                   iterative_method = StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis.NEWTON_RAPHSON,

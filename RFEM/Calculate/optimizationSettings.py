@@ -30,8 +30,10 @@ class OptimizationSettings():
         # Set Optimization settings to client model
         Model.clientModel.service.set_optimization_settings(opt_settings)
 
-    def get_optimization_settings(self):
+    @staticmethod
+    def get_optimization_settings():
         return Model.clientModel.service.get_optimization_settings()
 
-    def set_optimization_settings(self, opt_settings):
+    @staticmethod
+    def set_optimization_settings(opt_settings):
         Model.clientModel.service.set_optimization_settings(opt_settings)

@@ -43,7 +43,8 @@ class LineSet():
         # Add Line Set to client model
         Model.clientModel.service.set_line_set(clientObject)
 
-    def ContinuousLines(self,
+    @staticmethod
+    def ContinuousLines(
                  no: int = 1,
                  lines_no: str = '33 36 39 42 45',
                  comment: str = '',
@@ -82,7 +83,8 @@ class LineSet():
         # Add Line Set to client model
         Model.clientModel.service.set_line_set(clientObject)
 
-    def GroupOfLines(self,
+    @staticmethod
+    def GroupOfLines(
                  no: int = 1,
                  lines_no: str = '33 36 39 42 45',
                  comment: str = '',

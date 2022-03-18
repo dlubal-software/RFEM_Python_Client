@@ -39,7 +39,8 @@ class RigidLink():
         # Add rigid link to client model
         Model.clientModel.service.set_rigid_link(clientObject)
 
-    def LineToLine(self,
+    @staticmethod
+    def LineToLine(
                  no: int = 1,
                  line_1: int = 1,
                  line_2: int = 2,
@@ -76,7 +77,8 @@ class RigidLink():
         # Add rigid link to client model
         Model.clientModel.service.set_rigid_link(clientObject)
 
-    def LineToSurface(self,
+    @staticmethod
+    def LineToSurface(
                  no: int = 1,
                  line_1: int = 1,
                  surface: int = 1,
@@ -114,7 +116,8 @@ class RigidLink():
         # Add rigid link to client model
         Model.clientModel.service.set_rigid_link(clientObject)
 
-    def Diapragm(self,
+    @staticmethod
+    def Diapragm(
                  no: int = 1,
                  nodes: str = '3 4',
                  lines: str = '6 7',
