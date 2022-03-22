@@ -352,19 +352,6 @@ class SurfaceLoadAxisDefinitionType(Enum):
     '''
     AXIS_DEFINITION_POINT_AND_AXIS, AXIS_DEFINITION_TWO_POINTS = range(2)
 
-class SurfaceLoadDirection(Enum):
-    '''
-    Surface Load Load Direction
-    '''
-    LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED, LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE,\
-    LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, LOAD_DIRECTION_LOCAL_X, LOAD_DIRECTION_LOCAL_Y, LOAD_DIRECTION_LOCAL_Z = range(9)
-
-class SurfaceLoadType(Enum):
-    '''
-    Surface Load Type
-    '''
-    LOAD_TYPE_AXIAL_STRAIN, LOAD_TYPE_FORCE, LOAD_TYPE_FORM_FINDING, LOAD_TYPE_MASS, LOAD_TYPE_PRECAMBER, LOAD_TYPE_ROTARY_MOTION, LOAD_TYPE_TEMPERATURE = range(7)
-
 class NodeType(Enum):
     '''
     Node Type | Enum
@@ -1378,3 +1365,21 @@ class SteelEffectiveLengthsMemberTypeZZ(Enum):
     '''
     MEMBER_TYPE_BEAM, MEMBER_TYPE_CANTILEVER = range(2)
 
+class SteelMemberShearPanelDefinitionType(Enum):
+    '''
+    Steel Member Shear Panel Definition Type
+    '''
+    DEFINITION_TYPE_BRACING, DEFINITION_TYPE_DEFINE_S_PROV,\
+    DEFINITION_TYPE_TRAPEZOIDAL_SHEETING, DEFINITION_TYPE_TRAPEZOIDAL_SHEETING_AND_BRACING = range(4)
+
+class SteelMemberShearPanelPositionOnSection(Enum):
+    '''
+    Steel Member Shear Panel Position On Section
+    '''
+    POSITION_DEFINE, POSITION_IN_CENTROID, POSITION_ON_LOWER_FLANGE, POSITION_ON_UPPER_FLANGE = range(4)
+
+class SteelMemberShearPanelFasteningArrangement(Enum):
+    '''
+    Steel Member Shear Panel Fastening Arrangement
+    '''
+    FASTENING_ARRANGEMENT_EVERY_RIB, FASTENING_ARRANGEMENT_EVERY_SECOND_RIB = range(2)
