@@ -849,7 +849,6 @@ class Member():
         # End Node No.
         clientObject.node_end = end_node_no
 
-        print(rotation_specification_type)
         # Member Rotation
         clientObject.rotation_specification_type = rotation_specification_type.name
         if rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
