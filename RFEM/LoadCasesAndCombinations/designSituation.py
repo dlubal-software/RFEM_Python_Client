@@ -8,7 +8,7 @@ class DesignSituation():
                  active: bool = True,
                  design_situation_type: int = 6122,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         """
         Args:
@@ -47,7 +47,7 @@ class DesignSituation():
                     6194 = SLS - Frequent,
                     6195 = SLS - Quasi-permanent.
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
 
         # Client model | Design Situation
@@ -76,8 +76,9 @@ class DesignSituation():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Design Situation to client model
         Model.clientModel.service.set_design_situation(clientObject)

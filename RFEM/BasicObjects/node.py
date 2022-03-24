@@ -11,7 +11,7 @@ class Node():
                  coordinate_Y: float = 0.0,
                  coordinate_Z: float = 0.0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
          Args:
@@ -20,7 +20,7 @@ class Node():
             coordinate_Y (float): Y-Coordinate
             coordinate_Z (float): Z-Coordinate
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
         # Client model | Node
         clientObject = Model.clientModel.factory.create('ns0:node')
@@ -40,8 +40,9 @@ class Node():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Node to client model
         Model.clientModel.service.set_node(clientObject)
@@ -52,7 +53,7 @@ class Node():
                  coordinate_system = [],
                  coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
          Args:
@@ -70,7 +71,7 @@ class Node():
                 coordinate_system = [R, θ, φ]
             coordinate_system_type (enum): Coordinate System Type Enumeration
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Node
@@ -129,8 +130,9 @@ class Node():
         # Comment
         clientObject.comment = comment
 
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Node to client model
         Model.clientModel.service.set_node(clientObject)
@@ -147,7 +149,7 @@ class Node():
                  offset_y: int = 0,
                  offset_z: int = 0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -164,7 +166,7 @@ class Node():
             offset_y (int): Offset in Y-Direction
             offset_z (int): Offset in Z-Direction
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Node
@@ -207,8 +209,9 @@ class Node():
         # Comment
         clientObject.comment = comment
 
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Node to client model
         Model.clientModel.service.set_node(clientObject)
@@ -227,7 +230,7 @@ class Node():
                  offset_y: float = 0.0,
                  offset_z: float = 0.0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -247,7 +250,7 @@ class Node():
             offset_y (int): Offset in Y-Direction
             offset_z (int): Offset in Z-Direction
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Node
@@ -291,8 +294,9 @@ class Node():
         # Comment
         clientObject.comment = comment
 
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Node to client model
         Model.clientModel.service.set_node(clientObject)
@@ -305,7 +309,7 @@ class Node():
                  length_between_i_and_j: int = 1,
                  parameters = [True, 0.5],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
          Args:
@@ -318,7 +322,7 @@ class Node():
               if distance_from_start_absolute:
                 parameters = [False, magnitude]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Node
@@ -352,8 +356,9 @@ class Node():
         # Comment
         clientObject.comment = comment
 
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Node to client model
         Model.clientModel.service.set_node(clientObject)
@@ -366,7 +371,7 @@ class Node():
                  length_between_i_and_j: int = 1,
                  parameters = [True, 0.5],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
          Args:
@@ -380,7 +385,7 @@ class Node():
               if distance_from_start_absolute:
                 parameters = [False, magnitude]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Node
@@ -414,8 +419,9 @@ class Node():
         # Comment
         clientObject.comment = comment
 
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Node to client model
         Model.clientModel.service.set_node(clientObject)

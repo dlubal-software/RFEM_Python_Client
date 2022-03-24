@@ -12,7 +12,7 @@ class Thickness():
                  material_no: int = 1,
                  uniform_thickness_d: float = 0.20,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -21,7 +21,7 @@ class Thickness():
             material_no (int): Tag of Material assigned to Thickness
             uniform_thickness_d (float): Magnitude of Thickness
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Thickness
@@ -51,8 +51,9 @@ class Thickness():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
@@ -64,7 +65,7 @@ class Thickness():
                  material_no: int = 1,
                  properties = [0.2],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -73,7 +74,7 @@ class Thickness():
             material_no (int): Tag of Material assigned to Thickness
             properties (list): Magnitude of Thickness [Thickness]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Thickness
@@ -105,8 +106,9 @@ class Thickness():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
@@ -118,7 +120,7 @@ class Thickness():
                  material_no: int = 1,
                  properties = None,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -128,7 +130,7 @@ class Thickness():
             properties (list): Properties for 3 Nodes Variable Thickness Definition
                 properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, thickness_d3, node_no_3]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Thickness
@@ -167,8 +169,9 @@ class Thickness():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
@@ -180,7 +183,7 @@ class Thickness():
                  material_no: int = 1,
                  properties = [0.18, 1, 0.18, 2, ThicknessDirection.THICKNESS_DIRECTION_IN_X],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -190,7 +193,7 @@ class Thickness():
             properties (list): Properties for 2 Nodes and Direction Variable Thickness Definition
                 properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, direction]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         '''
 
@@ -227,8 +230,9 @@ class Thickness():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
@@ -240,7 +244,7 @@ class Thickness():
                  material_no: int = 1,
                  properties = None,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -250,7 +254,7 @@ class Thickness():
             properties (list): Properties for 4 Surface Corners Variable Definition
                 properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, thickness_d3, node_no_3, thickness_d4, node_no_4]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         '''
 
@@ -292,8 +296,9 @@ class Thickness():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
@@ -305,7 +310,7 @@ class Thickness():
                  material_no: int = 1,
                  properties = None,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -315,7 +320,7 @@ class Thickness():
             properties (list): Properties for Circular Thickness Definition
                 properties = [thickness_circle_center_dC, thickness_circle_line_dR]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Thickness
@@ -350,8 +355,9 @@ class Thickness():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
@@ -360,9 +366,9 @@ class Thickness():
     def Layers(
                  no: int = 1,
                  name: str = None,
-                 layers = [[0, 1, 200, 0.0, '']],
+                 layers = [[0, 1, 0.2, 0.0, '']],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         NOTE: Available only for Special Solution Add-on Multilayer Surfaces.
@@ -374,7 +380,7 @@ class Thickness():
             properties (list): Nested List of Layer Properties
                 properties: [[thickness_type, material, thickness, rotation, comment], ...]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Check if Multilayer Surfaces Add-on is ON.
@@ -421,8 +427,9 @@ class Thickness():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
@@ -437,7 +444,7 @@ class Thickness():
                  consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, 0.18],
                  parameters = [0.18, 0.18],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -469,7 +476,7 @@ class Thickness():
                 for orthotropy_type == ThicknessOrthotropyType.GRILLAGE:
                     parameters = [slab_thickness, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Thickness
@@ -563,8 +570,9 @@ class Thickness():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
@@ -579,7 +587,7 @@ class Thickness():
                  coefficient_of_thermal_expansion: float = 0,
                  stiffness_matrix = [[0, 0, 0, 0, 0, 0],[0, 0, 0],[0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0]],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -605,7 +613,7 @@ class Thickness():
                                             [D66, D67, D68, D77, D78, D88],
                                             [D16, D17, D18, D27, D28, D38]]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Thickness
@@ -670,8 +678,9 @@ class Thickness():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)

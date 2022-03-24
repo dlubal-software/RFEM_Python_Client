@@ -12,7 +12,7 @@ class MemberSetLoad():
                  load_direction = LoadDirectionType.LOAD_DIRECTION_LOCAL_Z,
                  magnitude: float = 0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -21,7 +21,7 @@ class MemberSetLoad():
             load_direction (enum): Load Case Enumeration
             magnitude (float): Load Magnitude
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
 
         # Client model | Member Load
@@ -57,8 +57,9 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
@@ -73,7 +74,7 @@ class MemberSetLoad():
                  load_parameter = [],
                  force_eccentricity: bool= False,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -84,7 +85,7 @@ class MemberSetLoad():
             load_parameter (list): Load Parameter
             force_eccentricity (bool): Force Eccentricity Option
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
             for LOAD_DISTRIBUTION_UNIFORM:
                 load_parameter = [magnitude]
@@ -403,7 +404,7 @@ class MemberSetLoad():
                  load_direction= MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
                  load_parameter = [],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -413,7 +414,7 @@ class MemberSetLoad():
             load_direction (enum): Load Direction Enumeration
             load_parameter (list): Load Parameters
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
             for LOAD_DISTRIBUTION_UNIFORM:
                 load_parameter = magnitude
@@ -645,8 +646,9 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
@@ -659,7 +661,7 @@ class MemberSetLoad():
                 individual_mass_components: bool=False,
                 mass_components = [],
                 comment: str = '',
-                params: dict = {}):
+                params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -668,7 +670,7 @@ class MemberSetLoad():
             individual_mass_components (bool): Individiual Mass Components Option
             mass_components (list): Mass Components
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
@@ -708,8 +710,9 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
@@ -724,7 +727,7 @@ class MemberSetLoad():
                  load_parameter = [],
                  load_over_total_length: bool= False,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -735,7 +738,7 @@ class MemberSetLoad():
             load_parameter (list): Load Parameters
             load_over_total_length (bool): Load Over Total Length Option
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             load_parameter = [tt, tb]
@@ -883,8 +886,9 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
@@ -899,7 +903,7 @@ class MemberSetLoad():
                            load_parameter = [],
                            load_over_total_length: bool= False,
                            comment: str = '',
-                           params: dict = {}):
+                           params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -910,7 +914,7 @@ class MemberSetLoad():
             load_parameter (list): Load Parameters
             load_over_total_length (bool): Load Over Total Length Option
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             load_parameter = [tc, delta_t]
@@ -1052,8 +1056,9 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
@@ -1068,7 +1073,7 @@ class MemberSetLoad():
                     load_parameter = [],
                     load_over_total_length: bool= False,
                     comment: str = '',
-                    params: dict = {}):
+                    params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -1079,7 +1084,7 @@ class MemberSetLoad():
             load_parameter (list): Load Parameters
             load_over_total_length (bool): Load Over Total Length Option
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             load_parameter = [epsilon]
@@ -1210,8 +1215,9 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
@@ -1224,7 +1230,7 @@ class MemberSetLoad():
                     load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X,
                     magnitude : float = 0.0,
                     comment: str = '',
-                    params: dict = {}):
+                    params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -1233,7 +1239,7 @@ class MemberSetLoad():
             load_direction (enum): Load Direction Enumeration
             magnitude (float): Load Magnitude
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
@@ -1267,8 +1273,9 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
@@ -1283,7 +1290,7 @@ class MemberSetLoad():
                  load_parameter = [],
                  load_over_total_length: bool= False,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -1294,7 +1301,7 @@ class MemberSetLoad():
             load_parameter (enum): Load Parameters
             load_over_total_length (bool): Load Over Total Lenth Option
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
             for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                 load_parameter = [magnitude]
@@ -1426,8 +1433,9 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
@@ -1440,7 +1448,7 @@ class MemberSetLoad():
                  load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X,
                  magnitude : float = 0.0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -1449,7 +1457,7 @@ class MemberSetLoad():
             load_direction (enum): Load Direction Enumeration
             magnitude (float): Load Magnitude
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
@@ -1483,8 +1491,9 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
@@ -1499,7 +1508,7 @@ class MemberSetLoad():
                  load_parameter = [],
                  load_over_total_length: bool= False,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -1510,7 +1519,7 @@ class MemberSetLoad():
             load_parameter (list): Load Parameters
             load_over_total_length (bool): Load Over Total Length Option
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             load_parameter = [magnitude]
@@ -1748,8 +1757,9 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
@@ -1764,7 +1774,7 @@ class MemberSetLoad():
                  load_parameter = [],
                  load_over_total_length: bool= False,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -1775,7 +1785,7 @@ class MemberSetLoad():
             load_parameter (list): Load Parameters
             load_over_total_length (bool): Load Over Total Length
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             load_parameter = [magnitude]
@@ -2013,8 +2023,9 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
@@ -2027,7 +2038,7 @@ class MemberSetLoad():
                  load_direction_orientation = MemberSetLoadDirectionOrientation.LOAD_DIRECTION_FORWARD,
                  specific_weight : float = 0.0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -2036,7 +2047,7 @@ class MemberSetLoad():
             load_direction_orientation (enum): Load Direction Orientation Enumeration
             specific_weight (float): Specific Weight
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
@@ -2073,8 +2084,9 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
@@ -2088,7 +2100,7 @@ class MemberSetLoad():
                  specific_weight : float = 0.0,
                  filling_height : float = 0.0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -2098,7 +2110,7 @@ class MemberSetLoad():
             specific_weight (float): Specific Weight
             filling_height (float): Filling Height
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
@@ -2138,8 +2150,9 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
@@ -2151,7 +2164,7 @@ class MemberSetLoad():
                  member_sets: str = '1',
                  pressure : float = 0.0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -2159,7 +2172,7 @@ class MemberSetLoad():
             member_sets (str): Assigned Member Sets
             pressure (float): Pressure
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
@@ -2193,8 +2206,9 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
@@ -2212,7 +2226,7 @@ class MemberSetLoad():
                  axis_definition_p1 = [],
                  axis_definition_p2 = [],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -2226,7 +2240,7 @@ class MemberSetLoad():
             axis_definition_p1 (list):Axis Definition First Point
             axis_definition_p2 (list): Axis Definition Second Point
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
@@ -2278,8 +2292,9 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)

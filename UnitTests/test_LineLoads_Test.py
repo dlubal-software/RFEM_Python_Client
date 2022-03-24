@@ -9,7 +9,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-# Import der Bibliotheken
+import pytest
 from RFEM.Loads.lineLoad import LineLoad
 from RFEM.enums import LineLoadDistribution
 from RFEM.initModel import Model
@@ -85,19 +85,17 @@ def test_line_loads():
                      load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING,
                      load_parameter=[[0.2, 0.1, 200], [0.5, 0.2, 200]])
 
-    # TODO. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
-    # LineLoad.Force(LineLoad, 7, 2, '7',
-    #                  load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL,
-    #                  load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
+    LineLoad.Force(7, 2, '7',
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL,
+                     load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
 
     LineLoad.Force(8, 2, '8',
                      load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC,
                      load_parameter=[750, 1000, 2500])
 
-    # TODO. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
-    # LineLoad.Force(LineLoad, 9, 2, '9',
-    #                  load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_VARYING,
-    #                  load_parameter=[[1000, 500, 750], [250, 200, 600]])
+    LineLoad.Force(9, 2, '9',
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_VARYING,
+                     load_parameter=[[1, 1, 75000], [2, 1, 60000]])
 
     # Testing Moment Type Line Loads
 
@@ -127,24 +125,21 @@ def test_line_loads():
                      load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING,
                      load_parameter=[[0.2, 0.1, 200], [0.5, 0.2, 200]])
 
-    # TODO. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
-    # LineLoad.Moment(LineLoad, 7, 3, '7',
-    #                  load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL,
-    #                  load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
+    LineLoad.Moment(7, 3, '7',
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL,
+                     load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
 
-    # TODO. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
-    # LineLoad.Moment(LineLoad, 8, 3, '8',
-    #                  load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_TAPERED,
-    #                  load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
+    LineLoad.Moment(8, 3, '8',
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_TAPERED,
+                     load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
 
     LineLoad.Moment(9, 3, '9',
                      load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC,
                      load_parameter=[750, 1000, 2500])
 
-    # TODO. THESE OFFSET PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED. NOT SURE HOW TO PROCEED (?)
-    # LineLoad.Moment(LineLoad, 10, 3, '10',
-    #                  load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_VARYING,
-    #                  load_parameter=[[1000, 500, 750], [250, 200, 600]])
+    LineLoad.Moment(10, 3, '10',
+                     load_distribution= LineLoadDistribution.LOAD_DISTRIBUTION_VARYING,
+                     load_parameter=[[1, 1, 75000], [2, 1, 60000]])
 
     # Testing Mass Type Line Loads
 

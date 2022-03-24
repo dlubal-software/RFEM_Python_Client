@@ -7,7 +7,7 @@ class MemberSet():
                  members_no: str = '1 4 5 8 9 12 13 16 17 20 21 24',
                  member_set_type = SetType.SET_TYPE_GROUP,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -15,7 +15,7 @@ class MemberSet():
             members_no (str): Tags of Members Contained Within Member Set
             member_set_type (enum): Member Set Type Enumeration
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Member Set
@@ -37,8 +37,9 @@ class MemberSet():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member Set to client model
         Model.clientModel.service.set_member_set(clientObject)
@@ -48,14 +49,14 @@ class MemberSet():
                           no: int = 1,
                           members_no: str = '1 4 5 8 9 12 13 16 17 20 21 24',
                           comment: str = '',
-                          params: dict = {}):
+                          params: dict = None):
 
         '''
         Args:
             no (int): Member Set Tag
             members_no (str): Tags of Members Contained Within Continuous Member Set
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Member Set
@@ -77,8 +78,9 @@ class MemberSet():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member Set to client model
         Model.clientModel.service.set_member_set(clientObject)
@@ -88,14 +90,14 @@ class MemberSet():
                        no: int = 1,
                        members_no: str = '1 4 5 8 9 12 13 16 17 20 21 24',
                        comment: str = '',
-                       params: dict = {}):
+                       params: dict = None):
 
         '''
         Args:
             no (int): Member Set Tag
             members_no (str): Tags of Members Contained Within Group of Members Member Set
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Member Set
@@ -117,8 +119,9 @@ class MemberSet():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member Set to client model
         Model.clientModel.service.set_member_set(clientObject)

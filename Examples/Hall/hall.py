@@ -64,7 +64,7 @@ if __name__ == '__main__':
         Member(4*n+i,  j+2, j+7, 0.0, 2, 2)
         Member(4*n+i + n-1,  j+4, j+9, 0.0, 2, 2)
 
-# vertical bracing
+    # vertical bracing
     # add a question about repeating in every block, one yes one no, only beginning and end
 
     BracingV = input('Would you like to include vertical bracing? (Y/N)')

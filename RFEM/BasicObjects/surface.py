@@ -17,7 +17,7 @@ def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_ty
                     geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
             thickness (int): Tag of Thickness assigned to Standard Surface
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
     # Client model | Surface
     clientObject = Model.clientModel.factory.create('ns0:surface')
@@ -65,8 +65,9 @@ def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_ty
     clientObject.comment = comment
 
     # Adding optional parameters via dictionary
-    for key in params:
-        clientObject[key] = params[key]
+    if params:
+        for key in params:
+            clientObject[key] = params[key]
 
     # Add Surface to client model
     Model.clientModel.service.set_surface(clientObject)
@@ -77,7 +78,7 @@ class Surface():
                  boundary_lines_no: str = '1 2 3 4',
                  thickness: int = 1,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -85,7 +86,7 @@ class Surface():
             boundary_lines_no (str): Tags of Lines defining Surface
             thickness (int): Tag of Thickness assigned to Surface
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Surface
@@ -107,8 +108,9 @@ class Surface():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Surface to client model
         Model.clientModel.service.set_surface(clientObject)
@@ -121,7 +123,7 @@ class Surface():
                  boundary_lines_no: str = '1 2 3 4',
                  thickness: int = 1,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -137,7 +139,7 @@ class Surface():
             boundary_lines_no (str): Tags of Lines defining Standard Surface
             thickness (int): Tag of Thickness assigned to Standard Surface
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         CreateGeometryAndSetToModel(no, SurfaceType.TYPE_STANDARD, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params)
@@ -149,7 +151,7 @@ class Surface():
                  geometry_type_parameters = None,
                  boundary_lines_no: str = '1 2 3 4',
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -164,7 +166,7 @@ class Surface():
                     geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
             boundary_lines_no (str): Tags of Lines defining Without Thickness Surface
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, comment=comment, params=params)
@@ -176,7 +178,7 @@ class Surface():
                  geometry_type_parameters = None,
                  boundary_lines_no: str = '1 2 3 4',
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -191,7 +193,7 @@ class Surface():
                     geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
             boundary_lines_no (str): Tags of Lines defining Rigid Surface
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         CreateGeometryAndSetToModel(no, SurfaceType.TYPE_RIGID, boundary_lines_no, geometry_type, geometry_type_parameters, comment=comment, params=params)
@@ -204,7 +206,7 @@ class Surface():
                  boundary_lines_no: str = '1 2 3 4',
                  thickness: int = 1,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -220,7 +222,7 @@ class Surface():
             boundary_lines_no (str): Tags of Lines defining Membrane Surface
             thickness (int): Tag of Thickness assigned to Membrane Surface
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params)
@@ -233,7 +235,7 @@ class Surface():
                  boundary_lines_no: str = '1 2 3 4',
                  thickness: int = 1,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -249,7 +251,7 @@ class Surface():
             boundary_lines_no (str): Tags of Lines defining Without Membrane Tension Surface
             thickness (int): Tag of Thickness assigned to Without Membrane Tension Surface
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params)
@@ -268,7 +270,7 @@ class Surface():
                  loaded_members = None,
                  loaded_lines = None,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -284,7 +286,7 @@ class Surface():
             loaded_members (str): Tag of Loaded Members
             loaded_lines (str): Tag of Loaded Lines
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Surface
@@ -332,8 +334,9 @@ class Surface():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Surface to client model
         Model.clientModel.service.set_surface(clientObject)

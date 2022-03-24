@@ -19,7 +19,7 @@ class ConcreteEffectiveLength():
                     RestraintTypeAboutZ.SUPPORT_STATUS_NO, RestraintTypeWarping.SUPPORT_STATUS_NO, "2"]],
                 factors = [[1, 1]],
                 comment: str = '',
-                params: dict = {}):
+                params: dict = None):
         """
         Args:
             no (int): Effective Length Tag
@@ -31,7 +31,7 @@ class ConcreteEffectiveLength():
             nodal_supports (list): Nodal Support Table
             factors (list): Factors Table
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         nodal_supports = [[support_type, support_in_z, support_spring_in_y, eccentricity_type,
                            eccentricity_ez, restraint_spring_about_x,
@@ -109,8 +109,9 @@ class ConcreteEffectiveLength():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Global Parameter to client model
         Model.clientModel.service.set_concrete_effective_lengths(clientObject)

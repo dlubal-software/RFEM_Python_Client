@@ -16,7 +16,7 @@ class LoadCase():
                  name: str = 'Self-weight',
                  self_weight: list = [True, 0.0, 0.0, 1.0],
                  comment: str = 'Comment',
-                 params: dict = {}):
+                 params: dict = None):
         '''
         Args:
             no (int): Load Case Tag
@@ -24,7 +24,7 @@ class LoadCase():
             self_weight (list): Self-Weight Parameters
                 self_weight = [self_weight_active, self_weight_factor_x, self_weight_factor_y, self_weight_factor_z]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Load Case
@@ -67,8 +67,9 @@ class LoadCase():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Case to client model
         Model.clientModel.service.set_load_case(clientObject)
@@ -82,7 +83,7 @@ class LoadCase():
                  action_category= DIN_Action_Category['1A'],
                  self_weight = [True, 0.0, 0.0, 10.0],
                  comment: str = 'Comment',
-                 params: dict = {}):
+                 params: dict = None):
         '''
         Args:
             no (int): Load Case Tag
@@ -118,7 +119,7 @@ class LoadCase():
                 for no self-weight considerations;
                     self_weight = [False]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Load Case
@@ -161,8 +162,9 @@ class LoadCase():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Case to client model
         Model.clientModel.service.set_load_case(clientObject)

@@ -12,7 +12,7 @@ class SolidLoad():
                  load_direction = SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
                  magnitude: float = 0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         # Client model | Solid Load
         clientObject = Model.clientModel.factory.create('ns0:solid_load')
@@ -45,8 +45,9 @@ class SolidLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Solid Load to client model
         Model.clientModel.service.set_solid_load(load_case_no, clientObject)
@@ -59,7 +60,7 @@ class SolidLoad():
               load_direction = SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
               magnitude: float = 0,
               comment: str = '',
-              params: dict = {}):
+              params: dict = None):
 
         # Client model | Solid Load
         clientObject = Model.clientModel.factory.create('ns0:solid_load')
@@ -92,8 +93,9 @@ class SolidLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Solid Load to client model
         Model.clientModel.service.set_solid_load(load_case_no, clientObject)
@@ -106,7 +108,7 @@ class SolidLoad():
                     load_distribution = SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                     load_parameter = None,
                     comment: str = '',
-                    params: dict = {}):
+                    params: dict = None):
         '''
         load_parameter:
             LOAD_DISTRIBUTION_UNIFORM: load_parameter = magnitude
@@ -149,8 +151,9 @@ class SolidLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Solid Load to client model
         Model.clientModel.service.set_solid_load(load_case_no, clientObject)
@@ -163,7 +166,7 @@ class SolidLoad():
                load_distribution = SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                load_parameter = None,
                comment: str = '',
-               params: dict = {}):
+               params: dict = None):
         '''
         load_parameter:
             LOAD_DISTRIBUTION_UNIFORM: load_parameter = [strain_uniform_magnitude_x, strain_uniform_magnitude_y, strain_uniform_magnitude_z]
@@ -212,8 +215,9 @@ class SolidLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Solid Load to client model
         Model.clientModel.service.set_solid_load(load_case_no, clientObject)
@@ -225,7 +229,7 @@ class SolidLoad():
                solids_no: str= '1',
                load_parameter = None,
                comment: str = '',
-               params: dict = {}):
+               params: dict = None):
         '''
         load_parameter:
             load_parameter = [angular_velocity, angular_acceleration, axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z, axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z]
@@ -268,8 +272,9 @@ class SolidLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Solid Load to client model
         Model.clientModel.service.set_solid_load(load_case_no, clientObject)

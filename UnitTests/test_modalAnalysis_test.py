@@ -22,8 +22,6 @@ from RFEM.LoadCasesAndCombinations.modalAnalysisSettings import ModalAnalysisSet
 if Model.clientModel is None:
     Model()
 
-# TODO: US-7698
-@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'set_modal_analysis_settings', True), reason="set_modal_analysis_settings not in RFEM yet")
 def test_modal_analysis_settings():
 
     Model.clientModel.service.delete_all()
@@ -53,7 +51,7 @@ def test_modal_analysis_settings():
                           ModalMassMatrixType.MASS_MATRIX_TYPE_DIAGONAL, 2, [False, False, False, False, True, True])
 
     # Load Case Static
-    # LoadCase(1, 'DEAD', [True, 0, 0, 1])
+    LoadCase(1, 'DEAD', [True, 0, 0, 1])
     modalParams = {
         "analysis_type": AnalysisType.ANALYSIS_TYPE_MODAL.name,
         "modal_analysis_settings":1,

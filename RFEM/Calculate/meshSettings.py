@@ -32,7 +32,7 @@ class MeshSettings():
         'mesh_quality_color_indicator_ok_color': None,
         'mesh_quality_color_indicator_warning_color': None,
         'mesh_quality_color_indicator_failure_color': None,
-        'QualityCriteriaConfig': {
+        'QualityCriteriaConfigForSurfaces': {
             'quality_criterion_check_aspect_ratio': None,
             'quality_criterion_check_aspect_ratio_warning': None,
             'quality_criterion_check_aspect_ratio_failure': None,
@@ -58,7 +58,7 @@ class MeshSettings():
         'mesh_quality_color_indicator_ok_color': None,
         'mesh_quality_color_indicator_warning_color': None,
         'mesh_quality_color_indicator_failure_color': None,
-        'QualityCriteriaConfig': {
+        'QualityCriteriaConfigForSolids': {
             'quality_criterion_check_aspect_ratio': None,
             'quality_criterion_check_aspect_ratio_warning': None,
             'quality_criterion_check_aspect_ratio_failure': None,
@@ -131,17 +131,17 @@ class MeshSettings():
             if commonConfig[key]:
                 clientObject[key] = commonConfig[key]
         for key in surfaceConfig:
-            if key == 'QualityCriteriaConfig':
-                for key_ in surfaceConfig['QualityCriteriaConfig']:
-                    if surfaceConfig['QualityCriteriaConfig'][key_]:
-                        clientObject['SurfacesMeshQualityConfig']['QualityCriteriaConfig'][key_] = surfaceConfig['QualityCriteriaConfig'][key_]
+            if key == 'QualityCriteriaConfigForSurfaces':
+                for key_ in surfaceConfig['QualityCriteriaConfigForSurfaces']:
+                    if surfaceConfig['QualityCriteriaConfigForSurfaces'][key_]:
+                        clientObject['SurfacesMeshQualityConfig']['QualityCriteriaConfigForSurfaces'][key_] = surfaceConfig['QualityCriteriaConfigForSurfaces'][key_]
             elif surfaceConfig[key]:
                 clientObject['SurfacesMeshQualityConfig'][key] = surfaceConfig[key]
         for key in solidConfig:
-            if key == 'QualityCriteriaConfig':
-                for key_ in solidConfig['QualityCriteriaConfig']:
-                    if solidConfig['QualityCriteriaConfig'][key_]:
-                        clientObject['SolidsMeshQualityConfig']['QualityCriteriaConfig'][key_] = solidConfig['QualityCriteriaConfig'][key_]
+            if key == 'QualityCriteriaConfigForSolids':
+                for key_ in solidConfig['QualityCriteriaConfigForSolids']:
+                    if solidConfig['QualityCriteriaConfigForSolids'][key_]:
+                        clientObject['SolidsMeshQualityConfig']['QualityCriteriaConfigForSolids'][key_] = solidConfig['QualityCriteriaConfigForSolids'][key_]
             elif solidConfig[key]:
                 clientObject['SolidsMeshQualityConfig'][key] = solidConfig[key]
         if  GetAddonStatus(Model.clientModel, AddOn.wind_simulation_active):

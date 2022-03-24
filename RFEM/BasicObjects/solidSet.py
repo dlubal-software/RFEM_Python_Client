@@ -7,7 +7,7 @@ class SolidSet():
                  solids_no: str = '1 2',
                  solid_set_type = SetType.SET_TYPE_GROUP,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -15,7 +15,7 @@ class SolidSet():
             solids_no (str): Tags of Solids Contained Within Solid Set
             solid_set_type (enum): Solid Set Type Enumeration
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Solid Set
@@ -37,8 +37,9 @@ class SolidSet():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Solid Set to client model
         Model.clientModel.service.set_solid_set(clientObject)
@@ -48,14 +49,14 @@ class SolidSet():
                  no: int = 1,
                  solids_no: str = '1 2',
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
             no (int): Solid Set Tag
             solids_no (str): Tags of Solids Contained Within Continuous Solid Set
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Solid Set
@@ -77,8 +78,9 @@ class SolidSet():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Solid Set to client model
         Model.clientModel.service.set_solid_set(clientObject)
@@ -88,14 +90,14 @@ class SolidSet():
                  no: int = 1,
                  solids_no: str = '1 2',
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
             no (int): Solid Set Tag
             solids_no (str): Tags of Solids Contained Within Group of Solids Solid Set
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Solid Set
@@ -117,8 +119,9 @@ class SolidSet():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Solid Set to client model
         Model.clientModel.service.set_solid_set(clientObject)

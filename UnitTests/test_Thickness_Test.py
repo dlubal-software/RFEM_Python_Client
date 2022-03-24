@@ -6,7 +6,6 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-# Import der Bibliotheken
 from RFEM.enums import ThicknessDirection, ThicknessOrthotropyType
 from RFEM.enums import ThicknessShapeOrthotropySelfWeightDefinitionType, ThicknessStiffnessMatrixSelfWeightDefinitionType
 from RFEM.initModel import Model
@@ -73,14 +72,12 @@ def test_thickness():
                      comment= 'Comment')
 
     # Layers
-    """ skipped
     Thickness.Layers(
                      no= 7,
                      name= 'Layers',
                      layers= [[1, 1, 0.123, 0, 'Schicht 1'],
-                                       [0, 1, 0.456, 90, 'Schicht 2']],
+                              [0, 1, 0.456, 90, 'Schicht 2']],
                      comment= 'Comment')
-    """
 
     # Shape Orthotropy
     Thickness.ShapeOrthotropy(

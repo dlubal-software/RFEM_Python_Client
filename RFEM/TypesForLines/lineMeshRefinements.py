@@ -11,7 +11,7 @@ class LineMeshRefinements():
                  type = LineMeshRefinementsType.TYPE_LENGTH,
                  number_of_layers: int = 2,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         # Client model | Line Mesh Refinement
         clientObject = Model.clientModel.factory.create('ns0:line_mesh_refinement')
@@ -35,8 +35,9 @@ class LineMeshRefinements():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Line Mesh Refinement to client model
         Model.clientModel.service.set_line_mesh_refinement(clientObject)
@@ -48,7 +49,7 @@ class LineMeshRefinements():
                        target_length: float = 0.1,
                        number_of_layers: int = 2,
                        comment: str = '',
-                       params: dict = {}):
+                       params: dict = None):
 
         # Client model | Line Mesh Refinement
         clientObject = Model.clientModel.factory.create('ns0:line_mesh_refinement')
@@ -75,8 +76,9 @@ class LineMeshRefinements():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Line Mesh Refinement to client model
         Model.clientModel.service.set_line_mesh_refinement(clientObject)
@@ -88,7 +90,7 @@ class LineMeshRefinements():
                              elements_finite_elements: int = 10,
                              number_of_layers: int = 2,
                              comment: str = '',
-                             params: dict = {}):
+                             params: dict = None):
 
         # Client model | Line Mesh Refinement
         clientObject = Model.clientModel.factory.create('ns0:line_mesh_refinement')
@@ -115,8 +117,9 @@ class LineMeshRefinements():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Line Mesh Refinement to client model
         Model.clientModel.service.set_line_mesh_refinement(clientObject)
@@ -128,7 +131,7 @@ class LineMeshRefinements():
                   gradual_rows: int = 10,
                   number_of_layers: int = 2,
                   comment: str = '',
-                  params: dict = {}):
+                  params: dict = None):
 
         # Client model | Line Mesh Refinement
         clientObject = Model.clientModel.factory.create('ns0:line_mesh_refinement')
@@ -155,8 +158,9 @@ class LineMeshRefinements():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Line Mesh Refinement to client model
         Model.clientModel.service.set_line_mesh_refinement(clientObject)

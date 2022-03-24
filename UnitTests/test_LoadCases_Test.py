@@ -6,9 +6,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-# Import der Bibliotheken
 import pytest
-from RFEM.enums import *
 from RFEM.initModel import Model
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase, DIN_Action_Category

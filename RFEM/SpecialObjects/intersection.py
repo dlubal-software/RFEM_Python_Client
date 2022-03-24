@@ -6,7 +6,7 @@ class Instersection():
                  surface_1: int = 1,
                  surface_2: int = 2,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         # Client model | Intersection
         clientObject = Model.clientModel.factory.create('ns0:intersection')
@@ -25,8 +25,9 @@ class Instersection():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Intersection to client model
         Model.clientModel.service.set_intersection(clientObject)
