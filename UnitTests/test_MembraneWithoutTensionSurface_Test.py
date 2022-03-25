@@ -40,7 +40,7 @@ def test_membrane_without_tension_surface():
 
     # Standard NURBS Surface
 
-    ## Define Nodes
+    # Define Nodes
     Node(9, 0.0, 0.0, 0.0)
     Node(10, 5.0, 0.0, -2.5)
     Node(11, 10.0, 0.0, 0.0)
@@ -50,11 +50,11 @@ def test_membrane_without_tension_surface():
     Node(15, 0.0, 5.0, -2,5)
     Node(16, 10.0, 5.0, -2.5)
 
-    ## NURBS-Curve Definition
-    Line.NURBS(9, '9 10 11', control_points= [[0, 0, 0], [5, 0, -2.5], [10, 0, 0]], weights= [1, 1, 1],params= {'nurbs_order':3})
-    Line.NURBS(10, '12 13 14', control_points= [[0, 10, 0], [5, 10, -2.5], [10, 10, 0]], weights= [1, 1, 1], params= {'nurbs_order':3})
-    Line.NURBS(11, '9 15 12', control_points= [[0, 0, 0], [0, 5, -2.5], [0, 10, 0]], weights= [1, 1, 1], params= {'nurbs_order':3})
-    Line.NURBS(12, '11 16 14', control_points= [[10, 0, 0], [10, 5, -2.5], [10, 5, -2.5]], weights= [1, 1, 1], params= {'nurbs_order':3})
+    # NURBS-Curve Definition
+    Line.NURBS(9, '9 10 11')
+    Line.NURBS(10, '12 13 14')
+    Line.NURBS(11, '9 15 12')
+    Line.NURBS(12, '11 16 14')
 
     # Surfaces Definition
     Surface.WithoutMemberaneTension(3, SurfaceGeometry.GEOMETRY_NURBS, [3,3,3,3], '9 10 11 12')

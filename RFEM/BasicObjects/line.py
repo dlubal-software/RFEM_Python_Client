@@ -397,17 +397,19 @@ class Line():
     def NURBS(
               no: int = 1,
               nodes_no: str = '1 2',
-              control_points: list = [[0,0,0],[2.33,0,-3,4],[10,0,-11],[17.66,0,-3.4],[20,0,0]],
-              weights = [1,1,1,1,1],
+              control_points: list = None,
+              weights: list = None,
+              order: int = 0,
               comment: str = '',
               params: dict = None):
 
         '''
         Args:
             no (int): Line Tag
-            nodes_no (str): Node Tags on Line of NURBS Curve
-            control_points (list): Nested List of Respective Control Point's Cartesian Co-Ordinates
-            weights (list): Weights of Control Points
+            nodes_no (str): Nodes creating the curve. By default theese are taken as control points.
+            control_points (list of lists, optional): Nested List of Respective Control Point's Cartesian Co-Ordinates
+            weights (list, optional): Control points weights e.g. [1,1,1]
+            order (int, optional): Order of the curve with 3 as default value
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
@@ -427,22 +429,24 @@ class Line():
         # Type
         clientObject.type = LineType.TYPE_NURBS.name
 
-        if len(control_points) != len(weights):
-            print("WARNING: The number of weigths prescribed must equal the number of control points defined.")
+        # Order
+        if control_points and weights and order:
+            if len(control_points) != len(weights):
+                print("WARNING: The number of weigths prescribed must equal the number of control points defined.")
+            clientObject.nurbs_order = order
 
-        '''
-        TODO: bug 24721
-        nurbs_control_points = []
-        for i,j in enumerate(control_points):
-            point = Model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
-            point.no = i+1
-            point.global_coordinate_x = control_points[i][0]
-            point.global_coordinate_y = control_points[i][1]
-            point.global_coordinate_z = control_points[i][2]
-            point.weight = weights[i]
-            nurbs_control_points.append(point)
-        clientObject.nurbs_control_points_by_components = Model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
-        '''
+            # TODO: bug 24721
+            nurbs_control_points = []
+            for i,j in enumerate(control_points):
+                point = Model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
+                point.no = i+1
+                point.global_coordinate_x = control_points[i][0]
+                point.global_coordinate_y = control_points[i][1]
+                point.global_coordinate_z = control_points[i][2]
+                point.weight = 1 if not weights else weights[i]
+                nurbs_control_points.append(point)
+            clientObject.nurbs_control_points_by_components = Model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
+
         # Comment
         clientObject.comment = comment
 

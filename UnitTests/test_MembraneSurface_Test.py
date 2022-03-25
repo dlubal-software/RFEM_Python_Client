@@ -51,10 +51,10 @@ def test_membrane_surface():
     Node(16, 10.0, 5.0, -2.5)
 
     ## NURBS-Curve Definition
-    Line.NURBS(9, '9 10 11', control_points= [[0, 0, 0], [5, 0, -2.5], [10, 0, 0]], weights= [1, 1, 1],params= {'nurbs_order':3})
-    Line.NURBS(10, '12 13 14', control_points= [[0, 10, 0], [5, 10, -2.5], [10, 10, 0]], weights= [1, 1, 1], params= {'nurbs_order':3})
-    Line.NURBS(11, '9 15 12', control_points= [[0, 0, 0], [0, 5, -2.5], [0, 10, 0]], weights= [1, 1, 1], params= {'nurbs_order':3})
-    Line.NURBS(12, '11 16 14', control_points= [[10, 0, 0], [10, 5, -2.5], [10, 5, -2.5]], weights= [1, 1, 1], params= {'nurbs_order':3})
+    Line.NURBS(9, '9 10 11')
+    Line.NURBS(10, '12 13 14')
+    Line.NURBS(11, '9 15 12')
+    Line.NURBS(12, '11 16 14')
 
     # Surfaces Definition
     Surface.Membrane(3, SurfaceGeometry.GEOMETRY_NURBS, [3,3,3,3], '9 10 11 12')
