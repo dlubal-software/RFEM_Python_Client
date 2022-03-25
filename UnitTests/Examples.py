@@ -21,9 +21,10 @@ def test_examples():
         pytest -s ./RFEM_Python_Client/UnitTests/Examples.py
     """
     print() # jump 1 line further
+
     for path, subdirs, files in os.walk(root):
         for name in files:
             if fnmatch(name, pattern) and name != "__init__.py":
                 example = os.path.join(path, name)
-                process = subprocess.Popen(example, shell=True)
+                process = subprocess.Popen(example, shell=True) # shell=True has to be there
                 process.wait()
