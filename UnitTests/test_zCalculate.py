@@ -25,10 +25,10 @@ def test_mesh_settings():
     common['general_target_length_of_fe'] = 0.4321
     common['members_number_of_divisions_for_special_types'] = 12
     common['surfaces_shape_of_finite_elements'] = SurfacesShapeOfFiniteElements.E_SHAPE_OF_FINITE_ELEMENTS_FOR_SURFACES__TRIANGLES_ONLY.name
-    surf = dict(MeshSettings.SurfacesMeshQualityConfig)
-    surf['QualityCriteriaConfig']['quality_criterion_check_aspect_ratio_warning'] = 22
+    surf = MeshSettings.SurfacesMeshQualityConfig
+    surf['QualityCriteriaConfigForSurfaces']['quality_criterion_check_aspect_ratio_warning'] = 22
     solid = dict(MeshSettings.SolidsMeshQualityConfig)
-    solid['QualityCriteriaConfig']['quality_criterion_parallel_deviations_warning'] = 1.7
+    solid['QualityCriteriaConfigForSolids']['quality_criterion_parallel_deviations_warning'] = 1.7
     wind = dict(MeshSettings.WindSimulationMeshConfig)
 
     mesh = MeshSettings(common, surf, solid, wind)
@@ -37,8 +37,8 @@ def test_mesh_settings():
     assert control_mesh['general_target_length_of_fe'] == 0.4321
     assert control_mesh['members_number_of_divisions_for_special_types'] == 12
     assert control_mesh['surfaces_shape_of_finite_elements'] == SurfacesShapeOfFiniteElements.E_SHAPE_OF_FINITE_ELEMENTS_FOR_SURFACES__TRIANGLES_ONLY.name
-    assert control_mesh['SurfacesMeshQualityConfig']['QualityCriteriaConfig']['quality_criterion_check_aspect_ratio_warning'] == 22
-    assert control_mesh['SolidsMeshQualityConfig']['QualityCriteriaConfig']['quality_criterion_parallel_deviations_warning'] == 1.7
+    assert control_mesh['SurfacesMeshQualityConfig']['QualityCriteriaConfigForSurfaces']['quality_criterion_check_aspect_ratio_warning'] == 22
+    assert control_mesh['SolidsMeshQualityConfig']['QualityCriteriaConfigForSolids']['quality_criterion_parallel_deviations_warning'] == 1.7
 
     control_mesh['general_maximum_distance_between_node_and_line'] = 0.003
     mesh.set_mesh_settings(control_mesh)
