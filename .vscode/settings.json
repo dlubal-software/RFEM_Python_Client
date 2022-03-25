@@ -21,6 +21,6 @@
             "front_matter_title": ""
         }
     },
-    "esbonio.server.enabled": true,
+    "esbonio.server.enabled": false,
     "restructuredtext.languageServer.disabled": true
 }

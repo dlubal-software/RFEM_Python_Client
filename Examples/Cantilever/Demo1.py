@@ -18,6 +18,7 @@ from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.Loads.nodalLoad import NodalLoad
+from RFEM.Calculate.meshSettings import GetModelInfo
 
 if __name__ == '__main__':
     l = float(input('Length of the cantilever in m: '))
@@ -49,7 +50,7 @@ if __name__ == '__main__':
     Calculate_all()
 
     # model status
-    modelStatus = Model.clientModel.service.get_model_info()
+    modelStatus = GetModelInfo()
     print("Model is calculated" if modelStatus.property_has_results else "Model is not calculated")
     print("Model contains printout report" if modelStatus.property_has_printout_report else "Model has not printout report")
     print ("Model contains " +  str(modelStatus.property_node_count) + " nodes")
