@@ -14,7 +14,7 @@ if Model.clientModel is None:
     Model()
 
 # TODO: US-7699
-pytestmark = pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'get_stability_analysis_settings', True), reason="Type get_stability_analysis_settings not in RFEM yet")
+pytestmark = pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'get_stability_analysis_settings', True), reason="Type get_stability_analysis_settings not in RFEM GM yet")
 def test_stability_analysis_settings_init():
 
     Model.clientModel.service.delete_all()

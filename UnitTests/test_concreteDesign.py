@@ -24,7 +24,7 @@ if Model.clientModel is None:
     Model()
 
 # TODO: US-8087
-@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:concrete_durability', True), reason="ns0:concrete_durability not in RFEM yet")
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:concrete_durability', True), reason="ns0:concrete_durability not in RFEM GM yet")
 def test_concrete_design():
 
     Model.clientModel.service.delete_all()

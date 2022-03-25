@@ -19,7 +19,7 @@ if Model.clientModel is None:
     Model()
 
 # TODO: US-8140
-@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'model_check__get_object_groups_operation', True), reason="model_check__get_object_groups_operation not in RFEM yet")
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'model_check__get_object_groups_operation', True), reason="model_check__get_object_groups_operation not in RFEM GM yet")
 def test_model_check():
 
     Model.clientModel.service.delete_all()

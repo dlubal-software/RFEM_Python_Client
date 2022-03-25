@@ -1,20 +1,22 @@
-#################################
-## DEFINITION:
-## This feature allows the user to create an output HTML file with the results.
-## The results are in the same form as result tables in RFEM.
-## The output file is written in HTML and consists of embedded tabular data.
-## It will also include dropdown menu with all tables/files.
-## Result files are language dependent, so parsing based on strings is impossible.
-#################################
-
-from os import listdir, walk, path, getcwd, system
-from RFEM.initModel import ExportResultTablesToCsv
+import os
+import sys
 from re import findall, match
 from shutil import copy
+
+PROJECT_ROOT = os.path.abspath(os.path.join(
+                  os.path.dirname(__file__),
+                  os.pardir)
+)
+sys.path.append(PROJECT_ROOT)
+
+from RFEM.ImportExport.exports import ExportResultTablesToCSV
 
 columns = 0
 
 def __HTMLheadAndHeader(modelName, fileNames):
+    '''
+    Create header of the file.
+    '''
     output = ['<head>',
               '<script src="htmlScript.js"></script>',
               '<meta http-equiv="Content-Type" content="text/html; charset=utf-8">',
@@ -45,15 +47,22 @@ def __HTMLheadAndHeader(modelName, fileNames):
     return output
 
 def __HTMLfooter():
+    '''
+    Create footer.
+    '''
     return ['<script>atTheEnd()</script>',
             '</div>']
 
 def __isEmpty(dividedLine):
-    # returns True if all strings are empty
+    '''
+    Returns True if all strings are empty.
+    '''
     return not any (dividedLine)
 
 def __numberOfPOsitiveItems(dividedLine):
-    # return number of list items which are not empty
+    '''
+    Get number of list items which are not empty.
+    '''
     counter = 0
     for i in dividedLine:
         if i:
@@ -62,6 +71,9 @@ def __numberOfPOsitiveItems(dividedLine):
     return counter
 
 def __isWords(word):
+    '''
+    Check if 'word' consists of general words.
+    '''
     isWords = False
     dividedWords = word.split(' ')
 
@@ -74,8 +86,10 @@ def __isWords(word):
     return isWords
 
 def __tableHeader(dividedLine_1, dividedLine_2):
-    # define htnl of header lines, rowspan and colspan
-    # parameters are lists of strings
+    '''
+    Define html of header lines, rowspan and colspan.
+    Parameters are lists of strings.
+    '''
     global columns
     columns = max(len(dividedLine_1), len(dividedLine_2))
     output = ['<div class="tabPanel">',
@@ -118,15 +132,21 @@ def __tableHeader(dividedLine_1, dividedLine_2):
     return output
 
 def __tableSubHeader(dividedLine):
-    # sub header; one liner; in the body of table
+    '''
+    Sub header; one liner; in the body of table
+    '''
     return f'<th align="left" colspan="{columns}">{dividedLine}</th>'
 
 def __emptyLine():
-    # define html of empty lines
+    '''
+    Define html of empty lines
+    '''
     return f'<th colspan="{columns}"></th>'
 
 def __otherLines(dividedLine):
-    # define html of other lines
+    '''
+    Define html of other lines
+    '''
     colspan = 1
     output = []
     for c in range(columns):
@@ -157,7 +177,9 @@ def __otherLines(dividedLine):
     return output
 
 def __writeToFile(TargetFilePath, output):
-    # Write into html file
+    '''
+    Write into html file
+    '''
     with open(TargetFilePath, "w", encoding="utf-8") as f:
         for line in output:
             while '_' in line:
@@ -181,19 +203,24 @@ def __writeToFile(TargetFilePath, output):
             f.write(line+'\n')
 
 def ExportResultTablesToHtml(TargetFolderPath: str):
-    # Create collection of source files
-    ExportResultTablesToCsv(TargetFolderPath)
+    '''
+    This feature allows the user to create an output HTML file with the results.
+    The results are in the same form as result tables in RFEM.
+    The output file is written in HTML and consists of embedded tabular data.
+    It will also include dropdown menu with all tables/files.
+    Result files are language dependent, so parsing based on strings is impossible.
 
-    modelName = next(walk(TargetFolderPath))[1][0]
-    dirList = listdir(path.join(TargetFolderPath, modelName))
-    # Parse CSV file names into LC and CO, analysis type, types of object (nodes, lines, members, surfaces),
-    # and tabs (such as summary, Global Deformations, or Support Forces)
+    Args:
+        TargetFolderPath (str): Destination path to the directory
+    '''
+    # Create collection of source files
+    ExportResultTablesToCSV(TargetFolderPath)
+
+    modelName = next(os.walk(TargetFolderPath))[1][0]
+    dirList = os.listdir(os.path.join(TargetFolderPath, modelName))
 
     fileNames = []
-
     dirList.sort()
-
-    print('')
 
     for fileName in dirList:
         cats = fileName[:-4].split('_')
@@ -207,7 +234,7 @@ def ExportResultTablesToHtml(TargetFolderPath: str):
         fileNameCapitalized = fileNameCapitalized[:-1]
         fileNames.append(fileNameCapitalized)
 
-        with open(path.join(TargetFolderPath, modelName, fileName), mode='r', encoding='utf-8-sig') as f:
+        with open(os.path.join(TargetFolderPath, modelName, fileName), mode='r', encoding='utf-8-sig') as f:
             lines = f.readlines()
             # 1st header always consists of first 2 lines
             line_1 = lines[0].split(';')
@@ -223,9 +250,6 @@ def ExportResultTablesToHtml(TargetFolderPath: str):
                 dividedLine = line.split(';')
                 dividedLine[-1] = dividedLine[-1].rstrip('\n')
 
-                # check if number of columns is always same
-                #assert columns-len(dividedLine) == 0
-
                 if __isEmpty(dividedLine):
                     # if empty line
                     output.append(__emptyLine())
@@ -240,21 +264,21 @@ def ExportResultTablesToHtml(TargetFolderPath: str):
 
             output += ['</tr>', '</tbody>', '</table>', '</div>']
 
-        __writeToFile(path.join(TargetFolderPath, fileNameCapitalized+'.html'), output)
+        __writeToFile(os.path.join(TargetFolderPath, fileNameCapitalized+'.html'), output)
 
     indexOutput = ['<div class="tabContainer">']
     indexOutput += __HTMLfooter()
     indexOutput = __HTMLheadAndHeader(modelName, fileNames) + indexOutput
 
     # Copy basic files
-    dirname = path.join(getcwd(), path.dirname(__file__))
-    copy(path.join(dirname, 'htmlStyles.css'), TargetFolderPath)
-    copy(path.join(dirname, 'htmlScript.js'), TargetFolderPath)
-    copy(path.join(dirname, 'favicon32.png'), TargetFolderPath)
+    dirname = os.path.join(os.getcwd(), os.path.dirname(__file__))
+    copy(os.path.join(dirname, 'htmlStyles.css'), TargetFolderPath)
+    copy(os.path.join(dirname, 'htmlScript.js'), TargetFolderPath)
+    copy(os.path.join(dirname, 'favicon32.png'), TargetFolderPath)
 
-    with open(path.join(TargetFolderPath,'index.html'), "w", encoding="utf-8") as f:
+    with open(os.path.join(TargetFolderPath,'index.html'), "w", encoding="utf-8") as f:
         for line in indexOutput:
             f.write(line+'\n')
 
     # Open result html page
-    system(f"start {path.join(TargetFolderPath, 'index.html')}")
+    os.system(f"start {os.path.join(TargetFolderPath, 'index.html')}")
