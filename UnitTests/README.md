@@ -11,14 +11,15 @@ Testing framework to check all RFEM Python Client objects and types. Using `pyte
 * RFEM 6 application
 
 ### Step by step
-1) Open RFEM 6 application. Always set language to English. The best version of RFEM is GM or team9 / master, unless you are testing features that are not merged. Check if there are no opened dialogues in RFEM and server port range under *Options-Web Services* corresponds to the one set in initModel.
+1) Open RFEM 6 application. Always set language to English. The best version of RFEM is current GM, unless you are testing features that are not merged. Check if there are no opened dialogues in RFEM and server port range under *Options-Web Services* corresponds to the one set in initModel.
 2) Run whole `.\UnitTests` folder. This ensure maximum scope. Execution is independent of current working directory. Pytest has many parameters it can be runned with. Refer to help (via `pytest -h`) or documentation. Ensure that all tests are either passed or skipped conditionally.
 ```
 > pytest --tb=no .\RFEM_Python_Client\UnitTests # silent mode
+> pytest -s .\RFEM_Python_Client\UnitTests\test_zCalculate.py # verbose, printing out every print() in test
 ```
 output:
 ![image](https://user-images.githubusercontent.com/37547309/147245670-db248e57-95f6-4f00-9b5b-8a89033dcc2a.png)
-Labels: . - passed, s - skipped, e - error, f - failed
+Indication: . - passed, s - skipped, e - error, f - failed
 
 3) To assess code coverage, run `coverage`. Pytest can be executed inside coverage process, leaving nothing out. Coverage enables to automaticaly create formated output (html, json, or dxf). Again, for more information refer to help (`coverage -h`) and html (`coverage html -h`). In html the results can be sorted out or filtered. Files can be inspected separately. Coverage results can be directed into UnitTests folder since they are ignored by github and they will not be commited to repository. Use separate folder for the results. There is a lot of files generated.
 ```
