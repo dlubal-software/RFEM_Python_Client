@@ -12,10 +12,11 @@ Testing framework to check all RFEM Python Client objects and types. Using `pyte
 
 ### Step by step
 1) Open RFEM 6 application. Always set language to English. The best version of RFEM is current GM, unless you are testing features that are not merged. Check if there are no opened dialogues in RFEM and server port range under *Options-Web Services* corresponds to the one set in initModel.
-2) Run whole `.\UnitTests` folder. This ensure maximum scope. Execution is independent of current working directory. Pytest has many parameters it can be runned with. Refer to help (via `pytest -h`) or documentation. Ensure that all tests are either passed or skipped conditionally.
+2) Run whole `.\UnitTests` folder to exetue tests or `.\UnitTests\Examples.py` to execute all examples. This ensure maximum scope. Execution is independent of current working directory. Pytest has many parameters it can be runned with. Refer to help (via `pytest -h`) or documentation. Ensure that all tests are either passed or skipped conditionally.
 ```
 > pytest --tb=no .\RFEM_Python_Client\UnitTests # silent mode
 > pytest -s .\RFEM_Python_Client\UnitTests\test_zCalculate.py # verbose, printing out every print() in test
+> pytest -s .\RFEM_Python_Client\UnitTests\Examples.py # execute all examples
 ```
 output:
 ![image](https://user-images.githubusercontent.com/37547309/147245670-db248e57-95f6-4f00-9b5b-8a89033dcc2a.png)
