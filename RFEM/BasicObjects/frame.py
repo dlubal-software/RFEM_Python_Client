@@ -14,7 +14,7 @@
 #                  insertion_point_y: int = 4,
 #                  insertion_point_z: int = 3,
 #                  comment: str = '',
-#                  params: dict = {}):
+#                  params: dict = None):
 
 #        '''
 #        Args:
@@ -30,7 +30,7 @@
 #            insertion_point_y (int): Insertion Point y
 #            insertion_point_z (int): Insertion Point z
 #            comment (str, optional): Comment
-#            params (dict, optional): Parameters
+#            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 #        '''
 
 #         # Client model | Frame

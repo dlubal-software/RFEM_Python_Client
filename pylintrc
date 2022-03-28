@@ -52,7 +52,8 @@ confidence=
 # --enable=similarities". If you want to run only the classes checker, but have
 # no Warning level messages displayed, use"--disable=all --enable=classes
 # --disable=W"
-disable=W0614, W0401, W0622, C0103, C0114, C0115, C0116, C0301, C0413, R0913, R0914, R0915, C0305, C0411, W0102, W0702, E0602, E0401
+disable=W0614, W0401, W0622, C0103, C0114, C0115, C0116, C0301, C0413, R0912, R0913, R0914, R0915, C0305, C0411, W0102, W0702, E0602, E0401, W1405
+
 
 [REPORTS]
 

@@ -62,18 +62,18 @@ def test_model_check():
 
     Model.clientModel.service.finish_modification()
 
-    identical_nodes = ModelCheck.GetIdenticalNodes(0, 0.0005)
+    identical_nodes = ModelCheck.GetIdenticalNodes(0.0005)
     assert identical_nodes[0][0] == "1,2"
     assert identical_nodes[0][1] == "3,4"
-    ModelCheck.DeleteUnusedNodes(0, 0.0005, identical_nodes)
-    connected_lines = ModelCheck.GetNotConnectedLines(0, 0.0005)
+    ModelCheck.DeleteUnusedNodes(0.0005, identical_nodes)
+    connected_lines = ModelCheck.GetNotConnectedLines(0.0005)
     assert connected_lines[0][0] == "1,2"
     assert connected_lines[0][1] == "5,6"
-    ModelCheck.CrossLines(0, 0.0005, connected_lines)
-    ModelCheck.GetNotConnectedMembers(0, 0.0005)
-    overlapping_lines = ModelCheck.GetOverlappingLines(0)
+    ModelCheck.CrossLines(0.0005, connected_lines)
+    ModelCheck.GetNotConnectedMembers(0.0005)
+    overlapping_lines = ModelCheck.GetOverlappingLines()
     assert overlapping_lines[0][0] == "3,4"
     assert overlapping_lines[0][1] == "7,8"
-    overlapping_members = ModelCheck.GetOverlappingMembers(0)
+    overlapping_members = ModelCheck.GetOverlappingMembers()
     assert overlapping_members[0][0] == "3,4"
 

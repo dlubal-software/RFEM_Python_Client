@@ -6,7 +6,8 @@ class ModelCheck():
     def __init__(self):
         pass
 
-    def GetIdenticalNodes(self, tolerance):
+    @staticmethod
+    def GetIdenticalNodes(tolerance):
         """
         Args:
             tolerance (float): Tolerance
@@ -19,7 +20,8 @@ class ModelCheck():
 
         return object_groups
 
-    def DeleteUnusedNodes(self, tolerance, object_groups):
+    @staticmethod
+    def DeleteUnusedNodes(tolerance, object_groups):
         """
         Args:
             tolerance (float): Tolerance
@@ -29,7 +31,8 @@ class ModelCheck():
         process = ModelCheckProcessOptionType.DELETE_UNUSED_NODES.name
         Model.clientModel.service.model_check__process_object_groups_operation(process, tolerance, object_groups)
 
-    def UniteNodes(self, tolerance, object_groups):
+    @staticmethod
+    def UniteNodes(tolerance, object_groups):
         """
         Args:
             tolerance (float): Tolerance
@@ -39,7 +42,8 @@ class ModelCheck():
         process = ModelCheckProcessOptionType.UNITE_NODES_AND_DELETE_UNUSED_NODES.name
         Model.clientModel.service.model_check__process_object_groups_operation(process, tolerance, object_groups)
 
-    def GetNotConnectedLines(self, tolerance):
+    @staticmethod
+    def GetNotConnectedLines(tolerance):
         """
         Args:
             tolerance (float): Tolerance
@@ -52,7 +56,8 @@ class ModelCheck():
 
         return line_groups
 
-    def CrossLines(self, tolerance, line_groups):
+    @staticmethod
+    def CrossLines(tolerance, line_groups):
         """
         Args:
             tolerance (float): Tolerance
@@ -62,7 +67,8 @@ class ModelCheck():
         process = ModelCheckProcessOptionType.CROSS_LINES.name
         Model.clientModel.service.model_check__process_object_groups_operation(process, tolerance, line_groups)
 
-    def GetNotConnectedMembers(self, tolerance):
+    @staticmethod
+    def GetNotConnectedMembers(tolerance):
         """
         Args:
             tolerance (float): Tolerance
@@ -75,7 +81,8 @@ class ModelCheck():
 
         return member_groups
 
-    def CrossMembers(self, tolerance, member_groups):
+    @staticmethod
+    def CrossMembers(tolerance, member_groups):
         """
         Args:
             tolerance (float): Tolerance
@@ -85,7 +92,8 @@ class ModelCheck():
         process = ModelCheckProcessOptionType.CROSS_MEMBERS.name
         Model.clientModel.service.model_check__process_object_groups_operation(process, tolerance, member_groups)
 
-    def GetOverlappingLines(self):
+    @staticmethod
+    def GetOverlappingLines():
         """
         Returns:
             Overlapping Line Groups
@@ -96,7 +104,8 @@ class ModelCheck():
 
         return overlapping_lines
 
-    def GetOverlappingMembers(self):
+    @staticmethod
+    def GetOverlappingMembers():
         """
         Returns:
             Overlapping Member Groups

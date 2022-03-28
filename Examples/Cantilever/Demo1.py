@@ -8,7 +8,6 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-# Import der Bibliotheken
 from RFEM.enums import NodalSupportType, LoadDirectionType
 from RFEM.initModel import Model, Calculate_all
 from RFEM.BasicObjects.material import Material
@@ -39,9 +38,9 @@ if __name__ == '__main__':
 
     NodalSupport(1, '1', NodalSupportType.FIXED)
 
-    StaticAnalysisSettings.GeometricallyLinear(0, 1, "Linear")
-    StaticAnalysisSettings.SecondOrderPDelta(0, 2, "SecondOrder")
-    StaticAnalysisSettings.LargeDeformation(0, 3, "LargeDeformation")
+    StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
+    StaticAnalysisSettings.SecondOrderPDelta(2, "SecondOrder")
+    StaticAnalysisSettings.LargeDeformation(3, "LargeDeformation")
 
     LoadCase(1, 'Self-Weight', [True, 0.0, 0.0, 1.0])
 

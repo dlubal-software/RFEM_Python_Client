@@ -60,8 +60,8 @@ def test_typesForLines():
     params = LineMeshRefinements.TypeSpecificParams
     LineMeshRefinements(1,'3', LineMeshRefinementsType.TYPE_LENGTH, 2, '', params)
 
-    LineMeshRefinements.TargetFELength(0, 2, '4', 0.05)
-    LineMeshRefinements.NumberFiniteElements(0,3,'5',15)
-    LineMeshRefinements.Gradually(0,4,'6',4)
+    LineMeshRefinements.TargetFELength(2, '4', 0.05)
+    LineMeshRefinements.NumberFiniteElements(3,'5',15)
+    LineMeshRefinements.Gradually(4,'6',4)
 
     Model.clientModel.service.finish_modification()

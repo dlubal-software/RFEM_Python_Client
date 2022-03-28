@@ -8,7 +8,7 @@ class ImposedNodalDeformation():
                  node_no: str = '1',
                  load_parameter = None,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         '''
         load_parameter:
             load_parameter = [imposed_displacement_x, imposed_displacement_y, imposed_displacement_z, imposed_rotation_x, imposed_rotation_y imposed_rotation_z]
@@ -42,8 +42,9 @@ class ImposedNodalDeformation():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Imposed Nodal Deformation to client model
         Model.clientModel.service.set_imposed_nodal_deformation(load_case_no, clientObject)

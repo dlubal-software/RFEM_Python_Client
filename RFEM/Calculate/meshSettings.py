@@ -131,7 +131,6 @@ class MeshSettings():
             if commonConfig[key]:
                 clientObject[key] = commonConfig[key]
         for key in surfaceConfig:
-            # QualityCriteriaConfig -> QualityCriteriaConfigForSurfaces
             if key == 'QualityCriteriaConfigForSurfaces':
                 for key_ in surfaceConfig['QualityCriteriaConfigForSurfaces']:
                     if surfaceConfig['QualityCriteriaConfigForSurfaces'][key_]:
@@ -139,7 +138,6 @@ class MeshSettings():
             elif surfaceConfig[key]:
                 clientObject['SurfacesMeshQualityConfig'][key] = surfaceConfig[key]
         for key in solidConfig:
-            # QualityCriteriaConfig -> QualityCriteriaConfigForSolids
             if key == 'QualityCriteriaConfigForSolids':
                 for key_ in solidConfig['QualityCriteriaConfigForSolids']:
                     if solidConfig['QualityCriteriaConfigForSolids'][key_]:
@@ -154,7 +152,8 @@ class MeshSettings():
         # Add Mesh Settings to client model
         Model.clientModel.service.set_mesh_settings(clientObject)
 
-    def set_mesh_settings(self, all_settings):
+    @staticmethod
+    def set_mesh_settings(all_settings):
         new_sett = {}
 
         for i in all_settings:

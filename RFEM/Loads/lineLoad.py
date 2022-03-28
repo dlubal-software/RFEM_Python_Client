@@ -10,7 +10,7 @@ class LineLoad():
                  load_direction = LoadDirectionType.LOAD_DIRECTION_LOCAL_Z,
                  magnitude: float = 0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -20,7 +20,7 @@ class LineLoad():
             load_direction (enum): Load Direction Enumeration
             magnitude (float): Magnitude of Line Load
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Line Load
@@ -56,13 +56,15 @@ class LineLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Line Load to client model
         Model.clientModel.service.set_line_load(load_case_no, clientObject)
 
-    def Force(self,
+    @staticmethod
+    def Force(
                 no: int = 1,
                 load_case_no: int = 1,
                 lines_no: str = '1',
@@ -71,7 +73,7 @@ class LineLoad():
                 load_parameter = None,
                 list_reference: bool= False,
                 comment: str = '',
-                params: dict = {}):
+                params: dict = None):
 
         '''
         Args:
@@ -105,7 +107,7 @@ class LineLoad():
                     load_parameter = [[distance, delta_distance, magnitude], ...]
             list_reference (bool): List Reference Bool
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Line Load
@@ -308,13 +310,15 @@ class LineLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Line Load to client model
         Model.clientModel.service.set_line_load(load_case_no, clientObject)
 
-    def Moment(self,
+    @staticmethod
+    def Moment(
                  no: int = 1,
                  load_case_no: int = 1,
                  lines_no: str = '1',
@@ -323,7 +327,7 @@ class LineLoad():
                  load_parameter = None,
                  list_reference: bool = False,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -355,7 +359,7 @@ class LineLoad():
                     load_parameter = [[distance, delta_distance, magnitude], ...]
             list_reference (bool): List Reference Bool
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Line Load
@@ -558,20 +562,22 @@ class LineLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Line Load to client model
         Model.clientModel.service.set_line_load(load_case_no, clientObject)
 
-    def Mass(self,
+    @staticmethod
+    def Mass(
                 no: int = 1,
                 load_case_no: int = 1,
                 lines_no: str = '1',
                 individual_mass_components: bool=True,
                 mass_components = None,
                 comment: str = '',
-                params: dict = {}):
+                params: dict = None):
         '''
         Args:
             no (int): Load Tag
@@ -584,7 +590,7 @@ class LineLoad():
                 for individual_mass_components == True:
                     mass_components = [mass_x, mass_y, mass_z]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Line Load
@@ -631,8 +637,9 @@ class LineLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Line Load to client model
         Model.clientModel.service.set_line_load(load_case_no, clientObject)

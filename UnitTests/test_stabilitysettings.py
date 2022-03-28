@@ -44,7 +44,7 @@ def test_stability_analysis_settings_eigenvalue_method():
     Model.clientModel.service.begin_modification()
     SetAddonStatus(Model.clientModel, AddOn.structure_stability_active, True)
 
-    StabilityAnalysisSettings.EigenvalueMethod(StabilityAnalysisSettings, no= 1,
+    StabilityAnalysisSettings.EigenvalueMethod(no= 1,
                                             name= 'Eigenvalue Method Test',
                                             number_of_lowest_eigenvalues= 5,
                                             considered_favored_effect= False,
@@ -79,7 +79,7 @@ def test_stability_analysis_settings_incrementaly_method_with_eigenvalue():
     Model.clientModel.service.begin_modification()
     SetAddonStatus(Model.clientModel, AddOn.structure_stability_active, True)
 
-    StabilityAnalysisSettings.IncrementalyMethodWithEigenvalue(StabilityAnalysisSettings, no= 1,
+    StabilityAnalysisSettings.IncrementalyMethodWithEigenvalue(no= 1,
                                             name= 'Incrementaly Method with Eigenvalue Test',
                                             number_of_lowest_eigenvalues= 5,
                                             considered_favored_effect= True,
@@ -125,7 +125,7 @@ def test_stability_analysis_settings_incrementaly_method_without_eigenvalue():
     Model.clientModel.service.begin_modification()
     SetAddonStatus(Model.clientModel, AddOn.structure_stability_active, True)
 
-    StabilityAnalysisSettings.IncrementalyMethodWithoutEigenvalue(StabilityAnalysisSettings, no= 1,
+    StabilityAnalysisSettings.IncrementalyMethodWithoutEigenvalue(no= 1,
                                             name= 'Incrementaly Method with Eigenvalue Test',
                                             minimum_initial_strain= 0,
                                             local_torsional_rotations= 0.2,

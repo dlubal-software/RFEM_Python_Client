@@ -30,7 +30,7 @@ class SteelEffectiveLengths():
                  import_from_stability_analysis_enabled: bool = False,
                  determination_of_mcr = SteelEffectiveLengthsDeterminationMcrEurope.DETERMINATION_EUROPE_EIGENVALUE,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Effective Length Tag
@@ -189,8 +189,9 @@ class SteelEffectiveLengths():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Steel Effective Lengths to client model
         Model.clientModel.service.set_steel_effective_lengths(clientObject)

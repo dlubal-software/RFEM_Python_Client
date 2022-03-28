@@ -31,7 +31,7 @@ def test_mesh_settings():
     solid['QualityCriteriaConfigForSolids']['quality_criterion_parallel_deviations_warning'] = 1.7
     wind = dict(MeshSettings.WindSimulationMeshConfig)
 
-    mesh = MeshSettings(common, surf, solid, wind)
+    MeshSettings(common, surf, solid, wind)
 
     control_mesh = GetMeshSettings()
     assert control_mesh['general_target_length_of_fe'] == 0.4321
@@ -41,7 +41,7 @@ def test_mesh_settings():
     assert control_mesh['SolidsMeshQualityConfig']['QualityCriteriaConfigForSolids']['quality_criterion_parallel_deviations_warning'] == 1.7
 
     control_mesh['general_maximum_distance_between_node_and_line'] = 0.003
-    mesh.set_mesh_settings(control_mesh)
+    MeshSettings.set_mesh_settings(control_mesh)
     control_mesh = GetMeshSettings()
     assert control_mesh['general_maximum_distance_between_node_and_line'] == 0.003
 
@@ -57,9 +57,12 @@ def test_optimization_settings():
     OptimizationSettings(True, 11, OptimizeOnType.E_OPTIMIZE_ON_TYPE_MIN_COST,
                          Optimizer.E_OPTIMIZER_TYPE_PERCENTS_OF_RANDOM_MUTATIONS,
                          0.3)
-    opt_sett = OptimizationSettings.get_optimization_settings(OptimizationSettings)
-    assert opt_sett.general_optimization_active == True
+    opt_sett = OptimizationSettings.get_optimization_settings()
+    assert opt_sett.general_optimization_active
     assert opt_sett.general_keep_best_number_model_mutations == 11
     assert opt_sett.general_optimize_on == OptimizeOnType.E_OPTIMIZE_ON_TYPE_MIN_COST.name
     assert opt_sett.general_optimizer == Optimizer.E_OPTIMIZER_TYPE_PERCENTS_OF_RANDOM_MUTATIONS.name
     assert opt_sett.general_number_random_mutations == 0.3
+
+    opt_sett.general_keep_best_number_model_mutations = 15
+    OptimizationSettings.set_optimization_settings(opt_sett)

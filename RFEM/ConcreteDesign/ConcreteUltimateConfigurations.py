@@ -12,7 +12,7 @@ class ConcreteUltimateConfiguration():
                 surface_sets = '',
                 nodes = '',
                 comment: str = '',
-                params: dict = {}):
+                params: dict = None):
         """
         Args:
             no (int): Configuration Tag
@@ -23,7 +23,7 @@ class ConcreteUltimateConfiguration():
             surface_sets (str): Assigned Surface Sets
             nodes (str): Assigned Nodes
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
 
         # Client model | Concrete Durabilities
@@ -58,8 +58,9 @@ class ConcreteUltimateConfiguration():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Global Parameter to client model
         Model.clientModel.service.set_uls_configuration(clientObject)

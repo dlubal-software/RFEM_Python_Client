@@ -4,7 +4,7 @@ class SolidContact():
     def __init__(self,
                  no: int = 1,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         # Client model | Solid Contact
         clientObject = Model.clientModel.factory.create('ns0:solid_contacts')
@@ -19,8 +19,9 @@ class SolidContact():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Solid Contact to client model
         Model.clientModel.service.set_solid_contacts(clientObject)
