@@ -152,8 +152,8 @@ class Model():
                 cModel = Client(new, transport=trans)
         else:
             modelIndex = 0
-            for i,j in enumerate(modelLs):
-                if modelLs[i] == model_name:
+            for i,j in enumerate(modelLs.name):
+                if modelLs.name[i] == model_name:
                     modelIndex = i
             new = client.service.get_model(modelIndex) + 'wsdl'
             cModel = Client(new, transport=trans)
