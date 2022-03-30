@@ -186,11 +186,7 @@ def insertSpaces(lst: list):
     Add spaces between list of numbers.
     Returns list of values.
     '''
-    strLst = ''
-    for i in lst:
-        strLst += str(i) + ' '
-    # remove trailing space
-    return strLst[:-1]
+    return ' '.join(str(item) for item in lst)
 
 def Calculate_all(generateXmlSolverInput: bool = False):
     '''
