@@ -28,7 +28,6 @@ def test_all_member_types():
 
     Section(1, 'IPE 300', 1)
     Section(2, 'IPE 500', 1)
-    Section(3, 'R_M1 500/500')
 
     Thickness(1, '180 mm', 2, 0.18)
 

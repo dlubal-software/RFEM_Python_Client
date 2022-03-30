@@ -335,7 +335,7 @@ def test_section():
     section = Model.clientModel.service.get_section(1)
 
     assert section.no == 1
-    assert section.name == 'IPE 300'
+    assert section.name == 'IPE 300 | -- | British Steel'
 
 ## Solid Class should be updated.
 
