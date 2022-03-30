@@ -1372,3 +1372,16 @@ class SteelEffectiveLengthsMemberTypeZZ(Enum):
     '''
     MEMBER_TYPE_BEAM, MEMBER_TYPE_CANTILEVER = range(2)
 
+class SteelBoundaryConditionsSupportType(Enum):
+    '''
+    Steel Boundary Conditions Support Type
+    '''
+    SUPPORT_TYPE_FIXED_ALL, SUPPORT_TYPE_FIXED_IN_Y, SUPPORT_TYPE_FIXED_IN_Y_AND_TORSION, SUPPORT_TYPE_FIXED_IN_Y_AND_TORSION_AND_WARPING, \
+    SUPPORT_TYPE_FIXED_IN_Y_AND_WARPING, SUPPORT_TYPE_INDIVIDUALLY, SUPPORT_TYPE_NONE, SUPPORT_TYPE_TORSION, SUPPORT_TYPE_TORSION_AND_WARPING = range(9)
+
+class SteelBoundaryConditionsEccentricityTypeZ(Enum):
+    '''
+    Steel Boundary Conditions Eccentricity Type Z Type
+    '''
+    ECCENTRICITY_TYPE_AT_LOWER_FLANGE, ECCENTRICITY_TYPE_AT_UPPER_FLANGE, ECCENTRICITY_TYPE_NONE, ECCENTRICITY_TYPE_USER_VALUE = range(4)
+
