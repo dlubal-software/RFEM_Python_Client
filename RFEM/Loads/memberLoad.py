@@ -9,9 +9,9 @@ class MemberLoad():
                  load_case_no: int = 1,
                  members_no: str = '1',
                  load_direction = LoadDirectionType.LOAD_DIRECTION_LOCAL_Z,
-                 magnitude: float = 0,
+                 magnitude: float = 2000,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -20,7 +20,7 @@ class MemberLoad():
             load_direction (enum): Load Directin Enumeration
             magnitude (float): Load Magnitude
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_load')
@@ -55,13 +55,15 @@ class MemberLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def Force(self,
+    @staticmethod
+    def Force(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -71,7 +73,7 @@ class MemberLoad():
                  force_eccentricity: bool= False,
                  list_reference: bool= False,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -107,7 +109,7 @@ class MemberLoad():
             force_eccentricity (bool): Enable/Disable Force Eccentricity Option
             list_reference (bool): Enable/Disable List Reference Option
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
                 for force_eccentricity == True:
                 {'eccentricity_horizontal_alignment': MemberLoadEccentricityHorizontalAlignment.ALIGN_NONE,
                 'eccentricity_vertical_alignment': MemberLoadEccentricityVerticalAlignment.ALIGN_NONE,
@@ -362,7 +364,8 @@ class MemberLoad():
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def Moment(self,
+    @staticmethod
+    def Moment(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -371,7 +374,7 @@ class MemberLoad():
                  load_parameter = [],
                  list_reference: bool= False,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -402,7 +405,7 @@ class MemberLoad():
                     load_parameter = [[distance, delta_distance, magnitude], ...]
             list_reference (bool): Enable/Disable List Reference Option
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_load')
@@ -582,20 +585,22 @@ class MemberLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def Mass(self,
+    @staticmethod
+    def Mass(
                 no: int = 1,
                 load_case_no: int = 1,
                 members_no: str = '1',
                 individual_mass_components: bool=False,
                 mass_components = [],
                 comment: str = '',
-                params: dict = {}):
+                params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -608,7 +613,7 @@ class MemberLoad():
                 else:
                     mass_components = [Mx, My, Mz, Ix, Iy, Iz]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_load')
@@ -646,13 +651,15 @@ class MemberLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def Temperature(self,
+    @staticmethod
+    def Temperature(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -662,7 +669,7 @@ class MemberLoad():
                  list_reference: bool= False,
                  load_over_total_length: bool= False,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -688,7 +695,7 @@ class MemberLoad():
             list_reference (bool): List Reference Boolean
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Member Load
@@ -803,13 +810,15 @@ class MemberLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def TemperatureChange(self,
+    @staticmethod
+    def TemperatureChange(
                            no: int = 1,
                            load_case_no: int = 1,
                            members_no: str = '1',
@@ -819,7 +828,7 @@ class MemberLoad():
                            list_reference: bool= False,
                            load_over_total_length: bool= False,
                            comment: str = '',
-                           params: dict = {}):
+                           params: dict = None):
 
         '''
         Args:
@@ -845,7 +854,7 @@ class MemberLoad():
             list_reference (bool): Enable/Disable List Reference Option
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Member Load
@@ -960,13 +969,15 @@ class MemberLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def AxialStrain(self,
+    @staticmethod
+    def AxialStrain(
                     no: int = 1,
                     load_case_no: int = 1,
                     members_no: str = '1',
@@ -976,7 +987,7 @@ class MemberLoad():
                     list_reference: bool= False,
                     load_over_total_length: bool= False,
                     comment: str = '',
-                    params: dict = {}):
+                    params: dict = None):
 
         '''
         Args:
@@ -999,7 +1010,7 @@ class MemberLoad():
             list_reference (bool): Enable/Disable List Reference Option
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Member Load
@@ -1106,20 +1117,22 @@ class MemberLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def AxialDisplacement(self,
+    @staticmethod
+    def AxialDisplacement(
                     no: int = 1,
                     load_case_no: int = 1,
                     members_no: str = '1',
                     load_direction = MemberLoadDirection.LOAD_DIRECTION_LOCAL_X,
                     magnitude : float = 0.0,
                     comment: str = '',
-                    params: dict = {}):
+                    params: dict = None):
 
         '''
         Args:
@@ -1129,7 +1142,7 @@ class MemberLoad():
             load_direction (enum): Load Direction Enumeration
             magnitude (float): Load Magnitude
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Member Load
@@ -1164,13 +1177,15 @@ class MemberLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def Precamber(self,
+    @staticmethod
+    def Precamber(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -1180,7 +1195,7 @@ class MemberLoad():
                  list_reference: bool= False,
                  load_over_total_length: bool= False,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -1203,7 +1218,7 @@ class MemberLoad():
             list_reference (bool): Enable/Disable List Reference Option
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Member Load
@@ -1310,20 +1325,22 @@ class MemberLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def InitialPrestress(self,
+    @staticmethod
+    def InitialPrestress(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
                  load_direction = MemberLoadDirection.LOAD_DIRECTION_LOCAL_X,
                  magnitude : float = 0.0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -1333,7 +1350,7 @@ class MemberLoad():
             load_direction (enum): Load Direction Enumeration
             magnitude (float): Load Magnitude
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Member Load
@@ -1368,13 +1385,15 @@ class MemberLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def Displacement(self,
+    @staticmethod
+    def Displacement(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -1384,7 +1403,7 @@ class MemberLoad():
                  list_reference: bool= False,
                  load_over_total_length: bool= False,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -1417,7 +1436,7 @@ class MemberLoad():
             list_reference (bool): Enable/Disable List Reference Option
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Member Load
@@ -1603,13 +1622,15 @@ class MemberLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def Rotation(self,
+    @staticmethod
+    def Rotation(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -1619,7 +1640,7 @@ class MemberLoad():
                  list_reference: bool= False,
                  load_over_total_length: bool= False,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -1652,7 +1673,7 @@ class MemberLoad():
             list_reference (bool): Enable/Disable List Reference Option
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Member Load
@@ -1838,20 +1859,22 @@ class MemberLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def PipeContentFull(self,
+    @staticmethod
+    def PipeContentFull(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
                  load_direction_orientation = MemberLoadDirectionOrientation.LOAD_DIRECTION_FORWARD,
                  specific_weight : float = 0.0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -1861,7 +1884,7 @@ class MemberLoad():
             load_direction_orientation (enum): Load Direction Enumeration
             specific_weight (float): Specific Weight
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Member Load
@@ -1899,13 +1922,15 @@ class MemberLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def PipeContentPartial(self,
+    @staticmethod
+    def PipeContentPartial(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -1913,7 +1938,7 @@ class MemberLoad():
                  specific_weight : float = 0.0,
                  filling_height : float = 0.0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -1924,7 +1949,7 @@ class MemberLoad():
             specific_weight (float): Specific Weight
             filling_height (float): Filling Height
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Member Load
@@ -1965,19 +1990,21 @@ class MemberLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def PipeInternalPressure(self,
+    @staticmethod
+    def PipeInternalPressure(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
                  pressure : float = 0.0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -1986,7 +2013,7 @@ class MemberLoad():
             members_no (str): Assigned Member(s)
             pressure (float): Pressure
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Member Load
@@ -2021,13 +2048,15 @@ class MemberLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)
 
-    def RotaryMotion(self,
+    @staticmethod
+    def RotaryMotion(
                  no: int = 1,
                  load_case_no: int = 1,
                  members_no: str = '1',
@@ -2039,7 +2068,7 @@ class MemberLoad():
                  axis_definition_p1 = [1,0,1],
                  axis_definition_p2 = [0,1,0],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -2054,7 +2083,7 @@ class MemberLoad():
             axis_definition_p1 (list): P1 List [X, Y, Z]
             axis_definition_p2 (list): P2 List [X, Y, Z]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Member Load
@@ -2107,8 +2136,9 @@ class MemberLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_load(load_case_no, clientObject)

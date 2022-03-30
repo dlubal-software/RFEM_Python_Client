@@ -12,7 +12,7 @@ class Member():
                  start_member_hinge_no: int = 0,
                  end_member_hinge_no: int = 0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Member Tag
@@ -24,7 +24,7 @@ class Member():
             start_member_hinge_no (int): Tag of Start Member Hinge
             end_member_hinge_no (int): Tag of End Member Hinge
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
 
         # Client model | Member
@@ -64,13 +64,15 @@ class Member():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def Beam(self,
+    @staticmethod
+    def Beam(
             no: int = 1,
             start_node_no: int = 1,
             end_node_no: int = 2,
@@ -132,7 +134,7 @@ class Member():
             end_section_no (int): End of End Section
             distribution_parameters (list): Distribution Parameters
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -323,13 +325,15 @@ class Member():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def Rigid(self,
+    @staticmethod
+    def Rigid(
                 no: int = 1,
                 start_node_no: int = 1,
                 end_node_no: int = 2,
@@ -357,7 +361,7 @@ class Member():
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -423,14 +427,16 @@ class Member():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-## Rib Member should be corrected.
-    def Rib(self,
+	## Rib Member should be corrected.
+    @staticmethod
+    def Rib(
             no: int = 1,
             start_node_no: int = 1,
             end_node_no: int = 2,
@@ -463,7 +469,7 @@ class Member():
             rib_alignment (enum): Rib Alignment Enumeration
             reference_width_type (enum): Reference Width Type Enumeration
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR:
             distribution_parameters[section_alignment] BJÖRN: Where is this parameter used?
@@ -549,13 +555,15 @@ class Member():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def Truss(self,
+    @staticmethod
+    def Truss(
             no: int = 1,
             start_node_no: int = 1,
             end_node_no: int = 2,
@@ -589,7 +597,7 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             section_no (int): Section Tag
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -663,13 +671,15 @@ class Member():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def TrussOnlyN(self,
+    @staticmethod
+    def TrussOnlyN(
             no: int = 1,
             start_node_no: int = 1,
             end_node_no: int = 2,
@@ -703,7 +713,7 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             section_no (int): Section Tag
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -777,13 +787,15 @@ class Member():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def Tension(self,
+    @staticmethod
+    def Tension(
             no: int = 1,
             start_node_no: int = 1,
             end_node_no: int = 2,
@@ -817,7 +829,7 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             section_no (int): Section Tag
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -891,13 +903,15 @@ class Member():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def Compression(self,
+    @staticmethod
+    def Compression(
             no: int = 1,
             start_node_no: int = 1,
             end_node_no: int = 2,
@@ -931,7 +945,7 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             section_no (int): Section Tag
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -1005,13 +1019,15 @@ class Member():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def Buckling(self,
+    @staticmethod
+    def Buckling(
             no: int = 1,
             start_node_no: int = 1,
             end_node_no: int = 2,
@@ -1045,7 +1061,7 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             section_no (int): Section Tag
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -1119,13 +1135,15 @@ class Member():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def Cable(self,
+    @staticmethod
+    def Cable(
             no: int = 1,
             start_node_no: int = 1,
             end_node_no: int = 2,
@@ -1157,7 +1175,7 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             section_no (int): Section Tag
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -1222,13 +1240,15 @@ class Member():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def ResultBeam(self,
+    @staticmethod
+    def ResultBeam(
             no: int = 1,
             start_node_no: int = 1,
             end_node_no: int = 2,
@@ -1295,7 +1315,7 @@ class Member():
                 for result_beam_integrate_stresses_and_forces.name == "INTEGRATE_WITHIN_CYLINDER":
                     integration_parameters = [result_beam_radius]
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -1476,13 +1496,15 @@ class Member():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def DefinableStiffness(self,
+    @staticmethod
+    def DefinableStiffness(
             no: int = 1,
             start_node_no: int = 1,
             end_node_no: int = 2,
@@ -1512,7 +1534,7 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             definable_stiffness (int): Definable Stiffness Tag
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -1581,13 +1603,15 @@ class Member():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def CouplingRigidRigid(self,
+    @staticmethod
+    def CouplingRigidRigid(
                         no: int = 1,
                         start_node_no: int = 1,
                         end_node_no: int = 2,
@@ -1611,7 +1635,7 @@ class Member():
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -1656,13 +1680,15 @@ class Member():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def CouplingRigidHinge(self,
+    @staticmethod
+    def CouplingRigidHinge(
                         no: int = 1,
                         start_node_no: int = 1,
                         end_node_no: int = 2,
@@ -1686,7 +1712,7 @@ class Member():
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -1731,13 +1757,15 @@ class Member():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def CouplingHingeRigid(self,
+    @staticmethod
+    def CouplingHingeRigid(
                         no: int = 1,
                         start_node_no: int = 1,
                         end_node_no: int = 2,
@@ -1761,7 +1789,7 @@ class Member():
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -1806,13 +1834,15 @@ class Member():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)
 
-    def CouplingHingeHinge(self,
+    @staticmethod
+    def CouplingHingeHinge(
                         no: int = 1,
                         start_node_no: int = 1,
                         end_node_no: int = 2,
@@ -1836,7 +1866,7 @@ class Member():
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
         clientObject = Model.clientModel.factory.create('ns0:member')
@@ -1881,8 +1911,9 @@ class Member():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member to client model
         Model.clientModel.service.set_member(clientObject)

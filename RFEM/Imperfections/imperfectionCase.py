@@ -5,13 +5,13 @@ class ImperfectionCase():
                  no: int = 1,
                  assigned_to_load_cases: str = '1',
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
             no (int): Imperfection Case Tag
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Imperfection Case
@@ -30,8 +30,9 @@ class ImperfectionCase():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Imperfection Case to client model
         Model.clientModel.service.set_imperfection_case(clientObject)

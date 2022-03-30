@@ -352,19 +352,6 @@ class SurfaceLoadAxisDefinitionType(Enum):
     '''
     AXIS_DEFINITION_POINT_AND_AXIS, AXIS_DEFINITION_TWO_POINTS = range(2)
 
-class SurfaceLoadDirection(Enum):
-    '''
-    Surface Load Load Direction
-    '''
-    LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED, LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE,\
-    LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, LOAD_DIRECTION_LOCAL_X, LOAD_DIRECTION_LOCAL_Y, LOAD_DIRECTION_LOCAL_Z = range(9)
-
-class SurfaceLoadType(Enum):
-    '''
-    Surface Load Type
-    '''
-    LOAD_TYPE_AXIAL_STRAIN, LOAD_TYPE_FORCE, LOAD_TYPE_FORM_FINDING, LOAD_TYPE_MASS, LOAD_TYPE_PRECAMBER, LOAD_TYPE_ROTARY_MOTION, LOAD_TYPE_TEMPERATURE = range(7)
-
 class NodeType(Enum):
     '''
     Node Type | Enum
@@ -1235,6 +1222,13 @@ class AddOn(Enum):
     form_finding_active, cutting_patterns_active, torsional_warping_active, cost_estimation_active, modal_active, spectral_active, \
     time_history_active, pushover_active, harmonic_response_active, building_model_active, wind_simulation_active, \
     geotechnical_analysis_active = range(26)
+
+
+class IFCExportType(Enum):
+    '''
+    IFC Export Type
+    '''
+    E_EXPORT_IFC4_REFERENCE_VIEW, E_EXPORT_IFC4_STRUCTURAL_ANALYSIS_VIEW = range(2)
 
 class SteelEffectiveLengthsBucklingFactorValueType(Enum):
     '''

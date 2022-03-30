@@ -14,7 +14,7 @@ class LoadCombination():
                  to_solve: bool = True,
                  combination_items = [[1.5, 1, 0, False]],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         # Client model | Load Combination
         clientObject = Model.clientModel.factory.create('ns0:load_combination')
@@ -55,8 +55,9 @@ class LoadCombination():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Items
         clientObject.items = Model.clientModel.factory.create('ns0:load_combination.items')

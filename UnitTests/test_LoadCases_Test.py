@@ -6,9 +6,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-# Import der Bibliotheken
 import pytest
-from RFEM.enums import *
 from RFEM.initModel import Model
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase, DIN_Action_Category
@@ -25,9 +23,9 @@ def test_load_case():
     StaticAnalysisSettings()
     # TODO: DIN_Action_Category will only work with German localization
     # The action cat. is language dependent, which needs to be corrected.
-    LoadCase.StaticAnalysis(LoadCase, 1, 'SW', True, 1, DIN_Action_Category['1A'], [True, 0, 0, 1])
-    LoadCase.StaticAnalysis(LoadCase, 2, 'SDL', True,  1, DIN_Action_Category['1C'], [True, 0.1, 0.1, 0])
-    LoadCase.StaticAnalysis(LoadCase, 3, 'Snow', True,  1, DIN_Action_Category['4A'], [False])
-    LoadCase.StaticAnalysis(LoadCase, 4, 'Wind', False,  1, DIN_Action_Category['5'], [False])
+    LoadCase.StaticAnalysis(1, 'SW', True, 1, DIN_Action_Category['1A'], [True, 0, 0, 1])
+    LoadCase.StaticAnalysis(2, 'SDL', True,  1, DIN_Action_Category['1C'], [True, 0.1, 0.1, 0])
+    LoadCase.StaticAnalysis(3, 'Snow', True,  1, DIN_Action_Category['4A'], [False])
+    LoadCase.StaticAnalysis(4, 'Wind', False,  1, DIN_Action_Category['5'], [False])
 
     Model.clientModel.service.finish_modification()

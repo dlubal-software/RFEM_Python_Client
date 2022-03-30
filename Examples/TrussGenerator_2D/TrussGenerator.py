@@ -796,7 +796,7 @@ class Ui_MainWindow(object):
                 i = 1
                 j = 1
                 while j<len(tag_nodes) and i<len(tag_nodes):
-                    Member.Truss(0, j+2, i, i+1, section_no=4)
+                    Member.Truss(j+2, i, i+1, section_no=4)
                     i += 2
                     j += 1
 
@@ -806,7 +806,7 @@ class Ui_MainWindow(object):
                     i = 1
                     j = int(diagonal_tag[0])
                     while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1):
-                        Member.Truss(0, j, i, i+3, section_no=3)
+                        Member.Truss(j, i, i+3, section_no=3)
                         i +=2
                         j +=1
 
@@ -815,7 +815,7 @@ class Ui_MainWindow(object):
                     i = 1
                     j = int(diagonal_tag[0])
                     while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 2):
-                        Member.Truss(0, j, i+1, i+2, section_no=3)
+                        Member.Truss(j, i+1, i+2, section_no=3)
                         i +=2
                         j +=1
 
@@ -826,9 +826,9 @@ class Ui_MainWindow(object):
                     k = 1
 
                     while i < len(tag_nodes) -1 and j < diagonal_tag[-1] +2  and k < len(tag_nodes) :
-                        Member.Truss(0, j, i, i+3, section_no=3)
+                        Member.Truss(j, i, i+3, section_no=3)
                         j += 1
-                        Member.Truss(0, j, k+3, k+4, section_no=3)
+                        Member.Truss(j, k+3, k+4, section_no=3)
                         i += 4
                         k += 4
                         j += 1
@@ -840,9 +840,9 @@ class Ui_MainWindow(object):
                     k = 1
 
                     while i < len(tag_nodes) -1 and j < diagonal_tag[-1] +1  and k < len(tag_nodes) :
-                        Member.Truss(0, j, i+2, i+5, section_no=3)
+                        Member.Truss(j, i+2, i+5, section_no=3)
                         j += 1
-                        Member.Truss(0, j, k+1, k+2, section_no=3)
+                        Member.Truss(j, k+1, k+2, section_no=3)
                         i += 4
                         k += 4
                         j += 1
@@ -853,13 +853,13 @@ class Ui_MainWindow(object):
                         i = 1
                         j = int(diagonal_tag[0])
                         while i < ((tag_nodes[-1]/2) + 1) and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+3, section_no=3)
+                            Member.Truss(j, i, i+3, section_no=3)
                             i += 2
                             j += 1
                         i = int(len(tag_nodes)/2) + 1
                         j = int(diagonal_tag[int(len(diagonal_tag)/2)])
                         while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+1, section_no=3)
+                            Member.Truss(j, i, i+1, section_no=3)
                             i += 2
                             j += 1
                     else:
@@ -876,13 +876,13 @@ class Ui_MainWindow(object):
                         i = 1
                         j = int(diagonal_tag[0])
                         while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
+                            Member.Truss(j, i+1, i+2, section_no=3)
                             i += 2
                             j += 1
                         i = int(len(tag_nodes)/2)
                         j = int(diagonal_tag[int(len(diagonal_tag)/2)])
                         while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+3, section_no=3)
+                            Member.Truss(j, i, i+3, section_no=3)
                             i += 2
                             j += 1
                     else:
@@ -898,9 +898,9 @@ class Ui_MainWindow(object):
                     i = 1
                     j = int(diagonal_tag[0])
                     while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1)*2:
-                        Member.Truss(0, j, i, i+3, section_no=3)
+                        Member.Truss(j, i, i+3, section_no=3)
                         j +=1
-                        Member.Truss(0, j, i+1, i+2, section_no=3)
+                        Member.Truss(j, i+1, i+2, section_no=3)
                         i +=2
                         j +=1
 
@@ -931,7 +931,7 @@ class Ui_MainWindow(object):
                 i = 1
                 j = 1
                 while j<len(tag_nodes) and i<len(tag_nodes):
-                    Member.Truss(0, j+2, i, i+1, section_no=4)
+                    Member.Truss(j+2, i, i+1, section_no=4)
                     i += 2
                     j += 1
 
@@ -941,7 +941,7 @@ class Ui_MainWindow(object):
                     i = 1
                     j = int(diagonal_tag[0])
                     while i < len(tag_nodes) +2 and j < int(diagonal_tag[-1] + 2):
-                        Member.Truss(0, j, i, i+3, section_no=3)
+                        Member.Truss(j, i, i+3, section_no=3)
                         i +=2
                         j +=1
                     #Add first span
@@ -951,15 +951,15 @@ class Ui_MainWindow(object):
                     Member((int(diagonal_tag[-1])+1), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
                     Member((int(diagonal_tag[-1])+2), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
 
-                    Member.Truss(0, (int(diagonal_tag[-1])+3), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])+3), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])+4), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
 
                 elif self.diag_2.isChecked():
                     diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
                     i = 1
                     j = int(diagonal_tag[0])
                     while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 2):
-                        Member.Truss(0, j, i+1, i+2, section_no=3)
+                        Member.Truss(j, i+1, i+2, section_no=3)
                         i +=2
                         j +=1
 
@@ -970,8 +970,8 @@ class Ui_MainWindow(object):
                     Member((int(diagonal_tag[-1])+1), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
                     Member((int(diagonal_tag[-1])+2), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
 
-                    Member.Truss(0, (int(diagonal_tag[-1])+3), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])+3), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])+4), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
 
                 elif self.diag_3.isChecked():
                     diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
@@ -980,9 +980,9 @@ class Ui_MainWindow(object):
                     k = 1
 
                     while i < len(tag_nodes) -1 and j < diagonal_tag[-1] +2  and k < len(tag_nodes) :
-                        Member.Truss(0, j, i, i+3, section_no=3)
+                        Member.Truss(j, i, i+3, section_no=3)
                         j += 1
-                        Member.Truss(0, j, k+3, k+4, section_no=3)
+                        Member.Truss(j, k+3, k+4, section_no=3)
                         i += 4
                         k += 4
                         j += 1
@@ -994,8 +994,8 @@ class Ui_MainWindow(object):
                     Member((int(diagonal_tag[-1])+1), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
                     Member((int(diagonal_tag[-1])+2), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
 
-                    Member.Truss(0, (int(diagonal_tag[-1])+3), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])+3), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])+4), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
 
                 elif self.diag_4.isChecked():
                     diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
@@ -1004,9 +1004,9 @@ class Ui_MainWindow(object):
                     k = 1
 
                     while i < len(tag_nodes) -1 and j < diagonal_tag[-1]+1  and k < len(tag_nodes) :
-                        Member.Truss(0, j, i+2, i+5, section_no=3)
+                        Member.Truss(j, i+2, i+5, section_no=3)
                         j += 1
-                        Member.Truss(0, j, k+1, k+2, section_no=3)
+                        Member.Truss(j, k+1, k+2, section_no=3)
                         i += 4
                         k += 4
                         j += 1
@@ -1018,8 +1018,8 @@ class Ui_MainWindow(object):
                     Member((int(diagonal_tag[-1])+2), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
                     Member((int(diagonal_tag[-1])+3), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
 
-                    Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])+4), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])+5), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
 
                 elif self.diag_5.isChecked():
                     if (number_of_bays % 2) == 0:
@@ -1027,13 +1027,13 @@ class Ui_MainWindow(object):
                         i = 1
                         j = int(diagonal_tag[0])
                         while i < ((tag_nodes[-1]/2) + 1) and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+3, section_no=3)
+                            Member.Truss(j, i, i+3, section_no=3)
                             i += 2
                             j += 1
                         i = int(len(tag_nodes)/2) + 1
                         j = int(diagonal_tag[int(len(diagonal_tag)/2)])
                         while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+1, section_no=3)
+                            Member.Truss(j, i, i+1, section_no=3)
                             i += 2
                             j += 1
                         #Add first span
@@ -1043,8 +1043,8 @@ class Ui_MainWindow(object):
                         Member((int(diagonal_tag[-1])+2), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
                         Member((int(diagonal_tag[-1])+3), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
 
-                        Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
-                        Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
+                        Member.Truss((int(diagonal_tag[-1])+4), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
+                        Member.Truss((int(diagonal_tag[-1])+5), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
                     else:
                         msg = QtWidgets.QMessageBox()
                         msg.setIcon(QtWidgets.QMessageBox.Critical)
@@ -1059,13 +1059,13 @@ class Ui_MainWindow(object):
                         i = 1
                         j = int(diagonal_tag[0])
                         while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
+                            Member.Truss(j, i+1, i+2, section_no=3)
                             i += 2
                             j += 1
                         i = int(len(tag_nodes)/2)
                         j = int(diagonal_tag[int(len(diagonal_tag)/2)])
                         while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+3, section_no=3)
+                            Member.Truss(j, i, i+3, section_no=3)
                             i += 2
                             j += 1
                         #Add first span
@@ -1075,8 +1075,8 @@ class Ui_MainWindow(object):
                         Member((int(diagonal_tag[-1])+2), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
                         Member((int(diagonal_tag[-1])+3), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
 
-                        Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
-                        Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
+                        Member.Truss((int(diagonal_tag[-1])+4), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
+                        Member.Truss((int(diagonal_tag[-1])+5), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
 
                     else:
                         msg = QtWidgets.QMessageBox()
@@ -1091,9 +1091,9 @@ class Ui_MainWindow(object):
                     i = 1
                     j = int(diagonal_tag[0])
                     while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1)*2:
-                        Member.Truss(0, j, i, i+3, section_no=3)
+                        Member.Truss(j, i, i+3, section_no=3)
                         j +=1
-                        Member.Truss(0, j, i+1, i+2, section_no=3)
+                        Member.Truss(j, i+1, i+2, section_no=3)
                         i +=2
                         j +=1
                     #Add first span
@@ -1103,8 +1103,8 @@ class Ui_MainWindow(object):
                     Member((int(diagonal_tag[-1])*2+1), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
                     Member((int(diagonal_tag[-1])*2+2), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
 
-                    Member.Truss(0, (int(diagonal_tag[-1])*2+3), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[-1])*2+4), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])*2+3), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])*2+4), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
 
                 elif self.diag_8.isChecked():
                     #Add first span
@@ -1115,8 +1115,8 @@ class Ui_MainWindow(object):
                     Member((int(diagonal_tag[1])), tag_nodes[-1]+1, tag_nodes[1], 0, 1, 1, 0, 0)
                     Member((int(diagonal_tag[2])), tag_nodes[-1]+2, tag_nodes[-1], 0, 2, 2, 0, 0)
 
-                    Member.Truss(0, (int(diagonal_tag[3])), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[3]) + 1), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
+                    Member.Truss((int(diagonal_tag[3])), tag_nodes[0], tag_nodes[-1]+1, section_no=3)
+                    Member.Truss((int(diagonal_tag[3]) + 1), tag_nodes[-2], tag_nodes[-1]+2, section_no=3)
 
                 Model.clientModel.service.finish_modification()
 
@@ -1142,7 +1142,7 @@ class Ui_MainWindow(object):
                 i = 1
                 j = 1
                 while j<len(tag_nodes) and i<len(tag_nodes):
-                    Member.Truss(0, j+2, i, i+1, section_no=4)
+                    Member.Truss(j+2, i, i+1, section_no=4)
                     i += 2
                     j += 1
 
@@ -1152,7 +1152,7 @@ class Ui_MainWindow(object):
                     i = 1
                     j = int(diagonal_tag[0])
                     while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1):
-                        Member.Truss(0, j, i, i+3, section_no=3)
+                        Member.Truss(j, i, i+3, section_no=3)
                         i +=2
                         j +=1
                     #Add first span
@@ -1162,15 +1162,15 @@ class Ui_MainWindow(object):
                     Member((int(diagonal_tag[-1])+1), tag_nodes[0], tag_nodes[-1]+1, 0, 1, 1, 0, 0)
                     Member((int(diagonal_tag[-1])+2), tag_nodes[-2], tag_nodes[-1]+2, 0, 2, 2, 0, 0)
 
-                    Member.Truss(0, (int(diagonal_tag[-1])+3), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])+3), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])+4), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
 
                 elif self.diag_2.isChecked():
                     diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
                     i = 1
                     j = int(diagonal_tag[0])
                     while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 2):
-                        Member.Truss(0, j, i+1, i+2, section_no=3)
+                        Member.Truss(j, i+1, i+2, section_no=3)
                         i +=2
                         j +=1
                     #Add first span
@@ -1180,8 +1180,8 @@ class Ui_MainWindow(object):
                     Member((int(diagonal_tag[-1])+1), tag_nodes[0], tag_nodes[-1]+1, 0, 1, 1, 0, 0)
                     Member((int(diagonal_tag[-1])+2), tag_nodes[-2], tag_nodes[-1]+2, 0, 2, 2, 0, 0)
 
-                    Member.Truss(0, (int(diagonal_tag[-1])+3), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])+3), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])+4), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
 
                 elif self.diag_3.isChecked():
                     diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
@@ -1190,9 +1190,9 @@ class Ui_MainWindow(object):
                     k = 1
 
                     while i < len(tag_nodes) -1 and j < diagonal_tag[-1] +2  and k < len(tag_nodes) :
-                        Member.Truss(0, j, i, i+3, section_no=3)
+                        Member.Truss(j, i, i+3, section_no=3)
                         j += 1
-                        Member.Truss(0, j, k+3, k+4, section_no=3)
+                        Member.Truss(j, k+3, k+4, section_no=3)
                         i += 4
                         k += 4
                         j += 1
@@ -1203,8 +1203,8 @@ class Ui_MainWindow(object):
                     Member((int(diagonal_tag[-1])+1), tag_nodes[0], tag_nodes[-1]+1, 0, 1, 1, 0, 0)
                     Member((int(diagonal_tag[-1])+2), tag_nodes[-2], tag_nodes[-1]+2, 0, 2, 2, 0, 0)
 
-                    Member.Truss(0, (int(diagonal_tag[-1])+3), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])+3), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])+4), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
 
                 elif self.diag_4.isChecked():
                     diagonal_tag = np.arange((len(tag_nodes)/2 + 3), (len(tag_nodes)/2 + 3) + number_of_bays, 1)
@@ -1213,9 +1213,9 @@ class Ui_MainWindow(object):
                     k = 1
 
                     while i < len(tag_nodes) -1 and j < diagonal_tag[-1]+1  and k < len(tag_nodes) :
-                        Member.Truss(0, j, i+2, i+5, section_no=3)
+                        Member.Truss(j, i+2, i+5, section_no=3)
                         j += 1
-                        Member.Truss(0, j, k+1, k+2, section_no=3)
+                        Member.Truss(j, k+1, k+2, section_no=3)
                         i += 4
                         k += 4
                         j += 1
@@ -1226,8 +1226,8 @@ class Ui_MainWindow(object):
                     Member((int(diagonal_tag[-1])+2), tag_nodes[0], tag_nodes[-1]+1, 0, 1, 1, 0, 0)
                     Member((int(diagonal_tag[-1])+3), tag_nodes[-2], tag_nodes[-1]+2, 0, 2, 2, 0, 0)
 
-                    Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])+4), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])+5), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
 
                 elif self.diag_5.isChecked():
                     if (number_of_bays % 2) == 0:
@@ -1235,13 +1235,13 @@ class Ui_MainWindow(object):
                         i = 1
                         j = int(diagonal_tag[0])
                         while i < ((tag_nodes[-1]/2) + 1) and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+3, section_no=3)
+                            Member.Truss(j, i, i+3, section_no=3)
                             i += 2
                             j += 1
                         i = int(len(tag_nodes)/2) + 1
                         j = int(diagonal_tag[int(len(diagonal_tag)/2)])
                         while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+1, section_no=3)
+                            Member.Truss(j, i, i+1, section_no=3)
                             i += 2
                             j += 1
                         #Add first span
@@ -1251,8 +1251,8 @@ class Ui_MainWindow(object):
                         Member((int(diagonal_tag[-1])+2), tag_nodes[0], tag_nodes[-1]+1, 0, 1, 1, 0, 0)
                         Member((int(diagonal_tag[-1])+3), tag_nodes[-2], tag_nodes[-1]+2, 0, 2, 2, 0, 0)
 
-                        Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
-                        Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
+                        Member.Truss((int(diagonal_tag[-1])+4), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
+                        Member.Truss((int(diagonal_tag[-1])+5), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
                     else:
                         msg = QtWidgets.QMessageBox()
                         msg.setIcon(QtWidgets.QMessageBox.Critical)
@@ -1267,13 +1267,13 @@ class Ui_MainWindow(object):
                         i = 1
                         j = int(diagonal_tag[0])
                         while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
+                            Member.Truss(j, i+1, i+2, section_no=3)
                             i += 2
                             j += 1
                         i = int(len(tag_nodes)/2)
                         j = int(diagonal_tag[int(len(diagonal_tag)/2)])
                         while i < tag_nodes[-1] and j <diagonal_tag[-1] +1:
-                            Member.Truss(0, j, i, i+3, section_no=3)
+                            Member.Truss(j, i, i+3, section_no=3)
                             i += 2
                             j += 1
                         #Add first span
@@ -1283,8 +1283,8 @@ class Ui_MainWindow(object):
                         Member((int(diagonal_tag[-1])+2), tag_nodes[0], tag_nodes[-1]+1, 0, 1, 1, 0, 0)
                         Member((int(diagonal_tag[-1])+3), tag_nodes[-2], tag_nodes[-1]+2, 0, 2, 2, 0, 0)
 
-                        Member.Truss(0, (int(diagonal_tag[-1])+4), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
-                        Member.Truss(0, (int(diagonal_tag[-1])+5), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
+                        Member.Truss((int(diagonal_tag[-1])+4), tag_nodes[-1]+1, tag_nodes[1], section_no=3)
+                        Member.Truss((int(diagonal_tag[-1])+5), tag_nodes[-1]+2, tag_nodes[-1], section_no=3)
 
                     else:
                         msg = QtWidgets.QMessageBox()
@@ -1299,9 +1299,9 @@ class Ui_MainWindow(object):
                     i = 1
                     j = int(diagonal_tag[0])
                     while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1)*2:
-                        Member.Truss(0, j, i, i+3, section_no=3)
+                        Member.Truss(j, i, i+3, section_no=3)
                         j +=1
-                        Member.Truss(0, j, i+1, i+2, section_no=3)
+                        Member.Truss(j, i+1, i+2, section_no=3)
                         i +=2
                         j +=1
                     #Add first span
@@ -1311,8 +1311,8 @@ class Ui_MainWindow(object):
                     Member((int(diagonal_tag[-1])*2+1), tag_nodes[-1]+3, tag_nodes[0], 0, 1, 1, 0, 0)
                     Member((int(diagonal_tag[-1])*2+2), tag_nodes[-1]+4, tag_nodes[-2], 0, 2, 2, 0, 0)
 
-                    Member.Truss(0, (int(diagonal_tag[-1])*2+3), tag_nodes[-1]+3, tag_nodes[1], section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[-1])*2+4), tag_nodes[-1], tag_nodes[-1]+4, section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])*2+3), tag_nodes[-1]+3, tag_nodes[1], section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])*2+4), tag_nodes[-1], tag_nodes[-1]+4, section_no=3)
 
                 elif self.diag_8.isChecked():
                     #Add first span
@@ -1323,8 +1323,8 @@ class Ui_MainWindow(object):
                     Member((int(diagonal_tag[-1])*2+1), tag_nodes[-1]+3, tag_nodes[0], 0, 1, 1, 0, 0)
                     Member((int(diagonal_tag[-1])*2+2), tag_nodes[-1]+4, tag_nodes[-2], 0, 2, 2, 0, 0)
 
-                    Member.Truss(0, (int(diagonal_tag[-1])*2+3), tag_nodes[-1]+3, tag_nodes[1], section_no=3)
-                    Member.Truss(0, (int(diagonal_tag[-1])*2+4), tag_nodes[-1], tag_nodes[-1]+4, section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])*2+3), tag_nodes[-1]+3, tag_nodes[1], section_no=3)
+                    Member.Truss((int(diagonal_tag[-1])*2+4), tag_nodes[-1], tag_nodes[-1]+4, section_no=3)
 
                 Model.clientModel.service.finish_modification()
 
@@ -1363,7 +1363,7 @@ class Ui_MainWindow(object):
                     i = 1
                     j = 1
                     while j<len(tag_nodes)-1 and i<len(tag_nodes):
-                        Member.Truss(0, j+3, i+1, i+2, section_no=4)
+                        Member.Truss(j+3, i+1, i+2, section_no=4)
                         i += 2
                         j += 1
 
@@ -1373,7 +1373,7 @@ class Ui_MainWindow(object):
                         i = 1
                         j = int(diagonal_tag[0])
                         while i < len(tag_nodes)-1 and j < int(diagonal_tag[-1]):
-                            Member.Truss(0, j, i+1, i+4, section_no=3)
+                            Member.Truss(j, i+1, i+4, section_no=3)
                             i +=2
                             j +=1
 
@@ -1382,7 +1382,7 @@ class Ui_MainWindow(object):
                         i = 1
                         j = int(diagonal_tag[0])
                         while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1):
-                            Member.Truss(0, j, i+2, i+3, section_no=3)
+                            Member.Truss(j, i+2, i+3, section_no=3)
                             i +=2
                             j +=1
 
@@ -1392,9 +1392,9 @@ class Ui_MainWindow(object):
                         j = int(diagonal_tag[0])
                         k = 1
                         while i < len(tag_nodes) -2 and j < diagonal_tag[-1]  and k < len(tag_nodes) :
-                            Member.Truss(0, j, i+1, i+4, section_no=3)
+                            Member.Truss(j, i+1, i+4, section_no=3)
                             j += 1
-                            Member.Truss(0, j,  k+4, k+5, section_no=3)
+                            Member.Truss(j,  k+4, k+5, section_no=3)
                             i += 4
                             k += 4
                             j += 1
@@ -1405,9 +1405,9 @@ class Ui_MainWindow(object):
                         j = int(diagonal_tag[0])
                         k = 1
                         while i < len(tag_nodes) -2 and j < diagonal_tag[-1]  and k < len(tag_nodes) :
-                            Member.Truss(0, j, i+2, i+3, section_no=3)
+                            Member.Truss(j, i+2, i+3, section_no=3)
                             j += 1
-                            Member.Truss(0, j, k+3, k+6, section_no=3)
+                            Member.Truss(j, k+3, k+6, section_no=3)
                             i += 4
                             k += 4
                             j += 1
@@ -1417,13 +1417,13 @@ class Ui_MainWindow(object):
                         i = 1
                         j = int(diagonal_tag[0])
                         while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1]:
-                            Member.Truss(0, j, i+1, i+4, section_no=3)
+                            Member.Truss(j, i+1, i+4, section_no=3)
                             i += 2
                             j += 1
                         i = int(len(tag_nodes)/2)
                         j = int(diagonal_tag[int(len(diagonal_tag)/2)])
                         while i < tag_nodes[-1] and j <diagonal_tag[-1]:
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
+                            Member.Truss(j, i+1, i+2, section_no=3)
                             i += 2
                             j += 1
 
@@ -1432,13 +1432,13 @@ class Ui_MainWindow(object):
                         i = 1
                         j = int(diagonal_tag[0])
                         while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1]:
-                            Member.Truss(0, j, i+2, i+3, section_no=3)
+                            Member.Truss(j, i+2, i+3, section_no=3)
                             i += 2
                             j += 1
                         i = int(len(tag_nodes)/2)
                         j = int(diagonal_tag[int(len(diagonal_tag)/2)])
                         while i < tag_nodes[-1] and j <diagonal_tag[-1]:
-                            Member.Truss(0, j, i, i+3, section_no=3)
+                            Member.Truss(j, i, i+3, section_no=3)
                             i += 2
                             j += 1
 
@@ -1447,9 +1447,9 @@ class Ui_MainWindow(object):
                         i = 1
                         j = int(diagonal_tag[0])
                         while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 1)*2:
-                            Member.Truss(0, j, i+2, i+3, section_no=3)
+                            Member.Truss(j, i+2, i+3, section_no=3)
                             j +=1
-                            Member.Truss(0, j, i+1, i+4, section_no=3)
+                            Member.Truss(j, i+1, i+4, section_no=3)
                             i +=2
                             j +=1
 
@@ -1502,7 +1502,7 @@ class Ui_MainWindow(object):
                     i = 1
                     j = 1
                     while j<len(tag_nodes)-1 and i<len(tag_nodes):
-                        Member.Truss(0, j+3, i, i+1, section_no=4)
+                        Member.Truss(j+3, i, i+1, section_no=4)
                         i += 2
                         j += 1
 
@@ -1512,7 +1512,7 @@ class Ui_MainWindow(object):
                         i = 1
                         j = int(diagonal_tag[0])
                         while i < len(tag_nodes) and j < int(diagonal_tag[-1] + 2):
-                            Member.Truss(0, j, i, i+3, section_no=3)
+                            Member.Truss(j, i, i+3, section_no=3)
                             i +=2
                             j +=1
 
@@ -1521,7 +1521,7 @@ class Ui_MainWindow(object):
                         i = 1
                         j = int(diagonal_tag[0])
                         while i < len(tag_nodes)-1 and j < int(diagonal_tag[-1] + 2):
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
+                            Member.Truss(j, i+1, i+2, section_no=3)
                             i +=2
                             j +=1
 
@@ -1531,9 +1531,9 @@ class Ui_MainWindow(object):
                         j = int(diagonal_tag[0])
                         k = 1
                         while i < len(tag_nodes) +2 and j < diagonal_tag[-1] + 2  and k < len(tag_nodes) :
-                            Member.Truss(0, j, i, i+3, section_no=3)
+                            Member.Truss(j, i, i+3, section_no=3)
                             j += 1
-                            Member.Truss(0, j, k+3, k+4, section_no=3)
+                            Member.Truss(j, k+3, k+4, section_no=3)
                             i += 4
                             k += 4
                             j += 1
@@ -1544,9 +1544,9 @@ class Ui_MainWindow(object):
                         j = int(diagonal_tag[0])
                         k = 1
                         while i < len(tag_nodes) +2  and j < diagonal_tag[-1] + 2  and k < len(tag_nodes) :
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
+                            Member.Truss(j, i+1, i+2, section_no=3)
                             j += 1
-                            Member.Truss(0, j, k+2, k+5, section_no=3)
+                            Member.Truss(j, k+2, k+5, section_no=3)
                             i += 4
                             k += 4
                             j += 1
@@ -1556,13 +1556,13 @@ class Ui_MainWindow(object):
                         i = 1
                         j = int(diagonal_tag[0])
                         while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] + 10:
-                            Member.Truss(0, j, i, i+3, section_no=3)
+                            Member.Truss(j, i, i+3, section_no=3)
                             i += 2
                             j += 1
                         i = int(len(tag_nodes)/2)
                         j = int(diagonal_tag[int(len(diagonal_tag)/2)]) +1
                         while i < tag_nodes[-1] + 2 and j <diagonal_tag[-1] + 2:
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
+                            Member.Truss(j, i+1, i+2, section_no=3)
                             i += 2
                             j += 1
 
@@ -1571,13 +1571,13 @@ class Ui_MainWindow(object):
                         i = 1
                         j = int(diagonal_tag[0])
                         while i < (tag_nodes[-1]/2) and j <diagonal_tag[-1] + 10:
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
+                            Member.Truss(j, i+1, i+2, section_no=3)
                             i += 2
                             j += 1
                         i = int(len(tag_nodes)/2)
                         j = int(diagonal_tag[int(len(diagonal_tag)/2)]) +1
                         while i < tag_nodes[-1] + 2 and j <diagonal_tag[-1] + 2:
-                            Member.Truss(0, j, i, i+3, section_no=3)
+                            Member.Truss(j, i, i+3, section_no=3)
                             i += 2
                             j += 1
 
@@ -1586,9 +1586,9 @@ class Ui_MainWindow(object):
                         i = 1
                         j = int(diagonal_tag[0]) +2
                         while i < len(tag_nodes) and j < int(diagonal_tag[-1])*2:
-                            Member.Truss(0, j, i+1, i+2, section_no=3)
+                            Member.Truss(j, i+1, i+2, section_no=3)
                             j +=1
-                            Member.Truss(0, j, i, i+3, section_no=3)
+                            Member.Truss(j, i, i+3, section_no=3)
                             i +=2
                             j +=1
 

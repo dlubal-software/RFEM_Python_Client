@@ -9,7 +9,7 @@ class StaticAnalysisSettings():
                  name: str = None,
                  analysis_type=StaticAnalysisType.GEOMETRICALLY_LINEAR,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = []):
         """
         Args:
             no (int): Static Analysis Setting Tag
@@ -38,13 +38,15 @@ class StaticAnalysisSettings():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Static Analysis Settings to client model
         Model.clientModel.service.set_static_analysis_settings(clientObject)
 
-    def GeometricallyLinear(self,
+    @staticmethod
+    def GeometricallyLinear(
                   no: int = 1,
                   name: str = None,
                   load_modification = [False, 1, False],
@@ -54,7 +56,7 @@ class StaticAnalysisSettings():
                   plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                   mass_conversion = [False, 0, 0, 0],
                   comment: str = '',
-                  params: dict = {}):
+                  params: dict = []):
 
         """
         Args:
@@ -122,13 +124,15 @@ class StaticAnalysisSettings():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Static Analysis Settings to client model
         Model.clientModel.service.set_static_analysis_settings(clientObject)
 
-    def LargeDeformation(self,
+    @staticmethod
+    def LargeDeformation(
                   no: int = 1,
                   name: str = None,
                   iterative_method = StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis.NEWTON_RAPHSON,
@@ -165,7 +169,7 @@ class StaticAnalysisSettings():
             mass_conversion (list, optional): Mass Conversion Parameters
                 mass_conversion = [mass_conversion_enabled, mass_conversion_factor_in_direction_x, mass_conversion_factor_in_direction_y, mass_conversion_factor_in_direction_z]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
 
         # Client model
@@ -243,13 +247,15 @@ class StaticAnalysisSettings():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Static Analysis Settings to client model
         Model.clientModel.service.set_static_analysis_settings(clientObject)
 
-    def SecondOrderPDelta(self,
+    @staticmethod
+    def SecondOrderPDelta(
                   no: int = 1,
                   name: str = None,
                   iterative_method = StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis.NEWTON_RAPHSON,
@@ -264,7 +270,7 @@ class StaticAnalysisSettings():
                   plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                   mass_conversion = [False, 0, 0, 1],
                   comment: str = '',
-                  params: dict = {}):
+                  params: dict = []):
         """
         Args:
             no (int): Static Analysis Setting Tag
@@ -361,8 +367,9 @@ class StaticAnalysisSettings():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Static Analysis Settings to client model
         Model.clientModel.service.set_static_analysis_settings(clientObject)
