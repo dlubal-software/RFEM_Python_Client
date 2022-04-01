@@ -36,7 +36,7 @@ This Python project is focused on opening RFEM 6 to all of our customers, enabli
 ### Dependencies
 Dependency check is implemented inside [initModel.py](/RFEM/initModel.py) with option to install during execution.
 * libraries: [SUDS](https://github.com/suds-community/suds), [requests](https://docs.python-requests.org/en/master/), and  [suds_requests](https://pypi.org/project/suds_requests/)
-* RFEM 6 application
+* RFEM 6 application. Client is always compatible with the latest version.
 
 ### Step by step
 1) Clone this repository (if you have GitHub account) or download actual [release](https://github.com/Dlubal-Software/RFEM_Python_Client/releases/tag/R-v1.0.0)
