@@ -45,13 +45,13 @@ class MemberImperfection():
 
 
     def InitialSwayRelative(self,
-                   no: int = 1,
-                   imperfection_case_no: int = 1,
-                   members: str = '1',
-                   sway: float = 300.0,
-                   imperfection_direction = ImperfectionDirection.IMPERFECTION_DIRECTION_LOCAL_Y,
-                   comment: str = '',
-                   params: dict = {}):
+                            no: int = 1,
+                            imperfection_case_no: int = 1,
+                            members: str = '1',
+                            sway: float = 300.0,
+                            imperfection_direction = ImperfectionDirection.IMPERFECTION_DIRECTION_LOCAL_Y,
+                            comment: str = '',
+                            params: dict = {}):
         '''
         Args:
             no (int): Member Imperfection Tag
@@ -60,9 +60,8 @@ class MemberImperfection():
             sway (float):
             imperfection_direction
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Additional parameters
         '''
-        # Hier geht es weiter!
         # Client model | Imperfection Case
         clientObject = Model.clientModel.factory.create('ns0:member_imperfection')
 
@@ -82,6 +81,7 @@ class MemberImperfection():
 
         clientObject.imperfection_direction = imperfection_direction.name
 
+        clientObject.imperfection_type = 'IMPERFECTION_TYPE_INITIAL_SWAY'
         clientObject.definition_type = 'DEFINITION_TYPE_RELATIVE'
 
         # Comment
@@ -94,10 +94,56 @@ class MemberImperfection():
         # Add Member Imperfection to client model
         Model.clientModel.service.set_member_imperfection(imperfection_case_no, clientObject)
 
-    def InitalBow(self,
-                   ):
-        pass
+    def InitalBowRelative(self,
+                          no: int = 1,
+                          imperfection_case_no: int = 1,
+                          members: str = '1',
+                          bow: float = 250.0,
+                          imperfection_direction = ImperfectionDirection.IMPERFECTION_DIRECTION_LOCAL_Y,
+                          comment: str = '',
+                          params: dict = {}):
+        '''
+        Args:
+            no (int): Member Imperfection Tag
+            imperfection_case_no (int): number of imperfection case for this member imperfection
+            members (str) : List of member numbers
+            bow (float):
+            imperfection_direction
+            comment (str, optional): Comments
+            params (dict, optional): Additional parameters
+        '''
+        # Client model | Imperfection Case
+        clientObject = Model.clientModel.factory.create('ns0:member_imperfection')
 
-    def InitalBowAndCriterion(self,
+        # Clears object atributes | Sets all atributes to None
+        clearAtributes(clientObject)
+
+        # Member Imperfection No.
+        clientObject.no = no
+
+        clientObject.members = ConvertToDlString(members)
+
+        # Sway
+
+        clientObject.basic_value_relative = bow
+
+        # Imperfection Direction
+
+        clientObject.imperfection_direction = imperfection_direction.name
+        
+        clientObject.imperfection_type = 'IMPERFECTION_TYPE_INITIAL_BOW'
+        clientObject.definition_type = 'DEFINITION_TYPE_RELATIVE'
+
+        # Comment
+        clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        for key in params:
+            clientObject[key] = params[key]
+
+        # Add Member Imperfection to client model
+        Model.clientModel.service.set_member_imperfection(imperfection_case_no, clientObject)
+
+    def InitalBowRelativeAndCriterion(self,
                    ):
         pass
