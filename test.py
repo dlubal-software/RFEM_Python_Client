@@ -74,6 +74,7 @@ if __name__ == '__main__':
     }
 
     MemberImperfection(1, 1, '1', 'My Comment', MemberImperfectionDict)
+    MemberImperfection.InitialSwayRelative(2, 2, 2, '1', 250.0, ImperfectionDirection.IMPERFECTION_DIRECTION_LOCAL_Y_NEGATIVE)
 
 
     # Dieses Testprogramm wird noch etwas ausgebaut und schön gemacht. Dann wird es als

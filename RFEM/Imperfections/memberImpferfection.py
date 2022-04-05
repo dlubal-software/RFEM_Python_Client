@@ -1,4 +1,5 @@
 from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.enums import *
 
 class MemberImperfection():
     '''
@@ -46,9 +47,9 @@ class MemberImperfection():
     def InitialSwayRelative(self,
                    no: int = 1,
                    imperfection_case_no: int = 1,
-                   members: str ='1',
-                   sway: float =300.0, # Das muss in clientObject eingefügt werden.
-                   direction: , # Da muss eine Aufzählung definiert werden.
+                   members: str = '1',
+                   sway: float = 300.0,
+                   imperfection_direction = ImperfectionDirection.IMPERFECTION_DIRECTION_LOCAL_Y,
                    comment: str = '',
                    params: dict = {}):
         '''
@@ -57,6 +58,7 @@ class MemberImperfection():
             imperfection_case_no (int): number of imperfection case for this member imperfection
             members (str) : List of member numbers
             sway (float):
+            imperfection_direction
             comment (str, optional): Comments
             params (dict, optional): Parameters
         '''
@@ -71,6 +73,16 @@ class MemberImperfection():
         clientObject.no = no
 
         clientObject.members = ConvertToDlString(members)
+
+        # Sway
+
+        clientObject.basic_value_relative = sway
+
+        # Imperfection Direction
+
+        clientObject.imperfection_direction = imperfection_direction.name
+
+        clientObject.definition_type = 'DEFINITION_TYPE_RELATIVE'
 
         # Comment
         clientObject.comment = comment
