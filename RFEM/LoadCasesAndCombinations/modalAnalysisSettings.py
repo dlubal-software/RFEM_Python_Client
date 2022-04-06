@@ -12,7 +12,8 @@ class ModalAnalysisSettings():
                  acting_masses = [],
                  neglect_masses = ModalNeglectMasses.E_NEGLECT_MASSES_NO_NEGLECTION,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Setting Tag
@@ -27,7 +28,7 @@ class ModalAnalysisSettings():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Surface
-        clientObject = Model.clientModel.factory.create('ns0:modal_analysis_settings')
+        clientObject = model.clientModel.factory.create('ns0:modal_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -75,4 +76,4 @@ class ModalAnalysisSettings():
                 clientObject[key] = params[key]
 
         # Add Static Analysis Settings to client model
-        Model.clientModel.service.set_modal_analysis_settings(clientObject)
+        model.clientModel.service.set_modal_analysis_settings(clientObject)

@@ -121,10 +121,10 @@ except:
     sys.exit()
 
 # Persistent connection
-# Without next 4 lines the connection lasts only 1 request,
-# the message: 'Application is locked by external connection'
-# is blinking whole time and the execution is unnecessarily long.
-# This solution works with unit-tests.
+# Next 4 lines enables Client to work within 1 session which is much faster to execute.
+# Without it the session lasts only one request which results in poor performance.
+# Assigning session to application Client (here client) instead of model Client
+# results also in poor performace.
 session = requests.Session()
 adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
 session.mount('http://', adapter)
@@ -132,31 +132,57 @@ trans = suds_requests.RequestsTransport(session)
 
 class Model():
     clientModel = None
+
     def __init__(self,
                  new_model: bool=True,
                  model_name: str="TestModel",
                  delete: bool=False,
                  delete_all: bool=False):
+        """
+        Class object representing individual model in RFEM.
+        Class enables to edit multiple models in one session through holding
+        one transport session active by not setting 'trans' into Client.
+
+        Args:
+            new_model (bool, optional): Set to True if new model is requested.
+            model_name (str, optional): Defaults to "TestModel".
+            delete (bool, optional):  Delete results
+            delete_all (bool, optional): Delete all objects in Model.
+        """
 
         cModel = None
         modelLs = client.service.get_model_list()
 
         if new_model:
             if modelLs and model_name in modelLs.name:
-                new = client.service.open_model(model_name) + 'wsdl'
-                cModel = Client(new, transport=trans)
+                modelIndex = 0
+                for i,j in enumerate(modelLs.name):
+                    if modelLs.name[i] == model_name:
+                        modelIndex = i
+                new = client.service.get_model(modelIndex) + 'wsdl'
+                # Set transport parameter if it is the first model
+                if modelLs:
+                    cModel = Client(new)
+                else:
+                    cModel = Client(new, transport=trans)
                 cModel.service.delete_all_results()
                 cModel.service.delete_all()
             else:
                 new = client.service.new_model(model_name) + 'wsdl'
-                cModel = Client(new, transport=trans)
+                if modelLs:
+                    cModel = Client(new)
+                else:
+                    cModel = Client(new, transport=trans)
         else:
             modelIndex = 0
             for i,j in enumerate(modelLs.name):
                 if modelLs.name[i] == model_name:
                     modelIndex = i
             new = client.service.get_model(modelIndex) + 'wsdl'
-            cModel = Client(new, transport=trans)
+            if modelLs:
+                cModel = Client(new)
+            else:
+                cModel = Client(new, transport=trans)
             if delete:
                 print('Deleting results...')
                 cModel.service.delete_all_results()
@@ -164,14 +190,18 @@ class Model():
                 print('Delete all...')
                 cModel.service.delete_all()
 
-        Model.clientModel = cModel
+        # when using multiple intances/model
+        self.clientModel = cModel
+        # when using only one instace/model
+        if not modelLs:
+            Model.clientModel = cModel
 
 def clearAtributes(obj):
     '''
     Clears object atributes.
     Sets all atributes to None.
 
-    Params:
+    Args:
         obj: object to clear
     '''
 
@@ -181,6 +211,21 @@ def clearAtributes(obj):
         obj[i[0]] = None
     return obj
 
+def closeModel(index_or_name, save_changes = False):
+    """
+    Close any model with index or name. Be sure to close the first created
+    model last. It carries whole session.
+    """
+    if isinstance(index_or_name, int):
+        client.service.close_model(index_or_name, save_changes)
+    elif isinstance(index_or_name, str):
+        modelLs = client.service.get_model_list()
+        for i,j in enumerate(modelLs.name):
+            if modelLs.name[i] == index_or_name:
+                client.service.close_model(i, save_changes)
+    else:
+        assert True, 'Parameter index_or_name must be int or string.'
+
 def insertSpaces(lst: list):
     '''
     Add spaces between list of numbers.
@@ -188,17 +233,17 @@ def insertSpaces(lst: list):
     '''
     return ' '.join(str(item) for item in lst)
 
-def Calculate_all(generateXmlSolverInput: bool = False):
+def Calculate_all(generateXmlSolverInput: bool = False, model = Model):
     '''
     Calculates model.
     CAUTION: Don't use it in unit tests!
     It works when executing tests individualy but when running all of them
     it causes RFEM to stuck and generates failures, which are hard to investigate.
 
-    Params:
+    Args:
     - generateXmlSolverInput: generate XML solver input
     '''
-    Model.clientModel.service.calculate_all(generateXmlSolverInput)
+    model.clientModel.service.calculate_all(generateXmlSolverInput)
 
 def ConvertToDlString(s):
     '''
@@ -210,7 +255,7 @@ def ConvertToDlString(s):
     '1-3'       -> '1 2 3'
     '1,3,5-9'   -> '1 3 5 6 7 8 9'
 
-    Params:
+    Args:
         RSTAB / RFEM common string
 
     Returns a WS conform string.
@@ -379,7 +424,7 @@ def SetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active, status = T
 
         modelClient.service.set_addon_statuses(addonLst)
 
-def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None):
+def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None, model = Model):
     '''
     This method calculate just selected objects - load cases, desingSituations, loadCombinations
     Args:
@@ -387,10 +432,10 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
         designSituations (list, optional): [description]. Defaults to None.
         loadCombinations (list, optional): [description]. Defaults to None.
     '''
-    specificObjectsToCalculate = Model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements')
+    specificObjectsToCalculate = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements')
     if loadCases is not None:
         for loadCase in loadCases:
-            specificObjectsToCalculateLC = Model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
+            specificObjectsToCalculateLC = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
             specificObjectsToCalculateLC.no = loadCase
             specificObjectsToCalculateLC.parent_no = 0
             specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
@@ -398,7 +443,7 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
 
     if designSituations is not None:
         for designSituation in designSituations:
-            specificObjectsToCalculateDS = Model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
+            specificObjectsToCalculateDS = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
             specificObjectsToCalculateDS.no = designSituation
             specificObjectsToCalculateDS.parent_no = 0
             specificObjectsToCalculateDS.type = ObjectTypes.E_OBJECT_TYPE_DESIGN_SITUATION.name
@@ -406,15 +451,15 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
 
     if loadCombinations is not None:
         for loadCombination in loadCombinations:
-            specificObjectsToCalculateLC = Model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
+            specificObjectsToCalculateLC = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
             specificObjectsToCalculateLC.no = loadCombination
             specificObjectsToCalculateLC.parent_no = 0
             specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
             specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
 
-    Model.clientModel.service.calculate_specific_objects(specificObjectsToCalculate)
+    model.clientModel.service.calculate_specific_objects(specificObjectsToCalculate)
 
-def FirstFreeIdNumber(memType = ObjectTypes.E_OBJECT_TYPE_MEMBER, parent_no: int = 0):
+def FirstFreeIdNumber(memType = ObjectTypes.E_OBJECT_TYPE_MEMBER, parent_no: int = 0, model = Model):
     '''
     This method returns the next available Id Number for the selected object type
     Args:
@@ -424,9 +469,9 @@ def FirstFreeIdNumber(memType = ObjectTypes.E_OBJECT_TYPE_MEMBER, parent_no: int
             (1) A geometric object has, in general, a parent_no = 0
             (2) The parent_no parameter becomes significant for example with loads
     '''
-    return Model.clientModel.service.get_first_free_number(memType.name, parent_no)
+    return model.clientModel.service.get_first_free_number(memType.name, parent_no)
 
-def SetModelType(model_type = ModelType.E_MODEL_TYPE_3D):
+def SetModelType(model_type = ModelType.E_MODEL_TYPE_3D, model = Model):
     '''
     This method sets the model type. The model type is E_MODEL_TYPE_3D by default.
 
@@ -442,12 +487,12 @@ def SetModelType(model_type = ModelType.E_MODEL_TYPE_3D):
             ModelType.E_MODEL_TYPE_3D
     '''
 
-    Model.clientModel.service.set_model_type(model_type.name)
+    model.clientModel.service.set_model_type(model_type.name)
 
-def GetModelType():
+def GetModelType(model = Model):
 
     '''
     The method returns a string of the current model type.
     '''
 
-    return Model.clientModel.service.get_model_type()
+    return model.clientModel.service.get_model_type()

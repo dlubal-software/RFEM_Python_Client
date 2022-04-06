@@ -10,7 +10,8 @@ class ConcreteReinforcementDirection():
                 reinforcement_direction_type = ReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_FIRST_REINFORCEMENT_IN_X,
                 rotation_parameters = [],
                 comment: str = '',
-                params: dict = None):
+                params: dict = None,
+                model = Model):
         """
         Args:
             no (int): Reinforcement Direction Tag
@@ -23,7 +24,7 @@ class ConcreteReinforcementDirection():
         """
 
         # Client model | Concrete Durabilities
-        clientObject = Model.clientModel.factory.create('ns0:reinforcement_direction')
+        clientObject = model.clientModel.factory.create('ns0:reinforcement_direction')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -54,7 +55,7 @@ class ConcreteReinforcementDirection():
                 clientObject[key] = params[key]
 
         # Add Global Parameter to client model
-        Model.clientModel.service.set_reinforcement_direction(clientObject)
+        model.clientModel.service.set_reinforcement_direction(clientObject)
 
 
 

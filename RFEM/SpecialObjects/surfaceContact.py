@@ -4,10 +4,11 @@ class SurfaceContact():
     def __init__(self,
                  no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Surfaces Contact
-        clientObject = Model.clientModel.factory.create('ns0:surfaces_contact')
+        clientObject = model.clientModel.factory.create('ns0:surfaces_contact')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +25,4 @@ class SurfaceContact():
                 clientObject[key] = params[key]
 
         # Add Surfaces Contact to client model
-        Model.clientModel.service.set_surfaces_contact(clientObject)
+        model.clientModel.service.set_surfaces_contact(clientObject)

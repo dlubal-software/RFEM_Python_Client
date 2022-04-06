@@ -4,10 +4,11 @@ class MemberSupport():
     def __init__(self,
                  no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Member Support
-        clientObject = Model.clientModel.factory.create('ns0:member_support')
+        clientObject = model.clientModel.factory.create('ns0:member_support')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +25,4 @@ class MemberSupport():
                 clientObject[key] = params[key]
 
         # Add Member Support to client model
-        Model.clientModel.service.set_member_support(clientObject)
+        model.clientModel.service.set_member_support(clientObject)

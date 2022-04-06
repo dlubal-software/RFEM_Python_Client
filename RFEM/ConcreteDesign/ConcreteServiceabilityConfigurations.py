@@ -1,5 +1,4 @@
 from RFEM.initModel import Model, clearAtributes, ConvertToDlString
-from RFEM.enums import *
 
 class ConcreteServiceabilityConfiguration():
 
@@ -12,7 +11,8 @@ class ConcreteServiceabilityConfiguration():
                 surface_sets = '',
                 nodes = '',
                 comment: str = '',
-                params: dict = None):
+                params: dict = None,
+                model = Model):
         """
         Args:
             no (int): Configuration Tag
@@ -27,7 +27,7 @@ class ConcreteServiceabilityConfiguration():
         """
 
         # Client model | Concrete Durabilities
-        clientObject = Model.clientModel.factory.create('ns0:sls_configuration')
+        clientObject = model.clientModel.factory.create('ns0:sls_configuration')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -63,4 +63,4 @@ class ConcreteServiceabilityConfiguration():
                 clientObject[key] = params[key]
 
         # Add Global Parameter to client model
-        Model.clientModel.service.set_sls_configuration(clientObject)
+        model.clientModel.service.set_sls_configuration(clientObject)

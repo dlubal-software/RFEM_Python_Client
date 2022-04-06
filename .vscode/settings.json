@@ -2,7 +2,7 @@
     "files.trimTrailingWhitespace": true,
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
-    "python.linting.pylintEnabled": true,
+    "python.linting.pylintEnabled": false,
     "python.linting.pylintArgs": [],
     "python.linting.enabled": false,
     "python.linting.pydocstyleEnabled": false,
@@ -19,9 +19,12 @@
         "comments": false,
         "strings": false
     },
-    "editor.formatOnSave": true,
     "python.analysis.completeFunctionParens": true,
     "python.disableInstallationCheck": true,
     "python.linting.banditEnabled": true,
-    "python.languageServer": "Pylance"
+    "python.languageServer": "Pylance",
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportOptionalMemberAccess": "none",
+        "reportGeneralTypeIssues": "none",
+    }
 }

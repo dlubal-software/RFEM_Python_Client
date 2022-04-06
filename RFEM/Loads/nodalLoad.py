@@ -10,7 +10,8 @@ class NodalLoad():
                  load_direction= LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
                  magnitude: float = 0.0,
                  comment: str= '',
-                 params: dict= {}):
+                 params: dict= None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -22,7 +23,7 @@ class NodalLoad():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Nodal Force
-        clientObject = Model.clientModel.factory.create('ns0:nodal_load')
+        clientObject = model.clientModel.factory.create('ns0:nodal_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -55,7 +56,7 @@ class NodalLoad():
                 clientObject[key] = params[key]
 
         # Add Nodal Force to client model
-        Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
+        model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
     @staticmethod
     def Force(
@@ -68,7 +69,8 @@ class NodalLoad():
               specific_direction: bool = False,
               shifted_display: bool = False,
               comment: str= '',
-              params= {}):
+              params: dict = None,
+              model = Model):
         """
         Args:
             no (int): Load Tag
@@ -98,7 +100,7 @@ class NodalLoad():
                     params={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
         """
         # Client model | Nodal Force
-        clientObject = Model.clientModel.factory.create('ns0:nodal_load')
+        clientObject = model.clientModel.factory.create('ns0:nodal_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -199,7 +201,7 @@ class NodalLoad():
                 clientObject[key] = params[key]
 
         # Add Nodal Force to client model
-        Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
+        model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
     @staticmethod
     def Moment(
@@ -211,7 +213,8 @@ class NodalLoad():
               specific_direction: bool= False,
               shifted_display: bool= False,
               comment: str = '',
-              params: dict = None):
+              params: dict = None,
+              model = Model):
         """
         Args:
             no (int): Load Tag
@@ -237,7 +240,7 @@ class NodalLoad():
                     params={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
         """
         # Client model | Nodal Force
-        clientObject = Model.clientModel.factory.create('ns0:nodal_load')
+        clientObject = model.clientModel.factory.create('ns0:nodal_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -320,7 +323,7 @@ class NodalLoad():
                 clientObject[key] = params[key]
 
         # Add Nodal Force to client model
-        Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
+        model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
     @staticmethod
     def Components(
@@ -332,7 +335,8 @@ class NodalLoad():
               force_eccentricity: bool= False,
               shifted_display: bool= False,
               comment: str= '',
-              params: dict= {}):
+              params: dict= None,
+              model = Model):
         """
         Args:
             no (int): Load Tag
@@ -357,7 +361,7 @@ class NodalLoad():
                     params={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
         """
         # Client model | Nodal Force
-        clientObject = Model.clientModel.factory.create('ns0:nodal_load')
+        clientObject = model.clientModel.factory.create('ns0:nodal_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -457,7 +461,7 @@ class NodalLoad():
                 clientObject[key] = params[key]
 
         # Add Nodal Force to client model
-        Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
+        model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
     @staticmethod
     def Mass(
@@ -467,7 +471,8 @@ class NodalLoad():
               individual_mass_components : bool = False,
               mass = [],
               comment: str = '',
-              params: dict = None):
+              params: dict = None,
+              model = Model):
         """
         Args:
             no (int): Load Tag
@@ -483,7 +488,7 @@ class NodalLoad():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Nodal Force
-        clientObject = Model.clientModel.factory.create('ns0:nodal_load')
+        clientObject = model.clientModel.factory.create('ns0:nodal_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -527,4 +532,4 @@ class NodalLoad():
                 clientObject[key] = params[key]
 
         # Add Nodal Force to client model
-        Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
+        model.clientModel.service.set_nodal_load(load_case_no, clientObject)

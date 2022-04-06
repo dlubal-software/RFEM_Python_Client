@@ -12,7 +12,8 @@ class Member():
                  start_member_hinge_no: int = 0,
                  end_member_hinge_no: int = 0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Member Tag
@@ -28,7 +29,7 @@ class Member():
         """
 
         # Client model | Member
-        clientObject = Model.clientModel.factory.create('ns0:member')
+        clientObject = model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -69,7 +70,7 @@ class Member():
                 clientObject[key] = params[key]
 
         # Add Member to client model
-        Model.clientModel.service.set_member(clientObject)
+        model.clientModel.service.set_member(clientObject)
 
     @staticmethod
     def Beam(
@@ -93,7 +94,8 @@ class Member():
                             'end_modifications_member_end_slope_y': 0,
                             'end_modifications_member_end_slope_z': 0,
                             'member_result_intermediate_point' : 0,
-                            'is_deactivated_for_calculation' : False}):
+                            'is_deactivated_for_calculation' : False},
+            model = Model):
         """
         Args:
             no (int): Member Tag
@@ -137,7 +139,7 @@ class Member():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
-        clientObject = Model.clientModel.factory.create('ns0:member')
+        clientObject = model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -330,7 +332,7 @@ class Member():
                 clientObject[key] = params[key]
 
         # Add Member to client model
-        Model.clientModel.service.set_member(clientObject)
+        model.clientModel.service.set_member(clientObject)
 
     @staticmethod
     def Rigid(
@@ -344,7 +346,8 @@ class Member():
                                 'member_eccentricity_start': 0, 'member_eccentricity_end': 0,
                                 'support':0, 'member_nonlinearity': 0,
                                 'member_result_intermediate_point' : 0,
-                                'is_deactivated_for_calculation' : False}):
+                                'is_deactivated_for_calculation' : False},
+                model = Model):
         """
         Args:
             no (int): Member Tag
@@ -364,7 +367,7 @@ class Member():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
-        clientObject = Model.clientModel.factory.create('ns0:member')
+        clientObject = model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -432,7 +435,7 @@ class Member():
                 clientObject[key] = params[key]
 
         # Add Member to client model
-        Model.clientModel.service.set_member(clientObject)
+        model.clientModel.service.set_member(clientObject)
 
 	## Rib Member should be corrected.
     @staticmethod
@@ -456,7 +459,8 @@ class Member():
                             'end_modifications_member_end_slope_y': 0,
                             'end_modifications_member_end_slope_z': 0,
                             'member_result_intermediate_point' : 0,
-                            'is_deactivated_for_calculation' : False}):
+                            'is_deactivated_for_calculation' : False},
+            model = Model):
         """
         Args:
             no (int): Member Tag
@@ -476,7 +480,7 @@ class Member():
         """
 
         # Client model | Member
-        clientObject = Model.clientModel.factory.create('ns0:member')
+        clientObject = model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -560,7 +564,7 @@ class Member():
                 clientObject[key] = params[key]
 
         # Add Member to client model
-        Model.clientModel.service.set_member(clientObject)
+        model.clientModel.service.set_member(clientObject)
 
     @staticmethod
     def Truss(
@@ -579,7 +583,8 @@ class Member():
                             'end_modifications_member_end_extension': 0,
                             'end_modifications_member_end_slope_y': 0,
                             'end_modifications_member_end_slope_z': 0,
-                            'is_deactivated_for_calculation' : False}):
+                            'is_deactivated_for_calculation' : False},
+            model = Model):
         """
         Args:
             no (int): Member Tag
@@ -600,7 +605,7 @@ class Member():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
-        clientObject = Model.clientModel.factory.create('ns0:member')
+        clientObject = model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -676,7 +681,7 @@ class Member():
                 clientObject[key] = params[key]
 
         # Add Member to client model
-        Model.clientModel.service.set_member(clientObject)
+        model.clientModel.service.set_member(clientObject)
 
     @staticmethod
     def TrussOnlyN(
@@ -695,7 +700,8 @@ class Member():
                             'end_modifications_member_end_extension': 0,
                             'end_modifications_member_end_slope_y': 0,
                             'end_modifications_member_end_slope_z': 0,
-                            'is_deactivated_for_calculation' : False}):
+                            'is_deactivated_for_calculation' : False},
+            model = Model):
         """
         Args:
             no (int): Member Tag
@@ -716,7 +722,7 @@ class Member():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
-        clientObject = Model.clientModel.factory.create('ns0:member')
+        clientObject = model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -792,7 +798,7 @@ class Member():
                 clientObject[key] = params[key]
 
         # Add Member to client model
-        Model.clientModel.service.set_member(clientObject)
+        model.clientModel.service.set_member(clientObject)
 
     @staticmethod
     def Tension(
@@ -811,7 +817,8 @@ class Member():
                             'end_modifications_member_end_extension': 0,
                             'end_modifications_member_end_slope_y': 0,
                             'end_modifications_member_end_slope_z': 0,
-                            'is_deactivated_for_calculation' : False}):
+                            'is_deactivated_for_calculation' : False},
+            model = Model):
         """
         Args:
             no (int): Member Tag
@@ -832,7 +839,7 @@ class Member():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
-        clientObject = Model.clientModel.factory.create('ns0:member')
+        clientObject = model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -908,7 +915,7 @@ class Member():
                 clientObject[key] = params[key]
 
         # Add Member to client model
-        Model.clientModel.service.set_member(clientObject)
+        model.clientModel.service.set_member(clientObject)
 
     @staticmethod
     def Compression(
@@ -927,7 +934,8 @@ class Member():
                             'end_modifications_member_end_extension': 0,
                             'end_modifications_member_end_slope_y': 0,
                             'end_modifications_member_end_slope_z': 0,
-                            'is_deactivated_for_calculation' : False}):
+                            'is_deactivated_for_calculation' : False},
+            model = Model):
         """
         Args:
             no (int): Member Tag
@@ -948,7 +956,7 @@ class Member():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
-        clientObject = Model.clientModel.factory.create('ns0:member')
+        clientObject = model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1024,7 +1032,7 @@ class Member():
                 clientObject[key] = params[key]
 
         # Add Member to client model
-        Model.clientModel.service.set_member(clientObject)
+        model.clientModel.service.set_member(clientObject)
 
     @staticmethod
     def Buckling(
@@ -1043,7 +1051,8 @@ class Member():
                             'end_modifications_member_end_extension': 0,
                             'end_modifications_member_end_slope_y': 0,
                             'end_modifications_member_end_slope_z': 0,
-                            'is_deactivated_for_calculation' : False}):
+                            'is_deactivated_for_calculation' : False},
+            model = Model):
         """
         Args:
             no (int): Member Tag
@@ -1064,7 +1073,7 @@ class Member():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
-        clientObject = Model.clientModel.factory.create('ns0:member')
+        clientObject = model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1140,7 +1149,7 @@ class Member():
                 clientObject[key] = params[key]
 
         # Add Member to client model
-        Model.clientModel.service.set_member(clientObject)
+        model.clientModel.service.set_member(clientObject)
 
     @staticmethod
     def Cable(
@@ -1157,7 +1166,8 @@ class Member():
                             'end_modifications_member_end_extension': 0,
                             'end_modifications_member_end_slope_y': 0,
                             'end_modifications_member_end_slope_z': 0,
-                            'is_deactivated_for_calculation' : False}):
+                            'is_deactivated_for_calculation' : False},
+            model = Model):
         """
         Args:
             no (int): Member Tag
@@ -1178,7 +1188,7 @@ class Member():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
-        clientObject = Model.clientModel.factory.create('ns0:member')
+        clientObject = model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1245,7 +1255,7 @@ class Member():
                 clientObject[key] = params[key]
 
         # Add Member to client model
-        Model.clientModel.service.set_member(clientObject)
+        model.clientModel.service.set_member(clientObject)
 
     @staticmethod
     def ResultBeam(
@@ -1267,7 +1277,8 @@ class Member():
                             'end_modifications_member_end_extension': 0,
                             'end_modifications_member_end_slope_y': 0,
                             'end_modifications_member_end_slope_z': 0,
-                            'member_result_intermediate_point' : 0}):
+                            'member_result_intermediate_point' : 0},
+            model = Model):
         """
         Args:
             no (int): Member Tag
@@ -1318,7 +1329,7 @@ class Member():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
-        clientObject = Model.clientModel.factory.create('ns0:member')
+        clientObject = model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1501,7 +1512,7 @@ class Member():
                 clientObject[key] = params[key]
 
         # Add Member to client model
-        Model.clientModel.service.set_member(clientObject)
+        model.clientModel.service.set_member(clientObject)
 
     @staticmethod
     def DefinableStiffness(
@@ -1516,7 +1527,8 @@ class Member():
                             'member_eccentricity_start': 0, 'member_eccentricity_end': 0,
                             'member_nonlinearity': 0,
                             'member_result_intermediate_point' : 0,
-                            'is_deactivated_for_calculation' : False}):
+                            'is_deactivated_for_calculation' : False},
+            model = Model):
         """
         Args:
             no (int): Member Tag
@@ -1537,7 +1549,7 @@ class Member():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
-        clientObject = Model.clientModel.factory.create('ns0:member')
+        clientObject = model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1608,7 +1620,7 @@ class Member():
                 clientObject[key] = params[key]
 
         # Add Member to client model
-        Model.clientModel.service.set_member(clientObject)
+        model.clientModel.service.set_member(clientObject)
 
     @staticmethod
     def CouplingRigidRigid(
@@ -1618,7 +1630,8 @@ class Member():
                         rotation_specification_type = MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE,
                         rotation_parameters = [0],
                         comment: str = '',
-                        params: dict = {'is_deactivated_for_calculation' : False}):
+                        params: dict = {'is_deactivated_for_calculation' : False},
+                        model = Model):
         """
         Args:
             no (int): Member Tag
@@ -1638,7 +1651,7 @@ class Member():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
-        clientObject = Model.clientModel.factory.create('ns0:member')
+        clientObject = model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1685,7 +1698,7 @@ class Member():
                 clientObject[key] = params[key]
 
         # Add Member to client model
-        Model.clientModel.service.set_member(clientObject)
+        model.clientModel.service.set_member(clientObject)
 
     @staticmethod
     def CouplingRigidHinge(
@@ -1695,7 +1708,8 @@ class Member():
                         rotation_specification_type = MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE,
                         rotation_parameters = [0],
                         comment: str = '',
-                        params: dict = {'is_deactivated_for_calculation' : False}):
+                        params: dict = {'is_deactivated_for_calculation' : False},
+                        model = Model):
         """
         Args:
             no (int): Member Tag
@@ -1715,7 +1729,7 @@ class Member():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
-        clientObject = Model.clientModel.factory.create('ns0:member')
+        clientObject = model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1762,7 +1776,7 @@ class Member():
                 clientObject[key] = params[key]
 
         # Add Member to client model
-        Model.clientModel.service.set_member(clientObject)
+        model.clientModel.service.set_member(clientObject)
 
     @staticmethod
     def CouplingHingeRigid(
@@ -1772,7 +1786,8 @@ class Member():
                         rotation_specification_type = MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE,
                         rotation_parameters = [0],
                         comment: str = '',
-                        params: dict = {'is_deactivated_for_calculation' : False}):
+                        params: dict = {'is_deactivated_for_calculation' : False},
+                        model = Model):
         """
         Args:
             no (int): Member Tag
@@ -1792,7 +1807,7 @@ class Member():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
-        clientObject = Model.clientModel.factory.create('ns0:member')
+        clientObject = model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1839,7 +1854,7 @@ class Member():
                 clientObject[key] = params[key]
 
         # Add Member to client model
-        Model.clientModel.service.set_member(clientObject)
+        model.clientModel.service.set_member(clientObject)
 
     @staticmethod
     def CouplingHingeHinge(
@@ -1849,7 +1864,8 @@ class Member():
                         rotation_specification_type = MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE,
                         rotation_parameters = [0],
                         comment: str = '',
-                        params: dict = {'is_deactivated_for_calculation' : False}):
+                        params: dict = {'is_deactivated_for_calculation' : False},
+                        model = Model):
         """
         Args:
             no (int): Member Tag
@@ -1869,7 +1885,7 @@ class Member():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member
-        clientObject = Model.clientModel.factory.create('ns0:member')
+        clientObject = model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1916,4 +1932,4 @@ class Member():
                 clientObject[key] = params[key]
 
         # Add Member to client model
-        Model.clientModel.service.set_member(clientObject)
+        model.clientModel.service.set_member(clientObject)

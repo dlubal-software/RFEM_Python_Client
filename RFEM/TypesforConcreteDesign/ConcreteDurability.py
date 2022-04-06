@@ -17,7 +17,8 @@ class ConcreteDurability():
                 additional_protection_reduction = [False],
                 allowance_deviation = [DurabilityAllowanceDeviationType.STANDARD, False],
                 comment: str = '',
-                params: dict = None):
+                params: dict = None,
+                model = Model):
         """
         Args:
             no (int): Concrete Durability Tag
@@ -38,7 +39,7 @@ class ConcreteDurability():
         """
 
         # Client model | Concrete Durabilities
-        clientObject = Model.clientModel.factory.create('ns0:concrete_durability')
+        clientObject = model.clientModel.factory.create('ns0:concrete_durability')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -163,12 +164,4 @@ class ConcreteDurability():
                 clientObject[key] = params[key]
 
         # Add Global Parameter to client model
-        Model.clientModel.service.set_concrete_durability(clientObject)
-
-
-
-
-
-
-
-
+        model.clientModel.service.set_concrete_durability(clientObject)
