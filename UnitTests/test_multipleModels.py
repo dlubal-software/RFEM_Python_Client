@@ -11,8 +11,7 @@ from RFEM.initModel import Model, closeModel
 if Model.clientModel is None:
         Model()
 
-#def test_multiple_models_with_parameter():
-if __name__ == '__main__':
+def test_multiple_models_with_parameter():
 
     model1 = Model(True, 'TestModel5')
     Material(1,'S235', model = model1)
@@ -33,7 +32,7 @@ if __name__ == '__main__':
     closeModel(2)
     closeModel(1)
 
-#def test_multiple_models_calling_class():
+def test_multiple_models_calling_class():
 
     model1 = Model(True, 'TestModel5')
     Material(1,'S235')
