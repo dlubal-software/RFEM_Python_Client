@@ -89,7 +89,7 @@ class FreeLoad():
                  load_distribution = FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_projection = FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                  load_direction = FreeLineLoadLoadDirection.LOAD_DIRECTION_LOCAL_Z,
-                 load_parameter = [],
+                 load_parameter: list = None,
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -173,9 +173,9 @@ class FreeLoad():
                  load_distribution = FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_projection = FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                  load_direction = FreeRectangularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
-                 load_magnitude_parameter = [],
+                 load_magnitude_parameter: list = None,
                  load_location = FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CORNER_POINTS,
-                 load_location_parameter = [],
+                 load_location_parameter: list = None,
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -447,7 +447,7 @@ class FreeLoad():
                  load_distribution = FreeCircularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_projection = FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                  load_direction = FreeCircularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
-                 load_parameter = [],
+                 load_parameter: list = None,
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -530,8 +530,8 @@ class FreeLoad():
                  load_distribution = FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_projection = FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                  load_direction = FreePolygonLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
-                 load_location = [],
-                 load_parameter = [],
+                 load_location: list = None,
+                 load_parameter: list = None,
                  comment: str = '',
                  params: dict = None,
                  model = Model):

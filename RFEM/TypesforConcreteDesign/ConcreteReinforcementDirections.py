@@ -8,7 +8,7 @@ class ConcreteReinforcementDirection():
                 name: str = "RD 1",
                 surfaces = "1",
                 reinforcement_direction_type = ReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_FIRST_REINFORCEMENT_IN_X,
-                rotation_parameters = [],
+                rotation_parameters: list = None,
                 comment: str = '',
                 params: dict = None,
                 model = Model):

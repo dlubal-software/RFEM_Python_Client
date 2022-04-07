@@ -9,7 +9,7 @@ class ModalAnalysisSettings():
                  mass_conversion_type = ModalMassConversionType.MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS,
                  mass_matrix_type = ModalMassMatrixType.MASS_MATRIX_TYPE_CONSISTENT,
                  number_of_modes : int = 4,
-                 acting_masses = [],
+                 acting_masses: list = None,
                  neglect_masses = ModalNeglectMasses.E_NEGLECT_MASSES_NO_NEGLECTION,
                  comment: str = '',
                  params: dict = None,

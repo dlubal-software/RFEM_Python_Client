@@ -51,7 +51,7 @@ class Node():
     @staticmethod
     def Standard(
                  no: int = 1,
-                 coordinate_system = [],
+                 coordinate_system: list = None,
                  coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN,
                  comment: str = '',
                  params: dict = None,

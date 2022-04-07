@@ -330,7 +330,7 @@ class NodalLoad():
               no: int= 1,
               load_case_no: int= 1,
               nodes_no: str= '1',
-              components = [],
+              components: list = None,
               specific_direction: bool= False,
               force_eccentricity: bool= False,
               shifted_display: bool= False,
@@ -469,7 +469,7 @@ class NodalLoad():
               load_case_no: int = 1,
               nodes_no: str = '1',
               individual_mass_components : bool = False,
-              mass = [],
+              mass: list = None,
               comment: str = '',
               params: dict = None,
               model = Model):

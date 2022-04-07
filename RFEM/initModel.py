@@ -132,6 +132,8 @@ trans = suds_requests.RequestsTransport(session)
 
 class Model():
     clientModel = None
+    clientModelLst = []
+    activeSession = False
 
     def __init__(self,
                  new_model: bool=True,
@@ -161,7 +163,7 @@ class Model():
                         modelIndex = i
                 new = client.service.get_model(modelIndex) + 'wsdl'
                 # Set transport parameter if it is the first model
-                if modelLs:
+                if Model.activeSession:
                     cModel = Client(new)
                 else:
                     cModel = Client(new, transport=trans)
@@ -169,17 +171,19 @@ class Model():
                 cModel.service.delete_all()
             else:
                 new = client.service.new_model(model_name) + 'wsdl'
-                if modelLs:
+                if Model.activeSession:
                     cModel = Client(new)
                 else:
                     cModel = Client(new, transport=trans)
+                if not modelLs:
+                    Model.activeSession = True
         else:
             modelIndex = 0
             for i,j in enumerate(modelLs.name):
                 if modelLs.name[i] == model_name:
                     modelIndex = i
             new = client.service.get_model(modelIndex) + 'wsdl'
-            if modelLs:
+            if Model.activeSession:
                 cModel = Client(new)
             else:
                 cModel = Client(new, transport=trans)
@@ -192,9 +196,19 @@ class Model():
 
         # when using multiple intances/model
         self.clientModel = cModel
+        if not modelLs or not model_name in modelLs.name:
+            Model.clientModelLst.append(cModel)
         # when using only one instace/model
-        if not modelLs:
-            Model.clientModel = cModel
+        Model.clientModel = cModel
+
+
+    def __delete__(self, index):
+        if len(self.clientModelLst) == 1:
+            self.clientModelLst.clear()
+            self.clientModel = None
+        else:
+            self.clientModelLst.pop(index)
+            self.clientModel = self.clientModelLst[-1]
 
 def clearAtributes(obj):
     '''
@@ -214,10 +228,11 @@ def clearAtributes(obj):
 def closeModel(index_or_name, save_changes = False):
     """
     Close any model with index or name. Be sure to close the first created
-    model last. It carries whole session.
+    model last (2,1, and then 0). It carries whole session.
     """
     if isinstance(index_or_name, int):
         client.service.close_model(index_or_name, save_changes)
+        Model.__delete__(Model, index_or_name)
     elif isinstance(index_or_name, str):
         modelLs = client.service.get_model_list()
         for i,j in enumerate(modelLs.name):
