@@ -1,13 +1,13 @@
 from RFEM.initModel import Model, ConvertToDlString, clearAtributes
 from RFEM.enums import *
 
-class LinesetLoad():
+class LineSetLoad():
 
     def __init__(self,
                  no: int = 1,
                  load_case_no: int = 1,
                  linesets_no: str = '1',
-                 load_direction = LinesetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
+                 load_direction = LineSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
                  magnitude: float = 0,
                  comment: str = '',
                  params: dict = {}):
@@ -33,11 +33,11 @@ class LinesetLoad():
         clientObject.line_sets = ConvertToDlString(linesets_no)
 
         # Lineset Load Type
-        load_type = LinesetLoadType.LOAD_TYPE_FORCE
+        load_type = LineSetLoadType.LOAD_TYPE_FORCE
         clientObject.load_type = load_type.name
 
         # Lineset Load Distribution
-        load_distribution = LinesetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM
+        load_distribution = LineSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM
         clientObject.load_distribution = load_distribution.name
 
         # Lineset Load Direction
@@ -60,8 +60,8 @@ class LinesetLoad():
                 no: int = 1,
                 load_case_no: int = 1,
                 linesets_no: str = '1',
-                load_distribution = LinesetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
-                load_direction= LinesetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
+                load_distribution = LineSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
+                load_direction= LineSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
                 load_parameter = None,
                 list_reference: bool= False,
                 comment: str = '',
@@ -99,7 +99,7 @@ class LinesetLoad():
         clientObject.line_sets = ConvertToDlString(linesets_no)
 
         # Linesets Load Type
-        load_type = LinesetLoadType.LOAD_TYPE_FORCE
+        load_type = LineSetLoadType.LOAD_TYPE_FORCE
         clientObject.load_type = load_type.name
 
         # Lineset Load Distribution
@@ -293,8 +293,8 @@ class LinesetLoad():
                 no: int = 1,
                 load_case_no: int = 1,
                 linesets_no: str = '1',
-                load_distribution = LinesetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
-                load_direction= LinesetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
+                load_distribution = LineSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
+                load_direction= LineSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
                 load_parameter = None,
                 list_reference: bool= False,
                 comment: str = '',
@@ -328,7 +328,7 @@ class LinesetLoad():
         clientObject.line_sets = ConvertToDlString(linesets_no)
 
         # Linesets Load Type
-        load_type = LinesetLoadType.LOAD_TYPE_MOMENT
+        load_type = LineSetLoadType.LOAD_TYPE_MOMENT
         clientObject.load_type = load_type.name
 
         # Lineset Load Distribution
@@ -550,11 +550,11 @@ class LinesetLoad():
         clientObject.line_sets = ConvertToDlString(linesets_no)
 
         # Lineset Load Type
-        load_type = LinesetLoadType.E_TYPE_MASS
+        load_type = LineSetLoadType.E_TYPE_MASS
         clientObject.load_type = load_type.name
 
         # Lineset Load Distribution
-        load_distribution= LinesetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM
+        load_distribution= LineSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM
         clientObject.load_distribution= load_distribution.name
 
         # Individual Mass Components
