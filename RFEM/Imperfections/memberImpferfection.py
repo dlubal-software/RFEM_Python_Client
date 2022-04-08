@@ -94,7 +94,7 @@ class MemberImperfection():
         # Add Member Imperfection to client model
         Model.clientModel.service.set_member_imperfection(imperfection_case_no, clientObject)
 
-    def InitalBowRelative(self,
+    def InitialBowRelative(self,
                           no: int = 1,
                           imperfection_case_no: int = 1,
                           members: str = '1',
@@ -130,7 +130,7 @@ class MemberImperfection():
         # Imperfection Direction
 
         clientObject.imperfection_direction = imperfection_direction.name
-        
+
         clientObject.imperfection_type = 'IMPERFECTION_TYPE_INITIAL_BOW'
         clientObject.definition_type = 'DEFINITION_TYPE_RELATIVE'
 
@@ -144,6 +144,6 @@ class MemberImperfection():
         # Add Member Imperfection to client model
         Model.clientModel.service.set_member_imperfection(imperfection_case_no, clientObject)
 
-    def InitalBowRelativeAndCriterion(self,
+    def InitialBowRelativeAndCriterion(self,
                    ):
         pass

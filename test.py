@@ -77,7 +77,7 @@ if __name__ == '__main__':
 
     MemberImperfection(1, 1, '1', 'My Comment', MemberImperfectionDict)
     MemberImperfection.InitialSwayRelative(MemberImperfection, 2, 2, '1', 250.0, ImperfectionDirection.IMPERFECTION_DIRECTION_LOCAL_Y_NEGATIVE)
-    MemberImperfection.InitalBowRelative(MemberImperfection,3, 3, '1', 200.0, ImperfectionDirection.IMPERFECTION_DIRECTION_LOCAL_Y_NEGATIVE)
+    MemberImperfection.InitialBowRelative(MemberImperfection,3, 3, '1', 200.0, ImperfectionDirection.IMPERFECTION_DIRECTION_LOCAL_Y_NEGATIVE)
 
 
     # Dieses Testprogramm wird noch etwas ausgebaut und schön gemacht. Dann wird es als
