@@ -1,10 +1,10 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes
 
 class ResultSection():
     def __init__(self,
                  no: int = 1,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         # Client model | Result Section
         clientObject = Model.clientModel.factory.create('ns0:result_section')
@@ -19,8 +19,9 @@ class ResultSection():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Result Section to client model
         Model.clientModel.service.set_result_section(clientObject)

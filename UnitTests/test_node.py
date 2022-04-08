@@ -19,22 +19,22 @@ if Model.clientModel is None:
 
 def test_node():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
     Node(2, 5, 0, 0)
-    Node.Standard(0, 3, [5, 5, 0],NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN)
-    Node.BetweenTwoNodes(0,4,2,3,NodeReferenceType.REFERENCE_TYPE_L, 1, [True, 0.60])
-    Node.BetweenTwoPoints(0,5,0,0,0,6,0,0,NodeReferenceType.REFERENCE_TYPE_L, [True, 0.7], 1, 1)
+    Node.Standard(3, [5, 5, 0],NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN)
+    Node.BetweenTwoNodes(4,2,3,NodeReferenceType.REFERENCE_TYPE_L, 1, [True, 0.60])
+    Node.BetweenTwoPoints(5,0,0,0,6,0,0,NodeReferenceType.REFERENCE_TYPE_L, [True, 0.7], 1, 1)
 
     Line(1,'1 2')
-    Node.OnLine(0, 6, 1, NodeReferenceType.REFERENCE_TYPE_L, 1, [True, 0.50])
+    Node.OnLine(6, 1, NodeReferenceType.REFERENCE_TYPE_L, 1, [True, 0.50])
 
     Material(1, 'S235')
     Section(1, 'IPE 300', 1)
     Member(1, 1, 2, 0, 1, 1)
-    Node.OnMember(0, 7,1,NodeReferenceType.REFERENCE_TYPE_L)
+    Node.OnMember(7,1,NodeReferenceType.REFERENCE_TYPE_L)
 
     Model.clientModel.service.finish_modification()
 

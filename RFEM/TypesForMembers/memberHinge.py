@@ -1,4 +1,4 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes
 from RFEM.dataTypes import inf
 
 class MemberHinge():
@@ -12,7 +12,7 @@ class MemberHinge():
                  rotational_release_my: float = 0.0,
                  rotational_release_mz: float = inf,
                  comment: str = 'Rotational Release My',
-                 params: dict = {}):
+                 params: dict = None):
 
         # Client model | Member Hinge
         clientObject = Model.clientModel.factory.create('ns0:member_hinge')
@@ -48,8 +48,9 @@ class MemberHinge():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Line to client model
         Model.clientModel.service.set_member_hinge(clientObject)

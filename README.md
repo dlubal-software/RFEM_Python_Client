@@ -1,5 +1,5 @@
 # RfemPythonWsClient
-![image](https://img.shields.io/badge/COMPATIBILITY-RFEM%206.00-yellow) ![image](https://img.shields.io/badge/Python-3-blue) ![image](https://img.shields.io/badge/SUDS-0.3.5-orange) ![image](https://img.shields.io/badge/xmltodic-0.12.0-orange)
+![image](https://img.shields.io/badge/COMPATIBILITY-RFEM%206.00-yellow) ![image](https://img.shields.io/badge/Python-3-blue) ![image](https://img.shields.io/badge/SUDS-0.3.5-orange) ![image](https://img.shields.io/badge/xmltodic-0.12.0-orange) ![image](https://img.shields.io/badge/coverage-87%25-green)
 
 Python client (or high-level functions) for [RFEM 6](https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem) using [Web Services](https://en.wikipedia.org/wiki/Web_service) (WS), [SOAP](https://cs.wikipedia.org/wiki/SOAP) and [WSDL](https://en.wikipedia.org/wiki/Web_Services_Description_Language). Available Python SOAP pkgs can be found on [wiki.python.org](https://wiki.python.org/moin/WebServices#SOAP).
 
@@ -36,7 +36,7 @@ This Python project is focused on opening RFEM 6 to all of our customers, enabli
 ### Dependencies
 Dependency check is implemented inside [initModel.py](/RFEM/initModel.py) with option to install during execution.
 * libraries: [SUDS](https://github.com/suds-community/suds), [requests](https://docs.python-requests.org/en/master/), and  [suds_requests](https://pypi.org/project/suds_requests/)
-* RFEM 6 application
+* RFEM 6 application. Client is always compatible with the latest version.
 
 ### Step by step
 1) Clone this repository (if you have GitHub account) or download actual [release](https://github.com/Dlubal-Software/RFEM_Python_Client/releases/tag/R-v1.0.0)

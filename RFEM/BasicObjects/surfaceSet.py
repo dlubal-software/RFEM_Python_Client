@@ -1,4 +1,4 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 from RFEM.enums import SetType
 
 class SurfaceSet():
@@ -7,7 +7,16 @@ class SurfaceSet():
                  surfaces_no: str = '2 4 7',
                  surface_set_type = SetType.SET_TYPE_GROUP,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
+
+        '''
+        Args:
+            no (int): Surfaces Set Tag
+            surfaces_no (str): Tags of Surfaces Contained Within Surface Set
+            surfaces_set_type (enum): Surface Set Type Enumeration
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+        '''
 
         # Client model | Surface Set
         clientObject = Model.clientModel.factory.create('ns0:surface_set')
@@ -28,17 +37,28 @@ class SurfaceSet():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Surface Set to client model
         Model.clientModel.service.set_surface_set(clientObject)
 
-    def ContinuousSurfaces(self,
+    @staticmethod
+    def ContinuousSurfaces(
                  no: int = 1,
                  surfaces_no: str = '2 4 7',
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
+
+        '''
+        Args:
+            no (int): Surfaces Set Tag
+            surfaces_no (str): Tags of Surfaces Contained Within Continuous Surface Set
+            surfaces_set_type (enum): Surface Set Type Enumeration
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+        '''
 
         # Client model | Surface Set
         clientObject = Model.clientModel.factory.create('ns0:surface_set')
@@ -59,17 +79,27 @@ class SurfaceSet():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Surface Set to client model
         Model.clientModel.service.set_surface_set(clientObject)
 
-    def GroupOfSurfaces(self,
+    @staticmethod
+    def GroupOfSurfaces(
                  no: int = 1,
                  surfaces_no: str = '2 4 7',
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
+
+        '''
+        Args:
+            no (int): Surfaces Set Tag
+            surfaces_no (str): Tags of Surfaces Contained Within Group of Surfaces Surface Set
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+        '''
 
         # Client model | Surface Set
         clientObject = Model.clientModel.factory.create('ns0:surface_set')
@@ -90,8 +120,9 @@ class SurfaceSet():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Surface Set to client model
         Model.clientModel.service.set_surface_set(clientObject)

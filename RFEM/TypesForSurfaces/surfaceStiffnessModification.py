@@ -1,10 +1,10 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes
 
 class SurfaceStiffnessModification():
     def __init__(self,
                  no: int = 1,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         # Client model | Surface Stifness Modification
         clientObject = Model.clientModel.factory.create('ns0:surface_stiffness_modification')
@@ -19,8 +19,9 @@ class SurfaceStiffnessModification():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Surface Stifness Modification to client model
         Model.clientModel.service.set_surface_stiffness_modification(clientObject)

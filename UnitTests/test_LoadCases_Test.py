@@ -6,27 +6,23 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-# Import der Bibliotheken
-import pytest
-from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.initModel import Model
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.enums import ActionCategoryType
 
 if Model.clientModel is None:
     Model()
 
-@pytest.mark.skip("all tests still WIP")
 def test_load_case():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     StaticAnalysisSettings()
-    # DIN_Action_Category will only work with German localization
-    LoadCase.StaticAnalysis(LoadCase, 1, 'SW', True, 1, DIN_Action_Category['1A'], [True, 0, 0, 1])
-    LoadCase.StaticAnalysis(LoadCase, 2, 'SDL', True,  1, DIN_Action_Category['1C'], [True, 0.1, 0.1, 0])
-    LoadCase.StaticAnalysis(LoadCase, 3, 'Snow', True,  1, DIN_Action_Category['4A'], [False])
-    LoadCase.StaticAnalysis(LoadCase, 4, 'Wind', False,  1, DIN_Action_Category['5'], [False])
+    LoadCase.StaticAnalysis(1, 'SW', True, 1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_G, [True, 0, 0, 1])
+    LoadCase.StaticAnalysis(2, 'SDL', True,  1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_IMPOSED_GQ, [True, 0.1, 0.1, 0])
+    LoadCase.StaticAnalysis(3, 'Snow', True,  1, ActionCategoryType.ACTION_CATEGORY_SNOW_ICE_LOADS_H_LESS_OR_EQUAL_TO_1000_M_QS, [False])
+    LoadCase.StaticAnalysis(4, 'Wind', False,  1, ActionCategoryType.ACTION_CATEGORY_WIND_QW, [False])
 
     Model.clientModel.service.finish_modification()

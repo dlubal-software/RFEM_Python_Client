@@ -1,5 +1,5 @@
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAtributes
+from RFEM.enums import DirectionalComponentCombinationRule, PeriodicResponseCombinationRule, CqsDampingRule
 
 class SpectralAnalysisSettings():
     def __init__(self,
@@ -14,7 +14,23 @@ class SpectralAnalysisSettings():
                  damping_for_cqc_rule = CqsDampingRule.CONSTANT_FOR_EACH_MODE,
                  constant_d_for_each_mode: float = 0.0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
+
+        '''
+        Args:
+            no (int): Sprectral Analysis Settings Tag
+            name (str): Sprectral Analysis Settings Name
+            periodic_combination (enum): Periodic Combination Rule Enumeration
+            directional_combination (enum): Directional Component Combination Rule Enumeration
+            equivalent_linear_combination (bool): Equivalent Linear Combination Boolean
+            save_mode_results (bool): Save Mode Results Boolean
+            signed_dominant_mode_results (bool): Signed Dominant Mode Results Boolean
+            directional_component_scale_value (float): Directional Component Scale Value
+            damping_for_cqc_rule (enum): Cqs Damping Rule Enumeration
+            constant_d_for_each_mode (float): Constant d for Each Mode
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+        '''
 
         # Client model | Surface
         clientObject = Model.clientModel.factory.create('ns0:spectral_analysis_settings')
@@ -44,11 +60,9 @@ class SpectralAnalysisSettings():
         # Signed Results Using Dominant Mode
         clientObject.signed_results_using_dominant_mode = signed_dominant_mode_results
 
-        if signed_dominant_mode_results :
-            if directional_combination == DirectionalComponentCombinationRule.SCALED_SUM:
-                pass
-            else:
-                raise "WARNING: Signed results using dominant mode is only available with Scaled Sum Directional Combination!"
+        if signed_dominant_mode_results:
+            if directional_combination != DirectionalComponentCombinationRule.SCALED_SUM:
+                raise Exception("WARNING: Signed results using dominant mode is only available with Scaled Sum Directional Combination.")
 
         # Further Options
         if directional_combination == DirectionalComponentCombinationRule.SCALED_SUM:
@@ -62,7 +76,8 @@ class SpectralAnalysisSettings():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
         # Add Static Analysis Settings to client model
         Model.clientModel.service.set_spectral_analysis_settings(clientObject)

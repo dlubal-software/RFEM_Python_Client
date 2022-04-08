@@ -1,10 +1,18 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes
 
 class ImperfectionCase():
     def __init__(self,
                  no: int = 1,
+                 assigned_to_load_cases: str = '1',
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
+
+        '''
+        Args:
+            no (int): Imperfection Case Tag
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+        '''
 
         # Client model | Imperfection Case
         clientObject = Model.clientModel.factory.create('ns0:imperfection_case')
@@ -15,12 +23,16 @@ class ImperfectionCase():
         # Imperfection Case No.
         clientObject.no = no
 
+        # Assign to Load Cases
+        clientObject.assigned_to_load_cases = assigned_to_load_cases
+
         # Comment
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Imperfection Case to client model
         Model.clientModel.service.set_imperfection_case(clientObject)

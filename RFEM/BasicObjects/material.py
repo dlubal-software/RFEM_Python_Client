@@ -5,7 +5,15 @@ class Material():
                  no: int = 1,
                  name: str = 'S235',
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
+
+        '''
+        Args:
+            no (int): Material Tag
+            name (str): Name of Desired Material (As Named in RFEM Database)
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+        '''
 
         # Client model | Material
         clientObject = Model.clientModel.factory.create('ns0:material')
@@ -23,8 +31,9 @@ class Material():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add material to client model
         Model.clientModel.service.set_material(clientObject)

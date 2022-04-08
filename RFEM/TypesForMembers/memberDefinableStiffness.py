@@ -1,10 +1,10 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes
 
 class MemberDefinableStiffness():
     def __init__(self,
                  no: int = 1,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         # Client model | Member Definable Stffness
         clientObject = Model.clientModel.factory.create('ns0:member_definable_stiffness')
@@ -19,8 +19,9 @@ class MemberDefinableStiffness():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member Definable Stffness to client model
         Model.clientModel.service.set_member_definable_stiffness(clientObject)

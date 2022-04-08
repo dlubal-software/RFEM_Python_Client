@@ -1,10 +1,12 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes
 
 class Instersection():
     def __init__(self,
                  no: int = 1,
+                 surface_1: int = 1,
+                 surface_2: int = 2,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         # Client model | Intersection
         clientObject = Model.clientModel.factory.create('ns0:intersection')
@@ -15,12 +17,17 @@ class Instersection():
         # Intersection No.
         clientObject.no = no
 
+        # Assigned surfaces
+        clientObject.surface_a = surface_1
+        clientObject.surface_b = surface_2
+
         # Comment
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Intersection to client model
         Model.clientModel.service.set_intersection(clientObject)

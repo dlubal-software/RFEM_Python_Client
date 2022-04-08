@@ -8,8 +8,7 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-# Import der Bibliotheken
-from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType
+from RFEM.enums import NodalSupportType, LoadDirectionType
 from RFEM.initModel import Model, Calculate_all
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
@@ -19,6 +18,7 @@ from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.Loads.nodalLoad import NodalLoad
+from RFEM.Calculate.meshSettings import GetModelInfo
 
 if __name__ == '__main__':
     l = float(input('Length of the cantilever in m: '))
@@ -38,9 +38,9 @@ if __name__ == '__main__':
 
     NodalSupport(1, '1', NodalSupportType.FIXED)
 
-    StaticAnalysisSettings.GeometricallyLinear(0, 1, "Linear")
-    StaticAnalysisSettings.SecondOrderPDelta(0, 2, "SecondOrder")
-    StaticAnalysisSettings.LargeDeformation(0, 3, "LargeDeformation")
+    StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
+    StaticAnalysisSettings.SecondOrderPDelta(2, "SecondOrder")
+    StaticAnalysisSettings.LargeDeformation(3, "LargeDeformation")
 
     LoadCase(1, 'Self-Weight', [True, 0.0, 0.0, 1.0])
 
@@ -50,7 +50,7 @@ if __name__ == '__main__':
     Calculate_all()
 
     # model status
-    modelStatus = Model.clientModel.service.get_model_info()
+    modelStatus = GetModelInfo()
     print("Model is calculated" if modelStatus.property_has_results else "Model is not calculated")
     print("Model contains printout report" if modelStatus.property_has_printout_report else "Model has not printout report")
     print ("Model contains " +  str(modelStatus.property_node_count) + " nodes")

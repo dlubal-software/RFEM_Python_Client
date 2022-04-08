@@ -1,10 +1,10 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes
 
 class MemberNonlinearity():
     def __init__(self,
                  no: int = 1,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         # Client model | Member Nonlinearity
         clientObject = Model.clientModel.factory.create('ns0:member_nonlinearity')
@@ -19,8 +19,9 @@ class MemberNonlinearity():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member Nonlinearity to client model
         Model.clientModel.service.set_member_nonlinearity(clientObject)

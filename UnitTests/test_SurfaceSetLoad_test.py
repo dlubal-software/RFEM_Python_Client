@@ -23,7 +23,7 @@ if Model.clientModel is None:
 
 def test_surface_set_load():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     # Create Material
@@ -75,8 +75,8 @@ def test_surface_set_load():
     # Added types and functions just to cover SurfaceSet completely
     SurfaceSet(1, '1 2', SetType.SET_TYPE_GROUP)
     SurfaceSet(2, '3 4', SetType.SET_TYPE_GROUP)
-    SurfaceSet.ContinuousSurfaces(SurfaceSet, 3, '3 4')
-    SurfaceSet.GroupOfSurfaces(SurfaceSet, 4, '1 2')
+    SurfaceSet.ContinuousSurfaces(3, '3 4')
+    SurfaceSet.GroupOfSurfaces(4, '1 2')
 
     # Create Nodal Supports
     NodalSupport(1, '1', NodalSupportType.FIXED)
@@ -102,47 +102,47 @@ def test_surface_set_load():
     SurfaceSetLoad(1, 1, '1', 5000)
 
     ## Force Type Surface Load with UNIFORM Load Distribution ##
-    SurfaceSetLoad.Force(0, 2, 1, '1', SurfaceSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, load_parameter=[5000])
+    SurfaceSetLoad.Force(2, 1, '1', SurfaceSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, load_parameter=[5000])
 
     ## Force Type Surface Load with LINEAR Load Distribution ##
-    SurfaceSetLoad.Force(0, 3, 1, '1', SurfaceSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR, load_parameter=[5000, 6000, 7000, 2, 3, 4])
+    SurfaceSetLoad.Force(3, 1, '1', SurfaceSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR, load_parameter=[5000, 6000, 7000, 2, 3, 4])
 
     ## Force Type Surface Load with LINEAR_X or LINEAR_Y or LINEAR_Z Load Distribution ##
-    SurfaceSetLoad.Force(0, 4, 1, '1', SurfaceSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, load_parameter=[5000, 6000, 2, 6])
+    SurfaceSetLoad.Force(4, 1, '1', SurfaceSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, load_parameter=[5000, 6000, 2, 6])
 
     ## Force sType Surface Load with RADIAL Load Distribution ##
-    SurfaceSetLoad.Force(0, 5, 1, '1', SurfaceSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_RADIAL,(2000, 4000, 1, 6, SurfaceSetLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS, [0,0,0], [0,0,1]))
+    SurfaceSetLoad.Force(5, 1, '1', SurfaceSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_RADIAL,(2000, 4000, 1, 6, SurfaceSetLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS, [0,0,0], [0,0,1]))
 
     ## Force Type Surface Set Load with varying in Z
-    SurfaceSetLoad.Force(0, 32, 1, '2', SurfaceSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, load_parameter=[[1, 1, 1000], [2, 1, 2000]])
+    SurfaceSetLoad.Force(32, 1, '2', SurfaceSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, load_parameter=[[1, 1, 1000], [2, 1, 2000]])
 
     ## Temperature Type Surface Load with UNIFORM Load Distribution ##
-    SurfaceSetLoad.Temperature(0, 6, 1, '1', SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, load_parameter=[18, 2])
+    SurfaceSetLoad.Temperature(6, 1, '1', SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, load_parameter=[18, 2])
 
     ## Temperature Type Surface Load with LINEAR Load Distribution ##
-    SurfaceSetLoad.Temperature(0, 7, 1, '1', SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR, load_parameter=[18, 2, 20, 4, 22, 6, 2, 3, 4])
+    SurfaceSetLoad.Temperature(7, 1, '1', SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR, load_parameter=[18, 2, 20, 4, 22, 6, 2, 3, 4])
 
     ## Temperature Type Surface Load with LINEAR_X or LINEAR_Y or LINEAR_Z Load Distribution ##
-    SurfaceSetLoad.Temperature(0, 8, 1, '1', SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, load_parameter=[18, 2, 20, 4, 2, 3])
+    SurfaceSetLoad.Temperature(8, 1, '1', SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, load_parameter=[18, 2, 20, 4, 2, 3])
 
     ## Axial Strain Type Surface Load with UNIFORM Load Distribution ##
-    SurfaceSetLoad.AxialStrain(0, 9, 1, '1', SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, load_parameter=[0.5, 1])
+    SurfaceSetLoad.AxialStrain(9, 1, '1', SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, load_parameter=[0.5, 1])
 
     ## Axial Strain Type Surface Load with LINEAR Load Distribution ##
-    SurfaceSetLoad.AxialStrain(0, 10, 1, '1', SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR, load_parameter=[0.005, 0.006, 0.007, 0.008, 0.009, 0.01, 2, 3, 4])
+    SurfaceSetLoad.AxialStrain(10, 1, '1', SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR, load_parameter=[0.005, 0.006, 0.007, 0.008, 0.009, 0.01, 2, 3, 4])
 
     ## Axial Strain Type Surface Load with LINEAR_IN_X Load Distribution ##
-    SurfaceSetLoad.AxialStrain(0, 11, 1, '1', SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, load_parameter=[0.005, 0.006, 0.007, 0.008, 2, 3])
+    SurfaceSetLoad.AxialStrain(11, 1, '1', SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, load_parameter=[0.005, 0.006, 0.007, 0.008, 2, 3])
 
     ## Precamber Type Surface Load ##
-    SurfaceSetLoad.Precamber(0, 12, 1, '1', 50)
+    SurfaceSetLoad.Precamber(12, 1, '1', 50)
 
     ## Rotary Motion Surface Load ##
-    SurfaceSetLoad.RotaryMotion(0, 13, 1, '1', load_parameter=[1, 2, SurfaceSetLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS, [1,2,3], [4,5,6]])
+    SurfaceSetLoad.RotaryMotion(13, 1, '1', load_parameter=[1, 2, SurfaceSetLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS, [1,2,3], [4,5,6]])
 
     ## Mass Type Surface Load ##
-    #SurfaceSetLoad.Mass(0, 14, 1, '1', True, [500, 600, 700]) # bug 24241
-    SurfaceSetLoad.Mass(0, 14, 1, '1', False, [0.5])
+    SurfaceSetLoad.Mass(14, 1, '1', True, [500, 600, 700])
+    SurfaceSetLoad.Mass(15, 1, '1', False, [0.5])
 
     #Calculate_all() # Don't use in unit tests. See template for more info.
 

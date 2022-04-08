@@ -1,4 +1,4 @@
-# from RFEM.initModel import *
+# from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 
 # class Frame():
 #     def __init__(self,
@@ -14,7 +14,24 @@
 #                  insertion_point_y: int = 4,
 #                  insertion_point_z: int = 3,
 #                  comment: str = '',
-#                  params: dict = {}):
+#                  params: dict = None):
+
+#        '''
+#        Args:
+#            number_of_frames (int): Number of Frames
+#            span_l (int): Span Length
+#            height_h (int): Frame Height
+#            column_cross_section (int): Tag of Column Section
+#            column_member_type (enum): Column Member Type Enumeration
+#            girder_cross_section (int): Tag of Girder Section
+#            girder_member_type (enum): Girder Member Type Enumeration
+#            support_type (enum): Column to Girder Connection Type Enumeration
+#            insertion_point_x (int): Insertion Point x
+#            insertion_point_y (int): Insertion Point y
+#            insertion_point_z (int): Insertion Point z
+#            comment (str, optional): Comment
+#            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+#        '''
 
 #         # Client model | Frame
 #         clientObject = clientModel.factory.create('ns0:member')

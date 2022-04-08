@@ -10,8 +10,8 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 # Import the relevant Libraries
-from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.enums import SurfaceLoadDistributionDirection
+from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
@@ -23,7 +23,7 @@ if Model.clientModel is None:
 
 def test_load_distribution_surface():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     # Testing the Default Function
@@ -36,7 +36,7 @@ def test_load_distribution_surface():
     # Standard Even Load Distribution
     Node(5, 0, -15, 0), Node(6, 10, -15, 0), Node(7, 10, -5, 0), Node(8, 0, -5, 0)
     Line(5, '5 6'), Line(6, '6 7'), Line(7, '7 8'), Line(8, '8 5')
-    Surface.LoadDistribution(Surface, 2, boundary_lines_no= '5 6 7 8', load_transfer_direction=SurfaceLoadTransferDirection.LOAD_TRANSFER_DIRECTION_IN_BOTH,
-                             surface_weight_enabled=True, surface_weight=10, loaded_lines='6 7 8', excluded_lines='5')
+    Surface.LoadDistribution(2, '5 6 7 8', SurfaceLoadDistributionDirection.LOAD_TRANSFER_DIRECTION_IN_BOTH,
+                         True, 10, loaded_lines='6 7 8', excluded_lines='5')
 
     Model.clientModel.service.finish_modification()

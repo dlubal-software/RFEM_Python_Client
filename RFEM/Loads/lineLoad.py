@@ -10,11 +10,17 @@ class LineLoad():
                  load_direction = LoadDirectionType.LOAD_DIRECTION_LOCAL_Z,
                  magnitude: float = 0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
+
         '''
-        Assigns line load without any further options.
-        Load type is Force by default.
-        Load distribution is Uniform by default.
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            lines_no (str): Assigned Line(s)
+            load_direction (enum): Load Direction Enumeration
+            magnitude (float): Magnitude of Line Load
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Line Load
@@ -50,13 +56,15 @@ class LineLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Line Load to client model
         Model.clientModel.service.set_line_load(load_case_no, clientObject)
 
-    def Force(self,
+    @staticmethod
+    def Force(
                 no: int = 1,
                 load_case_no: int = 1,
                 lines_no: str = '1',
@@ -65,23 +73,41 @@ class LineLoad():
                 load_parameter = None,
                 list_reference: bool= False,
                 comment: str = '',
-                params: dict = {}):
+                params: dict = None):
 
         '''
-        load_parameter:
-            LOAD_DISTRIBUTION_UNIFORM: load_parameter = magnitude
-            LOAD_DISTRIBUTION_UNIFORM_TOTAL: load_parameter = magnitude
-            LOAD_DISTRIBUTION_CONCENTRATED_1: load_parameter = [relative_distance = False, magnitude, distance_a]
-            LOAD_DISTRIBUTION_CONCENTRATED_N: load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude, count_n, distance_a, distance_b]
-            LOAD_DISTRIBUTION_CONCENTRATED_2x2: load_parameter = [relative_distance_a = False, relative_distance_b = False, relative_distance_c = False, magnitude, distance_a, distance_b, distance_c]
-            LOAD_DISTRIBUTION_CONCENTRATED_2: load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
-            LOAD_DISTRIBUTION_CONCENTRATED_VARYING: load_parameter = [[distance, delta_distance, magnitude], ...]
-            LOAD_DISTRIBUTION_TRAPEZOIDAL: load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-            LOAD_DISTRIBUTION_TAPERED: load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-            LOAD_DISTRIBUTION_PARABOLIC: load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-            LOAD_DISTRIBUTION_VARYING: load_parameter = [[distance, delta_distance, magnitude], ...]
-        params:
-            {''}
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            lines_no (str): Assigned Line(s)
+            load_distribution (enum): Load Distribution Enumeration
+            load_direction (enum): Load Direction Enumeration
+            load_parameter: Load Parameter
+                for load_distribution == LOAD_DISTRIBUTION_UNIFORM:
+                    load_parameter = magnitude
+                for load_distribution == LOAD_DISTRIBUTION_UNIFORM_TOTAL:
+                    load_parameter = magnitude
+                for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_1:
+                    load_parameter = [relative_distance = False, magnitude, distance_a]
+                for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_N:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude, count_n, distance_a, distance_b]
+                for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_2x2:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, relative_distance_c = False, magnitude, distance_a, distance_b, distance_c]
+                for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_2:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
+                for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
+                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                for load_distribution == LOAD_DISTRIBUTION_TRAPEZOIDAL:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
+                for load_distribution == LOAD_DISTRIBUTION_TAPERED:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
+                for load_distribution == LOAD_DISTRIBUTION_PARABOLIC:
+                    load_parameter = [magnitude_1, magnitude_2, magnitude_3]
+                for load_distribution == LOAD_DISTRIBUTION_VARYING:
+                    load_parameter = [[distance, delta_distance, magnitude], ...]
+            list_reference (bool): List Reference Bool
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Line Load
@@ -284,13 +310,15 @@ class LineLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Line Load to client model
         Model.clientModel.service.set_line_load(load_case_no, clientObject)
 
-    def Moment(self,
+    @staticmethod
+    def Moment(
                  no: int = 1,
                  load_case_no: int = 1,
                  lines_no: str = '1',
@@ -299,19 +327,39 @@ class LineLoad():
                  load_parameter = None,
                  list_reference: bool = False,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
+
         '''
-        load_parameter:
-            LOAD_DISTRIBUTION_UNIFORM: load_parameter = magnitude
-            LOAD_DISTRIBUTION_CONCENTRATED_1: load_parameter = [relative_distance = False, magnitude, distance_a]
-            LOAD_DISTRIBUTION_CONCENTRATED_N: load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude, count_n, distance_a, distance_b]
-            LOAD_DISTRIBUTION_CONCENTRATED_2x2: load_parameter = [relative_distance_a = False, relative_distance_b = False, relative_distance_c = False, magnitude, distance_a, distance_b, distance_c]
-            LOAD_DISTRIBUTION_CONCENTRATED_2: load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
-            LOAD_DISTRIBUTION_CONCENTRATED_VARYING: load_parameter = [[distance, delta_distance, magnitude], ...]
-            LOAD_DISTRIBUTION_TRAPEZOIDAL: load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-            LOAD_DISTRIBUTION_TAPERED: load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-            LOAD_DISTRIBUTION_PARABOLIC: load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-            LOAD_DISTRIBUTION_VARYING: load_parameter = [[distance, delta_distance, magnitude], ...]
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            lines_no (str): Assigned Line(s)
+            load_distribution (enum): Load Distribution Enumeration
+            load_direction (enum): Load Direction Enumeration
+            load_parameter: Load Parameter
+                load_parameter == LOAD_DISTRIBUTION_UNIFORM:
+                    load_parameter = magnitude
+                load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_1:
+                    load_parameter = [relative_distance = False, magnitude, distance_a]
+                load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_N:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude, count_n, distance_a, distance_b]
+                load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_2x2:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, relative_distance_c = False, magnitude, distance_a, distance_b, distance_c]
+                load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_2:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
+                load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
+                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                load_parameter == LOAD_DISTRIBUTION_TRAPEZOIDAL:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
+                load_parameter == LOAD_DISTRIBUTION_TAPERED:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
+                load_parameter == LOAD_DISTRIBUTION_PARABOLIC:
+                    load_parameter = [magnitude_1, magnitude_2, magnitude_3]
+                load_parameter == LOAD_DISTRIBUTION_VARYING:
+                    load_parameter = [[distance, delta_distance, magnitude], ...]
+            list_reference (bool): List Reference Bool
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Line Load
@@ -514,26 +562,35 @@ class LineLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Line Load to client model
         Model.clientModel.service.set_line_load(load_case_no, clientObject)
 
-    def Mass(self,
+    @staticmethod
+    def Mass(
                 no: int = 1,
                 load_case_no: int = 1,
                 lines_no: str = '1',
                 individual_mass_components: bool=True,
                 mass_components = None,
                 comment: str = '',
-                params: dict = {}):
+                params: dict = None):
         '''
-        if individual_mass_components == False:
-            mass_components = [mass_global]
-
-        if individual_mass_components == True:
-            mass_components = [mass_x, mass_y, mass_z]
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            lines_no (str): Assigned Line(s)
+            individual_mass_components (bool): Individual Mass Components Boolean
+            mass_components (list): Mass Components
+                for individual_mass_components == False:
+                    mass_components = [mass_global]
+                for individual_mass_components == True:
+                    mass_components = [mass_x, mass_y, mass_z]
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Line Load
@@ -580,8 +637,9 @@ class LineLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Line Load to client model
         Model.clientModel.service.set_line_load(load_case_no, clientObject)

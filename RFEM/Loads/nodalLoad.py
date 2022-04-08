@@ -1,5 +1,5 @@
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.enums import LoadDirectionType, NodalLoadType, NodalLoadSpecificDirectionType
 
 class NodalLoad():
 
@@ -19,7 +19,7 @@ class NodalLoad():
             load_direction (enum): Load Direction Enumeration
             magnitude (float): Force Magnitude
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Nodal Force
         clientObject = Model.clientModel.factory.create('ns0:nodal_load')
@@ -50,13 +50,15 @@ class NodalLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Nodal Force to client model
         Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
-    def Force(self,
+    @staticmethod
+    def Force(
               no: int= 1,
               load_case_no: int = 1,
               nodes_no: str= '1',
@@ -199,7 +201,8 @@ class NodalLoad():
         # Add Nodal Force to client model
         Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
-    def Moment(self,
+    @staticmethod
+    def Moment(
               no: int= 1,
               load_case_no: int= 1,
               nodes_no: str= '1',
@@ -208,7 +211,7 @@ class NodalLoad():
               specific_direction: bool= False,
               shifted_display: bool= False,
               comment: str = '',
-              params: dict = {}):
+              params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -319,7 +322,8 @@ class NodalLoad():
         # Add Nodal Force to client model
         Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
-    def Components(self,
+    @staticmethod
+    def Components(
               no: int= 1,
               load_case_no: int= 1,
               nodes_no: str= '1',
@@ -455,14 +459,15 @@ class NodalLoad():
         # Add Nodal Force to client model
         Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
-    def Mass(self,
+    @staticmethod
+    def Mass(
               no: int = 1,
               load_case_no: int = 1,
               nodes_no: str = '1',
               individual_mass_components : bool = False,
               mass = [],
               comment: str = '',
-              params: dict = {}):
+              params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -475,7 +480,7 @@ class NodalLoad():
                 elif individual_mass_components == True:
                     mass = [Mx, My, Mz, Ix, Iy, Iz]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Nodal Force
         clientObject = Model.clientModel.factory.create('ns0:nodal_load')
@@ -517,9 +522,7 @@ class NodalLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        if 'individual_mass_components' in params.keys():
-            pass
-        else:
+        if params:
             for key in params:
                 clientObject[key] = params[key]
 

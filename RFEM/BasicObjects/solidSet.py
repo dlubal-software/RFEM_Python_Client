@@ -1,4 +1,4 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 from RFEM.enums import SetType
 
 class SolidSet():
@@ -7,7 +7,16 @@ class SolidSet():
                  solids_no: str = '1 2',
                  solid_set_type = SetType.SET_TYPE_GROUP,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
+
+        '''
+        Args:
+            no (int): Solid Set Tag
+            solids_no (str): Tags of Solids Contained Within Solid Set
+            solid_set_type (enum): Solid Set Type Enumeration
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+        '''
 
         # Client model | Solid Set
         clientObject = Model.clientModel.factory.create('ns0:solid_set')
@@ -28,18 +37,27 @@ class SolidSet():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Solid Set to client model
         Model.clientModel.service.set_solid_set(clientObject)
 
-    def ContinuousSolids(self,
+    @staticmethod
+    def ContinuousSolids(
                  no: int = 1,
                  solids_no: str = '1 2',
-                 solid_set_type = SetType.SET_TYPE_CONTINUOUS,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
+
+        '''
+        Args:
+            no (int): Solid Set Tag
+            solids_no (str): Tags of Solids Contained Within Continuous Solid Set
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+        '''
 
         # Client model | Solid Set
         clientObject = Model.clientModel.factory.create('ns0:solid_set')
@@ -54,24 +72,33 @@ class SolidSet():
         clientObject.solids = ConvertToDlString(solids_no)
 
         # Solid Set Type
-        clientObject.set_type = solid_set_type.name
+        clientObject.set_type = SetType.SET_TYPE_CONTINUOUS.name
 
         # Comment
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Solid Set to client model
         Model.clientModel.service.set_solid_set(clientObject)
 
-    def GroupOfSolids(self,
+    @staticmethod
+    def GroupOfSolids(
                  no: int = 1,
                  solids_no: str = '1 2',
-                 solid_set_type = SetType.SET_TYPE_GROUP,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
+
+        '''
+        Args:
+            no (int): Solid Set Tag
+            solids_no (str): Tags of Solids Contained Within Group of Solids Solid Set
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+        '''
 
         # Client model | Solid Set
         clientObject = Model.clientModel.factory.create('ns0:solid_set')
@@ -86,14 +113,15 @@ class SolidSet():
         clientObject.solids = ConvertToDlString(solids_no)
 
         # Solid Set Type
-        clientObject.set_type = solid_set_type.name
+        clientObject.set_type = SetType.SET_TYPE_GROUP.name
 
         # Comment
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Solid Set to client model
         Model.clientModel.service.set_solid_set(clientObject)

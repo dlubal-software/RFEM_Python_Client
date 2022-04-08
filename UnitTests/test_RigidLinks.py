@@ -21,7 +21,7 @@ if Model.clientModel is None:
 
 def test_rigid_links():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -55,9 +55,9 @@ def test_rigid_links():
     Surface(2, '5-8')
 
     RigidLink(1, 3, 6)
-    RigidLink.LineToLine(0, 2, 3, 8)
-    # RigidLink.LineToSurface(0, 3, 3, 9, 2) # bug 24282
-    RigidLink.Diapragm(0, 4,'3 4', '6 9')
+    RigidLink.LineToLine(2, 3, 8)
+    # RigidLink.LineToSurface(0, 3, 3, 2) # bug 24282
+    RigidLink.Diapragm(4,'3 4', '6 9')
 
     Model.clientModel.service.finish_modification()
 

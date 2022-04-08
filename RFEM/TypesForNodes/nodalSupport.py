@@ -1,4 +1,4 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 from RFEM.dataTypes import inf
 from RFEM.enums import NodalSupportType
 
@@ -38,7 +38,7 @@ class NodalSupport():
                  nodes_no: str = '1 2',
                  support_type = NodalSupportType.HINGED,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         # Client model | Nodal Support
         clientObject = Model.clientModel.factory.create('ns0:nodal_support')
@@ -77,12 +77,17 @@ class NodalSupport():
             # ROLLER_IN_Z 'xx- --x'
             clientObject = setNodalSupportConditions(clientObject, inf, inf, 0.0, 0.0, 0.0, inf)
 
+        elif support_type == NodalSupportType.FREE:
+            # FREE '--- ---'
+            clientObject = setNodalSupportConditions(clientObject, 0, 0, 0, 0, 0, 0)
+
         # Comment
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Nodal Support to client model
         Model.clientModel.service.set_nodal_support(clientObject)

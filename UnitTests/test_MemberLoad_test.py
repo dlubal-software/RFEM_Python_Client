@@ -21,7 +21,7 @@ if Model.clientModel is None:
 
 def test_member_loads():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     # Create Material
@@ -57,207 +57,207 @@ def test_member_loads():
     MemberLoad(1, 1, '1', LoadDirectionType.LOAD_DIRECTION_LOCAL_Z, 5000)
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
-    MemberLoad.Force(0, 2, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])
+    MemberLoad.Force(2, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_UNIFORM with Eccentricity ##
-    MemberLoad.Force(0, 3, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000], force_eccentricity=True, params={'eccentricity_y_at_start' : 0.01, 'eccentricity_z_at_start': 0.02})
+    MemberLoad.Force(3, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000], force_eccentricity=True, params={'eccentricity_y_at_start' : 0.01, 'eccentricity_z_at_start': 0.02})
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_UNIFORM_TOTAL ##
-    MemberLoad.Force(0, 4, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM_TOTAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])
+    MemberLoad.Force(4, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM_TOTAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_1 ##
-    MemberLoad.Force(0, 5, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, 5000, 1.2])
+    MemberLoad.Force(5, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, 5000, 1.2])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_N ##
-    MemberLoad.Force(0, 6, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 2, 1, 2])
+    MemberLoad.Force(6, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 2, 1, 2])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x2 ##
-    MemberLoad.Force(0, 7, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, False, 5000, 1, 2, 3])
+    MemberLoad.Force(7, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, False, 5000, 1, 2, 3])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x ##
-    MemberLoad.Force(0, 8, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 6000, 1, 2])
+    MemberLoad.Force(8, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 6000, 1, 2])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_VARYING ##
-    MemberLoad.Force(0, 9, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
+    MemberLoad.Force(9, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##
-    MemberLoad.Force(0, 10, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])
+    MemberLoad.Force(10, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_TAPERED ##
-    MemberLoad.Force(0, 11, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])
+    MemberLoad.Force(11, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
-    MemberLoad.Force(0, 12, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[4000, 8000, 12000])
+    MemberLoad.Force(12, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[4000, 8000, 12000])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING ##
-    MemberLoad.Force(0, 13, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
+    MemberLoad.Force(13, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING_IN_Z ##
-    MemberLoad.Force(0, 14, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
+    MemberLoad.Force(14, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
 
     ## Moment Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
-    MemberLoad.Moment(0, 15, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])
+    MemberLoad.Moment(15, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])
 
     ## Moment Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_1 ##
-    MemberLoad.Moment(0, 16, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, 5000, 1.2])
+    MemberLoad.Moment(16, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, 5000, 1.2])
 
     ## Moment Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_N ##
-    MemberLoad.Moment(0, 17, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 2, 1, 2])
+    MemberLoad.Moment(17, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 2, 1, 2])
 
     ## Moment Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x2 ##
-    MemberLoad.Moment(0, 18, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, False, 5000, 1, 2, 3])
+    MemberLoad.Moment(18, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, False, 5000, 1, 2, 3])
 
     ## Moment Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x ##
-    MemberLoad.Moment(0, 19, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 6000, 1, 2])
+    MemberLoad.Moment(19, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 6000, 1, 2])
 
     ## Moment Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_VARYING ##
-    MemberLoad.Moment(0, 20, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
+    MemberLoad.Moment(20, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
 
     ## Moment Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##
-    MemberLoad.Moment(0, 21, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])
+    MemberLoad.Moment(21, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])
 
     ## Moment Type Member Load with LOAD_DISTRIBUTION_TAPERED ##
-    MemberLoad.Moment(0, 22, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])
+    MemberLoad.Moment(22, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])
 
     ## Moment Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
-    MemberLoad.Moment(0, 23, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[4000, 8000, 12000])
+    MemberLoad.Moment(23, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[4000, 8000, 12000])
 
     ## Moment Type Member Load with LOAD_DISTRIBUTION_VARYING ##
-    MemberLoad.Moment(0, 24, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
+    MemberLoad.Moment(24, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
 
     ## Mass Type Member Load ##
-    MemberLoad.Mass(0, 25, 1, mass_components=[1000])
+    MemberLoad.Mass(25, 1, mass_components=[1000])
 
     ## Temperature Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
-    MemberLoad.Temperature(0, 26, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[18, 2])
+    MemberLoad.Temperature(26, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[18, 2])
 
     ## Temperature Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##
-    MemberLoad.Temperature(0, 27, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, 18, 20, False, False, 1, 2])
+    MemberLoad.Temperature(27, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, 18, 20, False, False, 1, 2])
 
     ## Temperature Type Member Load with LOAD_DISTRIBUTION_TAPERED ##
-    MemberLoad.Temperature(0, 28, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, 18, 20, False, False, 1, 2])
+    MemberLoad.Temperature(28, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, 18, 20, False, False, 1, 2])
 
     ## Temperature Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
-    MemberLoad.Temperature(0, 29, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3, 4, 5, 6])
+    MemberLoad.Temperature(29, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3, 4, 5, 6])
 
     ## Temperature Type Member Load with LOAD_DISTRIBUTION_VARYING ##
-    MemberLoad.Temperature(0, 30, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])
+    MemberLoad.Temperature(30, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])
 
     ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
-    MemberLoad.TemperatureChange(0, 31, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[18, 2])
+    MemberLoad.TemperatureChange(31, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[18, 2])
 
     ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##
-    MemberLoad.TemperatureChange(0, 32, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, 18, 20, False, False, 1, 2])
+    MemberLoad.TemperatureChange(32, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, 18, 20, False, False, 1, 2])
 
     ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_TAPERED ##
-    MemberLoad.TemperatureChange(0, 33, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, 18, 20, False, False, 1, 2])
+    MemberLoad.TemperatureChange(33, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, 18, 20, False, False, 1, 2])
 
     ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
-    MemberLoad.TemperatureChange(0, 34, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3, 4, 5, 6])
+    MemberLoad.TemperatureChange(34, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3, 4, 5, 6])
 
     ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_VARYING ##
-    MemberLoad.TemperatureChange(0, 35, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])
+    MemberLoad.TemperatureChange(35, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])
 
     ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
-    MemberLoad.AxialStrain(0, 36, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[0.005])
+    MemberLoad.AxialStrain(36, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[0.005])
 
     ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##
-    MemberLoad.AxialStrain(0, 37, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[12, 16, False, False, 1, 2])
+    MemberLoad.AxialStrain(37, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[12, 16, False, False, 1, 2])
 
     ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_TAPERED ##
-    MemberLoad.AxialStrain(0, 38, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[12, 16, False, False, 1, 2])
+    MemberLoad.AxialStrain(38, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[12, 16, False, False, 1, 2])
 
     ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
-    MemberLoad.AxialStrain(0, 39, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[1, 2, 3])
+    MemberLoad.AxialStrain(39, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[1, 2, 3])
 
     ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_VARYING ##
-    MemberLoad.AxialStrain(0, 40, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])
+    MemberLoad.AxialStrain(40, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])
 
     ## AxialDisplacement Type Member Load ##
-    MemberLoad.AxialDisplacement(0, 41, 1, '1', MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, 0.05)
+    MemberLoad.AxialDisplacement(41, 1, '1', MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, 0.05)
 
     ## Precamber Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
-    MemberLoad.Precamber(0, 42, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[0.005])
+    MemberLoad.Precamber(42, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[0.005])
 
     ## Precamber Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##
-    MemberLoad.Precamber(0, 43, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])
+    MemberLoad.Precamber(43, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])
 
     ## Precamber Type Member Load with LOAD_DISTRIBUTION_TAPERED ##
-    MemberLoad.Precamber(0, 44, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])
+    MemberLoad.Precamber(44, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])
 
     ## Precamber Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
-    MemberLoad.Precamber(0, 45, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3])
+    MemberLoad.Precamber(45, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3])
 
     ## Precamber Type Member Load with LOAD_DISTRIBUTION_VARYING ##
-    MemberLoad.Precamber(0, 46, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])
+    MemberLoad.Precamber(46, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])
 
     ## InitialPrestress Type Member Load ##
-    MemberLoad.InitialPrestress(0, 47, 1, '1', MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, 50)
+    MemberLoad.InitialPrestress(47, 1, '1', MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, 50)
 
     ## Displacement Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
-    MemberLoad.Displacement(0, 48, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5])
+    MemberLoad.Displacement(48, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5])
 
     ## Displacement Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_1 ##
-    MemberLoad.Displacement(0, 49, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, 1])
+    MemberLoad.Displacement(49, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, 1])
 
     ## Displacement Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_N ##
-    MemberLoad.Displacement(0, 50, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, False, 1, 2])
+    MemberLoad.Displacement(50, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, False, 1, 2])
 
     ## Displacement Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x2 ##
-    MemberLoad.Displacement(0, 51, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, False, False, 1, 2, 3])
+    MemberLoad.Displacement(51, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, False, False, 1, 2, 3])
 
     ## Displacement Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2 ##
-    MemberLoad.Displacement(0, 52, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, 0.6, False, False, 1, 2])
+    MemberLoad.Displacement(52, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, 0.6, False, False, 1, 2])
 
     ## Displacement Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_VARYING ##
-    MemberLoad.Displacement(0, 53, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [[0.001, 1, 1], [0.002, 2, 1]])
+    MemberLoad.Displacement(53, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [[0.001, 1, 1], [0.002, 2, 1]])
 
     ## Displacement Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##
-    MemberLoad.Displacement(0, 54, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])
+    MemberLoad.Displacement(54, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])
 
     ## Displacement Type Member Load with LOAD_DISTRIBUTION_TAPERED ##
-    MemberLoad.Displacement(0, 55, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])
+    MemberLoad.Displacement(55, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])
 
     ## Displacement Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
-    MemberLoad.Displacement(0, 56, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3])
+    MemberLoad.Displacement(56, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3])
 
     ## Displacement Type Member Load with LOAD_DISTRIBUTION_VARYING ##
-    MemberLoad.Displacement(0, 57, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])
+    MemberLoad.Displacement(57, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])
 
     ## Rotation Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
-    MemberLoad.Rotation(0, 58, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5])
+    MemberLoad.Rotation(58, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5])
 
     ## Rotation Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_1 ##
-    MemberLoad.Rotation(0, 59, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, 1])
+    MemberLoad.Rotation(59, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, 1])
 
     ## Rotation Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_N ##
-    MemberLoad.Rotation(0, 60, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, False, 1, 2])
+    MemberLoad.Rotation(60, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, False, 1, 2])
 
     ## Rotation Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2x2 ##
-    MemberLoad.Rotation(0, 61, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, False, False, 1, 2, 3])
+    MemberLoad.Rotation(61, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, False, False, False, 1, 2, 3])
 
     ## Rotation Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_2 ##
-    MemberLoad.Rotation(0, 62, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, 0.6, False, False, 1, 2])
+    MemberLoad.Rotation(62, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, 0.6, False, False, 1, 2])
 
     ## Rotation Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_VARYING ##
-    MemberLoad.Rotation(0, 63, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [[1, 1, 285], [2, 1, 293]])
+    MemberLoad.Rotation(63, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [[1, 1, 285], [2, 1, 293]])
 
     ## Rotation Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##
-    MemberLoad.Rotation(0, 64, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])
+    MemberLoad.Rotation(64, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])
 
     ## Rotation Type Member Load with LOAD_DISTRIBUTION_TAPERED ##
-    MemberLoad.Rotation(0, 65, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])
+    MemberLoad.Rotation(65, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])
 
     ## Rotation Type Member Load with LOAD_DISTRIBUTION_PARABOLIC ##
-    MemberLoad.Rotation(0, 66, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3])
+    MemberLoad.Rotation(66, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3])
 
     ## Rotation Type Member Load with LOAD_DISTRIBUTION_VARYING ##
-    MemberLoad.Rotation(0, 67, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])
+    MemberLoad.Rotation(67, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])
 
     ## PipeContentFull Type Member Load ##
-    MemberLoad.PipeContentFull(0, 68, 1, '2', MemberLoadDirectionOrientation.LOAD_DIRECTION_FORWARD, 50)
+    MemberLoad.PipeContentFull(68, 1, '2', MemberLoadDirectionOrientation.LOAD_DIRECTION_FORWARD, 50)
 
-    MemberLoad.RotaryMotion(0, 69, 1, '2', 2, 3, MemberLoadAxisDefinitionType.AXIS_DEFINITION_POINT_AND_AXIS, axis_definition_p1=[1,1,0])
+    MemberLoad.RotaryMotion(69, 1, '2', 2, 3, MemberLoadAxisDefinitionType.AXIS_DEFINITION_POINT_AND_AXIS, axis_definition_p1=[1,1,0])
 
     #Calculate_all() # Don't use in unit tests. See template for more info.
 

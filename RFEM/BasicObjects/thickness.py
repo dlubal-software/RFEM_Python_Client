@@ -1,8 +1,8 @@
 from RFEM.enums import ThicknessDirection, ThicknessType
-from RFEM.enums import ThicknessOrthotropyType
+from RFEM.enums import ThicknessOrthotropyType, AddOn
 from RFEM.enums import ThicknessShapeOrthotropySelfWeightDefinitionType
 from RFEM.enums import ThicknessStiffnessMatrixSelfWeightDefinitionType
-from RFEM.initModel import Model, CheckAddonStatus, clearAtributes, SetAddonStatus
+from RFEM.initModel import Model, GetAddonStatus, clearAtributes, SetAddonStatus
 from math import pi
 
 class Thickness():
@@ -12,11 +12,16 @@ class Thickness():
                  material_no: int = 1,
                  uniform_thickness_d: float = 0.20,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
-        Assigns thickness without any further options.
-        Thickness types is Uniform by default.
+        Args:
+            no (int): Thickness Tag
+            name (str): Thickness Name
+            material_no (int): Tag of Material assigned to Thickness
+            uniform_thickness_d (float): Magnitude of Thickness
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Thickness
@@ -46,28 +51,30 @@ class Thickness():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
 
-    def Uniform(self,
+    @staticmethod
+    def Uniform(
                  no: int = 1,
                  name: str = None,
                  material_no: int = 1,
-                 properties = None,
+                 properties = [0.2],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
             no (int): Thickness Tag
             name (str): Thickness Name
-            material_no (int): Assigned Material Number
-            properties (list): [uniform_thickness]
+            material_no (int): Tag of Material assigned to Thickness
+            properties (list): Magnitude of Thickness [Thickness]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Thickness
@@ -99,28 +106,31 @@ class Thickness():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
 
-    def Variable_3Nodes(self,
+    @staticmethod
+    def Variable_3Nodes(
                  no: int = 1,
                  name: str = None,
                  material_no: int = 1,
                  properties = None,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
             no (int): Thickness Tag
             name (str): Thickness Name
-            material_no (int): Assigned Material Number
-            properties (list): [thickness_d1, node_no_1, thickness_d2, node_no_2, thickness_d3, node_no_3]
+            material_no (int): Tag of Material assigned to Thickness
+            properties (list): Properties for 3 Nodes Variable Thickness Definition
+                properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, thickness_d3, node_no_3]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Thickness
@@ -159,28 +169,32 @@ class Thickness():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
 
-    def Variable_2NodesAndDirection(self,
+    @staticmethod
+    def Variable_2NodesAndDirection(
                  no: int = 1,
                  name: str = None,
                  material_no: int = 1,
                  properties = [0.18, 1, 0.18, 2, ThicknessDirection.THICKNESS_DIRECTION_IN_X],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
             no (int): Thickness Tag
             name (str): Thickness Name
-            material_no (int): Assigned Material Number
-            properties (list): [thickness_d1, node_no_1, thickness_d2, node_no_2, direction]
+            material_no (int): Tag of Material assigned to Thickness
+            properties (list): Properties for 2 Nodes and Direction Variable Thickness Definition
+                properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, direction]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+
         '''
 
         # Client model | Thickness
@@ -216,28 +230,32 @@ class Thickness():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
 
-    def Variable_4SurfaceCorners(self,
+    @staticmethod
+    def Variable_4SurfaceCorners(
                  no: int = 1,
                  name: str = None,
                  material_no: int = 1,
                  properties = None,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
             no (int): Thickness Tag
             name (str): Thickness Name
-            material_no (int): Assigned Material Number
-            properties (list): [thickness_d1, node_no_1, thickness_d2, node_no_2, thickness_d3, node_no_3, thickness_d4, node_no_4]
+            material_no (int): Tag of Material assigned to Thickness
+            properties (list): Properties for 4 Surface Corners Variable Definition
+                properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, thickness_d3, node_no_3, thickness_d4, node_no_4]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+
         '''
 
         # Client model | Thickness
@@ -278,28 +296,31 @@ class Thickness():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
 
-    def Variable_Circle(self,
+    @staticmethod
+    def Variable_Circle(
                  no: int = 1,
                  name: str = None,
                  material_no: int = 1,
                  properties = None,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
             no (int): Thickness Tag
             name (str): Thickness Name
-            material_no (int): Assigned Material Number
-            properties (list): [thickness_circle_center_dC, thickness_circle_line_dR
+            material_no (int): Tag of Material assigned to Thickness
+            properties (list): Properties for Circular Thickness Definition
+                properties = [thickness_circle_center_dC, thickness_circle_line_dR]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Thickness
@@ -334,34 +355,37 @@ class Thickness():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
 
-    def Layers(self,
+    @staticmethod
+    def Layers(
                  no: int = 1,
                  name: str = None,
-                 layers = [[0, 1, 200, 0.0, '']],
+                 layers = [[0, 1, 0.2, 0.0, '']],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
-        Available only for Special Solution Add-on Multilayer Surfaces.
+        NOTE: Available only for Special Solution Add-on Multilayer Surfaces.
 
         Args:
             no (int): Thickness Tag
             name (str): Thickness Name
-            material_no (int): Assigned Material Number
-            properties (list): [[thickness_type, material, thickness, rotation, comment], ...]
+            material_no (int): Tag of Material assigned to Thickness
+            properties (list): Nested List of Layer Properties
+                properties: [[thickness_type, material, thickness, rotation, comment], ...]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Check if Multilayer Surfaces Add-on is ON.
-        if not CheckAddonStatus(Model.clientModel, "multilayer_surfaces_active"):
-            SetAddonStatus(Model.clientModel, "multilayer_surfaces_active", True)
+        if not GetAddonStatus(Model.clientModel, AddOn.multilayer_surfaces_design_active):
+            SetAddonStatus(Model.clientModel, AddOn.multilayer_surfaces_design_active, True)
 
         # Client model | Thickness
         clientObject = Model.clientModel.factory.create('ns0:thickness')
@@ -403,58 +427,56 @@ class Thickness():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
 
-    def ShapeOrthotropy(self,
+    @staticmethod
+    def ShapeOrthotropy(
                  no: int = 1,
                  name: str = None,
                  material_no: int = 1,
-                 orthotropy_type = ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS,
+                 orthotropy_type = ThicknessOrthotropyType.EFFECTIVE_THICKNESS,
                  rotation_beta: float = 0,
                  consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, 0.18],
                  parameters = [0.18, 0.18],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
             no (int): Thickness Tag
             name (str): Thickness Name
-            material_no (int): Assigned Material Number
+            material_no (int): Tag of Material assigned to Thickness
             orthotropy_type (enum): Thickness Orthotropy Type
-
-                For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS:
-                    parameters = [effective_thickness_x, effective_thickness_y]
-                For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_COUPLING:
-                    parameters = [coupling_thickness, coupling_spacing, coupling_width]
-                For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE:
-                    parameters = [slab_thickness, rib_height, rib_spacing, rib_width]
-                For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_BIDIRECTIONAL_RIBBED_PLATE:
-                    parameters = [slab_thickness, rib_height_x, rib_height_y, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
-                For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET:
-                    parameters = [sheet_thickness, total_profile_height, rib_spacing, top_flange_width, bottom_flange_width]
-                For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB:
-                    parameters = [slab_thickness, void_spacing, void_diameter]
-                For ThicknessOrthotropyType.ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE:
-                    parameters = [slab_thickness, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
-
-            rotation_beta (float):
-            consideration_of_self_weight (list):
-
-                For parameter defined self-weight:
-                    consideration_of_self_weight : [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, fictitious_thickness]
-                For user-defined fictitious thickness self-weight:
+            rotation_beta (float): Rotation
+            consideration_of_self_weight (list): Consideration of Self-Weight Parameters
+                for consideration_of_self_weight == 'parameter defined'
+                    consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, fictitious_thickness]
+                for consideration_of_self_weight == 'user-defined fictitious thickness'
                     consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS, fictitious_thickness]
-                For user-defined self-weight:
+                for consideration_of_self_weight == 'user-defined'
                     consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_DEFINED_VIA_WEIGHT, self_weight]
-
-            parameters (list):
+            parameters (list): Parameters List of chosen Orthotropy Type
+                for orthotropy_type == ThicknessOrthotropyType.EFFECTIVE_THICKNESS:
+                    parameters = [effective_thickness_x, effective_thickness_y]
+                for orthotropy_type == ThicknessOrthotropyType.COUPLING:
+                    parameters = [coupling_thickness, coupling_spacing, coupling_width]
+                for orthotropy_type == ThicknessOrthotropyType.UNIDIRECTIONAL_RIBBED_PLATE:
+                    parameters = [slab_thickness, rib_height, rib_spacing, rib_width]
+                for orthotropy_type == ThicknessOrthotropyType.BIDIRECTIONAL_RIBBED_PLATE:
+                    parameters = [slab_thickness, rib_height_x, rib_height_y, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
+                for orthotropy_type == ThicknessOrthotropyType.TRAPEZOIDAL_SHEET:
+                    parameters = [sheet_thickness, total_profile_height, rib_spacing, top_flange_width, bottom_flange_width]
+                for orthotropy_type == ThicknessOrthotropyType.HOLLOW_CORE_SLAB:
+                    parameters = [slab_thickness, void_spacing, void_diameter]
+                for orthotropy_type == ThicknessOrthotropyType.GRILLAGE:
+                    parameters = [slab_thickness, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Thickness
@@ -478,7 +500,7 @@ class Thickness():
         clientObject.material = material_no
 
         # Orthotropy Type
-        clientObject.orthotropy_type = orthotropy_type.name
+        clientObject.orthotropy_type = 'ORTHOTROPIC_THICKNESS_TYPE_' + orthotropy_type.name
 
         # Rotation Beta
         clientObject.orthotropy_rotation_beta = rotation_beta * (pi/180)
@@ -493,25 +515,25 @@ class Thickness():
             clientObject.shape_orthotropy_self_weight = consideration_of_self_weight[1]
 
         # Shape Orthotropy Parameters
-        if orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_EFFECTIVE_THICKNESS':
+        if orthotropy_type.name == 'EFFECTIVE_THICKNESS':
             if len(parameters) != 2:
                 raise Exception('WARNING: The parameters needs to be of length 2. Kindly check list inputs for completeness and correctness.')
-            clientObject.effective_thickness_x = parameters[0]
-            clientObject.effective_thickness_y = parameters[1]
-        elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_COUPLING':
+            clientObject.shape_orthotropy_effective_thickness_x = parameters[0]
+            clientObject.shape_orthotropy_effective_thickness_y = parameters[1]
+        elif orthotropy_type.name == 'COUPLING':
             if len(parameters) != 3:
                 raise Exception('WARNING: The parameters needs to be of length 3. Kindly check list inputs for completeness and correctness.')
             clientObject.coupling_thickness = parameters[0]
             clientObject.coupling_spacing = parameters[1]
             clientObject.coupling_width = parameters[2]
-        elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_UNIDIRECTIONAL_RIBBED_PLATE':
+        elif orthotropy_type.name == 'UNIDIRECTIONAL_RIBBED_PLATE':
             if len(parameters) != 4:
                 raise Exception('WARNING: The parameters needs to be of length 4. Kindly check list inputs for completeness and correctness.')
             clientObject.slab_thickness = parameters[0]
             clientObject.rib_height = parameters[1]
             clientObject.rib_spacing = parameters[2]
             clientObject.rib_width = parameters[3]
-        elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_BIDIRECTIONAL_RIBBED_PLATE':
+        elif orthotropy_type.name == 'BIDIRECTIONAL_RIBBED_PLATE':
             if len(parameters) != 7:
                 raise Exception('WARNING: The parameters needs to be of length 7. Kindly check list inputs for completeness and correctness.')
             clientObject.slab_thickness = parameters[0]
@@ -521,7 +543,7 @@ class Thickness():
             clientObject.rib_spacing_y = parameters[4]
             clientObject.rib_width_x = parameters[5]
             clientObject.rib_width_y = parameters[6]
-        elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_TRAPEZOIDAL_SHEET':
+        elif orthotropy_type.name == 'TRAPEZOIDAL_SHEET':
             if len(parameters) != 5:
                 raise Exception('WARNING: The parameters needs to be of length 5. Kindly check list inputs for completeness and correctness.')
             clientObject.sheet_thickness = parameters[0]
@@ -529,13 +551,13 @@ class Thickness():
             clientObject.rib_spacing = parameters[2]
             clientObject.top_flange_width = parameters[3]
             clientObject.bottom_flange_width = parameters[4]
-        elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB':
+        elif orthotropy_type.name == 'HOLLOW_CORE_SLAB':
             if len(parameters) != 3:
                 raise Exception('WARNING: The parameters needs to be of length 3. Kindly check list inputs for completeness and correctness.')
             clientObject.slab_thickness = parameters[0]
             clientObject.void_spacing = parameters[1]
             clientObject.void_diameter = parameters[2]
-        elif orthotropy_type.name == 'ORTHOTROPIC_THICKNESS_TYPE_GRILLAGE':
+        elif orthotropy_type.name == 'GRILLAGE':
             if len(parameters) != 5:
                 raise Exception('WARNING: The parameters needs to be of length 5. Kindly check list inputs for completeness and correctness.')
             clientObject.slab_thickness = parameters[0]
@@ -548,13 +570,15 @@ class Thickness():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)
 
-    def StiffnessMatrix(self,
+    @staticmethod
+    def StiffnessMatrix(
                  no: int = 1,
                  name: str = None,
                  material_no: int = 1,
@@ -563,37 +587,33 @@ class Thickness():
                  coefficient_of_thermal_expansion: float = 0,
                  stiffness_matrix = [[0, 0, 0, 0, 0, 0],[0, 0, 0],[0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0]],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
             no (int): Thickness Tag
             name (str): Thickness Name
-            material_no (int): Assigned Material Number
-            rotation_beta (float)
-            consideration_of_self_weight (list):
-
-                For fictitious thickness and bulk density self-weight:
-                    consideration_of_self_weight : [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_BULK_DENSITY, fictitious_thickness, stiffness_matrix_bulk_density]
-                For fictitious thickness and area density self-weight:
-                    consideration_of_self_weight : [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_AREA_DENSITY, stiffness_matrix_bulk_density, stiffness_matrix_area_density]
-                For bulk density and area density self-weight:
-                    consideration_of_self_weight : [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_BULK_DENSITY_AND_AREA_DENSITY, fictitious_thickness, stiffness_matrix_area_density]
-
+            material_no (int): Tag of Material assigned to Thickness
+            rotation_beta (float): Rotation
+            consideration_of_self_weight (list): Self-Weight Consideration Parameters
+                for consideration_of_self_weight == 'fictitious thickness and bulk density'
+                    consideration_of_self_weight = [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_BULK_DENSITY, fictitious_thickness, stiffness_matrix_bulk_density]
+                for consideration_of_self_weight == 'fictitious thickness and area density'
+                    consideration_of_self_weight = [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_AREA_DENSITY, stiffness_matrix_bulk_density, stiffness_matrix_area_density]
+                for consideration_of_self_weight == 'bulk density and area density'
+                    consideration_of_self_weight = [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_BULK_DENSITY_AND_AREA_DENSITY, fictitious_thickness, stiffness_matrix_area_density]
             coefficient_of_thermal_expansion (float): Coefficient of Thermal Expansion
-            stiffness_matrix (list):
-
+            stiffness_matrix (list): Nested List of Stiffness Matrix Entries (See Below)
                 Element entry overview : [[Bending/Torsional Stiffness Elements (Nm)],
-                                         [Shear Stiffness Elements (N/m)],
-                                         [Membrane Stiffness Elements (N/m)],
-                                         [Eccentric Stiffness Elements (Nm/m)]]
+                                            [Shear Stiffness Elements (N/m)],
+                                            [Membrane Stiffness Elements (N/m)],
+                                            [Eccentric Stiffness Elements (Nm/m)]]
                 Detailed element entry : [[D11, D12, D13, D22, D23, D33],
-                                         [D44, D45, D55],
-                                         [D66, D67, D68, D77, D78, D88],
-                                         [D16, D17, D18, D27, D28, D38]]
-
+                                            [D44, D45, D55],
+                                            [D66, D67, D68, D77, D78, D88],
+                                            [D16, D17, D18, D27, D28, D38]]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Thickness
@@ -658,8 +678,9 @@ class Thickness():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Thickness to client model
         Model.clientModel.service.set_thickness(clientObject)

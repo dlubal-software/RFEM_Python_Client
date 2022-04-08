@@ -19,7 +19,7 @@ if Model.clientModel is None:
 
 def test_init():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -39,7 +39,7 @@ def test_init():
 
 def test_member_beam():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -48,7 +48,7 @@ def test_member_beam():
     Node(1, 0, 0, 0)
     Node(2, 5, 0, 0)
 
-    Member.Beam(0, 1, 1, 2, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1, 1)
+    Member.Beam(1, 1, 2, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1, 1)
 
     Model.clientModel.service.finish_modification()
 
@@ -59,7 +59,7 @@ def test_member_beam():
 
 def test_member_rigid():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -68,7 +68,7 @@ def test_member_rigid():
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
 
-    Member.Rigid(0, 1, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618])
+    Member.Rigid(1, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618])
 
     Model.clientModel.service.finish_modification()
 
@@ -80,7 +80,7 @@ def test_member_rigid():
 """
 def test_member_rib():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -89,7 +89,7 @@ def test_member_rib():
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
 
-    Member.Rib(0, 5, 1, 2, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, 1, 1)
+    Member.Rib(5, 1, 2, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, 1, 1)
 
     Model.clientModel.service.finish_modification()
 
@@ -101,7 +101,7 @@ def test_member_rib():
 
 def test_member_truss():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -110,7 +110,7 @@ def test_member_truss():
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
 
-    Member.Truss(0, 5, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
+    Member.Truss(5, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
 
     Model.clientModel.service.finish_modification()
 
@@ -121,7 +121,7 @@ def test_member_truss():
 
 def test_member_trussOnlyN():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -130,7 +130,7 @@ def test_member_trussOnlyN():
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
 
-    Member.TrussOnlyN(0, 4, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
+    Member.TrussOnlyN(4, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
 
     Model.clientModel.service.finish_modification()
 
@@ -141,7 +141,7 @@ def test_member_trussOnlyN():
 
 def test_member_tension():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -150,7 +150,7 @@ def test_member_tension():
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
 
-    Member.Tension(0, 4, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
+    Member.Tension(4, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
 
     Model.clientModel.service.finish_modification()
 
@@ -161,7 +161,7 @@ def test_member_tension():
 
 def test_member_compression():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -170,7 +170,7 @@ def test_member_compression():
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
 
-    Member.Compression(0, 4, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
+    Member.Compression(4, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
 
     Model.clientModel.service.finish_modification()
 
@@ -181,7 +181,7 @@ def test_member_compression():
 
 def test_member_buckling():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -190,7 +190,7 @@ def test_member_buckling():
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
 
-    Member.Buckling(0, 4, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
+    Member.Buckling(4, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
 
     Model.clientModel.service.finish_modification()
 
@@ -201,7 +201,7 @@ def test_member_buckling():
 
 def test_member_cable():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -210,7 +210,7 @@ def test_member_cable():
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
 
-    Member.Cable(0, 4, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
+    Member.Cable(4, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
 
     Model.clientModel.service.finish_modification()
 
@@ -221,7 +221,7 @@ def test_member_cable():
 
 def test_member_resultBeam():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -230,7 +230,7 @@ def test_member_resultBeam():
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
 
-    Member.ResultBeam(0, 1, 1, 2, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM,
+    Member.ResultBeam(1, 1, 2, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM,
                       MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE,
                       MemberResultBeamIntegration.INTEGRATE_WITHIN_CUBOID_GENERAL,
                       [0.2618], 1, 1, [], [1,2,3,4])
@@ -244,7 +244,7 @@ def test_member_resultBeam():
 
 def test_member_definableStiffness():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -253,7 +253,7 @@ def test_member_definableStiffness():
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
 
-    Member.DefinableStiffness(0, 4, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
+    Member.DefinableStiffness(4, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
 
     Model.clientModel.service.finish_modification()
 
@@ -264,7 +264,7 @@ def test_member_definableStiffness():
 
 def test_member_couplingRigidRigid():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -273,7 +273,7 @@ def test_member_couplingRigidRigid():
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
 
-    Member.CouplingRigidRigid(0, 4, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
+    Member.CouplingRigidRigid(4, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
 
     Model.clientModel.service.finish_modification()
 
@@ -284,7 +284,7 @@ def test_member_couplingRigidRigid():
 
 def test_member_couplingRigidHinge():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -293,7 +293,7 @@ def test_member_couplingRigidHinge():
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
 
-    Member.CouplingRigidHinge(0, 4, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
+    Member.CouplingRigidHinge(4, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
 
     Model.clientModel.service.finish_modification()
 
@@ -304,7 +304,7 @@ def test_member_couplingRigidHinge():
 
 def test_member_couplingHingeRigid():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -313,7 +313,7 @@ def test_member_couplingHingeRigid():
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
 
-    Member.CouplingHingeRigid(0, 4, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
+    Member.CouplingHingeRigid(4, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
 
     Model.clientModel.service.finish_modification()
 
@@ -324,7 +324,7 @@ def test_member_couplingHingeRigid():
 
 def test_member_couplingHingeHinge():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -333,7 +333,7 @@ def test_member_couplingHingeHinge():
     Node(1, 0, 0, 0)
     Node(2, 3, 3, 3)
 
-    Member.CouplingHingeHinge(0, 4, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
+    Member.CouplingHingeHinge(4, 1, 2, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1)
 
     Model.clientModel.service.finish_modification()
 

@@ -8,8 +8,9 @@ sys.path.append(PROJECT_ROOT)
 
 from RFEM.Loads.solidLoad import SolidLoad
 from RFEM.Loads.solidSetLoad import SolidSetLoad
-from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType, SolidLoadType, SolidLoadDistribution
+from RFEM.enums import SolidLoadDirection, SolidSetLoadType, SolidSetLoadDistribution, SolidSetLoadDirection
+from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
@@ -27,7 +28,7 @@ if Model.clientModel is None:
 
 def test_solid_loads():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -78,19 +79,19 @@ def test_solid_loads():
     NodalLoad(1, 1, '1', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 12.8)
 
     SolidLoad(1, 1, '1', SolidLoadType.LOAD_TYPE_FORCE, SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 1289.0, 'My Comment')
-    SolidLoad.Force(SolidLoad, 2, 1, '1', SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 8569.21, 'My 2nd Comment')
-    SolidLoad.Force(SolidLoad, 3, 1, '1', SolidLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 78548.21, 'My 2nd Comment')
-    SolidLoad.Temperature(SolidLoad, 4, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,[78.4])
-    SolidLoad.Temperature(SolidLoad, 5, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, [105.4, 507.8, 4, 3])
-    SolidLoad.Temperature(SolidLoad, 6, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y, [237, -8.9, 5, 7])
-    SolidLoad.Temperature(SolidLoad, 7, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z, [-2587.98, -8.9, 5, 2])
+    SolidLoad.Force(2, 1, '1', SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 8569.21, 'My 2nd Comment')
+    SolidLoad.Force(3, 1, '1', SolidLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 78548.21, 'My 2nd Comment')
+    SolidLoad.Temperature(4, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,[78.4])
+    SolidLoad.Temperature(5, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, [105.4, 507.8, 4, 3])
+    SolidLoad.Temperature(6, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y, [237, -8.9, 5, 7])
+    SolidLoad.Temperature(7, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z, [-2587.98, -8.9, 5, 2])
 
-    SolidLoad.Strain(SolidLoad, 8, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, [0.01, 0.02, 0.03])
-    SolidLoad.Strain(SolidLoad, 9, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 5, 6])
-    SolidLoad.Strain(SolidLoad, 10, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y, [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 5, 8])
-    SolidLoad.Strain(SolidLoad, 11, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z, [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 5, 1])
+    SolidLoad.Strain(8, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, [0.01, 0.02, 0.03])
+    SolidLoad.Strain(9, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 5, 6])
+    SolidLoad.Strain(10, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y, [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 5, 8])
+    SolidLoad.Strain(11, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z, [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 5, 1])
 
-    SolidLoad.Motion(SolidLoad, 12, 1, '1',[ 5, 2, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0])
+    SolidLoad.Motion(12, 1, '1',[ 5, 2, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0])
 
     # Solid 2
     Node(9, 0.0, 20.0, 0.0)
@@ -151,15 +152,15 @@ def test_solid_loads():
     Solid(3, '13-17,12', 1)
 
     # Solid Set
-    SolidSet.ContinuousSolids(SolidSet, 1, '2 3')
+    SolidSet.ContinuousSolids(1, '2 3')
 
     SolidSetLoad(1, 1, '1', SolidSetLoadType.LOAD_TYPE_FORCE, SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, SolidSetLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 58.9*1000, 'My Comment')
-    SolidSetLoad.Force(SolidSetLoad, 2, 1, '1', SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 8974.123, 'My 2nd Comment')
-    SolidSetLoad.Temperature(SolidSetLoad, 3, 1, '1', SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, [25489], 'My 3rd Comment')
-    SolidSetLoad.Temperature(SolidSetLoad, 4, 1, '1', SolidSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, [1.5, 8.9, 16, 15], 'My 3rd Comment')
-    SolidSetLoad.Strain(SolidSetLoad, 5, 1, '1', SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, [0.1, 0.2, 0.3], 'My Comment')
-    SolidSetLoad.Strain(SolidSetLoad, 6, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y, [0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 13, 16])
-    SolidSetLoad.Motion(SolidSetLoad, 7, 1, '1', [1.5, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0])
+    SolidSetLoad.Force(2, 1, '1', SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 8974.123, 'My 2nd Comment')
+    SolidSetLoad.Temperature(3, 1, '1', SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, [25489], 'My 3rd Comment')
+    SolidSetLoad.Temperature(4, 1, '1', SolidSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, [1.5, 8.9, 16, 15], 'My 3rd Comment')
+    SolidSetLoad.Strain(5, 1, '1', SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, [0.1, 0.2, 0.3], 'My Comment')
+    SolidSetLoad.Strain(6, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y, [0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 13, 16])
+    SolidSetLoad.Motion(7, 1, '1', [1.5, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0])
 
     #Calculate_all() # Don't use in unit tests. See template for more info.
 

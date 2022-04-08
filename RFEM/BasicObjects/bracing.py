@@ -1,4 +1,4 @@
-# from RFEM.initModel import *
+# from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 # from RFEM.enums import BracingType
 
 # class Bracing():
@@ -11,7 +11,20 @@
 #                  start_section_no: int = 1,
 #                  end_section_no: int = 1,
 #                  comment: str = '',
-#                  params: dict = {}):
+#                  params: dict = None):
+
+#        '''
+#        Args:
+#            no (int): Bracing Tag
+#            member_type (enum): Bracing Type Enumeration
+#            start_node_no (int): Start Node
+#            end_node_no (int): End Node
+#            rotation_angle (float): Rotation Angle
+#            start_section_no (int): Tag of Start Section
+#            end_section_no (int): End of End Section
+#            comment (str, optional): Comment
+#            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+#        '''
 
 #         # Client model | Bracing
 #         clientObject = Model.clientModel.factory.create('ns0:bracing')
@@ -67,7 +80,22 @@
 #             start_bracing_hinge_no: int = 0,
 #             end_bracing_hinge_no: int = 0,
 #             comment: str = '',
-#             params: dict = {}):
+#             params: dict = None):
+
+#             '''
+#            Args:
+#                no (int): Bracing Tag
+#                bracing_type (enum): Bracing Type Enumeration
+#                start_node_no (int): Start Node
+#                end_node_no (int): End Node
+#                rotation_angle (float): Rotation Angle
+#                start_section_no (int): Tag of Start Section
+#                end_section_no (int): End of End Section
+#                start_bracing_hinge_no (int): Hinge at Bracing Start
+#                end_bracing_hinge_no (int): Hinge at Bracing End
+#                comment (str, optional): Comment
+#                params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+#             '''
 
 #         # Client model | Bracing
 #         clientObject = Model.clientModel.factory.create('ns0:bracing')
@@ -123,7 +151,22 @@
 #             start_bracing_hinge_no: int = 0,
 #             end_bracing_hinge_no: int = 0,
 #             comment: str = '',
-#             params: dict = {}):
+#             params: dict = None):
+
+#            '''
+#            Args:
+#                no (int): Bracing Tag
+#                bracing_type (enum): Bracing Type Enumeration
+#                start_node_no (int): Start Node
+#                end_node_no (int): End Node
+#                rotation_angle (float): Rotation Angle
+#                start_section_no (int): Tag of Start Section
+#                end_section_no (int): End of End Section
+#                start_bracing_hinge_no (int): Hinge at Bracing Start
+#                end_bracing_hinge_no (int): Hinge at Bracing End
+#                comment (str, optional): Comment
+#                params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+#            '''
 
 #         # Client model | Bracing
 #         clientObject = Model.clientModel.factory.create('ns0:bracing')

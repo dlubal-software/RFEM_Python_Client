@@ -1,0 +1,324 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>TypesforConcreteDesign &mdash; RFEM/RSTAB Webservices 1.0.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="ConcreteDesign" href="ConcreteDesign.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html"><strong>Introduction</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="globalCommands.html"><strong>Global Commands</strong></a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="addonCommands.html"><strong>Add-on Commands</strong></a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ConcreteDesign.html">ConcreteDesign</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">TypesforConcreteDesign</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-TypesforConcreteDesign.ConcreteDurability">ConcreteDurability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#concreteeffectivelength">ConcreteEffectiveLength</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-TypesforConcreteDesign.ConcreteReinforcementDirections">ConcreteReinforcementDirections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-TypesforConcreteDesign.ConcreteSurfaceReinforcements">ConcreteSurfaceReinforcements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html"><strong>Examples</strong></a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RFEM/RSTAB Webservices</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="addonCommands.html"><strong>Add-on Commands</strong></a> &raquo;</li>
+        
+      <li>TypesforConcreteDesign</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/TypesforConcreteDesign.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="typesforconcretedesign">
+<h1>TypesforConcreteDesign<a class="headerlink" href="#typesforconcretedesign" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-TypesforConcreteDesign.ConcreteDurability">
+<span id="concretedurability"></span><h2>ConcreteDurability<a class="headerlink" href="#module-TypesforConcreteDesign.ConcreteDurability" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="TypesforConcreteDesign.ConcreteDurability.ConcreteDurability">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">TypesforConcreteDesign.ConcreteDurability.</span></span><span class="sig-name descname"><span class="pre">ConcreteDurability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'XC</span> <span class="pre">1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">members_no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member_sets_no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surfaces_no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exposure_classes_reinforcement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[True,</span> <span class="pre">False,</span> <span class="pre">False,</span> <span class="pre">False]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exposure_classes_reinforcement_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exposure_classes_concrete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[False,</span> <span class="pre">False,</span> <span class="pre">False]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exposure_classes_concrete_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">structural_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[DurabilityStructuralClassType.STANDARD,</span> <span class="pre">False,</span> <span class="pre">False,</span> <span class="pre">False,</span> <span class="pre">False]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stainless_steel_reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[False]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_protection_reduction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[False]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowance_deviation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[DurabilityAllowanceDeviationType.STANDARD,</span> <span class="pre">False]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TypesforConcreteDesign.ConcreteDurability.ConcreteDurability" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>no</strong> (<em>int</em>) – Concrete Durability Tag</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – User Defined Name</p></li>
+<li><p><strong>members_no</strong> (<em>str</em>) – Assigned Members</p></li>
+<li><p><strong>member_sets_no</strong> (<em>str</em>) – Assigned Member Sets</p></li>
+<li><p><strong>surfaces_no</strong> (<em>str</em>) – Assigned Surfaces</p></li>
+<li><p><strong>exposure_classes_reinforcement</strong> (<em>list</em>) – Exposure Classes Reinforcement Parameters</p></li>
+<li><p><strong>exposure_classes_reinforcement_types</strong> (<em>list</em>) – Exposure Classes Reinforcement Parameters</p></li>
+<li><p><strong>exposure_classes_concrete</strong> (<em>list</em>) – Exposure Classes Concrete Parameters</p></li>
+<li><p><strong>exposure_classes_concrete_types</strong> (<em>list</em>) – Exposure Classes Concrete Parameters</p></li>
+<li><p><strong>structural_class</strong> (<em>list</em>) – Structural Class Parameters</p></li>
+<li><p><strong>stainless_steel_reduction</strong> (<em>list</em>) – Stainless Steel Reduction Parameters</p></li>
+<li><p><strong>additional_protection_reduction</strong> (<em>list</em>) – Additional Protection Reduction</p></li>
+<li><p><strong>allowance_deviation</strong> (<em>list</em>) – Allowance Deviation Parameters</p></li>
+<li><p><strong>comment</strong> (<em>str</em><em>, </em><em>optional</em>) – Comments</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – Parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="concreteeffectivelength">
+<h2>ConcreteEffectiveLength<a class="headerlink" href="#concreteeffectivelength" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-TypesforConcreteDesign.ConcreteReinforcementDirections">
+<span id="concretereinforcementdirections"></span><h2>ConcreteReinforcementDirections<a class="headerlink" href="#module-TypesforConcreteDesign.ConcreteReinforcementDirections" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="TypesforConcreteDesign.ConcreteReinforcementDirections.ConcreteReinforcementDirection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">TypesforConcreteDesign.ConcreteReinforcementDirections.</span></span><span class="sig-name descname"><span class="pre">ConcreteReinforcementDirection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RD</span> <span class="pre">1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surfaces</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reinforcement_direction_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_FIRST_REINFORCEMENT_IN_X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TypesforConcreteDesign.ConcreteReinforcementDirections.ConcreteReinforcementDirection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>no</strong> (<em>int</em>) – Reinforcement Direction Tag</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – User Defined Name</p></li>
+<li><p><strong>surfaces</strong> (<em>str</em>) – Assigned Surfaces</p></li>
+<li><p><strong>reinforcement_direction_type</strong> (<em>enum</em>) – Reinforcement Direction Enumeration</p></li>
+<li><p><strong>rotation_parameters</strong> (<em>list</em>) – Rotation Parameters</p></li>
+<li><p><strong>comment</strong> (<em>str</em><em>, </em><em>optional</em>) – Comments</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – Parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-TypesforConcreteDesign.ConcreteSurfaceReinforcements">
+<span id="concretesurfacereinforcements"></span><h2>ConcreteSurfaceReinforcements<a class="headerlink" href="#module-TypesforConcreteDesign.ConcreteSurfaceReinforcements" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="TypesforConcreteDesign.ConcreteSurfaceReinforcements.ConcreteSurfaceReinforcements">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">TypesforConcreteDesign.ConcreteSurfaceReinforcements.</span></span><span class="sig-name descname"><span class="pre">ConcreteSurfaceReinforcements</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'RD</span> <span class="pre">1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surfaces</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">material</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">SurfaceReinforcementLocationType.LOCATION_TYPE_ON_SURFACE</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reinforcement_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">SurfaceReinforcementType.REINFORCEMENT_TYPE_REBARS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reinforcement_type_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.01,</span> <span class="pre">0.15,</span> <span class="pre">False]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cover_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[True,</span> <span class="pre">True,</span> <span class="pre">0,</span> <span class="pre">0]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reinforcement_direction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reinforcement_direction_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[SurfaceReinforcementDesignDirection.DESIGN_REINFORCEMENT_DIRECTION_A_S_1]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reinforcement_location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reinforcement_acting_region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TypesforConcreteDesign.ConcreteSurfaceReinforcements.ConcreteSurfaceReinforcements" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>no</strong> (<em>int</em>) – Surface Reinforcement Tag</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – User Defined Name</p></li>
+<li><p><strong>surfaces</strong> (<em>str</em>) – Assigned Surfaces</p></li>
+<li><p><strong>material</strong> (<em>str</em>) – Reinforcement Material</p></li>
+<li><p><strong>location_type</strong> (<em>enum</em>) – Location Type Enumeration</p></li>
+<li><p><strong>reinforcement_type</strong> (<em>enum</em>) – Reinforcement Type Enumeration</p></li>
+<li><p><strong>reinforcement_type_parameters</strong> (<em>list</em>) – Reinforcement Type Parameters</p></li>
+<li><p><strong>cover_offset</strong> (<em>list</em>) – Cover Offset Parameters</p></li>
+<li><p><strong>reinforcement_direction</strong> (<em>enum</em>) – Reinforcement Direction Enumeration</p></li>
+<li><p><strong>reinforcement_direction_parameters</strong> (<em>list</em>) – Reinforcement Direction Parameters</p></li>
+<li><p><strong>reinforcement_location</strong> (<em>list</em>) – Reinforcement Location Parameters</p></li>
+<li><p><strong>reinforcement_acting_region</strong> (<em>list</em>) – Reinforcement Acting Region Parameters</p></li>
+<li><p><strong>comment</strong> (<em>str</em><em>, </em><em>optional</em>) – Comments</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – Parameters</p></li>
+</ul>
+</dd>
+</dl>
+<dl>
+<dt>for reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_REBARS:</dt><dd><p>reinforcement_type_parameters = [rebar_diameter, rebar_spacing, additional_transverse_reinforcement_enabled]
+if additional_transverse_reinforcement_enabled == True:</p>
+<blockquote>
+<div><p>reinforcement_type_parameters = [rebar_diameter, rebar_spacing, additional_transverse_reinforcement_enabled, additional_rebar_diameter, additional_rebar_spacing]</p>
+</div></blockquote>
+</dd>
+<dt>for reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_STIRRUPS:</dt><dd><p>reinforcement_type_parameters = [stirrup_diameter, stirrup_spacing]</p>
+</dd>
+<dt>for reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_MESH:</dt><dd><p>reinforcement_type_parameters = [mesh_product_range, mesh_shape, mesh_name]</p>
+</dd>
+</dl>
+<p>cover_offset = [alignment_top_enabled, alignment_bottom_enabled, additional_offset_to_concrete_cover_top, additional_offset_to_concrete_cover_bottom]</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="ConcreteDesign.html" class="btn btn-neutral float-left" title="ConcreteDesign" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Dlubal Software.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -6,8 +6,8 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.enums import *
-from RFEM.initModel import *
+from RFEM.enums import SetType
+from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
@@ -24,7 +24,7 @@ if Model.clientModel is None:
 def test_solids_and_solid_sets():
 
     # Testing solids
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
@@ -65,7 +65,7 @@ def test_solids_and_solid_sets():
     Surface(5, '3 11 7 12', 1)
     Surface(6, '4 12 8 9', 1)
 
-    Solid.Soil(0, 1, '1-6', 2)
+    Solid.Soil(1, '1-6', 2)
 
     solid = Model.clientModel.service.get_solid(1)
     assert round(solid.volume, 1) == 500
@@ -105,7 +105,7 @@ def test_solids_and_solid_sets():
     Surface(12, '14 22 18 23', 1)
 
     Material(3, 'S275')
-    Solid.Standard(0, 2, '7-12', 3)
+    Solid.Standard(2, '7-12', 3)
 
     solid = Model.clientModel.service.get_solid(2)
     assert round(solid.volume, 1) == 500
@@ -133,7 +133,7 @@ def test_solids_and_solid_sets():
     Surface(17, '26 31 29 32', 1)
 
     SolidContact()
-    Solid.Contact(0, 3, '13-17,12', 1, params={'solid_contact': 1,
+    Solid.Contact(3, '13-17,12', 1, params={'solid_contact': 1,
                  'solid_contact_first_surface':12})
 
     solid = Model.clientModel.service.get_solid(3)
@@ -176,7 +176,7 @@ def test_solids_and_solid_sets():
 
     Material(4, 'Krypton')
     SolidGas(1,params={'pressure':21000000, 'temperature':293.1})
-    Solid.Gas(0, 4, '18-23', 4,params={'gas':1})
+    Solid.Gas(4, '18-23', 4,params={'gas':1})
 
     Model.clientModel.service.finish_modification()
 
@@ -194,13 +194,13 @@ def test_solids_and_solid_sets():
     solidSet.set_type == SetType.SET_TYPE_GROUP
     solidSet.solids == '2 3'
 
-    SolidSet.ContinuousSolids(SolidSet, 2, '2 3')
+    SolidSet.ContinuousSolids(2, '2 3')
 
     solidSet = Model.clientModel.service.get_solid_set(2)
     solidSet.set_type == SetType.SET_TYPE_CONTINUOUS
     solidSet.solids == '2 3'
 
-    SolidSet.GroupOfSolids(SolidSet, 3, '1 4')
+    SolidSet.GroupOfSolids(3, '1 4')
 
     solidSet = Model.clientModel.service.get_solid_set(3)
     solidSet.set_type == SetType.SET_TYPE_GROUP

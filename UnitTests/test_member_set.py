@@ -19,7 +19,7 @@ if Model.clientModel is None:
 
 def test_member_set():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -45,7 +45,7 @@ def test_member_set():
 
 def test_member_set_continuous():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -59,7 +59,7 @@ def test_member_set_continuous():
     Member(1, 1, 2, 0, 1, 1)
     Member(2, 2, 3, 0, 1, 1)
 
-    MemberSet.ContinuousMembers(0, 1, '1 2')
+    MemberSet.ContinuousMembers(1, '1 2')
 
     Model.clientModel.service.finish_modification()
 
@@ -71,7 +71,7 @@ def test_member_set_continuous():
 
 def test_member_set_group():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0, 0, 0)
@@ -85,7 +85,7 @@ def test_member_set_group():
     Member(1, 1, 2, 0, 1, 1)
     Member(2, 2, 3, 0, 1, 1)
 
-    MemberSet.GroupOfmembers(0, 1, '1 2')
+    MemberSet.GroupOfmembers(1, '1 2')
 
     Model.clientModel.service.finish_modification()
 

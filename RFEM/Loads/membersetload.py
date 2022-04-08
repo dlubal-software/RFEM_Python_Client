@@ -1,5 +1,7 @@
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.enums import MemberSetLoadType, LoadDirectionType, MemberSetLoadDistribution, MemberSetLoadDirection, MemberSetLoadDirectionOrientation
+from RFEM.enums import MemberSetLoadEccentricityHorizontalAlignment, MemberSetLoadEccentricityVerticalAlignment, MemberSetLoadEccentricitySectionMiddle
+from RFEM.enums import MemberSetLoadAxisDefinitionType, MemberSetLoadAxisDefinitionAxisOrientation, MemberSetLoadAxisDefinition
 
 class MemberSetLoad():
 
@@ -10,7 +12,7 @@ class MemberSetLoad():
                  load_direction = LoadDirectionType.LOAD_DIRECTION_LOCAL_Z,
                  magnitude: float = 0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -19,7 +21,7 @@ class MemberSetLoad():
             load_direction (enum): Load Case Enumeration
             magnitude (float): Load Magnitude
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
 
         # Client model | Member Load
@@ -55,13 +57,15 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
-    def Force(self,
+    @staticmethod
+    def Force(
                  no: int = 1,
                  load_case_no: int = 1,
                  member_sets: str = '1',
@@ -70,7 +74,7 @@ class MemberSetLoad():
                  load_parameter = [],
                  force_eccentricity: bool= False,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -81,7 +85,7 @@ class MemberSetLoad():
             load_parameter (list): Load Parameter
             force_eccentricity (bool): Force Eccentricity Option
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
             for LOAD_DISTRIBUTION_UNIFORM:
                 load_parameter = [magnitude]
@@ -391,7 +395,8 @@ class MemberSetLoad():
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
-    def Moment(self,
+    @staticmethod
+    def Moment(
                  no: int = 1,
                  load_case_no: int = 1,
                  member_sets: str = '1',
@@ -399,7 +404,7 @@ class MemberSetLoad():
                  load_direction= MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
                  load_parameter = [],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -409,7 +414,7 @@ class MemberSetLoad():
             load_direction (enum): Load Direction Enumeration
             load_parameter (list): Load Parameters
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
             for LOAD_DISTRIBUTION_UNIFORM:
                 load_parameter = magnitude
@@ -641,20 +646,22 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
-    def Mass(self,
+    @staticmethod
+    def Mass(
                 no: int = 1,
                 load_case_no: int = 1,
                 member_sets: str = '1',
                 individual_mass_components: bool=False,
                 mass_components = [],
                 comment: str = '',
-                params: dict = {}):
+                params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -663,7 +670,7 @@ class MemberSetLoad():
             individual_mass_components (bool): Individiual Mass Components Option
             mass_components (list): Mass Components
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
@@ -687,9 +694,7 @@ class MemberSetLoad():
         clientObject.load_distribution= MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM.name
 
         # Individual Mass Components
-        if type(individual_mass_components) == bool:
-            pass
-        else:
+        if not isinstance(individual_mass_components, bool):
             raise Exception("WARNING: Type of individual mass components should be bool. Kindly check inputs correctness.")
         clientObject.individual_mass_components = individual_mass_components
 
@@ -705,13 +710,15 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
-    def Temperature(self,
+    @staticmethod
+    def Temperature(
                  no: int = 1,
                  load_case_no: int = 1,
                  member_sets: str = '1',
@@ -720,7 +727,7 @@ class MemberSetLoad():
                  load_parameter = [],
                  load_over_total_length: bool= False,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -731,7 +738,7 @@ class MemberSetLoad():
             load_parameter (list): Load Parameters
             load_over_total_length (bool): Load Over Total Length Option
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             load_parameter = [tt, tb]
@@ -791,9 +798,7 @@ class MemberSetLoad():
             clientObject.magnitude_t_t_1 = load_parameter[2]
             clientObject.magnitude_t_t_2 = load_parameter[3]
 
-            if type(load_over_total_length) == bool:
-                pass
-            else:
+            if not isinstance(load_over_total_length, bool):
                 raise Exception("WARNING: Type of load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
@@ -824,9 +829,7 @@ class MemberSetLoad():
             clientObject.magnitude_t_t_1 = load_parameter[2]
             clientObject.magnitude_t_t_2 = load_parameter[3]
 
-            if type(load_parameter[4]) == bool:
-                pass
-            else:
+            if not isinstance(load_parameter[4], bool):
                 raise Exception("WARNING: Type of the fourth load parameter should be bool. Kindly check inputs correctness.")
 
             if load_parameter[4] == True:
@@ -836,9 +839,7 @@ class MemberSetLoad():
                 clientObject.distance_a_is_defined_as_relative = False
                 clientObject.distance_a_absolute = load_parameter[6]
 
-            if type(load_parameter[5]) == bool:
-                pass
-            else:
+            if not isinstance(load_parameter[5], bool):
                 raise Exception("WARNING: Type of the fifth load parameter should be bool. Kindly check inputs correctness.")
 
             if load_parameter[5] == True:
@@ -885,13 +886,15 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
-    def TemperatureChange(self,
+    @staticmethod
+    def TemperatureChange(
                            no: int = 1,
                            load_case_no: int = 1,
                            member_sets: str = '1',
@@ -900,7 +903,7 @@ class MemberSetLoad():
                            load_parameter = [],
                            load_over_total_length: bool= False,
                            comment: str = '',
-                           params: dict = {}):
+                           params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -911,7 +914,7 @@ class MemberSetLoad():
             load_parameter (list): Load Parameters
             load_over_total_length (bool): Load Over Total Length Option
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             load_parameter = [tc, delta_t]
@@ -971,9 +974,7 @@ class MemberSetLoad():
             clientObject.magnitude_t_c_1 = load_parameter[2]
             clientObject.magnitude_t_c_2 = load_parameter[3]
 
-            if type(load_over_total_length) == bool:
-                pass
-            else:
+            if not isinstance(load_over_total_length, bool):
                 raise Exception("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
@@ -1055,13 +1056,15 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
-    def AxialStrain(self,
+    @staticmethod
+    def AxialStrain(
                     no: int = 1,
                     load_case_no: int = 1,
                     member_sets: str = '1',
@@ -1070,7 +1073,7 @@ class MemberSetLoad():
                     load_parameter = [],
                     load_over_total_length: bool= False,
                     comment: str = '',
-                    params: dict = {}):
+                    params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -1081,7 +1084,7 @@ class MemberSetLoad():
             load_parameter (list): Load Parameters
             load_over_total_length (bool): Load Over Total Length Option
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             load_parameter = [epsilon]
@@ -1135,9 +1138,7 @@ class MemberSetLoad():
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
-            if type(load_over_total_length) == bool:
-                pass
-            else:
+            if not isinstance(load_over_total_length, bool):
                 raise Exception("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
@@ -1214,20 +1215,22 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
-    def AxialDisplacement(self,
+    @staticmethod
+    def AxialDisplacement(
                     no: int = 1,
                     load_case_no: int = 1,
                     member_sets: str = '1',
                     load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X,
                     magnitude : float = 0.0,
                     comment: str = '',
-                    params: dict = {}):
+                    params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -1236,7 +1239,7 @@ class MemberSetLoad():
             load_direction (enum): Load Direction Enumeration
             magnitude (float): Load Magnitude
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
@@ -1270,13 +1273,15 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
-    def Precamber(self,
+    @staticmethod
+    def Precamber(
                  no: int = 1,
                  load_case_no: int = 1,
                  member_sets: str = '1',
@@ -1285,7 +1290,7 @@ class MemberSetLoad():
                  load_parameter = [],
                  load_over_total_length: bool= False,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -1296,7 +1301,7 @@ class MemberSetLoad():
             load_parameter (enum): Load Parameters
             load_over_total_length (bool): Load Over Total Lenth Option
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
             for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                 load_parameter = [magnitude]
@@ -1350,9 +1355,7 @@ class MemberSetLoad():
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
-            if type(load_over_total_length) == bool:
-                pass
-            else:
+            if not isinstance(load_over_total_length, bool):
                 raise Exception("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
@@ -1430,20 +1433,22 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
-    def InitialPrestress(self,
+    @staticmethod
+    def InitialPrestress(
                  no: int = 1,
                  load_case_no: int = 1,
                  member_sets: str = '1',
                  load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X,
                  magnitude : float = 0.0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -1452,7 +1457,7 @@ class MemberSetLoad():
             load_direction (enum): Load Direction Enumeration
             magnitude (float): Load Magnitude
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
@@ -1486,13 +1491,15 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
-    def Displacement(self,
+    @staticmethod
+    def Displacement(
                  no: int = 1,
                  load_case_no: int = 1,
                  member_sets: str = '1',
@@ -1501,7 +1508,7 @@ class MemberSetLoad():
                  load_parameter = [],
                  load_over_total_length: bool= False,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -1512,7 +1519,7 @@ class MemberSetLoad():
             load_parameter (list): Load Parameters
             load_over_total_length (bool): Load Over Total Length Option
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             load_parameter = [magnitude]
@@ -1674,9 +1681,7 @@ class MemberSetLoad():
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
-            if type(load_over_total_length) == bool:
-                pass
-            else:
+            if not isinstance(load_over_total_length, bool):
                 raise Exception("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
@@ -1752,13 +1757,15 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
-    def Rotation(self,
+    @staticmethod
+    def Rotation(
                  no: int = 1,
                  load_case_no: int = 1,
                  member_sets: str = '1',
@@ -1767,7 +1774,7 @@ class MemberSetLoad():
                  load_parameter = [],
                  load_over_total_length: bool= False,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -1778,7 +1785,7 @@ class MemberSetLoad():
             load_parameter (list): Load Parameters
             load_over_total_length (bool): Load Over Total Length
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             load_parameter = [magnitude]
@@ -1940,9 +1947,7 @@ class MemberSetLoad():
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
-            if type(load_over_total_length) == bool:
-                pass
-            else:
+            if not isinstance(load_over_total_length, bool):
                 raise Exception("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
@@ -2018,20 +2023,22 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
-    def PipeContentFull(self,
+    @staticmethod
+    def PipeContentFull(
                  no: int = 1,
                  load_case_no: int = 1,
                  member_sets: str = '1',
                  load_direction_orientation = MemberSetLoadDirectionOrientation.LOAD_DIRECTION_FORWARD,
                  specific_weight : float = 0.0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -2040,7 +2047,7 @@ class MemberSetLoad():
             load_direction_orientation (enum): Load Direction Orientation Enumeration
             specific_weight (float): Specific Weight
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
@@ -2077,13 +2084,15 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
-    def PipeContentPartial(self,
+    @staticmethod
+    def PipeContentPartial(
                  no: int = 1,
                  load_case_no: int = 1,
                  member_sets: str = '1',
@@ -2091,7 +2100,7 @@ class MemberSetLoad():
                  specific_weight : float = 0.0,
                  filling_height : float = 0.0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -2101,7 +2110,7 @@ class MemberSetLoad():
             specific_weight (float): Specific Weight
             filling_height (float): Filling Height
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
@@ -2141,19 +2150,21 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
-    def PipeInternalPressure(self,
+    @staticmethod
+    def PipeInternalPressure(
                  no: int = 1,
                  load_case_no: int = 1,
                  member_sets: str = '1',
                  pressure : float = 0.0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -2161,7 +2172,7 @@ class MemberSetLoad():
             member_sets (str): Assigned Member Sets
             pressure (float): Pressure
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
@@ -2195,13 +2206,15 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
-    def RotaryMotion(self,
+    @staticmethod
+    def RotaryMotion(
                  no: int = 1,
                  load_case_no: int = 1,
                  member_sets: str = '1',
@@ -2213,7 +2226,7 @@ class MemberSetLoad():
                  axis_definition_p1 = [],
                  axis_definition_p2 = [],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
         """
         Args:
             no (int): Load Tag
@@ -2227,7 +2240,7 @@ class MemberSetLoad():
             axis_definition_p1 (list):Axis Definition First Point
             axis_definition_p2 (list): Axis Definition Second Point
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
@@ -2258,29 +2271,19 @@ class MemberSetLoad():
         clientObject.axis_definition_type = axis_definition_type.name
 
         #Axis definition
-        if axis_definition_type == MemberSetLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS.name:
-            ##clientObject.axis_definition_p1_x = axis_definition_p1[0]
-            p1 = {}
-            p1['x'] = axis_definition_p1[0]
-            p1['y'] = axis_definition_p1[1]
-            p1['z'] = axis_definition_p1[2]
-            clientObject.axis_definition_p1 = p1
+        if clientObject.axis_definition_type == "AXIS_DEFINITION_TWO_POINTS":
+            clientObject.axis_definition_p1_x = axis_definition_p1[0]
+            clientObject.axis_definition_p1_y = axis_definition_p1[1]
+            clientObject.axis_definition_p1_z = axis_definition_p1[2]
 
-            ##clientObject.axis_definition_p2_x = axis_definition_p2[0]
-            p2 = {}
-            p2['x'] = axis_definition_p2[0]
-            p2['y'] = axis_definition_p2[1]
-            p2['z'] = axis_definition_p2[2]
-            clientObject.axis_definition_p2 = p2
-            pass
+            clientObject.axis_definition_p2_x = axis_definition_p2[0]
+            clientObject.axis_definition_p2_y = axis_definition_p2[1]
+            clientObject.axis_definition_p2_z = axis_definition_p2[2]
 
-        elif axis_definition_type == MemberSetLoadAxisDefinitionType.AXIS_DEFINITION_POINT_AND_AXIS.name:
-            ##clientObject.axis_definition_p1_x = axis_definition_p1[0]
-            p1 = {}
-            p1['x'] = axis_definition_p1[0]
-            p1['y'] = axis_definition_p1[1]
-            p1['z'] = axis_definition_p1[2]
-            clientObject.axis_definition_p1 = p1
+        elif clientObject.axis_definition_type == "AXIS_DEFINITION_POINT_AND_AXIS":
+            clientObject.axis_definition_p1_x = axis_definition_p1[0]
+            clientObject.axis_definition_p1_y = axis_definition_p1[1]
+            clientObject.axis_definition_p1_z = axis_definition_p1[2]
 
             clientObject.axis_definition_axis = axis_definition.name
             clientObject.axis_definition_axis_orientation = axis_orientation.name
@@ -2289,8 +2292,9 @@ class MemberSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Load Member Load to client model
         Model.clientModel.service.set_member_set_load(load_case_no, clientObject)

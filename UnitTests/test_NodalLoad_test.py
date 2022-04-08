@@ -13,15 +13,15 @@ from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.material import Material
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model
+from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType
 
 if Model.clientModel is None:
     Model()
 
 def test_nodal_load():
 
-    Model.clientModel.service.reset()
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     # Create Material
@@ -65,16 +65,16 @@ def test_nodal_load():
     NodalLoad(1, 1, '2', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 5000)
 
     # Force Type Nodal Load
-    NodalLoad.Force(0, 2, 1, '2', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 5000)
+    NodalLoad.Force(2, 1, '2', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 5000)
 
     # Moment Type Nodal Load
-    NodalLoad.Moment(0, 3, 1, '4', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 5000)
+    NodalLoad.Moment(3, 1, '4', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 5000)
 
     # Component Type Nodal Load
-    NodalLoad.Components(0, 4, 1, '6', [5000, 5000, 0, 0, 5000, 0])
+    NodalLoad.Components(4, 1, '6', [5000, 5000, 0, 0, 5000, 0])
 
     #Mass Type Nodal Load
-    NodalLoad.Mass(0, 5, 1, '8', True, [5000, 5000, 0, 0, 5000, 0])
+    NodalLoad.Mass(5, 1, '8', True, [5000, 5000, 0, 0, 5000, 0])
 
     #Calculate_all() # Don't use in unit tests. See template for more info.
 

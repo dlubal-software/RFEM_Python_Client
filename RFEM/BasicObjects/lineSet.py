@@ -1,4 +1,4 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 from RFEM.enums import SetType
 
 class LineSet():
@@ -7,7 +7,16 @@ class LineSet():
                  lines_no: str = '33 36 39 42 45',
                  line_set_type = SetType.SET_TYPE_CONTINUOUS,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
+
+        '''
+        Args:
+            no (int): Line Set Tag
+            lines_no (str): Tags of Lines Contained Within Line Set
+            line_set_type (enum): Line Set Type Enumeration
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+        '''
 
         # Client model | Line Set
         clientObject = Model.clientModel.factory.create('ns0:line_set')
@@ -28,17 +37,27 @@ class LineSet():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Line Set to client model
         Model.clientModel.service.set_line_set(clientObject)
 
-    def ContinuousLines(self,
+    @staticmethod
+    def ContinuousLines(
                  no: int = 1,
                  lines_no: str = '33 36 39 42 45',
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
+
+        '''
+        Args:
+            no (int): Line Set Tag
+            lines_no (str): Tags of Lines Contained Within Continuous Line Set
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+        '''
 
         # Client model | Line Set
         clientObject = Model.clientModel.factory.create('ns0:line_set')
@@ -59,17 +78,27 @@ class LineSet():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Line Set to client model
         Model.clientModel.service.set_line_set(clientObject)
 
-    def GroupOfLines(self,
+    @staticmethod
+    def GroupOfLines(
                  no: int = 1,
                  lines_no: str = '33 36 39 42 45',
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
+
+        '''
+        Args:
+            no (int): Line Set Tag
+            lines_no (str): Tags of Lines Contained Within Group of Lines Line Set
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+        '''
 
         # Client model | Line Set
         clientObject = Model.clientModel.factory.create('ns0:line_set')
@@ -90,8 +119,9 @@ class LineSet():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Line Set to client model
         Model.clientModel.service.set_line_set(clientObject)
