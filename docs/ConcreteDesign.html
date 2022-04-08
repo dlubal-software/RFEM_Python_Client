@@ -1,0 +1,273 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>ConcreteDesign &mdash; RFEM/RSTAB Webservices 1.0.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="TypesforConcreteDesign" href="TypesforConcreteDesign.html" />
+    <link rel="prev" title="Add-on Commands" href="addonCommands.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html"><strong>Introduction</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="globalCommands.html"><strong>Global Commands</strong></a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="addonCommands.html"><strong>Add-on Commands</strong></a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ConcreteDesign</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-ConcreteDesign.ConcreteServiceabilityConfigurations">ConcreteServiceabilityConfigurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ConcreteDesign.ConcreteUltimateConfigurations">ConcreteUltimateConfigurations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="TypesforConcreteDesign.html">TypesforConcreteDesign</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html"><strong>Examples</strong></a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RFEM/RSTAB Webservices</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="addonCommands.html"><strong>Add-on Commands</strong></a> &raquo;</li>
+        
+      <li>ConcreteDesign</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/ConcreteDesign.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="concretedesign">
+<h1>ConcreteDesign<a class="headerlink" href="#concretedesign" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-ConcreteDesign.ConcreteServiceabilityConfigurations">
+<span id="concreteserviceabilityconfigurations"></span><h2>ConcreteServiceabilityConfigurations<a class="headerlink" href="#module-ConcreteDesign.ConcreteServiceabilityConfigurations" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ConcreteDesign.ConcreteServiceabilityConfigurations.ConcreteServiceabilityConfiguration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ConcreteDesign.ConcreteServiceabilityConfigurations.</span></span><span class="sig-name descname"><span class="pre">ConcreteServiceabilityConfiguration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'SLS'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">members</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member_sets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surfaces</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface_sets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ConcreteDesign.ConcreteServiceabilityConfigurations.ConcreteServiceabilityConfiguration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>no</strong> (<em>int</em>) – Configuration Tag</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – User Defined Name</p></li>
+<li><p><strong>members</strong> (<em>str</em>) – Assigned Members</p></li>
+<li><p><strong>member_sets</strong> (<em>str</em>) – Assigned Member Sets</p></li>
+<li><p><strong>surfaces</strong> (<em>str</em>) – Assigned Surfaces</p></li>
+<li><p><strong>surface_sets</strong> (<em>str</em>) – Assigned Surface Sets</p></li>
+<li><p><strong>nodes</strong> (<em>str</em>) – Assigned Nodes</p></li>
+<li><p><strong>comment</strong> (<em>str</em><em>, </em><em>optional</em>) – Comment</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – Parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-ConcreteDesign.ConcreteUltimateConfigurations">
+<span id="concreteultimateconfigurations"></span><h2>ConcreteUltimateConfigurations<a class="headerlink" href="#module-ConcreteDesign.ConcreteUltimateConfigurations" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ConcreteDesign.ConcreteUltimateConfigurations.ConcreteUltimateConfiguration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ConcreteDesign.ConcreteUltimateConfigurations.</span></span><span class="sig-name descname"><span class="pre">ConcreteUltimateConfiguration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">no</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ULS'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">members</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member_sets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surfaces</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface_sets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ConcreteDesign.ConcreteUltimateConfigurations.ConcreteUltimateConfiguration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>no</strong> (<em>int</em>) – Configuration Tag</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – User Defined Name</p></li>
+<li><p><strong>members</strong> (<em>str</em>) – Assigned Members</p></li>
+<li><p><strong>member_sets</strong> (<em>str</em>) – Assigned Member Sets</p></li>
+<li><p><strong>surfaces</strong> (<em>str</em>) – Assigned Surfaces</p></li>
+<li><p><strong>surface_sets</strong> (<em>str</em>) – Assigned Surface Sets</p></li>
+<li><p><strong>nodes</strong> (<em>str</em>) – Assigned Nodes</p></li>
+<li><p><strong>comment</strong> (<em>str</em><em>, </em><em>optional</em>) – Comment</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – Parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="TypesforConcreteDesign.html" class="btn btn-neutral float-right" title="TypesforConcreteDesign" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="addonCommands.html" class="btn btn-neutral float-left" title="Add-on Commands" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2022, Dlubal Software.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

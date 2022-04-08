@@ -1,17 +1,18 @@
-from RFEM.initModel import Model, clearAtributes
-from RFEM.enums import GlobalParameterUnitGroup, GlobalParameterDefinitionType
+from RFEM.initModel import Model, clearAtributes, SetAddonStatus
+from RFEM.enums import GlobalParameterUnitGroup, GlobalParameterDefinitionType, AddOn
 
 class GlobalParameter():
 
-    def AddParameter(self,
+    @staticmethod
+    def AddParameter(
                      no: int = 1,
                      name: str = '',
                      symbol: str = '',
                      unit_group = GlobalParameterUnitGroup.LENGTH,
                      definition_type = GlobalParameterDefinitionType.DEFINITION_TYPE_VALUE,
-                     definition_parameter = [],
+                     definition_parameter: list = None,
                      comment: str = '',
-                     params: dict = {}):
+                     params: dict = None):
         '''
         for definition_type = GlobalParameterDefinitionType.DEFINITION_TYPE_FORMULA:
             definition_parameter = [formula]
@@ -56,6 +57,7 @@ class GlobalParameter():
             clientObject.formula = definition_parameter[0]
 
         elif definition_type.name == 'DEFINITION_TYPE_OPTIMIZATION' or definition_type.name == 'DEFINITION_TYPE_OPTIMIZATION_ASCENDING' or definition_type.name == 'DEFINITION_TYPE_OPTIMIZATION_DESCENDING':
+            SetAddonStatus(Model.clientModel, AddOn.cost_estimation_active)
             if len(definition_parameter) != 4:
                 raise Exception('WARNING: The definition parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
             clientObject.value = definition_parameter[0]
@@ -72,8 +74,9 @@ class GlobalParameter():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Global Parameter to client model
         Model.clientModel.service.set_global_parameter(clientObject)

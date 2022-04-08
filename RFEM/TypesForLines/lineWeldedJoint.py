@@ -11,7 +11,7 @@ class LineWeldedJoint():
                  weld_size_a1: int = 0.005,
                  longitudinal_arrangement = WeldLongitudalArrangement.CONTINUOUS,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         # Client model | Line Welded Joint
         clientObject = Model.clientModel.factory.create('ns0:line_welded_joint')
@@ -38,8 +38,9 @@ class LineWeldedJoint():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Line welded joint to client model
         Model.clientModel.service.set_line_welded_joint(clientObject)

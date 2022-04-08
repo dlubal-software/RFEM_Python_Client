@@ -7,7 +7,8 @@ from math import pi
 
 class FreeLoad():
 
-    def ConcentratedLoad(self,
+    @staticmethod
+    def ConcentratedLoad(
                  no: int = 1,
                  load_case_no: int = 1,
                  surfaces_no = '1',
@@ -16,7 +17,7 @@ class FreeLoad():
                  load_direction = FreeConcentratedLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z,
                  load_parameter = [1000, 0, 0],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -34,7 +35,7 @@ class FreeLoad():
                 for load_projection == FreeLoadLoadProjection.LOAD_PROJECTION_XZ_OR_UW:
                     load_parameter = [magnitude, X, Z]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Free Concentrated Load
@@ -72,13 +73,15 @@ class FreeLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Free Concentrated Load to client model
         Model.clientModel.service.set_free_concentrated_load(load_case_no, clientObject)
 
-    def LineLoad(self,
+    @staticmethod
+    def LineLoad(
                  no: int = 1,
                  load_case_no: int = 1,
                  surfaces_no = '1',
@@ -87,7 +90,7 @@ class FreeLoad():
                  load_direction = FreeLineLoadLoadDirection.LOAD_DIRECTION_LOCAL_Z,
                  load_parameter = [],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -103,7 +106,7 @@ class FreeLoad():
                 for load_distribution == FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
                     load_parameter = [magnitude_first, magnitude_second, load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Free Concentrated Load
@@ -153,13 +156,15 @@ class FreeLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Free Concentrated Load to client model
         Model.clientModel.service.set_free_line_load(load_case_no, clientObject)
 
-    def RectangularLoad(self,
+    @staticmethod
+    def RectangularLoad(
                  no: int = 1,
                  load_case_no: int = 1,
                  surfaces_no = '1',
@@ -170,7 +175,7 @@ class FreeLoad():
                  load_location = FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CORNER_POINTS,
                  load_location_parameter = [],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -206,7 +211,7 @@ class FreeLoad():
                     for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER:
                             load_location_parameter = [load_location_center_x, load_location_center_y, load_location_center_side_a, load_location_center_side_b, [[distance, factor], ...], [axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z], [axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z], axis_start_angle,[[alpha, factor], ...]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Free Concentrated Load
@@ -424,13 +429,15 @@ class FreeLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Free Concentrated Load to client model
         Model.clientModel.service.set_free_rectangular_load(load_case_no, clientObject)
 
-    def CircularLoad(self,
+    @staticmethod
+    def CircularLoad(
                  no: int = 1,
                  load_case_no: int = 1,
                  surfaces_no = '1',
@@ -439,7 +446,7 @@ class FreeLoad():
                  load_direction = FreeCircularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
                  load_parameter = [],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -455,7 +462,7 @@ class FreeLoad():
                 for load_distribution == FreeCircularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
                     load_parameter = [magnitude_center, magnitude_radius, load_location_x, load_location_y, load_location_radius]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Free Concentrated Load
@@ -504,13 +511,15 @@ class FreeLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Free Concentrated Load to client model
         Model.clientModel.service.set_free_circular_load(load_case_no, clientObject)
 
-    def PolygonLoad(self,
+    @staticmethod
+    def PolygonLoad(
                  no: int = 1,
                  load_case_no: int = 1,
                  surfaces_no = '1',
@@ -520,7 +529,7 @@ class FreeLoad():
                  load_location = [],
                  load_parameter = [],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
@@ -545,7 +554,7 @@ class FreeLoad():
                     load_location = [[first_coordinate, second_coordinate], ...]
                     load_parameter = [magnitude_linear_1, magnitude_linear_2, magnitude_linear_location_1, magnitude_linear_location_2]
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Free Concentrated Load
@@ -609,8 +618,9 @@ class FreeLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Free Concentrated Load to client model
         Model.clientModel.service.set_free_polygon_load(load_case_no, clientObject)

@@ -4,7 +4,7 @@ class SurfaceMeshRefinement():
     def __init__(self,
                  no: int = 1,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         # Client model | Surface Mesh Refinement
         clientObject = Model.clientModel.factory.create('ns0:surface_mesh_refinement')
@@ -19,8 +19,9 @@ class SurfaceMeshRefinement():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Surface Mesh Refinement to client model
         Model.clientModel.service.set_surface_mesh_refinement(clientObject)

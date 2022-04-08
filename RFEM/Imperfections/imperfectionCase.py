@@ -58,7 +58,7 @@ class ImperfectionCase():
             assigned_to_load_combinations (str, optional): Assigned Load Combinations
             assigned_to_load_cases (str, optional): Assigned Load Cases
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # assigned_to_load_combinations XY is first in parameter list because imperfections are
@@ -91,8 +91,9 @@ class ImperfectionCase():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Imperfection Case to client model
         Model.clientModel.service.set_imperfection_case(clientObject)

@@ -12,14 +12,15 @@ from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.material import Material
-from RFEM.initModel import Model, CheckIfMethodOrTypeExists, GenerateMesh, GetMeshStatistics
+from RFEM.initModel import Model, CheckIfMethodOrTypeExists
+from RFEM.Calculate.meshSettings import GetMeshStatistics, GenerateMesh
 from RFEM.enums import *
 
 if Model.clientModel is None:
     Model()
 
 # TODO: US-7906
-@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'generate_mesh', True), reason="generate_mesh not in RFEM yet")
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'generate_mesh', True), reason="generate_mesh not in RFEM GM yet")
 def test_generation_of_mesh_statistics():
 
     Model.clientModel.service.delete_all()

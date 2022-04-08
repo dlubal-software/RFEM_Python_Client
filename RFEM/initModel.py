@@ -1,6 +1,5 @@
 import sys
-import csv
-from RFEM.enums import ObjectTypes, ModelType
+from RFEM.enums import ObjectTypes, ModelType, AddOn
 
 # Import SUDS module
 try:
@@ -135,7 +134,7 @@ class Model():
     clientModel = None
     def __init__(self,
                  new_model: bool=True,
-                 model_name: str="MyModel",
+                 model_name: str="TestModel",
                  delete: bool=False,
                  delete_all: bool=False):
 
@@ -153,8 +152,8 @@ class Model():
                 cModel = Client(new, transport=trans)
         else:
             modelIndex = 0
-            for i,j in enumerate(modelLs):
-                if modelLs[i] == model_name:
+            for i,j in enumerate(modelLs.name):
+                if modelLs.name[i] == model_name:
                     modelIndex = i
             new = client.service.get_model(modelIndex) + 'wsdl'
             cModel = Client(new, transport=trans)
@@ -187,11 +186,7 @@ def insertSpaces(lst: list):
     Add spaces between list of numbers.
     Returns list of values.
     '''
-    strLst = ''
-    for i in lst:
-        strLst += str(i) + ' '
-    # remove trailing space
-    return strLst[:-1]
+    return ' '.join(str(item) for item in lst)
 
 def Calculate_all(generateXmlSolverInput: bool = False):
     '''
@@ -295,7 +290,7 @@ def CheckIfMethodOrTypeExists(modelClient, method_or_type, unitTestMode=False):
     return not unitTestMode
 
 
-def CheckAddonStatus(modelClient, addOn = "stress_analysis_active"):
+def GetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active):
     """
     Check if Add-on is reachable and active.
     For some types of objects, specific Add-ons need to be ennabled.
@@ -324,14 +319,46 @@ def CheckAddonStatus(modelClient, addOn = "stress_analysis_active"):
             assert False
 
     # sanity check
-    assert addOn in dct, "WARNING: %s Add-on can not be reached." % (addOn)
+    assert addOn.name in dct, f"WARNING: {addOn.name} Add-on can not be reached."
 
-    return dct[addOn]
+    return dct[addOn.name]
 
-def SetAddonStatus(modelClient, addOn = "stress_analysis_active", status = True):
+def SetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active, status = True):
     """
     Activate or deactivate Add-on.
     For some types of objects, specific Add-ons need to be ennabled.
+
+    Analysis addOns list:
+        material_nonlinear_analysis_active
+        structure_stability_active
+        construction_stages_active
+        time_dependent_active
+        form_finding_active
+        cutting_patterns_active
+        torsional_warping_active
+        cost_estimation_active
+
+    Design addOns list:
+        stress_analysis_active
+        concrete_design_active
+        steel_design_active
+        timber_design_active
+        aluminum_design_active
+        steel_joints_active
+        timber_joints_active
+        craneway_design_active
+
+    Dynamic addOns list:
+        modal_active
+        spectral_active
+        time_history_active
+        pushover_active
+        harmonic_response_active
+
+    Special aadOns list:
+        building_model_active
+        wind_simulation_active
+        geotechnical_analysis_active
 
     Args:
         modelClient (Model.clientModel)
@@ -340,15 +367,15 @@ def SetAddonStatus(modelClient, addOn = "stress_analysis_active", status = True)
     """
 
     # this will also provide sanity check
-    currentStatus = CheckAddonStatus(modelClient, addOn)
+    currentStatus = GetAddonStatus(modelClient, addOn)
     if currentStatus != status:
         addonLst = modelClient.service.get_addon_statuses()
-        if addOn in addonLst['__keylist__']:
-            addonLst[addOn] = status
+        if addOn.name in addonLst['__keylist__']:
+            addonLst[addOn.name] = status
         else:
             for listType in addonLst['__keylist__']:
-                if not isinstance(addonLst[listType], bool) and addOn in addonLst[listType]:
-                    addonLst[listType][addOn] = status
+                if not isinstance(addonLst[listType], bool) and addOn.name in addonLst[listType]:
+                    addonLst[listType][addOn.name] = status
 
         modelClient.service.set_addon_statuses(addonLst)
 
@@ -386,52 +413,6 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
 
     Model.clientModel.service.calculate_specific_objects(specificObjectsToCalculate)
-
-def ExportResultTablesToCsv(TargetDirectoryPath: str):
-
-    Model.clientModel.service.export_result_tables_to_csv(TargetDirectoryPath)
-
-def ExportResultTablesToXML(TargetFilePath: str):
-
-    Model.clientModel.service.export_result_tables_to_xml(TargetFilePath)
-
-def ExportResultTablesWithDetailedMembersResultsToCsv(TargetDirectoryPath: str):
-
-    Model.clientModel.service.export_result_tables_with_detailed_members_results_to_csv(TargetDirectoryPath)
-
-def ExportResultTablesWithDetailedMembersResultsToXML(TargetFilePath: str):
-
-    Model.clientModel.service.export_result_tables_with_detailed_members_results_to_xml(TargetFilePath)
-
-def  __parseXMLAsDictionary(path: str =""):
-    with open(path, "rb") as f:
-        my_dictionary = xmltodict.parse(f, xml_attribs=True)
-    return my_dictionary
-
-def __parseCSVAsDictionary(path: str =""):
-    with open(path, mode='r') as f:
-        reader = csv.DictReader(f,delimiter=';')
-        my_dictionary = []
-        for line in reader:
-            my_dictionary.append(line)
-    return my_dictionary
-
-def ParseCSVResultsFromSelectedFileToDict(filePath: str):
-
-    return __parseCSVAsDictionary(filePath)
-
-def ParseXMLResultsFromSelectedFileToDict(filePath: str):
-
-    return __parseXMLAsDictionary(filePath)
-
-def GenerateMesh():
-
-    Model.clientModel.service.generate_mesh()
-
-def GetMeshStatistics():
-
-    mesh_stats = Model.clientModel.service.get_mesh_statistics()
-    return Model.clientModel.dict(mesh_stats)
 
 def FirstFreeIdNumber(memType = ObjectTypes.E_OBJECT_TYPE_MEMBER, parent_no: int = 0):
     '''

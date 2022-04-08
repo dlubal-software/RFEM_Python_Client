@@ -20,7 +20,7 @@ def test_loadCombination():
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    StaticAnalysisSettings.GeometricallyLinear(0, 1, "Linear")
+    StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
 
     LoadCase(1, 'DEAD', [True, 0.0, 0.0, 1.0])
     LoadCase(2, 'LIVE', [False])

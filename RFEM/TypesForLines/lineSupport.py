@@ -38,7 +38,7 @@ class LineSupport():
                  lines_no: str = '1 2',
                  support_type = LineSupportType.HINGED,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         # Client model | Line Support
         clientObject = Model.clientModel.factory.create('ns0:line_support')
@@ -79,14 +79,15 @@ class LineSupport():
 
         elif support_type == LineSupportType.FREE:
             # FREE '--- ---'
-            clientObject = setLineSupportConditions(clientObject, 0, 0, 0, 0, 0, 0)
+            clientObject = setLineSupportConditions(clientObject, 10000, 0, 0, 0, 0, 0)
 
         # Comment
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Line Support to client model
         Model.clientModel.service.set_line_support(clientObject)
