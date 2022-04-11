@@ -7,7 +7,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.Loads.solidSetLoad import SolidSetLoad
-from RFEM.enums import SolidLoadDirection, SolidSetLoadType, SolidSetLoadDistribution, SolidSetLoadDirection, StaticAnalysisType
+from RFEM.enums import SolidLoadDirection, SolidSetLoadType, SolidSetLoadDistribution, SolidSetLoadDirection, StaticAnalysisType, SolidLoadDistribution
 from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.thickness import Thickness
@@ -93,18 +93,14 @@ def test_solid_set_loads():
     LoadCase(1, 'Test 1')
 
     SolidSetLoad(1, 1, '1', SolidSetLoadType.LOAD_TYPE_FORCE, SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, SolidSetLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 58.9*1000, 'My Comment')
-    SolidSetLoad.Force(SolidSetLoad, 2, 1, '1', SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 8974.123, 'My 2nd Comment')
-    SolidSetLoad.Temperature(SolidSetLoad, 3, 1, '1', SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, [25489], 'My 3rd Comment')
+    SolidSetLoad.Force(2, 1, '1', SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 8974.123, 'My 2nd Comment')
+    SolidSetLoad.Temperature(3, 1, '1', SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, [25489], 'My 3rd Comment')
+    SolidSetLoad.Temperature(4, 1, '1', SolidSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, [1.5, 8.9, 11, 12], 'My 3rd Comment')
+    SolidSetLoad.Strain(5, 1, '1', SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, [0.1, 0.2, 0.3], 'My Comment')
+    SolidSetLoad.Strain(6, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, [0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 9, 10])
+    SolidSetLoad.Motion(7, 1, '1', [1.5, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0])
 
-    # TODO. THESE PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED.
-    #SolidSetLoad.Temperature(SolidSetLoad, 4, 1, '1', SolidSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X, [1.5, 8.9, 16, 15], 'My 3rd Comment')
-
-    SolidSetLoad.Strain(SolidSetLoad, 5, 1, '1', SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, [0.1, 0.2, 0.3], 'My Comment')
-
-    # TODO. THESE PARAMETERS AREN'T WORKING. THE ERROR IS APPARENTLY A BUG IN BACK-END AND HAS BEEN REPORTED.
-    #SolidSetLoad.Strain(SolidSetLoad, 6, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y, [0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 13, 16])
-
-    SolidSetLoad.Motion(SolidSetLoad, 7, 1, '1', [1.5, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0])
+    Model.clientModel.service.finish_modification()
 
     ssl = Model.clientModel.service.get_solid_set_load(1, 1)
     assert ssl.load_type == 'LOAD_TYPE_FORCE'
@@ -120,8 +116,3 @@ def test_solid_set_loads():
 
     ssl = Model.clientModel.service.get_solid_set_load(7, 1)
     assert ssl.angular_acceleration == 0.2
-
-
-
-
-    Model.clientModel.service.finish_modification()
