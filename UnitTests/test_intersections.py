@@ -54,7 +54,7 @@ def test_intersections():
 
     Surface(1, '1-4')
     Surface(2, '5-8')
-    Surface.Standard(Surface,3,SurfaceGeometry.GEOMETRY_PIPE, params={'pipe_radius':0.3, 'pipe_center_line':9})
+    Surface.Standard(3,SurfaceGeometry.GEOMETRY_PIPE, params={'pipe_radius':0.3, 'pipe_center_line':9})
 
     Instersection(1,1,2)
     Instersection(2,1,3)

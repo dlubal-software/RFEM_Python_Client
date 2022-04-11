@@ -17,7 +17,7 @@ class ConcreteSurfaceReinforcements():
                 reinforcement_location = [],
                 reinforcement_acting_region = [],
                 comment: str = '',
-                params: dict = {}):
+                params: dict = None):
         """
         Args:
             no (int): Surface Reinforcement Tag
@@ -33,7 +33,7 @@ class ConcreteSurfaceReinforcements():
             reinforcement_location (list): Reinforcement Location Parameters
             reinforcement_acting_region (list): Reinforcement Acting Region Parameters
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         for reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_REBARS:
             reinforcement_type_parameters = [rebar_diameter, rebar_spacing, additional_transverse_reinforcement_enabled]
@@ -165,8 +165,9 @@ class ConcreteSurfaceReinforcements():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Global Parameter to client model
         Model.clientModel.service.set_surface_reinforcement(clientObject)

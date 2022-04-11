@@ -5,14 +5,14 @@ class Opening():
                  no: int = 1,
                  lines_no: str = '1 2 3 4',
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None):
 
         '''
         Args:
             no (int): Opening Tag
             lines_no (str): Tags of Lines defining Opening
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Opening
@@ -31,8 +31,9 @@ class Opening():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Opening to client model
         Model.clientModel.service.set_opening(clientObject)

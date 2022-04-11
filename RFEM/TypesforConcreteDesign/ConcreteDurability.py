@@ -17,7 +17,7 @@ class ConcreteDurability():
                 additional_protection_reduction = [False],
                 allowance_deviation = [DurabilityAllowanceDeviationType.STANDARD, False],
                 comment: str = '',
-                params: dict = {}):
+                params: dict = None):
         """
         Args:
             no (int): Concrete Durability Tag
@@ -34,7 +34,7 @@ class ConcreteDurability():
             additional_protection_reduction (list): Additional Protection Reduction
             allowance_deviation (list): Allowance Deviation Parameters
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
 
         # Client model | Concrete Durabilities
@@ -158,8 +158,9 @@ class ConcreteDurability():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Global Parameter to client model
         Model.clientModel.service.set_concrete_durability(clientObject)

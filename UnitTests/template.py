@@ -33,11 +33,11 @@ if Model.clientModel is None:
 #pytestmark = pytest.mark.skipif(CheckIfMethodOrTypeExists(Model...
 
 # Use 'skipif' if you wish to skip individual test function conditionally
-@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'set_model_settings_and_options', True), reason="set_model_settings_and_options not in RFEM yet")
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'set_model_settings_and_options', True), reason="set_model_settings_and_options not in RFEM GM yet")
 
 # Name of the test function starts with test_...
 # If no specific need to atomize the testing procedure, pack as much funtionality as possible in one test function.
-# Write sepatate test when used method/type is not in RFEM yet, to be able to skip it for example.
+# Write sepatate test when used method/type is not in RFEM GM yet, to be able to skip it for example.
 def template():
     """
     Optional docstring describing the testing procedure
@@ -79,6 +79,9 @@ def template():
 
 # No print("Ready") is necessary. Pytest doesn't print stdout to user if not specified or asserted.
 # No return code is necessary. Pytest doesn't use it.
+
+# Make sure that all changed global settings have been switched back before the end of the test.
+# It could cause a mess in the results of tests that take place afterwards.
 
 # BEFORE COMMIT:
     # - use formating (SHIFT + ALT + F) & linter (pylint UnitTests\template.py)
