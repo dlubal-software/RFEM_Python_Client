@@ -221,7 +221,7 @@ def test_material():
 
     material = Model.clientModel.service.get_material(1)
     assert material.no == 1
-    assert material.name == 'S235'
+    assert material.name == 'S235 | CYS EN 1993-1-1:2009-03'
 
 def test_node_init():
 
