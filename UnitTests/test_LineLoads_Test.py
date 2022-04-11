@@ -7,7 +7,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
     os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.Loads.lineSetLoad import LineSetLoad
+from RFEM.Loads.linesetLoad import LineSetLoad
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.TypesForLines.lineSupport import LineSupport
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
@@ -31,12 +31,9 @@ def test_line_loads():
 
     # Creating a lot of lines for line load testing
 
-    Node(1, 0, 0, 0), Node(2, 2, 0, 0), Node(3, 4, 0, 0), Node(
-        4, 6, 0, 0), Node(5, 8, 0, 0), Node(6, 10, 0, 0)
-    Node(7, 10, 2, 0), Node(8, 10, 4, 0), Node(
-        9, 10, 6, 0), Node(10, 10, 8, 0), Node(11, 10, 10, 0)
-    Node(12, 8, 10, 0), Node(13, 6, 10, 0), Node(
-        14, 4, 10, 0), Node(15, 2, 10, 0), Node(16, 0, 10, 0)
+    Node(1, 0, 0, 0), Node(2, 2, 0, 0), Node(3, 4, 0, 0), Node( 4, 6, 0, 0), Node(5, 8, 0, 0), Node(6, 10, 0, 0)
+    Node(7, 10, 2, 0), Node(8, 10, 4, 0), Node(9, 10, 6, 0), Node(10, 10, 8, 0), Node(11, 10, 10, 0)
+    Node(12, 8, 10, 0), Node(13, 6, 10, 0), Node(14, 4, 10, 0), Node(15, 2, 10, 0), Node(16, 0, 10, 0)
     Node(17, 0, 8, 0), Node(18, 0, 6, 0), Node(19, 0, 4, 0), Node(20, 0, 2, 0)
 
     surface_str = ''
