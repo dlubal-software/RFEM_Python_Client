@@ -221,7 +221,7 @@ def test_material():
 
     material = Model.clientModel.service.get_material(1)
     assert material.no == 1
-    assert material.name == 'S235'
+    assert material.name == 'S235 | CYS EN 1993-1-1:2009-03'
 
 def test_node_init():
 
@@ -335,7 +335,7 @@ def test_section():
     section = Model.clientModel.service.get_section(1)
 
     assert section.no == 1
-    assert section.name == 'IPE 300'
+    assert section.name == 'IPE 300 | -- | British Steel'
 
 ## Solid Class should be updated.
 

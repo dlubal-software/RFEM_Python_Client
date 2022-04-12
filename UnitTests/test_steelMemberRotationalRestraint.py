@@ -28,17 +28,13 @@ def test_steelMemberRotationalRestraints():
     SteelMemberRotationalRestraint(2, [True, 'test_restraint'], SteelMemberRotationalRestraintType.TYPE_DISCRETE, "", "",
             categories=["Grade S275", "IPE A 80 | EN 10365:2017 | ArcelorMittal (2018)", SteelMemberRotationalRestraintRotationalStiffness.ROTATIONAL_STIFFNESS_INFINITELY, SteelMemberRotationalRestraintContinuousBeamEffect.CONTINUOUS_BEAM_EFFECT_END_PANEL, True],
             parameters=[205000000000.0, 6.44e-07, 1, 3])
-
-
+    Model.clientModel.service.finish_modification()
 
     steelMemberRestraint1 = Model.clientModel.service.get_steel_member_rotational_restraint(1)
     steelMemberRestraint2 = Model.clientModel.service.get_steel_member_rotational_restraint(2)
-
 
     assert steelMemberRestraint1.no == 1
     assert steelMemberRestraint1.material_name == "Grade S275"
 
     assert steelMemberRestraint2.type == "TYPE_DISCRETE"
     assert steelMemberRestraint2.continuous_beam_effect == "CONTINUOUS_BEAM_EFFECT_END_PANEL"
-
-    Model.clientModel.service.finish_modification()
