@@ -47,7 +47,7 @@ def test_standard_surface():
     Node(12, 0.0, 10.0, 0.0)
     Node(13, 5.0, 10.0, -2.5)
     Node(14, 10.0, 10.0, 0.0)
-    Node(15, 0.0, 5.0, -2,5)
+    Node(15, 0.0, 5.0, -2.5)
     Node(16, 10.0, 5.0, -2.5)
 
     # NURBS-Curve Definition
