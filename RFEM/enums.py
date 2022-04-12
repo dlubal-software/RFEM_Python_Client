@@ -1719,7 +1719,29 @@ class SteelEffectiveLengthsMemberTypeZZ(Enum):
     '''
     MEMBER_TYPE_BEAM, MEMBER_TYPE_CANTILEVER = range(2)
 
+class SteelMemberRotationalRestraintType(Enum):
+    '''
+    Steel Member Rotational Restraint Type
+    '''
+    TYPE_CONTINUOUS, TYPE_DISCRETE, TYPE_MANUALLY = range(3)
 
+class SteelMemberRotationalRestraintContinuousBeamEffect(Enum):
+    '''
+    Steel Member Rotational Restraint Continuous Beam Effect
+    '''
+    CONTINUOUS_BEAM_EFFECT_END_PANEL, CONTINUOUS_BEAM_EFFECT_INTERNAL_PANEL = range(2)
+
+class SteelMemberRotationalRestraintPositionofSheeting(Enum):
+    '''
+    Steel Member Rotational Restraint Position of Sheeting
+    '''
+    SHEETING_POSITION_NEGATIVE, SHEETING_POSITION_POSITIVE = range(2)
+
+class SteelMemberRotationalRestraintRotationalStiffness(Enum):
+    '''
+    Steel Member Rotational Restraint Rotational Stiffness
+    '''
+    ROTATIONAL_STIFFNESS_INFINITELY, ROTATIONAL_STIFFNESS_MANUALLY = range(2)
 class SteelBoundaryConditionsSupportType(Enum):
     '''
     Steel Boundary Conditions Support Type
