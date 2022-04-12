@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-baseName = os.path.basename(__file__)
+baseName = os.path.basename(__file__)5
 dirName = os.path.dirname(__file__)
 print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.enums import *
+from RFEM.enums import NodalSupportType, LoadDirectionType
 from RFEM.initModel import Model, Calculate_all
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section

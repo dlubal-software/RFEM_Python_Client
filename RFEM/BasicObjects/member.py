@@ -11,6 +11,7 @@ class Member():
                  end_section_no: int = 1,
                  start_member_hinge_no: int = 0,
                  end_member_hinge_no: int = 0,
+                 line = None,
                  comment: str = '',
                  params: dict = None):
         """
@@ -23,6 +24,7 @@ class Member():
             end_section_no (int): Tag of End Section
             start_member_hinge_no (int): Tag of Start Member Hinge
             end_member_hinge_no (int): Tag of End Member Hinge
+            line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
@@ -54,6 +56,9 @@ class Member():
         # End Section No.
         clientObject.section_end = end_section_no
 
+        # Assigned Line No.
+        clientObject.line = line
+
         # Start Member Hinge No.
         clientObject.member_hinge_start = start_member_hinge_no
 
@@ -82,6 +87,7 @@ class Member():
             start_section_no: int = 1,
             end_section_no: int = 1,
             distribution_parameters = [],
+            line = None,
             comment: str = '',
             params: dict = {'member_hinge_start':0, 'member_hinge_end': 0,
                             'member_eccentricity_start': 0, 'member_eccentricity_end': 0,
@@ -132,6 +138,7 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             start_section_no (int): Tag of Start Section
             end_section_no (int): End of End Section
+            line (int, optional): Assigned Line
             distribution_parameters (list): Distribution Parameters
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -278,6 +285,9 @@ class Member():
         # End Section No.
         clientObject.section_end = end_section_no
 
+        # Assigned Line No.
+        clientObject.line = line
+
         # Update parameters
         params_up: dict = {'member_hinge_start':0, 'member_hinge_end': 0,
                         'member_eccentricity_start': 0, 'member_eccentricity_end': 0,
@@ -339,6 +349,7 @@ class Member():
                 end_node_no: int = 2,
                 rotation_specification_type = MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE,
                 rotation_parameters = [0],
+                line = None,
                 comment: str = '',
                 params: dict = {'member_hinge_start':0, 'member_hinge_end': 0,
                                 'member_eccentricity_start': 0, 'member_eccentricity_end': 0,
@@ -360,6 +371,7 @@ class Member():
                     rotation_parameters = [rotation_plane_type]
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
+            line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
@@ -423,6 +435,9 @@ class Member():
         # Deactivation for Calculation
         clientObject.is_deactivated_for_calculation = params_up['is_deactivated_for_calculation']
 
+        # Assigned Line No.
+        clientObject.line = line
+
         # Comment
         clientObject.comment = comment
 
@@ -446,6 +461,7 @@ class Member():
             rib_surfaces_no =  [],
             rib_alignment = MemberTypeRibAlignment.ALIGNMENT_ON_Z_SIDE_POSITIVE,
             reference_width_type = MemberReferenceLengthWidthType.REFERENCE_LENGTH_WIDTH_SIXTH,
+            line = None,
             comment: str = '',
             params: dict = {'member_hinge_start':0, 'member_hinge_end': 0,
                             'support':0,
@@ -468,6 +484,7 @@ class Member():
             rib_surfaces_no (list): Surfaces Tags Assigned to Rib
             rib_alignment (enum): Rib Alignment Enumeration
             reference_width_type (enum): Reference Width Type Enumeration
+            line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
@@ -551,6 +568,9 @@ class Member():
         # Deactivation for Calculation
         clientObject.is_deactivated_for_calculation = params_up['is_deactivated_for_calculation']
 
+        # Assigned Line No.
+        clientObject.line = line
+
         # Comment
         clientObject.comment = comment
 
@@ -570,6 +590,7 @@ class Member():
             rotation_specification_type = MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE,
             rotation_parameters = [0],
             section_no: int = 1,
+            line = None,
             comment: str = '',
             params: dict = {'member_eccentricity_start': 0, 'member_eccentricity_end': 0,
                             'member_nonlinearity': 0,
@@ -596,6 +617,7 @@ class Member():
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             section_no (int): Section Tag
+            line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
@@ -667,6 +689,9 @@ class Member():
         # Deactivation for Calculation
         clientObject.is_deactivated_for_calculation = params_up['is_deactivated_for_calculation']
 
+        # Assigned Line No.
+        clientObject.line = line
+
         # Comment
         clientObject.comment = comment
 
@@ -686,6 +711,7 @@ class Member():
             rotation_specification_type = MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE,
             rotation_parameters = [0],
             section_no: int = 1,
+            line = None,
             comment: str = '',
             params: dict = {'member_eccentricity_start': 0, 'member_eccentricity_end': 0,
                             'member_nonlinearity': 0,
@@ -712,6 +738,7 @@ class Member():
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             section_no (int): Section Tag
+            line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
@@ -783,6 +810,9 @@ class Member():
         # Deactivation for Calculation
         clientObject.is_deactivated_for_calculation = params_up['is_deactivated_for_calculation']
 
+        # Assigned Line No.
+        clientObject.line = line
+
         # Comment
         clientObject.comment = comment
 
@@ -802,6 +832,7 @@ class Member():
             rotation_specification_type = MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE,
             rotation_parameters = [0],
             section_no: int = 1,
+            line = None,
             comment: str = '',
             params: dict = {'member_eccentricity_start': 0, 'member_eccentricity_end': 0,
                             'member_nonlinearity': 0,
@@ -828,6 +859,7 @@ class Member():
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             section_no (int): Section Tag
+            line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
@@ -899,6 +931,9 @@ class Member():
         # Deactivation for Calculation
         clientObject.is_deactivated_for_calculation = params_up['is_deactivated_for_calculation']
 
+        # Assigned Line No.
+        clientObject.line = line
+
         # Comment
         clientObject.comment = comment
 
@@ -918,6 +953,7 @@ class Member():
             rotation_specification_type = MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE,
             rotation_parameters = [0],
             section_no: int = 1,
+            line = None,
             comment: str = '',
             params: dict = {'member_eccentricity_start': 0, 'member_eccentricity_end': 0,
                             'member_nonlinearity': 0,
@@ -944,6 +980,7 @@ class Member():
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             section_no (int): Section Tag
+            line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
@@ -1015,6 +1052,9 @@ class Member():
         # Deactivation for Calculation
         clientObject.is_deactivated_for_calculation = params_up['is_deactivated_for_calculation']
 
+        # Assigned Line No.
+        clientObject.line = line
+
         # Comment
         clientObject.comment = comment
 
@@ -1034,6 +1074,7 @@ class Member():
             rotation_specification_type = MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE,
             rotation_parameters = [0],
             section_no: int = 1,
+            line = None,
             comment: str = '',
             params: dict = {'member_eccentricity_start': 0, 'member_eccentricity_end': 0,
                             'member_nonlinearity': 0,
@@ -1060,6 +1101,7 @@ class Member():
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             section_no (int): Section Tag
+            line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
@@ -1131,6 +1173,9 @@ class Member():
         # Deactivation for Calculation
         clientObject.is_deactivated_for_calculation = params_up['is_deactivated_for_calculation']
 
+        # Assigned Line No.
+        clientObject.line = line
+
         # Comment
         clientObject.comment = comment
 
@@ -1150,6 +1195,7 @@ class Member():
             rotation_specification_type = MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE,
             rotation_parameters = [0],
             section_no: int = 1,
+            line = None,
             comment: str = '',
             params: dict = {'end_modifications_member_start_extension': 0,
                             'end_modifications_member_start_slope_y': 0,
@@ -1174,6 +1220,7 @@ class Member():
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             section_no (int): Section Tag
+            line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
@@ -1235,6 +1282,9 @@ class Member():
 
         # Deactivation for Calculation
         clientObject.is_deactivated_for_calculation = params_up['is_deactivated_for_calculation']
+
+        # Assigned Line No.
+        clientObject.line = line
 
         # Comment
         clientObject.comment = comment
