@@ -17,7 +17,7 @@ def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_ty
                 for geometry_type == SurfaceGeometry.GEOMETRY_QUADRANGLE:
                     geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
                 for geometry_type == SurfaceGeometry.GEOMETRY_ROTATED:
-                    geometry_type_parameters =
+                    geometry_type_parameters = [rotated_angle_of_rotation, [rotated_point_p_x, rotated_point_p_y, rotated_point_p_z], [rotated_point_r_x, rotated_point_r_y, rotated_point_r_z], rotated_boundary_line]
             thickness (int): Tag of Thickness assigned to Standard Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
