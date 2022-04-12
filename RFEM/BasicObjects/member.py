@@ -9,9 +9,9 @@ class Member():
                  rotation_angle: float = 0.0,
                  start_section_no: int = 1,
                  end_section_no: int = 1,
-                 line = None,
                  start_member_hinge_no: int = 0,
                  end_member_hinge_no: int = 0,
+                 line = None,
                  comment: str = '',
                  params: dict = None):
         """
@@ -86,8 +86,8 @@ class Member():
             rotation_parameters = [0],
             start_section_no: int = 1,
             end_section_no: int = 1,
-            line = None,
             distribution_parameters = [],
+            line = None,
             comment: str = '',
             params: dict = {'member_hinge_start':0, 'member_hinge_end': 0,
                             'member_eccentricity_start': 0, 'member_eccentricity_end': 0,
