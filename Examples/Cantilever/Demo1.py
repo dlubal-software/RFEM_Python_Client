@@ -8,7 +8,7 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.enums import NodalSupportType, LoadDirectionType
+from RFEM.enums import *
 from RFEM.initModel import Model, Calculate_all
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
@@ -26,6 +26,7 @@ if __name__ == '__main__':
 
     Model(True, "Demo1") # crete new model called Demo1
     Model.clientModel.service.begin_modification()
+
 
     Material(1, 'S235')
 
