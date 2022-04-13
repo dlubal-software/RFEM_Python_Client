@@ -1,5 +1,6 @@
 from RFEM.enums import SurfaceGeometry, SurfaceLoadDistributionDirection, SurfaceType
 from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+import math
 
 def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_type, geometry_type_parameters, thickness = None, comment = None, params = None, model = Model):
     '''
@@ -15,6 +16,8 @@ def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_ty
                     geometry_type_parameters = None
                 for geometry_type == SurfaceGeometry.GEOMETRY_QUADRANGLE:
                     geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
+                for geometry_type == SurfaceGeometry.GEOMETRY_ROTATED:
+                    geometry_type_parameters = [rotated_angle_of_rotation, [rotated_point_p_x, rotated_point_p_y, rotated_point_p_z], [rotated_point_r_x, rotated_point_r_y, rotated_point_r_z], rotated_boundary_line]
             thickness (int): Tag of Thickness assigned to Standard Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -45,6 +48,15 @@ def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_ty
         clientObject.nurbs_order_in_direction_v = geometry_type_parameters[3]
     elif geometry_type.name == 'GEOMETRY_PLANE':
         geometry_type_parameters = None
+    elif geometry_type.name == 'GEOMETRY_ROTATED':
+        clientObject.rotated_angle_of_rotation = geometry_type_parameters[0] * (math.pi/180)
+        clientObject.rotated_point_p_x = geometry_type_parameters[1][0]
+        clientObject.rotated_point_p_y = geometry_type_parameters[1][1]
+        clientObject.rotated_point_p_z = geometry_type_parameters[1][2]
+        clientObject.rotated_point_r_x = geometry_type_parameters[2][0]
+        clientObject.rotated_point_r_y = geometry_type_parameters[2][1]
+        clientObject.rotated_point_r_z = geometry_type_parameters[2][2]
+        clientObject.rotated_boundary_line = geometry_type_parameters[3]
     elif geometry_type.name == 'GEOMETRY_QUADRANGLE':
         if len(geometry_type_parameters) != 4:
             raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')

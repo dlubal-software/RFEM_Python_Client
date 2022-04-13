@@ -19,6 +19,7 @@
         "comments": false,
         "strings": false
     },
+    "editor.formatOnSave": false,
     "python.analysis.completeFunctionParens": true,
     "python.disableInstallationCheck": true,
     "python.linting.banditEnabled": true,

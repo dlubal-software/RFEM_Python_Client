@@ -21,7 +21,7 @@ def test_export():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.run_script('..\\scripts\\internal\\Demos\\Demo-002 Cantilever Beams.js')
-    Calculate_all()
+    #Calculate_all()
 
     dirname = os.path.join(os.getcwd(), os.path.dirname(__file__), 'testResults')
     targetFile1 = os.path.join(dirname, 'test_ifcExport1.ifc')

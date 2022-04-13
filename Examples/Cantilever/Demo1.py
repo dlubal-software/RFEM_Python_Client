@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-baseName = os.path.basename(__file__)
+baseName = os.path.basename(__file__)5
 dirName = os.path.dirname(__file__)
 print('basename:    ', baseName)
 print('dirname:     ', dirName)
@@ -26,6 +26,7 @@ if __name__ == '__main__':
 
     Model(True, "Demo1") # crete new model called Demo1
     Model.clientModel.service.begin_modification()
+
 
     Material(1, 'S235')
 
