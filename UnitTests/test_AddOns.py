@@ -1,5 +1,5 @@
 import sys
-import pytest
+import RFEM.dependencies
 import os
 PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.path.dirname(__file__),
