@@ -1750,7 +1750,6 @@ class SteelBoundaryConditionsSupportType(Enum):
         SUPPORT_TYPE_FIXED_IN_Y_AND_WARPING, SUPPORT_TYPE_INDIVIDUALLY, SUPPORT_TYPE_NONE, SUPPORT_TYPE_TORSION, SUPPORT_TYPE_TORSION_AND_WARPING = range(
             9)
 
-
 class SteelBoundaryConditionsEccentricityTypeZ(Enum):
     '''
     Steel Boundary Conditions Eccentricity Type Z Type
@@ -1758,6 +1757,11 @@ class SteelBoundaryConditionsEccentricityTypeZ(Enum):
     ECCENTRICITY_TYPE_AT_LOWER_FLANGE, ECCENTRICITY_TYPE_AT_UPPER_FLANGE, ECCENTRICITY_TYPE_NONE, ECCENTRICITY_TYPE_USER_VALUE = range(
         4)
 
+class ActionType(Enum):
+    '''
+    Action Type
+    '''
+    ACTING_SIMULTANEOUSLY, ACTING_ALTERNATIVELY, ACTING_DIFFERENTLY = range(3)
 
 class ActionCategoryType(Enum):
     '''
