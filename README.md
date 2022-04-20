@@ -15,6 +15,8 @@ Python client (high-level functions) for [RFEM 6](https://www.dlubal.com/en/prod
     + [Step by step](#step-by-step)
     + [Examples](#examples)
     + [Unit Tets](#unit-tests)
+  * [Documentation](#documentation)
+  * [Wiki](#wiki)
   * [License](#license)
   * [Contribute](#contribute)
 
@@ -50,12 +52,14 @@ Scripts intended to be used as templates or examples. Also can be used for testi
 ### Unit Tests
 Collection of scripts to support further development.
 
-## API Documentation
-Visit our [GitHub page](https://dlubal-software.github.io/RFEM_Python_Client/)
+## Documentation
+For complete description of classes and functions visit our [GitHub page](https://dlubal-software.github.io/RFEM_Python_Client/).
+
+## Wiki
+If you run into problems see our [Wiki](https://github.com/Dlubal-Software/RFEM_Python_Client/wiki). We are slowly but surely expanding the solutions to the problems found in the Issues section.
 
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 
 ## Contribute
 Contributions are always welcome! Please ensure your pull request adheres to the following guidelines:
