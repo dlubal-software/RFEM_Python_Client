@@ -4,10 +4,11 @@ class MemberNonlinearity():
     def __init__(self,
                  no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Member Nonlinearity
-        clientObject = Model.clientModel.factory.create('ns0:member_nonlinearity')
+        clientObject = model.clientModel.factory.create('ns0:member_nonlinearity')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +25,4 @@ class MemberNonlinearity():
                 clientObject[key] = params[key]
 
         # Add Member Nonlinearity to client model
-        Model.clientModel.service.set_member_nonlinearity(clientObject)
+        model.clientModel.service.set_member_nonlinearity(clientObject)

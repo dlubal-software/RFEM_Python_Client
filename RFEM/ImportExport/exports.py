@@ -3,52 +3,52 @@ import csv
 from RFEM.initModel import Model
 from RFEM.enums import IFCExportType, ObjectTypes
 
-def ExportDetailsOfDesignToCSV(targetDirectoryPath: str):
+def ExportDetailsOfDesignToCSV(targetDirectoryPath: str, model = Model):
     '''
     Export details of design to CSV format.
 
     Args:
         targetDirectoryPath (string): Destination path to the directory
     '''
-    Model.clientModel.service.export_details_of_design_to_csv(targetDirectoryPath)
+    model.clientModel.service.export_details_of_design_to_csv(targetDirectoryPath)
 
-def ExportResultTablesToCSV(targetDirectoryPath: str):
+def ExportResultTablesToCSV(targetDirectoryPath: str, model = Model):
     '''
     Export result tables to CSV format.
 
     Args:
         targetDirectoryPath (string): Destination path to the directory
     '''
-    Model.clientModel.service.export_result_tables_to_csv(targetDirectoryPath)
+    model.clientModel.service.export_result_tables_to_csv(targetDirectoryPath)
 
-def ExportResultTablesToXML(targetFilePath: str):
+def ExportResultTablesToXML(targetFilePath: str, model = Model):
     '''
     Export result tables to XML format.
 
     Args:
         targetFilePath (string): Destination path to the file
     '''
-    Model.clientModel.service.export_result_tables_to_xml(targetFilePath)
+    model.clientModel.service.export_result_tables_to_xml(targetFilePath)
 
-def ExportResultTablesWithDetaliedMembersResultsToCSV(targetDirectoryPath: str):
+def ExportResultTablesWithDetaliedMembersResultsToCSV(targetDirectoryPath: str, model = Model):
     '''
     Export result tables with detailed member results to CSV format.
 
     Args:
         targetDirectoryPath (string): Destination path to the directory
     '''
-    Model.clientModel.service.export_result_tables_with_detailed_members_results_to_csv(targetDirectoryPath)
+    model.clientModel.service.export_result_tables_with_detailed_members_results_to_csv(targetDirectoryPath)
 
-def ExportResultTablesWithDetaliedMembersResultsToXML(targetFilePath: str):
+def ExportResultTablesWithDetaliedMembersResultsToXML(targetFilePath: str, model = Model):
     '''
     Export result tables with detailed member results to XML format.
 
     Args:
         targetFilePath (string): Destination path to the file
     '''
-    Model.clientModel.service.export_result_tables_with_detailed_members_results_to_xml(targetFilePath)
+    model.clientModel.service.export_result_tables_with_detailed_members_results_to_xml(targetFilePath)
 
-def ExportTo(targetFilePath: str):
+def ExportTo(targetFilePath: str, model = Model):
     '''
     Export active model to format specified by suffix of the destination path to file.
     Supported formats are .xml, .vtk, .xlsx, .saf, .gltf, and .glb.
@@ -56,7 +56,7 @@ def ExportTo(targetFilePath: str):
     Args:
         targetFilePath (string): Destination path to the file
     '''
-    Model.clientModel.service.export_to(targetFilePath)
+    model.clientModel.service.export_to(targetFilePath)
 
 IFCExportSettings = {
     'mirror_axis_x': False,
@@ -102,7 +102,7 @@ def ObjectLocations(locationsArray):
     return {'location': locationsArray}
 
 
-def ExportToIFC(targetFilePath: str, IFCSettings: IFCExportSettings, ObjectLoc = None):
+def ExportToIFC(targetFilePath: str, IFCSettings: IFCExportSettings, ObjectLoc = None, model = Model):
     '''
     Use this function to export active model t o IFC.
 
@@ -112,20 +112,20 @@ def ExportToIFC(targetFilePath: str, IFCSettings: IFCExportSettings, ObjectLoc =
         ObjectLoc (array): array of ObjectLocation dictionary. If left out, all objects will be exported to IFC.
     '''
     if ObjectLoc:
-        Model.clientModel.service.export_to_ifc(targetFilePath, IFCSettings, ObjectLoc)
+        model.clientModel.service.export_to_ifc(targetFilePath, IFCSettings, ObjectLoc)
     else:
-        Model.clientModel.service.export_to_ifc(targetFilePath, IFCSettings)
+        model.clientModel.service.export_to_ifc(targetFilePath, IFCSettings)
 
-def ExportToTables(targetDirectoryPath: str):
+def ExportToTables(targetDirectoryPath: str, model = Model):
     '''
     Export active model to tables.
 
     Args:
         targetDirectoryPath (string): Destination path to the directory
     '''
-    Model.clientModel.service.export_to_tables(targetDirectoryPath)
+    model.clientModel.service.export_to_tables(targetDirectoryPath)
 
-def GetTableExportConfigManager():
+def GetTableExportConfigManager(model = Model):
     '''
     Export active model to tables.
     Use this fuction to obtain input parameter to SetTableExportConfigManager()
@@ -133,9 +133,9 @@ def GetTableExportConfigManager():
     Return:
         Table export configuration.
     '''
-    return Model.clientModel.service.get_table_export_config_manager()
+    return model.clientModel.service.get_table_export_config_manager()
 
-def SetTableExportConfigManager(TableExportConfigManager):
+def SetTableExportConfigManager(TableExportConfigManager, model = Model):
     '''
     Create or change table export settings.
     To obtain input data (TableExportConfigManager) call GetTableExportConfigManager() first.
@@ -143,7 +143,7 @@ def SetTableExportConfigManager(TableExportConfigManager):
     Args:
         TableExportConfigManager (dict): Table export config
     '''
-    Model.clientModel.service.set_table_export_config_manager(TableExportConfigManager)
+    model.clientModel.service.set_table_export_config_manager(TableExportConfigManager)
 
 def ParseCSVResultsFromSelectedFileToDict(filePath: str):
 

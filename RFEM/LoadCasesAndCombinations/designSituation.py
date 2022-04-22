@@ -8,7 +8,8 @@ class DesignSituation():
                  active: bool = True,
                  name = None,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         """
         Args:
@@ -21,7 +22,7 @@ class DesignSituation():
         """
 
         # Client model | Design Situation
-        clientObject = Model.clientModel.factory.create('ns0:design_situation')
+        clientObject = model.clientModel.factory.create('ns0:design_situation')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -49,4 +50,4 @@ class DesignSituation():
                 clientObject[key] = params[key]
 
         # Add Design Situation to client model
-        Model.clientModel.service.set_design_situation(clientObject)
+        model.clientModel.service.set_design_situation(clientObject)

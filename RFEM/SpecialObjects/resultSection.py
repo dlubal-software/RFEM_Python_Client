@@ -4,10 +4,11 @@ class ResultSection():
     def __init__(self,
                  no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Result Section
-        clientObject = Model.clientModel.factory.create('ns0:result_section')
+        clientObject = model.clientModel.factory.create('ns0:result_section')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +25,4 @@ class ResultSection():
                 clientObject[key] = params[key]
 
         # Add Result Section to client model
-        Model.clientModel.service.set_result_section(clientObject)
+        model.clientModel.service.set_result_section(clientObject)
