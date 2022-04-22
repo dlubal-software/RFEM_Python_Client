@@ -19,6 +19,30 @@ class MemberDefinableStiffness():
                  thermal_expansion_height: int = 0.0,
                  comment: str = '',
                  params: dict = None):
+        """
+        Args:
+            no (int): Member Definable Stiffness Tag
+            name (list): User Defined Name
+
+                if name[0] == True:
+                    name[1] == Uer Defined Name
+
+            members (str): Assigned Members
+            torsional_stiffness (int): Torsional Stiffness
+            bending_stiffness_y (int): Bending Stiffness in Y Direction
+            bending_stiffness_z (int): Bendign Stiffness in Z Direction
+            axial_stiffness (int): Axial Stiffness
+            shear_stiffness_y (int): Shear Stiffness in Y Direction
+            shear_stiffness_z (int): Shear Stiffness in Z Direction
+            specific_weight (int): Specific Weight
+            section_area (int): Section Area
+            rotation (int): Rotation
+            thermal_expansion_alpha (int): Thermal Expansion Alpha Coefficient
+            thermal_expansion_width (int): Thermal Expansion Witdh Coefficient
+            thermal_expansion_height (int): Thermal Expansion Height Coefficient
+            comment (str, optional): Comment
+            params (dict, optional): Parameters
+        """
 
         # Client model | Member Definable Stffness
         clientObject = Model.clientModel.factory.create('ns0:member_definable_stiffness')
