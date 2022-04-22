@@ -31,6 +31,7 @@ class MemberImperfection():
         # Member Imperfection No.
         clientObject.no = no
 
+        # Member No.
         clientObject.members = ConvertToDlString(members)
 
         # Comment
@@ -62,6 +63,7 @@ class MemberImperfection():
             comment (str, optional): Comments
             params (dict, optional): Additional parameters
         '''
+
         # Client model | Imperfection Case
         clientObject = Model.clientModel.factory.create('ns0:member_imperfection')
 
@@ -71,17 +73,19 @@ class MemberImperfection():
         # Member Imperfection No.
         clientObject.no = no
 
+        # Member No.
         clientObject.members = ConvertToDlString(members)
 
         # Sway
-
         clientObject.basic_value_relative = sway
 
         # Imperfection Direction
-
         clientObject.imperfection_direction = imperfection_direction.name
 
+        # Imperfection Type
         clientObject.imperfection_type = 'IMPERFECTION_TYPE_INITIAL_SWAY'
+
+        # Imperfection Definition Type
         clientObject.definition_type = 'DEFINITION_TYPE_RELATIVE'
 
         # Comment
@@ -112,6 +116,7 @@ class MemberImperfection():
             comment (str, optional): Comments
             params (dict, optional): Additional parameters
         '''
+
         # Client model | Imperfection Case
         clientObject = Model.clientModel.factory.create('ns0:member_imperfection')
 
@@ -121,17 +126,19 @@ class MemberImperfection():
         # Member Imperfection No.
         clientObject.no = no
 
+        # Member No.
         clientObject.members = ConvertToDlString(members)
 
         # Bow
-
         clientObject.basic_value_relative = bow
 
         # Imperfection Direction
-
         clientObject.imperfection_direction = imperfection_direction.name
 
+        # Imperfection Type
         clientObject.imperfection_type = 'IMPERFECTION_TYPE_INITIAL_BOW'
+
+        # Imperfection Definition Type
         clientObject.definition_type = 'DEFINITION_TYPE_RELATIVE'
 
         # Comment
@@ -164,6 +171,7 @@ class MemberImperfection():
             comment (str, optional): Comments
             params (dict, optional): Additional parameters
         '''
+
         # Client model | Imperfection Case
         clientObject = Model.clientModel.factory.create('ns0:member_imperfection')
 
@@ -173,22 +181,28 @@ class MemberImperfection():
         # Member Imperfection No.
         clientObject.no = no
 
+        # Member No.
         clientObject.members = ConvertToDlString(members)
 
         # Criterion
         clientObject.active_criterion = active_criterion.name
 
         if active_criterion == ImperfectionActivationCriterion.ACTIVITY_CRITERION_DEFINE:
-            clientObject.active_bow = bow[1]
+            if len(bow) == 2:
+                clientObject.active_bow = bow[1]
+            else:
+                print('A second parameter in the bow list is required for this definition criterion. Eps must be specified, from which the imperfection is to take effect.')
 
         # Bow
         clientObject.basic_value_relative = bow[0]
 
         # Imperfection Direction
-
         clientObject.imperfection_direction = imperfection_direction.name
 
+        # Imperfection Type
         clientObject.imperfection_type = 'IMPERFECTION_TYPE_INITIAL_BOW_AND_CRITERION'
+
+        # Imperfection Definition Type
         clientObject.definition_type = 'DEFINITION_TYPE_RELATIVE'
 
         # Comment

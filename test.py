@@ -35,6 +35,8 @@ from RFEM.Loads.nodalLoad import *
 from RFEM.Loads.surfaceLoad import *
 from RFEM.Loads.lineLoad import *
 from RFEM.Imperfections.imperfectionCase import *
+from RFEM.ImportExport.exports import *
+from RFEM.Reports.html import *
 
 if __name__ == '__main__':
     Model.clientModel.service.begin_modification('new')
@@ -66,6 +68,7 @@ if __name__ == '__main__':
     LoadCombination(3, AnalysisType.ANALYSIS_TYPE_STATIC, 1, [False], 2, False, False, False, True, [[1.1, 1, 0, False], [1.5, 2, 0, False]], 'My Combination')
     LoadCombination(4, AnalysisType.ANALYSIS_TYPE_STATIC, 1, [False], 2, False, False, False, True, [[1.1, 1, 0, False], [1.5, 2, 0, False]], 'My Combination')
     LoadCombination(5, AnalysisType.ANALYSIS_TYPE_STATIC, 1, [False], 2, False, False, False, True, [[1.1, 1, 0, False], [1.5, 2, 0, False]], 'My Combination')
+    LoadCombination(6, AnalysisType.ANALYSIS_TYPE_STATIC, 1, [False], 2, False, False, False, True, [[1.1, 1, 0, False], [1.5, 2, 0, False]], 'My Combination')
 
     NodalLoad(1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 10000)
     NodalLoad(1, 2, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 5000)
@@ -75,6 +78,7 @@ if __name__ == '__main__':
     ImperfectionCase.Local(ImperfectionCase, 3, '3')
     ImperfectionCase.Local(ImperfectionCase, 4, '4')
     ImperfectionCase.Local(ImperfectionCase, 5, '5')
+    ImperfectionCase.Local(ImperfectionCase, 6, '6')
 
     MemberImperfectionDict = {
         "imperfection_type"         : "IMPERFECTION_TYPE_INITIAL_BOW_AND_CRITERION",
@@ -89,19 +93,30 @@ if __name__ == '__main__':
     MemberImperfection.InitialBowRelative(MemberImperfection,3, 3, '1', 200.0, ImperfectionDirection.IMPERFECTION_DIRECTION_LOCAL_Y_NEGATIVE)
     MemberImperfection.InitialBowRelativeAndCriterion(MemberImperfection, 4, 4, '1', ImperfectionActivationCriterion.ACTIVITY_CRITERION_ALWAYS, [150.0])
     MemberImperfection.InitialBowRelativeAndCriterion(MemberImperfection, 5, 5, '1', ImperfectionActivationCriterion.ACTIVITY_CRITERION_DEFINE, [150.0, 1.78])
+    # Das sollte einen Fehler ausgeben, weil die Liste bow einen Parameter zu wenig hat.
+    #MemberImperfection.InitialBowRelativeAndCriterion(MemberImperfection, 6, 6, '1', ImperfectionActivationCriterion.ACTIVITY_CRITERION_DEFINE, [150.0])
+    ###
 
 
     # Dieses Testprogramm wird noch etwas ausgebaut und schön gemacht. Dann wird es als
     # Beispiel veröffentlicht.
+    '''
+    Model.clientModel.service.calculate_all(False)
 
+    MyPathXML = str("C:\\Users\\faulstichf\\Documents\\temp\\results.xml")
+    ExportResultTablesToXML(MyPathXML)
 
+    MyPathXMLDetail = str("C:\\Users\\faulstichf\\Documents\\temp\\results-detail.xml")
+    ExportResultTablesWithDetaliedMembersResultsToXML(MyPathXMLDetail)
 
+    MyPathCSV = str("C:\\Users\\faulstichf\\Documents\\temp\\results.csv")
+    ExportResultTablesToCSV(MyPathCSV)
 
-
-
-    #Calculate_all()
-
+    MyPathHTML = str("C:\\Users\\faulstichf\\Documents\\temp\\results.html")
+    ExportResultTablesToHtml(MyPathHTML)
+    '''
     Model.clientModel.service.finish_modification()
+
 
 
     print('Fertig!')
