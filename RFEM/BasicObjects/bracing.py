@@ -11,7 +11,7 @@
 #                  start_section_no: int = 1,
 #                  end_section_no: int = 1,
 #                  comment: str = '',
-#                  params: dict = None):
+#                  params: dict = None, model = Model):
 
 #        '''
 #        Args:
@@ -27,7 +27,7 @@
 #        '''
 
 #         # Client model | Bracing
-#         clientObject = Model.clientModel.factory.create('ns0:bracing')
+#         clientObject = model.clientModel.factory.create('ns0:bracing')
 
 #         # Clears object atributes | Sets all atributes to None
 #         clearAtributes(clientObject)
@@ -67,7 +67,7 @@
 #             clientObject[key] = params[key]
 
 #         # Add Member to client model
-#         Model.clientModel.service.set_bracing(clientObject)
+#         model.clientModel.service.set_bracing(clientObject)
 
 #       def Horizontal(self,
 #             no: int = 1,
@@ -80,7 +80,7 @@
 #             start_bracing_hinge_no: int = 0,
 #             end_bracing_hinge_no: int = 0,
 #             comment: str = '',
-#             params: dict = None):
+#             params: dict = None, model = Model):
 
 #             '''
 #            Args:
@@ -98,7 +98,7 @@
 #             '''
 
 #         # Client model | Bracing
-#         clientObject = Model.clientModel.factory.create('ns0:bracing')
+#         clientObject = model.clientModel.factory.create('ns0:bracing')
 
 #         # Clears object atributes | Sets all atributes to None
 #         clearAtributes(clientObject)
@@ -138,7 +138,7 @@
 #             clientObject[key] = params[key]
 
 #         # Add Bracing to client model
-#         Model.clientModel.service.set_bracing(clientObject)
+#         model.clientModel.service.set_bracing(clientObject)
 
 #         def Vertical(self,
 #             no: int = 1,
@@ -151,7 +151,7 @@
 #             start_bracing_hinge_no: int = 0,
 #             end_bracing_hinge_no: int = 0,
 #             comment: str = '',
-#             params: dict = None):
+#             params: dict = None, model = Model):
 
 #            '''
 #            Args:
@@ -169,7 +169,7 @@
 #            '''
 
 #         # Client model | Bracing
-#         clientObject = Model.clientModel.factory.create('ns0:bracing')
+#         clientObject = model.clientModel.factory.create('ns0:bracing')
 
 #         # Clears object atributes | Sets all atributes to None
 #         clearAtributes(clientObject)
@@ -209,5 +209,5 @@
 #             clientObject[key] = params[key]
 
 #         # Add Bracing to client model
-#         Model.clientModel.service.set_bracing(clientObject)
+#         model.clientModel.service.set_bracing(clientObject)
 

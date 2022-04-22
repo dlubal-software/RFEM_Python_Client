@@ -8,10 +8,11 @@ class RigidLink():
                  line_2: int = 2,
                  ignore_relative_position: bool = True,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Rigid Link
-        clientObject = Model.clientModel.factory.create('ns0:rigid_link')
+        clientObject = model.clientModel.factory.create('ns0:rigid_link')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -38,7 +39,7 @@ class RigidLink():
                 clientObject[key] = params[key]
 
         # Add rigid link to client model
-        Model.clientModel.service.set_rigid_link(clientObject)
+        model.clientModel.service.set_rigid_link(clientObject)
 
     @staticmethod
     def LineToLine(
@@ -47,10 +48,11 @@ class RigidLink():
                  line_2: int = 2,
                  ignore_relative_position: bool = True,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Line To Line Rigid Link
-        clientObject = Model.clientModel.factory.create('ns0:rigid_link')
+        clientObject = model.clientModel.factory.create('ns0:rigid_link')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -77,7 +79,7 @@ class RigidLink():
                 clientObject[key] = params[key]
 
         # Add rigid link to client model
-        Model.clientModel.service.set_rigid_link(clientObject)
+        model.clientModel.service.set_rigid_link(clientObject)
 
     @staticmethod
     def LineToSurface(
@@ -86,10 +88,11 @@ class RigidLink():
                  surface: int = 1,
                  ignore_relative_position: bool = True,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Line To Surface Rigid Link
-        clientObject = Model.clientModel.factory.create('ns0:rigid_link')
+        clientObject = model.clientModel.factory.create('ns0:rigid_link')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -117,7 +120,7 @@ class RigidLink():
                 clientObject[key] = params[key]
 
         # Add rigid link to client model
-        Model.clientModel.service.set_rigid_link(clientObject)
+        model.clientModel.service.set_rigid_link(clientObject)
 
     @staticmethod
     def Diapragm(
@@ -125,10 +128,11 @@ class RigidLink():
                  nodes: str = '3 4',
                  lines: str = '6 7',
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Diapragm Rigid Link
-        clientObject = Model.clientModel.factory.create('ns0:rigid_link')
+        clientObject = model.clientModel.factory.create('ns0:rigid_link')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -154,4 +158,4 @@ class RigidLink():
                 clientObject[key] = params[key]
 
         # Add rigid link to client model
-        Model.clientModel.service.set_rigid_link(clientObject)
+        model.clientModel.service.set_rigid_link(clientObject)

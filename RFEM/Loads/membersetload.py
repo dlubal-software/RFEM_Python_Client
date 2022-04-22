@@ -12,7 +12,8 @@ class MemberSetLoad():
                  load_direction = LoadDirectionType.LOAD_DIRECTION_LOCAL_Z,
                  magnitude: float = 0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -25,7 +26,7 @@ class MemberSetLoad():
         """
 
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -62,7 +63,7 @@ class MemberSetLoad():
                 clientObject[key] = params[key]
 
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def Force(
@@ -71,10 +72,11 @@ class MemberSetLoad():
                  member_sets: str = '1',
                  load_distribution= MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_direction= MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
-                 load_parameter = [],
+                 load_parameter: list = None,
                  force_eccentricity: bool= False,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -123,7 +125,7 @@ class MemberSetLoad():
             'eccentricity_z_at_start': 0.0}
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -234,10 +236,10 @@ class MemberSetLoad():
                 except:
                     print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-                clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+                clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
 
                 for i,j in enumerate(load_parameter):
-                    mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                    mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                     mlvlp.no = i+1
                     mlvlp.distance = load_parameter[i][0]
                     mlvlp.delta_distance = load_parameter[i][1]
@@ -301,9 +303,9 @@ class MemberSetLoad():
                 except:
                     print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-                clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+                clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
                 for i,j in enumerate(load_parameter):
-                    mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                    mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                     mlvlp.no = i+1
                     mlvlp.distance = load_parameter[i][0]
                     mlvlp.delta_distance = load_parameter[i][1]
@@ -322,9 +324,9 @@ class MemberSetLoad():
                 except:
                     print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-                clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+                clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
                 for i,j in enumerate(load_parameter):
-                    mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                    mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                     mlvlp.no = i+1
                     mlvlp.distance = load_parameter[i][0]
                     mlvlp.delta_distance = load_parameter[i][1]
@@ -393,7 +395,7 @@ class MemberSetLoad():
                 clientObject[key] = params[key]
 
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def Moment(
@@ -402,9 +404,10 @@ class MemberSetLoad():
                  member_sets: str = '1',
                  load_distribution= MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_direction= MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
-                 load_parameter = [],
+                 load_parameter: list = None,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -438,7 +441,7 @@ class MemberSetLoad():
                 load_parameter = [[distance, delta_distance, magnitude], ...]
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -553,10 +556,10 @@ class MemberSetLoad():
             except:
                 print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
 
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
                 mlvlp.delta_distance = load_parameter[i][1]
@@ -624,9 +627,9 @@ class MemberSetLoad():
             except:
                 print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
                 mlvlp.delta_distance = load_parameter[i][1]
@@ -651,7 +654,7 @@ class MemberSetLoad():
                 clientObject[key] = params[key]
 
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def Mass(
@@ -659,9 +662,10 @@ class MemberSetLoad():
                 load_case_no: int = 1,
                 member_sets: str = '1',
                 individual_mass_components: bool=False,
-                mass_components = [],
+                mass_components: list = None,
                 comment: str = '',
-                params: dict = None):
+                params: dict = None,
+                model = Model):
         """
         Args:
             no (int): Load Tag
@@ -673,7 +677,7 @@ class MemberSetLoad():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -715,7 +719,7 @@ class MemberSetLoad():
                 clientObject[key] = params[key]
 
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def Temperature(
@@ -724,10 +728,11 @@ class MemberSetLoad():
                  member_sets: str = '1',
                  load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
-                 load_parameter = [],
+                 load_parameter: list = None,
                  load_over_total_length: bool= False,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -755,7 +760,7 @@ class MemberSetLoad():
             load_parameter = [[distance, delta_distance, magnitude], ...]
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -867,9 +872,9 @@ class MemberSetLoad():
             except:
                 print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
                 mlvlp.delta_distance = load_parameter[i][1]
@@ -891,7 +896,7 @@ class MemberSetLoad():
                 clientObject[key] = params[key]
 
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def TemperatureChange(
@@ -900,10 +905,11 @@ class MemberSetLoad():
                            member_sets: str = '1',
                            load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                            load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
-                           load_parameter = [],
+                           load_parameter: list = None,
                            load_over_total_length: bool= False,
                            comment: str = '',
-                           params: dict = None):
+                           params: dict = None,
+                           model = Model):
         """
         Args:
             no (int): Load Tag
@@ -931,7 +937,7 @@ class MemberSetLoad():
             load_parameter = [[distance, delta_distance, magnitude], ...]
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1037,9 +1043,9 @@ class MemberSetLoad():
             except:
                 print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
                 mlvlp.delta_distance = load_parameter[i][1]
@@ -1061,7 +1067,7 @@ class MemberSetLoad():
                 clientObject[key] = params[key]
 
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def AxialStrain(
@@ -1070,10 +1076,11 @@ class MemberSetLoad():
                     member_sets: str = '1',
                     load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                     load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X,
-                    load_parameter = [],
+                    load_parameter: list = None,
                     load_over_total_length: bool= False,
                     comment: str = '',
-                    params: dict = None):
+                    params: dict = None,
+                    model = Model):
         """
         Args:
             no (int): Load Tag
@@ -1098,7 +1105,7 @@ class MemberSetLoad():
             load_parameter = [[distance, delta_distance, magnitude], ...]
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1196,9 +1203,9 @@ class MemberSetLoad():
             except:
                 print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
                 mlvlp.delta_distance = load_parameter[i][1]
@@ -1220,7 +1227,7 @@ class MemberSetLoad():
                 clientObject[key] = params[key]
 
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def AxialDisplacement(
@@ -1230,7 +1237,8 @@ class MemberSetLoad():
                     load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X,
                     magnitude : float = 0.0,
                     comment: str = '',
-                    params: dict = None):
+                    params: dict = None,
+                    model = Model):
         """
         Args:
             no (int): Load Tag
@@ -1242,7 +1250,7 @@ class MemberSetLoad():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1278,7 +1286,7 @@ class MemberSetLoad():
                 clientObject[key] = params[key]
 
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def Precamber(
@@ -1287,10 +1295,11 @@ class MemberSetLoad():
                  member_sets: str = '1',
                  load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
-                 load_parameter = [],
+                 load_parameter: list = None,
                  load_over_total_length: bool= False,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -1315,7 +1324,7 @@ class MemberSetLoad():
                 load_parameter = [[distance, delta_distance, magnitude], ...]
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1414,9 +1423,9 @@ class MemberSetLoad():
             except:
                 print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
                 mlvlp.delta_distance = load_parameter[i][1]
@@ -1438,7 +1447,7 @@ class MemberSetLoad():
                 clientObject[key] = params[key]
 
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def InitialPrestress(
@@ -1448,7 +1457,8 @@ class MemberSetLoad():
                  load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X,
                  magnitude : float = 0.0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -1460,7 +1470,7 @@ class MemberSetLoad():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1496,7 +1506,7 @@ class MemberSetLoad():
                 clientObject[key] = params[key]
 
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def Displacement(
@@ -1505,10 +1515,11 @@ class MemberSetLoad():
                  member_sets: str = '1',
                  load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
-                 load_parameter = [],
+                 load_parameter: list = None,
                  load_over_total_length: bool= False,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -1543,7 +1554,7 @@ class MemberSetLoad():
             load_parameter = [[distance, delta_distance, magnitude], ...]
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1658,9 +1669,9 @@ class MemberSetLoad():
             except:
                 print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
                 mlvlp.delta_distance = load_parameter[i][1]
@@ -1738,9 +1749,9 @@ class MemberSetLoad():
             except:
                 print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
                 mlvlp.delta_distance = load_parameter[i][1]
@@ -1762,7 +1773,7 @@ class MemberSetLoad():
                 clientObject[key] = params[key]
 
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def Rotation(
@@ -1771,10 +1782,11 @@ class MemberSetLoad():
                  member_sets: str = '1',
                  load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
-                 load_parameter = [],
+                 load_parameter: list = None,
                  load_over_total_length: bool= False,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -1809,7 +1821,7 @@ class MemberSetLoad():
             load_parameter = [[distance, delta_distance, magnitude], ...]
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -1924,9 +1936,9 @@ class MemberSetLoad():
             except:
                 print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
                 mlvlp.delta_distance = load_parameter[i][1]
@@ -2004,9 +2016,9 @@ class MemberSetLoad():
             except:
                 print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
                 mlvlp.delta_distance = load_parameter[i][1]
@@ -2028,7 +2040,7 @@ class MemberSetLoad():
                 clientObject[key] = params[key]
 
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def PipeContentFull(
@@ -2038,7 +2050,8 @@ class MemberSetLoad():
                  load_direction_orientation = MemberSetLoadDirectionOrientation.LOAD_DIRECTION_FORWARD,
                  specific_weight : float = 0.0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -2050,7 +2063,7 @@ class MemberSetLoad():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -2089,7 +2102,7 @@ class MemberSetLoad():
                 clientObject[key] = params[key]
 
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def PipeContentPartial(
@@ -2100,7 +2113,8 @@ class MemberSetLoad():
                  specific_weight : float = 0.0,
                  filling_height : float = 0.0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -2113,7 +2127,7 @@ class MemberSetLoad():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -2155,7 +2169,7 @@ class MemberSetLoad():
                 clientObject[key] = params[key]
 
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def PipeInternalPressure(
@@ -2164,7 +2178,8 @@ class MemberSetLoad():
                  member_sets: str = '1',
                  pressure : float = 0.0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -2175,7 +2190,7 @@ class MemberSetLoad():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -2211,7 +2226,7 @@ class MemberSetLoad():
                 clientObject[key] = params[key]
 
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def RotaryMotion(
@@ -2223,10 +2238,11 @@ class MemberSetLoad():
                  axis_definition_type = MemberSetLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS,
                  axis_orientation = MemberSetLoadAxisDefinitionAxisOrientation.AXIS_POSITIVE,
                  axis_definition = MemberSetLoadAxisDefinition.AXIS_X,
-                 axis_definition_p1 = [],
-                 axis_definition_p2 = [],
+                 axis_definition_p1: list = None,
+                 axis_definition_p2: list = None,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -2243,7 +2259,7 @@ class MemberSetLoad():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -2297,4 +2313,4 @@ class MemberSetLoad():
                 clientObject[key] = params[key]
 
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)

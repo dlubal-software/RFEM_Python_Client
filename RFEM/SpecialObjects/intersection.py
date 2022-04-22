@@ -6,10 +6,11 @@ class Instersection():
                  surface_1: int = 1,
                  surface_2: int = 2,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Intersection
-        clientObject = Model.clientModel.factory.create('ns0:intersection')
+        clientObject = model.clientModel.factory.create('ns0:intersection')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -30,4 +31,4 @@ class Instersection():
                 clientObject[key] = params[key]
 
         # Add Intersection to client model
-        Model.clientModel.service.set_intersection(clientObject)
+        model.clientModel.service.set_intersection(clientObject)

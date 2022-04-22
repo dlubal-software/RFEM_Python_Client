@@ -14,7 +14,8 @@ class SpectralAnalysisSettings():
                  damping_for_cqc_rule = CqsDampingRule.CONSTANT_FOR_EACH_MODE,
                  constant_d_for_each_mode: float = 0.0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -33,7 +34,7 @@ class SpectralAnalysisSettings():
         '''
 
         # Client model | Surface
-        clientObject = Model.clientModel.factory.create('ns0:spectral_analysis_settings')
+        clientObject = model.clientModel.factory.create('ns0:spectral_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -80,4 +81,4 @@ class SpectralAnalysisSettings():
             for key in params:
                 clientObject[key] = params[key]
         # Add Static Analysis Settings to client model
-        Model.clientModel.service.set_spectral_analysis_settings(clientObject)
+        model.clientModel.service.set_spectral_analysis_settings(clientObject)

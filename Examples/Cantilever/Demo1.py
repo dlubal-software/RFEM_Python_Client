@@ -27,6 +27,7 @@ if __name__ == '__main__':
     Model(True, "Demo1") # crete new model called Demo1
     Model.clientModel.service.begin_modification()
 
+
     Material(1, 'S235')
 
     Section(1, 'IPE 200')
