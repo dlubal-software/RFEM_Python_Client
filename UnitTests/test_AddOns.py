@@ -1,11 +1,11 @@
 import sys
-import RFEM.dependencies
 import os
 PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.path.dirname(__file__),
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
+import RFEM.dependencies
 from RFEM.enums import AddOn
 from RFEM.initModel import Model, SetAddonStatus, GetAddonStatus
 
