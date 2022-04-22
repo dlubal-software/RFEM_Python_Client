@@ -1,102 +1,9 @@
 import sys
+import RFEM.dependencies
+import requests
+from suds.client import Client
 from RFEM.enums import ObjectTypes, ModelType, AddOn
-
-# Import SUDS module
-try:
-    sys.version_info[0] == 3
-except:
-    print('Must be using Python 3!')
-    input('Press Enter to exit...')
-    sys.exit()
-
-try:
-    from suds.client import Client
-except:
-    print('SUDS library is not installed in your Python env.')
-    instSUDS = input('Do you want to install it (y/n)? ')
-    instSUDS = instSUDS.lower()
-    if instSUDS == 'y':
-        # Subprocess will be opened in cmd and closed automaticaly after installation.
-        # Prevents invoking pip by an old script wrapper (https://github.com/pypa/pip/issues/5599)
-        import subprocess
-        try:
-            subprocess.call('python -m pip install --upgrade pip')
-            subprocess.call('python -m pip install suds-py3 --user')
-            from suds.client import Client
-        except:
-            print('WARNING: Installation of SUDS library failed!')
-            print('Please use command "pip install suds-py3 --user" in your Command Prompt.')
-            input('Press Enter to exit...')
-            sys.exit()
-    else:
-        input('Press Enter to exit...')
-        sys.exit()
-
-try:
-    import requests
-except:
-    print('requests library is not installed in your Python env.')
-    instSUDS = input('Do you want to install it (y/n)? ')
-    instSUDS = instSUDS.lower()
-    if instSUDS == 'y':
-        # Subprocess will be opened in cmd and closed automaticaly after installation.
-        # Prevents invoking pip by an old script wrapper (https://github.com/pypa/pip/issues/5599)
-        import subprocess
-        try:
-            subprocess.call('python -m pip install requests --user')
-            import requests
-        except:
-            print('WARNING: Installation of requests library failed!')
-            print('Please use command "pip install requests --user" in your Command Prompt.')
-            input('Press Enter to exit...')
-            sys.exit()
-    else:
-        input('Press Enter to exit...')
-        sys.exit()
-
-try:
-    import suds_requests
-except:
-    print('suds_requests library is not installed in your Python env.')
-    instSUDS = input('Do you want to install it (y/n)? ')
-    instSUDS = instSUDS.lower()
-    if instSUDS == 'y':
-        # Subprocess will be opened in cmd and closed automaticaly after installation.
-        # Prevents invoking pip by an old script wrapper (https://github.com/pypa/pip/issues/5599)
-        import subprocess
-        try:
-            subprocess.call('python -m pip install suds_requests --user')
-            import suds_requests
-        except:
-            print('WARNING: Installation of suds_requests library failed!')
-            print('Please use command "pip install suds_requests --user" in your Command Prompt.')
-            input('Press Enter to exit...')
-            sys.exit()
-    else:
-        input('Press Enter to exit...')
-        sys.exit()
-
-try:
-    import xmltodict
-except:
-    print('xmltodict library is not installed in your Python env.')
-    instXML = input('Do you want to install it (y/n)? ')
-    instXML = instXML.lower()
-    if instXML == 'y':
-        # Subprocess will be opened in cmd and closed automaticaly after installation.
-        # Prevents invoking pip by an old script wrapper (https://github.com/pypa/pip/issues/5599)
-        import subprocess
-        try:
-            subprocess.call('python -m pip install xmltodict --user')
-            import xmltodict
-        except:
-            print('WARNING: Installation of xmltodict library failed!')
-            print('Please use command "pip install xmltodict --user" in your Command Prompt.')
-            input('Press Enter to exit...')
-            sys.exit()
-    else:
-        input('Press Enter to exit...')
-        sys.exit()
+from RFEM.suds_requests import RequestsTransport
 
 # Connect to server
 # Check server port range set in "Program Options & Settings"
@@ -128,7 +35,7 @@ except:
 session = requests.Session()
 adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
 session.mount('http://', adapter)
-trans = suds_requests.RequestsTransport(session)
+trans = RequestsTransport(session)
 
 class Model():
     clientModel = None
