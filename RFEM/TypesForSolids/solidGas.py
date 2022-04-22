@@ -4,10 +4,11 @@ class SolidGas():
     def __init__(self,
                  no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Solid Gas
-        clientObject = Model.clientModel.factory.create('ns0:solid_gas')
+        clientObject = model.clientModel.factory.create('ns0:solid_gas')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +25,4 @@ class SolidGas():
                 clientObject[key] = params[key]
 
         # Add Solid Gas to client model
-        Model.clientModel.service.set_solid_gas(clientObject)
+        model.clientModel.service.set_solid_gas(clientObject)

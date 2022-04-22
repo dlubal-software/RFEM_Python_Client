@@ -38,10 +38,11 @@ class LineSupport():
                  lines_no: str = '1 2',
                  support_type = LineSupportType.HINGED,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Line Support
-        clientObject = Model.clientModel.factory.create('ns0:line_support')
+        clientObject = model.clientModel.factory.create('ns0:line_support')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -90,4 +91,4 @@ class LineSupport():
                 clientObject[key] = params[key]
 
         # Add Line Support to client model
-        Model.clientModel.service.set_line_support(clientObject)
+        model.clientModel.service.set_line_support(clientObject)
