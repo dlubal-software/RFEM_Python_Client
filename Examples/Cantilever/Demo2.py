@@ -8,22 +8,14 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.enums import NodalSupportType, LoadDirectionType
-from RFEM.initModel import Model, Calculate_all
-from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.initModel import Model
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
-from RFEM.TypesForNodes.nodalSupport import NodalSupport
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
-from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
-from RFEM.Loads.nodalLoad import NodalLoad
-from RFEM.Calculate.meshSettings import GetModelInfo
 from RFEM.TypesForMembers.memberDefinableStiffness import MemberDefinableStiffness
 
 if __name__ == '__main__':
 
-    Model(True, "Demo1")
+    Model(True, "Demo2")
     Model.clientModel.service.begin_modification()
 
     Node(1, 0,0,0)
