@@ -4,7 +4,8 @@ class ResultCombination():
     def __init__(self,
                  no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -14,7 +15,7 @@ class ResultCombination():
         '''
 
         # Client model | Result Combination
-        clientObject = Model.clientModel.factory.create('ns0:result_combination')
+        clientObject = model.clientModel.factory.create('ns0:result_combination')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -31,4 +32,4 @@ class ResultCombination():
                 clientObject[key] = params[key]
 
         # Add Result Combination to client model
-        Model.clientModel.service.set_result_combination(clientObject)
+        model.clientModel.service.set_result_combination(clientObject)

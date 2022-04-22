@@ -14,7 +14,7 @@
 #                  insertion_point_y: int = 4,
 #                  insertion_point_z: int = 3,
 #                  comment: str = '',
-#                  params: dict = None):
+#                  params: dict = None, model = Model):
 
 #        '''
 #        Args:

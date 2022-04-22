@@ -8,7 +8,8 @@ class StabilityAnalysisSettings():
                  no: int = 1,
                  name: str = None,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         '''
         Args:
             no (int): Stability Analysis Setting Tag
@@ -18,7 +19,7 @@ class StabilityAnalysisSettings():
         '''
 
         # Client model | Stability Analysis Settings
-        clientObject = Model.clientModel.factory.create('ns0:stability_analysis_settings')
+        clientObject = model.clientModel.factory.create('ns0:stability_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -52,7 +53,7 @@ class StabilityAnalysisSettings():
                 clientObject[key] = params[key]
 
         # Add Stability Analysis Settings to client model
-        Model.clientModel.service.set_stability_analysis_settings(clientObject)
+        model.clientModel.service.set_stability_analysis_settings(clientObject)
 
     @staticmethod
     def EigenvalueMethod(
@@ -66,7 +67,8 @@ class StabilityAnalysisSettings():
                  eigenvalue_method = StabilityAnalysisSettingsEigenvalueMethod.EIGENVALUE_METHOD_LANCZOS,
                  matrix_type = StabilityAnalysisSettingsMatrixType.MATRIX_TYPE_STANDARD,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         '''
         Args:
             no (int): Stability Analysis Setting Tag
@@ -94,7 +96,7 @@ class StabilityAnalysisSettings():
             params (dict, optional):
         '''
         # Client model | Stability Analysis Settings
-        clientObject = Model.clientModel.factory.create('ns0:stability_analysis_settings')
+        clientObject = model.clientModel.factory.create('ns0:stability_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -147,7 +149,7 @@ class StabilityAnalysisSettings():
                 clientObject[key] = params[key]
 
         # Add Stability Analysis Settings to client model
-        Model.clientModel.service.set_stability_analysis_settings(clientObject)
+        model.clientModel.service.set_stability_analysis_settings(clientObject)
 
     @staticmethod
     def IncrementalyMethodWithEigenvalue(
@@ -164,7 +166,8 @@ class StabilityAnalysisSettings():
                  eigenvalue_method = StabilityAnalysisSettingsEigenvalueMethod.EIGENVALUE_METHOD_LANCZOS,
                  matrix_type = StabilityAnalysisSettingsMatrixType.MATRIX_TYPE_STANDARD,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         '''
         Args:
             no (int): Stability Analysis Setting Tag
@@ -213,7 +216,7 @@ class StabilityAnalysisSettings():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
         # Client model | Stability Analysis Settings
-        clientObject = Model.clientModel.factory.create('ns0:stability_analysis_settings')
+        clientObject = model.clientModel.factory.create('ns0:stability_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -289,7 +292,7 @@ class StabilityAnalysisSettings():
                 clientObject[key] = params[key]
 
         # Add Stability Analysis Settings to client model
-        Model.clientModel.service.set_stability_analysis_settings(clientObject)
+        model.clientModel.service.set_stability_analysis_settings(clientObject)
 
     @staticmethod
     def IncrementalyMethodWithoutEigenvalue(
@@ -301,7 +304,8 @@ class StabilityAnalysisSettings():
                  stopping_of_load_increasing = None,
                  save_results_of_all_increments: bool = False,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         '''
         Args:
             no (int): Stability Analysis Setting Tag
@@ -341,7 +345,7 @@ class StabilityAnalysisSettings():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
         # Client model | Stability Analysis Settings
-        clientObject = Model.clientModel.factory.create('ns0:stability_analysis_settings')
+        clientObject = model.clientModel.factory.create('ns0:stability_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -400,4 +404,4 @@ class StabilityAnalysisSettings():
                 clientObject[key] = params[key]
 
         # Add Stability Analysis Settings to client model
-        Model.clientModel.service.set_stability_analysis_settings(clientObject)
+        model.clientModel.service.set_stability_analysis_settings(clientObject)

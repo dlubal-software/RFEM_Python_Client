@@ -18,10 +18,11 @@ class MemberDefinableStiffness():
                  thermal_expansion_width: int = 0.0,
                  thermal_expansion_height: int = 0.0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Member Definable Stffness
-        clientObject = Model.clientModel.factory.create('ns0:member_definable_stiffness')
+        clientObject = model.clientModel.factory.create('ns0:member_definable_stiffness')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -76,4 +77,4 @@ class MemberDefinableStiffness():
                 clientObject[key] = params[key]
 
         # Add Member Definable Stffness to client model
-        Model.clientModel.service.set_member_definable_stiffness(clientObject)
+        model.clientModel.service.set_member_definable_stiffness(clientObject)

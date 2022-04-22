@@ -4,10 +4,11 @@ class SurfaceResultsAdjustment():
     def __init__(self,
                  no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Surface Result Adjustment
-        clientObject = Model.clientModel.factory.create('ns0:surface_results_adjustment')
+        clientObject = model.clientModel.factory.create('ns0:surface_results_adjustment')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +25,4 @@ class SurfaceResultsAdjustment():
                 clientObject[key] = params[key]
 
         # Add Surface Result Adjustmentto client model
-        Model.clientModel.service.set_surface_results_adjustment(clientObject)
+        model.clientModel.service.set_surface_results_adjustment(clientObject)
