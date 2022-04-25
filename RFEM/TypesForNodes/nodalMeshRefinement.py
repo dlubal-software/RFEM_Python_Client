@@ -4,10 +4,11 @@ class NodalMeshRefinement():
     def __init__(self,
                  no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Nodal Mesh Refinement
-        clientObject = Model.clientModel.factory.create('ns0:nodal_mesh_refinement')
+        clientObject = model.clientModel.factory.create('ns0:nodal_mesh_refinement')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +25,4 @@ class NodalMeshRefinement():
                 clientObject[key] = params[key]
 
         # Add Nodal Mesh Refinement to client model
-        Model.clientModel.service.set_nodal_mesh_refinement(clientObject)
+        model.clientModel.service.set_nodal_mesh_refinement(clientObject)

@@ -2,7 +2,7 @@ from RFEM.enums import SurfaceGeometry, SurfaceLoadDistributionDirection, Surfac
 from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 import math
 
-def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_type, geometry_type_parameters, thickness = None, comment = None, params = None):
+def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_type, geometry_type_parameters, thickness = None, comment = None, params = None, model = Model):
     '''
         Args:
             no (int): Surface Tag
@@ -23,7 +23,7 @@ def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_ty
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
     # Client model | Surface
-    clientObject = Model.clientModel.factory.create('ns0:surface')
+    clientObject = model.clientModel.factory.create('ns0:surface')
 
     # Clears object atributes | Sets all atributes to None
     clearAtributes(clientObject)
@@ -40,7 +40,7 @@ def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_ty
         if len(geometry_type_parameters) != 4:
             raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
         for line in boundary_lines_list:
-            if Model.clientModel.service.get_line(int(line))['type'] != 'TYPE_NURBS':
+            if model.clientModel.service.get_line(int(line))['type'] != 'TYPE_NURBS':
                 raise Exception('WARNING: For a NURBS Surface, the boundary lines need to be NURBS Curves')
         clientObject.nurbs_control_point_count_in_direction_u = geometry_type_parameters[0]
         clientObject.nurbs_control_point_count_in_direction_v = geometry_type_parameters[1]
@@ -82,7 +82,7 @@ def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_ty
             clientObject[key] = params[key]
 
     # Add Surface to client model
-    Model.clientModel.service.set_surface(clientObject)
+    model.clientModel.service.set_surface(clientObject)
 
 class Surface():
     def __init__(self,
@@ -90,7 +90,8 @@ class Surface():
                  boundary_lines_no: str = '1 2 3 4',
                  thickness: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -102,7 +103,7 @@ class Surface():
         '''
 
         # Client model | Surface
-        clientObject = Model.clientModel.factory.create('ns0:surface')
+        clientObject = model.clientModel.factory.create('ns0:surface')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -125,7 +126,7 @@ class Surface():
                 clientObject[key] = params[key]
 
         # Add Surface to client model
-        Model.clientModel.service.set_surface(clientObject)
+        model.clientModel.service.set_surface(clientObject)
 
     @staticmethod
     def Standard(
@@ -135,7 +136,8 @@ class Surface():
                  boundary_lines_no: str = '1 2 3 4',
                  thickness: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -154,7 +156,7 @@ class Surface():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
-        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_STANDARD, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params)
+        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_STANDARD, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params, model)
 
     @staticmethod
     def WithoutThickness(
@@ -163,7 +165,8 @@ class Surface():
                  geometry_type_parameters = None,
                  boundary_lines_no: str = '1 2 3 4',
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -181,7 +184,7 @@ class Surface():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
-        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, comment=comment, params=params)
+        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, comment=comment, params=params, model=model)
 
     @staticmethod
     def Rigid(
@@ -190,7 +193,8 @@ class Surface():
                  geometry_type_parameters = None,
                  boundary_lines_no: str = '1 2 3 4',
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -208,7 +212,7 @@ class Surface():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
-        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_RIGID, boundary_lines_no, geometry_type, geometry_type_parameters, comment=comment, params=params)
+        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_RIGID, boundary_lines_no, geometry_type, geometry_type_parameters, comment=comment, params=params, model=model)
 
     @staticmethod
     def Membrane(
@@ -218,7 +222,8 @@ class Surface():
                  boundary_lines_no: str = '1 2 3 4',
                  thickness: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -237,7 +242,7 @@ class Surface():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
-        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params)
+        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params, model)
 
     @staticmethod
     def WithoutMemberaneTension(
@@ -247,7 +252,8 @@ class Surface():
                  boundary_lines_no: str = '1 2 3 4',
                  thickness: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -266,7 +272,7 @@ class Surface():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
-        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params)
+        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params, model)
 
     @staticmethod
     def LoadDistribution(
@@ -282,7 +288,8 @@ class Surface():
                  loaded_members = None,
                  loaded_lines = None,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -302,7 +309,7 @@ class Surface():
         '''
 
         # Client model | Surface
-        clientObject = Model.clientModel.factory.create('ns0:surface')
+        clientObject = model.clientModel.factory.create('ns0:surface')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -351,4 +358,4 @@ class Surface():
                 clientObject[key] = params[key]
 
         # Add Surface to client model
-        Model.clientModel.service.set_surface(clientObject)
+        model.clientModel.service.set_surface(clientObject)

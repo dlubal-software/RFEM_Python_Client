@@ -11,7 +11,8 @@ class Node():
                  coordinate_Y: float = 0.0,
                  coordinate_Z: float = 0.0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
          Args:
@@ -23,7 +24,7 @@ class Node():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
         # Client model | Node
-        clientObject = Model.clientModel.factory.create('ns0:node')
+        clientObject = model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -45,15 +46,16 @@ class Node():
                 clientObject[key] = params[key]
 
         # Add Node to client model
-        Model.clientModel.service.set_node(clientObject)
+        model.clientModel.service.set_node(clientObject)
 
     @staticmethod
     def Standard(
                  no: int = 1,
-                 coordinate_system = [],
+                 coordinate_system: list = None,
                  coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
          Args:
@@ -75,7 +77,7 @@ class Node():
         '''
 
         # Client model | Node
-        clientObject = Model.clientModel.factory.create('ns0:node')
+        clientObject = model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -135,7 +137,7 @@ class Node():
                 clientObject[key] = params[key]
 
         # Add Node to client model
-        Model.clientModel.service.set_node(clientObject)
+        model.clientModel.service.set_node(clientObject)
 
 
     @staticmethod
@@ -149,7 +151,8 @@ class Node():
                  offset_y: int = 0,
                  offset_z: int = 0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -170,7 +173,7 @@ class Node():
         '''
 
         # Client model | Node
-        clientObject = Model.clientModel.factory.create('ns0:node')
+        clientObject = model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -214,7 +217,7 @@ class Node():
                 clientObject[key] = params[key]
 
         # Add Node to client model
-        Model.clientModel.service.set_node(clientObject)
+        model.clientModel.service.set_node(clientObject)
 
     @staticmethod
     def BetweenTwoPoints(
@@ -230,7 +233,8 @@ class Node():
                  offset_y: float = 0.0,
                  offset_z: float = 0.0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -254,7 +258,7 @@ class Node():
         '''
 
         # Client model | Node
-        clientObject = Model.clientModel.factory.create('ns0:node')
+        clientObject = model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -299,7 +303,7 @@ class Node():
                 clientObject[key] = params[key]
 
         # Add Node to client model
-        Model.clientModel.service.set_node(clientObject)
+        model.clientModel.service.set_node(clientObject)
 
     @staticmethod
     def OnLine(
@@ -309,7 +313,8 @@ class Node():
                  length_between_i_and_j: int = 1,
                  parameters = [True, 0.5],
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
          Args:
@@ -326,7 +331,7 @@ class Node():
         '''
 
         # Client model | Node
-        clientObject = Model.clientModel.factory.create('ns0:node')
+        clientObject = model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -361,7 +366,7 @@ class Node():
                 clientObject[key] = params[key]
 
         # Add Node to client model
-        Model.clientModel.service.set_node(clientObject)
+        model.clientModel.service.set_node(clientObject)
 
     @staticmethod
     def OnMember(
@@ -371,7 +376,8 @@ class Node():
                  length_between_i_and_j: int = 1,
                  parameters = [True, 0.5],
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
          Args:
@@ -389,7 +395,7 @@ class Node():
         '''
 
         # Client model | Node
-        clientObject = Model.clientModel.factory.create('ns0:node')
+        clientObject = model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -424,4 +430,4 @@ class Node():
                 clientObject[key] = params[key]
 
         # Add Node to client model
-        Model.clientModel.service.set_node(clientObject)
+        model.clientModel.service.set_node(clientObject)

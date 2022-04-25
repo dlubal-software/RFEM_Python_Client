@@ -7,7 +7,8 @@ class OptimizationSettings():
         general_keep_best_number_model_mutations = 10,
         general_optimize_on = OptimizeOnType.E_OPTIMIZE_ON_TYPE_MIN_WHOLE_WEIGHT,
         general_optimizer = Optimizer.E_OPTIMIZER_TYPE_ALL_MUTATIONS,
-        general_number_random_mutations = 0.2):
+        general_number_random_mutations = 0.2,
+        model = Model):
         """
         The object is automaticaly created therefore we can assume,
         that it will not be created but only updated/changed.
@@ -20,7 +21,7 @@ class OptimizationSettings():
             general_number_random_mutations (float): Number of random mutations
         """
 
-        opt_settings = Model.clientModel.service.get_optimization_settings()
+        opt_settings = model.clientModel.service.get_optimization_settings()
         opt_settings.general_optimization_active = general_optimization_active
         opt_settings.general_keep_best_number_model_mutations = general_keep_best_number_model_mutations
         opt_settings.general_optimize_on = general_optimize_on.name
@@ -28,12 +29,12 @@ class OptimizationSettings():
         opt_settings.general_number_random_mutations = general_number_random_mutations
 
         # Set Optimization settings to client model
-        Model.clientModel.service.set_optimization_settings(opt_settings)
+        model.clientModel.service.set_optimization_settings(opt_settings)
 
     @staticmethod
-    def get_optimization_settings():
-        return Model.clientModel.service.get_optimization_settings()
+    def get(model = Model):
+        return model.clientModel.service.get_optimization_settings()
 
     @staticmethod
-    def set_optimization_settings(opt_settings):
-        Model.clientModel.service.set_optimization_settings(opt_settings)
+    def set(opt_settings, model = Model):
+        model.clientModel.service.set_optimization_settings(opt_settings)

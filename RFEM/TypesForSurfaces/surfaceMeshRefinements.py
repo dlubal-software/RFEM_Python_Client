@@ -6,7 +6,8 @@ class SurfaceMeshRefinement():
                  surfaces: str = "1",
                  target_length: float = 0.2,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Surface Mesh Refinement
 
@@ -19,7 +20,7 @@ class SurfaceMeshRefinement():
         """
 
         # Client model | Surface Mesh Refinement
-        clientObject = Model.clientModel.factory.create('ns0:surface_mesh_refinement')
+        clientObject = model.clientModel.factory.create('ns0:surface_mesh_refinement')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -42,4 +43,4 @@ class SurfaceMeshRefinement():
                 clientObject[key] = params[key]
 
         # Add Surface Mesh Refinement to client model
-        Model.clientModel.service.set_surface_mesh_refinement(clientObject)
+        model.clientModel.service.set_surface_mesh_refinement(clientObject)

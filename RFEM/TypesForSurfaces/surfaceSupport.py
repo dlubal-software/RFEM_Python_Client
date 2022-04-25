@@ -11,7 +11,8 @@ class SurfaceSupport():
                  c_vxz: float = inf,
                  c_vyz: float = inf,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Surface Support
 
@@ -28,7 +29,7 @@ class SurfaceSupport():
         """
 
         # Client model | Surface Support
-        clientObject = Model.clientModel.factory.create('ns0:surface_support')
+        clientObject = model.clientModel.factory.create('ns0:surface_support')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -55,4 +56,4 @@ class SurfaceSupport():
                 clientObject[key] = params[key]
 
         # Add Surface Support to client model
-        Model.clientModel.service.set_surface_support(clientObject)
+        model.clientModel.service.set_surface_support(clientObject)

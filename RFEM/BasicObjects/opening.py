@@ -5,7 +5,8 @@ class Opening():
                  no: int = 1,
                  lines_no: str = '1 2 3 4',
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -16,7 +17,7 @@ class Opening():
         '''
 
         # Client model | Opening
-        clientObject = Model.clientModel.factory.create('ns0:opening')
+        clientObject = model.clientModel.factory.create('ns0:opening')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -36,4 +37,4 @@ class Opening():
                 clientObject[key] = params[key]
 
         # Add Opening to client model
-        Model.clientModel.service.set_opening(clientObject)
+        model.clientModel.service.set_opening(clientObject)

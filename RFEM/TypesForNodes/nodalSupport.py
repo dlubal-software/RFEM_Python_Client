@@ -38,10 +38,11 @@ class NodalSupport():
                  nodes_no: str = '1 2',
                  support_type = NodalSupportType.HINGED,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Nodal Support
-        clientObject = Model.clientModel.factory.create('ns0:nodal_support')
+        clientObject = model.clientModel.factory.create('ns0:nodal_support')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -90,4 +91,4 @@ class NodalSupport():
                 clientObject[key] = params[key]
 
         # Add Nodal Support to client model
-        Model.clientModel.service.set_nodal_support(clientObject)
+        model.clientModel.service.set_nodal_support(clientObject)

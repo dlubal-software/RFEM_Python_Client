@@ -11,7 +11,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType, MemberLoadDistribution, MemberLoadDirection, MemberRotationSpecificationType
-from RFEM.window import window
+from Examples.window import window
 from RFEM.dataTypes import inf
 from RFEM.initModel import Model, Calculate_all, insertSpaces, modelLst
 from RFEM.BasicObjects.material import Material
@@ -287,6 +287,7 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 # -------------------------------------------------------------
     # Calculate all
     Calculate_all()
+
     print("Done")
 
 if __name__ == '__main__':

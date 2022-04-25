@@ -15,7 +15,8 @@ class SurfaceEccentricity():
                  transverse_offset_object_no: int = 2,
                  transverse_offset_alignment = SurfaceEccentricityAlignment.ALIGN_MIDDLE,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Surfase Eccentricity
 
@@ -32,7 +33,7 @@ class SurfaceEccentricity():
         """
 
         # Client model | Surface Eccentricity
-        clientObject = Model.clientModel.factory.create('ns0:surface_eccentricity')
+        clientObject = model.clientModel.factory.create('ns0:surface_eccentricity')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -68,4 +69,4 @@ class SurfaceEccentricity():
                 clientObject[key] = params[key]
 
         # Add Surface Eccentricity to client model
-        Model.clientModel.service.set_surface_eccentricity(clientObject)
+        model.clientModel.service.set_surface_eccentricity(clientObject)

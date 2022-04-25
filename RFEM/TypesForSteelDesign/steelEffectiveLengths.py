@@ -30,7 +30,8 @@ class SteelEffectiveLengths():
                  import_from_stability_analysis_enabled: bool = False,
                  determination_of_mcr = SteelEffectiveLengthsDeterminationMcrEurope.DETERMINATION_EUROPE_EIGENVALUE,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Effective Length Tag
@@ -89,7 +90,7 @@ class SteelEffectiveLengths():
         """
 
         # Client Model | Types For Steel Design Effective Lengths
-        clientObject = Model.clientModel.factory.create('ns0:steel_effective_lengths')
+        clientObject = model.clientModel.factory.create('ns0:steel_effective_lengths')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -129,10 +130,10 @@ class SteelEffectiveLengths():
             clientObject.name = user_defined_name[1]
 
         # Effective Lengths Nodal Supports
-        clientObject.nodal_supports = Model.clientModel.factory.create('ns0:steel_effective_lengths.nodal_supports')
+        clientObject.nodal_supports = model.clientModel.factory.create('ns0:steel_effective_lengths.nodal_supports')
 
         for i,j in enumerate(nodal_supports):
-            mlvlp = Model.clientModel.factory.create('ns0:steel_effective_lengths_nodal_supports')
+            mlvlp = model.clientModel.factory.create('ns0:steel_effective_lengths_nodal_supports')
             mlvlp.no = i
             mlvlp.support_type = nodal_supports[i][0].name
             mlvlp.support_in_z = nodal_supports[i][1]
@@ -151,10 +152,10 @@ class SteelEffectiveLengths():
             clientObject.nodal_supports.steel_effective_lengths_nodal_supports.append(mlvlp)
 
         # Effective Lengths Factors
-        clientObject.factors = Model.clientModel.factory.create('ns0:steel_effective_lengths.factors')
+        clientObject.factors = model.clientModel.factory.create('ns0:steel_effective_lengths.factors')
 
         for i,j in enumerate(factors):
-            mlvlp_f = Model.clientModel.factory.create('ns0:steel_effective_lengths_factors')
+            mlvlp_f = model.clientModel.factory.create('ns0:steel_effective_lengths_factors')
             mlvlp_f.no = i
             mlvlp_f.flexural_buckling_u= factors[i][0]
             mlvlp_f.flexural_buckling_v= factors[i][1]
@@ -194,4 +195,4 @@ class SteelEffectiveLengths():
                 clientObject[key] = params[key]
 
         # Add Steel Effective Lengths to client model
-        Model.clientModel.service.set_steel_effective_lengths(clientObject)
+        model.clientModel.service.set_steel_effective_lengths(clientObject)
