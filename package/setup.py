@@ -7,7 +7,7 @@ readme = (here/"README.md").read_text()
 
 setup(
     name='RFEM',
-    version='1.2.0',
+    version='1.5.1',
     description='Web Service&API project for RFEM',
     long_description=readme,
     long_description_content_type = "text/markdown",
@@ -22,6 +22,6 @@ setup(
     ],
     packages=find_packages(),
     include_package_data=True,
-    install_requires=["suds", "requests", "suds_requests", "xmltodict", "setuptools"],
+    install_requires=["suds", "requests", "suds_requests", "xmltodict", "setuptools==58.0.0"],
     zip_safe = False
 )
