@@ -1742,6 +1742,7 @@ class SteelMemberRotationalRestraintRotationalStiffness(Enum):
     Steel Member Rotational Restraint Rotational Stiffness
     '''
     ROTATIONAL_STIFFNESS_INFINITELY, ROTATIONAL_STIFFNESS_MANUALLY = range(2)
+
 class SteelBoundaryConditionsSupportType(Enum):
     '''
     Steel Boundary Conditions Support Type
@@ -1750,7 +1751,6 @@ class SteelBoundaryConditionsSupportType(Enum):
         SUPPORT_TYPE_FIXED_IN_Y_AND_WARPING, SUPPORT_TYPE_INDIVIDUALLY, SUPPORT_TYPE_NONE, SUPPORT_TYPE_TORSION, SUPPORT_TYPE_TORSION_AND_WARPING = range(
             9)
 
-
 class SteelBoundaryConditionsEccentricityTypeZ(Enum):
     '''
     Steel Boundary Conditions Eccentricity Type Z Type
@@ -1758,6 +1758,17 @@ class SteelBoundaryConditionsEccentricityTypeZ(Enum):
     ECCENTRICITY_TYPE_AT_LOWER_FLANGE, ECCENTRICITY_TYPE_AT_UPPER_FLANGE, ECCENTRICITY_TYPE_NONE, ECCENTRICITY_TYPE_USER_VALUE = range(
         4)
 
+class SurfaceStiffnessModificationType(Enum):
+    '''
+    Surface Stiffness Modification Type
+    '''
+    TYPE_PARTIAL_STIFFNESSES_FACTORS, TYPE_STIFFNESS_MATRIX_ELEMENTS_FACTORS, TYPE_TOTAL_STIFFNESS_FACTOR = range(3)
+
+class SurfaceEccentricityAlignment(Enum):
+    '''
+    Surface Eccentricity Alignment
+    '''
+    ALIGN_TOP, ALIGN_MIDDLE, ALIGN_BOTTOM = range(3)
 
 class ActionCategoryType(Enum):
     '''
