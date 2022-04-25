@@ -22,6 +22,6 @@ setup(
     ],
     packages=find_packages(),
     include_package_data=True,
-    install_requires=["suds", "requests", "suds_requests", "xmltodict", "setuptools"],
+    install_requires=["suds", "requests", "suds_requests", "xmltodict", "setuptools==58.0.0"],
     zip_safe = False
 )
