@@ -42,7 +42,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Abbrechen</string>
+    <string>Cancel</string>
    </property>
   </widget>
   <widget class="QGroupBox" name="groupBox">
@@ -55,7 +55,7 @@
     </rect>
    </property>
    <property name="title">
-    <string>Strukture</string>
+    <string>Structure</string>
    </property>
    <widget class="QLineEdit" name="l">
     <property name="geometry">
