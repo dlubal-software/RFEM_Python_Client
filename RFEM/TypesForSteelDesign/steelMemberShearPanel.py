@@ -12,17 +12,11 @@ class SteelMemberShearPanel():
                 categories = [SteelMemberShearPanelPositionOnSection.POSITION_ON_UPPER_FLANGE, "FI (+) 35/207 - 0.63 (b: 1) | DIN 18807 | Fischer Profil", SteelMemberShearPanelFasteningArrangement.FASTENING_ARRANGEMENT_EVERY_RIB],
                 parameters = [1, 2, 0.000247, 0.01043],
                 comment: str = '',
-                params: dict = {}):
+                params: dict = None):
         """
         Args:
             no (int): Member Shear Panel Tag
             user_defined_name (list): User Defined Member Shear Panel Name
-
-            for user_defined_name[0] == False:
-                pass
-            for user_defined_name == True:
-                user_defined_name[1] = Defined Name
-
             definition_type (enum): Member Shear Panel Definition Enumeration Type
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
@@ -183,10 +177,10 @@ class SteelMemberShearPanel():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Steel Effective Lengths to client model
         Model.clientModel.service.set_steel_member_shear_panel(clientObject)
-
 
