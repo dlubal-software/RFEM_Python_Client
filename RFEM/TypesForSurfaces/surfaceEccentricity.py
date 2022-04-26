@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 from RFEM.enums import SurfaceEccentricityAlignment
 from enum import Enum
 
@@ -10,9 +10,9 @@ class SurfaceEccentricity():
                  no: int = 1,
                  offset: float = 0.1,
                  assigned_to_surfaces: str = '1',
-                 thickness_alignment = SurfaceEccentricityAlignment.ALIGN_BOTTOM,
-                 transverse_offset_object = TransverseOffsetObject.MEMBER,
-                 transverse_offset_object_no: int = 2,
+                 thickness_alignment = SurfaceEccentricityAlignment.ALIGN_MIDDLE,
+                 transverse_offset_object = TransverseOffsetObject.SURFACE,
+                 transverse_offset_object_no: int = 1,
                  transverse_offset_alignment = SurfaceEccentricityAlignment.ALIGN_MIDDLE,
                  comment: str = '',
                  params: dict = None,
@@ -24,10 +24,10 @@ class SurfaceEccentricity():
             no (int, optional): Number
             offset (float, optional): Offset value
             assigned_to_surfaces (str, optional): Eccentricity assignmet
-            thickness_alignment (_type_, optional): Thickness alignment
-            transverse_offset_object (_type_, optional): Transverse offset reference type (member, surface or None)
+            thickness_alignment (enum, optional): Thickness alignment
+            transverse_offset_object (enum, optional): Transverse offset reference type (member, surface or None)
             transverse_offset_object_no (int, optional): Transverse offset reference number
-            transverse_offset_alignment (_type_, optional): Transverse offset aligment
+            transverse_offset_alignment (enum, optional): Transverse offset aligment
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
@@ -45,7 +45,7 @@ class SurfaceEccentricity():
         clientObject.offset = offset
 
         # Assigned to Surfaces
-        clientObject.assigned_to_surfaces = assigned_to_surfaces
+        clientObject.assigned_to_surfaces = ConvertToDlString(assigned_to_surfaces)
 
         # Thickness Assigmnet
         clientObject.thickness_alignment = thickness_alignment.name

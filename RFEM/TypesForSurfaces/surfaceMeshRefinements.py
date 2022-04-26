@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 
 class SurfaceMeshRefinement():
     def __init__(self,
@@ -29,7 +29,7 @@ class SurfaceMeshRefinement():
         clientObject.no = no
 
         # Assigned to Surfaces
-        clientObject.surfaces = surfaces
+        clientObject.surfaces = ConvertToDlString(surfaces)
 
         # Target FE Length
         clientObject.target_length = target_length
