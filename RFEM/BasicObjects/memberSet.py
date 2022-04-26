@@ -7,7 +7,8 @@ class MemberSet():
                  members_no: str = '1 4 5 8 9 12 13 16 17 20 21 24',
                  member_set_type = SetType.SET_TYPE_GROUP,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -19,7 +20,7 @@ class MemberSet():
         '''
 
         # Client model | Member Set
-        clientObject = Model.clientModel.factory.create('ns0:member_set')
+        clientObject = model.clientModel.factory.create('ns0:member_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -42,14 +43,15 @@ class MemberSet():
                 clientObject[key] = params[key]
 
         # Add Member Set to client model
-        Model.clientModel.service.set_member_set(clientObject)
+        model.clientModel.service.set_member_set(clientObject)
 
     @staticmethod
     def ContinuousMembers(
                           no: int = 1,
                           members_no: str = '1 4 5 8 9 12 13 16 17 20 21 24',
                           comment: str = '',
-                          params: dict = None):
+                          params: dict = None,
+                          model = Model):
 
         '''
         Args:
@@ -60,7 +62,7 @@ class MemberSet():
         '''
 
         # Client model | Member Set
-        clientObject = Model.clientModel.factory.create('ns0:member_set')
+        clientObject = model.clientModel.factory.create('ns0:member_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -83,14 +85,15 @@ class MemberSet():
                 clientObject[key] = params[key]
 
         # Add Member Set to client model
-        Model.clientModel.service.set_member_set(clientObject)
+        model.clientModel.service.set_member_set(clientObject)
 
     @staticmethod
     def GroupOfmembers(
                        no: int = 1,
                        members_no: str = '1 4 5 8 9 12 13 16 17 20 21 24',
                        comment: str = '',
-                       params: dict = None):
+                       params: dict = None,
+                       model = Model):
 
         '''
         Args:
@@ -101,7 +104,7 @@ class MemberSet():
         '''
 
         # Client model | Member Set
-        clientObject = Model.clientModel.factory.create('ns0:member_set')
+        clientObject = model.clientModel.factory.create('ns0:member_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -124,4 +127,4 @@ class MemberSet():
                 clientObject[key] = params[key]
 
         # Add Member Set to client model
-        Model.clientModel.service.set_member_set(clientObject)
+        model.clientModel.service.set_member_set(clientObject)

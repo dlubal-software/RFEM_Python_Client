@@ -14,10 +14,11 @@ class ConcreteSurfaceReinforcements():
                 cover_offset = [True, True, 0, 0],
                 reinforcement_direction = SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION,
                 reinforcement_direction_parameters = [SurfaceReinforcementDesignDirection.DESIGN_REINFORCEMENT_DIRECTION_A_S_1],
-                reinforcement_location = [],
-                reinforcement_acting_region = [],
+                reinforcement_location: list = None,
+                reinforcement_acting_region: list = None,
                 comment: str = '',
-                params: dict = None):
+                params: dict = None,
+                model = Model):
         """
         Args:
             no (int): Surface Reinforcement Tag
@@ -48,7 +49,7 @@ class ConcreteSurfaceReinforcements():
         """
 
         # Client model | Concrete Durabilities
-        clientObject = Model.clientModel.factory.create('ns0:surface_reinforcement')
+        clientObject = model.clientModel.factory.create('ns0:surface_reinforcement')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -147,9 +148,9 @@ class ConcreteSurfaceReinforcements():
             clientObject.location_center_y = reinforcement_location[1]
             clientObject.location_radius = reinforcement_location[2]
         elif location_type.name == "LOCATION_TYPE_FREE_POLYGON":
-            clientObject.polygon_points = Model.clientModel.factory.create('ns0:surface_reinforcement.polygon_points')
+            clientObject.polygon_points = model.clientModel.factory.create('ns0:surface_reinforcement.polygon_points')
             for i in range(len(reinforcement_location)):
-                mlvlp = Model.clientModel.factory.create('ns0:surface_reinforcement_polygon_points')
+                mlvlp = model.clientModel.factory.create('ns0:surface_reinforcement_polygon_points')
                 mlvlp.no = i+1
                 mlvlp.first_coordinate = reinforcement_location[i][0]
                 mlvlp.second_coordinate = reinforcement_location[i][1]
@@ -170,12 +171,4 @@ class ConcreteSurfaceReinforcements():
                 clientObject[key] = params[key]
 
         # Add Global Parameter to client model
-        Model.clientModel.service.set_surface_reinforcement(clientObject)
-
-
-
-
-
-
-
-
+        model.clientModel.service.set_surface_reinforcement(clientObject)

@@ -4,10 +4,11 @@ class EnlargedColumnHead():
     def __init__(self,
                  no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Enlarged Column Head
-        clientObject = Model.clientModel.factory.create('ns0:enlarged_column_head')
+        clientObject = model.clientModel.factory.create('ns0:enlarged_column_head')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +25,4 @@ class EnlargedColumnHead():
                 clientObject[key] = params[key]
 
         # Add Enlarged Column Head to client model
-        Model.clientModel.service.set_enlarged_column_head(clientObject)
+        model.clientModel.service.set_enlarged_column_head(clientObject)

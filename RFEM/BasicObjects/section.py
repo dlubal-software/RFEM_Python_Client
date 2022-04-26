@@ -6,7 +6,8 @@ class Section():
                  name: str = 'IPE 300',
                  material_no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -18,7 +19,7 @@ class Section():
         '''
 
         # Client model | Section
-        clientObject = Model.clientModel.factory.create('ns0:section')
+        clientObject = model.clientModel.factory.create('ns0:section')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -41,4 +42,4 @@ class Section():
                 clientObject[key] = params[key]
 
         # Add Section to client model
-        Model.clientModel.service.set_section(clientObject)
+        model.clientModel.service.set_section(clientObject)

@@ -4,10 +4,11 @@ class SurfaceEccentricity():
     def __init__(self,
                  no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Surface Eccentricity
-        clientObject = Model.clientModel.factory.create('ns0:surface_eccentricity')
+        clientObject = model.clientModel.factory.create('ns0:surface_eccentricity')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -24,4 +25,4 @@ class SurfaceEccentricity():
                 clientObject[key] = params[key]
 
         # Add Surface Eccentricity to client model
-        Model.clientModel.service.set_surface_eccentricity(clientObject)
+        model.clientModel.service.set_surface_eccentricity(clientObject)

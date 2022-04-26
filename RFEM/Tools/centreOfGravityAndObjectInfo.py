@@ -78,17 +78,19 @@ class ObjectInformation():
         result = ObjectInformation.__BuildResultsArray(ObjectTypes.E_OBJECT_TYPE_SOLID, no, 0)
         return ObjectInformation.__AreaVolumeMassInformationLength(information,result, 4)
 
-    def __BuildResultsArray(object_type, no, parent_no):
-        elements = Model.clientModel.factory.create('ns0:array_of_get_center_of_gravity_and_objects_info_elements_type')
-        clientObject = Model.clientModel.factory.create('ns0:get_center_of_gravity_and_objects_info_element_type')
+    @staticmethod
+    def __BuildResultsArray(object_type, no, parent_no, model = Model):
+        elements = model.clientModel.factory.create('ns0:array_of_get_center_of_gravity_and_objects_info_elements_type')
+        clientObject = model.clientModel.factory.create('ns0:get_center_of_gravity_and_objects_info_element_type')
         clientObject.parent_no = parent_no
         clientObject.no = no
         clientObject.type = object_type.name
         elements.element.append(clientObject)
-        result = Model.clientModel.service.get_center_of_gravity_and_objects_info(elements)
-        result = Model.clientModel.dict(result)
+        result = model.clientModel.service.get_center_of_gravity_and_objects_info(elements)
+        result = model.clientModel.dict(result)
         return result
 
+    @staticmethod
     def __AreaVolumeMassInformationLength(information, result, row_key):
         if information.name == "LENGTH" or information.name == "AREA":
             return result['section'][row_key].rows[0][0].value

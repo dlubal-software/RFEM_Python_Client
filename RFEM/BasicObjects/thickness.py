@@ -12,7 +12,8 @@ class Thickness():
                  material_no: int = 1,
                  uniform_thickness_d: float = 0.20,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -25,7 +26,7 @@ class Thickness():
         '''
 
         # Client model | Thickness
-        clientObject = Model.clientModel.factory.create('ns0:thickness')
+        clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -56,7 +57,7 @@ class Thickness():
                 clientObject[key] = params[key]
 
         # Add Thickness to client model
-        Model.clientModel.service.set_thickness(clientObject)
+        model.clientModel.service.set_thickness(clientObject)
 
     @staticmethod
     def Uniform(
@@ -65,7 +66,8 @@ class Thickness():
                  material_no: int = 1,
                  properties = [0.2],
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -78,7 +80,7 @@ class Thickness():
         '''
 
         # Client model | Thickness
-        clientObject = Model.clientModel.factory.create('ns0:thickness')
+        clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -111,7 +113,7 @@ class Thickness():
                 clientObject[key] = params[key]
 
         # Add Thickness to client model
-        Model.clientModel.service.set_thickness(clientObject)
+        model.clientModel.service.set_thickness(clientObject)
 
     @staticmethod
     def Variable_3Nodes(
@@ -120,7 +122,8 @@ class Thickness():
                  material_no: int = 1,
                  properties = None,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -134,7 +137,7 @@ class Thickness():
         '''
 
         # Client model | Thickness
-        clientObject = Model.clientModel.factory.create('ns0:thickness')
+        clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -174,7 +177,7 @@ class Thickness():
                 clientObject[key] = params[key]
 
         # Add Thickness to client model
-        Model.clientModel.service.set_thickness(clientObject)
+        model.clientModel.service.set_thickness(clientObject)
 
     @staticmethod
     def Variable_2NodesAndDirection(
@@ -183,7 +186,8 @@ class Thickness():
                  material_no: int = 1,
                  properties = [0.18, 1, 0.18, 2, ThicknessDirection.THICKNESS_DIRECTION_IN_X],
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -198,7 +202,7 @@ class Thickness():
         '''
 
         # Client model | Thickness
-        clientObject = Model.clientModel.factory.create('ns0:thickness')
+        clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -235,7 +239,7 @@ class Thickness():
                 clientObject[key] = params[key]
 
         # Add Thickness to client model
-        Model.clientModel.service.set_thickness(clientObject)
+        model.clientModel.service.set_thickness(clientObject)
 
     @staticmethod
     def Variable_4SurfaceCorners(
@@ -244,7 +248,8 @@ class Thickness():
                  material_no: int = 1,
                  properties = None,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -259,7 +264,7 @@ class Thickness():
         '''
 
         # Client model | Thickness
-        clientObject = Model.clientModel.factory.create('ns0:thickness')
+        clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -301,7 +306,7 @@ class Thickness():
                 clientObject[key] = params[key]
 
         # Add Thickness to client model
-        Model.clientModel.service.set_thickness(clientObject)
+        model.clientModel.service.set_thickness(clientObject)
 
     @staticmethod
     def Variable_Circle(
@@ -310,7 +315,8 @@ class Thickness():
                  material_no: int = 1,
                  properties = None,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -324,7 +330,7 @@ class Thickness():
         '''
 
         # Client model | Thickness
-        clientObject = Model.clientModel.factory.create('ns0:thickness')
+        clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -360,7 +366,7 @@ class Thickness():
                 clientObject[key] = params[key]
 
         # Add Thickness to client model
-        Model.clientModel.service.set_thickness(clientObject)
+        model.clientModel.service.set_thickness(clientObject)
 
     @staticmethod
     def Layers(
@@ -368,7 +374,8 @@ class Thickness():
                  name: str = None,
                  layers = [[0, 1, 0.2, 0.0, '']],
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         NOTE: Available only for Special Solution Add-on Multilayer Surfaces.
@@ -384,11 +391,11 @@ class Thickness():
         '''
 
         # Check if Multilayer Surfaces Add-on is ON.
-        if not GetAddonStatus(Model.clientModel, AddOn.multilayer_surfaces_design_active):
-            SetAddonStatus(Model.clientModel, AddOn.multilayer_surfaces_design_active, True)
+        if not GetAddonStatus(model.clientModel, AddOn.multilayer_surfaces_design_active):
+            SetAddonStatus(model.clientModel, AddOn.multilayer_surfaces_design_active, True)
 
         # Client model | Thickness
-        clientObject = Model.clientModel.factory.create('ns0:thickness')
+        clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -405,10 +412,10 @@ class Thickness():
         clientObject.type = ThicknessType.TYPE_LAYERS.name
 
         # Layers
-        clientObject.layers_reference_table = Model.clientModel.factory.create('ns0:thickness.layers_reference_table')
+        clientObject.layers_reference_table = model.clientModel.factory.create('ns0:thickness.layers_reference_table')
 
         for i,j in enumerate(layers):
-            tlrt = Model.clientModel.factory.create('ns0:thickness_layers_reference_table')
+            tlrt = model.clientModel.factory.create('ns0:thickness_layers_reference_table')
             tlrt.no = no
             tlrt.layer_no = i+1
             tlrt.layer_type = None
@@ -432,7 +439,7 @@ class Thickness():
                 clientObject[key] = params[key]
 
         # Add Thickness to client model
-        Model.clientModel.service.set_thickness(clientObject)
+        model.clientModel.service.set_thickness(clientObject)
 
     @staticmethod
     def ShapeOrthotropy(
@@ -444,7 +451,8 @@ class Thickness():
                  consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, 0.18],
                  parameters = [0.18, 0.18],
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -480,7 +488,7 @@ class Thickness():
         '''
 
         # Client model | Thickness
-        clientObject = Model.clientModel.factory.create('ns0:thickness')
+        clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -575,7 +583,7 @@ class Thickness():
                 clientObject[key] = params[key]
 
         # Add Thickness to client model
-        Model.clientModel.service.set_thickness(clientObject)
+        model.clientModel.service.set_thickness(clientObject)
 
     @staticmethod
     def StiffnessMatrix(
@@ -587,7 +595,8 @@ class Thickness():
                  coefficient_of_thermal_expansion: float = 0,
                  stiffness_matrix = [[0, 0, 0, 0, 0, 0],[0, 0, 0],[0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0]],
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -617,7 +626,7 @@ class Thickness():
         '''
 
         # Client model | Thickness
-        clientObject = Model.clientModel.factory.create('ns0:thickness')
+        clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -683,4 +692,4 @@ class Thickness():
                 clientObject[key] = params[key]
 
         # Add Thickness to client model
-        Model.clientModel.service.set_thickness(clientObject)
+        model.clientModel.service.set_thickness(clientObject)
