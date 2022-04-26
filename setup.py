@@ -6,9 +6,9 @@ here = pathlib.Path(__file__).parent
 readme = (here/"README.md").read_text()
 
 setup(
-    name='deployingtestpack',
-    version='2.0.0',
-    description='deployingtestpack',
+    name='RFEM',
+    version='1.7.0',
+    description='RFEM6 Web Service Python Framework',
     long_description=readme,
     long_description_content_type = "text/markdown",
     url="https://github.com/Dlubal-Software/RFEM_Python_Client",
@@ -20,7 +20,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.9"
     ],
-    packages="deployingtestpack",
+    packages="RFEM",
     include_package_data=True,
     install_requires=["requests", "six", "suds-py3", "xmltodict", "pytest", "mock", "setuptools"],
     zip_safe = False
