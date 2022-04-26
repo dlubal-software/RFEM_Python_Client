@@ -63,6 +63,10 @@ def template():
     #assert member.length == 5
     #assert member.result_beam_z_minus == 4
 
+    # Errors
+    # To test various errors like ValueError, just put 'with pytest.raises(ValueError):'
+    # before expression that should raise a ValueError.
+
     # COMMENTS
     # Broken object or type can by commented out assuming author will add
     # associated bug number so everybody else can understand and track the issue.

@@ -177,31 +177,28 @@ def test_solids_and_solid_sets():
     Material(4, 'Krypton')
     SolidGas(1,params={'pressure':21000000, 'temperature':293.1})
     Solid.Gas(4, '18-23', 4,params={'gas':1})
+    SolidSet(1,'2 3')
+    SolidSet.ContinuousSolids(2, '2 3')
+    SolidSet.GroupOfSolids(3, '1 4')
 
     Model.clientModel.service.finish_modification()
 
     solid = Model.clientModel.service.get_solid(4)
     assert round(solid.volume, 1) == 1000
     assert solid.type == 'TYPE_GAS'
+
     gas = Model.clientModel.service.get_solid_gas(1)
     assert round(gas.pressure, 1) == 21000000.0 # 210 bar
     assert round(gas.temperature, 1) == 293.1 # 20°C
 
-    # Testing Solid Sets
-    SolidSet(1,'2 3')
-
     solidSet = Model.clientModel.service.get_solid_set(1)
-    solidSet.set_type == SetType.SET_TYPE_GROUP
-    solidSet.solids == '2 3'
-
-    SolidSet.ContinuousSolids(2, '2 3')
+    assert solidSet.set_type == SetType.SET_TYPE_GROUP.name
+    assert solidSet.solids == '2 3'
 
     solidSet = Model.clientModel.service.get_solid_set(2)
-    solidSet.set_type == SetType.SET_TYPE_CONTINUOUS
-    solidSet.solids == '2 3'
-
-    SolidSet.GroupOfSolids(3, '1 4')
+    assert solidSet.set_type == SetType.SET_TYPE_CONTINUOUS.name
+    assert solidSet.solids == '2 3'
 
     solidSet = Model.clientModel.service.get_solid_set(3)
-    solidSet.set_type == SetType.SET_TYPE_GROUP
-    solidSet.solids == '1 4'
+    assert solidSet.set_type == SetType.SET_TYPE_GROUP.name
+    assert solidSet.solids == '1 4'
