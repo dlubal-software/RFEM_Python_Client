@@ -12,7 +12,6 @@ from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
-from RFEM.TypesForMembers.memberDefinableStiffness import MemberDefinableStiffness
 
 if Model.clientModel is None:
     Model()
