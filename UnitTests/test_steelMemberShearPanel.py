@@ -7,9 +7,9 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.enums import *
-from RFEM.initModel import Model, SetAddonStatus, CheckIfMethodOrTypeExists
-from RFEM.TypesForSteelDesign.steelMemberShearPanel import *
+from RFEM.enums import SteelMemberShearPanelDefinitionType, SteelMemberShearPanelPositionOnSection, SteelMemberShearPanelFasteningArrangement
+from RFEM.initModel import Model, SetAddonStatus, CheckIfMethodOrTypeExists, AddOn
+from RFEM.TypesForSteelDesign.steelMemberShearPanel import SteelMemberShearPanel
 
 if Model.clientModel is None:
     Model()
