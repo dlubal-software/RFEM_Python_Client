@@ -1784,6 +1784,12 @@ class SolidContactParallelType(Enum):
     FAILURE_IF_CONTACT_PERPENDICULAR_TO_SURFACES_FAILED, FULL_FORCE_TRANSMISSION, RIGID_FRICTION, RIGID_FRICTION_LIMIT, \
     ELASTIC_FRICTION, ELASTIC_FRICTION_LIMIT, ELASTIC_SOLID = range(7)
 
+class NodalMeshRefinementType(Enum):
+    '''
+    Nodal Mesh Refinement
+    '''
+    TYPE_CIRCULAR, TYPE_RECTANGULAR = range(2)
+
 class ActionCategoryType(Enum):
     '''
     Load Case Action Category
