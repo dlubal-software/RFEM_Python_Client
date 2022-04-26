@@ -78,7 +78,7 @@ def test_types_for_surfaces():
     SurfaceSupport()
 
     # Surface Eccentricities
-    SurfaceEccentricity()
+    SurfaceEccentricity(1, 0.15, '')
 
     # Surface Stiffness Modification
     SurfaceStiffnessModification(1, SurfaceStiffnessModificationType.TYPE_TOTAL_STIFFNESS_FACTOR, factors=[1.09])
@@ -98,8 +98,8 @@ def test_types_for_surfaces():
     assert surfaceSupport.translation_z == inf
 
     surfaceEccentricity = Model.clientModel.service.get_surface_eccentricity(1)
-    assert surfaceEccentricity.transverse_offset_reference_type == 'TRANSVERSE_OFFSET_TYPE_FROM_MEMBER_SECTION'
-    assert surfaceEccentricity.transverse_offset_reference_member == 2
+    assert surfaceEccentricity.transverse_offset_reference_type == 'TRANSVERSE_OFFSET_TYPE_FROM_SURFACE_THICKNESS'
+    assert surfaceEccentricity.transverse_offset_reference_surface == 1
 
     surfaceStiffnessModification1 = Model.clientModel.service.get_surface_stiffness_modification(2)
     assert surfaceStiffnessModification1.factor_of_shear_stiffness == 1.02
