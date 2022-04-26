@@ -6,9 +6,9 @@ here = pathlib.Path(__file__).parent
 readme = (here/"README.md").read_text()
 
 setup(
-    name='RFEM',
+    name='dogideploytest',
     version='1.6.0',
-    description='Web Service&API project for RFEM',
+    description='Testing Deploy',
     long_description=readme,
     long_description_content_type = "text/markdown",
     url="https://github.com/Dlubal-Software/RFEM_Python_Client",
@@ -20,8 +20,8 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.9"
     ],
-    packages=find_packages(),
+    packages="dogideploytest",
     include_package_data=True,
-    install_requires=["suds", "requests", "suds_requests", "xmltodict", "setuptools==58.0.0"],
+    install_requires=["requests", "six", "suds-py3", "xmltodict", "pytest", "mock", "setuptools"],
     zip_safe = False
 )
