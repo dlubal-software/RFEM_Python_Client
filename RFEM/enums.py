@@ -1770,6 +1770,20 @@ class SurfaceEccentricityAlignment(Enum):
     '''
     ALIGN_TOP, ALIGN_MIDDLE, ALIGN_BOTTOM = range(3)
 
+class SolidContactPerpendicularType(Enum):
+    '''
+    Solid Contact Perpendicular To Surfaces
+    '''
+    FULL_FORCE_TRANSMISSION, FAILURE_UNDER_COMPRESSION, FAILURE_UNDER_TENSION = range(3)
+
+
+class SolidContactParallelType(Enum):
+    '''
+    Solid Contact Parallel To Surfaces
+    '''
+    FAILURE_IF_CONTACT_PERPENDICULAR_TO_SURFACES_FAILED, FULL_FORCE_TRANSMISSION, RIGID_FRICTION, RIGID_FRICTION_LIMIT, \
+    ELASTIC_FRICTION, ELASTIC_FRICTION_LIMIT, ELASTIC_SOLID = range(7)
+
 class ActionCategoryType(Enum):
     '''
     Load Case Action Category
