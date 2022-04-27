@@ -1719,6 +1719,24 @@ class SteelEffectiveLengthsMemberTypeZZ(Enum):
     '''
     MEMBER_TYPE_BEAM, MEMBER_TYPE_CANTILEVER = range(2)
 
+class SteelMemberShearPanelDefinitionType(Enum):
+    '''
+    Steel Member Shear Panel Definition Type
+    '''
+    DEFINITION_TYPE_BRACING, DEFINITION_TYPE_DEFINE_S_PROV,\
+    DEFINITION_TYPE_TRAPEZOIDAL_SHEETING, DEFINITION_TYPE_TRAPEZOIDAL_SHEETING_AND_BRACING = range(4)
+
+class SteelMemberShearPanelPositionOnSection(Enum):
+    '''
+    Steel Member Shear Panel Position On Section
+    '''
+    POSITION_DEFINE, POSITION_IN_CENTROID, POSITION_ON_LOWER_FLANGE, POSITION_ON_UPPER_FLANGE = range(4)
+
+class SteelMemberShearPanelFasteningArrangement(Enum):
+    '''
+    Steel Member Shear Panel Fastening Arrangement
+    '''
+    FASTENING_ARRANGEMENT_EVERY_RIB, FASTENING_ARRANGEMENT_EVERY_SECOND_RIB = range(2)
 class SteelMemberRotationalRestraintType(Enum):
     '''
     Steel Member Rotational Restraint Type

@@ -289,6 +289,7 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
     Calculate_all()
 
     print("Done")
+    sys.exit()
 
 if __name__ == '__main__':
     window(main, modelLst)
