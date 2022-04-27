@@ -8,7 +8,8 @@ class BaseSettings():
                 local_axes_orientation = LocalAxesOrientationType.E_LOCAL_AXES_ORIENTATION_ZDOWN,
                 tolerances = [0.0005, 0.0005, 0.0005, 0.0005],
                 member_representatives: bool = False,
-                member_set_representatives: bool = False):
+                member_set_representatives: bool = False,
+                model = Model):
         """
         Args:
             gravitational_acceleration (int): Gravitational Acceleration (m/sn2)
@@ -21,7 +22,7 @@ class BaseSettings():
         tolerances = [tolerance_for_nodes, tolerance_for_lines, tolerance_for_surfaces_and_planes, tolerance_for_directions]
         """
         # Client model | Load Case
-        clientObject = Model.clientModel.factory.create('ns0:model_settings_and_options_type')
+        clientObject = model.clientModel.factory.create('ns0:model_settings_and_options_type')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -51,4 +52,4 @@ class BaseSettings():
         clientObject.member_set_representatives_active = member_set_representatives
 
         # Add Base Data Settings to client model
-        Model.clientModel.service.set_model_settings_and_options(clientObject)
+        model.clientModel.service.set_model_settings_and_options(clientObject)

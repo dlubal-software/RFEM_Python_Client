@@ -9,7 +9,8 @@ class SurfaceSetLoad():
                  surface_sets: str = '1',
                  magnitude: float = 1.0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -17,10 +18,10 @@ class SurfaceSetLoad():
             surface_sets (str): Assigned Surface Sets
             magnitude (float): Load Magnitude
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Surface Load
-        clientObject = Model.clientModel.factory.create('ns0:surface_set_load')
+        clientObject = model.clientModel.factory.create('ns0:surface_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -49,21 +50,24 @@ class SurfaceSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        Model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
 
-    def Force(self,
+    @staticmethod
+    def Force(
                  no: int = 1,
                  load_case_no: int = 1,
                  surface_sets: str = '1',
                  load_direction = SurfaceSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
                  load_distribution = SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
-                 load_parameter = [],
+                 load_parameter: list = None,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -73,7 +77,7 @@ class SurfaceSetLoad():
             load_distribution (enum): Load Distribution Enumeration
             load_parameter (list): Load Parameters
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         for load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             load_parameter = [magnitude]
@@ -92,7 +96,7 @@ class SurfaceSetLoad():
             load_parameter = [[distance_1, delta_distance_1, magnitude_1], [distance_2, delta_distance_2, magnitude_2]...]
         """
         # Client model | Surface Load
-        clientObject = Model.clientModel.factory.create('ns0:surface_set_load')
+        clientObject = model.clientModel.factory.create('ns0:surface_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -161,9 +165,9 @@ class SurfaceSetLoad():
 
         elif load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
 
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:surface_set_load.varying_load_parameters')
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:surface_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:surface_set_load_varying_load_parameters')
+                mlvlp = model.clientModel.factory.create('ns0:surface_set_load_varying_load_parameters')
                 mlvlp.no = i+1
                 mlvlp.distance = load_parameter[i][0]
                 mlvlp.delta_distance = load_parameter[i][1]
@@ -176,20 +180,23 @@ class SurfaceSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        Model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
 
-    def Temperature(self,
+    @staticmethod
+    def Temperature(
                  no: int = 1,
                  load_case_no: int = 1,
                  surface_sets: str = '1',
                  load_distribution = SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
-                 load_parameter = None,
+                 load_parameter: list = None,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -198,7 +205,7 @@ class SurfaceSetLoad():
             load_distribution (enum): Load Distribution Enumeration
             load_parameter (enum): Load Parameter Enumeration
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         for load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             load_parameter = [t_c, delta_t]
@@ -215,7 +222,7 @@ class SurfaceSetLoad():
                 load_parameter = [t_c_1, delta_t_1, t_c_2, delta_t_2, node_1, node_2, SurfaceLoadAxisDefinitionType, SurfaceLoadAxisDefinitionAxis, axis_definition_p1]
         """
         # Client model | Surface Load
-        clientObject = Model.clientModel.factory.create('ns0:surface_set_load')
+        clientObject = model.clientModel.factory.create('ns0:surface_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -286,20 +293,23 @@ class SurfaceSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        Model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
 
-    def AxialStrain(self,
+    @staticmethod
+    def AxialStrain(
                  no: int = 1,
                  load_case_no: int = 1,
                  surface_sets: str = '1',
                  load_distribution = SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
-                 load_parameter = [],
+                 load_parameter: list = None,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -308,7 +318,7 @@ class SurfaceSetLoad():
             load_distribution (enum): Load Distribution Enumeration
             load_parameter (list): Load Parameter
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         for load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             load_parameter = [axial_strain_x, axial_strain_y]
@@ -322,7 +332,7 @@ class SurfaceSetLoad():
             load_parameter = [magnitude_axial_strain_1x, magnitude_axial_strain_1y, magnitude_axial_strain_2x, magnitude_axial_strain_2y, node_1, node_2]
         """
         # Client model | Surface Load
-        clientObject = Model.clientModel.factory.create('ns0:surface_set_load')
+        clientObject = model.clientModel.factory.create('ns0:surface_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -373,19 +383,22 @@ class SurfaceSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        Model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
 
-    def Precamber(self,
+    @staticmethod
+    def Precamber(
                  no: int = 1,
                  load_case_no: int = 1,
                  surface_sets: str = '1',
                  uniform_magnitude : float = 0.0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -393,10 +406,10 @@ class SurfaceSetLoad():
             surface_sets (str): Assigned Surface Sets
             uniform_magnitude (float): Load Magnitude
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Surface Load
-        clientObject = Model.clientModel.factory.create('ns0:surface_set_load')
+        clientObject = model.clientModel.factory.create('ns0:surface_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -425,19 +438,22 @@ class SurfaceSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        Model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
 
-    def RotaryMotion(self,
+    @staticmethod
+    def RotaryMotion(
                  no: int = 1,
                  load_case_no: int = 1,
                  surface_sets: str = '1',
-                 load_parameter = [],
+                 load_parameter: list = None,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -445,7 +461,7 @@ class SurfaceSetLoad():
             surface_sets (str): Assigned Surface Sets
             load_parameter (list): Load Parameters
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         for axis_definition_type = SurfaceSetLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS:
             load_parameter = [angular_velocity, angular_acceleration, SurfaceLoadAxisDefinitionType, [x1, y1, z1], [x2, y2, z2]]
@@ -453,7 +469,7 @@ class SurfaceSetLoad():
             load_parameter = [angular_velocity, angular_acceleration, SurfaceLoadAxisDefinitionType, SurfaceLoadAxisDefinitionAxis, SurfaceLoadAxisDirectionType; [x1, y1, z1]]
         """
         # Client model | Surface Load
-        clientObject = Model.clientModel.factory.create('ns0:surface_set_load')
+        clientObject = model.clientModel.factory.create('ns0:surface_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -493,20 +509,23 @@ class SurfaceSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        Model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
 
-    def Mass(self,
+    @staticmethod
+    def Mass(
                  no: int = 1,
                  load_case_no: int = 1,
                  surface_sets: str = '1',
                  individual_mass_components : bool = False,
-                 mass_parameter = [],
+                 mass_parameter: list = None,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -515,7 +534,7 @@ class SurfaceSetLoad():
             individual_mass_components (bool): Individiual Mass Components Option
             mass_parameter (list): Mass Parameters
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         for individual_mass_components == True:
             mass_parameter = [mass_global]
@@ -523,7 +542,7 @@ class SurfaceSetLoad():
             mass_parameter = [mass_x, mass_y, mass_z]
         """
         # Client model | Surface Load
-        clientObject = Model.clientModel.factory.create('ns0:surface_set_load')
+        clientObject = model.clientModel.factory.create('ns0:surface_set_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -554,8 +573,9 @@ class SurfaceSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Surface Load to client model
-        Model.clientModel.service.set_surface_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_surface_set_load(load_case_no, clientObject)

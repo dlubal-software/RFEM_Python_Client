@@ -20,22 +20,22 @@ def test_StaticAnalysisSettings():
 
     # Set Static Analysis Settings
     StaticAnalysisSettings(1, 'Geometrisch-linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
-    StaticAnalysisSettings.GeometricallyLinear(0,2,'Geometric-linear',[True, 1.5, True],True,True,
+    StaticAnalysisSettings.GeometricallyLinear(2,'Geometric-linear',[True, 1.5, True],True,True,
                                                StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_ITERATIVE,
                                                StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_KIRCHHOFF,[True,0,0,2.0])
-    StaticAnalysisSettings.LargeDeformation(0,3,standard_precision_and_tolerance_settings = [True, 0.02, 0.02, 2.0])
-    StaticAnalysisSettings.SecondOrderPDelta(0,4)
+    StaticAnalysisSettings.LargeDeformation(3,standard_precision_and_tolerance_settings = [True, 0.02, 0.02, 2.0])
+    StaticAnalysisSettings.SecondOrderPDelta(4)
 
     Model.clientModel.service.finish_modification()
 
     linear = Model.clientModel.service.get_static_analysis_settings(2)
     assert linear['modify_loading_by_multiplier_factor'] == True
-    # TODO: these assigments are not working
-    # assert linear['loading_multiplier_factor'] == 1.5
-    # assert linear['divide_results_by_loading_factor'] == True
+    # TODO: bug 26685
+    #assert linear['loading_multiplier_factor'] == 1.5
+    #assert linear['divide_results_by_loading_factor'] == True
     largeDef= Model.clientModel.service.get_static_analysis_settings(3)
     assert largeDef['standard_precision_and_tolerance_settings_enabled'] == True
-    # TODO: these assigments are not working
+    # TODO: bug 26685
     # assert largeDef['precision_of_convergence_criteria_for_nonlinear_calculation'] == 0.02
     # assert largeDef['instability_detection_tolerance'] == 0.02
     # assert largeDef['iterative_calculation_robustness'] == 2.0

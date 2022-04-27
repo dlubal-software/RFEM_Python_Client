@@ -19,7 +19,8 @@ class ConcreteEffectiveLength():
                     RestraintTypeAboutZ.SUPPORT_STATUS_NO, RestraintTypeWarping.SUPPORT_STATUS_NO, "2"]],
                 factors = [[1, 1]],
                 comment: str = '',
-                params: dict = {}):
+                params: dict = None,
+                model = Model):
         """
         Args:
             no (int): Effective Length Tag
@@ -31,7 +32,7 @@ class ConcreteEffectiveLength():
             nodal_supports (list): Nodal Support Table
             factors (list): Factors Table
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         nodal_supports = [[support_type, support_in_z, support_spring_in_y, eccentricity_type,
                            eccentricity_ez, restraint_spring_about_x,
@@ -42,7 +43,7 @@ class ConcreteEffectiveLength():
         """
 
         # Client model | Concrete Durabilities
-        clientObject = Model.clientModel.factory.create('ns0:concrete_effective_lengths')
+        clientObject = model.clientModel.factory.create('ns0:concrete_effective_lengths')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -77,18 +78,18 @@ class ConcreteEffectiveLength():
         clientObject.structure_type_about_axis_z = flexural_buckling_about_z[1].name
 
         # Factors
-        clientObject.factors = Model.clientModel.factory.create('ns0:concrete_effective_lengths.factors')
+        clientObject.factors = model.clientModel.factory.create('ns0:concrete_effective_lengths.factors')
         for i in range(len(factors)):
-            mlvlp = Model.clientModel.factory.create('ns0:concrete_effective_lengths_factors')
+            mlvlp = model.clientModel.factory.create('ns0:concrete_effective_lengths_factors')
             mlvlp.no = i+1
             mlvlp.flexural_buckling_y = factors[i][0]
             mlvlp.flexural_buckling_z = factors[i][1]
             clientObject.factors.concrete_effective_lengths_factors.append(mlvlp)
 
         # Nodal Supports
-        clientObject.nodal_supports = Model.clientModel.factory.create('ns0:concrete_effective_lengths.nodal_supports')
+        clientObject.nodal_supports = model.clientModel.factory.create('ns0:concrete_effective_lengths.nodal_supports')
         for i in range(len(nodal_supports)):
-            mlvlp = Model.clientModel.factory.create('ns0:concrete_effective_lengths_nodal_supports')
+            mlvlp = model.clientModel.factory.create('ns0:concrete_effective_lengths_nodal_supports')
             mlvlp.no = i+1
             mlvlp.support_type = nodal_supports[i][0].name
             mlvlp.support_in_z = nodal_supports[i][1]
@@ -109,11 +110,12 @@ class ConcreteEffectiveLength():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Global Parameter to client model
-        Model.clientModel.service.set_concrete_effective_lengths(clientObject)
+        model.clientModel.service.set_concrete_effective_lengths(clientObject)
 
 
 

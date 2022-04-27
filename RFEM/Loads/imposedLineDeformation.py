@@ -16,10 +16,11 @@ class ImposedLineDeformation():
                  load_case_no: int = 1,
                  line_no: str = '1',
                  comment: str = '',
-                 params: dict = LineDeformationParams):
+                 params: dict = LineDeformationParams,
+                 model = Model):
 
         # Client model | Imposed Line Deformation
-        clientObject = Model.clientModel.factory.create('ns0:imposed_line_deformation')
+        clientObject = model.clientModel.factory.create('ns0:imposed_line_deformation')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -37,8 +38,9 @@ class ImposedLineDeformation():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Nodal Support to client model
-        Model.clientModel.service.set_imposed_line_deformation(load_case_no, clientObject)
+        model.clientModel.service.set_imposed_line_deformation(load_case_no, clientObject)

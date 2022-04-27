@@ -9,10 +9,11 @@ class ModalAnalysisSettings():
                  mass_conversion_type = ModalMassConversionType.MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS,
                  mass_matrix_type = ModalMassMatrixType.MASS_MATRIX_TYPE_CONSISTENT,
                  number_of_modes : int = 4,
-                 acting_masses = [],
+                 acting_masses: list = None,
                  neglect_masses = ModalNeglectMasses.E_NEGLECT_MASSES_NO_NEGLECTION,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Setting Tag
@@ -24,10 +25,10 @@ class ModalAnalysisSettings():
             acting_masses (list): Acting Masses Directions List
             neglect_masses (enum): Neglect Masses Enumeration
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
         # Client model | Surface
-        clientObject = Model.clientModel.factory.create('ns0:modal_analysis_settings')
+        clientObject = model.clientModel.factory.create('ns0:modal_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -70,8 +71,9 @@ class ModalAnalysisSettings():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Static Analysis Settings to client model
-        Model.clientModel.service.set_modal_analysis_settings(clientObject)
+        model.clientModel.service.set_modal_analysis_settings(clientObject)

@@ -1,12 +1,11 @@
+from RFEM.BasicObjects.member import Member
 from RFEM.initModel import Model
 from RFEM.enums import ModelCheckGetOptionType, ModelCheckProcessOptionType
 
 class ModelCheck():
 
-    def __init__(self):
-        pass
-
-    def GetIdenticalNodes(self, tolerance):
+    @staticmethod
+    def GetIdenticalNodes(tolerance, model = Model):
         """
         Args:
             tolerance (float): Tolerance
@@ -15,11 +14,12 @@ class ModelCheck():
         """
 
         operation = ModelCheckGetOptionType.IDENTICAL_NODES.name
-        object_groups = Model.clientModel.service.model_check__get_object_groups_operation(operation, tolerance)
+        object_groups = model.clientModel.service.model_check__get_object_groups_operation(operation, tolerance)
 
         return object_groups
 
-    def DeleteUnusedNodes(self, tolerance, object_groups):
+    @staticmethod
+    def DeleteUnusedNodes(tolerance, object_groups, model = Model):
         """
         Args:
             tolerance (float): Tolerance
@@ -27,9 +27,10 @@ class ModelCheck():
         """
 
         process = ModelCheckProcessOptionType.DELETE_UNUSED_NODES.name
-        Model.clientModel.service.model_check__process_object_groups_operation(process, tolerance, object_groups)
+        model.clientModel.service.model_check__process_object_groups_operation(process, tolerance, object_groups)
 
-    def UniteNodes(self, tolerance, object_groups):
+    @staticmethod
+    def UniteNodes(tolerance, object_groups, model = Model):
         """
         Args:
             tolerance (float): Tolerance
@@ -37,9 +38,10 @@ class ModelCheck():
         """
 
         process = ModelCheckProcessOptionType.UNITE_NODES_AND_DELETE_UNUSED_NODES.name
-        Model.clientModel.service.model_check__process_object_groups_operation(process, tolerance, object_groups)
+        model.clientModel.service.model_check__process_object_groups_operation(process, tolerance, object_groups)
 
-    def GetNotConnectedLines(self, tolerance):
+    @staticmethod
+    def GetNotConnectedLines(tolerance, model = Model):
         """
         Args:
             tolerance (float): Tolerance
@@ -48,11 +50,12 @@ class ModelCheck():
         """
 
         operation = ModelCheckGetOptionType.CROSSING_LINES.name
-        line_groups = Model.clientModel.service.model_check__get_object_groups_operation(operation, tolerance)
+        line_groups = model.clientModel.service.model_check__get_object_groups_operation(operation, tolerance)
 
         return line_groups
 
-    def CrossLines(self, tolerance, line_groups):
+    @staticmethod
+    def CrossLines(tolerance, line_groups, model = Model):
         """
         Args:
             tolerance (float): Tolerance
@@ -60,9 +63,10 @@ class ModelCheck():
         """
 
         process = ModelCheckProcessOptionType.CROSS_LINES.name
-        Model.clientModel.service.model_check__process_object_groups_operation(process, tolerance, line_groups)
+        model.clientModel.service.model_check__process_object_groups_operation(process, tolerance, line_groups)
 
-    def GetNotConnectedMembers(self, tolerance):
+    @staticmethod
+    def GetNotConnectedMembers(tolerance, model = Model):
         """
         Args:
             tolerance (float): Tolerance
@@ -71,11 +75,12 @@ class ModelCheck():
         """
 
         operation = ModelCheckGetOptionType.CROSSING_MEMBERS.name
-        member_groups = Model.clientModel.service.model_check__get_object_groups_operation(operation, tolerance)
+        member_groups = model.clientModel.service.model_check__get_object_groups_operation(operation, tolerance)
 
         return member_groups
 
-    def CrossMembers(self, tolerance, member_groups):
+    @staticmethod
+    def CrossMembers(tolerance, member_groups, model = Model):
         """
         Args:
             tolerance (float): Tolerance
@@ -83,26 +88,28 @@ class ModelCheck():
         """
 
         process = ModelCheckProcessOptionType.CROSS_MEMBERS.name
-        Model.clientModel.service.model_check__process_object_groups_operation(process, tolerance, member_groups)
+        model.clientModel.service.model_check__process_object_groups_operation(process, tolerance, member_groups)
 
-    def GetOverlappingLines(self):
+    @staticmethod
+    def GetOverlappingLines(model = Model):
         """
         Returns:
             Overlapping Line Groups
         """
 
         operation = ModelCheckGetOptionType.OVERLAPPING_LINES.name
-        overlapping_lines = Model.clientModel.service.model_check__get_object_groups_operation(operation)
+        overlapping_lines = model.clientModel.service.model_check__get_object_groups_operation(operation)
 
         return overlapping_lines
 
-    def GetOverlappingMembers(self):
+    @staticmethod
+    def GetOverlappingMembers(model = Model):
         """
         Returns:
             Overlapping Member Groups
         """
 
         operation = ModelCheckGetOptionType.OVERLAPPING_MEMBERS.name
-        overlapping_members = Model.clientModel.service.model_check__get_object_groups_operation(operation)
+        overlapping_members = model.clientModel.service.model_check__get_object_groups_operation(operation)
 
         return overlapping_members

@@ -11,7 +11,7 @@
 #                  start_section_no: int = 1,
 #                  end_section_no: int = 1,
 #                  comment: str = '',
-#                  params: dict = {}):
+#                  params: dict = None, model = Model):
 
 #        '''
 #        Args:
@@ -23,11 +23,11 @@
 #            start_section_no (int): Tag of Start Section
 #            end_section_no (int): End of End Section
 #            comment (str, optional): Comment
-#            params (dict, optional): Parameters
+#            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 #        '''
 
 #         # Client model | Bracing
-#         clientObject = Model.clientModel.factory.create('ns0:bracing')
+#         clientObject = model.clientModel.factory.create('ns0:bracing')
 
 #         # Clears object atributes | Sets all atributes to None
 #         clearAtributes(clientObject)
@@ -67,7 +67,7 @@
 #             clientObject[key] = params[key]
 
 #         # Add Member to client model
-#         Model.clientModel.service.set_bracing(clientObject)
+#         model.clientModel.service.set_bracing(clientObject)
 
 #       def Horizontal(self,
 #             no: int = 1,
@@ -80,7 +80,7 @@
 #             start_bracing_hinge_no: int = 0,
 #             end_bracing_hinge_no: int = 0,
 #             comment: str = '',
-#             params: dict = {}):
+#             params: dict = None, model = Model):
 
 #             '''
 #            Args:
@@ -94,11 +94,11 @@
 #                start_bracing_hinge_no (int): Hinge at Bracing Start
 #                end_bracing_hinge_no (int): Hinge at Bracing End
 #                comment (str, optional): Comment
-#                params (dict, optional): Parameters
+#                params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 #             '''
 
 #         # Client model | Bracing
-#         clientObject = Model.clientModel.factory.create('ns0:bracing')
+#         clientObject = model.clientModel.factory.create('ns0:bracing')
 
 #         # Clears object atributes | Sets all atributes to None
 #         clearAtributes(clientObject)
@@ -138,7 +138,7 @@
 #             clientObject[key] = params[key]
 
 #         # Add Bracing to client model
-#         Model.clientModel.service.set_bracing(clientObject)
+#         model.clientModel.service.set_bracing(clientObject)
 
 #         def Vertical(self,
 #             no: int = 1,
@@ -151,7 +151,7 @@
 #             start_bracing_hinge_no: int = 0,
 #             end_bracing_hinge_no: int = 0,
 #             comment: str = '',
-#             params: dict = {}):
+#             params: dict = None, model = Model):
 
 #            '''
 #            Args:
@@ -165,11 +165,11 @@
 #                start_bracing_hinge_no (int): Hinge at Bracing Start
 #                end_bracing_hinge_no (int): Hinge at Bracing End
 #                comment (str, optional): Comment
-#                params (dict, optional): Parameters
+#                params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 #            '''
 
 #         # Client model | Bracing
-#         clientObject = Model.clientModel.factory.create('ns0:bracing')
+#         clientObject = model.clientModel.factory.create('ns0:bracing')
 
 #         # Clears object atributes | Sets all atributes to None
 #         clearAtributes(clientObject)
@@ -209,5 +209,5 @@
 #             clientObject[key] = params[key]
 
 #         # Add Bracing to client model
-#         Model.clientModel.service.set_bracing(clientObject)
+#         model.clientModel.service.set_bracing(clientObject)
 

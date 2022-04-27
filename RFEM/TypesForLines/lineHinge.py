@@ -14,7 +14,8 @@ class LineHinge():
                  translational_release: list = [800, inf, inf],
                  rotational_release_phi: int = inf,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
 
         """
         assigned_to doesn't work. Can't figure why.
@@ -22,7 +23,7 @@ class LineHinge():
         """
 
         # Client model | Line Hinge
-        clientObject = Model.clientModel.factory.create('ns0:line_hinge')
+        clientObject = model.clientModel.factory.create('ns0:line_hinge')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -46,9 +47,10 @@ class LineHinge():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Line Hinge to client model
-        Model.clientModel.service.set_line_hinge(clientObject)
+        model.clientModel.service.set_line_hinge(clientObject)
 

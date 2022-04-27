@@ -1,7 +1,7 @@
 # RfemPythonWsClient
-![image](https://img.shields.io/badge/COMPATIBILITY-RFEM%206.00-yellow) ![image](https://img.shields.io/badge/Python-3-blue) ![image](https://img.shields.io/badge/SUDS-0.3.5-orange) ![image](https://img.shields.io/badge/xmltodic-0.12.0-orange) ![image](https://img.shields.io/badge/coverage-87%25-green)
+![image](https://img.shields.io/badge/RFEM-latest-yellow) ![image](https://img.shields.io/badge/Python-3-blue) ![image](https://img.shields.io/badge/coverage-87%25-green)
 
-Python client (or high-level functions) for [RFEM 6](https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem) using [Web Services](https://en.wikipedia.org/wiki/Web_service) (WS), [SOAP](https://cs.wikipedia.org/wiki/SOAP) and [WSDL](https://en.wikipedia.org/wiki/Web_Services_Description_Language). Available Python SOAP pkgs can be found on [wiki.python.org](https://wiki.python.org/moin/WebServices#SOAP).
+Python client (high-level functions) for [RFEM 6](https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem) using [Web Services](https://en.wikipedia.org/wiki/Web_service) (WS), [SOAP](https://cs.wikipedia.org/wiki/SOAP) and [WSDL](https://en.wikipedia.org/wiki/Web_Services_Description_Language). Available Python SOAP pkgs can be found on [wiki.python.org](https://wiki.python.org/moin/WebServices#SOAP).
 
 ![image](https://user-images.githubusercontent.com/37547309/118758788-fe2a5580-b86f-11eb-9eaf-b38862333cd4.png)
 
@@ -15,6 +15,8 @@ Python client (or high-level functions) for [RFEM 6](https://www.dlubal.com/en/p
     + [Step by step](#step-by-step)
     + [Examples](#examples)
     + [Unit Tets](#unit-tests)
+  * [Documentation](#documentation)
+  * [Wiki](#wiki)
   * [License](#license)
   * [Contribute](#contribute)
 
@@ -35,14 +37,14 @@ This Python project is focused on opening RFEM 6 to all of our customers, enabli
 
 ### Dependencies
 Dependency check is implemented inside [initModel.py](/RFEM/initModel.py) with option to install during execution.
-* libraries: [SUDS](https://github.com/suds-community/suds), [requests](https://docs.python-requests.org/en/master/), and  [suds_requests](https://pypi.org/project/suds_requests/)
-* RFEM 6 application
+* PyPi pkgs: [SUDS](https://github.com/cackharot/suds-py3), [requests](https://docs.python-requests.org/en/master/), [six](https://pypi.org/project/six/), [mock](https://pypi.org/project/mock/), and [xmltodict](https://pypi.org/project/xmltodict/).
+* RFEM 6 application. Client is always compatible with the latest version.
 
 ### Step by step
-1) Clone this repository (if you have GitHub account) or download actual [release](https://github.com/Dlubal-Software/RFEM_Python_Client/releases/tag/R-v1.0.0)
+1) [Clone](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository#:~:text=Cloning%20an%20Existing%20Repository) this repository (if you have GitHub account) or download actual [release](https://github.com/Dlubal-Software/RFEM_Python_Client/releases)
 2) Open RFEM 6 application
 3) Check if there are no opened dialogues in RFEM and server port range under *Options-Web Services* corresponds to the one set in initModel
-4) Run your script. Inspirations can be found in Examples.
+4) Run your script. Inspirations can be found in [Examples](/Examples/) or [UnitTests](/UnitTests/).
 
 ### Examples
 Scripts intended to be used as templates or examples. Also can be used for testing of backward compatibility.
@@ -50,12 +52,14 @@ Scripts intended to be used as templates or examples. Also can be used for testi
 ### Unit Tests
 Collection of scripts to support further development.
 
-## API Documentation
-Visit our [GitHub page](https://dlubal-software.github.io/RFEM_Python_Client/)
+## Documentation
+For complete description of classes and functions visit our [GitHub page](https://dlubal-software.github.io/RFEM_Python_Client/).
+
+## Wiki
+If you run into problems see our [Wiki](https://github.com/Dlubal-Software/RFEM_Python_Client/wiki). We are slowly but surely expanding the solutions to the problems found in the Issues section.
 
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 
 ## Contribute
 Contributions are always welcome! Please ensure your pull request adheres to the following guidelines:

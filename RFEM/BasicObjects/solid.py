@@ -7,7 +7,8 @@ class Solid():
                  boundary_surfaces_no: str = '1 2',
                  material_no: int = 1,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -15,11 +16,11 @@ class Solid():
             boundary_surfaces_no (str): Tags of Surfaces defining Solid
             material_no (int): Tag of Material assigned to Solid
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Solid
-        clientObject = Model.clientModel.factory.create('ns0:solid')
+        clientObject = model.clientModel.factory.create('ns0:solid')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -37,18 +38,21 @@ class Solid():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Surface to client model
-        Model.clientModel.service.set_solid(clientObject)
+        model.clientModel.service.set_solid(clientObject)
 
-    def Standard(self,
+    @staticmethod
+    def Standard(
                  no: int = 1,
                  boundary_surfaces_no: str = '1 2',
                  material_no: int = 1,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -56,11 +60,11 @@ class Solid():
             boundary_surfaces_no (str): Tags of Surfaces defining Solid
             material_no (int): Tag of Material assigned to Solid
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Solid
-        clientObject = Model.clientModel.factory.create('ns0:solid')
+        clientObject = model.clientModel.factory.create('ns0:solid')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -81,18 +85,21 @@ class Solid():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Surface to client model
-        Model.clientModel.service.set_solid(clientObject)
+        model.clientModel.service.set_solid(clientObject)
 
-    def Gas(self,
+    @staticmethod
+    def Gas(
                  no: int = 1,
                  boundary_surfaces_no: str = '1 2',
                  material_no: int = 1,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -100,11 +107,11 @@ class Solid():
             boundary_surfaces_no (str): Tags of Surfaces defining Gas
             material_no (int): Tag of Material assigned to Solid
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Solid
-        clientObject = Model.clientModel.factory.create('ns0:solid')
+        clientObject = model.clientModel.factory.create('ns0:solid')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -125,18 +132,21 @@ class Solid():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Surface to client model
-        Model.clientModel.service.set_solid(clientObject)
+        model.clientModel.service.set_solid(clientObject)
 
-    def Contact(self,
+    @staticmethod
+    def Contact(
                  no: int = 1,
                  boundary_surfaces_no: str = '1 2',
                  material_no: int = 1,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -144,11 +154,11 @@ class Solid():
             boundary_surfaces_no (str): Tags of Surfaces defining Contact
             material_no (int): Tag of Material assigned to Solid
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Solid
-        clientObject = Model.clientModel.factory.create('ns0:solid')
+        clientObject = model.clientModel.factory.create('ns0:solid')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -169,18 +179,21 @@ class Solid():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Surface to client model
-        Model.clientModel.service.set_solid(clientObject)
+        model.clientModel.service.set_solid(clientObject)
 
-    def Soil(self,
+    @staticmethod
+    def Soil(
              no: int = 1,
              boundary_surfaces_no: str = '1 2',
              material_no: int = 1,
              comment: str = '',
-             params: dict = {}):
+             params: dict = None,
+             model = Model):
 
         '''
         Args:
@@ -188,11 +201,11 @@ class Solid():
             boundary_surfaces_no (str): Tags of Surfaces defining Soil
             material_no (int): Tag of Material assigned to Solid
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Solid
-        clientObject = Model.clientModel.factory.create('ns0:solid')
+        clientObject = model.clientModel.factory.create('ns0:solid')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -213,8 +226,9 @@ class Solid():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Surface to client model
-        Model.clientModel.service.set_solid(clientObject)
+        model.clientModel.service.set_solid(clientObject)

@@ -7,7 +7,6 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-# Import der Bibliotheken
 from RFEM.enums import *
 from RFEM.initModel import Model, SetAddonStatus, CheckIfMethodOrTypeExists
 from RFEM.TypesForSteelDesign.steelEffectiveLengths import SteelEffectiveLengths

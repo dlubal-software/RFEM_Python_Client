@@ -2,11 +2,10 @@ from RFEM.initModel import Model
 from RFEM.enums import ObjectTypes, SelectedObjectInformation
 
 class ObjectInformation():
-    # missing def __init__( with definition of self and its variables
-    # object_type, no, parent_no, information, row_key and result.
 
-    def CentreOfGravity(self,
-                        type = ObjectTypes.E_OBJECT_TYPE_MEMBER,
+    @staticmethod
+    def CentreOfGravity(
+                        object_type = ObjectTypes.E_OBJECT_TYPE_MEMBER,
                         parent_no = 0,
                         no: int = 1,
                         coord: str = 'X'):
@@ -21,10 +20,7 @@ class ObjectInformation():
            no (int):  The Object Tag
            coord (str): Desired global basis vector component of the Centre of Gravity (i.e. X, Y or Z)
         '''
-        self.object_type = type
-        self.no = no
-        self.parent_no = parent_no
-        result = ObjectInformation.__BuildResultsArray(self)
+        result = ObjectInformation.__BuildResultsArray(object_type, no, parent_no)
         if coord == 'X' or coord.lstrip().rstrip().upper() == 'X':
             return result['section'][0].rows[0][0].value
         elif coord == 'Y' or coord.lstrip().rstrip().upper() == 'Y':
@@ -34,7 +30,8 @@ class ObjectInformation():
         else:
             raise Exception ('WARNING: The desired Coordinate input not requested. Please provide either "X", "Y" or "Z"')
 
-    def MemberInformation(self,
+    @staticmethod
+    def MemberInformation(
                           no: int = 1,
                           information = SelectedObjectInformation.LENGTH):
         '''
@@ -45,15 +42,12 @@ class ObjectInformation():
         '''
         if information.name == 'AREA':
             raise Exception ('WARNING: Area information is only relevant for Surface and Volume Information.')
-        self.object_type = ObjectTypes.E_OBJECT_TYPE_MEMBER
-        self.no = no
-        self.parent_no = 0
-        self.information = information
-        self.row_key = 2
-        self.result = ObjectInformation.__BuildResultsArray(self)
-        return ObjectInformation.__AreaVolumeMassInformationLength(self)
 
-    def SurfaceInformation(self,
+        result = ObjectInformation.__BuildResultsArray(ObjectTypes.E_OBJECT_TYPE_MEMBER, no, 0)
+        return ObjectInformation.__AreaVolumeMassInformationLength(information, result, 2)
+
+    @staticmethod
+    def SurfaceInformation(
                            no: int = 1,
                            information = SelectedObjectInformation.AREA):
         '''
@@ -64,15 +58,12 @@ class ObjectInformation():
         '''
         if information.name == 'LENGTH':
             raise Exception ('WARNING: Length information is only relevant for Member Information.')
-        self.object_type = ObjectTypes.E_OBJECT_TYPE_SURFACE
-        self.no = no
-        self.parent_no = 0
-        self.information = information
-        self.row_key = 3
-        self.result = ObjectInformation.__BuildResultsArray(self)
-        return ObjectInformation.__AreaVolumeMassInformationLength(self)
 
-    def SolidInformation(self,
+        result = ObjectInformation.__BuildResultsArray(ObjectTypes.E_OBJECT_TYPE_SURFACE, no, 0)
+        return ObjectInformation.__AreaVolumeMassInformationLength(information, result, 3)
+
+    @staticmethod
+    def SolidInformation(
                          no: int = 1,
                          information = SelectedObjectInformation.AREA):
         '''
@@ -83,29 +74,27 @@ class ObjectInformation():
         '''
         if information.name == 'LENGTH':
             raise Exception ('WARNING: Length information is only relevant for Member Information.')
-        self.object_type = ObjectTypes.E_OBJECT_TYPE_SOLID
-        self.no = no
-        self.parent_no = 0
-        self.information = information
-        self.row_key = 4
-        self.result = ObjectInformation.__BuildResultsArray(self)
-        return ObjectInformation.__AreaVolumeMassInformationLength(self)
 
-    def __BuildResultsArray(self):
-        elements = Model.clientModel.factory.create('ns0:array_of_get_center_of_gravity_and_objects_info_elements_type')
-        clientObject = Model.clientModel.factory.create('ns0:get_center_of_gravity_and_objects_info_element_type')
-        clientObject.parent_no = self.parent_no
-        clientObject.no = self.no
-        clientObject.type = self.object_type.name
+        result = ObjectInformation.__BuildResultsArray(ObjectTypes.E_OBJECT_TYPE_SOLID, no, 0)
+        return ObjectInformation.__AreaVolumeMassInformationLength(information,result, 4)
+
+    @staticmethod
+    def __BuildResultsArray(object_type, no, parent_no, model = Model):
+        elements = model.clientModel.factory.create('ns0:array_of_get_center_of_gravity_and_objects_info_elements_type')
+        clientObject = model.clientModel.factory.create('ns0:get_center_of_gravity_and_objects_info_element_type')
+        clientObject.parent_no = parent_no
+        clientObject.no = no
+        clientObject.type = object_type.name
         elements.element.append(clientObject)
-        result = Model.clientModel.service.get_center_of_gravity_and_objects_info(elements)
-        result = Model.clientModel.dict(result)
+        result = model.clientModel.service.get_center_of_gravity_and_objects_info(elements)
+        result = model.clientModel.dict(result)
         return result
 
-    def __AreaVolumeMassInformationLength(self):
-        if self.information.name == "LENGTH" or self.information.name == "AREA":
-            return self.result['section'][self.row_key].rows[0][0].value
-        elif self.information.name == "VOLUME":
-            return self.result['section'][self.row_key].rows[0][1].value
-        elif self.information.name == "MASS":
-            return self.result['section'][self.row_key].rows[0][2].value
+    @staticmethod
+    def __AreaVolumeMassInformationLength(information, result, row_key):
+        if information.name == "LENGTH" or information.name == "AREA":
+            return result['section'][row_key].rows[0][0].value
+        elif information.name == "VOLUME":
+            return result['section'][row_key].rows[0][1].value
+        elif information.name == "MASS":
+            return result['section'][row_key].rows[0][2].value

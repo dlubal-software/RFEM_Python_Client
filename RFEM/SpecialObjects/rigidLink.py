@@ -8,10 +8,11 @@ class RigidLink():
                  line_2: int = 2,
                  ignore_relative_position: bool = True,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Rigid Link
-        clientObject = Model.clientModel.factory.create('ns0:rigid_link')
+        clientObject = model.clientModel.factory.create('ns0:rigid_link')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -33,22 +34,25 @@ class RigidLink():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add rigid link to client model
-        Model.clientModel.service.set_rigid_link(clientObject)
+        model.clientModel.service.set_rigid_link(clientObject)
 
-    def LineToLine(self,
+    @staticmethod
+    def LineToLine(
                  no: int = 1,
                  line_1: int = 1,
                  line_2: int = 2,
                  ignore_relative_position: bool = True,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Line To Line Rigid Link
-        clientObject = Model.clientModel.factory.create('ns0:rigid_link')
+        clientObject = model.clientModel.factory.create('ns0:rigid_link')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -70,22 +74,25 @@ class RigidLink():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add rigid link to client model
-        Model.clientModel.service.set_rigid_link(clientObject)
+        model.clientModel.service.set_rigid_link(clientObject)
 
-    def LineToSurface(self,
+    @staticmethod
+    def LineToSurface(
                  no: int = 1,
                  line_1: int = 1,
                  surface: int = 1,
                  ignore_relative_position: bool = True,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Line To Surface Rigid Link
-        clientObject = Model.clientModel.factory.create('ns0:rigid_link')
+        clientObject = model.clientModel.factory.create('ns0:rigid_link')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -108,21 +115,24 @@ class RigidLink():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add rigid link to client model
-        Model.clientModel.service.set_rigid_link(clientObject)
+        model.clientModel.service.set_rigid_link(clientObject)
 
-    def Diapragm(self,
+    @staticmethod
+    def Diapragm(
                  no: int = 1,
                  nodes: str = '3 4',
                  lines: str = '6 7',
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Diapragm Rigid Link
-        clientObject = Model.clientModel.factory.create('ns0:rigid_link')
+        clientObject = model.clientModel.factory.create('ns0:rigid_link')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -143,8 +153,9 @@ class RigidLink():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add rigid link to client model
-        Model.clientModel.service.set_rigid_link(clientObject)
+        model.clientModel.service.set_rigid_link(clientObject)

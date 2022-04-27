@@ -4,10 +4,11 @@ class SurfaceContactType():
     def __init__(self,
                  no: int = 1,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Surface Contact Type
-        clientObject = Model.clientModel.factory.create('ns0:surfaces_contact_type')
+        clientObject = model.clientModel.factory.create('ns0:surfaces_contact_type')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -19,8 +20,9 @@ class SurfaceContactType():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Surface Contact Type to client model
-        Model.clientModel.service.set_surfaces_contact_type(clientObject)
+        model.clientModel.service.set_surfaces_contact_type(clientObject)

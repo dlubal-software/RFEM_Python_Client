@@ -59,7 +59,7 @@ def test_member_set_continuous():
     Member(1, 1, 2, 0, 1, 1)
     Member(2, 2, 3, 0, 1, 1)
 
-    MemberSet.ContinuousMembers(0, 1, '1 2')
+    MemberSet.ContinuousMembers(1, '1 2')
 
     Model.clientModel.service.finish_modification()
 
@@ -85,7 +85,7 @@ def test_member_set_group():
     Member(1, 1, 2, 0, 1, 1)
     Member(2, 2, 3, 0, 1, 1)
 
-    MemberSet.GroupOfmembers(0, 1, '1 2')
+    MemberSet.GroupOfmembers(1, '1 2')
 
     Model.clientModel.service.finish_modification()
 

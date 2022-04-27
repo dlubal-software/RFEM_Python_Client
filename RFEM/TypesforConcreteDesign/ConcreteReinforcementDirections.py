@@ -8,9 +8,10 @@ class ConcreteReinforcementDirection():
                 name: str = "RD 1",
                 surfaces = "1",
                 reinforcement_direction_type = ReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_FIRST_REINFORCEMENT_IN_X,
-                rotation_parameters = [],
+                rotation_parameters: list = None,
                 comment: str = '',
-                params: dict = {}):
+                params: dict = None,
+                model = Model):
         """
         Args:
             no (int): Reinforcement Direction Tag
@@ -19,11 +20,11 @@ class ConcreteReinforcementDirection():
             reinforcement_direction_type (enum): Reinforcement Direction Enumeration
             rotation_parameters (list): Rotation Parameters
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
 
         # Client model | Concrete Durabilities
-        clientObject = Model.clientModel.factory.create('ns0:reinforcement_direction')
+        clientObject = model.clientModel.factory.create('ns0:reinforcement_direction')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -49,11 +50,12 @@ class ConcreteReinforcementDirection():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Global Parameter to client model
-        Model.clientModel.service.set_reinforcement_direction(clientObject)
+        model.clientModel.service.set_reinforcement_direction(clientObject)
 
 
 

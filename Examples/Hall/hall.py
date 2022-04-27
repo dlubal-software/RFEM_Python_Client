@@ -64,7 +64,7 @@ if __name__ == '__main__':
         Member(4*n+i,  j+2, j+7, 0.0, 2, 2)
         Member(4*n+i + n-1,  j+4, j+9, 0.0, 2, 2)
 
-# vertical bracing
+    # vertical bracing
     # add a question about repeating in every block, one yes one no, only beginning and end
 
     BracingV = input('Would you like to include vertical bracing? (Y/N)')
@@ -91,13 +91,13 @@ if __name__ == '__main__':
             k = n*4+(n-1)*2
             for i in range(n):
                 if i in (0, n-2):
-                    Member.Tension(0, k+1+4*i, i*5+1, i*5+7,
+                    Member.Tension(k+1+4*i, i*5+1, i*5+7,
                                    MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 3)
-                    Member.Tension(0, k+2+4*i, i*5+2, i*5+6,
+                    Member.Tension(k+2+4*i, i*5+2, i*5+6,
                                    MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 3)
-                    Member.Tension(0, k+3+4*i, i*5+5, i*5+9,
+                    Member.Tension(k+3+4*i, i*5+5, i*5+9,
                                    MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 3)
-                    Member.Tension(0, k+4+4*i, i*5+4, i*5+10,
+                    Member.Tension(k+4+4*i, i*5+4, i*5+10,
                                    MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 3)
 
         # MAKE IT MORE GENERAL!
@@ -111,13 +111,13 @@ if __name__ == '__main__':
             k = 4*n + 2*(n-1)
             for i in range(n):
                 if i % 2 == 0:
-                    Member.Tension(0, k+1+4*i, i*5+1, i*5+7,
+                    Member.Tension(k+1+4*i, i*5+1, i*5+7,
                                    MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 3)
-                    Member.Tension(0, k+2+4*i, i*5+2, i*5+6,
+                    Member.Tension(k+2+4*i, i*5+2, i*5+6,
                                    MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 3)
-                    Member.Tension(0, k+3+4*i, i*5+5, i*5+9,
+                    Member.Tension(k+3+4*i, i*5+5, i*5+9,
                                    MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 3)
-                    Member.Tension(0, k+4+4*i, i*5+4, i*5+10,
+                    Member.Tension(k+4+4*i, i*5+4, i*5+10,
                                    MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 3)
 
     # horizontal bracing

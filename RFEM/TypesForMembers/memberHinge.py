@@ -12,10 +12,11 @@ class MemberHinge():
                  rotational_release_my: float = 0.0,
                  rotational_release_mz: float = inf,
                  comment: str = 'Rotational Release My',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Member Hinge
-        clientObject = Model.clientModel.factory.create('ns0:member_hinge')
+        clientObject = model.clientModel.factory.create('ns0:member_hinge')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -48,8 +49,9 @@ class MemberHinge():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Line to client model
-        Model.clientModel.service.set_member_hinge(clientObject)
+        model.clientModel.service.set_member_hinge(clientObject)

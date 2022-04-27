@@ -6,7 +6,8 @@ class Section():
                  name: str = 'IPE 300',
                  material_no: int = 1,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -14,11 +15,11 @@ class Section():
             name (str): Name of Desired Section (As Named in RFEM Database)
             material_no (int): Tag of Material assigned to Section
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Section
-        clientObject = Model.clientModel.factory.create('ns0:section')
+        clientObject = model.clientModel.factory.create('ns0:section')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -36,8 +37,9 @@ class Section():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Section to client model
-        Model.clientModel.service.set_section(clientObject)
+        model.clientModel.service.set_section(clientObject)

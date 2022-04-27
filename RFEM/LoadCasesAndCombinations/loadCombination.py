@@ -14,10 +14,11 @@ class LoadCombination():
                  to_solve: bool = True,
                  combination_items = [[1.5, 1, 0, False]],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Load Combination
-        clientObject = Model.clientModel.factory.create('ns0:load_combination')
+        clientObject = model.clientModel.factory.create('ns0:load_combination')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -55,14 +56,15 @@ class LoadCombination():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Items
-        clientObject.items = Model.clientModel.factory.create('ns0:load_combination.items')
+        clientObject.items = model.clientModel.factory.create('ns0:load_combination.items')
 
         for i,j in enumerate(combination_items):
-            mlvlp = Model.clientModel.factory.create('ns0:load_combination_items')
+            mlvlp = model.clientModel.factory.create('ns0:load_combination_items')
             mlvlp.no = i+1
             mlvlp.factor = combination_items[i][0]
             mlvlp.load_case = combination_items[i][1]
@@ -93,4 +95,4 @@ class LoadCombination():
             clientObject.items.load_combination_items.append(mlvlp)
 
         # Add Load Combination to client model
-        Model.clientModel.service.set_load_combination(clientObject)
+        model.clientModel.service.set_load_combination(clientObject)

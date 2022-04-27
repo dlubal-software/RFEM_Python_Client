@@ -12,10 +12,11 @@ class SolidSetLoad():
                  load_direction = SolidSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
                  magnitude: float = 0,
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
 
         # Client model | Solid Load
-        clientObject = Model.clientModel.factory.create('ns0:solid_set_load')
+        clientObject = model.clientModel.factory.create('ns0:solid_set_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -45,24 +46,27 @@ class SolidSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Solid Load to client model
-        Model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
 
 
-    def Force(self,
+    @staticmethod
+    def Force(
               no: int =1,
               load_case_no: int = 1,
               solid_sets_no: str= '1',
               load_direction = SolidSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
               magnitude: float = 0,
               comment: str = '',
-              params: dict = {}):
+              params: dict = None,
+              model = Model):
 
         # Client model | Solid Load
-        clientObject = Model.clientModel.factory.create('ns0:solid_set_load')
+        clientObject = model.clientModel.factory.create('ns0:solid_set_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -92,20 +96,23 @@ class SolidSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Solid Load to client model
-        Model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
 
-    def Temperature(self,
+    @staticmethod
+    def Temperature(
                     no: int = 1,
                     load_case_no: int = 1,
                     solid_sets_no: str= '1',
                     load_distribution = SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
-                    load_parameter = None,
+                    load_parameter: list = None,
                     comment: str = '',
-                    params: dict = {}):
+                    params: dict = None,
+                    model = Model):
         '''
         load_parameter:
             LOAD_DISTRIBUTION_UNIFORM: load_parameter = magnitude
@@ -116,7 +123,7 @@ class SolidSetLoad():
             {''}
         '''
         # Client model | Solid Load
-        clientObject = Model.clientModel.factory.create('ns0:solid_set_load')
+        clientObject = model.clientModel.factory.create('ns0:solid_set_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -148,20 +155,23 @@ class SolidSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Solid Load to client model
-        Model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
 
-    def Strain(self,
+    @staticmethod
+    def Strain(
                no: int = 1,
                load_case_no: int = 1,
                solid_sets_no: str= '1',
                load_distribution = SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
-               load_parameter = None,
+               load_parameter: list = None,
                comment: str = '',
-               params: dict = {}):
+               params: dict = None,
+               model = Model):
         '''
         load_parameter:
             LOAD_DISTRIBUTION_UNIFORM: load_parameter = [strain_uniform_magnitude_x, strain_uniform_magnitude_y, strain_uniform_magnitude_z]
@@ -172,7 +182,7 @@ class SolidSetLoad():
             {''}
         '''
         # Client model | Solid Load
-        clientObject = Model.clientModel.factory.create('ns0:solid_set_load')
+        clientObject = model.clientModel.factory.create('ns0:solid_set_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -210,19 +220,22 @@ class SolidSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Solid Load to client model
-        Model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
 
-    def Motion(self,
+    @staticmethod
+    def Motion(
                no: int = 1,
                load_case_no: int = 1,
                solid_sets_no: str= '1',
-               load_parameter = None,
+               load_parameter: list = None,
                comment: str = '',
-               params: dict = {}):
+               params: dict = None,
+               model = Model):
         '''
         load_parameter:
             load_parameter = [angular_velocity, angular_acceleration, axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z, axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z]
@@ -230,7 +243,7 @@ class SolidSetLoad():
             {''}
         '''
         # Client model | Solid Load
-        clientObject = Model.clientModel.factory.create('ns0:solid_set_load')
+        clientObject = model.clientModel.factory.create('ns0:solid_set_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -265,11 +278,12 @@ class SolidSetLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Solid Load to client model
-        Model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
 
     #def Buoyancy():
     #    print('The function Buoyancy() is not implemented yet.')

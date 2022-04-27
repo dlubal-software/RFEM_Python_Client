@@ -1,11 +1,11 @@
 from RFEM.initModel import Model
 
-def GetDesignOverview():
+def GetDesignOverview(model = Model):
     '''
     Returns whole Design Overview list.
     '''
     # Return Design Overview
-    return Model.clientModel.service.get_design_overview()
+    return model.clientModel.service.get_design_overview()
 
 def GetPartialDesignOverview(comply: bool = False):
     """
