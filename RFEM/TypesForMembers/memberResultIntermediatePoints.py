@@ -9,6 +9,16 @@ class MemberResultIntermediatePoint():
                  distances = None,
                  comment: str = '',
                  params: dict = None):
+        """
+        Args:
+            no (int): Member Result Intermediate Point Tag
+            members (str): Assigned Members
+            point_count (int): Assigned Point Number
+            uniform_distribution (bool): Uniform Distrubition Option
+            distances (list): Distances Table
+            comment (str, optional): Comment
+            params (dict, optional): Parameters
+        """
 
         # Client model | Member Result Intermediate Point
         clientObject = Model.clientModel.factory.create('ns0:member_result_intermediate_point')

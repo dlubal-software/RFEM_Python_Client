@@ -50,10 +50,11 @@ class MemberEccentricity():
 
         # User Defined Name
         if name[0]:
-            clientObject.user_defined_name_enabled = False
-        else:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name[1]
+        else:
+            clientObject.user_defined_name_enabled = False
+
 
         # Eccentricity Specification Type
         clientObject.specification_type = eccentricity_type.name

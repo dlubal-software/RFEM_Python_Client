@@ -1982,3 +1982,9 @@ class MemberStiffnessModificationConcreteComponentType(Enum):
     Member Stiffness Modification Concrete Structure Component Type
     '''
     COMPONENT_TYPE_BEAMS, COMPONENT_TYPE_COLUMNS = range(2)
+
+class MemberSupportNonlinearity(Enum):
+    '''
+    Member Support Nonlinearity
+    '''
+    NONLINEARITY_FAILURE_IF_NEGATIVE_CONTACT_STRESS_Z, NONLINEARITY_FAILURE_IF_POSITIVE_CONTACT_STRESS_Z, NONLINEARITY_NONE = range(3)

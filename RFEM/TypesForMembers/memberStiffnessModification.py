@@ -39,7 +39,7 @@ class MemberStiffnessModification():
         """
 
         # Client model | Member Stiffness Modification
-        clientObject = Model.clientModel.factory.create('ns0:smember_stiffness_modification')
+        clientObject = Model.clientModel.factory.create('ns0:member_stiffness_modification')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)

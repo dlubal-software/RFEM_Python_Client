@@ -21,6 +21,26 @@ class MemberHinge():
                  rotational_release_mz_nonlinearity = [MemberHingeNonlineartiy.NONLINEARITY_TYPE_NONE],
                  comment: str = '',
                  params: dict = None):
+        """
+        Args:
+            no (int): Member Hinge Tag
+            coordinate_system (str): Coordinate System Selection
+            member (str): Assigned Members
+            translational_release_n (float): Translational Spring Constant X
+            translational_release_vy (float): Translational Spring Constant Y
+            translational_release_vz (float): Translational Spring Constant Z
+            rotational_release_mt (float): Rotational Spring Constant X
+            rotational_release_my (float): Rotational Spring Constant Y
+            rotational_release_mz (float): Rotational Spring Constant Z
+            translational_release_n_nonlinearity (list): Nonlinearity Options Translational X
+            translational_release_vy_nonlinearity (list): Nonlinearity Options Translational Y
+            translational_release_vz_nonlinearity (list): Nonlinearity Options Translational Z
+            rotational_release_mt_nonlinearity (list): Nonlinearity Options Rotational X
+            rotational_release_my_nonlinearity (list): Nonlinearity Options Rotational Y
+            rotational_release_mz_nonlinearity (list): Nonlinearity Options Rotational Z
+            comment (str, optional): Comment
+            params (dict, optional): Parameters
+        """
 
         # Client model | Member Hinge
         clientObject = Model.clientModel.factory.create('ns0:member_hinge')

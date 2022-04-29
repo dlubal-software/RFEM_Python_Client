@@ -10,6 +10,15 @@ class MemberNonlinearity():
                  parameters = None,
                  comment: str = '',
                  params: dict = None):
+        """
+        Args:
+            no (int): Member Nonlinearity Tag
+            members (str): Assigned Members
+            nonlinearity_type (enum): Nonlinearity Type Enumeration Item
+            parameters (list): Nonlinearity Parameters
+            comment (str, optional): Comment
+            params (dict, optional): Parameters
+        """
 
         # Client model | Member Nonlinearity
         clientObject = Model.clientModel.factory.create('ns0:member_nonlinearity')
@@ -26,16 +35,16 @@ class MemberNonlinearity():
         # Nonlinearity Type and Parameters
         clientObject.type = nonlinearity_type.name
 
-        if type.name == "TYPE_FAILURE_IF_TENSION_WITH_SLIPPAGE" or type.name == "TYPE_FAILURE_IF_COMPRESSION_WITH_SLIPPAGE" or type.name == "TYPE_SLIPPAGE":
+        if nonlinearity_type.name == "TYPE_FAILURE_IF_TENSION_WITH_SLIPPAGE" or nonlinearity_type.name == "TYPE_FAILURE_IF_COMPRESSION_WITH_SLIPPAGE" or nonlinearity_type.name == "TYPE_SLIPPAGE":
             clientObject.slippage = parameters[0]
 
-        elif type.name == "TYPE_TEARING_IF_TENSION" or type.name == "TYPE_YIELDING_IF_TENSION":
+        elif nonlinearity_type.name == "TYPE_TEARING_IF_TENSION" or nonlinearity_type.name == "TYPE_YIELDING_IF_TENSION":
             clientObject.tension_force = parameters[0]
 
-        elif type.name == "TYPE_TEARING_IF_COMPRESSION" or type.name == "TYPE_YIELDING_IF_COMPRESSION":
+        elif nonlinearity_type.name == "TYPE_TEARING_IF_COMPRESSION" or nonlinearity_type.name == "TYPE_YIELDING_IF_COMPRESSION":
             clientObject.compression_force = parameters[0]
 
-        elif type.name == "TYPE_TEARING" or type.name == "TYPE_YIELDING":
+        elif nonlinearity_type.name == "TYPE_TEARING" or nonlinearity_type.name == "TYPE_YIELDING":
             clientObject.compression_force = parameters[0]
             clientObject.tension_force = parameters[1]
 
