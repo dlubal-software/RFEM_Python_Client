@@ -1942,3 +1942,98 @@ class DesignSituationType(Enum):
         DESIGN_SITUATION_TYPE_ULS_STR_GEO_PERMANENT_AND_TRANSIENT, DESIGN_SITUATION_TYPE_ULTIMATE_LIMIT_STATE, DESIGN_SITUATION_TYPE_ULTIMATE_LIMIT_STATE_1, DESIGN_SITUATION_TYPE_ULTIMATE_LIMIT_STATE_2, DESIGN_SITUATION_TYPE_ULTIMATE_LIMIT_STATE_3, DESIGN_SITUATION_TYPE_ULTIMATE_LIMIT_STATE_4, DESIGN_SITUATION_TYPE_ULTIMATE_LIMIT_STATE_5, \
         DESIGN_SITUATION_TYPE_UPL_ACCIDENTAL_PSI_1_1, DESIGN_SITUATION_TYPE_UPL_ACCIDENTAL_PSI_2_1, DESIGN_SITUATION_TYPE_UPL_PERMANENT_AND_TRANSIENT, DESIGN_SITUATION_TYPE_UPL_SEISMIC = range(
             387)
+
+class MemberEccentricityHorizontalSectionAlignment(Enum):
+    '''
+    Member Eccentricity Horizontal Section Alignment
+    '''
+    ALIGN_LEFT, ALIGN_MIDDLE, ALIGN_RIGHT = range(3)
+
+class MemberEccentricitySpecificationType(Enum):
+    '''
+    Member Eccentricity Specification Type
+    '''
+    TYPE_ABSOLUTE, TYPE_RELATIVE, TYPE_RELATIVE_AND_ABSOLUTE = range(3)
+
+class MemberEccentricityTransverseOffsetType(Enum):
+    '''
+    Member Eccentricity Transverse Offset Reference Type
+    '''
+    TRANSVERSE_OFFSET_TYPE_FROM_MEMBER_SECTION, TRANSVERSE_OFFSET_TYPE_FROM_SURFACE_THICKNESS, TRANSVERSE_OFFSET_TYPE_NONE = range(3)
+
+class MemberEccentricityTransverseOffsetHorizontalAlignment(Enum):
+    '''
+    Member Eccentricity Transverse Offset Horizontal Alignment
+    '''
+    ALIGN_LEFT, ALIGN_MIDDLE, ALIGN_RIGHT = range(3)
+
+class MemberEccentricityTransverseOffsetVerticalAlignment(Enum):
+    '''
+    Member Eccentricity Transverse Vertical Alignment
+    '''
+    ALIGN_BOTTOM, ALIGN_MIDDLE, ALIGN_TOP = range(3)
+
+class MemberEccentricityVerticalSectionAlignment(Enum):
+    '''
+    Member Eccentricity Vertical Section Alignment
+    '''
+    ALIGN_BOTTOM, ALIGN_MIDDLE, ALIGN_TOP = range(3)
+
+class MemberHingeNonlineartiy(Enum):
+    '''
+    Member Hinge Nonlineartiy
+    '''
+    NONLINEARITY_TYPE_DIAGRAM, NONLINEARITY_TYPE_FAILURE_ALL_IF_NEGATIVE, NONLINEARITY_TYPE_FAILURE_ALL_IF_POSITIVE, NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE, \
+    NONLINEARITY_TYPE_FAILURE_IF_POSITIVE, NONLINEARITY_TYPE_FORCE_MOMENT_DIAGRAM, NONLINEARITY_TYPE_FRICTION_DIRECTION_1, NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2, \
+    NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2, NONLINEARITY_TYPE_FRICTION_DIRECTION_2, NONLINEARITY_TYPE_NONE, NONLINEARITY_TYPE_PARTIAL_ACTIVITY, \
+    NONLINEARITY_TYPE_PLASTIC_BILINEAR, NONLINEARITY_TYPE_PLASTIC_DIAGRAM, NONLINEARITY_TYPE_PLASTIC_FEMA_356_ELASTIC, NONLINEARITY_TYPE_PLASTIC_FEMA_356_RIGID, \
+    NONLINEARITY_TYPE_STIFFNESS_DIAGRAM = range(17)
+
+class MemberHingeDiagramType(Enum):
+    '''
+    Member Hinge Diagram Type
+    '''
+    DIAGRAM_ENDING_TYPE_CONTINUOUS, DIAGRAM_ENDING_TYPE_STOP, DIAGRAM_ENDING_TYPE_TEARING, DIAGRAM_ENDING_TYPE_YIELDING = range(4)
+
+class MemberHingePartialActivityType(Enum):
+    '''
+    Member Hinge Partial Activity Type
+    '''
+    PARTIAL_ACTIVITY_TYPE_COMPLETE, PARTIAL_ACTIVITY_TYPE_FIXED, PARTIAL_ACTIVITY_TYPE_INEFFECTIVNESS, PARTIAL_ACTIVITY_TYPE_TEARING, PARTIAL_ACTIVITY_TYPE_YIELDING = range(5)
+
+class MemberNonlinearityType(Enum):
+    '''
+    Member Nonlinearity Type
+    '''
+    TYPE_FAILURE_IF_COMPRESSION, TYPE_FAILURE_IF_COMPRESSION_WITH_SLIPPAGE, TYPE_FAILURE_IF_TENSION, TYPE_FAILURE_IF_TENSION_WITH_SLIPPAGE, \
+    TYPE_SLIPPAGE, TYPE_TEARING, TYPE_TEARING_IF_COMPRESSION, TYPE_TEARING_IF_TENSION, TYPE_YIELDING, TYPE_YIELDING_IF_COMPRESSION, TYPE_YIELDING_IF_TENSION = range(11)
+
+class MemberStiffnessModificationType(Enum):
+    '''
+    Member Stiffness Modification Type
+    '''
+    TYPE_CONCRETE_STRUCTURES_ACI, TYPE_CONCRETE_STRUCTURES_CSA, TYPE_PARTIAL_STIFFNESSES_FACTORS, TYPE_STEEL_STRUCTURES, TYPE_STEEL_STRUCTURES_CSA, TYPE_TOTAL_STIFFNESSES_FACTORS = range(6)
+
+class MemberStiffnessModificationSteelTaub(Enum):
+    '''
+    Member Stiffness Modification Steel Structure tau_b Determination
+    '''
+    ITERATIVE, SET_TO_1 = range(2)
+
+class MemberStiffnessModificationSteelDesignMethod(Enum):
+    '''
+    Member Stiffness Modification Steel Structure Design Method
+    '''
+    ASD, LRFD = range(2)
+
+class MemberStiffnessModificationConcreteComponentType(Enum):
+    '''
+    Member Stiffness Modification Concrete Structure Component Type
+    '''
+    COMPONENT_TYPE_BEAMS, COMPONENT_TYPE_COLUMNS = range(2)
+
+class MemberSupportNonlinearity(Enum):
+    '''
+    Member Support Nonlinearity
+    '''
+    NONLINEARITY_FAILURE_IF_NEGATIVE_CONTACT_STRESS_Z, NONLINEARITY_FAILURE_IF_POSITIVE_CONTACT_STRESS_Z, NONLINEARITY_NONE = range(3)
