@@ -1794,7 +1794,6 @@ class SolidContactPerpendicularType(Enum):
     '''
     FULL_FORCE_TRANSMISSION, FAILURE_UNDER_COMPRESSION, FAILURE_UNDER_TENSION = range(3)
 
-
 class SolidContactParallelType(Enum):
     '''
     Solid Contact Parallel To Surfaces
@@ -1807,6 +1806,61 @@ class NodalMeshRefinementType(Enum):
     Nodal Mesh Refinement
     '''
     TYPE_CIRCULAR, TYPE_RECTANGULAR = range(2)
+
+class SurfaceResultsAdjustmentShape(Enum):
+    '''
+    Surface Result Adjustment Shape Type
+    '''
+    SHAPE_RECTANGLE, SHAPE_CIRCLE, SHAPE_ELLIPSE = range(3)
+
+class SurfaceResultsAdjustmentType(Enum):
+    '''
+    Surface Result Adjustment Type. ZERO left out intentionaly.
+    '''
+    AVERAGING_OF_MY_MXY_VY_NY_NXY, AVERAGING_OF_MX_MXY_VX_NX_NXY, USER_DEFINED, NONE = range(4)
+
+class SurfaceResultsAdjustmentProjection(Enum):
+    '''
+    Surface Result Adjustment Projection
+    '''
+    PERPENDICULAR, GLOBAL_IN_X, GLOBAL_IN_Y, GLOBAL_IN_Z, VECTOR = range(5)
+
+class ResultSectionType(Enum):
+    '''
+    Result Section Type
+    '''
+    TYPE_2_POINTS_AND_VECTOR, TYPE_LINE = range(2)
+
+class ResultSectionProjection(Enum):
+    '''
+    Resul Section Projection
+    '''
+    PROJECTION_IN_GLOBAL_X, PROJECTION_IN_GLOBAL_Y, PROJECTION_IN_GLOBAL_Z, PROJECTION_IN_VECTOR = range(4)
+
+class ResultSectionResultDirection(Enum):
+    '''
+    Result Section Result Direction
+    '''
+    SHOW_RESULTS_IN_LOCAL_PLUS_Z, SHOW_RESULTS_IN_LOCAL_MINUS_Z, SHOW_RESULTS_IN_LOCAL_PLUS_Y, SHOW_RESULTS_IN_GLOBAL_PLUS_X, SHOW_RESULTS_IN_GLOBAL_MINUS_X, \
+    SHOW_RESULTS_IN_GLOBAL_PLUS_Y, SHOW_RESULTS_IN_GLOBAL_MINUS_Y, SHOW_RESULTS_IN_GLOBAL_PLUS_Z, SHOW_RESULTS_IN_GLOBAL_MINUS_Z = range(9)
+
+class SurfaceContactPerpendicularType(Enum):
+    '''
+    Surface Contact Perpendicular To Surfaces
+    '''
+    FULL_FORCE_TRANSMISSION, FAILURE_UNDER_COMPRESSION, FAILURE_UNDER_TENSION = range(3)
+
+class SurfaceContactParallelType(Enum):
+    '''
+    Surface Contact Parallel To Surfaces
+    '''
+    FULL_FORCE_TRANSMISSION, RIGID_FRICTION, ELASTIC_FRICTION, ELASTIC_SURFACE = range(4)
+
+class SurfaceContactFrictionType(Enum):
+    '''
+    Rigid Friction Type
+    '''
+    LIMIT_STRESS, FRICTION_COEFFICIENT = range(2)
 
 class ActionCategoryType(Enum):
     '''
