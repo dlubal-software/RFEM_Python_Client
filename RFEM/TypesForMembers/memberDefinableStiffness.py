@@ -1,4 +1,3 @@
-
 from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 
 class MemberDefinableStiffness():
@@ -25,8 +24,10 @@ class MemberDefinableStiffness():
         Args:
             no (int): Member Definable Stiffness Tag
             name (list): User Defined Name
+
                 if name[0] == True:
                     name[1] == Uer Defined Name
+
             members (str): Assigned Members
             torsional_stiffness (int): Torsional Stiffness
             bending_stiffness_y (int): Bending Stiffness in Y Direction

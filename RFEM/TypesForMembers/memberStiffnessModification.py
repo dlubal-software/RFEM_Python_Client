@@ -9,7 +9,8 @@ class MemberStiffnessModification():
                  modification_type = MemberStiffnessModificationType.TYPE_TOTAL_STIFFNESSES_FACTORS,
                  parameters = [1.0],
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Modification Tag
@@ -39,7 +40,7 @@ class MemberStiffnessModification():
         """
 
         # Client model | Member Stiffness Modification
-        clientObject = Model.clientModel.factory.create('ns0:member_stiffness_modification')
+        clientObject = model.clientModel.factory.create('ns0:member_stiffness_modification')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -104,4 +105,4 @@ class MemberStiffnessModification():
                 clientObject[key] = params[key]
 
         # Add Member Stiffness Modification to client model
-        Model.clientModel.service.set_member_stiffness_modification(clientObject)
+        model.clientModel.service.set_member_stiffness_modification(clientObject)

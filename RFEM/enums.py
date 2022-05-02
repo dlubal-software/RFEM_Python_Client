@@ -1719,6 +1719,24 @@ class SteelEffectiveLengthsMemberTypeZZ(Enum):
     '''
     MEMBER_TYPE_BEAM, MEMBER_TYPE_CANTILEVER = range(2)
 
+class SteelMemberShearPanelDefinitionType(Enum):
+    '''
+    Steel Member Shear Panel Definition Type
+    '''
+    DEFINITION_TYPE_BRACING, DEFINITION_TYPE_DEFINE_S_PROV,\
+    DEFINITION_TYPE_TRAPEZOIDAL_SHEETING, DEFINITION_TYPE_TRAPEZOIDAL_SHEETING_AND_BRACING = range(4)
+
+class SteelMemberShearPanelPositionOnSection(Enum):
+    '''
+    Steel Member Shear Panel Position On Section
+    '''
+    POSITION_DEFINE, POSITION_IN_CENTROID, POSITION_ON_LOWER_FLANGE, POSITION_ON_UPPER_FLANGE = range(4)
+
+class SteelMemberShearPanelFasteningArrangement(Enum):
+    '''
+    Steel Member Shear Panel Fastening Arrangement
+    '''
+    FASTENING_ARRANGEMENT_EVERY_RIB, FASTENING_ARRANGEMENT_EVERY_SECOND_RIB = range(2)
 class SteelMemberRotationalRestraintType(Enum):
     '''
     Steel Member Rotational Restraint Type
@@ -1742,6 +1760,7 @@ class SteelMemberRotationalRestraintRotationalStiffness(Enum):
     Steel Member Rotational Restraint Rotational Stiffness
     '''
     ROTATIONAL_STIFFNESS_INFINITELY, ROTATIONAL_STIFFNESS_MANUALLY = range(2)
+
 class SteelBoundaryConditionsSupportType(Enum):
     '''
     Steel Boundary Conditions Support Type
@@ -1750,7 +1769,6 @@ class SteelBoundaryConditionsSupportType(Enum):
         SUPPORT_TYPE_FIXED_IN_Y_AND_WARPING, SUPPORT_TYPE_INDIVIDUALLY, SUPPORT_TYPE_NONE, SUPPORT_TYPE_TORSION, SUPPORT_TYPE_TORSION_AND_WARPING = range(
             9)
 
-
 class SteelBoundaryConditionsEccentricityTypeZ(Enum):
     '''
     Steel Boundary Conditions Eccentricity Type Z Type
@@ -1758,6 +1776,37 @@ class SteelBoundaryConditionsEccentricityTypeZ(Enum):
     ECCENTRICITY_TYPE_AT_LOWER_FLANGE, ECCENTRICITY_TYPE_AT_UPPER_FLANGE, ECCENTRICITY_TYPE_NONE, ECCENTRICITY_TYPE_USER_VALUE = range(
         4)
 
+class SurfaceStiffnessModificationType(Enum):
+    '''
+    Surface Stiffness Modification Type
+    '''
+    TYPE_PARTIAL_STIFFNESSES_FACTORS, TYPE_STIFFNESS_MATRIX_ELEMENTS_FACTORS, TYPE_TOTAL_STIFFNESS_FACTOR = range(3)
+
+class SurfaceEccentricityAlignment(Enum):
+    '''
+    Surface Eccentricity Alignment
+    '''
+    ALIGN_TOP, ALIGN_MIDDLE, ALIGN_BOTTOM = range(3)
+
+class SolidContactPerpendicularType(Enum):
+    '''
+    Solid Contact Perpendicular To Surfaces
+    '''
+    FULL_FORCE_TRANSMISSION, FAILURE_UNDER_COMPRESSION, FAILURE_UNDER_TENSION = range(3)
+
+
+class SolidContactParallelType(Enum):
+    '''
+    Solid Contact Parallel To Surfaces
+    '''
+    FAILURE_IF_CONTACT_PERPENDICULAR_TO_SURFACES_FAILED, FULL_FORCE_TRANSMISSION, RIGID_FRICTION, RIGID_FRICTION_LIMIT, \
+    ELASTIC_FRICTION, ELASTIC_FRICTION_LIMIT, ELASTIC_SOLID = range(7)
+
+class NodalMeshRefinementType(Enum):
+    '''
+    Nodal Mesh Refinement
+    '''
+    TYPE_CIRCULAR, TYPE_RECTANGULAR = range(2)
 
 class ActionCategoryType(Enum):
     '''

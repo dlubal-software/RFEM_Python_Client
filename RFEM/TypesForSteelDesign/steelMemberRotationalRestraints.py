@@ -11,7 +11,8 @@ class SteelMemberRotationalRestraint():
                 categories: list = [],
                 parameters: list = [],
                 comment: str = '',
-                params: dict = {}):
+                params: dict = None,
+                model = Model):
         """
         Args:
             no (int): Member Rotational Restraint No.
@@ -64,7 +65,7 @@ class SteelMemberRotationalRestraint():
         """
 
         # Client Model / Types For Steel Design Member Rotational Restraints
-        clientObject = Model.clientModel.factory.create('ns0:steel_member_rotational_restraint')
+        clientObject = model.clientModel.factory.create('ns0:steel_member_rotational_restraint')
 
         # Clears Object Attributes / Sets all the attributes to None
         clearAtributes(clientObject)
@@ -125,11 +126,12 @@ class SteelMemberRotationalRestraint():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Adding Steel Member Rotational Restraint to Client Model
-        Model.clientModel.service.set_steel_member_rotational_restraint(clientObject)
+        model.clientModel.service.set_steel_member_rotational_restraint(clientObject)
 
 
 

@@ -7,7 +7,8 @@ class Solid():
                  boundary_surfaces_no: str = '1 2',
                  material_no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -19,7 +20,7 @@ class Solid():
         '''
 
         # Client model | Solid
-        clientObject = Model.clientModel.factory.create('ns0:solid')
+        clientObject = model.clientModel.factory.create('ns0:solid')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -42,7 +43,7 @@ class Solid():
                 clientObject[key] = params[key]
 
         # Add Surface to client model
-        Model.clientModel.service.set_solid(clientObject)
+        model.clientModel.service.set_solid(clientObject)
 
     @staticmethod
     def Standard(
@@ -50,7 +51,8 @@ class Solid():
                  boundary_surfaces_no: str = '1 2',
                  material_no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -62,7 +64,7 @@ class Solid():
         '''
 
         # Client model | Solid
-        clientObject = Model.clientModel.factory.create('ns0:solid')
+        clientObject = model.clientModel.factory.create('ns0:solid')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -88,7 +90,7 @@ class Solid():
                 clientObject[key] = params[key]
 
         # Add Surface to client model
-        Model.clientModel.service.set_solid(clientObject)
+        model.clientModel.service.set_solid(clientObject)
 
     @staticmethod
     def Gas(
@@ -96,7 +98,8 @@ class Solid():
                  boundary_surfaces_no: str = '1 2',
                  material_no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -108,7 +111,7 @@ class Solid():
         '''
 
         # Client model | Solid
-        clientObject = Model.clientModel.factory.create('ns0:solid')
+        clientObject = model.clientModel.factory.create('ns0:solid')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -134,7 +137,7 @@ class Solid():
                 clientObject[key] = params[key]
 
         # Add Surface to client model
-        Model.clientModel.service.set_solid(clientObject)
+        model.clientModel.service.set_solid(clientObject)
 
     @staticmethod
     def Contact(
@@ -142,7 +145,8 @@ class Solid():
                  boundary_surfaces_no: str = '1 2',
                  material_no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -154,7 +158,7 @@ class Solid():
         '''
 
         # Client model | Solid
-        clientObject = Model.clientModel.factory.create('ns0:solid')
+        clientObject = model.clientModel.factory.create('ns0:solid')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -180,7 +184,7 @@ class Solid():
                 clientObject[key] = params[key]
 
         # Add Surface to client model
-        Model.clientModel.service.set_solid(clientObject)
+        model.clientModel.service.set_solid(clientObject)
 
     @staticmethod
     def Soil(
@@ -188,7 +192,8 @@ class Solid():
              boundary_surfaces_no: str = '1 2',
              material_no: int = 1,
              comment: str = '',
-             params: dict = None):
+             params: dict = None,
+             model = Model):
 
         '''
         Args:
@@ -200,7 +205,7 @@ class Solid():
         '''
 
         # Client model | Solid
-        clientObject = Model.clientModel.factory.create('ns0:solid')
+        clientObject = model.clientModel.factory.create('ns0:solid')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -226,4 +231,4 @@ class Solid():
                 clientObject[key] = params[key]
 
         # Add Surface to client model
-        Model.clientModel.service.set_solid(clientObject)
+        model.clientModel.service.set_solid(clientObject)

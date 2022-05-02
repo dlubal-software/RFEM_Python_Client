@@ -20,7 +20,8 @@ class MemberHinge():
                  rotational_release_my_nonlinearity = [MemberHingeNonlineartiy.NONLINEARITY_TYPE_NONE],
                  rotational_release_mz_nonlinearity = [MemberHingeNonlineartiy.NONLINEARITY_TYPE_NONE],
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Member Hinge Tag
@@ -43,7 +44,7 @@ class MemberHinge():
         """
 
         # Client model | Member Hinge
-        clientObject = Model.clientModel.factory.create('ns0:member_hinge')
+        clientObject = model.clientModel.factory.create('ns0:member_hinge')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -483,4 +484,4 @@ class MemberHinge():
                 clientObject[key] = params[key]
 
         # Add Line to client model
-        Model.clientModel.service.set_member_hinge(clientObject)
+        model.clientModel.service.set_member_hinge(clientObject)

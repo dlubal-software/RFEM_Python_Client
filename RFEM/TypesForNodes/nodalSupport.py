@@ -16,7 +16,6 @@ def setNodalSupportConditions(clientObject,
         clientObject: Client model object | Nodal support
         C_u_X,Y,Z: Translational support conditions in respected direction
         C_phi_X,Y,Z: Rotational support conditions about respected axis
-        comment: Comment
 
     Returns:
         clientObject: Initialized client model object | Nodal Support
@@ -36,12 +35,27 @@ class NodalSupport():
     def __init__(self,
                  no: int = 1,
                  nodes_no: str = '1 2',
-                 support_type = NodalSupportType.HINGED,
+                 support = NodalSupportType.HINGED,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
+        """
+        Nodal Support
+
+        Args:
+            no (int, optional): Number
+            nodes_no (str, optional): Assigned to nodes
+            support (enum or list, optional): Support definition
+            comment (str, optional): Commment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (_type_, optional): Model instance
+
+        Raises:
+            ValueError: 'Support parameter can be enum or list with 6 items.'
+        """
 
         # Client model | Nodal Support
-        clientObject = Model.clientModel.factory.create('ns0:nodal_support')
+        clientObject = model.clientModel.factory.create('ns0:nodal_support')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -53,33 +67,39 @@ class NodalSupport():
         clientObject.nodes = ConvertToDlString(nodes_no)
 
         # Nodal Support Conditions
-        if   support_type == NodalSupportType.FIXED:
+        if   support == NodalSupportType.FIXED:
             # FIXED       'xxx xxx'
             clientObject = setNodalSupportConditions(clientObject, inf, inf, inf, inf, inf, inf)
 
-        elif support_type == NodalSupportType.HINGED:
+        elif support == NodalSupportType.HINGED:
             # HINGED      'xxx --x'
             clientObject = setNodalSupportConditions(clientObject, inf, inf, inf, 0.0, 0.0, inf)
 
-        elif support_type == NodalSupportType.ROLLER:
+        elif support == NodalSupportType.ROLLER:
             # ROLLER      '--x --x'
             clientObject = setNodalSupportConditions(clientObject, 0.0, 0.0, inf, 0.0, 0.0, inf)
 
-        elif support_type == NodalSupportType.ROLLER_IN_X:
+        elif support == NodalSupportType.ROLLER_IN_X:
             # ROLLER_IN_X '-xx --x'
             clientObject = setNodalSupportConditions(clientObject, 0.0, inf, inf, 0.0, 0.0, inf)
 
-        elif support_type == NodalSupportType.ROLLER_IN_Y:
+        elif support == NodalSupportType.ROLLER_IN_Y:
             # ROLLER_IN_Y 'x-x --x'
             clientObject = setNodalSupportConditions(clientObject, inf, 0.0, inf, 0.0, 0.0, inf)
 
-        elif support_type == NodalSupportType.ROLLER_IN_Z:
+        elif support == NodalSupportType.ROLLER_IN_Z:
             # ROLLER_IN_Z 'xx- --x'
             clientObject = setNodalSupportConditions(clientObject, inf, inf, 0.0, 0.0, 0.0, inf)
 
-        elif support_type == NodalSupportType.FREE:
+        elif support == NodalSupportType.FREE:
             # FREE '--- ---'
             clientObject = setNodalSupportConditions(clientObject, 0, 0, 0, 0, 0, 0)
+
+        elif isinstance(support, list) and len(support) == 6:
+            clientObject = setNodalSupportConditions(clientObject, support[0], support[1], support[2], support[3], support[4], support[5])
+
+        else:
+            raise ValueError('Support parameter can be enum or list with 6 items.')
 
         # Comment
         clientObject.comment = comment
@@ -90,4 +110,4 @@ class NodalSupport():
                 clientObject[key] = params[key]
 
         # Add Nodal Support to client model
-        Model.clientModel.service.set_nodal_support(clientObject)
+        model.clientModel.service.set_nodal_support(clientObject)

@@ -9,15 +9,16 @@ class ConcreteDurability():
                 member_sets_no: str = "1",
                 surfaces_no: str = "1",
                 exposure_classes_reinforcement = [True, False, False, False],
-                exposure_classes_reinforcement_types = [],
+                exposure_classes_reinforcement_types: list = None,
                 exposure_classes_concrete = [False, False, False],
-                exposure_classes_concrete_types = [],
+                exposure_classes_concrete_types: list = None,
                 structural_class = [DurabilityStructuralClassType.STANDARD, False, False, False, False],
                 stainless_steel_reduction = [False],
                 additional_protection_reduction = [False],
                 allowance_deviation = [DurabilityAllowanceDeviationType.STANDARD, False],
                 comment: str = '',
-                params: dict = None):
+                params: dict = None,
+                model = Model):
         """
         Args:
             no (int): Concrete Durability Tag
@@ -38,7 +39,7 @@ class ConcreteDurability():
         """
 
         # Client model | Concrete Durabilities
-        clientObject = Model.clientModel.factory.create('ns0:concrete_durability')
+        clientObject = model.clientModel.factory.create('ns0:concrete_durability')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -163,12 +164,4 @@ class ConcreteDurability():
                 clientObject[key] = params[key]
 
         # Add Global Parameter to client model
-        Model.clientModel.service.set_concrete_durability(clientObject)
-
-
-
-
-
-
-
-
+        model.clientModel.service.set_concrete_durability(clientObject)

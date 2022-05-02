@@ -3,17 +3,42 @@ from RFEM.initModel import Model, clearAtributes
 class SolidGas():
     def __init__(self,
                  no: int = 1,
+                 pressure: float = 100000,
+                 temperature: float = 283.15,
+                 solids: str = '',
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
+        """
+        Gas Solids
+
+        Args:
+            no (int, optional): Number
+            pressure (float, optional): Preassure in Pascals
+            temperature (float, optional): Temperature in Kelvins
+            solids (str, optional): Assigned to solids
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (class, optional): Model instance
+        """
 
         # Client model | Solid Gas
-        clientObject = Model.clientModel.factory.create('ns0:solid_gas')
+        clientObject = model.clientModel.factory.create('ns0:solid_gas')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
 
         # Solid Gas No.
         clientObject.no = no
+
+        # Solid Gas Pressure
+        clientObject.pressure = pressure
+
+        # Solid Gas Temperature
+        clientObject.temperature = temperature
+
+        # Assigned to Solids
+        clientObject.solids = solids
 
         # Comment
         clientObject.comment = comment
@@ -24,4 +49,4 @@ class SolidGas():
                 clientObject[key] = params[key]
 
         # Add Solid Gas to client model
-        Model.clientModel.service.set_solid_gas(clientObject)
+        model.clientModel.service.set_solid_gas(clientObject)

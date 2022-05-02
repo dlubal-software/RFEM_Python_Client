@@ -13,7 +13,8 @@ class MemberEccentricity():
                  axial_offset_active: bool = False,
                  hinge_location_at_node: bool = False,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Eccentricity Tag
@@ -40,7 +41,7 @@ class MemberEccentricity():
         """
 
         # Client model | Member Eccentricity
-        clientObject = Model.clientModel.factory.create('ns0:member_eccentricity')
+        clientObject = model.clientModel.factory.create('ns0:member_eccentricity')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -113,4 +114,4 @@ class MemberEccentricity():
                 clientObject[key] = params[key]
 
         # Add Member Eccentricity to client model
-        Model.clientModel.service.set_member_eccentricity(clientObject)
+        model.clientModel.service.set_member_eccentricity(clientObject)

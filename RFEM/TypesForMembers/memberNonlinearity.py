@@ -9,7 +9,8 @@ class MemberNonlinearity():
                  nonlinearity_type = MemberNonlinearityType.TYPE_FAILURE_IF_TENSION,
                  parameters = None,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Member Nonlinearity Tag
@@ -21,7 +22,7 @@ class MemberNonlinearity():
         """
 
         # Client model | Member Nonlinearity
-        clientObject = Model.clientModel.factory.create('ns0:member_nonlinearity')
+        clientObject = model.clientModel.factory.create('ns0:member_nonlinearity')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -57,4 +58,4 @@ class MemberNonlinearity():
                 clientObject[key] = params[key]
 
         # Add Member Nonlinearity to client model
-        Model.clientModel.service.set_member_nonlinearity(clientObject)
+        model.clientModel.service.set_member_nonlinearity(clientObject)
