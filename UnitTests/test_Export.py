@@ -77,8 +77,8 @@ def test_import():
     setSAFSettings(safc)
 
     dirname = os.path.join(os.getcwd(), os.path.dirname(__file__), 'src')
-    importFrom(os.path.join(dirname, 'import_test.saf'))
-    importFrom(os.path.join(dirname, 'import_test.xlsx'))
-    importFrom(os.path.join(dirname, 'import_test.xml'))
+    importFrom(os.path.join(dirname, 'import_test_saf.saf'))
+    importFrom(os.path.join(dirname, 'import_test_xlsx.xlsx'))
+    importFrom(os.path.join(dirname, 'import_test_xml.xml'))
 
     client.service.close_model(1, False)
