@@ -11,6 +11,8 @@ from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
+from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.surface import Surface
 from RFEM.SpecialObjects.intersection import Instersection
 from RFEM.SpecialObjects.surfaceResultAdjustment import SurfaceResultsAdjustment
@@ -20,7 +22,9 @@ from RFEM.SpecialObjects.structureModification import StructureModification
 from RFEM.TypesForSpecialObjects.surfaceContactType import SurfaceContactType
 from RFEM.enums import SurfaceResultsAdjustmentShape, SurfaceResultsAdjustmentType, SurfaceResultsAdjustmentProjection
 from RFEM.enums import SurfaceContactPerpendicularType, SurfaceContactParallelType, SurfaceContactFrictionType
-from RFEM.enums import ResultSectionType, ResultSectionProjection, ResultSectionResultDirection
+from RFEM.enums import ResultSectionType, ResultSectionProjection, ResultSectionResultDirection, SurfaceStiffnessModificationType
+from RFEM.TypesForSurfaces.surfaceStiffnessModification import SurfaceStiffnessModification
+from RFEM.TypesForMembers.memberStiffnessModification import MemberStiffnessModification
 
 # Rigid Links tested separately in test_RigidLinks.py
 
@@ -69,6 +73,10 @@ def test_special_objects():
     Line(13, '11 12')
     Line(14, '12 9')
 
+    Line(15, '6 9')
+    Section()
+    Member(1,4, 9, 0, 1)
+
     # Create Surfaces
     Surface(1, '1 2 3 4', 1)
     Surface(2, '2 5 6 7', 1)
@@ -76,9 +84,9 @@ def test_special_objects():
     Surface(3, '8 9 10 11', 1)
     Surface(4, '12 13 14 9', 1)
 
-    Instersection()
+    Instersection(1, 1, 2)
 
-    SurfaceResultsAdjustment(1,SurfaceResultsAdjustmentShape.SHAPE_RECTANGLE, [1,1.2,0])
+    SurfaceResultsAdjustment(1,SurfaceResultsAdjustmentShape.SHAPE_RECTANGLE, [1.1,1.2,0])
 
     SurfaceContactType(1, SurfaceContactPerpendicularType.FULL_FORCE_TRANSMISSION, SurfaceContactParallelType.ELASTIC_FRICTION, [2000, SurfaceContactFrictionType.FRICTION_COEFFICIENT, 0.25])
     SurfaceContactType.FullForce(2)
@@ -93,7 +101,54 @@ def test_special_objects():
     ResultSection.TwoPointsAndVector(3,1,ResultSectionResultDirection.SHOW_RESULTS_IN_GLOBAL_MINUS_Y,False, [10,0,0], [5,5,5], ResultSectionProjection.PROJECTION_IN_GLOBAL_X)
     ResultSection.TwoPointsAndVector(4,1,ResultSectionResultDirection.SHOW_RESULTS_IN_GLOBAL_MINUS_Y,False, [10,0,0], [5,5,5], ResultSectionProjection.PROJECTION_IN_VECTOR, [-1,1,-1])
 
-    StructureModification()
+    SurfaceStiffnessModification(1, SurfaceStiffnessModificationType.TYPE_TOTAL_STIFFNESS_FACTOR, factors=[1.09])
+    MemberStiffnessModification()
 
+    modify = StructureModification.modify_stiffness
+    modify['modify_stiffnesses_materials'] = True
+    StructureModification(1, modify, [StructureModification.material_item])
 
     Model.clientModel.service.finish_modification()
+
+    intersection = Model.clientModel.service.get_intersection(1)
+    assert intersection.surface_a == 1
+    assert intersection.surface_b == 2
+
+    sra = Model.clientModel.service.get_surface_results_adjustment(1)
+    assert sra.shape == SurfaceResultsAdjustmentShape.SHAPE_RECTANGLE.name
+    assert sra.dimension_1 == 1.1
+    assert sra.dimension_2 == 1.2
+
+    surface_contact = Model.clientModel.service.get_surfaces_contact(1)
+    assert surface_contact.surfaces_group1 == '1'
+    assert surface_contact.surfaces_group2 == '3'
+    assert surface_contact.surfaces_contact_type == 1
+
+    rs1 = Model.clientModel.service.get_result_section(1)
+    assert rs1.show_values_on_isolines_enabled == True
+    assert rs1.coordinate_system == 1
+    assert rs1.first_point_coordinate_1 == 1
+    assert rs1.first_point_coordinate_2 == 0
+    assert rs1.second_point_coordinate_1 == 0
+    assert rs1.second_point_coordinate_2 == 2
+    assert rs1.projection_in_direction == ResultSectionProjection.PROJECTION_IN_VECTOR.name
+    assert rs1.vector_coordinate_1 == 1
+    assert rs1.vector_coordinate_2 == 1
+    assert rs1.vector_coordinate_3 == 1
+
+    rs2 = Model.clientModel.service.get_result_section(2)
+    assert rs2.type == ResultSectionType.TYPE_LINE.name
+    assert rs2.lines == '2'
+
+    rs3 = Model.clientModel.service.get_result_section(3)
+    assert rs3.type == ResultSectionType.TYPE_2_POINTS_AND_VECTOR.name
+    assert rs3.second_point_coordinate_1 == 5
+
+    rs4 = Model.clientModel.service.get_result_section(4)
+    assert rs4.type == ResultSectionType.TYPE_2_POINTS_AND_VECTOR.name
+    assert rs4.first_point_coordinate_1 == 10
+    assert rs4.second_point_coordinate_1 == 5
+
+    structure_modification = Model.clientModel.service.get_structure_modification(1)
+    assert structure_modification.modify_stiffnesses_materials == True
+    assert structure_modification.modify_stiffnesses_sections == False

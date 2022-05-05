@@ -10,7 +10,6 @@ class ResultSection():
                  parameters: list = None,
                  assigned_to_all_surfaces: bool = True,
                  assigned_to_all_solids: bool = True,
-                 comment: str = '',
                  params: dict = None,
                  model = Model):
         """
@@ -30,7 +29,6 @@ class ResultSection():
                     [1, [1,0,0], [0,2,0], ResultSectionProjection.PROJECTION_IN_VECTOR, [1,1,1]]
             assigned_to_all_surfaces (bool, optional) = Assigned to all surface
             assigned_to_all_solids (bool, optional) Assigned to all solids
-            comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (class, optional): Model instance
         """
@@ -81,9 +79,6 @@ class ResultSection():
             clientObject.assigned_to_solids = '0'
         else:
             clientObject.assigned_to_solids = ''
-
-        # Comment
-        #clientObject.comment = comment
 
         # Adding optional parameters via dictionary
         if params:
