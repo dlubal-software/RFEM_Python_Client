@@ -133,21 +133,21 @@ class SteelEffectiveLengths():
         clientObject.nodal_supports = model.clientModel.factory.create('ns0:steel_effective_lengths.nodal_supports')
 
         for i,j in enumerate(nodal_supports):
-            mlvlp = model.clientModel.factory.create('ns0:steel_effective_lengths_nodal_supports')
+            mlvlp = model.clientModel.factory.create('ns0:steel_effective_lengths_nodal_supports_row')
             mlvlp.no = i
-            mlvlp.support_type = nodal_supports[i][0].name
-            mlvlp.support_in_z = nodal_supports[i][1]
-            mlvlp.support_spring_in_y = nodal_supports[i][2]
-            mlvlp.eccentricity_type = nodal_supports[i][3].name
-            mlvlp.eccentricity_ez = nodal_supports[i][4]
-            mlvlp.restraint_spring_about_x = nodal_supports[i][5]
-            mlvlp.restraint_spring_about_z = nodal_supports[i][6]
-            mlvlp.restraint_spring_warping = nodal_supports[i][7]
-            mlvlp.support_in_y_type = nodal_supports[i][8].name
-            mlvlp.restraint_about_x_type = nodal_supports[i][9].name
-            mlvlp.restraint_about_z_type = nodal_supports[i][10].name
-            mlvlp.restraint_warping_type = nodal_supports[i][11].name
-            mlvlp.nodes = ConvertToDlString(nodal_supports[i][12])
+            mlvlp.row.support_type = nodal_supports[i][0].name
+            mlvlp.row.support_in_z = nodal_supports[i][1]
+            mlvlp.row.support_spring_in_y = nodal_supports[i][2]
+            mlvlp.row.eccentricity_type = nodal_supports[i][3].name
+            mlvlp.row.eccentricity_ez = nodal_supports[i][4]
+            mlvlp.row.restraint_spring_about_x = nodal_supports[i][5]
+            mlvlp.row.restraint_spring_about_z = nodal_supports[i][6]
+            mlvlp.row.restraint_spring_warping = nodal_supports[i][7]
+            mlvlp.row.support_in_y_type = nodal_supports[i][8].name
+            mlvlp.row.restraint_about_x_type = nodal_supports[i][9].name
+            mlvlp.row.restraint_about_z_type = nodal_supports[i][10].name
+            mlvlp.row.restraint_warping_type = nodal_supports[i][11].name
+            mlvlp.row.nodes = ConvertToDlString(nodal_supports[i][12])
 
             clientObject.nodal_supports.steel_effective_lengths_nodal_supports.append(mlvlp)
 
