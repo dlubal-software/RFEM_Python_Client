@@ -6,8 +6,9 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
+import pytest
 from RFEM.enums import AddOn
-from RFEM.initModel import Model, GetAddonStatus
+from RFEM.initModel import Model, SetAddonStatus
 from RFEM.Results.designOverview import GetDesignOverview, GetPartialDesignOverview
 from RFEM.Reports.partsList import GetPartsListAllByMaterial, GetPartsListMemberRepresentativesByMaterial
 from RFEM.Reports.partsList import GetPartsListMemberSetsByMaterial, GetPartsListMembersByMaterial
@@ -16,10 +17,12 @@ from RFEM.Reports.partsList import GetPartsListSolidsByMaterial, GetPartsListSur
 if Model.clientModel is None:
     Model()
 
+#@pytest.mark.skip(reason="no way of currently testing this")
 def test_designOverview():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.run_script('..\\scripts\\internal\\Demos\\Demo-004 Bus Station-Concrete Design.js')
+    SetAddonStatus(Model.clientModel, AddOn.concrete_design_active)
     Model.clientModel.service.calculate_all(False)
 
     designOverview = GetDesignOverview()
@@ -54,5 +57,3 @@ def test_designOverview():
     f = GetPartsListSurfacessByMaterial()
     assert len(f[0]) == 6
     assert f[0][1]['thickness_name'] == 'Uniform | d : 120.0 mm | 2 - C20/25'
-
-    GetAddonStatus(Model.clientModel, AddOn.concrete_design_active)

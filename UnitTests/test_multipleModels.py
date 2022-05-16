@@ -9,7 +9,7 @@ from RFEM.BasicObjects.material import Material
 from RFEM.initModel import Model, closeModel
 
 if Model.clientModel is None:
-        Model()
+    Model()
 
 def test_multiple_models_with_parameter():
 
