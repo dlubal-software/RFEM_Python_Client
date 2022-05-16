@@ -11,7 +11,7 @@ sys.path.append(PROJECT_ROOT)
 
 ## Import the relevant Libraries
 from RFEM.enums import *
-from RFEM.initModel import Model
+from RFEM.initModel import Model, SetAddonStatus, AddOn
 from RFEM.TypesForMembers.memberHinge import MemberHinge
 from RFEM.TypesForMembers.memberResultIntermediatePoints import MemberResultIntermediatePoint
 from RFEM.TypesForMembers.memberSupport import MemberSupport
@@ -20,6 +20,8 @@ from RFEM.TypesForMembers.memberDefinableStiffness import MemberDefinableStiffne
 from RFEM.TypesForMembers.memberEccentricity import MemberEccentricity
 from RFEM.TypesForMembers.memberNonlinearity import MemberNonlinearity
 from RFEM.TypesForMembers.memberStiffnessModification import MemberStiffnessModification
+from RFEM.TypesForMembers.memberTransverseStiffeners import MemberTransverseStiffeners
+from RFEM.BasicObjects.material import Material
 
 if Model.clientModel is None:
     Model()
@@ -122,3 +124,20 @@ def test_memberSupport():
 
     Model.clientModel.service.finish_modification()
 
+def test_memberTransverseStiffeners():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    SetAddonStatus(Model.clientModel, AddOn.steel_design_active, True)
+
+    Material(1, "S235")
+
+    MemberTransverseStiffeners(1, "", "", [[MemberTransverseStiffenerType.STIFFENER_COMPONENT_TYPE_FLAT, 1, MemberTransverseStiffenerPosition.STIFFENER_COMPONENT_POSITION_DOUBLE_SIDED, False, 0, MemberTransverseStiffenerOffsetType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 0, 1, True, 0.005, 0.02, 0.0, False, False, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, False, False, 0]])
+
+    memberStiffener_1 = Model.clientModel.service.get_member_transverse_stiffener(1)
+
+    assert memberStiffener_1.no == 1
+    assert memberStiffener_1.name == "1 Stiffener | Flat"
+
+    Model.clientModel.service.finish_modification()
