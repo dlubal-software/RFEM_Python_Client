@@ -135,7 +135,7 @@ def clearAtributes(obj):
 def closeModel(index_or_name, save_changes = False):
     """
     Close any model with index or name. Be sure to close the first created
-    model last (2,1, and then 0). It carries whole session.
+    model last (2,1, and then 0). 0 index carries whole session.
     """
     if isinstance(index_or_name, int):
         client.service.close_model(index_or_name, save_changes)
