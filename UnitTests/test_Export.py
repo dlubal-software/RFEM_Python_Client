@@ -8,7 +8,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import ObjectTypes
-from RFEM.initModel import client, Model, CheckIfMethodOrTypeExists, Calculate_all
+from RFEM.initModel import client, Model, closeModel
 from RFEM.ImportExport.exports import IFCExportSettings, ObjectLocation, ObjectLocations, ExportToIFC, GetTableExportConfigManager, SetTableExportConfigManager, ExportTo
 from RFEM.ImportExport.imports import getConversionTables, setConversionTables, getSAFSettings, setSAFSettings, importFrom
 
@@ -16,12 +16,11 @@ from RFEM.ImportExport.imports import getConversionTables, setConversionTables, 
 if Model.clientModel is None:
     Model()
 
-pytest.mark.xfail(reason="Calculate_all() performs incosistently.", strict=False)
+#pytest.mark.xfail(reason="Performs incosistently.", strict=False)
 def test_export():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.run_script('..\\scripts\\internal\\Demos\\Demo-002 Cantilever Beams.js')
-    #Calculate_all()
 
     dirname = os.path.join(os.getcwd(), os.path.dirname(__file__), 'testResults')
     targetFile1 = os.path.join(dirname, 'test_ifcExport1.ifc')
@@ -58,8 +57,8 @@ def test_export():
     Model.clientModel.service.finish_modification()
 
 def test_import():
-    Model.clientModel.service.delete_all()
 
+    Model.clientModel.service.delete_all()
     ct = getConversionTables()
     setConversionTables(ct)
 
@@ -81,4 +80,6 @@ def test_import():
     importFrom(os.path.join(dirname, 'import_test_xlsx.xlsx'))
     importFrom(os.path.join(dirname, 'import_test_xml.xml'))
 
+    client.service.close_model(3, False)
+    client.service.close_model(2, False)
     client.service.close_model(1, False)
