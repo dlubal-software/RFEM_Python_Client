@@ -60,10 +60,10 @@ def test_steelEffectiveLengths():
     bc_1 = Model.clientModel.service.get_steel_boundary_conditions(1)
 
     assert bc_1.no == 1
-    assert bc_1.nodal_supports[0][0][0] == 0
+    assert bc_1.nodal_supports[0][0].row['rotation'] == 0
 
     bc_2 = Model.clientModel.service.get_steel_boundary_conditions(2)
 
-    assert bc_2.member_hinges[0][1][1] == "Inter."
+    assert bc_2.member_hinges[0][1].row['node_seq_no'] == "Inter."
 
     Model.clientModel.service.finish_modification()

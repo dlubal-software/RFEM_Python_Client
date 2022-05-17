@@ -52,11 +52,11 @@ class LineWeldedJoint():
         for i in iLines:
             line = model.clientModel.service.get_line(i)
             line.has_line_welds = True
-            clientWeld = model.clientModel.factory.create('ns0:line_line_weld_assignment')
+            clientWeld = model.clientModel.factory.create('ns0:line_line_weld_assignment_row')
             clientWeld.no = i
-            clientWeld.weld = no
-            clientWeld.surface1 = iSurfaces[0]
-            clientWeld.surface2 = iSurfaces[1]
+            clientWeld.row.weld = no
+            clientWeld.row.surface1 = iSurfaces[0]
+            clientWeld.row.surface2 = iSurfaces[1]
             if len(iSurfaces) == 3:
                 clientWeld.surface3 = iSurfaces[2]
             line.line_weld_assignment = model.clientModel.factory.create('ns0:array_of_line_line_weld_assignment')

@@ -26,8 +26,8 @@ def test_designOverview():
     Model.clientModel.service.calculate_all(False)
 
     designOverview = GetDesignOverview()
-    assert designOverview[0][0]['design_ratio'] == 2.851
-    assert designOverview[0][0]['design_check_type'] == 'DM0210.00'
+    assert designOverview[0][0][0]['design_ratio'] == 2.851
+    assert designOverview[0][0][0]['design_check_type'] == 'DM0210.00'
 
     partialDesignOverview = GetPartialDesignOverview(False)
     assert len(partialDesignOverview) == 18
@@ -37,7 +37,7 @@ def test_designOverview():
 
     a = GetPartsListAllByMaterial()
     assert len(a[0]) == 5
-    assert a[0][0]['volume'] == a[0][1]['volume']
+    assert a[0][0].row['volume'] == a[0][1].row['volume']
 
     b = GetPartsListMemberRepresentativesByMaterial()
     assert b == ''
@@ -46,14 +46,13 @@ def test_designOverview():
     assert c == ''
 
     d = GetPartsListMembersByMaterial()
-    assert len(d[0]) == 5
-    assert d[0][0]['no'] == 1
-    assert round(d[0][0]['total_weight']) == 1200
-    assert round(d[0][-1]['total_weight']) == 2300
+    assert len(d[0][0].row) == 13
+    assert d[0][0][0] == 1
+    assert round(d[0][0][1]['total_weight']) == 1200
 
     e = GetPartsListSolidsByMaterial()
     assert e == ''
 
     f = GetPartsListSurfacessByMaterial()
-    assert len(f[0]) == 6
-    assert f[0][1]['thickness_name'] == 'Uniform | d : 120.0 mm | 2 - C20/25'
+    assert len(f[0][0].row) == 13
+    assert f[0][0][1]['thickness_name'] == 'Uniform | d : 120.0 mm | 2 - C20/25'
