@@ -75,8 +75,8 @@ def test_thickness():
     Thickness.Layers(
                      no= 7,
                      name= 'Layers',
-                     layers= [[1, 1, 0.123, 0, 'Schicht 1'],
-                              [0, 1, 0.456, 90, 'Schicht 2']],
+                     layers= [[1, 1, 0.123],
+                              [0, 1, 0.456]],
                      comment= 'Comment')
 
     # Shape Orthotropy
