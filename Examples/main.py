@@ -117,7 +117,8 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 
 # -------------------------------------------------------------
     # Member Hinges
-    MemberHinge(1, "Local", inf, inf, inf,  inf, 0, inf, "Rotational Release My")
+    MemberHinge(1, "Local", rotational_release_mz=inf)
+
 
 # -------------------------------------------------------------
     # Members
