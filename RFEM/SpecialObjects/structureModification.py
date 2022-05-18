@@ -125,85 +125,85 @@ class StructureModification():
         if modify_stiffnesses['modify_stiffnesses_materials']:
             for i in modify_stiffnesses_materials_list:
                 idx = i['no']-1
-                clientObject.modify_stiffnesses_material_table[0][idx].modification_type = i['modification_type']
-                clientObject.modify_stiffnesses_material_table[0][idx].E_and_G = i['E_and_G']
-                clientObject.modify_stiffnesses_material_table[0][idx].comment = i['comment']
+                clientObject.modify_stiffnesses_material_table[0][idx].row.modification_type = i['modification_type']
+                clientObject.modify_stiffnesses_material_table[0][idx].row.E_and_G = i['E_and_G']
+                clientObject.modify_stiffnesses_material_table[0][idx].row.comment = i['comment']
         if modify_stiffnesses['modify_stiffnesses_sections']:
             for i in modify_stiffnesses_sections_list:
                 idx = i['no']-1
-                clientObject.modify_stiffnesses_sections_table[0][idx].A = i['A']
-                clientObject.modify_stiffnesses_sections_table[0][idx].A_y = i['A_y']
-                clientObject.modify_stiffnesses_sections_table[0][idx].A_z = i['A_z']
-                clientObject.modify_stiffnesses_sections_table[0][idx].J = i['J']
-                clientObject.modify_stiffnesses_sections_table[0][idx].I_Y = i['I_y']
-                clientObject.modify_stiffnesses_sections_table[0][idx].I_z = i['I_z']
+                clientObject.modify_stiffnesses_sections_table[0][idx].row.A = i['A']
+                clientObject.modify_stiffnesses_sections_table[0][idx].row.A_y = i['A_y']
+                clientObject.modify_stiffnesses_sections_table[0][idx].row.A_z = i['A_z']
+                clientObject.modify_stiffnesses_sections_table[0][idx].row.J = i['J']
+                clientObject.modify_stiffnesses_sections_table[0][idx].row.I_Y = i['I_y']
+                clientObject.modify_stiffnesses_sections_table[0][idx].row.I_z = i['I_z']
         if modify_stiffnesses['modify_stiffnesses_members']:
             for i in modify_stiffnesses_members_list:
                 idx = i['no']-1
-                clientObject.modify_stiffnesses_members_table[0][idx].member_modification = i['member_modification']
-                clientObject.modify_stiffnesses_members_table[0][idx].members = i['members']
-                clientObject.modify_stiffnesses_members_table[0][idx].comment = i['comment']
+                clientObject.modify_stiffnesses_members_table[0][idx].row.member_modification = i['member_modification']
+                clientObject.modify_stiffnesses_members_table[0][idx].row.members = i['members']
+                clientObject.modify_stiffnesses_members_table[0][idx].row.comment = i['comment']
         if modify_stiffnesses['modify_stiffnesses_surfaces']:
             for i in modify_stiffnesses_surfaces_list:
                 idx = i['no']-1
-                clientObject.modify_stiffnesses_surfaces_table[0][idx].surface_modification = i['surface_modification']
-                clientObject.modify_stiffnesses_surfaces_table[0][idx].surfaces = i['surfaces']
-                clientObject.modify_stiffnesses_surfaces_table[0][idx].comment = i['comment']
+                clientObject.modify_stiffnesses_surfaces_table[0][idx].row.surface_modification = i['surface_modification']
+                clientObject.modify_stiffnesses_surfaces_table[0][idx].row.surfaces = i['surfaces']
+                clientObject.modify_stiffnesses_surfaces_table[0][idx].row.comment = i['comment']
         if modify_stiffnesses['modify_stiffnesses_member_hinges']:
             for i in modify_stiffnesses_member_hinges_list:
                 idx = i['no']-1
-                clientObject.modify_stiffnesses_member_hinges_table[0][idx].member_side = i['member_side']
-                clientObject.modify_stiffnesses_member_hinges_table[0][idx].C_u_x = i['C_u_x']
-                clientObject.modify_stiffnesses_member_hinges_table[0][idx].C_u_y = i['C_u_y']
-                clientObject.modify_stiffnesses_member_hinges_table[0][idx].C_u_z = i['C_u_z']
-                clientObject.modify_stiffnesses_member_hinges_table[0][idx].C_phi_x = i['C_phi_x']
-                clientObject.modify_stiffnesses_member_hinges_table[0][idx].C_phi_y = i['C_phi_y']
-                clientObject.modify_stiffnesses_member_hinges_table[0][idx].C_phi_z = i['C_phi_z']
+                clientObject.modify_stiffnesses_member_hinges_table[0][idx].row.member_side = i['member_side']
+                clientObject.modify_stiffnesses_member_hinges_table[0][idx].row.C_u_x = i['C_u_x']
+                clientObject.modify_stiffnesses_member_hinges_table[0][idx].row.C_u_y = i['C_u_y']
+                clientObject.modify_stiffnesses_member_hinges_table[0][idx].row.C_u_z = i['C_u_z']
+                clientObject.modify_stiffnesses_member_hinges_table[0][idx].row.C_phi_x = i['C_phi_x']
+                clientObject.modify_stiffnesses_member_hinges_table[0][idx].row.C_phi_y = i['C_phi_y']
+                clientObject.modify_stiffnesses_member_hinges_table[0][idx].row.C_phi_z = i['C_phi_z']
         if modify_stiffnesses['modify_stiffnesses_line_hinges']:
             for i in modify_stiffnesses_line_hinges_list:
                 idx = i['no']-1
-                clientObject.modify_stiffnesses_line_hinges_table[0][idx].C_u_x = i['C_u_x']
-                clientObject.modify_stiffnesses_line_hinges_table[0][idx].C_u_y = i['C_u_y']
-                clientObject.modify_stiffnesses_line_hinges_table[0][idx].C_u_z = i['C_u_z']
-                clientObject.modify_stiffnesses_line_hinges_table[0][idx].C_phi_x = i['C_phi_x']
-                clientObject.modify_stiffnesses_line_hinges_table[0][idx].C_phi_y = i['C_phi_y']
-                clientObject.modify_stiffnesses_line_hinges_table[0][idx].C_phi_z = i['C_phi_z']
+                clientObject.modify_stiffnesses_line_hinges_table[0][idx].row.C_u_x = i['C_u_x']
+                clientObject.modify_stiffnesses_line_hinges_table[0][idx].row.C_u_y = i['C_u_y']
+                clientObject.modify_stiffnesses_line_hinges_table[0][idx].row.C_u_z = i['C_u_z']
+                clientObject.modify_stiffnesses_line_hinges_table[0][idx].row.C_phi_x = i['C_phi_x']
+                clientObject.modify_stiffnesses_line_hinges_table[0][idx].row.C_phi_y = i['C_phi_y']
+                clientObject.modify_stiffnesses_line_hinges_table[0][idx].row.C_phi_z = i['C_phi_z']
         if modify_stiffnesses['modify_stiffnesses_nodal_supports']:
             for i in modify_stiffnesses_nodal_supports_list:
                 idx = i['no']-1
-                clientObject.modify_stiffnesses_nodal_supports_table[0][idx].C_u_x = i['C_u_x']
-                clientObject.modify_stiffnesses_nodal_supports_table[0][idx].C_u_y = i['C_u_y']
-                clientObject.modify_stiffnesses_nodal_supports_table[0][idx].C_u_z = i['C_u_z']
-                clientObject.modify_stiffnesses_nodal_supports_table[0][idx].C_phi_x = i['C_phi_x']
-                clientObject.modify_stiffnesses_nodal_supports_table[0][idx].C_phi_y = i['C_phi_y']
-                clientObject.modify_stiffnesses_nodal_supports_table[0][idx].C_phi_z = i['C_phi_z']
+                clientObject.modify_stiffnesses_nodal_supports_table[0][idx].row.C_u_x = i['C_u_x']
+                clientObject.modify_stiffnesses_nodal_supports_table[0][idx].row.C_u_y = i['C_u_y']
+                clientObject.modify_stiffnesses_nodal_supports_table[0][idx].row.C_u_z = i['C_u_z']
+                clientObject.modify_stiffnesses_nodal_supports_table[0][idx].row.C_phi_x = i['C_phi_x']
+                clientObject.modify_stiffnesses_nodal_supports_table[0][idx].row.C_phi_y = i['C_phi_y']
+                clientObject.modify_stiffnesses_nodal_supports_table[0][idx].row.C_phi_z = i['C_phi_z']
         if modify_stiffnesses['modify_stiffnesses_line_supports']:
             for i in modify_stiffnesses_line_supports_list:
                 idx = i['no']-1
-                clientObject.modify_stiffnesses_line_supports_table[0][idx].C_u_X = i['C_u_X']
-                clientObject.modify_stiffnesses_line_supports_table[0][idx].C_u_Y = i['C_u_Y']
-                clientObject.modify_stiffnesses_line_supports_table[0][idx].C_u_Z = i['C_u_Z']
-                clientObject.modify_stiffnesses_line_supports_table[0][idx].C_phi_X = i['C_phi_X']
-                clientObject.modify_stiffnesses_line_supports_table[0][idx].C_phi_Y = i['C_phi_Y']
-                clientObject.modify_stiffnesses_line_supports_table[0][idx].C_phi_Z = i['C_phi_Z']
+                clientObject.modify_stiffnesses_line_supports_table[0][idx].row.C_u_X = i['C_u_X']
+                clientObject.modify_stiffnesses_line_supports_table[0][idx].row.C_u_Y = i['C_u_Y']
+                clientObject.modify_stiffnesses_line_supports_table[0][idx].row.C_u_Z = i['C_u_Z']
+                clientObject.modify_stiffnesses_line_supports_table[0][idx].row.C_phi_X = i['C_phi_X']
+                clientObject.modify_stiffnesses_line_supports_table[0][idx].row.C_phi_Y = i['C_phi_Y']
+                clientObject.modify_stiffnesses_line_supports_table[0][idx].row.C_phi_Z = i['C_phi_Z']
         if modify_stiffnesses['modify_stiffnesses_member_supports']:
             for i in modify_stiffnesses_member_supports_list:
                 idx = i['no']-1
-                clientObject.modify_stiffnesses_member_supports_table[0][idx].C_u_x = i['C_u_x']
-                clientObject.modify_stiffnesses_member_supports_table[0][idx].C_u_y = i['C_u_y']
-                clientObject.modify_stiffnesses_member_supports_table[0][idx].C_u_z = i['C_u_z']
-                clientObject.modify_stiffnesses_member_supports_table[0][idx].C_s_x = i['C_s_x']
-                clientObject.modify_stiffnesses_member_supports_table[0][idx].C_s_y = i['C_s_y']
-                clientObject.modify_stiffnesses_member_supports_table[0][idx].C_s_z = i['C_s_z']
-                clientObject.modify_stiffnesses_member_supports_table[0][idx].C_phi_x = i['C_phi_x']
+                clientObject.modify_stiffnesses_member_supports_table[0][idx].row.C_u_x = i['C_u_x']
+                clientObject.modify_stiffnesses_member_supports_table[0][idx].row.C_u_y = i['C_u_y']
+                clientObject.modify_stiffnesses_member_supports_table[0][idx].row.C_u_z = i['C_u_z']
+                clientObject.modify_stiffnesses_member_supports_table[0][idx].row.C_s_x = i['C_s_x']
+                clientObject.modify_stiffnesses_member_supports_table[0][idx].row.C_s_y = i['C_s_y']
+                clientObject.modify_stiffnesses_member_supports_table[0][idx].row.C_s_z = i['C_s_z']
+                clientObject.modify_stiffnesses_member_supports_table[0][idx].row.C_phi_x = i['C_phi_x']
         if modify_stiffnesses['modify_stiffnesses_surface_supports']:
             for i in modify_stiffnesses_surface_supports_list:
                 idx = i['no']-1
-                clientObject.modify_stiffnesses_surface_supports_table[0][idx].C_u_X = i['C_u_X']
-                clientObject.modify_stiffnesses_surface_supports_table[0][idx].C_u_Y = i['C_u_Y']
-                clientObject.modify_stiffnesses_surface_supports_table[0][idx].C_u_Z = i['C_u_Z']
-                clientObject.modify_stiffnesses_surface_supports_table[0][idx].C_v_xz = i['C_v_xz']
-                clientObject.modify_stiffnesses_surface_supports_table[0][idx].C_v_yz = i['C_v_yz']
+                clientObject.modify_stiffnesses_surface_supports_table[0][idx].row.C_u_X = i['C_u_X']
+                clientObject.modify_stiffnesses_surface_supports_table[0][idx].row.C_u_Y = i['C_u_Y']
+                clientObject.modify_stiffnesses_surface_supports_table[0][idx].row.C_u_Z = i['C_u_Z']
+                clientObject.modify_stiffnesses_surface_supports_table[0][idx].row.C_v_xz = i['C_v_xz']
+                clientObject.modify_stiffnesses_surface_supports_table[0][idx].row.C_v_yz = i['C_v_yz']
 
         # Comment
         clientObject.comment = comment
