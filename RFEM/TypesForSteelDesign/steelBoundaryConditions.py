@@ -121,33 +121,33 @@ class SteelBoundaryConditions():
         clientObject.nodal_supports = model.clientModel.factory.create('ns0:steel_boundary_conditions.nodal_supports')
 
         for i,j in enumerate(nodal_supports):
-            mlvlp = model.clientModel.factory.create('ns0:steel_boundary_conditions_nodal_supports')
+            mlvlp = model.clientModel.factory.create('ns0:steel_boundary_conditions_nodal_supports_row')
             mlvlp.no = i
-            mlvlp.node_seq_no = nodal_supports[i][0]
-            mlvlp.support_type = nodal_supports[i][1].name
-            mlvlp.support_in_x = nodal_supports[i][2]
-            mlvlp.support_in_y = nodal_supports[i][3]
-            mlvlp.support_in_z = nodal_supports[i][4]
-            mlvlp.restraint_about_x = nodal_supports[i][5]
-            mlvlp.restraint_about_y = nodal_supports[i][6]
-            mlvlp.restraint_about_z = nodal_supports[i][7]
-            mlvlp.restraint_warping = nodal_supports[i][8]
-            mlvlp.rotation = nodal_supports[i][9]
-            mlvlp.rotation_about_x = nodal_supports[i][10]
-            mlvlp.rotation_about_y = nodal_supports[i][11]
-            mlvlp.rotation_about_z = nodal_supports[i][12]
-            mlvlp.support_spring_in_x = nodal_supports[i][13]
-            mlvlp.support_spring_in_y = nodal_supports[i][14]
-            mlvlp.support_spring_in_z = nodal_supports[i][15]
-            mlvlp.restraint_spring_about_x = nodal_supports[i][16]
-            mlvlp.restraint_spring_about_y = nodal_supports[i][17]
-            mlvlp.restraint_spring_about_z = nodal_supports[i][18]
-            mlvlp.restraint_spring_warping = nodal_supports[i][19]
-            mlvlp.eccentricity_type_z_type = nodal_supports[i][20].name
-            mlvlp.eccentricity_x = nodal_supports[i][21]
-            mlvlp.eccentricity_y = nodal_supports[i][22]
-            mlvlp.eccentricity_z = nodal_supports[i][23]
-            mlvlp.nodes = nodal_supports[i][24]
+            mlvlp.row.node_seq_no = nodal_supports[i][0]
+            mlvlp.row.support_type = nodal_supports[i][1].name
+            mlvlp.row.support_in_x = nodal_supports[i][2]
+            mlvlp.row.support_in_y = nodal_supports[i][3]
+            mlvlp.row.support_in_z = nodal_supports[i][4]
+            mlvlp.row.restraint_about_x = nodal_supports[i][5]
+            mlvlp.row.restraint_about_y = nodal_supports[i][6]
+            mlvlp.row.restraint_about_z = nodal_supports[i][7]
+            mlvlp.row.restraint_warping = nodal_supports[i][8]
+            mlvlp.row.rotation = nodal_supports[i][9]
+            mlvlp.row.rotation_about_x = nodal_supports[i][10]
+            mlvlp.row.rotation_about_y = nodal_supports[i][11]
+            mlvlp.row.rotation_about_z = nodal_supports[i][12]
+            mlvlp.row.support_spring_in_x = nodal_supports[i][13]
+            mlvlp.row.support_spring_in_y = nodal_supports[i][14]
+            mlvlp.row.support_spring_in_z = nodal_supports[i][15]
+            mlvlp.row.restraint_spring_about_x = nodal_supports[i][16]
+            mlvlp.row.restraint_spring_about_y = nodal_supports[i][17]
+            mlvlp.row.restraint_spring_about_z = nodal_supports[i][18]
+            mlvlp.row.restraint_spring_warping = nodal_supports[i][19]
+            mlvlp.row.eccentricity_type_z_type = nodal_supports[i][20].name
+            mlvlp.row.eccentricity_x = nodal_supports[i][21]
+            mlvlp.row.eccentricity_y = nodal_supports[i][22]
+            mlvlp.row.eccentricity_z = nodal_supports[i][23]
+            mlvlp.row.nodes = nodal_supports[i][24]
 
             clientObject.nodal_supports.steel_boundary_conditions_nodal_supports.append(mlvlp)
 
@@ -155,24 +155,24 @@ class SteelBoundaryConditions():
         clientObject.member_hinges = model.clientModel.factory.create('ns0:steel_boundary_conditions.member_hinges')
 
         for i,j in enumerate(member_hinges):
-            mlvlp = model.clientModel.factory.create('ns0:steel_boundary_conditions_member_hinges')
+            mlvlp = model.clientModel.factory.create('ns0:steel_boundary_conditions_member_hinges_row')
             mlvlp.no = i
-            mlvlp.node_seq_no = member_hinges[i][0]
-            mlvlp.release_in_x = member_hinges[i][1]
-            mlvlp.release_in_y = member_hinges[i][2]
-            mlvlp.release_in_z = member_hinges[i][3]
-            mlvlp.release_about_x = member_hinges[i][4]
-            mlvlp.release_about_y = member_hinges[i][5]
-            mlvlp.release_about_z = member_hinges[i][6]
-            mlvlp.release_warping = member_hinges[i][7]
-            mlvlp.release_spring_in_x = member_hinges[i][8]
-            mlvlp.release_spring_in_y = member_hinges[i][9]
-            mlvlp.release_spring_in_z = member_hinges[i][10]
-            mlvlp.release_spring_about_x = member_hinges[i][11]
-            mlvlp.release_spring_about_y = member_hinges[i][12]
-            mlvlp.release_spring_about_z = member_hinges[i][13]
-            mlvlp.release_spring_warping = member_hinges[i][14]
-            mlvlp.nodes = member_hinges[i][15]
+            mlvlp.row.node_seq_no = member_hinges[i][0]
+            mlvlp.row.release_in_x = member_hinges[i][1]
+            mlvlp.row.release_in_y = member_hinges[i][2]
+            mlvlp.row.release_in_z = member_hinges[i][3]
+            mlvlp.row.release_about_x = member_hinges[i][4]
+            mlvlp.row.release_about_y = member_hinges[i][5]
+            mlvlp.row.release_about_z = member_hinges[i][6]
+            mlvlp.row.release_warping = member_hinges[i][7]
+            mlvlp.row.release_spring_in_x = member_hinges[i][8]
+            mlvlp.row.release_spring_in_y = member_hinges[i][9]
+            mlvlp.row.release_spring_in_z = member_hinges[i][10]
+            mlvlp.row.release_spring_about_x = member_hinges[i][11]
+            mlvlp.row.release_spring_about_y = member_hinges[i][12]
+            mlvlp.row.release_spring_about_z = member_hinges[i][13]
+            mlvlp.row.release_spring_warping = member_hinges[i][14]
+            mlvlp.row.nodes = member_hinges[i][15]
 
             clientObject.member_hinges.steel_boundary_conditions_member_hinges.append(mlvlp)
 

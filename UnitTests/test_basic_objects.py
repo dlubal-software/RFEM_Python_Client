@@ -450,23 +450,6 @@ def test_thickness_circle():
     assert thickness.type == "TYPE_VARIABLE_CIRCLE"
     assert thickness.thickness_circle_line == 0.1
 
-def test_thickness_layers():
-
-    Model.clientModel.service.delete_all()
-    Model.clientModel.service.begin_modification()
-
-    SetAddonStatus(Model.clientModel, AddOn.multilayer_surfaces_design_active)
-
-    Material(1, 'S235')
-
-    Thickness.Layers(1, '6', [[0, 1, 0.1, 0, ''], [0, 1, 0.2, 0, '']])
-    Model.clientModel.service.finish_modification()
-
-    thickness = Model.clientModel.service.get_thickness(1)
-
-    assert thickness.type == "TYPE_LAYERS"
-    assert round(thickness.layers_total_thickness, 2) == 0.3
-
 def test_thickness_shape_orthotropy():
 
     Model.clientModel.service.reset()
