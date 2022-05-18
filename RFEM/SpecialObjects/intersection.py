@@ -8,6 +8,17 @@ class Instersection():
                  comment: str = '',
                  params: dict = None,
                  model = Model):
+        """
+        Intersection
+
+        Args:
+            no (int, optional): Number
+            surface_1 (int, optional): Surface number 1
+            surface_2 (int, optional): Surface number 2
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (class, optional): Model instance
+        """
 
         # Client model | Intersection
         clientObject = model.clientModel.factory.create('ns0:intersection')
