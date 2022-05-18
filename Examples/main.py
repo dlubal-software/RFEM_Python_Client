@@ -201,12 +201,6 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
     Solid(1, "2 3 4 5 6 7", 2)
 
 # -------------------------------------------------------------
-    # Sets
-    LineSet()
-    MemberSet()
-    SurfaceSet()
-
-# -------------------------------------------------------------
     print('Load Cases/Loads...')
 
 # -------------------------------------------------------------
