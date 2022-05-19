@@ -1,8 +1,8 @@
 from RFEM.enums import ThicknessDirection, ThicknessType
-from RFEM.enums import ThicknessOrthotropyType, AddOn
+from RFEM.enums import ThicknessOrthotropyType, AddOn, ObjectTypes
 from RFEM.enums import ThicknessShapeOrthotropySelfWeightDefinitionType
 from RFEM.enums import ThicknessStiffnessMatrixSelfWeightDefinitionType
-from RFEM.initModel import Model, GetAddonStatus, clearAtributes, SetAddonStatus
+from RFEM.initModel import Model, GetAddonStatus, clearAtributes, SetAddonStatus, ConvertStrToListOfInt
 from math import pi
 
 class Thickness():
@@ -686,3 +686,15 @@ class Thickness():
 
         # Add Thickness to client model
         model.clientModel.service.set_thickness(clientObject)
+
+    @staticmethod
+    def DeleteThickness(thickness_no: str = '1 2', model = Model):
+
+        '''
+        Args:
+            thickness_no (str): Tags of Thickness to be deleted
+        '''
+
+        # Delete from client model
+        for thickness in ConvertStrToListOfInt(thickness_no):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_THICKNESS.name, thickness)

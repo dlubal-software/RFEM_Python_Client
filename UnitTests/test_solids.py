@@ -202,3 +202,96 @@ def test_solids_and_solid_sets():
     solidSet = Model.clientModel.service.get_solid_set(3)
     assert solidSet.set_type == SetType.SET_TYPE_GROUP.name
     assert solidSet.solids == '1 4'
+
+def test_solid_delete():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Material(1, 'S235')
+    Material(2, 'Sand')
+
+    # Solid 1
+    Node(1, 0.0, 0.0, 0.0)
+    Node(2, 10.0, 0.0, 0.0)
+    Node(3, 10.0, 10.0, 0.0)
+    Node(4, 0.0, 10.0, 0.0)
+
+    Node(5, 0.0, 0.0, -5.0)
+    Node(6, 10.0, 0.0, -5.0)
+    Node(7, 10.0, 10.0, -5.0)
+    Node(8, 0.0, 10.0, -5.0)
+
+    Line(1, '1 2')
+    Line(2, '2 3')
+    Line(3, '3 4')
+    Line(4, '4 1')
+
+    Line(5, '5 6')
+    Line(6, '6 7')
+    Line(7, '7 8')
+    Line(8, '8 5')
+
+    Line(9, '1 5')
+    Line(10, '2 6')
+    Line(11, '3 7')
+    Line(12, '4 8')
+
+    Thickness(1, 'My Test Thickness', 1, 0.05)
+
+    Surface(1, '1-4', 1)
+    Surface(2, '5-8', 1)
+    Surface(3, '1 9 5 10', 1)
+    Surface(4, '2 10 6 11', 1)
+    Surface(5, '3 11 7 12', 1)
+    Surface(6, '4 12 8 9', 1)
+
+    Solid.Soil(1, '1-6', 2)
+
+    solid = Model.clientModel.service.get_solid(1)
+    assert round(solid.volume, 1) == 500
+    assert solid.type == 'TYPE_SOIL'
+
+    # Solid 2
+    Node(9, 0.0, 20.0, 0.0)
+    Node(10, 10.0, 20.0, 0.0)
+    Node(11, 10.0, 30.0, 0.0)
+    Node(12, 0.0, 30.0, 0.0)
+
+    Node(13, 0.0, 20.0, -5.0)
+    Node(14, 10.0, 20.0, -5.0)
+    Node(15, 10.0, 30.0, -5.0)
+    Node(16, 0.0, 30.0, -5.0)
+
+    Line(13, '9 10')
+    Line(14, '10 11')
+    Line(15, '11 12')
+    Line(16, '12 9')
+
+    Line(17, '13 14')
+    Line(18, '14 15')
+    Line(19, '15 16')
+    Line(20, '16 13')
+
+    Line(21, '9 13')
+    Line(22, '10 14')
+    Line(23, '11 15')
+    Line(24, '12 16')
+
+    Surface(7, '13-16', 1)
+    Surface(8, '17-20', 1)
+    Surface(9, '13 22 17 21', 1)
+    Surface(10, '15 23 19 24', 1)
+    Surface(11, '16 21 20 24', 1)
+    Surface(12, '14 22 18 23', 1)
+
+    Material(3, 'S275')
+    Solid.Standard(2, '7-12', 3)
+
+    Solid.DeleteSolid('1')
+
+    Model.clientModel.service.finish_modification()
+
+    modelInfo = Model.clientModel.service.get_model_info()
+
+    assert modelInfo.property_solid_count == 1

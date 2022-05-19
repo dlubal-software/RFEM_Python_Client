@@ -1,5 +1,5 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
-from RFEM.enums import SolidType
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString, ConvertStrToListOfInt
+from RFEM.enums import SolidType, ObjectTypes
 
 class Solid():
     def __init__(self,
@@ -232,3 +232,15 @@ class Solid():
 
         # Add Surface to client model
         model.clientModel.service.set_solid(clientObject)
+
+    @staticmethod
+    def DeleteSolid(solids_no: str = '1 2', model = Model):
+
+        '''
+        Args:
+            solids_no (str): Tags of Solids to be deleted
+        '''
+
+        # Delete solids from client model
+        for solid in ConvertStrToListOfInt(solids_no):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_SOLID.name, solid)

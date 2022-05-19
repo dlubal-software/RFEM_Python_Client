@@ -1,4 +1,5 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString, ConvertStrToListOfInt
+from RFEM.enums import ObjectTypes
 
 class Opening():
     def __init__(self,
@@ -38,3 +39,15 @@ class Opening():
 
         # Add Opening to client model
         model.clientModel.service.set_opening(clientObject)
+
+    @staticmethod
+    def DeleteOpening(openings_no: str = '1 2', model = Model):
+
+        '''
+        Args:
+            openings_no (str): Tags of Openings to be deleted
+        '''
+
+        # Delete from client model
+        for opening in ConvertStrToListOfInt(openings_no):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_OPENING.name, opening)

@@ -1,7 +1,7 @@
 from RFEM.enums import NodeType
 from RFEM.enums import NodeCoordinateSystemType
-from RFEM.enums import NodeReferenceType
-from RFEM.initModel import Model, clearAtributes
+from RFEM.enums import NodeReferenceType, ObjectTypes
+from RFEM.initModel import Model, clearAtributes, ConvertStrToListOfInt
 from math import pi
 
 class Node():
@@ -431,3 +431,15 @@ class Node():
 
         # Add Node to client model
         model.clientModel.service.set_node(clientObject)
+
+    @staticmethod
+    def DeleteNode(nodes_no: str = '1 2', model = Model):
+
+        '''
+        Args:
+            nodes_no (str): Tags of Nodes to be deleted
+        '''
+
+        # Delete from client model
+        for node in ConvertStrToListOfInt(nodes_no):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_NODE.name, node)

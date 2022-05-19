@@ -48,3 +48,20 @@ def test_node():
     assert node.type == 'TYPE_BETWEEN_TWO_POINTS'
     node = Model.clientModel.service.get_node(7)
     assert node.type == 'TYPE_ON_MEMBER'
+
+def test_node_delete():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Node(1, 0, 0, 0)
+    Node(2, 0, 0, -5)
+    Node(3, 0, 0, -10)
+
+    Node.DeleteNode('1 3')
+
+    Model.clientModel.service.finish_modification()
+
+    modelInfo = Model.clientModel.service.get_model_info()
+
+    assert modelInfo.property_node_count == 1

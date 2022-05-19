@@ -1,5 +1,5 @@
-from RFEM.enums import SurfaceGeometry, SurfaceLoadDistributionDirection, SurfaceType
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.enums import SurfaceGeometry, SurfaceLoadDistributionDirection, SurfaceType, ObjectTypes
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString, ConvertStrToListOfInt
 import math
 
 def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_type, geometry_type_parameters, thickness = None, comment = None, params = None, model = Model):
@@ -359,3 +359,15 @@ class Surface():
 
         # Add Surface to client model
         model.clientModel.service.set_surface(clientObject)
+
+    @staticmethod
+    def DeleteSurface(surfaces_no: str = '1 2', model = Model):
+
+        '''
+        Args:
+            surfaces_no (str): Tags of Surfaces to be deleted
+        '''
+
+        # Delete surfaces from client model
+        for surface in ConvertStrToListOfInt(surfaces_no):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, surface)
