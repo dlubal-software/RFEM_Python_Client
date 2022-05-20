@@ -1,5 +1,4 @@
 import sys
-import pytest
 import os
 PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.path.dirname(__file__),
@@ -9,7 +8,7 @@ sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import NodalSupportType, StaticAnalysisType, ModalSolutionMethod
 from RFEM.enums import ModalMassConversionType, ModalMassMatrixType, AnalysisType, AddOn
-from RFEM.initModel import Model, CheckIfMethodOrTypeExists, SetAddonStatus
+from RFEM.initModel import Model, SetAddonStatus
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
@@ -22,8 +21,6 @@ from RFEM.LoadCasesAndCombinations.modalAnalysisSettings import ModalAnalysisSet
 if Model.clientModel is None:
     Model()
 
-# TODO: US-7698
-@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'set_modal_analysis_settings', True), reason="set_modal_analysis_settings not in RFEM GM yet")
 def test_modal_analysis_settings():
 
     Model.clientModel.service.delete_all()
@@ -59,6 +56,7 @@ def test_modal_analysis_settings():
         "modal_analysis_settings":1,
     }
     SetAddonStatus(Model.clientModel, AddOn.modal_active)
+
     # Load Case Modal
     LoadCase(2, 'MODAL',params=modalParams)
 
