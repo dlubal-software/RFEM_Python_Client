@@ -48,11 +48,9 @@ def test_export():
     # supported formats
     formats = ['.xml','.xlsx', '.gltf', '.glb'] # export to .vtk doesn't work
     for i in formats:
-        try:
-            ExportTo(os.path.join(dirname, 'export'+i))
-        except:
-            print(f'Export to {i} does not work!')
-            assert True
+        ExportTo(os.path.join(dirname, 'export'+i))
+        assert True, f'Export to {i} does not work!'
+
 
     Model.clientModel.service.finish_modification()
 

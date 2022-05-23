@@ -1,25 +1,53 @@
 from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.enums import MemberTransverseStiffenerType, MemberTransverseStiffenerPosition, MemberTransverseStiffenerOffsetType
 
 class MemberTransverseStiffeners():
+
+    # Member Transverse Component
+    component = {'no' : 1,
+                 'stiffener_type' : MemberTransverseStiffenerType.STIFFENER_COMPONENT_TYPE_FLAT,
+                 'position' : 1,
+                 'position_type' : MemberTransverseStiffenerPosition.STIFFENER_COMPONENT_POSITION_DOUBLE_SIDED,
+                 'multiple' : False,
+                 'multiple_number' : 0,
+                 'multiple_offset_definition_type' : MemberTransverseStiffenerOffsetType.OFFSET_DEFINITION_TYPE_ABSOLUTE,
+                 'multiple_offset' : 0,
+                 'material' : 1,
+                 'consider_stiffener' : True,
+                 'thickness' : 0.005,
+                 'width' : 0.02,
+                 'height' : 0,
+                 'non_rigid' : False,
+                 'rigid' : False,
+                 'width_b_u' : 0,
+                 'height_h_u' : 0,
+                 'thickness_t_u' : 0,
+                 'thickness_s_u' : 0,
+                 'width_b' : 0,
+                 'thickness_t' : 0,
+                 'column_section' : 0,
+                 'height_h_m' : 0,
+                 'section' : 0,
+                 'full_warping_restraint' : False,
+                 'user_defined_restraint' : False,
+                 'user_defined_restraint_value' : 0,
+                 'note' : 'comment'
+            }
+
     def __init__(self,
-                 no: int= 1,
-                 members: str= "",
-                 member_sets: str= "",
-                 components= None,
-                 comment: str= '',
-                 params: dict= None,
-                 model= Model):
+                 no: int = 1,
+                 members: str = "",
+                 member_sets: str = "",
+                 components: list = [component],
+                 comment: str = '',
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Member Transverse Stiffener Tag
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
-            components (list): [
-            [stiffener_type, position, position_type, multiple, multiple_number, multiple_offset_definition_type, multiple_offset, material,
-            consider_stiffener, thickness, width, height, non_rigid, rigid, width_b_u, height_h_u, thickness_t_u,
-            thickness_s_u, width_b, thickness_t, column_section, height_h_m, section,
-            cantilever_l_k, full_warping_restraint, user_defined_restraint, user_defined_restraint_value]
-                               ]
+            components (list of components): List of components dictionary
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
@@ -42,37 +70,36 @@ class MemberTransverseStiffeners():
         # Member Transverse Components
         clientObject.components = Model.clientModel.factory.create('ns0:member_transverse_stiffener.components')
 
-        for i,j in enumerate(components):
+        for i in components:
             mlvlp = Model.clientModel.factory.create('ns0:member_transverse_stiffener_components_row')
-            mlvlp.no = i+1
-            mlvlp.row.stiffener_type = components[i][0].name
-            mlvlp.row.position = components[i][1]
-            mlvlp.row.position_type = components[i][2].name
-            mlvlp.row.multiple = components[i][3]
-            mlvlp.row.multiple_number = components[i][4]
-            mlvlp.row.multiple_offset_definition_type = components[i][5].name
-            mlvlp.row.multiple_offset = components[i][6]
-            mlvlp.row.material = components[i][7]
-            mlvlp.row.consider_stiffener = components[i][8]
-            mlvlp.row.thickness = components[i][9]
-            mlvlp.row.width = components[i][10]
-            mlvlp.row.height = components[i][11]
-            mlvlp.row.non_rigid = components[i][12]
-            mlvlp.row.rigid = components[i][13]
-            mlvlp.row.width_b_u = components[i][14]
-            mlvlp.row.height_h_u = components[i][15]
-            mlvlp.row.thickness_t_u = components[i][16]
-            mlvlp.row.thickness_s_u = components[i][17]
-            mlvlp.row.width_b = components[i][18]
-            mlvlp.row.thickness_t = components[i][19]
-            mlvlp.row.column_section = components[i][20]
-            mlvlp.row.height_h_m = components[i][21]
-            mlvlp.row.section = components[i][22]
-            mlvlp.row.cantilever_l_k = components[i][23]
-            mlvlp.row.full_warping_restraint = components[i][24]
-            mlvlp.row.user_defined_restraint = components[i][25]
-            mlvlp.row.user_defined_restraint_value = components[i][26]
-            mlvlp.row.note = None
+            mlvlp.no = i['no']
+            mlvlp.row.stiffener_type = i['stiffener_type'].name
+            mlvlp.row.position = i['position']
+            mlvlp.row.position_type = i['position_type'].name
+            mlvlp.row.multiple = i['multiple']
+            mlvlp.row.multiple_number = i['multiple_number']
+            mlvlp.row.multiple_offset_definition_type = i['multiple_offset_definition_type'].name
+            mlvlp.row.multiple_offset = i['multiple_offset']
+            mlvlp.row.material = i['material']
+            mlvlp.row.consider_stiffener = i['consider_stiffener']
+            mlvlp.row.thickness = i['thickness']
+            mlvlp.row.width = i['width']
+            mlvlp.row.height = i['height']
+            mlvlp.row.non_rigid = i['non_rigid']
+            mlvlp.row.rigid = i['rigid']
+            mlvlp.row.width_b_u = i['width_b_u']
+            mlvlp.row.height_h_u = i['height_h_u']
+            mlvlp.row.thickness_t_u = i['thickness_t_u']
+            mlvlp.row.thickness_s_u = i['thickness_s_u']
+            mlvlp.row.width_b = i['width_b']
+            mlvlp.row.thickness_t = i['thickness_t']
+            mlvlp.row.column_section = i['column_section']
+            mlvlp.row.height_h_m = i['height_h_m']
+            mlvlp.row.section = i['section']
+            mlvlp.row.full_warping_restraint = i['full_warping_restraint']
+            mlvlp.row.user_defined_restraint = i['user_defined_restraint']
+            mlvlp.row.user_defined_restraint_value = i['user_defined_restraint_value']
+            mlvlp.row.note = i['note']
 
             clientObject.components.member_transverse_stiffener_components.append(mlvlp)
 
