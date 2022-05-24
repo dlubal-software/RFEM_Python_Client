@@ -96,7 +96,7 @@ def test_special_objects():
 
     SurfaceContact(1, 1, '1', '3')
 
-    ResultSection(1,ResultSectionType.TYPE_2_POINTS_AND_VECTOR, ResultSectionResultDirection.SHOW_RESULTS_IN_GLOBAL_MINUS_X,True,[1, [1,0,0], [0,2,0], ResultSectionProjection.PROJECTION_IN_VECTOR, [1,1,1]], True, False)
+    ResultSection(1,ResultSectionType.TYPE_2_POINTS_AND_VECTOR, ResultSectionResultDirection.SHOW_RESULTS_IN_GLOBAL_MINUS_X,True,[1, [1,0,0], [0,2,0], ResultSectionProjection.PROJECTION_IN_VECTOR, [1,1,1]], False, False)
     ResultSection.Line(2,ResultSectionResultDirection.SHOW_RESULTS_IN_LOCAL_PLUS_Z,False, '2')
     ResultSection.TwoPointsAndVector(3,1,ResultSectionResultDirection.SHOW_RESULTS_IN_GLOBAL_MINUS_Y,False, [10,0,0], [5,5,5], ResultSectionProjection.PROJECTION_IN_GLOBAL_X)
     ResultSection.TwoPointsAndVector(4,1,ResultSectionResultDirection.SHOW_RESULTS_IN_GLOBAL_MINUS_Y,False, [10,0,0], [5,5,5], ResultSectionProjection.PROJECTION_IN_VECTOR, [-1,1,-1])
