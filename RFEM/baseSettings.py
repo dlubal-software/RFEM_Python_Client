@@ -21,11 +21,8 @@ class BaseSettings():
 
         tolerances = [tolerance_for_nodes, tolerance_for_lines, tolerance_for_surfaces_and_planes, tolerance_for_directions]
         """
-        # Client model | Load Case
-        clientObject = model.clientModel.factory.create('ns0:model_settings_and_options_type')
-
-        # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        # Client model | Get Model Settings
+        clientObject = model.clientModel.service.get_model_settings_and_options()
 
         # Gravitational Acceleration
         clientObject.gravitational_acceleration = gravitational_acceleration

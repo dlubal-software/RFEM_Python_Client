@@ -64,32 +64,32 @@ class LoadCombination():
         clientObject.items = model.clientModel.factory.create('ns0:load_combination.items')
 
         for i,j in enumerate(combination_items):
-            mlvlp = model.clientModel.factory.create('ns0:load_combination_items')
+            mlvlp = model.clientModel.factory.create('ns0:load_combination_items_row')
             mlvlp.no = i+1
-            mlvlp.factor = combination_items[i][0]
-            mlvlp.load_case = combination_items[i][1]
-            mlvlp.action = combination_items[i][2]
-            mlvlp.is_leading = combination_items[i][3]
-            mlvlp.gamma=0
-            mlvlp.psi=0
-            mlvlp.xi=0
-            mlvlp.k_fi=0
-            mlvlp.c_esl=0
-            mlvlp.k_def=0
-            mlvlp.psi_0=0
-            mlvlp.psi_1=0
-            mlvlp.psi_2=0
-            mlvlp.fi=0
-            mlvlp.gamma_0=0
-            mlvlp.alfa=0
-            mlvlp.k_f=0
-            mlvlp.phi=0
-            mlvlp.rho=0
-            mlvlp.omega_0=0
-            mlvlp.gamma_l_1=0
-            mlvlp.k_creep=0
-            mlvlp.shift=0
-            mlvlp.amplitude_function_type = "CONSTANT"
+            mlvlp.row.factor = combination_items[i][0]
+            mlvlp.row.load_case = combination_items[i][1]
+            mlvlp.row.action = combination_items[i][2]
+            mlvlp.row.is_leading = combination_items[i][3]
+            mlvlp.row.gamma=0
+            mlvlp.row.psi=0
+            mlvlp.row.xi=0
+            mlvlp.row.k_fi=0
+            mlvlp.row.c_esl=0
+            mlvlp.row.k_def=0
+            mlvlp.row.psi_0=0
+            mlvlp.row.psi_1=0
+            mlvlp.row.psi_2=0
+            mlvlp.row.fi=0
+            mlvlp.row.gamma_0=0
+            mlvlp.row.alfa=0
+            mlvlp.row.k_f=0
+            mlvlp.row.phi=0
+            mlvlp.row.rho=0
+            mlvlp.row.omega_0=0
+            mlvlp.row.gamma_l_1=0
+            mlvlp.row.k_creep=0
+            mlvlp.row.shift=0
+            mlvlp.row.amplitude_function_type = "CONSTANT"
 
 
             clientObject.items.load_combination_items.append(mlvlp)

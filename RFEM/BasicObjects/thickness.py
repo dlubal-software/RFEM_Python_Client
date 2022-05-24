@@ -372,7 +372,7 @@ class Thickness():
     def Layers(
                  no: int = 1,
                  name: str = None,
-                 layers = [[0, 1, 0.2, 0.0, '']],
+                 layers = [[0, 1, 0.2]],
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -385,7 +385,6 @@ class Thickness():
             name (str): Thickness Name
             material_no (int): Tag of Material assigned to Thickness
             properties (list): Nested List of Layer Properties
-                properties: [[thickness_type, material, thickness, rotation, comment], ...]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
@@ -415,18 +414,12 @@ class Thickness():
         clientObject.layers_reference_table = model.clientModel.factory.create('ns0:thickness.layers_reference_table')
 
         for i,j in enumerate(layers):
-            tlrt = model.clientModel.factory.create('ns0:thickness_layers_reference_table')
-            tlrt.no = no
-            tlrt.layer_no = i+1
-            tlrt.layer_type = None
-            tlrt.thickness_type = layers[i][0]
-            tlrt.material = layers[i][1]
-            tlrt.thickness = layers[i][2]
-            tlrt.angle = layers[i][3] * (pi/180)
-            tlrt.connection_with_other_topological_elements = False
-            tlrt.comment = layers[i][4]
-            tlrt.specific_weight = 0
-            tlrt.weight = 0
+            tlrt = model.clientModel.factory.create('ns0:thickness_layers_reference_table_row')
+            tlrt.no = i+1
+            tlrt.row.layer_no = i+1
+            tlrt.row.thickness_type = layers[i][0]
+            tlrt.row.material = layers[i][1]
+            tlrt.row.thickness = layers[i][2]
 
             clientObject.layers_reference_table.thickness_layers_reference_table.append(tlrt)
 

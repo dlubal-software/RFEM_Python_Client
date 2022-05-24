@@ -9,12 +9,13 @@ from RFEM.Loads.surfaceLoad import SurfaceLoad
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.TypesForSurfaces.surfaceSupport import SurfaceSupport
 from RFEM.BasicObjects.surface import Surface
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.material import Material
-from RFEM.initModel import Model, Calculate_all
+from RFEM.initModel import Model
 from RFEM.enums import *
 
 if Model.clientModel is None:
@@ -100,6 +101,8 @@ def test_surface_loads():
 
     ## Mass Type Surface Load ##
     SurfaceLoad.Mass(14, 1, '1', individual_mass_components=True, mass_parameter=[500, 600, 700])
+
+    SurfaceSupport(1,'1')
 
     #Calculate_all() # Don't use in unit tests. See template for more info.
 
