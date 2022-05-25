@@ -146,7 +146,7 @@ def closeModel(index_or_name, save_changes = False):
             if modelLs.name[i] == index_or_name:
                 client.service.close_model(i, save_changes)
     else:
-        assert True, 'Parameter index_or_name must be int or string.'
+        assert False, 'Parameter index_or_name must be int or string.'
 
 def insertSpaces(lst: list):
     '''
