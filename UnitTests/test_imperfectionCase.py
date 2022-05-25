@@ -1,4 +1,4 @@
-from importlib import import_module
+
 import os
 import sys
 PROJECT_ROOT = os.path.abspath(os.path.join(
@@ -16,7 +16,7 @@ from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.memberSet import MemberSet
 from RFEM.Imperfections.imperfectionCase import ImperfectionCase
 from RFEM.Imperfections.memberImperfection import MemberImperfection
-from RFEM.Imperfections.memberSetImperfection import MemberSetImperfection
+from RFEM.Imperfections.membersetImperfection import MemberSetImperfection
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.enums import MemberImperfectionType, MemberImperfectionDefinitionType
