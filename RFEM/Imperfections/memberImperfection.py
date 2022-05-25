@@ -1,29 +1,39 @@
 from RFEM.initModel import Model, clearAtributes, ConvertToDlString
-from RFEM.enums import *
+from RFEM.enums import MemberImperfectionType, MemberImperfectionDefinitionType
+from RFEM.enums import ImperfectionDirection, ImperfectionDirection, MemberImperfectionActiveCriterion
 
 class MemberImperfection():
-    '''
-    Creates a member imperfection.
-    An imperfection case must be created before.
-    '''
 
     def __init__(self,
                  no: int = 1,
-                 imperfection_case_no: int = 1,
+                 imperfection_case: int = 1,
                  members: str ='1',
+                 imperfection_type = MemberImperfectionType.IMPERFECTION_TYPE_INITIAL_SWAY,
+                 definition_type = MemberImperfectionDefinitionType.DEFINITION_TYPE_ABSOLUTE,
+                 imperfection_direction = ImperfectionDirection.IMPERFECTION_DIRECTION_LOCAL_Z,
+                 parameters: list = [0.035],
                  comment: str = '',
-                 params: dict = {}):
-        '''
+                 params: dict = None,
+                 model = Model):
+        """
+        Member Imperfection
+        An imperfection case must be created before.
+
         Args:
-            no (int): Member Imperfection Tag
-            imperfection_case_no (int): number of imperfection case for this member imperfection
-            members (str) : List of member numbers
+            no (int, optional): Number
+            imperfection_case (int, optional): Imperfection case number
+            members (str, optional): Assigned to members
+            imperfection_type (enum, optional): Imperfection Type
+            definition_type (enum, optional): Definition Type
+            imperfection_direction (enum, optional): Imperfection direction
+            parameters (list, optional): Parameters depending on imperfection and definition type
             comment (str, optional): Comments
-            params (dict, optional): Parameters
-        '''
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (class, optional): Model instance
+        """
 
         # Client model | Imperfection Case
-        clientObject = Model.clientModel.factory.create('ns0:member_imperfection')
+        clientObject = model.clientModel.factory.create('ns0:member_imperfection')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -31,186 +41,118 @@ class MemberImperfection():
         # Member Imperfection No.
         clientObject.no = no
 
-        # Member No.
+        # Member Imperfection Type
+        clientObject.imperfection_type = imperfection_type.name
+
+        # Assigned to Members No.
         clientObject.members = ConvertToDlString(members)
 
-        # Comment
-        clientObject.comment = comment
+        # Imperfection Case
+        clientObject.imperfection_case = imperfection_case
 
-        # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
-
-        # Add Member Imperfection to client model
-        Model.clientModel.service.set_member_imperfection(imperfection_case_no, clientObject)
-
-
-    def InitialSwayRelative(self,
-                            no: int = 1,
-                            imperfection_case_no: int = 1,
-                            members: str = '1',
-                            sway: float = 300.0,
-                            imperfection_direction = ImperfectionDirection.IMPERFECTION_DIRECTION_LOCAL_Y,
-                            comment: str = '',
-                            params: dict = {}):
-        '''
-        Args:
-            no (int): Member Imperfection Tag
-            imperfection_case_no (int): number of imperfection case for this member imperfection
-            members (str) : List of member numbers
-            sway (float):
-            imperfection_direction
-            comment (str, optional): Comments
-            params (dict, optional): Additional parameters
-        '''
-
-        # Client model | Imperfection Case
-        clientObject = Model.clientModel.factory.create('ns0:member_imperfection')
-
-        # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
-
-        # Member Imperfection No.
-        clientObject.no = no
-
-        # Member No.
-        clientObject.members = ConvertToDlString(members)
-
-        # Sway
-        clientObject.basic_value_relative = sway
+        # Definition Type
+        clientObject.definition_type = definition_type.name
 
         # Imperfection Direction
         clientObject.imperfection_direction = imperfection_direction.name
 
-        # Imperfection Type
-        clientObject.imperfection_type = 'IMPERFECTION_TYPE_INITIAL_SWAY'
-
-        # Imperfection Definition Type
-        clientObject.definition_type = 'DEFINITION_TYPE_RELATIVE'
-
-        # Comment
-        clientObject.comment = comment
-
-        # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
-
-        # Add Member Imperfection to client model
-        Model.clientModel.service.set_member_imperfection(imperfection_case_no, clientObject)
-
-    def InitialBowRelative(self,
-                          no: int = 1,
-                          imperfection_case_no: int = 1,
-                          members: str = '1',
-                          bow: float = 250.0,
-                          imperfection_direction = ImperfectionDirection.IMPERFECTION_DIRECTION_LOCAL_Y,
-                          comment: str = '',
-                          params: dict = {}):
-        '''
-        Args:
-            no (int): Member Imperfection Tag
-            imperfection_case_no (int): number of imperfection case for this member imperfection
-            members (str) : List of member numbers
-            bow (float):
-            imperfection_direction
-            comment (str, optional): Comments
-            params (dict, optional): Additional parameters
-        '''
-
-        # Client model | Imperfection Case
-        clientObject = Model.clientModel.factory.create('ns0:member_imperfection')
-
-        # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
-
-        # Member Imperfection No.
-        clientObject.no = no
-
-        # Member No.
-        clientObject.members = ConvertToDlString(members)
-
-        # Bow
-        clientObject.basic_value_relative = bow
-
-        # Imperfection Direction
-        clientObject.imperfection_direction = imperfection_direction.name
-
-        # Imperfection Type
-        clientObject.imperfection_type = 'IMPERFECTION_TYPE_INITIAL_BOW'
-
-        # Imperfection Definition Type
-        clientObject.definition_type = 'DEFINITION_TYPE_RELATIVE'
-
-        # Comment
-        clientObject.comment = comment
-
-        # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
-
-        # Add Member Imperfection to client model
-        Model.clientModel.service.set_member_imperfection(imperfection_case_no, clientObject)
-
-    def InitialBowRelativeAndCriterion(self,
-                                       no: int = 1,
-                                       imperfection_case_no: int = 1,
-                                       members: str = '1',
-                                       active_criterion = ImperfectionActivationCriterion.ACTIVITY_CRITERION_ALWAYS,
-                                       bow = [250.0],
-                                       imperfection_direction = ImperfectionDirection.IMPERFECTION_DIRECTION_LOCAL_Y,
-                                       comment: str = '',
-                                       params: dict = {}):
-        '''
-        Args:
-            no (int): Member Imperfection Tag
-            imperfection_case_no (int): number of imperfection case for this member imperfection
-            members (str) : List of member numbers
-            bow (float):
-            active_criterion ():
-            imperfection_direction
-            comment (str, optional): Comments
-            params (dict, optional): Additional parameters
-        '''
-
-        # Client model | Imperfection Case
-        clientObject = Model.clientModel.factory.create('ns0:member_imperfection')
-
-        # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
-
-        # Member Imperfection No.
-        clientObject.no = no
-
-        # Member No.
-        clientObject.members = ConvertToDlString(members)
-
-        # Criterion
-        clientObject.active_criterion = active_criterion.name
-
-        if active_criterion == ImperfectionActivationCriterion.ACTIVITY_CRITERION_DEFINE:
-            if len(bow) == 2:
-                clientObject.active_bow = bow[1]
+        # Parameters
+        if imperfection_type == MemberImperfectionType.IMPERFECTION_TYPE_INITIAL_SWAY:
+            if definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_RELATIVE:
+                clientObject.basic_value_relative = parameters[0]
+            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_ABSOLUTE:
+                clientObject.basic_value_absolute = parameters[0]
+            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_EN_1992_1_1993_1:
+                clientObject.basic_value_relative = parameters[0]
+                clientObject.height = parameters[1]
+                clientObject.column_in_row = parameters[2]
+                clientObject.reduction_factor_h = parameters[3]
+                clientObject.reduction_factor_m = parameters[4]
+                clientObject.initial_sway = parameters[5]
+                clientObject.initial_sway_inverted = parameters[6]
+            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_EN_1995_1_1:
+                clientObject.basic_value_relative = parameters[0]
+                clientObject.height = parameters[1]
+                clientObject.reduction_factor_h = parameters[2]
+                clientObject.initial_sway = parameters[3]
+                clientObject.initial_sway_inverted = parameters[4]
+            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_ANSI_CURRENT:
+                clientObject.basic_value_coefficient = parameters[0]
+                clientObject.standard_factor_enumeration = parameters[1].name
+                clientObject.standard_factor_number = parameters[2]
+            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_GB_50017_2017_GRAVITY_LOAD:
+                clientObject.basic_value_coefficient = parameters[0]
+                clientObject.standard_factor_enumeration = parameters[1].name
+                clientObject.standard_factor_number = parameters[2]
+                clientObject.case_object = parameters[3]
+            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_CSA_CURRENT:
+                clientObject.basic_value_coefficient = parameters[0]
+            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_CSA_GRAVITY_LOAD:
+                clientObject.basic_value_coefficient = parameters[0]
+                clientObject.case_object = parameters[1]
+            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_GB_50017_2017_CURRENT:
+                clientObject.basic_value_relative = parameters[0]
+                clientObject.height = parameters[1]
+                clientObject.number_of_floors = parameters[2]
+                clientObject.delta = parameters[3]
+            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_GB_50017_2017_GRAVITY_LOAD:
+                clientObject.basic_value_coefficient = parameters[0]
+                clientObject.number_of_floors = parameters[1]
+                clientObject.case_object = parameters[2]
             else:
-                print('A second parameter in the bow list is required for this definition criterion. Eps must be specified, from which the imperfection is to take effect.')
+                assert False, 'Wrong MemberImperfectionDefinitionType for IMPERFECTION_TYPE_INITIAL_SWAY'
 
-        # Bow
-        clientObject.basic_value_relative = bow[0]
+        elif imperfection_type == MemberImperfectionType.IMPERFECTION_TYPE_INITIAL_BOW:
+            if definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_RELATIVE:
+                clientObject.basic_value_relative = parameters[0]
+            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_ABSOLUTE:
+                clientObject.basic_value_absolute = parameters[0]
+            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_EN_1993_1_1:
+                clientObject.section_design = parameters[0].name
+            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_EN_1995_1_1:
+                clientObject.basic_value_relative = parameters[0]
+            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_EN_1999_1_1:
+                clientObject.section_design = parameters[0].name
+            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_ANSI_CURRENT:
+                clientObject.basic_value_relative = parameters[0]
+            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_ANSI_GRAVITY_LOAD:
+                clientObject.basic_value_relative = parameters[0]
+            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_CSA_CURRENT:
+                clientObject.basic_value_relative = parameters[0]
+            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_CSA_GRAVITY_LOAD:
+                clientObject.basic_value_relative = parameters[0]
+            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_GB_50017_2017:
+                #clientObject. = parameters[0] # TODO: possibly missing parameter Buckling Curve = a - d
+                pass
+            else:
+                assert False, 'Wrong MemberImperfectionDefinitionType for IMPERFECTION_TYPE_INITIAL_BOW'
 
-        # Imperfection Direction
-        clientObject.imperfection_direction = imperfection_direction.name
+        elif imperfection_type == MemberImperfectionType.IMPERFECTION_TYPE_INITIAL_BOW_AND_CRITERION:
+            if definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_RELATIVE:
+                clientObject.basic_value_relative = parameters[0]
+                clientObject.active_criterion = parameters[1].name
+                if clientObject.active_criterion == MemberImperfectionActiveCriterion.ACTIVITY_CRITERION_DEFINE:
+                    clientObject.active_bow = parameters[2]
+            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_ABSOLUTE:
+                clientObject.basic_value_absolute = parameters[0]
+                clientObject.active_criterion = parameters[1].name
+                if clientObject.active_criterion == MemberImperfectionActiveCriterion.ACTIVITY_CRITERION_DEFINE:
+                    clientObject.active_bow = parameters[2]
+            else:
+                assert False, 'Wrong MemberImperfectionDefinitionType for IMPERFECTION_TYPE_INITIAL_BOW_AND_CRITERION'
+        else:
+            assert False, 'Wrong MemberImperfectionDefinitionType'
 
-        # Imperfection Type
-        clientObject.imperfection_type = 'IMPERFECTION_TYPE_INITIAL_BOW_AND_CRITERION'
-
-        # Imperfection Definition Type
-        clientObject.definition_type = 'DEFINITION_TYPE_RELATIVE'
+        # Reference to List of Members
+        clientObject.reference_to_list_of_members
 
         # Comment
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Member Imperfection to client model
-        Model.clientModel.service.set_member_imperfection(imperfection_case_no, clientObject)
+        model.clientModel.service.set_member_imperfection(imperfection_case, clientObject)
