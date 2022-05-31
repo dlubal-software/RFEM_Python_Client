@@ -13,7 +13,7 @@ class Solid():
         '''
         Args:
             no (int): Solid Tag
-            boundary_surfaces_no (str): Tags of Surfaces defining Solid
+            boundary_surfaces_no (str): Numbers of Surfaces defining Solid
             material_no (int): Tag of Material assigned to Solid
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -57,7 +57,7 @@ class Solid():
         '''
         Args:
             no (int): Solid Tag
-            boundary_surfaces_no (str): Tags of Surfaces defining Solid
+            boundary_surfaces_no (str): Numbers of Surfaces defining Solid
             material_no (int): Tag of Material assigned to Solid
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -104,7 +104,7 @@ class Solid():
         '''
         Args:
             no (int): Solid Tag
-            boundary_surfaces_no (str): Tags of Surfaces defining Gas
+            boundary_surfaces_no (str): Numbers of Surfaces defining Gas
             material_no (int): Tag of Material assigned to Solid
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -151,7 +151,7 @@ class Solid():
         '''
         Args:
             no (int): Solid Tag
-            boundary_surfaces_no (str): Tags of Surfaces defining Contact
+            boundary_surfaces_no (str): Numbers of Surfaces defining Contact
             material_no (int): Tag of Material assigned to Solid
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -198,7 +198,7 @@ class Solid():
         '''
         Args:
             no (int): Solid Tag
-            boundary_surfaces_no (str): Tags of Surfaces defining Soil
+            boundary_surfaces_no (str): Numbers of Surfaces defining Soil
             material_no (int): Tag of Material assigned to Solid
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -238,7 +238,7 @@ class Solid():
 
         '''
         Args:
-            solids_no (str): Tags of Solids to be deleted
+            solids_no (str): Numbers of Solids to be deleted
         '''
 
         # Delete solids from client model

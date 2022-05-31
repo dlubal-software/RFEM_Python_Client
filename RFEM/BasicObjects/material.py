@@ -46,7 +46,7 @@ class Material():
 
         '''
         Args:
-            materials_no (str): Tags of Materials to be deleted
+            materials_no (str): Numbers of Materials to be deleted
         '''
 
         # Delete from client model

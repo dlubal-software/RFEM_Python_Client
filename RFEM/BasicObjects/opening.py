@@ -12,7 +12,7 @@ class Opening():
         '''
         Args:
             no (int): Opening Tag
-            lines_no (str): Tags of Lines defining Opening
+            lines_no (str): Numbers of Lines defining Opening
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
@@ -45,7 +45,7 @@ class Opening():
 
         '''
         Args:
-            openings_no (str): Tags of Openings to be deleted
+            openings_no (str): Numbers of Openings to be deleted
         '''
 
         # Delete from client model

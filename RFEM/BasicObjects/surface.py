@@ -7,7 +7,7 @@ def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_ty
         Args:
             no (int): Surface Tag
             surface_type (enum): Surface Type Enumeration
-            boundary_lines_no (str): Tags of Lines defining Standard Surface
+            boundary_lines_no (str): Numbers of Lines defining Standard Surface
             geometry_type (enum): Geometry Type Enumeration
             geometry_type_parameters (list): Geometry Type Parameters
                 for geometry_type == SurfaceGeometry.GEOMETRY_NURBS:
@@ -96,7 +96,7 @@ class Surface():
         '''
         Args:
             no (int): Surface Tag
-            boundary_lines_no (str): Tags of Lines defining Surface
+            boundary_lines_no (str): Numbers of Lines defining Surface
             thickness (int): Tag of Thickness assigned to Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -150,7 +150,7 @@ class Surface():
                     geometry_type_parameters = None
                 for geometry_type == SurfaceGeometry.GEOMETRY_QUADRANGLE:
                     geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
-            boundary_lines_no (str): Tags of Lines defining Standard Surface
+            boundary_lines_no (str): Numbers of Lines defining Standard Surface
             thickness (int): Tag of Thickness assigned to Standard Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -179,7 +179,7 @@ class Surface():
                     geometry_type_parameters = None
                 for geometry_type == SurfaceGeometry.GEOMETRY_QUADRANGLE:
                     geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
-            boundary_lines_no (str): Tags of Lines defining Without Thickness Surface
+            boundary_lines_no (str): Numbers of Lines defining Without Thickness Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
@@ -207,7 +207,7 @@ class Surface():
                     geometry_type_parameters = None
                 for geometry_type == SurfaceGeometry.GEOMETRY_QUADRANGLE:
                     geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
-            boundary_lines_no (str): Tags of Lines defining Rigid Surface
+            boundary_lines_no (str): Numbers of Lines defining Rigid Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
@@ -236,7 +236,7 @@ class Surface():
                     geometry_type_parameters = None
                 for geometry_type == SurfaceGeometry.GEOMETRY_QUADRANGLE:
                     geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
-            boundary_lines_no (str): Tags of Lines defining Membrane Surface
+            boundary_lines_no (str): Numbers of Lines defining Membrane Surface
             thickness (int): Tag of Thickness assigned to Membrane Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -266,7 +266,7 @@ class Surface():
                     geometry_type_parameters = None
                 for geometry_type == SurfaceGeometry.GEOMETRY_QUADRANGLE:
                     geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
-            boundary_lines_no (str): Tags of Lines defining Without Membrane Tension Surface
+            boundary_lines_no (str): Numbers of Lines defining Without Membrane Tension Surface
             thickness (int): Tag of Thickness assigned to Without Membrane Tension Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -294,7 +294,7 @@ class Surface():
         '''
         Args:
             no (int): Surface Tag
-            boundary_lines_no (str): Tags of Lines defining Load Distribution Surface
+            boundary_lines_no (str): Numbers of Lines defining Load Distribution Surface
             load_transfer_direction (enum): Surface Load Transfer Direction Enumeration
             surface_weight_enabled (bool): Activate/De-Activate Surface Weight
             surface_weight (float): Magnitude of Surface Weight
@@ -365,7 +365,7 @@ class Surface():
 
         '''
         Args:
-            surfaces_no (str): Tags of Surfaces to be deleted
+            surfaces_no (str): Numbers of Surfaces to be deleted
         '''
 
         # Delete surfaces from client model

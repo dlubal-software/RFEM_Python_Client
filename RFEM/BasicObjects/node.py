@@ -437,7 +437,7 @@ class Node():
 
         '''
         Args:
-            nodes_no (str): Tags of Nodes to be deleted
+            nodes_no (str): Numbers of Nodes to be deleted
         '''
 
         # Delete from client model

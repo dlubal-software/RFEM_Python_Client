@@ -466,7 +466,7 @@ class Line():
 
         '''
         Args:
-            lines_no (str): Tags of Lines to be deleted
+            lines_no (str): Numbers of Lines to be deleted
         '''
 
         # Delete from client model

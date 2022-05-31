@@ -13,7 +13,7 @@ class SolidSet():
         '''
         Args:
             no (int): Solid Set Tag
-            solids_no (str): Tags of Solids Contained Within Solid Set
+            solids_no (str): Numbers of Solids Contained Within Solid Set
             solid_set_type (enum): Solid Set Type Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -56,7 +56,7 @@ class SolidSet():
         '''
         Args:
             no (int): Solid Set Tag
-            solids_no (str): Tags of Solids Contained Within Continuous Solid Set
+            solids_no (str): Numbers of Solids Contained Within Continuous Solid Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
@@ -98,7 +98,7 @@ class SolidSet():
         '''
         Args:
             no (int): Solid Set Tag
-            solids_no (str): Tags of Solids Contained Within Group of Solids Solid Set
+            solids_no (str): Numbers of Solids Contained Within Group of Solids Solid Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''

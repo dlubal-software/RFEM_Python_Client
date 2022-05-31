@@ -692,7 +692,7 @@ class Thickness():
 
         '''
         Args:
-            thickness_no (str): Tags of Thickness to be deleted
+            thickness_no (str): Numbers of Thickness to be deleted
         '''
 
         # Delete from client model

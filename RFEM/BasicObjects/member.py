@@ -1989,7 +1989,7 @@ class Member():
 
         '''
         Args:
-            members_no (str): Tags of Members to be deleted
+            members_no (str): Numbers of Members to be deleted
         '''
 
         # Delete from client model

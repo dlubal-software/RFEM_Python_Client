@@ -51,7 +51,7 @@ class Section():
 
         '''
         Args:
-            sections_no (str): Tags of Sections to be deleted
+            sections_no (str): Numbers of Sections to be deleted
         '''
 
         # Delete from client model
