@@ -1,5 +1,5 @@
-from RFEM.enums import MemberType, MemberRotationSpecificationType, MemberSectionDistributionType, MemberTypeRibAlignment, MemberReferenceLengthWidthType, MemberResultBeamIntegration
-from RFEM.initModel import Model, clearAtributes
+from RFEM.enums import MemberType, MemberRotationSpecificationType, MemberSectionDistributionType, MemberTypeRibAlignment, MemberReferenceLengthWidthType, MemberResultBeamIntegration, ObjectTypes
+from RFEM.initModel import Model, clearAtributes, ConvertStrToListOfInt
 
 class Member():
     def __init__(self,
@@ -1983,3 +1983,15 @@ class Member():
 
         # Add Member to client model
         model.clientModel.service.set_member(clientObject)
+
+    @staticmethod
+    def DeleteMember(members_no: str = '1 2', model = Model):
+
+        '''
+        Args:
+            members_no (str): Numbers of Members to be deleted
+        '''
+
+        # Delete from client model
+        for member in ConvertStrToListOfInt(members_no):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, member)

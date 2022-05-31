@@ -13,7 +13,7 @@ class LineSet():
         '''
         Args:
             no (int): Line Set Tag
-            lines_no (str): Tags of Lines Contained Within Line Set
+            lines_no (str): Numbers of Lines Contained Within Line Set
             line_set_type (enum): Line Set Type Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -56,7 +56,7 @@ class LineSet():
         '''
         Args:
             no (int): Line Set Tag
-            lines_no (str): Tags of Lines Contained Within Continuous Line Set
+            lines_no (str): Numbers of Lines Contained Within Continuous Line Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
@@ -98,7 +98,7 @@ class LineSet():
         '''
         Args:
             no (int): Line Set Tag
-            lines_no (str): Tags of Lines Contained Within Group of Lines Line Set
+            lines_no (str): Numbers of Lines Contained Within Group of Lines Line Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''

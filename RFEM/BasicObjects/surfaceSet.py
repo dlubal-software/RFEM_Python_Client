@@ -13,7 +13,7 @@ class SurfaceSet():
         '''
         Args:
             no (int): Surfaces Set Tag
-            surfaces_no (str): Tags of Surfaces Contained Within Surface Set
+            surfaces_no (str): Numbers of Surfaces Contained Within Surface Set
             surfaces_set_type (enum): Surface Set Type Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -56,7 +56,7 @@ class SurfaceSet():
         '''
         Args:
             no (int): Surfaces Set Tag
-            surfaces_no (str): Tags of Surfaces Contained Within Continuous Surface Set
+            surfaces_no (str): Numbers of Surfaces Contained Within Continuous Surface Set
             surfaces_set_type (enum): Surface Set Type Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -99,7 +99,7 @@ class SurfaceSet():
         '''
         Args:
             no (int): Surfaces Set Tag
-            surfaces_no (str): Tags of Surfaces Contained Within Group of Surfaces Surface Set
+            surfaces_no (str): Numbers of Surfaces Contained Within Group of Surfaces Surface Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''

@@ -13,7 +13,7 @@ class MemberSet():
         '''
         Args:
             no (int): Member Set Tag
-            members_no (str): Tags of Members Contained Within Member Set
+            members_no (str): Numbers of Members Contained Within Member Set
             member_set_type (enum): Member Set Type Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -56,7 +56,7 @@ class MemberSet():
         '''
         Args:
             no (int): Member Set Tag
-            members_no (str): Tags of Members Contained Within Continuous Member Set
+            members_no (str): Numbers of Members Contained Within Continuous Member Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
@@ -98,7 +98,7 @@ class MemberSet():
         '''
         Args:
             no (int): Member Set Tag
-            members_no (str): Tags of Members Contained Within Group of Members Member Set
+            members_no (str): Numbers of Members Contained Within Group of Members Member Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''

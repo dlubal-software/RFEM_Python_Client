@@ -1,4 +1,5 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAtributes, ConvertStrToListOfInt
+from RFEM.enums import ObjectTypes
 
 class Section():
     def __init__(self,
@@ -44,3 +45,15 @@ class Section():
 
         # Add Section to client model
         model.clientModel.service.set_section(clientObject)
+
+    @staticmethod
+    def DeleteSection(sections_no: str = '1 2', model = Model):
+
+        '''
+        Args:
+            sections_no (str): Numbers of Sections to be deleted
+        '''
+
+        # Delete from client model
+        for section in ConvertStrToListOfInt(sections_no):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_SECTION.name, section)

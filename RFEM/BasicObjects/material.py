@@ -1,4 +1,5 @@
-from RFEM.initModel import clearAtributes, Model
+from RFEM.initModel import clearAtributes, Model, ConvertStrToListOfInt
+from RFEM.enums import ObjectTypes
 
 
 class Material():
@@ -39,3 +40,15 @@ class Material():
 
         # Add material to client model
         model.clientModel.service.set_material(clientObject)
+
+    @staticmethod
+    def DeleteMaterial(materials_no: str = '1 2', model = Model):
+
+        '''
+        Args:
+            materials_no (str): Numbers of Materials to be deleted
+        '''
+
+        # Delete from client model
+        for material in ConvertStrToListOfInt(materials_no):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_MATERIAL.name, material)
