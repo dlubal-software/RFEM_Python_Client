@@ -1,20 +1,17 @@
 import sys
-import pytest
 import os
 PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.path.dirname(__file__),
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.enums import *
-from RFEM.initModel import Model, CheckIfMethodOrTypeExists, SetAddonStatus
+from RFEM.enums import AddOn, StabilityAnalysisSettingsEigenvalueMethod, StabilityAnalysisSettingsMatrixType, StabilityAnalysisSettingsStoppingOfLoadIncreasingResult
+from RFEM.initModel import Model, SetAddonStatus
 from RFEM.LoadCasesAndCombinations.stabilityAnalysisSettings import StabilityAnalysisSettings
 
 if Model.clientModel is None:
     Model()
 
-# TODO: US-7699
-pytestmark = pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'get_stability_analysis_settings', True), reason="Type get_stability_analysis_settings not in RFEM GM yet")
 def test_stability_analysis_settings_init():
 
     Model.clientModel.service.delete_all()

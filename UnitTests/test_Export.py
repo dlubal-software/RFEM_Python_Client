@@ -50,9 +50,8 @@ def test_export():
     for i in formats:
         try:
             ExportTo(os.path.join(dirname, 'export'+i))
-        except:
+        except RuntimeError:
             print(f'Export to {i} does not work!')
-            assert True
 
     Model.clientModel.service.finish_modification()
 

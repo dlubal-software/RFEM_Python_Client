@@ -133,7 +133,7 @@ def test_memberTransverseStiffeners():
 
     Material(1, "S235")
 
-    MemberTransverseStiffeners(1, "", "", [[MemberTransverseStiffenerType.STIFFENER_COMPONENT_TYPE_FLAT, 1, MemberTransverseStiffenerPosition.STIFFENER_COMPONENT_POSITION_DOUBLE_SIDED, False, 0, MemberTransverseStiffenerOffsetType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 0, 1, True, 0.005, 0.02, 0.0, False, False, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, False, False, 0]])
+    MemberTransverseStiffeners(1)
 
     memberStiffener_1 = Model.clientModel.service.get_member_transverse_stiffener(1)
 

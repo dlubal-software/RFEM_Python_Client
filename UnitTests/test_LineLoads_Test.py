@@ -18,7 +18,7 @@ from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.material import Material
 from RFEM.initModel import Model
-from RFEM.enums import LineLoadDistribution, StaticAnalysisType, LoadDirectionType
+from RFEM.enums import LineLoadDistribution, StaticAnalysisType, LoadDirectionType, LineSetLoadDistribution
 from RFEM.Loads.lineLoad import LineLoad
 
 if Model.clientModel is None:
@@ -191,6 +191,12 @@ def test_line_set_loads():
     StaticAnalysisSettings(1, 'LINEAR', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
     LineSetLoad(1, 1, '1', LoadDirectionType.LOAD_DIRECTION_LOCAL_Z, 1200.5, 'My Comment')
+    LineSetLoad.Force(2, 1, '1', load_parameter=2500)
+    LineSetLoad.Mass(3, 1, '1', False, [3100])
+    LineSetLoad.Moment(4, load_parameter=4000)
     Model.clientModel.service.finish_modification()
 
     assert Model.clientModel.service.get_line_set_load(1, 1).magnitude == 1200.5
+    assert Model.clientModel.service.get_line_set_load(2, 1).magnitude == 2500
+    assert Model.clientModel.service.get_line_set_load(3, 1).mass_global == 3100
+    assert Model.clientModel.service.get_line_set_load(4, 1).magnitude == 4000

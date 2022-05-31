@@ -14,7 +14,7 @@ from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.material import Material
-from RFEM.initModel import Model, Calculate_all
+from RFEM.initModel import Model
 from RFEM.enums import *
 
 if Model.clientModel is None:
