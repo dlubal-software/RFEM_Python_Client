@@ -423,10 +423,10 @@ class Thickness():
             tlrt.row.connection_with_other_topological_elements = False
             if Model.clientModel.service.get_material(layers[i][1])['material_model'] == "MODEL_ORTHOTROPIC_2D":
                 tlrt.row.angle = layers[i][3] * (pi/180)
-                if layers[i][4]:
+                if len(layers[i]) == 5:
                     tlrt.row.comment = layers[i][4]
             else:
-                if layers[i][3]:
+                if len(layers[i]) == 4:
                     tlrt.row.comment = layers[i][3]
 
             clientObject.layers_reference_table.thickness_layers_reference_table.append(tlrt)
