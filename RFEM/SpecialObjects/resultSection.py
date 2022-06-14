@@ -8,8 +8,8 @@ class ResultSection():
                  show_section_in_direction = ResultSectionResultDirection.SHOW_RESULTS_IN_LOCAL_PLUS_Z,
                  show_values_on_isolines: bool = False,
                  parameters: list = None,
-                 assigned_to_all_surfaces: bool = True,
-                 assigned_to_all_solids: bool = True,
+                 assigned_to_surfaces: str = '',
+                 assigned_to_solids: str = '',
                  params: dict = None,
                  model = Model):
         """
@@ -27,8 +27,8 @@ class ResultSection():
                 if type == ResultSectionType.TYPE_2_POINTS_AND_VECTOR:
                     [coordinate_system, first_point_coordinates, second_point_coordinates, projection, vector]
                     [1, [1,0,0], [0,2,0], ResultSectionProjection.PROJECTION_IN_VECTOR, [1,1,1]]
-            assigned_to_all_surfaces (bool, optional) = Assigned to all surface
-            assigned_to_all_solids (bool, optional) Assigned to all solids
+            assigned_to_surfaces (str, optional) = Assigned to surfaces
+            assigned_to_solids (str, optional) Assigned to solids
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (class, optional): Model instance
         """
@@ -69,16 +69,10 @@ class ResultSection():
                 clientObject.vector_coordinate_3 = parameters[4][2]
 
         # Assigned to all surfaces
-        if assigned_to_all_surfaces:
-            clientObject.assigned_to_surfaces = '0'
-        else:
-            clientObject.assigned_to_surfaces = ''
+        clientObject.assigned_to_surfaces = ConvertToDlString(assigned_to_surfaces)
 
         # Assigned to all solids
-        if assigned_to_all_solids:
-            clientObject.assigned_to_solids = '0'
-        else:
-            clientObject.assigned_to_solids = ''
+        clientObject.assigned_to_solids = ConvertToDlString(assigned_to_solids)
 
         # Adding optional parameters via dictionary
         if params:
@@ -98,8 +92,8 @@ class ResultSection():
                            second_point_coordinates: list = None,
                            projection = ResultSectionProjection.PROJECTION_IN_GLOBAL_X,
                            vector: list = None,
-                           assigned_to_all_surfaces: bool = True,
-                           assigned_to_all_solids: bool = True,
+                           assigned_to_surfaces: str = '',
+                           assigned_to_solids: str = '',
                            comment: str = '',
                            params: dict = None,
                            model = Model):
@@ -115,8 +109,8 @@ class ResultSection():
             second_point_coordinates (list, mandatory): Second point coordinates
             projection (enum, mandatory): Projection in direction
             vector (list, optional): Vector if projection is VECTOR
-            assigned_to_all_surfaces (bool, optional) = Assigned to all surface
-            assigned_to_all_solids (bool, optional) Assigned to all solids
+            assigned_to_surfaces (str, optional) = Assigned to surfaces
+            assigned_to_solids (str, optional) Assigned to solids
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (class, optional): Model instance
@@ -160,16 +154,10 @@ class ResultSection():
             clientObject.vector_coordinate_3 = vector[2]
 
         # Assigned to all surfaces
-        if assigned_to_all_surfaces:
-            clientObject.assigned_to_surfaces = '0'
-        else:
-            clientObject.assigned_to_surfaces = ''
+        clientObject.assigned_to_surfaces = ConvertToDlString(assigned_to_surfaces)
 
         # Assigned to all solids
-        if assigned_to_all_solids:
-            clientObject.assigned_to_solids = '0'
-        else:
-            clientObject.assigned_to_solids = ''
+        clientObject.assigned_to_solids = ConvertToDlString(assigned_to_solids)
 
         # Comment
         #clientObject.comment = comment
@@ -188,8 +176,8 @@ class ResultSection():
              show_section_in_direction = ResultSectionResultDirection.SHOW_RESULTS_IN_LOCAL_PLUS_Z,
              show_values_on_isolines: bool = False,
              lines: str = '1',
-             assigned_to_all_surfaces: bool = True,
-             assigned_to_all_solids: bool = True,
+             assigned_to_surfaces: str = '',
+             assigned_to_solids: str = '',
              comment: str = '',
              params: dict = None,
              model = Model):
@@ -202,8 +190,8 @@ class ResultSection():
             show_section_in_direction (enum, mandatory): _description_. Defaults to ResultSectionResultDirection.SHOW_RESULTS_IN_LOCAL_PLUS_Z.
             show_values_on_isolines (bool, mandatory): _description_. Defaults to False.
             lines (int, mandatory): Lines
-            assigned_to_all_surfaces (bool, optional) = Assigned to all surface
-            assigned_to_all_solids (bool, optional) Assigned to all solids
+            assigned_to_surfaces (str, optional) = Assigned to surfaces
+            assigned_to_solids (str, optional) Assigned to solids
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (class, optional): Model instance
@@ -231,16 +219,10 @@ class ResultSection():
         clientObject.lines = ConvertToDlString(lines)
 
         # Assigned to all surfaces
-        if assigned_to_all_surfaces:
-            clientObject.assigned_to_surfaces = '0'
-        else:
-            clientObject.assigned_to_surfaces = ''
+        clientObject.assigned_to_surfaces = ConvertToDlString(assigned_to_surfaces)
 
         # Assigned to all solids
-        if assigned_to_all_solids:
-            clientObject.assigned_to_solids = '0'
-        else:
-            clientObject.assigned_to_solids = ''
+        clientObject.assigned_to_solids = ConvertToDlString(assigned_to_solids)
 
         # Comment
         #clientObject.comment = comment
