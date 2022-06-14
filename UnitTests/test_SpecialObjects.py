@@ -20,7 +20,7 @@ from RFEM.SpecialObjects.surfaceContact import SurfaceContact
 from RFEM.SpecialObjects.resultSection import ResultSection
 from RFEM.SpecialObjects.structureModification import StructureModification
 from RFEM.TypesForSpecialObjects.surfaceContactType import SurfaceContactType
-from RFEM.enums import SurfaceResultsAdjustmentShape, SurfaceResultsAdjustmentType, SurfaceResultsAdjustmentProjection
+from RFEM.enums import SurfaceResultsAdjustmentShape
 from RFEM.enums import SurfaceContactPerpendicularType, SurfaceContactParallelType, SurfaceContactFrictionType
 from RFEM.enums import ResultSectionType, ResultSectionProjection, ResultSectionResultDirection, SurfaceStiffnessModificationType
 from RFEM.TypesForSurfaces.surfaceStiffnessModification import SurfaceStiffnessModification
