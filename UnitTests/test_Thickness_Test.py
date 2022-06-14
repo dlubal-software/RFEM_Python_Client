@@ -75,7 +75,7 @@ def test_thickness():
     Thickness.Layers(
                      no= 7,
                      name= 'Layers',
-                     layers= [[1, 1, 0.123],
+                     layers= [[0, 1, 0.123],
                               [0, 1, 0.456]],
                      comment= 'Comment')
 

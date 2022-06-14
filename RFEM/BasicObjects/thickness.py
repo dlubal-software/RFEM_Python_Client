@@ -372,7 +372,7 @@ class Thickness():
     def Layers(
                  no: int = 1,
                  name: str = None,
-                 layers = [[0, 1, 0.2]],
+                 layers = [[[0, 1, 0.012], [0, 1, 0.01]]],
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -420,6 +420,14 @@ class Thickness():
             tlrt.row.thickness_type = layers[i][0]
             tlrt.row.material = layers[i][1]
             tlrt.row.thickness = layers[i][2]
+            tlrt.row.connection_with_other_topological_elements = False
+            if Model.clientModel.service.get_material(layers[i][1])['material_model'] == "MODEL_ORTHOTROPIC_2D":
+                tlrt.row.angle = layers[i][3] * (pi/180)
+                if len(layers[i]) == 5:
+                    tlrt.row.comment = layers[i][4]
+            else:
+                if len(layers[i]) == 4:
+                    tlrt.row.comment = layers[i][3]
 
             clientObject.layers_reference_table.thickness_layers_reference_table.append(tlrt)
 
