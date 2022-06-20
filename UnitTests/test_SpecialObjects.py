@@ -96,7 +96,7 @@ def test_special_objects():
 
     SurfaceContact(1, 1, '1', '3')
 
-    ResultSection(1,ResultSectionType.TYPE_2_POINTS_AND_VECTOR, ResultSectionResultDirection.SHOW_RESULTS_IN_GLOBAL_MINUS_X,True,[1, [1,0,0], [0,2,0], ResultSectionProjection.PROJECTION_IN_VECTOR, [1,1,1]], False, False)
+    ResultSection(1,ResultSectionType.TYPE_2_POINTS_AND_VECTOR, ResultSectionResultDirection.SHOW_RESULTS_IN_GLOBAL_MINUS_X,True,[1, [1,0,0], [0,2,0], ResultSectionProjection.PROJECTION_IN_VECTOR, [1,1,1]], '2-4')
     ResultSection.Line(2,ResultSectionResultDirection.SHOW_RESULTS_IN_LOCAL_PLUS_Z,False, '2')
     ResultSection.TwoPointsAndVector(3,1,ResultSectionResultDirection.SHOW_RESULTS_IN_GLOBAL_MINUS_Y,False, [10,0,0], [5,5,5], ResultSectionProjection.PROJECTION_IN_GLOBAL_X)
     ResultSection.TwoPointsAndVector(4,1,ResultSectionResultDirection.SHOW_RESULTS_IN_GLOBAL_MINUS_Y,False, [10,0,0], [5,5,5], ResultSectionProjection.PROJECTION_IN_VECTOR, [-1,1,-1])
@@ -135,6 +135,7 @@ def test_special_objects():
     assert rs1.vector_coordinate_1 == 1
     assert rs1.vector_coordinate_2 == 1
     assert rs1.vector_coordinate_3 == 1
+    assert rs1.assigned_to_surfaces == '2 3 4'
 
     rs2 = Model.clientModel.service.get_result_section(2)
     assert rs2.type == ResultSectionType.TYPE_LINE.name
