@@ -1,4 +1,4 @@
-from RFEM.enums import ThicknessDirection, ThicknessType
+from RFEM.enums import ThicknessDirection, ThicknessType, LayerType
 from RFEM.enums import ThicknessOrthotropyType, AddOn, ObjectTypes
 from RFEM.enums import ThicknessShapeOrthotropySelfWeightDefinitionType
 from RFEM.enums import ThicknessStiffnessMatrixSelfWeightDefinitionType
@@ -411,12 +411,13 @@ class Thickness():
         clientObject.type = ThicknessType.TYPE_LAYERS.name
 
         # Layers
-        clientObject.layers_reference_table = model.clientModel.factory.create('ns0:thickness.layers_reference_table')
+        clientObject.layers_reference_table = model.clientModel.factory.create('ns0:array_of_thickness_layers_reference_table')
 
         for i,j in enumerate(layers):
             tlrt = model.clientModel.factory.create('ns0:thickness_layers_reference_table_row')
             tlrt.no = i+1
             tlrt.row.layer_no = i+1
+            tlrt.row.layer_type = LayerType.E_LAYER_TYPE_LAYER.name
             tlrt.row.thickness_type = layers[i][0]
             tlrt.row.material = layers[i][1]
             tlrt.row.thickness = layers[i][2]

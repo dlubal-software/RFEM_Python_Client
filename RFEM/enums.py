@@ -264,6 +264,12 @@ class ThicknessType(Enum):
     TYPE_VARIABLE_CIRCLE, TYPE_VARIABLE_FOUR_SURFACE_CORNERS, TYPE_VARIABLE_THREE_NODES, \
     TYPE_VARIABLE_TWO_NODES_AND_DIRECTION = range(9)
 
+class LayerType(Enum):
+    '''
+    Layer Type
+    '''
+    E_LAYER_TYPE_LAYER, E_LAYER_TYPE_CONTACT, E_LAYER_TYPE_GAS = range(3)
+
 
 class ThicknessDirection(Enum):
     '''
