@@ -7,7 +7,7 @@ readme = (here/"README.md").read_text()
 
 setup(
     name='RFEM',
-    version='1.9.0',
+    version='1.10.0',
     description='Python Framework for RFEM6 Web Services',
     long_description=readme,
     long_description_content_type = "text/markdown",
