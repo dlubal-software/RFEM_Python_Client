@@ -372,7 +372,7 @@ class Thickness():
     def Layers(
                  no: int = 1,
                  name: str = None,
-                 layers = [[[0, 1, 0.012], [0, 1, 0.01]]],
+                 layers = [[0, 1, 0.012], [0, 1, 0.01]],
                  comment: str = '',
                  params: dict = None,
                  model = Model):
