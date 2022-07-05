@@ -2087,3 +2087,22 @@ class MemberTransverseStiffenerOffsetType(Enum):
     Member Transverse Stiffener Multiple Offset Definition Type
     '''
     OFFSET_DEFINITION_TYPE_ABSOLUTE, OFFSET_DEFINITION_TYPE_RELATIVE = range(2)
+
+class SteelMemberLocalSectionReductionType(Enum):
+    '''
+    Steel Member Local Section Reduction Type
+    '''
+    REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS = range(1)
+
+class FastenerDefinitionType(Enum):
+    '''
+    Steel Member Local Section Reduction Fastener Definition Type
+    '''
+    DEFINITION_TYPE_ABSOLUTE,DEFINITION_TYPE_RELATIVE = range(2)
+
+class MultipleOffsetDefinitionType(Enum):
+    '''
+    Steel Member Local Section Reduction Multiple Offset Definition Type
+    '''
+    OFFSET_DEFINITION_TYPE_ABSOLUTE,OFFSET_DEFINITION_TYPE_RELATIVE = range(2)
+
