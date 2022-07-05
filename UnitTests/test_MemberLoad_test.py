@@ -1,3 +1,8 @@
+'''DO TO THE IMPORTANCE OF THE MEMBER LOAD LIBRARY, EACH MEMBER FORCE AND DISTRIBUTION COMBINATION WAS DOCUMENTED BELOW.
+THIS PROVIDES USERS WITH A REFERENCE FOR IMPLEMENTATION.
+PERTAINING TO THE UNIT TESTS: A SELECTION OF KEY PARAMETERS WERE SELECTED FOR THE ASSERTIONS'''
+
+from cgi import test
 import sys
 import os
 PROJECT_ROOT = os.path.abspath(os.path.join(
@@ -78,7 +83,7 @@ def test_member_loads():
     MemberLoad.Force(8, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 6000, 1, 2])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_VARYING ##
-    MemberLoad.Force(9, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
+    MemberLoad.Force(9, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 4000], [2, 5000]])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##
     MemberLoad.Force(10, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])
@@ -90,10 +95,10 @@ def test_member_loads():
     MemberLoad.Force(12, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[4000, 8000, 12000])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING ##
-    MemberLoad.Force(13, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
+    MemberLoad.Force(13, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 4000], [2, 5000]])
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_VARYING_IN_Z ##
-    MemberLoad.Force(14, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
+    MemberLoad.Force(14, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 4000], [2, 5000]])
 
     ## Moment Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
     MemberLoad.Moment(15, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])
@@ -111,7 +116,7 @@ def test_member_loads():
     MemberLoad.Moment(19, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 5000, 6000, 1, 2])
 
     ## Moment Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_VARYING ##
-    MemberLoad.Moment(20, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
+    MemberLoad.Moment(20, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 4000], [2, 5000]])
 
     ## Moment Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##
     MemberLoad.Moment(21, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[False, False, 4000, 8000, 1, 2])
@@ -123,7 +128,7 @@ def test_member_loads():
     MemberLoad.Moment(23, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[4000, 8000, 12000])
 
     ## Moment Type Member Load with LOAD_DISTRIBUTION_VARYING ##
-    MemberLoad.Moment(24, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 4000], [2, 1, 5000]])
+    MemberLoad.Moment(24, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 4000], [2, 5000]])
 
     ## Mass Type Member Load ##
     MemberLoad.Mass(25, 1, mass_components=[1000])
@@ -141,7 +146,7 @@ def test_member_loads():
     MemberLoad.Temperature(29, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3, 4, 5, 6])
 
     ## Temperature Type Member Load with LOAD_DISTRIBUTION_VARYING ##
-    MemberLoad.Temperature(30, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])
+    MemberLoad.Temperature(30, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 285, 289], [2, 293, 297]])
 
     ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
     MemberLoad.TemperatureChange(31, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[18, 2])
@@ -156,7 +161,7 @@ def test_member_loads():
     MemberLoad.TemperatureChange(34, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3, 4, 5, 6])
 
     ## TemperatureChange Type Member Load with LOAD_DISTRIBUTION_VARYING ##
-    MemberLoad.TemperatureChange(35, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])
+    MemberLoad.TemperatureChange(35, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 285, 289], [2, 293, 297]])
 
     ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
     MemberLoad.AxialStrain(36, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[0.005])
@@ -171,7 +176,7 @@ def test_member_loads():
     MemberLoad.AxialStrain(39, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[1, 2, 3])
 
     ## AxialStrain Type Member Load with LOAD_DISTRIBUTION_VARYING ##
-    MemberLoad.AxialStrain(40, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[[1, 1, 285, 289], [2, 1, 293, 297]])
+    MemberLoad.AxialStrain(40, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, load_parameter=[[1, 285, 289], [2, 293, 297]])
 
     ## AxialDisplacement Type Member Load ##
     MemberLoad.AxialDisplacement(41, 1, '1', MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, 0.05)
@@ -189,7 +194,7 @@ def test_member_loads():
     MemberLoad.Precamber(45, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3])
 
     ## Precamber Type Member Load with LOAD_DISTRIBUTION_VARYING ##
-    MemberLoad.Precamber(46, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])
+    MemberLoad.Precamber(46, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 285], [2, 293]])
 
     ## InitialPrestress Type Member Load ##
     MemberLoad.InitialPrestress(47, 1, '1', MemberLoadDirection.LOAD_DIRECTION_LOCAL_X, 50)
@@ -222,7 +227,7 @@ def test_member_loads():
     MemberLoad.Displacement(56, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3])
 
     ## Displacement Type Member Load with LOAD_DISTRIBUTION_VARYING ##
-    MemberLoad.Displacement(57, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])
+    MemberLoad.Displacement(57, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 285], [2, 293]])
 
     ## Rotation Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
     MemberLoad.Rotation(58, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5])
@@ -240,7 +245,7 @@ def test_member_loads():
     MemberLoad.Rotation(62, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [0.5, 0.6, False, False, 1, 2])
 
     ## Rotation Type Member Load with LOAD_DISTRIBUTION_CONCENTRATED_VARYING ##
-    MemberLoad.Rotation(63, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [[1, 1, 285], [2, 1, 293]])
+    MemberLoad.Rotation(63, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, [[1, 285], [2, 293]])
 
     ## Rotation Type Member Load with LOAD_DISTRIBUTION_TRAPEZOIDAL ##
     MemberLoad.Rotation(64, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[12, 16, False, False, 1, 2])
@@ -252,14 +257,70 @@ def test_member_loads():
     MemberLoad.Rotation(66, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[1, 2, 3])
 
     ## Rotation Type Member Load with LOAD_DISTRIBUTION_VARYING ##
-    MemberLoad.Rotation(67, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 1, 285], [2, 1, 293]])
+    MemberLoad.Rotation(67, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[[1, 285], [2, 293]])
 
     ## PipeContentFull Type Member Load ##
     MemberLoad.PipeContentFull(68, 1, '2', MemberLoadDirectionOrientation.LOAD_DIRECTION_FORWARD, 50)
 
     MemberLoad.RotaryMotion(69, 1, '2', 2, 3, MemberLoadAxisDefinitionType.AXIS_DEFINITION_POINT_AND_AXIS, axis_definition_p1=[1,1,0])
 
-    #Calculate_all() # Don't use in unit tests. See template for more info.
-
     Model.clientModel.service.finish_modification()
 
+    assert Model.clientModel.service.get_member_load(3, 1).load_direction == 'LOAD_DIRECTION_LOCAL_Z'
+    assert Model.clientModel.service.get_member_load(3, 1).magnitude == 5000
+    assert Model.clientModel.service.get_member_load(3, 1).has_force_eccentricity == True
+    assert Model.clientModel.service.get_member_load(3, 1).eccentricity_y_at_start == 0.01
+    assert Model.clientModel.service.get_member_load(3, 1).eccentricity_z_at_start == 0.02
+
+    assert Model.clientModel.service.get_member_load(19, 1).load_distribution == 'LOAD_DISTRIBUTION_CONCENTRATED_2'
+    assert Model.clientModel.service.get_member_load(19, 1).load_direction == 'LOAD_DIRECTION_LOCAL_Z'
+    assert Model.clientModel.service.get_member_load(19, 1).magnitude_2 == 6000
+    assert Model.clientModel.service.get_member_load(19, 1).distance_a_absolute == 1
+
+    assert Model.clientModel.service.get_member_load(25, 1).load_type == 'E_TYPE_MASS'
+    assert Model.clientModel.service.get_member_load(25, 1).load_distribution == 'LOAD_DISTRIBUTION_UNIFORM'
+    assert Model.clientModel.service.get_member_load(25, 1).mass_global == 1000
+
+    assert Model.clientModel.service.get_member_load(30, 1).load_type == 'LOAD_TYPE_TEMPERATURE'
+    assert Model.clientModel.service.get_member_load(30, 1).load_distribution == 'LOAD_DISTRIBUTION_VARYING'
+    assert Model.clientModel.service.get_member_load(30, 1).varying_load_parameters['member_load_varying_load_parameters'][1].row['distance'] == 2
+    assert Model.clientModel.service.get_member_load(30, 1).varying_load_parameters['member_load_varying_load_parameters'][0].row['magnitude'] == 285
+
+    assert Model.clientModel.service.get_member_load(33, 1).load_type == 'LOAD_TYPE_TEMPERATURE_CHANGE'
+    assert Model.clientModel.service.get_member_load(33, 1).load_distribution == 'LOAD_DISTRIBUTION_TAPERED'
+    assert Model.clientModel.service.get_member_load(33, 1).magnitude_t_c_1 == 18
+    assert Model.clientModel.service.get_member_load(33, 1).magnitude_delta_t_2 == 16
+    assert Model.clientModel.service.get_member_load(33, 1).distance_b_absolute == 2
+
+    assert Model.clientModel.service.get_member_load(40, 1).load_type == 'LOAD_TYPE_AXIAL_STRAIN'
+    assert Model.clientModel.service.get_member_load(40, 1).load_distribution == 'LOAD_DISTRIBUTION_VARYING'
+    assert Model.clientModel.service.get_member_load(40, 1).varying_load_parameters['member_load_varying_load_parameters'][1].row['distance'] == 2
+    assert Model.clientModel.service.get_member_load(40, 1).varying_load_parameters['member_load_varying_load_parameters'][0].row['magnitude'] == 285
+
+    assert Model.clientModel.service.get_member_load(41, 1).load_type == 'LOAD_TYPE_AXIAL_DISPLACEMENT'
+    assert Model.clientModel.service.get_member_load(41, 1).magnitude == 0.05
+
+    assert Model.clientModel.service.get_member_load(43, 1).load_type == 'LOAD_TYPE_PRECAMBER'
+    assert Model.clientModel.service.get_member_load(43, 1).load_distribution == 'LOAD_DISTRIBUTION_TRAPEZOIDAL'
+    assert Model.clientModel.service.get_member_load(43, 1).magnitude_2 == 16
+
+    assert Model.clientModel.service.get_member_load(47, 1).load_type == 'LOAD_TYPE_INITIAL_PRESTRESS'
+    assert Model.clientModel.service.get_member_load(47, 1).load_distribution == 'LOAD_DISTRIBUTION_UNIFORM'
+    assert Model.clientModel.service.get_member_load(47, 1).magnitude == 50
+
+    assert Model.clientModel.service.get_member_load(52, 1).load_type == 'LOAD_TYPE_DISPLACEMENT'
+    assert Model.clientModel.service.get_member_load(52, 1).load_distribution == 'LOAD_DISTRIBUTION_CONCENTRATED_2'
+    assert Model.clientModel.service.get_member_load(52, 1).magnitude_2 == 0.6
+    assert Model.clientModel.service.get_member_load(52, 1).distance_a_absolute == 1
+
+    assert Model.clientModel.service.get_member_load(64, 1).load_type == 'LOAD_TYPE_ROTATION'
+    assert Model.clientModel.service.get_member_load(64, 1).load_distribution == 'LOAD_DISTRIBUTION_TRAPEZOIDAL'
+    assert Model.clientModel.service.get_member_load(64, 1).magnitude_1 == 12
+    assert Model.clientModel.service.get_member_load(64, 1).distance_b_absolute == 2
+
+    assert Model.clientModel.service.get_member_load(68, 1).load_type == 'LOAD_TYPE_PIPE_CONTENT_FULL'
+    assert Model.clientModel.service.get_member_load(68, 1).magnitude == 50
+
+    assert Model.clientModel.service.get_member_load(69, 1).load_type == 'LOAD_TYPE_ROTARY_MOTION'
+    assert Model.clientModel.service.get_member_load(69, 1).angular_velocity == 3
+    assert Model.clientModel.service.get_member_load(69, 1).axis_definition_type == 'AXIS_DEFINITION_POINT_AND_AXIS'

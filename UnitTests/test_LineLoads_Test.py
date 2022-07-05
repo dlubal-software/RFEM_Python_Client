@@ -309,5 +309,3 @@ def test_line_set_loads():
     assert Model.clientModel.service.get_line_set_load(2, 1).magnitude == 2500
     assert Model.clientModel.service.get_line_set_load(3, 1).mass_global == 3100
     assert Model.clientModel.service.get_line_set_load(4, 1).magnitude == 4000
-
-test_line_loads()

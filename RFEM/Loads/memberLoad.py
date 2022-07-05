@@ -97,7 +97,7 @@ class MemberLoad():
                 for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_2:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
                 for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
                 for load_distribution == LOAD_DISTRIBUTION_TRAPEZOIDAL:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
                 for load_distribution == LOAD_DISTRIBUTION_TAPERED:
@@ -105,9 +105,9 @@ class MemberLoad():
                 for load_distribution == LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
                 for load_distribution == LOAD_DISTRIBUTION_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
                 for load_distribution == LOAD_DISTRIBUTION_VARYING_IN_Z:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
             force_eccentricity (bool): Enable/Disable Force Eccentricity Option
             list_reference (bool): Enable/Disable List Reference Option
             comment (str, optional): Comments
@@ -212,7 +212,7 @@ class MemberLoad():
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_VARYING":
             try:
-                len(load_parameter[0])==3
+                len(load_parameter[0])==2
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
@@ -222,8 +222,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
                 mlvlp.row.magnitude_t_c = 0.0
                 mlvlp.row.magnitude_delta_t = 0.0
@@ -271,7 +270,7 @@ class MemberLoad():
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
             try:
-                len(load_parameter[0])==3
+                len(load_parameter[0])==2
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
@@ -280,8 +279,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
                 mlvlp.row.magnitude_t_c = 0.0
                 mlvlp.row.magnitude_delta_t = 0.0
@@ -292,7 +290,7 @@ class MemberLoad():
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING_IN_Z":
             try:
-                len(load_parameter[0])==3
+                len(load_parameter[0])==2
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
@@ -301,8 +299,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
                 mlvlp.row.magnitude_t_c = 0.0
                 mlvlp.row.magnitude_delta_t = 0.0
@@ -397,7 +394,7 @@ class MemberLoad():
                 for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_2:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
                 for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
                 for load_distribution == LOAD_DISTRIBUTION_TRAPEZOIDAL:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
                 for load_distribution == LOAD_DISTRIBUTION_TAPERED:
@@ -405,7 +402,7 @@ class MemberLoad():
                 for load_distribution == LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
                 for load_distribution == LOAD_DISTRIBUTION_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
             list_reference (bool): Enable/Disable List Reference Option
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -500,7 +497,7 @@ class MemberLoad():
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_VARYING":
             try:
-                len(load_parameter[0])==3
+                len(load_parameter[0])==2
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
@@ -510,8 +507,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
                 mlvlp.row.magnitude_t_c = 0.0
                 mlvlp.row.magnitude_delta_t = 0.0
@@ -559,7 +555,7 @@ class MemberLoad():
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
             try:
-                len(load_parameter[0])==3
+                len(load_parameter[0])==2
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
@@ -568,8 +564,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
                 mlvlp.row.magnitude_t_c = 0.0
                 mlvlp.row.magnitude_delta_t = 0.0
@@ -696,7 +691,7 @@ class MemberLoad():
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [tb1, tb2, tb3, tt1, tt2, tt3]
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
             list_reference (bool): List Reference Boolean
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
@@ -789,7 +784,7 @@ class MemberLoad():
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
             try:
-                len(load_parameter[0])==4
+                len(load_parameter[0])==3
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
@@ -798,13 +793,12 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
-                mlvlp.row.magnitude_t_c = load_parameter[i][2]
-                mlvlp.row.magnitude_delta_t = load_parameter[i][3]
-                mlvlp.row.magnitude_t_t = load_parameter[i][2]
-                mlvlp.row.magnitude_t_b = load_parameter[i][3]
+                mlvlp.row.magnitude_t_c = load_parameter[i][1]
+                mlvlp.row.magnitude_delta_t = load_parameter[i][2]
+                mlvlp.row.magnitude_t_t = load_parameter[i][1]
+                mlvlp.row.magnitude_t_b = load_parameter[i][2]
 
                 clientObject.varying_load_parameters.member_load_varying_load_parameters.append(mlvlp)
 
@@ -856,7 +850,7 @@ class MemberLoad():
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [delta_t_1, delta_t_2, delta_t_3, t_c_1, t_c_2, t_c_3]
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
             list_reference (bool): Enable/Disable List Reference Option
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
@@ -949,7 +943,7 @@ class MemberLoad():
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
             try:
-                len(load_parameter[0])==4
+                len(load_parameter[0])==3
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
@@ -958,13 +952,12 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
-                mlvlp.row.magnitude_t_c = load_parameter[i][2]
-                mlvlp.row.magnitude_delta_t = load_parameter[i][3]
-                mlvlp.row.magnitude_t_t = load_parameter[i][2]
-                mlvlp.row.magnitude_t_b = load_parameter[i][3]
+                mlvlp.row.magnitude_t_c = load_parameter[i][1]
+                mlvlp.row.magnitude_delta_t = load_parameter[i][2]
+                mlvlp.row.magnitude_t_t = load_parameter[i][1]
+                mlvlp.row.magnitude_t_b = load_parameter[i][2]
 
                 clientObject.varying_load_parameters.member_load_varying_load_parameters.append(mlvlp)
 
@@ -1013,7 +1006,7 @@ class MemberLoad():
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
                     load_parameter = [epsilon1, epsilon2, epsilon3]
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
             list_reference (bool): Enable/Disable List Reference Option
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
@@ -1098,7 +1091,7 @@ class MemberLoad():
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
             try:
-                len(load_parameter[0])==3
+                len(load_parameter[0])==2
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
@@ -1107,8 +1100,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
                 mlvlp.row.magnitude_t_c = 0.0
                 mlvlp.row.magnitude_delta_t = 0.0
@@ -1223,7 +1215,7 @@ class MemberLoad():
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
             list_reference (bool): Enable/Disable List Reference Option
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
@@ -1308,7 +1300,7 @@ class MemberLoad():
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
             try:
-                len(load_parameter[0])==3
+                len(load_parameter[0])==2
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
@@ -1317,8 +1309,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
                 mlvlp.row.magnitude_t_c = 0.0
                 mlvlp.row.magnitude_delta_t = 0.0
@@ -1435,7 +1426,7 @@ class MemberLoad():
                 for load_distrubition == MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
                     load_parameter = [magnitude_1, magnitude_2, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
                     load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
@@ -1443,7 +1434,7 @@ class MemberLoad():
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
             list_reference (bool): Enable/Disable List Reference Option
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
@@ -1542,7 +1533,7 @@ class MemberLoad():
 
         elif load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
             try:
-                len(load_parameter[0])==3
+                len(load_parameter[0])==2
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
@@ -1551,8 +1542,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
                 mlvlp.row.magnitude_t_c = 0.0
                 mlvlp.row.magnitude_delta_t = 0.0
@@ -1607,7 +1597,7 @@ class MemberLoad():
 
         elif load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING:
             try:
-                len(load_parameter[0])==3
+                len(load_parameter[0])==2
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
@@ -1616,8 +1606,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
                 mlvlp.row.magnitude_t_c = 0.0
                 mlvlp.row.magnitude_delta_t = 0.0
@@ -1673,7 +1662,7 @@ class MemberLoad():
                 for load_distrubition == MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
                     load_parameter = [magnitude_1, magnitude_2, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
                     load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
@@ -1681,7 +1670,7 @@ class MemberLoad():
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
             list_reference (bool): Enable/Disable List Reference Option
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
@@ -1780,7 +1769,7 @@ class MemberLoad():
 
         elif load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
             try:
-                len(load_parameter[0])==3
+                len(load_parameter[0])==2
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
@@ -1789,8 +1778,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
                 mlvlp.row.magnitude_t_c = 0.0
                 mlvlp.row.magnitude_delta_t = 0.0
@@ -1845,7 +1833,7 @@ class MemberLoad():
 
         elif load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_VARYING:
             try:
-                len(load_parameter[0])==3
+                len(load_parameter[0])==2
             except:
                 print("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
@@ -1854,8 +1842,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
                 mlvlp.row.magnitude_t_c = 0.0
                 mlvlp.row.magnitude_delta_t = 0.0
