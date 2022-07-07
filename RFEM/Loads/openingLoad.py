@@ -44,15 +44,22 @@ class OpeningLoad():
 
         # Load Magnitude
         if load_distribution == OpeningLoadDistribution.LOAD_DISTRIBUTION_UNIFORM_TRAPEZOIDAL:
-            clientObject.magnitude = load_parameter[0]
+            if load_parameter[0]:
+                clientObject.magnitude = load_parameter[0]
         elif load_distribution == OpeningLoadDistribution.LOAD_DISTRIBUTION_LINEAR_TRAPEZOIDAL:
-            clientObject.magnitude_1 = load_parameter[0]
-            clientObject.magnitude_2 = load_parameter[1]
-            clientObject.magnitude_3 = load_parameter[2]
+            if load_parameter[0]:
+                clientObject.magnitude_1 = load_parameter[0]
+            if load_parameter[1]:
+                clientObject.magnitude_2 = load_parameter[1]
+            if load_parameter[2]:
+                clientObject.magnitude_3 = load_parameter[2]
 
-            clientObject.node_1 = load_parameter[3]
-            clientObject.node_2 = load_parameter[4]
-            clientObject.node_3 = load_parameter[5]
+            if load_parameter[3]:
+                clientObject.node_1 = load_parameter[3]
+            if load_parameter[4]:
+                clientObject.node_2 = load_parameter[4]
+            if load_parameter[5]:
+                clientObject.node_3 = load_parameter[5]
 
         # Comment
         clientObject.comment = comment
@@ -63,4 +70,3 @@ class OpeningLoad():
 
         # Add Opening Load to client model
         Model.clientModel.service.set_opening_load(load_case_no, clientObject)
-        
