@@ -1,3 +1,4 @@
+from cgi import test
 import sys
 import os
 PROJECT_ROOT = os.path.abspath(os.path.join(
@@ -26,3 +27,18 @@ def test_load_case():
     LoadCase.StaticAnalysis(4, 'Wind', False,  1, ActionCategoryType.ACTION_CATEGORY_WIND_QW, [False])
 
     Model.clientModel.service.finish_modification()
+
+    assert Model.clientModel.service.get_load_case(1).to_solve == True
+    assert Model.clientModel.service.get_load_case(1).action_category == 'ACTION_CATEGORY_PERMANENT_G'
+    assert Model.clientModel.service.get_load_case(1).self_weight_active == True
+    assert Model.clientModel.service.get_load_case(1).self_weight_factor_x == 0
+    assert Model.clientModel.service.get_load_case(1).self_weight_factor_z == 1
+
+    assert Model.clientModel.service.get_load_case(2).action_category == 'ACTION_CATEGORY_PERMANENT_IMPOSED_GQ'
+    assert Model.clientModel.service.get_load_case(2).self_weight_factor_x == 0.1
+    assert Model.clientModel.service.get_load_case(2).self_weight_factor_z == 0
+
+    assert Model.clientModel.service.get_load_case(3).action_category == 'ACTION_CATEGORY_SNOW_ICE_LOADS_H_LESS_OR_EQUAL_TO_1000_M_QS'
+    assert Model.clientModel.service.get_load_case(3).self_weight_active == False
+
+    assert Model.clientModel.service.get_load_case(4).self_weight_active == False
