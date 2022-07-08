@@ -520,8 +520,7 @@ class NodalLoad():
 
         else:
             clientObject.individual_mass_components = individual_mass_components
-
-        clientObject.mass_global = mass[0]
+            clientObject.mass_global = mass[0]
 
         # Comment
         clientObject.comment = comment
@@ -533,3 +532,16 @@ class NodalLoad():
 
         # Add Nodal Force to client model
         model.clientModel.service.set_nodal_load(load_case_no, clientObject)
+
+        object = model.clientModel.service.get_nodal_load(no, load_case_no)
+
+        print('Before modifications: ')
+        print(object.mass)
+        print('')
+
+        object.mass.x = mass[0]
+        object.mass.y = mass[1]
+        object.mass.z = mass[2]
+
+        print('After modifications:')
+        print(object.mass)
