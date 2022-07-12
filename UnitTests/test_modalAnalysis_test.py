@@ -60,7 +60,15 @@ def test_modal_analysis_settings():
     # Load Case Modal
     LoadCase(2, 'MODAL',params=modalParams)
 
-    #Calculate_all() # Don't use in unit tests. See template for more info.
-
     Model.clientModel.service.finish_modification()
 
+    assert Model.clientModel.service.get_modal_analysis_settings(1).acting_masses_about_axis_x_enabled == False
+    assert Model.clientModel.service.get_modal_analysis_settings(1).acting_masses_about_axis_y_enabled == False
+    assert Model.clientModel.service.get_modal_analysis_settings(1).acting_masses_about_axis_z_enabled == False
+    assert Model.clientModel.service.get_modal_analysis_settings(1).acting_masses_in_direction_x_enabled == False
+    assert Model.clientModel.service.get_modal_analysis_settings(1).acting_masses_in_direction_y_enabled == True
+    assert Model.clientModel.service.get_modal_analysis_settings(1).acting_masses_in_direction_z_enabled == True
+    assert Model.clientModel.service.get_modal_analysis_settings(1).solution_method == 'METHOD_LANCZOS'
+    assert Model.clientModel.service.get_modal_analysis_settings(1).mass_conversion_type == 'MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS'
+    assert Model.clientModel.service.get_modal_analysis_settings(1).mass_matrix_type == 'MASS_MATRIX_TYPE_DIAGONAL'
+    assert Model.clientModel.service.get_modal_analysis_settings(1).number_of_modes == 2
