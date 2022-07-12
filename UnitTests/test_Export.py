@@ -82,3 +82,7 @@ def test_import():
     client.service.close_model(3, False)
     client.service.close_model(2, False)
     client.service.close_model(1, False)
+
+    assert getSAFSettings().property_general_run_excel_application == False
+    assert getSAFSettings().property_export_saf_version == '1_0_5'
+    assert getSAFSettings().property_import_show_conversion_tables_after_import == False
