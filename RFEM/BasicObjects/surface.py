@@ -272,7 +272,7 @@ class Surface():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
-        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params, model)
+        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_MEMBRANE_TENSION, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params, model)
 
     @staticmethod
     def LoadDistribution(

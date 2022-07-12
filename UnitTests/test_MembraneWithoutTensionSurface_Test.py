@@ -77,3 +77,11 @@ def test_membrane_without_tension_surface():
     Surface.WithoutMemberaneTension(4, SurfaceGeometry.GEOMETRY_QUADRANGLE, [17, 18, 19, 20], '13 14 15 16')
 
     Model.clientModel.service.finish_modification()
+
+    assert Model.clientModel.service.get_surface(2).type == 'TYPE_WITHOUT_MEMBRANE_TENSION'
+    assert Model.clientModel.service.get_surface(2).geometry == 'GEOMETRY_PLANE'
+
+    assert Model.clientModel.service.get_surface(3).type == 'TYPE_WITHOUT_MEMBRANE_TENSION'
+    assert Model.clientModel.service.get_surface(3).nurbs_control_point_count_in_direction_v == 3
+
+    assert Model.clientModel.service.get_surface(4).type == 'TYPE_WITHOUT_MEMBRANE_TENSION'
