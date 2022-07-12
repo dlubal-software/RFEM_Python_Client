@@ -31,3 +31,18 @@ def test_spectral_analysis_settings():
     SpectralAnalysisSettings(6, 'SpectralSettings_6', PeriodicResponseCombinationRule.CQC, DirectionalComponentCombinationRule.ABSOLUTE_SUM)
 
     Model.clientModel.service.finish_modification()
+
+    assert Model.clientModel.service.get_spectral_analysis_settings(2).combination_rule_for_periodic_responses == 'SRSS'
+    assert Model.clientModel.service.get_spectral_analysis_settings(2).combination_rule_for_directional_components == 'SCALED_SUM'
+    assert Model.clientModel.service.get_spectral_analysis_settings(2).use_equivalent_linear_combination == True
+    assert Model.clientModel.service.get_spectral_analysis_settings(2).signed_results_using_dominant_mode == True
+    assert Model.clientModel.service.get_spectral_analysis_settings(2).save_results_of_all_selected_modes == True
+
+    assert Model.clientModel.service.get_spectral_analysis_settings(3).combination_rule_for_directional_components_value == 0.4
+
+    assert Model.clientModel.service.get_spectral_analysis_settings(4).combination_rule_for_periodic_responses == 'CQC'
+    assert Model.clientModel.service.get_spectral_analysis_settings(4).constant_d_for_each_mode == 12
+
+    assert Model.clientModel.service.get_spectral_analysis_settings(5).damping_for_cqc_rule == 'DIFFERENT_FOR_EACH_MODE'
+
+    assert Model.clientModel.service.get_spectral_analysis_settings(6).combination_rule_for_directional_components == 'ABSOLUTE_SUM'
