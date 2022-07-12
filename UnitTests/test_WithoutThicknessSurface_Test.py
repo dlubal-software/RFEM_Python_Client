@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from cgi import test
 import sys
 import os
 PROJECT_ROOT = os.path.abspath(os.path.join(
@@ -77,3 +78,18 @@ def test_without_thickness_surface():
     Surface.WithoutThickness(4, SurfaceGeometry.GEOMETRY_QUADRANGLE, [17, 18, 19, 20], '13 14 15 16')
 
     Model.clientModel.service.finish_modification()
+
+    assert Model.clientModel.service.get_surface(1).type == 'TYPE_STANDARD'
+
+    assert Model.clientModel.service.get_surface(2).type == 'TYPE_WITHOUT_THICKNESS'
+    assert Model.clientModel.service.get_surface(2).boundary_lines == '5 6 7 8'
+
+    assert Model.clientModel.service.get_surface(3).geometry == 'GEOMETRY_NURBS'
+    assert Model.clientModel.service.get_surface(3).type == 'TYPE_WITHOUT_THICKNESS'
+    assert Model.clientModel.service.get_surface(3).nurbs_control_point_count_in_direction_u == 3
+    assert Model.clientModel.service.get_surface(3).nurbs_order_in_direction_v == 3
+
+    assert Model.clientModel.service.get_surface(4).geometry == 'GEOMETRY_QUADRANGLE'
+    assert Model.clientModel.service.get_surface(4).type == 'TYPE_WITHOUT_THICKNESS'
+    assert Model.clientModel.service.get_surface(4).quadrangle_corner_node_2 == 18
+    assert Model.clientModel.service.get_surface(4).quadrangle_corner_node_4 == 20
