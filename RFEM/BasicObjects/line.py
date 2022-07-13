@@ -146,7 +146,6 @@ class Line():
         '''
         Args:
             no (int): Line Tag
-            nodes_no (str): Nodes on Line of Circle
             center_of_circle (list): Cartesian Co-Ordinates of Circle Centre [X, Y, Z]
             circle_radius (float): Magnitude of Circle Radius
             point_of_normal_to_circle_plane (list): Vector from Circle Centre to this Point [X, Y, Z] defines Vector Normal to Circle Plane
@@ -409,7 +408,7 @@ class Line():
         '''
         Args:
             no (int): Line Tag
-            nodes_no (str): Nodes creating the curve. By default theese are taken as control points.
+            nodes_no (str): Nodes creating the curve. By default these are taken as control points.
             control_points (list of lists, optional): Nested List of Respective Control Point's Cartesian Co-Ordinates
             weights (list, optional): Control points weights e.g. [1,1,1]
             order (int, optional): Order of the curve with 3 as default value

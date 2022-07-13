@@ -16,6 +16,23 @@ class LoadCombination():
                  comment: str = '',
                  params: dict = None,
                  model = Model):
+        '''
+        Args:
+            no (int): Load Combination Tag
+            analysis_type (enum): Analysis Type Enumeration
+            design_situation (int): Design Situation
+            user_defined_name (list/bool???): Combination Name   <<<----------
+            static_analysis_settings (int): Static Analysis Settings Number
+            consider_imperfection (bool): Consider Imperfection Options
+            consider_initial_state (bool): Consider Initial State
+            structure_modification (bool): Enable/Disable Structure Modification
+            to_solve (bool): Decide to solve
+            combination_items (list of list): Combination Items
+                for Combination Items;
+                    combination_items = [[factor, load_case, action, is_leading],...]
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+        '''
 
         # Client model | Load Combination
         clientObject = model.clientModel.factory.create('ns0:load_combination')

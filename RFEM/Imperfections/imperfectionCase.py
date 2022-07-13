@@ -147,7 +147,6 @@ class ImperfectionCase():
 
         Args:
             no (int, optional): Number
-            type (enum, optional): Imperfection type
             assigned_to_load_cases (str, optional): Assigned to load case
             assigned_to_load_combinations (str, optional): Assigned to load combinations
             assign_to_combinations_without_assigned_imperfection_case (bool, optional): Assign to all load combinations without assigned imperfection case
