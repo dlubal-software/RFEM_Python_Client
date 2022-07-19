@@ -167,3 +167,4 @@ def test_all_member_types():
 
     assert Model.clientModel.service.get_member(26).type == 'TYPE_DEFINABLE_STIFFNESS'
     assert Model.clientModel.service.get_member(30).type == 'TYPE_COUPLING_HINGE_HINGE'
+    

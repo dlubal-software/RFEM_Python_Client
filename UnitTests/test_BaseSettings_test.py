@@ -6,10 +6,9 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-import pytest
 from RFEM.enums import GlobalAxesOrientationType, LocalAxesOrientationType
 from RFEM.baseSettings import BaseSettings
-from RFEM.initModel import Model, CheckIfMethodOrTypeExists
+from RFEM.initModel import Model
 
 if Model.clientModel is None:
     Model()
