@@ -1,13 +1,12 @@
 import sys
 import os
-import pytest
 PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.path.dirname(__file__),
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.enums import PeriodicResponseCombinationRule, DirectionalComponentCombinationRule, CqsDampingRule
-from RFEM.initModel import Model, CheckIfMethodOrTypeExists
+from RFEM.enums import PeriodicResponseCombinationRule, DirectionalComponentCombinationRule, CqsDampingRule, AddOn
+from RFEM.initModel import Model, GetAddonStatus, SetAddonStatus
 from RFEM.BasicObjects.material import Material
 from RFEM.LoadCasesAndCombinations.spectralAnalysisSettings import SpectralAnalysisSettings
 
@@ -21,6 +20,9 @@ def test_spectral_analysis_settings():
 
     # Create Material
     Material(1, 'S235')
+
+    if not GetAddonStatus(Model.clientModel, AddOn.spectral_active):
+        SetAddonStatus(Model.clientModel, AddOn.spectral_active)
 
     #Create Spectral Analysis Settings
     SpectralAnalysisSettings(1, 'SpectralSettings_1', PeriodicResponseCombinationRule.SRSS, DirectionalComponentCombinationRule.SRSS)
