@@ -35,7 +35,7 @@ def test_spectral_analysis_settings():
     assert Model.clientModel.service.get_spectral_analysis_settings(2).combination_rule_for_periodic_responses == 'SRSS'
     assert Model.clientModel.service.get_spectral_analysis_settings(2).combination_rule_for_directional_components == 'SCALED_SUM'
     assert Model.clientModel.service.get_spectral_analysis_settings(2).use_equivalent_linear_combination == True
-    assert Model.clientModel.service.get_spectral_analysis_settings(2).signed_results_using_dominant_mode == True
+    #assert Model.clientModel.service.get_spectral_analysis_settings(2).signed_results_using_dominant_mode == True                  Bug G-28608: Function currently deactivated.
     assert Model.clientModel.service.get_spectral_analysis_settings(2).save_results_of_all_selected_modes == True
 
     assert Model.clientModel.service.get_spectral_analysis_settings(3).combination_rule_for_directional_components_value == 0.4
