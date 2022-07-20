@@ -18,7 +18,7 @@ def GetPartialDesignOverview(comply: bool = False):
     designRatioLessThanOne = []
     designRationOverOne = []
     for do in designOverview[0]:
-        if round(do[0]['design_ratio'], 5) <= 1.0:
+        if round(do[1]['design_ratio'], 5) <= 1.0:
             designRatioLessThanOne.append(do[0])
         else:
             designRationOverOne.append(do[0])
