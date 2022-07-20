@@ -8,7 +8,7 @@ class LineLoad():
                  load_case_no: int = 1,
                  lines_no: str = '1',
                  load_direction = LoadDirectionType.LOAD_DIRECTION_LOCAL_Z,
-                 magnitude: float = 0,
+                 magnitude: float = 0.0,
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -84,7 +84,7 @@ class LineLoad():
             lines_no (str): Assigned Line(s)
             load_distribution (enum): Load Distribution Enumeration
             load_direction (enum): Load Direction Enumeration
-            load_parameter: Load Parameter
+            load_parameter (flaot/list/list of lists): Load Parameter
                 for load_distribution == LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = magnitude
                 for load_distribution == LOAD_DISTRIBUTION_UNIFORM_TOTAL:
@@ -100,9 +100,9 @@ class LineLoad():
                 for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
                     load_parameter = [[distance, delta_distance, magnitude], ...]
                 for load_distribution == LOAD_DISTRIBUTION_TRAPEZOIDAL:
-                    load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
                 for load_distribution == LOAD_DISTRIBUTION_TAPERED:
-                    load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
                 for load_distribution == LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
                 for load_distribution == LOAD_DISTRIBUTION_VARYING:
@@ -339,7 +339,7 @@ class LineLoad():
             lines_no (str): Assigned Line(s)
             load_distribution (enum): Load Distribution Enumeration
             load_direction (enum): Load Direction Enumeration
-            load_parameter: Load Parameter
+            load_parameter (float/list/list of lists): Load Parameter
                 load_parameter == LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = magnitude
                 load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_1:

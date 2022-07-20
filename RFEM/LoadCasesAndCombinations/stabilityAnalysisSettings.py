@@ -4,6 +4,7 @@ from RFEM.enums import StabilityAnalysisSettingsEigenvalueMethod
 from RFEM.enums import StabilityAnalysisSettingsMatrixType
 
 class StabilityAnalysisSettings():
+
     def __init__(self,
                  no: int = 1,
                  name: str = None,

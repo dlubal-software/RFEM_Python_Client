@@ -4,6 +4,7 @@ from RFEM.enums import MemberLoadEccentricityHorizontalAlignment, MemberLoadEcce
 from RFEM.enums import MemberLoadAxisDefinitionType, MemberLoadAxisDefinitionAxisOrientation, MemberLoadAxisDefinition
 
 class MemberLoad():
+
     def __init__(self,
                  no: int = 1,
                  load_case_no: int = 1,
@@ -83,11 +84,11 @@ class MemberLoad():
             members_no (str): Assigned Member(s)
             load_distribution (enum): Load Distribution Enumeration
             load_direction (enum): Load Direction Enumeration
-            load_parameter (list): Load Parameter List
+            load_parameter (float/list/list of lists): Load Parameter List
                 for load_distribution == LOAD_DISTRIBUTION_UNIFORM:
-                    load_parameter = [magnitude]
+                    load_parameter = magnitude
                 for load_distribution == LOAD_DISTRIBUTION_UNIFORM_TOTAL:
-                    load_parameter = [magnitude]
+                    load_parameter = magnitude
                 for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_1:
                     load_parameter = [relative_distance = False, magnitude, distance_a]
                 for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_N:
@@ -113,14 +114,14 @@ class MemberLoad():
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
                 for force_eccentricity == True:
-                {'eccentricity_horizontal_alignment': MemberLoadEccentricityHorizontalAlignment.ALIGN_NONE,
-                'eccentricity_vertical_alignment': MemberLoadEccentricityVerticalAlignment.ALIGN_NONE,
-                'eccentricity_section_middle': MemberLoadEccentricitySectionMiddle.LOAD_ECCENTRICITY_SECTION_MIDDLE_CENTER_OF_GRAVITY,
-                'is_eccentricity_at_end_different_from_start': False,
-                'eccentricity_y_at_end': 0.0,
-                'eccentricity_y_at_start': 0.0,
-                'eccentricity_z_at_end': 0.0,
-                'eccentricity_z_at_start': 0.0}
+                    params = {'eccentricity_horizontal_alignment': MemberLoadEccentricityHorizontalAlignment.ALIGN_NONE,
+                        'eccentricity_vertical_alignment': MemberLoadEccentricityVerticalAlignment.ALIGN_NONE,
+                        'eccentricity_section_middle': MemberLoadEccentricitySectionMiddle.LOAD_ECCENTRICITY_SECTION_MIDDLE_CENTER_OF_GRAVITY,
+                        'is_eccentricity_at_end_different_from_start': False,
+                        'eccentricity_y_at_end': 0.0,
+                        'eccentricity_y_at_start': 0.0,
+                        'eccentricity_z_at_end': 0.0,
+                        'eccentricity_z_at_start': 0.0}
         """
         # Client model | Member Load
         clientObject = model.clientModel.factory.create('ns0:member_load')
@@ -385,7 +386,7 @@ class MemberLoad():
             members_no (str): Assigned Member(s)
             load_distribution (enum): Load Distribution Enumeration
             load_direction (enum): Load Direction Enumeration
-            load_parameter (list): Load Parameter List
+            load_parameter (float/list/list of lists): Load Parameter List
                 for load_distribution == LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = magnitude
                 for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_1:
@@ -683,7 +684,7 @@ class MemberLoad():
             members_no (str): Assigned Member(s)
             load_distribution (enum): Load Distribution Enumeration
             load_direction (enum): Load Direction Enumeration
-            load_parameter (list): Load Parameter List
+            load_parameter (list/list of lists): Load Parameter List
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [tt, tb]
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
@@ -1213,7 +1214,7 @@ class MemberLoad():
             members_no (str): Assigned Member(s)
             load_distribution (enum):Load Distribution Enumeration
             load_direction (enum): Load Direction Enumeration
-            load_parameter (list): Load Parameter List
+            load_parameter (list/list of lists): Load Parameter List
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [magnitude]
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
@@ -1423,7 +1424,7 @@ class MemberLoad():
             members_no (str): Assigned Member(s)
             load_distribution (enum): Load Distribution Enumeration
             load_direction (enum): Load Direction Enumeration
-            load_parameter (list): Load Parameter List
+            load_parameter (list/list of lists): Load Parameter List
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [magnitude]
                 for load_distrubition == MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1:
@@ -1661,7 +1662,7 @@ class MemberLoad():
             members_no (str): Assigned Member(s)
             load_distribution (enum): Load Distribution Enumeration
             load_direction (enum): Load Direction Enumeration
-            load_parameter (list): Load Parameter List
+            load_parameter (list/list of lists): Load Parameter List
                 for load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [magnitude]
                 for load_distrubition == MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1:
@@ -2080,8 +2081,8 @@ class MemberLoad():
                  axis_definition_type = MemberLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS,
                  axis_orientation = MemberLoadAxisDefinitionAxisOrientation.AXIS_POSITIVE,
                  axis_definition = MemberLoadAxisDefinition.AXIS_X,
-                 axis_definition_p1 = [1,0,1],
-                 axis_definition_p2 = [0,1,0],
+                 axis_definition_p1: list = [1,0,1],
+                 axis_definition_p2: list = [0,1,0],
                  comment: str = '',
                  params: dict = None,
                  model = Model):

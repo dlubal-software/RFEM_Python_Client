@@ -1,6 +1,7 @@
 from RFEM.initModel import Model, clearAtributes
 
 class ResultCombination():
+
     def __init__(self,
                  no: int = 1,
                  comment: str = '',

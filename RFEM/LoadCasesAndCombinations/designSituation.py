@@ -2,6 +2,7 @@ from RFEM.initModel import Model, clearAtributes
 from RFEM.enums import DesignSituationType
 
 class DesignSituation():
+
     def __init__(self,
                  no: int = 1,
                  design_situation_type = DesignSituationType.DESIGN_SITUATION_TYPE_A_ACCIDENTAL,

@@ -383,8 +383,7 @@ class Thickness():
         Args:
             no (int): Thickness Tag
             name (str): Thickness Name
-            material_no (int): Tag of Material assigned to Thickness
-            properties (list): Nested List of Layer Properties
+            layers (list of list): ???
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
@@ -451,7 +450,7 @@ class Thickness():
                  name: str = None,
                  material_no: int = 1,
                  orthotropy_type = ThicknessOrthotropyType.EFFECTIVE_THICKNESS,
-                 rotation_beta: float = 0,
+                 rotation_beta: float = 0.0,
                  consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, 0.18],
                  parameters = [0.18, 0.18],
                  comment: str = '',
@@ -594,7 +593,7 @@ class Thickness():
                  no: int = 1,
                  name: str = None,
                  material_no: int = 1,
-                 rotation_beta: float = 0,
+                 rotation_beta: float = 0.0,
                  consideration_of_self_weight = [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_BULK_DENSITY, 0.2, 0.0],
                  coefficient_of_thermal_expansion: float = 0,
                  stiffness_matrix = [[0, 0, 0, 0, 0, 0],[0, 0, 0],[0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0]],

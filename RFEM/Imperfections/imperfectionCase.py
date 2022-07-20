@@ -12,7 +12,7 @@ class ImperfectionCase():
                  no: int = 1,
                  type = ImperfectionType.IMPERFECTION_TYPE_LOCAL_IMPERFECTIONS,
                  assigned_to_load_cases: str = '',
-                 assigned_to_load_combinations: str ='',
+                 assigned_to_load_combinations: str = '',
                  assign_to_combinations_without_assigned_imperfection_case: bool = True,
                  active: bool = True,
                  comment: str = '',
@@ -73,7 +73,7 @@ class ImperfectionCase():
     @staticmethod
     def Local(
               no: int = 1,
-              assigned_to_load_combinations: str ='',
+              assigned_to_load_combinations: str = '',
               assigned_to_load_cases: str = '',
               comment: str = '',
               params: dict = None,
@@ -131,7 +131,7 @@ class ImperfectionCase():
     def InitialSwayViaTable(
                             no: int = 1,
                             assigned_to_load_cases: str = '',
-                            assigned_to_load_combinations: str ='',
+                            assigned_to_load_combinations: str = '',
                             assign_to_combinations_without_assigned_imperfection_case: bool = True,
                             direction = ImperfectionCaseDirection.IMPERFECTION_CASE_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
                             direction_for_level_direction = DirectionForLevelDirection.DIRECTION_X,
@@ -147,7 +147,6 @@ class ImperfectionCase():
 
         Args:
             no (int, optional): Number
-            type (enum, optional): Imperfection type
             assigned_to_load_cases (str, optional): Assigned to load case
             assigned_to_load_combinations (str, optional): Assigned to load combinations
             assign_to_combinations_without_assigned_imperfection_case (bool, optional): Assign to all load combinations without assigned imperfection case
@@ -230,7 +229,7 @@ class ImperfectionCase():
     def NotionalLoads(
                  no: int = 1,
                  assigned_to_load_cases: str = '',
-                 assigned_to_load_combinations: str ='',
+                 assigned_to_load_combinations: str = '',
                  assign_to_combinations_without_assigned_imperfection_case: bool = True,
                  load_case_for_notional_loads: int = 1,
                  active: bool = True,
@@ -296,7 +295,7 @@ class ImperfectionCase():
     def StaticDeformation(
                  no: int = 1,
                  assigned_to_load_cases: str = '',
-                 assigned_to_load_combinations: str ='',
+                 assigned_to_load_combinations: str = '',
                  assign_to_combinations_without_assigned_imperfection_case: bool = True,
                  direction = ImperfectionCaseDirection.IMPERFECTION_CASE_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
                  coordinate_system: int = 1,
@@ -396,7 +395,7 @@ class ImperfectionCase():
     def Group(
                  no: int = 1,
                  assigned_to_load_cases: str = '',
-                 assigned_to_load_combinations: str ='',
+                 assigned_to_load_combinations: str = '',
                  assign_to_combinations_without_assigned_imperfection_case: bool = True,
                  imperfection_cases: list = [imperfection_case_item],
                  active: bool = True,

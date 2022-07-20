@@ -2,6 +2,7 @@ from RFEM.initModel import Model, clearAtributes
 from RFEM.enums import ModalSolutionMethod, ModalMassConversionType, ModalMassMatrixType, ModalNeglectMasses
 
 class ModalAnalysisSettings():
+
     def __init__(self,
                  no: int = 1,
                  name: str = 'Modal Analysis Settings',

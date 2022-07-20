@@ -19,7 +19,7 @@ class Member():
         Args:
             no (int): Member Tag
             start_node_no (int): Tag of Start Node
-            end_node_no (int,): Tag of End Node
+            end_node_no (int): Tag of End Node
             rotation_angle (float): Member Rotation Angle
             start_section_no (int): Tag of Start Section
             end_section_no (int): Tag of End Section
@@ -140,8 +140,8 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             start_section_no (int): Tag of Start Section
             end_section_no (int): End of End Section
-            line (int, optional): Assigned Line
             distribution_parameters (list): Distribution Parameters
+            line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
@@ -367,7 +367,7 @@ class Member():
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
-                        rotation_parameters = [rotation_angle]
+                    rotation_parameters = [rotation_angle]
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
                     rotation_parameters = [rotation_help_node, rotation_plane_type]
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
@@ -614,7 +614,7 @@ class Member():
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
-                        rotation_parameters = [rotation_angle]
+                    rotation_parameters = [rotation_angle]
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
                     rotation_parameters = [rotation_help_node, rotation_plane_type]
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
@@ -1336,6 +1336,7 @@ class Member():
             end_node_no (int,): Tag of End Node
             section_distribution_type (enum): Section Distribution Type Enumeration
             rotation_specification_type (enum): Rotation Specification Type Enumeration
+            result_beam_integrate_stresses_and_forces (enum): ???
             rotation_parameters (list): Rotation Parameters
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
                     rotation_parameters = [rotation_angle]

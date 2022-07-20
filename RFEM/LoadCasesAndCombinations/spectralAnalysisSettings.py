@@ -2,6 +2,7 @@ from RFEM.initModel import Model, clearAtributes
 from RFEM.enums import DirectionalComponentCombinationRule, PeriodicResponseCombinationRule, CqsDampingRule
 
 class SpectralAnalysisSettings():
+
     def __init__(self,
                  no: int = 1,
                  name: str = 'SRSS | SRSS',
