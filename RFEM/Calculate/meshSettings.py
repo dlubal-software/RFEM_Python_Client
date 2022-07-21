@@ -174,7 +174,7 @@ def GetMeshStatistics(model = Model):
     return model.clientModel.dict(mesh_stats)
 
 def GenerateMesh(model = Model):
-    model.clientModel.service.generate_mesh()
+    model.clientModel.service.generate_mesh(True)
 
 def GetMeshSettings(model = Model):
     return model.clientModel.service.get_mesh_settings()

@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString, GetAddonStatus, SetAddonStatus
 from RFEM.enums import *
 
 class SteelMemberRotationalRestraint():
@@ -63,6 +63,15 @@ class SteelMemberRotationalRestraint():
             comment (str, optional): _description_. Defaults to ''.
             params (dict, optional): _description_. Defaults to {}.
         """
+
+        # Deducing RFEM Language from steel_design_addon String:
+        modelInfo = Model.clientModel.service.get_model_info()
+        if modelInfo.property_addon_steel_design.split()[0] != 'Steel':
+            raise Exception("WARNING: The steelMemberRotationalRestraints operates with the RFEM Application set to English. Kindly switch RFEM to English such that Database searches can completed successfully.")
+
+        # Check if Steel Design Add-on is ON.
+        if not GetAddonStatus(model.clientModel, AddOn.steel_design_active):
+            SetAddonStatus(model.clientModel, AddOn.steel_design_active, True)
 
         # Client Model / Types For Steel Design Member Rotational Restraints
         clientObject = model.clientModel.factory.create('ns0:steel_member_rotational_restraint')
