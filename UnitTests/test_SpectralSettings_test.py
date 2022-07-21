@@ -26,7 +26,7 @@ def test_spectral_analysis_settings():
 
     #Create Spectral Analysis Settings
     SpectralAnalysisSettings(1, 'SpectralSettings_1', PeriodicResponseCombinationRule.SRSS, DirectionalComponentCombinationRule.SRSS)
-    SpectralAnalysisSettings(2, 'SpectralSettings_2', PeriodicResponseCombinationRule.SRSS, DirectionalComponentCombinationRule.SCALED_SUM, equivalent_linear_combination=True, save_mode_results=True, signed_dominant_mode_results=True)
+    SpectralAnalysisSettings(2, 'SpectralSettings_2', PeriodicResponseCombinationRule.SRSS, DirectionalComponentCombinationRule.SCALED_SUM, True, True)
     SpectralAnalysisSettings(3, 'SpectralSettings_3', PeriodicResponseCombinationRule.SRSS, DirectionalComponentCombinationRule.SCALED_SUM, directional_component_scale_value=0.4)
     SpectralAnalysisSettings(4, 'SpectralSettings_4', PeriodicResponseCombinationRule.CQC, DirectionalComponentCombinationRule.SCALED_SUM, constant_d_for_each_mode=12)
     SpectralAnalysisSettings(5, 'SpectralSettings_5', PeriodicResponseCombinationRule.CQC, DirectionalComponentCombinationRule.SCALED_SUM, damping_for_cqc_rule=CqsDampingRule.DIFFERENT_FOR_EACH_MODE)
@@ -37,7 +37,6 @@ def test_spectral_analysis_settings():
     assert Model.clientModel.service.get_spectral_analysis_settings(2).combination_rule_for_periodic_responses == 'SRSS'
     assert Model.clientModel.service.get_spectral_analysis_settings(2).combination_rule_for_directional_components == 'SCALED_SUM'
     assert Model.clientModel.service.get_spectral_analysis_settings(2).use_equivalent_linear_combination == True
-    assert Model.clientModel.service.get_spectral_analysis_settings(2).signed_results_using_dominant_mode == True
     assert Model.clientModel.service.get_spectral_analysis_settings(2).save_results_of_all_selected_modes == True
 
     assert Model.clientModel.service.get_spectral_analysis_settings(3).combination_rule_for_directional_components_value == 0.4

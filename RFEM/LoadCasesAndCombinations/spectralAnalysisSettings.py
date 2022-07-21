@@ -58,12 +58,14 @@ class SpectralAnalysisSettings():
         # Save Results of All Selected Modes
         clientObject.save_results_of_all_selected_modes = save_mode_results
 
+        # CURRENTLY DEACTIVATED IN RFEM
         # Signed Results Using Dominant Mode
         clientObject.signed_results_using_dominant_mode = signed_dominant_mode_results
-
+        '''
         if signed_dominant_mode_results:
             if directional_combination != DirectionalComponentCombinationRule.SCALED_SUM:
                 raise Exception("WARNING: Signed results using dominant mode is only available with Scaled Sum Directional Combination.")
+        '''
 
         # Further Options
         if directional_combination == DirectionalComponentCombinationRule.SCALED_SUM:

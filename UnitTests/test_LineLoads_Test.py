@@ -114,8 +114,8 @@ def test_line_loads():
 
     assert Model.clientModel.service.get_line_load(6, 2).lines == '6'
     assert Model.clientModel.service.get_line_load(6, 2).load_distribution == 'LOAD_DISTRIBUTION_CONCENTRATED_VARYING'
-    assert Model.clientModel.service.get_line_load(6,2).varying_load_parameters['line_load_varying_load_parameters'][0].row['distance'] == 1.5
-    assert Model.clientModel.service.get_line_load(6,2).varying_load_parameters['line_load_varying_load_parameters'][1].row['magnitude'] == 200
+    assert Model.clientModel.service.get_line_load(6, 2).varying_load_parameters['line_load_varying_load_parameters'][0].row['distance'] == 1.5
+    assert Model.clientModel.service.get_line_load(6, 2).varying_load_parameters['line_load_varying_load_parameters'][1].row['magnitude'] == 200
 
 
     LineLoad.Force(7, 2, '7',
@@ -309,3 +309,5 @@ def test_line_set_loads():
     assert Model.clientModel.service.get_line_set_load(2, 1).magnitude == 2500
     assert Model.clientModel.service.get_line_set_load(3, 1).mass_global == 3100
     assert Model.clientModel.service.get_line_set_load(4, 1).magnitude == 4000
+
+test_line_loads()
