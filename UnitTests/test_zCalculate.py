@@ -15,7 +15,7 @@ if Model.clientModel is None:
     Model()
 
 # CAUTION:
-# These tests needs to be executed last bacause they change global settings
+# These tests needs to be executed last because they change global settings
 def test_mesh_settings():
 
     Model.clientModel.service.delete_all()

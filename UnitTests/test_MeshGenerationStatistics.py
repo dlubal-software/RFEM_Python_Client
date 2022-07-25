@@ -12,15 +12,13 @@ from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.material import Material
-from RFEM.initModel import Model, CheckIfMethodOrTypeExists
+from RFEM.initModel import Model
 from RFEM.Calculate.meshSettings import GetMeshStatistics, GenerateMesh
 from RFEM.enums import *
 
 if Model.clientModel is None:
     Model()
 
-# TODO: US-7906
-@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'generate_mesh', True), reason="generate_mesh not in RFEM GM yet")
 def test_generation_of_mesh_statistics():
 
     Model.clientModel.service.delete_all()
@@ -44,9 +42,13 @@ def test_generation_of_mesh_statistics():
 
     NodalSupport(1, '1 2 3 4', NodalSupportType.FIXED)
 
-    GenerateMesh()
+    GenerateMesh(Model.clientModel)
 
     Model.clientModel.service.finish_modification()
 
-    # Missing validation
     mesh_stats = GetMeshStatistics()
+
+    assert mesh_stats['member_1D_finite_elements'] == 0
+    assert mesh_stats['surface_2D_finite_elements'] == 100
+    assert mesh_stats['solid_3D_finite_elements'] == 0
+    assert mesh_stats['node_elements'] == 121

@@ -2076,6 +2076,12 @@ class MemberTransverseStiffenerType(Enum):
     STIFFENER_COMPONENT_TYPE_CONNECTING_COLUMN_START, STIFFENER_COMPONENT_TYPE_END_PLATE_END, STIFFENER_COMPONENT_TYPE_END_PLATE_START, \
     STIFFENER_COMPONENT_TYPE_FLAT,STIFFENER_COMPONENT_TYPE_WARPING_RESTRAINT = range(8)
 
+class MemberTransverseStiffenerDefinitionType(Enum):
+    '''
+    Member Transverse Stiffeners Stiffener Definition Type
+    '''
+    DIMENSION_TYPE_OFFSET, DIMENSION_TYPE_SIZE = range(2)
+
 class MemberTransverseStiffenerPosition(Enum):
     '''
     Member Transverse Stiffener Position Type
