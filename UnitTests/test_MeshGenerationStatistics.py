@@ -42,7 +42,7 @@ def test_generation_of_mesh_statistics():
 
     NodalSupport(1, '1 2 3 4', NodalSupportType.FIXED)
 
-    GenerateMesh(Model.clientModel)
+    GenerateMesh()
 
     Model.clientModel.service.finish_modification()
 
