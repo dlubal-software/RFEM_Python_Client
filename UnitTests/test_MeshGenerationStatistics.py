@@ -5,6 +5,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
+import pytest
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.BasicObjects.surface import Surface
 from RFEM.BasicObjects.line import Line
@@ -45,8 +46,9 @@ def test_generation_of_mesh_statistics():
 
     Model.clientModel.service.finish_modification()
 
-    # Missing validation
     mesh_stats = GetMeshStatistics()
 
-    assert mesh_stats['surface_2D_finite_elements'] > 1
-    assert mesh_stats['node_elements'] > 4
+    assert mesh_stats['member_1D_finite_elements'] == 0
+    assert mesh_stats['surface_2D_finite_elements'] == 100
+    assert mesh_stats['solid_3D_finite_elements'] == 0
+    assert mesh_stats['node_elements'] == 121

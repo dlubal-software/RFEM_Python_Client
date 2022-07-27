@@ -16,7 +16,6 @@ if Model.clientModel is None:
 
 # TODO: US-8965
 @pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:steel_effective_lengths', True), reason="Type ns0:steel_effective_lengths not in RFEM GM yet")
-@pytest.mark.skip(reason=" Bugfix G-30112: Wrong value of attribute 'no' in get_parts_list_all_by_material()")
 
 def test_steelEffectiveLengths():
 
@@ -74,18 +73,14 @@ def test_steelEffectiveLengths():
                         )
 
     ef_1 = Model.clientModel.service.get_steel_effective_lengths(1)
-    print(ef_1)
-    #assert ef_1.no == 1
     assert ef_1.flexural_buckling_about_y == True
 
     ef_2 = Model.clientModel.service.get_steel_effective_lengths(2)
-
     assert ef_2.principal_section_axes == True
-    assert ef_2.nodal_supports[0][0][3] == 0
+    assert ef_2.nodal_supports[0][0].row['support_type'] == 'SUPPORT_TYPE_FIXED_ALL'
 
     ef_3 = Model.clientModel.service.get_steel_effective_lengths(3)
-
-    assert ef_3.factors[0][0][1] == 3
-    assert ef_3.factors[0][0][3] == 4
+    assert ef_3.factors[0][0].row['flexural_buckling_u'] == 3
+    assert ef_3.factors[0][0].row['flexural_buckling_y'] == 4
 
     Model.clientModel.service.finish_modification()

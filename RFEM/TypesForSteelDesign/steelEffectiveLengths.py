@@ -134,7 +134,7 @@ class SteelEffectiveLengths():
 
         for i,j in enumerate(nodal_supports):
             mlvlp = model.clientModel.factory.create('ns0:steel_effective_lengths_nodal_supports_row')
-            mlvlp.no = i
+            #mlvlp.no = i
             mlvlp.row.support_type = nodal_supports[i][0].name
             mlvlp.row.support_in_z = nodal_supports[i][1]
             mlvlp.row.support_spring_in_y = nodal_supports[i][2]
@@ -155,19 +155,19 @@ class SteelEffectiveLengths():
         clientObject.factors = model.clientModel.factory.create('ns0:steel_effective_lengths.factors')
 
         for i,j in enumerate(factors):
-            mlvlp_f = model.clientModel.factory.create('ns0:steel_effective_lengths_factors')
-            mlvlp_f.no = i
-            mlvlp_f.flexural_buckling_u= factors[i][0]
-            mlvlp_f.flexural_buckling_v= factors[i][1]
-            mlvlp_f.flexural_buckling_y= factors[i][2]
-            mlvlp_f.flexural_buckling_z= factors[i][3]
-            mlvlp_f.torsional_buckling= factors[i][4]
-            mlvlp_f.lateral_torsional_buckling= factors[i][5]
-            mlvlp_f.lateral_torsional_buckling_top= factors[i][6]
-            mlvlp_f.lateral_torsional_buckling_bottom= factors[i][7]
-            mlvlp_f.twist_restraint= factors[i][8]
-            mlvlp_f.lateral_torsional_restraint= factors[i][9]
-            mlvlp_f.critical_moment= factors[i][10]
+            mlvlp_f = model.clientModel.factory.create('ns0:steel_effective_lengths_factors_row')
+            #mlvlp_f.no = i
+            mlvlp_f.row.flexural_buckling_u = factors[i][0]
+            mlvlp_f.row.flexural_buckling_v = factors[i][1]
+            mlvlp_f.row.flexural_buckling_y = factors[i][2]
+            mlvlp_f.row.flexural_buckling_z = factors[i][3]
+            mlvlp_f.row.torsional_buckling = factors[i][4]
+            mlvlp_f.row.lateral_torsional_buckling = factors[i][5]
+            mlvlp_f.row.lateral_torsional_buckling_top = factors[i][6]
+            mlvlp_f.row.lateral_torsional_buckling_bottom = factors[i][7]
+            mlvlp_f.row.twist_restraint = factors[i][8]
+            mlvlp_f.row.lateral_torsional_restraint = factors[i][9]
+            mlvlp_f.row.critical_moment = factors[i][10]
 
             clientObject.factors.steel_effective_lengths_factors.append(mlvlp_f)
 

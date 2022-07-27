@@ -173,8 +173,8 @@ def GetMeshStatistics(model = Model):
     mesh_stats = model.clientModel.service.get_mesh_statistics()
     return model.clientModel.dict(mesh_stats)
 
-def GenerateMesh(model = Model):
-    model.clientModel.service.generate_mesh(True)
+def GenerateMesh(model = Model, skip_warnings = True):
+    model.clientModel.service.generate_mesh(skip_warnings)
 
 def GetMeshSettings(model = Model):
     return model.clientModel.service.get_mesh_settings()
