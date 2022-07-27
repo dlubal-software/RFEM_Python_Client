@@ -11,7 +11,7 @@ sys.path.append(PROJECT_ROOT)
 
 ## Import the relevant Libraries
 from RFEM.enums import *
-from RFEM.initModel import Model, SetAddonStatus, AddOn
+from RFEM.initModel import Model
 from RFEM.TypesForMembers.memberHinge import MemberHinge
 from RFEM.TypesForMembers.memberResultIntermediatePoints import MemberResultIntermediatePoint
 from RFEM.TypesForMembers.memberSupport import MemberSupport
@@ -33,10 +33,11 @@ def test_memberDefinableStiffness():
 
     MemberDefinableStiffness(1, [False], "", 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12)
 
+    Model.clientModel.service.finish_modification()
+
     memberStiffness_1 = Model.clientModel.service.get_member_definable_stiffness(1)
 
     assert memberStiffness_1.torsional_stiffness == 1
-    Model.clientModel.service.finish_modification()
 
 def test_memberEccentricity():
 
@@ -45,10 +46,11 @@ def test_memberEccentricity():
 
     MemberEccentricity()
 
+    Model.clientModel.service.finish_modification()
+
     memberEccentricitiy_1 = Model.clientModel.service.get_member_eccentricity(1)
 
     assert memberEccentricitiy_1.specification_type == "TYPE_RELATIVE"
-    Model.clientModel.service.finish_modification()
 
 def test_memberHinge():
 
@@ -60,6 +62,8 @@ def test_memberHinge():
     MemberHinge(3, "Local", "", translational_release_vy=0, translational_release_vy_nonlinearity=[MemberHingeNonlineartiy.NONLINEARITY_TYPE_DIAGRAM, [MemberHingeDiagramType.DIAGRAM_ENDING_TYPE_CONTINUOUS, MemberHingeDiagramType.DIAGRAM_ENDING_TYPE_CONTINUOUS, [[1,2, 3], [3,4, 5]]]])
     MemberHinge(4, "Local", "", translational_release_vz=0, translational_release_vz_nonlinearity=[MemberHingeNonlineartiy.NONLINEARITY_TYPE_PARTIAL_ACTIVITY, [MemberHingePartialActivityType.PARTIAL_ACTIVITY_TYPE_FIXED, 0.004], [MemberHingePartialActivityType.PARTIAL_ACTIVITY_TYPE_FIXED, 0.005]])
 
+    Model.clientModel.service.finish_modification()
+
     memberHinge_1 = Model.clientModel.service.get_member_hinge(1)
     memberHinge_2 = Model.clientModel.service.get_member_hinge(2)
     memberHinge_3 = Model.clientModel.service.get_member_hinge(3)
@@ -70,7 +74,6 @@ def test_memberHinge():
     assert memberHinge_3.axial_release_vy_nonlinearity == "NONLINEARITY_TYPE_DIAGRAM"
     assert memberHinge_4.axial_release_vy == inf
 
-    Model.clientModel.service.finish_modification()
 
 def test_memberNonlinearity():
 
@@ -79,10 +82,11 @@ def test_memberNonlinearity():
 
     MemberNonlinearity()
 
+    Model.clientModel.service.finish_modification()
+
     memberNonlinearity_1 = Model.clientModel.service.get_member_nonlinearity(1)
 
     assert memberNonlinearity_1.type == "TYPE_FAILURE_IF_TENSION"
-    Model.clientModel.service.finish_modification()
 
 def test_memberResultIntermediatePoint():
 
@@ -91,10 +95,11 @@ def test_memberResultIntermediatePoint():
 
     MemberResultIntermediatePoint(1, "", 5)
 
+    Model.clientModel.service.finish_modification()
+
     memberResultIntermediatePoint_1 = Model.clientModel.service.get_member_result_intermediate_point(1)
 
     assert memberResultIntermediatePoint_1.point_count == 5
-    Model.clientModel.service.finish_modification()
 
 def test_memberStiffnessModification():
 
@@ -103,10 +108,11 @@ def test_memberStiffnessModification():
 
     MemberStiffnessModification()
 
+    Model.clientModel.service.finish_modification()
+
     memberStiffnessModification_1 = Model.clientModel.service.get_member_stiffness_modification(1)
 
     assert memberStiffnessModification_1.factor_of_bending_z_stiffness == 1
-    Model.clientModel.service.finish_modification()
 
 def test_memberSupport():
 
@@ -116,28 +122,27 @@ def test_memberSupport():
     MemberSupport()
     MemberSupport(2, '', 1,2, [inf, MemberSupportNonlinearity.NONLINEARITY_FAILURE_IF_NEGATIVE_CONTACT_STRESS_Z], 3, 4, 5, 6)
 
+    Model.clientModel.service.finish_modification()
+
     memberSupport_1 = Model.clientModel.service.get_member_support(1)
     memberSupport_2 = Model.clientModel.service.get_member_support(2)
 
     assert memberSupport_1.no == 1
     assert memberSupport_2.spring_translation_y == 2
 
-    Model.clientModel.service.finish_modification()
 
 def test_memberTransverseStiffeners():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    SetAddonStatus(Model.clientModel, AddOn.steel_design_active, True)
-
-    Material(1, "S235")
+    Material(1, 'S235')
 
     MemberTransverseStiffeners(1)
+
+    Model.clientModel.service.finish_modification()
 
     memberStiffener_1 = Model.clientModel.service.get_member_transverse_stiffener(1)
 
     assert memberStiffener_1.no == 1
     assert memberStiffener_1.name == "1 Stiffener | Flat"
-
-    Model.clientModel.service.finish_modification()

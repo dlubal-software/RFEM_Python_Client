@@ -26,5 +26,5 @@ def test_examples():
         for name in files:
             if fnmatch(name, pattern) and name != "__init__.py":
                 example = os.path.join(path, name)
-                process = subprocess.Popen(example, shell=True) # shell=True has to be there
+                process = subprocess.Popen('python '+example, shell=True) # shell=True has to be there
                 process.wait()
