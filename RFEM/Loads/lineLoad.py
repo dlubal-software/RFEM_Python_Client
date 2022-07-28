@@ -98,7 +98,7 @@ class LineLoad():
                 for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_2:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
                 for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
                 for load_distribution == LOAD_DISTRIBUTION_TRAPEZOIDAL:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
                 for load_distribution == LOAD_DISTRIBUTION_TAPERED:
@@ -106,7 +106,7 @@ class LineLoad():
                 for load_distribution == LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
                 for load_distribution == LOAD_DISTRIBUTION_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
             list_reference (bool): List Reference Bool
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -225,13 +225,12 @@ class LineLoad():
             clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:line_load.varying_load_parameters')
 
             for i,j in enumerate(load_parameter):
-                if len(load_parameter[i]) != 3:
-                    raise Exception('WARNING: The load parameter sub-lists need to be of length 3. Kindly check sub-list inputs for completeness and correctness.')
+                if len(load_parameter[i]) != 2:
+                    raise Exception('WARNING: The load parameter sub-lists need to be of length 2. Kindly check sub-list inputs for completeness and correctness.')
                 mlvlp = model.clientModel.factory.create('ns0:line_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
 
                 clientObject.varying_load_parameters.line_load_varying_load_parameters.append(mlvlp)
@@ -285,19 +284,18 @@ class LineLoad():
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
             try:
-                len(load_parameter[0])==3
+                len(load_parameter[0])==2
             except:
                 print("WARNING: LineLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
             clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:line_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                if len(load_parameter[i]) != 3:
-                    raise Exception('WARNING: The load parameter sub-lists need to be of length 3. Kindly check sub-list inputs for completeness and correctness.')
+                if len(load_parameter[i]) != 2:
+                    raise Exception('WARNING: The load parameter sub-lists need to be of length 2. Kindly check sub-list inputs for completeness and correctness.')
                 mlvlp = model.clientModel.factory.create('ns0:line_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
 
                 clientObject.varying_load_parameters.line_load_varying_load_parameters.append(mlvlp)
@@ -351,7 +349,7 @@ class LineLoad():
                 load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_2:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
                 load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
                 load_parameter == LOAD_DISTRIBUTION_TRAPEZOIDAL:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
                 load_parameter == LOAD_DISTRIBUTION_TAPERED:
@@ -359,7 +357,7 @@ class LineLoad():
                 load_parameter == LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
                 load_parameter == LOAD_DISTRIBUTION_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
             list_reference (bool): List Reference Bool
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -471,20 +469,19 @@ class LineLoad():
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_VARYING":
             try:
-                len(load_parameter[0])==3
+                len(load_parameter[0])==2
             except:
                 print("WARNING: LineLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
             clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:line_load.varying_load_parameters')
 
             for i,j in enumerate(load_parameter):
-                if len(load_parameter[i]) != 3:
-                    raise Exception('WARNING: The load parameter sub-lists need to be of length 3. Kindly check sub-list inputs for completeness and correctness.')
+                if len(load_parameter[i]) != 2:
+                    raise Exception('WARNING: The load parameter sub-lists need to be of length 2. Kindly check sub-list inputs for completeness and correctness.')
                 mlvlp = model.clientModel.factory.create('ns0:line_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
 
                 clientObject.varying_load_parameters.line_load_varying_load_parameters.append(mlvlp)
@@ -538,19 +535,18 @@ class LineLoad():
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
             try:
-                len(load_parameter[0])==3
+                len(load_parameter[0])==2
             except:
                 print("WARNING: LineLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
 
             clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:line_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                if len(load_parameter[i]) != 3:
-                    raise Exception('WARNING: The load parameter sub-lists need to be of length 3. Kindly check sub-list inputs for completeness and correctness.')
+                if len(load_parameter[i]) != 2:
+                    raise Exception('WARNING: The load parameter sub-lists need to be of length 2. Kindly check sub-list inputs for completeness and correctness.')
                 mlvlp = model.clientModel.factory.create('ns0:line_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
 
                 clientObject.varying_load_parameters.line_load_varying_load_parameters.append(mlvlp)

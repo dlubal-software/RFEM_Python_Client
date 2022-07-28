@@ -66,3 +66,12 @@ def test_global_parameters():
                                 comment= 'Comment_5')
 
     Model.clientModel.service.finish_modification()
+
+    assert Model.clientModel.service.get_global_parameter(1).unit_group == 'LENGTH'
+    assert Model.clientModel.service.get_global_parameter(1).definition_type == 'DEFINITION_TYPE_FORMULA'
+    assert Model.clientModel.service.get_global_parameter(1).formula == '1+1'
+
+    assert Model.clientModel.service.get_global_parameter(2).min == 0
+    assert Model.clientModel.service.get_global_parameter(2).max == 100
+    assert Model.clientModel.service.get_global_parameter(2).steps == 4
+    assert Model.clientModel.service.get_global_parameter(2).unit_group == 'LOADS_DENSITY'

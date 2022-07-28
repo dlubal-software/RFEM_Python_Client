@@ -746,7 +746,7 @@ class MemberSetLoad():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            load_parameter = [tt, tb]
+            load_parameter = [tb, tt]
         for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
             for load_over_total_length: bool= False:
                 load_parameter = [tt1, tt2, tb1, tb2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]

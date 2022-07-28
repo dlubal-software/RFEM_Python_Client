@@ -17,7 +17,7 @@ from RFEM.Reports.partsList import GetPartsListSolidsByMaterial, GetPartsListSur
 if Model.clientModel is None:
     Model()
 
-@pytest.mark.skip(reason="(Result) tables are under construction right now. Should be resolved 09/2022")
+@pytest.mark.skip(reason="(Result) tables are under construction right now. Should be resolved 09/2022. G-30112")
 def test_designOverview():
 
     Model.clientModel.service.delete_all()

@@ -65,3 +65,31 @@ def test_typesForLines():
     LineMeshRefinements.Gradually(4,'6',4)
 
     Model.clientModel.service.finish_modification()
+
+    assert Model.clientModel.service.get_line_support(1).rotational_restraint['x'] == 0
+    assert Model.clientModel.service.get_line_support(1).rotational_restraint['y'] == 0
+    assert Model.clientModel.service.get_line_support(1).rotational_restraint['z'] == 0
+    assert Model.clientModel.service.get_line_support(1).spring['x'] > 10e100
+    assert Model.clientModel.service.get_line_support(1).spring['y'] > 10e100
+    assert Model.clientModel.service.get_line_support(1).spring['z'] > 10e100
+
+    assert Model.clientModel.service.get_line_support(2).rotational_restraint['x'] == 0
+    assert Model.clientModel.service.get_line_support(2).rotational_restraint['y'] == 0
+    assert Model.clientModel.service.get_line_support(2).rotational_restraint['z'] == 0
+    assert Model.clientModel.service.get_line_support(2).spring['x'] == 10000
+    assert Model.clientModel.service.get_line_support(2).spring['y'] == 0
+    assert Model.clientModel.service.get_line_support(2).spring['z'] == 0
+
+    assert Model.clientModel.service.get_line_welded_joint(1).joint_type == 'BUTT_JOINT'
+    assert Model.clientModel.service.get_line_welded_joint(1).weld_type == 'WELD_SINGLE_V'
+    assert round(Model.clientModel.service.get_line_welded_joint(1).weld_size_a1, 3) == 0.005
+
+    assert Model.clientModel.service.get_line_mesh_refinement(1).type == 'TYPE_LENGTH'
+    assert Model.clientModel.service.get_line_mesh_refinement(1).lines == '3'
+    assert Model.clientModel.service.get_line_mesh_refinement(1).number_of_layers == 2
+
+    assert Model.clientModel.service.get_line_mesh_refinement(3).type == 'TYPE_ELEMENTS'
+    assert Model.clientModel.service.get_line_mesh_refinement(3).elements_finite_elements == 15
+
+    assert Model.clientModel.service.get_line_mesh_refinement(4).type == 'TYPE_GRADUAL'
+    assert Model.clientModel.service.get_line_mesh_refinement(4).gradual_rows == 4

@@ -1,5 +1,6 @@
 import sys
 import os
+from traceback import print_tb
 PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.path.dirname(__file__),
                   os.pardir)
@@ -71,11 +72,42 @@ def test_nodal_load():
     NodalLoad.Moment(3, 1, '4', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 5000)
 
     # Component Type Nodal Load
-    NodalLoad.Components(4, 1, '6', [5000, 5000, 0, 0, 5000, 0])
+    NodalLoad.Components(4, 1, '6', [5000, 4000, 30, 10, 5210, 75])
 
     #Mass Type Nodal Load
-    NodalLoad.Mass(5, 1, '8', True, [5000, 5000, 0, 0, 5000, 0])
-
-    #Calculate_all() # Don't use in unit tests. See template for more info.
+    NodalLoad.Mass(5, 1, '8', True, [4000, 3000, 2000, 1000, 500, 100])
 
     Model.clientModel.service.finish_modification()
+
+    # Initial Nodal Load
+    assert Model.clientModel.service.get_nodal_load(1, 1).nodes == '2'
+    assert Model.clientModel.service.get_nodal_load(1, 1).force_magnitude == 5000
+    assert Model.clientModel.service.get_nodal_load(1, 1).load_direction == 'LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U'
+
+    # Force Type Nodal Load
+    assert Model.clientModel.service.get_nodal_load(2, 1).nodes == '2'
+    assert Model.clientModel.service.get_nodal_load(2, 1).load_type == 'LOAD_TYPE_FORCE'
+
+    # Moment Type Nodal Load
+    assert Model.clientModel.service.get_nodal_load(3, 1).nodes == '4'
+    assert Model.clientModel.service.get_nodal_load(3, 1).load_type == 'LOAD_TYPE_MOMENT'
+
+    # Component Type Nodal Load
+    assert Model.clientModel.service.get_nodal_load(4, 1).nodes == '6'
+    assert Model.clientModel.service.get_nodal_load(4, 1).load_type == 'LOAD_TYPE_COMPONENTS'
+    assert Model.clientModel.service.get_nodal_load(4, 1).components_force_x == 5000
+    assert Model.clientModel.service.get_nodal_load(4, 1).components_force_y == 4000
+    assert Model.clientModel.service.get_nodal_load(4, 1).components_force_z == 30
+    assert Model.clientModel.service.get_nodal_load(4, 1).components_moment_x == 10
+    assert Model.clientModel.service.get_nodal_load(4, 1).components_moment_y == 5210
+    assert Model.clientModel.service.get_nodal_load(4, 1).components_moment_z == 75
+
+    #Mass Type Nodal Load
+    assert Model.clientModel.service.get_nodal_load(5, 1).nodes == '8'
+    assert Model.clientModel.service.get_nodal_load(5, 1).load_type == 'LOAD_TYPE_MASS'
+    # assert Model.clientModel.service.get_nodal_load(5, 1).mass_x == 4000                      # Bugfix G-30467: Individual Mass Components
+    # assert Model.clientModel.service.get_nodal_load(5, 1).mass_y == 3000                      # Bugfix G-30467: Individual Mass Components
+    # assert Model.clientModel.service.get_nodal_load(5, 1).mass_z == 2000                      # Bugfix G-30467: Individual Mass Components
+    assert Model.clientModel.service.get_nodal_load(5, 1).mass_moment_of_inertia_x == 1000
+    assert Model.clientModel.service.get_nodal_load(5, 1).mass_moment_of_inertia_y == 500
+    assert Model.clientModel.service.get_nodal_load(5, 1).mass_moment_of_inertia_z == 100
