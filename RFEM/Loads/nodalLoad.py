@@ -21,6 +21,7 @@ class NodalLoad():
             magnitude (float): Force Magnitude
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Nodal Force
         clientObject = model.clientModel.factory.create('ns0:nodal_load')
@@ -83,7 +84,6 @@ class NodalLoad():
             shifted_display (bool): Enable/Disable Shifted Display Option
             comment (str, optional): Comments
             params (dict, optional):
-
                 For specific_direction type DIRECTION_TYPE_ROTATED_VIA_3_ANGLES;
                     params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_ROTATED_VIA_3_ANGLES, NodalLoadAxesSequence, angle_1, angle_2, angle_3, angle_x, angle_y, angle_z]}
                 For specific_direction type DIRECTION_TYPE_DIRECTED_TO_NODE;
@@ -98,6 +98,7 @@ class NodalLoad():
                     params={'force_eccentricity' : [ex, ey, ez]}
                 For shifted_display;
                     params={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Nodal Force
         clientObject = model.clientModel.factory.create('ns0:nodal_load')
@@ -238,6 +239,7 @@ class NodalLoad():
                     params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER, member_no]}
                 For shifted_display;
                     params={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Nodal Force
         clientObject = model.clientModel.factory.create('ns0:nodal_load')
@@ -359,6 +361,7 @@ class NodalLoad():
 
                 For shifted_display;
                     params={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Nodal Force
         clientObject = model.clientModel.factory.create('ns0:nodal_load')
@@ -486,6 +489,7 @@ class NodalLoad():
                     mass = [Mx, My, Mz, Ix, Iy, Iz]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Nodal Force
         clientObject = model.clientModel.factory.create('ns0:nodal_load')
