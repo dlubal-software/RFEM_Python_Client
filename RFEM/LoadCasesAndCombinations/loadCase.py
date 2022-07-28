@@ -87,6 +87,7 @@ class LoadCase():
             no (int): Load Case Tag
             name (str): Load Case Name
             to_solve (bool): Enable/Disbale Load Case Solver Status
+            analysis_type (enum): Analysis Type Enumeration
             analysis_settings_no (int): Analysis Settings Number
             action_category (enum): Action Category enum
             self_weight (list): Self-weight Considerations

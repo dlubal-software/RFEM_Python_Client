@@ -284,8 +284,6 @@ class StaticAnalysisSettings():
                 standard_precision_and_tolerance_settings = [standard_precision_and_tolerance_settings_enabled, precision_of_convergence_criteria_for_nonlinear_calculation, tolerance_for_detection_of_instability, robustness_of_iterative_calculation]
             control_nonlinear_analysis (list): Nonlinear Analysis Control Parameters
                 control_nonlinear_analysis = [max_number_of_iterations, number_of_load_increments]
-            load_modification (list): Modify Loading by Multiplier Factor
-                load_modification = [modify_loading_by_multiplier_factor, loading_multiplier_factor, divide_results_by_loading_factor]
             favorable_effect_due_to_tension_in_members (bool, optional): Favorable Effect due to Tension In Members Boolean
             bourdon_effect (bool, optional): Bourdon Effect Boolean
             nonsymmetric_direct_solver (bool, optional): Nonsymmetric Direct Solver Boolean

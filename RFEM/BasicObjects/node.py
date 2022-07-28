@@ -251,8 +251,8 @@ class Node():
                 parameters = [True, %]
               if distance_from_start_absolute:
                 parameters = [False, magnitude]
-            offset_y (float): Offset in Y-Direction
-            offset_z (float): Offset in Z-Direction
+            offset_y (int): Offset in Y-Direction
+            offset_z (int): Offset in Z-Direction
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
@@ -317,8 +317,7 @@ class Node():
                  model = Model):
 
         '''
-        Args:
-            no (int): Node Tag
+         Args:
             line_number (int): Line Tag
             node_reference (enum): Node Reference Enumeration
             length_between_i_and_j (int): Length between 2 Nodes

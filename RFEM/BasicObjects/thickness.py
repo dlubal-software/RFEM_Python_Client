@@ -383,7 +383,8 @@ class Thickness():
         Args:
             no (int): Thickness Tag
             name (str): Thickness Name
-            layers (list of list): ???
+            material_no (int): Tag of Material assigned to Thickness
+            properties (list): Nested List of Layer Properties
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
