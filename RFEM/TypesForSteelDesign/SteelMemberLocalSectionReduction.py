@@ -1,7 +1,7 @@
 #SteelMemberLocalSectionReduction
 
 from RFEM.initModel import Model, clearAtributes, ConvertToDlString
-from RFEM.enums import *
+from RFEM.enums import SteelMemberLocalSectionReductionType, MultipleOffsetDefinitionType, FastenerDefinitionType
 
 class SteelMemberLocalSectionReduction():
 
@@ -46,7 +46,6 @@ class SteelMemberLocalSectionReduction():
         for i,j in enumerate(components):
             smlsr = model.clientModel.factory.create('ns0:steel_member_local_section_reduction_components_row')
             smlsr.no = i
-            # smlsr.row.no = components[i][0]
             smlsr.row.reduction_type = components[i][0].name
             smlsr.row.position = components[i][1]
             smlsr.row.multiple = components[i][2]
@@ -58,7 +57,6 @@ class SteelMemberLocalSectionReduction():
             smlsr.row.reduction_area = components[i][7]
 
             clientObject.components.steel_member_local_section_reduction_components.append(smlsr)
-        print(clientObject)
         # Comment
         clientObject.comment = comment
 
@@ -69,11 +67,3 @@ class SteelMemberLocalSectionReduction():
 
         #Add Steel Member Local Section Reduction to Client Model
         model.clientModel.service.set_steel_member_local_section_reduction(clientObject)
-
-
-        '''
-        Args:
-            no (int): Steel Member Local Section Reduction Tag
-            members (str): Assigned Members
-            member_sets (str): Assigned Member Sets
-        '''
