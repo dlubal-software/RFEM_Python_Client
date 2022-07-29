@@ -14,9 +14,8 @@ def setLineSupportConditions(clientObject,
 
     Params:
         clientObject: Client model object | Line support
-        C_u_X,Y,Z: Translational support conditions in respected direction
-        C_phi_X,Y,Z: Rotational support conditions about respected axis
-        comment: Comment
+        C_u_X,Y,Z (float): Translational support conditions in respected direction
+        C_phi_X,Y,Z (float): Rotational support conditions about respected axis
 
     Returns:
         clientObject: Initialized client model object | Line Support
@@ -40,6 +39,15 @@ class LineSupport():
                  comment: str = '',
                  params: dict = None,
                  model = Model):
+        """
+        Args:
+            no (int): Line Support Tag
+            lines_no (str): Assigned Lines
+            support_type (enum): Line Support Type Enumeration
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
 
         # Client model | Line Support
         clientObject = model.clientModel.factory.create('ns0:line_support')

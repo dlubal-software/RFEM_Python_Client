@@ -5,18 +5,18 @@ class MemberDefinableStiffness():
                  no: int = 1,
                  name: list = [False],
                  members: str = "1",
-                 torsional_stiffness: int = 0.0,
-                 bending_stiffness_y: int = 0.0,
-                 bending_stiffness_z: int = 0.0,
-                 axial_stiffness: int = 0.0,
-                 shear_stiffness_y: int = 0.0,
-                 shear_stiffness_z: int = 0.0,
-                 specific_weight: int = 0.0,
-                 section_area: int = 0.0,
-                 rotation: int = 0.0,
-                 thermal_expansion_alpha: int = 0.0,
-                 thermal_expansion_width: int = 0.0,
-                 thermal_expansion_height: int = 0.0,
+                 torsional_stiffness: float = 0.0,
+                 bending_stiffness_y: float = 0.0,
+                 bending_stiffness_z: float = 0.0,
+                 axial_stiffness: float = 0.0,
+                 shear_stiffness_y: float = 0.0,
+                 shear_stiffness_z: float = 0.0,
+                 specific_weight: float = 0.0,
+                 section_area: float = 0.0,
+                 rotation: float = 0.0,
+                 thermal_expansion_alpha: float = 0.0,
+                 thermal_expansion_width: float = 0.0,
+                 thermal_expansion_height: float = 0.0,
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -24,26 +24,24 @@ class MemberDefinableStiffness():
         Args:
             no (int): Member Definable Stiffness Tag
             name (list): User Defined Name
-
                 if name[0] == True:
                     name[1] == Uer Defined Name
-
             members (str): Assigned Members
-            torsional_stiffness (int): Torsional Stiffness
-            bending_stiffness_y (int): Bending Stiffness in Y Direction
-            bending_stiffness_z (int): Bendign Stiffness in Z Direction
-            axial_stiffness (int): Axial Stiffness
-            shear_stiffness_y (int): Shear Stiffness in Y Direction
-            shear_stiffness_z (int): Shear Stiffness in Z Direction
-            specific_weight (int): Specific Weight
-            section_area (int): Section Area
-            rotation (int): Rotation
-            thermal_expansion_alpha (int): Thermal Expansion Alpha Coefficient
-            thermal_expansion_width (int): Thermal Expansion Witdh Coefficient
-            thermal_expansion_height (int): Thermal Expansion Height Coefficient
+            torsional_stiffness (float): Torsional Stiffness
+            bending_stiffness_y (float): Bending Stiffness in Y Direction
+            bending_stiffness_z (float): Bendign Stiffness in Z Direction
+            axial_stiffness (float): Axial Stiffness
+            shear_stiffness_y (float): Shear Stiffness in Y Direction
+            shear_stiffness_z (float): Shear Stiffness in Z Direction
+            specific_weight (float): Specific Weight
+            section_area (float): Section Area
+            rotation (float): Rotation
+            thermal_expansion_alpha (float): Thermal Expansion Alpha Coefficient
+            thermal_expansion_width (float): Thermal Expansion Witdh Coefficient
+            thermal_expansion_height (float): Thermal Expansion Height Coefficient
             comment (str, optional): Comment
-            params (dict, optional): Parameters
-            model (class, optional): Model instance
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Member Definable Stffness

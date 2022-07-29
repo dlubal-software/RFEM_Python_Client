@@ -13,12 +13,12 @@ def setNodalSupportConditions(clientObject,
     Sets nodal support conditions
 
     Params:
-        clientObject: Client model object | Nodal support
-        C_u_X,Y,Z: Translational support conditions in respected direction
-        C_phi_X,Y,Z: Rotational support conditions about respected axis
+        clientObject: Client Model Object | Nodal Support
+        C_u_X,Y,Z: Translational Support Conditions in Respected Direction
+        C_phi_X,Y,Z: Rotational Support Conditions about Respected Axis
 
     Returns:
-        clientObject: Initialized client model object | Nodal Support
+        clientObject: Initialized Client Model Object | Nodal Support
     '''
 
     clientObject.spring_x = C_u_X
@@ -43,12 +43,12 @@ class NodalSupport():
         Nodal Support
 
         Args:
-            no (int, optional): Number
-            nodes_no (str, optional): Assigned to nodes
-            support (enum or list, optional): Support definition
-            comment (str, optional): Commment
+            no (int): Number
+            nodes_no (str): Assigned to nodes
+            support (enum or list): Support Definition List
+            comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (_type_, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
 
         Raises:
             ValueError: 'Support parameter can be enum or list with 6 items.'

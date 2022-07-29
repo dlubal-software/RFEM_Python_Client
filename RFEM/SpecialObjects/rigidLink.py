@@ -10,6 +10,19 @@ class RigidLink():
                  comment: str = '',
                  params: dict = None,
                  model = Model):
+        """
+        Rigid Link
+
+        Args:
+            no (int): Rigid Link Tag
+            line_1 (int): Assigned Line Number
+            line_2 (int): Assigned Line Number
+            ignore_relative_position (bool): Ignore relative Position
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
+
 
         # Client model | Rigid Link
         clientObject = model.clientModel.factory.create('ns0:rigid_link')
@@ -50,6 +63,18 @@ class RigidLink():
                  comment: str = '',
                  params: dict = None,
                  model = Model):
+        """
+        Rigid Link Line to Line
+
+        Args:
+            no (int): Rigid Link Tag
+            line_1 (int): Assigned Line Number
+            line_2 (int): Assigned Line Number
+            ignore_relative_position (bool): Ignore relative Position
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
 
         # Client model | Line To Line Rigid Link
         clientObject = model.clientModel.factory.create('ns0:rigid_link')
@@ -90,6 +115,18 @@ class RigidLink():
                  comment: str = '',
                  params: dict = None,
                  model = Model):
+        """
+        Rigid Link Line to Surface
+
+        Args:
+            no (int): Rigid Link Tag
+            line_1 (int): Assigned Line Number
+            surface (int): Assigned Surface Number
+            ignore_relative_position (bool): Ignore relative Position
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
 
         # Client model | Line To Surface Rigid Link
         clientObject = model.clientModel.factory.create('ns0:rigid_link')
@@ -130,6 +167,15 @@ class RigidLink():
                  comment: str = '',
                  params: dict = None,
                  model = Model):
+        """
+        Args:
+            no (int): Rigid Link Tag
+            nodes (str): Assigned Nodes Number
+            lines (str): Assigned Lines Number
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
 
         # Client model | Diapragm Rigid Link
         clientObject = model.clientModel.factory.create('ns0:rigid_link')

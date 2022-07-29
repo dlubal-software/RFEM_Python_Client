@@ -8,11 +8,24 @@ class LineWeldedJoint():
                  surfaces: str = '1 2',
                  joint_type = LineWeldedJointType.BUTT_JOINT,
                  weld_type = WeldType.WELD_SINGLE_V,
-                 weld_size_a1: int = 0.005,
+                 weld_size_a1: float = 0.005,
                  longitudinal_arrangement = WeldLongitudalArrangement.CONTINUOUS,
                  comment: str = '',
                  params: dict = None,
                  model = Model):
+        """
+        Args:
+            no (int): Line Support Tag
+            lines (str): Assigned Lines
+            surfaces (str): Assigned Surfaces
+            joint_type (enum): Line Welded Joint Type Enumeration
+            weld_type (enum): Weld Type Enumeration
+            weld_size_a1 (float): Weld Size
+            longitudinal_arrangement (enum): Weld Longitudal Arrangement Enumeration
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
 
         # Client model | Line Welded Joint
         clientObject = model.clientModel.factory.create('ns0:line_welded_joint')

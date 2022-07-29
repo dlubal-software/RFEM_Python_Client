@@ -16,27 +16,24 @@ class MemberStiffnessModification():
             no (int): Modification Tag
             assigned_structure_modification (str): Assigned Structure Modification
             modification_type (enum): Member Stiffness Modification Type Enumeration Item
-            parameters (list):
-                if modification_type == "TYPE_TOTAL_STIFFNESSES_FACTORS":
+            parameters (list): Parameters List
+                for modification_type == "TYPE_TOTAL_STIFFNESSES_FACTORS":
                     parameters = [total_stiffness_factor]
-                elif modification_type == "TYPE_PARTIAL_STIFFNESSES_FACTORS":
-                    parameters = [factor_of_axial_stiffness, factor_of_bending_y_stiffness, factor_of_bending_z_stiffness,
-                                  partial_stiffness_factor_of_shear_y_stiffness, partial_stiffness_factor_of_shear_z_stiffness,
-                                  partial_stiffness_factor_of_torsion_stiffness, partial_stiffness_factor_of_weight]
-                elif modification_type == "TYPE_CONCRETE_STRUCTURES_ACI":
-                    parameters = [concrete_structure_component_type, factor_of_axial_stiffness,
-                                  factor_of_bending_y_stiffness, factor_of_bending_z_stiffness]
-                elif modification_type == "TYPE_CONCRETE_STRUCTURES_CSA":
-                    parameters = [concrete_structure_component_type, factor_of_axial_stiffness,
-                                  factor_of_bending_y_stiffness, factor_of_bending_z_stiffness]
-                elif modification_type = "TYPE_STEEL_STRUCTURES":
+                for modification_type == "TYPE_PARTIAL_STIFFNESSES_FACTORS":
+                    parameters = [factor_of_axial_stiffness, factor_of_bending_y_stiffness, factor_of_bending_z_stiffness, partial_stiffness_factor_of_shear_y_stiffness,
+                                  partial_stiffness_factor_of_shear_z_stiffness, partial_stiffness_factor_of_torsion_stiffness, partial_stiffness_factor_of_weight]
+                for modification_type == "TYPE_CONCRETE_STRUCTURES_ACI":
+                    parameters = [concrete_structure_component_type, factor_of_axial_stiffness, factor_of_bending_y_stiffness, factor_of_bending_z_stiffness]
+                for modification_type == "TYPE_CONCRETE_STRUCTURES_CSA":
+                    parameters = [concrete_structure_component_type, factor_of_axial_stiffness, factor_of_bending_y_stiffness, factor_of_bending_z_stiffness]
+                for modification_type = "TYPE_STEEL_STRUCTURES":
                     parameters = [steel_structure_determine_tau_b, steel_structure_design_method]
-                elif modification_type = "TYPE_STEEL_STRUCTURES_CSA":
-                    parameters = [steel_structure_csa_determine_tau_b, factor_of_axial_stiffness, factor_of_bending_z_stiffness,
-                                  steel_structure_csa_stiffness_factor_of_shear_y_stiffness, steel_structure_csa_stiffness_factor_of_shear_z_stiffness,
-                                  steel_structure_csa_stiffness_factor_of_torsion_stiffness]
-            comment (str, optional): Comments
-            params (dict, optional): Parameters
+                for modification_type = "TYPE_STEEL_STRUCTURES_CSA":
+                    parameters = [steel_structure_csa_determine_tau_b, factor_of_axial_stiffness, factor_of_bending_z_stiffness, steel_structure_csa_stiffness_factor_of_shear_y_stiffness,
+                                  steel_structure_csa_stiffness_factor_of_shear_z_stiffness, steel_structure_csa_stiffness_factor_of_torsion_stiffness]
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Member Stiffness Modification

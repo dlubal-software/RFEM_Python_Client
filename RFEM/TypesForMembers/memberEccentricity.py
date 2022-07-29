@@ -7,9 +7,9 @@ class MemberEccentricity():
                  no: int = 1,
                  name: list = [False],
                  eccentricity_type = MemberEccentricitySpecificationType.TYPE_RELATIVE,
-                 eccentricity_parameters = [MemberEccentricityHorizontalSectionAlignment.ALIGN_MIDDLE, MemberEccentricityVerticalSectionAlignment.ALIGN_MIDDLE],
+                 eccentricity_parameters: list = [MemberEccentricityHorizontalSectionAlignment.ALIGN_MIDDLE, MemberEccentricityVerticalSectionAlignment.ALIGN_MIDDLE],
                  transverse_offset_type = MemberEccentricityTransverseOffsetType.TRANSVERSE_OFFSET_TYPE_NONE,
-                 transverse_offset_parameters = None,
+                 transverse_offset_parameters: list = None,
                  axial_offset_active: bool = False,
                  hinge_location_at_node: bool = False,
                  comment: str = '',
@@ -20,24 +20,26 @@ class MemberEccentricity():
             no (int): Eccentricity Tag
             name (list): User Defined Name
             eccentricity_type (enum): Eccentricity Type Enumeration Item
-                if eccentricity_type == MemberEccentricitySpecificationType.TYPE_RELATIVE:
-                    eccentricity_parameters (list): [horizontal_section_alignment, vertical_section_alignment]
-                elif eccentricity_type == MemberEccentricitySpecificationType.TYPE_ABSOLUTE:
-                    eccentricity_parameters (list): [coordinate_system, offset_x, offset_y, offset_z]
-                elif eccentricity_type == MemberEccentricitySpecificationType.TYPE_RELATIVE_AND_ABSOLUTE:
-                    eccentricity_parameters (list): [coordinate_system, offset_x, offset_y, offset_z, horizontal_section_alignment, vertical_section_alignment]
+            eccentricity_parameters (list): Eccentricity Parameters List
+                for eccentricity_type == MemberEccentricitySpecificationType.TYPE_RELATIVE:
+                    eccentricity_parameters = [horizontal_section_alignment, vertical_section_alignment]
+                for eccentricity_type == MemberEccentricitySpecificationType.TYPE_ABSOLUTE:
+                    eccentricity_parameters = [coordinate_system, offset_x, offset_y, offset_z]
+                for eccentricity_type == MemberEccentricitySpecificationType.TYPE_RELATIVE_AND_ABSOLUTE:
+                    eccentricity_parameters = [coordinate_system, offset_x, offset_y, offset_z, horizontal_section_alignment, vertical_section_alignment]
             transverse_offset_type (enum): Transverse Offset Type Enumeration Item
-                if transverse_offset_type == MemberEccentricityTransverseOffsetType.TRANSVERSE_OFFSET_TYPE_NONE:
-                    transverse_offset_parameters (list): None
-                elif transverse_offset_type == MemberEccentricityTransverseOffsetType.TRANSVERSE_OFFSET_TYPE_FROM_SURFACE_THICKNESS:
-                    transverse_offset_parameters (list): [transverse_offset_reference_surface, transverse_offset_vertical_alignment]
-                elif transverse_offset_type == MemberEccentricityTransverseOffsetType.TRANSVERSE_OFFSET_TYPE_FROM_MEMBER_SECTION:
-                    transverse_offset_parameters (list): [transverse_offset_reference_member, transverse_offset_member_reference_node,
-                                                          transverse_offset_horizontal_alignment, transverse_offset_vertical_alignment]
-            axial_offset_active (bool): Axial Offset Option
-            hinge_location_at_node (bool): Hinge Location at Node Option
+            transverse_offset_parameters (list): Transverse Offset Parameters List
+                for transverse_offset_type == MemberEccentricityTransverseOffsetType.TRANSVERSE_OFFSET_TYPE_NONE:
+                    transverse_offset_parameters = None
+                for transverse_offset_type == MemberEccentricityTransverseOffsetType.TRANSVERSE_OFFSET_TYPE_FROM_SURFACE_THICKNESS:
+                    transverse_offset_parameters = [transverse_offset_reference_surface, transverse_offset_vertical_alignment]
+                for transverse_offset_type == MemberEccentricityTransverseOffsetType.TRANSVERSE_OFFSET_TYPE_FROM_MEMBER_SECTION:
+                    transverse_offset_parameters = [transverse_offset_reference_member, transverse_offset_member_reference_node, transverse_offset_horizontal_alignment, transverse_offset_vertical_alignment]
+            axial_offset_active (bool): Enable/Disable Axial Offset
+            hinge_location_at_node (bool): Enable/Disable Hinge Location at Node
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Member Eccentricity

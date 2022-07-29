@@ -48,8 +48,9 @@ class MemberTransverseStiffeners():
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
             components (list of components): List of components dictionary
-            comment (str, optional): Comments
+            comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client Model | Member Transverse Stiffeners

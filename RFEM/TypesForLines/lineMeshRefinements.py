@@ -13,6 +13,16 @@ class LineMeshRefinements():
                  comment: str = '',
                  params: dict = None,
                  model = Model):
+        """
+        Args:
+            no (int): Line Mesh Refinements Tag
+            lines (str): Assigned Lines
+            type (enum): Line Mesh Refinements Enumerration
+            number_of_layers (int): Number of Layers
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
 
         # Client model | Line Mesh Refinement
         clientObject = model.clientModel.factory.create('ns0:line_mesh_refinement')
@@ -52,6 +62,16 @@ class LineMeshRefinements():
                        comment: str = '',
                        params: dict = None,
                        model = Model):
+        """
+        Args:
+            no (int): Line Mesh Refinements Tag
+            lines (str): Assigned Lines
+            target_length (float): Target Length
+            number_of_layers (int): Number of Layers
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
 
         # Client model | Line Mesh Refinement
         clientObject = model.clientModel.factory.create('ns0:line_mesh_refinement')
@@ -94,6 +114,16 @@ class LineMeshRefinements():
                              comment: str = '',
                              params: dict = None,
                              model = Model):
+        """
+        Args:
+            no (int): Line Mesh Refinements Tag
+            lines (str): Assigned Lines
+            elements_finite_elements (int): Elements Finite Elements
+            number_of_layers (int): Number of Layers
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
 
         # Client model | Line Mesh Refinement
         clientObject = model.clientModel.factory.create('ns0:line_mesh_refinement')
@@ -136,6 +166,16 @@ class LineMeshRefinements():
                   comment: str = '',
                   params: dict = None,
                   model = Model):
+        """
+        Args:
+            no (int): Line Mesh Refinements Tag
+            lines (str): Assigned Lines
+            gradual_rows (int): Gradual Rows
+            number_of_layers (int): Number of Layers
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
 
         # Client model | Line Mesh Refinement
         clientObject = model.clientModel.factory.create('ns0:line_mesh_refinement')

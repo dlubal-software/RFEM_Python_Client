@@ -7,9 +7,9 @@ class ConcreteEffectiveLength():
                 name: str = "EL 1",
                 members_no: str = "1",
                 member_sets_no: str = "1",
-                flexural_buckling_about_y = [True, ConcreteEffectiveLengthAxisY.STRUCTURE_TYPE_UNBRACED],
-                flexural_buckling_about_z = [True, ConcreteEffectiveLengthsAxisZ.STRUCTURE_TYPE_UNBRACED],
-                nodal_supports = [[EffectiveLengthSupportType.SUPPORT_TYPE_FIXED_ALL,
+                flexural_buckling_about_y: list = [True, ConcreteEffectiveLengthAxisY.STRUCTURE_TYPE_UNBRACED],
+                flexural_buckling_about_z: list = [True, ConcreteEffectiveLengthsAxisZ.STRUCTURE_TYPE_UNBRACED],
+                nodal_supports: list = [[EffectiveLengthSupportType.SUPPORT_TYPE_FIXED_ALL,
                     True, 0, EffectiveLengthEccentricityType.ECCENTRICITY_TYPE_NONE, 0, 0, 0, 0,
                     SupportStatus.SUPPORT_STATUS_YES, RestraintTypeAboutX.SUPPORT_STATUS_NO,
                     RestraintTypeAboutZ.SUPPORT_STATUS_NO, RestraintTypeWarping.SUPPORT_STATUS_NO, "1"],
@@ -17,27 +17,29 @@ class ConcreteEffectiveLength():
                     True, 0, EffectiveLengthEccentricityType.ECCENTRICITY_TYPE_NONE, 0, 0, 0, 0,
                     SupportStatus.SUPPORT_STATUS_YES, RestraintTypeAboutX.SUPPORT_STATUS_NO,
                     RestraintTypeAboutZ.SUPPORT_STATUS_NO, RestraintTypeWarping.SUPPORT_STATUS_NO, "2"]],
-                factors = [[1, 1]],
+                factors: list = [[1, 1]],
                 comment: str = '',
                 params: dict = None,
                 model = Model):
         """
         Args:
-            no (int): Effective Length Tag
+            no (int): Concrete Effective Length Tag
             name (str): User Defined Name
             members_no (str): Assigned Members
             member_sets_no (str): Assigned Member Sets
             flexural_buckling_about_y (list): Flexural Buckling About Y Option
             flexural_buckling_about_z (list): Flexural Buckling About Z Option
-            nodal_supports (list): Nodal Support Table
-            factors (list): Factors Table
+            nodal_supports (list of lists): Nodal Support Table
+                nodal_supports = [[support_type, support_in_z, support_spring_in_y, eccentricity_type,
+                                   eccentricity_ez, restraint_spring_about_x,
+                                   restraint_spring_about_z, restraint_spring_warping, support_in_y_type,
+                                   restraint_about_x_type, restraint_about_z_type, restraint_warping_type, nodes], ...]
+            factors (list of lists): Factors Table
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
 
-        nodal_supports = [[support_type, support_in_z, support_spring_in_y, eccentricity_type,
-                           eccentricity_ez, restraint_spring_about_x,
-                           restraint_spring_about_z, restraint_spring_warping, support_in_y_type,
-                           restraint_about_x_type, restraint_about_z_type, restraint_warping_type, nodes], ...]
+
 
         factors = [[flexural_buckling_y, flexural_buckling_z]]
         """

@@ -60,21 +60,21 @@ class StructureModification():
         TODO: US-9960 Deactivate objects requires Object Selection object.
 
         Args:
-            no (int, optional): Number
-            modify_stiffnesses (dict, optional):
-            modify_stiffnesses_materials_list (list, optional):
-            modify_stiffnesses_sections_list (list, optional):
-            modify_stiffnesses_members_list (list, optional):
-            modify_stiffnesses_surfaces_list (list, optional):
-            modify_stiffnesses_member_hinges_list (list, optional):
-            modify_stiffnesses_line_hinges_list (list, optional):
-            modify_stiffnesses_nodal_supports_list (list, optional):
-            modify_stiffnesses_line_supports_list (list, optional):
-            modify_stiffnesses_member_supports_list (list, optional):
-            modify_stiffnesses_surface_supports_list (list, optional):
+            no (int, optional): Structure Modification Tag
+            modify_stiffnesses (dict, optional): Modify Stiffnesses
+            modify_stiffnesses_materials_list (list, optional): Modify Stiffnesses Materials List
+            modify_stiffnesses_sections_list (list, optional): Modify Stiffnesses Sections List
+            modify_stiffnesses_members_list (list, optional): Modify Stiffnesses Members List
+            modify_stiffnesses_surfaces_list (list, optional): Modify Stiffnesses Surfaces List
+            modify_stiffnesses_member_hinges_list (list, optional): Modify Stiffnesses Member Hinges List
+            modify_stiffnesses_line_hinges_list (list, optional): Modify Stiffnesses Line Hinges List
+            modify_stiffnesses_nodal_supports_list (list, optional): Modify Stiffnesses Nodal Supports List
+            modify_stiffnesses_line_supports_list (list, optional): Modify Stiffnesses Line Support List
+            modify_stiffnesses_member_supports_list (list, optional): Modify Stiffnesses Member Suppoorts List
+            modify_stiffnesses_surface_supports_list (list, optional): Modify Stiffnesses Surface Supports List
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Structure Modification
