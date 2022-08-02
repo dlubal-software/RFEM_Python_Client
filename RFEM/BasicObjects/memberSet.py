@@ -17,6 +17,7 @@ class MemberSet():
             member_set_type (enum): Member Set Type Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Member Set
@@ -59,6 +60,7 @@ class MemberSet():
             members_no (str): Numbers of Members Contained Within Continuous Member Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Member Set
@@ -101,6 +103,7 @@ class MemberSet():
             members_no (str): Numbers of Members Contained Within Group of Members Member Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Member Set

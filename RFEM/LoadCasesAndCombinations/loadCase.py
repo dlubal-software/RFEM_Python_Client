@@ -19,6 +19,7 @@ class LoadCase():
                 self_weight = [self_weight_active, self_weight_factor_x, self_weight_factor_y, self_weight_factor_z]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Load Case
@@ -96,6 +97,7 @@ class LoadCase():
                     self_weight = [False]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Load Case

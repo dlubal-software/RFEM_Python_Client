@@ -15,20 +15,26 @@ class GlobalParameter():
                      params: dict = None,
                      model = Model):
         '''
-        for definition_type = GlobalParameterDefinitionType.DEFINITION_TYPE_FORMULA:
-            definition_parameter = [formula]
-
-        for definition_type = GlobalParameterDefinitionType.DEFINITION_TYPE_OPTIMIZATION:
-            definition_parameter = [min, max, increment, steps]
-
-        for definition_type = GlobalParameterDefinitionType.DEFINITION_TYPE_OPTIMIZATION_ASCENDING:
-            definition_parameter = [min, max, increment, steps]
-
-        for definition_type = GlobalParameterDefinitionType.DEFINITION_TYPE_OPTIMIZATION_DESCENDING:
-            definition_parameter = [value, min, max, steps]
-
-        for definition_type = GlobalParameterDefinitionType.DEFINITION_TYPE_VALUE:
-            definition_parameter = [value]
+        Args:
+            no (int): Global Parameter Tag
+            name (str): Parameter Name
+            symbol (str): Symbol
+            unit_group (enum): Global Parameter Unit Group Enumeration
+            definition_type (enum): Global Parameter Definition Type Enumeration
+            definition_parameter (list): Definition Parameter List
+                for definition_type = GlobalParameterDefinitionType.DEFINITION_TYPE_FORMULA:
+                    definition_parameter = [formula]
+                for definition_type = GlobalParameterDefinitionType.DEFINITION_TYPE_OPTIMIZATION:
+                    definition_parameter = [min, max, increment, steps]
+                for definition_type = GlobalParameterDefinitionType.DEFINITION_TYPE_OPTIMIZATION_ASCENDING:
+                    definition_parameter = [min, max, increment, steps]
+                for definition_type = GlobalParameterDefinitionType.DEFINITION_TYPE_OPTIMIZATION_DESCENDING:
+                    definition_parameter = [value, min, max, steps]
+                for definition_type = GlobalParameterDefinitionType.DEFINITION_TYPE_VALUE:
+                    definition_parameter = [value]
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Global Parameter

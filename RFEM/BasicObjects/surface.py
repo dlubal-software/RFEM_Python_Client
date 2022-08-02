@@ -21,6 +21,7 @@ def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_ty
             thickness (int): Tag of Thickness assigned to Standard Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
     # Client model | Surface
     clientObject = model.clientModel.factory.create('ns0:surface')
@@ -100,6 +101,7 @@ class Surface():
             thickness (int): Tag of Thickness assigned to Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Surface
@@ -154,6 +156,7 @@ class Surface():
             thickness (int): Tag of Thickness assigned to Standard Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         CreateGeometryAndSetToModel(no, SurfaceType.TYPE_STANDARD, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params, model)
@@ -182,6 +185,7 @@ class Surface():
             boundary_lines_no (str): Numbers of Lines defining Without Thickness Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, comment=comment, params=params, model=model)
@@ -210,6 +214,7 @@ class Surface():
             boundary_lines_no (str): Numbers of Lines defining Rigid Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         CreateGeometryAndSetToModel(no, SurfaceType.TYPE_RIGID, boundary_lines_no, geometry_type, geometry_type_parameters, comment=comment, params=params, model=model)
@@ -240,6 +245,7 @@ class Surface():
             thickness (int): Tag of Thickness assigned to Membrane Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params, model)
@@ -270,6 +276,7 @@ class Surface():
             thickness (int): Tag of Thickness assigned to Without Membrane Tension Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params, model)
@@ -306,6 +313,7 @@ class Surface():
             loaded_lines (str): Tag of Loaded Lines
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Surface
@@ -366,6 +374,7 @@ class Surface():
         '''
         Args:
             surfaces_no (str): Numbers of Surfaces to be deleted
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Delete surfaces from client model

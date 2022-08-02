@@ -122,6 +122,7 @@ class MemberLoad():
                         'eccentricity_y_at_start': 0.0,
                         'eccentricity_z_at_end': 0.0,
                         'eccentricity_z_at_start': 0.0}
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member Load
         clientObject = model.clientModel.factory.create('ns0:member_load')
@@ -410,6 +411,7 @@ class MemberLoad():
             list_reference (bool): Enable/Disable List Reference Option
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member Load
         clientObject = model.clientModel.factory.create('ns0:member_load')
@@ -619,6 +621,7 @@ class MemberLoad():
                     mass_components = [Mx, My, Mz, Ix, Iy, Iz]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member Load
         clientObject = model.clientModel.factory.create('ns0:member_load')
@@ -702,6 +705,7 @@ class MemberLoad():
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Member Load
@@ -862,6 +866,7 @@ class MemberLoad():
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Member Load
@@ -1019,6 +1024,7 @@ class MemberLoad():
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Member Load
@@ -1152,6 +1158,7 @@ class MemberLoad():
             magnitude (float): Load Magnitude
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Member Load
@@ -1229,6 +1236,7 @@ class MemberLoad():
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Member Load
@@ -1362,6 +1370,7 @@ class MemberLoad():
             magnitude (float): Load Magnitude
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Member Load
@@ -1449,6 +1458,7 @@ class MemberLoad():
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Member Load
@@ -1687,6 +1697,7 @@ class MemberLoad():
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Member Load
@@ -1899,6 +1910,7 @@ class MemberLoad():
             specific_weight (float): Specific Weight
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Member Load
@@ -1965,6 +1977,7 @@ class MemberLoad():
             filling_height (float): Filling Height
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Member Load
@@ -2030,6 +2043,7 @@ class MemberLoad():
             pressure (float): Pressure
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Member Load
@@ -2101,6 +2115,7 @@ class MemberLoad():
             axis_definition_p2 (list): P2 List [X, Y, Z]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Member Load

@@ -1378,6 +1378,7 @@ class Member():
                     integration_parameters = [result_beam_radius]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
@@ -1598,6 +1599,7 @@ class Member():
             definable_stiffness (int): Definable Stiffness Tag
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
@@ -1700,6 +1702,7 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
@@ -1778,6 +1781,7 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
@@ -1856,6 +1860,7 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
@@ -1934,6 +1939,7 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
@@ -1991,6 +1997,7 @@ class Member():
         '''
         Args:
             members_no (str): Numbers of Members to be deleted
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Delete from client model

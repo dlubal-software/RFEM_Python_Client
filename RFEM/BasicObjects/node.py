@@ -22,6 +22,7 @@ class Node():
             coordinate_Z (float): Z-Coordinate
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
         # Client model | Node
         clientObject = model.clientModel.factory.create('ns0:node')
@@ -74,6 +75,7 @@ class Node():
             coordinate_system_type (enum): Coordinate System Type Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Node
@@ -170,6 +172,7 @@ class Node():
             offset_z (int): Offset in Z-Direction
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Node
@@ -255,6 +258,7 @@ class Node():
             offset_z (float): Offset in Z-Direction
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Node
@@ -329,6 +333,7 @@ class Node():
                 parameters = [False, magnitude]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Node
@@ -393,6 +398,7 @@ class Node():
                 parameters = [False, magnitude]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Node
@@ -439,6 +445,7 @@ class Node():
         '''
         Args:
             nodes_no (str): Numbers of Nodes to be deleted
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Delete from client model

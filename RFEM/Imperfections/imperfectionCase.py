@@ -30,7 +30,7 @@ class ImperfectionCase():
             active (bool, optional): Active
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Imperfection Case
@@ -87,7 +87,7 @@ class ImperfectionCase():
             assigned_to_load_cases (str, optional): Assigned Load Cases
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # assigned_to_load_combinations XY is first in parameter list because imperfections are
@@ -158,7 +158,7 @@ class ImperfectionCase():
             active (bool, optional): Active
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Imperfection Case
@@ -248,7 +248,7 @@ class ImperfectionCase():
             active (bool, optional): Active
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Imperfection Case
@@ -326,7 +326,7 @@ class ImperfectionCase():
             active (bool, optional): Active
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Imperfection Case
@@ -414,7 +414,7 @@ class ImperfectionCase():
             active (bool, optional): Active
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Imperfection Case

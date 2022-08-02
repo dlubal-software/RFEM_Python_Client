@@ -6,8 +6,8 @@ class SolidContact():
                  no: int = 1,
                  perpendicular_contact = SolidContactPerpendicularType.FAILURE_UNDER_TENSION,
                  parallel_contact = SolidContactParallelType.FULL_FORCE_TRANSMISSION,
-                 contact_parameters = None,
-                 solids = '',
+                 contact_parameters: list = None,
+                 solids: str = '',
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -15,19 +15,24 @@ class SolidContact():
         Solid Contact
 
         Args:
-            no (int, optional): Numbers
-            perpendicular_contact (enum, optional): Contact parpendicualr to surfaces
-            parallel_contact (enum, optional): Contact paralles to surfaces
-            contact_parameters (list, optional): Contact parameters.
-                RIGID_FRICTION: [friction_coefficient]
-                RIGID_FRICTION_LIMIT: [limit_stress]
-                ELASTIC_FRICTION: [shear_stiffness, friction_coefficient]
-                ELASTIC_FRICTION_LIMIT: [shear_stiffness, limit_stress]
-                ELASTIC_SOLID_BEHAVIOR: [shear_stiffness]
-            solids (str, optional): Assigned to solids
+            no (int): Solid Contact Tag
+            perpendicular_contact (enum): Solid Contact Perpendicular Type Enumeration
+            parallel_contact (enum): Solid Contact Parallel Type Enumeration
+            contact_parameters (list): Contact Parameters List
+                for parallel_contact == RIGID_FRICTION:
+                    contact_parameters = [friction_coefficient]
+                for parallel_contact == RIGID_FRICTION_LIMIT:
+                    contact_parameters = [limit_stress]
+                for parallel_contact == ELASTIC_FRICTION:
+                    contact_parameters = [shear_stiffness, friction_coefficient]
+                for parallel_contact == ELASTIC_FRICTION_LIMIT:
+                    contact_parameters = [shear_stiffness, limit_stress]
+                for parallel_contact == ELASTIC_SOLID:
+                    contact_parameters = [shear_stiffness]
+            solids (str): Assigned to solids
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
 
         Raises:
             ValueError: There are no paramters for given parallel contact.

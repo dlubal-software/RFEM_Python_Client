@@ -29,7 +29,7 @@ class MemberImperfection():
             parameters (list, optional): Parameters depending on imperfection and definition type
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Imperfection Case

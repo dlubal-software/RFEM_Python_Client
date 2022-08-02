@@ -37,6 +37,7 @@ class FreeLoad():
                     load_parameter = [magnitude, X, Z]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Free Concentrated Load
@@ -109,6 +110,7 @@ class FreeLoad():
                     load_parameter = [magnitude_first, magnitude_second, load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Free Concentrated Load
@@ -215,6 +217,7 @@ class FreeLoad():
                         load_location_parameter = [load_location_center_x, load_location_center_y, load_location_center_side_a, load_location_center_side_b, [[distance, factor], ...], [axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z], [axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z], axis_start_angle,[[alpha, factor], ...]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Free Concentrated Load
@@ -467,6 +470,7 @@ class FreeLoad():
                     load_parameter = [magnitude_center, magnitude_radius, load_location_x, load_location_y, load_location_radius]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Free Concentrated Load
@@ -560,6 +564,7 @@ class FreeLoad():
                     load_parameter = [magnitude_linear_1, magnitude_linear_2, magnitude_linear_location_1, magnitude_linear_location_2]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Free Concentrated Load

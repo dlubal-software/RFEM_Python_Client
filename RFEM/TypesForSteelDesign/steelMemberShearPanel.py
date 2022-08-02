@@ -17,42 +17,38 @@ class SteelMemberShearPanel():
         Args:
             no (int): Member Shear Panel Tag
             user_defined_name (list): User Defined Member Shear Panel Name
+                for user_defined_name[0] == False:
+                    pass
+                for user_defined_name == True:
+                    user_defined_name[1] = Defined Name
             definition_type (enum): Member Shear Panel Definition Enumeration Type
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
             categories (list): Positional Categories
-
                 for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING:
                     categories[0] = Section Position Enumeration Type
                     categories[1] = Sheeting Name
                     categories[2] = Fastening Arrangment Enumeration Type
-
                 for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_BRACING:
                     categories[0] = Section Position Enumeration Type
                     categories[1] = Diagonal Section Name
                     categories[2] = Post Section Name
-
                 for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING_AND_BRACING:
                     categories[0] = Section Position Enumeration Type
                     categories[1] = Sheeting Name
                     categories[2] = Digonal Section Name
                     categories[3] = Post Section Name
                     categories[4] = Fastening Arrangment Enumeration Type
-
                 for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_DEFINE_S_PROV:
                     categories[0] = Section Position Enumeration Type
-
-            parameters (list): Positional Parameters
-
+            parameters (list): Positional Parameters List
                 for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING:
                     parameters[0] = Panel Length
                     parameters[1] = Beam Spacing
                     parameters[2] = K1 Coefficient
                     parameters[3] = K2 Coefficient
-
                     if categories[0] == "POSITION_DEFINE":
                         parameters[4] = Position on Section Value
-
                 for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_BRACING:
                     parameters[0] = Panel Length
                     parameters[1] = Beam Spacing
@@ -60,10 +56,8 @@ class SteelMemberShearPanel():
                     parameters[3] = Number of Bracings
                     parameters[4] = Diagonals Section Area
                     parameters[5] = Post Section Area
-
                     if categories[0] == "POSITION_DEFINE":
                         parameters[6] = Position on Section Value
-
                 for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING_AND_BRACING:
                     parameters[0] = Panel Length
                     parameters[1] = Beam Spacing
@@ -73,18 +67,15 @@ class SteelMemberShearPanel():
                     parameters[5] = Number of Bracing
                     parameters[6] = Diagonals Section Area
                     parameters[7] = Post Section Area
-
                     if categories[0] == "POSITION_DEFINE":
                         parameters[8] = Position on Section Value
-
                 for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_DEFINE_S_PROV:
                     parameters[0] = Stifness
-
                     if categories[0] == "POSITION_DEFINE":
                         parameters[1] = Position on Section Value
-
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
          # Client Model | Types For Steel Design Member Shear Panel

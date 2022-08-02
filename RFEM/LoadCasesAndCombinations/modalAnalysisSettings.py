@@ -27,6 +27,7 @@ class ModalAnalysisSettings():
             neglect_masses (enum): Neglect Masses Enumeration
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Surface
         clientObject = model.clientModel.factory.create('ns0:modal_analysis_settings')

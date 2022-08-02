@@ -14,16 +14,19 @@ class SurfaceContactType():
         Surface Contact Type
 
         Args:
-            no (int, optional): Numbers
-            perpendicular_contact (enum, optional): Contact parpendicualr to surfaces
-            parallel_contact (enum, optional): Contact paralles to surfaces
-            contact_parameters (list, optional): Contact parameters.
-                RIGID_FRICTION: [enum rigid_friction_type, rigid_friction_coefficient or rigid_friction_limit_stress]
-                ELASTIC_FRICTION: [elastic_friction_shear_stiffness, enum elastic_friction_type, elastic_friction_coefficient or elastic_friction_limit_stress]
-                ELASTIC_SURFACE: [elastic_behavior_shear_stiffness]
+            no (int): Surface Contact Type Tag
+            perpendicular_contact (enum): Surface Contact Perpendicular Type Enumeration
+            parallel_contact (enum): Surface Contact Parallel Type Enumeration
+            contact_parameters (list): Contact Parameters List
+                for parallel_contact == RIGID_FRICTION:
+                    contact_parameters = [enum rigid_friction_type, rigid_friction_coefficient or rigid_friction_limit_stress]
+                for parallel_contact == ELASTIC_FRICTION:
+                    contact_parameters = [elastic_friction_shear_stiffness, enum elastic_friction_type, elastic_friction_coefficient or elastic_friction_limit_stress]
+                for parallel_contact == ELASTIC_SURFACE:
+                    contact_parameters = [elastic_behavior_shear_stiffness]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
 
         Raises:
             ValueError: There are no paramters for given parallel contact.
@@ -88,11 +91,11 @@ class SurfaceContactType():
         Full Force Transmission Surface Contact Type
 
         Args:
-            no (int, optional): Numbers
-            perpendicular_contact (enum, optional): Contact parpendicualr to surfaces
+            no (int): Surface Contact Type Tag
+            perpendicular_contact (enum): Surface Contact Perpendicular Type Enumeration
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Surface Contact
@@ -134,13 +137,13 @@ class SurfaceContactType():
         Rigid Friction Surface Contact Type
 
         Args:
-            no (int, optional): Number
-            perpendicular_contact (enum, optional): Contact parpendicualr to surfaces
-            rigid_friction_type (enum, optional): Rigid friction Type
-            rigid_friction_value (float, optional): Value of rigid_friction_coefficient or rigid_friction_limit_stress
+            no (int): Surface Contact Type Tag
+            perpendicular_contact (enum): Surface Contact Perpendicular Type Enumeration
+            rigid_friction_type (enum): Surface Contact Friction Type Enumeration
+            rigid_friction_value (float): Value of rigid_friction_coefficient or rigid_friction_limit_stress
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Surface Contact
@@ -192,13 +195,14 @@ class SurfaceContactType():
         Elastic Friction Surface Contact Type
 
         Args:
-            no (int, optional): Number
-            perpendicular_contact (enum, optional): Contact parpendicualr to surfaces
-            elastic_friction_type (enum, optional): Elastic friction Type
+            no (int, optional): Surface Contact Type Tag
+            perpendicular_contact (enum, optional): Surface Contact Perpendicular Type Enumeration
+            shear_stiffness (float): Shear Stiffness
+            elastic_friction_type (enum, optional): Surface Contact Friction Type Enumeration
             elastic_friction_value (float, optional): Value of elastic_friction_coefficient or elastic_friction_limit_stress
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Surface Contact
@@ -251,12 +255,12 @@ class SurfaceContactType():
         Elastic Friction Surface Contact Type
 
         Args:
-            no (int, optional): Number
-            perpendicular_contact (enum, optional): Contact parpendicualr to surfaces
-            shear_stiffness (float, optional): Shear stiffness value
+            no (int): Surface Contact Type Tag
+            perpendicular_contact (enum): Surface Contact Perpendicular Type Enumeration
+            shear_stiffness (float): Shear stiffness value
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Surface Contact

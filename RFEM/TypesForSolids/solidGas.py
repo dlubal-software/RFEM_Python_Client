@@ -13,13 +13,13 @@ class SolidGas():
         Gas Solids
 
         Args:
-            no (int, optional): Number
-            pressure (float, optional): Preassure in Pascals
-            temperature (float, optional): Temperature in Kelvins
-            solids (str, optional): Assigned to solids
+            no (int): Solid Contact Tag
+            pressure (float): Preassure in Pascals
+            temperature (float): Temperature in Kelvins
+            solids (str): Assigned to solids
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Solid Gas

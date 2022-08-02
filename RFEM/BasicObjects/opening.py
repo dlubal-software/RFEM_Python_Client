@@ -15,6 +15,7 @@ class Opening():
             lines_no (str): Numbers of Lines defining Opening
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Opening
@@ -46,6 +47,7 @@ class Opening():
         '''
         Args:
             openings_no (str): Numbers of Openings to be deleted
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Delete from client model

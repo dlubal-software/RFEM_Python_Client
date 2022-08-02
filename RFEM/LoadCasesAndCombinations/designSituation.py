@@ -19,7 +19,8 @@ class DesignSituation():
             active (bool): Enable/Disable Design Situation Activity
             name (str, optional): User-Defined Name
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Design Situation

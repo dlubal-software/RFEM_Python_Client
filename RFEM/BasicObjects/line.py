@@ -15,6 +15,7 @@ class Line():
             nodes_no (str): Nodes Defining Line
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line
@@ -54,6 +55,7 @@ class Line():
             nodes_no (str): Nodes Defining Polyline
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line
@@ -100,6 +102,7 @@ class Line():
             alpha_adjustment_target (enum): Line Arc Alpha Adjustment Target Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line
@@ -151,6 +154,7 @@ class Line():
             point_of_normal_to_circle_plane (list): Vector from Circle Centre to this Point [X, Y, Z] defines Vector Normal to Circle Plane
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line
@@ -209,6 +213,7 @@ class Line():
             arc_angle_beta (float): Beta Arc Angle (in Radians)
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line
@@ -265,6 +270,7 @@ class Line():
             ellipse_control_point (list): Ellipse Control Point [X, Y, Z]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line
@@ -317,6 +323,7 @@ class Line():
             parabola_alpha (float): Alpha Angle (in Radians)
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line
@@ -367,6 +374,7 @@ class Line():
             nodes_no (str): Node Tags on Line of Spline
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line
@@ -414,6 +422,7 @@ class Line():
             order (int, optional): Order of the curve with 3 as default value
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line
@@ -466,6 +475,7 @@ class Line():
         '''
         Args:
             lines_no (str): Numbers of Lines to be deleted
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Delete from client model

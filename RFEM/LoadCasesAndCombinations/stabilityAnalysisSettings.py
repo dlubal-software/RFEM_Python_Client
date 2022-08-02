@@ -93,8 +93,9 @@ class StabilityAnalysisSettings():
                     local_torsional_rotations = double
             eigenvalue_method (enum): Eigenvalue Method Enumeration
             matrix_type (enum): Matrix Type Enumeration
-            comment (str, optional):
-            params (dict, optional):
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
         # Client model | Stability Analysis Settings
         clientObject = model.clientModel.factory.create('ns0:stability_analysis_settings')
@@ -215,6 +216,7 @@ class StabilityAnalysisSettings():
             matrix_type (enum): Matrix Type Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
         # Client model | Stability Analysis Settings
         clientObject = model.clientModel.factory.create('ns0:stability_analysis_settings')
@@ -344,6 +346,7 @@ class StabilityAnalysisSettings():
             save_results_of_all_increments (bool, optional): Save Results of All Increments
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
         # Client model | Stability Analysis Settings
         clientObject = model.clientModel.factory.create('ns0:stability_analysis_settings')

@@ -17,6 +17,7 @@ class SurfaceSet():
             surfaces_set_type (enum): Surface Set Type Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Surface Set
@@ -59,6 +60,7 @@ class SurfaceSet():
             surfaces_no (str): Numbers of Surfaces Contained Within Continuous Surface Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Surface Set
@@ -101,6 +103,7 @@ class SurfaceSet():
             surfaces_no (str): Numbers of Surfaces Contained Within Group of Surfaces Surface Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Surface Set

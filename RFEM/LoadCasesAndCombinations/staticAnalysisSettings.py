@@ -17,8 +17,9 @@ class StaticAnalysisSettings():
             no (int): Static Analysis Setting Tag
             name (str): Static Analysis Setting Name
             analysis_type (enum): Analysis Type Enumeration
-            comment (str): Comments
-            params (dict): Parameters
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Surface
         clientObject = model.clientModel.factory.create('ns0:static_analysis_settings')
@@ -73,8 +74,9 @@ class StaticAnalysisSettings():
             plate_bending_theory (enum): Static Analysis Settings Plate Bending Theory Enumeration
             mass_conversion (list, optional): Mass Conversion Parameters
                 mass_conversion = [mass_conversion_enabled, mass_conversion_factor_in_direction_x, mass_conversion_factor_in_direction_y, mass_conversion_factor_in_direction_z]
-            comment (str, optional):
-            params (dict, optional):
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model
@@ -174,6 +176,7 @@ class StaticAnalysisSettings():
                 mass_conversion = [mass_conversion_enabled, mass_conversion_factor_in_direction_x, mass_conversion_factor_in_direction_y, mass_conversion_factor_in_direction_z]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model
@@ -296,8 +299,9 @@ class StaticAnalysisSettings():
             plate_bending_theory (enum): Static Analysis Settings Plate Bending Theory Enumeration
             mass_conversion (list, optional): Mass Conversion Parameters
                 mass_conversion = [mass_conversion_enabled, mass_conversion_factor_in_direction_x, mass_conversion_factor_in_direction_y, mass_conversion_factor_in_direction_z]
-            comment (str, optional):
-            params (dict, optional):
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model

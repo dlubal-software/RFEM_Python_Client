@@ -110,6 +110,7 @@ class LineLoad():
             list_reference (bool): List Reference Bool
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line Load
@@ -363,6 +364,7 @@ class LineLoad():
             list_reference (bool): List Reference Bool
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line Load
@@ -595,6 +597,7 @@ class LineLoad():
                     mass_components = [mass_x, mass_y, mass_z]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line Load

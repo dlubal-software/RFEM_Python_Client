@@ -20,6 +20,7 @@ class ImposedNodalDeformation():
                 load_parameter = [imposed_displacement_x, imposed_displacement_y, imposed_displacement_z, imposed_rotation_x, imposed_rotation_y imposed_rotation_z]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
         # Client model | Imposed Nodal Deformation
         clientObject = model.clientModel.factory.create('ns0:imposed_nodal_deformation')

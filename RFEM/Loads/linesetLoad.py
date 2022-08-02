@@ -25,6 +25,7 @@ class LineSetLoad():
             magnitude (float): Magnitude of Line Load
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Lineset Load
@@ -113,6 +114,7 @@ class LineSetLoad():
             list_reference (bool) : List Reference Bool
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
         # Client model | Lineset Load
         clientObject = model.clientModel.factory.create('ns0:line_set_load')
@@ -364,6 +366,7 @@ class LineSetLoad():
             list_reference (bool) : List Reference Bool
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
         # Client model | Lineset Load
         clientObject = model.clientModel.factory.create('ns0:line_set_load')
@@ -595,6 +598,7 @@ class LineSetLoad():
                     mass_components = [mass_x, mass_y, mass_z]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line Load

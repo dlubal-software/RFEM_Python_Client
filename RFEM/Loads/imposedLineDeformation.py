@@ -26,6 +26,7 @@ class ImposedLineDeformation():
             line_no (str): Assigned line(s)
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Imposed Line Deformation

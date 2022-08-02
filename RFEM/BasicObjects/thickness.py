@@ -23,6 +23,7 @@ class Thickness():
             uniform_thickness_d (float): Magnitude of Thickness
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Thickness
@@ -77,6 +78,7 @@ class Thickness():
             properties (list): Magnitude of Thickness [Thickness]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Thickness
@@ -134,6 +136,7 @@ class Thickness():
                 properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, thickness_d3, node_no_3]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Thickness
@@ -198,6 +201,7 @@ class Thickness():
                 properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, direction]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
 
         '''
 
@@ -260,6 +264,7 @@ class Thickness():
                 properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, thickness_d3, node_no_3, thickness_d4, node_no_4]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
 
         '''
 
@@ -327,6 +332,7 @@ class Thickness():
                 properties = [thickness_circle_center_dC, thickness_circle_line_dR]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Thickness
@@ -386,6 +392,7 @@ class Thickness():
             layers (list of list): ???
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Check if Multilayer Surfaces Add-on is ON.
@@ -488,6 +495,7 @@ class Thickness():
                     parameters = [slab_thickness, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Thickness
@@ -626,6 +634,7 @@ class Thickness():
                                             [D16, D17, D18, D27, D28, D38]]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Thickness
@@ -703,6 +712,7 @@ class Thickness():
         '''
         Args:
             thickness_no (str): Numbers of Thickness to be deleted
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Delete from client model

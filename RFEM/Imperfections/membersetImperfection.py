@@ -29,7 +29,7 @@ class MemberSetImperfection():
             parameters (list, optional): _description_. Defaults to [0.035].
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Imperfection Case

@@ -17,7 +17,7 @@ class Section():
             material_no (int): Tag of Material assigned to Section
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Section
@@ -52,6 +52,7 @@ class Section():
         '''
         Args:
             sections_no (str): Numbers of Sections to be deleted
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Delete from client model

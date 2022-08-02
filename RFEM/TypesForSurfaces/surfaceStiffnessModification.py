@@ -13,17 +13,18 @@ class SurfaceStiffnessModification():
         Surface Stiffeness Modification
 
         Args:
-            no (int, optional): Number
-            type (_type_, optional): Modification Type
-            factors (list, optional): Stiffeness Modification Factors
-                if SurfaceStiffnessModificationType.TYPE_TOTAL_STIFFNESS_FACTOR:
-                    factor_of_total_stiffness
-                elif SurfaceStiffnessModificationType.TYPE_PARTIAL_STIFFNESSES_FACTORS:
-                    factor_of_bending_stiffness, factor_of_shear_stiffness, factor_of_membrane_stiffness, factor_of_eccentric_effects, and factor_of_weight
-                elif SurfaceStiffnessModificationType.TYPE_STIFFNESS_MATRIX_ELEMENTS_FACTORS:
-                    all 21 factors from kd11 to kd38
-            comment (str, optional): Comments
+            no (int): Surface Stiffness Modification Tag
+            type (enum): Surface Stiffness Modification Type Enumeration
+            factors (list): Stiffeness Modification Factors
+                for type == TYPE_TOTAL_STIFFNESS_FACTOR:
+                    factors = [factor_of_total_stiffness]
+                for type == TYPE_PARTIAL_STIFFNESSES_FACTORS:
+                    factors = [factor_of_bending_stiffness, factor_of_shear_stiffness, factor_of_membrane_stiffness, factor_of_eccentric_effects, and factor_of_weight]
+                for type == TYPE_STIFFNESS_MATRIX_ELEMENTS_FACTORS:
+                    factors = list of all 21 factors from kd11 to kd38
+            comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Surface Stifness Modification

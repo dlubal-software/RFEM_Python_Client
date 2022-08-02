@@ -34,6 +34,7 @@ class LoadCombination():
                     combination_items = [[factor, load_case, action, is_leading],...]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Load Combination
