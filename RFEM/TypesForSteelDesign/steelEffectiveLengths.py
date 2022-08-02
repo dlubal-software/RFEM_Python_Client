@@ -48,7 +48,7 @@ class SteelEffectiveLengths():
                     pass
                 for user_defined_name == True:
                     user_defined_name[1] = Defined Name
-            nodal_supports (list): Nodal Support Table Definition
+            nodal_supports (list of lists): Nodal Support Table Definition
                 nodal_supports[i][0] (enum): Support Type Enumeration Type
                 nodal_supports[i][1] (bool): Support in Z Option
                 nodal_supports[i][2] (float): Support Spring in Y Coefficient
@@ -62,7 +62,7 @@ class SteelEffectiveLengths():
                 nodal_supports[i][10] (enum): Restraint Type in Z Enumeration Type
                 nodal_supports[i][11] (enum): Restraint Type Warping Enumeration Type
                 nodal_supports[i][12] (str): Assigned Nodes
-            factors (list): Effective Length Factors
+            factors (list of lists): Effective Length Factors
                 factors[i][0] (float): Flexural Buckling in U Coefficient
                 factors[i][1] (float): Flexural Buckling in V Coefficient
                 factors[i][2] (float): Flexural Buckling in Y Coefficient
