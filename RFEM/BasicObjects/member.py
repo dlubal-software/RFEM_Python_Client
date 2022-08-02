@@ -1336,7 +1336,7 @@ class Member():
             end_node_no (int,): Tag of End Node
             section_distribution_type (enum): Section Distribution Type Enumeration
             rotation_specification_type (enum): Rotation Specification Type Enumeration
-            result_beam_integrate_stresses_and_forces (enum): ???
+            result_beam_integrate_stresses_and_forces (enum): Member Result Beam Integration Enumeration
             rotation_parameters (list): Rotation Parameters
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
                     rotation_parameters = [rotation_angle]
