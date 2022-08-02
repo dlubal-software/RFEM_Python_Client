@@ -11,12 +11,36 @@ class SteelMemberLocalSectionReduction():
                  member_sets: str = '',
                  components: list = [
                     [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 0.0, False, 0, \
-                     MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE,0.0,FastenerDefinitionType.DEFINITION_TYPE_ABSOLUTE, 0.0]
+                     MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 0.0, FastenerDefinitionType.DEFINITION_TYPE_ABSOLUTE, 0.0]
                                     ],
                  user_defined_name: list = [False],
                  comment: str = '',
                  params: dict = None,
                  model = Model):
+        """
+        Args:
+            no (int): Member Local Section Reduction Tag
+            members (str): Assigned Members
+            member_sets (str): Assigned Member Sets
+            components (list of lists): Components Table Definition
+                components[i][0] (enum): Steel Member Local Section Reduction Type Enumeration
+                components[i][1] (float): Position Value
+                components[i][2] (bool): Enable/Disable Multiple Option
+                if components[i][2] == True
+                    components[i][3] (int): Multiple Number
+                    components[i][4] (enum): Multiple Offset Definition Type Enumeration
+                    components[i][5] (float): Multiple Offset Value
+                components[i][6] (enum): Fastener Definition Type Enumeration
+                components[i][7] (float): Reduction Area
+            user_defined_name (list): User Defined  Member Local Section Reduction Name
+                for user_defined_name[0] == False:
+                    pass
+                for user_defined_name == True:
+                    user_defined_name[1] = Defined Name
+            comment (str): Comments
+            params (dict): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
 
         # Client Model | Types For Steel Member Local Section Reduction
         clientObject = model.clientModel.factory.create('ns0:steel_member_local_section_reduction')
