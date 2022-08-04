@@ -389,7 +389,7 @@ class Thickness():
         Args:
             no (int): Thickness Tag
             name (str): Thickness Name
-            layers (list of list): ???
+            layers (list of lists): Layers Table as an Array
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited

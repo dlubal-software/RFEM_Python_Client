@@ -16,7 +16,7 @@ class ImposedNodalDeformation():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             node_no (str): Assigned node(s)
-            load_parameter: Load Parameters
+            load_parameter (list): Load Parameters List
                 load_parameter = [imposed_displacement_x, imposed_displacement_y, imposed_displacement_z, imposed_rotation_x, imposed_rotation_y imposed_rotation_z]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
