@@ -19,7 +19,7 @@ class MemberSetLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_direction (enum): Load Case Enumeration
+            load_direction (enum): Load Direction Enumeration
             magnitude (float): Load Magnitude
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -83,32 +83,32 @@ class MemberSetLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
+            load_distribution (enum): MemberSet Load Distribution Enumeration
+            load_direction (enum): MemberSet Load Direction Enumeration
             load_parameter (list/list of lists): Load Parameter
-                for LOAD_DISTRIBUTION_UNIFORM:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [magnitude]
-                for LOAD_DISTRIBUTION_UNIFORM_TOTAL:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM_TOTAL:
                     load_parameter = [magnitude]
-                for LOAD_DISTRIBUTION_CONCENTRATED_1:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1:
                     load_parameter = [relative_distance = False, magnitude, distance_a]
-                for LOAD_DISTRIBUTION_CONCENTRATED_N:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude, count_n, distance_a, distance_b]
-                for LOAD_DISTRIBUTION_CONCENTRATED_2x2:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, relative_distance_c = False, magnitude, distance_a, distance_b, distance_c]
-                for LOAD_DISTRIBUTION_CONCENTRATED_2:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
-                for LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
                     load_parameter = [[distance, delta_distance, magnitude], ...]
-                for LOAD_DISTRIBUTION_TRAPEZOIDAL:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-                for LOAD_DISTRIBUTION_TAPERED:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-                for LOAD_DISTRIBUTION_PARABOLIC:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-                for LOAD_DISTRIBUTION_VARYING:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
                     load_parameter = [[distance, delta_distance, magnitude], ...]
-                for LOAD_DISTRIBUTION_VARYING_IN_Z:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
                     load_parameter = [[distance, delta_distance, magnitude], ...]
             force_eccentricity (bool): Force Eccentricity Option
             comment (str, optional): Comments
@@ -413,28 +413,28 @@ class MemberSetLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
+            load_distribution (enum): MemberSet Load Distribution Enumeration
+            load_direction (enum): MemberSet Load Direction Enumeration
             load_parameter (list/list of lists): Load Parameters
-                for LOAD_DISTRIBUTION_UNIFORM:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [magnitude]
-                for LOAD_DISTRIBUTION_CONCENTRATED_1:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1:
                     load_parameter = [relative_distance = False, magnitude, distance_a]
-                for LOAD_DISTRIBUTION_CONCENTRATED_N:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude, count_n, distance_a, distance_b]
-                for LOAD_DISTRIBUTION_CONCENTRATED_2x2:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, relative_distance_c = False, magnitude, distance_a, distance_b, distance_c]
-                for LOAD_DISTRIBUTION_CONCENTRATED_2:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
-                for LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
                     load_parameter = [[distance, delta_distance, magnitude], ...]
-                for LOAD_DISTRIBUTION_TRAPEZOIDAL:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-                for LOAD_DISTRIBUTION_TAPERED:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-                for LOAD_DISTRIBUTION_PARABOLIC:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-                for LOAD_DISTRIBUTION_VARYING:
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
                     load_parameter = [[distance, delta_distance, magnitude], ...]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -739,8 +739,8 @@ class MemberSetLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
+            load_distribution (enum): MemberSet Load Distribution Enumeration
+            load_direction (enum): MemberSet Load Direction Enumeration
             load_parameter (list/list of lists): Load Parameters
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [tt, tb]
@@ -916,8 +916,8 @@ class MemberSetLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
+            load_distribution (enum): MemberSet Load Distribution Enumeration
+            load_direction (enum): MemberSet Load Direction Enumeration
             load_parameter (list/list of lists): Load Parameters
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [tc, delta_t]
@@ -1087,8 +1087,8 @@ class MemberSetLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
+            load_distribution (enum): MemberSet Load Distribution Enumeration
+            load_direction (enum): MemberSet Load Direction Enumeration
             load_parameter (list/list of lists): Load Parameters
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [epsilon]
@@ -1248,7 +1248,7 @@ class MemberSetLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Set
-            load_direction (enum): Load Direction Enumeration
+            load_direction (enum): MemberSet Load Direction Enumeration
             magnitude (float): Load Magnitude
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -1310,8 +1310,8 @@ class MemberSetLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
+            load_distribution (enum): MemberSet Load Distribution Enumeration
+            load_direction (enum): MemberSet Load Direction Enumeration
             load_parameter (list/list of lists): Load Parameters
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [magnitude]
@@ -1472,7 +1472,7 @@ class MemberSetLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_direction (enum): Load Direction Enumeration
+            load_direction (enum): MemberSet Load Direction Enumeration
             magnitude (float): Load Magnitude
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -1534,8 +1534,8 @@ class MemberSetLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
+            load_distribution (enum): MemberSet Load Distribution Enumeration
+            load_direction (enum): MemberSet Load Direction Enumeration
             load_parameter (list/list of lists): Load Parameters
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [magnitude]
@@ -1801,8 +1801,8 @@ class MemberSetLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
+            load_distribution (enum): MemberSet Load Distribution Enumeration
+            load_direction (enum): MemberSet Load Direction Enumeration
             load_parameter (list/list of lists): Load Parameters
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [magnitude]
@@ -2066,7 +2066,7 @@ class MemberSetLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_direction_orientation (enum): Load Direction Orientation Enumeration
+            load_direction_orientation (enum): MemberSet Load Direction Orientation Enumeration
             specific_weight (float): Specific Weight
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -2130,7 +2130,7 @@ class MemberSetLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_direction_orientation (enum): Load Direction Orientation Enumeration
+            load_direction_orientation (enum): MemberSet Load Direction Orientation Enumeration
             specific_weight (float): Specific Weight
             filling_height (float): Filling Height
             comment (str, optional): Comment
@@ -2262,9 +2262,9 @@ class MemberSetLoad():
             member_sets (str): Assigned Member Sets
             angular_acceleration (float): Angular Acceleration
             angular_velocity (float): Angular Velocity
-            axis_definition_type (enum): Axis Definition Type Enumeration
-            axis_orientation (enum): Axis Orientation Enumeration
-            axis_definition (enum): Axis Definition Enumeration
+            axis_definition_type (enum): MemberSet Load Axis Definition Type Enumeration
+            axis_orientation (enum): MemberSet Load Axis Orientation Enumeration
+            axis_definition (enum): MemberSet Load Axis Definition Enumeration
             axis_definition_p1 (list):Axis Definition First Point
             axis_definition_p2 (list): Axis Definition Second Point
             comment (str, optional): Comment

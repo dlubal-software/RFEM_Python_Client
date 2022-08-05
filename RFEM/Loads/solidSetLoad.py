@@ -18,7 +18,7 @@ class SolidSetLoad():
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            solid_sets_no (str): Assigned Solid Set
+            solid_sets_no (str): Assigned Solid Sets
             load_type (enum): Solid Set Load Type Enumeration
             load_distribution (enum): Solid Set Load Distribution Enumeration
             load_direction (enum): Solid Set Load Direction Enumeration
@@ -81,7 +81,7 @@ class SolidSetLoad():
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            solid_sets_no (str): Assigned Solid Set
+            solid_sets_no (str): Assigned Solid Sets
             load_direction (enum): Solid Set Load Direction Enumeration
             magnitude (float): Uniform Magnitude
             comment (str, optional): Comments
@@ -140,16 +140,16 @@ class SolidSetLoad():
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            solid_sets_no (str): Assigned Solid Set
+            solid_sets_no (str): Assigned Solid Sets
             load_distribution (enum): Solid Set Load Distribution Enumeration
             load_parameter (float/list): Load Parameter List
-                for LOAD_DISTRIBUTION_UNIFORM:
+                for load_distribution == SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = magnitude
-                for LOAD_DISTRIBUTION_LINEAR_IN_X:
+                for load_distribution == SolidSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X:
                     load_parameter = [magnitude_1, magnitude_2, node_1, node_2]
-                for LOAD_DISTRIBUTION_LINEAR_IN_Y:
+                for load_distribution == SolidSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y:
                     load_parameter = [magnitude_1, magnitude_2, node_1, node_2]
-                for LOAD_DISTRIBUTION_LINEAR_IN_Z:
+                for load_distribution == SolidSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z:
                     load_parameter = [magnitude_1, magnitude_2, node_1, node_2]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -209,16 +209,16 @@ class SolidSetLoad():
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            solid_sets_no (str): Assigned Solid Set
+            solid_sets_no (str): Assigned Solid Sets
             load_distribution (enum): Solid Load Distribution Enumeration
             load_parameter (list): Load Parameter List
-                for LOAD_DISTRIBUTION_UNIFORM:
+                for load_distribution == SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [strain_uniform_magnitude_x, strain_uniform_magnitude_y, strain_uniform_magnitude_z]
-                for LOAD_DISTRIBUTION_LINEAR_IN_X:
+                for load_distribution == SolidSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X:
                     load_parameter = [strain_magnitude_x1, strain_magnitude_y1, strain_magnitude_z1, strain_magnitude_x2, strain_magnitude_y2, strain_magnitude_z2, node_1, node_2]
-                for LOAD_DISTRIBUTION_LINEAR_IN_Y:
+                for load_distribution == SolidSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y:
                     load_parameter = [strain_magnitude_x1, strain_magnitude_y1, strain_magnitude_z1, strain_magnitude_x2, strain_magnitude_y2, strain_magnitude_z2, node_1, node_2]
-                for LOAD_DISTRIBUTION_LINEAR_IN_Z:
+                for load_distribution == SolidSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z:
                     load_parameter = [strain_magnitude_x1, strain_magnitude_y1, strain_magnitude_z1, strain_magnitude_x2, strain_magnitude_y2, strain_magnitude_z2, node_1, node_2]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -283,7 +283,7 @@ class SolidSetLoad():
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            solid_sets_no (str): Assigned Solid Set
+            solid_sets_no (str): Assigned Solid Sets
             load_parameter: Load Parameter List
                 load_parameter = [angular_velocity, angular_acceleration, axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z, axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z]
             comment (str, optional): Comments

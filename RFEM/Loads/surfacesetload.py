@@ -76,14 +76,14 @@ class SurfaceSetLoad():
             surface_sets (str): Assigned Surface Sets
             load_direction (enum): Surface Set Load Direction Enumeration
             load_distribution (enum): Surface Set Load Distribution Enumeration
-            load_parameter (list/list of lists): Load Parameters
+            load_parameter (list/list of lists): Load Parameters List
                 for load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [magnitude]
                 for load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3, node_1, node_2, node_3]
                 for load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_X:
-                                         SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Y:
-                                         SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Z:
+                                        /SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Y:
+                                        /SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Z:
                     load_parameter = [magnitude_1, magnitude_2, node_1, node_2]
                 for load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_RADIAL:
                     if SurfaceSetLoadAxisDefinitionType == AXIS_DEFINITION_TWO_POINTS:
@@ -204,14 +204,14 @@ class SurfaceSetLoad():
             load_case_no (int): Assigned Load Case
             surface_sets (str): Assigned Surface Sets
             load_distribution (enum): Surface Set Load Distribution Enumeration
-            load_parameter (list/list of lists): Load Parameters List
+            load_parameter (list): Load Parameters List
                 for load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [t_c, delta_t]
                 for load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
                     load_parameter = [t_c_1, delta_t_1, t_c_2, delta_t_2, t_c_3, delta_t_3, node_1, node_2, node_3]
                 for load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_X:
-                                         SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Y:
-                                         SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Z:
+                                        /SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Y:
+                                        /SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Z:
                     load_parameter = [t_c_1, delta_t_1, t_c_2, delta_t_2, node_1, node_2]
                 for load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_RADIAL:
                     if SurfaceSetLoadAxisDefinitionType == AXIS_DEFINITION_TWO_POINTS:
@@ -323,8 +323,8 @@ class SurfaceSetLoad():
                 for load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
                     load_parameter = [magnitude_axial_strain_1x, magnitude_axial_strain_1y, magnitude_axial_strain_2x, magnitude_axial_strain_2y, magnitude_axial_strain_3x, magnitude_axial_strain_3y, node_1, node_2, node_3]
                 for load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_X:
-                                         SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Y:
-                                         SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Z:
+                                        /SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Y:
+                                        /SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Z:
                     load_parameter = [magnitude_axial_strain_1x, magnitude_axial_strain_1y, magnitude_axial_strain_2x, magnitude_axial_strain_2y, node_1, node_2]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary

@@ -82,8 +82,8 @@ class SurfaceLoad():
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3, node_1, node_2, node_3]
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_X:
-                                        SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Y:
-                                        SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Z:
+                                        /SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Y:
+                                        /SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Z:
                     load_parameter = [magnitude_1, magnitude_2, node_1, node_2]
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_RADIAL:
                     if SurfaceLoadAxisDefinitionType == AXIS_DEFINITION_TWO_POINTS:
@@ -209,8 +209,8 @@ class SurfaceLoad():
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
                     load_parameter = [t_c_1, delta_t_1, t_c_2, delta_t_2, t_c_3, delta_t_3, node_1, node_2, node_3]
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_X:
-                                        SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Y:
-                                        SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Z:
+                                        /SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Y:
+                                        /SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Z:
                     load_parameter = [t_c_1, delta_t_1, t_c_2, delta_t_2, node_1, node_2]
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_RADIAL:
                     if SurfaceLoadAxisDefinitionType == AXIS_DEFINITION_TWO_POINTS:
@@ -321,8 +321,8 @@ class SurfaceLoad():
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
                     load_parameter = [magnitude_axial_strain_1x, magnitude_axial_strain_1y, magnitude_axial_strain_2x, magnitude_axial_strain_2y, magnitude_axial_strain_3x, magnitude_axial_strain_3y, node_1, node_2, node_3]
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_X:
-                                        SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Y:
-                                        SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Z:
+                                        /SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Y:
+                                        /SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Z:
                     load_parameter = [magnitude_axial_strain_1x, magnitude_axial_strain_1y, magnitude_axial_strain_2x, magnitude_axial_strain_2y, node_1, node_2]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -456,7 +456,7 @@ class SurfaceLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             surface_no (str): Assigned Surfaces
-            load_parameter (list): load Parameter List
+            load_parameter (list): Load Parameter List
                 for axis_definition_type = SurfaceLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS:
                     load_parameter = [angular_velocity, angular_acceleration, SurfaceLoadAxisDefinitionType, [x1, y1, z1], [x2, y2, z2]]
                 for axis_definition_type = SurfaceLoadAxisDefinitionType.AXIS_DEFINITION_POINT_AND_AXIS:

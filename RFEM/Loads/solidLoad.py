@@ -143,13 +143,13 @@ class SolidLoad():
             solids_no (str): Assigned Solids
             load_distribution (enum): Solid Load Distribution Enumeration
             load_parameter (float/list): Load Parameter List
-                for LOAD_DISTRIBUTION_UNIFORM:
+                for load_distribution == SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = magnitude
-                for LOAD_DISTRIBUTION_LINEAR_IN_X:
+                for load_distribution == SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X:
                     load_parameter = [magnitude_1, magnitude_2, node_1, node_2]
-                for LOAD_DISTRIBUTION_LINEAR_IN_Y:
+                for load_distribution == SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y:
                     load_parameter = [magnitude_1, magnitude_2, node_1, node_2]
-                for LOAD_DISTRIBUTION_LINEAR_IN_Z:
+                for load_distribution == SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z:
                     load_parameter = [magnitude_1, magnitude_2, node_1, node_2]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -212,13 +212,13 @@ class SolidLoad():
             solids_no (str): Assigned Solids
             load_distribution (enum): Solid Load Distribution Enumeration
             load_parameter (list): Load Parameter List
-                for LOAD_DISTRIBUTION_UNIFORM:
+                for load_distribution == SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [strain_uniform_magnitude_x, strain_uniform_magnitude_y, strain_uniform_magnitude_z]
-                for LOAD_DISTRIBUTION_LINEAR_IN_X:
+                for load_distribution == SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X:
                     load_parameter = [strain_magnitude_x1, strain_magnitude_y1, strain_magnitude_z1, strain_magnitude_x2, strain_magnitude_y2, strain_magnitude_z2, node_1, node_2]
-                for LOAD_DISTRIBUTION_LINEAR_IN_Y:
+                for load_distribution == SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y:
                     load_parameter = [strain_magnitude_x1, strain_magnitude_y1, strain_magnitude_z1, strain_magnitude_x2, strain_magnitude_y2, strain_magnitude_z2, node_1, node_2]
-                for LOAD_DISTRIBUTION_LINEAR_IN_Z:
+                for load_distribution == SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z:
                     load_parameter = [strain_magnitude_x1, strain_magnitude_y1, strain_magnitude_z1, strain_magnitude_x2, strain_magnitude_y2, strain_magnitude_z2, node_1, node_2]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary

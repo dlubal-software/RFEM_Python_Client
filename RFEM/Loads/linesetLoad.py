@@ -21,7 +21,7 @@ class LineSetLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             linesets_no (str): Assigned Lineset(s)
-            load_direction (enum): Load Direction Enumeration
+            load_direction (enum): LineSet Load Direction Enumeration
             magnitude (float): Magnitude of Line Load
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -86,8 +86,8 @@ class LineSetLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             linesets_no (str): Assigned Lineset(s)
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
+            load_distribution (enum): LineSet Load Distribution Enumeration
+            load_direction (enum): LineSet Load Direction Enumeration
             load_parameter (float/list/list of lists): Load Parameter
                 for load_distribution == LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = magnitude
@@ -340,8 +340,8 @@ class LineSetLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             linesets_no (str): Assigned Lineset(s)
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
+            load_distribution (enum): LineSet Load Distribution Enumeration
+            load_direction (enum): LineSet Load Direction Enumeration
             load_parameter (float/list/list of lists): Load Parameter
                 for load_distribution == LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = magnitude

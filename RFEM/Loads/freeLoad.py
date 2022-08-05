@@ -25,9 +25,9 @@ class FreeLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             surfaces_no (str): Assigned Surface(s)
-            load_type (enum): Load Type Enumeration
-            load_projection (enum): Load Projection Enumeration
-            load_direction (enum): Load Direction Enumeration
+            load_type (enum): Free Concentrated Load Load Type Enumeration
+            load_projection (enum): Free Load Load Projection Enumeration
+            load_direction (enum): Free Concentrated Load Load Direction Enumeration
             load_parameter (list): Load Parameter List
                 for load_projection == FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV:
                     load_parameter = [magnitude, X, Y]
@@ -100,9 +100,9 @@ class FreeLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             surfaces_no (str): Assigned Surface(s)
-            load_distribution (enum): Load Distribution Enumeration
-            load_projection (enum): Load Projection Enumeration
-            load_direction (enum): Load Direction Enumeration
+            load_distribution (enum): Free Line Load Load Distribution Enumeration
+            load_projection (enum): Free Load Load Projection Enumeration
+            load_direction (enum): Free Line Load Load Direction Enumeration
             load_parameter (list): Load Parameter List
                 for load_distribution == FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [magnitude_uniform, load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y]
@@ -187,15 +187,15 @@ class FreeLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             surfaces_no (str): Assigned Surface(s)
-            load_distribution (enum): Load Distribution Enumeration
-            load_projection (enum): Load Projection Enumeration
-            load_direction (enum): Load Direction Enumeration
+            load_distribution (enum): Free Rectangular Load Load Distribution Enumeration
+            load_projection (enum): Free Load Load Projection Enumeration
+            load_direction (enum): Free Rectangular Load Load Direction Enumeration
             load_magnitude_parameter (list): Load Magnitude Parameter
                 for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_magnitude_parameter = [magnitude_uniform]
                 for load_distribution == FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_FIRST or FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_SECOND:
                     load_magnitude_parameter = [magnitude_linear_first, magnitude_linear_second]
-            load_location (enum): Load Location Enumeration
+            load_location (enum): Free Rectangular Load Load Rectangle Enumeration
             load_location_parameter (list): Load Location Parameters
                 for load_location == FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CORNER_POINTS:
                     for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM or FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_FIRST or FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_SECOND:
@@ -460,9 +460,9 @@ class FreeLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             surfaces_no (str): Assigned Surface(s)
-            load_distribution (enum): Load Distribution Enumeration
-            load_projection (enum): Load Projection Enumeration
-            load_direction (enum): Load Direction Enumeration
+            load_distribution (enum): Free Circular Load Load Distribution Enumeration
+            load_projection (enum): Free Load Load Projection Enumeration
+            load_direction (enum): Free Circular Load Load Direction Enumeration
             load_parameter (list): Load Parameter
                 for load_distribution == FreeCircularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [magnitude_uniform, load_location_x, load_location_y, load_location_radius]
@@ -545,9 +545,9 @@ class FreeLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             surfaces_no (str): Assigned Surface(s)
-            load_distribution (enum): Load Distribution Enumeration
-            load_projection (enum): Load Projection Enumeration
-            load_direction (enum): Load Direction Enumeration
+            load_distribution (enum): Free Polygon Load Load Distribution Enumeration
+            load_projection (enum): Free Load Load Projection Enumeration
+            load_direction (enum): Free Polygon Load Load Direction Enumeration
             load_location (list of list): Load Location Parameter
             load_parameter (list): Load Parameter
                 for load_distribution == FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
