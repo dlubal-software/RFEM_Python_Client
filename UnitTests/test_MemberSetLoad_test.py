@@ -278,45 +278,57 @@ def test_member_set_load():
 
     Model.clientModel.service.finish_modification()
 
-    assert Model.clientModel.service.get_member_set_load(8, 1).member_sets == '1'
-    assert Model.clientModel.service.get_member_set_load(8, 1).magnitude_2 == 6000
-    assert Model.clientModel.service.get_member_set_load(8, 1).distance_b_absolute == 2
+    msl = Model.clientModel.service.get_member_set_load(8, 1)
+    assert msl.member_sets == '1'
+    assert msl.magnitude_2 == 6000
+    assert msl.distance_b_absolute == 2
 
-    assert Model.clientModel.service.get_member_set_load(24, 1).member_sets == '1'
-    assert Model.clientModel.service.get_member_set_load(24, 1).varying_load_parameters[0][0][1].magnitude == 4000
-    assert Model.clientModel.service.get_member_set_load(24, 1).varying_load_parameters[0][1][1].distance == 2
+    msl = Model.clientModel.service.get_member_set_load(24, 1)
+    assert msl.member_sets == '1'
+    assert msl.varying_load_parameters[0][0][1].magnitude == 4000
+    assert msl.varying_load_parameters[0][1][1].distance == 2
 
-    assert Model.clientModel.service.get_member_set_load(25, 1).member_sets == '1'
-    assert Model.clientModel.service.get_member_set_load(25, 1).mass_global == 1000
+    msl = Model.clientModel.service.get_member_set_load(25, 1)
+    assert msl.member_sets == '1'
+    assert msl.mass_global == 1000
 
-    assert Model.clientModel.service.get_member_set_load(26, 1).magnitude_t_t == 2
-    assert Model.clientModel.service.get_member_set_load(26, 1).magnitude_t_b == 18
+    msl = Model.clientModel.service.get_member_set_load(26, 1)
+    assert msl.magnitude_t_t == 2
+    assert msl.magnitude_t_b == 18
 
-    assert Model.clientModel.service.get_member_set_load(40, 1).varying_load_parameters['member_set_load_varying_load_parameters'][1].row['distance'] == 2
-    assert Model.clientModel.service.get_member_set_load(40, 1).varying_load_parameters['member_set_load_varying_load_parameters'][0].row['magnitude'] == 285
+    msl = Model.clientModel.service.get_member_set_load(40, 1)
+    assert msl.varying_load_parameters['member_set_load_varying_load_parameters'][1].row['distance'] == 2
+    assert msl.varying_load_parameters['member_set_load_varying_load_parameters'][0].row['magnitude'] == 285
 
-    assert Model.clientModel.service.get_member_set_load(41, 1).load_type == 'LOAD_TYPE_AXIAL_DISPLACEMENT'
-    assert Model.clientModel.service.get_member_set_load(41, 1).magnitude == 0.05
+    msl = Model.clientModel.service.get_member_set_load(41, 1)
+    assert msl.load_type == 'LOAD_TYPE_AXIAL_DISPLACEMENT'
+    assert msl.magnitude == 0.05
 
-    assert Model.clientModel.service.get_member_set_load(43, 1).load_distribution == 'LOAD_DISTRIBUTION_TRAPEZOIDAL'
-    assert Model.clientModel.service.get_member_set_load(43, 1).magnitude_2 == 16
+    msl = Model.clientModel.service.get_member_set_load(43, 1)
+    assert msl.load_distribution == 'LOAD_DISTRIBUTION_TRAPEZOIDAL'
+    assert msl.magnitude_2 == 16
 
-    assert Model.clientModel.service.get_member_set_load(47, 1).load_type == 'LOAD_TYPE_INITIAL_PRESTRESS'
-    assert Model.clientModel.service.get_member_set_load(47, 1).load_distribution == 'LOAD_DISTRIBUTION_UNIFORM'
-    assert Model.clientModel.service.get_member_set_load(47, 1).magnitude == 50
+    msl = Model.clientModel.service.get_member_set_load(47, 1)
+    assert msl.load_type == 'LOAD_TYPE_INITIAL_PRESTRESS'
+    assert msl.load_distribution == 'LOAD_DISTRIBUTION_UNIFORM'
+    assert msl.magnitude == 50
 
-    assert Model.clientModel.service.get_member_set_load(52, 1).load_type == 'LOAD_TYPE_DISPLACEMENT'
-    assert Model.clientModel.service.get_member_set_load(52, 1).load_distribution == 'LOAD_DISTRIBUTION_CONCENTRATED_2'
-    assert Model.clientModel.service.get_member_set_load(52, 1).magnitude_2 == 0.6
-    assert Model.clientModel.service.get_member_set_load(52, 1).distance_a_absolute == 1
+    msl = Model.clientModel.service.get_member_set_load(52, 1)
+    assert msl.load_type == 'LOAD_TYPE_DISPLACEMENT'
+    assert msl.load_distribution == 'LOAD_DISTRIBUTION_CONCENTRATED_2'
+    assert msl.magnitude_2 == 0.6
+    assert msl.distance_a_absolute == 1
 
-    assert Model.clientModel.service.get_member_set_load(64, 1).load_type == 'LOAD_TYPE_ROTATION'
-    assert Model.clientModel.service.get_member_set_load(64, 1).load_distribution == 'LOAD_DISTRIBUTION_TRAPEZOIDAL'
-    assert Model.clientModel.service.get_member_set_load(64, 1).magnitude_1 == 12
-    assert Model.clientModel.service.get_member_set_load(64, 1).distance_b_absolute == 2
+    msl = Model.clientModel.service.get_member_set_load(64, 1)
+    assert msl.load_type == 'LOAD_TYPE_ROTATION'
+    assert msl.load_distribution == 'LOAD_DISTRIBUTION_TRAPEZOIDAL'
+    assert msl.magnitude_1 == 12
+    assert msl.distance_b_absolute == 2
 
-    assert Model.clientModel.service.get_member_set_load(68, 1).load_type == 'LOAD_TYPE_PIPE_CONTENT_FULL'
-    assert Model.clientModel.service.get_member_set_load(68, 1).magnitude == 5000
+    msl = Model.clientModel.service.get_member_set_load(68, 1)
+    assert msl.load_type == 'LOAD_TYPE_PIPE_CONTENT_FULL'
+    assert msl.magnitude == 5000
 
-    assert Model.clientModel.service.get_member_set_load(71, 1).load_type == 'LOAD_TYPE_ROTARY_MOTION'
-    assert Model.clientModel.service.get_member_set_load(71, 1).angular_acceleration == 3.5
+    msl = Model.clientModel.service.get_member_set_load(71, 1)
+    assert msl.load_type == 'LOAD_TYPE_ROTARY_MOTION'
+    assert msl.angular_acceleration == 3.5

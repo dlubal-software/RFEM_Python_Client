@@ -22,10 +22,11 @@ def test_baseSettings():
 
     Model.clientModel.service.finish_modification()
 
-    assert Model.clientModel.service.get_model_settings_and_options().gravitational_acceleration == 12
-    assert Model.clientModel.service.get_model_settings_and_options().global_axes_orientation == 'E_GLOBAL_AXES_ORIENTATION_ZUP'
-    assert Model.clientModel.service.get_model_settings_and_options().local_axes_orientation == 'E_LOCAL_AXES_ORIENTATION_ZUP'
-    assert Model.clientModel.service.get_model_settings_and_options().tolerance_for_nodes == 0.001
-    assert Model.clientModel.service.get_model_settings_and_options().tolerance_for_lines == 0.002
-    assert Model.clientModel.service.get_model_settings_and_options().tolerance_for_surfaces_and_planes == 0.003
-    assert Model.clientModel.service.get_model_settings_and_options().tolerance_for_directions == 0.004
+    msao = Model.clientModel.service.get_model_settings_and_options()
+    assert msao.gravitational_acceleration == 12
+    assert msao.global_axes_orientation == 'E_GLOBAL_AXES_ORIENTATION_ZUP'
+    assert msao.local_axes_orientation == 'E_LOCAL_AXES_ORIENTATION_ZUP'
+    assert msao.tolerance_for_nodes == 0.001
+    assert msao.tolerance_for_lines == 0.002
+    assert msao.tolerance_for_surfaces_and_planes == 0.003
+    assert msao.tolerance_for_directions == 0.004

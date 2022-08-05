@@ -34,15 +34,17 @@ def test_spectral_analysis_settings():
 
     Model.clientModel.service.finish_modification()
 
-    assert Model.clientModel.service.get_spectral_analysis_settings(2).combination_rule_for_periodic_responses == 'SRSS'
-    assert Model.clientModel.service.get_spectral_analysis_settings(2).combination_rule_for_directional_components == 'SCALED_SUM'
-    assert Model.clientModel.service.get_spectral_analysis_settings(2).use_equivalent_linear_combination == True
-    assert Model.clientModel.service.get_spectral_analysis_settings(2).save_results_of_all_selected_modes == True
+    sas = Model.clientModel.service.get_spectral_analysis_settings(2)
+    assert sas.combination_rule_for_periodic_responses == 'SRSS'
+    assert sas.combination_rule_for_directional_components == 'SCALED_SUM'
+    assert sas.use_equivalent_linear_combination == True
+    assert sas.save_results_of_all_selected_modes == True
 
     assert Model.clientModel.service.get_spectral_analysis_settings(3).combination_rule_for_directional_components_value == 0.4
 
-    assert Model.clientModel.service.get_spectral_analysis_settings(4).combination_rule_for_periodic_responses == 'CQC'
-    assert Model.clientModel.service.get_spectral_analysis_settings(4).constant_d_for_each_mode == 12
+    sas = Model.clientModel.service.get_spectral_analysis_settings(4)
+    assert sas.combination_rule_for_periodic_responses == 'CQC'
+    assert sas.constant_d_for_each_mode == 12
 
     assert Model.clientModel.service.get_spectral_analysis_settings(5).damping_for_cqc_rule == 'DIFFERENT_FOR_EACH_MODE'
 

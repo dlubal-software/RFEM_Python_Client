@@ -67,11 +67,13 @@ def test_global_parameters():
 
     Model.clientModel.service.finish_modification()
 
-    assert Model.clientModel.service.get_global_parameter(1).unit_group == 'LENGTH'
-    assert Model.clientModel.service.get_global_parameter(1).definition_type == 'DEFINITION_TYPE_FORMULA'
-    assert Model.clientModel.service.get_global_parameter(1).formula == '1+1'
+    gp_1 = Model.clientModel.service.get_global_parameter(1)
+    assert gp_1.unit_group == 'LENGTH'
+    assert gp_1.definition_type == 'DEFINITION_TYPE_FORMULA'
+    assert gp_1.formula == '1+1'
 
-    assert Model.clientModel.service.get_global_parameter(2).min == 0
-    assert Model.clientModel.service.get_global_parameter(2).max == 100
-    assert Model.clientModel.service.get_global_parameter(2).steps == 4
-    assert Model.clientModel.service.get_global_parameter(2).unit_group == 'LOADS_DENSITY'
+    gp_2 = Model.clientModel.service.get_global_parameter(2)
+    assert gp_2.min == 0
+    assert gp_2.max == 100
+    assert gp_2.steps == 4
+    assert gp_2.unit_group == 'LOADS_DENSITY'

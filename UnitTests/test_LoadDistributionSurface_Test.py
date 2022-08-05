@@ -41,6 +41,7 @@ def test_load_distribution_surface():
 
     Model.clientModel.service.finish_modification()
 
-    assert Model.clientModel.service.get_surface(2).type == 'TYPE_LOAD_TRANSFER'
-    assert Model.clientModel.service.get_surface(2).load_transfer_direction == 'LOAD_TRANSFER_DIRECTION_IN_BOTH'
-    assert Model.clientModel.service.get_surface(2).excluded_lines == '5'
+    surface = Model.clientModel.service.get_surface(2)
+    assert surface.type == 'TYPE_LOAD_TRANSFER'
+    assert surface.load_transfer_direction == 'LOAD_TRANSFER_DIRECTION_IN_BOTH'
+    assert surface.excluded_lines == '5'

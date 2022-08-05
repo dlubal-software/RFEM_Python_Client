@@ -80,12 +80,14 @@ def test_membrane_surface():
 
     assert Model.clientModel.service.get_surface(2).type == 'TYPE_MEMBRANE'
 
-    assert Model.clientModel.service.get_surface(3).geometry == 'GEOMETRY_NURBS'
-    assert Model.clientModel.service.get_surface(3).type == 'TYPE_MEMBRANE'
-    assert Model.clientModel.service.get_surface(3).nurbs_control_point_count_in_direction_u == 3
-    assert Model.clientModel.service.get_surface(3).nurbs_order_in_direction_v == 3
+    sur = Model.clientModel.service.get_surface(3)
+    assert sur.geometry == 'GEOMETRY_NURBS'
+    assert sur.type == 'TYPE_MEMBRANE'
+    assert sur.nurbs_control_point_count_in_direction_u == 3
+    assert sur.nurbs_order_in_direction_v == 3
 
-    assert Model.clientModel.service.get_surface(4).geometry == 'GEOMETRY_QUADRANGLE'
-    assert Model.clientModel.service.get_surface(4).type == 'TYPE_MEMBRANE'
-    assert Model.clientModel.service.get_surface(4).quadrangle_corner_node_2 == 18
-    assert Model.clientModel.service.get_surface(4).quadrangle_corner_node_4 == 20
+    sur = Model.clientModel.service.get_surface(4)
+    assert sur.geometry == 'GEOMETRY_QUADRANGLE'
+    assert sur.type == 'TYPE_MEMBRANE'
+    assert sur.quadrangle_corner_node_2 == 18
+    assert sur.quadrangle_corner_node_4 == 20

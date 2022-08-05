@@ -108,35 +108,43 @@ def test_surface_loads():
 
     assert Model.clientModel.service.get_surface_load(1, 1).uniform_magnitude == 5000
 
-    assert Model.clientModel.service.get_surface_load(3, 1).load_distribution == 'LOAD_DISTRIBUTION_LINEAR'
-    assert Model.clientModel.service.get_surface_load(3, 1).magnitude_2 == 6000
-    assert Model.clientModel.service.get_surface_load(3, 1).magnitude_3 == 7000
-    assert Model.clientModel.service.get_surface_load(3, 1).node_2 == 3
+    sl = Model.clientModel.service.get_surface_load(3, 1)
+    assert sl.load_distribution == 'LOAD_DISTRIBUTION_LINEAR'
+    assert sl.magnitude_2 == 6000
+    assert sl.magnitude_3 == 7000
+    assert sl.node_2 == 3
 
-    assert Model.clientModel.service.get_surface_load(4, 1).load_distribution == 'LOAD_DISTRIBUTION_LINEAR_IN_X'
-    assert Model.clientModel.service.get_surface_load(4, 1).magnitude_2 == 6000
-    assert Model.clientModel.service.get_surface_load(4, 1).node_1 == 3
+    sl = Model.clientModel.service.get_surface_load(4, 1)
+    assert sl.load_distribution == 'LOAD_DISTRIBUTION_LINEAR_IN_X'
+    assert sl.magnitude_2 == 6000
+    assert sl.node_1 == 3
 
-    assert Model.clientModel.service.get_surface_load(5, 1).load_distribution == 'LOAD_DISTRIBUTION_RADIAL'
-    assert Model.clientModel.service.get_surface_load(5, 1).axis_definition_type == 'AXIS_DEFINITION_TWO_POINTS'
-    assert Model.clientModel.service.get_surface_load(5, 1).axis_definition_p2_z == 6
-    assert Model.clientModel.service.get_surface_load(5, 1).axis_definition_p1_x == 1
-    assert Model.clientModel.service.get_surface_load(5, 1).magnitude_2 == 6000
-    assert Model.clientModel.service.get_surface_load(5, 1).node_1 == 3
+    sl = Model.clientModel.service.get_surface_load(5, 1)
+    assert sl.load_distribution == 'LOAD_DISTRIBUTION_RADIAL'
+    assert sl.axis_definition_type == 'AXIS_DEFINITION_TWO_POINTS'
+    assert sl.axis_definition_p2_z == 6
+    assert sl.axis_definition_p1_x == 1
+    assert sl.magnitude_2 == 6000
+    assert sl.node_1 == 3
 
-    assert Model.clientModel.service.get_surface_load(7, 1).magnitude_t_c_3 == 22
-    assert Model.clientModel.service.get_surface_load(7, 1).node_2 == 3
+    sl = Model.clientModel.service.get_surface_load(7, 1)
+    assert sl.magnitude_t_c_3 == 22
+    assert sl.node_2 == 3
 
-    assert Model.clientModel.service.get_surface_load(10, 1).magnitude_axial_strain_2y == 0.008
-    assert Model.clientModel.service.get_surface_load(10, 1).node_1 == 2
+    sl = Model.clientModel.service.get_surface_load(10, 1)
+    assert sl.magnitude_axial_strain_2y == 0.008
+    assert sl.node_1 == 2
 
-    assert Model.clientModel.service.get_surface_load(12, 1).load_type == 'LOAD_TYPE_PRECAMBER'
-    assert Model.clientModel.service.get_surface_load(12, 1).uniform_magnitude == 50
+    sl = Model.clientModel.service.get_surface_load(12, 1)
+    assert sl.load_type == 'LOAD_TYPE_PRECAMBER'
+    assert sl.uniform_magnitude == 50
 
-    assert Model.clientModel.service.get_surface_load(13, 1).angular_velocity == 1
-    assert Model.clientModel.service.get_surface_load(13, 1).angular_acceleration == 2
-    assert Model.clientModel.service.get_surface_load(13, 1).axis_definition_p1_z == 3
-    assert Model.clientModel.service.get_surface_load(13, 1).axis_definition_p2_x == 4
+    sl = Model.clientModel.service.get_surface_load(13, 1)
+    assert sl.angular_velocity == 1
+    assert sl.angular_acceleration == 2
+    assert sl.axis_definition_p1_z == 3
+    assert sl.axis_definition_p2_x == 4
 
-    assert Model.clientModel.service.get_surface_load(14, 1).magnitude_mass_y == 600
-    assert Model.clientModel.service.get_surface_load(14, 1).magnitude_mass_z == 700
+    sl = Model.clientModel.service.get_surface_load(14, 1)
+    assert sl.magnitude_mass_y == 600
+    assert sl.magnitude_mass_z == 700

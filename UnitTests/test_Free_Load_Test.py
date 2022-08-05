@@ -211,42 +211,34 @@ def test_free_load():
 
     Model.clientModel.service.finish_modification()
 
-    object = Model.clientModel.service.get_free_polygon_load(4, 5)
-    print(object)
+    fcl = Model.clientModel.service.get_free_concentrated_load(2, 1)
+    assert fcl.load_type == 'LOAD_TYPE_MOMENT'
+    assert fcl.magnitude == 50.0
+    assert fcl.load_location_x == 8
+    assert fcl.load_location_y == 9
 
-    # Prüfung der freien Einzellasten
+    fll = Model.clientModel.service.get_free_line_load(3, 1)
+    assert fll.load_projection == 'LOAD_PROJECTION_XY_OR_UV'
+    assert fll.load_direction == 'LOAD_DIRECTION_GLOBAL_Z_TRUE'
+    assert fll.magnitude_uniform == 5000
+    assert fll.load_location_first_y == 3
+    assert fll.load_location_second_y == 5
 
-    assert Model.clientModel.service.get_free_concentrated_load(2, 1).load_type == 'LOAD_TYPE_MOMENT'
-    assert Model.clientModel.service.get_free_concentrated_load(2, 1).magnitude == 50.0
-    assert Model.clientModel.service.get_free_concentrated_load(2, 1).load_location_x == 8
-    assert Model.clientModel.service.get_free_concentrated_load(2, 1).load_location_y == 9
+    frl = Model.clientModel.service.get_free_rectangular_load(5, 3)
+    assert frl.load_projection == 'LOAD_PROJECTION_XY_OR_UV'
+    assert frl.load_direction == 'LOAD_DIRECTION_GLOBAL_Z_TRUE'
+    assert frl.load_distribution == 'LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER'
+    assert frl.load_location_center_y == 6
+    assert frl.load_location_center_side_b == 3
 
-    # Prüfung der freien Linienlasten
+    fcl = Model.clientModel.service.get_free_circular_load(2, 4)
+    assert fcl.magnitude_center == 10000
+    assert fcl.magnitude_radius == 2500
+    assert fcl.load_location_y == 5
+    assert fcl.load_location_radius == 2
 
-    assert Model.clientModel.service.get_free_line_load(3, 1).load_projection == 'LOAD_PROJECTION_XY_OR_UV'
-    assert Model.clientModel.service.get_free_line_load(3, 1).load_direction == 'LOAD_DIRECTION_GLOBAL_Z_TRUE'
-    assert Model.clientModel.service.get_free_line_load(3, 1).magnitude_uniform == 5000
-    assert Model.clientModel.service.get_free_line_load(3, 1).load_location_first_y == 3
-    assert Model.clientModel.service.get_free_line_load(3, 1).load_location_second_y == 5
-
-    # Prüfung der freien Rechtecklasten
-
-    assert Model.clientModel.service.get_free_rectangular_load(5, 3).load_projection == 'LOAD_PROJECTION_XY_OR_UV'
-    assert Model.clientModel.service.get_free_rectangular_load(5, 3).load_direction == 'LOAD_DIRECTION_GLOBAL_Z_TRUE'
-    assert Model.clientModel.service.get_free_rectangular_load(5, 3).load_distribution == 'LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER'
-    assert Model.clientModel.service.get_free_rectangular_load(5, 3).load_location_center_y == 6
-    assert Model.clientModel.service.get_free_rectangular_load(5, 3).load_location_center_side_b == 3
-
-    # Prüfung der freien Kreislasten
-
-    assert Model.clientModel.service.get_free_circular_load(2, 4).magnitude_center == 10000
-    assert Model.clientModel.service.get_free_circular_load(2, 4).magnitude_radius == 2500
-    assert Model.clientModel.service.get_free_circular_load(2, 4).load_location_y == 5
-    assert Model.clientModel.service.get_free_circular_load(2, 4).load_location_radius == 2
-
-    # Prüfung der freien Polygonlasten
-
-    assert Model.clientModel.service.get_free_polygon_load(4, 5).magnitude_linear_2 == 7500
-    assert Model.clientModel.service.get_free_polygon_load(4, 5).magnitude_linear_location_1 == 2
-    assert Model.clientModel.service.get_free_polygon_load(4, 5).load_location[0][0][1].second_coordinate == 4
-    assert Model.clientModel.service.get_free_polygon_load(4, 5).load_location[0][2][1].first_coordinate == 2
+    fpl = Model.clientModel.service.get_free_polygon_load(4, 5)
+    assert fpl.magnitude_linear_2 == 7500
+    assert fpl.magnitude_linear_location_1 == 2
+    assert fpl.load_location[0][0][1].second_coordinate == 4
+    assert fpl.load_location[0][2][1].first_coordinate == 2

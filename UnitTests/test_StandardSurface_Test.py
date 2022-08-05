@@ -79,20 +79,24 @@ def test_standard_surface():
     Model.clientModel.service.finish_modification()
 
     # Testing the standard surface function
-    assert Model.clientModel.service.get_surface(1).geometry == 'GEOMETRY_PLANE'
-    assert Model.clientModel.service.get_surface(1).type == 'TYPE_STANDARD'
-    assert Model.clientModel.service.get_surface(1).boundary_lines == '1 2 3 4'
+    sur = Model.clientModel.service.get_surface(1)
+    assert sur.geometry == 'GEOMETRY_PLANE'
+    assert sur.type == 'TYPE_STANDARD'
+    assert sur.boundary_lines == '1 2 3 4'
 
     # Standard planar Surface
-    assert Model.clientModel.service.get_surface(2).geometry == 'GEOMETRY_PLANE'
-    assert Model.clientModel.service.get_surface(2).type == 'TYPE_STANDARD'
-    assert Model.clientModel.service.get_surface(2).boundary_lines == '5 6 7 8'
+    sur = Model.clientModel.service.get_surface(2)
+    assert sur.geometry == 'GEOMETRY_PLANE'
+    assert sur.type == 'TYPE_STANDARD'
+    assert sur.boundary_lines == '5 6 7 8'
 
     # Standard NURBS Surface
-    assert Model.clientModel.service.get_surface(3).geometry == 'GEOMETRY_NURBS'
-    assert Model.clientModel.service.get_surface(3).nurbs_control_point_count_in_direction_u == 3
-    assert Model.clientModel.service.get_surface(3).nurbs_order_in_direction_v == 3
+    sur = Model.clientModel.service.get_surface(3)
+    assert sur.geometry == 'GEOMETRY_NURBS'
+    assert sur.nurbs_control_point_count_in_direction_u == 3
+    assert sur.nurbs_order_in_direction_v == 3
 
     # Quadrangle Defintion
-    assert Model.clientModel.service.get_surface(4).geometry == 'GEOMETRY_QUADRANGLE'
-    assert Model.clientModel.service.get_surface(4).quadrangle_corner_nodes == '17 18 19 20'
+    sur = Model.clientModel.service.get_surface(4)
+    assert sur.geometry == 'GEOMETRY_QUADRANGLE'
+    assert sur.quadrangle_corner_nodes == '17 18 19 20'

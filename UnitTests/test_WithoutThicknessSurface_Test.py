@@ -81,15 +81,18 @@ def test_without_thickness_surface():
 
     assert Model.clientModel.service.get_surface(1).type == 'TYPE_STANDARD'
 
-    assert Model.clientModel.service.get_surface(2).type == 'TYPE_WITHOUT_THICKNESS'
-    assert Model.clientModel.service.get_surface(2).boundary_lines == '5 6 7 8'
+    sur = Model.clientModel.service.get_surface(2)
+    assert sur.type == 'TYPE_WITHOUT_THICKNESS'
+    assert sur.boundary_lines == '5 6 7 8'
 
-    assert Model.clientModel.service.get_surface(3).geometry == 'GEOMETRY_NURBS'
-    assert Model.clientModel.service.get_surface(3).type == 'TYPE_WITHOUT_THICKNESS'
-    assert Model.clientModel.service.get_surface(3).nurbs_control_point_count_in_direction_u == 3
-    assert Model.clientModel.service.get_surface(3).nurbs_order_in_direction_v == 3
+    sur = Model.clientModel.service.get_surface(3)
+    assert sur.geometry == 'GEOMETRY_NURBS'
+    assert sur.type == 'TYPE_WITHOUT_THICKNESS'
+    assert sur.nurbs_control_point_count_in_direction_u == 3
+    assert sur.nurbs_order_in_direction_v == 3
 
-    assert Model.clientModel.service.get_surface(4).geometry == 'GEOMETRY_QUADRANGLE'
-    assert Model.clientModel.service.get_surface(4).type == 'TYPE_WITHOUT_THICKNESS'
-    assert Model.clientModel.service.get_surface(4).quadrangle_corner_node_2 == 18
-    assert Model.clientModel.service.get_surface(4).quadrangle_corner_node_4 == 20
+    sur = Model.clientModel.service.get_surface(4)
+    assert sur.geometry == 'GEOMETRY_QUADRANGLE'
+    assert sur.type == 'TYPE_WITHOUT_THICKNESS'
+    assert sur.quadrangle_corner_node_2 == 18
+    assert sur.quadrangle_corner_node_4 == 20

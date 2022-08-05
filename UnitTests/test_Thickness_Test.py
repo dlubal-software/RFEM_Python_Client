@@ -106,33 +106,40 @@ def test_thickness():
 
     assert Model.clientModel.service.get_thickness(2).uniform_thickness == 0.2
 
-    assert Model.clientModel.service.get_thickness(3).type == 'TYPE_VARIABLE_THREE_NODES'
-    assert Model.clientModel.service.get_thickness(3).thickness_2 == 0.25
-    assert Model.clientModel.service.get_thickness(3).node_3 == 3
+    th = Model.clientModel.service.get_thickness(3)
+    assert th.type == 'TYPE_VARIABLE_THREE_NODES'
+    assert th.thickness_2 == 0.25
+    assert th.node_3 == 3
 
-    assert Model.clientModel.service.get_thickness(4).direction == 'THICKNESS_DIRECTION_IN_Z'
-    assert Model.clientModel.service.get_thickness(4).thickness_2 == 0.45
-    assert Model.clientModel.service.get_thickness(4).node_1 == 4
+    th = Model.clientModel.service.get_thickness(4)
+    assert th.direction == 'THICKNESS_DIRECTION_IN_Z'
+    assert th.thickness_2 == 0.45
+    assert th.node_1 == 4
 
-    assert Model.clientModel.service.get_thickness(5).node_2 == 7
-    assert Model.clientModel.service.get_thickness(5).thickness_4 == 0.15
+    th = Model.clientModel.service.get_thickness(5)
+    assert th.node_2 == 7
+    assert th.thickness_4 == 0.15
 
-    assert Model.clientModel.service.get_thickness(6).thickness_circle_center == 0.1
-    assert Model.clientModel.service.get_thickness(6).thickness_circle_line == 0.5
+    th = Model.clientModel.service.get_thickness(6)
+    assert th.thickness_circle_center == 0.1
+    assert th.thickness_circle_line == 0.5
 
-    assert Model.clientModel.service.get_thickness(7).layers_reference_table['thickness_layers_reference_table'][0].row['thickness'] == 0.123
-    assert Model.clientModel.service.get_thickness(7).layers_reference_table['thickness_layers_reference_table'][1].row['thickness'] == 0.456
+    th = Model.clientModel.service.get_thickness(7)
+    assert th.layers_reference_table['thickness_layers_reference_table'][0].row['thickness'] == 0.123
+    assert th.layers_reference_table['thickness_layers_reference_table'][1].row['thickness'] == 0.456
 
-    assert Model.clientModel.service.get_thickness(8).orthotropy_type == 'ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB'
-    assert Model.clientModel.service.get_thickness(8).shape_orthotropy_self_weight_definition_type == 'SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS'
-    #assert Model.clientModel.service.get_thickness(8).orthotropy_fictitious_thickness == 0.350
-    assert Model.clientModel.service.get_thickness(8).slab_thickness == 0.4
-    assert Model.clientModel.service.get_thickness(8).void_spacing == 0.125
-    assert Model.clientModel.service.get_thickness(8).void_diameter == 0.05
+    th = Model.clientModel.service.get_thickness(8)
+    assert th.orthotropy_type == 'ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB'
+    assert th.shape_orthotropy_self_weight_definition_type == 'SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS'
+    #assert th.orthotropy_fictitious_thickness == 0.350
+    assert th.slab_thickness == 0.4
+    assert th.void_spacing == 0.125
+    assert th.void_diameter == 0.05
 
-    assert Model.clientModel.service.get_thickness(9).stiffness_matrix_self_weight_definition_type == 'SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_BULK_DENSITY_AND_AREA_DENSITY'
-    assert Model.clientModel.service.get_thickness(9).stiffness_matrix_area_density == 10
-    assert Model.clientModel.service.get_thickness(9).stiffness_matrix_coefficient_of_thermal_expansion == 1
-    assert Model.clientModel.service.get_thickness(9).D33 == 33000
-    assert Model.clientModel.service.get_thickness(9).D67 == 67000
-    assert Model.clientModel.service.get_thickness(9).D28 == 28000
+    th = Model.clientModel.service.get_thickness(9)
+    assert th.stiffness_matrix_self_weight_definition_type == 'SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_BULK_DENSITY_AND_AREA_DENSITY'
+    assert th.stiffness_matrix_area_density == 10
+    assert th.stiffness_matrix_coefficient_of_thermal_expansion == 1
+    assert th.D33 == 33000
+    assert th.D67 == 67000
+    assert th.D28 == 28000

@@ -80,34 +80,39 @@ def test_nodal_load():
     Model.clientModel.service.finish_modification()
 
     # Initial Nodal Load
-    assert Model.clientModel.service.get_nodal_load(1, 1).nodes == '2'
-    assert Model.clientModel.service.get_nodal_load(1, 1).force_magnitude == 5000
-    assert Model.clientModel.service.get_nodal_load(1, 1).load_direction == 'LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U'
+    nl = Model.clientModel.service.get_nodal_load(1, 1)
+    assert nl.nodes == '2'
+    assert nl.force_magnitude == 5000
+    assert nl.load_direction == 'LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U'
 
     # Force Type Nodal Load
-    assert Model.clientModel.service.get_nodal_load(2, 1).nodes == '2'
-    assert Model.clientModel.service.get_nodal_load(2, 1).load_type == 'LOAD_TYPE_FORCE'
+    nl = Model.clientModel.service.get_nodal_load(2, 1)
+    assert nl.nodes == '2'
+    assert nl.load_type == 'LOAD_TYPE_FORCE'
 
     # Moment Type Nodal Load
-    assert Model.clientModel.service.get_nodal_load(3, 1).nodes == '4'
-    assert Model.clientModel.service.get_nodal_load(3, 1).load_type == 'LOAD_TYPE_MOMENT'
+    nl = Model.clientModel.service.get_nodal_load(3, 1)
+    assert nl.nodes == '4'
+    assert nl.load_type == 'LOAD_TYPE_MOMENT'
 
     # Component Type Nodal Load
-    assert Model.clientModel.service.get_nodal_load(4, 1).nodes == '6'
-    assert Model.clientModel.service.get_nodal_load(4, 1).load_type == 'LOAD_TYPE_COMPONENTS'
-    assert Model.clientModel.service.get_nodal_load(4, 1).components_force_x == 5000
-    assert Model.clientModel.service.get_nodal_load(4, 1).components_force_y == 4000
-    assert Model.clientModel.service.get_nodal_load(4, 1).components_force_z == 30
-    assert Model.clientModel.service.get_nodal_load(4, 1).components_moment_x == 10
-    assert Model.clientModel.service.get_nodal_load(4, 1).components_moment_y == 5210
-    assert Model.clientModel.service.get_nodal_load(4, 1).components_moment_z == 75
+    nl = Model.clientModel.service.get_nodal_load(4, 1)
+    assert nl.nodes == '6'
+    assert nl.load_type == 'LOAD_TYPE_COMPONENTS'
+    assert nl.components_force_x == 5000
+    assert nl.components_force_y == 4000
+    assert nl.components_force_z == 30
+    assert nl.components_moment_x == 10
+    assert nl.components_moment_y == 5210
+    assert nl.components_moment_z == 75
 
     #Mass Type Nodal Load
-    assert Model.clientModel.service.get_nodal_load(5, 1).nodes == '8'
-    assert Model.clientModel.service.get_nodal_load(5, 1).load_type == 'LOAD_TYPE_MASS'
-    # assert Model.clientModel.service.get_nodal_load(5, 1).mass_x == 4000                      # Bugfix G-30467: Individual Mass Components
-    # assert Model.clientModel.service.get_nodal_load(5, 1).mass_y == 3000                      # Bugfix G-30467: Individual Mass Components
-    # assert Model.clientModel.service.get_nodal_load(5, 1).mass_z == 2000                      # Bugfix G-30467: Individual Mass Components
-    assert Model.clientModel.service.get_nodal_load(5, 1).mass_moment_of_inertia_x == 1000
-    assert Model.clientModel.service.get_nodal_load(5, 1).mass_moment_of_inertia_y == 500
-    assert Model.clientModel.service.get_nodal_load(5, 1).mass_moment_of_inertia_z == 100
+    nl = Model.clientModel.service.get_nodal_load(5, 1)
+    assert nl.nodes == '8'
+    assert nl.load_type == 'LOAD_TYPE_MASS'
+    # assert nl.mass_x == 4000                      # Bugfix G-30467: Individual Mass Components
+    # assert nl.mass_y == 3000                      # Bugfix G-30467: Individual Mass Components
+    # assert nl.mass_z == 2000                      # Bugfix G-30467: Individual Mass Components
+    assert nl.mass_moment_of_inertia_x == 1000
+    assert nl.mass_moment_of_inertia_y == 500
+    assert nl.mass_moment_of_inertia_z == 100

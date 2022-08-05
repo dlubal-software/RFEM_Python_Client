@@ -28,17 +28,20 @@ def test_load_case():
 
     Model.clientModel.service.finish_modification()
 
-    assert Model.clientModel.service.get_load_case(1).to_solve == True
-    assert Model.clientModel.service.get_load_case(1).action_category == 'ACTION_CATEGORY_PERMANENT_G'
-    assert Model.clientModel.service.get_load_case(1).self_weight_active == True
-    assert Model.clientModel.service.get_load_case(1).self_weight_factor_x == 0
-    assert Model.clientModel.service.get_load_case(1).self_weight_factor_z == 1
+    lc_1 = Model.clientModel.service.get_load_case(1)
+    assert lc_1.to_solve == True
+    assert lc_1.action_category == 'ACTION_CATEGORY_PERMANENT_G'
+    assert lc_1.self_weight_active == True
+    assert lc_1.self_weight_factor_x == 0
+    assert lc_1.self_weight_factor_z == 1
 
-    assert Model.clientModel.service.get_load_case(2).action_category == 'ACTION_CATEGORY_PERMANENT_IMPOSED_GQ'
-    assert Model.clientModel.service.get_load_case(2).self_weight_factor_x == 0.1
-    assert Model.clientModel.service.get_load_case(2).self_weight_factor_z == 0
+    lc_2 = Model.clientModel.service.get_load_case(2)
+    assert lc_2.action_category == 'ACTION_CATEGORY_PERMANENT_IMPOSED_GQ'
+    assert lc_2.self_weight_factor_x == 0.1
+    assert lc_2.self_weight_factor_z == 0
 
-    assert Model.clientModel.service.get_load_case(3).action_category == 'ACTION_CATEGORY_SNOW_ICE_LOADS_H_LESS_OR_EQUAL_TO_1000_M_QS'
-    assert Model.clientModel.service.get_load_case(3).self_weight_active == False
+    lc_3 = Model.clientModel.service.get_load_case(3)
+    assert lc_3.action_category == 'ACTION_CATEGORY_SNOW_ICE_LOADS_H_LESS_OR_EQUAL_TO_1000_M_QS'
+    assert lc_3.self_weight_active == False
 
     assert Model.clientModel.service.get_load_case(4).self_weight_active == False
