@@ -159,8 +159,10 @@ class StaticAnalysisSettings():
             no (int): Static Analysis Setting Tag
             name (str, optional):  Static Analysis Setting Name
             iterative_method (enum): Static Analysis Settings Iterative Method for Non-linear Analysis Enumeration
-            standard_precision_and_tolerance_settings (list, optional): [standard_precision_and_tolerance_settings_enabled, precision_of_convergence_criteria_for_nonlinear_calculation, tolerance_for_detection_of_instability, robustness_of_iterative_calculation]
-            control_nonlinear_analysis (list): [max_number_of_iterations, number_of_load_increments]
+            standard_precision_and_tolerance_settings (list, optional): Standard Precision and Tolerance Settings List
+                standard_precision_and_tolerance_settings = [standard_precision_and_tolerance_settings_enabled, precision_of_convergence_criteria_for_nonlinear_calculation, tolerance_for_detection_of_instability, robustness_of_iterative_calculation]
+            control_nonlinear_analysis (list): Nonlinear Analysis Control Parameters
+                control_nonlinear_analysis = [max_number_of_iterations, number_of_load_increments]
                 for iterative_method == "NEWTON_RAPHSON" or iterative_method.name == "NEWTON_RAPHSON_COMBINED_WITH_PICARD" or iterative_method.name == "PICARD" or iterative_method.name == "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS":
                     control_nonlinear_analysis = [max_number_of_iterations = int, number_of_load_increments = int]
                 for iterative_method == "DYNAMIC_RELAXATION":
@@ -284,7 +286,7 @@ class StaticAnalysisSettings():
             no (int): Static Analysis Setting Tag
             name (str, optional):  Static Analysis Setting Name
             iterative_method (enum): Static Analysis Settings Iterative Method for Non-linear Analysis Enumeration
-            standard_precision_and_tolerance_settings (list, optional): [Standard Precision and Tolerance Settings List
+            standard_precision_and_tolerance_settings (list, optional): Standard Precision and Tolerance Settings List
                 standard_precision_and_tolerance_settings = [standard_precision_and_tolerance_settings_enabled, precision_of_convergence_criteria_for_nonlinear_calculation, tolerance_for_detection_of_instability, robustness_of_iterative_calculation]
             control_nonlinear_analysis (list): Nonlinear Analysis Control Parameters
                 control_nonlinear_analysis = [max_number_of_iterations, number_of_load_increments]

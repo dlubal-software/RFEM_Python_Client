@@ -15,7 +15,7 @@ class DesignSituation():
         """
         Args:
             no (int): Design Situation Tag
-            design_situation_type (enum): Design Situation Type
+            design_situation_type (enum): Design Situation Type Enumeration
             active (bool): Enable/Disable Design Situation Activity
             name (str, optional): User-Defined Name
             comment (str, optional): Comments

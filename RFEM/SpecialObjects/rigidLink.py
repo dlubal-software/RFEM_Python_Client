@@ -17,7 +17,7 @@ class RigidLink():
             no (int): Rigid Link Tag
             line_1 (int): Assigned Line Number
             line_2 (int): Assigned Line Number
-            ignore_relative_position (bool): Ignore relative Position
+            ignore_relative_position (bool): Enable/Disable Ignore Relative Position
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -70,7 +70,7 @@ class RigidLink():
             no (int): Rigid Link Tag
             line_1 (int): Assigned Line Number
             line_2 (int): Assigned Line Number
-            ignore_relative_position (bool): Ignore relative Position
+            ignore_relative_position (bool): Enable/Disable Ignore Relative Position
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -122,7 +122,7 @@ class RigidLink():
             no (int): Rigid Link Tag
             line_1 (int): Assigned Line Number
             surface (int): Assigned Surface Number
-            ignore_relative_position (bool): Ignore relative Position
+            ignore_relative_position (bool): Enable/Disable Ignore Relative Position
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited

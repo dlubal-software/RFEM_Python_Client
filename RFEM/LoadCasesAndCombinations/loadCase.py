@@ -79,7 +79,7 @@ class LoadCase():
             to_solve: bool = True,
             analysis_settings_no: int = 1,
             action_category=ActionCategoryType.ACTION_CATEGORY_PERMANENT_G,
-            self_weight=[True, 0.0, 0.0, 10.0],
+            self_weight: list =[True, 0.0, 0.0, 10.0],
             comment: str = 'Comment',
             params: dict = None,
             model = Model):
@@ -89,7 +89,7 @@ class LoadCase():
             name (str): Load Case Name
             to_solve (bool): Enable/Disbale Load Case Solver Status
             analysis_settings_no (int): Analysis Settings Number
-            action_category (enum): Action Category enum
+            action_category (enum): Action Category Enumeration
             self_weight (list): Self-weight Considerations
                 for self-weight considerations;
                     self_weight = [True, self_weight_factor_x, self_weight_factor_y, self_weight_factor_z]

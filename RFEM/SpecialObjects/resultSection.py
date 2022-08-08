@@ -17,16 +17,16 @@ class ResultSection():
 
         Args:
             no (int): Result Section Tag
-            type (enum): Categories Type
-            show_section_in_direction (enum): Result Section Direction Enumeration
-            show_values_on_isolines (bool): Show values on isolines
+            type (enum): Result Section Type Enumeration
+            show_section_in_direction (enum): Result Section Result Direction Enumeration
+            show_values_on_isolines (bool): Show values on Isolines
             parameters (list): Variable parameters List
                 if type == ResultSectionType.TYPE_LINE:
                     parameters = [lines] ; example : ['1 2']
                 if type == ResultSectionType.TYPE_2_POINTS_AND_VECTOR:
                     parameters = [coordinate_system, first_point_coordinates, second_point_coordinates, projection, vector]; exapmle : [1, [1,0,0], [0,2,0], ResultSectionProjection.PROJECTION_IN_VECTOR, [1,1,1]]
-            assigned_to_surfaces (str, optional) = Assigned to surfaces
-            assigned_to_solids (str, optional) Assigned to solids
+            assigned_to_surfaces (str, optional) = Assigned to Surfaces
+            assigned_to_solids (str, optional) Assigned to Solids
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
         """
@@ -101,14 +101,14 @@ class ResultSection():
         Args:
             no (int): Result Section Tag
             coordinate_system (int): Coordinate System Number
-            show_section_in_direction (enum): Result Section Direction Enumeration
-            show_values_on_isolines (bool): Enable/Disable Show values on isolines option
+            show_section_in_direction (enum): Result Section Result Direction Enumeration
+            show_values_on_isolines (bool): Enable/Disable Show values on Isolines Option
             first_point_coordinates (list): First point coordinates
             second_point_coordinates (list): Second point coordinates
             projection (enum): Result Section Projection Enumeration
             vector (list, optional): Vector if projection is VECTOR
-            assigned_to_surfaces (str, optional) = Assigned to surfaces
-            assigned_to_solids (str, optional) Assigned to solids
+            assigned_to_surfaces (str, optional) = Assigned to Surfaces
+            assigned_to_solids (str, optional) Assigned to Solids
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -186,11 +186,11 @@ class ResultSection():
         Args:
             no (int): Result Section Tag
             type (enum): Result Section Type Enumeration (Defaults to ResultSectionType.TYPE_2_POINTS_AND_VECTOR)
-            show_section_in_direction (enum): Result Section Direction Enumeration
-            show_values_on_isolines (bool): Enable/Disable Show values on isolines option
+            show_section_in_direction (enum): Result Section Result Direction Enumeration
+            show_values_on_isolines (bool): Enable/Disable Show Values on Isolines Option
             lines (str): Lines
-            assigned_to_surfaces (str, optional) = Assigned to surfaces
-            assigned_to_solids (str, optional) Assigned to solids
+            assigned_to_surfaces (str, optional) = Assigned to Surfaces
+            assigned_to_solids (str, optional) Assigned to Solids
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited

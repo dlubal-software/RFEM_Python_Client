@@ -14,7 +14,7 @@ class SurfaceContact():
 
         Args:
             no (int, optional): Surface Conatct Tag
-            surfaces_contact_type (int, optional): Surface Contact Type
+            surfaces_contact_type (int, optional): Surface Contact Type Number
             surface_group_1 (str, optional): Surfaces Group 1
             surface_group_2 (str, optional): Surfaces Group 2
             comment (str, optional): Comment

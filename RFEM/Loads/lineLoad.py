@@ -83,8 +83,8 @@ class LineLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             lines_no (str): Assigned Line(s)
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
+            load_distribution (enum): Line Load Distribution Enumeration
+            load_direction (enum): Line Load Direction Enumeration
             load_parameter (flaot/list/list of lists): Load Parameter
                 for load_distribution == LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = magnitude
@@ -339,8 +339,8 @@ class LineLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             lines_no (str): Assigned Line(s)
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
+            load_distribution (enum): Line Load Distribution Enumeration
+            load_direction (enum): Line Load Direction Enumeration
             load_parameter (float/list/list of lists): Load Parameter
                 for load_parameter == LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = magnitude

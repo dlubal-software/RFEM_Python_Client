@@ -23,7 +23,7 @@ class LoadCombination():
             no (int): Load Combination Tag
             analysis_type (enum): Analysis Type Enumeration
             design_situation (int): Design Situation
-            user_defined_name (list/bool???): Combination Name   <<<----------
+            user_defined_name (list): User defined Combination Name
             static_analysis_settings (int): Static Analysis Settings Number
             consider_imperfection (bool): Consider Imperfection Options
             consider_initial_state (bool): Consider Initial State

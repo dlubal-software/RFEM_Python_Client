@@ -76,23 +76,23 @@ class StabilityAnalysisSettings():
             name (str, optional): Stability Analysis Setting Name
             number_of_lowest_eigenvalues (int): Number of Lowest Eigenvalues
             considered_favored_effect (bool): Considered Favored Effect
-            critical_load_factor (int, optional):
+            critical_load_factor (int, optional): Critical Load Factor
                 for find_eigenvectors_beyond_critical_load_factor == False:
                     critical_load_factor = None
                 for find_eigenvectors_beyond_critical_load_factor == True:
                     critical_load_factor = int
-            minimum_initial_strain (optional):
+            minimum_initial_strain (optional): Minimum Initial Strain
                 for minimum initial strain application:
                     minimum_initial_strain != 0 or minimum_initial_strain is not None
                 for no minimum initial strain application:
                     minimum_initial_strain == 0 or minimum_initial_strain is None
-            local_torsional_rotations (optional):
+            local_torsional_rotations (optional): Local Torsional Rotations
                 for no local torsional rotations display:
                     local_torsional_rotations = None
                 for local torsional rotations display:
                     local_torsional_rotations = double
-            eigenvalue_method (enum): Eigenvalue Method Enumeration
-            matrix_type (enum): Matrix Type Enumeration
+            eigenvalue_method (enum): StabilityAnalysisSettings Eigenvalue Method Enumeration
+            matrix_type (enum): StabilityAnalysisSettings Matrix Type Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -176,23 +176,24 @@ class StabilityAnalysisSettings():
             name (str, optional): Stability Analysis Setting Name
             number_of_lowest_eigenvalues (int): Number of Lowest Eigenvalues
             considered_favored_effect (bool): Considered Favored Effect
-            critical_load_factor (int, optional):
+            critical_load_factor (int, optional): Critical Load Factor
                 for find_eigenvectors_beyond_critical_load_factor == False:
                     critical_load_factor = None
                 for find_eigenvectors_beyond_critical_load_factor == True:
                     critical_load_factor = int
-            minimum_initial_strain (optional):
+            minimum_initial_strain (optional): Minimum Initial Strain
                 for minimum initial strain application:
                     minimum_initial_strain != 0 or minimum_initial_strain is not None
                 for no minimum initial strain application:
                     minimum_initial_strain is None
-            local_torsional_rotations (optional):
+            local_torsional_rotations (optional): Local Torsional Rotations
                 for no local torsional rotations display:
                     local_torsional_rotations = None
                 for local torsional rotations display:
                     local_torsional_rotations = double
-            incrementally_increasing_loading (list): [initial_load_factor, load_factor_increment, refinement_of_the_last_load_increment, maximum_number_of_load_increments]
-            stopping_of_load_increasing (list, optional):
+            incrementally_increasing_loading (list): Incrementally Increasing Loading
+                incrementally_increasing_loading = [initial_load_factor, load_factor_increment, refinement_of_the_last_load_increment, maximum_number_of_load_increments]
+            stopping_of_load_increasing (list, optional): Stopping of Load Increasing
                 for stopping of load increasing deactivated:
                     stopping_of_load_increasing = None
                 for result u:
@@ -212,8 +213,8 @@ class StabilityAnalysisSettings():
                 for result phiZ:
                     stopping_of_load_increasing = [StabilityAnalysisSettingsStoppingOfLoadIncreasingResult.RESULT_TYPE_ROTATION_PHI_Z, limit_result_rotation, limit_node]
             save_results_of_all_increments (bool, optional): Save Results of All Increments
-            eigenvalue_method (enum): Eigenvalue Method Enumeration
-            matrix_type (enum): Matrix Type Enumeration
+            eigenvalue_method (enum): StabilityAnalysisSettings Eigenvalue Method Enumeration
+            matrix_type (enum): StabilityAnalysisSettings Matrix Type Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -313,18 +314,19 @@ class StabilityAnalysisSettings():
         Args:
             no (int): Stability Analysis Setting Tag
             name (str, optional): Stability Analysis Setting Name
-            minimum_initial_strain (optional):
+            minimum_initial_strain (optional): Minimum Initial Strain
                 for minimum initial strain application:
                     minimum_initial_strain != 0 or minimum_initial_strain is not None
                 for no minimum initial strain application:
                     minimum_initial_strain == 0 or minimum_initial_strain is None
-            local_torsional_rotations (optional):
+            local_torsional_rotations (optional): Local Torsional Rotations
                 for no local torsional rotations display:
                     local_torsional_rotations = None
                 for local torsional rotations display:
                     local_torsional_rotations = double
-            incrementally_increasing_loading (list): [initial_load_factor, load_factor_increment, refinement_of_the_last_load_increment, maximum_number_of_load_increments]
-            stopping_of_load_increasing (list, optional):
+            incrementally_increasing_loading (list): Incrementally Increasing Loading
+                incrementally_increasing_loading = [initial_load_factor, load_factor_increment, refinement_of_the_last_load_increment, maximum_number_of_load_increments]
+            stopping_of_load_increasing (list, optional): Stopping of Load Increasing
                 for stopping of load increasing deactivated:
                     stopping_of_load_increasing = None
                 for result u:

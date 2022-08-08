@@ -22,12 +22,12 @@ class ImperfectionCase():
         Imperfection Case
 
         Args:
-            no (int, optional): Number
-            type (enum, optional): Type
-            assigned_to_load_cases (str, optional): Assigned to load case
-            assigned_to_load_combinations (str, optional): Assigned to load combinations
-            assign_to_combinations_without_assigned_imperfection_case (bool, optional): Assign to all load combinations without assigned imperfection case
-            active (bool, optional): Active
+            no (int): Imperfection Case Tag
+            type (enum): Imperfection Type
+            assigned_to_load_cases (str, optional): Assigned to Load Case
+            assigned_to_load_combinations (str, optional): Assigned to Load Combinations
+            assign_to_combinations_without_assigned_imperfection_case (bool): Assign to all Load Combinations without Assigned Imperfection Case
+            active (bool): Active
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -82,7 +82,7 @@ class ImperfectionCase():
         Imperfection Case Local Imperfections
 
         Args:
-            no (int, optional): Number
+            no (int): Imperfection Case Tag
             assigned_to_load_combinations (str, optional): Assigned Load Combinations
             assigned_to_load_cases (str, optional): Assigned Load Cases
             comment (str, optional): Comments
@@ -146,16 +146,16 @@ class ImperfectionCase():
         Imperfection Case Initial Sway via Table
 
         Args:
-            no (int, optional): Number
-            assigned_to_load_cases (str, optional): Assigned to load case
-            assigned_to_load_combinations (str, optional): Assigned to load combinations
-            assign_to_combinations_without_assigned_imperfection_case (bool, optional): Assign to all load combinations without assigned imperfection case
-            direction (enum, optional): Level direction
-            direction_for_level_direction (enum, optional): Imperfection direction
-            coordinate_system (int, optional): Coordinate system
-            sway_coefficients_reciprocal (bool, optional): Sway coefficient as reciprocal of 1
-            level_imperfections (list, optional): Level imperfections
-            active (bool, optional): Active
+            no (int): Imperfection Case Tag
+            assigned_to_load_cases (str, optional): Assigned to Load Case
+            assigned_to_load_combinations (str, optional): Assigned to Load Combinations
+            assign_to_combinations_without_assigned_imperfection_case (bool): Assign to all Load Combinations without assigned Imperfection Case
+            direction (enum): Imperfection Case Direction Enumeration
+            direction_for_level_direction (enum): Direction For Level Direction Enumeration
+            coordinate_system (int): Coordinate system
+            sway_coefficients_reciprocal (bool): Sway Coefficient as reciprocal of 1
+            level_imperfections (list): Level Imperfections
+            active (bool): Active
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -240,12 +240,12 @@ class ImperfectionCase():
         Imperfection Case
 
         Args:
-            no (int, optional): Number
-            assigned_to_load_cases (str, optional): Assigned to load case
-            assigned_to_load_combinations (str, optional): Assigned to load combinations
-            assign_to_combinations_without_assigned_imperfection_case (bool, optional): Assign to all load combinations without assigned imperfection case
-            load_case_for_notional_loads(int, manadatory): Load case for notional loads
-            active (bool, optional): Active
+            no (int): Imperfection Case Tag
+            assigned_to_load_cases (str, optional): Assigned to Load Case
+            assigned_to_load_combinations (str, optional): Assigned to Load Combinations
+            assign_to_combinations_without_assigned_imperfection_case (bool): Assign to all Load Combinations without assigned Imperfection Case
+            load_case_for_notional_loads(int): Load Case for Notional Loads
+            active (bool): Active
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -312,18 +312,18 @@ class ImperfectionCase():
         Static Deformation Type
 
         Args:
-            no (int, optional): Number
-            assigned_to_load_cases (str, optional): Assigned to load case
-            assigned_to_load_combinations (str, optional): Assigned to load combinations
-            assign_to_combinations_without_assigned_imperfection_case (bool, optional): Assign to all load combinations without assigned imperfection case
-            direction (enum, optional):
-            coordinate_system (int, optional):
-            source (enum, optional):
-            imperfection_shape_from (int, optional):
-            imperfection_magnitude (float, optional):
-            magnitude_assignment_type (enum, optional):
-            reference_node (int, optional):
-            active (bool, optional): Active
+            no (int): Imperfection Case Tag
+            assigned_to_load_cases (str, optional): Assigned to Load Case
+            assigned_to_load_combinations (str, optional): Assigned to Load Combinations
+            assign_to_combinations_without_assigned_imperfection_case (bool): Assign to all Load Combinations without assigned Imperfection Case
+            direction (enum): Imperfection Case Direction Enumeration
+            coordinate_system (int): Coordinate System
+            source (enum): Imperfection Case Source Type Enumeration
+            imperfection_shape_from (int): Imperfection Shape From
+            imperfection_magnitude (float): Imperfection Magnitude
+            magnitude_assignment_type (enum): Imperfection Case Assignment Type Enumeration
+            reference_node (int): Reference Node
+            active (bool): Active
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -406,12 +406,12 @@ class ImperfectionCase():
         Imperfection Case
 
         Args:
-            no (int, optional): Number
-            assigned_to_load_cases (str, optional): Assigned to load case
-            assigned_to_load_combinations (str, optional): Assigned to load combinations
-            assign_to_combinations_without_assigned_imperfection_case (bool, optional): Assign to all load combinations without assigned imperfection case
-            imperfection_cases (list, optional): Imperfection cases items
-            active (bool, optional): Active
+            no (int): Imperfection Case Tag
+            assigned_to_load_cases (str, optional): Assigned to Load Case
+            assigned_to_load_combinations (str, optional): Assigned to Load Combinations
+            assign_to_combinations_without_assigned_imperfection_case (bool): Assign to all Load Combinations without assigned Imperfection Case
+            imperfection_cases (list): Imperfection Cases items
+            active (bool): Active
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
