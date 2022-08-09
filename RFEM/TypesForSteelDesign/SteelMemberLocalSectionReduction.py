@@ -10,10 +10,11 @@ class SteelMemberLocalSectionReduction():
                  members: str = '1',
                  member_sets: str = '',
                  components: list = [
-                    [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 0.0, False, 0, \
-                     MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 0.0, FastenerDefinitionType.DEFINITION_TYPE_ABSOLUTE, 0.0]
+                    [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1.0, False,\
+                     FastenerDefinitionType.DEFINITION_TYPE_ABSOLUTE, 0.5, 2,\
+                     MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 1.0]
                                     ],
-                 user_defined_name: list = [False],
+                 user_defined_name: str = '',
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -26,17 +27,13 @@ class SteelMemberLocalSectionReduction():
                 components[i][0] (enum): Steel Member Local Section Reduction Type Enumeration
                 components[i][1] (float): Position Value
                 components[i][2] (bool): Enable/Disable Multiple Option
+                components[i][3] (enum): Fastener Definition Type Enumeration
+                components[i][4] (float): Reduction Area
                 if components[i][2] == True
-                    components[i][3] (int): Multiple Number
-                    components[i][4] (enum): Multiple Offset Definition Type Enumeration
-                    components[i][5] (float): Multiple Offset Value
-                components[i][6] (enum): Fastener Definition Type Enumeration
-                components[i][7] (float): Reduction Area
-            user_defined_name (list): User Defined  Member Local Section Reduction Name
-                for user_defined_name[0] == False:
-                    pass
-                for user_defined_name == True:
-                    user_defined_name[1] = Defined Name
+                    components[i][5] (int): Multiple Number
+                    components[i][6] (enum): Multiple Offset Definition Type Enumeration
+                    components[i][7] (float): Multiple Offset Value
+            user_defined_name (str): User Defined  Member Local Section Reduction Name
             comment (str): Comments
             params (dict): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -58,29 +55,30 @@ class SteelMemberLocalSectionReduction():
         clientObject.member_sets = ConvertToDlString(member_sets)
 
         #Local Section Reduction User defined Name
-        if user_defined_name[0] == False:
-            clientObject.user_defined_name_enabled = user_defined_name[0]
-        else:
-            clientObject.user_defined_name_enabled = user_defined_name[0]
-            clientObject.name = user_defined_name[1]
+        if user_defined_name:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = user_defined_name
 
         #Local Section Reduction Components
-        clientObject.components = model.clientModel.factory.create('ns0:steel_member_local_section_reduction.components')
+        clientObject.components = model.clientModel.factory.create('ns0:array_of_steel_member_local_section_reduction_components')
 
         for i,j in enumerate(components):
             smlsr = model.clientModel.factory.create('ns0:steel_member_local_section_reduction_components_row')
-            smlsr.no = i
+            smlsr.no = i+1
             smlsr.row.reduction_type = components[i][0].name
             smlsr.row.position = components[i][1]
             smlsr.row.multiple = components[i][2]
-            if smlsr.row.multiple == True:
-                smlsr.row.multiple_number = components[i][3]
-                smlsr.row.multiple_offset_definition_type = components[i][4].name
-                smlsr.row.multiple_offset = components[i][5]
-            smlsr.row.fastener_definition_type = components[i][6].name
-            smlsr.row.reduction_area = components[i][7]
+            smlsr.row.fastener_definition_type = components[i][3].name
+            smlsr.row.reduction_area = components[i][4]
+            if smlsr.row.multiple:
+                smlsr.row.multiple_number = components[i][5]
+                smlsr.row.multiple_offset_definition_type = components[i][6].name
+                smlsr.row.multiple_offset = components[i][7]
+            else:
+                smlsr.row.multiple_offset_definition_type = None # important
 
             clientObject.components.steel_member_local_section_reduction_components.append(smlsr)
+
         # Comment
         clientObject.comment = comment
 

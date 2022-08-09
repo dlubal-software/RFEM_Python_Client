@@ -24,12 +24,8 @@ from RFEM.enums import SteelMemberLocalSectionReductionType,MemberTransverseStif
 
 if __name__ == '__main__':
 
-
-
-
     Model(True, "Demo1") # crete new model called Demo1
     Model.clientModel.service.begin_modification()
-
 
     Material(1, 'S235')
 
@@ -41,6 +37,5 @@ if __name__ == '__main__':
     Member(1, 1, 2, 0.0, 1, 1)
 
     SteelMemberLocalSectionReduction()
-
 
     Model.clientModel.service.finish_modification()
