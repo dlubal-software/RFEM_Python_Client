@@ -15,7 +15,7 @@ class LineWeldedJoint():
                  model = Model):
         """
         Args:
-            no (int): Line Support Tag
+            no (int): Line Welded Joint Tag
             lines (str): Assigned Lines
             surfaces (str): Assigned Surfaces
             joint_type (enum): Line Welded Joint Type Enumeration

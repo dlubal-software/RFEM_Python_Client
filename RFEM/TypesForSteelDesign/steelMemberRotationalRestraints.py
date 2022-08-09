@@ -15,8 +15,8 @@ class SteelMemberRotationalRestraint():
                 model = Model):
         """
         Args:
-            no (int): Member Rotational Restraint Tag
-            user_defined_name (list): User Defined Name
+            no (int): Steel Member Rotational Restraint Tag
+            user_defined_name (list): User Defined Member Rotational Restraint Name
                 for user_defined_name[0] == False:
                     pass
                 for user_defined_name == True:
@@ -24,7 +24,7 @@ class SteelMemberRotationalRestraint():
             definition_type (enum): Steel Member Rotational Restraint Type Enumeration
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
-            categories (list):
+            categories (list): Categories List
                 for definition_type = SteelMemberRotationalRestraintType.TYPE_CONTINUOUS:
                     categories[0] = Sheeting Material Name
                     categories[1] = Sheeting Name
@@ -39,7 +39,7 @@ class SteelMemberRotationalRestraint():
                     categories[4] = Section Deformation Option
                 for definition_type = SteelMemberRotationalRestraintType.TYPE_MANUALLY:
                     categories = None
-            parameters (list):
+            parameters (list): Parameters List
                 for definition_type = SteelMemberRotationalRestraintType.TYPE_CONTINUOUS:
                     parameters[0] = Modulus of Elasticity
                     parameters[1] = Sheeting Thickness

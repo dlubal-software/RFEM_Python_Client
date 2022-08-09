@@ -19,7 +19,7 @@ class MemberEccentricity():
         Args:
             no (int): Eccentricity Tag
             name (list): User Defined Name
-            eccentricity_type (enum): Eccentricity Type Enumeration Item
+            eccentricity_type (enum): Member Eccentricity Specification Type Enumeration
             eccentricity_parameters (list): Eccentricity Parameters List
                 for eccentricity_type == MemberEccentricitySpecificationType.TYPE_RELATIVE:
                     eccentricity_parameters = [horizontal_section_alignment, vertical_section_alignment]
@@ -27,7 +27,7 @@ class MemberEccentricity():
                     eccentricity_parameters = [coordinate_system, offset_x, offset_y, offset_z]
                 for eccentricity_type == MemberEccentricitySpecificationType.TYPE_RELATIVE_AND_ABSOLUTE:
                     eccentricity_parameters = [coordinate_system, offset_x, offset_y, offset_z, horizontal_section_alignment, vertical_section_alignment]
-            transverse_offset_type (enum): Transverse Offset Type Enumeration Item
+            transverse_offset_type (enum): Member Eccentricity Transverse Offset Type Enumeration
             transverse_offset_parameters (list): Transverse Offset Parameters List
                 for transverse_offset_type == MemberEccentricityTransverseOffsetType.TRANSVERSE_OFFSET_TYPE_NONE:
                     transverse_offset_parameters = None

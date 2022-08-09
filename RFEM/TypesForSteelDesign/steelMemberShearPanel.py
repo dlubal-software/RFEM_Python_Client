@@ -15,16 +15,16 @@ class SteelMemberShearPanel():
                 params: dict = None):
         """
         Args:
-            no (int): Member Shear Panel Tag
+            no (int): Steel Member Shear Panel Tag
             user_defined_name (list): User Defined Member Shear Panel Name
                 for user_defined_name[0] == False:
                     pass
                 for user_defined_name == True:
                     user_defined_name[1] = Defined Name
-            definition_type (enum): Member Shear Panel Definition Enumeration Type
+            definition_type (enum): Steel Member Shear Panel Definition Type Enumeration
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
-            categories (list): Positional Categories
+            categories (list): Positional Categories LIst
                 for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING:
                     categories[0] = Section Position Enumeration Type
                     categories[1] = Sheeting Name
@@ -75,7 +75,6 @@ class SteelMemberShearPanel():
                         parameters[1] = Position on Section Value
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (RFEM Class, optional): Model to be edited
         """
 
          # Client Model | Types For Steel Design Member Shear Panel

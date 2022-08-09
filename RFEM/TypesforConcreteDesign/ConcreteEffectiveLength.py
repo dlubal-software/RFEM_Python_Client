@@ -35,13 +35,10 @@ class ConcreteEffectiveLength():
                                    restraint_spring_about_z, restraint_spring_warping, support_in_y_type,
                                    restraint_about_x_type, restraint_about_z_type, restraint_warping_type, nodes], ...]
             factors (list of lists): Factors Table
+                factors = [[flexural_buckling_y, flexural_buckling_z]]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
-
-
-
-        factors = [[flexural_buckling_y, flexural_buckling_z]]
         """
 
         # Client model | Concrete Durabilities

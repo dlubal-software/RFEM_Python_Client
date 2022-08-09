@@ -18,11 +18,11 @@ class SurfaceContactType():
             perpendicular_contact (enum): Surface Contact Perpendicular Type Enumeration
             parallel_contact (enum): Surface Contact Parallel Type Enumeration
             contact_parameters (list): Contact Parameters List
-                for parallel_contact == RIGID_FRICTION:
+                for parallel_contact == SurfaceContactParallelType.RIGID_FRICTION:
                     contact_parameters = [enum rigid_friction_type, rigid_friction_coefficient or rigid_friction_limit_stress]
-                for parallel_contact == ELASTIC_FRICTION:
+                for parallel_contact == SurfaceContactParallelType.ELASTIC_FRICTION:
                     contact_parameters = [elastic_friction_shear_stiffness, enum elastic_friction_type, elastic_friction_coefficient or elastic_friction_limit_stress]
-                for parallel_contact == ELASTIC_SURFACE:
+                for parallel_contact == SurfaceContactParallelType.ELASTIC_SURFACE:
                     contact_parameters = [elastic_behavior_shear_stiffness]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -195,11 +195,11 @@ class SurfaceContactType():
         Elastic Friction Surface Contact Type
 
         Args:
-            no (int, optional): Surface Contact Type Tag
-            perpendicular_contact (enum, optional): Surface Contact Perpendicular Type Enumeration
+            no (int): Surface Contact Type Tag
+            perpendicular_contact (enum): Surface Contact Perpendicular Type Enumeration
             shear_stiffness (float): Shear Stiffness
-            elastic_friction_type (enum, optional): Surface Contact Friction Type Enumeration
-            elastic_friction_value (float, optional): Value of elastic_friction_coefficient or elastic_friction_limit_stress
+            elastic_friction_type (enum): Surface Contact Friction Type Enumeration
+            elastic_friction_value (float): Value of elastic_friction_coefficient or elastic_friction_limit_stress
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -257,7 +257,7 @@ class SurfaceContactType():
         Args:
             no (int): Surface Contact Type Tag
             perpendicular_contact (enum): Surface Contact Perpendicular Type Enumeration
-            shear_stiffness (float): Shear stiffness value
+            shear_stiffness (float): Shear Stiffness Value
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited

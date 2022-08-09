@@ -17,7 +17,7 @@ class LineMeshRefinements():
         Args:
             no (int): Line Mesh Refinements Tag
             lines (str): Assigned Lines
-            type (enum): Line Mesh Refinements Enumerration
+            type (enum):
             number_of_layers (int): Number of Layers
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary

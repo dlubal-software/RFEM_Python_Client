@@ -10,12 +10,12 @@ def setNodalSupportConditions(clientObject,
                               C_phi_Y: float,
                               C_phi_Z: float):
     '''
-    Sets nodal support conditions
+    Sets Nodal Support Conditions
 
-    Params:
+    Args:
         clientObject: Client Model Object | Nodal Support
-        C_u_X,Y,Z: Translational Support Conditions in Respected Direction
-        C_phi_X,Y,Z: Rotational Support Conditions about Respected Axis
+        C_u_X,Y,Z (float): Translational Support Conditions in Respected Direction
+        C_phi_X,Y,Z (float): Rotational Support Conditions about Respected Axis
 
     Returns:
         clientObject: Initialized Client Model Object | Nodal Support
@@ -43,8 +43,8 @@ class NodalSupport():
         Nodal Support
 
         Args:
-            no (int): Number
-            nodes_no (str): Assigned to nodes
+            no (int): Nodal Support Tag
+            nodes_no (str): Assigned to Nodes
             support (enum or list): Support Definition List
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary

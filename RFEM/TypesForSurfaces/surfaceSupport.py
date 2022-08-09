@@ -18,7 +18,7 @@ class SurfaceSupport():
 
         Args:
             no (int): Surface Support Tag
-            surfaces_no (str): Assignet to Surfaces
+            surfaces_no (str): Assigned to Surfaces
             c_ux (float): Translational Support in X direction
             c_uy (float): Translational Support in Y direction
             c_uz (float): Translational Support in Z direction

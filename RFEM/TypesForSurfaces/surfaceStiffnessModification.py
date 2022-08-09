@@ -16,11 +16,11 @@ class SurfaceStiffnessModification():
             no (int): Surface Stiffness Modification Tag
             type (enum): Surface Stiffness Modification Type Enumeration
             factors (list): Stiffeness Modification Factors
-                for type == TYPE_TOTAL_STIFFNESS_FACTOR:
+                for type == SurfaceStiffnessModificationType.TYPE_TOTAL_STIFFNESS_FACTOR:
                     factors = [factor_of_total_stiffness]
-                for type == TYPE_PARTIAL_STIFFNESSES_FACTORS:
+                for type == SurfaceStiffnessModificationType.TYPE_PARTIAL_STIFFNESSES_FACTORS:
                     factors = [factor_of_bending_stiffness, factor_of_shear_stiffness, factor_of_membrane_stiffness, factor_of_eccentric_effects, and factor_of_weight]
-                for type == TYPE_STIFFNESS_MATRIX_ELEMENTS_FACTORS:
+                for type == SurfaceStiffnessModificationType.TYPE_STIFFNESS_MATRIX_ELEMENTS_FACTORS:
                     factors = list of all 21 factors from kd11 to kd38
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary

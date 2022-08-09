@@ -34,7 +34,7 @@ class SteelEffectiveLengths():
                  model = Model):
         """
         Args:
-            no (int): Effective Length Tag
+            no (int): Steel Effective Length Tag
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
             flexural_buckling_about_y (bool): Flexural Buckling About Y Option
@@ -78,7 +78,7 @@ class SteelEffectiveLengths():
             different_properties (bool): Different Properties Option
             factors_definition_absolute (bool): Absolute Factors Definition Option
             import_from_stability_analysis_enabled (bool): Import From Stability Analysis Option
-            determination_of_mcr (enum): Determination of MCR or CB Enumeration Item
+            determination_of_mcr (enum): Steel Effective Lengths Determination Mcr Europe Enumeration Item
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited

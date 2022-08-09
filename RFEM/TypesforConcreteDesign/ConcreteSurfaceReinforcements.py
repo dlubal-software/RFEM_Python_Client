@@ -21,13 +21,13 @@ class ConcreteSurfaceReinforcements():
                 model = Model):
         """
         Args:
-            no (int): Surface Reinforcement Tag
+            no (int): Concrete Surface Reinforcement Tag
             name (str): User Defined Name
             surfaces (str): Assigned Surfaces
             material (str): Reinforcement Material
             location_type (enum): Surface Reinforcement Location Type Enumeration
             reinforcement_type (enum): Surface Reinforcement Type Enumeration
-            reinforcement_type_parameters (list): Reinforcement Type Parameters
+            reinforcement_type_parameters (list): Reinforcement Type Parameters List
                 for reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_REBARS:
                     reinforcement_type_parameters = [rebar_diameter, rebar_spacing, additional_transverse_reinforcement_enabled]
                     if additional_transverse_reinforcement_enabled == True:
@@ -36,7 +36,7 @@ class ConcreteSurfaceReinforcements():
                     reinforcement_type_parameters = [stirrup_diameter, stirrup_spacing]
                 for reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_MESH:
                     reinforcement_type_parameters = [mesh_product_range, mesh_shape, mesh_name]
-            cover_offset (list): Cover Offset Parameters
+            cover_offset (list): Cover Offset Parameters List
                 cover_offset = [alignment_top_enabled, alignment_bottom_enabled, additional_offset_to_concrete_cover_top, additional_offset_to_concrete_cover_bottom]
             reinforcement_direction (enum): Surface Reinforcement Direction Type Enumeration
             reinforcement_direction_parameters (list): Reinforcement Direction Parameters

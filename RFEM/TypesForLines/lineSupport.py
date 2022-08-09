@@ -10,15 +10,15 @@ def setLineSupportConditions(clientObject,
                               C_phi_Y: float,
                               C_phi_Z: float):
     '''
-    Sets line support conditions
+    Sets Line Support Conditions
 
-    Params:
-        clientObject: Client model object | Line support
-        C_u_X,Y,Z (float): Translational support conditions in respected direction
-        C_phi_X,Y,Z (float): Rotational support conditions about respected axis
+    Args:
+        clientObject: Client Model Object | Line Support
+        C_u_X,Y,Z (float): Translational Support Conditions in Respected Direction
+        C_phi_X,Y,Z (float): Rotational Support Conditions about Respected Axis
 
     Returns:
-        clientObject: Initialized client model object | Line Support
+        clientObject: Initialized Client Model Object | Line Support
     '''
 
     clientObject.spring_x = C_u_X
