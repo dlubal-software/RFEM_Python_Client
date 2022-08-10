@@ -27,41 +27,43 @@ def test_SteelMemberLocalSectionReduction():
 
     SteelMemberLocalSectionReduction(1, "", "",
         [
-            [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1, False, 0, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 0.0, FastenerDefinitionType.DEFINITION_TYPE_ABSOLUTE, 0.2]
+            [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1, False, FastenerDefinitionType.DEFINITION_TYPE_ABSOLUTE, 0.2, 0, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 0.0]
         ],
-        [False])
+        "")
 
     SteelMemberLocalSectionReduction(2, "", "",
         [
-            [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1.2, True, 2, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 0.2, FastenerDefinitionType.DEFINITION_TYPE_ABSOLUTE, 0.1],
-            [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 2.0, True, 3, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_RELATIVE, 10.0, FastenerDefinitionType.DEFINITION_TYPE_RELATIVE, 20]
+            [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1.2, True, FastenerDefinitionType.DEFINITION_TYPE_ABSOLUTE, 0.1, 2, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 2],
+            [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 2.0, True, FastenerDefinitionType.DEFINITION_TYPE_RELATIVE, 0.20, 3, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_RELATIVE, 0.1]
         ],
-        [False])
+        "")
 
     SteelMemberLocalSectionReduction(3, "", "",
         [
-            [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1.5, False, 0, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 0.0, FastenerDefinitionType.DEFINITION_TYPE_RELATIVE, 15],
-            [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1.8, True, 4, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 0.3, FastenerDefinitionType.DEFINITION_TYPE_RELATIVE, 25]
-        ],
-        [False])
+            [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1.5, False, FastenerDefinitionType.DEFINITION_TYPE_RELATIVE, 0.15, 0, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 0.0],
+            [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1.8, True, FastenerDefinitionType.DEFINITION_TYPE_RELATIVE, 0.25, 4, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 0.3]
+        ], ""
+        )
 
     smlr_1 = Model.clientModel.service.get_steel_member_local_section_reduction(1)
-    assert smlr_1.components[0][1].row['position'] == 1
-    assert smlr_1.components[0][2].row['multiple'] == False
-    assert smlr_1.components[0][6].row['fastener_definition_type'] == 'DEFINITION_TYPE_ABSOLUTE'
-    assert smlr_1.components[0][7].row['reduction_area'] == 0.2
+    assert smlr_1.components[0][0].row['position'] == 1
+    assert smlr_1.components[0][0].row['multiple'] == False
+    assert smlr_1.components[0][0].row['fastener_definition_type'] == 'DEFINITION_TYPE_ABSOLUTE'
+    assert smlr_1.components[0][0].row['reduction_area'] == 0.2
 
     smlr_2 = Model.clientModel.service.get_steel_member_local_section_reduction(2)
-    assert smlr_2.components[0][1].row['position'] == 1.2
-    assert smlr_2.components[0][2].row['multiple'] == True
-    assert smlr_2.components[1][6].row['fastener_definition_type'] == 'DEFINITION_TYPE_RELATIVE'
-    assert smlr_2.components[1][7].row['reduction_area'] == 20
+    assert smlr_2.components[0][0].row['position'] == 1.2
+    assert smlr_2.components[0][0].row['multiple'] == True
+    assert smlr_2.components[0][1].row['fastener_definition_type'] == 'DEFINITION_TYPE_RELATIVE'
+    assert smlr_2.components[0][1].row['reduction_area_factor'] == 0.20
+    assert smlr_2.components[0][0].row['multiple_offset'] == 2
 
     smlr_3 = Model.clientModel.service.get_steel_member_local_section_reduction(3)
-    assert smlr_3.components[0][1].row['position'] == 1.5
-    assert smlr_3.components[0][2].row['multiple'] == False
-    assert smlr_3.components[1][4].row['multiple_offset_definition_type'] == 'OFFSET_DEFINITION_TYPE_ABSOLUTE'
-    assert smlr_3.components[1][5].row['multiple_offset'] == 0.3
+    assert smlr_3.components[0][1].row['position'] == 1.8
+    assert smlr_3.components[0][0].row['multiple'] == False
+    assert smlr_3.components[0][1].row['multiple'] == True
+    assert smlr_3.components[0][1].row['multiple_offset_definition_type'] == 'OFFSET_DEFINITION_TYPE_ABSOLUTE'
+    assert smlr_3.components[0][1].row['multiple_offset'] == 0.3
 
     # assert smlr_1.components[][].row[''] ==
     # assert Model.clientModel is not None, "WARNING: clientModel is not initialized"

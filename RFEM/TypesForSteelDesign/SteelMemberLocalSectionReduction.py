@@ -28,11 +28,17 @@ class SteelMemberLocalSectionReduction():
                 components[i][1] (float): Position Value
                 components[i][2] (bool): Enable/Disable Multiple Option
                 components[i][3] (enum): Fastener Definition Type Enumeration
-                components[i][4] (float): Reduction Area
+                for components[i][3] == FastenerDefinitionType.DEFINITION_TYPE_ABSOLUTE
+                    components[i][4] (float): Reduction Area
+                for components[i][3] == FastenerDefinitionType.DEFINITION_TYPE_RELATIVE
+                    components[i][4] (float): Reduction Area Factor (value must be between 0.0 and 1.0)
                 if components[i][2] == True
                     components[i][5] (int): Multiple Number
                     components[i][6] (enum): Multiple Offset Definition Type Enumeration
-                    components[i][7] (float): Multiple Offset Value
+                    for MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE
+                        components[i][7] (float): Multiple Offset Value
+                    for MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_RELATIVE
+                        components[i][7] (float): Multiple Offset Value (value must be between 0.0 and 1.0)
             user_defined_name (str): User Defined  Member Local Section Reduction Name
             comment (str): Comments
             params (dict): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -69,7 +75,10 @@ class SteelMemberLocalSectionReduction():
             smlsr.row.position = components[i][1]
             smlsr.row.multiple = components[i][2]
             smlsr.row.fastener_definition_type = components[i][3].name
-            smlsr.row.reduction_area = components[i][4]
+            if smlsr.row.fastener_definition_type == "DEFINITION_TYPE_ABSOLUTE":
+                smlsr.row.reduction_area = components[i][4]
+            elif smlsr.row.fastener_definition_type == "DEFINITION_TYPE_RELATIVE":
+                smlsr.row.reduction_area_factor = components[i][4]
             if smlsr.row.multiple:
                 smlsr.row.multiple_number = components[i][5]
                 smlsr.row.multiple_offset_definition_type = components[i][6].name
