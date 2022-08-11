@@ -385,6 +385,7 @@ class Thickness():
             name (str): Thickness Name
             material_no (int): Tag of Material assigned to Thickness
             properties (list): Nested List of Layer Properties
+                properties = [[thickness_type, material, thickness], ...]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
@@ -410,8 +411,10 @@ class Thickness():
         # Thickness Type
         clientObject.type = ThicknessType.TYPE_LAYERS.name
 
+
+
         # Layers
-        clientObject.layers_reference_table = model.clientModel.factory.create('ns0:array_of_thickness_layers_reference_table')
+        clientObject.layers_reference_table = model.clientModel.factory.create('ns0:thickness.layers_reference_table')
 
         for i,j in enumerate(layers):
             tlrt = model.clientModel.factory.create('ns0:thickness_layers_reference_table_row')

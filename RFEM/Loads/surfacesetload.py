@@ -464,9 +464,9 @@ class SurfaceSetLoad():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
 
         for axis_definition_type = SurfaceSetLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS:
-            load_parameter = [angular_velocity, angular_acceleration, SurfaceLoadAxisDefinitionType, [x1, y1, z1], [x2, y2, z2]]
+            load_parameter = [angular_acceleration, angular_velocity, SurfaceLoadAxisDefinitionType, [x1, y1, z1], [x2, y2, z2]]
         for axis_definition_type = SurfaceSetLoadAxisDefinitionType.AXIS_DEFINITION_POINT_AND_AXIS:
-            load_parameter = [angular_velocity, angular_acceleration, SurfaceLoadAxisDefinitionType, SurfaceLoadAxisDefinitionAxis, SurfaceLoadAxisDirectionType; [x1, y1, z1]]
+            load_parameter = [angular_acceleration, angular_velocity, SurfaceLoadAxisDefinitionType, SurfaceLoadAxisDefinitionAxis, SurfaceLoadAxisDirectionType; [x1, y1, z1]]
         """
         # Client model | Surface Load
         clientObject = model.clientModel.factory.create('ns0:surface_set_load')
@@ -495,9 +495,9 @@ class SurfaceSetLoad():
             clientObject.axis_definition_p1_y = load_parameter[3][1]
             clientObject.axis_definition_p1_z = load_parameter[3][2]
 
-            clientObject.axis_definition_p1_x = load_parameter[4][0]
-            clientObject.axis_definition_p1_y = load_parameter[4][1]
-            clientObject.axis_definition_p1_z = load_parameter[4][2]
+            clientObject.axis_definition_p2_x = load_parameter[4][0]
+            clientObject.axis_definition_p2_y = load_parameter[4][1]
+            clientObject.axis_definition_p2_z = load_parameter[4][2]
 
         else:
             clientObject.axis_definition_axis = load_parameter[3].name

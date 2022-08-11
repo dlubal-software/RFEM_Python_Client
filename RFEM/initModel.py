@@ -17,6 +17,7 @@ except:
     print('- If you have started RFEM application')
     print('- If all RFEM dialogs are closed')
     print('- If server port range is set correctly')
+    print('- If you have a valid Web Services license')
     print('- Check Program Options & Settings > Web Services')
     sys.exit()
 

@@ -12,7 +12,7 @@ class SteelEffectiveLengths():
                  lateral_torsional_buckling: bool = True,
                  principal_section_axes: bool = True,
                  geometric_section_axes: bool = True,
-                 user_defined_name: list = [False],
+                 user_defined_name: str = 'SEL1',
                  nodal_supports: list = [
                      [SteelEffectiveLengthsSupportType.SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION, True, 0.0, SteelEffectiveLengthsEccentricityType.ECCENTRICITY_TYPE_NONE, \
                       0.0, 0.0, 0.0, 0.0, SteelEffectiveLengthsSupportTypeInY.SUPPORT_STATUS_YES, SteelEffectiveLengthsRestraintTypeAboutX.SUPPORT_STATUS_YES, \
@@ -43,13 +43,7 @@ class SteelEffectiveLengths():
             lateral_torsional_buckling (bool): Lateral Torsional Buckling Option
             principal_section_axes (bool): Principal Section Axes Option
             geometric_section_axes (bool): Geometric Section Axes Option
-            user_defined_name (lst): User Defined Effective Length Name
-
-            for user_defined_name[0] == False:
-                pass
-            for user_defined_name == True:
-                user_defined_name[1] = Defined Name
-
+            user_defined_name (str): User Defined Effective Length Name
             nodal_supports (lst): Nodal Support Table Definition
 
                 nodal_supports[i][0] (enum): Support Type Enumeration Type
@@ -123,18 +117,16 @@ class SteelEffectiveLengths():
         clientObject.geometric_section_axes = geometric_section_axes
 
         # Effective Lengths User Defined Name
-        if user_defined_name[0] == False:
-            clientObject.user_defined_name_enabled = user_defined_name[0]
-        else:
-            clientObject.user_defined_name_enabled = user_defined_name[0]
-            clientObject.name = user_defined_name[1]
+        if user_defined_name:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = user_defined_name
 
         # Effective Lengths Nodal Supports
-        clientObject.nodal_supports = model.clientModel.factory.create('ns0:steel_effective_lengths.nodal_supports')
+        clientObject.nodal_supports = model.clientModel.factory.create('ns0:array_of_steel_effective_lengths_nodal_supports')
 
         for i,j in enumerate(nodal_supports):
             mlvlp = model.clientModel.factory.create('ns0:steel_effective_lengths_nodal_supports_row')
-            mlvlp.no = i
+            mlvlp.no = i+1
             mlvlp.row.support_type = nodal_supports[i][0].name
             mlvlp.row.support_in_z = nodal_supports[i][1]
             mlvlp.row.support_spring_in_y = nodal_supports[i][2]
@@ -152,22 +144,22 @@ class SteelEffectiveLengths():
             clientObject.nodal_supports.steel_effective_lengths_nodal_supports.append(mlvlp)
 
         # Effective Lengths Factors
-        clientObject.factors = model.clientModel.factory.create('ns0:steel_effective_lengths.factors')
+        clientObject.factors = model.clientModel.factory.create('ns0:array_of_steel_effective_lengths_factors')
 
         for i,j in enumerate(factors):
-            mlvlp_f = model.clientModel.factory.create('ns0:steel_effective_lengths_factors')
-            mlvlp_f.no = i
-            mlvlp_f.flexural_buckling_u= factors[i][0]
-            mlvlp_f.flexural_buckling_v= factors[i][1]
-            mlvlp_f.flexural_buckling_y= factors[i][2]
-            mlvlp_f.flexural_buckling_z= factors[i][3]
-            mlvlp_f.torsional_buckling= factors[i][4]
-            mlvlp_f.lateral_torsional_buckling= factors[i][5]
-            mlvlp_f.lateral_torsional_buckling_top= factors[i][6]
-            mlvlp_f.lateral_torsional_buckling_bottom= factors[i][7]
-            mlvlp_f.twist_restraint= factors[i][8]
-            mlvlp_f.lateral_torsional_restraint= factors[i][9]
-            mlvlp_f.critical_moment= factors[i][10]
+            mlvlp_f = model.clientModel.factory.create('ns0:steel_effective_lengths_factors_row')
+            mlvlp_f.no = i+1
+            mlvlp_f.row.flexural_buckling_u = factors[i][0]
+            mlvlp_f.row.flexural_buckling_v = factors[i][1]
+            mlvlp_f.row.flexural_buckling_y = factors[i][2]
+            mlvlp_f.row.flexural_buckling_z = factors[i][3]
+            mlvlp_f.row.torsional_buckling = factors[i][4]
+            mlvlp_f.row.lateral_torsional_buckling = factors[i][5]
+            mlvlp_f.row.lateral_torsional_buckling_top = factors[i][6]
+            mlvlp_f.row.lateral_torsional_buckling_bottom = factors[i][7]
+            mlvlp_f.row.twist_restraint = factors[i][8]
+            mlvlp_f.row.lateral_torsional_restraint = factors[i][9]
+            mlvlp_f.row.critical_moment = factors[i][10]
 
             clientObject.factors.steel_effective_lengths_factors.append(mlvlp_f)
 

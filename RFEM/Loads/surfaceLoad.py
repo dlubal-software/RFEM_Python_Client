@@ -485,8 +485,8 @@ class SurfaceLoad():
         clientObject.surfaces = ConvertToDlString(surface_no)
 
         # Load Magnitude
-        clientObject.angular_acceleration = load_parameter[0]
-        clientObject.angular_velocity = load_parameter[1]
+        clientObject.angular_velocity = load_parameter[0]
+        clientObject.angular_acceleration = load_parameter[1]
         clientObject.axis_definition_type = load_parameter[2].name
 
         if load_parameter[2] == SurfaceLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS:
@@ -494,9 +494,9 @@ class SurfaceLoad():
             clientObject.axis_definition_p1_y = load_parameter[3][1]
             clientObject.axis_definition_p1_z = load_parameter[3][2]
 
-            clientObject.axis_definition_p1_x = load_parameter[4][0]
-            clientObject.axis_definition_p1_y = load_parameter[4][1]
-            clientObject.axis_definition_p1_z = load_parameter[4][2]
+            clientObject.axis_definition_p2_x = load_parameter[4][0]
+            clientObject.axis_definition_p2_y = load_parameter[4][1]
+            clientObject.axis_definition_p2_z = load_parameter[4][2]
 
         else:
             clientObject.axis_definition_axis = load_parameter[3].name

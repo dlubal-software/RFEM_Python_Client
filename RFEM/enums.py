@@ -2076,6 +2076,12 @@ class MemberTransverseStiffenerType(Enum):
     STIFFENER_COMPONENT_TYPE_CONNECTING_COLUMN_START, STIFFENER_COMPONENT_TYPE_END_PLATE_END, STIFFENER_COMPONENT_TYPE_END_PLATE_START, \
     STIFFENER_COMPONENT_TYPE_FLAT,STIFFENER_COMPONENT_TYPE_WARPING_RESTRAINT = range(8)
 
+class MemberTransverseStiffenerDefinitionType(Enum):
+    '''
+    Member Transverse Stiffeners Stiffener Definition Type
+    '''
+    DIMENSION_TYPE_OFFSET, DIMENSION_TYPE_SIZE = range(2)
+
 class MemberTransverseStiffenerPosition(Enum):
     '''
     Member Transverse Stiffener Position Type
@@ -2087,6 +2093,18 @@ class MemberTransverseStiffenerOffsetType(Enum):
     Member Transverse Stiffener Multiple Offset Definition Type
     '''
     OFFSET_DEFINITION_TYPE_ABSOLUTE, OFFSET_DEFINITION_TYPE_RELATIVE = range(2)
+
+class OpeningLoadDistribution(Enum):
+    '''
+    Opening Load Distribution Type
+    '''
+    LOAD_DISTRIBUTION_LINEAR_TRAPEZOIDAL, LOAD_DISTRIBUTION_UNIFORM_TRAPEZOIDAL = range(2)
+
+class OpeningLoadDirection(Enum):
+    '''
+    Opening Load Direction Type
+    '''
+    LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED, LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, LOAD_DIRECTION_LOCAL_Z = range(7)
 
 class SteelMemberLocalSectionReductionType(Enum):
     '''
@@ -2105,4 +2123,3 @@ class MultipleOffsetDefinitionType(Enum):
     Steel Member Local Section Reduction Multiple Offset Definition Type
     '''
     OFFSET_DEFINITION_TYPE_ABSOLUTE,OFFSET_DEFINITION_TYPE_RELATIVE = range(2)
-

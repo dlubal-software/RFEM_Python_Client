@@ -19,10 +19,10 @@ class GlobalParameter():
             definition_parameter = [formula]
 
         for definition_type = GlobalParameterDefinitionType.DEFINITION_TYPE_OPTIMIZATION:
-            definition_parameter = [min, max, increment, steps]
+            definition_parameter = [value, min, max, steps]
 
         for definition_type = GlobalParameterDefinitionType.DEFINITION_TYPE_OPTIMIZATION_ASCENDING:
-            definition_parameter = [min, max, increment, steps]
+            definition_parameter = [value, min, max, steps]
 
         for definition_type = GlobalParameterDefinitionType.DEFINITION_TYPE_OPTIMIZATION_DESCENDING:
             definition_parameter = [value, min, max, steps]

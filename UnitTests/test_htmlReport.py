@@ -23,3 +23,5 @@ def test_html_report():
     if os.path.isdir(folderPath):
         rmtree(folderPath)
     ExportResultTablesToHtml(folderPath)
+
+    assert os.path.exists(folderPath)

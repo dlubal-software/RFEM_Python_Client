@@ -42,11 +42,14 @@ def test_modal_analysis_settings():
     # Create Nodal Support
     NodalSupport(1, '1', NodalSupportType.FIXED)
 
+    SetAddonStatus(Model.clientModel, AddOn.modal_active)
+
     # Static Analysis Settings
     StaticAnalysisSettings(1, 'Geometrically Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
 
     # Modal Analysis Settings
-    ModalAnalysisSettings(1, 'Modal Analysis Settings', ModalSolutionMethod.METHOD_LANCZOS, ModalMassConversionType.MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS,
+    ModalAnalysisSettings(acting_masses=[True, False, True, False, True, False])
+    ModalAnalysisSettings(2, 'Modal Analysis Settings 1', ModalSolutionMethod.METHOD_LANCZOS, ModalMassConversionType.MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS,
                           ModalMassMatrixType.MASS_MATRIX_TYPE_DIAGONAL, 2, [False, False, False, False, True, True])
 
     # Load Case Static
@@ -55,12 +58,28 @@ def test_modal_analysis_settings():
         "analysis_type": AnalysisType.ANALYSIS_TYPE_MODAL.name,
         "modal_analysis_settings":1,
     }
-    SetAddonStatus(Model.clientModel, AddOn.modal_active)
 
     # Load Case Modal
     LoadCase(2, 'MODAL',params=modalParams)
 
-    #Calculate_all() # Don't use in unit tests. See template for more info.
-
     Model.clientModel.service.finish_modification()
 
+    actingMasses = Model.clientModel.service.get_modal_analysis_settings(1)
+    assert actingMasses.acting_masses_about_axis_x_enabled == True
+    assert actingMasses.acting_masses_about_axis_y_enabled == False
+    assert actingMasses.acting_masses_about_axis_z_enabled == True
+    assert actingMasses.acting_masses_in_direction_x_enabled == False
+    assert actingMasses.acting_masses_in_direction_y_enabled == True
+    assert actingMasses.acting_masses_in_direction_z_enabled == False
+
+    actingMasses = Model.clientModel.service.get_modal_analysis_settings(2)
+    assert actingMasses.acting_masses_about_axis_x_enabled == False
+    assert actingMasses.acting_masses_about_axis_y_enabled == False
+    assert actingMasses.acting_masses_about_axis_z_enabled == False
+    assert actingMasses.acting_masses_in_direction_x_enabled == False
+    assert actingMasses.acting_masses_in_direction_y_enabled == True
+    assert actingMasses.acting_masses_in_direction_z_enabled == True
+    assert actingMasses.solution_method == 'METHOD_LANCZOS'
+    assert actingMasses.mass_conversion_type == 'MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS'
+    assert actingMasses.mass_matrix_type == 'MASS_MATRIX_TYPE_DIAGONAL'
+    assert actingMasses.number_of_modes == 2

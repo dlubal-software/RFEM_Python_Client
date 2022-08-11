@@ -77,3 +77,17 @@ def test_membrane_surface():
     Surface.Membrane(4, SurfaceGeometry.GEOMETRY_QUADRANGLE, [17, 18, 19, 20], '13 14 15 16')
 
     Model.clientModel.service.finish_modification()
+
+    assert Model.clientModel.service.get_surface(2).type == 'TYPE_MEMBRANE'
+
+    sur = Model.clientModel.service.get_surface(3)
+    assert sur.geometry == 'GEOMETRY_NURBS'
+    assert sur.type == 'TYPE_MEMBRANE'
+    assert sur.nurbs_control_point_count_in_direction_u == 3
+    assert sur.nurbs_order_in_direction_v == 3
+
+    sur = Model.clientModel.service.get_surface(4)
+    assert sur.geometry == 'GEOMETRY_QUADRANGLE'
+    assert sur.type == 'TYPE_MEMBRANE'
+    assert sur.quadrangle_corner_node_2 == 18
+    assert sur.quadrangle_corner_node_4 == 20
