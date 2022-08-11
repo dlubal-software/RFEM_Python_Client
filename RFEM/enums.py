@@ -2105,3 +2105,21 @@ class OpeningLoadDirection(Enum):
     Opening Load Direction Type
     '''
     LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED, LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, LOAD_DIRECTION_LOCAL_Z = range(7)
+
+class SteelMemberLocalSectionReductionType(Enum):
+    '''
+    Steel Member Local Section Reduction Type
+    '''
+    REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS = range(1)
+
+class FastenerDefinitionType(Enum):
+    '''
+    Steel Member Local Section Reduction Fastener Definition Type
+    '''
+    DEFINITION_TYPE_ABSOLUTE,DEFINITION_TYPE_RELATIVE = range(2)
+
+class MultipleOffsetDefinitionType(Enum):
+    '''
+    Steel Member Local Section Reduction Multiple Offset Definition Type
+    '''
+    OFFSET_DEFINITION_TYPE_ABSOLUTE,OFFSET_DEFINITION_TYPE_RELATIVE = range(2)
