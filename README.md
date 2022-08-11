@@ -1,39 +1,49 @@
-# RfemPythonWsClient
-![image](https://img.shields.io/badge/RFEM-latest-yellow) ![image](https://img.shields.io/badge/Python-3-blue) ![image](https://img.shields.io/badge/coverage-87%25-green)
+<h1 align="center">
+<a href="https://www.dlubal.com/en" title="Tutorial 1"><img src="./img/logo.png" width="180" height="180" alt="Dlubal Software" /></a>
+
+Dlubal Software GmbH
+
+[![image](https://img.shields.io/twitter/follow/dlubal_en?style=social)](https://twitter.com/dlubal_en "Twitter Follow")
+[![image](https://img.shields.io/badge/GitHub-Dlubal_Software-darkblue?logo=github&amp;)](https://github.com/Dlubal-Software "Github Follow")
+[![image](https://img.shields.io/badge/http://-dlubal.com-darkblue)](https://www.dlubal.com/en-US "RFEM Latest")
+[![image](https://img.shields.io/badge/docs-API-darkblue?logo=read-the-docs&amp;logoColor=white)](https://dlubal-software.github.io/RFEM_Python_Client/ "RFEM Latest")
+
+[![image](https://img.shields.io/badge/RFEM-v6.0-blue)](https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem "RFEM")
+[![image](https://img.shields.io/badge/RSTAB-v9.0-blue)](https://www.dlubal.com/en/products/rstab-beam-structures/what-is-rstab "RFEM")
+[![image](https://img.shields.io/badge/Python-3-blue?logo=python&amp;logoColor=yellow)](https://www.python.org/)
+![image](https://img.shields.io/badge/coverage-87%25-green)
+
+</h1>
+
+
+<h2 align="center">
+
+Welcome to RFEM Python API
+
+<a href="https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem" title="Tutorial 1"><img src="./img/2Dtruss.gif" width=550 alt="Tutorial" /></a>
+</h2>
 
 Python client (high-level functions) for [RFEM 6](https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem) using [Web Services](https://en.wikipedia.org/wiki/Web_service) (WS), [SOAP](https://cs.wikipedia.org/wiki/SOAP) and [WSDL](https://en.wikipedia.org/wiki/Web_Services_Description_Language). Available Python SOAP pkgs can be found on [wiki.python.org](https://wiki.python.org/moin/WebServices#SOAP).
 
-![image](https://user-images.githubusercontent.com/37547309/118758788-fe2a5580-b86f-11eb-9eaf-b38862333cd4.png)
-
-### Table of Contents
-- [RfemPythonWsClient](#rfempythonwsclient)
-  * [Description](#description)
-  * [Architecture](#architecture)
-    + [Data Structure](#data-structure)
-  * [Getting started](#getting-started)
-    + [Dependencies](#dependencies)
-    + [Step by step](#step-by-step)
-    + [Examples](#examples)
-    + [Unit Tets](#unit-tests)
-  * [Documentation](#documentation)
-  * [Wiki](#wiki)
-  * [License](#license)
-  * [Contribute](#contribute)
 
 ## Description
-This Python project is focused on opening RFEM 6 to all of our customers, enabling them to interact with RFEM 6 on a much higher level. If you are looking for a tool to help you solve parametric models or optimization tasks, you have come to the right place. This community serves as a support portal and base for all of your future projects. The goal is to create an easily expandable Python library, which communicates instructions to RFEM 6 through WebServices (WS). WS enables access to RFEM 6 either via a local instance or a remote internet connection. 
-
-**It's open source.** Everybody is welcome to create their own solution, cooperate with us or add suggestions.
+This Python project is focused on opening RFEM 6 to all of our customers, enabling them to interact with RFEM 6 on a much higher level. If you are looking for a tool to help you solve parametric models or optimization tasks, you have come to the right place. This community serves as a support portal and base for all of your future projects. The goal is to create an easily expandable Python library, which communicates instructions to RFEM 6 through WebServices (WS). WS enables access to RFEM 6 either via a local instance or a remote internet connection.
 
 ## Architecture
+<a align="center">
+
 ![image](https://user-images.githubusercontent.com/37547309/118119185-44a22f00-b3ee-11eb-9d60-3d74a4a96f81.png)
+
+</a>
+
 ### Data Structure
-* [main.py](main.py): setting of individual objects by one line entry
-* [window.py](/RFEM/window.py): definition of GUI layer; called first
-* [initModel.py](/RFEM/initModel.py): runs after window and initializes suds.Client by connecting to `http://localhost:8081/wsdl` and active model in RFEM. It also evelops esential global functions.
-* [enums.py](/RFEM/enums.py): definition of enumerations
-* [dataTypes.py](/RFEM/dataTypes.py): definition of special data types
-* [RFEM](/RFEM): folder following structure of RFEM 6 navigator containing individual types of objects
+* [![main](https://img.shields.io/badge/main.py-blue)](main.py): setting of individual objects by one line entry
+* [![window](https://img.shields.io/badge/window.py-blue)](/RFEM/window.py): definition of GUI layer; called first
+* [![initModel](https://img.shields.io/badge/initModel.py-blue)](/RFEM/initModel.py): runs after window and initializes suds.Client by connecting to `http://localhost:8081/wsdl` and active model in RFEM. It also evelops esential global functions.
+* [![enums](https://img.shields.io/badge/enums.py-blue)](/RFEM/enums.py): definition of enumerations
+* [![dataTypes](https://img.shields.io/badge/dataTypes.py-blue)](/RFEM/dataTypes.py): definition of special data types
+* [![RFEM](https://img.shields.io/badge/RFEM-blue)](/RFEM): folder following structure of RFEM 6 navigator containing individual types of objects
+
 
 ## Getting started
 
@@ -55,7 +65,7 @@ Scripts intended to be used as templates or examples. Also can be used for testi
 Collection of scripts to support further development.
 
 ## Documentation
-For complete description of classes and functions visit our [GitHub page](https://dlubal-software.github.io/RFEM_Python_Client/).
+For complete description of classes and functions visit our [![image](https://img.shields.io/badge/GitHub-page-darkblue?logo=github&amp;)](https://dlubal-software.github.io/RFEM_Python_Client/).
 
 ## Wiki
 If you run into problems see our [Wiki](https://github.com/Dlubal-Software/RFEM_Python_Client/wiki). We are slowly but surely expanding the solutions to the problems found in the Issues section.
