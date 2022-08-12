@@ -49,16 +49,16 @@ This Python project is focused on opening RFEM 6 to all of our customers, enabli
 
 ### Dependencies
 Dependency check is implemented inside [initModel.py](/RFEM/initModel.py) with option to install during execution.
-* <img align="left" alt="Visual Studio Code" width="26px" src="./img/PyPI.png" style="padding-right:5px;" />PyPi pkgs: [SUDS](https://github.com/cackharot/suds-py3), [requests](https://docs.python-requests.org/en/master/), [six](https://pypi.org/project/six/), [mock](https://pypi.org/project/mock/), and [xmltodict](https://pypi.org/project/xmltodict/).
+* <img align="left" alt="Visual Studio Code" width="26px" src="./img/PyPI.png" style="padding-right:2px;" />PyPi pkgs: [SUDS](https://github.com/cackharot/suds-py3), [requests](https://docs.python-requests.org/en/master/), [six](https://pypi.org/project/six/), [mock](https://pypi.org/project/mock/), and [xmltodict](https://pypi.org/project/xmltodict/).
 
-* <img align="left" alt="Visual Studio Code" width="26px" src="./img/RFEM.png" style="padding-right:5px;" />RFEM 6 application. Client is always compatible with the latest version.
+* <img align="left" alt="Visual Studio Code" width="26px" src="./img/RFEM.png" style="padding-right:2px;" />RFEM 6 application. Client is always compatible with the latest version.
 
 ### Step by step
-1) 🌀[Clone](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository#:~:text=Cloning%20an%20Existing%20Repository) this repository (if you have GitHub account) or download actual [release](https://github.com/Dlubal-Software/RFEM_Python_Client/releases)
-2) <img align="left" alt="Visual Studio Code" width="18px" src="./img/RFEM.png" style="padding-right:5px;" />Open RFEM 6 application
+1) 🌀 [Clone](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository#:~:text=Cloning%20an%20Existing%20Repository) this repository (if you have GitHub account) or download actual [release](https://github.com/Dlubal-Software/RFEM_Python_Client/releases)
+2) <img align="left" alt="Visual Studio Code" width="18px" src="./img/RFEM.png" style="padding-right:2px;" />Open RFEM 6 application
 
-3) ☑️Check if there are no opened dialogues in RFEM and server port range under *Options-Web Services* corresponds to the one set in initModel
-4) 🏃Run your script. Inspirations can be found in [Examples](/Examples/) or [UnitTests](/UnitTests/).
+3) ☑️ Check if there are no opened dialogues in RFEM and server port range under *Options-Web Services* corresponds to the one set in initModel
+4) 🏃 Run your script. Inspirations can be found in [Examples](/Examples/) or [UnitTests](/UnitTests/).
 
 ### Examples
 Scripts intended to be used as templates or examples. Also can be used for testing of backward compatibility.
