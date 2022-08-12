@@ -32,7 +32,7 @@ This Python project is focused on opening RFEM 6 to all of our customers, enabli
 ## Architecture
 <a align="center">
 
-![image](https://user-images.githubusercontent.com/37547309/118119185-44a22f00-b3ee-11eb-9d60-3d74a4a96f81.png)
+![image]()
 
 </a>
 
@@ -49,14 +49,16 @@ This Python project is focused on opening RFEM 6 to all of our customers, enabli
 
 ### Dependencies
 Dependency check is implemented inside [initModel.py](/RFEM/initModel.py) with option to install during execution.
-* PyPi pkgs: [SUDS](https://github.com/cackharot/suds-py3), [requests](https://docs.python-requests.org/en/master/), [six](https://pypi.org/project/six/), [mock](https://pypi.org/project/mock/), and [xmltodict](https://pypi.org/project/xmltodict/).
-* RFEM 6 application. Client is always compatible with the latest version.
+* <img align="left" alt="Visual Studio Code" width="26px" src="./img/PyPI.png" style="padding-right:5px;" />PyPi pkgs: [SUDS](https://github.com/cackharot/suds-py3), [requests](https://docs.python-requests.org/en/master/), [six](https://pypi.org/project/six/), [mock](https://pypi.org/project/mock/), and [xmltodict](https://pypi.org/project/xmltodict/).
+
+* <img align="left" alt="Visual Studio Code" width="26px" src="./img/RFEM.png" style="padding-right:5px;" />RFEM 6 application. Client is always compatible with the latest version.
 
 ### Step by step
-1) [Clone](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository#:~:text=Cloning%20an%20Existing%20Repository) this repository (if you have GitHub account) or download actual [release](https://github.com/Dlubal-Software/RFEM_Python_Client/releases)
-2) Open RFEM 6 application
-3) Check if there are no opened dialogues in RFEM and server port range under *Options-Web Services* corresponds to the one set in initModel
-4) Run your script. Inspirations can be found in [Examples](/Examples/) or [UnitTests](/UnitTests/).
+1) 🌀[Clone](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository#:~:text=Cloning%20an%20Existing%20Repository) this repository (if you have GitHub account) or download actual [release](https://github.com/Dlubal-Software/RFEM_Python_Client/releases)
+2) <img align="left" alt="Visual Studio Code" width="18px" src="./img/RFEM.png" style="padding-right:5px;" />Open RFEM 6 application
+
+3) ☑️Check if there are no opened dialogues in RFEM and server port range under *Options-Web Services* corresponds to the one set in initModel
+4) 🏃Run your script. Inspirations can be found in [Examples](/Examples/) or [UnitTests](/UnitTests/).
 
 ### Examples
 Scripts intended to be used as templates or examples. Also can be used for testing of backward compatibility.
@@ -88,3 +90,30 @@ Contributions are always welcome! Please ensure your pull request adheres to the
 * Use the #readme anchor for GitHub READMEs to link them directly
 
 NOTE: Development is in early stages so please respect that. There will be broken objects or adjustments affecting backward compatibility. Use Issues section to point out any problems. Thank you for your understanding.
+
+
+### 🤝 Connect with us:
+
+[![website](./img/globe-light.svg)](https://www.dlubal.com/en)
+&nbsp;&nbsp;
+[![website](./img/youtube-light.svg)](https://www.youtube.com/c/DlubalEN)
+&nbsp;&nbsp;
+[![website](./img/twitter-light.svg)](https://twitter.com/dlubal_en)
+&nbsp;&nbsp;
+[![website](./img/linkedin-light.svg)](https://de.linkedin.com/company/dlubal-software)
+&nbsp;&nbsp;
+[![website](./img/instagram-light.svg)](https://www.instagram.com/dlubal_software/)
+&nbsp;&nbsp;
+[![website](./img/github-light.svg)](https://github.com/Dlubal-Software)
+
+### Languages and Tools 🛠️
+
+[<img align="left" alt="Visual Studio Code" width="26px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" style="padding-right:15px;" />](https://code.visualstudio.com/)
+[<img align="left" alt="Visual Studio Code" width="26px" src="./img/Python.png" style="padding-right:15px;" />](https://www.python.org/)
+[<img align="left" alt="Visual Studio Code" width="26px" src="./img/RFEM.png" style="padding-right:15px;" />](https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem)
+[<img align="left" alt="Visual Studio Code" width="26px" src="./img/RSTAB.png" style="padding-right:15px;" />](https://www.dlubal.com/en/products/rstab-beam-structures/what-is-rstab)
+[<img align="left" alt="JavaScript" width="26px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" style="padding-right:15px;" />](https://www.javascript.com/)
+[<img align="left" alt="Node.js" width="26px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" style="padding-right:15px;" />](https://nodejs.org/en/)
+[<img align="left" alt="Node.js" width="26px" src="./img/csharp.png" style="padding-right:15px;" />](https://docs.microsoft.com/en-us/dotnet/csharp/)
+[<img align="left" alt="GitHub" width="26px" src="https://user-images.githubusercontent.com/3369400/139448065-39a229ba-4b06-434b-bc67-616e2ed80c8f.png" style="padding-right:15px;" />](https://github.com/Dlubal-Software)
+<img align="left" alt="Terminal" width="26px" src="./img/terminal-light.svg" style="padding-right:15px;" />
