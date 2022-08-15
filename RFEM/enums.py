@@ -2123,3 +2123,9 @@ class MultipleOffsetDefinitionType(Enum):
     Steel Member Local Section Reduction Multiple Offset Definition Type
     '''
     OFFSET_DEFINITION_TYPE_ABSOLUTE,OFFSET_DEFINITION_TYPE_RELATIVE = range(2)
+
+class CaseObjectType(Enum):
+    '''
+    Case Object Type (Result Tables)
+    '''
+    E_OBJECT_TYPE_CONSTRUCTION_STAGE, E_OBJECT_TYPE_DESIGN_SITUATION, E_OBJECT_TYPE_LOAD_CASE, E_OBJECT_TYPE_LOAD_COMBINATION, E_OBJECT_TYPE_RESULT_COMBINATION = range(5)
