@@ -171,7 +171,6 @@ class ResultSection():
     @staticmethod
     def Line(
              no: int = 1,
-             type = ResultSectionType.TYPE_LINE,
              show_section_in_direction = ResultSectionResultDirection.SHOW_RESULTS_IN_LOCAL_PLUS_Z,
              show_values_on_isolines: bool = False,
              lines: str = '1',
