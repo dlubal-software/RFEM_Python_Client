@@ -19,7 +19,7 @@ Dlubal Software GmbH
 
 <h2 align="center">
 
-Welcome to RFEM Python High Level Functons
+Welcome to RFEM Python High Level Functions
 
 <a href="https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem" title="Tutorial 1"><img src="./img/2Dtruss.gif" width=550 alt="Tutorial" /></a>
 </h2>
