@@ -118,19 +118,10 @@ NOTE: Development is in early stages so please respect that. There will be broke
 
 ## GitHub Stargazers over time
 
-[![Stargazers over time](https://starchart.cc/Dlubal-Software/RFEM_Python_Client.svg)](https://starchart.cc/Dlubal-Software/RFEM_Python_Client)
-
-## GitHub Stargazers over time
-
 [![Star History Chart](https://api.star-history.com/svg?repos=Dlubal-Software/RFEM_Python_Client&type=Date)](https://star-history.com/#Dlubal-Software/RFEM_Python_Client&Date)
 
-## Contributions
 
-### Github Contributors over time
-
-[![Contributors over time](https://contributor-graph-api.apiseven.com/contributors-svg?chart=contributorOverTime&repo=Dlubal-Software/RFEM_Python_Client)](https://www.apiseven.com/en/contributor-graph?chart=contributorOverTime&repo=Dlubal-Software/RFEM_Python_Client)
-
-### Contributors
+## Contributors
 
 </br>
 
