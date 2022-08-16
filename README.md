@@ -32,7 +32,6 @@ This Python project is focused on opening RFEM 6 to all of our customers, enabli
 ## Architecture
 <a align="center">
 
-
 </a>
 
 ### Data Structure
@@ -111,8 +110,5 @@ NOTE: Development is in early stages so please respect that. There will be broke
 [<img align="left" alt="Visual Studio Code" width="26px" src="./img/Python.png" style="padding-right:15px;" />](https://www.python.org/)
 [<img align="left" alt="Visual Studio Code" width="26px" src="./img/RFEM.png" style="padding-right:15px;" />](https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem)
 [<img align="left" alt="Visual Studio Code" width="26px" src="./img/RSTAB.png" style="padding-right:15px;" />](https://www.dlubal.com/en/products/rstab-beam-structures/what-is-rstab)
-[<img align="left" alt="JavaScript" width="26px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" style="padding-right:15px;" />](https://www.javascript.com/)
-[<img align="left" alt="Node.js" width="26px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" style="padding-right:15px;" />](https://nodejs.org/en/)
-[<img align="left" alt="Node.js" width="26px" src="./img/csharp.png" style="padding-right:15px;" />](https://docs.microsoft.com/en-us/dotnet/csharp/)
 [<img align="left" alt="GitHub" width="26px" src="https://user-images.githubusercontent.com/3369400/139448065-39a229ba-4b06-434b-bc67-616e2ed80c8f.png" style="padding-right:15px;" />](https://github.com/Dlubal-Software)
 <img align="left" alt="Terminal" width="26px" src="./img/terminal-light.svg" style="padding-right:15px;" />
