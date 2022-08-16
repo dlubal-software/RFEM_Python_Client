@@ -113,13 +113,14 @@ NOTE: Development is in early stages so please respect that. There will be broke
 [<img align="left" alt="Visual Studio Code" width="26px" src="./img/RSTAB.png" style="padding-right:15px;" />](https://www.dlubal.com/en/products/rstab-beam-structures/what-is-rstab)
 [<img align="left" alt="GitHub" width="26px" src="https://user-images.githubusercontent.com/3369400/139448065-39a229ba-4b06-434b-bc67-616e2ed80c8f.png" style="padding-right:15px;" />](https://github.com/Dlubal-Software)
 <img align="left" alt="Terminal" width="26px" src="./img/terminal-light.svg" style="padding-right:15px;" />
-
+</br>
+</br>
 
 ## GitHub Stargazers over time
 
 [![Stargazers over time](https://starchart.cc/Dlubal-Software/RFEM_Python_Client.svg)](https://starchart.cc/Dlubal-Software/RFEM_Python_Client)
 
 
-# Github Contributors over time
+## Github Contributors over time
 
 [![Contributors over time](https://contributor-graph-api.apiseven.com/contributors-svg?chart=contributorOverTime&repo=Dlubal-Software/RFEM_Python_Client)](https://www.apiseven.com/en/contributor-graph?chart=contributorOverTime&repo=Dlubal-Software/RFEM_Python_Client)
