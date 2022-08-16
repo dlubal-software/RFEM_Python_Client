@@ -11,6 +11,7 @@ Dlubal Software GmbH
 [![image](https://img.shields.io/badge/RFEM-v6.0-blue)](https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem "RFEM")
 [![image](https://img.shields.io/badge/RSTAB-v9.0-blue)](https://www.dlubal.com/en/products/rstab-beam-structures/what-is-rstab "RFEM")
 [![image](https://img.shields.io/badge/Python-3-blue?logo=python&amp;logoColor=yellow)](https://www.python.org/)
+[![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Dlubal-Software/RFEM_Python_Client)
 ![image](https://img.shields.io/badge/coverage-87%25-green)
 
 </h1>
@@ -53,7 +54,7 @@ Dependency check is implemented inside [initModel.py](/RFEM/initModel.py) with o
 
 ### Step by step
 1) 🌀 [Clone](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository#:~:text=Cloning%20an%20Existing%20Repository) this repository (if you have GitHub account) or download actual [release](https://github.com/Dlubal-Software/RFEM_Python_Client/releases)
-2) <img align="left" alt="Visual Studio Code" width="18px" src="./img/RFEM.png">Open RFEM 6 application
+2) <img align="left" alt="Visual Studio Code" width="18px" src="./img/RFEM.png"> Open RFEM 6 application
 
 3) ☑️ Check if there are no opened dialogues in RFEM and server port range under *Options-Web Services* corresponds to the one set in initModel
 4) 🏃 Run your script. Inspirations can be found in [Examples](/Examples/) or [UnitTests](/UnitTests/).
@@ -90,7 +91,7 @@ Contributions are always welcome! Please ensure your pull request adheres to the
 NOTE: Development is in early stages so please respect that. There will be broken objects or adjustments affecting backward compatibility. Use Issues section to point out any problems. Thank you for your understanding.
 
 
-### 🤝 Connect with us:
+## Connect with us 🤝
 
 [![website](./img/globe-light.svg)](https://www.dlubal.com/en)
 &nbsp;&nbsp;
@@ -104,7 +105,7 @@ NOTE: Development is in early stages so please respect that. There will be broke
 &nbsp;&nbsp;
 [![website](./img/github-light.svg)](https://github.com/Dlubal-Software)
 
-### Languages and Tools 🛠️
+## Languages and Tools 🛠️
 
 [<img align="left" alt="Visual Studio Code" width="26px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" style="padding-right:15px;" />](https://code.visualstudio.com/)
 [<img align="left" alt="Visual Studio Code" width="26px" src="./img/Python.png" style="padding-right:15px;" />](https://www.python.org/)
@@ -112,3 +113,13 @@ NOTE: Development is in early stages so please respect that. There will be broke
 [<img align="left" alt="Visual Studio Code" width="26px" src="./img/RSTAB.png" style="padding-right:15px;" />](https://www.dlubal.com/en/products/rstab-beam-structures/what-is-rstab)
 [<img align="left" alt="GitHub" width="26px" src="https://user-images.githubusercontent.com/3369400/139448065-39a229ba-4b06-434b-bc67-616e2ed80c8f.png" style="padding-right:15px;" />](https://github.com/Dlubal-Software)
 <img align="left" alt="Terminal" width="26px" src="./img/terminal-light.svg" style="padding-right:15px;" />
+
+
+## GitHub Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/Dlubal-Software/RFEM_Python_Client.svg)](https://starchart.cc/Dlubal-Software/RFEM_Python_Client)
+
+
+# Github Contributors over time
+
+[![Contributors over time](https://contributor-graph-api.apiseven.com/contributors-svg?chart=contributorOverTime&repo=Dlubal-Software/RFEM_Python_Client)](https://www.apiseven.com/en/contributor-graph?chart=contributorOverTime&repo=Dlubal-Software/RFEM_Python_Client)
