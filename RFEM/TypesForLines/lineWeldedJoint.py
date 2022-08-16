@@ -62,16 +62,16 @@ class LineWeldedJoint():
         iLines = ConvertStrToListOfInt(lines)
         iSurfaces = ConvertStrToListOfInt(surfaces)
 
-        for i in iLines:
-            line = model.clientModel.service.get_line(i)
+        for count, iLine in enumerate(iLines):
+            line = model.clientModel.service.get_line(iLine)
             line.has_line_welds = True
             clientWeld = model.clientModel.factory.create('ns0:line_line_weld_assignment_row')
-            clientWeld.no = i
+            clientWeld.no = count+1
             clientWeld.row.weld = no
             clientWeld.row.surface1 = iSurfaces[0]
             clientWeld.row.surface2 = iSurfaces[1]
             if len(iSurfaces) == 3:
-                clientWeld.surface3 = iSurfaces[2]
+                clientWeld.row.surface3 = iSurfaces[2]
             line.line_weld_assignment = model.clientModel.factory.create('ns0:array_of_line_line_weld_assignment')
             line.line_weld_assignment.line_line_weld_assignment.append(clientWeld)
             model.clientModel.service.set_line(line)

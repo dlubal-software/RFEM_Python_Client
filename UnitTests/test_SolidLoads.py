@@ -162,8 +162,6 @@ def test_solid_loads():
     SolidSetLoad.Strain(6, 1, '1', SolidLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y, [0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 13, 16])
     SolidSetLoad.Motion(7, 1, '1', [1.5, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0])
 
-    #Calculate_all() # Don't use in unit tests. See template for more info.
-
     sl = Model.clientModel.service.get_solid_load(1, 1)
     assert sl.load_type == 'LOAD_TYPE_FORCE'
 

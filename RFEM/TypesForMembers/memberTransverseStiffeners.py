@@ -1,15 +1,18 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
-from RFEM.enums import MemberTransverseStiffenerType, MemberTransverseStiffenerPosition, MemberTransverseStiffenerOffsetType
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString, GetAddonStatus, SetAddonStatus
+from RFEM.enums import MemberTransverseStiffenerType, MemberTransverseStiffenerPosition, MemberTransverseStiffenerOffsetType, MemberTransverseStiffenerDefinitionType, AddOn
 
 class MemberTransverseStiffeners():
 
     # Member Transverse Component
     component = {'no' : 1,
+                 'cantilever_l_c' : 0,
                  'stiffener_type' : MemberTransverseStiffenerType.STIFFENER_COMPONENT_TYPE_FLAT,
                  'position' : 1,
                  'position_type' : MemberTransverseStiffenerPosition.STIFFENER_COMPONENT_POSITION_DOUBLE_SIDED,
                  'multiple' : False,
                  'multiple_number' : 0,
+                 'definition_type' : MemberTransverseStiffenerDefinitionType.DIMENSION_TYPE_OFFSET,
+                 'offset' : 0,
                  'multiple_offset_definition_type' : MemberTransverseStiffenerOffsetType.OFFSET_DEFINITION_TYPE_ABSOLUTE,
                  'multiple_offset' : 0,
                  'material' : 1,
@@ -26,7 +29,6 @@ class MemberTransverseStiffeners():
                  'width_b' : 0,
                  'thickness_t' : 0,
                  'column_section' : 0,
-                 'height_h_m' : 0,
                  'section' : 0,
                  'full_warping_restraint' : False,
                  'user_defined_restraint' : False,
@@ -52,6 +54,9 @@ class MemberTransverseStiffeners():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
         """
+
+        # Check if Steel Design Add-on is ON.
+        SetAddonStatus(model.clientModel, AddOn.steel_design_active)
 
         # Client Model | Member Transverse Stiffeners
         clientObject= model.clientModel.factory.create('ns0:member_transverse_stiffener')
@@ -95,17 +100,19 @@ class MemberTransverseStiffeners():
             mlvlp.row.width_b = i['width_b']
             mlvlp.row.thickness_t = i['thickness_t']
             mlvlp.row.column_section = i['column_section']
-            mlvlp.row.height_h_m = i['height_h_m']
             mlvlp.row.section = i['section']
             mlvlp.row.full_warping_restraint = i['full_warping_restraint']
             mlvlp.row.user_defined_restraint = i['user_defined_restraint']
             mlvlp.row.user_defined_restraint_value = i['user_defined_restraint_value']
             mlvlp.row.note = i['note']
+            mlvlp.row.cantilever_l_c = i['cantilever_l_c']
+            mlvlp.row.definition_type = i['definition_type'].name
+            mlvlp.row.offset = i['offset']
 
             clientObject.components.member_transverse_stiffener_components.append(mlvlp)
 
         # Comment
-        clientObject.comment= comment
+        clientObject.comment = comment
 
         # Adding optional parameters via dictionary
         if params:

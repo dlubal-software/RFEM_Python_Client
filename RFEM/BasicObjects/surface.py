@@ -248,7 +248,7 @@ class Surface():
             model (RFEM Class, optional): Model to be edited
         '''
 
-        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params, model)
+        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_MEMBRANE, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params, model)
 
     @staticmethod
     def WithoutMemberaneTension(
@@ -279,7 +279,7 @@ class Surface():
             model (RFEM Class, optional): Model to be edited
         '''
 
-        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params, model)
+        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_MEMBRANE_TENSION, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params, model)
 
     @staticmethod
     def LoadDistribution(

@@ -144,6 +144,47 @@ def test_surface_set_load():
     SurfaceSetLoad.Mass(14, 1, '1', True, [500, 600, 700])
     SurfaceSetLoad.Mass(15, 1, '1', False, [0.5])
 
-    #Calculate_all() # Don't use in unit tests. See template for more info.
-
     Model.clientModel.service.finish_modification()
+
+    assert Model.clientModel.service.get_surface_set_load(1, 1).uniform_magnitude == 5000
+
+    ssl = Model.clientModel.service.get_surface_set_load(3, 1)
+    assert ssl.load_distribution == 'LOAD_DISTRIBUTION_LINEAR'
+    assert ssl.magnitude_2 == 6000
+    assert ssl.magnitude_3 == 7000
+    assert ssl.node_2 == 3
+
+    ssl = Model.clientModel.service.get_surface_set_load(4, 1)
+    assert ssl.load_distribution == 'LOAD_DISTRIBUTION_LINEAR_IN_X'
+    assert ssl.magnitude_2 == 6000
+    assert ssl.node_1 == 2
+
+    ssl = Model.clientModel.service.get_surface_set_load(5, 1)
+    assert ssl.load_distribution == 'LOAD_DISTRIBUTION_RADIAL'
+    assert ssl.axis_definition_type == 'AXIS_DEFINITION_TWO_POINTS'
+    assert ssl.axis_definition_p2_z == 1
+    assert ssl.axis_definition_p1_x == 0
+    assert ssl.magnitude_2 == 4000
+    assert ssl.node_1 == 1
+
+    ssl = Model.clientModel.service.get_surface_set_load(7, 1)
+    assert ssl.magnitude_t_c_3 == 22
+    assert ssl.node_2 == 3
+
+    ssl = Model.clientModel.service.get_surface_set_load(10, 1)
+    assert ssl.magnitude_axial_strain_2y == 0.008
+    assert ssl.node_1 == 2
+
+    ssl = Model.clientModel.service.get_surface_set_load(12, 1)
+    assert ssl.load_type == 'LOAD_TYPE_PRECAMBER'
+    assert ssl.uniform_magnitude == 50
+
+    ssl = Model.clientModel.service.get_surface_set_load(13, 1)
+    assert ssl.angular_velocity == 2
+    assert ssl.angular_acceleration == 1
+    assert ssl.axis_definition_p1_z == 3
+    assert ssl.axis_definition_p2_x == 4
+
+    ssl = Model.clientModel.service.get_surface_set_load(14, 1)
+    assert ssl.magnitude_mass_y == 600
+    assert ssl.magnitude_mass_z == 700

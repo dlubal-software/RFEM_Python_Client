@@ -1,3 +1,4 @@
+from cgi import test
 import sys
 import os
 PROJECT_ROOT = os.path.abspath(os.path.join(
@@ -5,10 +6,9 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-import pytest
 from RFEM.enums import GlobalAxesOrientationType, LocalAxesOrientationType
 from RFEM.baseSettings import BaseSettings
-from RFEM.initModel import Model, CheckIfMethodOrTypeExists
+from RFEM.initModel import Model
 
 if Model.clientModel is None:
     Model()
@@ -22,4 +22,11 @@ def test_baseSettings():
 
     Model.clientModel.service.finish_modification()
 
-    assert Model.clientModel.service.get_model_settings_and_options().gravitational_acceleration == 12
+    msao = Model.clientModel.service.get_model_settings_and_options()
+    assert msao.gravitational_acceleration == 12
+    assert msao.global_axes_orientation == 'E_GLOBAL_AXES_ORIENTATION_ZUP'
+    assert msao.local_axes_orientation == 'E_LOCAL_AXES_ORIENTATION_ZUP'
+    assert msao.tolerance_for_nodes == 0.001
+    assert msao.tolerance_for_lines == 0.002
+    assert msao.tolerance_for_surfaces_and_planes == 0.003
+    assert msao.tolerance_for_directions == 0.004

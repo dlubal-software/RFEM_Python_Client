@@ -524,8 +524,7 @@ class NodalLoad():
 
         else:
             clientObject.individual_mass_components = individual_mass_components
-
-        clientObject.mass_global = mass[0]
+            clientObject.mass_global = mass[0]
 
         # Comment
         clientObject.comment = comment

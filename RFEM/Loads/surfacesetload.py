@@ -468,7 +468,6 @@ class SurfaceSetLoad():
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
-
         """
         # Client model | Surface Load
         clientObject = model.clientModel.factory.create('ns0:surface_set_load')
@@ -497,9 +496,9 @@ class SurfaceSetLoad():
             clientObject.axis_definition_p1_y = load_parameter[3][1]
             clientObject.axis_definition_p1_z = load_parameter[3][2]
 
-            clientObject.axis_definition_p1_x = load_parameter[4][0]
-            clientObject.axis_definition_p1_y = load_parameter[4][1]
-            clientObject.axis_definition_p1_z = load_parameter[4][2]
+            clientObject.axis_definition_p2_x = load_parameter[4][0]
+            clientObject.axis_definition_p2_y = load_parameter[4][1]
+            clientObject.axis_definition_p2_z = load_parameter[4][2]
 
         else:
             clientObject.axis_definition_axis = load_parameter[3].name

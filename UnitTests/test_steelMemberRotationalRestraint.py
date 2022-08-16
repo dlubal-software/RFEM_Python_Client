@@ -38,3 +38,5 @@ def test_steelMemberRotationalRestraints():
 
     assert steelMemberRestraint2.type == "TYPE_DISCRETE"
     assert steelMemberRestraint2.continuous_beam_effect == "CONTINUOUS_BEAM_EFFECT_END_PANEL"
+
+test_steelMemberRotationalRestraints()

@@ -52,13 +52,15 @@ def test_line_loads():
     Thickness()
     Surface(1, surface_str)
 
-    # Testing Standard (i.e. default) Function
+    #   TESTING STANDARD LINE LOAD FUNCTION
 
     LoadCase(1, 'Standard')
 
-    LineLoad(1, 1, '1', magnitude=1)
+    LineLoad(1, 1, '1', magnitude=1000)
 
-    # Testing Force Type Line Loads
+    assert Model.clientModel.service.get_line_load(1, 1).magnitude == 1000
+
+    #   TESTING FORCE TYPE LINE LOADS
 
     LoadCase(2, 'TYPE: Force')
 
@@ -66,83 +68,209 @@ def test_line_loads():
                    load_distribution=LineLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                    load_parameter=[1000])
 
+    ll = Model.clientModel.service.get_line_load(1, 2)
+    assert ll.lines == '1'
+    assert ll.load_distribution == 'LOAD_DISTRIBUTION_UNIFORM'
+    assert ll.magnitude == 1000
+
     LineLoad.Force(2, 2, '2',
                    load_distribution=LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1,
                    load_parameter=[False, 10000, 0.5])
+
+    ll = Model.clientModel.service.get_line_load(2, 2)
+    assert ll.lines == '2'
+    assert ll.load_distribution == 'LOAD_DISTRIBUTION_CONCENTRATED_1'
+    assert ll.magnitude == 10000
+    assert ll.distance_a_absolute == 0.5
 
     LineLoad.Force(3, 2, '3',
                    load_distribution=LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N,
                    load_parameter=[True, True, 25000, 3, 0.25, 0.5])
 
+    ll = Model.clientModel.service.get_line_load(3, 2)
+    assert ll.lines == '3'
+    assert ll.load_distribution == 'LOAD_DISTRIBUTION_CONCENTRATED_N'
+    assert ll.magnitude == 25000
+    assert ll.distance_b_relative == 0.5
+
     LineLoad.Force(4, 2, '4',
                    load_distribution=LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2,
                    load_parameter=[True, True, True, 17000, 0.25, 0.5, 0.25])
+
+    ll = Model.clientModel.service.get_line_load(4, 2)
+    assert ll.lines == '4'
+    assert ll.load_distribution == 'LOAD_DISTRIBUTION_CONCENTRATED_2x2'
+    assert ll.magnitude == 17000
+    assert ll.distance_c_relative == 0.25
 
     LineLoad.Force(5, 2, '5',
                    load_distribution=LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2,
                    load_parameter=[True, True, 5000, 7500, 0.4, 0.5])
 
+    ll = Model.clientModel.service.get_line_load(5, 2)
+    assert ll.lines == '5'
+    assert ll.load_distribution == 'LOAD_DISTRIBUTION_CONCENTRATED_2'
+    assert ll.magnitude_2 == 7500
+    assert ll.distance_a_relative == 0.4
+
     LineLoad.Force(6, 2, '6',
                    load_distribution=LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING,
-                   load_parameter=[[0.2, 0.1, 200], [0.5, 0.2, 200]])
+                   load_parameter=[[1.5, 200], [2, 200]])
+
+    ll = Model.clientModel.service.get_line_load(6, 2)
+    assert ll.lines == '6'
+    assert ll.load_distribution == 'LOAD_DISTRIBUTION_CONCENTRATED_VARYING'
+    assert ll.varying_load_parameters['line_load_varying_load_parameters'][0].row['distance'] == 1.5
+    assert ll.varying_load_parameters['line_load_varying_load_parameters'][1].row['magnitude'] == 200
+
 
     LineLoad.Force(7, 2, '7',
                    load_distribution=LineLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL,
                    load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
 
+    ll = Model.clientModel.service.get_line_load(7, 2)
+    assert ll.lines == '7'
+    assert ll.load_distribution == 'LOAD_DISTRIBUTION_TRAPEZOIDAL'
+    assert ll.magnitude_1 == 2000
+    assert ll.distance_a_relative == 0.2
+    assert ll.distance_b_is_defined_as_relative == True
+
+
     LineLoad.Force(8, 2, '8',
                    load_distribution=LineLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC,
                    load_parameter=[750, 1000, 2500])
 
+    ll = Model.clientModel.service.get_line_load(8, 2)
+    assert ll.lines == '8'
+    assert ll.load_distribution == 'LOAD_DISTRIBUTION_PARABOLIC'
+    assert ll.magnitude_2 == 1000
+
     LineLoad.Force(9, 2, '9',
                    load_distribution=LineLoadDistribution.LOAD_DISTRIBUTION_VARYING,
-                   load_parameter=[[1, 1, 75000], [2, 1, 60000]])
+                   load_parameter=[[1.25, 75000], [2, 60000]])
 
-    # Testing Moment Type Line Loads
+    ll = Model.clientModel.service.get_line_load(9, 2)
+    assert ll.lines == '9'
+    assert ll.load_distribution == 'LOAD_DISTRIBUTION_VARYING'
+    assert ll.varying_load_parameters['line_load_varying_load_parameters'][1].row['magnitude'] == 60000
+    assert ll.varying_load_parameters['line_load_varying_load_parameters'][0].row['distance'] == 1.25
+
+    #   TESTING MOMENT TYPE LINE LOADS
 
     LoadCase(3, 'TYPE: Moment')
 
     LineLoad.Moment(1, 3, '1',
                     load_distribution=LineLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
+                    load_direction=LoadDirectionType.LOAD_DIRECTION_LOCAL_X,
                     load_parameter=[1000])
+
+    ll = Model.clientModel.service.get_line_load(1, 3)
+    assert ll.lines == '1'
+    assert ll.load_direction == 'LOAD_DIRECTION_LOCAL_X'
+    assert ll.load_distribution == 'LOAD_DISTRIBUTION_UNIFORM'
+    assert ll.magnitude == 1000
 
     LineLoad.Moment(2, 3, '2',
                     load_distribution=LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1,
-                    load_parameter=[False, 10000, 0.5])
+                    load_direction=LoadDirectionType.LOAD_DIRECTION_LOCAL_X,
+                    load_parameter=[False, 12300, 0.5])
+
+    ll = Model.clientModel.service.get_line_load(2, 3)
+    assert ll.lines == '2'
+    assert ll.load_distribution == 'LOAD_DISTRIBUTION_CONCENTRATED_1'
+    assert ll.magnitude == 12300
+    assert ll.distance_a_absolute == 0.5
 
     LineLoad.Moment(3, 3, '3',
                     load_distribution=LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N,
+                    load_direction=LoadDirectionType.LOAD_DIRECTION_LOCAL_X,
                     load_parameter=[True, True, 25000, 3, 0.25, 0.5])
+
+    ll = Model.clientModel.service.get_line_load(3, 3)
+    assert ll.lines == '3'
+    assert ll.load_distribution == 'LOAD_DISTRIBUTION_CONCENTRATED_N'
+    assert ll.magnitude == 25000
+    assert ll.distance_b_relative == 0.5
 
     LineLoad.Moment(4, 3, '4',
                     load_distribution=LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2,
+                    load_direction=LoadDirectionType.LOAD_DIRECTION_LOCAL_X,
                     load_parameter=[True, True, True, 17000, 0.25, 0.5, 0.25])
+
+    ll = Model.clientModel.service.get_line_load(4, 3)
+    assert ll.lines == '4'
+    assert ll.load_distribution == 'LOAD_DISTRIBUTION_CONCENTRATED_2x2'
+    assert ll.magnitude == 17000
+    assert ll.distance_c_relative == 0.25
 
     LineLoad.Moment(5, 3, '5',
                     load_distribution=LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2,
+                    load_direction=LoadDirectionType.LOAD_DIRECTION_LOCAL_X,
                     load_parameter=[True, True, 5000, 7500, 0.4, 0.5])
+
+    ll = Model.clientModel.service.get_line_load(5, 3)
+    assert ll.lines == '5'
+    assert ll.load_distribution == 'LOAD_DISTRIBUTION_CONCENTRATED_2'
+    assert ll.magnitude_2 == 7500
+    assert ll.distance_a_relative == 0.4
 
     LineLoad.Moment(6, 3, '6',
                     load_distribution=LineLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING,
-                    load_parameter=[[0.2, 0.1, 200], [0.5, 0.2, 200]])
+                    load_direction=LoadDirectionType.LOAD_DIRECTION_LOCAL_X,
+                    load_parameter=[[1.23, 200], [2.67, 200]])
+
+    ll = Model.clientModel.service.get_line_load(6, 3)
+    assert ll.lines == '6'
+    assert ll.load_distribution == 'LOAD_DISTRIBUTION_CONCENTRATED_VARYING'
+    assert ll.varying_load_parameters['line_load_varying_load_parameters'][0].row['distance'] == 1.23
+    assert ll.varying_load_parameters['line_load_varying_load_parameters'][1].row['magnitude'] == 200
 
     LineLoad.Moment(7, 3, '7',
                     load_distribution=LineLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL,
+                    load_direction=LoadDirectionType.LOAD_DIRECTION_LOCAL_X,
                     load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
+
+    ll = Model.clientModel.service.get_line_load(7, 3)
+    assert ll.lines == '7'
+    assert ll.load_distribution == 'LOAD_DISTRIBUTION_TRAPEZOIDAL'
+    assert ll.magnitude_1 == 2000
+    assert ll.distance_a_relative == 0.2
+    assert ll.distance_b_is_defined_as_relative == True
 
     LineLoad.Moment(8, 3, '8',
                     load_distribution=LineLoadDistribution.LOAD_DISTRIBUTION_TAPERED,
+                    load_direction=LoadDirectionType.LOAD_DIRECTION_LOCAL_X,
                     load_parameter=[True, True, 2000, 2000, 0.2, 0.5])
+
+    ll = Model.clientModel.service.get_line_load(8, 3)
+    assert ll.lines == '8'
+    assert ll.load_distribution == 'LOAD_DISTRIBUTION_TAPERED'
+    assert ll.magnitude_1 == 2000
+    assert ll.distance_a_relative == 0.2
+    assert ll.distance_b_is_defined_as_relative == True
 
     LineLoad.Moment(9, 3, '9',
                     load_distribution=LineLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC,
+                    load_direction=LoadDirectionType.LOAD_DIRECTION_LOCAL_X,
                     load_parameter=[750, 1000, 2500])
+
+    ll = Model.clientModel.service.get_line_load(9, 3)
+    assert ll.lines == '9'
+    assert ll.load_distribution == 'LOAD_DISTRIBUTION_PARABOLIC'
+    assert ll.magnitude_2 == 1000
 
     LineLoad.Moment(10, 3, '10',
                     load_distribution=LineLoadDistribution.LOAD_DISTRIBUTION_VARYING,
-                    load_parameter=[[1, 1, 75000], [2, 1, 60000]])
+                    load_direction=LoadDirectionType.LOAD_DIRECTION_LOCAL_X,
+                    load_parameter=[[0.96, 75000], [2.34, 60000]])
 
-    # Testing Mass Type Line Loads
+    ll = Model.clientModel.service.get_line_load(10, 3)
+    assert ll.lines == '10'
+    assert ll.load_distribution == 'LOAD_DISTRIBUTION_VARYING'
+    assert ll.varying_load_parameters['line_load_varying_load_parameters'][1].row['magnitude'] == 60000
+    assert ll.varying_load_parameters['line_load_varying_load_parameters'][0].row['distance'] == 0.96
+
+    #   TESTING MASS TYPE LINE LOADS
 
     LoadCase(4, 'TYPE: Mass')
 

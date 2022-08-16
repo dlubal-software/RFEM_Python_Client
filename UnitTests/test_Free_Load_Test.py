@@ -58,14 +58,14 @@ def test_free_load():
 
     # Prüfung der freien Einzellasten
     FreeLoad.ConcentratedLoad(1, 1, load_parameter= [5000, 4, 2])
-    FreeLoad.ConcentratedLoad(2, 1, load_parameter= [50, 8, 8], load_type= FreeConcentratedLoadLoadType.LOAD_TYPE_MOMENT, load_direction= FreeConcentratedLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Y)
+    FreeLoad.ConcentratedLoad(2, 1, load_parameter= [50, 8, 9], load_type= FreeConcentratedLoadLoadType.LOAD_TYPE_MOMENT, load_direction= FreeConcentratedLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Y)
 
     # Prüfung der freien Linienlasten
     FreeLoad.LineLoad(3, 1, '1',
                         FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                         FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                         FreeLineLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
-                        [5000, 2, 2, 4, 4])
+                        [5000, 2, 3, 4, 5])
 
     # Prüfung der freien Rechtecklasten
 
@@ -157,7 +157,7 @@ def test_free_load():
                             FreeRectangularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
                             [5000],
                             FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CENTER_AND_SIDES,
-                            [5, 6, 2, 2, [5, 7, 0], [5, 9, 2], 0, [[0, 0.5], [90, 1.75], [180, 1.25], [270, 1], [360, 0.5]]])
+                            [5, 6, 2, 3, [5, 7, 0], [5, 9, 2], 0, [[0, 0.5], [90, 1.75], [180, 1.25], [270, 1], [360, 0.5]]])
 
     FreeLoad.RectangularLoad(6, 3, '1',
                             FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER,
@@ -209,6 +209,36 @@ def test_free_load():
                          [[1, 4], [0, 6], [2, 6]],
                          [1500, 7500, 2, 1])
 
-    #Calculate_all() # Don't use in unit tests. See template for more info.
-
     Model.clientModel.service.finish_modification()
+
+    fcl = Model.clientModel.service.get_free_concentrated_load(2, 1)
+    assert fcl.load_type == 'LOAD_TYPE_MOMENT'
+    assert fcl.magnitude == 50.0
+    assert fcl.load_location_x == 8
+    assert fcl.load_location_y == 9
+
+    fll = Model.clientModel.service.get_free_line_load(3, 1)
+    assert fll.load_projection == 'LOAD_PROJECTION_XY_OR_UV'
+    assert fll.load_direction == 'LOAD_DIRECTION_GLOBAL_Z_TRUE'
+    assert fll.magnitude_uniform == 5000
+    assert fll.load_location_first_y == 3
+    assert fll.load_location_second_y == 5
+
+    frl = Model.clientModel.service.get_free_rectangular_load(5, 3)
+    assert frl.load_projection == 'LOAD_PROJECTION_XY_OR_UV'
+    assert frl.load_direction == 'LOAD_DIRECTION_GLOBAL_Z_TRUE'
+    assert frl.load_distribution == 'LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER'
+    assert frl.load_location_center_y == 6
+    assert frl.load_location_center_side_b == 3
+
+    fcl = Model.clientModel.service.get_free_circular_load(2, 4)
+    assert fcl.magnitude_center == 10000
+    assert fcl.magnitude_radius == 2500
+    assert fcl.load_location_y == 5
+    assert fcl.load_location_radius == 2
+
+    fpl = Model.clientModel.service.get_free_polygon_load(4, 5)
+    assert fpl.magnitude_linear_2 == 7500
+    assert fpl.magnitude_linear_location_1 == 2
+    assert fpl.load_location[0][0][1].second_coordinate == 4
+    assert fpl.load_location[0][2][1].first_coordinate == 2
