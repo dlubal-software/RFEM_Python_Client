@@ -19,7 +19,7 @@ Dlubal Software GmbH
 
 <h2 align="center">
 
-Welcome to RFEM Python API
+Welcome to RFEM Python High Level Functons
 
 <a href="https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem" title="Tutorial 1"><img src="./img/2Dtruss.gif" width=550 alt="Tutorial" /></a>
 </h2>
@@ -32,12 +32,10 @@ This Python project is focused on opening RFEM 6 to all of our customers, enabli
 
 ## Architecture
 
-* [![main](https://img.shields.io/badge/main.py-blue)](main.py): setting of individual objects by one line entry
-* [![window](https://img.shields.io/badge/window.py-blue)](/RFEM/window.py): definition of GUI layer; called first
+* [![RFEM](https://img.shields.io/badge/RFEM-blue)](/RFEM): folder following structure of RFEM 6 navigator containing individual types of objects
 * [![initModel](https://img.shields.io/badge/initModel.py-blue)](/RFEM/initModel.py): runs after window and initializes suds.Client by connecting to `http://localhost:8081/wsdl` and active model in RFEM. It also evelops esential global functions.
 * [![enums](https://img.shields.io/badge/enums.py-blue)](/RFEM/enums.py): definition of enumerations
-* [![dataTypes](https://img.shields.io/badge/dataTypes.py-blue)](/RFEM/dataTypes.py): definition of special data types
-* [![RFEM](https://img.shields.io/badge/RFEM-blue)](/RFEM): folder following structure of RFEM 6 navigator containing individual types of objects
+
 
 
 ## Getting started
