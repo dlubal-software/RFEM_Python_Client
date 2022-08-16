@@ -53,7 +53,7 @@ Dependency check is implemented inside [initModel.py](/RFEM/initModel.py) with o
 
 ### Step by step
 1) 🌀 [Clone](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository#:~:text=Cloning%20an%20Existing%20Repository) this repository (if you have GitHub account) or download actual [release](https://github.com/Dlubal-Software/RFEM_Python_Client/releases)
-2) <img align="left" alt="Visual Studio Code" width="18px" src="./img/RFEM.png" style="padding-right:1px;">Open RFEM 6 application
+2) <img align="left" alt="Visual Studio Code" width="18px" src="./img/RFEM.png">Open RFEM 6 application
 
 3) ☑️ Check if there are no opened dialogues in RFEM and server port range under *Options-Web Services* corresponds to the one set in initModel
 4) 🏃 Run your script. Inspirations can be found in [Examples](/Examples/) or [UnitTests](/UnitTests/).
