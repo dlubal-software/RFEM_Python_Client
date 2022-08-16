@@ -12,11 +12,12 @@ class SurfaceMeshRefinement():
         Surface Mesh Refinement
 
         Args:
-            no (int, optional): _description_. Defaults to 1.
-            surfaces (str, optional): _description_. Defaults to "1".
-            target_length (float, optional): _description_. Defaults to 0.1.
-            comment (str, optional): _description_. Defaults to ''.
-            params (dict, optional): _description_. Defaults to None.
+            no (int): Surface Mesh Refinement Tag
+            surfaces (str): Assigned to Surfaces
+            target_length (float): Target FE Length
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Surface Mesh Refinement

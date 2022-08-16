@@ -2,6 +2,7 @@ from RFEM.initModel import Model, clearAtributes, GetAddonStatus, SetAddonStatus
 from RFEM.enums import DirectionalComponentCombinationRule, PeriodicResponseCombinationRule, CqsDampingRule, AddOn
 
 class SpectralAnalysisSettings():
+
     def __init__(self,
                  no: int = 1,
                  name: str = 'SRSS | SRSS',
@@ -31,6 +32,7 @@ class SpectralAnalysisSettings():
             constant_d_for_each_mode (float): Constant d for Each Mode
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
         # Check if Spectral Add-on is active.
         if not GetAddonStatus(Model.clientModel, AddOn.spectral_active):

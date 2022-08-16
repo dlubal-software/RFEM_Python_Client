@@ -6,7 +6,7 @@ class ConcreteReinforcementDirection():
     def __init__(self,
                 no: int = 1,
                 name: str = "RD 1",
-                surfaces = "1",
+                surfaces: str = "1",
                 reinforcement_direction_type = ReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_FIRST_REINFORCEMENT_IN_X,
                 rotation_parameters: list = None,
                 comment: str = '',
@@ -14,13 +14,14 @@ class ConcreteReinforcementDirection():
                 model = Model):
         """
         Args:
-            no (int): Reinforcement Direction Tag
+            no (int): Concrete Reinforcement Direction Tag
             name (str): User Defined Name
             surfaces (str): Assigned Surfaces
             reinforcement_direction_type (enum): Reinforcement Direction Enumeration
-            rotation_parameters (list): Rotation Parameters
+            rotation_parameters (list): Rotation Parameters List
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Concrete Durabilities

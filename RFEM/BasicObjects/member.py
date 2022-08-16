@@ -19,7 +19,7 @@ class Member():
         Args:
             no (int): Member Tag
             start_node_no (int): Tag of Start Node
-            end_node_no (int,): Tag of End Node
+            end_node_no (int): Tag of End Node
             rotation_angle (float): Member Rotation Angle
             start_section_no (int): Tag of Start Section
             end_section_no (int): Tag of End Section
@@ -140,8 +140,8 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             start_section_no (int): Tag of Start Section
             end_section_no (int): End of End Section
-            line (int, optional): Assigned Line
             distribution_parameters (list): Distribution Parameters
+            line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
@@ -367,7 +367,7 @@ class Member():
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
-                        rotation_parameters = [rotation_angle]
+                    rotation_parameters = [rotation_angle]
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
                     rotation_parameters = [rotation_help_node, rotation_plane_type]
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
@@ -614,7 +614,7 @@ class Member():
             rotation_specification_type (enum): Rotation Specification Type Enumeration
             rotation_parameters (list): Rotation Parameters
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
-                        rotation_parameters = [rotation_angle]
+                    rotation_parameters = [rotation_angle]
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE:
                     rotation_parameters = [rotation_help_node, rotation_plane_type]
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_INSIDE_NODE:
@@ -1336,6 +1336,7 @@ class Member():
             end_node_no (int,): Tag of End Node
             section_distribution_type (enum): Section Distribution Type Enumeration
             rotation_specification_type (enum): Rotation Specification Type Enumeration
+            result_beam_integrate_stresses_and_forces (enum): Member Result Beam Integration Enumeration
             rotation_parameters (list): Rotation Parameters
                 for rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE:
                     rotation_parameters = [rotation_angle]
@@ -1377,6 +1378,7 @@ class Member():
                     integration_parameters = [result_beam_radius]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
@@ -1597,6 +1599,7 @@ class Member():
             definable_stiffness (int): Definable Stiffness Tag
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
@@ -1699,6 +1702,7 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
@@ -1777,6 +1781,7 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
@@ -1855,6 +1860,7 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
@@ -1933,6 +1939,7 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
@@ -1990,6 +1997,7 @@ class Member():
         '''
         Args:
             members_no (str): Numbers of Members to be deleted
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Delete from client model

@@ -17,15 +17,16 @@ class SurfaceSupport():
         Surface Support
 
         Args:
-            no (int, optional): Number
-            surfaces_no (str, optional): Assignet du surfaces no
-            c_ux (float, optional): Translational Support in X direction
-            c_uy (float, optional): Translational Support in Y direction
-            c_uz (float, optional): Translational Support in Z direction
-            c_vxz (float, optional): Shear Support in XZ direction
-            c_vyz (float, optional): Shear Support in YZ direction
-            comment (str, optional): Comments
+            no (int): Surface Support Tag
+            surfaces_no (str): Assigned to Surfaces
+            c_ux (float): Translational Support in X direction
+            c_uy (float): Translational Support in Y direction
+            c_uz (float): Translational Support in Z direction
+            c_vxz (float): Shear Support in XZ direction
+            c_vyz (float): Shear Support in YZ direction
+            comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Surface Support

@@ -16,21 +16,19 @@ class ResultSection():
         Result Section
 
         Args:
-            no (int, mandatory): Number
-            type (enum, mandatory): Categories Type
-            show_section_in_direction (enum, mandatory): Show section in direction
-            show_values_on_isolines (bool, mandatory): Show values on isolines
-            parameters (list, mandatory): Variable parameters
+            no (int): Result Section Tag
+            type (enum): Result Section Type Enumeration
+            show_section_in_direction (enum): Result Section Result Direction Enumeration
+            show_values_on_isolines (bool): Show values on Isolines
+            parameters (list): Variable parameters List
                 if type == ResultSectionType.TYPE_LINE:
-                    [lines]
-                    ['1 2']
+                    parameters = [lines] ; example : ['1 2']
                 if type == ResultSectionType.TYPE_2_POINTS_AND_VECTOR:
-                    [coordinate_system, first_point_coordinates, second_point_coordinates, projection, vector]
-                    [1, [1,0,0], [0,2,0], ResultSectionProjection.PROJECTION_IN_VECTOR, [1,1,1]]
-            assigned_to_surfaces (str, optional) = Assigned to surfaces
-            assigned_to_solids (str, optional) Assigned to solids
+                    parameters = [coordinate_system, first_point_coordinates, second_point_coordinates, projection, vector]; exapmle : [1, [1,0,0], [0,2,0], ResultSectionProjection.PROJECTION_IN_VECTOR, [1,1,1]]
+            assigned_to_surfaces (str, optional) = Assigned to Surfaces
+            assigned_to_solids (str, optional) Assigned to Solids
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Result Section
@@ -101,19 +99,19 @@ class ResultSection():
         Result Section defined by 2 points and vector
 
         Args:
-            no (int, mandatory): Number
-            coordinate_system (int, mandatory): Coordinate system number
-            show_section_in_direction (enum, mandatory): Show section in direction
-            show_values_on_isolines (bool, mandatory): Show values on isolines option
-            first_point_coordinates (list, mandatory): First point coordinates
-            second_point_coordinates (list, mandatory): Second point coordinates
-            projection (enum, mandatory): Projection in direction
+            no (int): Result Section Tag
+            coordinate_system (int): Coordinate System Number
+            show_section_in_direction (enum): Result Section Result Direction Enumeration
+            show_values_on_isolines (bool): Enable/Disable Show values on Isolines Option
+            first_point_coordinates (list): First point coordinates
+            second_point_coordinates (list): Second point coordinates
+            projection (enum): Result Section Projection Enumeration
             vector (list, optional): Vector if projection is VECTOR
-            assigned_to_surfaces (str, optional) = Assigned to surfaces
-            assigned_to_solids (str, optional) Assigned to solids
+            assigned_to_surfaces (str, optional) = Assigned to Surfaces
+            assigned_to_solids (str, optional) Assigned to Solids
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Result Section
@@ -185,16 +183,16 @@ class ResultSection():
         Result Section defined by line
 
         Args:
-            no (int, mandatory): Number
-            type (enum, mandatory): _description_. Defaults to ResultSectionType.TYPE_2_POINTS_AND_VECTOR.
-            show_section_in_direction (enum, mandatory): _description_. Defaults to ResultSectionResultDirection.SHOW_RESULTS_IN_LOCAL_PLUS_Z.
-            show_values_on_isolines (bool, mandatory): _description_. Defaults to False.
-            lines (int, mandatory): Lines
-            assigned_to_surfaces (str, optional) = Assigned to surfaces
-            assigned_to_solids (str, optional) Assigned to solids
+            no (int): Result Section Tag
+            type (enum): Result Section Type Enumeration (Defaults to ResultSectionType.TYPE_2_POINTS_AND_VECTOR)
+            show_section_in_direction (enum): Result Section Result Direction Enumeration
+            show_values_on_isolines (bool): Enable/Disable Show Values on Isolines Option
+            lines (str): Lines
+            assigned_to_surfaces (str, optional) = Assigned to Surfaces
+            assigned_to_solids (str, optional) Assigned to Solids
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Result Section

@@ -20,16 +20,16 @@ class MemberImperfection():
         An imperfection case must be created before.
 
         Args:
-            no (int, optional): Number
-            imperfection_case (int, optional): Imperfection case number
-            members (str, optional): Assigned to members
-            imperfection_type (enum, optional): Imperfection Type
-            definition_type (enum, optional): Definition Type
-            imperfection_direction (enum, optional): Imperfection direction
-            parameters (list, optional): Parameters depending on imperfection and definition type
+            no (int): Member Imperfection Tag
+            imperfection_case (int): Imperfection Case Number
+            members (str): Assigned to Members
+            imperfection_type (enum): Member Imperfection Type Enumeration
+            definition_type (enum): Member Imperfection Definition Type Enumeration
+            imperfection_direction (enum): Imperfection Direction Enumeration
+            parameters (list): Parameters depending on Imperfection and Definition type
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Imperfection Case

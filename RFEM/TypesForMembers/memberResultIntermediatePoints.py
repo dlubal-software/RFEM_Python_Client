@@ -16,9 +16,10 @@ class MemberResultIntermediatePoint():
             members (str): Assigned Members
             point_count (int): Assigned Point Number
             uniform_distribution (bool): Uniform Distrubition Option
-            distances (list): Distances Table
+            distances (list of lists): Distances Table
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Member Result Intermediate Point

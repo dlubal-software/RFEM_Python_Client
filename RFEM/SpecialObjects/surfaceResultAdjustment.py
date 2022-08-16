@@ -19,18 +19,18 @@ class SurfaceResultsAdjustment():
         Surface Results Adjustment
 
         Args:
-            no (int, mandatory): Number
-            shape (enum, mandatory): Shape
-            dimensions (list, mandatory): Dimensions and angular rotation
-            center_position (list, optional): Center position
-            adjustment_type_in_direction_u (enum, optional): Adjustment type in direction u
-            adjustment_type_in_direction_v (enum, optional): Adjustment type in direction v
-            projection (enum, optional): Projection Direction
-            projection_vector (list, optional): Projection vector in case projection == VECTOR
+            no (int): Surface Results Adjustment Tag
+            shape (enum): Surface Results Adjustment Shape Enumeration
+            dimensions (list): Dimensions and Angular Rotation List
+            center_position (list, optional): Center Position List
+            adjustment_type_in_direction_u (enum, optional): Surface Results Adjustment Type Enumeration
+            adjustment_type_in_direction_v (enum, optional): Surface Results Adjustment Type Enumeration
+            projection (enum, optional): Surface Results Adjustment Projection Enumeration
+            projection_vector (list, optional): Projection vector List in case projection == VECTOR
             surfaces (str, optional): Assigned to surfaces
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Surface Result Adjustment

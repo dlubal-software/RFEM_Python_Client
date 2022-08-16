@@ -8,7 +8,7 @@ class LineLoad():
                  load_case_no: int = 1,
                  lines_no: str = '1',
                  load_direction = LoadDirectionType.LOAD_DIRECTION_LOCAL_Z,
-                 magnitude: float = 0,
+                 magnitude: float = 0.0,
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -22,6 +22,7 @@ class LineLoad():
             magnitude (float): Magnitude of Line Load
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line Load
@@ -82,9 +83,9 @@ class LineLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             lines_no (str): Assigned Line(s)
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
-            load_parameter: Load Parameter
+            load_distribution (enum): Line Load Distribution Enumeration
+            load_direction (enum): Line Load Direction Enumeration
+            load_parameter (flaot/list/list of lists): Load Parameter
                 for load_distribution == LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = magnitude
                 for load_distribution == LOAD_DISTRIBUTION_UNIFORM_TOTAL:
@@ -100,9 +101,9 @@ class LineLoad():
                 for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
                     load_parameter = [[distance, magnitude], ...]
                 for load_distribution == LOAD_DISTRIBUTION_TRAPEZOIDAL:
-                    load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
                 for load_distribution == LOAD_DISTRIBUTION_TAPERED:
-                    load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
                 for load_distribution == LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
                 for load_distribution == LOAD_DISTRIBUTION_VARYING:
@@ -110,6 +111,7 @@ class LineLoad():
             list_reference (bool): List Reference Bool
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line Load
@@ -335,32 +337,33 @@ class LineLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             lines_no (str): Assigned Line(s)
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
-            load_parameter: Load Parameter
-                load_parameter == LOAD_DISTRIBUTION_UNIFORM:
+            load_distribution (enum): Line Load Distribution Enumeration
+            load_direction (enum): Line Load Direction Enumeration
+            load_parameter (float/list/list of lists): Load Parameter
+                for load_parameter == LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = magnitude
-                load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_1:
+                for load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_1:
                     load_parameter = [relative_distance = False, magnitude, distance_a]
-                load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_N:
+                for load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_N:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude, count_n, distance_a, distance_b]
-                load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_2x2:
+                for load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_2x2:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, relative_distance_c = False, magnitude, distance_a, distance_b, distance_c]
-                load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_2:
+                for load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_2:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
-                load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
+                for load_parameter == LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
                     load_parameter = [[distance, magnitude], ...]
-                load_parameter == LOAD_DISTRIBUTION_TRAPEZOIDAL:
+                for load_parameter == LOAD_DISTRIBUTION_TRAPEZOIDAL:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-                load_parameter == LOAD_DISTRIBUTION_TAPERED:
+                for load_parameter == LOAD_DISTRIBUTION_TAPERED:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-                load_parameter == LOAD_DISTRIBUTION_PARABOLIC:
+                for load_parameter == LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-                load_parameter == LOAD_DISTRIBUTION_VARYING:
+                for load_parameter == LOAD_DISTRIBUTION_VARYING:
                     load_parameter = [[distance, magnitude], ...]
             list_reference (bool): List Reference Bool
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line Load
@@ -591,6 +594,7 @@ class LineLoad():
                     mass_components = [mass_x, mass_y, mass_z]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line Load

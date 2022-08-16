@@ -18,18 +18,17 @@ class NodalMeshRefinement():
         Nodal Mesh Refinement
 
         Args:
-            no (int, optional): Number
-            type (_type_, optional): TYPE_CIRCULAR or TYPE_RECTANGULAR
-            mesh_parameters (list, optional): _description_. Defaults to None.
-                if TYPE_CIRCULAR:
-                    (circular_radius, circular_target_inner_length, circular_target_outer_length, circular_length_arrangement)
-                    (2.5, 0.1, 0.5, FElengthArrangement.LENGTH_ARRANGEMENT_RADIAL)
-                elif TYPE_RECTANGULAR:
-                    (rectangular_side, rectangular_target_inner_length)
-                    (0.5, 0.1)
+            no (int): Nodal Mesh Refinement Tag
+            type (enum): Nodal Mesh Refinement Type Enumeration
+            mesh_parameters (list): Mesh Parameters List
+                for type == NodalMeshRefinementType.TYPE_CIRCULAR:
+                    mesh_parameters = [circular_radius, circular_target_inner_length, circular_target_outer_length, circular_length_arrangement]; example: [2.5, 0.1, 0.5, FElengthArrangement.LENGTH_ARRANGEMENT_RADIAL]
+                for type == NodalMeshRefinementType.TYPE_RECTANGULAR:
+                    mesh_parameters = [rectangular_side, rectangular_target_inner_length]; example: [0.5, 0.1]
+            apply_on_selected_surfaces (bool): Enable/Disable Apply on Selected Surfaces
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (_type_, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Nodal Mesh Refinement
@@ -83,15 +82,15 @@ class NodalMeshRefinement():
         Circular Nodal Mesh Refinement
 
         Args:
-            no (int, optional): Number
-            circular_radius (float, optional): Radius
-            circular_target_inner_length (float, optional): Inner target FE length
-            circular_target_outer_length (float, optional): Outer target FE length
-            circular_length_arrangement (_type_, optional): FE length arrangenemt
-            apply_on_selected_surfaces (bool, optional): Apply only on surfaces
+            no (int): Nodal Mesh Refinement Tag
+            circular_radius (float): Radius
+            circular_target_inner_length (float): Inner Target FE Length
+            circular_target_outer_length (float): Outer Target FE Length
+            circular_length_arrangement (enum): FE Length Arrangenemt Enumeration
+            apply_on_selected_surfaces (bool): Enable/Disable Apply on Selected Surfaces
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (_type_, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Nodal Mesh Refinement
@@ -139,13 +138,13 @@ class NodalMeshRefinement():
         Rectangular Nodal Mesh Refinement
 
         Args:
-            no (int, optional): Number
-            rectangular_side (float, optional): Side length
-            rectangular_target_inner_length (float, optional): Inner target FE length
-            apply_on_selected_surfaces (bool, optional): Apply only on surfaces
+            no (int): Nodal Mesh Refinement Tag
+            rectangular_side (float): Side Length
+            rectangular_target_inner_length (float): Inner Target FE Length
+            apply_on_selected_surfaces (bool): Enable/Disable Apply on Selected Surfaces
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (_type_, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Nodal Mesh Refinement

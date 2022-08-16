@@ -16,6 +16,7 @@ class Material():
             name (str): Name of Desired Material (As Named in RFEM Database)
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Material
@@ -47,6 +48,7 @@ class Material():
         '''
         Args:
             materials_no (str): Numbers of Materials to be deleted
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Delete from client model

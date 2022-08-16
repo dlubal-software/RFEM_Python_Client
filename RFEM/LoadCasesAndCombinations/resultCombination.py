@@ -1,6 +1,7 @@
 from RFEM.initModel import Model, clearAtributes
 
 class ResultCombination():
+
     def __init__(self,
                  no: int = 1,
                  comment: str = '',
@@ -12,6 +13,7 @@ class ResultCombination():
             no (int): Result Combination Tag
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Result Combination

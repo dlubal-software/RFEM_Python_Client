@@ -21,15 +21,16 @@ class SurfaceEccentricity():
         Surfase Eccentricity
 
         Args:
-            no (int, optional): Number
-            offset (float, optional): Offset value
-            assigned_to_surfaces (str, optional): Eccentricity assignmet
-            thickness_alignment (enum, optional): Thickness alignment
-            transverse_offset_object (enum, optional): Transverse offset reference type (member, surface or None)
-            transverse_offset_object_no (int, optional): Transverse offset reference number
-            transverse_offset_alignment (enum, optional): Transverse offset aligment
-            comment (str, optional): Comments
+            no (int): Surface Eccentricity Tag
+            offset (float): Offset value
+            assigned_to_surfaces (str): Eccentricity Assignmet to Surfaces
+            thickness_alignment (enum): Surface Eccentricity Alignment Enumeration
+            transverse_offset_object (enum): Transverse Offset Object Enumeration (member, surface or None)
+            transverse_offset_object_no (int): Transverse offset reference number
+            transverse_offset_alignment (enum): Surface Eccentricity Alignment Enumeration
+            comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Surface Eccentricity
