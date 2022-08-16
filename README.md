@@ -32,7 +32,6 @@ This Python project is focused on opening RFEM 6 to all of our customers, enabli
 ## Architecture
 <a align="center">
 
-![image]()
 
 </a>
 
