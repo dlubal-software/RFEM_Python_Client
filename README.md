@@ -56,12 +56,12 @@ Dependency check is implemented inside [initModel.py](/RFEM/initModel.py) with o
 4) 🏃 Run your script. Inspirations can be found in [Examples](/Examples/) or [UnitTests](/UnitTests/).
 
 ### Examples
-Scripts intended to be used as templates or examples. Also can be used for testing of backward compatibility.
+[Scripts](https://github.com/Dlubal-Software/RFEM_Python_Client/tree/heet-readmeUpdate/Examples) intended to be used as templates or examples. Also can be used for testing of backward compatibility.
 
 ### Unit Tests
-Collection of scripts to support further development.
+Collection of [scripts](https://github.com/Dlubal-Software/RFEM_Python_Client/tree/heet-readmeUpdate/UnitTests) to support further development.
 
-## Documentation
+## Documentation 📚
 For complete description of classes and functions visit our [![image](https://img.shields.io/badge/GitHub-page-darkblue?logo=github&amp;)](https://dlubal-software.github.io/RFEM_Python_Client/).
 
 ## Wiki
@@ -71,7 +71,7 @@ If you run into problems see our [Wiki](https://github.com/Dlubal-Software/RFEM_
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Contribute
-Contributions are always welcome! Please ensure your pull request adheres to the following guidelines:
+Contributions are always welcome!🙂 Please ensure your pull request adheres to the following guidelines:
 
 * Alphabetize your entry.
 * Search previous suggestions before making a new one, as yours may be a duplicate.
@@ -84,7 +84,7 @@ Contributions are always welcome! Please ensure your pull request adheres to the
 * Make sure your text editor is set to remove trailing whitespace.
 * Use the #readme anchor for GitHub READMEs to link them directly
 
-NOTE: Development is in early stages so please respect that. There will be broken objects or adjustments affecting backward compatibility. Use Issues section to point out any problems. Thank you for your understanding.
+⚠️NOTE: Development is in early stages so please respect that. There will be broken objects or adjustments affecting backward compatibility. Use Issues section to point out any problems. Thank you for your understanding.
 
 
 ## Connect with us 🤝
