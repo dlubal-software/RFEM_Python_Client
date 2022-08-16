@@ -2,7 +2,76 @@ import enum
 from RFEM.initModel import Model
 from RFEM.enums import CaseObjectType
 
+# We  can't extract lines with description: Extremes, Total, and Average. Those are language dependent now.
+
+def GetResultTableParameters(results):
+    '''
+    Returns dict with 3 atributes: base, row and error.
+    '''
+    params = {'base':[], 'row':[], 'error': None}
+    if results[0][0]:
+        for i in results[0]:
+            params['base'] = list(set(params['base'] + i.__keylist__))
+            if 'row' in i.__keylist__:
+                params['row'] = list(set(params['row'] + i.row.__keylist__))
+            else:
+                params['errors'] = "Result table doesn't have attribute 'row'."
+
+    return params
+
+def ConvertResultsToListOfDct(results, includeBase = True):
+    '''
+    Args:
+        results (ResultTables class):
+        includeBase (bool): Include base information of every line. Typicaly object number and description. Default False.
+    Returns:
+        List of dictionaries. Each dictionary corresponds to one line in result table.
+    '''
+    params = GetResultTableParameters(results)
+    lstOfDct = []
+
+    for r in results[0]:
+        dct = {}
+        if includeBase and params['base']:
+            for i in params['base']:
+                if i == 'row':
+                    for y in params['row']:
+                        # Sometimes the parameters are not in table or
+                        # they are defined by type+value structure called 'variant',
+                        # hence using try-except notation
+                        try:
+                            dct[y] = r.row[y].value
+                        except:
+                            try:
+                                dct[y] = r.row[y]
+                            except:
+                                pass
+                else:
+                    try:
+                        dct[i] = r[i]
+                    except:
+                        pass
+            lstOfDct.append(dct)
+        # include only row
+        else:
+            if params['row']:
+                for i in params['row']:
+                    try:
+                        dct[i] = r.row[i].value
+                    except:
+                        try:
+                            dct[i] = r.row[i]
+                        except:
+                            pass
+                lstOfDct.append(dct)
+
+    if params['error']:
+        return lstOfDct.append({'error': params['error']})
+
+    return lstOfDct
+
 class ResultTables():
+
     @staticmethod
     def BuildingStoriesForcesInSpandrels(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
@@ -307,7 +376,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_lines_support_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_lines_support_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def MembersByEigenvector(
