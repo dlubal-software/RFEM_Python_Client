@@ -7,7 +7,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 from RFEM.initModel import Model, CheckIfMethodOrTypeExists
 from RFEM.enums import CaseObjectType
-from RFEM.Results.resultTables import ResultTables
+from RFEM.Results.resultTables import ResultTables, GetMaxValue, GetMinValue
 import pytest
 
 if Model.clientModel is None:
@@ -60,4 +60,8 @@ def test_result_tables():
     assert ResultTables.SurfacesMaximumTotalStrains(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 2)
     assert ResultTables.SurfacesPrincipalInternalForces(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 3)
     assert ResultTables.SurfacesPrincipalStresses(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 4)
-    assert ResultTables.SurfacesPrincipalTotalStrains(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 1)
+
+    table = ResultTables.SurfacesPrincipalTotalStrains(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 1)
+    assert table
+    assert round(GetMinValue(table,'principal_strain_epsilon_2_minus'), 7) == -0.0001299
+    assert round(GetMaxValue(table,'principal_strain_epsilon_2_minus'), 7) == 0.0000115

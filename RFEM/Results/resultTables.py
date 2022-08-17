@@ -1,6 +1,8 @@
+from cmath import inf
 import enum
 from RFEM.initModel import Model
 from RFEM.enums import CaseObjectType
+from RFEM.dataTypes import inf
 
 # We  can't extract lines with description: Extremes, Total, and Average. Those are language dependent.
 # To do it set_settings_program_language() has to be called before calculation and the program needs to be restarted.
@@ -77,6 +79,46 @@ def ConvertResultsToListOfDct(results, includeBase = False):
         return lstOfDct.append({'error': params['error']})
 
     return lstOfDct
+
+def GetMinValue(structured_results, parameter):
+
+    '''
+    Args:
+        structured_results(list of dicts): Result of ConvertResultsToListOfDct() function
+        parameter(str, mandatory): The parameter for which the minimum is sought.
+    '''
+
+    min_val = inf
+    for i in structured_results:
+        # Sometimes there is text where the float should be
+        try:
+            min_val = min(float(i[parameter]), min_val)
+        except:
+            pass
+
+    assert min_val < inf, 'Check if the parameter is in the table.'
+
+    return min_val
+
+def GetMaxValue(structured_results, parameter):
+
+    '''
+    Args:
+        structured_results(list of dicts): Result of ConvertResultsToListOfDct() function
+        parameter(str, mandatory): The parameter for which the maximum is sought.
+    '''
+
+    max_val = -inf
+    for i in structured_results:
+        # Sometimes there is text where the float should be
+        try:
+            max_val = max(float(i[parameter]), max_val)
+        except:
+            pass
+
+    assert max_val > -inf, 'Check if the parameter is in the table.'
+
+    return max_val
 
 class ResultTables():
 
