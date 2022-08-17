@@ -2,13 +2,18 @@ import enum
 from RFEM.initModel import Model
 from RFEM.enums import CaseObjectType
 
-# We  can't extract lines with description: Extremes, Total, and Average. Those are language dependent now.
+# We  can't extract lines with description: Extremes, Total, and Average. Those are language dependent.
+# To do it set_settings_program_language() has to be called before calculation and the program needs to be restarted.
 
 def GetResultTableParameters(results):
     '''
     Returns dict with 3 atributes: base, row and error.
     '''
     params = {'base':[], 'row':[], 'error': None}
+
+    if not results:
+        return ''
+
     if results[0][0]:
         for i in results[0]:
             params['base'] = list(set(params['base'] + i.__keylist__))
@@ -19,14 +24,17 @@ def GetResultTableParameters(results):
 
     return params
 
-def ConvertResultsToListOfDct(results, includeBase = True):
+def ConvertResultsToListOfDct(results, includeBase = False):
     '''
     Args:
-        results (ResultTables class):
-        includeBase (bool): Include base information of every line. Typicaly object number and description. Default False.
+        results (ResultTables class): ResultTables object
+        includeBase (bool): Include base information of every line. Typicaly 'object number' and 'description'. Default is False.
     Returns:
         List of dictionaries. Each dictionary corresponds to one line in result table.
     '''
+    if not results:
+        return ''
+
     params = GetResultTableParameters(results)
     lstOfDct = []
 
@@ -87,7 +95,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_building_stories_forces_in_spandrels(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_building_stories_forces_in_spandrels(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def BuildingStoriesForcesInShearWalls(
@@ -104,7 +112,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_building_stories_forces_in_shear_walls(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_building_stories_forces_in_shear_walls(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def BuildingStoriesCentresMassRigidity(
@@ -121,7 +129,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_building_stories_centres_mass_rigidity(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_building_stories_centres_mass_rigidity(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def BuildingStoriesInterstoryDrifts(
@@ -138,7 +146,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_building_stories_interstory_drifts(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_building_stories_interstory_drifts(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def BuildingStoriesStoryActions(
@@ -155,7 +163,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_building_stories_story_actions(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_building_stories_story_actions(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def CalculationDiagrams(
@@ -172,7 +180,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_calculation_diagrams(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_calculation_diagrams(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def CriticalLoadFactors(
@@ -189,7 +197,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_critical_load_factors(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_critical_load_factors(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def EfeectiveLengthsAndCriticalLoadsByEigenvector(
@@ -206,7 +214,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_efeective_lengths_and_critical_loads_by_eigenvector(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_efeective_lengths_and_critical_loads_by_eigenvector(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def EfeectiveLengthsAndCriticalLoadsByMember(
@@ -223,7 +231,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_efeective_lengths_and_critical_loads_by_member(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_efeective_lengths_and_critical_loads_by_member(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def EigenvectorsByMember(
@@ -240,7 +248,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_eigenvectors_by_member(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_eigenvectors_by_member(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def EigenvectorsByNode(
@@ -257,7 +265,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_eigenvectors_by_node(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_eigenvectors_by_node(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def EigenvectorsBySolid(
@@ -274,7 +282,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_eigenvectors_by_solid(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_eigenvectors_by_solid(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def EigenvectorsBySurface(
@@ -291,7 +299,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_eigenvectors_by_surface(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_eigenvectors_by_surface(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def Errors(
@@ -308,7 +316,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_errors(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_errors(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def LineHingesDeformations(
@@ -325,7 +333,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_line_hinges_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_line_hinges_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def LineHingesForces(
@@ -342,7 +350,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_line_hinges_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_line_hinges_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def LinesSlabWallConnections(
@@ -359,7 +367,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_lines_slab_wall_connections(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_lines_slab_wall_connections(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def LinesSupportForces(
@@ -393,7 +401,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_members_by_eigenvector(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_by_eigenvector(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def MembersContactForces(
@@ -410,7 +418,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_members_contact_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_contact_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def MembersGlobalDeformations(
@@ -427,7 +435,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_members_global_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_global_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def MembersHingeDeformations(
@@ -444,7 +452,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_members_hinge_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_hinge_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def MembersHingeForces(
@@ -461,7 +469,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_members_hinge_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_hinge_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def MembersInternalForces(
@@ -478,7 +486,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_members_internal_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_internal_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def MembersInternalForcesByMemberSet(
@@ -495,7 +503,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_members_internal_forces_by_member_set(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_internal_forces_by_member_set(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def MembersInternalForcesBySection(
@@ -512,7 +520,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_members_internal_forces_by_section(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_internal_forces_by_section(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def MembersLocalDeformations(
@@ -529,7 +537,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_members_local_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_local_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def MembersStrains(
@@ -546,7 +554,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_members_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def ModalAnalysisEffectiveModalMasses(
@@ -563,7 +571,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_modal_analysis_effective_modal_masses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_effective_modal_masses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def ModalAnalysisMassesInLocations(
@@ -580,7 +588,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_modal_analysis_masses_in_locations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_masses_in_locations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def ModalAnalysisMembersByModeShape(
@@ -597,7 +605,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_modal_analysis_members_by_mode_shape(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_members_by_mode_shape(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def ModalAnalysisModeShapesByMember(
@@ -614,7 +622,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_member(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_member(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def ModalAnalysisModeShapesByNode(
@@ -631,7 +639,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_node(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_node(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def ModalAnalysisModeShapesBySolid(
@@ -648,7 +656,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_solid(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_solid(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def ModalAnalysisModeShapesBySurface(
@@ -665,7 +673,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_surface(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_surface(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def ModalAnalysisNaturalFrequencies(
@@ -682,7 +690,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_modal_analysis_natural_frequencies(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_natural_frequencies(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def ModalAnalysisNodesByModeShape(
@@ -699,7 +707,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_modal_analysis_nodes_by_mode_shape(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_nodes_by_mode_shape(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def ModalAnalysisParticipationFactors(
@@ -716,7 +724,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_modal_analysis_participation_factors(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_participation_factors(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def ModalAnalysisSolidsByModeShape(
@@ -733,7 +741,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_modal_analysis_solids_by_mode_shape(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_solids_by_mode_shape(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def ModalAnalysisSurfacesByModeShape(
@@ -750,7 +758,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_modal_analysis_surfaces_by_mode_shape(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_surfaces_by_mode_shape(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def NodesByEigenvector(
@@ -767,7 +775,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_nodes_by_eigenvector(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_nodes_by_eigenvector(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def NodesDeformations(
@@ -784,7 +792,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_nodes_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_nodes_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def NodesSupportForces(
@@ -801,7 +809,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_nodes_support_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_nodes_support_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SolidsBasicPlasticStrains(
@@ -818,7 +826,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_solids_basic_plastic_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_basic_plastic_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SolidsBasicStresses(
@@ -835,7 +843,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_solids_basic_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_basic_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SolidsBasicTotalStrains(
@@ -852,7 +860,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_solids_basic_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_basic_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SolidsByEigenvector(
@@ -869,7 +877,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_solids_by_eigenvector(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_by_eigenvector(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SolidsDeformations(
@@ -886,7 +894,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_solids_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SolidsEquivalentPlasticStrains(
@@ -903,7 +911,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_solids_equivalent_plastic_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_equivalent_plastic_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SolidsEquivalentStresses(
@@ -920,7 +928,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_solids_equivalent_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_equivalent_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SolidsEquivalentTotalStrains(
@@ -937,7 +945,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_solids_equivalent_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_equivalent_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SolidsGasQuantities(
@@ -954,7 +962,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_solids_gas_quantities(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_gas_quantities(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SolidsPrincipalPlasticStrains(
@@ -971,7 +979,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_solids_principal_plastic_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_principal_plastic_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SolidsPrincipalStresses(
@@ -988,7 +996,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_solids_principal_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_principal_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SolidsPrincipalTotalStrains(
@@ -1005,7 +1013,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_solids_principal_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_principal_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisBuildingStoriesCentresMassRigidity(
@@ -1022,7 +1030,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_building_stories_centres_mass_rigidity(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_building_stories_centres_mass_rigidity(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisBuildingStoriesForcesInShearWalls(
@@ -1039,7 +1047,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_building_stories_forces_in_shear_walls(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_building_stories_forces_in_shear_walls(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisBuildingStoriesForcesInSpandrels(
@@ -1056,7 +1064,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_building_stories_forces_in_spandrels(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_building_stories_forces_in_spandrels(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisBuildingStoriesInterstoryDrifts(
@@ -1073,7 +1081,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_building_stories_interstory_drifts(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_building_stories_interstory_drifts(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisBuildingStoriesStoryActions(
@@ -1090,7 +1098,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_building_stories_story_actions(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_building_stories_story_actions(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisLineHingesDeformations(
@@ -1107,7 +1115,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_line_hinges_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_line_hinges_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisLineHingesForces(
@@ -1124,7 +1132,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_line_hinges_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_line_hinges_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisLinesSlabWallConnections(
@@ -1141,7 +1149,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_lines_slab_wall_connections(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_lines_slab_wall_connections(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisLinesSupportForces(
@@ -1158,7 +1166,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_lines_support_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_lines_support_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisMembersContactForces(
@@ -1175,7 +1183,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_members_contact_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_contact_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisMembersGlobalDeformations(
@@ -1192,7 +1200,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_members_global_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_global_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisMembersHingeDeformations(
@@ -1209,7 +1217,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_members_hinge_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_hinge_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisMembersHingeForces(
@@ -1226,7 +1234,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_members_hinge_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_hinge_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisMembersInternalForces(
@@ -1243,7 +1251,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisMembersInternalForcesByMemberSet(
@@ -1260,7 +1268,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces_by_member_set(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces_by_member_set(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisMembersInternalForcesBySection(
@@ -1277,7 +1285,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces_by_section(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces_by_section(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisMembersLocalDeformations(
@@ -1294,7 +1302,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_members_local_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_local_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisMembersStrains(
@@ -1311,7 +1319,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_members_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisNodesDeformations(
@@ -1328,7 +1336,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_nodes_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_nodes_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisNodesPseudoAccelerations(
@@ -1345,7 +1353,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_nodes_pseudo_accelerations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_nodes_pseudo_accelerations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisNodesPseudoVelocities(
@@ -1362,7 +1370,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_nodes_pseudo_velocities(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_nodes_pseudo_velocities(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisNodesSupportForces(
@@ -1379,7 +1387,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_nodes_support_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_nodes_support_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSolidsBasicStresses(
@@ -1396,7 +1404,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_solids_basic_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_basic_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSolidsBasicTotalStrains(
@@ -1413,7 +1421,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_solids_basic_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_basic_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSolidsDeformations(
@@ -1430,7 +1438,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_solids_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSolidsEquivalentStresses(
@@ -1447,7 +1455,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_solids_equivalent_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_equivalent_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSolidsEquivalentTotalStrains(
@@ -1464,7 +1472,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_solids_equivalent_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_equivalent_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSolidsGasQuantities(
@@ -1481,7 +1489,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_solids_gas_quantities(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_gas_quantities(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSolidsPrincipalStresses(
@@ -1498,7 +1506,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_solids_principal_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_principal_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSolidsPrincipalTotalStrains(
@@ -1515,7 +1523,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_solids_principal_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_principal_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSummary(
@@ -1532,7 +1540,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_summary(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_summary(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSurfacesBasicInternalForces(
@@ -1549,7 +1557,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_internal_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_internal_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSurfacesBasicStresses(
@@ -1566,7 +1574,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSurfacesBasicTotalStrains(
@@ -1583,7 +1591,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSurfacesContactStresses(
@@ -1600,7 +1608,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_surfaces_contact_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_contact_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSurfacesDesignInternalForces(
@@ -1617,7 +1625,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_surfaces_design_internal_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_design_internal_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSurfacesElasticStressComponents(
@@ -1634,7 +1642,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_surfaces_elastic_stress_components(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_elastic_stress_components(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentStressesBach(
@@ -1651,7 +1659,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_bach(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_bach(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentStressesMises(
@@ -1668,7 +1676,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_mises(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_mises(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentStressesRankine(
@@ -1685,7 +1693,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_rankine(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_rankine(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentStressesTresca(
@@ -1702,7 +1710,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_tresca(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_tresca(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentTotalStrainsBach(
@@ -1719,7 +1727,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_bach(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_bach(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentTotalStrainsMises(
@@ -1736,7 +1744,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_mises(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_mises(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentTotalStrainsRankine(
@@ -1753,7 +1761,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_rankine(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_rankine(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentTotalStrainsTresca(
@@ -1770,7 +1778,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_tresca(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_tresca(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSurfacesGlobalDeformations(
@@ -1787,7 +1795,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_surfaces_global_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_global_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSurfacesLocalDeformations(
@@ -1804,7 +1812,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_surfaces_local_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_local_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSurfacesMaximumTotalStrains(
@@ -1821,7 +1829,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_surfaces_maximum_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_maximum_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSurfacesPrincipalInternalForces(
@@ -1838,7 +1846,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_internal_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_internal_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSurfacesPrincipalStresses(
@@ -1855,7 +1863,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SpectralAnalysisSurfacesPrincipalTotalStrains(
@@ -1872,7 +1880,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisBuildingStoriesCentresMassRigidity(
@@ -1889,7 +1897,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_centres_mass_rigidity(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_centres_mass_rigidity(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisBuildingStoriesForcesInShearWalls(
@@ -1906,7 +1914,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_forces_in_shear_walls(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_forces_in_shear_walls(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisBuildingStoriesForcesInSpandrels(
@@ -1923,7 +1931,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_forces_in_spandrels(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_forces_in_spandrels(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisBuildingStoriesInterstoryDrifts(
@@ -1940,7 +1948,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_interstory_drifts(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_interstory_drifts(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisBuildingStoriesStoryActions(
@@ -1957,7 +1965,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_story_actions(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_story_actions(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisCalculationDiagrams(
@@ -1974,7 +1982,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_calculation_diagrams(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_calculation_diagrams(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisLineHingesDeformations(
@@ -1991,7 +1999,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_line_hinges_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_line_hinges_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisLineHingesForces(
@@ -2008,7 +2016,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_line_hinges_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_line_hinges_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisLinesSlabWallConnections(
@@ -2025,7 +2033,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_lines_slab_wall_connections(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_lines_slab_wall_connections(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisLinesSupportForces(
@@ -2042,7 +2050,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_lines_support_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_lines_support_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersContactForces(
@@ -2059,7 +2067,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_members_contact_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_contact_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersGlobalDeformations(
@@ -2076,7 +2084,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_members_global_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_global_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersHingeDeformations(
@@ -2093,7 +2101,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_members_hinge_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_hinge_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersHingeForces(
@@ -2110,7 +2118,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_members_hinge_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_hinge_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersInternalForces(
@@ -2127,7 +2135,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersInternalForcesByMemberSet(
@@ -2144,7 +2152,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces_by_member_set(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces_by_member_set(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersInternalForcesBySection(
@@ -2161,7 +2169,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces_by_section(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces_by_section(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersLocalDeformations(
@@ -2178,7 +2186,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_members_local_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_local_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersStrains(
@@ -2195,7 +2203,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_members_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisNodesDeformations(
@@ -2212,7 +2220,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_nodes_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_nodes_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisNodesSupportForces(
@@ -2229,7 +2237,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_nodes_support_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_nodes_support_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsBasicPlasticStrains(
@@ -2246,7 +2254,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_plastic_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_plastic_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsBasicStresses(
@@ -2263,7 +2271,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsBasicTotalStrains(
@@ -2280,7 +2288,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsDeformations(
@@ -2297,7 +2305,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_solids_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsEquivalentPlasticStrains(
@@ -2314,7 +2322,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_plastic_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_plastic_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsEquivalentStresses(
@@ -2331,7 +2339,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsEquivalentTotalStrains(
@@ -2348,7 +2356,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsGasQuantities(
@@ -2365,7 +2373,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_solids_gas_quantities(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_gas_quantities(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsPrincipalPlasticStrains(
@@ -2382,7 +2390,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_plastic_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_plastic_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsPrincipalStresses(
@@ -2399,7 +2407,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsPrincipalTotalStrains(
@@ -2416,7 +2424,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSummary(
@@ -2433,7 +2441,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_summary(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_summary(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesBasicInternalForces(
@@ -2450,7 +2458,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_internal_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_internal_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesBasicPlasticStrains(
@@ -2467,7 +2475,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_plastic_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_plastic_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesBasicStresses(
@@ -2484,7 +2492,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesBasicTotalStrains(
@@ -2501,7 +2509,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesContactStresses(
@@ -2518,7 +2526,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_contact_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_contact_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesDesignInternalForces(
@@ -2535,7 +2543,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_design_internal_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_design_internal_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesElasticStressComponents(
@@ -2552,7 +2560,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_elastic_stress_components(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_elastic_stress_components(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentPlasticStrainsBach(
@@ -2569,7 +2577,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_bach(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_bach(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentPlasticStrainsMises(
@@ -2586,7 +2594,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_mises(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_mises(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentPlasticStrainsRankine(
@@ -2603,7 +2611,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_rankine(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_rankine(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentPlasticStrainsTresca(
@@ -2620,7 +2628,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_tresca(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_tresca(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentStressesBach(
@@ -2637,7 +2645,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_bach(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_bach(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentStressesMises(
@@ -2654,7 +2662,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_mises(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_mises(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentStressesRankine(
@@ -2671,7 +2679,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_rankine(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_rankine(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentStressesTresca(
@@ -2688,7 +2696,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_tresca(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_tresca(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentTotalStrainsBach(
@@ -2705,7 +2713,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_bach(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_bach(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentTotalStrainsMises(
@@ -2722,7 +2730,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_mises(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_mises(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentTotalStrainsRankine(
@@ -2739,7 +2747,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_rankine(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_rankine(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentTotalStrainsTresca(
@@ -2756,7 +2764,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_tresca(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_tresca(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesGlobalDeformations(
@@ -2773,7 +2781,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_global_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_global_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesLocalDeformations(
@@ -2790,7 +2798,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_local_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_local_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesMaximumPlasticStrains(
@@ -2807,7 +2815,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_maximum_plastic_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_maximum_plastic_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesMaximumTotalStrains(
@@ -2824,7 +2832,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_maximum_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_maximum_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesPrincipalInternalForces(
@@ -2841,7 +2849,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_internal_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_internal_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesPrincipalPlasticStrains(
@@ -2858,7 +2866,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_plastic_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_plastic_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesPrincipalStresses(
@@ -2875,7 +2883,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesPrincipalTotalStrains(
@@ -2892,7 +2900,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def Summary(
@@ -2908,7 +2916,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_summary(loading_type.name, loading_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_summary(loading_type.name, loading_no))
 
     @staticmethod
     def SurfacesBasicInternalForces(
@@ -2925,7 +2933,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_basic_internal_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_basic_internal_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesBasicPlasticStrains(
@@ -2942,7 +2950,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_basic_plastic_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_basic_plastic_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesBasicStresses(
@@ -2959,7 +2967,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_basic_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_basic_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesBasicTotalStrains(
@@ -2976,7 +2984,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_basic_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_basic_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesByEigenvector(
@@ -2993,7 +3001,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_by_eigenvector(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_by_eigenvector(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesContactStresses(
@@ -3010,7 +3018,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_contact_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_contact_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesDesignInternalForces(
@@ -3027,7 +3035,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_design_internal_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_design_internal_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesElasticStressComponents(
@@ -3044,7 +3052,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_elastic_stress_components(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_elastic_stress_components(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesEquivalentPlasticStrainsBach(
@@ -3061,7 +3069,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_equivalent_plastic_strains_bach(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_plastic_strains_bach(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesEquivalentPlasticStrainsMises(
@@ -3078,7 +3086,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_equivalent_plastic_strains_mises(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_plastic_strains_mises(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesEquivalentPlasticStrainsRankine(
@@ -3095,7 +3103,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_equivalent_plastic_strains_rankine(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_plastic_strains_rankine(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesEquivalentPlasticStrainsTresca(
@@ -3112,7 +3120,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_equivalent_plastic_strains_tresca(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_plastic_strains_tresca(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesEquivalentStressesBach(
@@ -3129,7 +3137,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_equivalent_stresses_bach(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_stresses_bach(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesEquivalentStressesMises(
@@ -3146,7 +3154,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_equivalent_stresses_mises(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_stresses_mises(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesEquivalentStressesRankine(
@@ -3163,7 +3171,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_equivalent_stresses_rankine(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_stresses_rankine(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesEquivalentStressesTresca(
@@ -3180,7 +3188,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_equivalent_stresses_tresca(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_stresses_tresca(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesEquivalentTotalStrainsBach(
@@ -3197,7 +3205,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_equivalent_total_strains_bach(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_total_strains_bach(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesEquivalentTotalStrainsMises(
@@ -3214,7 +3222,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_equivalent_total_strains_mises(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_total_strains_mises(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesEquivalentTotalStrainsRankine(
@@ -3231,7 +3239,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_equivalent_total_strains_rankine(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_total_strains_rankine(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesEquivalentTotalStrainsTresca(
@@ -3248,7 +3256,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_equivalent_total_strains_tresca(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_total_strains_tresca(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesGlobalDeformations(
@@ -3265,7 +3273,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_global_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_global_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesLocalDeformations(
@@ -3282,7 +3290,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_local_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_local_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesMaximumPlasticStrains(
@@ -3299,7 +3307,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_maximum_plastic_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_maximum_plastic_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesMaximumTotalStrains(
@@ -3316,7 +3324,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_maximum_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_maximum_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesPrincipalInternalForces(
@@ -3333,7 +3341,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_principal_internal_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_principal_internal_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesPrincipalPlasticStrains(
@@ -3350,7 +3358,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_principal_plastic_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_principal_plastic_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesPrincipalStresses(
@@ -3367,7 +3375,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_principal_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_principal_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def SurfacesPrincipalTotalStrains(
@@ -3384,7 +3392,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_surfaces_principal_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_principal_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisBuildingStoriesCentresMassRigidity(
@@ -3401,7 +3409,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_building_stories_centres_mass_rigidity(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_building_stories_centres_mass_rigidity(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisBuildingStoriesForcesInShearWalls(
@@ -3418,7 +3426,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_building_stories_forces_in_shear_walls(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_building_stories_forces_in_shear_walls(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisBuildingStoriesForcesInSpandrels(
@@ -3435,7 +3443,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_building_stories_forces_in_spandrels(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_building_stories_forces_in_spandrels(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisBuildingStoriesInterstoryDrifts(
@@ -3452,7 +3460,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_building_stories_interstory_drifts(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_building_stories_interstory_drifts(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisBuildingStoriesStoryActions(
@@ -3469,7 +3477,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_building_stories_story_actions(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_building_stories_story_actions(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisLineHingesDeformations(
@@ -3486,7 +3494,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_line_hinges_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_line_hinges_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisLineHingesForces(
@@ -3503,7 +3511,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_line_hinges_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_line_hinges_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisLinesSlabWallConnections(
@@ -3520,7 +3528,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_lines_slab_wall_connections(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_lines_slab_wall_connections(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisLinesSupportForces(
@@ -3537,7 +3545,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_lines_support_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_lines_support_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisMembersContactForces(
@@ -3554,7 +3562,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_members_contact_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_contact_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisMembersGlobalDeformations(
@@ -3571,7 +3579,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_members_global_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_global_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisMembersHingeDeformations(
@@ -3588,7 +3596,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_members_hinge_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_hinge_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisMembersHingeForces(
@@ -3605,7 +3613,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_members_hinge_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_hinge_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisMembersInternalForces(
@@ -3622,7 +3630,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisMembersInternalForcesByMemberSet(
@@ -3639,7 +3647,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces_by_member_set(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces_by_member_set(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisMembersInternalForcesBySection(
@@ -3656,7 +3664,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces_by_section(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces_by_section(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisMembersLocalDeformations(
@@ -3673,7 +3681,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_members_local_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_local_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisMembersStrains(
@@ -3690,7 +3698,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_members_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisNodesAccelerations(
@@ -3707,7 +3715,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_nodes_accelerations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_nodes_accelerations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisNodesDeformations(
@@ -3724,7 +3732,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_nodes_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_nodes_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisNodesSupportForces(
@@ -3741,7 +3749,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_nodes_support_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_nodes_support_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisNodesVelocities(
@@ -3758,7 +3766,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_nodes_velocities(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_nodes_velocities(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSolidsBasicPlasticStrains(
@@ -3775,7 +3783,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_solids_basic_plastic_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_basic_plastic_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSolidsBasicStresses(
@@ -3792,7 +3800,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_solids_basic_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_basic_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSolidsBasicTotalStrains(
@@ -3809,7 +3817,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_solids_basic_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_basic_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSolidsDeformations(
@@ -3826,7 +3834,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_solids_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSolidsEquivalentPlasticStrains(
@@ -3843,7 +3851,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_plastic_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_plastic_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSolidsEquivalentStresses(
@@ -3860,7 +3868,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSolidsEquivalentTotalStrains(
@@ -3877,7 +3885,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSolidsGasQuantities(
@@ -3894,7 +3902,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_solids_gas_quantities(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_gas_quantities(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSolidsPrincipalPlasticStrains(
@@ -3911,7 +3919,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_solids_principal_plastic_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_principal_plastic_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSolidsPrincipalStresses(
@@ -3928,7 +3936,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_solids_principal_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_principal_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSolidsPrincipalTotalStrains(
@@ -3945,7 +3953,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_solids_principal_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_principal_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSummary(
@@ -3962,7 +3970,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_summary(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_summary(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesBasicInternalForces(
@@ -3979,7 +3987,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_internal_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_internal_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesBasicPlasticStrains(
@@ -3996,7 +4004,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_plastic_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_plastic_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesBasicStresses(
@@ -4013,7 +4021,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesBasicTotalStrains(
@@ -4030,7 +4038,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesContactStresses(
@@ -4047,7 +4055,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_contact_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_contact_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesDesignInternalForces(
@@ -4064,7 +4072,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_design_internal_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_design_internal_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesElasticStressComponents(
@@ -4081,7 +4089,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_elastic_stress_components(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_elastic_stress_components(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentPlasticStrainsBach(
@@ -4098,7 +4106,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_bach(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_bach(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentPlasticStrainsMises(
@@ -4115,7 +4123,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_mises(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_mises(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentPlasticStrainsRankine(
@@ -4132,7 +4140,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_rankine(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_rankine(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentPlasticStrainsTresca(
@@ -4149,7 +4157,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_tresca(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_tresca(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentStressesBach(
@@ -4166,7 +4174,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_bach(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_bach(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentStressesMises(
@@ -4183,7 +4191,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_mises(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_mises(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentStressesRankine(
@@ -4200,7 +4208,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_rankine(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_rankine(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentStressesTresca(
@@ -4217,7 +4225,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_tresca(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_tresca(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentTotalStrainsBach(
@@ -4234,7 +4242,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_bach(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_bach(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentTotalStrainsMises(
@@ -4251,7 +4259,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_mises(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_mises(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentTotalStrainsRankine(
@@ -4268,7 +4276,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_rankine(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_rankine(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentTotalStrainsTresca(
@@ -4285,7 +4293,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_tresca(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_tresca(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesGlobalDeformations(
@@ -4302,7 +4310,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_global_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_global_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesLocalDeformations(
@@ -4319,7 +4327,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_local_deformations(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_local_deformations(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesMaximumPlasticStrains(
@@ -4336,7 +4344,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_maximum_plastic_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_maximum_plastic_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesMaximumTotalStrains(
@@ -4353,7 +4361,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_maximum_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_maximum_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesPrincipalInternalForces(
@@ -4370,7 +4378,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_internal_forces(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_internal_forces(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesPrincipalPlasticStrains(
@@ -4387,7 +4395,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_plastic_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_plastic_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesPrincipalStresses(
@@ -4404,7 +4412,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_stresses(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_stresses(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesPrincipalTotalStrains(
@@ -4421,7 +4429,7 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_total_strains(loading_type.name, loading_no, object_no)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_total_strains(loading_type.name, loading_no, object_no))
 
     @staticmethod
     def HasAnyResults( model = Model):
