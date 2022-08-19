@@ -17,6 +17,7 @@ class Solid():
             material_no (int): Tag of Material assigned to Solid
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Solid
@@ -61,6 +62,7 @@ class Solid():
             material_no (int): Tag of Material assigned to Solid
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Solid
@@ -108,6 +110,7 @@ class Solid():
             material_no (int): Tag of Material assigned to Solid
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Solid
@@ -155,6 +158,7 @@ class Solid():
             material_no (int): Tag of Material assigned to Solid
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Solid
@@ -202,6 +206,7 @@ class Solid():
             material_no (int): Tag of Material assigned to Solid
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Solid
@@ -239,6 +244,7 @@ class Solid():
         '''
         Args:
             solids_no (str): Numbers of Solids to be deleted
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Delete solids from client model

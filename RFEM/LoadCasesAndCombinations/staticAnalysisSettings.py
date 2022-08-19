@@ -4,6 +4,7 @@ from RFEM.enums import StaticAnalysisSettingsMethodOfEquationSystem
 from RFEM.enums import StaticAnalysisSettingsPlateBendingTheory, StaticAnalysisType
 
 class StaticAnalysisSettings():
+
     def __init__(self,
                  no: int = 1,
                  name: str = None,
@@ -16,8 +17,9 @@ class StaticAnalysisSettings():
             no (int): Static Analysis Setting Tag
             name (str): Static Analysis Setting Name
             analysis_type (enum): Analysis Type Enumeration
-            comment (str): Comments
-            params (dict): Parameters
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Surface
         clientObject = model.clientModel.factory.create('ns0:static_analysis_settings')
@@ -72,8 +74,9 @@ class StaticAnalysisSettings():
             plate_bending_theory (enum): Static Analysis Settings Plate Bending Theory Enumeration
             mass_conversion (list, optional): Mass Conversion Parameters
                 mass_conversion = [mass_conversion_enabled, mass_conversion_factor_in_direction_x, mass_conversion_factor_in_direction_y, mass_conversion_factor_in_direction_z]
-            comment (str, optional):
-            params (dict, optional):
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model
@@ -156,8 +159,10 @@ class StaticAnalysisSettings():
             no (int): Static Analysis Setting Tag
             name (str, optional):  Static Analysis Setting Name
             iterative_method (enum): Static Analysis Settings Iterative Method for Non-linear Analysis Enumeration
-            standard_precision_and_tolerance_settings (list, optional): [standard_precision_and_tolerance_settings_enabled, precision_of_convergence_criteria_for_nonlinear_calculation, tolerance_for_detection_of_instability, robustness_of_iterative_calculation]
-            control_nonlinear_analysis (list): [max_number_of_iterations, number_of_load_increments]
+            standard_precision_and_tolerance_settings (list, optional): Standard Precision and Tolerance Settings List
+                standard_precision_and_tolerance_settings = [standard_precision_and_tolerance_settings_enabled, precision_of_convergence_criteria_for_nonlinear_calculation, tolerance_for_detection_of_instability, robustness_of_iterative_calculation]
+            control_nonlinear_analysis (list): Nonlinear Analysis Control Parameters
+                control_nonlinear_analysis = [max_number_of_iterations, number_of_load_increments]
                 for iterative_method == "NEWTON_RAPHSON" or iterative_method.name == "NEWTON_RAPHSON_COMBINED_WITH_PICARD" or iterative_method.name == "PICARD" or iterative_method.name == "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS":
                     control_nonlinear_analysis = [max_number_of_iterations = int, number_of_load_increments = int]
                 for iterative_method == "DYNAMIC_RELAXATION":
@@ -173,6 +178,7 @@ class StaticAnalysisSettings():
                 mass_conversion = [mass_conversion_enabled, mass_conversion_factor_in_direction_x, mass_conversion_factor_in_direction_y, mass_conversion_factor_in_direction_z]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model
@@ -280,10 +286,12 @@ class StaticAnalysisSettings():
             no (int): Static Analysis Setting Tag
             name (str, optional):  Static Analysis Setting Name
             iterative_method (enum): Static Analysis Settings Iterative Method for Non-linear Analysis Enumeration
-            standard_precision_and_tolerance_settings (list, optional): [Standard Precision and Tolerance Settings List
+            standard_precision_and_tolerance_settings (list, optional): Standard Precision and Tolerance Settings List
                 standard_precision_and_tolerance_settings = [standard_precision_and_tolerance_settings_enabled, precision_of_convergence_criteria_for_nonlinear_calculation, tolerance_for_detection_of_instability, robustness_of_iterative_calculation]
             control_nonlinear_analysis (list): Nonlinear Analysis Control Parameters
                 control_nonlinear_analysis = [max_number_of_iterations, number_of_load_increments]
+            load_modification (list): Modify Loading by Multiplier Factor
+                load_modification = [modify_loading_by_multiplier_factor, loading_multiplier_factor, divide_results_by_loading_factor]
             favorable_effect_due_to_tension_in_members (bool, optional): Favorable Effect due to Tension In Members Boolean
             bourdon_effect (bool, optional): Bourdon Effect Boolean
             nonsymmetric_direct_solver (bool, optional): Nonsymmetric Direct Solver Boolean
@@ -293,8 +301,9 @@ class StaticAnalysisSettings():
             plate_bending_theory (enum): Static Analysis Settings Plate Bending Theory Enumeration
             mass_conversion (list, optional): Mass Conversion Parameters
                 mass_conversion = [mass_conversion_enabled, mass_conversion_factor_in_direction_x, mass_conversion_factor_in_direction_y, mass_conversion_factor_in_direction_z]
-            comment (str, optional):
-            params (dict, optional):
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model

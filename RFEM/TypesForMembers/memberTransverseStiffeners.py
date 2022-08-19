@@ -12,7 +12,6 @@ class MemberTransverseStiffeners():
                  'multiple' : False,
                  'multiple_number' : 0,
                  'definition_type' : MemberTransverseStiffenerDefinitionType.DIMENSION_TYPE_OFFSET,
-                 'offset' : 0,
                  'multiple_offset_definition_type' : MemberTransverseStiffenerOffsetType.OFFSET_DEFINITION_TYPE_ABSOLUTE,
                  'multiple_offset' : 0,
                  'material' : 1,
@@ -50,8 +49,9 @@ class MemberTransverseStiffeners():
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
             components (list of components): List of components dictionary
-            comment (str, optional): Comments
+            comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Check if Steel Design Add-on is ON.
@@ -106,7 +106,6 @@ class MemberTransverseStiffeners():
             mlvlp.row.note = i['note']
             mlvlp.row.cantilever_l_c = i['cantilever_l_c']
             mlvlp.row.definition_type = i['definition_type'].name
-            mlvlp.row.offset = i['offset']
 
             clientObject.components.member_transverse_stiffener_components.append(mlvlp)
 

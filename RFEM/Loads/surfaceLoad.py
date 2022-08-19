@@ -19,6 +19,7 @@ class SurfaceLoad():
             magnitude (float): Load Magnitude
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Surface Load
         clientObject = model.clientModel.factory.create('ns0:surface_load')
@@ -73,17 +74,16 @@ class SurfaceLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             surface_no (str): Assigned Surfaces
-            load_direction (enum): Load Direction Enumeration
-            load_distribution (enum): Load Distribution Enumeration
-            load_parameter (list):
-
+            load_direction (enum): Surface Load Direction Enumeration
+            load_distribution (enum): Surface Load Distribution Enumeration
+            load_parameter (list): Load Parameter List
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [magnitude]
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3, node_1, node_2, node_3]
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_X:
-                                        SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Y:
-                                        SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Z:
+                                        /SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Y:
+                                        /SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Z:
                     load_parameter = [magnitude_1, magnitude_2, node_1, node_2]
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_RADIAL:
                     if SurfaceLoadAxisDefinitionType == AXIS_DEFINITION_TWO_POINTS:
@@ -92,9 +92,9 @@ class SurfaceLoad():
                         load_parameter = [magnitude_1, magnitude_2, node_1, node_2, SurfaceLoadAxisDefinitionType, SurfaceLoadAxisDefinitionAxis, axis_definition_p1]
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
                     load_parameter = [[distance_1, delta_distance_1, magnitude_1], [distance_2, delta_distance_2, magnitude_2]...]
-
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Surface Load
         clientObject = model.clientModel.factory.create('ns0:surface_load')
@@ -202,25 +202,24 @@ class SurfaceLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             surface_no (str): Assigned Surfaces
-            load_distribution (enum): Load Distribution Enumeration
-            load_parameter (list):
-
+            load_distribution (enum): Surface Load Distribution Enumeration
+            load_parameter (list): Load Parameter List
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [t_c, delta_t]
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
                     load_parameter = [t_c_1, delta_t_1, t_c_2, delta_t_2, t_c_3, delta_t_3, node_1, node_2, node_3]
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_X:
-                                        SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Y:
-                                        SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Z:
+                                        /SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Y:
+                                        /SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Z:
                     load_parameter = [t_c_1, delta_t_1, t_c_2, delta_t_2, node_1, node_2]
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_RADIAL:
                     if SurfaceLoadAxisDefinitionType == AXIS_DEFINITION_TWO_POINTS:
                         load_parameter = [t_c_1, delta_t_1, t_c_2, delta_t_2, node_1, node_2, SurfaceLoadAxisDefinitionType, axis_definition_p1, axis_definition_p2]
                     if SurfaceLoadAxisDefinitionType == AXIS_DEFINITION_POINT_AND_AXIS:
                         load_parameter = [t_c_1, delta_t_1, t_c_2, delta_t_2, node_1, node_2, SurfaceLoadAxisDefinitionType, SurfaceLoadAxisDefinitionAxis, axis_definition_p1]
-
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Surface Load
         clientObject = model.clientModel.factory.create('ns0:surface_load')
@@ -315,20 +314,19 @@ class SurfaceLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             surface_no (str): Assigned Surfaces
-            load_distribution (enum):Load Distribution Enumeration
-            load_parameter (list):
-
+            load_distribution (enum): Surface Load Distribution Enumeration
+            load_parameter (list): Load Parameter List
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [axial_strain_x, axial_strain_y]
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR:
                     load_parameter = [magnitude_axial_strain_1x, magnitude_axial_strain_1y, magnitude_axial_strain_2x, magnitude_axial_strain_2y, magnitude_axial_strain_3x, magnitude_axial_strain_3y, node_1, node_2, node_3]
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_X:
-                                        SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Y:
-                                        SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Z:
+                                        /SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Y:
+                                        /SurfaceLoadDistribution.LOAD_DISTRIBUTION_LINEAR_Z:
                     load_parameter = [magnitude_axial_strain_1x, magnitude_axial_strain_1y, magnitude_axial_strain_2x, magnitude_axial_strain_2y, node_1, node_2]
-
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Surface Load
         clientObject = model.clientModel.factory.create('ns0:surface_load')
@@ -405,6 +403,7 @@ class SurfaceLoad():
             uniform_magnitude (float): Magnitude
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Surface Load
         clientObject = model.clientModel.factory.create('ns0:surface_load')
@@ -457,15 +456,14 @@ class SurfaceLoad():
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             surface_no (str): Assigned Surfaces
-            load_parameter (list):
-
-            for axis_definition_type = SurfaceLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS:
-                load_parameter = [angular_velocity, angular_acceleration, SurfaceLoadAxisDefinitionType, [x1, y1, z1], [x2, y2, z2]]
-            for axis_definition_type = SurfaceLoadAxisDefinitionType.AXIS_DEFINITION_POINT_AND_AXIS:
-                load_parameter = [angular_velocity, angular_acceleration, SurfaceLoadAxisDefinitionType, SurfaceLoadAxisDefinitionAxis, SurfaceLoadAxisDirectionType; [x1, y1, z1]]
-
+            load_parameter (list): Load Parameter List
+                for axis_definition_type = SurfaceLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS:
+                    load_parameter = [angular_velocity, angular_acceleration, SurfaceLoadAxisDefinitionType, [x1, y1, z1], [x2, y2, z2]]
+                for axis_definition_type = SurfaceLoadAxisDefinitionType.AXIS_DEFINITION_POINT_AND_AXIS:
+                    load_parameter = [angular_velocity, angular_acceleration, SurfaceLoadAxisDefinitionType, SurfaceLoadAxisDefinitionAxis, SurfaceLoadAxisDirectionType; [x1, y1, z1]]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Surface Load
         clientObject = model.clientModel.factory.create('ns0:surface_load')
@@ -531,15 +529,14 @@ class SurfaceLoad():
             load_case_no (int): Assigned Load Case
             surface_no (str): Assigned Surfaces
             individual_mass_components (bool): Enable/Disable Individual Mass Components Option
-            mass_parameter (list):
-
+            mass_parameter (list): Mass Parameter List
                 if individual_mass_components == True:
                     mass_parameter = [mass_global]
                 elif individual_mass_components == False:
                     mass_parameter = [mass_x, mass_y, mass_z]
-
-            comment (str, optional):
-            params (dict, optional):
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Surface Load
         clientObject = model.clientModel.factory.create('ns0:surface_load')

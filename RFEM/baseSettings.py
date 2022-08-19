@@ -6,7 +6,7 @@ class BaseSettings():
                 gravitational_acceleration: int = 10,
                 global_axes_orientation = GlobalAxesOrientationType.E_GLOBAL_AXES_ORIENTATION_ZDOWN,
                 local_axes_orientation = LocalAxesOrientationType.E_LOCAL_AXES_ORIENTATION_ZDOWN,
-                tolerances = [0.0005, 0.0005, 0.0005, 0.0005],
+                tolerances: list = [0.0005, 0.0005, 0.0005, 0.0005],
                 member_representatives: bool = False,
                 member_set_representatives: bool = False,
                 model = Model):
@@ -15,11 +15,11 @@ class BaseSettings():
             gravitational_acceleration (int): Gravitational Acceleration (m/sn2)
             global_axes_orientation (enum): Global Axes Orientation Enumeration
             local_axes_orientation (Enum): Local Axes Orientation Enumeration
-            tolerances (list): Tolerances
+            tolerances (list): Tolerances List
+                tolerances = [tolerance_for_nodes, tolerance_for_lines, tolerance_for_surfaces_and_planes, tolerance_for_directions]
             member_representatives (bool): Member Representatives
             member_set_representatives (bool): Member Set Representatives
-
-        tolerances = [tolerance_for_nodes, tolerance_for_lines, tolerance_for_surfaces_and_planes, tolerance_for_directions]
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Get Model Settings
         clientObject = model.clientModel.service.get_model_settings_and_options()

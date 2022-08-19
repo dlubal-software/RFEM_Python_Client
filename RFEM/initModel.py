@@ -137,6 +137,10 @@ def closeModel(index_or_name, save_changes = False):
     """
     Close any model with index or name. Be sure to close the first created
     model last (2,1, and then 0). 0 index carries whole session.
+
+    Args:
+        index_or_name : Model Index or Name to be Close
+        save_changes (bool): Enable/Diable Save Changes Option
     """
     if isinstance(index_or_name, int):
         client.service.close_model(index_or_name, save_changes)
@@ -164,7 +168,8 @@ def Calculate_all(generateXmlSolverInput: bool = False, model = Model):
     it causes RFEM to stuck and generates failures, which are hard to investigate.
 
     Args:
-    - generateXmlSolverInput: generate XML solver input
+        generateXmlSolverInput (bool): Generate XML Solver Input
+        model (RFEM Class, optional): Model to be edited
     '''
     model.clientModel.service.calculate_all(generateXmlSolverInput)
 
@@ -179,7 +184,7 @@ def ConvertToDlString(s):
     '1,3,5-9'   -> '1 3 5 6 7 8 9'
 
     Args:
-        RSTAB / RFEM common string
+        s (str): RSTAB / RFEM Common String
 
     Returns a WS conform string.
     '''
@@ -215,6 +220,8 @@ def ConvertToDlString(s):
 def ConvertStrToListOfInt(st):
     """
     This function coverts string to list of integers.
+    Args:
+        st (str): RSTAB / RFEM Common String
     """
     st = ConvertToDlString(st)
     lstInt = []
@@ -238,7 +245,8 @@ def CheckIfMethodOrTypeExists(modelClient, method_or_type, unitTestMode=False):
 
     Args:
         modelClient (Model.clientModel)
-        method_or_type (string): method or type of SOAP client
+        method_or_type (str): Method or Type of SOAP Client
+        unitTestMode (bool): Unit Test Mode
 
     Returns:
         bool: Status of method or type.
@@ -265,7 +273,7 @@ def GetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active):
 
     Args:
         modelClient (Model.clientModel)
-        method_or_type (string): method or type of SOAP client
+        addOn (enum): AddOn Enumeraion
 
     Returns:
         (bool): Status of Add-on
@@ -295,6 +303,11 @@ def SetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active, status = T
     """
     Activate or deactivate Add-on.
     For some types of objects, specific Add-ons need to be ennabled.
+
+    Args:
+        modelClient (Model.clientModel)
+        addOn (enum): AddOn Enumeraion
+        status (bool): in/active
 
     Analysis addOns list:
         material_nonlinear_analysis_active
@@ -327,11 +340,6 @@ def SetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active, status = T
         building_model_active
         wind_simulation_active
         geotechnical_analysis_active
-
-    Args:
-        modelClient (Model.clientModel)
-        method_or_type (string): method or type of SOAP client
-        status (bool): in/active
     """
 
     # this will also provide sanity check
@@ -350,10 +358,12 @@ def SetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active, status = T
 def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None, model = Model):
     '''
     This method calculate just selected objects - load cases, desingSituations, loadCombinations
+
     Args:
-        loadCases (list, optional): [description]. Defaults to None.
-        designSituations (list, optional): [description]. Defaults to None.
-        loadCombinations (list, optional): [description]. Defaults to None.
+        loadCases (list, optional): Load Case List
+        designSituations (list, optional): Design Situations List
+        loadCombinations (list, optional): Load Combinations List
+        model (RFEM Class, optional): Model to be edited
     '''
     specificObjectsToCalculate = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements')
     if loadCases is not None:
@@ -385,12 +395,14 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
 def FirstFreeIdNumber(memType = ObjectTypes.E_OBJECT_TYPE_MEMBER, parent_no: int = 0, model = Model):
     '''
     This method returns the next available Id Number for the selected object type
+
     Args:
-        type (enum): Object Type
+        memType (enum): Object Type Enumeration
         parent_no (int): Object Parent Number
             Note:
             (1) A geometric object has, in general, a parent_no = 0
             (2) The parent_no parameter becomes significant for example with loads
+        model (RFEM Class, optional): Model to be edited
     '''
     return model.clientModel.service.get_first_free_number(memType.name, parent_no)
 
@@ -399,7 +411,7 @@ def SetModelType(model_type = ModelType.E_MODEL_TYPE_3D, model = Model):
     This method sets the model type. The model type is E_MODEL_TYPE_3D by default.
 
     Args:
-        model_type (enum): The available model types are listed below.
+        model_type (enum): Modal Type Enumeration. The available model types are listed below.
             ModelType.E_MODEL_TYPE_1D_X_3D
             ModelType.E_MODEL_TYPE_1D_X_AXIAL
             ModelType.E_MODEL_TYPE_2D_XY_3D
@@ -408,6 +420,7 @@ def SetModelType(model_type = ModelType.E_MODEL_TYPE_3D, model = Model):
             ModelType.E_MODEL_TYPE_2D_XZ_PLANE_STRAIN
             ModelType.E_MODEL_TYPE_2D_XZ_PLANE_STRESS
             ModelType.E_MODEL_TYPE_3D
+        model (RFEM Class, optional): Model to be edited
     '''
 
     model.clientModel.service.set_model_type(model_type.name)
@@ -416,6 +429,9 @@ def GetModelType(model = Model):
 
     '''
     The method returns a string of the current model type.
+
+    Args:
+        model (RFEM Class): Model Instance
     '''
 
     return model.clientModel.service.get_model_type()

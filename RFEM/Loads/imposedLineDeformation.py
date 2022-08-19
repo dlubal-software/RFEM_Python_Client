@@ -19,6 +19,16 @@ class ImposedLineDeformation():
                  params: dict = LineDeformationParams,
                  model = Model):
 
+        '''
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            line_no (str): Assigned line(s)
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        '''
+
         # Client model | Imposed Line Deformation
         clientObject = model.clientModel.factory.create('ns0:imposed_line_deformation')
 

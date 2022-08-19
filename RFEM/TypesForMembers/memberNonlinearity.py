@@ -15,10 +15,11 @@ class MemberNonlinearity():
         Args:
             no (int): Member Nonlinearity Tag
             members (str): Assigned Members
-            nonlinearity_type (enum): Nonlinearity Type Enumeration Item
+            nonlinearity_type (enum): Member Nonlinearity Type Enumeration Item
             parameters (list): Nonlinearity Parameters
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Member Nonlinearity

@@ -17,6 +17,7 @@ class SolidSet():
             solid_set_type (enum): Solid Set Type Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Solid Set
@@ -59,6 +60,7 @@ class SolidSet():
             solids_no (str): Numbers of Solids Contained Within Continuous Solid Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Solid Set
@@ -101,6 +103,7 @@ class SolidSet():
             solids_no (str): Numbers of Solids Contained Within Group of Solids Solid Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Solid Set

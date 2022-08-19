@@ -13,13 +13,13 @@ class SurfaceContact():
         Surface Contact
 
         Args:
-            no (int, optional): Number
-            surfaces_contact_type (int, optional): Surface Contact Number
+            no (int, optional): Surface Conatct Tag
+            surfaces_contact_type (int, optional): Surface Contact Type Number
             surface_group_1 (str, optional): Surfaces Group 1
             surface_group_2 (str, optional): Surfaces Group 2
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Surfaces Contact

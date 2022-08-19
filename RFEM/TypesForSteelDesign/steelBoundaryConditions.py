@@ -30,12 +30,10 @@ class SteelBoundaryConditions():
             user_defined_name (str): User Defined Boundary Conditions Name
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
-            intermediate_nodes (bool): Intermediate Nodes Option
+            intermediate_nodes (bool): Enable/Disable Intermediate Nodes Option
             different_properties_supports (bool): Different Properties Option for Supports
             different_properties_hinges (bool): Different Properties Option for Hinges
-
-            nodal_supports (list): Nodal Supports Table Definition
-
+            nodal_supports (list of lists): Nodal Supports Table Definition
                 nodal_supports[i][0] (int)= Node Sequence No.
                 nodal_supports[i][1] (enum)= Support Type Enumeration
                 nodal_supports[i][2] (bool)= Support in X Direction Option
@@ -61,10 +59,7 @@ class SteelBoundaryConditions():
                 nodal_supports[i][22] (float)= Eccentricity in Y Magnitude
                 nodal_supports[i][23] (float)= Eccentricity in Z Magnitude
                 nodal_supports[i][24] (str)= Assigned Nodes
-
-            member_hinges (list): Member Hinges Table Definition
-
-
+            member_hinges (list of lists): Member Hinges Table Definition
                 member_hinges[i][0] = Node Sequence No.
                 member_hinges[i][1] = Release in X Option
                 member_hinges[i][2] = Release in Y Option
@@ -81,9 +76,9 @@ class SteelBoundaryConditions():
                 member_hinges[i][13] = Release Spring About Z Magnitude
                 member_hinges[i][14] = Release Spring Warping Magnitude
                 member_hinges[i][15] = Assigned Nodes
-
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client Model | Types For Steel Design Boundary Conditions

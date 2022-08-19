@@ -11,11 +11,11 @@ class FreeLoad():
     def ConcentratedLoad(
                  no: int = 1,
                  load_case_no: int = 1,
-                 surfaces_no = '1',
+                 surfaces_no: str = '1',
                  load_type = FreeConcentratedLoadLoadType.LOAD_TYPE_FORCE,
                  load_projection = FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                  load_direction = FreeConcentratedLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z,
-                 load_parameter = [1000, 0, 0],
+                 load_parameter: list = [1000, 0, 0],
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -24,10 +24,10 @@ class FreeLoad():
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            surfaces_no (int): Assigned Surface(s)
-            load_type (enum): Load Type Enumeration
-            load_projection (enum): Load Projection Enumeration
-            load_direction (enum): Load Direction Enumeration
+            surfaces_no (str): Assigned Surface(s)
+            load_type (enum): Free Concentrated Load Load Type Enumeration
+            load_projection (enum): Free Load Load Projection Enumeration
+            load_direction (enum): Free Concentrated Load Load Direction Enumeration
             load_parameter (list): Load Parameter List
                 for load_projection == FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV:
                     load_parameter = [magnitude, X, Y]
@@ -37,6 +37,7 @@ class FreeLoad():
                     load_parameter = [magnitude, X, Z]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Free Concentrated Load
@@ -85,7 +86,7 @@ class FreeLoad():
     def LineLoad(
                  no: int = 1,
                  load_case_no: int = 1,
-                 surfaces_no = '1',
+                 surfaces_no: str = '1',
                  load_distribution = FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_projection = FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                  load_direction = FreeLineLoadLoadDirection.LOAD_DIRECTION_LOCAL_Z,
@@ -98,10 +99,10 @@ class FreeLoad():
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            surfaces_no (int): Assigned Surface(s)
-            load_distribution (enum): Load Distribution Enumeration
-            load_projection (enum): Load Projection Enumeration
-            load_direction (enum): Load Direction Enumeration
+            surfaces_no (str): Assigned Surface(s)
+            load_distribution (enum): Free Line Load Load Distribution Enumeration
+            load_projection (enum): Free Load Load Projection Enumeration
+            load_direction (enum): Free Line Load Load Direction Enumeration
             load_parameter (list): Load Parameter List
                 for load_distribution == FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [magnitude_uniform, load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y]
@@ -109,6 +110,7 @@ class FreeLoad():
                     load_parameter = [magnitude_first, magnitude_second, load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Free Concentrated Load
@@ -169,7 +171,7 @@ class FreeLoad():
     def RectangularLoad(
                  no: int = 1,
                  load_case_no: int = 1,
-                 surfaces_no = '1',
+                 surfaces_no: str = '1',
                  load_distribution = FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_projection = FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                  load_direction = FreeRectangularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
@@ -184,37 +186,38 @@ class FreeLoad():
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            surfaces_no (int): Assigned Surface(s)
-            load_distribution (enum): Load Distribution Enumeration
-            load_projection (enum): Load Projection Enumeration
-            load_direction (enum): Load Direction Enumeration
+            surfaces_no (str): Assigned Surface(s)
+            load_distribution (enum): Free Rectangular Load Load Distribution Enumeration
+            load_projection (enum): Free Load Load Projection Enumeration
+            load_direction (enum): Free Rectangular Load Load Direction Enumeration
             load_magnitude_parameter (list): Load Magnitude Parameter
                 for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_magnitude_parameter = [magnitude_uniform]
                 for load_distribution == FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_FIRST or FreeLineLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_SECOND:
                     load_magnitude_parameter = [magnitude_linear_first, magnitude_linear_second]
-            load_location (enum): Load Location Enumeration
+            load_location (enum): Free Rectangular Load Load Rectangle Enumeration
             load_location_parameter (list): Load Location Parameters
                 for load_location == FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CORNER_POINTS:
                     for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM or FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_FIRST or FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_SECOND:
                         load_location_parameter = [load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y, axis_start_angle]
                     for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
-                            load_location_parameter = [load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y, [[distance, factor], ...]
+                        load_location_parameter = [load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y, [[distance, factor], ...]
                     for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER:
-                            load_location_parameter = [load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y, [axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z], [axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z], axis_start_angle,[[alpha, factor], ...]
+                        load_location_parameter = [load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y, [axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z], [axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z], axis_start_angle,[[alpha, factor], ...]
                     for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER:
-                            load_location_parameter = [load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y, [[distance, factor], ...], [axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z], [axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z], axis_start_angle,[[alpha, factor], ...]
+                        load_location_parameter = [load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y, [[distance, factor], ...], [axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z], [axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z], axis_start_angle,[[alpha, factor], ...]
                 for load_location == FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CENTER_AND_SIDES:
                     for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM or FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_FIRST or FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_SECOND:
                         load_location_parameter = [load_location_center_x, load_location_center_y, load_location_center_side_a, load_location_center_side_b, axis_start_angle]
                     for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
-                            load_location_parameter = [load_location_center_x, load_location_center_y, load_location_center_side_a, load_location_center_side_b, [[distance, factor], ...]
+                        load_location_parameter = [load_location_center_x, load_location_center_y, load_location_center_side_a, load_location_center_side_b, [[distance, factor], ...]
                     for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER:
-                            load_location_parameter = [load_location_center_x, load_location_center_y, load_location_center_side_a, load_location_center_side_b, [axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z], [axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z], axis_start_angle,[[alpha, factor], ...]
+                        load_location_parameter = [load_location_center_x, load_location_center_y, load_location_center_side_a, load_location_center_side_b, [axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z], [axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z], axis_start_angle,[[alpha, factor], ...]
                     for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER:
-                            load_location_parameter = [load_location_center_x, load_location_center_y, load_location_center_side_a, load_location_center_side_b, [[distance, factor], ...], [axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z], [axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z], axis_start_angle,[[alpha, factor], ...]
+                        load_location_parameter = [load_location_center_x, load_location_center_y, load_location_center_side_a, load_location_center_side_b, [[distance, factor], ...], [axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z], [axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z], axis_start_angle,[[alpha, factor], ...]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Free Concentrated Load
@@ -443,7 +446,7 @@ class FreeLoad():
     def CircularLoad(
                  no: int = 1,
                  load_case_no: int = 1,
-                 surfaces_no = '1',
+                 surfaces_no: str = '1',
                  load_distribution = FreeCircularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_projection = FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                  load_direction = FreeCircularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
@@ -456,10 +459,10 @@ class FreeLoad():
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            surfaces_no (int): Assigned Surface(s)
-            load_distribution (enum): Load Distribution Enumeration
-            load_projection (enum): Load Projection Enumeration
-            load_direction (enum): Load Direction Enumeration
+            surfaces_no (str): Assigned Surface(s)
+            load_distribution (enum): Free Circular Load Load Distribution Enumeration
+            load_projection (enum): Free Load Load Projection Enumeration
+            load_direction (enum): Free Circular Load Load Direction Enumeration
             load_parameter (list): Load Parameter
                 for load_distribution == FreeCircularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_parameter = [magnitude_uniform, load_location_x, load_location_y, load_location_radius]
@@ -467,6 +470,7 @@ class FreeLoad():
                     load_parameter = [magnitude_center, magnitude_radius, load_location_x, load_location_y, load_location_radius]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Free Concentrated Load
@@ -526,7 +530,7 @@ class FreeLoad():
     def PolygonLoad(
                  no: int = 1,
                  load_case_no: int = 1,
-                 surfaces_no = '1',
+                 surfaces_no: str = '1',
                  load_distribution = FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_projection = FreeLoadLoadProjection.LOAD_PROJECTION_XY_OR_UV,
                  load_direction = FreePolygonLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
@@ -540,11 +544,11 @@ class FreeLoad():
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
-            surfaces_no (int): Assigned Surface(s)
-            load_distribution (enum): Load Distribution Enumeration
-            load_projection (enum): Load Projection Enumeration
-            load_direction (enum): Load Direction Enumeration
-            load_location (list): Load Location Parameter
+            surfaces_no (str): Assigned Surface(s)
+            load_distribution (enum): Free Polygon Load Load Distribution Enumeration
+            load_projection (enum): Free Load Load Projection Enumeration
+            load_direction (enum): Free Polygon Load Load Direction Enumeration
+            load_location (list of list): Load Location Parameter
             load_parameter (list): Load Parameter
                 for load_distribution == FreePolygonLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
                     load_location = [[first_coordinate, second_coordinate], ...]
@@ -560,6 +564,7 @@ class FreeLoad():
                     load_parameter = [magnitude_linear_1, magnitude_linear_2, magnitude_linear_location_1, magnitude_linear_location_2]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Free Concentrated Load

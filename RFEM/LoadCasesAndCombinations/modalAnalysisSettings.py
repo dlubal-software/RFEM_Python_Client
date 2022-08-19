@@ -2,6 +2,7 @@ from RFEM.initModel import Model, clearAtributes
 from RFEM.enums import ModalSolutionMethod, ModalMassConversionType, ModalMassMatrixType, ModalNeglectMasses
 
 class ModalAnalysisSettings():
+
     def __init__(self,
                  no: int = 1,
                  name: str = 'Modal Analysis Settings',
@@ -18,14 +19,15 @@ class ModalAnalysisSettings():
         Args:
             no (int): Setting Tag
             name (str): Setting Name
-            solution_method (enum): Solution Method Enumeration
-            mass_conversion_type (enum): Mass Conversion Type Enumeration
-            mass_matrix_type (enum): Mass Matrix Type Enumeration
+            solution_method (enum): Modal Solution Method Enumeration
+            mass_conversion_type (enum): Modal Mass Conversion Type Enumeration
+            mass_matrix_type (enum): Modal Mass Matrix Type Enumeration
             number_of_modes (int): Number of Modes
             acting_masses (list): Acting Masses Directions List
-            neglect_masses (enum): Neglect Masses Enumeration
+            neglect_masses (enum): Modal Neglect Masses Enumeration
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Surface
         clientObject = model.clientModel.factory.create('ns0:modal_analysis_settings')

@@ -12,12 +12,12 @@ class SolidMeshRefinement():
         Solids Mesh Refinemet
 
         Args:
-            no (int, optional): Number
-            target_length (float, optional): Target FE length
-            solids (str, optional): Assigned to solids
+            no (int): Solid Contact Tag
+            target_length (float): Target FE Length
+            solids (str): Assigned to solids
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Solid Mesh Refinement

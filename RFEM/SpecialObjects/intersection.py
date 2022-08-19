@@ -12,12 +12,12 @@ class Instersection():
         Intersection
 
         Args:
-            no (int, optional): Number
-            surface_1 (int, optional): Surface number 1
-            surface_2 (int, optional): Surface number 2
+            no (int): Intersection Tag
+            surface_1 (int): Surface number 1
+            surface_2 (int): Surface number 2
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Intersection

@@ -15,33 +15,31 @@ class SteelMemberRotationalRestraint():
                 model = Model):
         """
         Args:
-            no (int): Member Rotational Restraint No.
-            user_defined_name (list): User Defined Name
-            definition_type (enum): Definition Type Enumeration Item
+            no (int): Steel Member Rotational Restraint Tag
+            user_defined_name (list): User Defined Member Rotational Restraint Name
+                for user_defined_name[0] == False:
+                    pass
+                for user_defined_name == True:
+                    user_defined_name[1] = Defined Name
+            definition_type (enum): Steel Member Rotational Restraint Type Enumeration
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
-
-            categories (list):
-
+            categories (list): Categories List
                 for definition_type = SteelMemberRotationalRestraintType.TYPE_CONTINUOUS:
                     categories[0] = Sheeting Material Name
                     categories[1] = Sheeting Name
                     categories[2] = Position of Sheeting
                     categories[3] = Continuous Beam Effect
                     categories[4] = Section Deformation Option
-
                 for definition_type = SteelMemberRotationalRestraintType.TYPE_DISCRETE:
                     categories[0] = Section Material Name
                     categories[1] = Section Name
                     categories[2] = Rotational Stifness
                     categories[3] = Continuous Beam Effect
                     categories[4] = Section Deformation Option
-
                 for definition_type = SteelMemberRotationalRestraintType.TYPE_MANUALLY:
                     categories = None
-
-            parameters (list):
-
+            parameters (list): Parameters List
                 for definition_type = SteelMemberRotationalRestraintType.TYPE_CONTINUOUS:
                     parameters[0] = Modulus of Elasticity
                     parameters[1] = Sheeting Thickness
@@ -50,18 +48,16 @@ class SteelMemberRotationalRestraint():
                     parameters[4] = Width of Sheeting Flanges
                     parameters[5] = Spring Stiffness
                     parameters[6] = Beam Spacing
-
                 for definition_type = SteelMemberRotationalRestraintType.TYPE_DISCRETE:
                     parameters[0] = Modulus of Elasticity
                     parameters[1] = Section Moment of Inertia
                     parameters[2] = Purlin Spacing
                     parameters[3] = Beam Spacing
-
                 for definition_type = SteelMemberRotationalRestraintType.TYPE_MANUALLY:
                     parameters[0] = Rotational Spring Stifness
-
-            comment (str, optional): _description_. Defaults to ''.
-            params (dict, optional): _description_. Defaults to {}.
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Deducing RFEM Language from steel_design_addon String:

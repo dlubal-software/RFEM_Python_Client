@@ -40,7 +40,8 @@ class MemberHinge():
             rotational_release_my_nonlinearity (list): Nonlinearity Options Rotational Y
             rotational_release_mz_nonlinearity (list): Nonlinearity Options Rotational Z
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Member Hinge

@@ -2,6 +2,7 @@ from RFEM.initModel import Model, clearAtributes
 from RFEM.enums import DesignSituationType
 
 class DesignSituation():
+
     def __init__(self,
                  no: int = 1,
                  design_situation_type = DesignSituationType.DESIGN_SITUATION_TYPE_A_ACCIDENTAL,
@@ -14,11 +15,12 @@ class DesignSituation():
         """
         Args:
             no (int): Design Situation Tag
-            design_situation_type (enum): Design Situation Type
+            design_situation_type (enum): Design Situation Type Enumeration
             active (bool): Enable/Disable Design Situation Activity
             name (str, optional): User-Defined Name
             comment (str, optional): Comments
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Design Situation

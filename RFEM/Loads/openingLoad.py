@@ -14,11 +14,18 @@ class OpeningLoad():
                  params: dict = {}):
         '''
         Args:
-            load_parameter (list):
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            openings (str): Assigned Openings
+            load_distribution (enum): Opening Load Distribution Enumeration
+            load_direction (enum): Opening Load Direction Enumeration
+            load_parameter (list): Load Parameter List
                 for OpeningLoadDistribution.LOAD_DISTRIBUTION_UNIFORM_TRAPEZOIDAL:
                     load_parameter = [magnitude]
                 for OpeningLoadDistribution.LOAD_DISTRIBUTION_LINEAR_TRAPEZOIDAL:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3, node_1, node_2, node_3]
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         '''
 
         # Client model | Opening Load

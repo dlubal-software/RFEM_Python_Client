@@ -6,13 +6,13 @@ class MemberSupport():
     def __init__(self,
                  no: int = 1,
                  members: str = '',
-                 spring_translation_x = 0.0,
-                 spring_translation_y = 0.0,
-                 spring_translation_z = [inf, MemberSupportNonlinearity.NONLINEARITY_NONE],
-                 spring_rotation = 0.0,
-                 spring_shear_x = 0.0,
-                 spring_shear_y = 0.0,
-                 spring_shear_z = 0.0,
+                 spring_translation_x: float = 0.0,
+                 spring_translation_y: float = 0.0,
+                 spring_translation_z: list = [inf, MemberSupportNonlinearity.NONLINEARITY_NONE],
+                 spring_rotation: float = 0.0,
+                 spring_shear_x: float = 0.0,
+                 spring_shear_y: float = 0.0,
+                 spring_shear_z: float = 0.0,
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -28,7 +28,8 @@ class MemberSupport():
             spring_shear_y (float): Shear Y Spring Constant
             spring_shear_z (float): Shear Z Spring Constant
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Member Support

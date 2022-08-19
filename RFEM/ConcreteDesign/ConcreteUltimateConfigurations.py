@@ -5,11 +5,11 @@ class ConcreteUltimateConfiguration():
     def __init__(self,
                 no: int = 1,
                 name: str = 'ULS',
-                members = '1',
-                member_sets = '',
-                surfaces = '',
-                surface_sets = '',
-                nodes = '',
+                members: str = '1',
+                member_sets: str = '',
+                surfaces: str = '',
+                surface_sets: str = '',
+                nodes: str = '',
                 comment: str = '',
                 params: dict = None,
                 model = Model):
@@ -24,6 +24,7 @@ class ConcreteUltimateConfiguration():
             nodes (str): Assigned Nodes
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Concrete Durabilities

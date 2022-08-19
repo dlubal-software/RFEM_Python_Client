@@ -6,14 +6,14 @@ class ConcreteSurfaceReinforcements():
     def __init__(self,
                 no: int = 1,
                 name: str = "RD 1",
-                surfaces = "1",
-                material = "2",
+                surfaces: str = "1",
+                material: str = "2",
                 location_type = SurfaceReinforcementLocationType.LOCATION_TYPE_ON_SURFACE,
                 reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_REBARS,
-                reinforcement_type_parameters = [0.01, 0.15, False],
-                cover_offset = [True, True, 0, 0],
+                reinforcement_type_parameters: list = [0.01, 0.15, False],
+                cover_offset: list = [True, True, 0, 0],
                 reinforcement_direction = SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION,
-                reinforcement_direction_parameters = [SurfaceReinforcementDesignDirection.DESIGN_REINFORCEMENT_DIRECTION_A_S_1],
+                reinforcement_direction_parameters: list = [SurfaceReinforcementDesignDirection.DESIGN_REINFORCEMENT_DIRECTION_A_S_1],
                 reinforcement_location: list = None,
                 reinforcement_acting_region: list = None,
                 comment: str = '',
@@ -21,31 +21,30 @@ class ConcreteSurfaceReinforcements():
                 model = Model):
         """
         Args:
-            no (int): Surface Reinforcement Tag
+            no (int): Concrete Surface Reinforcement Tag
             name (str): User Defined Name
             surfaces (str): Assigned Surfaces
             material (str): Reinforcement Material
-            location_type (enum): Location Type Enumeration
-            reinforcement_type (enum): Reinforcement Type Enumeration
-            reinforcement_type_parameters (list): Reinforcement Type Parameters
-            cover_offset (list): Cover Offset Parameters
-            reinforcement_direction (enum): Reinforcement Direction Enumeration
+            location_type (enum): Surface Reinforcement Location Type Enumeration
+            reinforcement_type (enum): Surface Reinforcement Type Enumeration
+            reinforcement_type_parameters (list): Reinforcement Type Parameters List
+                for reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_REBARS:
+                    reinforcement_type_parameters = [rebar_diameter, rebar_spacing, additional_transverse_reinforcement_enabled]
+                    if additional_transverse_reinforcement_enabled == True:
+                        reinforcement_type_parameters = [rebar_diameter, rebar_spacing, additional_transverse_reinforcement_enabled, additional_rebar_diameter, additional_rebar_spacing]
+                for reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_STIRRUPS:
+                    reinforcement_type_parameters = [stirrup_diameter, stirrup_spacing]
+                for reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_MESH:
+                    reinforcement_type_parameters = [mesh_product_range, mesh_shape, mesh_name]
+            cover_offset (list): Cover Offset Parameters List
+                cover_offset = [alignment_top_enabled, alignment_bottom_enabled, additional_offset_to_concrete_cover_top, additional_offset_to_concrete_cover_bottom]
+            reinforcement_direction (enum): Surface Reinforcement Direction Type Enumeration
             reinforcement_direction_parameters (list): Reinforcement Direction Parameters
             reinforcement_location (list): Reinforcement Location Parameters
             reinforcement_acting_region (list): Reinforcement Acting Region Parameters
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-
-        for reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_REBARS:
-            reinforcement_type_parameters = [rebar_diameter, rebar_spacing, additional_transverse_reinforcement_enabled]
-            if additional_transverse_reinforcement_enabled == True:
-                reinforcement_type_parameters = [rebar_diameter, rebar_spacing, additional_transverse_reinforcement_enabled, additional_rebar_diameter, additional_rebar_spacing]
-        for reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_STIRRUPS:
-            reinforcement_type_parameters = [stirrup_diameter, stirrup_spacing]
-        for reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_MESH:
-            reinforcement_type_parameters = [mesh_product_range, mesh_shape, mesh_name]
-
-        cover_offset = [alignment_top_enabled, alignment_bottom_enabled, additional_offset_to_concrete_cover_top, additional_offset_to_concrete_cover_bottom]
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Concrete Durabilities

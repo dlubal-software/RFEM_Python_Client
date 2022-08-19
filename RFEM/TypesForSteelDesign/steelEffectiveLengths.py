@@ -34,7 +34,7 @@ class SteelEffectiveLengths():
                  model = Model):
         """
         Args:
-            no (int): Effective Length Tag
+            no (int): Steel Effective Length Tag
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
             flexural_buckling_about_y (bool): Flexural Buckling About Y Option
@@ -45,7 +45,6 @@ class SteelEffectiveLengths():
             geometric_section_axes (bool): Geometric Section Axes Option
             user_defined_name (str): User Defined Effective Length Name
             nodal_supports (lst): Nodal Support Table Definition
-
                 nodal_supports[i][0] (enum): Support Type Enumeration Type
                 nodal_supports[i][1] (bool): Support in Z Option
                 nodal_supports[i][2] (float): Support Spring in Y Coefficient
@@ -59,9 +58,7 @@ class SteelEffectiveLengths():
                 nodal_supports[i][10] (enum): Restraint Type in Z Enumeration Type
                 nodal_supports[i][11] (enum): Restraint Type Warping Enumeration Type
                 nodal_supports[i][12] (str): Assigned Nodes
-
-            factors (lst): Effective Length Factors
-
+            factors (list of lists): Effective Length Factors
                 factors[i][0] (float): Flexural Buckling in U Coefficient
                 factors[i][1] (float): Flexural Buckling in V Coefficient
                 factors[i][2] (float): Flexural Buckling in Y Coefficient
@@ -73,14 +70,14 @@ class SteelEffectiveLengths():
                 factors[i][8] (float): Twist Restraint Coefficient
                 factors[i][9] (float): Lateral Torsional Restraint Coefficient
                 factors[i][10] (float): Critical Moment
-
             intermediate_nodes (bool): Intermediate Nodes Option
             different_properties (bool): Different Properties Option
             factors_definition_absolute (bool): Absolute Factors Definition Option
             import_from_stability_analysis_enabled (bool): Import From Stability Analysis Option
-            determination_of_mcr (enum): Determination of MCR or CB Enumeration Item
-            comment (str): Comments
-            params (dict): Parameters
+            determination_of_mcr (enum): Steel Effective Lengths Determination Mcr Europe Enumeration Item
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client Model | Types For Steel Design Effective Lengths

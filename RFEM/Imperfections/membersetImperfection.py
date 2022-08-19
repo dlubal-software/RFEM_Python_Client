@@ -20,16 +20,16 @@ class MemberSetImperfection():
         An imperfection case must be created before.
 
         Args:
-            no (int, optional): Number
-            imperfection_case (int, optional): _description_. Defaults to 1.
-            member_sets (str, optional): _description_. Defaults to '1'.
-            imperfection_type (enum, optional): _description_. Defaults to MemberImperfectionType.IMPERFECTION_TYPE_INITIAL_SWAY.
-            definition_type (enum, optional): _description_. Defaults to MemberImperfectionDefinitionType.DEFINITION_TYPE_ABSOLUTE.
-            imperfection_direction (enum, optional): _description_. Defaults to ImperfectionDirection.IMPERFECTION_DIRECTION_LOCAL_Z.
-            parameters (list, optional): _description_. Defaults to [0.035].
+            no (int): Member Set Imperfection Tag
+            imperfection_case (int): Imperfection Case Number
+            member_sets (str): Assigned to Member Sets
+            imperfection_type (enum): Member Imperfection Type Enumeration
+            definition_type (enum): Member Imperfection Definition Type Enumeration
+            imperfection_direction (enum): Imperfection Direction Enumeration
+            parameters (list): Parameters depending on Imperfection and Definition type
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-            model (class, optional): Model instance
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Imperfection Case
