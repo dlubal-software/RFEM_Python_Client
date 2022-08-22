@@ -54,7 +54,7 @@ Dependency check is implemented inside [initModel.py](/RFEM/initModel.py) with o
 4) 🏃 Run your script. Inspirations can be found in [Examples](/Examples/) or [UnitTests](/UnitTests/).
 
 ### Examples
-[Scripts](https://github.com/Dlubal-Software/RFEM_Python_Client/tree/heet-readmeUpdate/Examples) intended to be used as templates or examples. Also can be used for testing of backward compatibility.
+The [scripts](https://github.com/Dlubal-Software/RFEM_Python_Client/tree/main/Examples) are intended to be used as templates or examples. Also, they can be used for testing of backward compatibility.
 
 ### Unit Tests
 Collection of [scripts](https://github.com/Dlubal-Software/RFEM_Python_Client/tree/heet-readmeUpdate/UnitTests) to support further development.
