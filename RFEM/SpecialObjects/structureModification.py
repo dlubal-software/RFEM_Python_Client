@@ -57,7 +57,6 @@ class StructureModification():
         """
         Structural Modification
         Modify only objects allready existing and used/assigned in the model.
-        TODO: US-9960 Deactivate objects requires Object Selection object.
 
         Args:
             no (int, optional): Structure Modification Tag

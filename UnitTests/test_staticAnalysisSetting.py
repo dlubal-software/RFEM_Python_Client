@@ -30,12 +30,10 @@ def test_StaticAnalysisSettings():
 
     linear = Model.clientModel.service.get_static_analysis_settings(2)
     assert linear['modify_loading_by_multiplier_factor'] == True
-    # TODO: bug 26685
     assert linear['loading_multiplier_factor'] == 1.5
     assert linear['divide_results_by_loading_factor'] == True
     largeDef= Model.clientModel.service.get_static_analysis_settings(3)
     assert largeDef['standard_precision_and_tolerance_settings_enabled'] == True
-    # TODO: bug 26685
     assert largeDef['precision_of_convergence_criteria_for_nonlinear_calculation'] == 0.02
     assert largeDef['instability_detection_tolerance'] == 0.02
     assert largeDef['iterative_calculation_robustness'] == 2.0
