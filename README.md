@@ -60,7 +60,7 @@ The [scripts](https://github.com/Dlubal-Software/RFEM_Python_Client/tree/main/Ex
 Collection of [scripts](https://github.com/Dlubal-Software/RFEM_Python_Client/tree/main/UnitTests) used to support further development.
 
 ## Python package 📦
-The easiest way to enjoy the Client is to install current [RFEM package](https://pypi.org/project/RFEM/) directly to your Python installation via `pip install RFEM`. Especially if no code changes are required.
+The easiest way to enjoy the Client is to install current [RFEM package](https://pypi.org/project/RFEM/) directly to your Python via `pip install RFEM`. Especially if no code changes are required.
 
 ## Documentation 📚
 For complete description of classes and functions visit our [![image](https://img.shields.io/badge/GitHub-page-darkblue?logo=github&amp;)](https://dlubal-software.github.io/RFEM_Python_Client/).
