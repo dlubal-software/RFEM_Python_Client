@@ -32,8 +32,8 @@ This Python project is focused on opening RFEM 6 to all of our customers, enabli
 
 ## Architecture
 
-* [![RFEM](https://img.shields.io/badge/RFEM-blue)](/RFEM): folder following structure of RFEM 6 navigator containing individual types of objects
-* [![initModel](https://img.shields.io/badge/initModel.py-blue)](/RFEM/initModel.py): runs after window and initializes suds.Client by connecting to `http://localhost:8081/wsdl` and active model in RFEM. It also evelops esential global functions.
+* [![RFEM](https://img.shields.io/badge/RFEM-blue)](/RFEM): folder following the structure of RFEM 6 navigator containing individual types of objects
+* [![initModel](https://img.shields.io/badge/initModel.py-blue)](/RFEM/initModel.py): runs after window and initializes suds.Client by connecting to `http://localhost:8081/wsdl` and activating model in RFEM. It also envelops essential global functions.
 * [![enums](https://img.shields.io/badge/enums.py-blue)](/RFEM/enums.py): definition of enumerations
 
 
