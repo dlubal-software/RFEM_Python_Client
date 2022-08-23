@@ -11,7 +11,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType, MemberLoadDistribution, MemberLoadDirection, MemberRotationSpecificationType
-from RFEM.window import window
+from Examples.window import window
 from RFEM.dataTypes import inf
 from RFEM.initModel import Model, Calculate_all, insertSpaces, modelLst
 from RFEM.BasicObjects.material import Material
@@ -117,7 +117,8 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 
 # -------------------------------------------------------------
     # Member Hinges
-    MemberHinge(1, "Local", inf, inf, inf,  inf, 0, inf, "Rotational Release My")
+    MemberHinge(1, "Local", rotational_release_mz=inf)
+
 
 # -------------------------------------------------------------
     # Members
@@ -198,12 +199,6 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 # -------------------------------------------------------------
     # Solids
     Solid(1, "2 3 4 5 6 7", 2)
-
-# -------------------------------------------------------------
-    # Sets
-    LineSet()
-    MemberSet()
-    SurfaceSet()
 
 # -------------------------------------------------------------
     print('Load Cases/Loads...')
@@ -287,7 +282,9 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 # -------------------------------------------------------------
     # Calculate all
     Calculate_all()
+
     print("Done")
+    sys.exit()
 
 if __name__ == '__main__':
     window(main, modelLst)

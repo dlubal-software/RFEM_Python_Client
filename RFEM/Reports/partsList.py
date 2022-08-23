@@ -1,62 +1,62 @@
 
 from RFEM.initModel import Model
 
-def GetPartsListAllByMaterial():
+def GetPartsListAllByMaterial(model = Model):
     '''
     Returns Parts List All By Material
     '''
     try:
-        return Model.clientModel.service.get_parts_list_all_by_material()
+        return model.clientModel.service.get_parts_list_all_by_material()
     except:
-        Model.clientModel.service.generate_parts_lists()
-        return Model.clientModel.service.get_parts_list_all_by_material()
+        model.clientModel.service.generate_parts_lists()
+        return model.clientModel.service.get_parts_list_all_by_material()
 
-def GetPartsListMemberRepresentativesByMaterial():
+def GetPartsListMemberRepresentativesByMaterial(model = Model):
     '''
     Returns Parts List Member Representatives By Material
     '''
     try:
-        return Model.clientModel.service.get_parts_list_member_representatives_by_material()
+        return model.clientModel.service.get_parts_list_member_representatives_by_material()
     except:
-        Model.clientModel.service.generate_parts_lists()
-        return Model.clientModel.service.get_parts_list_member_representatives_by_material()
+        model.clientModel.service.generate_parts_lists()
+        return model.clientModel.service.get_parts_list_member_representatives_by_material()
 
-def GetPartsListMemberSetsByMaterial():
+def GetPartsListMemberSetsByMaterial(model = Model):
     '''
     Returns Parts List Member Sets By Material
     '''
     try:
-        return Model.clientModel.service.get_parts_list_member_sets_by_material()
+        return model.clientModel.service.get_parts_list_member_sets_by_material()
     except:
-        Model.clientModel.service.generate_parts_lists()
-        return Model.clientModel.service.get_parts_list_member_sets_by_material()
+        model.clientModel.service.generate_parts_lists()
+        return model.clientModel.service.get_parts_list_member_sets_by_material()
 
-def GetPartsListMembersByMaterial():
+def GetPartsListMembersByMaterial(model = Model):
     '''
     Returns Parts List Members By Material
     '''
     try:
-        return Model.clientModel.service.get_parts_list_members_by_material()
+        return model.clientModel.service.get_parts_list_members_by_material()
     except:
-        Model.clientModel.service.generate_parts_lists()
-        return Model.clientModel.service.get_parts_list_members_by_material()
+        model.clientModel.service.generate_parts_lists()
+        return model.clientModel.service.get_parts_list_members_by_material()
 
-def GetPartsListSolidsByMaterial():
+def GetPartsListSolidsByMaterial(model = Model):
     '''
     Returns Parts List Solids By Material
     '''
     try:
-        return Model.clientModel.service.get_parts_list_solids_by_material()
+        return model.clientModel.service.get_parts_list_solids_by_material()
     except:
-        Model.clientModel.service.generate_parts_lists()
-        return Model.clientModel.service.get_parts_list_solids_by_material()
+        model.clientModel.service.generate_parts_lists()
+        return model.clientModel.service.get_parts_list_solids_by_material()
 
-def GetPartsListSurfacessByMaterial():
+def GetPartsListSurfacessByMaterial(model = Model):
     '''
     Returns Parts List Surfaces By Material
     '''
     try:
-        return Model.clientModel.service.get_parts_list_surfaces_by_material()
+        return model.clientModel.service.get_parts_list_surfaces_by_material()
     except:
-        Model.clientModel.service.generate_parts_lists()
-        return Model.clientModel.service.get_parts_list_surfaces_by_material()
+        model.clientModel.service.generate_parts_lists()
+        return model.clientModel.service.get_parts_list_surfaces_by_material()

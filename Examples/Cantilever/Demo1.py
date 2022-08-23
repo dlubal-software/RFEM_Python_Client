@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-baseName = os.path.basename(__file__)5
+baseName = os.path.basename(__file__)
 dirName = os.path.dirname(__file__)
 print('basename:    ', baseName)
 print('dirname:     ', dirName)

@@ -210,6 +210,29 @@ def test_lineSetGroup():
 
     assert round(line_set.length, 6) == 4.472136
 
+def test_line_delete():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Node(1, 0, 0, 0)
+    Node(2, 0, 0, -5)
+    Node(3, 5, 0, -5)
+    Node(4, 5, 0, 0)
+
+    Line(1, '1 2')
+    Line(2, '2 3')
+    Line(3, '3 4')
+    Line(4, '4 1')
+
+    Line.DeleteLine('2 4')
+
+    Model.clientModel.service.finish_modification()
+
+    modelInfo = Model.clientModel.service.get_model_info()
+
+    assert modelInfo.property_line_count == 2
+
 def test_material():
 
     Model.clientModel.service.delete_all()
@@ -280,6 +303,30 @@ def test_member_set():
 
     assert member_set.members == '1 2'
     assert member_set.length == 10
+
+def test_member_delete():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Node(1, 0, 0, 0)
+    Node(2, 5, 0, 0)
+    Node(3, 10, 0, 0)
+
+    Material(1, 'S235')
+
+    Section(1, 'IPE 300', 1)
+
+    Member(1, 1, 2, 0, 1, 1)
+    Member(2, 2, 3, 0, 1, 1)
+
+    Member.DeleteMember('1')
+
+    Model.clientModel.service.finish_modification()
+
+    modelInfo = Model.clientModel.service.get_model_info()
+
+    assert modelInfo.property_member_count == 1
 
 ## Bugs must be solved in Node.py
 
@@ -449,23 +496,6 @@ def test_thickness_circle():
 
     assert thickness.type == "TYPE_VARIABLE_CIRCLE"
     assert thickness.thickness_circle_line == 0.1
-
-def test_thickness_layers():
-
-    Model.clientModel.service.delete_all()
-    Model.clientModel.service.begin_modification()
-
-    SetAddonStatus(Model.clientModel, AddOn.multilayer_surfaces_design_active)
-
-    Material(1, 'S235')
-
-    Thickness.Layers(1, '6', [[0, 1, 0.1, 0, ''], [0, 1, 0.2, 0, '']])
-    Model.clientModel.service.finish_modification()
-
-    thickness = Model.clientModel.service.get_thickness(1)
-
-    assert thickness.type == "TYPE_LAYERS"
-    assert round(thickness.layers_total_thickness, 2) == 0.3
 
 def test_thickness_shape_orthotropy():
 

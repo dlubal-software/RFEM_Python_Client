@@ -7,19 +7,21 @@ class SolidSet():
                  solids_no: str = '1 2',
                  solid_set_type = SetType.SET_TYPE_GROUP,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Solid Set Tag
-            solids_no (str): Tags of Solids Contained Within Solid Set
+            solids_no (str): Numbers of Solids Contained Within Solid Set
             solid_set_type (enum): Solid Set Type Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Solid Set
-        clientObject = Model.clientModel.factory.create('ns0:solid_set')
+        clientObject = model.clientModel.factory.create('ns0:solid_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -42,25 +44,27 @@ class SolidSet():
                 clientObject[key] = params[key]
 
         # Add Solid Set to client model
-        Model.clientModel.service.set_solid_set(clientObject)
+        model.clientModel.service.set_solid_set(clientObject)
 
     @staticmethod
     def ContinuousSolids(
                  no: int = 1,
                  solids_no: str = '1 2',
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Solid Set Tag
-            solids_no (str): Tags of Solids Contained Within Continuous Solid Set
+            solids_no (str): Numbers of Solids Contained Within Continuous Solid Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Solid Set
-        clientObject = Model.clientModel.factory.create('ns0:solid_set')
+        clientObject = model.clientModel.factory.create('ns0:solid_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -83,25 +87,27 @@ class SolidSet():
                 clientObject[key] = params[key]
 
         # Add Solid Set to client model
-        Model.clientModel.service.set_solid_set(clientObject)
+        model.clientModel.service.set_solid_set(clientObject)
 
     @staticmethod
     def GroupOfSolids(
                  no: int = 1,
                  solids_no: str = '1 2',
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Solid Set Tag
-            solids_no (str): Tags of Solids Contained Within Group of Solids Solid Set
+            solids_no (str): Numbers of Solids Contained Within Group of Solids Solid Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Solid Set
-        clientObject = Model.clientModel.factory.create('ns0:solid_set')
+        clientObject = model.clientModel.factory.create('ns0:solid_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -124,4 +130,4 @@ class SolidSet():
                 clientObject[key] = params[key]
 
         # Add Solid Set to client model
-        Model.clientModel.service.set_solid_set(clientObject)
+        model.clientModel.service.set_solid_set(clientObject)

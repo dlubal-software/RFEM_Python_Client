@@ -1,102 +1,9 @@
 import sys
+import RFEM.dependencies
+import requests
+from suds.client import Client
 from RFEM.enums import ObjectTypes, ModelType, AddOn
-
-# Import SUDS module
-try:
-    sys.version_info[0] == 3
-except:
-    print('Must be using Python 3!')
-    input('Press Enter to exit...')
-    sys.exit()
-
-try:
-    from suds.client import Client
-except:
-    print('SUDS library is not installed in your Python env.')
-    instSUDS = input('Do you want to install it (y/n)? ')
-    instSUDS = instSUDS.lower()
-    if instSUDS == 'y':
-        # Subprocess will be opened in cmd and closed automaticaly after installation.
-        # Prevents invoking pip by an old script wrapper (https://github.com/pypa/pip/issues/5599)
-        import subprocess
-        try:
-            subprocess.call('python -m pip install --upgrade pip')
-            subprocess.call('python -m pip install suds-py3 --user')
-            from suds.client import Client
-        except:
-            print('WARNING: Installation of SUDS library failed!')
-            print('Please use command "pip install suds-py3 --user" in your Command Prompt.')
-            input('Press Enter to exit...')
-            sys.exit()
-    else:
-        input('Press Enter to exit...')
-        sys.exit()
-
-try:
-    import requests
-except:
-    print('requests library is not installed in your Python env.')
-    instSUDS = input('Do you want to install it (y/n)? ')
-    instSUDS = instSUDS.lower()
-    if instSUDS == 'y':
-        # Subprocess will be opened in cmd and closed automaticaly after installation.
-        # Prevents invoking pip by an old script wrapper (https://github.com/pypa/pip/issues/5599)
-        import subprocess
-        try:
-            subprocess.call('python -m pip install requests --user')
-            import requests
-        except:
-            print('WARNING: Installation of requests library failed!')
-            print('Please use command "pip install requests --user" in your Command Prompt.')
-            input('Press Enter to exit...')
-            sys.exit()
-    else:
-        input('Press Enter to exit...')
-        sys.exit()
-
-try:
-    import suds_requests
-except:
-    print('suds_requests library is not installed in your Python env.')
-    instSUDS = input('Do you want to install it (y/n)? ')
-    instSUDS = instSUDS.lower()
-    if instSUDS == 'y':
-        # Subprocess will be opened in cmd and closed automaticaly after installation.
-        # Prevents invoking pip by an old script wrapper (https://github.com/pypa/pip/issues/5599)
-        import subprocess
-        try:
-            subprocess.call('python -m pip install suds_requests --user')
-            import suds_requests
-        except:
-            print('WARNING: Installation of suds_requests library failed!')
-            print('Please use command "pip install suds_requests --user" in your Command Prompt.')
-            input('Press Enter to exit...')
-            sys.exit()
-    else:
-        input('Press Enter to exit...')
-        sys.exit()
-
-try:
-    import xmltodict
-except:
-    print('xmltodict library is not installed in your Python env.')
-    instXML = input('Do you want to install it (y/n)? ')
-    instXML = instXML.lower()
-    if instXML == 'y':
-        # Subprocess will be opened in cmd and closed automaticaly after installation.
-        # Prevents invoking pip by an old script wrapper (https://github.com/pypa/pip/issues/5599)
-        import subprocess
-        try:
-            subprocess.call('python -m pip install xmltodict --user')
-            import xmltodict
-        except:
-            print('WARNING: Installation of xmltodict library failed!')
-            print('Please use command "pip install xmltodict --user" in your Command Prompt.')
-            input('Press Enter to exit...')
-            sys.exit()
-    else:
-        input('Press Enter to exit...')
-        sys.exit()
+from RFEM.suds_requests import RequestsTransport
 
 # Connect to server
 # Check server port range set in "Program Options & Settings"
@@ -110,6 +17,7 @@ except:
     print('- If you have started RFEM application')
     print('- If all RFEM dialogs are closed')
     print('- If server port range is set correctly')
+    print('- If you have a valid Web Services license')
     print('- Check Program Options & Settings > Web Services')
     sys.exit()
 
@@ -121,42 +29,72 @@ except:
     sys.exit()
 
 # Persistent connection
-# Without next 4 lines the connection lasts only 1 request,
-# the message: 'Application is locked by external connection'
-# is blinking whole time and the execution is unnecessarily long.
-# This solution works with unit-tests.
+# Next 4 lines enables Client to work within 1 session which is much faster to execute.
+# Without it the session lasts only one request which results in poor performance.
+# Assigning session to application Client (here client) instead of model Client
+# results also in poor performace.
 session = requests.Session()
 adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
 session.mount('http://', adapter)
-trans = suds_requests.RequestsTransport(session)
+trans = RequestsTransport(session)
 
 class Model():
     clientModel = None
+    clientModelLst = []
+    activeSession = False
+
     def __init__(self,
                  new_model: bool=True,
                  model_name: str="TestModel",
                  delete: bool=False,
                  delete_all: bool=False):
+        """
+        Class object representing individual model in RFEM.
+        Class enables to edit multiple models in one session through holding
+        one transport session active by not setting 'trans' into Client.
+
+        Args:
+            new_model (bool, optional): Set to True if new model is requested.
+            model_name (str, optional): Defaults to "TestModel".
+            delete (bool, optional):  Delete results
+            delete_all (bool, optional): Delete all objects in Model.
+        """
 
         cModel = None
         modelLs = client.service.get_model_list()
 
         if new_model:
             if modelLs and model_name in modelLs.name:
-                new = client.service.open_model(model_name) + 'wsdl'
-                cModel = Client(new, transport=trans)
+                modelIndex = 0
+                for i,j in enumerate(modelLs.name):
+                    if modelLs.name[i] == model_name:
+                        modelIndex = i
+                new = client.service.get_model(modelIndex) + 'wsdl'
+                # Set transport parameter if it is the first model
+                if Model.activeSession:
+                    cModel = Client(new)
+                else:
+                    cModel = Client(new, transport=trans)
                 cModel.service.delete_all_results()
                 cModel.service.delete_all()
             else:
                 new = client.service.new_model(model_name) + 'wsdl'
-                cModel = Client(new, transport=trans)
+                if Model.activeSession:
+                    cModel = Client(new)
+                else:
+                    cModel = Client(new, transport=trans)
+                if not modelLs:
+                    Model.activeSession = True
         else:
             modelIndex = 0
             for i,j in enumerate(modelLs.name):
                 if modelLs.name[i] == model_name:
                     modelIndex = i
             new = client.service.get_model(modelIndex) + 'wsdl'
-            cModel = Client(new, transport=trans)
+            if Model.activeSession:
+                cModel = Client(new)
+            else:
+                cModel = Client(new, transport=trans)
             if delete:
                 print('Deleting results...')
                 cModel.service.delete_all_results()
@@ -164,14 +102,28 @@ class Model():
                 print('Delete all...')
                 cModel.service.delete_all()
 
+        # when using multiple intances/model
+        self.clientModel = cModel
+        if not modelLs or not model_name in modelLs.name:
+            Model.clientModelLst.append(cModel)
+        # when using only one instace/model
         Model.clientModel = cModel
+
+
+    def __delete__(self, index):
+        if len(self.clientModelLst) == 1:
+            self.clientModelLst.clear()
+            self.clientModel = None
+        else:
+            self.clientModelLst.pop(index)
+            self.clientModel = self.clientModelLst[-1]
 
 def clearAtributes(obj):
     '''
     Clears object atributes.
     Sets all atributes to None.
 
-    Params:
+    Args:
         obj: object to clear
     '''
 
@@ -181,6 +133,26 @@ def clearAtributes(obj):
         obj[i[0]] = None
     return obj
 
+def closeModel(index_or_name, save_changes = False):
+    """
+    Close any model with index or name. Be sure to close the first created
+    model last (2,1, and then 0). 0 index carries whole session.
+
+    Args:
+        index_or_name : Model Index or Name to be Close
+        save_changes (bool): Enable/Diable Save Changes Option
+    """
+    if isinstance(index_or_name, int):
+        client.service.close_model(index_or_name, save_changes)
+        Model.__delete__(Model, index_or_name)
+    elif isinstance(index_or_name, str):
+        modelLs = client.service.get_model_list()
+        for i,j in enumerate(modelLs.name):
+            if modelLs.name[i] == index_or_name:
+                client.service.close_model(i, save_changes)
+    else:
+        assert False, 'Parameter index_or_name must be int or string.'
+
 def insertSpaces(lst: list):
     '''
     Add spaces between list of numbers.
@@ -188,17 +160,18 @@ def insertSpaces(lst: list):
     '''
     return ' '.join(str(item) for item in lst)
 
-def Calculate_all(generateXmlSolverInput: bool = False):
+def Calculate_all(generateXmlSolverInput: bool = False, model = Model):
     '''
     Calculates model.
     CAUTION: Don't use it in unit tests!
     It works when executing tests individualy but when running all of them
     it causes RFEM to stuck and generates failures, which are hard to investigate.
 
-    Params:
-    - generateXmlSolverInput: generate XML solver input
+    Args:
+        generateXmlSolverInput (bool): Generate XML Solver Input
+        model (RFEM Class, optional): Model to be edited
     '''
-    Model.clientModel.service.calculate_all(generateXmlSolverInput)
+    model.clientModel.service.calculate_all(generateXmlSolverInput)
 
 def ConvertToDlString(s):
     '''
@@ -210,8 +183,8 @@ def ConvertToDlString(s):
     '1-3'       -> '1 2 3'
     '1,3,5-9'   -> '1 3 5 6 7 8 9'
 
-    Params:
-        RSTAB / RFEM common string
+    Args:
+        s (str): RSTAB / RFEM Common String
 
     Returns a WS conform string.
     '''
@@ -247,6 +220,8 @@ def ConvertToDlString(s):
 def ConvertStrToListOfInt(st):
     """
     This function coverts string to list of integers.
+    Args:
+        st (str): RSTAB / RFEM Common String
     """
     st = ConvertToDlString(st)
     lstInt = []
@@ -270,7 +245,8 @@ def CheckIfMethodOrTypeExists(modelClient, method_or_type, unitTestMode=False):
 
     Args:
         modelClient (Model.clientModel)
-        method_or_type (string): method or type of SOAP client
+        method_or_type (str): Method or Type of SOAP Client
+        unitTestMode (bool): Unit Test Mode
 
     Returns:
         bool: Status of method or type.
@@ -297,7 +273,7 @@ def GetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active):
 
     Args:
         modelClient (Model.clientModel)
-        method_or_type (string): method or type of SOAP client
+        addOn (enum): AddOn Enumeraion
 
     Returns:
         (bool): Status of Add-on
@@ -327,6 +303,11 @@ def SetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active, status = T
     """
     Activate or deactivate Add-on.
     For some types of objects, specific Add-ons need to be ennabled.
+
+    Args:
+        modelClient (Model.clientModel)
+        addOn (enum): AddOn Enumeraion
+        status (bool): in/active
 
     Analysis addOns list:
         material_nonlinear_analysis_active
@@ -359,11 +340,6 @@ def SetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active, status = T
         building_model_active
         wind_simulation_active
         geotechnical_analysis_active
-
-    Args:
-        modelClient (Model.clientModel)
-        method_or_type (string): method or type of SOAP client
-        status (bool): in/active
     """
 
     # this will also provide sanity check
@@ -379,18 +355,20 @@ def SetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active, status = T
 
         modelClient.service.set_addon_statuses(addonLst)
 
-def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None):
+def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None, model = Model):
     '''
     This method calculate just selected objects - load cases, desingSituations, loadCombinations
+
     Args:
-        loadCases (list, optional): [description]. Defaults to None.
-        designSituations (list, optional): [description]. Defaults to None.
-        loadCombinations (list, optional): [description]. Defaults to None.
+        loadCases (list, optional): Load Case List
+        designSituations (list, optional): Design Situations List
+        loadCombinations (list, optional): Load Combinations List
+        model (RFEM Class, optional): Model to be edited
     '''
-    specificObjectsToCalculate = Model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements')
+    specificObjectsToCalculate = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements')
     if loadCases is not None:
         for loadCase in loadCases:
-            specificObjectsToCalculateLC = Model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
+            specificObjectsToCalculateLC = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
             specificObjectsToCalculateLC.no = loadCase
             specificObjectsToCalculateLC.parent_no = 0
             specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
@@ -398,7 +376,7 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
 
     if designSituations is not None:
         for designSituation in designSituations:
-            specificObjectsToCalculateDS = Model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
+            specificObjectsToCalculateDS = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
             specificObjectsToCalculateDS.no = designSituation
             specificObjectsToCalculateDS.parent_no = 0
             specificObjectsToCalculateDS.type = ObjectTypes.E_OBJECT_TYPE_DESIGN_SITUATION.name
@@ -406,32 +384,34 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
 
     if loadCombinations is not None:
         for loadCombination in loadCombinations:
-            specificObjectsToCalculateLC = Model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
+            specificObjectsToCalculateLC = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
             specificObjectsToCalculateLC.no = loadCombination
             specificObjectsToCalculateLC.parent_no = 0
             specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
             specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
 
-    Model.clientModel.service.calculate_specific_objects(specificObjectsToCalculate)
+    model.clientModel.service.calculate_specific_objects(specificObjectsToCalculate)
 
-def FirstFreeIdNumber(memType = ObjectTypes.E_OBJECT_TYPE_MEMBER, parent_no: int = 0):
+def FirstFreeIdNumber(memType = ObjectTypes.E_OBJECT_TYPE_MEMBER, parent_no: int = 0, model = Model):
     '''
     This method returns the next available Id Number for the selected object type
+
     Args:
-        type (enum): Object Type
+        memType (enum): Object Type Enumeration
         parent_no (int): Object Parent Number
             Note:
             (1) A geometric object has, in general, a parent_no = 0
             (2) The parent_no parameter becomes significant for example with loads
+        model (RFEM Class, optional): Model to be edited
     '''
-    return Model.clientModel.service.get_first_free_number(memType.name, parent_no)
+    return model.clientModel.service.get_first_free_number(memType.name, parent_no)
 
-def SetModelType(model_type = ModelType.E_MODEL_TYPE_3D):
+def SetModelType(model_type = ModelType.E_MODEL_TYPE_3D, model = Model):
     '''
     This method sets the model type. The model type is E_MODEL_TYPE_3D by default.
 
     Args:
-        model_type (enum): The available model types are listed below.
+        model_type (enum): Modal Type Enumeration. The available model types are listed below.
             ModelType.E_MODEL_TYPE_1D_X_3D
             ModelType.E_MODEL_TYPE_1D_X_AXIAL
             ModelType.E_MODEL_TYPE_2D_XY_3D
@@ -440,14 +420,18 @@ def SetModelType(model_type = ModelType.E_MODEL_TYPE_3D):
             ModelType.E_MODEL_TYPE_2D_XZ_PLANE_STRAIN
             ModelType.E_MODEL_TYPE_2D_XZ_PLANE_STRESS
             ModelType.E_MODEL_TYPE_3D
+        model (RFEM Class, optional): Model to be edited
     '''
 
-    Model.clientModel.service.set_model_type(model_type.name)
+    model.clientModel.service.set_model_type(model_type.name)
 
-def GetModelType():
+def GetModelType(model = Model):
 
     '''
     The method returns a string of the current model type.
+
+    Args:
+        model (RFEM Class): Model Instance
     '''
 
-    return Model.clientModel.service.get_model_type()
+    return model.clientModel.service.get_model_type()

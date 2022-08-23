@@ -56,7 +56,7 @@ def test_rigid_links():
 
     RigidLink(1, 3, 6)
     RigidLink.LineToLine(2, 3, 8)
-    # RigidLink.LineToSurface(0, 3, 3, 2) # bug 24282
+    RigidLink.LineToSurface(3, 3, 2)
     RigidLink.Diapragm(4,'3 4', '6 9')
 
     Model.clientModel.service.finish_modification()
@@ -71,10 +71,10 @@ def test_rigid_links():
     assert rl_2.line1 == 3
     assert rl_2.line2 == 8
 
-    #rl_3 = Model.clientModel.service.get_rigid_link(3)
-    #assert rl_3.type == 'TYPE_LINE_TO_SURFACE'
-    #assert rl_3.line1 == 3
-    #assert rl_3.line2 == 9
+    rl_3 = Model.clientModel.service.get_rigid_link(3)
+    assert rl_3.type == 'TYPE_LINE_TO_SURFACE'
+    assert rl_3.line1 == 3
+    assert rl_3.line2 == 10
 
     rl_4 = Model.clientModel.service.get_rigid_link(4)
     assert rl_4.type == 'TYPE_DIAPHRAGM'

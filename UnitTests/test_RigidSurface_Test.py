@@ -78,3 +78,20 @@ def test_rigid_surface():
 
     Model.clientModel.service.finish_modification()
 
+    assert Model.clientModel.service.get_surface(1).type == 'TYPE_STANDARD'
+
+    sur = Model.clientModel.service.get_surface(2)
+    assert sur.type == 'TYPE_RIGID'
+    assert sur.boundary_lines == '5 6 7 8'
+
+    sur = Model.clientModel.service.get_surface(3)
+    assert sur.geometry == 'GEOMETRY_NURBS'
+    assert sur.type == 'TYPE_RIGID'
+    assert sur.nurbs_control_point_count_in_direction_u == 3
+    assert sur.nurbs_order_in_direction_v == 3
+
+    sur = Model.clientModel.service.get_surface(4)
+    assert sur.geometry == 'GEOMETRY_QUADRANGLE'
+    assert sur.type == 'TYPE_RIGID'
+    assert sur.quadrangle_corner_node_2 == 18
+    assert sur.quadrangle_corner_node_4 == 20

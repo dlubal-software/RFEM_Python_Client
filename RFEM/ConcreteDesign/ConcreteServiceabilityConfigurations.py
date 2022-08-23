@@ -1,18 +1,18 @@
 from RFEM.initModel import Model, clearAtributes, ConvertToDlString
-from RFEM.enums import *
 
 class ConcreteServiceabilityConfiguration():
 
     def __init__(self,
                 no: int = 1,
                 name: str = 'SLS',
-                members = '1',
-                member_sets = '',
-                surfaces = '',
-                surface_sets = '',
-                nodes = '',
+                members: str = '1',
+                member_sets: str = '',
+                surfaces: str = '',
+                surface_sets: str = '',
+                nodes: str = '',
                 comment: str = '',
-                params: dict = None):
+                params: dict = None,
+                model = Model):
         """
         Args:
             no (int): Configuration Tag
@@ -24,10 +24,11 @@ class ConcreteServiceabilityConfiguration():
             nodes (str): Assigned Nodes
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Concrete Durabilities
-        clientObject = Model.clientModel.factory.create('ns0:sls_configuration')
+        clientObject = model.clientModel.factory.create('ns0:sls_configuration')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -63,4 +64,4 @@ class ConcreteServiceabilityConfiguration():
                 clientObject[key] = params[key]
 
         # Add Global Parameter to client model
-        Model.clientModel.service.set_sls_configuration(clientObject)
+        model.clientModel.service.set_sls_configuration(clientObject)

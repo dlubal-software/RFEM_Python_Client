@@ -7,19 +7,21 @@ class MemberSet():
                  members_no: str = '1 4 5 8 9 12 13 16 17 20 21 24',
                  member_set_type = SetType.SET_TYPE_GROUP,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Member Set Tag
-            members_no (str): Tags of Members Contained Within Member Set
+            members_no (str): Numbers of Members Contained Within Member Set
             member_set_type (enum): Member Set Type Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Member Set
-        clientObject = Model.clientModel.factory.create('ns0:member_set')
+        clientObject = model.clientModel.factory.create('ns0:member_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -42,25 +44,27 @@ class MemberSet():
                 clientObject[key] = params[key]
 
         # Add Member Set to client model
-        Model.clientModel.service.set_member_set(clientObject)
+        model.clientModel.service.set_member_set(clientObject)
 
     @staticmethod
     def ContinuousMembers(
                           no: int = 1,
                           members_no: str = '1 4 5 8 9 12 13 16 17 20 21 24',
                           comment: str = '',
-                          params: dict = None):
+                          params: dict = None,
+                          model = Model):
 
         '''
         Args:
             no (int): Member Set Tag
-            members_no (str): Tags of Members Contained Within Continuous Member Set
+            members_no (str): Numbers of Members Contained Within Continuous Member Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Member Set
-        clientObject = Model.clientModel.factory.create('ns0:member_set')
+        clientObject = model.clientModel.factory.create('ns0:member_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -83,25 +87,27 @@ class MemberSet():
                 clientObject[key] = params[key]
 
         # Add Member Set to client model
-        Model.clientModel.service.set_member_set(clientObject)
+        model.clientModel.service.set_member_set(clientObject)
 
     @staticmethod
     def GroupOfmembers(
                        no: int = 1,
                        members_no: str = '1 4 5 8 9 12 13 16 17 20 21 24',
                        comment: str = '',
-                       params: dict = None):
+                       params: dict = None,
+                       model = Model):
 
         '''
         Args:
             no (int): Member Set Tag
-            members_no (str): Tags of Members Contained Within Group of Members Member Set
+            members_no (str): Numbers of Members Contained Within Group of Members Member Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Member Set
-        clientObject = Model.clientModel.factory.create('ns0:member_set')
+        clientObject = model.clientModel.factory.create('ns0:member_set')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -124,4 +130,4 @@ class MemberSet():
                 clientObject[key] = params[key]
 
         # Add Member Set to client model
-        Model.clientModel.service.set_member_set(clientObject)
+        model.clientModel.service.set_member_set(clientObject)

@@ -1,20 +1,23 @@
 from RFEM.initModel import Model, clearAtributes
 
 class ResultCombination():
+
     def __init__(self,
                  no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Result Combination Tag
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Result Combination
-        clientObject = Model.clientModel.factory.create('ns0:result_combination')
+        clientObject = model.clientModel.factory.create('ns0:result_combination')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -31,4 +34,4 @@ class ResultCombination():
                 clientObject[key] = params[key]
 
         # Add Result Combination to client model
-        Model.clientModel.service.set_result_combination(clientObject)
+        model.clientModel.service.set_result_combination(clientObject)

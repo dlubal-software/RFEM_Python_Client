@@ -10,16 +10,15 @@ def setLineSupportConditions(clientObject,
                               C_phi_Y: float,
                               C_phi_Z: float):
     '''
-    Sets line support conditions
+    Sets Line Support Conditions
 
-    Params:
-        clientObject: Client model object | Line support
-        C_u_X,Y,Z: Translational support conditions in respected direction
-        C_phi_X,Y,Z: Rotational support conditions about respected axis
-        comment: Comment
+    Args:
+        clientObject: Client Model Object | Line Support
+        C_u_X,Y,Z (float): Translational Support Conditions in Respected Direction
+        C_phi_X,Y,Z (float): Rotational Support Conditions about Respected Axis
 
     Returns:
-        clientObject: Initialized client model object | Line Support
+        clientObject: Initialized Client Model Object | Line Support
     '''
 
     clientObject.spring_x = C_u_X
@@ -38,10 +37,20 @@ class LineSupport():
                  lines_no: str = '1 2',
                  support_type = LineSupportType.HINGED,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
+        """
+        Args:
+            no (int): Line Support Tag
+            lines_no (str): Assigned Lines
+            support_type (enum): Line Support Type Enumeration
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
 
         # Client model | Line Support
-        clientObject = Model.clientModel.factory.create('ns0:line_support')
+        clientObject = model.clientModel.factory.create('ns0:line_support')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -90,4 +99,4 @@ class LineSupport():
                 clientObject[key] = params[key]
 
         # Add Line Support to client model
-        Model.clientModel.service.set_line_support(clientObject)
+        model.clientModel.service.set_line_support(clientObject)

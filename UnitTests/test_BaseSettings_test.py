@@ -1,3 +1,4 @@
+from cgi import test
 import sys
 import os
 PROJECT_ROOT = os.path.abspath(os.path.join(
@@ -5,16 +6,13 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-import pytest
 from RFEM.enums import GlobalAxesOrientationType, LocalAxesOrientationType
 from RFEM.baseSettings import BaseSettings
-from RFEM.initModel import Model, CheckIfMethodOrTypeExists
+from RFEM.initModel import Model
 
 if Model.clientModel is None:
     Model()
 
-# TODO: US-8005
-@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:model_settings_and_options_type', True), reason="ns0:model_settings_and_options_type not in RFEM GM yet")
 def test_baseSettings():
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
@@ -23,3 +21,12 @@ def test_baseSettings():
     BaseSettings(12, GlobalAxesOrientationType.E_GLOBAL_AXES_ORIENTATION_ZUP, LocalAxesOrientationType.E_LOCAL_AXES_ORIENTATION_ZUP, [0.001, 0.002, 0.003, 0.004])
 
     Model.clientModel.service.finish_modification()
+
+    msao = Model.clientModel.service.get_model_settings_and_options()
+    assert msao.gravitational_acceleration == 12
+    assert msao.global_axes_orientation == 'E_GLOBAL_AXES_ORIENTATION_ZUP'
+    assert msao.local_axes_orientation == 'E_LOCAL_AXES_ORIENTATION_ZUP'
+    assert msao.tolerance_for_nodes == 0.001
+    assert msao.tolerance_for_lines == 0.002
+    assert msao.tolerance_for_surfaces_and_planes == 0.003
+    assert msao.tolerance_for_directions == 0.004

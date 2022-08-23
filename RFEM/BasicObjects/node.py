@@ -1,7 +1,7 @@
 from RFEM.enums import NodeType
 from RFEM.enums import NodeCoordinateSystemType
-from RFEM.enums import NodeReferenceType
-from RFEM.initModel import Model, clearAtributes
+from RFEM.enums import NodeReferenceType, ObjectTypes
+from RFEM.initModel import Model, clearAtributes, ConvertStrToListOfInt
 from math import pi
 
 class Node():
@@ -11,7 +11,8 @@ class Node():
                  coordinate_Y: float = 0.0,
                  coordinate_Z: float = 0.0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
          Args:
@@ -21,9 +22,10 @@ class Node():
             coordinate_Z (float): Z-Coordinate
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
         # Client model | Node
-        clientObject = Model.clientModel.factory.create('ns0:node')
+        clientObject = model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -45,15 +47,16 @@ class Node():
                 clientObject[key] = params[key]
 
         # Add Node to client model
-        Model.clientModel.service.set_node(clientObject)
+        model.clientModel.service.set_node(clientObject)
 
     @staticmethod
     def Standard(
                  no: int = 1,
-                 coordinate_system = [],
+                 coordinate_system: list = None,
                  coordinate_system_type = NodeCoordinateSystemType.COORDINATE_SYSTEM_CARTESIAN,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
          Args:
@@ -72,10 +75,11 @@ class Node():
             coordinate_system_type (enum): Coordinate System Type Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Node
-        clientObject = Model.clientModel.factory.create('ns0:node')
+        clientObject = model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -135,7 +139,7 @@ class Node():
                 clientObject[key] = params[key]
 
         # Add Node to client model
-        Model.clientModel.service.set_node(clientObject)
+        model.clientModel.service.set_node(clientObject)
 
 
     @staticmethod
@@ -149,7 +153,8 @@ class Node():
                  offset_y: int = 0,
                  offset_z: int = 0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -157,20 +162,21 @@ class Node():
             start_node_no (int): Start Node
             end_node_no (int): End Node
             node_reference (enum): Node Reference Enumeration
-            length_between_i_and_j (int): Length between 2 Nodes
+            length_between_i_and_j (float): Length between 2 Nodes
             parameters (list):
               if distance_from_start_relative:
                 parameters = [True, %]
               if distance_from_start_absolute:
                 parameters = [False, magnitude]
-            offset_y (int): Offset in Y-Direction
-            offset_z (int): Offset in Z-Direction
+            offset_y (float): Offset in Y-Direction
+            offset_z (float): Offset in Z-Direction
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Node
-        clientObject = Model.clientModel.factory.create('ns0:node')
+        clientObject = model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -214,7 +220,7 @@ class Node():
                 clientObject[key] = params[key]
 
         # Add Node to client model
-        Model.clientModel.service.set_node(clientObject)
+        model.clientModel.service.set_node(clientObject)
 
     @staticmethod
     def BetweenTwoPoints(
@@ -230,7 +236,8 @@ class Node():
                  offset_y: float = 0.0,
                  offset_z: float = 0.0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -247,14 +254,15 @@ class Node():
                 parameters = [True, %]
               if distance_from_start_absolute:
                 parameters = [False, magnitude]
-            offset_y (int): Offset in Y-Direction
-            offset_z (int): Offset in Z-Direction
+            offset_y (float): Offset in Y-Direction
+            offset_z (float): Offset in Z-Direction
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Node
-        clientObject = Model.clientModel.factory.create('ns0:node')
+        clientObject = model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -299,7 +307,7 @@ class Node():
                 clientObject[key] = params[key]
 
         # Add Node to client model
-        Model.clientModel.service.set_node(clientObject)
+        model.clientModel.service.set_node(clientObject)
 
     @staticmethod
     def OnLine(
@@ -309,13 +317,15 @@ class Node():
                  length_between_i_and_j: int = 1,
                  parameters = [True, 0.5],
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
-         Args:
+        Args:
+            no (int): Node Tag
             line_number (int): Line Tag
             node_reference (enum): Node Reference Enumeration
-            length_between_i_and_j (int): Length between 2 Nodes
+            length_between_i_and_j (float): Length between 2 Nodes
             parameters (list):
               if distance_from_start_relative:
                 parameters = [True, %]
@@ -323,10 +333,11 @@ class Node():
                 parameters = [False, magnitude]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Node
-        clientObject = Model.clientModel.factory.create('ns0:node')
+        clientObject = model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -361,7 +372,7 @@ class Node():
                 clientObject[key] = params[key]
 
         # Add Node to client model
-        Model.clientModel.service.set_node(clientObject)
+        model.clientModel.service.set_node(clientObject)
 
     @staticmethod
     def OnMember(
@@ -371,7 +382,8 @@ class Node():
                  length_between_i_and_j: int = 1,
                  parameters = [True, 0.5],
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
          Args:
@@ -386,10 +398,11 @@ class Node():
                 parameters = [False, magnitude]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Node
-        clientObject = Model.clientModel.factory.create('ns0:node')
+        clientObject = model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -424,4 +437,17 @@ class Node():
                 clientObject[key] = params[key]
 
         # Add Node to client model
-        Model.clientModel.service.set_node(clientObject)
+        model.clientModel.service.set_node(clientObject)
+
+    @staticmethod
+    def DeleteNode(nodes_no: str = '1 2', model = Model):
+
+        '''
+        Args:
+            nodes_no (str): Numbers of Nodes to be deleted
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Delete from client model
+        for node in ConvertStrToListOfInt(nodes_no):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_NODE.name, node)

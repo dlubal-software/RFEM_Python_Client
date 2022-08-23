@@ -10,7 +10,8 @@ class NodalLoad():
                  load_direction= LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
                  magnitude: float = 0.0,
                  comment: str= '',
-                 params: dict= {}):
+                 params: dict= None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -20,9 +21,10 @@ class NodalLoad():
             magnitude (float): Force Magnitude
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Nodal Force
-        clientObject = Model.clientModel.factory.create('ns0:nodal_load')
+        clientObject = model.clientModel.factory.create('ns0:nodal_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -55,7 +57,7 @@ class NodalLoad():
                 clientObject[key] = params[key]
 
         # Add Nodal Force to client model
-        Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
+        model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
     @staticmethod
     def Force(
@@ -68,7 +70,8 @@ class NodalLoad():
               specific_direction: bool = False,
               shifted_display: bool = False,
               comment: str= '',
-              params= {}):
+              params: dict = None,
+              model = Model):
         """
         Args:
             no (int): Load Tag
@@ -81,7 +84,6 @@ class NodalLoad():
             shifted_display (bool): Enable/Disable Shifted Display Option
             comment (str, optional): Comments
             params (dict, optional):
-
                 For specific_direction type DIRECTION_TYPE_ROTATED_VIA_3_ANGLES;
                     params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_ROTATED_VIA_3_ANGLES, NodalLoadAxesSequence, angle_1, angle_2, angle_3, angle_x, angle_y, angle_z]}
                 For specific_direction type DIRECTION_TYPE_DIRECTED_TO_NODE;
@@ -96,9 +98,10 @@ class NodalLoad():
                     params={'force_eccentricity' : [ex, ey, ez]}
                 For shifted_display;
                     params={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Nodal Force
-        clientObject = Model.clientModel.factory.create('ns0:nodal_load')
+        clientObject = model.clientModel.factory.create('ns0:nodal_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -199,7 +202,7 @@ class NodalLoad():
                 clientObject[key] = params[key]
 
         # Add Nodal Force to client model
-        Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
+        model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
     @staticmethod
     def Moment(
@@ -211,7 +214,8 @@ class NodalLoad():
               specific_direction: bool= False,
               shifted_display: bool= False,
               comment: str = '',
-              params: dict = None):
+              params: dict = None,
+              model = Model):
         """
         Args:
             no (int): Load Tag
@@ -235,9 +239,10 @@ class NodalLoad():
                     params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER, member_no]}
                 For shifted_display;
                     params={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Nodal Force
-        clientObject = Model.clientModel.factory.create('ns0:nodal_load')
+        clientObject = model.clientModel.factory.create('ns0:nodal_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -320,19 +325,20 @@ class NodalLoad():
                 clientObject[key] = params[key]
 
         # Add Nodal Force to client model
-        Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
+        model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
     @staticmethod
     def Components(
               no: int= 1,
               load_case_no: int= 1,
               nodes_no: str= '1',
-              components = [],
+              components: list = None,
               specific_direction: bool= False,
               force_eccentricity: bool= False,
               shifted_display: bool= False,
               comment: str= '',
-              params: dict= {}):
+              params: dict= None,
+              model = Model):
         """
         Args:
             no (int): Load Tag
@@ -355,9 +361,10 @@ class NodalLoad():
 
                 For shifted_display;
                     params={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Nodal Force
-        clientObject = Model.clientModel.factory.create('ns0:nodal_load')
+        clientObject = model.clientModel.factory.create('ns0:nodal_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -457,7 +464,7 @@ class NodalLoad():
                 clientObject[key] = params[key]
 
         # Add Nodal Force to client model
-        Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
+        model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
     @staticmethod
     def Mass(
@@ -465,9 +472,10 @@ class NodalLoad():
               load_case_no: int = 1,
               nodes_no: str = '1',
               individual_mass_components : bool = False,
-              mass = [],
+              mass: list = None,
               comment: str = '',
-              params: dict = None):
+              params: dict = None,
+              model = Model):
         """
         Args:
             no (int): Load Tag
@@ -481,9 +489,10 @@ class NodalLoad():
                     mass = [Mx, My, Mz, Ix, Iy, Iz]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Nodal Force
-        clientObject = Model.clientModel.factory.create('ns0:nodal_load')
+        clientObject = model.clientModel.factory.create('ns0:nodal_load')
 
         # Clears object attributes | Sets all attributes to None
         clearAtributes(clientObject)
@@ -515,8 +524,7 @@ class NodalLoad():
 
         else:
             clientObject.individual_mass_components = individual_mass_components
-
-        clientObject.mass_global = mass[0]
+            clientObject.mass_global = mass[0]
 
         # Comment
         clientObject.comment = comment
@@ -527,4 +535,4 @@ class NodalLoad():
                 clientObject[key] = params[key]
 
         # Add Nodal Force to client model
-        Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
+        model.clientModel.service.set_nodal_load(load_case_no, clientObject)
