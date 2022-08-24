@@ -6,7 +6,6 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-import pytest
 from RFEM.enums import AddOn
 from RFEM.initModel import Model, SetAddonStatus
 from RFEM.Results.designOverview import GetDesignOverview, GetPartialDesignOverview
@@ -17,7 +16,6 @@ from RFEM.Reports.partsList import GetPartsListSolidsByMaterial, GetPartsListSur
 if Model.clientModel is None:
     Model()
 
-@pytest.mark.skip(reason="(Result) tables are under construction right now. Should be resolved 09/2022. G-30112")
 def test_designOverview():
 
     Model.clientModel.service.delete_all()
