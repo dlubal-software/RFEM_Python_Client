@@ -63,7 +63,7 @@ Collection of [scripts](https://github.com/Dlubal-Software/RFEM_Python_Client/tr
 The easiest way to enjoy the Client is to install current [RFEM package](https://pypi.org/project/RFEM/) directly to your Python via `pip install RFEM`. Especially if no code changes are required.
 
 ## Documentation 📚
-For complete description of classes and functions visit our [![image](https://img.shields.io/badge/GitHub-page-darkblue?logo=github&amp;)](https://dlubal-software.github.io/RFEM_Python_Client/).
+For complete description of classes and functions visit our [![image](https://img.shields.io/badge/GitHub-page-darkblue?logo=github&amp;)](https://dlubal-software.github.io/.github/guide/ready.html).
 
 ## Wiki
 If you run into problems see our [Wiki](https://github.com/Dlubal-Software/RFEM_Python_Client/wiki). We are slowly but surely expanding the solutions to the problems found in the Issues section.
