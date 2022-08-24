@@ -95,16 +95,11 @@ class Node():
         clientObject.coordinate_system_type = coordinate_system_type.name
 
         if len(coordinate_system) != 3:
-            raise Exception('WARNING: The coordinate system needs to be of length 3. Kindly check list inputs for completeness and correctness.')
+            raise Exception('WARNING: The coordinate system needs to be of length 3.')
 
-        if not isinstance(coordinate_system[0], (int, float)):
-            raise Exception ('WARNING: Coordinate system at index 0 to be of type "int" or ''float''')
+        if not all(isinstance(x, (int, float)) for x in coordinate_system):
+            raise Exception ('WARNING: Coordinate system should be type "int" or "float".')
 
-        if not isinstance(coordinate_system[1], (int, float)):
-            raise Exception ('WARNING: Coordinate system at index 1 to be of type "int" or ''float''')
-
-        if not isinstance(coordinate_system[2], (int, float)):
-            raise Exception ('WARNING: Coordinate system at index 2 to be of type "int" or ''float''')
 
         if clientObject.coordinate_system_type == "COORDINATE_SYSTEM_CARTESIAN":
             clientObject.coordinate_1 = coordinate_system[0]
@@ -229,7 +224,7 @@ class Node():
                  start_point_y: float = 0.0,
                  start_point_z: float = 0.0,
                  end_point_x: float = 1.0,
-                 end_point_y:float = 1.0,
+                 end_point_y: float = 1.0,
                  end_point_z: float = 1.0,
                  node_reference = NodeReferenceType.REFERENCE_TYPE_L,
                  parameters = [True, 0.5],
