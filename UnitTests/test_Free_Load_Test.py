@@ -240,5 +240,5 @@ def test_free_load():
     fpl = Model.clientModel.service.get_free_polygon_load(4, 5)
     assert fpl.magnitude_linear_2 == 7500
     assert fpl.magnitude_linear_location_1 == 2
-    assert fpl.load_location[0][0][1].second_coordinate == 4
-    assert fpl.load_location[0][2][1].first_coordinate == 2
+    assert fpl.load_location[0][0].row.second_coordinate == 4
+    assert fpl.load_location[0][2].row.first_coordinate == 2
