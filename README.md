@@ -1,5 +1,5 @@
 <h1 align="center">
-<a href="https://www.dlubal.com/en" title="Tutorial 1"><img src="./img/logo.png" width="180" height="180" alt="Dlubal Software" /></a>
+<a href="https://www.dlubal.com/en" title="Tutorial 1"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Dlubal_Software_Logo.svg" width="180" height="180" alt="Dlubal Software" /></a>
 
 Dlubal Software GmbH
 
@@ -105,9 +105,9 @@ Contributions are always welcome!🙂 Please ensure your pull request adheres to
 ## Languages and Tools 🛠️
 
 [<img align="left" alt="Visual Studio Code" width="26px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" style="padding-right:15px;" />](https://code.visualstudio.com/)
-[<img align="left" alt="Visual Studio Code" width="26px" src="./img/Python.png" style="padding-right:15px;" />](https://www.python.org/)
-[<img align="left" alt="Visual Studio Code" width="26px" src="./img/RFEM.png" style="padding-right:15px;" />](https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem)
-[<img align="left" alt="Visual Studio Code" width="26px" src="./img/RSTAB.png" style="padding-right:15px;" />](https://www.dlubal.com/en/products/rstab-beam-structures/what-is-rstab)
+[<img align="left" alt="Python" width="26px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" style="padding-right:15px;" />](https://www.python.org/)
+[<img align="left" alt="RFEM" width="26px" src="./img/RFEM.png" style="padding-right:15px;" />](https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem)
+[<img align="left" alt="RSTAB" width="26px" src="./img/RSTAB.png" style="padding-right:15px;" />](https://www.dlubal.com/en/products/rstab-beam-structures/what-is-rstab)
 [<img align="left" alt="GitHub" width="26px" src="https://user-images.githubusercontent.com/3369400/139448065-39a229ba-4b06-434b-bc67-616e2ed80c8f.png" style="padding-right:15px;" />](https://github.com/Dlubal-Software)
 <img align="left" alt="Terminal" width="26px" src="./img/terminal-light.svg" style="padding-right:15px;" />
 </br>
