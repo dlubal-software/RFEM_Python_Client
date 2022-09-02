@@ -21,7 +21,7 @@ Dlubal Software GmbH
 
 Welcome to RFEM Python High Level Functions
 
-<a href="https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem" title="Tutorial 1"><img src="./img/2Dtruss.gif" width=550 alt="Tutorial" /></a>
+<a href="https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem" title="API"><img src="./img/2Dtruss.gif" width=550 alt="Tutorial" /></a>
 </h2>
 
 Python client (high-level functions) for [RFEM 6](https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem) using [Web Services](https://en.wikipedia.org/wiki/Web_service) (WS), [SOAP](https://cs.wikipedia.org/wiki/SOAP) and [WSDL](https://en.wikipedia.org/wiki/Web_Services_Description_Language). Available Python SOAP pkgs can be found on [wiki.python.org](https://wiki.python.org/moin/WebServices#SOAP).
@@ -42,13 +42,13 @@ This Python project is focused on opening RFEM 6 to all of our customers, enabli
 
 ### Dependencies
 Dependency check is implemented inside [dependencies.py](RFEM/dependencies.py) with option to install during execution.
-* <img align="left" alt="Visual Studio Code" width="26px" src="./img/PyPI.png" style="padding-right:1px;">PyPi pkgs: [SUDS](https://github.com/cackharot/suds-py3), [requests](https://docs.python-requests.org/en/master/), [six](https://pypi.org/project/six/), [mock](https://pypi.org/project/mock/), and [xmltodict](https://pypi.org/project/xmltodict/).
+* <img align="left" alt="PyPi" width="26px" src="./img/PyPI.png" style="padding-right:1px;">PyPi pkgs: [SUDS](https://github.com/cackharot/suds-py3), [requests](https://docs.python-requests.org/en/master/), [six](https://pypi.org/project/six/), [mock](https://pypi.org/project/mock/), and [xmltodict](https://pypi.org/project/xmltodict/).
 
-* <img align="left" alt="Visual Studio Code" width="26px" src="./img/RFEM.png" style="padding-right:1px;">RFEM 6 application. Client is always compatible with the latest version.
+* <img align="left" alt="RFEM" width="26px" src="./img/RFEM.png" style="padding-right:1px;">RFEM 6 application. Client is always compatible with the latest version.
 
 ### Step by step
 1) 🌀 [Clone](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository#:~:text=Cloning%20an%20Existing%20Repository) this repository (if you have GitHub account) or download actual [release](https://github.com/Dlubal-Software/RFEM_Python_Client/releases)
-2) <img align="left" alt="Visual Studio Code" width="18px" src="./img/RFEM.png"> Open RFEM 6 application
+2) <img align="left" alt="RFEM" width="18px" src="./img/RFEM.png"> Open RFEM 6 application
 
 3) ☑️ Check if there are no opened dialogues in RFEM and server port range under *Options-Web Services* corresponds to the one set in initModel
 4) 🏃 Run your script. Inspirations can be found in [Examples](/Examples/) or [UnitTests](/UnitTests/).
@@ -92,15 +92,15 @@ Contributions are always welcome!🙂 Please ensure your pull request adheres to
 
 [![website](./img/globe-light.svg)](https://www.dlubal.com/en)
 &nbsp;&nbsp;
-[![website](./img/youtube-light.svg)](https://www.youtube.com/c/DlubalEN)
+[![Youtube](./img/youtube-light.svg)](https://www.youtube.com/c/DlubalEN)
 &nbsp;&nbsp;
-[![website](./img/twitter-light.svg)](https://twitter.com/dlubal_en)
+[![Twitter](./img/twitter-light.svg)](https://twitter.com/dlubal_en)
 &nbsp;&nbsp;
-[![website](./img/linkedin-light.svg)](https://de.linkedin.com/company/dlubal-software)
+[![LinkedIn](./img/linkedin-light.svg)](https://de.linkedin.com/company/dlubal-software)
 &nbsp;&nbsp;
-[![website](./img/instagram-light.svg)](https://www.instagram.com/dlubal_software/)
+[![Instagram](./img/instagram-light.svg)](https://www.instagram.com/dlubal_software/)
 &nbsp;&nbsp;
-[![website](./img/github-light.svg)](https://github.com/Dlubal-Software)
+[![GitHub](./img/github-light.svg)](https://github.com/Dlubal-Software)
 
 ## Languages and Tools 🛠️
 
