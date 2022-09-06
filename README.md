@@ -1,5 +1,5 @@
 <h1 align="center">
-<a href="https://www.dlubal.com/en" title="Tutorial 1"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Dlubal_Software_Logo.svg" width="180" height="180" alt="Dlubal Software" /></a>
+<a href="https://www.dlubal.com/en" title="Tutorial 1"><img src="./img/logo.gif" width="180" height="180" alt="Dlubal Software" /></a>
 
 Dlubal Software GmbH
 
