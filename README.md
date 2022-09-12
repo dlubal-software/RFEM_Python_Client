@@ -1,5 +1,5 @@
 <h1 align="center">
-<a href="https://www.dlubal.com/en" title="Logo"><img src="https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/main/img/logo.png" width="180" height="180" alt="Dlubal Software" /></a>
+<a href="https://www.dlubal.com/en" title="Logo"><img src="https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/main/img/logo.gif" width="180" height="180" alt="Dlubal Software" /></a>
 
 Dlubal Software GmbH
 
