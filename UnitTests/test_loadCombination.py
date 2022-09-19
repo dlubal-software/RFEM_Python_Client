@@ -31,5 +31,5 @@ def test_loadCombination():
 
     combination = Model.clientModel.service.get_load_combination(1)
 
-    assert round(combination.items[0][0][1].factor, 2) == 1.20
-    assert combination.items[0][0].row[1] == 1
+    assert round(combination.items[0][0].row.factor, 2) == 1.20
+    assert combination.items[0][0].row.load_case == 1

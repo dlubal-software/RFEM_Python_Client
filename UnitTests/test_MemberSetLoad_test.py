@@ -285,8 +285,8 @@ def test_member_set_load():
 
     msl = Model.clientModel.service.get_member_set_load(24, 1)
     assert msl.member_sets == '1'
-    assert msl.varying_load_parameters[0][0][1].magnitude == 4000
-    assert msl.varying_load_parameters[0][1][1].distance == 2
+    assert msl.varying_load_parameters[0][0].row.magnitude == 4000
+    assert msl.varying_load_parameters[0][1].row.distance == 2
 
     msl = Model.clientModel.service.get_member_set_load(25, 1)
     assert msl.member_sets == '1'

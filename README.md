@@ -1,5 +1,5 @@
 <h1 align="center">
-<a href="https://www.dlubal.com/en" title="Tutorial 1"><img src="./img/logo.png" width="180" height="180" alt="Dlubal Software" /></a>
+<a href="https://www.dlubal.com/en" title="Logo"><img src="https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/main/img/logo.gif" width="180" height="180" alt="Dlubal Software" /></a>
 
 Dlubal Software GmbH
 
@@ -21,7 +21,7 @@ Dlubal Software GmbH
 
 Welcome to RFEM Python High Level Functions
 
-<a href="https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem" title="Tutorial 1"><img src="./img/2Dtruss.gif" width=550 alt="Tutorial" /></a>
+<a href="https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem" title="API"><img src="./img/2Dtruss.gif" width=550 alt="Tutorial" /></a>
 </h2>
 
 Python client (high-level functions) for [RFEM 6](https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem) using [Web Services](https://en.wikipedia.org/wiki/Web_service) (WS), [SOAP](https://cs.wikipedia.org/wiki/SOAP) and [WSDL](https://en.wikipedia.org/wiki/Web_Services_Description_Language). Available Python SOAP pkgs can be found on [wiki.python.org](https://wiki.python.org/moin/WebServices#SOAP).
@@ -42,13 +42,13 @@ This Python project is focused on opening RFEM 6 to all of our customers, enabli
 
 ### Dependencies
 Dependency check is implemented inside [dependencies.py](RFEM/dependencies.py) with option to install during execution.
-* <img align="left" alt="Visual Studio Code" width="26px" src="./img/PyPI.png" style="padding-right:1px;">PyPi pkgs: [SUDS](https://github.com/cackharot/suds-py3), [requests](https://docs.python-requests.org/en/master/), [six](https://pypi.org/project/six/), [mock](https://pypi.org/project/mock/), and [xmltodict](https://pypi.org/project/xmltodict/).
+* <img align="left" alt="PyPi" width="26px" src="https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/main/img/PyPI.png" style="padding-right:1px;">PyPi pkgs: [SUDS](https://github.com/cackharot/suds-py3), [requests](https://docs.python-requests.org/en/master/), [six](https://pypi.org/project/six/), [mock](https://pypi.org/project/mock/), and [xmltodict](https://pypi.org/project/xmltodict/).
 
-* <img align="left" alt="Visual Studio Code" width="26px" src="./img/RFEM.png" style="padding-right:1px;">RFEM 6 application. Client is always compatible with the latest version.
+* <img align="left" alt="RFEM" width="26px" src="https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/main/img/RFEM.png" style="padding-right:1px;">RFEM 6 application. Client is always compatible with the latest version.
 
 ### Step by step
 1) 🌀 [Clone](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository#:~:text=Cloning%20an%20Existing%20Repository) this repository (if you have GitHub account) or download actual [release](https://github.com/Dlubal-Software/RFEM_Python_Client/releases)
-2) <img align="left" alt="Visual Studio Code" width="18px" src="./img/RFEM.png"> Open RFEM 6 application
+2) <img align="left" alt="RFEM" width="18px" src="https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/main/img/RFEM.png"> Open RFEM 6 application
 
 3) ☑️ Check if there are no opened dialogues in RFEM and server port range under *Options-Web Services* corresponds to the one set in initModel
 4) 🏃 Run your script. Inspirations can be found in [Examples](/Examples/) or [UnitTests](/UnitTests/).
@@ -90,26 +90,26 @@ Contributions are always welcome!🙂 Please ensure your pull request adheres to
 
 ## Connect with us 🤝
 
-[![website](./img/globe-light.svg)](https://www.dlubal.com/en)
+[![website](https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/90dd83267c3d46e9a9736b2659aeb3fb23a838da/img/globe-light.svg)](https://www.dlubal.com/en)
 &nbsp;&nbsp;
-[![website](./img/youtube-light.svg)](https://www.youtube.com/c/DlubalEN)
+[![Youtube](https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/90dd83267c3d46e9a9736b2659aeb3fb23a838da/img/youtube-light.svg)](https://www.youtube.com/c/DlubalEN)
 &nbsp;&nbsp;
-[![website](./img/twitter-light.svg)](https://twitter.com/dlubal_en)
+[![Twitter](https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/90dd83267c3d46e9a9736b2659aeb3fb23a838da/img/twitter-light.svg)](https://twitter.com/dlubal_en)
 &nbsp;&nbsp;
-[![website](./img/linkedin-light.svg)](https://de.linkedin.com/company/dlubal-software)
+[![LinkedIn](https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/90dd83267c3d46e9a9736b2659aeb3fb23a838da/img/linkedin-light.svg)](https://de.linkedin.com/company/dlubal-software)
 &nbsp;&nbsp;
-[![website](./img/instagram-light.svg)](https://www.instagram.com/dlubal_software/)
+[![Instagram](https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/90dd83267c3d46e9a9736b2659aeb3fb23a838da/img/instagram-light.svg)](https://www.instagram.com/dlubal_software/)
 &nbsp;&nbsp;
-[![website](./img/github-light.svg)](https://github.com/Dlubal-Software)
+[![GitHub](https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/90dd83267c3d46e9a9736b2659aeb3fb23a838da/img/github-light.svg)](https://github.com/Dlubal-Software)
 
 ## Languages and Tools 🛠️
 
 [<img align="left" alt="Visual Studio Code" width="26px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" style="padding-right:15px;" />](https://code.visualstudio.com/)
-[<img align="left" alt="Visual Studio Code" width="26px" src="./img/Python.png" style="padding-right:15px;" />](https://www.python.org/)
-[<img align="left" alt="Visual Studio Code" width="26px" src="./img/RFEM.png" style="padding-right:15px;" />](https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem)
-[<img align="left" alt="Visual Studio Code" width="26px" src="./img/RSTAB.png" style="padding-right:15px;" />](https://www.dlubal.com/en/products/rstab-beam-structures/what-is-rstab)
+[<img align="left" alt="Python" width="26px" src="https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/main/img/Python.png" style="padding-right:15px;" />](https://www.python.org/)
+[<img align="left" alt="RFEM" width="26px" src="https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/main/img/RFEM.png" style="padding-right:15px;" />](https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem)
+[<img align="left" alt="RSTAB" width="26px" src="https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/main/img/RSTAB.png" style="padding-right:15px;" />](https://www.dlubal.com/en/products/rstab-beam-structures/what-is-rstab)
 [<img align="left" alt="GitHub" width="26px" src="https://user-images.githubusercontent.com/3369400/139448065-39a229ba-4b06-434b-bc67-616e2ed80c8f.png" style="padding-right:15px;" />](https://github.com/Dlubal-Software)
-<img align="left" alt="Terminal" width="26px" src="./img/terminal-light.svg" style="padding-right:15px;" />
+<img align="left" alt="Terminal" width="26px" src="https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/90dd83267c3d46e9a9736b2659aeb3fb23a838da/img/terminal-light.svg" style="padding-right:15px;" />
 </br>
 </br>
 
