@@ -1587,6 +1587,53 @@ class SteelEffectiveLengthsDeterminationMcrEurope(Enum):
     '''
     DETERMINATION_EUROPE_EIGENVALUE, DETERMINATION_EUROPE_USER_DEFINED = range(2)
 
+class AluminumEffectiveLengthsDeterminationMcrEurope(Enum):
+    '''
+    Aluminum Effective Lengths Determination MCR Europe
+    '''
+    DETERMINATION_EUROPE_EIGENVALUE, DETERMINATION_EUROPE_USER_DEFINED = range(2)
+
+class AluminumMemberRotationalRestraintType(Enum):
+    '''
+    Aluminum Member Rotational Restraint Type
+    '''
+    TYPE_CONTINUOUS, TYPE_DISCRETE, TYPE_MANUALLY = range(3)
+
+class AluminumMemberRotationalRestraintContinuousBeamEffect(Enum):
+    '''
+    Aluminum Member Rotational Restraint Continuous Beam Effect
+    '''
+    CONTINUOUS_BEAM_EFFECT_END_PANEL, CONTINUOUS_BEAM_EFFECT_INTERNAL_PANEL = range(2)
+
+class AluminumMemberRotationalRestraintPositionofSheeting(Enum):
+    '''
+    Aluminum Member Rotational Restraint Position of Sheeting
+    '''
+    SHEETING_POSITION_NEGATIVE, SHEETING_POSITION_POSITIVE = range(2)
+
+class SteelMemberRotationalRestraintRotationalStiffness(Enum):
+    '''
+    Steel Member Rotational Restraint Rotational Stiffness
+    '''
+    ROTATIONAL_STIFFNESS_INFINITELY, ROTATIONAL_STIFFNESS_MANUALLY = range(2)
+
+class AluminumMemberShearPanelDefinitionType(Enum):
+    '''
+    Aluminum Member Shear Panel Definition Type
+    '''
+    DEFINITION_TYPE_BRACING, DEFINITION_TYPE_DEFINE_S_PROV, DEFINITION_TYPE_TRAPEZOIDAL_SHEETING, DEFINITION_TYPE_TRAPEZOIDAL_SHEETING_AND_BRACING = range(4)
+
+class AluminumMemberShearPanelPositionOnSection(Enum):
+    '''
+    Aluminum Member Shear Panel Position On Section
+    '''
+    POSITION_DEFINE, POSITION_IN_CENTROID, POSITION_ON_LOWER_FLANGE, POSITION_ON_UPPER_FLANGE = range(4)
+
+class AluminumMemberShearPanelFasteningArrangement(Enum):
+    '''
+    Aluminum Member Shear Panel Fastening Arrangement
+    '''
+    FASTENING_ARRANGEMENT_EVERY_RIB, FASTENING_ARRANGEMENT_EVERY_SECOND_RIB = range(2)
 
 class SteelEffectiveLengthsDeterminationMcrIs800(Enum):
     '''
@@ -1710,6 +1757,7 @@ class SteelMemberShearPanelFasteningArrangement(Enum):
     Steel Member Shear Panel Fastening Arrangement
     '''
     FASTENING_ARRANGEMENT_EVERY_RIB, FASTENING_ARRANGEMENT_EVERY_SECOND_RIB = range(2)
+
 class SteelMemberRotationalRestraintType(Enum):
     '''
     Steel Member Rotational Restraint Type
@@ -2115,7 +2163,7 @@ class OpeningLoadDirection(Enum):
     '''
     LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_PROJECTED, LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_PROJECTED, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, LOAD_DIRECTION_LOCAL_Z = range(7)
 
-class SteelMemberLocalSectionReductionType(Enum):
+class AluminumMemberLocalSectionReductionType(Enum):
     '''
     Steel Member Local Section Reduction Type
     '''
@@ -2138,3 +2186,27 @@ class CaseObjectType(Enum):
     Case Object Type (Result Tables)
     '''
     E_OBJECT_TYPE_CONSTRUCTION_STAGE, E_OBJECT_TYPE_DESIGN_SITUATION, E_OBJECT_TYPE_LOAD_CASE, E_OBJECT_TYPE_LOAD_COMBINATION, E_OBJECT_TYPE_RESULT_COMBINATION = range(5)
+
+class ProgramLanguage(Enum):
+    '''
+    Program Language Type
+    '''
+    CHINESE, CZECH, DUTCH, ENGLISH, FRENCH, GERMAN, GREEK, ITALIAN, POLISH, PORTUGUESE, RUSSIAN, SPANISH = range(12)
+
+class ActionType(Enum):
+    '''
+    Action Type
+    '''
+    ACTING_ALTERNATIVELY, ACTING_DIFFERENTLY, ACTING_SIMULTANEOUSLY, DYNAMIC_LOAD_CASE = range(4)
+
+class ImposedLoadCategory(Enum):
+    '''
+    Imposed Load Category
+    '''
+    IMPOSED_LOADS_CATEGORY_A, IMPOSED_LOADS_CATEGORY_B, IMPOSED_LOADS_CATEGORY_C, IMPOSED_LOADS_CATEGORY_D, IMPOSED_LOADS_CATEGORY_E = range(5)
+
+class ActionCombinationItems(Enum):
+    '''
+    Action Combination Items
+    '''
+    ENVELOPE_PERMANENT, ENVELOPE_TRANSIENT, GENERAL, SUPERPOSITION = range(4)

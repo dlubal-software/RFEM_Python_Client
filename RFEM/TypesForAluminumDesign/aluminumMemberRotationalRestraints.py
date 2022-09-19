@@ -1,7 +1,7 @@
 from RFEM.initModel import Model, clearAtributes, ConvertToDlString, GetAddonStatus, SetAddonStatus
 from RFEM.enums import *
 
-class SteelMemberRotationalRestraint():
+class AluminumMemberRotationalRestraint():
     def __init__(self,
                 no: int = 1,
                 user_defined_name: str = '',
@@ -15,28 +15,32 @@ class SteelMemberRotationalRestraint():
                 model = Model):
         """
         Args:
-            no (int): Steel Member Rotational Restraint Tag
+            no (int): Aluminum Member Rotational Restraint Tag
             user_defined_name (str): User Defined Member Rotational Restraint Name
-            definition_type (enum): Steel Member Rotational Restraint Type Enumeration
+                for user_defined_name[0] == False:
+                    pass
+                for user_defined_name == True:
+                    user_defined_name[1] = Defined Name
+            definition_type (enum): Aluminum Member Rotational Restraint Type Enumeration
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
             categories (list): Categories List
-                for definition_type = SteelMemberRotationalRestraintType.TYPE_CONTINUOUS:
+                for definition_type = AluminumMemberRotationalRestraintType.TYPE_CONTINUOUS:
                     categories[0] = Sheeting Material Name
                     categories[1] = Sheeting Name
                     categories[2] = Position of Sheeting
                     categories[3] = Continuous Beam Effect
                     categories[4] = Section Deformation Option
-                for definition_type = SteelMemberRotationalRestraintType.TYPE_DISCRETE:
+                for definition_type = AluminumMemberRotationalRestraintType.TYPE_DISCRETE:
                     categories[0] = Section Material Name
                     categories[1] = Section Name
                     categories[2] = Rotational Stifness
                     categories[3] = Continuous Beam Effect
                     categories[4] = Section Deformation Option
-                for definition_type = SteelMemberRotationalRestraintType.TYPE_MANUALLY:
+                for definition_type = AluminumMemberRotationalRestraintType.TYPE_MANUALLY:
                     categories = None
             parameters (list): Parameters List
-                for definition_type = SteelMemberRotationalRestraintType.TYPE_CONTINUOUS:
+                for definition_type = AluminumMemberRotationalRestraintType.TYPE_CONTINUOUS:
                     parameters[0] = Modulus of Elasticity
                     parameters[1] = Sheeting Thickness
                     parameters[2] = Sheeting Moment of Inertia
@@ -44,29 +48,28 @@ class SteelMemberRotationalRestraint():
                     parameters[4] = Width of Sheeting Flanges
                     parameters[5] = Spring Stiffness
                     parameters[6] = Beam Spacing
-                for definition_type = SteelMemberRotationalRestraintType.TYPE_DISCRETE:
+                for definition_type = AluminumMemberRotationalRestraintType.TYPE_DISCRETE:
                     parameters[0] = Modulus of Elasticity
                     parameters[1] = Section Moment of Inertia
                     parameters[2] = Purlin Spacing
                     parameters[3] = Beam Spacing
-                for definition_type = SteelMemberRotationalRestraintType.TYPE_MANUALLY:
+                for definition_type = AluminumMemberRotationalRestraintType.TYPE_MANUALLY:
                     parameters[0] = Rotational Spring Stifness
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
         """
 
-        # Deducing RFEM Language from steel_design_addon String:
+        # Deducing RFEM Language from aluminum_design_addon String:
         modelInfo = Model.clientModel.service.get_model_info()
-        if modelInfo.property_addon_steel_design.split()[0] != 'Steel':
-            raise Exception("WARNING: The steelMemberRotationalRestraints operates with the RFEM Application set to English. Kindly switch RFEM to English such that Database searches can completed successfully.")
+        if modelInfo.property_addon_aluminum_design.split()[0] != 'Aluminum':
+            raise Exception("WARNING: The aluminumMemberRotationalRestraints operates with the RFEM Application set to English. Kindly switch RFEM to English such that Database searches can completed successfully.")
 
-        # Check if Steel Design Add-on is ON.
-        if not GetAddonStatus(model.clientModel, AddOn.steel_design_active):
-            SetAddonStatus(model.clientModel, AddOn.steel_design_active, True)
+        # Check if Aluminum Design Add-on is ON.
+        SetAddonStatus(model.clientModel, AddOn.aluminum_design_active, True)
 
-        # Client Model / Types For Steel Design Member Rotational Restraints
-        clientObject = model.clientModel.factory.create('ns0:steel_member_rotational_restraint')
+        # Client Model / Types For Aluminum Design Member Rotational Restraints
+        clientObject = model.clientModel.factory.create('ns0:aluminum_member_rotational_restraint')
 
         # Clears Object Attributes / Sets all the attributes to None
         clearAtributes(clientObject)
@@ -129,10 +132,5 @@ class SteelMemberRotationalRestraint():
             for key in params:
                 clientObject[key] = params[key]
 
-        # Adding Steel Member Rotational Restraint to Client Model
-        model.clientModel.service.set_steel_member_rotational_restraint(clientObject)
-
-
-
-
-
+        # Adding Aluminum Member Rotational Restraint to Client Model
+        model.clientModel.service.set_aluminum_member_rotational_restraint(clientObject)

@@ -2,6 +2,7 @@ from RFEM.initModel import Model, clearAtributes, ConvertStrToListOfInt
 from RFEM.enums import LineWeldedJointType, WeldType, WeldLongitudalArrangement
 
 class LineWeldedJoint():
+
     def __init__(self,
                  no: int = 1,
                  lines: str = '5',

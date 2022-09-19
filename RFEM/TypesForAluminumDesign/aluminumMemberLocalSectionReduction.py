@@ -1,5 +1,3 @@
-#SteelMemberLocalSectionReduction
-
 from RFEM.initModel import Model, clearAtributes, ConvertToDlString
 from RFEM.enums import AluminumMemberLocalSectionReductionType, MultipleOffsetDefinitionType, FastenerDefinitionType
 
@@ -24,7 +22,7 @@ class AluminumMemberLocalSectionReduction():
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
             components (list of lists): Components Table Definition
-                components[i][0] (enum): Steel Member Local Section Reduction Type Enumeration
+                components[i][0] (enum): Aluminum Member Local Section Reduction Type Enumeration
                 components[i][1] (float): Position Value
                 components[i][2] (bool): Enable/Disable Multiple Option
                 components[i][3] (enum): Fastener Definition Type Enumeration
@@ -45,8 +43,8 @@ class AluminumMemberLocalSectionReduction():
             model (RFEM Class, optional): Model to be edited
         """
 
-        # Client Model | Types For Steel Member Local Section Reduction
-        clientObject = model.clientModel.factory.create('ns0:steel_member_local_section_reduction')
+        # Client Model | Types For Aluminum Member Local Section Reduction
+        clientObject = model.clientModel.factory.create('ns0:aluminum_member_local_section_reduction')
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
@@ -66,10 +64,10 @@ class AluminumMemberLocalSectionReduction():
             clientObject.name = user_defined_name
 
         #Local Section Reduction Components
-        clientObject.components = model.clientModel.factory.create('ns0:array_of_steel_member_local_section_reduction_components')
+        clientObject.components = model.clientModel.factory.create('ns0:array_of_aluminum_member_local_section_reduction_components')
 
         for i,j in enumerate(components):
-            smlsr = model.clientModel.factory.create('ns0:steel_member_local_section_reduction_components_row')
+            smlsr = model.clientModel.factory.create('ns0:aluminum_member_local_section_reduction_components_row')
             smlsr.no = i+1
             smlsr.row.reduction_type = components[i][0].name
             smlsr.row.position = components[i][1]
@@ -86,7 +84,7 @@ class AluminumMemberLocalSectionReduction():
             else:
                 smlsr.row.multiple_offset_definition_type = None # important
 
-            clientObject.components.steel_member_local_section_reduction_components.append(smlsr)
+            clientObject.components.aluminum_member_local_section_reduction_components.append(smlsr)
 
         # Comment
         clientObject.comment = comment
@@ -96,5 +94,5 @@ class AluminumMemberLocalSectionReduction():
             for key in params:
                 clientObject[key] = params[key]
 
-        #Add Steel Member Local Section Reduction to Client Model
-        model.clientModel.service.set_steel_member_local_section_reduction(clientObject)
+        #Add Aluminum Member Local Section Reduction to Client Model
+        model.clientModel.service.set_aluminum_member_local_section_reduction(clientObject)

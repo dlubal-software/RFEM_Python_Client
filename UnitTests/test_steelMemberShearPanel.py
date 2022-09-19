@@ -9,7 +9,7 @@ sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import SteelMemberShearPanelDefinitionType, SteelMemberShearPanelPositionOnSection, SteelMemberShearPanelFasteningArrangement
 from RFEM.initModel import Model, SetAddonStatus, CheckIfMethodOrTypeExists, AddOn
-from RFEM.TypesForSteelDesign.steelMemberShearPanel import SteelMemberShearPanel
+from RFEM.TypesForSteelDesign.steelMemberShearPanel import AluminumMemberShearPanel
 
 if Model.clientModel is None:
     Model()
@@ -21,13 +21,13 @@ def test_steelMemberShearPanel():
 
     SetAddonStatus(Model.clientModel, AddOn.steel_design_active, True)
 
-    SteelMemberShearPanel()
+    AluminumMemberShearPanel()
 
-    SteelMemberShearPanel(2, [True, "shearPanel"], SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING, "1", "",
+    AluminumMemberShearPanel(2, [True, "shearPanel"], SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING, "1", "",
                          categories=[SteelMemberShearPanelPositionOnSection.POSITION_DEFINE, "FI (+) 35/207 - 0.63 (b: 1) | DIN 18807 | Fischer Profil", SteelMemberShearPanelFasteningArrangement.FASTENING_ARRANGEMENT_EVERY_SECOND_RIB],
                          parameters=[2,4, 0.00043, 0.00056, 0.05])
 
-    SteelMemberShearPanel(3, [False], SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_BRACING, "", "",
+    AluminumMemberShearPanel(3, [False], SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_BRACING, "", "",
                             [SteelMemberShearPanelPositionOnSection.POSITION_ON_UPPER_FLANGE, "CHS 48.3x4 | EN 10210-2 | Condesa", "CHS 33.7x2.3 | EN 10210-2 | Ferona"],
                             [2,4,1,1,0.055, 0.224])
 

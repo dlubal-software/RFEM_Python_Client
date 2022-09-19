@@ -8,7 +8,7 @@ sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import AluminumMemberLocalSectionReductionType, FastenerDefinitionType, MultipleOffsetDefinitionType
 from RFEM.initModel import Model
-from RFEM.TypesForSteelDesign.SteelMemberLocalSectionReduction import AluminumMemberLocalSectionReduction
+from RFEM.TypesForAluminumDesign.aluminumMemberLocalSectionReduction import AluminumMemberLocalSectionReduction
 from RFEM.initModel import AddOn, SetAddonStatus
 
 
@@ -16,11 +16,11 @@ if Model.clientModel is None:
     Model()
 
 
-def test_SteelMemberLocalSectionReduction():
+def test_AluminumMemberLocalSectionReduction():
 
     Model.clientModel.service.begin_modification()
 
-    SetAddonStatus(Model.clientModel, AddOn.steel_design_active, True)
+    SetAddonStatus(Model.clientModel, AddOn.aluminum_design_active, True)
 
     AluminumMemberLocalSectionReduction(1, "", "",
         [
@@ -42,28 +42,25 @@ def test_SteelMemberLocalSectionReduction():
         ], ""
         )
 
-    smlr_1 = Model.clientModel.service.get_steel_member_local_section_reduction(1)
+    smlr_1 = Model.clientModel.service.get_aluminum_member_local_section_reduction(1)
     assert smlr_1.components[0][0].row['position'] == 1
     assert smlr_1.components[0][0].row['multiple'] == False
     assert smlr_1.components[0][0].row['fastener_definition_type'] == 'DEFINITION_TYPE_ABSOLUTE'
     assert smlr_1.components[0][0].row['reduction_area'] == 0.2
 
-    smlr_2 = Model.clientModel.service.get_steel_member_local_section_reduction(2)
+    smlr_2 = Model.clientModel.service.get_aluminum_member_local_section_reduction(2)
     assert smlr_2.components[0][0].row['position'] == 1.2
     assert smlr_2.components[0][0].row['multiple'] == True
     assert smlr_2.components[0][1].row['fastener_definition_type'] == 'DEFINITION_TYPE_RELATIVE'
     assert smlr_2.components[0][1].row['reduction_area_factor'] == 0.20
     assert smlr_2.components[0][0].row['multiple_offset'] == 2
 
-    smlr_3 = Model.clientModel.service.get_steel_member_local_section_reduction(3)
+    smlr_3 = Model.clientModel.service.get_aluminum_member_local_section_reduction(3)
     assert smlr_3.components[0][1].row['position'] == 1.8
     assert smlr_3.components[0][0].row['multiple'] == False
     assert smlr_3.components[0][1].row['multiple'] == True
     assert smlr_3.components[0][1].row['multiple_offset_definition_type'] == 'OFFSET_DEFINITION_TYPE_ABSOLUTE'
     assert smlr_3.components[0][1].row['multiple_offset'] == 0.3
-
-    # assert smlr_1.components[][].row[''] ==
-    # assert Model.clientModel is not None, "WARNING: clientModel is not initialized"
 
     Model.clientModel.service.finish_modification()
 
