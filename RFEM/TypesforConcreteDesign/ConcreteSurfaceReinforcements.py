@@ -57,8 +57,9 @@ class ConcreteSurfaceReinforcements():
         clientObject.no = no
 
         # User Defined Name
-        clientObject.user_defined_name_enabled = True
-        clientObject.name = name
+        if name:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Assigned Surfaces
         clientObject.surfaces = ConvertToDlString(surfaces)

@@ -7,7 +7,7 @@ class LoadCombination():
                  no: int = 1,
                  analysis_type = AnalysisType.ANALYSIS_TYPE_STATIC,
                  design_situation: int = 1,
-                 user_defined_name: str = '',
+                 name: str = '',
                  static_analysis_settings: int = 1,
                  consider_imperfection: bool = False,
                  consider_initial_state: bool = False,
@@ -23,7 +23,7 @@ class LoadCombination():
             no (int): Load Combination Tag
             analysis_type (enum): Analysis Type Enumeration
             design_situation (int): Design Situation
-            user_defined_name (str): User defined Combination Name
+            name (str): User defined Combination Name
             static_analysis_settings (int): Static Analysis Settings Number
             consider_imperfection (bool): Consider Imperfection Options
             consider_initial_state (bool): Consider Initial State
@@ -53,9 +53,9 @@ class LoadCombination():
         clientObject.design_situation = design_situation
 
         # Combination Name
-        if user_defined_name:
+        if name:
             clientObject.user_defined_name_enabled = True
-            clientObject.name = user_defined_name
+            clientObject.name = name
 
         # Analysis Settings Assignment
         clientObject.static_analysis_settings = static_analysis_settings

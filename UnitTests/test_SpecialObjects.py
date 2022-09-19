@@ -135,7 +135,6 @@ def test_special_objects():
     assert rs1.vector_coordinate_1 == 1
     assert rs1.vector_coordinate_2 == 1
     assert rs1.vector_coordinate_3 == 1
-    assert rs1.assigned_to_surfaces == '2 3 4'
 
     rs2 = Model.clientModel.service.get_result_section(2)
     assert rs2.type == ResultSectionType.TYPE_LINE.name

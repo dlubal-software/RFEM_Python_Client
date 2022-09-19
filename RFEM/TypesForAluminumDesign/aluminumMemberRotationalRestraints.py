@@ -1,10 +1,10 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString, GetAddonStatus, SetAddonStatus
+from RFEM.initModel import Model, clearAtributes, ConvertToDlString, SetAddonStatus
 from RFEM.enums import *
 
 class AluminumMemberRotationalRestraint():
     def __init__(self,
                 no: int = 1,
-                user_defined_name: str = '',
+                name: str = '',
                 definition_type = AluminumMemberRotationalRestraintType.TYPE_CONTINUOUS,
                 members: str = "",
                 member_sets: str = "",
@@ -16,11 +16,11 @@ class AluminumMemberRotationalRestraint():
         """
         Args:
             no (int): Aluminum Member Rotational Restraint Tag
-            user_defined_name (str): User Defined Member Rotational Restraint Name
-                for user_defined_name[0] == False:
+            name (str): User Defined Member Rotational Restraint Name
+                for name[0] == False:
                     pass
-                for user_defined_name == True:
-                    user_defined_name[1] = Defined Name
+                for name == True:
+                    name[1] = Defined Name
             definition_type (enum): Aluminum Member Rotational Restraint Type Enumeration
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
@@ -84,9 +84,9 @@ class AluminumMemberRotationalRestraint():
         clientObject.member_sets = ConvertToDlString(member_sets)
 
         # Member Rotational Restraint Name
-        if user_defined_name:
+        if name:
             clientObject.user_defined_name_enabled = True
-            clientObject.name = user_defined_name
+            clientObject.name = name
 
         # Member Rotational Restraint Definition Type
         clientObject.type = definition_type.name

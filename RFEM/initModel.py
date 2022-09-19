@@ -44,10 +44,10 @@ class Model():
     activeSession = False
 
     def __init__(self,
-                 new_model: bool=False,
+                 new_model: bool=True,
                  model_name: str="TestModel.rf6",
-                 delete: bool=True,
-                 delete_all: bool=True):
+                 delete: bool=False,
+                 delete_all: bool=False):
         """
         Class object representing individual model in RFEM.
         Class enables to edit multiple models in one session through holding

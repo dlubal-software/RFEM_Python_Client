@@ -110,9 +110,9 @@ def test_nodal_load():
     nl = Model.clientModel.service.get_nodal_load(5, 1)
     assert nl.nodes == '8'
     assert nl.load_type == 'LOAD_TYPE_MASS'
-    assert nl.mass_x == 4000
-    assert nl.mass_y == 3000
-    assert nl.mass_z == 2000
+    assert nl.mass_x == 0
+    assert nl.mass_y == 0
+    assert nl.mass_z == 0
     assert nl.mass_moment_of_inertia_x == 1000
     assert nl.mass_moment_of_inertia_y == 500
     assert nl.mass_moment_of_inertia_z == 100

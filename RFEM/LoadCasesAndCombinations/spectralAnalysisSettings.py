@@ -48,8 +48,9 @@ class SpectralAnalysisSettings():
         clientObject.no = no
 
         # Name
-        clientObject.name = name
-        clientObject.user_defined_name_enabled = True
+        if name:
+            clientObject.name = name
+            clientObject.user_defined_name_enabled = True
 
         # Periodic Combination
         clientObject.combination_rule_for_periodic_responses = periodic_combination.name

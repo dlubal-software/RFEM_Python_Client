@@ -34,8 +34,9 @@ class ConcreteReinforcementDirection():
         clientObject.no = no
 
         # User Defined Name
-        clientObject.user_defined_name_enabled = True
-        clientObject.name = name
+        if name:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Reinforcement Direction Type
         clientObject.reinforcement_direction_type = reinforcement_direction_type.name

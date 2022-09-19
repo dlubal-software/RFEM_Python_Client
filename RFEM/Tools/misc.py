@@ -333,7 +333,7 @@ def setActionCombination(
     clientObject.generated_load_combinations = generated_load_combinations
     clientObject.generated_result_combinations = generated_result_combinations
     if name:
-        user_defined_name_enabled = True
+        clientObject.user_defined_name_enabled = True
         clientObject.name = name
     clientObject.attribute_always_editable = attribute_always_editable
     clientObject.comment = comment

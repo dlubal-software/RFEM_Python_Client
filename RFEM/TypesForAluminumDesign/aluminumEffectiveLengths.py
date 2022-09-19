@@ -12,7 +12,7 @@ class AluminumEffectiveLengths():
                  lateral_torsional_buckling: bool = True,
                  principal_section_axes: bool = True,
                  geometric_section_axes: bool = True,
-                 user_defined_name: str = 'SEL1',
+                 name: str = 'SEL1',
                  intermediate_nodes: bool = False,
                  different_properties: bool = True,
                  factors_definition_absolute: bool = False,
@@ -32,7 +32,7 @@ class AluminumEffectiveLengths():
             lateral_torsional_buckling (bool): Lateral Torsional Buckling Option
             principal_section_axes (bool): Principal Section Axes Option
             geometric_section_axes (bool): Geometric Section Axes Option
-            user_defined_name (str): User Defined Effective Length Name
+            name (str): User Defined Effective Length Name
             intermediate_nodes (bool): Intermediate Nodes Option
             different_properties (bool): Different Properties Option
             factors_definition_absolute (bool): Absolute Factors Definition Option
@@ -77,9 +77,9 @@ class AluminumEffectiveLengths():
         clientObject.geometric_section_axes = geometric_section_axes
 
         # Effective Lengths User Defined Name
-        if user_defined_name:
+        if name:
             clientObject.user_defined_name_enabled = True
-            clientObject.name = user_defined_name
+            clientObject.name = name
 
         # Effective Lengths Intermediate Points
         clientObject.intermediate_nodes = intermediate_nodes

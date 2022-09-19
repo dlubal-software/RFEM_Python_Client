@@ -4,7 +4,7 @@ from RFEM.enums import AluminumMemberShearPanelDefinitionType, AluminumMemberShe
 class AluminumMemberShearPanel():
     def __init__(self,
                 no: int = 1,
-                user_defined_name: str = '',
+                name: str = '',
                 definition_type = AluminumMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING,
                 members: str = "",
                 member_sets: str = "",
@@ -15,7 +15,7 @@ class AluminumMemberShearPanel():
         """
         Args:
             no (int): Steel Member Shear Panel Tag
-            user_defined_name (str): User Defined Member Shear Panel Name
+            name (str): User Defined Member Shear Panel Name
             definition_type (enum): Steel Member Shear Panel Definition Type Enumeration
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
@@ -88,11 +88,9 @@ class AluminumMemberShearPanel():
         clientObject.member_sets = ConvertToDlString(member_sets)
 
         # Member Shear Panel User Defined Name
-        if user_defined_name:
+        if name:
             clientObject.user_defined_name_enabled = True
-            clientObject.name = user_defined_name
-        else:
-            clientObject.user_defined_name_enabled = user_defined_name[0]
+            clientObject.name = name
 
         # Member Shear Panel Definition Type
         clientObject.definition_type = definition_type.name

@@ -4,7 +4,7 @@ from RFEM.enums import *
 class SteelMemberRotationalRestraint():
     def __init__(self,
                 no: int = 1,
-                user_defined_name: str = '',
+                name: str = '',
                 definition_type = AluminumMemberRotationalRestraintType.TYPE_CONTINUOUS,
                 members: str = "",
                 member_sets: str = "",
@@ -16,7 +16,7 @@ class SteelMemberRotationalRestraint():
         """
         Args:
             no (int): Steel Member Rotational Restraint Tag
-            user_defined_name (str): User Defined Member Rotational Restraint Name
+            name (str): User Defined Member Rotational Restraint Name
             definition_type (enum): Steel Member Rotational Restraint Type Enumeration
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
@@ -81,9 +81,9 @@ class SteelMemberRotationalRestraint():
         clientObject.member_sets = ConvertToDlString(member_sets)
 
         # Member Rotational Restraint Name
-        if user_defined_name:
+        if name:
             clientObject.user_defined_name_enabled = True
-            clientObject.name = user_defined_name
+            clientObject.name = name
 
         # Member Rotational Restraint Definition Type
         clientObject.type = definition_type.name
