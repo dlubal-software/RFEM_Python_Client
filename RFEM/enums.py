@@ -40,6 +40,20 @@ class WeldType(Enum):
     WELD_SINGLE_FILLET, WELD_SINGLE_J, WELD_SINGLE_SQUARE, WELD_SINGLE_U, WELD_SINGLE_V, WELD_V_AND_FILLET = range(15)
 
 
+class WeldComponentType(Enum):
+    '''
+    Aluminum Member Transverse Weld Component | Enum
+    '''
+    WELD_COMPONENT_TYPE_BUTT, WELD_COMPONENT_TYPE_FILLET = range(2)
+
+
+class WeldingMethod(Enum):
+    '''
+    Aluminum Member Transverse Weld Welding Method | Enum
+    '''
+    WELDING_METHOD_TIG, WELDING_METHOD_MIG = range(2)
+
+
 class WeldLongitudalArrangement(Enum):
     """
     Weld Longitudat Arrangement Type | Enum
@@ -2179,7 +2193,7 @@ class MultipleOffsetDefinitionType(Enum):
     '''
     Steel Member Local Section Reduction Multiple Offset Definition Type
     '''
-    OFFSET_DEFINITION_TYPE_ABSOLUTE,OFFSET_DEFINITION_TYPE_RELATIVE = range(2)
+    OFFSET_DEFINITION_TYPE_ABSOLUTE, OFFSET_DEFINITION_TYPE_RELATIVE = range(2)
 
 class CaseObjectType(Enum):
     '''
