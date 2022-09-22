@@ -28,6 +28,7 @@ class Member():
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Member
@@ -112,8 +113,8 @@ class Member():
                     distribution_parameters = [section_alignment]
                 for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES:
                     distribution_parameters = [section_distance_from_start_is_defined_as_relative, section_distance_from_end_is_defined_as_relative,
-                                                section_distance_from_start_relative/absolute, section_distance_from_end_relative/absolute,
-                                                section_alignment, section_internal]
+                                               section_distance_from_start_relative/absolute, section_distance_from_end_relative/absolute,
+                                               section_alignment, section_internal]
                 for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER:
                     distribution_parameters = [section_distance_from_start_is_defined_as_relative, section_distance_from_start_relative/absolute, section_alignment]
                 for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER:
@@ -144,7 +145,15 @@ class Member():
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+                params = {'member_hinge_start':, 'member_hinge_end': , 'member_eccentricity_start': ,
+                          'member_eccentricity_end': 0, 'support':0, 'member_nonlinearity': 0,
+                          'end_modifications_member_start_extension': , 'end_modifications_member_start_slope_y': ,
+                          'end_modifications_member_start_slope_z': , 'end_modifications_member_end_extension': ,
+                          'end_modifications_member_end_slope_y': , 'end_modifications_member_end_slope_z': ,
+                          'member_result_intermediate_point' : , 'is_deactivated_for_calculation' : }
+            model (RFEM Class, optional): Model to be edited
         """
+
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
 
@@ -377,7 +386,12 @@ class Member():
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+                params = {'member_hinge_start':, 'member_hinge_end': , 'member_eccentricity_start': ,
+                          'member_eccentricity_end': , 'support':, 'member_nonlinearity': ,
+                          'member_result_intermediate_point' : , 'is_deactivated_for_calculation' : }
+            model (RFEM Class, optional): Model to be edited
         """
+
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
 
@@ -491,6 +505,12 @@ class Member():
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+                params = {'member_hinge_start':, 'member_hinge_end': , 'support':,
+                          'end_modifications_member_start_extension': , 'end_modifications_member_start_slope_y': ,
+                          'end_modifications_member_start_slope_z': , 'end_modifications_member_end_extension': ,
+                          'end_modifications_member_end_slope_y': , 'end_modifications_member_end_slope_z': ,
+                          'member_result_intermediate_point' : , 'is_deactivated_for_calculation' : }
+            model (RFEM Class, optional): Model to be edited
 
         for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR:
             distribution_parameters[section_alignment] BJÖRN: Where is this parameter used?
@@ -625,7 +645,14 @@ class Member():
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+                params = {'member_eccentricity_start': , 'member_eccentricity_end': , 'member_nonlinearity': ,
+                          'end_modifications_member_start_extension': , 'end_modifications_member_start_slope_y': ,
+                          'end_modifications_member_start_slope_z': , 'end_modifications_member_end_extension': ,
+                          'end_modifications_member_end_slope_y': , 'end_modifications_member_end_slope_z': ,
+                          'is_deactivated_for_calculation' : }
+            model (RFEM Class, optional): Model to be edited
         """
+
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
 
@@ -747,7 +774,14 @@ class Member():
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+                params = {'member_eccentricity_start': , 'member_eccentricity_end': , 'member_nonlinearity': ,
+                          'end_modifications_member_start_extension': , 'end_modifications_member_start_slope_y': ,
+                          'end_modifications_member_start_slope_z': , 'end_modifications_member_end_extension': ,
+                          'end_modifications_member_end_slope_y': , 'end_modifications_member_end_slope_z': ,
+                          'is_deactivated_for_calculation' : }
+            model (RFEM Class, optional): Model to be edited
         """
+
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
 
@@ -869,7 +903,14 @@ class Member():
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+                params = {'member_eccentricity_start': , 'member_eccentricity_end': , 'member_nonlinearity': ,
+                          'end_modifications_member_start_extension': , 'end_modifications_member_start_slope_y': ,
+                          'end_modifications_member_start_slope_z': , 'end_modifications_member_end_extension': ,
+                          'end_modifications_member_end_slope_y': , 'end_modifications_member_end_slope_z': ,
+                          'is_deactivated_for_calculation' : }
+            model (RFEM Class, optional): Model to be edited
         """
+
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
 
@@ -991,7 +1032,14 @@ class Member():
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+                params = {'member_eccentricity_start': , 'member_eccentricity_end': , 'member_nonlinearity': ,
+                          'end_modifications_member_start_extension': , 'end_modifications_member_start_slope_y': ,
+                          'end_modifications_member_start_slope_z': , 'end_modifications_member_end_extension': ,
+                          'end_modifications_member_end_slope_y': , 'end_modifications_member_end_slope_z': ,
+                          'is_deactivated_for_calculation' : }
+            model (RFEM Class, optional): Model to be edited
         """
+
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
 
@@ -1113,7 +1161,14 @@ class Member():
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+                params = {'member_eccentricity_start': , 'member_eccentricity_end': , 'member_nonlinearity': ,
+                          'end_modifications_member_start_extension': , 'end_modifications_member_start_slope_y': ,
+                          'end_modifications_member_start_slope_z': , 'end_modifications_member_end_extension': ,
+                          'end_modifications_member_end_slope_y': , 'end_modifications_member_end_slope_z': ,
+                          'is_deactivated_for_calculation' : }
+            model (RFEM Class, optional): Model to be edited
         """
+
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
 
@@ -1233,7 +1288,13 @@ class Member():
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+                params = {'end_modifications_member_start_extension': , 'end_modifications_member_start_slope_y': ,
+                          'end_modifications_member_start_slope_z': , 'end_modifications_member_end_extension': ,
+                          'end_modifications_member_end_slope_y': , 'end_modifications_member_end_slope_z': ,
+                          'is_deactivated_for_calculation' : }
+            model (RFEM Class, optional): Model to be edited
         """
+
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
 
@@ -1378,8 +1439,13 @@ class Member():
                     integration_parameters = [result_beam_radius]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+                params = {'end_modifications_member_start_extension': , 'end_modifications_member_start_slope_y': ,
+                          'end_modifications_member_start_slope_z': , 'end_modifications_member_end_extension': ,
+                          'end_modifications_member_end_slope_y': , 'end_modifications_member_end_slope_z': ,
+                          'member_result_intermediate_point' : }
             model (RFEM Class, optional): Model to be edited
         """
+
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
 
@@ -1599,8 +1665,12 @@ class Member():
             definable_stiffness (int): Definable Stiffness Tag
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+                params = {'member_hinge_start':, 'member_hinge_end': , 'member_eccentricity_start': ,
+                          'member_eccentricity_end': , 'member_nonlinearity': ,
+                          'member_result_intermediate_point' : , 'is_deactivated_for_calculation' : }
             model (RFEM Class, optional): Model to be edited
         """
+
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
 
@@ -1702,8 +1772,10 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+                params = {'is_deactivated_for_calculation' : }
             model (RFEM Class, optional): Model to be edited
         """
+
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
 
@@ -1781,8 +1853,10 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+                params = {'is_deactivated_for_calculation' : }
             model (RFEM Class, optional): Model to be edited
         """
+
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
 
@@ -1860,8 +1934,10 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+                params = {'is_deactivated_for_calculation' : }
             model (RFEM Class, optional): Model to be edited
         """
+
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
 
@@ -1939,8 +2015,10 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+                params = {'is_deactivated_for_calculation' : }
             model (RFEM Class, optional): Model to be edited
         """
+
         # Client model | Member
         clientObject = model.clientModel.factory.create('ns0:member')
 
