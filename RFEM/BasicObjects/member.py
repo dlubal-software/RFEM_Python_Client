@@ -145,12 +145,12 @@ class Member():
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-                params = {'member_hinge_start':0, 'member_hinge_end': 0, 'member_eccentricity_start': 0,
+                params = {'member_hinge_start':, 'member_hinge_end': , 'member_eccentricity_start': ,
                           'member_eccentricity_end': 0, 'support':0, 'member_nonlinearity': 0,
-                          'end_modifications_member_start_extension': 0, 'end_modifications_member_start_slope_y': 0,
-                          'end_modifications_member_start_slope_z': 0, 'end_modifications_member_end_extension': 0,
-                          'end_modifications_member_end_slope_y': 0, 'end_modifications_member_end_slope_z': 0,
-                          'member_result_intermediate_point' : 0, 'is_deactivated_for_calculation' : False}
+                          'end_modifications_member_start_extension': , 'end_modifications_member_start_slope_y': ,
+                          'end_modifications_member_start_slope_z': , 'end_modifications_member_end_extension': ,
+                          'end_modifications_member_end_slope_y': , 'end_modifications_member_end_slope_z': ,
+                          'member_result_intermediate_point' : , 'is_deactivated_for_calculation' : }
             model (RFEM Class, optional): Model to be edited
         """
 
@@ -386,9 +386,9 @@ class Member():
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-                params = {'member_hinge_start':0, 'member_hinge_end': 0, 'member_eccentricity_start': 0,
-                          'member_eccentricity_end': 0, 'support':0, 'member_nonlinearity': 0,
-                          'member_result_intermediate_point' : 0, 'is_deactivated_for_calculation' : False}
+                params = {'member_hinge_start':, 'member_hinge_end': , 'member_eccentricity_start': ,
+                          'member_eccentricity_end': , 'support':, 'member_nonlinearity': ,
+                          'member_result_intermediate_point' : , 'is_deactivated_for_calculation' : }
             model (RFEM Class, optional): Model to be edited
         """
 
@@ -505,11 +505,11 @@ class Member():
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-                params = {'member_hinge_start':0, 'member_hinge_end': 0, 'support':0,
-                          'end_modifications_member_start_extension': 0, 'end_modifications_member_start_slope_y': 0,
-                          'end_modifications_member_start_slope_z': 0, 'end_modifications_member_end_extension': 0,
-                          'end_modifications_member_end_slope_y': 0, 'end_modifications_member_end_slope_z': 0,
-                          'member_result_intermediate_point' : 0, 'is_deactivated_for_calculation' : False}
+                params = {'member_hinge_start':, 'member_hinge_end': , 'support':,
+                          'end_modifications_member_start_extension': , 'end_modifications_member_start_slope_y': ,
+                          'end_modifications_member_start_slope_z': , 'end_modifications_member_end_extension': ,
+                          'end_modifications_member_end_slope_y': , 'end_modifications_member_end_slope_z': ,
+                          'member_result_intermediate_point' : , 'is_deactivated_for_calculation' : }
             model (RFEM Class, optional): Model to be edited
 
         for section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR:
@@ -645,11 +645,11 @@ class Member():
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-                params = {'member_eccentricity_start': 0, 'member_eccentricity_end': 0, 'member_nonlinearity': 0,
-                          'end_modifications_member_start_extension': 0, 'end_modifications_member_start_slope_y': 0,
-                          'end_modifications_member_start_slope_z': 0, 'end_modifications_member_end_extension': 0,
-                          'end_modifications_member_end_slope_y': 0, 'end_modifications_member_end_slope_z': 0,
-                          'is_deactivated_for_calculation' : False}
+                params = {'member_eccentricity_start': , 'member_eccentricity_end': , 'member_nonlinearity': ,
+                          'end_modifications_member_start_extension': , 'end_modifications_member_start_slope_y': ,
+                          'end_modifications_member_start_slope_z': , 'end_modifications_member_end_extension': ,
+                          'end_modifications_member_end_slope_y': , 'end_modifications_member_end_slope_z': ,
+                          'is_deactivated_for_calculation' : }
             model (RFEM Class, optional): Model to be edited
         """
 
@@ -774,11 +774,11 @@ class Member():
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-                params = {'member_eccentricity_start': 0, 'member_eccentricity_end': 0, 'member_nonlinearity': 0,
-                          'end_modifications_member_start_extension': 0, 'end_modifications_member_start_slope_y': 0,
-                          'end_modifications_member_start_slope_z': 0, 'end_modifications_member_end_extension': 0,
-                          'end_modifications_member_end_slope_y': 0, 'end_modifications_member_end_slope_z': 0,
-                          'is_deactivated_for_calculation' : False}
+                params = {'member_eccentricity_start': , 'member_eccentricity_end': , 'member_nonlinearity': ,
+                          'end_modifications_member_start_extension': , 'end_modifications_member_start_slope_y': ,
+                          'end_modifications_member_start_slope_z': , 'end_modifications_member_end_extension': ,
+                          'end_modifications_member_end_slope_y': , 'end_modifications_member_end_slope_z': ,
+                          'is_deactivated_for_calculation' : }
             model (RFEM Class, optional): Model to be edited
         """
 
@@ -903,11 +903,11 @@ class Member():
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-                params = {'member_eccentricity_start': 0, 'member_eccentricity_end': 0, 'member_nonlinearity': 0,
-                          'end_modifications_member_start_extension': 0, 'end_modifications_member_start_slope_y': 0,
-                          'end_modifications_member_start_slope_z': 0, 'end_modifications_member_end_extension': 0,
-                          'end_modifications_member_end_slope_y': 0, 'end_modifications_member_end_slope_z': 0,
-                          'is_deactivated_for_calculation' : False}
+                params = {'member_eccentricity_start': , 'member_eccentricity_end': , 'member_nonlinearity': ,
+                          'end_modifications_member_start_extension': , 'end_modifications_member_start_slope_y': ,
+                          'end_modifications_member_start_slope_z': , 'end_modifications_member_end_extension': ,
+                          'end_modifications_member_end_slope_y': , 'end_modifications_member_end_slope_z': ,
+                          'is_deactivated_for_calculation' : }
             model (RFEM Class, optional): Model to be edited
         """
 
@@ -1032,11 +1032,11 @@ class Member():
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-                params = {'member_eccentricity_start': 0, 'member_eccentricity_end': 0, 'member_nonlinearity': 0,
-                          'end_modifications_member_start_extension': 0, 'end_modifications_member_start_slope_y': 0,
-                          'end_modifications_member_start_slope_z': 0, 'end_modifications_member_end_extension': 0,
-                          'end_modifications_member_end_slope_y': 0, 'end_modifications_member_end_slope_z': 0,
-                          'is_deactivated_for_calculation' : False}
+                params = {'member_eccentricity_start': , 'member_eccentricity_end': , 'member_nonlinearity': ,
+                          'end_modifications_member_start_extension': , 'end_modifications_member_start_slope_y': ,
+                          'end_modifications_member_start_slope_z': , 'end_modifications_member_end_extension': ,
+                          'end_modifications_member_end_slope_y': , 'end_modifications_member_end_slope_z': ,
+                          'is_deactivated_for_calculation' : }
             model (RFEM Class, optional): Model to be edited
         """
 
@@ -1161,11 +1161,11 @@ class Member():
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-                params = {'member_eccentricity_start': 0, 'member_eccentricity_end': 0, 'member_nonlinearity': 0,
-                          'end_modifications_member_start_extension': 0, 'end_modifications_member_start_slope_y': 0,
-                          'end_modifications_member_start_slope_z': 0, 'end_modifications_member_end_extension': 0,
-                          'end_modifications_member_end_slope_y': 0, 'end_modifications_member_end_slope_z': 0,
-                          'is_deactivated_for_calculation' : False}
+                params = {'member_eccentricity_start': , 'member_eccentricity_end': , 'member_nonlinearity': ,
+                          'end_modifications_member_start_extension': , 'end_modifications_member_start_slope_y': ,
+                          'end_modifications_member_start_slope_z': , 'end_modifications_member_end_extension': ,
+                          'end_modifications_member_end_slope_y': , 'end_modifications_member_end_slope_z': ,
+                          'is_deactivated_for_calculation' : }
             model (RFEM Class, optional): Model to be edited
         """
 
@@ -1288,10 +1288,10 @@ class Member():
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-                params = {'end_modifications_member_start_extension': 0, 'end_modifications_member_start_slope_y': 0,
-                          'end_modifications_member_start_slope_z': 0, 'end_modifications_member_end_extension': 0,
-                          'end_modifications_member_end_slope_y': 0, 'end_modifications_member_end_slope_z': 0,
-                          'is_deactivated_for_calculation' : False}
+                params = {'end_modifications_member_start_extension': , 'end_modifications_member_start_slope_y': ,
+                          'end_modifications_member_start_slope_z': , 'end_modifications_member_end_extension': ,
+                          'end_modifications_member_end_slope_y': , 'end_modifications_member_end_slope_z': ,
+                          'is_deactivated_for_calculation' : }
             model (RFEM Class, optional): Model to be edited
         """
 
@@ -1439,10 +1439,10 @@ class Member():
                     integration_parameters = [result_beam_radius]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-                params = {'end_modifications_member_start_extension': 0, 'end_modifications_member_start_slope_y': 0,
-                          'end_modifications_member_start_slope_z': 0, 'end_modifications_member_end_extension': 0,
-                          'end_modifications_member_end_slope_y': 0, 'end_modifications_member_end_slope_z': 0,
-                          'member_result_intermediate_point' : 0}
+                params = {'end_modifications_member_start_extension': , 'end_modifications_member_start_slope_y': ,
+                          'end_modifications_member_start_slope_z': , 'end_modifications_member_end_extension': ,
+                          'end_modifications_member_end_slope_y': , 'end_modifications_member_end_slope_z': ,
+                          'member_result_intermediate_point' : }
             model (RFEM Class, optional): Model to be edited
         """
 
@@ -1665,9 +1665,9 @@ class Member():
             definable_stiffness (int): Definable Stiffness Tag
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-                params = {'member_hinge_start':0, 'member_hinge_end': 0, 'member_eccentricity_start': 0,
-                          'member_eccentricity_end': 0, 'member_nonlinearity': 0,
-                          'member_result_intermediate_point' : 0, 'is_deactivated_for_calculation' : False}
+                params = {'member_hinge_start':, 'member_hinge_end': , 'member_eccentricity_start': ,
+                          'member_eccentricity_end': , 'member_nonlinearity': ,
+                          'member_result_intermediate_point' : , 'is_deactivated_for_calculation' : }
             model (RFEM Class, optional): Model to be edited
         """
 
@@ -1772,7 +1772,7 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-                params = {'is_deactivated_for_calculation' : False}
+                params = {'is_deactivated_for_calculation' : }
             model (RFEM Class, optional): Model to be edited
         """
 
@@ -1853,7 +1853,7 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-                params = {'is_deactivated_for_calculation' : False}
+                params = {'is_deactivated_for_calculation' : }
             model (RFEM Class, optional): Model to be edited
         """
 
@@ -1934,7 +1934,7 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-                params = {'is_deactivated_for_calculation' : False}
+                params = {'is_deactivated_for_calculation' : }
             model (RFEM Class, optional): Model to be edited
         """
 
@@ -2015,7 +2015,7 @@ class Member():
                     rotation_parameters = [rotation_surface, rotation_surface_plane_type]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-                params = {'is_deactivated_for_calculation' : False}
+                params = {'is_deactivated_for_calculation' : }
             model (RFEM Class, optional): Model to be edited
         """
 
