@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 
 class ImposedLineDeformation():
 
@@ -22,7 +22,7 @@ class ImposedLineDeformation():
         clientObject = Model.clientModel.factory.create('ns0:imposed_line_deformation')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Load No.
         clientObject.no = no

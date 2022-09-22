@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 
 class EnlargedColumnHead():
     def __init__(self,
@@ -10,7 +10,7 @@ class EnlargedColumnHead():
         clientObject = Model.clientModel.factory.create('ns0:enlarged_column_head')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Enlarged Column Head No.
         clientObject.no = no

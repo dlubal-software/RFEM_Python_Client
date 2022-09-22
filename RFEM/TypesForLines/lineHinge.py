@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 from RFEM.dataTypes import inf
 
 class LineHinge():
@@ -35,7 +35,7 @@ class LineHinge():
         clientObject = model.clientModel.factory.create('ns0:line_hinge')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line Hinge No.
         clientObject.no = no

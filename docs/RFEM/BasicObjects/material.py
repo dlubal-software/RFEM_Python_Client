@@ -1,4 +1,4 @@
-from RFEM.initModel import clearAtributes, Model
+from RFEM.initModel import clearAttributes, Model
 
 class Material():
     def __init__(self,
@@ -19,7 +19,7 @@ class Material():
         clientObject = Model.clientModel.factory.create('ns0:material')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Material No.
         clientObject.no = no

@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 from RFEM.enums import ModalSolutionMethod, ModalMassConversionType, ModalMassMatrixType, ModalNeglectMasses
 
 class ModalAnalysisSettings():
@@ -33,7 +33,7 @@ class ModalAnalysisSettings():
         clientObject = model.clientModel.factory.create('ns0:modal_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Static Analysis Settings No.
         clientObject.no = no

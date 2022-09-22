@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import *
 
 class ConcreteUltimateConfiguration():
@@ -30,7 +30,7 @@ class ConcreteUltimateConfiguration():
         clientObject = Model.clientModel.factory.create('ns0:uls_configuration')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Concrete Durability No.
         clientObject.no = no

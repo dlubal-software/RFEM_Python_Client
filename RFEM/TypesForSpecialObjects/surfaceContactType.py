@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 from RFEM.enums import SurfaceContactPerpendicularType, SurfaceContactParallelType, SurfaceContactFrictionType
 
 class SurfaceContactType():
@@ -36,7 +36,7 @@ class SurfaceContactType():
         clientObject = model.clientModel.factory.create('ns0:surfaces_contact_type')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Contact No.
         clientObject.no = no
@@ -102,7 +102,7 @@ class SurfaceContactType():
         clientObject = model.clientModel.factory.create('ns0:surfaces_contact_type')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Contact No.
         clientObject.no = no
@@ -150,7 +150,7 @@ class SurfaceContactType():
         clientObject = model.clientModel.factory.create('ns0:surfaces_contact_type')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Contact No.
         clientObject.no = no
@@ -209,7 +209,7 @@ class SurfaceContactType():
         clientObject = model.clientModel.factory.create('ns0:surfaces_contact_type')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Contact No.
         clientObject.no = no
@@ -267,7 +267,7 @@ class SurfaceContactType():
         clientObject = model.clientModel.factory.create('ns0:surfaces_contact_type')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Contact No.
         clientObject.no = no

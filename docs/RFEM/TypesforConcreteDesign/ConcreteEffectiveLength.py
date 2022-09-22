@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import *
 
 class ConcreteEffectiveLength():
@@ -45,7 +45,7 @@ class ConcreteEffectiveLength():
         clientObject = Model.clientModel.factory.create('ns0:concrete_effective_lengths')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Concrete Durability No.
         clientObject.no = no

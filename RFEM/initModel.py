@@ -118,10 +118,10 @@ class Model():
             self.clientModelLst.pop(index)
             self.clientModel = self.clientModelLst[-1]
 
-def clearAtributes(obj):
+def clearAttributes(obj):
     '''
-    Clears object atributes.
-    Sets all atributes to None.
+    Clears object attributes.
+    Sets all attributes to None.
 
     Args:
         obj: object to clear

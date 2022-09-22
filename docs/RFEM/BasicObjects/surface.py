@@ -22,7 +22,7 @@ class Surface():
         clientObject = Model.clientModel.factory.create('ns0:surface')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface No.
         clientObject.no = no
@@ -73,7 +73,7 @@ class Surface():
         clientObject = Model.clientModel.factory.create('ns0:surface')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface No.
         clientObject.no = no
@@ -120,7 +120,7 @@ class Surface():
         clientObject = Model.clientModel.factory.create('ns0:surface')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface No.
         clientObject.no = no
@@ -166,7 +166,7 @@ class Surface():
         clientObject = Model.clientModel.factory.create('ns0:surface')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface No.
         clientObject.no = no
@@ -214,7 +214,7 @@ class Surface():
         clientObject = Model.clientModel.factory.create('ns0:surface')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface No.
         clientObject.no = no
@@ -263,7 +263,7 @@ class Surface():
         clientObject = Model.clientModel.factory.create('ns0:surface')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface No.
         clientObject.no = no
@@ -318,7 +318,7 @@ class Surface():
         clientObject = Model.clientModel.factory.create('ns0:surface')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface No.
         clientObject.no = no

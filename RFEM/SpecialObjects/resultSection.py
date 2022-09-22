@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import ResultSectionType, ResultSectionProjection, ResultSectionResultDirection
 
 class ResultSection():
@@ -35,7 +35,7 @@ class ResultSection():
         clientObject = model.clientModel.factory.create('ns0:result_section')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Result Section No.
         clientObject.no = no
@@ -118,7 +118,7 @@ class ResultSection():
         clientObject = model.clientModel.factory.create('ns0:result_section')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Result Section No.
         clientObject.no = no
@@ -199,7 +199,7 @@ class ResultSection():
         clientObject = model.clientModel.factory.create('ns0:result_section')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Result Section No.
         clientObject.no = no

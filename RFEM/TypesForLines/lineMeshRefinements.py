@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import LineMeshRefinementsType
 
 class LineMeshRefinements():
@@ -28,7 +28,7 @@ class LineMeshRefinements():
         clientObject = model.clientModel.factory.create('ns0:line_mesh_refinement')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line Mesh Refinement No.
         clientObject.no = no
@@ -77,7 +77,7 @@ class LineMeshRefinements():
         clientObject = model.clientModel.factory.create('ns0:line_mesh_refinement')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line Mesh Refinement No.
         clientObject.no = no
@@ -129,7 +129,7 @@ class LineMeshRefinements():
         clientObject = model.clientModel.factory.create('ns0:line_mesh_refinement')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line Mesh Refinement No.
         clientObject.no = no
@@ -181,7 +181,7 @@ class LineMeshRefinements():
         clientObject = model.clientModel.factory.create('ns0:line_mesh_refinement')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line Mesh Refinement No.
         clientObject.no = no

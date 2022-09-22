@@ -1,6 +1,6 @@
 from pytest import param
 from RFEM.enums import MemberStiffnessModificationType
-from RFEM.initModel import ConvertToDlString, Model, clearAtributes
+from RFEM.initModel import ConvertToDlString, Model, clearAttributes
 
 class MemberStiffnessModification():
     def __init__(self,
@@ -40,7 +40,7 @@ class MemberStiffnessModification():
         clientObject = model.clientModel.factory.create('ns0:member_stiffness_modification')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Stiffness Modification No.
         clientObject.no = no

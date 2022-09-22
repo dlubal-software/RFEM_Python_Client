@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 from RFEM.enums import SolidContactPerpendicularType, SolidContactParallelType
 
 class SolidContact():
@@ -42,7 +42,7 @@ class SolidContact():
         clientObject = model.clientModel.factory.create('ns0:solid_contacts')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Solid Contact No.
         clientObject.no = no

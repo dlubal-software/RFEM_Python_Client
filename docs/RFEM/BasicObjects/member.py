@@ -1,5 +1,5 @@
 from RFEM.enums import MemberType, MemberRotationSpecificationType, MemberSectionDistributionType, MemberTypeRibAlignment, MemberReferenceLengthWidthType, MemberResultBeamIntegration
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 
 class Member():
     def __init__(self,
@@ -31,7 +31,7 @@ class Member():
         clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member No.
         clientObject.no = no
@@ -138,7 +138,7 @@ class Member():
         clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member No.
         clientObject.no = no
@@ -363,7 +363,7 @@ class Member():
         clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member No.
         clientObject.no = no
@@ -473,7 +473,7 @@ class Member():
         clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member No.
         clientObject.no = no
@@ -595,7 +595,7 @@ class Member():
         clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member No.
         clientObject.no = no
@@ -709,7 +709,7 @@ class Member():
         clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member No.
         clientObject.no = no
@@ -823,7 +823,7 @@ class Member():
         clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member No.
         clientObject.no = no
@@ -937,7 +937,7 @@ class Member():
         clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member No.
         clientObject.no = no
@@ -1051,7 +1051,7 @@ class Member():
         clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member No.
         clientObject.no = no
@@ -1163,7 +1163,7 @@ class Member():
         clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member No.
         clientObject.no = no
@@ -1301,7 +1301,7 @@ class Member():
         clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member No
         clientObject.no = no
@@ -1518,7 +1518,7 @@ class Member():
         clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member No.
         clientObject.no = no
@@ -1617,7 +1617,7 @@ class Member():
         clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member No.
         clientObject.no = no
@@ -1692,7 +1692,7 @@ class Member():
         clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member No.
         clientObject.no = no
@@ -1767,7 +1767,7 @@ class Member():
         clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member No.
         clientObject.no = no
@@ -1842,7 +1842,7 @@ class Member():
         clientObject = Model.clientModel.factory.create('ns0:member')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member No.
         clientObject.no = no

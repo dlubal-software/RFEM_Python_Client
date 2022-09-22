@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 from RFEM.enums import StabilityAnalysisSettingsAnalysisType
 from RFEM.enums import StabilityAnalysisSettingsEigenvalueMethod
 from RFEM.enums import StabilityAnalysisSettingsMatrixType
@@ -23,7 +23,7 @@ class StabilityAnalysisSettings():
         clientObject = model.clientModel.factory.create('ns0:stability_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Stability Analysis Settings No.
         clientObject.no = no
@@ -101,7 +101,7 @@ class StabilityAnalysisSettings():
         clientObject = model.clientModel.factory.create('ns0:stability_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Stability Analysis Settings No.
         clientObject.no = no
@@ -223,7 +223,7 @@ class StabilityAnalysisSettings():
         clientObject = model.clientModel.factory.create('ns0:stability_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Stability Analysis Settings No.
         clientObject.no = no
@@ -354,7 +354,7 @@ class StabilityAnalysisSettings():
         clientObject = model.clientModel.factory.create('ns0:stability_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Stability Analysis Settings No.
         clientObject.no = no

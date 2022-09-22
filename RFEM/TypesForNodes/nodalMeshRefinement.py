@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 from RFEM.enums import NodalMeshRefinementType
 from enum import Enum
 
@@ -35,7 +35,7 @@ class NodalMeshRefinement():
         clientObject = model.clientModel.factory.create('ns0:nodal_mesh_refinement')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Nodal Mesh Refinement No.
         clientObject.no = no
@@ -97,7 +97,7 @@ class NodalMeshRefinement():
         clientObject = model.clientModel.factory.create('ns0:nodal_mesh_refinement')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Nodal Mesh Refinement No.
         clientObject.no = no
@@ -151,7 +151,7 @@ class NodalMeshRefinement():
         clientObject = model.clientModel.factory.create('ns0:nodal_mesh_refinement')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Nodal Mesh Refinement No.
         clientObject.no = no

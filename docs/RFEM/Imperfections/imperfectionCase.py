@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 
 class ImperfectionCase():
     def __init__(self,
@@ -18,7 +18,7 @@ class ImperfectionCase():
         clientObject = Model.clientModel.factory.create('ns0:imperfection_case')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Imperfection Case No.
         clientObject.no = no

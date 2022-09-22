@@ -1,4 +1,4 @@
-from RFEM.initModel import Model,clearAtributes
+from RFEM.initModel import Model,clearAttributes
 
 class DesignSituation():
     def __init__(self,
@@ -54,7 +54,7 @@ class DesignSituation():
         clientObject = Model.clientModel.factory.create('ns0:design_situation')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Design Situation No.
         clientObject.no = no
