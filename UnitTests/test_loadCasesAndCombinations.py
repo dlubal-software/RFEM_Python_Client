@@ -31,6 +31,6 @@ def test_load_cases_and_combinations():
 
     combConfig = Model.clientModel.service.get_load_cases_and_combinations()
 
-    assert combConfig[0] == 6067
-    assert combConfig[4] == False
+    assert combConfig.current_standard_for_combination_wizard == 6067
+    assert combConfig.result_combinations_parentheses_active == False
 
