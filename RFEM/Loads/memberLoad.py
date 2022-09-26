@@ -23,6 +23,7 @@ class MemberLoad():
             magnitude (float): Load Magnitude
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member Load
         clientObject = model.clientModel.factory.create('ns0:member_load')
