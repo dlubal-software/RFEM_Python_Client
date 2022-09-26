@@ -7,17 +7,17 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.initModel import Model
-from RFEM.LoadCasesAndCombinations.combinationWizard import CombinationWizard
+from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 
 if Model.clientModel is None:
     Model()
 
-def test_combination_wizard():
+def test_load_cases_and_combinations():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    CombinationWizard(
+    LoadCasesAndCombinations(
         params = {
         "current_standard_for_combination_wizard": 6067,
         "activate_combination_wizard_and_classification": True,
@@ -29,8 +29,8 @@ def test_combination_wizard():
 
     Model.clientModel.service.finish_modification()
 
-    combWizard = Model.clientModel.service.get_load_cases_and_combinations()
+    combConfig = Model.clientModel.service.get_load_cases_and_combinations()
 
-    assert combWizard[0] == 6067
-    assert combWizard[4] == False
+    assert combConfig[0] == 6067
+    assert combConfig[4] == False
 

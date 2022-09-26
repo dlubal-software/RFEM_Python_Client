@@ -1,6 +1,6 @@
 from RFEM.initModel import Model, clearAtributes
 
-class CombinationWizard():
+class LoadCasesAndCombinations():
 
     def __init__(self,
                  params: dict = {
