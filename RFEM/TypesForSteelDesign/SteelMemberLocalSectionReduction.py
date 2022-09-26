@@ -28,16 +28,16 @@ class SteelMemberLocalSectionReduction():
                 components[i][1] (float): Position Value
                 components[i][2] (bool): Enable/Disable Multiple Option
                 components[i][3] (enum): Fastener Definition Type Enumeration
-                for components[i][3] == FastenerDefinitionType.DEFINITION_TYPE_ABSOLUTE
+                for components[i][3] == FastenerDefinitionType.DEFINITION_TYPE_ABSOLUTE;
                     components[i][4] (float): Reduction Area
-                for components[i][3] == FastenerDefinitionType.DEFINITION_TYPE_RELATIVE
+                for components[i][3] == FastenerDefinitionType.DEFINITION_TYPE_RELATIVE;
                     components[i][4] (float): Reduction Area Factor (value must be between 0.0 and 1.0)
                 if components[i][2] == True
                     components[i][5] (int): Multiple Number
                     components[i][6] (enum): Multiple Offset Definition Type Enumeration
-                    for MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE
+                    for components[i][6] == MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE;
                         components[i][7] (float): Multiple Offset Value
-                    for MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_RELATIVE
+                    for components[i][6] == MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_RELATIVE;
                         components[i][7] (float): Multiple Offset Value (value must be between 0.0 and 1.0)
             user_defined_name (str): User Defined  Member Local Section Reduction Name
             comment (str): Comments
