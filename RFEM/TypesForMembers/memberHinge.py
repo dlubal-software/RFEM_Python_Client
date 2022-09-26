@@ -59,22 +59,22 @@ class MemberHinge():
         # Coordinate System
         clientObject.coordinate_system = coordinate_system
 
-        # Translational Release/Spring [kN/m] N
+        # Translational Release/Spring [N/m] N
         clientObject.axial_release_n = translational_release_n
 
-        # Translational Release/Spring [kN/m] Vy
+        # Translational Release/Spring [N/m] Vy
         clientObject.axial_release_vy = translational_release_vy
 
-        # Translational Release/Spring [kN/m] Vz
+        # Translational Release/Spring [N/m] Vz
         clientObject.axial_release_vz = translational_release_vz
 
-        # Rotational Release/Spring [kNm/rad] Mt
+        # Rotational Release/Spring [Nm/rad] Mt
         clientObject.moment_release_mt = rotational_release_mt
 
-        # Rotational Release/Spring [kNm/rad] My
+        # Rotational Release/Spring [Nm/rad] My
         clientObject.moment_release_my = rotational_release_my
 
-        # Rotational Release/Spring [kNm/rad] Mz
+        # Rotational Release/Spring [Nm/rad] Mz
         clientObject.moment_release_mz = rotational_release_mz
 
         # Translational Release N Nonlinearity
