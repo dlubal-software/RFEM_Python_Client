@@ -3,7 +3,6 @@ from RFEM.initModel import Model, clearAtributes
 class CombinationWizard():
 
     def __init__(self,
-                 comment: str = '',
                  params: dict = {
                     "current_standard_for_combination_wizard": 6207,
                     "activate_combination_wizard_and_classification": True,
@@ -17,7 +16,6 @@ class CombinationWizard():
 
         """
         Args:
-            comment(str, optional): Comments
             params(dict, optional): Combination Wizard Parameters
 
                         National Annex                                      Codes
@@ -154,9 +152,6 @@ class CombinationWizard():
 
         # Clears object atributes | Sets all atributes to None
         clearAtributes(clientObject)
-
-        # Comment
-        clientObject.comment = comment
 
         # Adding optional parameters via dictionary
         if params:
