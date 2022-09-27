@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 
 class SurfaceContact():
     def __init__(self,
@@ -26,7 +26,7 @@ class SurfaceContact():
         clientObject = model.clientModel.factory.create('ns0:surfaces_contact')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surfaces Contact No.
         clientObject.no = no

@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString, GetAddonStatus, SetAddonStatus
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString, GetAddonStatus, SetAddonStatus
 from RFEM.enums import MemberTransverseStiffenerType, MemberTransverseStiffenerPosition, MemberTransverseStiffenerOffsetType, MemberTransverseStiffenerDefinitionType, AddOn
 
 class MemberTransverseStiffeners():
@@ -61,7 +61,7 @@ class MemberTransverseStiffeners():
         clientObject= model.clientModel.factory.create('ns0:member_transverse_stiffener')
 
         # Clear Object Atributes | Set All Atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Transverse Stiffeners No.
         clientObject.no = no

@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, ConvertToDlString, clearAtributes
+from RFEM.initModel import Model, ConvertToDlString, clearAttributes
 from RFEM.enums import *
 
 class LineSetLoad():
@@ -32,7 +32,7 @@ class LineSetLoad():
         clientObject = model.clientModel.factory.create('ns0:line_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Lineset Load No.
         clientObject.no = no
@@ -120,7 +120,7 @@ class LineSetLoad():
         clientObject = model.clientModel.factory.create('ns0:line_set_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Lineset Load No.
         clientObject.no = no
@@ -372,7 +372,7 @@ class LineSetLoad():
         clientObject = model.clientModel.factory.create('ns0:line_set_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Lineset Load No.
         clientObject.no = no
@@ -605,7 +605,7 @@ class LineSetLoad():
         clientObject = model.clientModel.factory.create('ns0:line_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line Load No.
         clientObject.no = no

@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 
 class SolidContact():
     def __init__(self,
@@ -10,7 +10,7 @@ class SolidContact():
         clientObject = Model.clientModel.factory.create('ns0:solid_contacts')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Solid Contact No.
         clientObject.no = no

@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import MemberImperfectionType, MemberImperfectionDefinitionType
 from RFEM.enums import ImperfectionDirection, MemberImperfectionActiveCriterion
 
@@ -36,7 +36,7 @@ class MemberSetImperfection():
         clientObject = model.clientModel.factory.create('ns0:member_set_imperfection')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Imperfection No.
         clientObject.no = no

@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 
 class SurfaceEccentricity():
     def __init__(self,
@@ -10,7 +10,7 @@ class SurfaceEccentricity():
         clientObject = Model.clientModel.factory.create('ns0:surface_eccentricity')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Eccentricity No.
         clientObject.no = no

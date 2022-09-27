@@ -1,5 +1,5 @@
 from RFEM.enums import MemberHingeNonlineartiy
-from RFEM.initModel import ConvertToDlString, Model, clearAtributes
+from RFEM.initModel import ConvertToDlString, Model, clearAttributes
 from RFEM.dataTypes import inf
 
 class MemberHinge():
@@ -48,7 +48,7 @@ class MemberHinge():
         clientObject = model.clientModel.factory.create('ns0:member_hinge')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Hinge No.
         clientObject.no = no

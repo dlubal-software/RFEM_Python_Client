@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 
 class Opening():
     def __init__(self,
@@ -19,7 +19,7 @@ class Opening():
         clientObject = Model.clientModel.factory.create('ns0:opening')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Opening No.
         clientObject.no = no

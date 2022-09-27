@@ -1,5 +1,5 @@
 from pydoc import cli
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import ImperfectionType, ImperfectionCaseDirection, DirectionForLevelDirection
 from RFEM.enums import ImperfectionCaseSourceType, ImperfectionCaseAssignmentType
 
@@ -37,7 +37,7 @@ class ImperfectionCase():
         clientObject = model.clientModel.factory.create('ns0:imperfection_case')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Imperfection Case No.
         clientObject.no = no
@@ -97,7 +97,7 @@ class ImperfectionCase():
         clientObject = model.clientModel.factory.create('ns0:imperfection_case')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Imperfection Case No.
         clientObject.no = no
@@ -165,7 +165,7 @@ class ImperfectionCase():
         clientObject = model.clientModel.factory.create('ns0:imperfection_case')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Imperfection Case No.
         clientObject.no = no
@@ -255,7 +255,7 @@ class ImperfectionCase():
         clientObject = model.clientModel.factory.create('ns0:imperfection_case')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Imperfection Case No.
         clientObject.no = no
@@ -333,7 +333,7 @@ class ImperfectionCase():
         clientObject = model.clientModel.factory.create('ns0:imperfection_case')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Imperfection Case No.
         clientObject.no = no
@@ -421,7 +421,7 @@ class ImperfectionCase():
         clientObject = model.clientModel.factory.create('ns0:imperfection_case')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Imperfection Case No.
         clientObject.no = no

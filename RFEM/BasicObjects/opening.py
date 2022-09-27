@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString, ConvertStrToListOfInt
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString, ConvertStrToListOfInt
 from RFEM.enums import ObjectTypes
 
 class Opening():
@@ -22,7 +22,7 @@ class Opening():
         clientObject = model.clientModel.factory.create('ns0:opening')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Opening No.
         clientObject.no = no

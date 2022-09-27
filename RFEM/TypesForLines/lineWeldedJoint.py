@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertStrToListOfInt
+from RFEM.initModel import Model, clearAttributes, ConvertStrToListOfInt
 from RFEM.enums import LineWeldedJointType, WeldType, WeldLongitudalArrangement
 
 class LineWeldedJoint():
@@ -31,7 +31,7 @@ class LineWeldedJoint():
         clientObject = model.clientModel.factory.create('ns0:line_welded_joint')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line Welded Joint No.
         clientObject.no = no

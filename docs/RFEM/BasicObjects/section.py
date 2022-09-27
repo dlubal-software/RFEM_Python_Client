@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 
 class Section():
     def __init__(self,
@@ -21,7 +21,7 @@ class Section():
         clientObject = Model.clientModel.factory.create('ns0:section')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Section No.
         clientObject.no = no

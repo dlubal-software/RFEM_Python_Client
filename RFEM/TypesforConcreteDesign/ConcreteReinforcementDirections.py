@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import ReinforcementDirectionType
 from math import pi
 
@@ -28,7 +28,7 @@ class ConcreteReinforcementDirection():
         clientObject = model.clientModel.factory.create('ns0:reinforcement_direction')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Concrete Durability No.
         clientObject.no = no

@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import SetType
 
 class SurfaceSet():
@@ -22,7 +22,7 @@ class SurfaceSet():
         clientObject = Model.clientModel.factory.create('ns0:surface_set')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Set No.
         clientObject.no = no
@@ -62,7 +62,7 @@ class SurfaceSet():
         clientObject = Model.clientModel.factory.create('ns0:surface_set')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Set No.
         clientObject.no = no
@@ -101,7 +101,7 @@ class SurfaceSet():
         clientObject = Model.clientModel.factory.create('ns0:surface_set')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Set No.
         clientObject.no = no

@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString, GetAddonStatus, SetAddonStatus
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString, GetAddonStatus, SetAddonStatus
 from RFEM.enums import *
 
 class SteelMemberRotationalRestraint():
@@ -73,7 +73,7 @@ class SteelMemberRotationalRestraint():
         clientObject = model.clientModel.factory.create('ns0:steel_member_rotational_restraint')
 
         # Clears Object Attributes / Sets all the attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Rotational Restraint No.
         clientObject.no = no

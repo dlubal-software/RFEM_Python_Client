@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 from RFEM.enums import GlobalAxesOrientationType, LocalAxesOrientationType
 
 class BaseSettings():
@@ -24,7 +24,7 @@ class BaseSettings():
         clientObject = Model.clientModel.factory.create('ns0:model_settings_and_options_type')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Gravitational Acceleration
         clientObject.gravitational_acceleration = gravitational_acceleration

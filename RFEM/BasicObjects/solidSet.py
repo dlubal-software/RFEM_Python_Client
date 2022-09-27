@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import SetType
 
 class SolidSet():
@@ -24,7 +24,7 @@ class SolidSet():
         clientObject = model.clientModel.factory.create('ns0:solid_set')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Solid Set No.
         clientObject.no = no
@@ -67,7 +67,7 @@ class SolidSet():
         clientObject = model.clientModel.factory.create('ns0:solid_set')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Solid Set No.
         clientObject.no = no
@@ -110,7 +110,7 @@ class SolidSet():
         clientObject = model.clientModel.factory.create('ns0:solid_set')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Solid Set No.
         clientObject.no = no
