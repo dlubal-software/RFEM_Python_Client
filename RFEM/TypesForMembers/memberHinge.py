@@ -349,8 +349,8 @@ class MemberHinge():
             for i,j in enumerate(rotational_release_mt_nonlinearity[1][2]):
                 mlvlp = Model.clientModel.factory.create('ns0:member_hinge_diagram_around_x_table_row')
                 mlvlp.no = i+1
-                mlvlp.row.displacement = rotational_release_mt_nonlinearity[1][2][i][0]
-                mlvlp.row.force = rotational_release_mt_nonlinearity[1][2][i][1]
+                mlvlp.row.rotation = rotational_release_mt_nonlinearity[1][2][i][0]
+                mlvlp.row.moment = rotational_release_mt_nonlinearity[1][2][i][1]
                 mlvlp.row.spring = rotational_release_mt_nonlinearity[1][2][i][2]
                 mlvlp.row.note = None
 
@@ -410,8 +410,8 @@ class MemberHinge():
             for i,j in enumerate(rotational_release_my_nonlinearity[1][2]):
                 mlvlp = Model.clientModel.factory.create('ns0:member_hinge_diagram_around_y_table_row')
                 mlvlp.no = i+1
-                mlvlp.row.displacement = rotational_release_my_nonlinearity[1][2][i][0]
-                mlvlp.row.force = rotational_release_my_nonlinearity[1][2][i][1]
+                mlvlp.row.rotation = rotational_release_my_nonlinearity[1][2][i][0]
+                mlvlp.row.moment = rotational_release_my_nonlinearity[1][2][i][1]
                 mlvlp.row.spring = rotational_release_my_nonlinearity[1][2][i][2]
                 mlvlp.row.note = None
 
@@ -469,8 +469,8 @@ class MemberHinge():
             for i,j in enumerate(rotational_release_mz_nonlinearity[1][2]):
                 mlvlp = Model.clientModel.factory.create('ns0:member_hinge_diagram_around_z_table_row')
                 mlvlp.no = i+1
-                mlvlp.row.displacement = rotational_release_mz_nonlinearity[1][2][i][0]
-                mlvlp.row.force = rotational_release_mz_nonlinearity[1][2][i][1]
+                mlvlp.row.rotation = rotational_release_mz_nonlinearity[1][2][i][0]
+                mlvlp.row.moment = rotational_release_mz_nonlinearity[1][2][i][1]
                 mlvlp.row.spring = rotational_release_mz_nonlinearity[1][2][i][2]
                 mlvlp.row.note = None
 
