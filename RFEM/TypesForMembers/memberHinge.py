@@ -407,6 +407,8 @@ class MemberHinge():
             clientObject.diagram_around_y_start = rotational_release_my_nonlinearity[1][0].name
             clientObject.diagram_around_y_end = rotational_release_my_nonlinearity[1][1].name
 
+            clientObject.diagram_around_y_table = Model.clientModel.factory.create('ns0:member_hinge.diagram_around_y_table')
+
             for i,j in enumerate(rotational_release_my_nonlinearity[1][2]):
                 mlvlp = Model.clientModel.factory.create('ns0:member_hinge_diagram_around_y_table_row')
                 mlvlp.no = i+1
@@ -465,6 +467,8 @@ class MemberHinge():
             clientObject.moment_release_my_nonlinearity = rotational_release_mz_nonlinearity[0].name
             clientObject.diagram_around_z_start = rotational_release_mz_nonlinearity[1][0].name
             clientObject.diagram_around_z_end = rotational_release_mz_nonlinearity[1][1].name
+
+            clientObject.diagram_around_z_table = Model.clientModel.factory.create('ns0:member_hinge.diagram_around_z_table')
 
             for i,j in enumerate(rotational_release_mz_nonlinearity[1][2]):
                 mlvlp = Model.clientModel.factory.create('ns0:member_hinge_diagram_around_z_table_row')
