@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 
 class LoadCasesAndCombinations():
 
@@ -151,7 +151,7 @@ class LoadCasesAndCombinations():
         clientObject = model.clientModel.factory.create('ns0:load_cases_and_combinations')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Adding optional parameters via dictionary
         if params:

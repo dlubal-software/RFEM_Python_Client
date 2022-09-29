@@ -1,6 +1,6 @@
 # TODO: only in pre-release status
 #
-#from RFEM.initModel import Model, clearAtributes
+#from RFEM.initModel import Model, clearAttributes
 #
 #class EnlargedColumnHead():
 #    def __init__(self,
@@ -13,7 +13,7 @@
 #        clientObject = model.clientModel.factory.create('ns0:enlarged_column_head')
 #
 #        # Clears object atributes | Sets all atributes to None
-#        clearAtributes(clientObject)
+#        clearAttributes(clientObject)
 #
 #        # Enlarged Column Head No.
 #        clientObject.no = no

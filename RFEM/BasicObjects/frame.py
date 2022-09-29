@@ -1,4 +1,4 @@
-# from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+# from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 
 # class Frame():
 #     def __init__(self,
@@ -37,7 +37,7 @@
 #         clientObject = clientModel.factory.create('ns0:member')
 
 #         # Clears object atributes | Sets all atributes to None
-#         clearAtributes(clientObject)
+#         clearAttributes(clientObject)
 
 #  -------------------------------------------------------------------------
 #         # Number of frames: da soll man eine Funktion zu clientModel. herstellen... oder?
