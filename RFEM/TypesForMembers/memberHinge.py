@@ -400,8 +400,6 @@ class MemberHinge():
                 clientObject.partial_activity_around_y_positive_force = rotational_release_my_nonlinearity[2][1]
                 clientObject.partial_activity_around_y_positive_slippage = rotational_release_my_nonlinearity[2][2]
 
-            clientObject.diagram_around_y_table = Model.clientModel.factory.create('ns0:member_hinge.diagram_around_y_table')
-
         elif rotational_release_my_nonlinearity[0].name == "NONLINEARITY_TYPE_DIAGRAM":
             clientObject.moment_release_my_nonlinearity = rotational_release_my_nonlinearity[0].name
             clientObject.diagram_around_y_start = rotational_release_my_nonlinearity[1][0].name
