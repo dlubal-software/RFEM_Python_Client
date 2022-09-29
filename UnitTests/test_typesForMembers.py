@@ -57,10 +57,10 @@ def test_memberHinge():
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    MemberHinge(1, "Local", "", 4000, translational_release_n_nonlinearity=[MemberHingeNonlineartiy.NONLINEARITY_TYPE_PARTIAL_ACTIVITY, [MemberHingePartialActivityType.PARTIAL_ACTIVITY_TYPE_COMPLETE, 8000], [MemberHingePartialActivityType.PARTIAL_ACTIVITY_TYPE_COMPLETE, 9000]])
-    MemberHinge(2, "Local", "", 2000, translational_release_n_nonlinearity=[MemberHingeNonlineartiy.NONLINEARITY_TYPE_FRICTION_DIRECTION_1, [0.5]])
-    MemberHinge(3, "Local", "", translational_release_vy=0, translational_release_vy_nonlinearity=[MemberHingeNonlineartiy.NONLINEARITY_TYPE_DIAGRAM, [MemberHingeDiagramType.DIAGRAM_ENDING_TYPE_CONTINUOUS, MemberHingeDiagramType.DIAGRAM_ENDING_TYPE_CONTINUOUS, [[1,2, 3], [3,4, 5]]]])
-    MemberHinge(4, "Local", "", translational_release_vz=0, translational_release_vz_nonlinearity=[MemberHingeNonlineartiy.NONLINEARITY_TYPE_PARTIAL_ACTIVITY, [MemberHingePartialActivityType.PARTIAL_ACTIVITY_TYPE_FIXED, 0.004], [MemberHingePartialActivityType.PARTIAL_ACTIVITY_TYPE_FIXED, 0.005]])
+    MemberHinge(1, "Local", "", 4000, translational_release_n_nonlinearity=[MemberHingeNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY, [MemberHingePartialActivityType.PARTIAL_ACTIVITY_TYPE_COMPLETE, 8000], [MemberHingePartialActivityType.PARTIAL_ACTIVITY_TYPE_COMPLETE, 9000]])
+    MemberHinge(2, "Local", "", 2000, translational_release_n_nonlinearity=[MemberHingeNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1, [0.5]])
+    MemberHinge(3, "Local", "", translational_release_vy=0, translational_release_vy_nonlinearity=[MemberHingeNonlinearity.NONLINEARITY_TYPE_DIAGRAM, [MemberHingeDiagramType.DIAGRAM_ENDING_TYPE_CONTINUOUS, MemberHingeDiagramType.DIAGRAM_ENDING_TYPE_CONTINUOUS, [[1,2, 3], [3,4, 5]]]])
+    MemberHinge(4, "Local", "", translational_release_vz=0, translational_release_vz_nonlinearity=[MemberHingeNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY, [MemberHingePartialActivityType.PARTIAL_ACTIVITY_TYPE_FIXED, 0.004], [MemberHingePartialActivityType.PARTIAL_ACTIVITY_TYPE_FIXED, 0.005]])
 
     Model.clientModel.service.finish_modification()
 

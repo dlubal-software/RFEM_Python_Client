@@ -1,4 +1,4 @@
-from RFEM.enums import MemberHingeNonlineartiy
+from RFEM.enums import MemberHingeNonlinearity
 from RFEM.initModel import ConvertToDlString, Model, clearAttributes
 from RFEM.dataTypes import inf
 
@@ -13,12 +13,12 @@ class MemberHinge():
                  rotational_release_mt: float = inf,
                  rotational_release_my: float = 0.0,
                  rotational_release_mz: float = 0.0,
-                 translational_release_n_nonlinearity = [MemberHingeNonlineartiy.NONLINEARITY_TYPE_NONE],
-                 translational_release_vy_nonlinearity = [MemberHingeNonlineartiy.NONLINEARITY_TYPE_NONE],
-                 translational_release_vz_nonlinearity = [MemberHingeNonlineartiy.NONLINEARITY_TYPE_NONE],
-                 rotational_release_mt_nonlinearity = [MemberHingeNonlineartiy.NONLINEARITY_TYPE_NONE],
-                 rotational_release_my_nonlinearity = [MemberHingeNonlineartiy.NONLINEARITY_TYPE_NONE],
-                 rotational_release_mz_nonlinearity = [MemberHingeNonlineartiy.NONLINEARITY_TYPE_NONE],
+                 translational_release_n_nonlinearity = [MemberHingeNonlinearity.NONLINEARITY_TYPE_NONE],
+                 translational_release_vy_nonlinearity = [MemberHingeNonlinearity.NONLINEARITY_TYPE_NONE],
+                 translational_release_vz_nonlinearity = [MemberHingeNonlinearity.NONLINEARITY_TYPE_NONE],
+                 rotational_release_mt_nonlinearity = [MemberHingeNonlinearity.NONLINEARITY_TYPE_NONE],
+                 rotational_release_my_nonlinearity = [MemberHingeNonlinearity.NONLINEARITY_TYPE_NONE],
+                 rotational_release_mz_nonlinearity = [MemberHingeNonlinearity.NONLINEARITY_TYPE_NONE],
                  comment: str = '',
                  params: dict = None,
                  model = Model):
