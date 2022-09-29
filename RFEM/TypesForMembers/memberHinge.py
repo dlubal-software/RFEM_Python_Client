@@ -462,7 +462,7 @@ class MemberHinge():
                 clientObject.partial_activity_around_z_positive_slippage = rotational_release_mz_nonlinearity[2][2]
 
         elif rotational_release_mz_nonlinearity[0].name == "NONLINEARITY_TYPE_DIAGRAM":
-            clientObject.moment_release_my_nonlinearity = rotational_release_mz_nonlinearity[0].name
+            clientObject.moment_release_mz_nonlinearity = rotational_release_mz_nonlinearity[0].name
             clientObject.diagram_around_z_start = rotational_release_mz_nonlinearity[1][0].name
             clientObject.diagram_around_z_end = rotational_release_mz_nonlinearity[1][1].name
 
