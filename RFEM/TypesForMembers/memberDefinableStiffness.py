@@ -3,7 +3,7 @@ from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 class MemberDefinableStiffness():
     def __init__(self,
                  no: int = 1,
-                 name: list = [False],
+                 name: str = '',
                  members: str = "1",
                  torsional_stiffness: float = 0.0,
                  bending_stiffness_y: float = 0.0,
@@ -23,9 +23,7 @@ class MemberDefinableStiffness():
         """
         Args:
             no (int): Member Definable Stiffness Tag
-            name (list): User Defined Name
-                if name[0] == True:
-                    name[1] == Uer Defined Name
+            name (str): User Defined Name
             members (str): Assigned Members
             torsional_stiffness (float): Torsional Stiffness
             bending_stiffness_y (float): Bending Stiffness in Y Direction
@@ -54,11 +52,9 @@ class MemberDefinableStiffness():
         clientObject.no = no
 
         # User Defined Name
-        if name[0]:
+        if name:
             clientObject.user_defined_name_enabled = True
-            clientObject.name = name[1]
-        else:
-            clientObject.user_defined_name_enabled = False
+            clientObject.name = name
 
         # Assigned Members (e.g. '5 6 7 12')
         clientObject.assigned_to = ConvertToDlString(members)

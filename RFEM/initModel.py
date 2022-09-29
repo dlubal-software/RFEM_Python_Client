@@ -45,7 +45,7 @@ class Model():
 
     def __init__(self,
                  new_model: bool=True,
-                 model_name: str="TestModel",
+                 model_name: str="TestModel.rf6",
                  delete: bool=False,
                  delete_all: bool=False):
         """
@@ -255,7 +255,7 @@ def CheckIfMethodOrTypeExists(modelClient, method_or_type, unitTestMode=False):
         To get list of methods invoke:
         list_of_methods = [method for method in Model.clientModel.wsdl.services[0].ports[0]]
     """
-    assert modelClient is not None, "WARNING: modelClient is not initialized."
+    assert modelClient, "WARNING: modelClient is not initialized."
 
     if method_or_type not in str(modelClient):
         if unitTestMode:
@@ -366,7 +366,7 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
         model (RFEM Class, optional): Model to be edited
     '''
     specificObjectsToCalculate = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements')
-    if loadCases is not None:
+    if loadCases:
         for loadCase in loadCases:
             specificObjectsToCalculateLC = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
             specificObjectsToCalculateLC.no = loadCase
@@ -374,7 +374,7 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
             specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
 
-    if designSituations is not None:
+    if designSituations:
         for designSituation in designSituations:
             specificObjectsToCalculateDS = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
             specificObjectsToCalculateDS.no = designSituation
@@ -382,7 +382,7 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculateDS.type = ObjectTypes.E_OBJECT_TYPE_DESIGN_SITUATION.name
             specificObjectsToCalculate.element.append(specificObjectsToCalculateDS)
 
-    if loadCombinations is not None:
+    if loadCombinations:
         for loadCombination in loadCombinations:
             specificObjectsToCalculateLC = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
             specificObjectsToCalculateLC.no = loadCombination

@@ -5,7 +5,7 @@ from RFEM.enums import *
 class MemberEccentricity():
     def __init__(self,
                  no: int = 1,
-                 name: list = [False],
+                 name: str = '',
                  eccentricity_type = MemberEccentricitySpecificationType.TYPE_RELATIVE,
                  eccentricity_parameters: list = [MemberEccentricityHorizontalSectionAlignment.ALIGN_MIDDLE, MemberEccentricityVerticalSectionAlignment.ALIGN_MIDDLE],
                  transverse_offset_type = MemberEccentricityTransverseOffsetType.TRANSVERSE_OFFSET_TYPE_NONE,
@@ -52,12 +52,9 @@ class MemberEccentricity():
         clientObject.no = no
 
         # User Defined Name
-        if name[0]:
+        if name:
             clientObject.user_defined_name_enabled = True
-            clientObject.name = name[1]
-        else:
-            clientObject.user_defined_name_enabled = False
-
+            clientObject.name = name
 
         # Eccentricity Specification Type
         clientObject.specification_type = eccentricity_type.name

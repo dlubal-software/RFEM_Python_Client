@@ -49,8 +49,9 @@ class ConcreteDurability():
         clientObject.no = no
 
         # User Defined Name
-        clientObject.user_defined_name_enabled = True
-        clientObject.name = name
+        if name:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Assigned Members
         clientObject.members = ConvertToDlString(members_no)
