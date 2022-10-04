@@ -10,6 +10,7 @@ Dlubal Software GmbH
 
 [![image](https://img.shields.io/badge/RFEM-v6.0-blue)](https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem "RFEM")
 [![image](https://img.shields.io/badge/RSTAB-v9.0-blue)](https://www.dlubal.com/en/products/rstab-beam-structures/what-is-rstab "RFEM")
+[![image](https://img.shields.io/badge/RSECTION-v1.0-blue)](https://www.dlubal.com/en/products/cross-section-properties-software/rsection "RSECTION")
 [![image](https://img.shields.io/badge/Python-3-blue?logo=python&amp;logoColor=yellow)](https://www.python.org/)
 [![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](https://github.com/Dlubal-Software/RFEM_Python_Client)
 ![image](https://img.shields.io/badge/coverage-87%25-green)
@@ -21,7 +22,7 @@ Dlubal Software GmbH
 
 Welcome to RFEM Python High Level Functions
 
-<a href="https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem" title="API"><img src="./img/2Dtruss.gif" width=550 alt="Tutorial" /></a>
+<a href="https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem" title="API"><img src="https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/main/img/2Dtruss.gif" width=550 alt="Tutorial" /></a>
 </h2>
 
 Python client (high-level functions) for [RFEM 6](https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem) using [Web Services](https://en.wikipedia.org/wiki/Web_service) (WS), [SOAP](https://cs.wikipedia.org/wiki/SOAP) and [WSDL](https://en.wikipedia.org/wiki/Web_Services_Description_Language). Available Python SOAP pkgs can be found on [wiki.python.org](https://wiki.python.org/moin/WebServices#SOAP).
@@ -42,15 +43,17 @@ This Python project is focused on opening RFEM 6 to all of our customers, enabli
 
 ### Dependencies
 Dependency check is implemented inside [dependencies.py](RFEM/dependencies.py) with option to install during execution.
-* <img align="left" alt="PyPi" width="26px" src="https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/main/img/PyPI.png" style="padding-right:1px;">PyPi pkgs: [SUDS](https://github.com/cackharot/suds-py3), [requests](https://docs.python-requests.org/en/master/), [six](https://pypi.org/project/six/), [mock](https://pypi.org/project/mock/), and [xmltodict](https://pypi.org/project/xmltodict/).
+* <img align="left" alt="PyPi" width="26px" src="https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/main/img/PyPI.png" style="padding-right:5px;">PyPi pkgs: [SUDS](https://github.com/cackharot/suds-py3), [requests](https://docs.python-requests.org/en/master/), [six](https://pypi.org/project/six/), [mock](https://pypi.org/project/mock/), and [xmltodict](https://pypi.org/project/xmltodict/).
 
-* <img align="left" alt="RFEM" width="26px" src="https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/main/img/RFEM.png" style="padding-right:1px;">RFEM 6 application. Client is always compatible with the latest version.
+* <img align="left" alt="RFEM" width="26px" src="https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/main/img/RFEM.png" style="padding-right:5px;">RFEM 6 application. Client is always compatible with the latest version.
 
 ### Step by step
 1) 🌀 [Clone](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository#:~:text=Cloning%20an%20Existing%20Repository) this repository (if you have GitHub account) or download actual [release](https://github.com/Dlubal-Software/RFEM_Python_Client/releases)
-2) <img align="left" alt="RFEM" width="18px" src="https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/main/img/RFEM.png"> Open RFEM 6 application
+
+2) <img align="left" alt="RFEM" width="18px" src="https://raw.githubusercontent.com/Dlubal-Software/RFEM_Python_Client/main/img/RFEM.png" style="padding-right:5px;"> Open RFEM 6 application
 
 3) ☑️ Check if there are no opened dialogues in RFEM and server port range under *Options-Web Services* corresponds to the one set in initModel
+
 4) 🏃 Run your script. Inspirations can be found in [Examples](/Examples/) or [UnitTests](/UnitTests/).
 
 ### Examples
