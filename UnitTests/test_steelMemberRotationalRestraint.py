@@ -17,6 +17,7 @@ if Model.clientModel is None:
 @pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:steel_member_rotational_restraint', True), reason="Type ns0:steel_member_rotational_restraint not in RFEM GM yet")
 def test_steelMemberRotationalRestraints():
 
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     SetAddonStatus(Model.clientModel, AddOn.steel_design_active, True)
@@ -38,5 +39,3 @@ def test_steelMemberRotationalRestraints():
 
     assert steelMemberRestraint2.type == "TYPE_DISCRETE"
     assert steelMemberRestraint2.continuous_beam_effect == "CONTINUOUS_BEAM_EFFECT_END_PANEL"
-
-test_steelMemberRotationalRestraints()
