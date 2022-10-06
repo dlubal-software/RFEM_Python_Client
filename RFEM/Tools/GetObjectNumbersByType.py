@@ -1,74 +1,17 @@
+from statistics import mode
 from RFEM.initModel import Model
 from RFEM.enums import ObjectTypes
+from RFEM.Calculate.meshSettings import GetModelInfo
+
 
 
 #Collecting Numbers
 class GetObjectNumbersByType():
 
-
     def GetNumbers():
 
-    #Ask for which type of object answer should be obtained
 
-        x = input("From which object type would you like information?")
-        objecttype = 0
-
-        while objecttype == 0:
-
-            #line
-            if x == 'line':
-                objecttype = ObjectTypes.E_OBJECT_TYPE_LINE
-
-            #lineSet
-            if x == 'line_set':
-                objecttype = ObjectTypes.E_OBJECT_TYPE_LINE_SET
-
-            #material
-            if x == 'material':
-                objecttype = ObjectTypes.E_OBJECT_TYPE_MATERIAL
-
-            #member
-            if x == 'member':
-                objecttype = ObjectTypes.E_OBJECT_TYPE_MEMBER
-
-            #memberSet
-            if x == 'member_set':
-                objecttype = ObjectTypes.E_OBJECT_TYPE_MEMBER_SET
-
-            #node
-            if x == 'node':
-                objecttype = ObjectTypes.E_OBJECT_TYPE_NODE
-
-            #opening
-            if x == 'opening':
-                objecttype = ObjectTypes.E_OBJECT_TYPE_OPENING
-
-            #section
-            if x == 'section':
-                objecttype = ObjectTypes.E_OBJECT_TYPE_SECTION
-
-            #solid
-            if x == 'solid':
-                objecttype = ObjectTypes.E_OBJECT_TYPE_SOLID
-
-            #solidSet
-            if x == 'solid_set':
-                objecttype = ObjectTypes.E_OBJECT_TYPE_SOLID_SET
-
-            #surface
-            if x == 'surface':
-                objecttype = ObjectTypes.E_OBJECT_TYPE_SURFACE
-
-            #surfaceSet
-            if x == 'surface_set':
-                objecttype = ObjectTypes.E_OBJECT_TYPE_SURFACE_SET
-
-            #thickness
-            if x == 'thickness':
-                objecttype = ObjectTypes.E_OBJECT_TYPE_THICKNESS
-
-            else:
-                print(""" Please enter a valid object type!
+        print(""" Please enter a valid object type!
                     - line
                     - line_set
                     - material
@@ -82,106 +25,169 @@ class GetObjectNumbersByType():
                     - surface
                     - surface_set
                     - thickness""")
-                x = input()
+        #x = input()
 
 
-
-        eList = []
+        modelStatus = GetModelInfo()
+        ObjectDictionary = {}
 
         #line
-        if objecttype == ObjectTypes.E_OBJECT_TYPE_LINE:
+        if modelStatus.property_line_count != 0:
 
+            objecttype = ObjectTypes.E_OBJECT_TYPE_LINE.name
             k = Model.clientModel.service.get_all_object_numbers_by_type(objecttype)
+            ObjectDictionary["Lines"] = []
 
-            for i in k:
-                eList.append(i)
+            for i in range(len(k.item)):
+                ObjectDictionary["Lines"].append(i+1)
+
 
         #line_set
-        if objecttype == ObjectTypes.E_OBJECT_TYPE_LINE_SET:
+        if modelStatus.property_line_set_count != 0:
 
+            objecttype = ObjectTypes.E_OBJECT_TYPE_LINE_SET.name
             k = Model.clientModel.service.get_all_object_numbers_by_type(objecttype)
+            ObjectDictionary["Line_Set"] = []
 
-            for i in k:
-                eList.append(i)
+            print(k)
+
+            for i in range(len(k.item)):
+                ObjectDictionary["Line_Set"].append(i+1)
+
         #material
-        if objecttype == ObjectTypes.E_OBJECT_TYPE_MATERIAL:
+        if modelStatus.property_material_count != 0:
 
+            objecttype = ObjectTypes.E_OBJECT_TYPE_MATERIAL.name
             k = Model.clientModel.service.get_all_object_numbers_by_type(objecttype)
+            ObjectDictionary["Material"] = []
 
-            for i in k:
-                eList.append(i)
+            for i in range(len(k.item)):
+                ObjectDictionary["Material"].append(i+1)
+
+
         #member
-        if objecttype == ObjectTypes.E_OBJECT_TYPE_MEMBER:
+        if modelStatus.property_member_count != 0:
 
+            objecttype = ObjectTypes.E_OBJECT_TYPE_MEMBER.name
             k = Model.clientModel.service.get_all_object_numbers_by_type(objecttype)
+            ObjectDictionary["Member"] = []
 
-            for i in k:
-                eList.append(i)
+            for i in range(len(k.item)):
+                ObjectDictionary["Member"].append(i+1)
+
+
+
         #member_set
-        if objecttype == ObjectTypes.E_OBJECT_TYPE_MEMBER_SET:
+        if modelStatus.property_member_set_count != 0:
 
+            objecttype = ObjectTypes.E_OBJECT_TYPE_MEMBER_SET.name
             k = Model.clientModel.service.get_all_object_numbers_by_type(objecttype)
+            ObjectDictionary["Member_Set"] = []
 
-            for i in k:
-                eList.append(i)
+            for i in range(len(k.item)):
+                ObjectDictionary["Member_Set"].append(i+1)
+
+
+
         #node
-        if objecttype == ObjectTypes.E_OBJECT_TYPE_NODE:
+        if modelStatus.property_node_count != 0:
 
+            objecttype = ObjectTypes.E_OBJECT_TYPE_NODE.name
             k = Model.clientModel.service.get_all_object_numbers_by_type(objecttype)
+            ObjectDictionary["Nodes"] = []
 
-            for i in k:
-                eList.append(i)
+            for i in range(len(k.item)):
+                ObjectDictionary["Nodes"].append(i+1)
+
+
         #opening
-        if objecttype == ObjectTypes.E_OBJECT_TYPE_OPENING:
+        if modelStatus.property_opening_count != 0:
 
+            objecttype = ObjectTypes.E_OBJECT_TYPE_OPENING.name
             k = Model.clientModel.service.get_all_object_numbers_by_type(objecttype)
+            ObjectDictionary["Opening"] = []
 
-            for i in k:
-                eList.append(i)
+            for i in range(len(k.item)):
+                ObjectDictionary["Opening"].append(i+1)
+
+
+
         #section
-        if objecttype == ObjectTypes.E_OBJECT_TYPE_SECTION:
+        if modelStatus.property_section_count != 0:
 
+            objecttype = ObjectTypes.E_OBJECT_TYPE_SECTION.name
             k = Model.clientModel.service.get_all_object_numbers_by_type(objecttype)
+            ObjectDictionary["Section"] = []
 
-            for i in k:
-                eList.append(i)
+            for i in range(len(k.item)):
+                ObjectDictionary["Section"].append(i+1)
+
+
+
         #solid
-        if objecttype == ObjectTypes.E_OBJECT_TYPE_SOLID:
+        if modelStatus.property_solid_count != 0:
 
+            objecttype = ObjectTypes.E_OBJECT_TYPE_SOLID.name
             k = Model.clientModel.service.get_all_object_numbers_by_type(objecttype)
+            ObjectDictionary["Solid"] = []
 
-            for i in k:
-                eList.append(i)
+            for i in range(len(k.item)):
+                ObjectDictionary["Solid"].append(i+1)
+
+
+
         #solid_set
-        if objecttype == ObjectTypes.E_OBJECT_TYPE_SOLID_SET:
+        if modelStatus.property_solid_set_count != 0:
 
+            objecttype = ObjectTypes.E_OBJECT_TYPE_SOLID_SET.name
             k = Model.clientModel.service.get_all_object_numbers_by_type(objecttype)
+            ObjectDictionary["Solid_Set"] = []
 
-            for i in k:
-                eList.append(i)
+            for i in range(len(k.item)):
+                ObjectDictionary["Solid_Set"].append(i+1)
+
+
+
         #surface
-        if objecttype == ObjectTypes.E_OBJECT_TYPE_SURFACE:
+        if modelStatus.property_surface_count != 0:
 
+            objecttype = ObjectTypes.E_OBJECT_TYPE_SURFACE.name
             k = Model.clientModel.service.get_all_object_numbers_by_type(objecttype)
+            ObjectDictionary["Surface"] = []
 
-            for i in k:
-                eList.append(i)
+            for i in range(len(k.item)):
+                ObjectDictionary["Surface"].append(i+1)
+
+
+
         #surface_set
-        if objecttype == ObjectTypes.E_OBJECT_TYPE_SURFACE_SET:
+        if modelStatus.property_surface_set_count != 0:
 
+            objecttype = ObjectTypes.E_OBJECT_TYPE_SURFACE_SET.name
             k = Model.clientModel.service.get_all_object_numbers_by_type(objecttype)
+            ObjectDictionary["Surface_Set"] = []
 
-            for i in k:
-                eList.append(i)
+            for i in range(len(k.item)):
+                ObjectDictionary["Surface_Set"].append(i+1)
+
+
+
         #thickness
-        if objecttype == ObjectTypes.E_OBJECT_TYPE_THICKNESS:
+        if modelStatus.property_thickness_count != 0:
 
+            objecttype = ObjectTypes.E_OBJECT_TYPE_THICKNESS.name
             k = Model.clientModel.service.get_all_object_numbers_by_type(objecttype)
+            ObjectDictionary["Thickness"] = []
 
-            for i in k:
-                eList.append(i)
+            for i in range(len(k.item)):
+                ObjectDictionary["Thickness"].append(i+1)
 
-        return eList
+
+
+
+
+
+        print(ObjectDictionary)
 
 
         #store all the values in a list
