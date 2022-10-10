@@ -1,19 +1,28 @@
-from statistics import mode
 from RFEM.initModel import Model
 from RFEM.enums import ObjectTypes
 from RFEM.Calculate.meshSettings import GetModelInfo
 
-
-
-#Collecting Numbers
 class GetObjectNumbersByType():
 
-    def GetNumbers():
+    @staticmethod
+    def GetBasicObjects(model = Model):
+
+        """
+        Returns a dictionary which contains basic object numbers in RFEM tables.
+
+        ObjectDictionary = {
+            "Line": [],
+            "Member": [],
+            "Node": [],
+            "Section": [],
+            "Surface": []
+        }
+        """
 
         modelStatus = GetModelInfo()
         ObjectDictionary = {}
 
-        #line
+        # Line Count
         if modelStatus.property_line_count != 0:
 
             objecttype = ObjectTypes.E_OBJECT_TYPE_LINE.name
@@ -23,14 +32,7 @@ class GetObjectNumbersByType():
             for i in range(len(ObjectNumber.item)):
                 ObjectDictionary["Line"].append(ObjectNumber.item[i].no)
 
-
-        #line_set
-        #no function defined for get_line_set_count in getmodelinfo()
-
-        #material
-        #no function defined for get_material_count in getmodelinfo()
-
-        #member
+        # Member Count
         if modelStatus.property_member_count != 0:
 
             objecttype = ObjectTypes.E_OBJECT_TYPE_MEMBER.name
@@ -40,10 +42,7 @@ class GetObjectNumbersByType():
             for i in range(len(ObjectNumber.item)):
                 ObjectDictionary["Member"].append(ObjectNumber.item[i].no)
 
-        #member_set
-        #no function defined for get_member_set_count in getmodelinfo()
-
-        #node
+        # Node Count
         if modelStatus.property_node_count != 0:
 
             objecttype = ObjectTypes.E_OBJECT_TYPE_NODE.name
@@ -53,10 +52,7 @@ class GetObjectNumbersByType():
             for i in range(len(ObjectNumber.item)):
                 ObjectDictionary["Node"].append(ObjectNumber.item[i].no)
 
-        #opening
-        #no function defined for get_opening_count in getmodelinfo()
-
-        #section
+        # Section Count
         if modelStatus.property_rsection_element_count != 0:
 
             objecttype = ObjectTypes.E_OBJECT_TYPE_SECTION.name
@@ -66,13 +62,7 @@ class GetObjectNumbersByType():
             for i in range(len(ObjectNumber.item)):
                 ObjectDictionary["Section"].append(ObjectNumber.item[i].no)
 
-        #solid
-        #no function defined for get_solid_count in getmodelinfo()
-
-        #solid_set
-        #no function defined for get_solid_set_count in getmodelinfo()
-
-        #surface
+        # Surface Count
         if modelStatus.property_surface_count != 0:
 
             objecttype = ObjectTypes.E_OBJECT_TYPE_SURFACE.name
@@ -82,17 +72,5 @@ class GetObjectNumbersByType():
             for i in range(len(ObjectNumber.item)):
                 ObjectDictionary["Surface"].append(ObjectNumber.item[i].no)
 
-        #surface_set
-        #no function defined for get_surface_set_count in getmodelinfo()
-        #thickness
-        #no function defined for get_thickness_count in getmodelinfo()
-
-
-        print(ObjectDictionary)
-
-        #store all the values in a list
-        #change the functions to a class
-        #have both of the things in one function
-        #just have the user type of what object the would like the numbers
-
+        return ObjectDictionary
 
