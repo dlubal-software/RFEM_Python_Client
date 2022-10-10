@@ -12,8 +12,8 @@ from RFEM.suds_requests import RequestsTransport
 # By default range is set between 8081 ... 8089
 print('Connecting to server...')
 
-# url format: 'http://127.0.0.1'
-url = 'http://10.10.30.31'
+# local machine url format: 'http://127.0.0.1'
+url = 'http://127.0.0.1'
 # port format: '8081'
 port = '8081'
 urlAndPort = url+':'+port
@@ -62,7 +62,7 @@ except:
 # results also in poor performace.
 session = requests.Session()
 adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
-session.mount(url, adapter) # session.mount('http://', adapter)
+session.mount('http://', adapter)
 trans = RequestsTransport(session)
 
 class Model():
@@ -90,6 +90,9 @@ class Model():
         cModel = None
         modelLs = client.service.get_model_list()
 
+        # The model suffix is omitted in modelLs, so it must be omitted in model_name to match exactly
+        model_name = model_name.rstrip('.rf6')
+
         if new_model:
             if modelLs and model_name in modelLs.name:
                 modelIndex = 0
@@ -110,7 +113,6 @@ class Model():
                 cModel.service.delete_all()
             else:
                 modelPath =  client.service.new_model(model_name)
-                print(modelPath)
                 modelPort = modelPath[-5:-1]
                 modelUrlPort = url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
