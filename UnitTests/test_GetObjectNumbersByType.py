@@ -16,14 +16,6 @@ from RFEM.BasicObjects.member import *
 from RFEM.BasicObjects.surface import *
 from RFEM.BasicObjects.section import *
 from RFEM.BasicObjects.lineSet import LineSet
-from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.memberSet import MemberSet
-from RFEM.BasicObjects.opening import Opening
-from RFEM.BasicObjects.solid import Solid
-from RFEM.BasicObjects.solidSet import SolidSet
-from RFEM.BasicObjects.surfaceSet import SurfaceSet
-from RFEM.BasicObjects.thickness import Thickness
-
 from RFEM.Tools.GetObjectNumbersByType import GetObjectNumbersByType
 
 if Model.clientModel is None:
