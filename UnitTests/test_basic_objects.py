@@ -254,6 +254,8 @@ def test_node_init():
     Node(1, 2, 0, 0)
 
     node = Model.clientModel.service.get_node(1)
+    
+    Model.clientModel.service.finish_modification()
 
     assert node.no == 1
     assert node.coordinate_1 == 2
