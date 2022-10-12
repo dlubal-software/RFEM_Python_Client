@@ -36,7 +36,7 @@ def test_GetObjectNumbersByType():
 
 
     """
-    Create Nodes, Lines, Members and Sections
+    Create Nodes, Lines and Line_Set
 
     Run function to test the output
 
@@ -70,33 +70,3 @@ def test_GetObjectNumbersByType():
     ObjectDictionary = GetObjectNumbersByType.GetObjectNumbers(ObjectTypes.E_OBJECT_TYPE_LINE_SET)
 
     assert ObjectDictionary == [1]
-
-
-"""
-    assert ObjectDictionary["Line"] == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]
-
-    assert ObjectDictionary['Line_Set'] == [1, 2, 3, 4]
-
-    assert ObjectDictionary["Material"] == [1]
-
-    assert ObjectDictionary["Member"] == [1, 2]
-
-    assert ObjectDictionary["Member_Set"] == [1]
-
-    assert ObjectDictionary["Node"] == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-
-    assert ObjectDictionary["Opening"] == [1]
-
-    assert ObjectDictionary["Section"] == [1]
-
-    assert ObjectDictionary["Solid"] == [1]
-
-    assert ObjectDictionary["Solid_Set"] == [1]
-
-    assert ObjectDictionary["Surface"] == [1, 2, 3, 4, 5, 6, 7]
-
-    assert ObjectDictionary["Surface_Set"] == [1]
-
-    assert ObjectDictionary["Thickness"] == [1]
-
-"""
