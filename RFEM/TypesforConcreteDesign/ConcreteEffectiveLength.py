@@ -9,14 +9,12 @@ class ConcreteEffectiveLength():
                 member_sets_no: str = "1",
                 flexural_buckling_about_y: list = [True, ConcreteEffectiveLengthAxisY.STRUCTURE_TYPE_UNBRACED],
                 flexural_buckling_about_z: list = [True, ConcreteEffectiveLengthsAxisZ.STRUCTURE_TYPE_UNBRACED],
-                nodal_supports: list = [[EffectiveLengthSupportType.SUPPORT_TYPE_FIXED_ALL,
-                    True, 0, EffectiveLengthEccentricityType.ECCENTRICITY_TYPE_NONE, 0, 0, 0, 0,
-                    SupportStatus.SUPPORT_STATUS_YES, RestraintTypeAboutX.SUPPORT_STATUS_NO,
-                    RestraintTypeAboutZ.SUPPORT_STATUS_NO, RestraintTypeWarping.SUPPORT_STATUS_NO, "1"],
-                    [EffectiveLengthSupportType.SUPPORT_TYPE_FIXED_ALL,
-                    True, 0, EffectiveLengthEccentricityType.ECCENTRICITY_TYPE_NONE, 0, 0, 0, 0,
-                    SupportStatus.SUPPORT_STATUS_YES, RestraintTypeAboutX.SUPPORT_STATUS_NO,
-                    RestraintTypeAboutZ.SUPPORT_STATUS_NO, RestraintTypeWarping.SUPPORT_STATUS_NO, "2"]],
+                nodal_supports: list = [[EffectiveLengthSupportType.SUPPORT_TYPE_FIXED_ALL, True,
+                                         EffectiveLengthEccentricityType.ECCENTRICITY_TYPE_NONE,
+                                         SupportStatus.SUPPORT_STATUS_YES,
+                                         RestraintTypeAboutX.SUPPORT_STATUS_NO,
+                                         RestraintTypeAboutZ.SUPPORT_STATUS_NO,
+                                         RestraintTypeWarping.SUPPORT_STATUS_NO, ""]],
                 factors: list = [[1, 1]],
                 comment: str = '',
                 params: dict = None,
@@ -30,10 +28,9 @@ class ConcreteEffectiveLength():
             flexural_buckling_about_y (list): Flexural Buckling About Y Option
             flexural_buckling_about_z (list): Flexural Buckling About Z Option
             nodal_supports (list of lists): Nodal Support Table
-                nodal_supports = [[support_type, support_in_z, support_spring_in_y, eccentricity_type,
-                                   eccentricity_ez, restraint_spring_about_x,
-                                   restraint_spring_about_z, restraint_spring_warping, support_in_y_type,
-                                   restraint_about_x_type, restraint_about_z_type, restraint_warping_type, nodes], ...]
+                nodal_supports = [[support_type, support_in_z, eccentricity_type,
+                                   support_in_y_type, restraint_about_x_type, restraint_about_z_type,
+                                   restraint_warping_type, nodes], ...]
             factors (list of lists): Factors Table
                 factors = [[flexural_buckling_y, flexural_buckling_z]]
             comment (str, optional): Comments
@@ -63,47 +60,34 @@ class ConcreteEffectiveLength():
 
         # Flexural Buckling
         clientObject.flexural_buckling_about_y = flexural_buckling_about_y[0]
-        clientObject.structure_type_about_axis_y = flexural_buckling_about_y[1]
-
-        if not isinstance(flexural_buckling_about_y[0], bool):
-            raise Exception('WARNING: The type of the first parameter should be bool. Kindly check list inputs for completeness and correctness.')
-
-        clientObject.flexural_buckling_about_y = flexural_buckling_about_y[0]
         clientObject.structure_type_about_axis_y = flexural_buckling_about_y[1].name
-
-        if not isinstance(flexural_buckling_about_z[0], bool):
-            raise Exception('WARNING: The type of the first parameter should be bool. Kindly check list inputs for completeness and correctness.')
-
         clientObject.flexural_buckling_about_z = flexural_buckling_about_z[0]
         clientObject.structure_type_about_axis_z = flexural_buckling_about_z[1].name
 
         # Factors
-        clientObject.factors = model.clientModel.factory.create('ns0:concrete_effective_lengths.factors')
+        clientObject.factors = model.clientModel.factory.create('ns0:array_of_concrete_effective_lengths_factors')
         for i in range(len(factors)):
-            mlvlp = model.clientModel.factory.create('ns0:concrete_effective_lengths_factors')
+            mlvlp = model.clientModel.factory.create('ns0:concrete_effective_lengths_factors_row')
             mlvlp.no = i+1
-            mlvlp.flexural_buckling_y = factors[i][0]
-            mlvlp.flexural_buckling_z = factors[i][1]
+            mlvlp.row.flexural_buckling_y = factors[i][0]
+            mlvlp.row.flexural_buckling_z = factors[i][1]
+
             clientObject.factors.concrete_effective_lengths_factors.append(mlvlp)
 
         # Nodal Supports
-        clientObject.nodal_supports = model.clientModel.factory.create('ns0:concrete_effective_lengths.nodal_supports')
+        clientObject.nodal_supports = model.clientModel.factory.create('ns0:array_of_concrete_effective_lengths_nodal_supports')
         for i in range(len(nodal_supports)):
-            mlvlp = model.clientModel.factory.create('ns0:concrete_effective_lengths_nodal_supports')
+            mlvlp = model.clientModel.factory.create('ns0:concrete_effective_lengths_nodal_supports_row')
             mlvlp.no = i+1
-            mlvlp.support_type = nodal_supports[i][0].name
-            mlvlp.support_in_z = nodal_supports[i][1]
-            mlvlp.support_spring_in_y = nodal_supports[i][2]
-            mlvlp.eccentricity_type = nodal_supports[i][3].name
-            mlvlp.eccentricity_ez = nodal_supports[i][4]
-            mlvlp.restraint_spring_about_x = nodal_supports[i][5]
-            mlvlp.restraint_spring_about_z = nodal_supports[i][6]
-            mlvlp.restraint_warping_type = nodal_supports[i][7]
-            mlvlp.support_in_y_type = nodal_supports[i][8].name
-            mlvlp.restraint_about_x_type = nodal_supports[i][9].name
-            mlvlp.restraint_about_z_type = nodal_supports[i][10].name
-            mlvlp.restraint_warping_type = nodal_supports[i][11].name
-            mlvlp.nodes = nodal_supports[i][12]
+            mlvlp.row.support_type = nodal_supports[i][0].name
+            mlvlp.row.support_in_z = nodal_supports[i][1]
+            mlvlp.row.eccentricity_type = nodal_supports[i][2].name
+            mlvlp.row.support_in_y_type = nodal_supports[i][3].name
+            mlvlp.row.restraint_about_x_type = nodal_supports[i][4].name
+            mlvlp.row.restraint_about_z_type = nodal_supports[i][5].name
+            mlvlp.row.restraint_warping_type = nodal_supports[i][6].name
+            mlvlp.row.nodes = ConvertToDlString(nodal_supports[i][7])
+
             clientObject.nodal_supports.concrete_effective_lengths_nodal_supports.append(mlvlp)
 
         # Comment
@@ -116,11 +100,3 @@ class ConcreteEffectiveLength():
 
         # Add Global Parameter to client model
         model.clientModel.service.set_concrete_effective_lengths(clientObject)
-
-
-
-
-
-
-
-
