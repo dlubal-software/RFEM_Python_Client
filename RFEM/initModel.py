@@ -91,7 +91,8 @@ class Model():
         modelLs = client.service.get_model_list()
 
         # The model suffix is omitted in modelLs, so it must be omitted in model_name to match exactly
-        model_name = model_name.rstrip('.rf6')
+        if '.rf6' in model_name:
+            model_name = model_name[:-4]
 
         if new_model:
             if modelLs and model_name in modelLs.name:
