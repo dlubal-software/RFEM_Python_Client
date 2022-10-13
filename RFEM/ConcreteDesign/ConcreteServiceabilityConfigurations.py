@@ -1,5 +1,7 @@
 from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 
+# Obsolete since 12.10.2022
+'''
 class ConcreteServiceabilityConfiguration():
 
     def __init__(self,
@@ -66,3 +68,4 @@ class ConcreteServiceabilityConfiguration():
 
         # Add Global Parameter to client model
         model.clientModel.service.set_sls_configuration(clientObject)
+'''

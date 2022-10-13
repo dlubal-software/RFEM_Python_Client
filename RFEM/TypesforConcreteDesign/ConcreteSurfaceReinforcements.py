@@ -9,7 +9,7 @@ class ConcreteSurfaceReinforcements():
                 surfaces: str = "1",
                 material: str = "2",
                 location_type = SurfaceReinforcementLocationType.LOCATION_TYPE_ON_SURFACE,
-                reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_REBARS,
+                reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_REBAR,
                 reinforcement_type_parameters: list = [0.01, 0.15, False],
                 cover_offset: list = [True, True, 0, 0],
                 reinforcement_direction = SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION,
@@ -28,7 +28,7 @@ class ConcreteSurfaceReinforcements():
             location_type (enum): Surface Reinforcement Location Type Enumeration
             reinforcement_type (enum): Surface Reinforcement Type Enumeration
             reinforcement_type_parameters (list): Reinforcement Type Parameters List
-                for reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_REBARS:
+                for reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_REBAR:
                     reinforcement_type_parameters = [rebar_diameter, rebar_spacing, additional_transverse_reinforcement_enabled]
                     if additional_transverse_reinforcement_enabled == True:
                         reinforcement_type_parameters = [rebar_diameter, rebar_spacing, additional_transverse_reinforcement_enabled, additional_rebar_diameter, additional_rebar_spacing]
@@ -71,7 +71,7 @@ class ConcreteSurfaceReinforcements():
 
         # Reinforcement Type
         clientObject.reinforcement_type = reinforcement_type.name
-        if reinforcement_type.name == "REINFORCEMENT_TYPE_REBARS":
+        if reinforcement_type.name == "REINFORCEMENT_TYPE_REBAR":
             clientObject.rebar_diameter = reinforcement_type_parameters[0]
             clientObject.rebar_spacing = reinforcement_type_parameters[1]
 
@@ -86,8 +86,8 @@ class ConcreteSurfaceReinforcements():
             clientObject.stirrup_diameter = reinforcement_type_parameters[0]
             clientObject.stirrup_spacing = reinforcement_type_parameters[1]
         elif reinforcement_type.name == "REINFORCEMENT_TYPE_MESH":
-            clientObject.mesh_product_range = reinforcement_type_parameters[0]
-            clientObject.mesh_shape = reinforcement_type_parameters[1]
+            clientObject.mesh_product_range = reinforcement_type_parameters[0].name
+            clientObject.mesh_shape = reinforcement_type_parameters[1].name
             clientObject.mesh_name = reinforcement_type_parameters[2]
 
         # Concrete Cover Assignment
@@ -147,13 +147,13 @@ class ConcreteSurfaceReinforcements():
             clientObject.location_center_y = reinforcement_location[1]
             clientObject.location_radius = reinforcement_location[2]
         elif location_type.name == "LOCATION_TYPE_FREE_POLYGON":
-            clientObject.polygon_points = model.clientModel.factory.create('ns0:surface_reinforcement.polygon_points')
+            clientObject.polygon_points = model.clientModel.factory.create('ns0:array_of_surface_reinforcement_polygon_points')
             for i in range(len(reinforcement_location)):
-                mlvlp = model.clientModel.factory.create('ns0:surface_reinforcement_polygon_points')
+                mlvlp = model.clientModel.factory.create('ns0:surface_reinforcement_polygon_points_row')
                 mlvlp.no = i+1
-                mlvlp.first_coordinate = reinforcement_location[i][0]
-                mlvlp.second_coordinate = reinforcement_location[i][1]
-                mlvlp.comment = reinforcement_location[i][2]
+                mlvlp.row.first_coordinate = reinforcement_location[i][0]
+                mlvlp.row.second_coordinate = reinforcement_location[i][1]
+                mlvlp.row.comment = reinforcement_location[i][2]
                 clientObject.polygon_points.surface_reinforcement_polygon_points.append(mlvlp)
 
         # Reinforcement Acting Region
