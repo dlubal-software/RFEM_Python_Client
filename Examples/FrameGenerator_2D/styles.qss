@@ -1,0 +1,11 @@
+QGroupBox {
+    background-color: rgb(250,250,250);
+}
+
+QGraphicsView {
+    border: gray;
+}
+
+QCheckBox::indicator:checked {
+    /*background-color: green;*/
+}
