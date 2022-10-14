@@ -74,7 +74,7 @@ def newProject(name, description, parent_path, folder_path):
 
     client.service.new_project(pi)
 
-def newTemplate(template_info): #ns0:template_info nefunguje
+def newTemplate(template_info): #ns0:template_info doesn't work
     '''
     Create new template
 
@@ -326,7 +326,7 @@ def setActionCombination(
 
     clientObject.no = no
     clientObject.design_situation = design_situation
-    clientObject['items'] = items
+    clientObject.items = items
     clientObject.active = active
     clientObject.construction_stage = construction_stage
     clientObject.combination_type = combination_type
