@@ -1,5 +1,7 @@
+from ntpath import join
 import sys
 import RFEM.dependencies
+import socket
 import requests
 from suds.client import Client
 from RFEM.enums import ObjectTypes, ModelType, AddOn
@@ -9,8 +11,31 @@ from RFEM.suds_requests import RequestsTransport
 # Check server port range set in "Program Options & Settings"
 # By default range is set between 8081 ... 8089
 print('Connecting to server...')
+
+# local machine url format: 'http://127.0.0.1'
+url = 'http://127.0.0.1'
+# port format: '8081'
+port = '8081'
+urlAndPort = url+':'+port
+
+# Check if port is listening
+a_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+location = (url[7:], int(port))
+result_of_check = a_socket.connect_ex(location)
+
+if result_of_check == 0:
+    a_socket.close()
+else:
+    print('Erorr: Port '+urlAndPort+' is not open.')
+    print('Please check:')
+    print('- If you have started RFEM application at the remote destination correctly.')
+    a_socket.close()
+    sys.exit()
+
+# Check fo issues localy and remotely
 try:
-    client = Client('http://localhost:8081/wsdl')
+    client = Client(urlAndPort+'/wsdl', location = urlAndPort)
 except:
     print('Error: Connection to server failed!')
     print('Please check:')
@@ -19,6 +44,8 @@ except:
     print('- If server port range is set correctly')
     print('- If you have a valid Web Services license')
     print('- Check Program Options & Settings > Web Services')
+    print('On remote PC please check:')
+    print('- If the firewall enables you to listen to selected port.')
     sys.exit()
 
 try:
@@ -63,26 +90,38 @@ class Model():
         cModel = None
         modelLs = client.service.get_model_list()
 
+        # The model suffix is omitted in modelLs, so it must be omitted in model_name to match exactly
+        if '.rf6' in model_name:
+            model_name = model_name[:-4]
+
         if new_model:
             if modelLs and model_name in modelLs.name:
                 modelIndex = 0
                 for i,j in enumerate(modelLs.name):
                     if modelLs.name[i] == model_name:
                         modelIndex = i
-                new = client.service.get_model(modelIndex) + 'wsdl'
+                modelPath = client.service.get_model(modelIndex)
+                modelPort = modelPath[-5:-1]
+                modelUrlPort = url+':'+modelPort
+                modelCompletePath = modelUrlPort+'/wsdl'
+
                 # Set transport parameter if it is the first model
                 if Model.activeSession:
-                    cModel = Client(new)
+                    cModel = Client(modelCompletePath, location = modelUrlPort)
                 else:
-                    cModel = Client(new, transport=trans)
+                    cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort)
                 cModel.service.delete_all_results()
                 cModel.service.delete_all()
             else:
-                new = client.service.new_model(model_name) + 'wsdl'
+                modelPath =  client.service.new_model(model_name)
+                modelPort = modelPath[-5:-1]
+                modelUrlPort = url+':'+modelPort
+                modelCompletePath = modelUrlPort+'/wsdl'
+
                 if Model.activeSession:
-                    cModel = Client(new)
+                    cModel = Client(modelCompletePath, location = modelUrlPort)
                 else:
-                    cModel = Client(new, transport=trans)
+                    cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort)
                 if not modelLs:
                     Model.activeSession = True
         else:
@@ -90,11 +129,15 @@ class Model():
             for i,j in enumerate(modelLs.name):
                 if modelLs.name[i] == model_name:
                     modelIndex = i
-            new = client.service.get_model(modelIndex) + 'wsdl'
+            modelPath = client.service.get_model(modelIndex)
+            modelPort = modelPath[-5:-1]
+            modelUrlPort = url+':'+modelPort
+            modelCompletePath = modelUrlPort+'/wsdl'
+
             if Model.activeSession:
-                cModel = Client(new)
+                cModel = Client(modelCompletePath, location = modelUrlPort)
             else:
-                cModel = Client(new, transport=trans)
+                cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort)
             if delete:
                 print('Deleting results...')
                 cModel.service.delete_all_results()
