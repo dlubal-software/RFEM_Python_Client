@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.dataTypes import inf
 from RFEM.enums import NodalSupportType
 
@@ -44,7 +44,7 @@ class NodalSupport():
         clientObject = Model.clientModel.factory.create('ns0:nodal_support')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Nodal Support No.
         clientObject.no = no

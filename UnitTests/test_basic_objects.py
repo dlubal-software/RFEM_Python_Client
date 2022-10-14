@@ -253,6 +253,8 @@ def test_node_init():
 
     Node(1, 2, 0, 0)
 
+    Model.clientModel.service.finish_modification()
+
     node = Model.clientModel.service.get_node(1)
 
     assert node.no == 1

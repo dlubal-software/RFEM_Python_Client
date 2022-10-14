@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 from RFEM.enums import StabilityAnalysisSettingsAnalysisType
 from RFEM.enums import StabilityAnalysisSettingsEigenvalueMethod
 from RFEM.enums import StabilityAnalysisSettingsMatrixType
@@ -17,13 +17,14 @@ class StabilityAnalysisSettings():
             name (str): Stability Analysis Setting Name
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Stability Analysis Settings
         clientObject = model.clientModel.factory.create('ns0:stability_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Stability Analysis Settings No.
         clientObject.no = no
@@ -83,7 +84,7 @@ class StabilityAnalysisSettings():
                     critical_load_factor = int
             minimum_initial_strain (optional): Minimum Initial Strain
                 for minimum initial strain application:
-                    minimum_initial_strain != 0 or minimum_initial_strain is not None
+                    minimum_initial_strain != 0 or minimum_initial_strain
                 for no minimum initial strain application:
                     minimum_initial_strain == 0 or minimum_initial_strain is None
             local_torsional_rotations (optional): Local Torsional Rotations
@@ -101,7 +102,7 @@ class StabilityAnalysisSettings():
         clientObject = model.clientModel.factory.create('ns0:stability_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Stability Analysis Settings No.
         clientObject.no = no
@@ -121,7 +122,7 @@ class StabilityAnalysisSettings():
         clientObject.considered_favored_effect = considered_favored_effect
 
         # Finding Eigenvectors Beyond Critical Load Factor
-        if critical_load_factor is not None:
+        if critical_load_factor:
             clientObject.find_eigenvectors_beyond_critical_load_factor = True
             clientObject.critical_load_factor = critical_load_factor
 
@@ -133,7 +134,7 @@ class StabilityAnalysisSettings():
             clientObject.minimum_initial_strain = minimum_initial_strain
 
         # Local Torsional Relations
-        if local_torsional_rotations is not None:
+        if local_torsional_rotations:
             clientObject.display_local_torsional_rotations = True
 
         # Eigenvalue Method
@@ -183,7 +184,7 @@ class StabilityAnalysisSettings():
                     critical_load_factor = int
             minimum_initial_strain (optional): Minimum Initial Strain
                 for minimum initial strain application:
-                    minimum_initial_strain != 0 or minimum_initial_strain is not None
+                    minimum_initial_strain != 0 or minimum_initial_strain
                 for no minimum initial strain application:
                     minimum_initial_strain is None
             local_torsional_rotations (optional): Local Torsional Rotations
@@ -223,7 +224,7 @@ class StabilityAnalysisSettings():
         clientObject = model.clientModel.factory.create('ns0:stability_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Stability Analysis Settings No.
         clientObject.no = no
@@ -243,7 +244,7 @@ class StabilityAnalysisSettings():
         clientObject.considered_favored_effect = considered_favored_effect
 
         # Finding Eigenvectors Beyond Critical Load Factor
-        if critical_load_factor is not None:
+        if critical_load_factor:
             clientObject.find_eigenvectors_beyond_critical_load_factor = True
             clientObject.critical_load_factor = critical_load_factor
 
@@ -255,7 +256,7 @@ class StabilityAnalysisSettings():
             clientObject.minimum_initial_strain = minimum_initial_strain
 
         # Local Torsional Relations
-        if local_torsional_rotations is not None:
+        if local_torsional_rotations:
             clientObject.display_local_torsional_rotations = True
 
         # Increase Loading
@@ -267,7 +268,7 @@ class StabilityAnalysisSettings():
         clientObject.maximum_number_of_load_increments = incrementally_increasing_loading[3]
 
         # Stopping of Load-Increasing
-        if stopping_of_load_increasing is not None:
+        if stopping_of_load_increasing:
             if len(stopping_of_load_increasing) != 3:
                 raise Exception('WARNING: For active stopping of load-increasing, the stopping of load increasing parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
             clientObject.activate_stopping_of_load_increasing = True
@@ -316,7 +317,7 @@ class StabilityAnalysisSettings():
             name (str, optional): Stability Analysis Setting Name
             minimum_initial_strain (optional): Minimum Initial Strain
                 for minimum initial strain application:
-                    minimum_initial_strain != 0 or minimum_initial_strain is not None
+                    minimum_initial_strain != 0 or minimum_initial_strain
                 for no minimum initial strain application:
                     minimum_initial_strain == 0 or minimum_initial_strain is None
             local_torsional_rotations (optional): Local Torsional Rotations
@@ -354,7 +355,7 @@ class StabilityAnalysisSettings():
         clientObject = model.clientModel.factory.create('ns0:stability_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Stability Analysis Settings No.
         clientObject.no = no
@@ -375,7 +376,7 @@ class StabilityAnalysisSettings():
             clientObject.minimum_initial_strain = minimum_initial_strain
 
         # Local Torsional Relations
-        if local_torsional_rotations is not None:
+        if local_torsional_rotations:
             clientObject.display_local_torsional_rotations = True
 
         # Increase Loading
@@ -387,7 +388,7 @@ class StabilityAnalysisSettings():
         clientObject.maximum_number_of_load_increments = incrementally_increasing_loading[3]
 
         # Stopping of Load-Increasing
-        if stopping_of_load_increasing is not None:
+        if stopping_of_load_increasing:
             if len(stopping_of_load_increasing) != 3:
                 raise Exception('WARNING: For active stopping of load-increasing, the stopping of load increasing parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
             clientObject.activate_stopping_of_load_increasing = True

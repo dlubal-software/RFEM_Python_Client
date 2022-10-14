@@ -1,11 +1,11 @@
 from http import client
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 from RFEM.enums import *
 
 class MemberEccentricity():
     def __init__(self,
                  no: int = 1,
-                 name: str = None,
+                 name: str = '',
                  eccentricity_type = MemberEccentricitySpecificationType.TYPE_RELATIVE,
                  eccentricity_parameters: list = [MemberEccentricityHorizontalSectionAlignment.ALIGN_MIDDLE, MemberEccentricityVerticalSectionAlignment.ALIGN_MIDDLE],
                  transverse_offset_type = MemberEccentricityTransverseOffsetType.TRANSVERSE_OFFSET_TYPE_NONE,
@@ -46,7 +46,7 @@ class MemberEccentricity():
         clientObject = model.clientModel.factory.create('ns0:member_eccentricity')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Eccentricity No.
         clientObject.no = no

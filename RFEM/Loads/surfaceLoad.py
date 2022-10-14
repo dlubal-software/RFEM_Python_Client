@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import SurfaceLoadType, SurfaceLoadDirection, SurfaceLoadDistribution, SurfaceLoadAxisDefinitionType
 
 class SurfaceLoad():
@@ -25,7 +25,7 @@ class SurfaceLoad():
         clientObject = model.clientModel.factory.create('ns0:surface_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Load No.
         clientObject.no = no
@@ -100,7 +100,7 @@ class SurfaceLoad():
         clientObject = model.clientModel.factory.create('ns0:surface_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Load No.
         clientObject.no = no
@@ -225,7 +225,7 @@ class SurfaceLoad():
         clientObject = model.clientModel.factory.create('ns0:surface_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Load No.
         clientObject.no = no
@@ -332,7 +332,7 @@ class SurfaceLoad():
         clientObject = model.clientModel.factory.create('ns0:surface_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Load No.
         clientObject.no = no
@@ -409,7 +409,7 @@ class SurfaceLoad():
         clientObject = model.clientModel.factory.create('ns0:surface_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Load No.
         clientObject.no = no
@@ -469,7 +469,7 @@ class SurfaceLoad():
         clientObject = model.clientModel.factory.create('ns0:surface_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Load No.
         clientObject.no = no
@@ -542,7 +542,7 @@ class SurfaceLoad():
         clientObject = model.clientModel.factory.create('ns0:surface_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Load No.
         clientObject.no = no

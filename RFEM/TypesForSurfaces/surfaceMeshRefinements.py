@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 
 class SurfaceMeshRefinement():
     def __init__(self,
@@ -24,7 +24,7 @@ class SurfaceMeshRefinement():
         clientObject = model.clientModel.factory.create('ns0:surface_mesh_refinement')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Mesh Refinement No.
         clientObject.no = no

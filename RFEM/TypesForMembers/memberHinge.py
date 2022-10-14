@@ -1,5 +1,5 @@
-from RFEM.enums import MemberHingeNonlineartiy
-from RFEM.initModel import ConvertToDlString, Model, clearAtributes
+from RFEM.enums import MemberHingeNonlinearity
+from RFEM.initModel import ConvertToDlString, Model, clearAttributes
 from RFEM.dataTypes import inf
 
 class MemberHinge():
@@ -13,12 +13,12 @@ class MemberHinge():
                  rotational_release_mt: float = inf,
                  rotational_release_my: float = 0.0,
                  rotational_release_mz: float = 0.0,
-                 translational_release_n_nonlinearity = [MemberHingeNonlineartiy.NONLINEARITY_TYPE_NONE],
-                 translational_release_vy_nonlinearity = [MemberHingeNonlineartiy.NONLINEARITY_TYPE_NONE],
-                 translational_release_vz_nonlinearity = [MemberHingeNonlineartiy.NONLINEARITY_TYPE_NONE],
-                 rotational_release_mt_nonlinearity = [MemberHingeNonlineartiy.NONLINEARITY_TYPE_NONE],
-                 rotational_release_my_nonlinearity = [MemberHingeNonlineartiy.NONLINEARITY_TYPE_NONE],
-                 rotational_release_mz_nonlinearity = [MemberHingeNonlineartiy.NONLINEARITY_TYPE_NONE],
+                 translational_release_n_nonlinearity = [MemberHingeNonlinearity.NONLINEARITY_TYPE_NONE],
+                 translational_release_vy_nonlinearity = [MemberHingeNonlinearity.NONLINEARITY_TYPE_NONE],
+                 translational_release_vz_nonlinearity = [MemberHingeNonlinearity.NONLINEARITY_TYPE_NONE],
+                 rotational_release_mt_nonlinearity = [MemberHingeNonlinearity.NONLINEARITY_TYPE_NONE],
+                 rotational_release_my_nonlinearity = [MemberHingeNonlinearity.NONLINEARITY_TYPE_NONE],
+                 rotational_release_mz_nonlinearity = [MemberHingeNonlinearity.NONLINEARITY_TYPE_NONE],
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -48,7 +48,7 @@ class MemberHinge():
         clientObject = model.clientModel.factory.create('ns0:member_hinge')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Hinge No.
         clientObject.no = no
@@ -59,22 +59,22 @@ class MemberHinge():
         # Coordinate System
         clientObject.coordinate_system = coordinate_system
 
-        # Translational Release/Spring [kN/m] N
+        # Translational Release/Spring [N/m] N
         clientObject.axial_release_n = translational_release_n
 
-        # Translational Release/Spring [kN/m] Vy
+        # Translational Release/Spring [N/m] Vy
         clientObject.axial_release_vy = translational_release_vy
 
-        # Translational Release/Spring [kN/m] Vz
+        # Translational Release/Spring [N/m] Vz
         clientObject.axial_release_vz = translational_release_vz
 
-        # Rotational Release/Spring [kNm/rad] Mt
+        # Rotational Release/Spring [Nm/rad] Mt
         clientObject.moment_release_mt = rotational_release_mt
 
-        # Rotational Release/Spring [kNm/rad] My
+        # Rotational Release/Spring [Nm/rad] My
         clientObject.moment_release_my = rotational_release_my
 
-        # Rotational Release/Spring [kNm/rad] Mz
+        # Rotational Release/Spring [Nm/rad] Mz
         clientObject.moment_release_mz = rotational_release_mz
 
         # Translational Release N Nonlinearity
@@ -349,8 +349,8 @@ class MemberHinge():
             for i,j in enumerate(rotational_release_mt_nonlinearity[1][2]):
                 mlvlp = Model.clientModel.factory.create('ns0:member_hinge_diagram_around_x_table_row')
                 mlvlp.no = i+1
-                mlvlp.row.displacement = rotational_release_mt_nonlinearity[1][2][i][0]
-                mlvlp.row.force = rotational_release_mt_nonlinearity[1][2][i][1]
+                mlvlp.row.rotation = rotational_release_mt_nonlinearity[1][2][i][0]
+                mlvlp.row.moment = rotational_release_mt_nonlinearity[1][2][i][1]
                 mlvlp.row.spring = rotational_release_mt_nonlinearity[1][2][i][2]
                 mlvlp.row.note = None
 
@@ -400,18 +400,18 @@ class MemberHinge():
                 clientObject.partial_activity_around_y_positive_force = rotational_release_my_nonlinearity[2][1]
                 clientObject.partial_activity_around_y_positive_slippage = rotational_release_my_nonlinearity[2][2]
 
-            clientObject.diagram_around_y_table = Model.clientModel.factory.create('ns0:member_hinge.diagram_around_y_table')
-
         elif rotational_release_my_nonlinearity[0].name == "NONLINEARITY_TYPE_DIAGRAM":
             clientObject.moment_release_my_nonlinearity = rotational_release_my_nonlinearity[0].name
             clientObject.diagram_around_y_start = rotational_release_my_nonlinearity[1][0].name
             clientObject.diagram_around_y_end = rotational_release_my_nonlinearity[1][1].name
 
+            clientObject.diagram_around_y_table = Model.clientModel.factory.create('ns0:member_hinge.diagram_around_y_table')
+
             for i,j in enumerate(rotational_release_my_nonlinearity[1][2]):
                 mlvlp = Model.clientModel.factory.create('ns0:member_hinge_diagram_around_y_table_row')
                 mlvlp.no = i+1
-                mlvlp.row.displacement = rotational_release_my_nonlinearity[1][2][i][0]
-                mlvlp.row.force = rotational_release_my_nonlinearity[1][2][i][1]
+                mlvlp.row.rotation = rotational_release_my_nonlinearity[1][2][i][0]
+                mlvlp.row.moment = rotational_release_my_nonlinearity[1][2][i][1]
                 mlvlp.row.spring = rotational_release_my_nonlinearity[1][2][i][2]
                 mlvlp.row.note = None
 
@@ -462,15 +462,17 @@ class MemberHinge():
                 clientObject.partial_activity_around_z_positive_slippage = rotational_release_mz_nonlinearity[2][2]
 
         elif rotational_release_mz_nonlinearity[0].name == "NONLINEARITY_TYPE_DIAGRAM":
-            clientObject.moment_release_my_nonlinearity = rotational_release_mz_nonlinearity[0].name
+            clientObject.moment_release_mz_nonlinearity = rotational_release_mz_nonlinearity[0].name
             clientObject.diagram_around_z_start = rotational_release_mz_nonlinearity[1][0].name
             clientObject.diagram_around_z_end = rotational_release_mz_nonlinearity[1][1].name
+
+            clientObject.diagram_around_z_table = Model.clientModel.factory.create('ns0:member_hinge.diagram_around_z_table')
 
             for i,j in enumerate(rotational_release_mz_nonlinearity[1][2]):
                 mlvlp = Model.clientModel.factory.create('ns0:member_hinge_diagram_around_z_table_row')
                 mlvlp.no = i+1
-                mlvlp.row.displacement = rotational_release_mz_nonlinearity[1][2][i][0]
-                mlvlp.row.force = rotational_release_mz_nonlinearity[1][2][i][1]
+                mlvlp.row.rotation = rotational_release_mz_nonlinearity[1][2][i][0]
+                mlvlp.row.moment = rotational_release_mz_nonlinearity[1][2][i][1]
                 mlvlp.row.spring = rotational_release_mz_nonlinearity[1][2][i][2]
                 mlvlp.row.note = None
 

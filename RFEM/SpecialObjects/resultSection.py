@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import ResultSectionType, ResultSectionProjection, ResultSectionResultDirection
 
 class ResultSection():
@@ -35,7 +35,7 @@ class ResultSection():
         clientObject = model.clientModel.factory.create('ns0:result_section')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Result Section No.
         clientObject.no = no
@@ -67,10 +67,18 @@ class ResultSection():
                 clientObject.vector_coordinate_3 = parameters[4][2]
 
         # Assigned to all surfaces
-        clientObject.assigned_to_surfaces = ConvertToDlString(assigned_to_surfaces)
+        if assigned_to_surfaces:
+            clientObject.assigned_to_all_surfaces = False
+            clientObject.assigned_to_surfaces = ConvertToDlString(assigned_to_surfaces)
+        else:
+            clientObject.assigned_to_all_surfaces = True
 
         # Assigned to all solids
-        clientObject.assigned_to_solids = ConvertToDlString(assigned_to_solids)
+        if assigned_to_solids:
+            clientObject.assigned_to_all_solids = False
+            clientObject.assigned_to_solids = ConvertToDlString(assigned_to_solids)
+        else:
+            clientObject.assigned_to_all_solids = True
 
         # Adding optional parameters via dictionary
         if params:
@@ -92,7 +100,6 @@ class ResultSection():
                            vector: list = None,
                            assigned_to_surfaces: str = '',
                            assigned_to_solids: str = '',
-                           comment: str = '',
                            params: dict = None,
                            model = Model):
         """
@@ -109,7 +116,6 @@ class ResultSection():
             vector (list, optional): Vector if projection is VECTOR
             assigned_to_surfaces (str, optional) = Assigned to Surfaces
             assigned_to_solids (str, optional) Assigned to Solids
-            comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
         """
@@ -118,7 +124,7 @@ class ResultSection():
         clientObject = model.clientModel.factory.create('ns0:result_section')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Result Section No.
         clientObject.no = no
@@ -152,13 +158,18 @@ class ResultSection():
             clientObject.vector_coordinate_3 = vector[2]
 
         # Assigned to all surfaces
-        clientObject.assigned_to_surfaces = ConvertToDlString(assigned_to_surfaces)
+        if assigned_to_surfaces:
+            clientObject.assigned_to_all_surfaces = False
+            clientObject.assigned_to_surfaces = ConvertToDlString(assigned_to_surfaces)
+        else:
+            clientObject.assigned_to_all_surfaces = True
 
         # Assigned to all solids
-        clientObject.assigned_to_solids = ConvertToDlString(assigned_to_solids)
-
-        # Comment
-        #clientObject.comment = comment
+        if assigned_to_solids:
+            clientObject.assigned_to_all_solids = False
+            clientObject.assigned_to_solids = ConvertToDlString(assigned_to_solids)
+        else:
+            clientObject.assigned_to_all_solids = True
 
         # Adding optional parameters via dictionary
         if params:
@@ -176,7 +187,6 @@ class ResultSection():
              lines: str = '1',
              assigned_to_surfaces: str = '',
              assigned_to_solids: str = '',
-             comment: str = '',
              params: dict = None,
              model = Model):
         """
@@ -190,7 +200,6 @@ class ResultSection():
             lines (str): Lines
             assigned_to_surfaces (str, optional) = Assigned to Surfaces
             assigned_to_solids (str, optional) Assigned to Solids
-            comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
         """
@@ -199,7 +208,7 @@ class ResultSection():
         clientObject = model.clientModel.factory.create('ns0:result_section')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Result Section No.
         clientObject.no = no
@@ -217,13 +226,18 @@ class ResultSection():
         clientObject.lines = ConvertToDlString(lines)
 
         # Assigned to all surfaces
-        clientObject.assigned_to_surfaces = ConvertToDlString(assigned_to_surfaces)
+        if assigned_to_surfaces:
+            clientObject.assigned_to_all_surfaces = False
+            clientObject.assigned_to_surfaces = ConvertToDlString(assigned_to_surfaces)
+        else:
+            clientObject.assigned_to_all_surfaces = True
 
         # Assigned to all solids
-        clientObject.assigned_to_solids = ConvertToDlString(assigned_to_solids)
-
-        # Comment
-        #clientObject.comment = comment
+        if assigned_to_solids:
+            clientObject.assigned_to_all_solids = False
+            clientObject.assigned_to_solids = ConvertToDlString(assigned_to_solids)
+        else:
+            clientObject.assigned_to_all_solids = True
 
         # Adding optional parameters via dictionary
         if params:

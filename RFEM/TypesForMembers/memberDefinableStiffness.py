@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 
 class MemberDefinableStiffness():
     def __init__(self,
@@ -46,7 +46,7 @@ class MemberDefinableStiffness():
         clientObject = model.clientModel.factory.create('ns0:member_definable_stiffness')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Definable Stffness No.
         clientObject.no = no

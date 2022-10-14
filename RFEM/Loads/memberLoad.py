@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import LoadDirectionType, MemberLoadType, MemberLoadDistribution, MemberLoadDirection, MemberLoadDirectionOrientation
 from RFEM.enums import MemberLoadEccentricityHorizontalAlignment, MemberLoadEccentricityVerticalAlignment, MemberLoadEccentricitySectionMiddle
 from RFEM.enums import MemberLoadAxisDefinitionType, MemberLoadAxisDefinitionAxisOrientation, MemberLoadAxisDefinition
@@ -23,12 +23,13 @@ class MemberLoad():
             magnitude (float): Load Magnitude
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member Load
         clientObject = model.clientModel.factory.create('ns0:member_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -84,11 +85,11 @@ class MemberLoad():
             members_no (str): Assigned Member(s)
             load_distribution (enum): Member Load Distribution Enumeration
             load_direction (enum): Member Load Direction Enumeration
-            load_parameter (float/list/list of lists): Load Parameter List
+            load_parameter (list/list of lists): Load Parameter List
                 for load_distribution == LOAD_DISTRIBUTION_UNIFORM:
-                    load_parameter = magnitude
+                    load_parameter = [magnitude]
                 for load_distribution == LOAD_DISTRIBUTION_UNIFORM_TOTAL:
-                    load_parameter = magnitude
+                    load_parameter = [magnitude]
                 for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_1:
                     load_parameter = [relative_distance = False, magnitude, distance_a]
                 for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_N:
@@ -128,7 +129,7 @@ class MemberLoad():
         clientObject = model.clientModel.factory.create('ns0:member_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -148,7 +149,7 @@ class MemberLoad():
 
         #Load Magnitude and Parameters
         if load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM" or load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM_TOTAL":
-            clientObject.magnitude = load_parameter
+            clientObject.magnitude = load_parameter[0]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_1":
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
@@ -384,9 +385,9 @@ class MemberLoad():
             members_no (str): Assigned Member(s)
             load_distribution (enum): Load Distribution Enumeration
             load_direction (enum): Load Direction Enumeration
-            load_parameter (float/list/list of lists): Load Parameter List
+            load_parameter (list/list of lists): Load Parameter List
                 for load_distribution == LOAD_DISTRIBUTION_UNIFORM:
-                    load_parameter = magnitude
+                    load_parameter = [magnitude]
                 for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_1:
                     load_parameter = [relative_distance = False, magnitude, distance_a]
                 for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_N:
@@ -414,7 +415,7 @@ class MemberLoad():
         clientObject = model.clientModel.factory.create('ns0:member_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -622,7 +623,7 @@ class MemberLoad():
         clientObject = model.clientModel.factory.create('ns0:member_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -707,7 +708,7 @@ class MemberLoad():
         clientObject = model.clientModel.factory.create('ns0:member_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -867,7 +868,7 @@ class MemberLoad():
         clientObject = model.clientModel.factory.create('ns0:member_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -1024,7 +1025,7 @@ class MemberLoad():
         clientObject = model.clientModel.factory.create('ns0:member_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -1157,7 +1158,7 @@ class MemberLoad():
         clientObject = model.clientModel.factory.create('ns0:member_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -1235,7 +1236,7 @@ class MemberLoad():
         clientObject = model.clientModel.factory.create('ns0:member_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -1368,7 +1369,7 @@ class MemberLoad():
         clientObject = model.clientModel.factory.create('ns0:member_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -1456,7 +1457,7 @@ class MemberLoad():
         clientObject = model.clientModel.factory.create('ns0:member_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -1693,7 +1694,7 @@ class MemberLoad():
         clientObject = model.clientModel.factory.create('ns0:member_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -1904,7 +1905,7 @@ class MemberLoad():
         clientObject = model.clientModel.factory.create('ns0:member_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -1971,7 +1972,7 @@ class MemberLoad():
         clientObject = model.clientModel.factory.create('ns0:member_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -2037,7 +2038,7 @@ class MemberLoad():
         clientObject = model.clientModel.factory.create('ns0:member_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -2109,7 +2110,7 @@ class MemberLoad():
         clientObject = model.clientModel.factory.create('ns0:member_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no

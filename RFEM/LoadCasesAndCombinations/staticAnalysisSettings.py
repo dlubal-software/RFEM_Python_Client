@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 from RFEM.enums import StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis
 from RFEM.enums import StaticAnalysisSettingsMethodOfEquationSystem
 from RFEM.enums import StaticAnalysisSettingsPlateBendingTheory, StaticAnalysisType
@@ -25,7 +25,7 @@ class StaticAnalysisSettings():
         clientObject = model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Static Analysis Settings No.
         clientObject.no = no
@@ -84,7 +84,7 @@ class StaticAnalysisSettings():
         clientObject = model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Static Analysis Settings No.
         clientObject.no = no
@@ -120,11 +120,6 @@ class StaticAnalysisSettings():
 
         # Plate Bending Theory
         clientObject.plate_bending_theory = plate_bending_theory.name
-
-        # Calculations Diagrams
-        # If needed utilize 'params' dictionary
-        clientObject.calculation_diagrams_enabled = False
-        clientObject.calculation_diagrams_list = ""
 
         # Comment
         clientObject.comment = comment
@@ -186,7 +181,7 @@ class StaticAnalysisSettings():
         clientObject = model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Static Analysis Settings No.
         clientObject.no = no
@@ -248,11 +243,6 @@ class StaticAnalysisSettings():
         # Try to Calculate Unstable Structure
         clientObject.try_to_calculate_instabil_structure = instabil_structure_calculation
 
-        # Calculations Diagrams
-        # If needed utilize 'params' dictionary
-        clientObject.calculation_diagrams_enabled = False
-        clientObject.calculation_diagrams_list = ""
-
         # Comment
         clientObject.comment = comment
 
@@ -311,7 +301,7 @@ class StaticAnalysisSettings():
         clientObject = model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Static Analysis Settings No.
         clientObject.no = no
@@ -371,11 +361,6 @@ class StaticAnalysisSettings():
             clientObject.precision_of_convergence_criteria_for_nonlinear_calculation = standard_precision_and_tolerance_settings[1]
             clientObject.instability_detection_tolerance = standard_precision_and_tolerance_settings[2]
             clientObject.iterative_calculation_robustness = standard_precision_and_tolerance_settings[3]
-
-        # Calculations Diagrams
-        # If needed utilize 'params' dictionary
-        clientObject.calculation_diagrams_enabled = False
-        clientObject.calculation_diagrams_list = ""
 
         # Comment
         clientObject.comment = comment

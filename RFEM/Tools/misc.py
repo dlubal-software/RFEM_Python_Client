@@ -348,9 +348,6 @@ def setActionCombination(
 
 
 
-def setAluminumMemberTransverseWeld(transverse_weld): # ns0:aluminum_member_transverse_weld
-    Model.clientModel.service.set_aluminum_member_transverse_weld(transverse_weld)
-
 def setBorehole(bore_hole): # ns0:borehole
     Model.clientModel.service.set_borehole(bore_hole)
 
@@ -381,9 +378,6 @@ def setDimension(dimension): # ns0:dimension
 def setFormula(object_location, object_parameter_location, formula): # ns0:object_location object_location, ns0:object_parameter_location object_parameter_location, xs:string formula
     Model.clientModel.service.set_formula(object_location, object_parameter_location, formula)
 
-def setGlobalParameter(global_parameter): # ns0:global_parameter
-    Model.clientModel.service.set_global_parameter(global_parameter)
-
 def setLineGrid(line_grid): #ns0:line_grid
     Model.clientModel.service.set_line_grid(line_grid)
 
@@ -411,7 +405,7 @@ def setModelParametersLocation(location): # ns0:array_of_model_parameters_locati
 def setModelSettingsAndOptions(model_settings_and_options): # ns0:model_settings_and_options
     Model.clientModel.service.set_model_settings_and_options(model_settings_and_options)
 
-def setModelType(model_type): # ns0:model_type
+def setModelType(model_type): # ns0:model_type *
     Model.clientModel.service.set_model_type(model_type)
 
 def setNote(note): # ns0:note should be string !?

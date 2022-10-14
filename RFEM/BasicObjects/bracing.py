@@ -1,4 +1,4 @@
-# from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+# from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 # from RFEM.enums import BracingType
 
 # class Bracing():
@@ -30,7 +30,7 @@
 #         clientObject = model.clientModel.factory.create('ns0:bracing')
 
 #         # Clears object atributes | Sets all atributes to None
-#         clearAtributes(clientObject)
+#         clearAttributes(clientObject)
 
 #         # Bracing No.
 #         clientObject.no = no
@@ -101,7 +101,7 @@
 #         clientObject = model.clientModel.factory.create('ns0:bracing')
 
 #         # Clears object atributes | Sets all atributes to None
-#         clearAtributes(clientObject)
+#         clearAttributes(clientObject)
 
 #         # Bracing No.
 #         clientObject.no = no
@@ -172,7 +172,7 @@
 #         clientObject = model.clientModel.factory.create('ns0:bracing')
 
 #         # Clears object atributes | Sets all atributes to None
-#         clearAtributes(clientObject)
+#         clearAttributes(clientObject)
 
 #         # Bracing No.
 #         clientObject.no = no

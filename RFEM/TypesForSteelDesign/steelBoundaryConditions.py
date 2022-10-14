@@ -85,7 +85,7 @@ class SteelBoundaryConditions():
         clientObject = model.clientModel.factory.create('ns0:steel_boundary_conditions')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Boundary Conditions No.
         clientObject.no = no

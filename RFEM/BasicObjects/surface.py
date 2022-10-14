@@ -1,5 +1,5 @@
 from RFEM.enums import SurfaceGeometry, SurfaceLoadDistributionDirection, SurfaceType, ObjectTypes
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString, ConvertStrToListOfInt
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString, ConvertStrToListOfInt
 import math
 
 def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_type, geometry_type_parameters, thickness = None, comment = None, params = None, model = Model):
@@ -27,7 +27,7 @@ def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_ty
     clientObject = model.clientModel.factory.create('ns0:surface')
 
     # Clears object atributes | Sets all atributes to None
-    clearAtributes(clientObject)
+    clearAttributes(clientObject)
 
     # Surface No.
     clientObject.no = no
@@ -108,7 +108,7 @@ class Surface():
         clientObject = model.clientModel.factory.create('ns0:surface')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface No.
         clientObject.no = no
@@ -320,7 +320,7 @@ class Surface():
         clientObject = model.clientModel.factory.create('ns0:surface')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface No.
         clientObject.no = no

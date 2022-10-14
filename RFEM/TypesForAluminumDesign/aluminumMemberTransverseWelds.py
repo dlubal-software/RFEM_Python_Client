@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertStrToListOfInt
+from RFEM.initModel import Model, clearAttributes, ConvertStrToListOfInt
 from RFEM.enums import WeldComponentType, MultipleOffsetDefinitionType, WeldingMethod
 
 transverseWeldComponent = {
@@ -41,7 +41,7 @@ class AluminumMemberTransverseWeld():
         clientObject = model.clientModel.factory.create('ns0:aluminum_member_transverse_weld')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Weld No.
         clientObject.no = no

@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 
 class StructureModification():
     material_item = {'no': 1, 'material_name': 1, 'modification_type': 'DIVISION_FACTOR', 'E_and_G': 1.5, 'comment': 'comment'}
@@ -84,7 +84,7 @@ class StructureModification():
             clientObject = model.clientModel.factory.create('ns0:structure_modification')
 
             # Clears object atributes | Sets all atributes to None
-            clearAtributes(clientObject)
+            clearAttributes(clientObject)
 
             # Structure Modification No.
             clientObject.no = no

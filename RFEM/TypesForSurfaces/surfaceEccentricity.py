@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import SurfaceEccentricityAlignment
 from enum import Enum
 
@@ -37,7 +37,7 @@ class SurfaceEccentricity():
         clientObject = model.clientModel.factory.create('ns0:surface_eccentricity')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Eccentricity No.
         clientObject.no = no

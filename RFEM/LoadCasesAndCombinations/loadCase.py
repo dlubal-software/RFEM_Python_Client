@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 from RFEM.enums import AnalysisType, ActionCategoryType
 
 
@@ -26,7 +26,7 @@ class LoadCase():
         clientObject = model.clientModel.factory.create('ns0:load_case')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Load Case No.
         clientObject.no = no
@@ -104,7 +104,7 @@ class LoadCase():
         clientObject = model.clientModel.factory.create('ns0:load_case')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Load Case No.
         clientObject.no = no

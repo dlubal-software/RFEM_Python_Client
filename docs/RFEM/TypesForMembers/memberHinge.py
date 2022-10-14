@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 from RFEM.dataTypes import inf
 
 class MemberHinge():
@@ -18,7 +18,7 @@ class MemberHinge():
         clientObject = Model.clientModel.factory.create('ns0:member_hinge')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Memeber Hinge No.
         clientObject.no = no

@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import LineType, LineArcAlphaAdjustmentTarget
 
 class Line():
@@ -20,7 +20,7 @@ class Line():
         clientObject = Model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line No.
         clientObject.no = no
@@ -56,7 +56,7 @@ class Line():
         clientObject = Model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line No.
         clientObject.no = no
@@ -99,7 +99,7 @@ class Line():
         clientObject = Model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line No.
         clientObject.no = no
@@ -149,7 +149,7 @@ class Line():
         clientObject = Model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line No.
         clientObject.no = no
@@ -205,7 +205,7 @@ class Line():
         clientObject = Model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line No.
         clientObject.no = no
@@ -259,7 +259,7 @@ class Line():
         clientObject = Model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line No.
         clientObject.no = no
@@ -309,7 +309,7 @@ class Line():
         clientObject = Model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line No.
         clientObject.no = no
@@ -357,7 +357,7 @@ class Line():
         clientObject = Model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line No.
         clientObject.no = no
@@ -400,7 +400,7 @@ class Line():
         clientObject = Model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line No.
         clientObject.no = no

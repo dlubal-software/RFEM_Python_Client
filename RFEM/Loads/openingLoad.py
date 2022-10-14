@@ -32,7 +32,7 @@ class OpeningLoad():
         clientObject = Model.clientModel.factory.create('ns0:opening_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Opening Load No.
         clientObject.no = no

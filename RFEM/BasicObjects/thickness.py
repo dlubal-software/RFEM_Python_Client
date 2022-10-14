@@ -2,7 +2,7 @@ from RFEM.enums import ThicknessDirection, ThicknessType, LayerType
 from RFEM.enums import ThicknessOrthotropyType, AddOn, ObjectTypes
 from RFEM.enums import ThicknessShapeOrthotropySelfWeightDefinitionType
 from RFEM.enums import ThicknessStiffnessMatrixSelfWeightDefinitionType
-from RFEM.initModel import Model, GetAddonStatus, clearAtributes, SetAddonStatus, ConvertStrToListOfInt
+from RFEM.initModel import Model, GetAddonStatus, clearAttributes, SetAddonStatus, ConvertStrToListOfInt
 from math import pi
 
 class Thickness():
@@ -30,7 +30,7 @@ class Thickness():
         clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Thickness No.
         clientObject.no = no
@@ -85,7 +85,7 @@ class Thickness():
         clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Thickness No.
         clientObject.no = no
@@ -143,7 +143,7 @@ class Thickness():
         clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Thickness No.
         clientObject.no = no
@@ -209,7 +209,7 @@ class Thickness():
         clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Thickness No.
         clientObject.no = no
@@ -272,7 +272,7 @@ class Thickness():
         clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Thickness No.
         clientObject.no = no
@@ -339,7 +339,7 @@ class Thickness():
         clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Thickness No.
         clientObject.no = no
@@ -404,7 +404,7 @@ class Thickness():
         clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Thickness No.
         clientObject.no = no
@@ -503,7 +503,7 @@ class Thickness():
         clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Thickness No.
         clientObject.no = no
@@ -642,7 +642,7 @@ class Thickness():
         clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Thickness No.
         clientObject.no = no

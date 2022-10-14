@@ -1,0 +1,5 @@
+include RFEM/Reports/favicon32.png
+include RFEM/Reports/htmlStyles.css
+include RFEM/Reports/htmlScript.js
+
+

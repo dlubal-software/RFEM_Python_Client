@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import SurfaceResultsAdjustmentShape, SurfaceResultsAdjustmentType, SurfaceResultsAdjustmentProjection
 
 class SurfaceResultsAdjustment():
@@ -37,7 +37,7 @@ class SurfaceResultsAdjustment():
         clientObject = model.clientModel.factory.create('ns0:surface_results_adjustment')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Result Adjustment No.
         clientObject.no = no

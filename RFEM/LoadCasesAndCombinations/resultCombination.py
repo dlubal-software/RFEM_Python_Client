@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 
 class ResultCombination():
 
@@ -20,7 +20,7 @@ class ResultCombination():
         clientObject = model.clientModel.factory.create('ns0:result_combination')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Result Combination No.
         clientObject.no = no

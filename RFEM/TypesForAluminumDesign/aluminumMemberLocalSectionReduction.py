@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import AluminumMemberLocalSectionReductionType, MultipleOffsetDefinitionType, FastenerDefinitionType
 
 class AluminumMemberLocalSectionReduction():
@@ -47,7 +47,7 @@ class AluminumMemberLocalSectionReduction():
         clientObject = model.clientModel.factory.create('ns0:aluminum_member_local_section_reduction')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         #Local Section Reduction No.
         clientObject.no = no

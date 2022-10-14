@@ -3,11 +3,11 @@ from setuptools import setup
 import pathlib
 
 here = pathlib.Path(__file__).parent
-readme = (here/"README.md").read_text()
+readme = (here/"README.md").read_text(encoding="utf-8")
 
 setup(
     name='RFEM',
-    version='1.11.0',
+    version='1.13.0',
     description='Python Framework for RFEM6 Web Services',
     long_description=readme,
     long_description_content_type = "text/markdown",

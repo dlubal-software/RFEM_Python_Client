@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString, ConvertStrToListOfInt
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString, ConvertStrToListOfInt
 from RFEM.enums import SolidType, ObjectTypes
 
 class Solid():
@@ -24,7 +24,7 @@ class Solid():
         clientObject = model.clientModel.factory.create('ns0:solid')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Solid No.
         clientObject.no = no
@@ -69,7 +69,7 @@ class Solid():
         clientObject = model.clientModel.factory.create('ns0:solid')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Solid No.
         clientObject.no = no
@@ -117,7 +117,7 @@ class Solid():
         clientObject = model.clientModel.factory.create('ns0:solid')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Solid No.
         clientObject.no = no
@@ -165,7 +165,7 @@ class Solid():
         clientObject = model.clientModel.factory.create('ns0:solid')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Solid No.
         clientObject.no = no
@@ -213,7 +213,7 @@ class Solid():
         clientObject = model.clientModel.factory.create('ns0:solid')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Solid No.
         clientObject.no = no

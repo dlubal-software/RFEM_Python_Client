@@ -50,29 +50,44 @@ def ConvertResultsToListOfDct(results, includeBase = False):
                         # they are defined by type+value structure called 'variant',
                         # hence using try-except notation
                         try:
-                            dct[y] = r.row[y].value
+                            dct[y] = float(r.row[y].value)
                         except:
                             try:
-                                dct[y] = r.row[y]
+                                dct[y] = r.row[y].value
                             except:
-                                pass
+                                try:
+                                    dct[y] = float(r.row[y])
+                                except:
+                                    try:
+                                        dct[y] = r.row[y]
+                                    except:
+                                        pass
                 else:
                     try:
-                        dct[i] = r[i]
+                        dct[i] = float(r[i])
                     except:
-                        pass
+                        try:
+                            dct[i] = r[i]
+                        except:
+                            pass
             lstOfDct.append(dct)
         # include only row
         else:
             if params['row']:
                 for i in params['row']:
                     try:
-                        dct[i] = r.row[i].value
+                        dct[i] = float(r.row[i].value)
                     except:
                         try:
-                            dct[i] = r.row[i]
+                            dct[i] = r.row[i].value
                         except:
-                            pass
+                            try:
+                                dct[i] = float(r.row[i])
+                            except:
+                                try:
+                                    dct[i] = r.row[i]
+                                except:
+                                    pass
                 lstOfDct.append(dct)
 
     if params['error']:

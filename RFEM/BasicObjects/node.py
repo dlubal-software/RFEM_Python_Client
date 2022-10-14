@@ -1,7 +1,7 @@
 from RFEM.enums import NodeType
 from RFEM.enums import NodeCoordinateSystemType
 from RFEM.enums import NodeReferenceType, ObjectTypes
-from RFEM.initModel import Model, clearAtributes, ConvertStrToListOfInt
+from RFEM.initModel import Model, clearAttributes, ConvertStrToListOfInt
 from math import pi
 
 class Node():
@@ -28,7 +28,7 @@ class Node():
         clientObject = model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Node No.
         clientObject.no = no
@@ -82,7 +82,7 @@ class Node():
         clientObject = model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Node No.
         clientObject.no = no
@@ -174,7 +174,7 @@ class Node():
         clientObject = model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Node No.
         clientObject.no = no
@@ -260,7 +260,7 @@ class Node():
         clientObject = model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Node No.
         clientObject.no = no
@@ -335,7 +335,7 @@ class Node():
         clientObject = model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Node No.
         clientObject.no = no
@@ -400,7 +400,7 @@ class Node():
         clientObject = model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Node No.
         clientObject.no = no

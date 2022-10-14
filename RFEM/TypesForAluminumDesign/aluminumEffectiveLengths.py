@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import AluminumEffectiveLengthsDeterminationMcrEurope
 
 class AluminumEffectiveLengths():
@@ -47,7 +47,7 @@ class AluminumEffectiveLengths():
         clientObject = model.clientModel.factory.create('ns0:aluminum_effective_lengths')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Effective Lengths No.
         clientObject.no = no

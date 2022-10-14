@@ -1625,7 +1625,7 @@ class AluminumMemberRotationalRestraintPositionofSheeting(Enum):
     '''
     SHEETING_POSITION_NEGATIVE, SHEETING_POSITION_POSITIVE = range(2)
 
-class SteelMemberRotationalRestraintRotationalStiffness(Enum):
+class AluminumMemberRotationalRestraintRotationalStiffness(Enum):
     '''
     Steel Member Rotational Restraint Rotational Stiffness
     '''
@@ -2080,9 +2080,9 @@ class MemberEccentricityVerticalSectionAlignment(Enum):
     '''
     ALIGN_BOTTOM, ALIGN_MIDDLE, ALIGN_TOP = range(3)
 
-class MemberHingeNonlineartiy(Enum):
+class MemberHingeNonlinearity(Enum):
     '''
-    Member Hinge Nonlineartiy
+    Member Hinge Nonlinearity
     '''
     NONLINEARITY_TYPE_DIAGRAM, NONLINEARITY_TYPE_FAILURE_ALL_IF_NEGATIVE, NONLINEARITY_TYPE_FAILURE_ALL_IF_POSITIVE, NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE, \
     NONLINEARITY_TYPE_FAILURE_IF_POSITIVE, NONLINEARITY_TYPE_FORCE_MOMENT_DIAGRAM, NONLINEARITY_TYPE_FRICTION_DIRECTION_1, NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2, \
@@ -2094,7 +2094,7 @@ class MemberHingeDiagramType(Enum):
     '''
     Member Hinge Diagram Type
     '''
-    DIAGRAM_ENDING_TYPE_CONTINUOUS, DIAGRAM_ENDING_TYPE_STOP, DIAGRAM_ENDING_TYPE_TEARING, DIAGRAM_ENDING_TYPE_YIELDING = range(4)
+    DIAGRAM_ENDING_TYPE_CONTINUOUS, DIAGRAM_ENDING_TYPE_STOP, DIAGRAM_ENDING_TYPE_FAILURE, DIAGRAM_ENDING_TYPE_YIELDING = range(4)
 
 class MemberHingePartialActivityType(Enum):
     '''
@@ -2179,15 +2179,27 @@ class OpeningLoadDirection(Enum):
 
 class AluminumMemberLocalSectionReductionType(Enum):
     '''
-    Steel Member Local Section Reduction Type
+    Aluminum Member Local Section Reduction Type
     '''
     REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS = range(1)
+
+class SteelMemberLocalSectionReductionType(Enum):
+    '''
+    Steel Member Local Section Reduction Type
+    '''
+    REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, REDUCTION_COMPONENT_TYPE_SECTION_VALUES = range(2)
 
 class FastenerDefinitionType(Enum):
     '''
     Steel Member Local Section Reduction Fastener Definition Type
     '''
-    DEFINITION_TYPE_ABSOLUTE,DEFINITION_TYPE_RELATIVE = range(2)
+    DEFINITION_TYPE_ABSOLUTE, DEFINITION_TYPE_RELATIVE = range(2)
+
+class DefinitionType(Enum):
+    '''
+    Steel Member Local Section Reduction Definition Type
+    '''
+    DIMENSION_TYPE_OFFSET, DIMENSION_TYPE_SIZE = range(2)
 
 class MultipleOffsetDefinitionType(Enum):
     '''

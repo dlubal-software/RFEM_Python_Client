@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 
 class ImposedNodalDeformation():
 
@@ -17,7 +17,7 @@ class ImposedNodalDeformation():
         clientObject = Model.clientModel.factory.create('ns0:imposed_nodal_deformation')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Load No.
         clientObject.no = no

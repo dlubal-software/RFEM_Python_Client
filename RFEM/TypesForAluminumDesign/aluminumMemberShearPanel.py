@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import AluminumMemberShearPanelDefinitionType, AluminumMemberShearPanelPositionOnSection, AluminumMemberShearPanelFasteningArrangement
 
 class AluminumMemberShearPanel():
@@ -76,7 +76,7 @@ class AluminumMemberShearPanel():
         clientObject = Model.clientModel.factory.create('ns0:aluminum_member_shear_panel')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Shear Panel No.
         clientObject.no = no

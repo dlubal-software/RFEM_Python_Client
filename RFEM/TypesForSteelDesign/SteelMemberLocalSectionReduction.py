@@ -1,20 +1,18 @@
-#SteelMemberLocalSectionReduction
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.enums import SteelMemberLocalSectionReductionType, MultipleOffsetDefinitionType, FastenerDefinitionType, DefinitionType
 
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
-from RFEM.enums import AluminumMemberLocalSectionReductionType, MultipleOffsetDefinitionType, FastenerDefinitionType
-
-class AluminumMemberLocalSectionReduction():
+class SteelMemberLocalSectionReduction():
 
     def __init__(self,
                  no: int = 1,
                  members: str = '1',
                  member_sets: str = '',
                  components: list = [
-                    [AluminumMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1.0, False,\
+                    [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1.0, False,\
                      FastenerDefinitionType.DEFINITION_TYPE_ABSOLUTE, 0.5, 2,\
                      MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 1.0]
                                     ],
-                 name: str = '',
+                 user_defined_name: str = '',
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -28,20 +26,20 @@ class AluminumMemberLocalSectionReduction():
                 components[i][1] (float): Position Value
                 components[i][2] (bool): Enable/Disable Multiple Option
                 components[i][3] (enum): Fastener Definition Type Enumeration
-                for components[i][3] == FastenerDefinitionType.DEFINITION_TYPE_ABSOLUTE
+                for components[i][3] == FastenerDefinitionType.DEFINITION_TYPE_ABSOLUTE;
                     components[i][4] (float): Reduction Area
-                for components[i][3] == FastenerDefinitionType.DEFINITION_TYPE_RELATIVE
+                for components[i][3] == FastenerDefinitionType.DEFINITION_TYPE_RELATIVE;
                     components[i][4] (float): Reduction Area Factor (value must be between 0.0 and 1.0)
                 if components[i][2] == True
                     components[i][5] (int): Multiple Number
                     components[i][6] (enum): Multiple Offset Definition Type Enumeration
-                    for MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE
+                    for components[i][6] == MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE;
                         components[i][7] (float): Multiple Offset Value
-                    for MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_RELATIVE
+                    for components[i][6] == MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_RELATIVE;
                         components[i][7] (float): Multiple Offset Value (value must be between 0.0 and 1.0)
-            name (str): User Defined  Member Local Section Reduction Name
-            comment (str): Comments
-            params (dict): Any WS Parameter relevant to the object and its value in form of a dictionary
+            user_defined_name (str): User Defined  Member Local Section Reduction Name
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
         """
 
@@ -49,7 +47,7 @@ class AluminumMemberLocalSectionReduction():
         clientObject = model.clientModel.factory.create('ns0:steel_member_local_section_reduction')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         #Local Section Reduction No.
         clientObject.no = no
@@ -61,9 +59,9 @@ class AluminumMemberLocalSectionReduction():
         clientObject.member_sets = ConvertToDlString(member_sets)
 
         #Local Section Reduction User defined Name
-        if name:
+        if user_defined_name:
             clientObject.user_defined_name_enabled = True
-            clientObject.name = name
+            clientObject.name = user_defined_name
 
         #Local Section Reduction Components
         clientObject.components = model.clientModel.factory.create('ns0:array_of_steel_member_local_section_reduction_components')
@@ -72,20 +70,42 @@ class AluminumMemberLocalSectionReduction():
             smlsr = model.clientModel.factory.create('ns0:steel_member_local_section_reduction_components_row')
             smlsr.no = i+1
             smlsr.row.reduction_type = components[i][0].name
+
             smlsr.row.position = components[i][1]
             smlsr.row.multiple = components[i][2]
-            smlsr.row.fastener_definition_type = components[i][3].name
-            if smlsr.row.fastener_definition_type == "DEFINITION_TYPE_ABSOLUTE":
-                smlsr.row.reduction_area = components[i][4]
-            elif smlsr.row.fastener_definition_type == "DEFINITION_TYPE_RELATIVE":
-                smlsr.row.reduction_area_factor = components[i][4]
-            if smlsr.row.multiple:
-                smlsr.row.multiple_number = components[i][5]
-                smlsr.row.multiple_offset_definition_type = components[i][6].name
-                smlsr.row.multiple_offset = components[i][7]
-            else:
-                smlsr.row.multiple_offset_definition_type = None # important
 
+            if smlsr.row.reduction_type == 'REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS':
+                smlsr.row.fastener_definition_type = components[i][3].name
+                smlsr.row.definition_type = None # important
+                if smlsr.row.fastener_definition_type == 'DEFINITION_TYPE_ABSOLUTE':
+                    smlsr.row.reduction_area = components[i][4]
+                elif smlsr.row.fastener_definition_type == 'DEFINITION_TYPE_RELATIVE':
+                    smlsr.row.reduction_area_factor = components[i][4]
+                if smlsr.row.multiple:
+                    smlsr.row.multiple_number = components[i][5]
+                    smlsr.row.multiple_offset_definition_type = components[i][6].name
+                    smlsr.row.multiple_offset = components[i][7]
+                else:
+                    smlsr.row.multiple_offset_definition_type = None # important
+            elif smlsr.row.reduction_type == 'REDUCTION_COMPONENT_TYPE_SECTION_VALUES':
+                smlsr.row.fastener_definition_type = None # important
+                smlsr.row.definition_type = components[i][3].name
+                smlsr.row.sectional_area_factor = components[i][4]
+                smlsr.row.shear_area_y_factor = components[i][5]
+                smlsr.row.shear_area_z_factor = components[i][6]
+                smlsr.row.moment_of_inertia_y_factor = components[i][7]
+                smlsr.row.moment_of_inertia_z_factor = components[i][8]
+                smlsr.row.torsional_constant_factor = components[i][9]
+                if smlsr.row.multiple:
+                    smlsr.row.multiple_offset_definition_type = components[i][10].name
+                    smlsr.row.multiple_number = components[i][11]
+                    smlsr.row.multiple_offset = components[i][12]
+                else:
+                    smlsr.row.multiple_offset_definition_type = None # important
+            else:
+                assert True, 'Unsupported reduction_type'
+
+            print(smlsr)
             clientObject.components.steel_member_local_section_reduction_components.append(smlsr)
 
         # Comment
