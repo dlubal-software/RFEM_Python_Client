@@ -375,9 +375,6 @@ def setDesignSupport(design_situation): # ns0:design_situation
 def setDimension(dimension): # ns0:dimension
     Model.clientModel.service.set_dimension(dimension)
 
-def setFormula(object_location, object_parameter_location, formula): # ns0:object_location object_location, ns0:object_parameter_location object_parameter_location, xs:string formula
-    Model.clientModel.service.set_formula(object_location, object_parameter_location, formula)
-
 def setLineGrid(line_grid): #ns0:line_grid
     Model.clientModel.service.set_line_grid(line_grid)
 

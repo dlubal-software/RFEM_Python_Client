@@ -2250,3 +2250,9 @@ class ActionCombinationItems(Enum):
     Action Combination Items
     '''
     ENVELOPE_PERMANENT, ENVELOPE_TRANSIENT, GENERAL, SUPERPOSITION = range(4)
+
+class FormulaParameter(Enum):
+    '''
+    Formula Parameter to Return from Formula.Get Function
+    '''
+    ALL, FORMULA, IS_VALID, CALCULATED_VALUE = range(4)
