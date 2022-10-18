@@ -1,25 +1,26 @@
 from RFEM.initModel import Model
 from RFEM.enums import ObjectTypes
 
-class GetObjectNumbersByType():
+class GetObjectNumbersByType:
 
-    @staticmethod
-    def GetObjectNumbers(ObjectType = ObjectTypes.E_OBJECT_TYPE_NODE, model = Model):
+    def __new__(
+                    self,
+                    ObjectType = ObjectTypes.E_OBJECT_TYPE_NODE,
+                    model = Model):
 
-        """Returns a sorted list which contains object numbers in RFEM tables:
-
-            ObjectNumberList = [1, 2, ... ]
-
+        """
+        Returns a sorted list which contains object numbers in RFEM tables.
+        ObjectNumberList = [1, 2, ... ]
+        Args:
+        ObjectType (enum): Object type enum
+        model(RFEM Class, optional): Model to be edited
         """
 
         ObjectNumber = Model.clientModel.service.get_all_object_numbers_by_type(ObjectType.name)
+        ObjectNumberList = []
 
         if len(ObjectNumber) != 0:
-            ObjectNumberList = []
             for i in range(len(ObjectNumber.item)):
                 ObjectNumberList.append(ObjectNumber.item[i].no)
             ObjectNumberList.sort()
-        else:
-            None
-
         return ObjectNumberList
