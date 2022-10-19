@@ -1,4 +1,3 @@
-import pytest
 import os
 import sys
 PROJECT_ROOT = os.path.abspath(os.path.join(
@@ -7,7 +6,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 from RFEM.enums import ObjectTypes
-from RFEM.initModel import Model, CheckIfMethodOrTypeExists
+from RFEM.initModel import Model
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.lineSet import LineSet
@@ -16,7 +15,6 @@ from RFEM.Tools.GetObjectNumbersByType import GetObjectNumbersByType
 if Model.clientModel is None:
     Model()
 
-@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel, 'get_all_object_numbers_by_type', True), reason="get_all_object_numbers_by_type not in RFEM GM yet")
 def test_GetObjectNumbersByType():
 
     Model.clientModel.service.delete_all()
@@ -33,13 +31,10 @@ def test_GetObjectNumbersByType():
     Model.clientModel.service.finish_modification()
 
     ObjectDictionary = GetObjectNumbersByType(ObjectTypes.E_OBJECT_TYPE_LINE)
-
     assert ObjectDictionary == [1, 2]
 
     ObjectDictionary = GetObjectNumbersByType(ObjectTypes.E_OBJECT_TYPE_NODE)
-
     assert ObjectDictionary == [1, 2, 3]
 
     ObjectDictionary = GetObjectNumbersByType(ObjectTypes.E_OBJECT_TYPE_LINE_SET)
-
     assert ObjectDictionary == [1]
