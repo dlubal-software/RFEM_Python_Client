@@ -18,6 +18,7 @@ if Model.clientModel is None:
 
 def test_AluminumMemberLocalSectionReduction():
 
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     SetAddonStatus(Model.clientModel, AddOn.aluminum_design_active, True)
@@ -42,6 +43,8 @@ def test_AluminumMemberLocalSectionReduction():
         ], ""
         )
 
+    Model.clientModel.service.finish_modification()
+    
     smlr_1 = Model.clientModel.service.get_aluminum_member_local_section_reduction(1)
     assert smlr_1.components[0][0].row['position'] == 1
     assert smlr_1.components[0][0].row['multiple'] == False
@@ -61,6 +64,3 @@ def test_AluminumMemberLocalSectionReduction():
     assert smlr_3.components[0][1].row['multiple'] == True
     assert smlr_3.components[0][1].row['multiple_offset_definition_type'] == 'OFFSET_DEFINITION_TYPE_ABSOLUTE'
     assert smlr_3.components[0][1].row['multiple_offset'] == 0.3
-
-    Model.clientModel.service.finish_modification()
-

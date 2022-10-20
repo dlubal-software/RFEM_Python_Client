@@ -17,6 +17,7 @@ if Model.clientModel is None:
 @pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:steel_member_shear_panel', True), reason="Type ns0:steel_member_shear_panel not in RFEM GM yet")
 def test_steelMemberShearPanel():
 
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     SetAddonStatus(Model.clientModel, AddOn.steel_design_active, True)
@@ -31,6 +32,7 @@ def test_steelMemberShearPanel():
                             [SteelMemberShearPanelPositionOnSection.POSITION_ON_UPPER_FLANGE, "CHS 48.3x4 | EN 10210-2 | Condesa", "CHS 33.7x2.3 | EN 10210-2 | Ferona"],
                             [2,4,1,1,0.055, 0.224])
 
+    Model.clientModel.service.finish_modification()
 
     shearPanel_1 = Model.clientModel.service.get_steel_member_shear_panel(1)
     shearPanel_2 = Model.clientModel.service.get_steel_member_shear_panel(2)
@@ -39,6 +41,3 @@ def test_steelMemberShearPanel():
     assert shearPanel_1.no == 1
     assert shearPanel_2.definition_type == "DEFINITION_TYPE_TRAPEZOIDAL_SHEETING"
     assert shearPanel_3.panel_length == 2.0
-
-
-    Model.clientModel.service.finish_modification()

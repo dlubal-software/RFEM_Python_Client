@@ -23,9 +23,6 @@ def test_SteelMemberLocalSectionReduction():
 
     SetAddonStatus(Model.clientModel, AddOn.steel_design_active, True)
 
-    SteelMemberLocalSectionReduction()
-    Model.clientModel.service.finish_modification()
-    '''
     SteelMemberLocalSectionReduction(1, "", "",
         [
             [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_SECTION_VALUES, 1, True, DefinitionType.DIMENSION_TYPE_SIZE, 1,1,1,1,1,1, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_RELATIVE, 2, 2.0]
@@ -66,4 +63,3 @@ def test_SteelMemberLocalSectionReduction():
     assert smlr_3.components[0][1].row['multiple'] == True
     assert smlr_3.components[0][1].row['multiple_offset_definition_type'] == 'OFFSET_DEFINITION_TYPE_ABSOLUTE'
     assert smlr_3.components[0][1].row['multiple_offset'] == 0.3
-    '''

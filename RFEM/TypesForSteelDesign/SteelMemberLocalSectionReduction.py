@@ -105,7 +105,6 @@ class SteelMemberLocalSectionReduction():
             else:
                 assert True, 'Unsupported reduction_type'
 
-            print(smlsr)
             clientObject.components.steel_member_local_section_reduction_components.append(smlsr)
 
         # Comment

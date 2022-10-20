@@ -17,6 +17,7 @@ if Model.clientModel is None:
 
 def test_aluminumMemberRotationalRestraints():
 
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     SetAddonStatus(Model.clientModel, AddOn.aluminum_design_active)

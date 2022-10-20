@@ -16,6 +16,7 @@ if Model.clientModel is None:
 
 def test_steelEffectiveLengths():
 
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     SetAddonStatus(Model.clientModel, AddOn.steel_design_active, True)
@@ -69,6 +70,8 @@ def test_steelEffectiveLengths():
         ]
                         )
 
+    Model.clientModel.service.finish_modification()
+
     ef_1 = Model.clientModel.service.get_steel_effective_lengths(1)
     assert ef_1.flexural_buckling_about_y == True
 
@@ -79,5 +82,3 @@ def test_steelEffectiveLengths():
     ef_3 = Model.clientModel.service.get_steel_effective_lengths(3)
     assert ef_3.factors[0][0].row['flexural_buckling_u'] == 3
     assert ef_3.factors[0][0].row['flexural_buckling_y'] == 4
-
-    Model.clientModel.service.finish_modification()

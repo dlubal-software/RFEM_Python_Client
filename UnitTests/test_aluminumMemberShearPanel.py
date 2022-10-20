@@ -16,6 +16,7 @@ if Model.clientModel is None:
 
 def test_steelMemberShearPanel():
 
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     SetAddonStatus(Model.clientModel, AddOn.steel_design_active)

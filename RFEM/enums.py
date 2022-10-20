@@ -1615,6 +1615,45 @@ class SteelEffectiveLengthsDeterminationMcrEurope(Enum):
     '''
     DETERMINATION_EUROPE_EIGENVALUE, DETERMINATION_EUROPE_USER_DEFINED = range(2)
 
+class TimberEffectiveLengthsSupportType(Enum):
+    '''
+    Timber Effective Lengths Support Type
+    '''
+    SUPPORT_TYPE_FIXED_ALL, SUPPORT_TYPE_FIXED_IN_Y, SUPPORT_TYPE_FIXED_IN_Z, SUPPORT_TYPE_FIXED_IN_Z_AND_TORSION, \
+    SUPPORT_TYPE_FIXED_IN_Z_AND_TORSION_AND_WARPING, SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION, SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION_AND_WARPING, \
+    SUPPORT_TYPE_INDIVIDUALLY, SUPPORT_TYPE_NONE, SUPPORT_TYPE_RESTRAINT_ABOUT_X = range(10)
+
+class TimberEffectiveLengthsEccentricityType(Enum):
+    '''
+    Timber Effective Lengths Eccentricity Type
+    '''
+    ECCENTRICITY_TYPE_AT_LOWER_FLANGE, ECCENTRICITY_TYPE_AT_UPPER_FLANGE, ECCENTRICITY_TYPE_NONE, ECCENTRICITY_TYPE_USER_VALUE = range(4)
+
+class TimberEffectiveLengthsSupportTypeInY(Enum):
+    '''
+    Timber Effective Lengths Support in Y Type
+    '''
+    SUPPORT_STATUS_NO, SUPPORT_STATUS_SPRING, SUPPORT_STATUS_YES = range(3)
+
+class TimberEffectiveLengthsRestraintTypeAboutX(Enum):
+    '''
+    Timber Effective Lengths Restraint About X Type
+    '''
+    SUPPORT_STATUS_NO, SUPPORT_STATUS_SPRING, SUPPORT_STATUS_YES = range(3)
+
+class TimberEffectiveLengthsDeterminationType(Enum):
+    '''
+    Timber Effective Lengths Determination Type
+    '''
+    DETERMINATION_ANALYTICAL, DETERMINATION_EIGENVALUE_SOLVER, DETERMINATION_USER_DEFINED = range(3)
+
+class TimberMemberLocalSectionReductionType(Enum):
+    '''
+    Timber Member Local Section Reduction Type
+    '''
+    REDUCTION_COMPONENT_TYPE_CIRCLE_OPENING, REDUCTION_COMPONENT_TYPE_END_NOTCH, REDUCTION_COMPONENT_TYPE_INNER_NOTCH, \
+    REDUCTION_COMPONENT_TYPE_RECTANGLE_OPENING, REDUCTION_COMPONENT_TYPE_START_NOTCH = range(5)
+
 class AluminumEffectiveLengthsDeterminationMcrEurope(Enum):
     '''
     Aluminum Effective Lengths Determination MCR Europe
@@ -2217,7 +2256,7 @@ class DefinitionType(Enum):
 
 class MultipleOffsetDefinitionType(Enum):
     '''
-    Steel Member Local Section Reduction Multiple Offset Definition Type
+    Member Local Section Reduction Multiple Offset Definition Type
     '''
     OFFSET_DEFINITION_TYPE_ABSOLUTE, OFFSET_DEFINITION_TYPE_RELATIVE = range(2)
 
