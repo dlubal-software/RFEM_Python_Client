@@ -1,0 +1,100 @@
+
+.containerDiv{
+
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.headerText{
+    position: relative;
+    height: 48px;
+    bottom: 12px;
+    display: flex;
+    
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 250;
+    font-size: 48px;
+    line-height: 100px;
+    
+    color: #2C3475;
+}
+
+.inputDiv{
+    position: relative;
+    left: 200px;
+    top: 50px;
+    height: 200px;
+    width: 50%;
+}
+
+.heightBox{
+    position: relative;
+    left: 100px;
+    width: 200px;
+    height: 30px;
+    border: 1.5px solid #64748B;
+    border-radius: 12px;
+}
+
+.diameterBox{
+    position: relative;
+    left: 100px;
+    width: 200px;
+    height: 30px;
+    border: 1.5px solid #64748B;
+    border-radius: 12px;
+}
+
+.heightLabel{
+    font-family: 'Manrope';
+    font-style: light;
+    font-size: 16px;
+    font-weight: 5;
+    color: #64748B;
+}
+
+.diameterLabel{
+    font-family: 'Manrope';
+    font-style: normal;
+    font-size: 16px;
+    font-weight: 5;
+    color: #64748B;
+}
+
+.sliderLabel{
+    font-family: 'Manrope';
+    font-style: normal;
+    font-size: 16px;
+    font-weight: 5;
+    color: #64748B;
+}
+
+.utilSlider{
+    width: 60%; 
+    height: 25px; 
+}
+
+.calculateButton{
+    margin-left: 100px;
+    width: 184px;
+    height: 45px;
+    border: 1.5px solid #64748B;
+    border-radius: 12px;
+    background: #334C66;
+    color: #BDC4D2;
+    font-size: 16px;
+}
+
+.enter{
+    color: #2C3475;
+    width: 400px;
+}
+
+.result{
+    margin-left: 55px;
+    padding-left: 30px;
+    width: 250px;
+    align-content: center;
+    color: #2C3475;
+}
