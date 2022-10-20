@@ -1654,6 +1654,24 @@ class TimberMemberLocalSectionReductionType(Enum):
     REDUCTION_COMPONENT_TYPE_CIRCLE_OPENING, REDUCTION_COMPONENT_TYPE_END_NOTCH, REDUCTION_COMPONENT_TYPE_INNER_NOTCH, \
     REDUCTION_COMPONENT_TYPE_RECTANGLE_OPENING, REDUCTION_COMPONENT_TYPE_START_NOTCH = range(5)
 
+class ZAxisReferenceType(Enum):
+    '''
+    Timber Member Local Section Reduction Z Axis Reference Type
+    '''
+    E_POSITION_REFERENCE_CENTER, E_POSITION_REFERENCE_TOP, E_POSITION_REFERENCE_BOTTOM = range(3)
+
+class OrientationType(Enum):
+    '''
+    Timber Member Local Section Reduction Orientation Type
+    '''
+    E_ORIENTATION_DEPTH, E_ORIENTATION_WIDTH = range(2)
+
+class DirectionType(Enum):
+    '''
+    Timber Member Local Section Reduction Direction Type
+    '''
+    E_DIRECTION_DEPTH_NEGATIVE, E_DIRECTION_DEPTH_POSITIVE, E_DIRECTION_WIDTH_NEGATIVE, E_DIRECTION_WIDTH_POSITIVE = range(4)
+
 class AluminumEffectiveLengthsDeterminationMcrEurope(Enum):
     '''
     Aluminum Effective Lengths Determination MCR Europe
