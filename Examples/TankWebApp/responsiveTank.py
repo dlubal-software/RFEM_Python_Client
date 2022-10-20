@@ -4,7 +4,6 @@ import sys
 baseName = os.path.basename(__file__)
 dirName = os.path.dirname(__file__)
 sys.path.append(dirName + r'/../..')
-
 import pyvista as pv
 from RFEM.enums import LineSupportType, SurfaceGeometry, SurfaceLoadDirection, SurfaceLoadDistribution
 from RFEM.initModel import Calculate_all, Model, client
@@ -19,9 +18,7 @@ from RFEM.Loads.surfaceLoad import SurfaceLoad
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.ImportExport.exports import ExportTo
 
-def calculateTank(d,
-                  h,
-                  util):
+def calculateTank(d, h, util):
 
     """
     Args:
@@ -66,15 +63,15 @@ def calculateTank(d,
     maxStressinit = ResultTables.SurfacesEquivalentStressesMises()
     maxStress = GetMaxValue(maxStressinit, 'equivalent_stresses_sigma_eqv_max') / 1000000
 
-
+    ExportTo(dirName + r"/export.vtk")
     client.service.close_model(0, False)
 
-    file = 'export/export_0.vtp'
+    file = dirName + r"/export/export_0.vtp"
     mesh = pv.read(file)
     plotter = pv.Plotter()
     plotter.add_mesh(mesh)
-    plotter.export_obj('export.obj')
+    plotter.export_obj(dirName + '/export.obj')
 
     return maxStress
 
-#calculateTank()
+#calculateTank(10,2,1)

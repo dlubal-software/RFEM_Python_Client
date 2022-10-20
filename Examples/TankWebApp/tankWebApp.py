@@ -2,13 +2,15 @@ from dash import Dash, dcc, html
 import dash_vtk
 from responsiveTank import *
 from dash.dependencies import Input, State, Output
+import os
+baseName = os.path.basename(__file__)
+dirName = os.path.dirname(__file__)
 
 app = Dash(__name__)
 
 logoPath = 'assets/logo.png'
 
-obj_file = r'C:\Users\KaratasD\Desktop\pyDev\RFEM_Python_Client\Examples\TankWebApp\export.obj'
-
+obj_file = dirName + '/export.obj'
 txt_content = None
 with open(obj_file, 'r') as file:
   txt_content = file.read()
@@ -140,7 +142,7 @@ def update(value, height, diameter, uti):
                         children=[html.H5('The maximum stress:'), html.H2(' {} MPa'.format(stress))])
 
 
-    obj_file = "export.obj"
+    obj_file = dirName + '/export.obj'
 
     txt_content = None
     with open(obj_file, 'r') as file:
