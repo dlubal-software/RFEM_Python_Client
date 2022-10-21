@@ -63,7 +63,7 @@ class MemberSetImperfection():
                 clientObject.basic_value_relative = parameters[0]
             elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_ABSOLUTE:
                 clientObject.basic_value_absolute = parameters[0]
-            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_EN_1992_1_1993_1:
+            elif definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_EN_1993_1_1 or definition_type == MemberImperfectionDefinitionType.DEFINITION_TYPE_EN_1992_1:
                 clientObject.basic_value_relative = parameters[0]
                 clientObject.height = parameters[1]
                 clientObject.column_in_row = parameters[2]

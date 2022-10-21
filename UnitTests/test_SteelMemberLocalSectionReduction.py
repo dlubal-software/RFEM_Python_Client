@@ -15,7 +15,7 @@ import pytest
 if Model.clientModel is None:
     Model()
 
-#@pytest.mark.skip()
+@pytest.mark.skip()
 def test_SteelMemberLocalSectionReduction():
 
     Model.clientModel.service.delete_all()
