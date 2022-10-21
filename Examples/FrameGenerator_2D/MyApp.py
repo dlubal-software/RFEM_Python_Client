@@ -1,3 +1,4 @@
+import json
 import sys
 
 from InstallPyQt5 import installPyQt5
@@ -11,9 +12,6 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsS
 
 from MyRFEM import *
 
-# TODO 1: Combo box Supports
-# TODO 2: Adapt the graphic for different kinds of supports
-# TODO 3: Read global variables from a config file in JSON format
 # TODO 4: Implement input validation
 # TODO 5: Define a dictionary for the calculation model and implement the updates in event handler
 # TODO 6: Write a class for the connection to RFEM
@@ -21,8 +19,14 @@ from MyRFEM import *
 # TODO 8: Fill the tab for steel design
 
 class MyWindow(QMainWindow):
+    # This dictionary stores the data for the graphic that will
+    # be drawn with drawGraphic().
     graphic_model = {}
+
+    # All usable materials are defined in this list.
     material_list = []
+
+    # All usable cross sections are defined in this list.
     cross_section_list_1 = []
     cross_section_list_2 = []
 
@@ -30,22 +34,19 @@ class MyWindow(QMainWindow):
         super(MyWindow, self).__init__()
         self.ui = uic.loadUi("MyApp.ui", self)
 
+        self.readConfig()
+
         # Fill the comboBoxes with default values
-        # TODO: In future the lists can be read from a config file. See TODO 3.
-        self.material_list = ['S 235', 'S 275', 'S 355']
         self.ui.comboBox_Material_o_c.addItems(self.material_list)
         self.ui.comboBox_Material_i_c.addItems(self.material_list)
         self.ui.comboBox_Material_r.addItems(self.material_list)
         self.ui.comboBox_Material_s.addItems(self.material_list)
 
-        self.cross_section_list_1 = ['IPE 200', 'IPE 300', 'IPE 400', 'IPE 450']
-        self.cross_section_list_2 = ['HEA 160', 'HEA 180', 'HEA 200', 'HEA 220']
         self.ui.comboBox_CS_o_c.addItems(self.cross_section_list_1)
         self.ui.comboBox_CS_i_c.addItems(self.cross_section_list_2)
         self.ui.comboBox_CS_r.addItems(self.cross_section_list_1)
         self.ui.comboBox_CS_s.addItems(self.cross_section_list_1)
 
-        self.support_list = ['Hinged', 'Fixed']
         self.ui.comboBox_support_1.addItems(self.support_list)
         self.ui.comboBox_support_2.addItems(self.support_list)
         self.ui.comboBox_support_3.addItems(self.support_list)
@@ -80,48 +81,16 @@ class MyWindow(QMainWindow):
         self.ui.buttonCalculate.clicked.connect(self.onCalculate)
         self.ui.buttonCancel.clicked.connect(self.onCancel)
 
-        # This dictionary stores the data for the graphic that will
-        # be drawn with drawGraphic().
-        # See TODO 3.
-        self.graphic_model = {
-            'node': {
-                '01': [0.0, 7.0],
-                '02': [0.0, 4.0],
-                '03': [0.0, 1.0],
-                '04': [18.0, 7.0],
-                '05': [18.0, 4.0],
-                '06': [18.0, 1.0],
-                '07': [9.0, 0.0],
-                '08': [6.0, 7.0],
-                '09': [6.0, 4.0],
-                '10': [12.0, 7.0],
-                '11': [12.0, 4.0]
-            },
-            'member_color': {
-                '01': 'standard',
-                '02': 'ok',
-                '03': 'wrong',
-                '04': 'standard',
-                '05': 'standard',
-                '06': 'standard',
-                '07': 'standard',
-                '08': 'standard',
-                '09': 'standard',
-                '10': 'standard',
-                '11': 'standard',
-                '12': 'standard',
-                '13': 'standard',
-                '14': 'standard'
-            },
-            'supports':{
-                '1': 'Hinged',
-                '2': 'Hinged',
-                '3': 'Hinged',
-                '4': 'Hinged'
-            }
-        }
-
         self.drawGraphic()
+
+    def readConfig(self):
+        with open('config.json', 'r') as f:
+            config = json.load(f)
+        self.material_list = config['material_list']
+        self.cross_section_list_1 = config['cross_section_list_1']
+        self.cross_section_list_2 = config['cross_section_list_2']
+        self.support_list = config['support_list']
+        self.graphic_model = config['graphic_model']
 
     def drawGraphic(self):
         scene = QGraphicsScene()

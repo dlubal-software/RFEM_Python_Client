@@ -1,0 +1,43 @@
+{
+    "material_list": ["S 235", "S 275", "S 355"],
+    "cross_section_list_1": ["IPE 200", "IPE 300", "IPE 400", "IPE 450"],
+    "cross_section_list_2": ["HEA 160", "HEA 180", "HEA 200", "HEA 220"],
+    "support_list": ["Hinged", "Fixed"],
+    "graphic_model": {
+        "node": {
+            "01": [0.0, 7.0],
+            "02": [0.0, 4.0],
+            "03": [0.0, 1.0],
+            "04": [18.0, 7.0],
+            "05": [18.0, 4.0],
+            "06": [18.0, 1.0],
+            "07": [9.0, 0.0],
+            "08": [6.0, 7.0],
+            "09": [6.0, 4.0],
+            "10": [12.0, 7.0],
+            "11": [12.0, 4.0]
+        },
+        "member_color": {
+            "01": "standard",
+            "02": "ok",
+            "03": "wrong",
+            "04": "standard",
+            "05": "standard",
+            "06": "standard",
+            "07": "standard",
+            "08": "standard",
+            "09": "standard",
+            "10": "standard",
+            "11": "standard",
+            "12": "standard",
+            "13": "standard",
+            "14": "standard"
+        },
+        "supports":{
+            "1": "Hinged",
+            "2": "Hinged",
+            "3": "Hinged",
+            "4": "Fixed"
+        }
+    }
+}
