@@ -71,7 +71,7 @@ def test_imperfection_case():
     ImperfectionCase.Group(6,'1')
 
     MemberImperfection(1, 1)
-    MemberImperfection(2, 1,'2',MemberImperfectionType.IMPERFECTION_TYPE_INITIAL_SWAY, MemberImperfectionDefinitionType.DEFINITION_TYPE_EN_1992_1_1993_1, parameters=[250, 0.002, 2, 1,1,0.006, 220])
+    MemberImperfection(2, 1,'2',MemberImperfectionType.IMPERFECTION_TYPE_INITIAL_SWAY, MemberImperfectionDefinitionType.DEFINITION_TYPE_EN_1992_1, parameters=[250, 0.002, 2, 1,1,0.006, 220])
     MemberImperfection(3, 1,'3',MemberImperfectionType.IMPERFECTION_TYPE_INITIAL_SWAY, MemberImperfectionDefinitionType.DEFINITION_TYPE_EN_1995_1_1, parameters=[220, 0.002,1, 0.006, 230])
 
     MemberSetImperfection(1, 1)
