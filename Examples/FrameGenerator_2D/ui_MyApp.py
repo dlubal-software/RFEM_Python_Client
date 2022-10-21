@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\faulstichf\git\Arbeit\Python-Playground\Test-05\MyApp.ui'
+# Form implementation generated from reading ui file 'c:\Users\faulstichf\git\RfemPythonWsClient\Examples\FrameGenerator_2D\MyApp.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
