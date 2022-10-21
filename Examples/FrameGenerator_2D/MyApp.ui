@@ -462,7 +462,7 @@
       <property name="title">
        <string>Supports</string>
       </property>
-      <widget class="QComboBox" name="comboBox_9">
+      <widget class="QComboBox" name="comboBox_support_4">
        <property name="geometry">
         <rect>
          <x>170</x>
@@ -498,7 +498,7 @@
         <string>Support 3</string>
        </property>
       </widget>
-      <widget class="QComboBox" name="comboBox_10">
+      <widget class="QComboBox" name="comboBox_support_1">
        <property name="geometry">
         <rect>
          <x>170</x>
@@ -521,7 +521,7 @@
         <string>Support 2</string>
        </property>
       </widget>
-      <widget class="QComboBox" name="comboBox_11">
+      <widget class="QComboBox" name="comboBox_support_3">
        <property name="geometry">
         <rect>
          <x>170</x>
@@ -531,7 +531,7 @@
         </rect>
        </property>
       </widget>
-      <widget class="QComboBox" name="comboBox_12">
+      <widget class="QComboBox" name="comboBox_support_2">
        <property name="geometry">
         <rect>
          <x>170</x>

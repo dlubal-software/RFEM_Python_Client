@@ -11,20 +11,27 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsS
 
 from MyRFEM import *
 
-# TODO: Combo box Supports 
-# TODO: Implement input validation
-# TODO: Define a dictionary for the calculation model and implement the updates in event handler 
-# TODO: Write a class for the connection to RFEM
-# TODO: Fill the tab for load input
-# TODO: Fill the tab for steel design
+# TODO 1: Combo box Supports
+# TODO 2: Adapt the graphic for different kinds of supports
+# TODO 3: Read global variables from a config file in JSON format
+# TODO 4: Implement input validation
+# TODO 5: Define a dictionary for the calculation model and implement the updates in event handler
+# TODO 6: Write a class for the connection to RFEM
+# TODO 7: Fill the tab for load input
+# TODO 8: Fill the tab for steel design
 
 class MyWindow(QMainWindow):
+    graphic_model = {}
+    material_list = []
+    cross_section_list_1 = []
+    cross_section_list_2 = []
+
     def __init__(self):
         super(MyWindow, self).__init__()
         self.ui = uic.loadUi("MyApp.ui", self)
-        
+
         # Fill the comboBoxes with default values
-        # TODO: In future the lists can be read from a config file.
+        # TODO: In future the lists can be read from a config file. See TODO 3.
         self.material_list = ['S 235', 'S 275', 'S 355']
         self.ui.comboBox_Material_o_c.addItems(self.material_list)
         self.ui.comboBox_Material_i_c.addItems(self.material_list)
@@ -37,6 +44,12 @@ class MyWindow(QMainWindow):
         self.ui.comboBox_CS_i_c.addItems(self.cross_section_list_2)
         self.ui.comboBox_CS_r.addItems(self.cross_section_list_1)
         self.ui.comboBox_CS_s.addItems(self.cross_section_list_1)
+
+        self.support_list = ['Hinged', 'Fixed']
+        self.ui.comboBox_support_1.addItems(self.support_list)
+        self.ui.comboBox_support_2.addItems(self.support_list)
+        self.ui.comboBox_support_3.addItems(self.support_list)
+        self.ui.comboBox_support_4.addItems(self.support_list)
 
         # Slots for LineEdits
         self.ui.lineEdit_l_1.textChanged.connect(self.onChange_l_1)
@@ -58,12 +71,18 @@ class MyWindow(QMainWindow):
         self.ui.comboBox_CS_r.currentIndexChanged.connect(self.onCurrentIndexChanged_CS_r)
         self.ui.comboBox_CS_s.currentIndexChanged.connect(self.onCurrentIndexChanged_CS_s)
 
+        self.ui.comboBox_support_1.currentIndexChanged.connect(self.onCurrentIndexChanged_support_1)
+        self.ui.comboBox_support_2.currentIndexChanged.connect(self.onCurrentIndexChanged_support_2)
+        self.ui.comboBox_support_3.currentIndexChanged.connect(self.onCurrentIndexChanged_support_3)
+        self.ui.comboBox_support_4.currentIndexChanged.connect(self.onCurrentIndexChanged_support_4)
+
         # Slots for buttons
         self.ui.buttonCalculate.clicked.connect(self.onCalculate)
         self.ui.buttonCancel.clicked.connect(self.onCancel)
 
-        # This dictionary stores the data for the graphic that will 
+        # This dictionary stores the data for the graphic that will
         # be drawn with drawGraphic().
+        # See TODO 3.
         self.graphic_model = {
             'node': {
                 '01': [0.0, 7.0],
@@ -76,7 +95,7 @@ class MyWindow(QMainWindow):
                 '08': [6.0, 7.0],
                 '09': [6.0, 4.0],
                 '10': [12.0, 7.0],
-                '11': [12.0, 4.0]   
+                '11': [12.0, 4.0]
             },
             'member_color': {
                 '01': 'standard',
@@ -93,6 +112,12 @@ class MyWindow(QMainWindow):
                 '12': 'standard',
                 '13': 'standard',
                 '14': 'standard'
+            },
+            'supports':{
+                '1': 'Hinged',
+                '2': 'Hinged',
+                '3': 'Hinged',
+                '4': 'Hinged'
             }
         }
 
@@ -101,7 +126,7 @@ class MyWindow(QMainWindow):
     def drawGraphic(self):
         scene = QGraphicsScene()
         self.ui.graphicsView.setScene(scene)
-        
+
         n_01 = self.graphic_model['node']['01']
         n_02 = self.graphic_model['node']['02']
         n_03 = self.graphic_model['node']['03']
@@ -117,7 +142,7 @@ class MyWindow(QMainWindow):
         factor_x = 400 / n_04[0]
         factor_y = 700 / n_01[1]
         factor = min(factor_x, factor_y)
-        
+
         # TODO: This does't work. The background of the ellipse is still transparent.
         brush = QBrush()
         brush.setColor(QtCore.Qt.green)
@@ -128,8 +153,8 @@ class MyWindow(QMainWindow):
 
         pen = QPen()
         pen.setWidth(2)
-        
-        # TODO: The assignement of the colors does not work. It jumps to the correct branch. Nevertheless, everything is black.
+
+        # TODO: The assignment of the colors does not work. It jumps to the correct branch. Nevertheless, everything is black.
         if self.graphic_model['member_color']['01'] == 'wrong':
             pen.setBrush(QtCore.Qt.red)
         elif self.graphic_model['member_color']['01'] == 'ok':
@@ -229,25 +254,37 @@ class MyWindow(QMainWindow):
         scene.addLine(n_11[0] * factor, n_11[1] * factor, n_05[0] * factor, n_05[1] * factor, pen)
 
         # Supports
-        scene.addEllipse((n_01[0]* factor) - d/2, n_01[1]* factor, d, d, pen, brush)
-        scene.addLine(n_01[0]* factor, (n_01[1]* factor) + d, (n_01[0]* factor) - 10, (n_01[1]* factor) + d + 10, pen)
-        scene.addLine(n_01[0]* factor, (n_01[1]* factor) + d, (n_01[0]* factor) + 10, (n_01[1]* factor) + d + 10, pen)
-        scene.addLine((n_01[0]* factor) - 10, (n_01[1]* factor) + d + 10, (n_01[0]* factor) + 10, (n_01[1]* factor) + d + 10, pen)
+        if self.graphic_model['supports']['1'] == 'Hinged':
+            scene.addEllipse((n_01[0]* factor) - d/2, n_01[1]* factor, d, d, pen, brush)
+            scene.addLine(n_01[0]* factor, (n_01[1]* factor) + d, (n_01[0]* factor) - 10, (n_01[1]* factor) + d + 10, pen)
+            scene.addLine(n_01[0]* factor, (n_01[1]* factor) + d, (n_01[0]* factor) + 10, (n_01[1]* factor) + d + 10, pen)
+            scene.addLine((n_01[0]* factor) - 10, (n_01[1]* factor) + d + 10, (n_01[0]* factor) + 10, (n_01[1]* factor) + d + 10, pen)
+        else:
+            scene.addLine((n_01[0]* factor) - 10, (n_01[1]* factor), (n_01[0]* factor) + 10, (n_01[1]* factor), pen)
 
-        scene.addEllipse((n_04[0]* factor) - d/2, n_04[1]* factor, d, d, pen)
-        scene.addLine(n_04[0]* factor, (n_04[1]* factor) + d, (n_04[0]* factor) - 10, (n_04[1]* factor) + d + 10, pen)
-        scene.addLine(n_04[0]* factor, (n_04[1]* factor) + d, (n_04[0]* factor) + 10, (n_04[1]* factor) + d + 10, pen)
-        scene.addLine((n_04[0]* factor) - 10, (n_04[1]* factor) + d + 10, (n_04[0]* factor) + 10, (n_04[1]* factor) + d + 10, pen)
+        if self.graphic_model['supports']['2'] == 'Hinged':
+            scene.addEllipse((n_04[0]* factor) - d/2, n_04[1]* factor, d, d, pen)
+            scene.addLine(n_04[0]* factor, (n_04[1]* factor) + d, (n_04[0]* factor) - 10, (n_04[1]* factor) + d + 10, pen)
+            scene.addLine(n_04[0]* factor, (n_04[1]* factor) + d, (n_04[0]* factor) + 10, (n_04[1]* factor) + d + 10, pen)
+            scene.addLine((n_04[0]* factor) - 10, (n_04[1]* factor) + d + 10, (n_04[0]* factor) + 10, (n_04[1]* factor) + d + 10, pen)
+        else:
+            scene.addLine((n_04[0]* factor) - 10, (n_04[1]* factor), (n_04[0]* factor) + 10, (n_04[1]* factor), pen)
 
-        scene.addEllipse((n_08[0]* factor) - d/2, n_08[1]* factor, d, d, pen)
-        scene.addLine(n_08[0]* factor, (n_08[1]* factor) + d, (n_08[0]* factor) - 10, (n_08[1]* factor) + d + 10, pen)
-        scene.addLine(n_08[0]* factor, (n_08[1]* factor) + d, (n_08[0]* factor) + 10, (n_08[1]* factor) + d + 10, pen)
-        scene.addLine((n_08[0]* factor) - 10, (n_08[1]* factor) + d + 10, (n_08[0]* factor) + 10, (n_08[1]* factor) + d + 10, pen)
+        if self.graphic_model['supports']['3'] == 'Hinged':
+            scene.addEllipse((n_08[0]* factor) - d/2, n_08[1]* factor, d, d, pen)
+            scene.addLine(n_08[0]* factor, (n_08[1]* factor) + d, (n_08[0]* factor) - 10, (n_08[1]* factor) + d + 10, pen)
+            scene.addLine(n_08[0]* factor, (n_08[1]* factor) + d, (n_08[0]* factor) + 10, (n_08[1]* factor) + d + 10, pen)
+            scene.addLine((n_08[0]* factor) - 10, (n_08[1]* factor) + d + 10, (n_08[0]* factor) + 10, (n_08[1]* factor) + d + 10, pen)
+        else:
+            scene.addLine((n_08[0]* factor) - 10, (n_08[1]* factor), (n_08[0]* factor) + 10, (n_08[1]* factor), pen)
 
-        scene.addEllipse((n_10[0]* factor) - d/2, n_10[1]* factor, d, d, pen)
-        scene.addLine(n_10[0]* factor, (n_10[1]* factor) + d, (n_10[0]* factor) - 10, (n_10[1]* factor) + d + 10, pen)
-        scene.addLine(n_10[0]* factor, (n_10[1]* factor) + d, (n_10[0]* factor) + 10, (n_10[1]* factor) + d + 10, pen)
-        scene.addLine((n_10[0]* factor) - 10, (n_10[1]* factor) + d + 10, (n_10[0]* factor) + 10, (n_10[1]* factor) + d + 10, pen)
+        if self.graphic_model['supports']['4'] == 'Hinged':
+            scene.addEllipse((n_10[0]* factor) - d/2, n_10[1]* factor, d, d, pen)
+            scene.addLine(n_10[0]* factor, (n_10[1]* factor) + d, (n_10[0]* factor) - 10, (n_10[1]* factor) + d + 10, pen)
+            scene.addLine(n_10[0]* factor, (n_10[1]* factor) + d, (n_10[0]* factor) + 10, (n_10[1]* factor) + d + 10, pen)
+            scene.addLine((n_10[0]* factor) - 10, (n_10[1]* factor) + d + 10, (n_10[0]* factor) + 10, (n_10[1]* factor) + d + 10, pen)
+        else:
+            scene.addLine((n_10[0]* factor) - 10, (n_10[1]* factor), (n_10[0]* factor) + 10, (n_10[1]* factor), pen)
 
         # Hinges
         scene.addEllipse((n_02[0]* factor), (n_02[1]* factor) - d/2, d, d, pen)
@@ -256,9 +293,9 @@ class MyWindow(QMainWindow):
     def onChange_l_1(self):
         # TODO: Überprüfung der Eingabe fehlt
         l_1 = float(self.ui.lineEdit_l_1.text())
-        
+
         # TODO: Update calculation model
-        
+
         n_4 = self.graphic_model['node']['04']
         n_5 = self.graphic_model['node']['05']
         n_6 = self.graphic_model['node']['06']
@@ -267,7 +304,7 @@ class MyWindow(QMainWindow):
         n_9 = self.graphic_model['node']['09']
         n_10 = self.graphic_model['node']['10']
         n_11 = self.graphic_model['node']['11']
-        
+
         delta_x = l_1 - n_8[0]
 
         n_4[0] = n_4[0] + delta_x
@@ -290,13 +327,13 @@ class MyWindow(QMainWindow):
 
         # Update graphic
         self.drawGraphic()
-        
+
     def onChange_l_2(self):
         # TODO: Überprüfung der Eingabe fehlt
         l_2 = float(self.ui.lineEdit_l_2.text())
-        
+
         # TODO: Update calculation model
-        
+
         n_4 = self.graphic_model['node']['04']
         n_5 = self.graphic_model['node']['05']
         n_6 = self.graphic_model['node']['06']
@@ -304,7 +341,7 @@ class MyWindow(QMainWindow):
         n_8 = self.graphic_model['node']['08']
         n_10 = self.graphic_model['node']['10']
         n_11 = self.graphic_model['node']['11']
-        
+
         delta_x = l_2 - n_10[0] + n_8[0]
 
         n_4[0] = n_4[0] + delta_x
@@ -321,22 +358,22 @@ class MyWindow(QMainWindow):
         self.graphic_model['node']['10'][0] = n_10[0]
         self.graphic_model['node']['11'][0] = n_11[0]
 
-        # Update graphic 
+        # Update graphic
         self.drawGraphic()
 
     def onChange_l_3(self):
         # TODO: Überprüfung der Eingabe fehlt
         l_3 = float(self.ui.lineEdit_l_3.text())
-        
+
         # TODO: Update calculation model
-        
+
         n_4 = self.graphic_model['node']['04']
         n_5 = self.graphic_model['node']['05']
         n_6 = self.graphic_model['node']['06']
         n_7 = self.graphic_model['node']['07']
         n_8 = self.graphic_model['node']['08']
         n_10 = self.graphic_model['node']['10']
-        
+
         delta_x = l_3 - n_4[0] + n_10[0]
         print(delta_x)
 
@@ -350,7 +387,7 @@ class MyWindow(QMainWindow):
         self.graphic_model['node']['06'][0] = n_6[0]
         self.graphic_model['node']['07'][0] = n_7[0]
 
-        # Update graphic 
+        # Update graphic
         self.drawGraphic()
 
     def onChange_h_1(self):
@@ -364,14 +401,14 @@ class MyWindow(QMainWindow):
         n_8 = self.graphic_model['node']['08']
         n_4 = self.graphic_model['node']['04']
         n_10 = self.graphic_model['node']['10']
-        
+
         delta_y = n_2[1] - n_1[1] + h_1
 
         n_1[1] = n_1[1] + delta_y
         n_4[1] = n_4[1] + delta_y
         n_8[1] = n_8[1] + delta_y
         n_10[1] = n_10[1] + delta_y
-        
+
         self.graphic_model['node']['01'][1] = n_1[1]
         self.graphic_model['node']['04'][1] = n_4[1]
         self.graphic_model['node']['08'][1] = n_8[1]
@@ -448,7 +485,7 @@ class MyWindow(QMainWindow):
         n_9[1] = n_9[1] + delta_y
         n_10[1] = n_10[1] + delta_y
         n_11[1] = n_11[1] + delta_y
-        
+
         self.graphic_model['node']['01'][1] = n_1[1]
         self.graphic_model['node']['02'][1] = n_2[1]
         self.graphic_model['node']['03'][1] = n_3[1]
@@ -462,7 +499,7 @@ class MyWindow(QMainWindow):
 
         # Update graphic
         self.drawGraphic()
-    
+
     def onCurrentIndexChanged_Material_o_c(self, index):
         print(self.material_list[index])
         # TODO: Update calculation model
@@ -503,11 +540,42 @@ class MyWindow(QMainWindow):
         # TODO: Update calculation model
         pass
 
+    def onCurrentIndexChanged_support_1(self, index):
+        print(self.support_list[index])
+        # TODO: Update calculation model
+
+        # Update graphic model
+        self.graphic_model['supports']['1'] = self.support_list[index]
+        self.drawGraphic()
+
+    def onCurrentIndexChanged_support_2(self, index):
+        print(self.support_list[index])
+        # TODO: Update calculation model
+
+        # Update graphic model
+        self.graphic_model['supports']['2'] = self.support_list[index]
+        self.drawGraphic()
+
+    def onCurrentIndexChanged_support_3(self, index):
+        print(self.support_list[index])
+        # TODO: Update calculation model
+
+        # Update graphic model
+        self.graphic_model['supports']['3'] = self.support_list[index]
+        self.drawGraphic()
+
+    def onCurrentIndexChanged_support_4(self, index):
+        print(self.support_list[index])
+        # TODO: Update calculation model
+
+        # Update graphic model
+        self.graphic_model['supports']['4'] = self.support_list[index]
+        self.drawGraphic()
 
 
     def onCalculate(self):
         print('Calculate')
-        
+
         # Call the calculate method in MyRFEM class.
 
     def onCancel(self):
