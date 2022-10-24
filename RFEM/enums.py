@@ -1678,6 +1678,12 @@ class PositionOnSection(Enum):
     '''
     POSITION_DEFINE, POSITION_IN_CENTROID, POSITION_ON_LOWER_FLANGE, POSITION_ON_UPPER_FLANGE = range(4)
 
+class TimberServiceClassServiceClass(Enum):
+    '''
+    Timber Service Class Service Classs
+    '''
+    TIMBER_SERVICE_CLASS_TYPE_1, TIMBER_SERVICE_CLASS_TYPE_2, TIMBER_SERVICE_CLASS_TYPE_3 = range(3)
+
 class AluminumEffectiveLengthsDeterminationMcrEurope(Enum):
     '''
     Aluminum Effective Lengths Determination MCR Europe
