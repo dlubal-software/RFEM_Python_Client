@@ -1,80 +1,33 @@
-from http import client
 from RFEM.initModel import Model, clearAttributes, ConvertToDlString
-from RFEM.enums import *
+from RFEM.enums import PositionOnSection
 
-class AluminumMemberShearPanel():
+class TimberMemberShearPanel():
     def __init__(self,
                 no: int = 1,
                 name: str = '',
-                definition_type = SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING,
                 members: str = "",
                 member_sets: str = "",
-                categories = [SteelMemberShearPanelPositionOnSection.POSITION_ON_UPPER_FLANGE, "FI (+) 35/207 - 0.63 (b: 1) | DIN 18807 | Fischer Profil", SteelMemberShearPanelFasteningArrangement.FASTENING_ARRANGEMENT_EVERY_RIB],
-                parameters = [1, 2, 0.000247, 0.01043],
+                position_on_section = PositionOnSection.POSITION_ON_UPPER_FLANGE,
+                stiffness: float = 1000,
+                position_on_section_value: float = 0.005,
                 comment: str = '',
                 params: dict = None):
         """
         Args:
-            no (int): Steel Member Shear Panel Tag
+            no (int): Timber Member Shear Panel Tag
             name (str): User Defined Member Shear Panel Name
-            definition_type (enum): Steel Member Shear Panel Definition Type Enumeration
+            definition_type (enum): Timber Member Shear Panel Definition Type Enumeration
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
-            categories (list): Positional Categories LIst
-                for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING:
-                    categories[0] = Section Position Enumeration Type
-                    categories[1] = Sheeting Name
-                    categories[2] = Fastening Arrangment Enumeration Type
-                for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_BRACING:
-                    categories[0] = Section Position Enumeration Type
-                    categories[1] = Diagonal Section Name
-                    categories[2] = Post Section Name
-                for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING_AND_BRACING:
-                    categories[0] = Section Position Enumeration Type
-                    categories[1] = Sheeting Name
-                    categories[2] = Digonal Section Name
-                    categories[3] = Post Section Name
-                    categories[4] = Fastening Arrangment Enumeration Type
-                for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_DEFINE_S_PROV:
-                    categories[0] = Section Position Enumeration Type
-            parameters (list): Positional Parameters List
-                for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING:
-                    parameters[0] = Panel Length
-                    parameters[1] = Beam Spacing
-                    parameters[2] = K1 Coefficient
-                    parameters[3] = K2 Coefficient
-                    if categories[0] == "POSITION_DEFINE":
-                        parameters[4] = Position on Section Value
-                for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_BRACING:
-                    parameters[0] = Panel Length
-                    parameters[1] = Beam Spacing
-                    parameters[2] = Post Spacing
-                    parameters[3] = Number of Bracings
-                    parameters[4] = Diagonals Section Area
-                    parameters[5] = Post Section Area
-                    if categories[0] == "POSITION_DEFINE":
-                        parameters[6] = Position on Section Value
-                for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING_AND_BRACING:
-                    parameters[0] = Panel Length
-                    parameters[1] = Beam Spacing
-                    parameters[2] = K1 Coefficient
-                    parameters[3] = K2 Coefficient
-                    parameters[4] = Post Spacing
-                    parameters[5] = Number of Bracing
-                    parameters[6] = Diagonals Section Area
-                    parameters[7] = Post Section Area
-                    if categories[0] == "POSITION_DEFINE":
-                        parameters[8] = Position on Section Value
-                for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_DEFINE_S_PROV:
-                    parameters[0] = Stifness
-                    if categories[0] == "POSITION_DEFINE":
-                        parameters[1] = Position on Section Value
+            position_on_section (enum): Position On Section
+            stiffness (float): Shear Panel Stiffness
+            position_on_section_value (float): Position On Section Value if POsition On Section equals POSITION_DEFINE
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
 
-         # Client Model | Types For Steel Design Member Shear Panel
-        clientObject = Model.clientModel.factory.create('ns0:steel_member_shear_panel')
+         # Client Model | Types For Timber Design Member Shear Panel
+        clientObject = Model.clientModel.factory.create('ns0:timber_member_shear_panel')
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
@@ -94,68 +47,16 @@ class AluminumMemberShearPanel():
             clientObject.name = name
 
         # Member Shear Panel Definition Type
-        clientObject.definition_type = definition_type.name
+        clientObject.definition_type = 'DEFINITION_TYPE_DEFINE_S_PROV'
 
-        # Member Shear Panel Categories
-        if definition_type.name == "DEFINITION_TYPE_TRAPEZOIDAL_SHEETING":
-            clientObject.position_on_section = categories[0].name
-            clientObject.sheeting_name = categories[1]
-            clientObject.fastening_arrangement = categories[2].name
+        # Member Shear Panel Position On Section
+        clientObject.position_on_section = position_on_section.name
 
-        elif definition_type.name == "DEFINITION_TYPE_BRACING":
-            clientObject.position_on_section = categories[0].name
-            clientObject.diagonals_section_name = categories[1]
-            clientObject.posts_section_name = categories[2]
+        if clientObject.position_on_section == 'POSITION_DEFINE':
+            clientObject.position_on_section_value = position_on_section_value
 
-        elif definition_type.name == "DEFINITION_TYPE_TRAPEZOIDAL_SHEETING_AND_BRACING":
-            clientObject.position_on_section = categories[0].name
-            clientObject.sheeting_name = categories[1]
-            clientObject.diagonals_section_name = categories[2]
-            clientObject.posts_section_name = categories[3]
-            clientObject.fastening_arrangement = categories[4].name
-
-        elif definition_type.name == "DEFINITION_TYPE_DEFINE_S_PROV":
-            clientObject.position_on_section = categories[0].name
-
-        # Member Shear Panel Parameters
-        if definition_type.name == "DEFINITION_TYPE_TRAPEZOIDAL_SHEETING":
-            clientObject.panel_length = parameters[0]
-            clientObject.beam_spacing = parameters[1]
-            clientObject.coefficient_k1 = parameters[2]
-            clientObject.coefficient_k2 = parameters[3]
-
-            if categories[0].name == "POSITION_DEFINE":
-                clientObject.position_on_section_value = parameters[4]
-
-        elif definition_type.name == "DEFINITION_TYPE_BRACING":
-            clientObject.panel_length = parameters[0]
-            clientObject.beam_spacing = parameters[1]
-            clientObject.post_spacing = parameters[2]
-            clientObject.number_of_bracings = parameters[3]
-            clientObject.diagonals_section_area = parameters[4]
-            clientObject.posts_section_area = parameters[5]
-
-            if categories[0].name == "POSITION_DEFINE":
-                clientObject.position_on_section_value = parameters[6]
-
-        elif definition_type.name == "DEFINITION_TYPE_TRAPEZOIDAL_SHEETING_AND_BRACING":
-            clientObject.panel_length = parameters[0]
-            clientObject.beam_spacing = parameters[1]
-            clientObject.coefficient_k1 = parameters[2]
-            clientObject.coefficient_k2 = parameters[3]
-            clientObject.post_spacing = parameters[4]
-            clientObject.number_of_bracings = parameters[5]
-            clientObject.diagonals_section_area = parameters[6]
-            clientObject.posts_section_area = parameters[7]
-
-            if categories[0].name == "POSITION_DEFINE":
-                clientObject.position_on_section_value = parameters[8]
-
-        elif definition_type.name == "DEFINITION_TYPE_DEFINE_S_PROV":
-            clientObject.stiffness = parameters[0]
-
-            if categories[0].name == "POSITION_DEFINE":
-                clientObject.position_on_section_value = parameters[1]
+        # Member Shear Panel Stiffness
+        clientObject.stiffness = stiffness
 
         # Comment
         clientObject.comment = comment
@@ -165,5 +66,5 @@ class AluminumMemberShearPanel():
             for key in params:
                 clientObject[key] = params[key]
 
-        # Add Steel Effective Lengths to client model
-        Model.clientModel.service.set_steel_member_shear_panel(clientObject)
+        # Add Timber Effective Lengths to client model
+        Model.clientModel.service.set_timber_member_shear_panel(clientObject)

@@ -1672,6 +1672,12 @@ class DirectionType(Enum):
     '''
     E_DIRECTION_DEPTH_NEGATIVE, E_DIRECTION_DEPTH_POSITIVE, E_DIRECTION_WIDTH_NEGATIVE, E_DIRECTION_WIDTH_POSITIVE = range(4)
 
+class PositionOnSection(Enum):
+    '''
+    Timber Member Shear Panel Position On Section
+    '''
+    POSITION_DEFINE, POSITION_IN_CENTROID, POSITION_ON_LOWER_FLANGE, POSITION_ON_UPPER_FLANGE = range(4)
+
 class AluminumEffectiveLengthsDeterminationMcrEurope(Enum):
     '''
     Aluminum Effective Lengths Determination MCR Europe

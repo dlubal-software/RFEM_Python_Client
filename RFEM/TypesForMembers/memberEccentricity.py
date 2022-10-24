@@ -1,4 +1,3 @@
-from http import client
 from RFEM.initModel import Model, clearAttributes
 from RFEM.enums import *
 
