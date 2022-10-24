@@ -5,7 +5,7 @@ class SteelMemberRotationalRestraint():
     def __init__(self,
                 no: int = 1,
                 name: str = '',
-                definition_type = AluminumMemberRotationalRestraintType.TYPE_CONTINUOUS,
+                definition_type = SteelMemberRotationalRestraintType.TYPE_CONTINUOUS,
                 members: str = "",
                 member_sets: str = "",
                 categories: list = [],
@@ -89,13 +89,13 @@ class SteelMemberRotationalRestraint():
         clientObject.type = definition_type.name
 
         # Member Rotational Restraint Categories
-        if definition_type == AluminumMemberRotationalRestraintType.TYPE_CONTINUOUS:
+        if definition_type == SteelMemberRotationalRestraintType.TYPE_CONTINUOUS:
             clientObject.material_name = categories[0]
             clientObject.sheeting_name = categories[1]
             clientObject.position_of_sheeting = categories[2].name
             clientObject.continuous_beam_effect = categories[3].name
             clientObject.section_deformation_cdb = categories[4]
-        elif definition_type == AluminumMemberRotationalRestraintType.TYPE_DISCRETE:
+        elif definition_type == SteelMemberRotationalRestraintType.TYPE_DISCRETE:
             clientObject.material_name = categories[0]
             clientObject.section_name = categories[1]
             clientObject.rotational_stiffness = categories[2].name
@@ -103,7 +103,7 @@ class SteelMemberRotationalRestraint():
             clientObject.section_deformation_cdb = categories[4]
 
         # Member Rotational Restraint Parameters
-        if definition_type == AluminumMemberRotationalRestraintType.TYPE_CONTINUOUS:
+        if definition_type == SteelMemberRotationalRestraintType.TYPE_CONTINUOUS:
             clientObject.modulus_of_elasticity = parameters[0]
             clientObject.sheeting_thickness = parameters[1]
             clientObject.sheeting_moment_of_inertia = parameters[2]
@@ -112,13 +112,13 @@ class SteelMemberRotationalRestraint():
             clientObject.spring_stiffness = parameters[5]
             clientObject.beam_spacing = parameters[6]
 
-        elif definition_type == AluminumMemberRotationalRestraintType.TYPE_DISCRETE:
+        elif definition_type == SteelMemberRotationalRestraintType.TYPE_DISCRETE:
             clientObject.modulus_of_elasticity = parameters[0]
             clientObject.section_moment_of_inertia = parameters[1]
             clientObject.purlin_spacing = parameters[2]
             clientObject.beam_spacing = parameters[3]
 
-        elif definition_type == AluminumMemberRotationalRestraintType.TYPE_MANUALLY:
+        elif definition_type == SteelMemberRotationalRestraintType.TYPE_MANUALLY:
             clientObject.total_rotational_spring_stiffness = parameters[0]
 
         #Comment
