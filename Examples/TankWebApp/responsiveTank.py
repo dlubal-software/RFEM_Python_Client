@@ -26,8 +26,15 @@ def calculateTank(d, h, util):
         h (float): Tank Height
         util (float) : Utilization of Tank Capacity (in %)
     """
+    lst = None
+    lst = client.service.get_model_list()
+    if lst:
+        print('Editing old Model...!')
+        Model(False, 'responsiveTank.rf6', True)
 
-    Model(True, 'responsiveTank.rf6', delete_all = True)
+    else:
+        print('Creating new model...!')
+        Model(True, 'responsiveTank.rf6', delete_all= True)
 
     Material(1, "S235")
     Node(1, d/2, 0,0)
@@ -64,7 +71,7 @@ def calculateTank(d, h, util):
     maxStress = GetMaxValue(maxStressinit, 'equivalent_stresses_sigma_eqv_max') / 1000000
 
     ExportTo(dirName + r"/export.vtk")
-    client.service.close_model(0, False)
+    # client.service.close_model(0, False)
 
     file = dirName + r"/export/export_0.vtp"
     mesh = pv.read(file)
