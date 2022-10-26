@@ -95,7 +95,7 @@ app.layout = html.Div(children=[
             dcc.Loading(
                 id="loading",
                 className= "loading_output",
-                type="circle",
+                type="default",
                 children=[html.Div(id="loading_output")],
             ),
             html.Br(),
@@ -140,7 +140,7 @@ def update(value, height, diameter, uti):
 
         result = html.P(id='stressResult',
                         children=[html.H5('The maximum stress:'), html.H2(' {} MPa'.format(stress))])
-
+        print(stress)
 
     obj_file = dirName + '/export.obj'
 
