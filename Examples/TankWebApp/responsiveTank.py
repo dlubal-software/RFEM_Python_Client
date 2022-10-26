@@ -71,6 +71,7 @@ def calculateTank(d, h, util):
     maxStress = GetMaxValue(maxStressinit, 'equivalent_stresses_sigma_eqv_max') / 1000000
 
     ExportTo(dirName + r"/export.vtk")
+    Model.clientModel.service.close_connection()
     # client.service.close_model(0, False)
 
     file = dirName + r"/export/export_0.vtp"
