@@ -72,7 +72,6 @@ def calculateTank(d, h, util):
 
     ExportTo(dirName + r"/export.vtk")
     Model.clientModel.service.close_connection()
-    # client.service.close_model(0, False)
 
     file = dirName + r"/export/export_0.vtp"
     mesh = pv.read(file)
@@ -81,5 +80,3 @@ def calculateTank(d, h, util):
     plotter.export_obj(dirName + '/export.obj')
 
     return maxStress
-
-#calculateTank(10,2,1)
