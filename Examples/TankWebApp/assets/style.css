@@ -10,13 +10,13 @@
     height: 48px;
     bottom: 12px;
     display: flex;
-    
+
     font-family: 'Gilroy';
     font-style: normal;
     font-weight: 250;
     font-size: 48px;
     line-height: 100px;
-    
+
     color: #2C3475;
 }
 
@@ -71,8 +71,8 @@
 }
 
 .utilSlider{
-    width: 60%; 
-    height: 25px; 
+    width: 60%;
+    height: 25px;
 }
 
 .calculateButton{
@@ -89,12 +89,17 @@
 .enter{
     color: #2C3475;
     width: 400px;
+    margin-left: -50px;
 }
 
 .result{
     margin-left: 55px;
-    padding-left: 30px;
+    padding-left: 10px;
     width: 250px;
     align-content: center;
     color: #2C3475;
+}
+
+.loading_output{
+    margin-left: -90px;
 }

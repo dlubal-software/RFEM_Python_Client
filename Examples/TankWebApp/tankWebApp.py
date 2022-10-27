@@ -1,8 +1,48 @@
-from dash import Dash, dcc, html
-import dash_vtk
-from responsiveTank import *
-from dash.dependencies import Input, State, Output
 import os
+import webbrowser
+from threading import Timer
+from responsiveTank import *
+
+try:
+    from dash import Dash, dcc, html
+    from dash.dependencies import Input, State, Output
+except:
+    print('Dash library is not installed in your Python env.')
+    installDash = input('Do you want to install it (y/n)?')
+    installDash = installDash.lower()
+    if installDash == 'y':
+        import subprocess
+        try:
+            subprocess.call('python -m pip install Dash --user')
+        except:
+            print('WARNING: Installation of Dash library failed!')
+            print('Please use command "pip install Dash --user" in your Command Prompt.')
+            input('Press Enter to exit...')
+            sys.exit()
+    else:
+        input('Press Enter to exit...')
+        sys.exit()
+
+
+try:
+    import dash_vtk
+except:
+    print('dash_vtk library is not installed in your Python env.')
+    installDashVtk = input('Do you want to install it (y/n)?')
+    installDashVtk = installDashVtk.lower()
+    if installDashVtk == 'y':
+        import subprocess
+        try:
+            subprocess.call('python -m pip install dash_vtk --user')
+        except:
+            print('WARNING: Installation of dash_vtk library failed!')
+            print('Please use command "pip install dash_vtk --user" in your Command Prompt.')
+            input('Press Enter to exit...')
+            sys.exit()
+    else:
+        input('Press Enter to exit...')
+        sys.exit()
+
 baseName = os.path.basename(__file__)
 dirName = os.path.dirname(__file__)
 
@@ -161,7 +201,12 @@ def update(value, height, diameter, uti):
 
     return html.P(), result, content
 
+def open_browser():
+    if not os.environ.get("WERKZEUG_RUN_MAIN"):
+        webbrowser.open_new('http://127.0.0.1:8050/')
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    Timer(1, open_browser).start()
+    app.run_server(debug=True, port=8050)
+
 
