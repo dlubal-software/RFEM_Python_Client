@@ -12,13 +12,13 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsS
 
 from MyRFEM import *
 
+# TODO 10: GUI read the presets from config
 # TODO 4: Implement input validation
 # TODO 5: Define a dictionary for the calculation model and implement the updates in event handler
 # TODO 6: Write a class for the connection to RFEM
 # TODO 7: Fill the tab for load input
 # TODO 8: Fill the tab for steel design
-# TODO 9: Implement a method writeConfig() and call it into onCalculate
-# TODO 10: GUI should read the presetting from config
+# TODO 11:
 
 class MyWindow(QMainWindow):
     # This dictionary stores the data for the graphic that will
@@ -32,27 +32,71 @@ class MyWindow(QMainWindow):
     cross_section_list_1 = []
     cross_section_list_2 = []
 
+    # Presets for UI
+    presets = {}
+
     def __init__(self):
         super(MyWindow, self).__init__()
         self.ui = uic.loadUi("MyApp.ui", self)
 
         self.readConfig()
 
+        # Fill the LineEdits with the values form config
+        self.ui.lineEdit_l_1.setText(self.presets['dimensions'][0])
+        self.ui.lineEdit_l_2.setText(self.presets['dimensions'][1])
+        self.ui.lineEdit_l_3.setText(self.presets['dimensions'][2])
+        self.ui.lineEdit_h_1.setText(self.presets['dimensions'][3])
+        self.ui.lineEdit_h_2.setText(self.presets['dimensions'][4])
+        self.ui.lineEdit_h_3.setText(self.presets['dimensions'][5])
+
         # Fill the comboBoxes with default values
         self.ui.comboBox_Material_o_c.addItems(self.material_list)
+        index = self.presets['material'][0]
+        self.ui.comboBox_Material_o_c.setCurrentText(self.material_list[index])
+
         self.ui.comboBox_Material_i_c.addItems(self.material_list)
+        index = self.presets['material'][1]
+        self.ui.comboBox_Material_i_c.setCurrentText(self.material_list[index])
+
         self.ui.comboBox_Material_r.addItems(self.material_list)
+        index = self.presets['material'][2]
+        self.ui.comboBox_Material_r.setCurrentText(self.material_list[index])
+
         self.ui.comboBox_Material_s.addItems(self.material_list)
+        index = self.presets['material'][3]
+        self.ui.comboBox_Material_s.setCurrentText(self.material_list[index])
 
         self.ui.comboBox_CS_o_c.addItems(self.cross_section_list_1)
+        index = self.presets['cross_section'][0]
+        self.ui.comboBox_CS_o_c.setCurrentText(self.cross_section_list_1[index])
+
         self.ui.comboBox_CS_i_c.addItems(self.cross_section_list_2)
+        index = self.presets['cross_section'][1]
+        self.ui.comboBox_CS_i_c.setCurrentText(self.cross_section_list_2[index])
+
         self.ui.comboBox_CS_r.addItems(self.cross_section_list_1)
+        index = self.presets['cross_section'][2]
+        self.ui.comboBox_CS_r.setCurrentText(self.cross_section_list_1[index])
+
         self.ui.comboBox_CS_s.addItems(self.cross_section_list_1)
+        index = self.presets['cross_section'][3]
+        self.ui.comboBox_CS_s.setCurrentText(self.cross_section_list_1[index])
 
         self.ui.comboBox_support_1.addItems(self.support_list)
+        index = self.presets['supports'][0]
+        self.ui.comboBox_support_1.setCurrentText(self.support_list[index])
+
         self.ui.comboBox_support_2.addItems(self.support_list)
+        index = self.presets['supports'][1]
+        self.ui.comboBox_support_2.setCurrentText(self.support_list[index])
+
         self.ui.comboBox_support_3.addItems(self.support_list)
+        index = self.presets['supports'][2]
+        self.ui.comboBox_support_3.setCurrentText(self.support_list[index])
+
         self.ui.comboBox_support_4.addItems(self.support_list)
+        index = self.presets['supports'][3]
+        self.ui.comboBox_support_4.setCurrentText(self.support_list[index])
 
         # Slots for LineEdits
         self.ui.lineEdit_l_1.textChanged.connect(self.onChange_l_1)
@@ -93,6 +137,7 @@ class MyWindow(QMainWindow):
         self.cross_section_list_2 = config['cross_section_list_2']
         self.support_list = config['support_list']
         self.graphic_model = config['graphic_model']
+        self.presets = config['presets']
 
     def writeConfig(self):
         config = {}
@@ -101,8 +146,7 @@ class MyWindow(QMainWindow):
         config['cross_section_list_2'] = self.cross_section_list_2
         config['support_list'] = self.support_list
         config['graphic_model'] = self.graphic_model
-        #config_json = json.dumps(config)
-        #print(config_json)
+        config['presets'] = self.presets
         with open('config.json', 'w') as f:
             json.dump(config, f)
 
@@ -275,7 +319,9 @@ class MyWindow(QMainWindow):
 
     def onChange_l_1(self):
         # TODO: Überprüfung der Eingabe fehlt
-        l_1 = float(self.ui.lineEdit_l_1.text())
+        s = self.ui.lineEdit_l_1.text()
+        self.presets['dimensions'][0] = s
+        l_1 = float(s)
 
         # TODO: Update calculation model
 
@@ -313,7 +359,9 @@ class MyWindow(QMainWindow):
 
     def onChange_l_2(self):
         # TODO: Überprüfung der Eingabe fehlt
-        l_2 = float(self.ui.lineEdit_l_2.text())
+        s = self.ui.lineEdit_l_2.text()
+        self.presets['dimensions'][2] = s
+        l_2 = float(s)
 
         # TODO: Update calculation model
 
@@ -346,7 +394,9 @@ class MyWindow(QMainWindow):
 
     def onChange_l_3(self):
         # TODO: Überprüfung der Eingabe fehlt
-        l_3 = float(self.ui.lineEdit_l_3.text())
+        s = self.ui.lineEdit_l_3.text()
+        self.presets['dimensions'][2] = s
+        l_3 = float(s)
 
         # TODO: Update calculation model
 
@@ -375,7 +425,9 @@ class MyWindow(QMainWindow):
 
     def onChange_h_1(self):
         # TODO: Überprüfung der Eingabe fehlt
-        h_1 = float(self.ui.lineEdit_h_1.text())
+        s = self.ui.lineEdit_h_1.text()
+        self.presets['dimensions'][3] = s
+        h_1 = float(s)
 
         # TODO: Update calculation model
 
@@ -402,7 +454,9 @@ class MyWindow(QMainWindow):
 
     def onChange_h_2(self):
         # TODO: Überprüfung der Eingabe fehlt
-        h_2 = float(self.ui.lineEdit_h_2.text())
+        s = self.ui.lineEdit_h_2.text()
+        self.presets['dimensions'][4] = s
+        h_2 = float(s)
 
         # TODO: Update calculation model
 
@@ -441,7 +495,9 @@ class MyWindow(QMainWindow):
 
     def onChange_h_3(self):
         # TODO: Überprüfung der Eingabe fehlt
-        h_3 = float(self.ui.lineEdit_h_3.text())
+        s = self.ui.lineEdit_h_3.text()
+        self.presets['dimensions'][5] = s
+        h_3 = float(s)
 
         # TODO: Update calculation model
 
@@ -484,47 +540,39 @@ class MyWindow(QMainWindow):
         self.drawGraphic()
 
     def onCurrentIndexChanged_Material_o_c(self, index):
-        print(self.material_list[index])
+        self.presets['material'][0] = index
         # TODO: Update calculation model
-        pass
 
     def onCurrentIndexChanged_Material_i_c(self, index):
-        print(self.material_list[index])
+        self.presets['material'][1] = index
         # TODO: Update calculation model
-        pass
 
     def onCurrentIndexChanged_Material_r(self, index):
-        print(self.material_list[index])
+        self.presets['material'][2] = index
         # TODO: Update calculation model
-        pass
 
     def onCurrentIndexChanged_Material_s(self, index):
-        print(self.material_list[index])
+        self.presets['material'][3] = index
         # TODO: Update calculation model
-        pass
 
     def onCurrentIndexChanged_CS_o_c(self, index):
-        print(self.cross_section_list_1[index])
+        self.presets['cross_section'][0] = index
         # TODO: Update calculation model
-        pass
 
     def onCurrentIndexChanged_CS_i_c(self, index):
-        print(self.cross_section_list_2[index])
+        self.presets['cross_section'][1] = index
         # TODO: Update calculation model
-        pass
 
     def onCurrentIndexChanged_CS_r(self, index):
-        print(self.cross_section_list_1[index])
+        self.presets['cross_section'][2] = index
         # TODO: Update calculation model
-        pass
 
     def onCurrentIndexChanged_CS_s(self, index):
-        print(self.cross_section_list_1[index])
+        self.presets['cross_section'][3] = index
         # TODO: Update calculation model
-        pass
 
     def onCurrentIndexChanged_support_1(self, index):
-        print(self.support_list[index])
+        self.presets['supports'][0] = index
         # TODO: Update calculation model
 
         # Update graphic model
@@ -533,6 +581,7 @@ class MyWindow(QMainWindow):
 
     def onCurrentIndexChanged_support_2(self, index):
         print(self.support_list[index])
+        self.presets['supports'][1] = index
         # TODO: Update calculation model
 
         # Update graphic model
@@ -541,6 +590,7 @@ class MyWindow(QMainWindow):
 
     def onCurrentIndexChanged_support_3(self, index):
         print(self.support_list[index])
+        self.presets['supports'][2] = index
         # TODO: Update calculation model
 
         # Update graphic model
@@ -549,6 +599,7 @@ class MyWindow(QMainWindow):
 
     def onCurrentIndexChanged_support_4(self, index):
         print(self.support_list[index])
+        self.presets['supports'][3] = index
         # TODO: Update calculation model
 
         # Update graphic model
