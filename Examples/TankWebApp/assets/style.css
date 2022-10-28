@@ -35,6 +35,7 @@
     height: 30px;
     border: 1.5px solid #64748B;
     border-radius: 12px;
+    text-align: center;
 }
 
 .diameterBox{
@@ -44,6 +45,7 @@
     height: 30px;
     border: 1.5px solid #64748B;
     border-radius: 12px;
+    text-align: center;
 }
 
 .heightLabel{
@@ -71,8 +73,11 @@
 }
 
 .utilSlider{
-    width: 60%;
+    width: 70%;
     height: 25px;
+    align-items: center;
+    text-align: center;
+    margin-left: 2%;
 }
 
 .btn {
