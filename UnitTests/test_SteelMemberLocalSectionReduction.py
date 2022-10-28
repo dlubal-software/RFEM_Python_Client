@@ -17,8 +17,7 @@ if Model.clientModel is None:
     Model()
 
 
-@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel, 'set_model_settings_and_options', True), reason="set_model_settings_and_options not in RFEM GM yet")
-
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel, 'steel_member_local_section_reduction', True), reason="steel_member_local_section_reduction not in RFEM GM yet")
 def test_SteelMemberLocalSectionReduction():
 
     Model.clientModel.service.begin_modification()
@@ -65,8 +64,4 @@ def test_SteelMemberLocalSectionReduction():
     assert smlr_3.components[0][1].row['multiple_offset_definition_type'] == 'OFFSET_DEFINITION_TYPE_ABSOLUTE'
     assert smlr_3.components[0][1].row['multiple_offset'] == 0.3
 
-    # assert smlr_1.components[][].row[''] ==
-    # assert Model.clientModel is not None, "WARNING: clientModel is not initialized"
-
     Model.clientModel.service.finish_modification()
-
