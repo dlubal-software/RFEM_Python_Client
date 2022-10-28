@@ -28,7 +28,8 @@ def calculateTank(d, h, util):
     """
     lst = None
     lst = client.service.get_model_list()
-    if lst:
+
+    if 'responsiveTank' in lst[0]:
         print('Editing old Model...!')
         Model(False, 'responsiveTank.rf6', True)
 
