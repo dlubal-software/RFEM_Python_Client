@@ -17,6 +17,8 @@ from MyRFEM import *
 # TODO 6: Write a class for the connection to RFEM
 # TODO 7: Fill the tab for load input
 # TODO 8: Fill the tab for steel design
+# TODO 9: Implement a method writeConfig() and call it into onCalculate
+# TODO 10: GUI should read the presetting from config
 
 class MyWindow(QMainWindow):
     # This dictionary stores the data for the graphic that will
@@ -91,6 +93,18 @@ class MyWindow(QMainWindow):
         self.cross_section_list_2 = config['cross_section_list_2']
         self.support_list = config['support_list']
         self.graphic_model = config['graphic_model']
+
+    def writeConfig(self):
+        config = {}
+        config['material_list'] = self.material_list
+        config['cross_section_list_1'] = self.cross_section_list_1
+        config['cross_section_list_2'] = self.cross_section_list_2
+        config['support_list'] = self.support_list
+        config['graphic_model'] = self.graphic_model
+        #config_json = json.dumps(config)
+        #print(config_json)
+        with open('config.json', 'w') as f:
+            json.dump(config, f)
 
     def drawGraphic(self):
         scene = QGraphicsScene()
@@ -544,7 +558,7 @@ class MyWindow(QMainWindow):
 
     def onCalculate(self):
         print('Calculate')
-
+        self.writeConfig()
         # Call the calculate method in MyRFEM class.
 
     def onCancel(self):
