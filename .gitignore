@@ -126,3 +126,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 testSolidLoads.py
+Examples/TankWebApp/export/export_0.vtp
+Examples/TankWebApp/export.obj
+Examples/TankWebApp/export.vtk

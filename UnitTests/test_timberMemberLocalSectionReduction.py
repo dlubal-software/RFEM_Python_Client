@@ -14,7 +14,7 @@ from RFEM.initModel import AddOn, SetAddonStatus
 if Model.clientModel is None:
     Model()
 
-def test_SteelMemberLocalSectionReduction():
+def test_timberMemberLocalSectionReduction():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
@@ -40,7 +40,7 @@ def test_SteelMemberLocalSectionReduction():
     assert tmlsr_1.components[0][0].row['multiple'] == True
     assert tmlsr_1.components[0][0].row['multiple_number'] == 2
     assert tmlsr_1.components[0][0].row['multiple_offset'] == 1
-    assert tmlsr_1.components[0][0].row['width'] == 0.5
+    #assert tmlsr_1.components[0][0].row['width'] == 0.5
     assert tmlsr_1.components[0][0].row['height'] == 0.5
     assert tmlsr_1.components[0][0].row['distance'] == 0.01
 

@@ -61,7 +61,7 @@ def newProject(name, description, parent_path, folder_path):
     Create new project
 
     Args:
-        name (str): NAme of the project
+        name (str): Name of the project
         description (str): Project description
         parent_path (str): Parenth path
         folder_path (str): Folder path
@@ -347,7 +347,6 @@ def setActionCombination(
 
 
 
-
 def setBorehole(bore_hole): # ns0:borehole
     Model.clientModel.service.set_borehole(bore_hole)
 
@@ -432,23 +431,8 @@ def setSurfaceSetImperfection(imperfection_case_no, surface_set_imperfection): #
 def setTerrain(terrain): # ns0:terrain
     Model.clientModel.service.set_terrain(terrain)
 
-def setTimberEffectiveLengths(timber_effective_lengths): # ns0:timber_effective_lengths
-    Model.clientModel.service.set_timber_effective_lengths(timber_effective_lengths)
-
-def setTimberMemberLocalSectionReduction(timber_member_local_section_reduction): # ns0:timber_member_local_section_reduction
-    Model.clientModel.service.set_timber_member_local_section_reduction(timber_member_local_section_reduction)
-
-def setTimberMemberRotationalRestraint(timber_member_rotational_restraint): # ns0:timber_member_rotational_restraint
-    Model.clientModel.service.set_timber_member_rotational_restraint(timber_member_rotational_restraint)
-
-def setTimberMemberShearPanel(timber_member_shear_panel): # ns0:timber_member_shear_panel
-    Model.clientModel.service.set_timber_member_shear_panel(timber_member_shear_panel)
-
 def setTimberMoistureClass(timber_moisture_class): # ns0:timber_moisture_class
     Model.clientModel.service.set_timber_moisture_class(timber_moisture_class)
-
-def setTimberServiceClass(timber_service_class): # ns0:timber_service_class
-    Model.clientModel.service.set_timber_service_class(timber_service_class)
 
 def setTimberServiceConditions(timber_service_conditions): # ns0:timber_service_conditions
     Model.clientModel.service.set_timber_service_conditions(timber_service_conditions)

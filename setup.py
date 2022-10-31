@@ -7,7 +7,7 @@ readme = (here/"README.md").read_text(encoding="utf-8")
 
 setup(
     name='RFEM',
-    version='1.13.0',
+    version='1.14.0',
     description='Python Framework for RFEM6 Web Services',
     long_description=readme,
     long_description_content_type = "text/markdown",
@@ -18,7 +18,8 @@ setup(
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.10"
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11"
     ],
     packages=find_packages(),
     package_dir={"RFEM":"RFEM"},
