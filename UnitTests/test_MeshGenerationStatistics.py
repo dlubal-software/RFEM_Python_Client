@@ -5,7 +5,6 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-import pytest
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.BasicObjects.surface import Surface
 from RFEM.BasicObjects.line import Line

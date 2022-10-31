@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString, GetAddonStatus, SetAddonStatus
+from RFEM.initModel import ConvertToDlString, Model, SetAddonStatus, clearAttributes
 from RFEM.enums import MemberTransverseStiffenerType, MemberTransverseStiffenerPosition, MemberTransverseStiffenerOffsetType, MemberTransverseStiffenerDefinitionType, AddOn
 
 class MemberTransverseStiffeners():

@@ -16,7 +16,7 @@ from RFEM.BasicObjects.material import Material
 from RFEM.initModel import Model
 from RFEM.enums import SurfaceStiffnessModificationType
 from RFEM.TypesForSurfaces.surfaceSupport import SurfaceSupport
-from RFEM.TypesForSurfaces.surfaceEccentricity import SurfaceEccentricity, TransverseOffsetObject
+from RFEM.TypesForSurfaces.surfaceEccentricity import SurfaceEccentricity
 from RFEM.TypesForSurfaces.surfaceStiffnessModification import SurfaceStiffnessModification
 from RFEM.TypesForSurfaces.surfaceMeshRefinements import SurfaceMeshRefinement
 

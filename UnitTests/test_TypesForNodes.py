@@ -11,8 +11,6 @@ from RFEM.enums import NodalMeshRefinementType, NodalSupportType
 from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.node import Node
-from RFEM.BasicObjects.line import Line
-from RFEM.BasicObjects.surface import Surface
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.TypesForNodes.nodalMeshRefinement import NodalMeshRefinement, FElengthArrangement
