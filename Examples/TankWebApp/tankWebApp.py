@@ -173,7 +173,7 @@ app.layout = html.Div(children=[
 def update(value, height, diameter, uti):
 
 
-    if height == None:
+    if height == None or diameter == None:
         result = html.P(id='stressResult1',
                 children=['Enter values and press Calculate'],
                 className='enter')
