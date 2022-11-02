@@ -28,9 +28,16 @@ def calculateTank(d, h, util):
     """
     lst = None
     lst = client.service.get_model_list()
+
     if lst:
-        print('Editing old Model...!')
-        Model(False, 'responsiveTank.rf6', True)
+
+        if 'responsiveTank' in lst[0]:
+            print('Editing old Model...!')
+            Model(False, 'responsiveTank.rf6', True)
+
+        else:
+            print('Creating new model...!')
+            Model(True, 'responsiveTank.rf6', delete_all= True)
 
     else:
         print('Creating new model...!')

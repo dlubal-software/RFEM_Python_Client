@@ -1,4 +1,5 @@
 import os
+import time
 import webbrowser
 from threading import Timer
 from responsiveTank import *
@@ -126,9 +127,9 @@ app.layout = html.Div(children=[
                 'Calculate',
                 id='calculateButton',
                 n_clicks=0,
-                className='calculateButton',
-                style={'display':'inline-block'}
+                className='btn btn-effect',
             ),
+
             html.Br(),
             html.Br(),
 
@@ -138,6 +139,7 @@ app.layout = html.Div(children=[
                 type="default",
                 children=[html.Div(id="loading_output")],
             ),
+
             html.Br(),
 
             result,
@@ -171,7 +173,7 @@ app.layout = html.Div(children=[
 def update(value, height, diameter, uti):
 
 
-    if height == None:
+    if height == None or diameter == None:
         result = html.P(id='stressResult1',
                 children=['Enter values and press Calculate'],
                 className='enter')
