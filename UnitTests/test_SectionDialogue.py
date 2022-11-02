@@ -38,7 +38,7 @@ def test_section_dialogue():
     DeleteSectionFromFavoriteList("Favs_1", "HEA 200")
 
     #Get Section Favorite List
-    fav_list = GetSectionFavoriteLists()
+    GetSectionFavoriteLists()
 
     #Delete Section Favorite List
     DeleteSectionFavoriteList("Favs_2")

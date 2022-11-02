@@ -1,4 +1,3 @@
-from pytest import param
 from RFEM.enums import MemberNonlinearityType
 from RFEM.initModel import ConvertToDlString, Model, clearAttributes
 

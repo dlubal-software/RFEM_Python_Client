@@ -1,6 +1,5 @@
 import sys
 import os
-from traceback import print_tb
 PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.path.dirname(__file__),
                   os.pardir)
