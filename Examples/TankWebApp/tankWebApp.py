@@ -1,7 +1,5 @@
 import os
 import sys
-print('PROJECT_ROOT: ', os.path.dirname(__file__))
-sys.path.append(os.path.dirname(__file__))
 import webbrowser
 from threading import Timer
 from responsiveTank import *
@@ -53,7 +51,6 @@ app = Dash(__name__)
 
 logoPath = 'assets/logo.png'
 
-print('dirName2: ', dirName)
 obj_file = dirName + '/export/export.obj'
 txt_content = None
 
