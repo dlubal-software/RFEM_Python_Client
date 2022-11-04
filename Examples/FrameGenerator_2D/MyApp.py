@@ -8,17 +8,19 @@ from PyQt5 import uic
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QBrush, QPainter, QPen
-from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsScene, QGraphicsRectItem, QGraphicsEllipseItem, QGraphicsItem, QVBoxLayout, QPushButton, QSlider, QHBoxLayout
+from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsScene, QGraphicsRectItem, QGraphicsEllipseItem, QGraphicsItem, QVBoxLayout, QPushButton, QSlider, QHBoxLayout, QMessageBox
 
 from MyRFEM import *
 
-# TODO 10: GUI read the presets from config
 # TODO 4: Implement input validation
 # TODO 5: Define a dictionary for the calculation model and implement the updates in event handler
 # TODO 6: Write a class for the connection to RFEM
 # TODO 7: Fill the tab for load input
 # TODO 8: Fill the tab for steel design
-# TODO 11:
+# TODO 11: Make path specification better
+# TODO 12: Uniform use of ' or " in open()
+# TODO 13: Correct tab order of the dimensions
+# TODO 14: 
 
 class MyWindow(QMainWindow):
     # This dictionary stores the data for the graphic that will
@@ -37,7 +39,8 @@ class MyWindow(QMainWindow):
 
     def __init__(self):
         super(MyWindow, self).__init__()
-        self.ui = uic.loadUi("MyApp.ui", self)
+        # TODO: Pfadangabe besser machen
+        self.ui = uic.loadUi("./Examples/FrameGenerator_2D/MyApp.ui", self)
 
         self.readConfig()
 
@@ -49,7 +52,7 @@ class MyWindow(QMainWindow):
         self.ui.lineEdit_h_2.setText(self.presets['dimensions'][4])
         self.ui.lineEdit_h_3.setText(self.presets['dimensions'][5])
 
-        # Fill the comboBoxes with default values
+        # Fill the comboBoxes with default values form config
         self.ui.comboBox_Material_o_c.addItems(self.material_list)
         index = self.presets['material'][0]
         self.ui.comboBox_Material_o_c.setCurrentText(self.material_list[index])
@@ -130,7 +133,8 @@ class MyWindow(QMainWindow):
         self.drawGraphic()
 
     def readConfig(self):
-        with open('config.json', 'r') as f:
+        # TODO: Pfadangabe besser machen
+        with open('./Examples/FrameGenerator_2D/config.json', 'r') as f:
             config = json.load(f)
         self.material_list = config['material_list']
         self.cross_section_list_1 = config['cross_section_list_1']
@@ -317,9 +321,32 @@ class MyWindow(QMainWindow):
         scene.addEllipse((n_02[0]* factor), (n_02[1]* factor) - d/2, d, d, pen)
         scene.addEllipse((n_05[0]* factor) - d, (n_05[1]* factor) - d/2, d, d, pen)
 
+    def validate(self, s):
+        # Replace comma with dot
+        s = s.replace(',', '.')
+
+        # Replace empty string with '0'
+        if s == '':
+            s = '0'
+
+        # Remove spaces
+        s = s.rstrip()
+
+        try:
+            f = float(s)
+        except:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            msg.setWindowTitle('Error')
+            msg.setText('Please enter a number.')
+            msg.exec_()
+            s = '0'
+
+        return s
+
     def onChange_l_1(self):
-        # TODO: Überprüfung der Eingabe fehlt
         s = self.ui.lineEdit_l_1.text()
+        s = self.validate(s)
         self.presets['dimensions'][0] = s
         l_1 = float(s)
 
@@ -358,8 +385,8 @@ class MyWindow(QMainWindow):
         self.drawGraphic()
 
     def onChange_l_2(self):
-        # TODO: Überprüfung der Eingabe fehlt
         s = self.ui.lineEdit_l_2.text()
+        s = self.validate(s)
         self.presets['dimensions'][2] = s
         l_2 = float(s)
 
@@ -393,8 +420,8 @@ class MyWindow(QMainWindow):
         self.drawGraphic()
 
     def onChange_l_3(self):
-        # TODO: Überprüfung der Eingabe fehlt
         s = self.ui.lineEdit_l_3.text()
+        s = self.validate(s)
         self.presets['dimensions'][2] = s
         l_3 = float(s)
 
@@ -424,8 +451,8 @@ class MyWindow(QMainWindow):
         self.drawGraphic()
 
     def onChange_h_1(self):
-        # TODO: Überprüfung der Eingabe fehlt
         s = self.ui.lineEdit_h_1.text()
+        s = self.validate(s)
         self.presets['dimensions'][3] = s
         h_1 = float(s)
 
@@ -453,8 +480,8 @@ class MyWindow(QMainWindow):
         self.drawGraphic()
 
     def onChange_h_2(self):
-        # TODO: Überprüfung der Eingabe fehlt
         s = self.ui.lineEdit_h_2.text()
+        s = self.validate(s)
         self.presets['dimensions'][4] = s
         h_2 = float(s)
 
@@ -494,8 +521,8 @@ class MyWindow(QMainWindow):
         self.drawGraphic()
 
     def onChange_h_3(self):
-        # TODO: Überprüfung der Eingabe fehlt
         s = self.ui.lineEdit_h_3.text()
+        s = self.validate(s)
         self.presets['dimensions'][5] = s
         h_3 = float(s)
 
@@ -624,7 +651,8 @@ class MyWindow(QMainWindow):
 
 def window():
     app = QApplication(sys.argv)
-    with open('styles.qss', 'r') as f:
+    # TODO: Pfadangabe besser machen
+    with open('./Examples/FrameGenerator_2D/styles.qss', 'r') as f:
         style = f.read()
         app.setStyleSheet(style)
     win = MyWindow()
