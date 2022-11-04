@@ -1,4 +1,3 @@
-from ntpath import join
 import sys
 import RFEM.dependencies
 import socket

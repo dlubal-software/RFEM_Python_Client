@@ -5,10 +5,8 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.enums import *
 from RFEM.initModel import Model
 from RFEM.BasicObjects.node import Node
-from RFEM.BasicObjects.member import Member
 from RFEM.TypesForMembers.memberDefinableStiffness import MemberDefinableStiffness
 
 if Model.clientModel is None:
