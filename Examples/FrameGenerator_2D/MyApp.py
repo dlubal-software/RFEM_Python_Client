@@ -12,7 +12,6 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsS
 
 from MyRFEM import *
 
-# TODO 4: Implement input validation
 # TODO 5: Define a dictionary for the calculation model and implement the updates in event handler
 # TODO 6: Write a class for the connection to RFEM
 # TODO 7: Fill the tab for load input
@@ -20,12 +19,16 @@ from MyRFEM import *
 # TODO 11: Make path specification better
 # TODO 12: Uniform use of ' or " in open()
 # TODO 13: Correct tab order of the dimensions
-# TODO 14: 
+# TODO 14: Make path specification better
+# TODO 15:
 
 class MyWindow(QMainWindow):
     # This dictionary stores the data for the graphic that will
     # be drawn with drawGraphic().
     graphic_model = {}
+
+    # This dictionary contains all calculation relevant information.
+    calculation_model = {}
 
     # All usable materials are defined in this list.
     material_list = []
@@ -35,11 +38,12 @@ class MyWindow(QMainWindow):
     cross_section_list_2 = []
 
     # Presets for UI
+    # The data is loaded from config.json.
     presets = {}
 
     def __init__(self):
         super(MyWindow, self).__init__()
-        # TODO: Pfadangabe besser machen
+        # TODO: Make path specification better
         self.ui = uic.loadUi("./Examples/FrameGenerator_2D/MyApp.ui", self)
 
         self.readConfig()
@@ -133,7 +137,7 @@ class MyWindow(QMainWindow):
         self.drawGraphic()
 
     def readConfig(self):
-        # TODO: Pfadangabe besser machen
+        # TODO: Make path specification better
         with open('./Examples/FrameGenerator_2D/config.json', 'r') as f:
             config = json.load(f)
         self.material_list = config['material_list']
@@ -142,6 +146,7 @@ class MyWindow(QMainWindow):
         self.support_list = config['support_list']
         self.graphic_model = config['graphic_model']
         self.presets = config['presets']
+        self.calculation_model = config['calculation_model']
 
     def writeConfig(self):
         config = {}
@@ -151,7 +156,9 @@ class MyWindow(QMainWindow):
         config['support_list'] = self.support_list
         config['graphic_model'] = self.graphic_model
         config['presets'] = self.presets
-        with open('config.json', 'w') as f:
+        config['calculation_model'] = self.calculation_model
+        # TODO: Make path specification better
+        with open('./Examples/FrameGenerator_2D/config.json', 'w') as f:
             json.dump(config, f)
 
     def drawGraphic(self):
@@ -350,7 +357,8 @@ class MyWindow(QMainWindow):
         self.presets['dimensions'][0] = s
         l_1 = float(s)
 
-        # TODO: Update calculation model
+        # Update calculation model
+        self.calculation_model['structure']['dimensions'][0] = l_1
 
         n_4 = self.graphic_model['node']['04']
         n_5 = self.graphic_model['node']['05']
@@ -390,7 +398,8 @@ class MyWindow(QMainWindow):
         self.presets['dimensions'][2] = s
         l_2 = float(s)
 
-        # TODO: Update calculation model
+        # Update calculation model
+        self.calculation_model['structure']['dimensions'][1] = l_2
 
         n_4 = self.graphic_model['node']['04']
         n_5 = self.graphic_model['node']['05']
@@ -425,7 +434,8 @@ class MyWindow(QMainWindow):
         self.presets['dimensions'][2] = s
         l_3 = float(s)
 
-        # TODO: Update calculation model
+        # Update calculation model
+        self.calculation_model['structure']['dimensions'][2] = l_3
 
         n_4 = self.graphic_model['node']['04']
         n_5 = self.graphic_model['node']['05']
@@ -435,7 +445,6 @@ class MyWindow(QMainWindow):
         n_10 = self.graphic_model['node']['10']
 
         delta_x = l_3 - n_4[0] + n_10[0]
-        print(delta_x)
 
         n_4[0] = n_4[0] + delta_x
         n_5[0] = n_5[0] + delta_x
@@ -456,7 +465,8 @@ class MyWindow(QMainWindow):
         self.presets['dimensions'][3] = s
         h_1 = float(s)
 
-        # TODO: Update calculation model
+        # Update calculation model
+        self.calculation_model['structure']['dimensions'][3] = h_1
 
         n_1 = self.graphic_model['node']['01']
         n_2 = self.graphic_model['node']['02']
@@ -485,7 +495,8 @@ class MyWindow(QMainWindow):
         self.presets['dimensions'][4] = s
         h_2 = float(s)
 
-        # TODO: Update calculation model
+        # Update calculation model
+        self.calculation_model['structure']['dimensions'][4] = h_2
 
         n_1 = self.graphic_model['node']['01']
         n_2 = self.graphic_model['node']['02']
@@ -526,7 +537,8 @@ class MyWindow(QMainWindow):
         self.presets['dimensions'][5] = s
         h_3 = float(s)
 
-        # TODO: Update calculation model
+        # Update calculation model
+        self.calculation_model['structure']['dimensions'][5] = h_3
 
         n_1 = self.graphic_model['node']['01']
         n_2 = self.graphic_model['node']['02']
@@ -568,66 +580,87 @@ class MyWindow(QMainWindow):
 
     def onCurrentIndexChanged_Material_o_c(self, index):
         self.presets['material'][0] = index
-        # TODO: Update calculation model
+
+        # Update calculation model
+        self.calculation_model['structure']['material'][0] = self.material_list[index]
 
     def onCurrentIndexChanged_Material_i_c(self, index):
         self.presets['material'][1] = index
-        # TODO: Update calculation model
+
+        # Update calculation model
+        self.calculation_model['structure']['material'][1] = self.material_list[index]
 
     def onCurrentIndexChanged_Material_r(self, index):
         self.presets['material'][2] = index
-        # TODO: Update calculation model
+
+        # Update calculation model
+        self.calculation_model['structure']['material'][2] = self.material_list[index]
 
     def onCurrentIndexChanged_Material_s(self, index):
         self.presets['material'][3] = index
-        # TODO: Update calculation model
+
+        # Update calculation model
+        self.calculation_model['structure']['material'][3] = self.material_list[index]
 
     def onCurrentIndexChanged_CS_o_c(self, index):
         self.presets['cross_section'][0] = index
-        # TODO: Update calculation model
+
+        # Update calculation model
+        self.calculation_model['structure']['cs'][0] = self.cross_section_list_1[index]
 
     def onCurrentIndexChanged_CS_i_c(self, index):
         self.presets['cross_section'][1] = index
-        # TODO: Update calculation model
+
+        # Update calculation model
+        self.calculation_model['structure']['cs'][1] = self.cross_section_list_2[index]
 
     def onCurrentIndexChanged_CS_r(self, index):
         self.presets['cross_section'][2] = index
-        # TODO: Update calculation model
+
+        # Update calculation model
+        self.calculation_model['structure']['cs'][2] = self.cross_section_list_1[index]
 
     def onCurrentIndexChanged_CS_s(self, index):
         self.presets['cross_section'][3] = index
-        # TODO: Update calculation model
+
+        # Update calculation model
+        self.calculation_model['structure']['cs'][3] = self.cross_section_list_1[index]
 
     def onCurrentIndexChanged_support_1(self, index):
         self.presets['supports'][0] = index
-        # TODO: Update calculation model
+
+        # Update calculation model
+        self.calculation_model['structure']['supports'][0] = self.support_list[index]
 
         # Update graphic model
         self.graphic_model['supports']['1'] = self.support_list[index]
         self.drawGraphic()
 
     def onCurrentIndexChanged_support_2(self, index):
-        print(self.support_list[index])
         self.presets['supports'][1] = index
-        # TODO: Update calculation model
+
+        # Update calculation model
+        self.calculation_model['structure']['supports'][1] = self.support_list[index]
 
         # Update graphic model
         self.graphic_model['supports']['2'] = self.support_list[index]
         self.drawGraphic()
 
     def onCurrentIndexChanged_support_3(self, index):
-        print(self.support_list[index])
         self.presets['supports'][2] = index
-        # TODO: Update calculation model
+
+        # Update calculation model
+        self.calculation_model['structure']['supports'][2] = self.support_list[index]
 
         # Update graphic model
         self.graphic_model['supports']['3'] = self.support_list[index]
         self.drawGraphic()
 
     def onCurrentIndexChanged_support_4(self, index):
-        print(self.support_list[index])
         self.presets['supports'][3] = index
-        # TODO: Update calculation model
+
+        # Update calculation model
+        self.calculation_model['structure']['supports'][3] = self.support_list[index]
 
         # Update graphic model
         self.graphic_model['supports']['4'] = self.support_list[index]
@@ -644,14 +677,9 @@ class MyWindow(QMainWindow):
         self.close()
 
 
-
-
-
-
-
 def window():
     app = QApplication(sys.argv)
-    # TODO: Pfadangabe besser machen
+    # TODO: Make path specification better
     with open('./Examples/FrameGenerator_2D/styles.qss', 'r') as f:
         style = f.read()
         app.setStyleSheet(style)
