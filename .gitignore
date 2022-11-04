@@ -36,6 +36,9 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
+# Examples
+Examples/TankWebApp/export/
+
 # Unit test / coverage reports
 .tox/
 .nox/
@@ -125,7 +128,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-testSolidLoads.py
-Examples/TankWebApp/export/export_0.vtp
-Examples/TankWebApp/export.obj
+
+# Examples
+Examples/TankWebApp/export
 Examples/TankWebApp/export.vtk

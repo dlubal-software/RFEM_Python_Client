@@ -76,13 +76,14 @@ def calculateTank(d, h, util):
     maxStressinit = ResultTables.SurfacesEquivalentStressesMises()
     maxStress = GetMaxValue(maxStressinit, 'equivalent_stresses_sigma_eqv_max') / 1000000
 
-    ExportTo(dirName + r"/export.vtk")
+    # export_0.vtp file is by default exported into whatever .vtk file is exported + '/export' folder
+    # in this case: dirName + /export/ + export_0.vtp"
+    ExportTo(dirName + "/export.vtk")
     Model.clientModel.service.close_connection()
 
-    file = dirName + r"/export/export_0.vtp"
-    mesh = pv.read(file)
+    mesh = pv.read(dirName + "/export/export_0.vtp")
     plotter = pv.Plotter()
     plotter.add_mesh(mesh)
-    plotter.export_obj(dirName + '/export.obj')
+    plotter.export_obj(dirName + '/export/export.obj')
 
     return maxStress
