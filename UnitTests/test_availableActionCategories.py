@@ -1,12 +1,11 @@
-import sys
 import os
-import ast
+import sys
+baseName = os.path.basename(__file__)
+dirName = os.path.dirname(__file__)
+print('basename:    ', baseName)
+print('dirname:     ', dirName)
+sys.path.append(dirName + r'/..')
 
-PROJECT_ROOT = os.path.abspath(os.path.join(
-                  os.path.dirname(__file__),
-                  os.pardir)
-)
-sys.path.append(PROJECT_ROOT)
 from RFEM.initModel import Model
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
