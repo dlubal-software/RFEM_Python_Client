@@ -27,4 +27,6 @@ def test_availableActionCategories():
 
     availableActionCategories = LoadCasesAndCombinations.getAvailableLoadActionCategoryTypes()
 
+    Model.clientModel.service.finish_modification()
+
     assert len(availableActionCategories) == 19
