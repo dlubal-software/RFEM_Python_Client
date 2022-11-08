@@ -1,7 +1,7 @@
 from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import *
 
-class AluminumMemberShearPanel():
+class SteelMemberShearPanel():
     def __init__(self,
                 no: int = 1,
                 name: str = '',

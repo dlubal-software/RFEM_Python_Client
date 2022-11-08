@@ -28,10 +28,8 @@ def test_load_cases_and_combinations():
         "combination_name_according_to_action_category": False})
 
     Model.clientModel.service.finish_modification()
-    '''
+
     combConfig = Model.clientModel.service.get_load_cases_and_combinations()
 
-    assert combConfig.current_standard_for_combination_wizard == 6067
+    assert combConfig.current_standard_for_combination_wizard == 6237
     assert combConfig.result_combinations_parentheses_active == False
-
-    '''

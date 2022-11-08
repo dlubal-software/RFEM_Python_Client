@@ -21,13 +21,13 @@ def test_timberMemberLocalSectionReduction():
 
     SetAddonStatus(Model.clientModel, AddOn.timber_design_active, True)
 
-    comp1 = Components(TimberMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_RECTANGLE_OPENING)
-    comp2 = Components(TimberMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_CIRCLE_OPENING)
+    # Now only in pre-release version (8/11/2022)
+    #comp1 = Components(TimberMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_RECTANGLE_OPENING)
+    #comp2 = Components(TimberMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_CIRCLE_OPENING)
     comp3 = Components(TimberMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_START_NOTCH)
     comp4 = Components(TimberMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_INNER_NOTCH)
     comp5 = Components(TimberMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_END_NOTCH)
 
-    # Now only in pre-release version (8/11/2022)
     #TimberMemberLocalSectionReduction(1,components=[comp1])
     #TimberMemberLocalSectionReduction(2,components=[comp2])
     TimberMemberLocalSectionReduction(3,components=[comp3])
