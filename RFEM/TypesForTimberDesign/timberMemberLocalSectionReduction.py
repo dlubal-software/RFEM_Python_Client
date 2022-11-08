@@ -1,6 +1,5 @@
 from RFEM.initModel import Model, clearAttributes, ConvertToDlString
-from RFEM.enums import TimberMemberLocalSectionReductionType, MultipleOffsetDefinitionType, FastenerDefinitionType, \
-    ZAxisReferenceType, OrientationType, DirectionType
+from RFEM.enums import TimberMemberLocalSectionReductionType, MultipleOffsetDefinitionType, ZAxisReferenceType, OrientationType, DirectionType
 
 class Components():
     def __init__(self,

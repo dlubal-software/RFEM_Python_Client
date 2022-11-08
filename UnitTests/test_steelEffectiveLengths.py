@@ -1,6 +1,5 @@
 import sys
 import os
-import pytest
 PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.path.dirname(__file__),
                   os.pardir)
@@ -8,7 +7,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import *
-from RFEM.initModel import Model, SetAddonStatus, CheckIfMethodOrTypeExists
+from RFEM.initModel import Model, SetAddonStatus
 from RFEM.TypesForSteelDesign.steelEffectiveLengths import SteelEffectiveLengths
 
 if Model.clientModel is None:

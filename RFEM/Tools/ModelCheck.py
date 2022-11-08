@@ -1,4 +1,3 @@
-from RFEM.BasicObjects.member import Member
 from RFEM.initModel import Model
 from RFEM.enums import ModelCheckGetOptionType, ModelCheckProcessOptionType
 

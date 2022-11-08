@@ -15,7 +15,7 @@ from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.material import Material
-from RFEM.initModel import Model, Calculate_all
+from RFEM.initModel import Model
 from RFEM.enums import *
 
 if Model.clientModel is None:

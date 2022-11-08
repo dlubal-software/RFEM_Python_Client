@@ -1,4 +1,3 @@
-from pydoc import cli
 from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import ImperfectionType, ImperfectionCaseDirection, DirectionForLevelDirection
 from RFEM.enums import ImperfectionCaseSourceType, ImperfectionCaseAssignmentType

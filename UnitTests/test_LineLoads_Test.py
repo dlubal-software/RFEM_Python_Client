@@ -18,7 +18,7 @@ from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.material import Material
 from RFEM.initModel import Model
-from RFEM.enums import LineLoadDistribution, StaticAnalysisType, LoadDirectionType, LineSetLoadDistribution
+from RFEM.enums import LineLoadDistribution, LoadDirectionType, StaticAnalysisType
 from RFEM.Loads.lineLoad import LineLoad
 
 if Model.clientModel is None:
