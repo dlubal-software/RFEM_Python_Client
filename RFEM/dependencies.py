@@ -15,6 +15,7 @@ try:
     import mock
     import suds.transport
     import suds.client # suds-py3
+
 except:
     print('One of the required modules is not installed in your Python env.')
     instSUDS = input('\nDo you want to install all dependencies and check all their versions (y/n)? ')
