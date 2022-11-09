@@ -1,4 +1,3 @@
-from http import client
 from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 
 class SteelDesignUltimateConfigurations():
@@ -11,6 +10,16 @@ class SteelDesignUltimateConfigurations():
                  comment: str = '',
                  params: dict = None,
                  model = Model):
+        """
+        Args:
+            no (int): Steel Design Ultimate Configuration Tag
+            user_defined_name (list): User Defined Name Configuration Name
+            members_no (str): Assign Configuration to Selected Members
+            member_sets_no (str): Assign Configuration to Selected Member Sets
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
 
         # Client Model | Steel Design Ultimate Configurations
         clientObject = model.clientModel.factory.create('ns0:steel_design_uls_configuration')
@@ -22,7 +31,7 @@ class SteelDesignUltimateConfigurations():
         clientObject.no = no
 
         # User Defined Name
-        if user_defined_name:
+        if user_defined_name[0]:
             clientObject.user_defined_name_enabled = True
             clientObject.name = user_defined_name[1]
 
