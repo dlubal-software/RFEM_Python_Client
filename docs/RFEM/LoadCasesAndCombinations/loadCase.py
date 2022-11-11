@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 from RFEM.enums import AnalysisType
 
 DIN_Action_Category = {'1A': 'Permanent | G', '1B': 'Permanent - small fluctuations | G*', '1C': 'Permanent/Imposed | Gq', '2': 'Prestress | P',
@@ -31,7 +31,7 @@ class LoadCase():
         clientObject = Model.clientModel.factory.create('ns0:load_case')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Load Case No.
         clientObject.no = no
@@ -124,7 +124,7 @@ class LoadCase():
         clientObject = Model.clientModel.factory.create('ns0:load_case')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Load Case No.
         clientObject.no = no

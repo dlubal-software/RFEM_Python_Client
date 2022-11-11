@@ -9,12 +9,13 @@ from RFEM.Loads.surfaceLoad import SurfaceLoad
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.TypesForSurfaces.surfaceSupport import SurfaceSupport
 from RFEM.BasicObjects.surface import Surface
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.material import Material
-from RFEM.initModel import Model, Calculate_all
+from RFEM.initModel import Model
 from RFEM.enums import *
 
 if Model.clientModel is None:
@@ -101,6 +102,49 @@ def test_surface_loads():
     ## Mass Type Surface Load ##
     SurfaceLoad.Mass(14, 1, '1', individual_mass_components=True, mass_parameter=[500, 600, 700])
 
-    #Calculate_all() # Don't use in unit tests. See template for more info.
+    SurfaceSupport(1,'1')
 
     Model.clientModel.service.finish_modification()
+
+    assert Model.clientModel.service.get_surface_load(1, 1).uniform_magnitude == 5000
+
+    sl = Model.clientModel.service.get_surface_load(3, 1)
+    assert sl.load_distribution == 'LOAD_DISTRIBUTION_LINEAR'
+    assert sl.magnitude_2 == 6000
+    assert sl.magnitude_3 == 7000
+    assert sl.node_2 == 3
+
+    sl = Model.clientModel.service.get_surface_load(4, 1)
+    assert sl.load_distribution == 'LOAD_DISTRIBUTION_LINEAR_IN_X'
+    assert sl.magnitude_2 == 6000
+    assert sl.node_1 == 3
+
+    sl = Model.clientModel.service.get_surface_load(5, 1)
+    assert sl.load_distribution == 'LOAD_DISTRIBUTION_RADIAL'
+    assert sl.axis_definition_type == 'AXIS_DEFINITION_TWO_POINTS'
+    assert sl.axis_definition_p2_z == 6
+    assert sl.axis_definition_p1_x == 1
+    assert sl.magnitude_2 == 6000
+    assert sl.node_1 == 3
+
+    sl = Model.clientModel.service.get_surface_load(7, 1)
+    assert sl.magnitude_t_c_3 == 22
+    assert sl.node_2 == 3
+
+    sl = Model.clientModel.service.get_surface_load(10, 1)
+    assert sl.magnitude_axial_strain_2y == 0.008
+    assert sl.node_1 == 2
+
+    sl = Model.clientModel.service.get_surface_load(12, 1)
+    assert sl.load_type == 'LOAD_TYPE_PRECAMBER'
+    assert sl.uniform_magnitude == 50
+
+    sl = Model.clientModel.service.get_surface_load(13, 1)
+    assert sl.angular_velocity == 1
+    assert sl.angular_acceleration == 2
+    assert sl.axis_definition_p1_z == 3
+    assert sl.axis_definition_p2_x == 4
+
+    sl = Model.clientModel.service.get_surface_load(14, 1)
+    assert sl.magnitude_mass_y == 600
+    assert sl.magnitude_mass_z == 700

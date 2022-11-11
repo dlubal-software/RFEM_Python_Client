@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 
 class SurfaceStiffnessModification():
     def __init__(self,
@@ -10,7 +10,7 @@ class SurfaceStiffnessModification():
         clientObject = Model.clientModel.factory.create('ns0:surface_stiffness_modification')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Stifness Modification No.
         clientObject.no = no

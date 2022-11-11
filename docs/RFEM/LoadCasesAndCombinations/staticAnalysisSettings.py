@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 from RFEM.enums import StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis
 from RFEM.enums import StaticAnalysisSettingsMethodOfEquationSystem
 from RFEM.enums import StaticAnalysisSettingsPlateBendingTheory, StaticAnalysisType
@@ -22,7 +22,7 @@ class StaticAnalysisSettings():
         clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Static Analysis Settings No.
         clientObject.no = no
@@ -76,7 +76,7 @@ class StaticAnalysisSettings():
         clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Static Analysis Settings No.
         clientObject.no = no
@@ -196,7 +196,7 @@ class StaticAnalysisSettings():
         clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Static Analysis Settings No.
         clientObject.no = no
@@ -362,7 +362,7 @@ class StaticAnalysisSettings():
         clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Static Analysis Settings No.
         clientObject.no = no

@@ -1,8 +1,8 @@
-from RFEM.enums import ThicknessDirection, ThicknessType
-from RFEM.enums import ThicknessOrthotropyType, AddOn
+from RFEM.enums import ThicknessDirection, ThicknessType, LayerType
+from RFEM.enums import ThicknessOrthotropyType, AddOn, ObjectTypes
 from RFEM.enums import ThicknessShapeOrthotropySelfWeightDefinitionType
 from RFEM.enums import ThicknessStiffnessMatrixSelfWeightDefinitionType
-from RFEM.initModel import Model, GetAddonStatus, clearAtributes, SetAddonStatus
+from RFEM.initModel import Model, GetAddonStatus, clearAttributes, SetAddonStatus, ConvertStrToListOfInt
 from math import pi
 
 class Thickness():
@@ -12,7 +12,8 @@ class Thickness():
                  material_no: int = 1,
                  uniform_thickness_d: float = 0.20,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -22,19 +23,20 @@ class Thickness():
             uniform_thickness_d (float): Magnitude of Thickness
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Thickness
-        clientObject = Model.clientModel.factory.create('ns0:thickness')
+        clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Thickness No.
         clientObject.no = no
 
         # Thickness Name
-        if name is not None:
+        if name:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -56,7 +58,7 @@ class Thickness():
                 clientObject[key] = params[key]
 
         # Add Thickness to client model
-        Model.clientModel.service.set_thickness(clientObject)
+        model.clientModel.service.set_thickness(clientObject)
 
     @staticmethod
     def Uniform(
@@ -65,7 +67,8 @@ class Thickness():
                  material_no: int = 1,
                  properties = [0.2],
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -75,19 +78,20 @@ class Thickness():
             properties (list): Magnitude of Thickness [Thickness]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Thickness
-        clientObject = Model.clientModel.factory.create('ns0:thickness')
+        clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Thickness No.
         clientObject.no = no
 
         # Thickness Name
-        if name is not None:
+        if name:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -111,7 +115,7 @@ class Thickness():
                 clientObject[key] = params[key]
 
         # Add Thickness to client model
-        Model.clientModel.service.set_thickness(clientObject)
+        model.clientModel.service.set_thickness(clientObject)
 
     @staticmethod
     def Variable_3Nodes(
@@ -120,7 +124,8 @@ class Thickness():
                  material_no: int = 1,
                  properties = None,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -131,19 +136,20 @@ class Thickness():
                 properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, thickness_d3, node_no_3]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Thickness
-        clientObject = Model.clientModel.factory.create('ns0:thickness')
+        clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Thickness No.
         clientObject.no = no
 
         # Thickness Name
-        if name is not None:
+        if name:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -174,7 +180,7 @@ class Thickness():
                 clientObject[key] = params[key]
 
         # Add Thickness to client model
-        Model.clientModel.service.set_thickness(clientObject)
+        model.clientModel.service.set_thickness(clientObject)
 
     @staticmethod
     def Variable_2NodesAndDirection(
@@ -183,7 +189,8 @@ class Thickness():
                  material_no: int = 1,
                  properties = [0.18, 1, 0.18, 2, ThicknessDirection.THICKNESS_DIRECTION_IN_X],
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -194,20 +201,21 @@ class Thickness():
                 properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, direction]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
 
         '''
 
         # Client model | Thickness
-        clientObject = Model.clientModel.factory.create('ns0:thickness')
+        clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Thickness No.
         clientObject.no = no
 
         # Thickness Name
-        if name is not None:
+        if name:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -235,7 +243,7 @@ class Thickness():
                 clientObject[key] = params[key]
 
         # Add Thickness to client model
-        Model.clientModel.service.set_thickness(clientObject)
+        model.clientModel.service.set_thickness(clientObject)
 
     @staticmethod
     def Variable_4SurfaceCorners(
@@ -244,7 +252,8 @@ class Thickness():
                  material_no: int = 1,
                  properties = None,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -255,20 +264,21 @@ class Thickness():
                 properties = [thickness_d1, node_no_1, thickness_d2, node_no_2, thickness_d3, node_no_3, thickness_d4, node_no_4]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
 
         '''
 
         # Client model | Thickness
-        clientObject = Model.clientModel.factory.create('ns0:thickness')
+        clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Thickness No.
         clientObject.no = no
 
         # Thickness Name
-        if name is not None:
+        if name:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -301,7 +311,7 @@ class Thickness():
                 clientObject[key] = params[key]
 
         # Add Thickness to client model
-        Model.clientModel.service.set_thickness(clientObject)
+        model.clientModel.service.set_thickness(clientObject)
 
     @staticmethod
     def Variable_Circle(
@@ -310,7 +320,8 @@ class Thickness():
                  material_no: int = 1,
                  properties = None,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -321,19 +332,20 @@ class Thickness():
                 properties = [thickness_circle_center_dC, thickness_circle_line_dR]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Thickness
-        clientObject = Model.clientModel.factory.create('ns0:thickness')
+        clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Thickness No.
         clientObject.no = no
 
         # Thickness Name
-        if name is not None:
+        if name:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -360,15 +372,16 @@ class Thickness():
                 clientObject[key] = params[key]
 
         # Add Thickness to client model
-        Model.clientModel.service.set_thickness(clientObject)
+        model.clientModel.service.set_thickness(clientObject)
 
     @staticmethod
     def Layers(
                  no: int = 1,
                  name: str = None,
-                 layers = [[0, 1, 0.2, 0.0, '']],
+                 layers = [[0, 1, 0.012], [0, 1, 0.01]],
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         NOTE: Available only for Special Solution Add-on Multilayer Surfaces.
@@ -376,22 +389,22 @@ class Thickness():
         Args:
             no (int): Thickness Tag
             name (str): Thickness Name
-            material_no (int): Tag of Material assigned to Thickness
-            properties (list): Nested List of Layer Properties
-                properties: [[thickness_type, material, thickness, rotation, comment], ...]
+            layers (list of lists): Layers Table as an Array
+                layers = [[thickness_type, material, thickness], ...]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Check if Multilayer Surfaces Add-on is ON.
-        if not GetAddonStatus(Model.clientModel, AddOn.multilayer_surfaces_design_active):
-            SetAddonStatus(Model.clientModel, AddOn.multilayer_surfaces_design_active, True)
+        if not GetAddonStatus(model.clientModel, AddOn.multilayer_surfaces_design_active):
+            SetAddonStatus(model.clientModel, AddOn.multilayer_surfaces_design_active, True)
 
         # Client model | Thickness
-        clientObject = Model.clientModel.factory.create('ns0:thickness')
+        clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Thickness No.
         clientObject.no = no
@@ -404,22 +417,27 @@ class Thickness():
         # Thickness Type
         clientObject.type = ThicknessType.TYPE_LAYERS.name
 
+
+
         # Layers
-        clientObject.layers_reference_table = Model.clientModel.factory.create('ns0:thickness.layers_reference_table')
+        clientObject.layers_reference_table = model.clientModel.factory.create('ns0:thickness.layers_reference_table')
 
         for i,j in enumerate(layers):
-            tlrt = Model.clientModel.factory.create('ns0:thickness_layers_reference_table')
-            tlrt.no = no
-            tlrt.layer_no = i+1
-            tlrt.layer_type = None
-            tlrt.thickness_type = layers[i][0]
-            tlrt.material = layers[i][1]
-            tlrt.thickness = layers[i][2]
-            tlrt.angle = layers[i][3] * (pi/180)
-            tlrt.connection_with_other_topological_elements = False
-            tlrt.comment = layers[i][4]
-            tlrt.specific_weight = 0
-            tlrt.weight = 0
+            tlrt = model.clientModel.factory.create('ns0:thickness_layers_reference_table_row')
+            tlrt.no = i+1
+            tlrt.row.layer_no = i+1
+            tlrt.row.layer_type = LayerType.E_LAYER_TYPE_LAYER.name
+            tlrt.row.thickness_type = layers[i][0]
+            tlrt.row.material = layers[i][1]
+            tlrt.row.thickness = layers[i][2]
+            tlrt.row.connection_with_other_topological_elements = False
+            if Model.clientModel.service.get_material(layers[i][1])['material_model'] == "MODEL_ORTHOTROPIC_2D":
+                tlrt.row.angle = layers[i][3] * (pi/180)
+                if len(layers[i]) == 5:
+                    tlrt.row.comment = layers[i][4]
+            else:
+                if len(layers[i]) == 4:
+                    tlrt.row.comment = layers[i][3]
 
             clientObject.layers_reference_table.thickness_layers_reference_table.append(tlrt)
 
@@ -432,7 +450,7 @@ class Thickness():
                 clientObject[key] = params[key]
 
         # Add Thickness to client model
-        Model.clientModel.service.set_thickness(clientObject)
+        model.clientModel.service.set_thickness(clientObject)
 
     @staticmethod
     def ShapeOrthotropy(
@@ -440,11 +458,12 @@ class Thickness():
                  name: str = None,
                  material_no: int = 1,
                  orthotropy_type = ThicknessOrthotropyType.EFFECTIVE_THICKNESS,
-                 rotation_beta: float = 0,
+                 rotation_beta: float = 0.0,
                  consideration_of_self_weight = [ThicknessShapeOrthotropySelfWeightDefinitionType.SELF_WEIGHT_COMPUTED_FROM_PARAMETERS, 0.18],
                  parameters = [0.18, 0.18],
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -477,13 +496,14 @@ class Thickness():
                     parameters = [slab_thickness, rib_spacing_x, rib_spacing_y, rib_width_x, rib_width_y]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Thickness
-        clientObject = Model.clientModel.factory.create('ns0:thickness')
+        clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Thickness No.
         clientObject.no = no
@@ -575,19 +595,20 @@ class Thickness():
                 clientObject[key] = params[key]
 
         # Add Thickness to client model
-        Model.clientModel.service.set_thickness(clientObject)
+        model.clientModel.service.set_thickness(clientObject)
 
     @staticmethod
     def StiffnessMatrix(
                  no: int = 1,
                  name: str = None,
                  material_no: int = 1,
-                 rotation_beta: float = 0,
+                 rotation_beta: float = 0.0,
                  consideration_of_self_weight = [ThicknessStiffnessMatrixSelfWeightDefinitionType.SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_BULK_DENSITY, 0.2, 0.0],
                  coefficient_of_thermal_expansion: float = 0,
                  stiffness_matrix = [[0, 0, 0, 0, 0, 0],[0, 0, 0],[0, 0, 0, 0, 0, 0],[0, 0, 0, 0, 0, 0]],
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -614,13 +635,14 @@ class Thickness():
                                             [D16, D17, D18, D27, D28, D38]]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Thickness
-        clientObject = Model.clientModel.factory.create('ns0:thickness')
+        clientObject = model.clientModel.factory.create('ns0:thickness')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Thickness No.
         clientObject.no = no
@@ -683,4 +705,17 @@ class Thickness():
                 clientObject[key] = params[key]
 
         # Add Thickness to client model
-        Model.clientModel.service.set_thickness(clientObject)
+        model.clientModel.service.set_thickness(clientObject)
+
+    @staticmethod
+    def DeleteThickness(thickness_no: str = '1 2', model = Model):
+
+        '''
+        Args:
+            thickness_no (str): Numbers of Thickness to be deleted
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Delete from client model
+        for thickness in ConvertStrToListOfInt(thickness_no):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_THICKNESS.name, thickness)

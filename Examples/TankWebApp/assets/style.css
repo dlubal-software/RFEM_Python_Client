@@ -1,0 +1,149 @@
+@import 'https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300';
+.containerDiv{
+
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.headerText{
+    position: relative;
+    height: 48px;
+    bottom: 12px;
+    display: flex;
+
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 250;
+    font-size: 48px;
+    line-height: 100px;
+
+    color: #2C3475;
+}
+
+.inputDiv{
+    position: relative;
+    left: 200px;
+    top: 50px;
+    height: 200px;
+    width: 50%;
+}
+
+.heightBox{
+    position: relative;
+    left: 100px;
+    width: 200px;
+    height: 30px;
+    border: 1.5px solid #64748B;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.diameterBox{
+    position: relative;
+    left: 100px;
+    width: 200px;
+    height: 30px;
+    border: 1.5px solid #64748B;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.heightLabel{
+    font-family: 'Manrope';
+    font-style: light;
+    font-size: 16px;
+    font-weight: 5;
+    color: #64748B;
+}
+
+.diameterLabel{
+    font-family: 'Manrope';
+    font-style: normal;
+    font-size: 16px;
+    font-weight: 5;
+    color: #64748B;
+}
+
+.sliderLabel{
+    font-family: 'Manrope';
+    font-style: normal;
+    font-size: 16px;
+    font-weight: 5;
+    color: #64748B;
+}
+
+.utilSlider{
+    width: 70%;
+    height: 25px;
+    align-items: center;
+    text-align: center;
+    margin-left: 2%;
+}
+
+.btn {
+    margin-left: 125px;
+    width: 150px;
+    height: 50px;
+    position: relative;
+    color: white;
+    background-color: #2C3475;
+    border: none;
+    border-radius: 10px;
+    transition: all 0.3s;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn::before, .btn::after {
+    content: '';
+    position: absolute;
+    transition: all 0.4s;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.btn-effect::before {
+    left: 4px;
+    z-index: 1;
+
+    opacity: 0;
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(0.1, 1);
+}
+
+.btn-effect:hover::before {
+    opacity: 1;
+    transform: scale(1, 1);
+}
+
+.btn-effect::after {
+    transition: all 0.4s;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.btn-effect:hover::after {
+    transform: scale(1, .1);
+    opacity: 0;
+}
+
+.enter{
+    color: #2C3475;
+    width: 400px;
+}
+
+.result{
+    width: 400px;
+    align-items: center;
+    text-align: center;
+    color: #2C3475;
+}
+
+.loading_output{
+    color: #2C3475;
+    display: flex;
+    align-items: center;
+    margin-right: 15%;
+}

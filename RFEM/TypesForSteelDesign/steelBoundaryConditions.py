@@ -4,7 +4,7 @@ from RFEM.enums import *
 class SteelBoundaryConditions():
     def __init__(self,
                 no: int = 1,
-                user_defined_name: list = [False],
+                user_defined_name: str = '',
                 members: str = '',
                 member_sets : str = '',
                 intermediate_nodes : bool = False,
@@ -21,26 +21,19 @@ class SteelBoundaryConditions():
                     ["End", False, False, False, False, False, False, False, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, ""]
                                       ],
                 comment: str = '',
-                params: dict = {}):
+                params: dict = None,
+                model = Model):
 
         """
         Args:
             no (int): Boundary Conditions Tag
-            user_defined_name (list): User Defined Boundary Conditions Name
-
-            for user_defined_name[0] == False:
-                pass
-            for user_defined_name == True:
-                user_defined_name[1] = Defined Name
-
+            user_defined_name (str): User Defined Boundary Conditions Name
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
-            intermediate_nodes (bool): Intermediate Nodes Option
+            intermediate_nodes (bool): Enable/Disable Intermediate Nodes Option
             different_properties_supports (bool): Different Properties Option for Supports
             different_properties_hinges (bool): Different Properties Option for Hinges
-
-            nodal_supports (list): Nodal Supports Table Definition
-
+            nodal_supports (list of lists): Nodal Supports Table Definition
                 nodal_supports[i][0] (int)= Node Sequence No.
                 nodal_supports[i][1] (enum)= Support Type Enumeration
                 nodal_supports[i][2] (bool)= Support in X Direction Option
@@ -66,10 +59,7 @@ class SteelBoundaryConditions():
                 nodal_supports[i][22] (float)= Eccentricity in Y Magnitude
                 nodal_supports[i][23] (float)= Eccentricity in Z Magnitude
                 nodal_supports[i][24] (str)= Assigned Nodes
-
-            member_hinges (list): Member Hinges Table Definition
-
-
+            member_hinges (list of lists): Member Hinges Table Definition
                 member_hinges[i][0] = Node Sequence No.
                 member_hinges[i][1] = Release in X Option
                 member_hinges[i][2] = Release in Y Option
@@ -86,26 +76,24 @@ class SteelBoundaryConditions():
                 member_hinges[i][13] = Release Spring About Z Magnitude
                 member_hinges[i][14] = Release Spring Warping Magnitude
                 member_hinges[i][15] = Assigned Nodes
-
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client Model | Types For Steel Design Boundary Conditions
-        clientObject = Model.clientModel.factory.create('ns0:steel_boundary_conditions')
+        clientObject = model.clientModel.factory.create('ns0:steel_boundary_conditions')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Boundary Conditions No.
         clientObject.no = no
 
         # Boundary Conditions User Defined Name
-        if user_defined_name[0] == False:
-            clientObject.user_defined_name_enabled = user_defined_name[0]
-        else:
-            clientObject.user_defined_name_enabled = user_defined_name[0]
-            clientObject.name = user_defined_name[1]
+        if user_defined_name:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = user_defined_name
 
         # Intermediate Nodes Option
         clientObject.intermediate_nodes = intermediate_nodes
@@ -117,61 +105,61 @@ class SteelBoundaryConditions():
         clientObject.member_sets = ConvertToDlString(member_sets)
 
         # Boundary Conditions Nodal Supports
-        clientObject.nodal_supports = Model.clientModel.factory.create('ns0:steel_boundary_conditions.nodal_supports')
+        clientObject.nodal_supports = model.clientModel.factory.create('ns0:steel_boundary_conditions.nodal_supports')
 
         for i,j in enumerate(nodal_supports):
-            mlvlp = Model.clientModel.factory.create('ns0:steel_boundary_conditions_nodal_supports')
-            mlvlp.no = i
-            mlvlp.node_seq_no = nodal_supports[i][0]
-            mlvlp.support_type = nodal_supports[i][1].name
-            mlvlp.support_in_x = nodal_supports[i][2]
-            mlvlp.support_in_y = nodal_supports[i][3]
-            mlvlp.support_in_z = nodal_supports[i][4]
-            mlvlp.restraint_about_x = nodal_supports[i][5]
-            mlvlp.restraint_about_y = nodal_supports[i][6]
-            mlvlp.restraint_about_z = nodal_supports[i][7]
-            mlvlp.restraint_warping = nodal_supports[i][8]
-            mlvlp.rotation = nodal_supports[i][9]
-            mlvlp.rotation_about_x = nodal_supports[i][10]
-            mlvlp.rotation_about_y = nodal_supports[i][11]
-            mlvlp.rotation_about_z = nodal_supports[i][12]
-            mlvlp.support_spring_in_x = nodal_supports[i][13]
-            mlvlp.support_spring_in_y = nodal_supports[i][14]
-            mlvlp.support_spring_in_z = nodal_supports[i][15]
-            mlvlp.restraint_spring_about_x = nodal_supports[i][16]
-            mlvlp.restraint_spring_about_y = nodal_supports[i][17]
-            mlvlp.restraint_spring_about_z = nodal_supports[i][18]
-            mlvlp.restraint_spring_warping = nodal_supports[i][19]
-            mlvlp.eccentricity_type_z_type = nodal_supports[i][20].name
-            mlvlp.eccentricity_x = nodal_supports[i][21]
-            mlvlp.eccentricity_y = nodal_supports[i][22]
-            mlvlp.eccentricity_z = nodal_supports[i][23]
-            mlvlp.nodes = nodal_supports[i][24]
+            mlvlp = model.clientModel.factory.create('ns0:steel_boundary_conditions_nodal_supports_row')
+            mlvlp.no = i+1
+            mlvlp.row.node_seq_no = nodal_supports[i][0]
+            mlvlp.row.support_type = nodal_supports[i][1].name
+            mlvlp.row.support_in_x = nodal_supports[i][2]
+            mlvlp.row.support_in_y = nodal_supports[i][3]
+            mlvlp.row.support_in_z = nodal_supports[i][4]
+            mlvlp.row.restraint_about_x = nodal_supports[i][5]
+            mlvlp.row.restraint_about_y = nodal_supports[i][6]
+            mlvlp.row.restraint_about_z = nodal_supports[i][7]
+            mlvlp.row.restraint_warping = nodal_supports[i][8]
+            mlvlp.row.rotation = nodal_supports[i][9]
+            mlvlp.row.rotation_about_x = nodal_supports[i][10]
+            mlvlp.row.rotation_about_y = nodal_supports[i][11]
+            mlvlp.row.rotation_about_z = nodal_supports[i][12]
+            mlvlp.row.support_spring_in_x = nodal_supports[i][13]
+            mlvlp.row.support_spring_in_y = nodal_supports[i][14]
+            mlvlp.row.support_spring_in_z = nodal_supports[i][15]
+            mlvlp.row.restraint_spring_about_x = nodal_supports[i][16]
+            mlvlp.row.restraint_spring_about_y = nodal_supports[i][17]
+            mlvlp.row.restraint_spring_about_z = nodal_supports[i][18]
+            mlvlp.row.restraint_spring_warping = nodal_supports[i][19]
+            mlvlp.row.eccentricity_type_z_type = nodal_supports[i][20].name
+            mlvlp.row.eccentricity_x = nodal_supports[i][21]
+            mlvlp.row.eccentricity_y = nodal_supports[i][22]
+            mlvlp.row.eccentricity_z = nodal_supports[i][23]
+            mlvlp.row.nodes = nodal_supports[i][24]
 
             clientObject.nodal_supports.steel_boundary_conditions_nodal_supports.append(mlvlp)
 
         # Boundary Conditions Member Hinges
-        clientObject.member_hinges = Model.clientModel.factory.create('ns0:steel_boundary_conditions.member_hinges')
+        clientObject.member_hinges = model.clientModel.factory.create('ns0:steel_boundary_conditions.member_hinges')
 
         for i,j in enumerate(member_hinges):
-            mlvlp = Model.clientModel.factory.create('ns0:steel_boundary_conditions_member_hinges')
-            mlvlp.no = i
-            mlvlp.node_seq_no = member_hinges[i][0]
-            mlvlp.release_in_x = member_hinges[i][1]
-            mlvlp.release_in_y = member_hinges[i][2]
-            mlvlp.release_in_z = member_hinges[i][3]
-            mlvlp.release_about_x = member_hinges[i][4]
-            mlvlp.release_about_y = member_hinges[i][5]
-            mlvlp.release_about_z = member_hinges[i][6]
-            mlvlp.release_warping = member_hinges[i][7]
-            mlvlp.release_spring_in_x = member_hinges[i][8]
-            mlvlp.release_spring_in_y = member_hinges[i][9]
-            mlvlp.release_spring_in_z = member_hinges[i][10]
-            mlvlp.release_spring_about_x = member_hinges[i][11]
-            mlvlp.release_spring_about_y = member_hinges[i][12]
-            mlvlp.release_spring_about_z = member_hinges[i][13]
-            mlvlp.release_spring_warping = member_hinges[i][14]
-            mlvlp.nodes = member_hinges[i][15]
+            mlvlp = model.clientModel.factory.create('ns0:steel_boundary_conditions_member_hinges_row')
+            mlvlp.no = i+1
+            mlvlp.row.node_seq_no = member_hinges[i][0]
+            mlvlp.row.release_in_x = member_hinges[i][1]
+            mlvlp.row.release_in_y = member_hinges[i][2]
+            mlvlp.row.release_in_z = member_hinges[i][3]
+            mlvlp.row.release_about_x = member_hinges[i][4]
+            mlvlp.row.release_about_y = member_hinges[i][5]
+            mlvlp.row.release_about_z = member_hinges[i][6]
+            mlvlp.row.release_warping = member_hinges[i][7]
+            mlvlp.row.release_spring_in_x = member_hinges[i][8]
+            mlvlp.row.release_spring_in_y = member_hinges[i][9]
+            mlvlp.row.release_spring_in_z = member_hinges[i][10]
+            mlvlp.row.release_spring_about_x = member_hinges[i][11]
+            mlvlp.row.release_spring_about_y = member_hinges[i][12]
+            mlvlp.row.release_spring_about_z = member_hinges[i][13]
+            mlvlp.row.release_spring_warping = member_hinges[i][14]
+            mlvlp.row.nodes = member_hinges[i][15]
 
             clientObject.member_hinges.steel_boundary_conditions_member_hinges.append(mlvlp)
 
@@ -185,9 +173,9 @@ class SteelBoundaryConditions():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Steel Boundary Conditions to client model
-        Model.clientModel.service.set_steel_boundary_conditions(clientObject)
-
+        model.clientModel.service.set_steel_boundary_conditions(clientObject)

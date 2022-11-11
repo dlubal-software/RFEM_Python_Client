@@ -1,19 +1,39 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 
 class SurfaceMeshRefinement():
     def __init__(self,
                  no: int = 1,
+                 surfaces: str = "1",
+                 target_length: float = 0.2,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
+        """
+        Surface Mesh Refinement
+
+        Args:
+            no (int): Surface Mesh Refinement Tag
+            surfaces (str): Assigned to Surfaces
+            target_length (float): Target FE Length
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
 
         # Client model | Surface Mesh Refinement
-        clientObject = Model.clientModel.factory.create('ns0:surface_mesh_refinement')
+        clientObject = model.clientModel.factory.create('ns0:surface_mesh_refinement')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Mesh Refinement No.
         clientObject.no = no
+
+        # Assigned to Surfaces
+        clientObject.surfaces = ConvertToDlString(surfaces)
+
+        # Target FE Length
+        clientObject.target_length = target_length
 
         # Comment
         clientObject.comment = comment
@@ -24,4 +44,4 @@ class SurfaceMeshRefinement():
                 clientObject[key] = params[key]
 
         # Add Surface Mesh Refinement to client model
-        Model.clientModel.service.set_surface_mesh_refinement(clientObject)
+        model.clientModel.service.set_surface_mesh_refinement(clientObject)

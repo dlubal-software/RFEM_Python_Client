@@ -1,4 +1,5 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes, ConvertStrToListOfInt
+from RFEM.enums import ObjectTypes
 
 class Section():
     def __init__(self,
@@ -6,7 +7,8 @@ class Section():
                  name: str = 'IPE 300',
                  material_no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -15,13 +17,14 @@ class Section():
             material_no (int): Tag of Material assigned to Section
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Section
-        clientObject = Model.clientModel.factory.create('ns0:section')
+        clientObject = model.clientModel.factory.create('ns0:section')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Section No.
         clientObject.no = no
@@ -41,4 +44,17 @@ class Section():
                 clientObject[key] = params[key]
 
         # Add Section to client model
-        Model.clientModel.service.set_section(clientObject)
+        model.clientModel.service.set_section(clientObject)
+
+    @staticmethod
+    def DeleteSection(sections_no: str = '1 2', model = Model):
+
+        '''
+        Args:
+            sections_no (str): Numbers of Sections to be deleted
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Delete from client model
+        for section in ConvertStrToListOfInt(sections_no):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_SECTION.name, section)

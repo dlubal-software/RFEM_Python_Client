@@ -8,14 +8,14 @@ sys.path.append(PROJECT_ROOT)
 
 import pytest
 from RFEM.enums import *
-from RFEM.initModel import Model, CheckIfMethodOrTypeExists
+from RFEM.initModel import Model, CheckIfMethodOrTypeExists, SetAddonStatus
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.material import Material
 from RFEM.TypesforConcreteDesign.ConcreteDurability import ConcreteDurability
-from RFEM.ConcreteDesign.ConcreteUltimateConfigurations import ConcreteUltimateConfiguration
-from RFEM.ConcreteDesign.ConcreteServiceabilityConfigurations import ConcreteServiceabilityConfiguration
+#from RFEM.ConcreteDesign.ConcreteUltimateConfigurations import ConcreteUltimateConfiguration
+#from RFEM.ConcreteDesign.ConcreteServiceabilityConfigurations import ConcreteServiceabilityConfiguration
 from RFEM.TypesforConcreteDesign.ConcreteEffectiveLength import ConcreteEffectiveLength
 from RFEM.TypesforConcreteDesign.ConcreteReinforcementDirections import ConcreteReinforcementDirection
 from RFEM.TypesforConcreteDesign.ConcreteSurfaceReinforcements import ConcreteSurfaceReinforcements
@@ -30,9 +30,11 @@ def test_concrete_design():
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
+    SetAddonStatus(Model.clientModel, AddOn.concrete_design_active)
+
     Material(1, 'C30/37')
     Material(2, 'B550S(A)')
-    Section(1, 'R_M1 500/500', 1)
+    Section()
 
     Node(1, 0, 0, 0)
     Node(2, 5, 0, 0)
@@ -63,10 +65,10 @@ def test_concrete_design():
     ConcreteDurability(11, "XC 11", '1', '', '', [True, False, False, False], [], [False, False, False], [], [DurabilityStructuralClassType.STANDARD, False, False, False, False], [True, DurabilityStainlessSteelType.DEFINED, 0.012], [True, DurabilityAdditionalProtectionType.DEFINED, 0.02], [DurabilityAllowanceDeviationType.DEFINED, 0.008])
 
     # Concrete Ultimate Configuration
-    ConcreteUltimateConfiguration(1, 'ULS', '1')
+    # ConcreteUltimateConfiguration(1, 'ULS', '1')
 
     # Concrete Serviceability Configuration
-    ConcreteServiceabilityConfiguration(1, 'SLS', '1')
+    #ConcreteServiceabilityConfiguration(1, 'SLS', '1')
 
     # Concrete Effective Lengths
     ConcreteEffectiveLength()
@@ -79,7 +81,7 @@ def test_concrete_design():
     # Concrete Surface Reinforcements
     ConcreteSurfaceReinforcements()
     ConcreteSurfaceReinforcements(2, "RD 2", "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_ON_SURFACE, SurfaceReinforcementType.REINFORCEMENT_TYPE_STIRRUPS, [0.01, 0.15])
-    ConcreteSurfaceReinforcements(3, "RD 3", "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_ON_SURFACE, SurfaceReinforcementType.REINFORCEMENT_TYPE_MESH, ["Germany - 1997-01-01", "Q-Mesh", "Q131A"])
+    ConcreteSurfaceReinforcements(3, "RD 3", "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_ON_SURFACE, SurfaceReinforcementType.REINFORCEMENT_TYPE_MESH, [SurfaceReinforcementMeshProductRange.MESHSTANDARD_GERMANY_1997_01_01, SurfaceReinforcementMeshShape.MESHSHAPE_Q_MESH, "Q131A"])
     ConcreteSurfaceReinforcements(4, "RD 4", "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_ON_SURFACE, reinforcement_direction=SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_PARALLEL_TO_TWO_POINTS, reinforcement_direction_parameters=[1, 2, 3, 4, "1", SurfaceReinforcementProjectionPlane.PROJECTION_PLANE_XY_OR_UV])
     ConcreteSurfaceReinforcements(5, "RD 5", "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_ON_SURFACE, reinforcement_direction=SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION, reinforcement_direction_parameters=[SurfaceReinforcementDesignDirection.DESIGN_REINFORCEMENT_DIRECTION_A_S_1, "1", SurfaceReinforcementProjectionPlane.PROJECTION_PLANE_XY_OR_UV], reinforcement_location=[SurfaceReinforcementLocationRectangleType.RECTANGLE_TYPE_CORNER_POINTS, 1, 2, 3, 4, 35], reinforcement_acting_region=["-inf", "+inf"])
     ConcreteSurfaceReinforcements(6, 'RD 6', "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_FREE_RECTANGULAR, SurfaceReinforcementType.REINFORCEMENT_TYPE_STIRRUPS, [0.01, 0.15], reinforcement_direction =SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION, reinforcement_direction_parameters = [SurfaceReinforcementDesignDirection.DESIGN_REINFORCEMENT_DIRECTION_A_S_1, "1", SurfaceReinforcementProjectionPlane.PROJECTION_PLANE_XY_OR_UV], reinforcement_location=[SurfaceReinforcementLocationRectangleType.RECTANGLE_TYPE_CORNER_POINTS, 1, 2, 3, 4, 35], reinforcement_acting_region=["-inf", "+inf"])

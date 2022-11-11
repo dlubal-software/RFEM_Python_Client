@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 from RFEM.dataTypes import inf
 
 class LineHinge():
@@ -14,18 +14,28 @@ class LineHinge():
                  translational_release: list = [800, inf, inf],
                  rotational_release_phi: int = inf,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         """
         assigned_to doesn't work. Can't figure why.
         Assignment in surfaces also doesn't work (surface.has_line_hinges = True).
+
+        Args:
+            no (int): Line Hinge Tag
+            assigned_to (str): Assigned to
+            translational_release (list): Translation Release List
+            rotational_release_phi (int): Rotational Release phi
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Line Hinge
-        clientObject = Model.clientModel.factory.create('ns0:line_hinge')
+        clientObject = model.clientModel.factory.create('ns0:line_hinge')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line Hinge No.
         clientObject.no = no
@@ -51,5 +61,5 @@ class LineHinge():
                 clientObject[key] = params[key]
 
         # Add Line Hinge to client model
-        Model.clientModel.service.set_line_hinge(clientObject)
+        model.clientModel.service.set_line_hinge(clientObject)
 

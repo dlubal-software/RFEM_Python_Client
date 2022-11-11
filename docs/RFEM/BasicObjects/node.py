@@ -1,7 +1,7 @@
 from RFEM.enums import NodeType
 from RFEM.enums import NodeCoordinateSystemType
 from RFEM.enums import NodeReferenceType
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 from math import pi
 
 class Node():
@@ -26,7 +26,7 @@ class Node():
         clientObject = Model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Node No.
         clientObject.no = no
@@ -76,7 +76,7 @@ class Node():
         clientObject = Model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Node No.
         clientObject.no = no
@@ -169,7 +169,7 @@ class Node():
         clientObject = Model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Node No.
         clientObject.no = no
@@ -251,7 +251,7 @@ class Node():
         clientObject = Model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Node No.
         clientObject.no = no
@@ -321,7 +321,7 @@ class Node():
         clientObject = Model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Node No.
         clientObject.no = no
@@ -382,7 +382,7 @@ class Node():
         clientObject = Model.clientModel.factory.create('ns0:node')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Node No.
         clientObject.no = no

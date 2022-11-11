@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import LoadDirectionType, NodalLoadType, NodalLoadSpecificDirectionType
 
 class NodalLoad():
@@ -25,7 +25,7 @@ class NodalLoad():
         clientObject = Model.clientModel.factory.create('ns0:nodal_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Nodal Force No.
         clientObject.no = no
@@ -99,7 +99,7 @@ class NodalLoad():
         clientObject = Model.clientModel.factory.create('ns0:nodal_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Nodal Force No.
         clientObject.no = no
@@ -237,7 +237,7 @@ class NodalLoad():
         clientObject = Model.clientModel.factory.create('ns0:nodal_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Nodal Force No.
         clientObject.no = no
@@ -356,7 +356,7 @@ class NodalLoad():
         clientObject = Model.clientModel.factory.create('ns0:nodal_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Nodal Force No.
         clientObject.no = no
@@ -481,7 +481,7 @@ class NodalLoad():
         clientObject = Model.clientModel.factory.create('ns0:nodal_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Nodal Force No.
         clientObject.no = no

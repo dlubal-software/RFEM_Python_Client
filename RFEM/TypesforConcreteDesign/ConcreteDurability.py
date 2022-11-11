@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import DurabilityStructuralClassType, DurabilityAllowanceDeviationType
 
 class ConcreteDurability():
@@ -8,16 +8,17 @@ class ConcreteDurability():
                 members_no: str = "1",
                 member_sets_no: str = "1",
                 surfaces_no: str = "1",
-                exposure_classes_reinforcement = [True, False, False, False],
-                exposure_classes_reinforcement_types = [],
-                exposure_classes_concrete = [False, False, False],
-                exposure_classes_concrete_types = [],
-                structural_class = [DurabilityStructuralClassType.STANDARD, False, False, False, False],
-                stainless_steel_reduction = [False],
-                additional_protection_reduction = [False],
-                allowance_deviation = [DurabilityAllowanceDeviationType.STANDARD, False],
+                exposure_classes_reinforcement: list = [True, False, False, False],
+                exposure_classes_reinforcement_types: list = None,
+                exposure_classes_concrete: list = [False, False, False],
+                exposure_classes_concrete_types: list = None,
+                structural_class: list = [DurabilityStructuralClassType.STANDARD, False, False, False, False],
+                stainless_steel_reduction: list = [False],
+                additional_protection_reduction: list = [False],
+                allowance_deviation: list = [DurabilityAllowanceDeviationType.STANDARD, False],
                 comment: str = '',
-                params: dict = None):
+                params: dict = None,
+                model = Model):
         """
         Args:
             no (int): Concrete Durability Tag
@@ -26,29 +27,31 @@ class ConcreteDurability():
             member_sets_no (str): Assigned Member Sets
             surfaces_no (str): Assigned Surfaces
             exposure_classes_reinforcement (list): Exposure Classes Reinforcement Parameters
-            exposure_classes_reinforcement_types (list): Exposure Classes Reinforcement Parameters
+            exposure_classes_reinforcement_types (list of enum): Exposure Classes Reinforcement Type List of Enumeration
             exposure_classes_concrete (list): Exposure Classes Concrete Parameters
-            exposure_classes_concrete_types (list): Exposure Classes Concrete Parameters
+            exposure_classes_concrete_types (list of enum): Exposure Classes Concrete Type List of Enumeration
             structural_class (list): Structural Class Parameters
             stainless_steel_reduction (list): Stainless Steel Reduction Parameters
             additional_protection_reduction (list): Additional Protection Reduction
             allowance_deviation (list): Allowance Deviation Parameters
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Concrete Durabilities
-        clientObject = Model.clientModel.factory.create('ns0:concrete_durability')
+        clientObject = model.clientModel.factory.create('ns0:concrete_durability')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Concrete Durability No.
         clientObject.no = no
 
         # User Defined Name
-        clientObject.user_defined_name_enabled = True
-        clientObject.name = name
+        if name:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Assigned Members
         clientObject.members = ConvertToDlString(members_no)
@@ -163,12 +166,4 @@ class ConcreteDurability():
                 clientObject[key] = params[key]
 
         # Add Global Parameter to client model
-        Model.clientModel.service.set_concrete_durability(clientObject)
-
-
-
-
-
-
-
-
+        model.clientModel.service.set_concrete_durability(clientObject)

@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 
 class MemberSupport():
     def __init__(self,
@@ -10,7 +10,7 @@ class MemberSupport():
         clientObject = Model.clientModel.factory.create('ns0:member_support')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Support No.
         clientObject.no = no

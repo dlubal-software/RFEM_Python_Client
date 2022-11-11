@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 from RFEM.enums import AnalysisType
 
 class LoadCombination():
@@ -20,7 +20,7 @@ class LoadCombination():
         clientObject = Model.clientModel.factory.create('ns0:load_combination')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Load Combination No.
         clientObject.no = no

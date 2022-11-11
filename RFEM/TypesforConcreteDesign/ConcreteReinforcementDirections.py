@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import ReinforcementDirectionType
 from math import pi
 
@@ -6,34 +6,37 @@ class ConcreteReinforcementDirection():
     def __init__(self,
                 no: int = 1,
                 name: str = "RD 1",
-                surfaces = "1",
+                surfaces: str = "1",
                 reinforcement_direction_type = ReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_FIRST_REINFORCEMENT_IN_X,
-                rotation_parameters = [],
+                rotation_parameters: list = None,
                 comment: str = '',
-                params: dict = None):
+                params: dict = None,
+                model = Model):
         """
         Args:
-            no (int): Reinforcement Direction Tag
+            no (int): Concrete Reinforcement Direction Tag
             name (str): User Defined Name
             surfaces (str): Assigned Surfaces
             reinforcement_direction_type (enum): Reinforcement Direction Enumeration
-            rotation_parameters (list): Rotation Parameters
+            rotation_parameters (list): Rotation Parameters List
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Concrete Durabilities
-        clientObject = Model.clientModel.factory.create('ns0:reinforcement_direction')
+        clientObject = model.clientModel.factory.create('ns0:reinforcement_direction')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Concrete Durability No.
         clientObject.no = no
 
         # User Defined Name
-        clientObject.user_defined_name_enabled = True
-        clientObject.name = name
+        if name:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Reinforcement Direction Type
         clientObject.reinforcement_direction_type = reinforcement_direction_type.name
@@ -54,7 +57,7 @@ class ConcreteReinforcementDirection():
                 clientObject[key] = params[key]
 
         # Add Global Parameter to client model
-        Model.clientModel.service.set_reinforcement_direction(clientObject)
+        model.clientModel.service.set_reinforcement_direction(clientObject)
 
 
 

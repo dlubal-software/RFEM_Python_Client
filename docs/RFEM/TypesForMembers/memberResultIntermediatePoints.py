@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 
 class MemberResultIntermediatePoint():
     def __init__(self,
@@ -10,7 +10,7 @@ class MemberResultIntermediatePoint():
         clientObject = Model.clientModel.factory.create('ns0:member_result_intermediate_point')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Result Intermediate Point No.
         clientObject.no = no

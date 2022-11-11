@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import SurfaceReinforcementLocationType, SurfaceReinforcementType, SurfaceReinforcementDirectionType, SurfaceReinforcementDesignDirection
 from math import pi
 
@@ -9,7 +9,7 @@ class ConcreteSurfaceReinforcements():
                 surfaces = "1",
                 material = "2",
                 location_type = SurfaceReinforcementLocationType.LOCATION_TYPE_ON_SURFACE,
-                reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_REBARS,
+                reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_REBAR,
                 reinforcement_type_parameters = [0.01, 0.15, False],
                 cover_offset = [True, True, 0, 0],
                 reinforcement_direction = SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION,
@@ -51,7 +51,7 @@ class ConcreteSurfaceReinforcements():
         clientObject = Model.clientModel.factory.create('ns0:surface_reinforcement')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Concrete Durability No.
         clientObject.no = no

@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import MemberSetLoadType, LoadDirectionType, MemberSetLoadDistribution, MemberSetLoadDirection, MemberSetLoadDirectionOrientation
 from RFEM.enums import MemberSetLoadEccentricityHorizontalAlignment, MemberSetLoadEccentricityVerticalAlignment, MemberSetLoadEccentricitySectionMiddle
 from RFEM.enums import MemberSetLoadAxisDefinitionType, MemberSetLoadAxisDefinitionAxisOrientation, MemberSetLoadAxisDefinition
@@ -28,7 +28,7 @@ class MemberSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -124,7 +124,7 @@ class MemberSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -438,7 +438,7 @@ class MemberSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -671,7 +671,7 @@ class MemberSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -751,7 +751,7 @@ class MemberSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -925,7 +925,7 @@ class MemberSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -1090,7 +1090,7 @@ class MemberSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -1232,7 +1232,7 @@ class MemberSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -1303,7 +1303,7 @@ class MemberSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -1446,7 +1446,7 @@ class MemberSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -1527,7 +1527,7 @@ class MemberSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -1791,7 +1791,7 @@ class MemberSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -2030,7 +2030,7 @@ class MemberSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -2091,7 +2091,7 @@ class MemberSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -2151,7 +2151,7 @@ class MemberSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -2217,7 +2217,7 @@ class MemberSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no

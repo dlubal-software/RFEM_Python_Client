@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import SolidSetLoadType, SolidSetLoadDistribution, SolidSetLoadDirection
 
 class SolidSetLoad():
@@ -18,7 +18,7 @@ class SolidSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:solid_set_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Load No.
         clientObject.no = no
@@ -65,7 +65,7 @@ class SolidSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:solid_set_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Load No.
         clientObject.no = no
@@ -119,7 +119,7 @@ class SolidSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:solid_set_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Load No.
         clientObject.no = no
@@ -175,7 +175,7 @@ class SolidSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:solid_set_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Load No.
         clientObject.no = no
@@ -233,7 +233,7 @@ class SolidSetLoad():
         clientObject = Model.clientModel.factory.create('ns0:solid_set_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Load No.
         clientObject.no = no

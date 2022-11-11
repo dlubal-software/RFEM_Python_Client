@@ -47,7 +47,7 @@ def test_standard_surface():
     Node(12, 0.0, 10.0, 0.0)
     Node(13, 5.0, 10.0, -2.5)
     Node(14, 10.0, 10.0, 0.0)
-    Node(15, 0.0, 5.0, -2,5)
+    Node(15, 0.0, 5.0, -2.5)
     Node(16, 10.0, 5.0, -2.5)
 
     # NURBS-Curve Definition
@@ -77,3 +77,26 @@ def test_standard_surface():
     Surface.Standard(4, SurfaceGeometry.GEOMETRY_QUADRANGLE, [17, 18, 19, 20], '13 14 15 16')
 
     Model.clientModel.service.finish_modification()
+
+    # Testing the standard surface function
+    sur = Model.clientModel.service.get_surface(1)
+    assert sur.geometry == 'GEOMETRY_PLANE'
+    assert sur.type == 'TYPE_STANDARD'
+    assert sur.boundary_lines == '1 2 3 4'
+
+    # Standard planar Surface
+    sur = Model.clientModel.service.get_surface(2)
+    assert sur.geometry == 'GEOMETRY_PLANE'
+    assert sur.type == 'TYPE_STANDARD'
+    assert sur.boundary_lines == '5 6 7 8'
+
+    # Standard NURBS Surface
+    sur = Model.clientModel.service.get_surface(3)
+    assert sur.geometry == 'GEOMETRY_NURBS'
+    assert sur.nurbs_control_point_count_in_direction_u == 3
+    assert sur.nurbs_order_in_direction_v == 3
+
+    # Quadrangle Defintion
+    sur = Model.clientModel.service.get_surface(4)
+    assert sur.geometry == 'GEOMETRY_QUADRANGLE'
+    assert sur.quadrangle_corner_nodes == '17 18 19 20'

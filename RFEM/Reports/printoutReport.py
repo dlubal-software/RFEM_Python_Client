@@ -4,33 +4,41 @@ from RFEM.initModel import Model
 class PrintoutReport():
     """
     Printout report class encopassing available printout report methods.
+
+    TODO: Create printout report US is paused US-8034.
     """
 
     @staticmethod
-    def delete(id_list):
+    def delete(id_list, model = Model):
         """
         Delete printout report
         """
-        Model.clientModel.service.delete_printout_reports(id_list)
+        model.clientModel.service.delete_printout_reports(id_list)
 
     @staticmethod
-    def export(report_id: int, target_file_path: str):
+    def exportToHTML(report_id: int, target_file_path: str, model = Model):
         """
-        Export printout report to a file.
+        Export printout report to a HTML.
         """
-        Model.clientModel.service.export_printout_report_to_file(
-            report_id, target_file_path)
+        model.clientModel.service.export_printout_report_to_html(report_id, target_file_path)
 
     @staticmethod
-    def getList():
+    def exportToPDF(report_id: int, target_file_path: str, model = Model):
+        """
+        Export printout report to a PDF.
+        """
+        model.clientModel.service.export_printout_report_to_pdf(report_id, target_file_path)
+
+    @staticmethod
+    def getList(model = Model):
         """
         Get list of printout reports.
         """
-        return Model.clientModel.service.get_list_of_printout_reports()[0]
+        return model.clientModel.service.get_list_of_printout_reports()[0]
 
     @staticmethod
-    def print(printout_report_id: int = 1):
+    def print(printout_report_id: int = 1, model = Model):
         """
         Print printout report.
         """
-        Model.clientModel.service.print_printout_report(printout_report_id)
+        model.clientModel.service.print_printout_report(printout_report_id)

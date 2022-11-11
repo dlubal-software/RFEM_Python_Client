@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 
 class MemberNonlinearity():
     def __init__(self,
@@ -10,7 +10,7 @@ class MemberNonlinearity():
         clientObject = Model.clientModel.factory.create('ns0:member_nonlinearity')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Nonlinearity No.
         clientObject.no = no

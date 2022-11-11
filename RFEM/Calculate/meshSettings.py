@@ -104,7 +104,8 @@ class MeshSettings():
                  commonConfig: dict = ComonMeshConfig,
                  surfaceConfig: dict = SurfacesMeshQualityConfig,
                  solidConfig: dict = SolidsMeshQualityConfig,
-                 windConfig: dict = WindSimulationMeshConfig):
+                 windConfig: dict = WindSimulationMeshConfig,
+                 model = Model):
         """
         The object is automaticaly created therefore we can assume that it will not be created but only updated.
         Only posititve values are recognized.
@@ -116,12 +117,12 @@ class MeshSettings():
             windConfig: wind specific parameters; use only when Wind Simulation Add-on is active
         """
         # Get current mesh settings
-        config = Model.clientModel.service.get_mesh_settings()
+        config = model.clientModel.service.get_mesh_settings()
 
         clientObject = {}
         for i in config:
             if i[0] == 'windSimulationMeshConfig':
-                if GetAddonStatus(Model.clientModel, AddOn.wind_simulation_active):
+                if GetAddonStatus(model.clientModel, AddOn.wind_simulation_active):
                     clientObject[i[0]] = config[i[0]]
             else:
                 clientObject[i[0]] = config[i[0]]
@@ -144,36 +145,36 @@ class MeshSettings():
                         clientObject['SolidsMeshQualityConfig']['QualityCriteriaConfigForSolids'][key_] = solidConfig['QualityCriteriaConfigForSolids'][key_]
             elif solidConfig[key]:
                 clientObject['SolidsMeshQualityConfig'][key] = solidConfig[key]
-        if  GetAddonStatus(Model.clientModel, AddOn.wind_simulation_active):
+        if  GetAddonStatus(model.clientModel, AddOn.wind_simulation_active):
             for key in windConfig:
                 if windConfig[key]:
                     clientObject['windSimulationMeshConfig'][key] = windConfig[key]
 
         # Add Mesh Settings to client model
-        Model.clientModel.service.set_mesh_settings(clientObject)
+        model.clientModel.service.set_mesh_settings(clientObject)
 
     @staticmethod
-    def set_mesh_settings(all_settings):
+    def set_mesh_settings(all_settings, model = Model):
         new_sett = {}
 
         for i in all_settings:
             if i[0] == 'windSimulationMeshConfig':
-                if GetAddonStatus(Model.clientModel, AddOn.wind_simulation_active):
+                if GetAddonStatus(model.clientModel, AddOn.wind_simulation_active):
                     new_sett['wind_simulation_active'] = all_settings['wind_simulation_active']
             else:
                 new_sett[i[0]] = all_settings[i[0]]
 
-        Model.clientModel.service.set_mesh_settings(new_sett)
+        model.clientModel.service.set_mesh_settings(new_sett)
 
-def GetModelInfo():
-    return Model.clientModel.service.get_model_info()
+def GetModelInfo(model = Model):
+    return model.clientModel.service.get_model_info()
 
-def GetMeshStatistics():
-    mesh_stats = Model.clientModel.service.get_mesh_statistics()
-    return Model.clientModel.dict(mesh_stats)
+def GetMeshStatistics(model = Model):
+    mesh_stats = model.clientModel.service.get_mesh_statistics()
+    return model.clientModel.dict(mesh_stats)
 
-def GenerateMesh():
-    Model.clientModel.service.generate_mesh()
+def GenerateMesh(model = Model, skip_warnings = True):
+    model.clientModel.service.generate_mesh(skip_warnings)
 
-def GetMeshSettings():
-    return Model.clientModel.service.get_mesh_settings()
+def GetMeshSettings(model = Model):
+    return model.clientModel.service.get_mesh_settings()

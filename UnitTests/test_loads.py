@@ -14,6 +14,7 @@ from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.surface import Surface
+from RFEM.BasicObjects.opening import Opening
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
@@ -23,6 +24,7 @@ from RFEM.Loads.nodalLoad import NodalLoad
 from RFEM.Loads.surfaceLoad import SurfaceLoad
 from RFEM.Loads.freeLoad import FreeLoad
 from RFEM.Loads.imposedNodalDeformation import ImposedNodalDeformation
+from RFEM.Loads.openingLoad import OpeningLoad
 from RFEM.TypesForLines.lineSupport import LineSupport
 from RFEM.Loads.imposedLineDeformation import ImposedLineDeformation
 if Model.clientModel is None:
@@ -1164,3 +1166,55 @@ def test_imposed_line_deformation():
     assert imposed_line_deformation.imposed_displacement_line_start_z == 0.003
     assert imposed_line_deformation.imposed_displacement_line_end_z == 0.0002
 
+def test_opening_load():
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Material(1, 'S235')
+
+    Node(1, 0.0, 0.0, 0.0)
+    Node(2, 5.0, 0.0, 0.0)
+    Node(3, 5.0, 6.0, 0.0)
+    Node(4, 0.0, 6.0, 0.0)
+
+    Node(5, 2.0, 2.0, 0.0)
+    Node(6, 4.0, 2.0, 0.0)
+    Node(7, 4.0, 4.0, 0.0)
+    Node(8, 2.0, 4.0, 0.0)
+
+    Line(1, '1 2')
+    Line(2, '2 3')
+    Line(3, '3 4')
+    Line(4, '4 1')
+
+    Line(5, '5 6')
+    Line(6, '6 7')
+    Line(7, '7 8')
+    Line(8, '8 5')
+
+    Opening(1, '5-8')
+
+    Thickness(1, 'My Thickness', 1, 0.05)
+
+    Surface(1, '1-4', 1, 'My Comment')
+
+    LineSupport(1, '1 2 3 4', LineSupportType.FIXED)
+
+    StaticAnalysisSettings(1, 'LINEAR', StaticAnalysisType.GEOMETRICALLY_LINEAR)
+    LoadCase(1, comment = 'My Comment')
+    LoadCase(2, comment = 'My Comment')
+
+    OpeningLoad(1, 1, '1', OpeningLoadDistribution.LOAD_DISTRIBUTION_UNIFORM_TRAPEZOIDAL, OpeningLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, [1300], 'My Comment')
+    OpeningLoad(1, 2, '1', OpeningLoadDistribution.LOAD_DISTRIBUTION_LINEAR_TRAPEZOIDAL, load_parameter = [2000, 3000, 4000, 5, 6, 7])
+
+    Model.clientModel.service.finish_modification()
+
+    opening_load = Model.clientModel.service.get_opening_load(1, 1)
+    assert opening_load.magnitude == 1300.0
+    assert opening_load.load_type == "LOAD_TYPE_FORCE"
+    assert opening_load.openings == "1"
+
+    opening_load = Model.clientModel.service.get_opening_load(1, 2)
+    assert opening_load.magnitude_2 == 3000.0
+    assert opening_load.coordinate_system == "Local"
+    assert opening_load.load_direction == "LOAD_DIRECTION_LOCAL_Z"

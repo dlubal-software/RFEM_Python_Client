@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 from RFEM.enums import *
 
 class RigidLink():
@@ -14,7 +14,7 @@ class RigidLink():
         clientObject = Model.clientModel.factory.create('ns0:rigid_link')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Type
         #clientObject.type = RigidLinkType.TYPE_LINE_TO_LINE.name
@@ -51,7 +51,7 @@ class RigidLink():
         clientObject = Model.clientModel.factory.create('ns0:rigid_link')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Type
         clientObject.type = RigidLinkType.TYPE_LINE_TO_LINE.name
@@ -88,7 +88,7 @@ class RigidLink():
         clientObject = Model.clientModel.factory.create('ns0:rigid_link')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Rigid Link No.
         clientObject.no = no
@@ -125,7 +125,7 @@ class RigidLink():
         clientObject = Model.clientModel.factory.create('ns0:rigid_link')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Rigid Link No.
         clientObject.no = no

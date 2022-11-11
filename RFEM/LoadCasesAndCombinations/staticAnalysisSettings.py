@@ -1,35 +1,39 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes
 from RFEM.enums import StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis
 from RFEM.enums import StaticAnalysisSettingsMethodOfEquationSystem
 from RFEM.enums import StaticAnalysisSettingsPlateBendingTheory, StaticAnalysisType
 
 class StaticAnalysisSettings():
+
     def __init__(self,
                  no: int = 1,
                  name: str = None,
                  analysis_type=StaticAnalysisType.GEOMETRICALLY_LINEAR,
                  comment: str = '',
-                 params: dict = []):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Static Analysis Setting Tag
             name (str): Static Analysis Setting Name
             analysis_type (enum): Analysis Type Enumeration
-            comment (str): Comments
-            params (dict): Parameters
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Surface
-        clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
+        clientObject = model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Static Analysis Settings No.
         clientObject.no = no
 
         # Name
-        clientObject.user_defined_name_enabled = True
-        clientObject.name = name
+        if name:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Analysis Type
         clientObject.analysis_type = analysis_type.name
@@ -43,7 +47,7 @@ class StaticAnalysisSettings():
                 clientObject[key] = params[key]
 
         # Add Static Analysis Settings to client model
-        Model.clientModel.service.set_static_analysis_settings(clientObject)
+        model.clientModel.service.set_static_analysis_settings(clientObject)
 
     @staticmethod
     def GeometricallyLinear(
@@ -56,7 +60,8 @@ class StaticAnalysisSettings():
                   plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                   mass_conversion = [False, 0, 0, 0],
                   comment: str = '',
-                  params: dict = []):
+                  params: dict = None,
+                  model = Model):
 
         """
         Args:
@@ -70,15 +75,16 @@ class StaticAnalysisSettings():
             plate_bending_theory (enum): Static Analysis Settings Plate Bending Theory Enumeration
             mass_conversion (list, optional): Mass Conversion Parameters
                 mass_conversion = [mass_conversion_enabled, mass_conversion_factor_in_direction_x, mass_conversion_factor_in_direction_y, mass_conversion_factor_in_direction_z]
-            comment (str, optional):
-            params (dict, optional):
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model
-        clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
+        clientObject = model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Static Analysis Settings No.
         clientObject.no = no
@@ -115,11 +121,6 @@ class StaticAnalysisSettings():
         # Plate Bending Theory
         clientObject.plate_bending_theory = plate_bending_theory.name
 
-        # Calculations Diagrams
-        # If needed utilize 'params' dictionary
-        clientObject.calculation_diagrams_enabled = False
-        clientObject.calculation_diagrams_list = ""
-
         # Comment
         clientObject.comment = comment
 
@@ -129,7 +130,7 @@ class StaticAnalysisSettings():
                 clientObject[key] = params[key]
 
         # Add Static Analysis Settings to client model
-        Model.clientModel.service.set_static_analysis_settings(clientObject)
+        model.clientModel.service.set_static_analysis_settings(clientObject)
 
     @staticmethod
     def LargeDeformation(
@@ -146,15 +147,18 @@ class StaticAnalysisSettings():
                   plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                   mass_conversion = [False, 0, 0, 1],
                   comment: str = '',
-                  params: dict = {'save_results_of_all_load_increments': False}):
+                  params: dict = {'save_results_of_all_load_increments': False},
+                  model = Model):
 
         """
         Args:
             no (int): Static Analysis Setting Tag
             name (str, optional):  Static Analysis Setting Name
             iterative_method (enum): Static Analysis Settings Iterative Method for Non-linear Analysis Enumeration
-            standard_precision_and_tolerance_settings (list, optional): [standard_precision_and_tolerance_settings_enabled, precision_of_convergence_criteria_for_nonlinear_calculation, tolerance_for_detection_of_instability, robustness_of_iterative_calculation]
-            control_nonlinear_analysis (list): [max_number_of_iterations, number_of_load_increments]
+            standard_precision_and_tolerance_settings (list, optional): Standard Precision and Tolerance Settings List
+                standard_precision_and_tolerance_settings = [standard_precision_and_tolerance_settings_enabled, precision_of_convergence_criteria_for_nonlinear_calculation, tolerance_for_detection_of_instability, robustness_of_iterative_calculation]
+            control_nonlinear_analysis (list): Nonlinear Analysis Control Parameters
+                control_nonlinear_analysis = [max_number_of_iterations, number_of_load_increments]
                 for iterative_method == "NEWTON_RAPHSON" or iterative_method.name == "NEWTON_RAPHSON_COMBINED_WITH_PICARD" or iterative_method.name == "PICARD" or iterative_method.name == "NEWTON_RAPHSON_WITH_POSTCRITICAL_ANALYSIS":
                     control_nonlinear_analysis = [max_number_of_iterations = int, number_of_load_increments = int]
                 for iterative_method == "DYNAMIC_RELAXATION":
@@ -170,13 +174,14 @@ class StaticAnalysisSettings():
                 mass_conversion = [mass_conversion_enabled, mass_conversion_factor_in_direction_x, mass_conversion_factor_in_direction_y, mass_conversion_factor_in_direction_z]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model
-        clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
+        clientObject = model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Static Analysis Settings No.
         clientObject.no = no
@@ -238,11 +243,6 @@ class StaticAnalysisSettings():
         # Try to Calculate Unstable Structure
         clientObject.try_to_calculate_instabil_structure = instabil_structure_calculation
 
-        # Calculations Diagrams
-        # If needed utilize 'params' dictionary
-        clientObject.calculation_diagrams_enabled = False
-        clientObject.calculation_diagrams_list = ""
-
         # Comment
         clientObject.comment = comment
 
@@ -252,7 +252,7 @@ class StaticAnalysisSettings():
                 clientObject[key] = params[key]
 
         # Add Static Analysis Settings to client model
-        Model.clientModel.service.set_static_analysis_settings(clientObject)
+        model.clientModel.service.set_static_analysis_settings(clientObject)
 
     @staticmethod
     def SecondOrderPDelta(
@@ -270,16 +270,19 @@ class StaticAnalysisSettings():
                   plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                   mass_conversion = [False, 0, 0, 1],
                   comment: str = '',
-                  params: dict = []):
+                  params: dict = None,
+                  model = Model):
         """
         Args:
             no (int): Static Analysis Setting Tag
             name (str, optional):  Static Analysis Setting Name
             iterative_method (enum): Static Analysis Settings Iterative Method for Non-linear Analysis Enumeration
-            standard_precision_and_tolerance_settings (list, optional): [Standard Precision and Tolerance Settings List
+            standard_precision_and_tolerance_settings (list, optional): Standard Precision and Tolerance Settings List
                 standard_precision_and_tolerance_settings = [standard_precision_and_tolerance_settings_enabled, precision_of_convergence_criteria_for_nonlinear_calculation, tolerance_for_detection_of_instability, robustness_of_iterative_calculation]
             control_nonlinear_analysis (list): Nonlinear Analysis Control Parameters
                 control_nonlinear_analysis = [max_number_of_iterations, number_of_load_increments]
+            load_modification (list): Modify Loading by Multiplier Factor
+                load_modification = [modify_loading_by_multiplier_factor, loading_multiplier_factor, divide_results_by_loading_factor]
             favorable_effect_due_to_tension_in_members (bool, optional): Favorable Effect due to Tension In Members Boolean
             bourdon_effect (bool, optional): Bourdon Effect Boolean
             nonsymmetric_direct_solver (bool, optional): Nonsymmetric Direct Solver Boolean
@@ -289,15 +292,16 @@ class StaticAnalysisSettings():
             plate_bending_theory (enum): Static Analysis Settings Plate Bending Theory Enumeration
             mass_conversion (list, optional): Mass Conversion Parameters
                 mass_conversion = [mass_conversion_enabled, mass_conversion_factor_in_direction_x, mass_conversion_factor_in_direction_y, mass_conversion_factor_in_direction_z]
-            comment (str, optional):
-            params (dict, optional):
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model
-        clientObject = Model.clientModel.factory.create('ns0:static_analysis_settings')
+        clientObject = model.clientModel.factory.create('ns0:static_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Static Analysis Settings No.
         clientObject.no = no
@@ -358,11 +362,6 @@ class StaticAnalysisSettings():
             clientObject.instability_detection_tolerance = standard_precision_and_tolerance_settings[2]
             clientObject.iterative_calculation_robustness = standard_precision_and_tolerance_settings[3]
 
-        # Calculations Diagrams
-        # If needed utilize 'params' dictionary
-        clientObject.calculation_diagrams_enabled = False
-        clientObject.calculation_diagrams_list = ""
-
         # Comment
         clientObject.comment = comment
 
@@ -372,4 +371,4 @@ class StaticAnalysisSettings():
                 clientObject[key] = params[key]
 
         # Add Static Analysis Settings to client model
-        Model.clientModel.service.set_static_analysis_settings(clientObject)
+        model.clientModel.service.set_static_analysis_settings(clientObject)
