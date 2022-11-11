@@ -12,15 +12,16 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsS
 
 from MyRFEM import *
 
-# TODO 5: Define a dictionary for the calculation model and implement the updates in event handler
-# TODO 6: Write a class for the connection to RFEM
 # TODO 7: Fill the tab for load input
 # TODO 8: Fill the tab for steel design
 # TODO 11: Make path specification better
 # TODO 12: Uniform use of ' or " in open()
 # TODO 13: Correct tab order of the dimensions
 # TODO 14: Make path specification better
-# TODO 15:
+# TODO 15: Add spin buttons on edit lines
+# TODO 16: Write the done() method in class MyRFEM
+# TODO 17: Transfer the loads to RFEM in MyRFEM
+# TODO 18:
 
 class MyWindow(QMainWindow):
     # This dictionary stores the data for the graphic that will
@@ -29,6 +30,8 @@ class MyWindow(QMainWindow):
 
     # This dictionary contains all calculation relevant information.
     calculation_model = {}
+
+    results = {}
 
     # All usable materials are defined in this list.
     material_list = []
@@ -668,9 +671,17 @@ class MyWindow(QMainWindow):
 
 
     def onCalculate(self):
-        print('Calculate')
+        # Save data in dialog
         self.writeConfig()
-        # Call the calculate method in MyRFEM class.
+
+        # Make an instance of class MyRFEM and init it
+        my_rfem = MyRFEM(self.calculation_model)
+
+        # Call the calculation method in the class and store the results in a dictionary
+        self.results = my_rfem.calculate()
+
+        # This method close the model and close the connection to RFEM server.
+        my_rfem.done()
 
     def onCancel(self):
         print('Schluss jetzt!')
