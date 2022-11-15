@@ -4,7 +4,7 @@ class SteelDesignUltimateConfigurations():
 
     def __init__(self,
                  no: int = 1,
-                 user_defined_name: list = [False],
+                 name: str = 'ULS1',
                  members_no: str = 'All',
                  member_sets_no: str = 'All',
                  comment: str = '',
@@ -31,12 +31,9 @@ class SteelDesignUltimateConfigurations():
         clientObject.no = no
 
         # User Defined Name
-        if user_defined_name[0]:
+        if name:
             clientObject.user_defined_name_enabled = True
-            clientObject.name = user_defined_name[1]
-
-        else:
-            clientObject.user_defined_name_enabled = False
+            clientObject.name = name
 
         # Assigned Members
         if members_no == 'All':

@@ -35,7 +35,7 @@ def test_SteelDesignUltimateConfigurations():
 
     NodalSupport(1, '1', NodalSupportType.FIXED)
 
-    SteelDesignUltimateConfigurations(1, user_defined_name=[True, "myConfig"])
+    SteelDesignUltimateConfigurations(1, name="myConfig")
 
     Model.clientModel.service.finish_modification()
 
