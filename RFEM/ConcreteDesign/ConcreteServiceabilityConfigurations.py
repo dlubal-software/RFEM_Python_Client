@@ -1,16 +1,15 @@
 from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 
-# Obsolete since 12.10.2022
-'''
+
 class ConcreteServiceabilityConfiguration():
 
     def __init__(self,
                 no: int = 1,
                 name: str = 'SLS',
-                members: str = '1',
-                member_sets: str = '',
-                surfaces: str = '',
-                surface_sets: str = '',
+                members: str = 'All',
+                member_sets: str = 'All',
+                surfaces: str = 'All',
+                surface_sets: str = 'All',
                 nodes: str = '',
                 comment: str = '',
                 params: dict = None,
@@ -30,7 +29,7 @@ class ConcreteServiceabilityConfiguration():
         """
 
         # Client model | Concrete Durabilities
-        clientObject = model.clientModel.factory.create('ns0:sls_configuration')
+        clientObject = model.clientModel.factory.create('ns0:concrete_design_sls_configuration')
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
@@ -44,16 +43,36 @@ class ConcreteServiceabilityConfiguration():
             clientObject.name = name
 
         # Assigned Members
-        clientObject.assigned_to_members = ConvertToDlString(members)
+        if members == 'All':
+            clientObject.assigned_to_all_members = True
+
+        else:
+            clientObject.assigned_to_all_members = False
+            clientObject.assigned_to_members = ConvertToDlString(members)
 
         # Assigned Member Sets
-        clientObject.assigned_to_member_sets = ConvertToDlString(member_sets)
+        if member_sets == 'All':
+            clientObject.assigned_to_all_member_sets = True
+
+        else:
+            clientObject.assigned_to_all_member_sets = False
+            clientObject.assigned_to_member_sets = ConvertToDlString(member_sets)
 
         # Assigned Surfaces
-        clientObject.assigned_to_surfaces = ConvertToDlString(surfaces)
+        if surfaces == 'All':
+            clientObject.assigned_to_all_surfaces = True
+
+        else:
+            clientObject.assigned_to_all_surfaces = False
+            clientObject.assigned_to_surfaces = ConvertToDlString(surfaces)
 
         # Assigned Surface Sets
-        clientObject.assigned_to_surface_sets = ConvertToDlString(surface_sets)
+        if surface_sets == 'All':
+            clientObject.assigned_to_all_surface_sets = True
+
+        else:
+            clientObject.assigned_to_all_surface_sets = False
+            clientObject.assigned_to_surface_sets = ConvertToDlString(surface_sets)
 
         #Assinged Nodes
         clientObject.assigned_to_nodes = ConvertToDlString(nodes)
@@ -67,5 +86,5 @@ class ConcreteServiceabilityConfiguration():
                 clientObject[key] = params[key]
 
         # Add Global Parameter to client model
-        model.clientModel.service.set_sls_configuration(clientObject)
-'''
+        model.clientModel.service.set_concrete_design_sls_configuration(clientObject)
+
