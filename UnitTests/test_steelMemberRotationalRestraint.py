@@ -21,11 +21,11 @@ def test_steelMemberRotationalRestraints():
 
     SetAddonStatus(Model.clientModel, AddOn.steel_design_active, True)
 
-    SteelMemberRotationalRestraint(1, [False], SteelMemberRotationalRestraintType.TYPE_CONTINUOUS, "", "",
+    SteelMemberRotationalRestraint(1, "", SteelMemberRotationalRestraintType.TYPE_CONTINUOUS, "", "",
             categories=["Grade S275", "Arval (-) 35/207 - 0.63 (b: 1) | DIN 18807 | Arval", SteelMemberRotationalRestraintPositionofSheeting.SHEETING_POSITION_NEGATIVE, SteelMemberRotationalRestraintContinuousBeamEffect.CONTINUOUS_BEAM_EFFECT_END_PANEL, True],
             parameters = [205000000000.0, 0.00063, 7.5e-08, 0.207, 0.106, 5200.0, 3.0])
 
-    SteelMemberRotationalRestraint(2, [True, 'test_restraint'], SteelMemberRotationalRestraintType.TYPE_DISCRETE, "", "",
+    SteelMemberRotationalRestraint(2, "test_restraint", SteelMemberRotationalRestraintType.TYPE_DISCRETE, "", "",
             categories=["Grade S275", "IPE A 80 | EN 10365:2017 | ArcelorMittal (2018)", SteelMemberRotationalRestraintRotationalStiffness.ROTATIONAL_STIFFNESS_INFINITELY, SteelMemberRotationalRestraintContinuousBeamEffect.CONTINUOUS_BEAM_EFFECT_END_PANEL, True],
             parameters=[205000000000.0, 6.44e-07, 1, 3])
 
