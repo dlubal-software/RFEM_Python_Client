@@ -7,7 +7,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 from RFEM.Reports.printoutReport import PrintoutReport
 from RFEM.Reports.html import ExportResultTablesToHtml
-from RFEM.initModel import Model, url, client, closeModel
+from RFEM.initModel import Model, url, closeModel, openModel
 from shutil import rmtree
 import pytest
 
@@ -45,19 +45,15 @@ def test_printout_report():
     if os.path.isdir(os.path.join(folderPath, 'printout_data')):
         rmtree(os.path.join(folderPath, 'printout_data'))
 
-    client.service.open_model(os.path.join(dirname, 'src', 'printout.rf6'))
-    model = Model(False, 'printout.rf6')
+    openModel(os.path.join(dirname, 'src', 'printout.rf6'))
 
-    PrintoutReport.delete(3, model)
-    assert len(PrintoutReport.getList(model)) == 2
+    PrintoutReport.delete(3)
+    assert len(PrintoutReport.getList()) == 2
 
-    PrintoutReport.exportToHTML(1, os.path.join(folderPath, 'printout.html'), model)
+    PrintoutReport.exportToHTML(1, os.path.join(folderPath, 'printout.html'))
     assert os.path.exists(os.path.join(folderPath, 'printout.html')) == True
 
-    model = Model(False, 'printout.rf6')
-
-    PrintoutReport.exportToPDF(2, os.path.join(folderPath, 'printout.pdf'), model)
+    PrintoutReport.exportToPDF(2, os.path.join(folderPath, 'printout.pdf'))
     assert os.path.exists(os.path.join(folderPath, 'printout.pdf')) == True
 
-    Model(False)
     closeModel(1)

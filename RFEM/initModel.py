@@ -1,3 +1,4 @@
+import os
 import sys
 import RFEM.dependencies
 import socket
@@ -66,8 +67,7 @@ trans = RequestsTransport(session)
 
 class Model():
     clientModel = None
-    clientModelLst = []
-    activeSession = False
+    clientModelDct = {}
 
     def __init__(self,
                  new_model: bool=True,
@@ -87,56 +87,63 @@ class Model():
         """
 
         cModel = None
-        modelLs = client.service.get_model_list()
+        modelLst = []
+        modelVct = client.service.get_model_list()
+        if modelVct:
+            modelLst = modelVct.name
 
         # The model suffix is omitted in modelLs, so it must be omitted in model_name to match exactly
+        original_model_name = model_name
         if '.rf6' in model_name:
             model_name = model_name[:-4]
 
         if new_model:
-            if modelLs and model_name in modelLs.name:
-                modelIndex = 0
-                for i,j in enumerate(modelLs.name):
-                    if modelLs.name[i] == model_name:
-                        modelIndex = i
-                modelPath = client.service.get_model(modelIndex)
-                modelPort = modelPath[-5:-1]
-                modelUrlPort = url+':'+modelPort
-                modelCompletePath = modelUrlPort+'/wsdl'
-
-                # Set transport parameter if it is the first model
-                if modelLs:
-                    cModel = Client(modelCompletePath, location = modelUrlPort)
-                else:
-                    cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort)
+            # Requested new model but the model with given name was already connected
+            if model_name in self.clientModelDct:
+                cModel = self.clientModelDct[model_name]
                 cModel.service.delete_all_results()
                 cModel.service.delete_all()
+
+            # Requested new model, model with given name DOESN'T exist yet
             else:
-                modelPath =  client.service.new_model(model_name)
+                modelPath = ''
+                # Requested new model, model with given name was NOT connected yet but file with the same name was opened
+                if model_name in modelLst:
+                    id = 0
+                    for i,j in enumerate(modelLst):
+                        if modelLst[i] == model_name:
+                            id = i
+                    modelPath =  client.service.get_model(id)
+                else:
+                    modelPath =  client.service.new_model(original_model_name)
                 modelPort = modelPath[-5:-1]
                 modelUrlPort = url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
 
-                if modelLs:
+                if self.clientModelDct:
                     cModel = Client(modelCompletePath, location = modelUrlPort)
                 else:
                     cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort)
-                #if not modelLs:
-                #    len(modelLs.name) = True
-        else:
-            modelIndex = 0
-            for i,j in enumerate(modelLs.name):
-                if modelLs.name[i] == model_name:
-                    modelIndex = i
-            modelPath = client.service.get_model(modelIndex)
-            modelPort = modelPath[-5:-1]
-            modelUrlPort = url+':'+modelPort
-            modelCompletePath = modelUrlPort+'/wsdl'
+                self.clientModelDct[model_name] = cModel
 
-            if modelLs:
-                cModel = Client(modelCompletePath, location = modelUrlPort)
+        else:
+            # Requested model which was already connected
+            assert model_name in self.clientModelDct or model_name in modelLst, 'WARNING: '+model_name +'is not conected neither opened in RFEM.'
+
+            if model_name in self.clientModelDct:
+                cModel = self.clientModelDct[model_name]
             else:
-                cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort)
+                id = 0
+                for i,j in enumerate(modelLst):
+                    if modelLst[i] == model_name:
+                        id = i
+                modelPath =  client.service.get_model(id)
+                modelPort = modelPath[-5:-1]
+                modelUrlPort = url+':'+modelPort
+                modelCompletePath = modelUrlPort+'/wsdl'
+                cModel = Client(modelCompletePath, location = modelUrlPort)
+                self.clientModelDct[model_name] = cModel
+
             if delete:
                 print('Deleting results...')
                 cModel.service.delete_all_results()
@@ -146,19 +153,35 @@ class Model():
 
         # when using multiple intances/model
         self.clientModel = cModel
-        if not modelLs or not model_name in modelLs.name:
-            Model.clientModelLst.append(cModel)
         # when using only one instace/model
         Model.clientModel = cModel
 
+    def __delete__(self, index_or_name):
+        '''
+        Purpose of this function is to facilitate removing client instances
+        from clientModelDct dictionary, which is held in Model for the purpose of
+        working with mustiple models either created directly in RFEM or opened from file.
 
-    def __delete__(self, index):
-        if len(self.clientModelLst) == 1:
-            self.clientModelLst.clear()
-            self.clientModel = None
-        else:
-            self.clientModelLst.pop(index)
-            self.clientModel = self.clientModelLst[-1]
+        Args:
+            index_or_name (str or int): Name of the index of model
+        '''
+        if isinstance(index_or_name, str):
+            self.clientModelDct.pop(index_or_name)
+            if len(self.clientModelDct) > 0:
+                model_key = list(self.clientModelDct)[-1]
+                self.clientModel = self.clientModelDct[model_key]
+            else:
+                self.clientModel = None
+        if isinstance(index_or_name, int):
+            assert index_or_name <= len(self.clientModelDct)
+            modelLs = client.service.get_model_list()
+            self.clientModelDct.pop(modelLs.name[index_or_name])
+            if len(self.clientModelDct) > 0:
+                model_key = list(self.clientModelDct)[-1]
+                self.clientModel = self.clientModelDct[model_key]
+
+            else:
+                self.clientModel = None
 
 def clearAttributes(obj):
     '''
@@ -175,23 +198,45 @@ def clearAttributes(obj):
         obj[i[0]] = None
     return obj
 
+def openModel(model_path):
+    '''
+    Open file with name. This routine primarily adds client instance into
+    Model.clientModelLst which manages all connections to models.
+
+    Args:
+        model_path (str): Path to RFEM6 model.
+    Returns:
+        model (client instance): RFEM model instance
+    '''
+    assert os.path.exists(model_path)
+
+    file_name = os.path.basename(model_path)
+    client.service.open_model(model_path)
+    return Model(True, file_name)
+
 def closeModel(index_or_name, save_changes = False):
-    """
+    '''
     Close any model with index or name. Be sure to close the first created
     model last (2,1, and then 0). 0 index carries whole session.
 
     Args:
         index_or_name : Model Index or Name to be Close
         save_changes (bool): Enable/Diable Save Changes Option
-    """
+    '''
     if isinstance(index_or_name, int):
-        client.service.close_model(index_or_name, save_changes)
         Model.__delete__(Model, index_or_name)
+        client.service.close_model(index_or_name, save_changes)
+
     elif isinstance(index_or_name, str):
+        if '.rf6' in index_or_name:
+            index_or_name = index_or_name[:-4]
+
         modelLs = client.service.get_model_list()
         for i,j in enumerate(modelLs.name):
             if modelLs.name[i] == index_or_name:
+                Model.__delete__(Model, index_or_name)
                 client.service.close_model(i, save_changes)
+                continue
     else:
         assert False, 'Parameter index_or_name must be int or string.'
 
