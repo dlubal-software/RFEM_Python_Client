@@ -87,4 +87,3 @@ class ConcreteServiceabilityConfiguration():
 
         # Add Global Parameter to client model
         model.clientModel.service.set_concrete_design_sls_configuration(clientObject)
-
