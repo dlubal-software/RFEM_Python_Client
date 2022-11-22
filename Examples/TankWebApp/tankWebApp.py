@@ -189,7 +189,6 @@ def update(value, height, diameter, uti):
 
         result = html.P(id='stressResult',
                         children=[html.H5('The maximum stress:'), html.H2(' {} MPa'.format(stress))])
-        print(stress)
 
     obj_file = dirName + '/export/export.obj'
 
