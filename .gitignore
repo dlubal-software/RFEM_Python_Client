@@ -130,5 +130,5 @@ dmypy.json
 .pyre/
 
 # Examples
-Examples/TankWebApp/export
 Examples/TankWebApp/export.vtk
+Examples/TankWebApp/export/
