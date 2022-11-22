@@ -36,9 +36,6 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Examples
-Examples/TankWebApp/export/
-
 # Unit test / coverage reports
 .tox/
 .nox/
