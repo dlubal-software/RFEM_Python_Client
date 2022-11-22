@@ -1,6 +1,5 @@
 from RFEM.initModel import Model
 
-
 class PrintoutReport():
     """
     Printout report class encopassing available printout report methods.

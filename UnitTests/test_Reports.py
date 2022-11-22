@@ -7,7 +7,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 from RFEM.Reports.printoutReport import PrintoutReport
 from RFEM.Reports.html import ExportResultTablesToHtml
-from RFEM.initModel import Model, url, closeModel, openModel
+from RFEM.initModel import Model, url, closeModel, openFile
 from shutil import rmtree
 import pytest
 
@@ -45,7 +45,7 @@ def test_printout_report():
     if os.path.isdir(os.path.join(folderPath, 'printout_data')):
         rmtree(os.path.join(folderPath, 'printout_data'))
 
-    openModel(os.path.join(dirname, 'src', 'printout.rf6'))
+    openFile(os.path.join(dirname, 'src', 'printout.rf6'))
 
     PrintoutReport.delete(3)
     assert len(PrintoutReport.getList()) == 2

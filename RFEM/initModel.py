@@ -198,10 +198,13 @@ def clearAttributes(obj):
         obj[i[0]] = None
     return obj
 
-def openModel(model_path):
+def openFile(model_path):
     '''
-    Open file with name. This routine primarily adds client instance into
-    Model.clientModelLst which manages all connections to models.
+    Open file with a name.
+    This routine primarily adds client instance into
+    Model.clientModelLst which manages all connections to the models.
+    New Model class instance is invoked.
+    It should be used when opening a file.
 
     Args:
         model_path (str): Path to RFEM6 model.
@@ -216,8 +219,9 @@ def openModel(model_path):
 
 def closeModel(index_or_name, save_changes = False):
     '''
-    Close any model with index or name. Be sure to close the first created
-    model last (2,1, and then 0). 0 index carries whole session.
+    Close any model connected to client with index or name.
+    Make sure to close the first open model last.
+    First model carries whole session (locking of the RFEM).
 
     Args:
         index_or_name : Model Index or Name to be Close
