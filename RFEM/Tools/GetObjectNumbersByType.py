@@ -21,9 +21,16 @@ class GetObjectNumbersByType:
         ObjectNumber = Model.clientModel.service.get_all_object_numbers_by_type(ObjectType.name)
         ObjectNumberList = []
 
-        if len(ObjectNumber) != 0:
+        if len(ObjectNumber):
             for i in range(len(ObjectNumber.item)):
-                ObjectNumberList.append(ObjectNumber.item[i].no)
-            ObjectNumberList.sort()
+                itemCount = 0
+                # this is used when requesting objects in loads (E_OBJECT_TYPE_NODAL_LOAD, E_OBJECT_TYPE_LINE_LOAD etc.)
+                try:
+                    itemCount = ObjectNumber.item[i].children
+                # all other objects
+                except:
+                    itemCount = ObjectNumber.item[i].no
+                ObjectNumberList.append(itemCount)
 
+        ObjectNumberList.sort()
         return ObjectNumberList
