@@ -122,7 +122,7 @@ if __name__ == '__main__':
 
             LoadCase(1, 'Self-Weight', [True, 0.0, 0.0, 1.0])
 
-            NodalLoad(1, 1, '5', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 0.1*1000)
+            NodalLoad(1, 1, '5', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, f2*1000)
 
             Calculate_all()
 
