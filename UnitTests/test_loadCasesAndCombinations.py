@@ -19,7 +19,7 @@ def test_load_cases_and_combinations():
 
     LoadCasesAndCombinations(
         params = {
-        "current_standard_for_combination_wizard": 6067,
+        "current_standard_for_combination_wizard": 6237,
         "activate_combination_wizard_and_classification": True,
         "activate_combination_wizard": True,
         "result_combinations_active": True,
@@ -31,6 +31,5 @@ def test_load_cases_and_combinations():
 
     combConfig = Model.clientModel.service.get_load_cases_and_combinations()
 
-    assert combConfig.current_standard_for_combination_wizard == 6067
+    assert combConfig.current_standard_for_combination_wizard == 6237
     assert combConfig.result_combinations_parentheses_active == False
-

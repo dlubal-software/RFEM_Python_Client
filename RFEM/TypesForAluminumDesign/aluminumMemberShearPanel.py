@@ -1,14 +1,14 @@
 from RFEM.initModel import Model, clearAttributes, ConvertToDlString
-from RFEM.enums import *
+from RFEM.enums import AluminumMemberShearPanelDefinitionType, AluminumMemberShearPanelPositionOnSection, AluminumMemberShearPanelFasteningArrangement
 
-class SteelMemberShearPanel():
+class AluminumMemberShearPanel():
     def __init__(self,
                 no: int = 1,
                 name: str = '',
-                definition_type = SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING,
+                definition_type = AluminumMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING,
                 members: str = "",
                 member_sets: str = "",
-                categories = [SteelMemberShearPanelPositionOnSection.POSITION_ON_UPPER_FLANGE, "FI (+) 35/207 - 0.63 (b: 1) | DIN 18807 | Fischer Profil", SteelMemberShearPanelFasteningArrangement.FASTENING_ARRANGEMENT_EVERY_RIB],
+                categories = [AluminumMemberShearPanelPositionOnSection.POSITION_ON_UPPER_FLANGE, "FI (+) 35/207 - 0.63 (b: 1) | DIN 18807 | Fischer Profil", AluminumMemberShearPanelFasteningArrangement.FASTENING_ARRANGEMENT_EVERY_RIB],
                 parameters = [1, 2, 0.000247, 0.01043],
                 comment: str = '',
                 params: dict = None):
@@ -20,31 +20,31 @@ class SteelMemberShearPanel():
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
             categories (list): Positional Categories LIst
-                for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING:
+                for definition_type == AluminumMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING:
                     categories[0] = Section Position Enumeration Type
                     categories[1] = Sheeting Name
                     categories[2] = Fastening Arrangment Enumeration Type
-                for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_BRACING:
+                for definition_type == AluminumMemberShearPanelDefinitionType.DEFINITION_TYPE_BRACING:
                     categories[0] = Section Position Enumeration Type
                     categories[1] = Diagonal Section Name
                     categories[2] = Post Section Name
-                for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING_AND_BRACING:
+                for definition_type == AluminumMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING_AND_BRACING:
                     categories[0] = Section Position Enumeration Type
                     categories[1] = Sheeting Name
                     categories[2] = Digonal Section Name
                     categories[3] = Post Section Name
                     categories[4] = Fastening Arrangment Enumeration Type
-                for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_DEFINE_S_PROV:
+                for definition_type == AluminumMemberShearPanelDefinitionType.DEFINITION_TYPE_DEFINE_S_PROV:
                     categories[0] = Section Position Enumeration Type
             parameters (list): Positional Parameters List
-                for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING:
+                for definition_type == AluminumMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING:
                     parameters[0] = Panel Length
                     parameters[1] = Beam Spacing
                     parameters[2] = K1 Coefficient
                     parameters[3] = K2 Coefficient
                     if categories[0] == "POSITION_DEFINE":
                         parameters[4] = Position on Section Value
-                for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_BRACING:
+                for definition_type == AluminumMemberShearPanelDefinitionType.DEFINITION_TYPE_BRACING:
                     parameters[0] = Panel Length
                     parameters[1] = Beam Spacing
                     parameters[2] = Post Spacing
@@ -53,7 +53,7 @@ class SteelMemberShearPanel():
                     parameters[5] = Post Section Area
                     if categories[0] == "POSITION_DEFINE":
                         parameters[6] = Position on Section Value
-                for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING_AND_BRACING:
+                for definition_type == AluminumMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING_AND_BRACING:
                     parameters[0] = Panel Length
                     parameters[1] = Beam Spacing
                     parameters[2] = K1 Coefficient
@@ -64,7 +64,7 @@ class SteelMemberShearPanel():
                     parameters[7] = Post Section Area
                     if categories[0] == "POSITION_DEFINE":
                         parameters[8] = Position on Section Value
-                for definition_type == SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_DEFINE_S_PROV:
+                for definition_type == AluminumMemberShearPanelDefinitionType.DEFINITION_TYPE_DEFINE_S_PROV:
                     parameters[0] = Stifness
                     if categories[0] == "POSITION_DEFINE":
                         parameters[1] = Position on Section Value
@@ -73,7 +73,7 @@ class SteelMemberShearPanel():
         """
 
          # Client Model | Types For Steel Design Member Shear Panel
-        clientObject = Model.clientModel.factory.create('ns0:steel_member_shear_panel')
+        clientObject = Model.clientModel.factory.create('ns0:aluminum_member_shear_panel')
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
@@ -165,4 +165,5 @@ class SteelMemberShearPanel():
                 clientObject[key] = params[key]
 
         # Add Steel Effective Lengths to client model
-        Model.clientModel.service.set_steel_member_shear_panel(clientObject)
+        Model.clientModel.service.set_aluminum_member_shear_panel(clientObject)
+
