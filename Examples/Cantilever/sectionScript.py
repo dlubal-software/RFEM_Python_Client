@@ -78,11 +78,15 @@ if __name__ == '__main__':
 
     # Model.clientModel.service.close_connection()
 
+    length = float(input('Length of surface(x direction) in m : '))
+    width = float(input('Width of surface (y direction) in m: '))
+    f2 = float(input('Nodal force in center of surface in kN : '))
+    defo2 = float(input('Maximum allowed deformation in mm : '))
     # Model for Surface
     t = 3
     while True:
         t = t + 1
-        if maxdef2 > 5000:
+        if maxdef2 > defo2:
 
             if lst:
 
@@ -99,10 +103,10 @@ if __name__ == '__main__':
 
             # Nodes and lines for Surface
             Node(1, 0, 0, 0)
-            Node(2, 10, 0, 0)
-            Node(3, 10, 10, 0)
-            Node(4, 0, 10, 0)
-            Node(5, 5, 5, 0)
+            Node(2, length, 0, 0)
+            Node(3, length, width, 0)
+            Node(4, 0, width, 0)
+            Node(5, length/2, width/2, 0)
             Line(1, '1 2')
             Line(2, '2 3')
             Line(3, '3 4')
@@ -125,6 +129,6 @@ if __name__ == '__main__':
             maxdef2 = GetMaxValue(ResultTables.NodesDeformations(object_no=5), 'displacement_absolute') * 1000
             print('Maximun deformation for Surface thickness', t, '(mm) is' ,maxdef2, 'mm')
 
-        elif maxdef2 < 10000:
-            print(t-1, 'mm is optimised thickness for Surface')
+        elif maxdef2 < defo2:
+            print(t-1, 'mm is optimised thickness for Surface and maximum deformation is', maxdef2, 'mm')
             break
