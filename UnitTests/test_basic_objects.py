@@ -253,9 +253,9 @@ def test_node_init():
 
     Node(1, 2, 0, 0)
 
-    node = Model.clientModel.service.get_node(1)
-    
     Model.clientModel.service.finish_modification()
+
+    node = Model.clientModel.service.get_node(1)
 
     assert node.no == 1
     assert node.coordinate_1 == 2
@@ -280,6 +280,61 @@ def test_member_init():
 
     assert member.analytical_length == 5
     assert member.section_start == 1
+
+def test_member_types():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Node(1, 0, 0, 0)
+    Node(2, 1, 0, 0)
+    Node(3, 2, 0, 0)
+    Node(4, 3, 0, 0)
+    Node(5, 4, 0, 0)
+    Node(6, 5, 0, 0)
+    Node(7, 6, 0, 0)
+    Node(8, 7, 0, 0)
+    Node(9, 8, 0, 0)
+    Node(10, 9, 0, 0)
+    Node(11, 10, 0, 0)
+    Node(12, 11, 0, 0)
+    Node(13, 12, 0, 0)
+    Node(14, 13, 0, 0)
+
+    Material(1, 'S235')
+
+    Section(1, 'IPE 300', 1)
+
+    Member.Beam(1, 1, 2)
+    Member.Rigid(2, 2, 3)
+    Member.Truss(3, 3, 4)
+    Member.TrussOnlyN(4, 4, 5)
+    Member.Tension(5, 5, 6)
+    Member.Compression(6, 6, 7)
+    Member.Buckling(7, 7, 8)
+    Member.Cable(8, 8, 9)
+    Member.DefinableStiffness(9, 9, 10)
+    Member.CouplingRigidRigid(10, 10, 11)
+    Member.CouplingRigidHinge(11, 11, 12)
+    Member.CouplingHingeRigid(12, 12, 13)
+    Member.CouplingHingeHinge(13, 13, 14)
+
+
+    Model.clientModel.service.finish_modification()
+
+    assert Model.clientModel.service.get_member(1).type == MemberType.TYPE_BEAM.name
+    assert Model.clientModel.service.get_member(2).type == MemberType.TYPE_RIGID.name
+    assert Model.clientModel.service.get_member(3).type == MemberType.TYPE_TRUSS.name
+    assert Model.clientModel.service.get_member(4).type == MemberType.TYPE_TRUSS_ONLY_N.name
+    assert Model.clientModel.service.get_member(5).type == MemberType.TYPE_TENSION.name
+    assert Model.clientModel.service.get_member(6).type == MemberType.TYPE_COMPRESSION.name
+    assert Model.clientModel.service.get_member(7).type == MemberType.TYPE_BUCKLING.name
+    assert Model.clientModel.service.get_member(8).type == MemberType.TYPE_CABLE.name
+    assert Model.clientModel.service.get_member(9).type == MemberType.TYPE_DEFINABLE_STIFFNESS.name
+    assert Model.clientModel.service.get_member(10).type == MemberType.TYPE_COUPLING_RIGID_RIGID.name
+    assert Model.clientModel.service.get_member(11).type == MemberType.TYPE_COUPLING_RIGID_HINGE.name
+    assert Model.clientModel.service.get_member(12).type == MemberType.TYPE_COUPLING_HINGE_RIGID.name
+    assert Model.clientModel.service.get_member(13).type == MemberType.TYPE_COUPLING_HINGE_HINGE.name
 
 def test_member_set():
 

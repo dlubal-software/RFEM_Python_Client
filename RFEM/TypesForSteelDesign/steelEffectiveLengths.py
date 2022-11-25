@@ -12,7 +12,7 @@ class SteelEffectiveLengths():
                  lateral_torsional_buckling: bool = True,
                  principal_section_axes: bool = True,
                  geometric_section_axes: bool = True,
-                 user_defined_name: str = 'SEL1',
+                 name: str = 'SEL1',
                  nodal_supports: list = [
                      [SteelEffectiveLengthsSupportType.SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION, True, 0.0, SteelEffectiveLengthsEccentricityType.ECCENTRICITY_TYPE_NONE, \
                       0.0, 0.0, 0.0, 0.0, SteelEffectiveLengthsSupportTypeInY.SUPPORT_STATUS_YES, SteelEffectiveLengthsRestraintTypeAboutX.SUPPORT_STATUS_YES, \
@@ -43,7 +43,7 @@ class SteelEffectiveLengths():
             lateral_torsional_buckling (bool): Lateral Torsional Buckling Option
             principal_section_axes (bool): Principal Section Axes Option
             geometric_section_axes (bool): Geometric Section Axes Option
-            user_defined_name (str): User Defined Effective Length Name
+            name (str): User Defined Effective Length Name
             nodal_supports (lst): Nodal Support Table Definition
                 nodal_supports[i][0] (enum): Support Type Enumeration Type
                 nodal_supports[i][1] (bool): Support in Z Option
@@ -114,9 +114,9 @@ class SteelEffectiveLengths():
         clientObject.geometric_section_axes = geometric_section_axes
 
         # Effective Lengths User Defined Name
-        if user_defined_name:
+        if name:
             clientObject.user_defined_name_enabled = True
-            clientObject.name = user_defined_name
+            clientObject.name = name
 
         # Effective Lengths Nodal Supports
         clientObject.nodal_supports = model.clientModel.factory.create('ns0:array_of_steel_effective_lengths_nodal_supports')
