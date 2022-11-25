@@ -12,7 +12,13 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsS
 
 from MyRFEM import *
 
-# TODO 7: Fill the tab for load input
+# TODO 17: Transfer the loads to RFEM in MyRFEM
+# TODO 24: Write load combinations in RFEM in MyRFEM
+# TODO 21: Set the right Action Category
+# TODO 22: The loads in UI should save in config.json and restore after start
+# TODO 20: Read the data from load tab into the calculation_model and calculate it
+# TODO 18: Read the date from load tab into the graphic_model
+# TODO 19: Draw the loads
 # TODO 8: Fill the tab for steel design
 # TODO 11: Make path specification better
 # TODO 12: Uniform use of ' or " in open()
@@ -20,9 +26,9 @@ from MyRFEM import *
 # TODO 14: Make path specification better
 # TODO 15: Add spin buttons on edit lines
 # TODO 16: Write the done() method in class MyRFEM
-# TODO 17: Transfer the loads to RFEM in MyRFEM
-# TODO 18:
-
+# TODO 23: Implement a "Wait" dialog. It should display after click of [Calculate] and
+#          should disappear when the calculation is finished (in done() method).
+# TODO 25:
 class MyWindow(QMainWindow):
     # This dictionary stores the data for the graphic that will
     # be drawn with drawGraphic().
@@ -116,6 +122,12 @@ class MyWindow(QMainWindow):
         self.ui.lineEdit_h_1.textChanged.connect(self.onChange_h_1)
         self.ui.lineEdit_h_2.textChanged.connect(self.onChange_h_2)
         self.ui.lineEdit_h_3.textChanged.connect(self.onChange_h_3)
+
+        self.ui.lineEdit_g_r.textChanged.connect(self.onChange_g_r)
+        self.ui.lineEdit_g_s.textChanged.connect(self.onChange_g_s)
+        self.ui.lineEdit_g_w.textChanged.connect(self.onChange_g_w)
+        self.ui.lineEdit_s_r.textChanged.connect(self.onChange_s_r)
+        self.ui.lineEdit_p_s.textChanged.connect(self.onChange_p_s)
 
         # Slots for Combo Boxes
         self.ui.comboBox_Material_o_c.currentIndexChanged.connect(self.onCurrentIndexChanged_Material_o_c)
@@ -580,6 +592,61 @@ class MyWindow(QMainWindow):
 
         # Update graphic
         self.drawGraphic()
+
+    def onChange_g_r(self):
+        print('g_r')
+        s = self.ui.lineEdit_g_r.text()
+        s = self.validate(s)
+        self.presets['loads']['self-weight'][0] = s
+        g_r = float(s)
+
+        # Update calculation model
+        self.calculation_model['loads']['self-weight'][0] = g_r
+        pass
+
+    def onChange_g_s(self):
+        print('g_s')
+        s = self.ui.lineEdit_g_s.text()
+        s = self.validate(s)
+        self.presets['loads']['self-weight'][1] = s
+        g_s = float(s)
+
+        # Update calculation model
+        self.calculation_model['loads']['self-weight'][1] = g_s
+        pass
+
+    def onChange_g_w(self):
+        print('g_w')
+        s = self.ui.lineEdit_g_w.text()
+        s = self.validate(s)
+        self.presets['loads']['self-weight'][2] = s
+        g_w = float(s)
+
+        # Update calculation model
+        self.calculation_model['loads']['self-weight'][2] = g_w
+        pass
+
+    def onChange_s_r(self):
+        print('s_r')
+        s = self.ui.lineEdit_s_r.text()
+        s = self.validate(s)
+        self.presets['loads']['snow'][0] = s
+        s_r = float(s)
+
+        # Update calculation model
+        self.calculation_model['loads']['snow'][0] = s_r
+        pass
+
+    def onChange_p_s(self):
+        print('p_s')
+        s = self.ui.lineEdit_p_s.text()
+        s = self.validate(s)
+        self.presets['loads']['slab'][0] = s
+        p_s = float(s)
+
+        # Update calculation model
+        self.calculation_model['loads']['slab'][0] = p_s
+        pass
 
     def onCurrentIndexChanged_Material_o_c(self, index):
         self.presets['material'][0] = index

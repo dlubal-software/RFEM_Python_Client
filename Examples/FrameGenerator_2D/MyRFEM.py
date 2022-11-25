@@ -6,7 +6,7 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.enums import NodalSupportType
+from RFEM.enums import NodalSupportType, MemberLoadDirection
 from RFEM.initModel import Model, insertSpaces
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.material import Material
@@ -14,6 +14,9 @@ from RFEM.BasicObjects.section import Section
 from RFEM.TypesForMembers.memberHinge import MemberHinge
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.Loads.memberLoad import MemberLoad
 from RFEM.dataTypes import inf
 class MyRFEM():
     input ={}
@@ -134,6 +137,35 @@ class MyRFEM():
 
         NodalSupport(5, '3, 6', [0, inf, 0, 0, 0, 0])
 
+        # Create load cases and load combinations
+        # TODO: Set the right Action Category
+        StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
+        StaticAnalysisSettings.SecondOrderPDelta(2, "SecondOrder")
+
+        LoadCase(1, 'Self-Weight', [True, 0.0, 0.0, 1.0])
+        LoadCase(2, 'Snow', [False])
+        LoadCase(3, 'Slab', [False])
+
+        # Create the loads
+        magnitude = self.input['loads']['self-weight'][0] * 1000 # convert in SI unit N/m
+        MemberLoad(1, 1, '7,8', MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, magnitude)
+
+        magnitude = self.input['loads']['self-weight'][1] * 1000
+        MemberLoad(2, 1, '1-4', MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, magnitude)
+
+        magnitude = self.input['loads']['self-weight'][2] * 1000
+        MemberLoad(3, 1, '9-11', MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, magnitude)
+
+        magnitude = self.input['loads']['snow'][0] * 1000
+        MemberLoad(1, 2, '7,8', MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, magnitude)
+
+        magnitude = self.input['loads']['slab'][0] * 1000
+        MemberLoad(1, 3, '9-11', MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, magnitude)
+
+        # Create load combinations
+
+
+        
         Model.clientModel.service.finish_modification()
 
 
