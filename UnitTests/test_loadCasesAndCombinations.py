@@ -44,7 +44,7 @@ def test_load_cases_and_combinations():
 
     combConfig = Model.clientModel.service.get_load_cases_and_combinations()
 
-    assert combConfig.current_standard_for_combination_wizard == 6230
+    assert combConfig.current_standard_for_combination_wizard == 6546
     assert combConfig.result_combinations_parentheses_active == False
 
     if failedAC:
