@@ -30,7 +30,11 @@ if __name__ == '__main__':
     f = float(input('Nodal force for beam in kN : '))
     defo = float(input('Maximum allowed deformation in mm : '))
 
-    sec = ['IPE 100', 'IPE 120', 'IPE 140', 'IPE 160', 'IPE 180', 'IPE 200', 'IPE 220', 'IPE 240', 'IPE 270', 'IPE 300', 'IPE 330', 'IPE 360', 'IPE 400', 'IPE 450', 'IPE 500', 'IPE 600']
+    sec = ['IPE 100', 'IPE 120', 'IPE 140', 'IPE 160', 'IPE 180',
+           'IPE 200', 'IPE 220', 'IPE 240', 'IPE 270', 'IPE 300',
+           'IPE 330', 'IPE 360', 'IPE 400', 'IPE 450', 'IPE 500',
+           'IPE 600']
+
     lst = None
     lst = client.service.get_model_list()
     maxdef = float('inf')
@@ -58,8 +62,6 @@ if __name__ == '__main__':
             NodalSupport(1, '1', NodalSupportType.FIXED)
 
             StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
-            StaticAnalysisSettings.SecondOrderPDelta(2, "SecondOrder")
-            StaticAnalysisSettings.LargeDeformation(3, "LargeDeformation")
 
             LoadCase(1, 'Self-Weight', [True, 0.0, 0.0, 1.0])
 
@@ -71,17 +73,19 @@ if __name__ == '__main__':
             print('Maximun deformation for section', sec[i], 'is' ,maxdef, 'mm')
 
         elif maxdef <= defo:
-            print(sec[i-1], 'is optimised section as deformation', maxdef, 'mm is below permited deformation', defo, 'mm')
+            print(sec[i-1], 'is optimised section as deformation', maxdef, 'mm is below allowed deformation', defo, 'mm')
             break
         else:
             print('There is not matching section for the requirment')
 
-    # Model.clientModel.service.close_connection()
+
+    # create model for surface
 
     length = float(input('Length of surface(x direction) in m : '))
     width = float(input('Width of surface (y direction) in m: '))
     f2 = float(input('Nodal force in center of surface in kN : '))
     defo2 = float(input('Maximum allowed deformation in mm : '))
+
     # Model for Surface
     t = 3
     while True:
@@ -117,8 +121,6 @@ if __name__ == '__main__':
             NodalSupport(1, '1 2 3 4', NodalSupportType.HINGED)     # Hinged Support for Surface
 
             StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
-            StaticAnalysisSettings.SecondOrderPDelta(2, "SecondOrder")
-            StaticAnalysisSettings.LargeDeformation(3, "LargeDeformation")
 
             LoadCase(1, 'Self-Weight', [True, 0.0, 0.0, 1.0])
 
