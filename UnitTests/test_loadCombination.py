@@ -10,6 +10,7 @@ from RFEM.initModel import Model
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.loadCombination import *
+from RFEM.enums import ActionCategoryType
 
 
 if Model.clientModel is None:
@@ -22,8 +23,8 @@ def test_loadCombination():
 
     StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
 
-    LoadCase(1, 'DEAD', [True, 0.0, 0.0, 1.0])
-    LoadCase(2, 'LIVE', [False])
+    LoadCase.StaticAnalysis(1, 'DEAD', True, 1, ActionCategoryType.ACTION_CATEGORY_NONE_NONE, [True, 0, 0, 10])
+    LoadCase.StaticAnalysis(2, 'LIVE', True, 1, ActionCategoryType.ACTION_CATEGORY_NONE_NONE, [False])
 
     LoadCombination(1, AnalysisType.ANALYSIS_TYPE_STATIC, 1, 'LC1', 1, combination_items=[[1.2, 1, 0, True], [1.6, 1, 0, False]])
 
