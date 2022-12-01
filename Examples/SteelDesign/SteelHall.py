@@ -18,7 +18,7 @@ from RFEM.BasicObjects.member import Member
 
 if __name__ == '__main__':
 
-    frame_number = 4
+    frame_number = 6
     width = 10
     frame_length = 4
     console_height = 3
@@ -37,6 +37,8 @@ if __name__ == '__main__':
     Model.clientModel.service.begin_modification()
 
     SetAddonStatus(Model.clientModel, AddOn.steel_design_active)
+    Material(3)
+    Section(3, 'L 20x20x3', 3)
     i = 0
     for j in range(frame_number):
 
@@ -72,20 +74,12 @@ if __name__ == '__main__':
         for l in range(5):
             Member(m, n, o)
             m, n, o = m+1, n+1, o+1
-        # Member(i, k+1, k+10)
-        # Member(i+1, k+2, k+11)
-        # Member(i+2, k+3, k+12)
-        # Member(i+3, k+4, k+13)
-        # Member(i+4, k+5, k+14)
         i, k = i+13, k+9
 
     bracingV = input('Would you like to include vertical bracing? (Y/N) : ')
-
+    i = frame_number*8 + (frame_number-1)*5
     if bracingV.lower() == 'yes' or bracingV.lower() == 'y':
 
-        Material(3)
-        Section(3, 'L 20x20x3', 3)
-        i = frame_number*8 + (frame_number-1)*5
         bracingV1 = input('Would you like to repeat a vertical bracing in every block? (Y/N): ')
 
         if bracingV1.lower() == 'yes' or bracingV1.lower() == 'y':
@@ -110,14 +104,40 @@ if __name__ == '__main__':
                     i = i+4
                 k = k+9
 
-        bracingV3 = input('Would you like to repeat a vertical bracing in even/odd blocks? (Y/N): ')
+        bracingV3 = input('Would you like to repeat a vertical bracing in even/odd blocks? (E/O/N): ')
 
-        if bracingV3.lower() == 'yes' or bracingV3.lower() == 'y':
+        if bracingV3.lower() == 'even' or bracingV3.lower() == 'e':
+            k = 1
+            for j in range(frame_number-1):
+                if j % 2 != 0:
+                    Member(i+1, k, k+11, 0, 3, 3)
+                    Member(i+2, k+2, k+9, 0, 3, 3)
+                    Member(i+3, k+6, k+13, 0, 3, 3)
+                    Member(i+4, k+4, k+15, 0, 3, 3)
+                    i = i + 4
+                k = k+9
 
-            bracingV4 = input()
+        elif bracingV3.lower() == 'odd' or bracingV3.lower() == 'o':
+            k = 1
+            for j in range(frame_number-1):
+                if j % 2 == 0:
+                    Member(i+1, k, k+11, 0, 3, 3)
+                    Member(i+2, k+2, k+9, 0, 3, 3)
+                    Member(i+3, k+6, k+13, 0, 3, 3)
+                    Member(i+4, k+4, k+15, 0, 3, 3)
+                    i = i + 4
+                k = k+9
 
+    bracingH = input('Would you like to include Horizontal bracing? (Y/N) : ')
 
-
+    if bracingH.lower() == 'yes' or bracingH.lower() == 'y':
+        k = 1
+        for j in range(frame_number-1):
+            Member(i+1, k+2, k+12, 0, 3, 3)
+            Member(i+2, k+3, k+11, 0, 3, 3)
+            Member(i+3, k+3, k+13, 0, 3, 3)
+            Member(i+4, k+4, k+12, 0, 3, 3)
+            i, k = i+4, k+9
 
 
     Model.clientModel.service.finish_modification()
