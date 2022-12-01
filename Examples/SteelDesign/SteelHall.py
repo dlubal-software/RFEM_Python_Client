@@ -9,11 +9,12 @@ print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
 from RFEM.enums import *
-from RFEM.initModel import Model, SetAddonStatus
+from RFEM.initModel import Model, SetAddonStatus, insertSpaces
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
 
 
 if __name__ == '__main__':
@@ -37,7 +38,9 @@ if __name__ == '__main__':
     Model.clientModel.service.begin_modification()
 
     SetAddonStatus(Model.clientModel, AddOn.steel_design_active)
+    Material(1, 'S235')
     Material(3)
+    Section(1, 'IPE 200')
     Section(3, 'L 20x20x3', 3)
     i = 0
     for j in range(frame_number):
@@ -58,13 +61,13 @@ if __name__ == '__main__':
     for j in range(frame_number):
 
         Member(i, k, k+1, 0, 1, 1)
-        Member(i+1, k+1, k+2 )
-        Member(i+2, k+2, k+3)
-        Member(i+3, k+3, k+4)
-        Member(i+4, k+4, k+5)
-        Member(i+5, k+5, k+6)
-        Member(i+6, k+1, k+7)
-        Member(i+7, k+5, k+8)
+        Member(i+1, k+1, k+2, 1, 1)
+        Member(i+2, k+2, k+3, 1, 1)
+        Member(i+3, k+3, k+4, 1, 1)
+        Member(i+4, k+4, k+5, 1, 1)
+        Member(i+5, k+5, k+6, 1, 1)
+        Member(i+6, k+1, k+7, 1, 1)
+        Member(i+7, k+5, k+8, 1, 1)
         i, k = i+13, k+9
 
     i, k = 9, 1
@@ -72,10 +75,11 @@ if __name__ == '__main__':
 
         m, n, o = i, k+1, k+10
         for l in range(5):
-            Member(m, n, o)
+            Member(m, n, o, 1, 1)
             m, n, o = m+1, n+1, o+1
         i, k = i+13, k+9
 
+    bracingV1, bracingV2, bracingV3 = 'None', 'None', 'None'
     bracingV = input('Would you like to include vertical bracing? (Y/N) : ')
     i = frame_number*8 + (frame_number-1)*5
     if bracingV.lower() == 'yes' or bracingV.lower() == 'y':
@@ -129,15 +133,66 @@ if __name__ == '__main__':
                 k = k+9
 
     bracingH = input('Would you like to include Horizontal bracing? (Y/N) : ')
-
     if bracingH.lower() == 'yes' or bracingH.lower() == 'y':
-        k = 1
-        for j in range(frame_number-1):
-            Member(i+1, k+2, k+12, 0, 3, 3)
-            Member(i+2, k+3, k+11, 0, 3, 3)
-            Member(i+3, k+3, k+13, 0, 3, 3)
-            Member(i+4, k+4, k+12, 0, 3, 3)
-            i, k = i+4, k+9
 
+        if bracingV.lower() == 'no' or bracingV.lower() == 'n':
+            k = 1
+            for j in range(frame_number-1):
+                Member(i+1, k+2, k+12, 0, 3, 3)
+                Member(i+2, k+3, k+11, 0, 3, 3)
+                Member(i+3, k+3, k+13, 0, 3, 3)
+                Member(i+4, k+4, k+12, 0, 3, 3)
+                i, k = i+4, k+9
+
+        if bracingV1.lower() == 'yes' or bracingV1.lower() == 'y':
+            k = 1
+            for j in range(frame_number-1):
+                Member(i+1, k+2, k+12, 0, 3, 3)
+                Member(i+2, k+3, k+11, 0, 3, 3)
+                Member(i+3, k+3, k+13, 0, 3, 3)
+                Member(i+4, k+4, k+12, 0, 3, 3)
+                i, k = i+4, k+9
+
+        if bracingV2.lower() == 'yes' or bracingV2.lower() == 'y':
+            k = 1
+            for j in range(frame_number-1):
+                if j in [0, frame_number-2]:
+                    Member(i+1, k+2, k+12, 0, 3, 3)
+                    Member(i+2, k+3, k+11, 0, 3, 3)
+                    Member(i+3, k+3, k+13, 0, 3, 3)
+                    Member(i+4, k+4, k+12, 0, 3, 3)
+                    i = i+4
+                k = k+9
+
+        if bracingV3.lower() == 'even' or bracingV3.lower() == 'e':
+            k = 1
+            for j in range(frame_number-1):
+                if j % 2 != 0:
+                    Member(i+1, k+2, k+12, 0, 3, 3)
+                    Member(i+2, k+3, k+11, 0, 3, 3)
+                    Member(i+3, k+3, k+13, 0, 3, 3)
+                    Member(i+4, k+4, k+12, 0, 3, 3)
+                    i = i + 4
+                k = k+9
+
+        elif bracingV3.lower() == 'odd' or bracingV3.lower() == 'o':
+            k = 1
+            for j in range(frame_number-1):
+                if j % 2 == 0:
+                    Member(i+1, k+2, k+12, 0, 3, 3)
+                    Member(i+2, k+3, k+11, 0, 3, 3)
+                    Member(i+3, k+3, k+13, 0, 3, 3)
+                    Member(i+4, k+4, k+12, 0, 3, 3)
+                    i = i + 4
+                k = k+9
+
+    # Nodal Support
+    nodes_no = []
+    k = 1
+    for j in range(frame_number):
+        nodes_no.extend([k, k+6])
+        k = k + 9
+
+    NodalSupport(1, insertSpaces(nodes_no), NodalSupportType.HINGED)
 
     Model.clientModel.service.finish_modification()
