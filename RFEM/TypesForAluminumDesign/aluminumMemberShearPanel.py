@@ -14,9 +14,9 @@ class AluminumMemberShearPanel():
                 params: dict = None):
         """
         Args:
-            no (int): Steel Member Shear Panel Tag
+            no (int): Aluminum Member Shear Panel Tag
             name (str): User Defined Member Shear Panel Name
-            definition_type (enum): Steel Member Shear Panel Definition Type Enumeration
+            definition_type (enum): Aluminum Member Shear Panel Definition Type Enumeration
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
             categories (list): Positional Categories LIst
@@ -72,7 +72,7 @@ class AluminumMemberShearPanel():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
 
-         # Client Model | Types For Steel Design Member Shear Panel
+         # Client Model | Types For Aluminum Design Member Shear Panel
         clientObject = Model.clientModel.factory.create('ns0:aluminum_member_shear_panel')
 
         # Clears object atributes | Sets all atributes to None
@@ -164,6 +164,6 @@ class AluminumMemberShearPanel():
             for key in params:
                 clientObject[key] = params[key]
 
-        # Add Steel Effective Lengths to client model
+        # Add Aluminum Effective Lengths to client model
         Model.clientModel.service.set_aluminum_member_shear_panel(clientObject)
 

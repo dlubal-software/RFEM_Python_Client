@@ -266,7 +266,7 @@ def Calculate_all(generateXmlSolverInput: bool = False, model = Model):
 
 def ConvertToDlString(s):
     '''
-    The function converts strings commonly used in RSTAB / RFEM so that they
+    The function converts strings commonly used in RFEM so that they
     can be used In WebServices. It solved issue #4.
     Examples:
     '1,3'       -> '1 3'
@@ -275,7 +275,7 @@ def ConvertToDlString(s):
     '1,3,5-9'   -> '1 3 5 6 7 8 9'
 
     Args:
-        s (str): RSTAB / RFEM Common String
+        s (str): RFEM Common String
 
     Returns a WS conform string.
     '''
@@ -312,7 +312,7 @@ def ConvertStrToListOfInt(st):
     """
     This function coverts string to list of integers.
     Args:
-        st (str): RSTAB / RFEM Common String
+        st (str): RFEM Common String
     """
     st = ConvertToDlString(st)
     lstInt = []
@@ -330,7 +330,7 @@ def ConvertStrToListOfInt(st):
 
 def CheckIfMethodOrTypeExists(modelClient, method_or_type, unitTestMode=False):
     """
-    Check if SOAP method or type is present in your version of RFEM/RSTAB.
+    Check if SOAP method or type is present in your version of RFEM.
     Use it only in your examples.
     Unit tests except msg from SUDS where this is checked already.
 
