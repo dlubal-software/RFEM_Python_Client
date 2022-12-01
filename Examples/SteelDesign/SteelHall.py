@@ -9,13 +9,13 @@ print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
 from RFEM.enums import *
-from RFEM.initModel import Model, SetAddonStatus, insertSpaces
+from RFEM.initModel import Model, SetAddonStatus, insertSpaces, Calculate_all
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
-
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 
 if __name__ == '__main__':
 
@@ -40,7 +40,7 @@ if __name__ == '__main__':
     SetAddonStatus(Model.clientModel, AddOn.steel_design_active)
     Material(1, 'S235')
     Material(3)
-    Section(1, 'IPE 200')
+    Section(1, 'IPE 200', 1)
     Section(3, 'L 20x20x3', 3)
     i = 0
     for j in range(frame_number):
@@ -61,13 +61,13 @@ if __name__ == '__main__':
     for j in range(frame_number):
 
         Member(i, k, k+1, 0, 1, 1)
-        Member(i+1, k+1, k+2, 1, 1)
-        Member(i+2, k+2, k+3, 1, 1)
-        Member(i+3, k+3, k+4, 1, 1)
-        Member(i+4, k+4, k+5, 1, 1)
-        Member(i+5, k+5, k+6, 1, 1)
-        Member(i+6, k+1, k+7, 1, 1)
-        Member(i+7, k+5, k+8, 1, 1)
+        Member(i+1, k+1, k+2, 0, 1, 1)
+        Member(i+2, k+2, k+3, 0, 1, 1)
+        Member(i+3, k+3, k+4, 0, 1, 1)
+        Member(i+4, k+4, k+5, 0, 1, 1)
+        Member(i+5, k+5, k+6, 0, 1, 1)
+        Member(i+6, k+1, k+7, 0, 1, 1)
+        Member(i+7, k+5, k+8, 0, 1, 1)
         i, k = i+13, k+9
 
     i, k = 9, 1
@@ -75,7 +75,7 @@ if __name__ == '__main__':
 
         m, n, o = i, k+1, k+10
         for l in range(5):
-            Member(m, n, o, 1, 1)
+            Member(m, n, o, 0, 1, 1)
             m, n, o = m+1, n+1, o+1
         i, k = i+13, k+9
 
@@ -195,4 +195,8 @@ if __name__ == '__main__':
 
     NodalSupport(1, insertSpaces(nodes_no), NodalSupportType.HINGED)
 
+    LoadCase(1, 'Self-Weight', [True, 0.0, 0.0, 1.0])
+
     Model.clientModel.service.finish_modification()
+
+    # Calculate_all()
