@@ -244,6 +244,22 @@ def closeModel(index_or_name, save_changes = False):
     else:
         assert False, 'Parameter index_or_name must be int or string.'
 
+def saveFile(model_path):
+    # TODO: Allow to save it as a block
+    # TODO: Allow to save it as a template
+    # TODO: Allow to save it as a version
+    '''
+    This function saves a model.
+
+    Args:
+        index_or_name : Model Index or Name to be Close
+        model_path: Path to RFEM6 model.
+    '''
+    if model_path[len(model_path) - 4:len(model_path)].lower() != '.rf6':
+        model_path = model_path + '.rf6'
+
+    Model.clientModel.service.save(model_path)
+    
 def insertSpaces(lst: list):
     '''
     Add spaces between list of numbers.
