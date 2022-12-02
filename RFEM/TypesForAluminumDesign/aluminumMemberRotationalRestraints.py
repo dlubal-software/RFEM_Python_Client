@@ -17,10 +17,6 @@ class AluminumMemberRotationalRestraint():
         Args:
             no (int): Aluminum Member Rotational Restraint Tag
             name (str): User Defined Member Rotational Restraint Name
-                for name[0] == False:
-                    pass
-                for name == True:
-                    name[1] = Defined Name
             definition_type (enum): Aluminum Member Rotational Restraint Type Enumeration
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
