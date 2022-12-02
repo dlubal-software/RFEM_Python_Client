@@ -17,6 +17,7 @@ from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.LoadCasesAndCombinations.loadCombination import LoadCombination
 
 if __name__ == '__main__':
 
@@ -96,7 +97,8 @@ if __name__ == '__main__':
                 Member(i+4, k+4, k+15, 0, 3, 3)
                 i, k = i+4, k+9
 
-        bracingV2 = input('Would you like to repeat a vertical bracing only in the first and last block? (Y/N): ')
+        else:
+            bracingV2 = input('Would you like to repeat a vertical bracing only in the first and last block? (Y/N): ')
 
         if bracingV2.lower() == 'yes' or bracingV2.lower() == 'y':
             k = 1
@@ -108,8 +110,8 @@ if __name__ == '__main__':
                     Member(i+4, k+4, k+15, 0, 3, 3)
                     i = i+4
                 k = k+9
-
-        bracingV3 = input('Would you like to repeat a vertical bracing in even/odd blocks? (E/O/N): ')
+        elif bracingV2.lower() == 'no' or bracingV2.lower() == 'n':
+            bracingV3 = input('Would you like to repeat a vertical bracing in even/odd blocks? (E/O/N): ')
 
         if bracingV3.lower() == 'even' or bracingV3.lower() == 'e':
             k = 1
@@ -201,6 +203,14 @@ if __name__ == '__main__':
     StaticAnalysisSettings.LargeDeformation(3, "LargeDeformation")
 
     LoadCase(1, 'Self-Weight', [True, 0.0, 0.0, 1.0])
+    LoadCase.StaticAnalysis(2, 'Wind-Load', True, 1, ActionCategoryType.ACTION_CATEGORY_WIND_QW, [False])
+    LoadCase.StaticAnalysis(3, 'Snow-Load', True, 1, ActionCategoryType.ACTION_CATEGORY_SNOW_ICE_LOADS_H_LESS_OR_EQUAL_TO_1000_M_QS, [False])
+    LoadCase.StaticAnalysis(4, 'Seismic-Action', True, 1, ActionCategoryType.ACTION_CATEGORY_SEISMIC_ACTIONS_AE, [False])
+
+    LoadCombination(1, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1,1,0,False],[1,2,0,False]])
+    LoadCombination(2, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1,1,0,False],[1,3,0,False]])
+    LoadCombination(3, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1,1,0,False],[1,4,0,False]])
+    LoadCombination(4, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1,1,0,False],[1,2,0,False],[1,3,0,False],[1,4,0,False]])
 
     Model.clientModel.service.finish_modification()
 
