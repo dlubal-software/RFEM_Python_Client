@@ -16,6 +16,7 @@ from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 
 if __name__ == '__main__':
 
@@ -195,8 +196,12 @@ if __name__ == '__main__':
 
     NodalSupport(1, insertSpaces(nodes_no), NodalSupportType.HINGED)
 
+    StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
+    StaticAnalysisSettings.SecondOrderPDelta(2, "SecondOrder")
+    StaticAnalysisSettings.LargeDeformation(3, "LargeDeformation")
+
     LoadCase(1, 'Self-Weight', [True, 0.0, 0.0, 1.0])
 
     Model.clientModel.service.finish_modification()
 
-    # Calculate_all()
+    Calculate_all()
