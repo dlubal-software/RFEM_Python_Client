@@ -74,7 +74,8 @@ def test_nodal_load():
     NodalLoad.Components(4, 1, '6', [5000, 4000, 30, 10, 5210, 75])
 
     #Mass Type Nodal Load
-    NodalLoad.Mass(5, 1, '8', True, [4000, 3000, 2000, 1000, 500, 100])
+    NodalLoad.Mass(5, 1, '8', True, [4000, 3000, 2000, 1000, 500, 100]) # Bugfix G-30467: Individual Mass Components
+    NodalLoad.Mass(6, 1, '8', False, [4000])
 
     Model.clientModel.service.finish_modification()
 
@@ -109,9 +110,14 @@ def test_nodal_load():
     nl = Model.clientModel.service.get_nodal_load(5, 1)
     assert nl.nodes == '8'
     assert nl.load_type == 'LOAD_TYPE_MASS'
-    assert nl.mass_x == 0
-    assert nl.mass_y == 0
-    assert nl.mass_z == 0
+    #assert nl.mass_x == 4000 # Bugfix G-30467: Individual Mass Components
+    #assert nl.mass_y == 3000 # Bugfix G-30467: Individual Mass Components
+    #assert nl.mass_z == 2000 # Bugfix G-30467: Individual Mass Components
     assert nl.mass_moment_of_inertia_x == 1000
     assert nl.mass_moment_of_inertia_y == 500
     assert nl.mass_moment_of_inertia_z == 100
+
+    nl = Model.clientModel.service.get_nodal_load(6, 1)
+    assert nl.nodes == '8'
+    assert nl.load_type == 'LOAD_TYPE_MASS'
+    assert nl.mass_global == 4000
