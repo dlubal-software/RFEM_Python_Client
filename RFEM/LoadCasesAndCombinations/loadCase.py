@@ -42,7 +42,7 @@ class LoadCase():
         clientObject.static_analysis_settings = 1
 
         # Action Category
-        clientObject.action_category = ActionCategoryType.ACTION_CATEGORY_PERMANENT_G.name
+        clientObject.action_category = ActionCategoryType.ACTION_CATEGORY_NONE_NONE.name
 
         # Self-weight Considerations
         clientObject.self_weight_active = self_weight[0]
@@ -78,7 +78,7 @@ class LoadCase():
             name: str = 'Self-weight',
             to_solve: bool = True,
             analysis_settings_no: int = 1,
-            action_category=ActionCategoryType.ACTION_CATEGORY_PERMANENT_G,
+            action_category=ActionCategoryType.ACTION_CATEGORY_NONE_NONE,
             self_weight: list =[True, 0.0, 0.0, 10.0],
             comment: str = 'Comment',
             params: dict = None,
