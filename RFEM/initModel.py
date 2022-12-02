@@ -27,13 +27,13 @@ result_of_check = a_socket.connect_ex(location)
 if result_of_check == 0:
     a_socket.close()
 else:
-    print('Erorr: Port '+urlAndPort+' is not open.')
+    print('Error: Port '+urlAndPort+' is not open.')
     print('Please check:')
     print('- If you have started RFEM application at the remote destination correctly.')
     a_socket.close()
     sys.exit()
 
-# Check fo issues localy and remotely
+# Check for issues locally and remotely
 try:
     client = Client(urlAndPort+'/wsdl', location = urlAndPort)
 except:
@@ -59,7 +59,7 @@ except:
 # Next 4 lines enables Client to work within 1 session which is much faster to execute.
 # Without it the session lasts only one request which results in poor performance.
 # Assigning session to application Client (here client) instead of model Client
-# results also in poor performace.
+# results also in poor performance.
 session = requests.Session()
 adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
 session.mount('http://', adapter)
@@ -128,7 +128,7 @@ class Model():
 
         else:
             # Requested model which was already connected
-            assert model_name in self.clientModelDct or model_name in modelLst, 'WARNING: '+model_name +'is not conected neither opened in RFEM.'
+            assert model_name in self.clientModelDct or model_name in modelLst, 'WARNING: '+model_name +'is not connected neither opened in RFEM.'
 
             if model_name in self.clientModelDct:
                 cModel = self.clientModelDct[model_name]
@@ -151,16 +151,16 @@ class Model():
                 print('Delete all...')
                 cModel.service.delete_all()
 
-        # when using multiple intances/model
+        # when using multiple instances/model
         self.clientModel = cModel
-        # when using only one instace/model
+        # when using only one instance/model
         Model.clientModel = cModel
 
     def __delete__(self, index_or_name):
         '''
         Purpose of this function is to facilitate removing client instances
         from clientModelDct dictionary, which is held in Model for the purpose of
-        working with mustiple models either created directly in RFEM or opened from file.
+        working with multiple models either created directly in RFEM or opened from file.
 
         Args:
             index_or_name (str or int): Name of the index of model
@@ -225,7 +225,7 @@ def closeModel(index_or_name, save_changes = False):
 
     Args:
         index_or_name : Model Index or Name to be Close
-        save_changes (bool): Enable/Diable Save Changes Option
+        save_changes (bool): Enable/Disable Save Changes Option
     '''
     if isinstance(index_or_name, int):
         Model.__delete__(Model, index_or_name)
@@ -245,11 +245,8 @@ def closeModel(index_or_name, save_changes = False):
         assert False, 'Parameter index_or_name must be int or string.'
 
 def saveFile(model_path):
-    # TODO: Allow to save it as a block
-    # TODO: Allow to save it as a template
-    # TODO: Allow to save it as a version
     '''
-    This function saves a model.
+    This function saves a model in a .rf6 file.
 
     Args:
         index_or_name : Model Index or Name to be Close
@@ -259,7 +256,7 @@ def saveFile(model_path):
         model_path = model_path + '.rf6'
 
     Model.clientModel.service.save(model_path)
-    
+
 def insertSpaces(lst: list):
     '''
     Add spaces between list of numbers.
@@ -271,7 +268,7 @@ def Calculate_all(generateXmlSolverInput: bool = False, model = Model):
     '''
     Calculates model.
     CAUTION: Don't use it in unit tests!
-    It works when executing tests individualy but when running all of them
+    It works when executing tests individually but when running all of them
     it causes RFEM to stuck and generates failures, which are hard to investigate.
 
     Args:
@@ -376,11 +373,11 @@ def CheckIfMethodOrTypeExists(modelClient, method_or_type, unitTestMode=False):
 def GetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active):
     """
     Check if Add-on is reachable and active.
-    For some types of objects, specific Add-ons need to be ennabled.
+    For some types of objects, specific Add-ons need to be enabled.
 
     Args:
         modelClient (Model.clientModel)
-        addOn (enum): AddOn Enumeraion
+        addOn (enum): AddOn Enumeration
 
     Returns:
         (bool): Status of Add-on
@@ -409,11 +406,11 @@ def GetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active):
 def SetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active, status = True):
     """
     Activate or deactivate Add-on.
-    For some types of objects, specific Add-ons need to be ennabled.
+    For some types of objects, specific Add-ons need to be enabled.
 
     Args:
         modelClient (Model.clientModel)
-        addOn (enum): AddOn Enumeraion
+        addOn (enum): AddOn Enumeration
         status (bool): in/active
 
     Analysis addOns list:
@@ -464,7 +461,7 @@ def SetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active, status = T
 
 def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None, model = Model):
     '''
-    This method calculate just selected objects - load cases, desingSituations, loadCombinations
+    This method calculate just selected objects - load cases, designSituations, loadCombinations
 
     Args:
         loadCases (list, optional): Load Case List
