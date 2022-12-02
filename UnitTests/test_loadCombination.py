@@ -25,6 +25,8 @@ def test_loadCombination():
 
     LoadCase.StaticAnalysis(1, 'DEAD', True, 1, ActionCategoryType.ACTION_CATEGORY_NONE_NONE, [True, 0, 0, 10])
     LoadCase.StaticAnalysis(2, 'LIVE', True, 1, ActionCategoryType.ACTION_CATEGORY_NONE_NONE, [False])
+    LoadCase.StaticAnalysis(3)
+    LoadCase(4)
 
     LoadCombination(1, AnalysisType.ANALYSIS_TYPE_STATIC, 1, 'LC1', 1, combination_items=[[1.2, 1, 0, True], [1.6, 1, 0, False]])
 
