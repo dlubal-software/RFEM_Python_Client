@@ -31,7 +31,7 @@ def test_memberDefinableStiffness():
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    MemberDefinableStiffness(1, [False], "", 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+    MemberDefinableStiffness(1, '', '', 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12)
 
     Model.clientModel.service.finish_modification()
 

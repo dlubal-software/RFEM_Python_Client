@@ -130,7 +130,7 @@ def window(mainFunc, lstOfModels):
     # Textbox
     e6 = Entry(justify=LEFT, width=19)
     e6.grid(row=7, column=1)
-    e6.insert(INSERT, 'new_Model')
+    e6.insert(INSERT, 'new_model.rf6')
 
     # Combobox
     n = StringVar()

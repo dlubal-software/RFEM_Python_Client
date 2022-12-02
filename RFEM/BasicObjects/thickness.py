@@ -509,7 +509,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name is not None:
+        if name:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
@@ -648,7 +648,7 @@ class Thickness():
         clientObject.no = no
 
         # Thickness Name
-        if name is not None:
+        if name:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 

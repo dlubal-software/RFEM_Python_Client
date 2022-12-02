@@ -4,7 +4,7 @@ from RFEM.enums import *
 class SteelBoundaryConditions():
     def __init__(self,
                 no: int = 1,
-                user_defined_name: str = '',
+                name: str = '',
                 members: str = '',
                 member_sets : str = '',
                 intermediate_nodes : bool = False,
@@ -27,7 +27,7 @@ class SteelBoundaryConditions():
         """
         Args:
             no (int): Boundary Conditions Tag
-            user_defined_name (str): User Defined Boundary Conditions Name
+            name (str): User Defined Boundary Conditions Name
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
             intermediate_nodes (bool): Enable/Disable Intermediate Nodes Option
@@ -91,9 +91,9 @@ class SteelBoundaryConditions():
         clientObject.no = no
 
         # Boundary Conditions User Defined Name
-        if user_defined_name:
+        if name:
             clientObject.user_defined_name_enabled = True
-            clientObject.name = user_defined_name
+            clientObject.name = name
 
         # Intermediate Nodes Option
         clientObject.intermediate_nodes = intermediate_nodes

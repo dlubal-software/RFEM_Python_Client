@@ -1,5 +1,3 @@
-#SteelMemberLocalSectionReduction
-
 from RFEM.initModel import Model, clearAttributes, ConvertToDlString
 from RFEM.enums import SteelMemberLocalSectionReductionType, MultipleOffsetDefinitionType, FastenerDefinitionType
 

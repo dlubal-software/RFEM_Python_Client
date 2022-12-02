@@ -4,7 +4,7 @@ from RFEM.enums import *
 class SteelMemberRotationalRestraint():
     def __init__(self,
                 no: int = 1,
-                user_defined_name: list = [False],
+                name: str = '',
                 definition_type = SteelMemberRotationalRestraintType.TYPE_CONTINUOUS,
                 members: str = "",
                 member_sets: str = "",
@@ -16,11 +16,7 @@ class SteelMemberRotationalRestraint():
         """
         Args:
             no (int): Steel Member Rotational Restraint Tag
-            user_defined_name (list): User Defined Member Rotational Restraint Name
-                for user_defined_name[0] == False:
-                    pass
-                for user_defined_name == True:
-                    user_defined_name[1] = Defined Name
+            name (str): User Defined Member Rotational Restraint Name
             definition_type (enum): Steel Member Rotational Restraint Type Enumeration
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
@@ -85,11 +81,9 @@ class SteelMemberRotationalRestraint():
         clientObject.member_sets = ConvertToDlString(member_sets)
 
         # Member Rotational Restraint Name
-        if user_defined_name[0]:
-            clientObject.user_defined_name_enabled = user_defined_name[0]
-            clientObject.name = user_defined_name[1]
-        else:
-            clientObject.user_defined_name_enabled = user_defined_name[0]
+        if name:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Member Rotational Restraint Definition Type
         clientObject.type = definition_type.name
@@ -137,8 +131,3 @@ class SteelMemberRotationalRestraint():
 
         # Adding Steel Member Rotational Restraint to Client Model
         model.clientModel.service.set_steel_member_rotational_restraint(clientObject)
-
-
-
-
-

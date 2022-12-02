@@ -4,7 +4,7 @@ from RFEM.enums import *
 class SteelMemberShearPanel():
     def __init__(self,
                 no: int = 1,
-                user_defined_name: list = [False],
+                name: str = '',
                 definition_type = SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING,
                 members: str = "",
                 member_sets: str = "",
@@ -15,11 +15,7 @@ class SteelMemberShearPanel():
         """
         Args:
             no (int): Steel Member Shear Panel Tag
-            user_defined_name (list): User Defined Member Shear Panel Name
-                for user_defined_name[0] == False:
-                    pass
-                for user_defined_name == True:
-                    user_defined_name[1] = Defined Name
+            name (str): User Defined Member Shear Panel Name
             definition_type (enum): Steel Member Shear Panel Definition Type Enumeration
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
@@ -92,11 +88,9 @@ class SteelMemberShearPanel():
         clientObject.member_sets = ConvertToDlString(member_sets)
 
         # Member Shear Panel User Defined Name
-        if user_defined_name[0]:
-            clientObject.user_defined_name_enabled = user_defined_name[0]
-            clientObject.name = user_defined_name[1]
-        else:
-            clientObject.user_defined_name_enabled = user_defined_name[0]
+        if name:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Member Shear Panel Definition Type
         clientObject.definition_type = definition_type.name
@@ -172,4 +166,3 @@ class SteelMemberShearPanel():
 
         # Add Steel Effective Lengths to client model
         Model.clientModel.service.set_steel_member_shear_panel(clientObject)
-

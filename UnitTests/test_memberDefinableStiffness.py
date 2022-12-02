@@ -24,7 +24,7 @@ def test_memberDefinableStiffness():
     Node(4, 5,5,0)
 
     MemberDefinableStiffness()
-    MemberDefinableStiffness(2, [True, "Stiffness"], '2', 100, 200, 300, 400, 500, 600, 700, 800, 90, 900, 1000, 1100)
+    MemberDefinableStiffness(2, 'Stiffness', '2', 100, 200, 300, 400, 500, 600, 700, 800, 90, 900, 1000, 1100)
 
     Model.clientModel.service.finish_modification()
 
