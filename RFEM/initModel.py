@@ -6,6 +6,9 @@ import requests
 from suds.client import Client
 from RFEM.enums import ObjectTypes, ModelType, AddOn
 from RFEM.suds_requests import RequestsTransport
+import logging
+module_logger = logging.getLogger('RFEM.Tools')
+import time
 
 # Connect to server
 # Check server port range set in "Program Options & Settings"
@@ -262,7 +265,11 @@ def Calculate_all(generateXmlSolverInput: bool = False, model = Model):
         generateXmlSolverInput (bool): Generate XML Solver Input
         model (RFEM Class, optional): Model to be edited
     '''
+    logger = logging.getLogger(__name__)
+    start = time.time()
     model.clientModel.service.calculate_all(generateXmlSolverInput)
+    end = time.time()
+    logger.info('CalculateAll Time elapsed:' + str(end - start))
 
 def ConvertToDlString(s):
     '''

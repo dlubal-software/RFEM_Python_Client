@@ -1,6 +1,7 @@
 from RFEM.initModel import clearAttributes, Model, ConvertStrToListOfInt
 from RFEM.enums import ObjectTypes
-
+import logging
+module_logger = logging.getLogger('RFEM.Materialek')
 
 class Material():
     def __init__(self,
@@ -18,7 +19,8 @@ class Material():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
         '''
-
+        self.logger = logging.getLogger('RFEM.Material.' + self.__class__.__name__)
+        self.logger.info('creating an instance of Material')
         # Client model | Material
         clientObject = model.clientModel.factory.create('ns0:material')
 

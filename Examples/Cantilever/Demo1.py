@@ -7,7 +7,7 @@ dirName = os.path.dirname(__file__)
 print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
-
+import logging
 from RFEM.enums import NodalSupportType, LoadDirectionType
 from RFEM.initModel import Model, Calculate_all
 from RFEM.BasicObjects.material import Material
@@ -21,6 +21,27 @@ from RFEM.Loads.nodalLoad import NodalLoad
 from RFEM.Calculate.meshSettings import GetModelInfo
 
 if __name__ == '__main__':
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    logging.basicConfig(filename=r'C:\WORK\TEMP\test.log', encoding='utf-8', level=logging.DEBUG,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',datefmt='%m/%d/%Y %I:%M:%S %p')
+    logging.debug('This message should go to the log file')
+    logging.info('So should this')
+    logging.warning('And this, too')
+    logging.error('And non-ASCII stuff, too, like Øresund and Malmö')
+    logging.critical('critical message')
+
+    # settings of logger for SUDS - default level is DEBUG
+    logging.getLogger('suds.client').setLevel(logging.INFO)
+    logging.getLogger('suds.transport').setLevel(logging.INFO)
+    logging.getLogger('suds.xsd.schema').setLevel(logging.INFO)
+    logging.getLogger('suds.wsdl').setLevel(logging.INFO)
+    logging.getLogger('suds.resolver').setLevel(logging.INFO)
+    logging.getLogger('suds.xsd.query').setLevel(logging.INFO)
+    logging.getLogger('suds.xsd.sxbasic').setLevel(logging.INFO)
+    logging.getLogger('suds.xsd.sxbase').setLevel(logging.INFO)
+    logging.getLogger('suds.metrics').setLevel(logging.INFO)
+    logging.getLogger('suds.binding.marshaller').setLevel(logging.INFO)
+
+
     l = float(input('Length of the cantilever in m: '))
     f = float(input('Force in kN: '))
 
