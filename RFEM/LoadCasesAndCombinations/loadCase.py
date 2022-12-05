@@ -8,8 +8,8 @@ class LoadCase():
     def __init__(self,
                  no: int = 1,
                  name: str = 'Self-weight',
-                 action_category=ActionCategoryType.ACTION_CATEGORY_NONE_NONE,
                  self_weight: list = [True, 0.0, 0.0, 1.0],
+                 action_category=ActionCategoryType.ACTION_CATEGORY_NONE_NONE,
                  comment: str = 'Comment',
                  params: dict = None,
                  model = Model):
