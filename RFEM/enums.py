@@ -2325,3 +2325,9 @@ class FormulaParameter(Enum):
     Formula Parameter to Return from Formula.Get Function
     '''
     ALL, FORMULA, IS_VALID, CALCULATED_VALUE = range(4)
+
+class ResponseSpectrumDefinitionType(Enum):
+    '''
+    Response Spectrum Definition Type
+    '''
+    ACCORDING_TO_STANDARD, GENERATED_FROM_ACCELEROGRAM, USER_DEFINED, USER_DEFINED_IN_G_FACTOR = range(4)
