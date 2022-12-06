@@ -12,6 +12,20 @@ class ResponseSpectrum():
                  comment: str = '',
                  params: dict = None,
                  model = Model):
+        """
+        Args:
+            no (int): Response Spectrum Tag
+            name (str): User Defined Name
+            constant_period_step (float): Enables Constant Period Step
+            sort_table (bool): Sort Table Option
+            user_defined_spectrum (list): User Defined Spectrum
+
+                user_defined_spectrum = [[period, acceleration], [period, acceleration], ...]
+
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
 
         # client model | response spectrum
         clientObject = model.clientModel.factory.create('ns0:response_spectrum')
@@ -70,6 +84,21 @@ class ResponseSpectrum():
                            comment: str = '',
                            params: dict = None,
                            model = Model):
+
+        """
+        Args:
+            no (int): Response Spectrum Tag
+            name (str): User Defined Name
+            constant_period_step (float): Enables Constant Period Step
+            sort_table (bool): Sort Table Option
+            user_defined_spectrum (list): User Defined Spectrum
+
+                user_defined_spectrum = [[period, acceleration], [period, acceleration], ...]
+
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
 
         # client model | response spectrum
         clientObject = model.clientModel.factory.create('ns0:response_spectrum')
