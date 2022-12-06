@@ -1,5 +1,6 @@
 from RFEM.initModel import Model, clearAttributes
 from RFEM.enums import AnalysisType, ActionCategoryType
+from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 
 
 class LoadCase():
@@ -8,6 +9,7 @@ class LoadCase():
                  no: int = 1,
                  name: str = 'Self-weight',
                  self_weight: list = [True, 0.0, 0.0, 1.0],
+                 action_category=ActionCategoryType.ACTION_CATEGORY_NONE_NONE,
                  comment: str = 'Comment',
                  params: dict = None,
                  model = Model):
@@ -15,6 +17,7 @@ class LoadCase():
         Args:
             no (int): Load Case Tag
             name (str): Load Case Name
+            action_category (enum) = Action Category Type Enumeration
             self_weight (list): Self-Weight Parameters
                 self_weight = [self_weight_active, self_weight_factor_x, self_weight_factor_y, self_weight_factor_z]
             comment (str, optional): Comments
@@ -42,7 +45,9 @@ class LoadCase():
         clientObject.static_analysis_settings = 1
 
         # Action Category
-        clientObject.action_category = ActionCategoryType.ACTION_CATEGORY_PERMANENT_G.name
+        if action_category.name not in LoadCasesAndCombinations.getAvailableLoadActionCategoryTypes():
+            raise Exception('WARNING: The selected Action Category is not available under the defined Standard.')
+        clientObject.action_category = action_category.name
 
         # Self-weight Considerations
         clientObject.self_weight_active = self_weight[0]
@@ -78,7 +83,7 @@ class LoadCase():
             name: str = 'Self-weight',
             to_solve: bool = True,
             analysis_settings_no: int = 1,
-            action_category=ActionCategoryType.ACTION_CATEGORY_PERMANENT_G,
+            action_category=ActionCategoryType.ACTION_CATEGORY_NONE_NONE,
             self_weight: list =[True, 0.0, 0.0, 10.0],
             comment: str = 'Comment',
             params: dict = None,
@@ -120,6 +125,8 @@ class LoadCase():
         clientObject.static_analysis_settings = analysis_settings_no
 
         # Action Category
+        if action_category.name not in LoadCasesAndCombinations.getAvailableLoadActionCategoryTypes():
+            raise Exception('WARNING: The selected Action Category is not available under the defined Standard.')
         clientObject.action_category = action_category.name
 
         # Self-weight Considerations
