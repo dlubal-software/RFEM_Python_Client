@@ -18,6 +18,8 @@ from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCombination import LoadCombination
+from RFEM.Loads.nodalLoad import NodalLoad
+from RFEM.Loads.memberLoad import MemberLoad
 
 if __name__ == '__main__':
 
@@ -203,15 +205,78 @@ if __name__ == '__main__':
     StaticAnalysisSettings.LargeDeformation(3, "LargeDeformation")
 
     LoadCase(1, 'Self-Weight', [True, 0.0, 0.0, 1.0])
-    LoadCase.StaticAnalysis(2, 'Wind-Load', True, 1, ActionCategoryType.ACTION_CATEGORY_WIND_QW, [False])
+    LoadCase.StaticAnalysis(2, 'Live Load', True, 1, ActionCategoryType.ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_H_ROOFS_QI_H, [False])
     LoadCase.StaticAnalysis(3, 'Snow-Load', True, 1, ActionCategoryType.ACTION_CATEGORY_SNOW_ICE_LOADS_H_LESS_OR_EQUAL_TO_1000_M_QS, [False])
-    LoadCase.StaticAnalysis(4, 'Seismic-Action', True, 1, ActionCategoryType.ACTION_CATEGORY_SEISMIC_ACTIONS_AE, [False])
+    LoadCase.StaticAnalysis(4, 'Wind-Load_x', True, 1, ActionCategoryType.ACTION_CATEGORY_WIND_QW, [False])
+    LoadCase.StaticAnalysis(5, 'Wind-Load_y', True, 1, ActionCategoryType.ACTION_CATEGORY_WIND_QW, [False])
 
     LoadCombination(1, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1,1,0,False],[1,2,0,False]])
     LoadCombination(2, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1,1,0,False],[1,3,0,False]])
     LoadCombination(3, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1,1,0,False],[1,4,0,False]])
     LoadCombination(4, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1,1,0,False],[1,2,0,False],[1,3,0,False],[1,4,0,False]])
 
+    # n,k = 0,0
+    # for j in range(frame_number):
+    #     MemberLoad(n+1, 1, str(k+3), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 500)
+    #     MemberLoad(n+2, 1, str(k+4), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 500)
+    #     MemberLoad(n+3, 1, str(k+7), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 500)
+    #     MemberLoad(n+4, 1, str(k+8), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 500)
+    #     n, k = n+4, k+13
+
+    # k = 0
+    # for j in range(frame_number-1):
+    #     MemberLoad(n+1, 1, str(k+9), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 500)
+    #     MemberLoad(n+2, 1, str(k+10), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 500)
+    #     MemberLoad(n+3, 1, str(k+11), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 500)
+    #     MemberLoad(n+4, 1, str(k+12), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 500)
+    #     MemberLoad(n+5, 1, str(k+13), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 500)
+    #     n, k = n+5, k+13
+
+    # Loads for LC2:Live Load
+    n, k, l = 0, 0, 0
+    for j in range(frame_number):
+        MemberLoad(n+1, 2, str(k+3), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 3500)
+        MemberLoad(n+2, 2, str(k+4), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 3500)
+        NodalLoad.Components(n+1, 2, str(l+8), [0,0,10000,0,0,0])
+        NodalLoad.Components(n+2, 2, str(l+9), [0,0,10000,0,0,0])
+        n, k, l = n+2, k+13, l+9
+
+    # Loads for LC3:Snow Load
+    n, k = 0, 0
+    for j in range(frame_number):
+        MemberLoad(n+1, 3, str(k+3), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, 1500)
+        MemberLoad(n+2, 3, str(k+4), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, 1500)
+        n, k = n+2, k+13
+
+    # Loads for LC4:Wind-Load_x
+    n, k = 0, 0
+    for j in range(frame_number):
+        MemberLoad(n+1, 4, str(k+1), LoadDirectionType.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 2000)
+        MemberLoad(n+2, 4, str(k+2), LoadDirectionType.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 2000)
+        MemberLoad(n+3, 4, str(k+5), LoadDirectionType.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 2000)
+        MemberLoad(n+4, 4, str(k+6), LoadDirectionType.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 2000)
+        n, k = n+4, k+13
+
+    k = 0
+    for j in range(frame_number-1):
+        MemberLoad(n+1, 4, str(k+9), LoadDirectionType.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 1500)
+        MemberLoad(n+2, 4, str(k+10), LoadDirectionType.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 1500)
+        MemberLoad(n+3, 4, str(k+11), LoadDirectionType.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 1500)
+        MemberLoad(n+4, 4, str(k+12), LoadDirectionType.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 1500)
+        MemberLoad(n+5, 4, str(k+13), LoadDirectionType.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 1500)
+        n, k = n+5, k+13
+
+    # Loads for LC5:Wind-Load_y
+    n, k = 0, 0
+    for j in range(frame_number):
+        MemberLoad(n+1, 5, str(k+1), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 1500)
+        MemberLoad(n+2, 5, str(k+2), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 1500)
+        MemberLoad(n+3, 5, str(k+3), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 2500)
+        MemberLoad(n+4, 5, str(k+4), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 2500)
+        MemberLoad(n+5, 5, str(k+5), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 1500)
+        MemberLoad(n+6, 5, str(k+6), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 1500)
+        n, k = n+6, k+13
+
     Model.clientModel.service.finish_modification()
 
-    Calculate_all()
+    # Calculate_all()
