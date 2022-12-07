@@ -59,7 +59,7 @@ class AluminumMemberRotationalRestraint():
         # Deducing RFEM Language from aluminum_design_addon String:
         modelInfo = Model.clientModel.service.get_model_info()
         if modelInfo.property_addon_aluminum_design.split()[0] != 'Aluminum':
-            raise Exception("WARNING: The aluminumMemberRotationalRestraints operates with the RFEM Application set to English. Kindly switch RFEM to English such that Database searches can completed successfully.")
+            raise ValueError("WARNING: The aluminumMemberRotationalRestraints operates with the RFEM Application set to English. Kindly switch RFEM to English such that Database searches can completed successfully.")
 
         # Check if Aluminum Design Add-on is ON.
         SetAddonStatus(model.clientModel, AddOn.aluminum_design_active, True)

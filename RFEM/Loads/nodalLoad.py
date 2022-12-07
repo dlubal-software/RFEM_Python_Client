@@ -127,13 +127,13 @@ class NodalLoad():
 
         #Option Check
         if force_eccentricity and shifted_display:
-            raise Exception("Only one of force_eccentiricity and shifted_display could be TRUE")
+            raise ValueError("Only one of force_eccentiricity and shifted_display could be TRUE")
 
         # Specific Direction
         if specific_direction:
 
             if 'specific_direction' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_s = params['specific_direction']
 
@@ -166,7 +166,7 @@ class NodalLoad():
         if force_eccentricity:
 
             if 'force_eccentricity' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_e = params['force_eccentricity']
 
@@ -180,7 +180,7 @@ class NodalLoad():
         if shifted_display:
 
             if 'shifted_display' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_d = params['shifted_display']
 
@@ -270,7 +270,7 @@ class NodalLoad():
         if specific_direction:
 
             if 'specific_direction' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_s = params['specific_direction']
 
@@ -303,7 +303,7 @@ class NodalLoad():
         if shifted_display:
 
             if 'shifted_display' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_d = params['shifted_display']
 
@@ -392,17 +392,17 @@ class NodalLoad():
             clientObject.components_moment_y = components[4]
             clientObject.components_moment_z = components[5]
         else:
-            raise Exception("WARNING: The components must contain 6 elements. Kindly check list inputs for completeness and correctness.")
+            raise ValueError("WARNING: The components must contain 6 elements. Kindly check list inputs for completeness and correctness.")
 
         #Option Check
         if force_eccentricity and shifted_display:
-            raise Exception("WARNING: Only one of force_eccentiricity and shifted_display could be TRUE")
+            raise ValueError("WARNING: Only one of force_eccentiricity and shifted_display could be TRUE")
 
         # Specific Direction
         if specific_direction:
 
             if 'specific_direction' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_s = params['specific_direction']
 
@@ -428,7 +428,7 @@ class NodalLoad():
         if force_eccentricity:
 
             if 'force_eccentricity' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_e = params['force_eccentricity']
 
@@ -442,7 +442,7 @@ class NodalLoad():
         if shifted_display:
 
             if 'shifted_display' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_d = params['shifted_display']
 

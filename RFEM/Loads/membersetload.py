@@ -148,13 +148,13 @@ class MemberSetLoad():
 
         #Load Magnitude and Parameters
         if load_parameter == []:
-            raise Exception("WARNING: Load parameter cannot be empty. Kindly check list inputs completeness and correctness.")
+            raise ValueError("WARNING: Load parameter cannot be empty. Kindly check list inputs completeness and correctness.")
         else:
             if load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM" or load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM_TOTAL":
                 if len(load_parameter) == 1:
                     clientObject.magnitude = load_parameter[0]
                 else:
-                    raise Exception("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
+                    raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
 
             elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_1":
                 if len(load_parameter) == 3:
@@ -166,7 +166,7 @@ class MemberSetLoad():
                         clientObject.magnitude = load_parameter[1]
                         clientObject.distance_a_relative = load_parameter[2]
                 else:
-                    raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_CONCENTRATED_1. Kindly check list inputs completeness and correctness.")
+                    raise ValueError("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_CONCENTRATED_1. Kindly check list inputs completeness and correctness.")
 
             elif load_distribution.name ==  "LOAD_DISTRIBUTION_CONCENTRATED_N":
                 if len(load_parameter) == 6:
@@ -185,7 +185,7 @@ class MemberSetLoad():
                     else:
                         clientObject.distance_b_relative = load_parameter[5]
                 else:
-                    raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
+                    raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
 
             elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_2x2":
                 if len(load_parameter) == 7:
@@ -209,7 +209,7 @@ class MemberSetLoad():
                     else:
                         clientObject.distance_c_relative = load_parameter[6]
                 else:
-                    raise Exception("WARNING: Load parameter array length should be 7 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
+                    raise ValueError("WARNING: Load parameter array length should be 7 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
 
             elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_2":
                 if len(load_parameter) == 6:
@@ -228,17 +228,13 @@ class MemberSetLoad():
                     else:
                         clientObject.distance_b_relative = load_parameter[5]
                 else:
-                    raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")
+                    raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")
 
             elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_VARYING":
-                try:
-                    len(load_parameter[0])==3
-                except:
-                    print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
                 clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
-
                 for i,j in enumerate(load_parameter):
+                    if len(load_parameter[i]) != 3:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                     mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                     mlvlp.no = i+1
                     mlvlp.row.distance = load_parameter[i][0]
@@ -269,7 +265,7 @@ class MemberSetLoad():
                     else:
                         clientObject.distance_b_relative = load_parameter[5]
                 else:
-                    raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
+                    raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
 
             elif load_distribution.name == "LOAD_DISTRIBUTION_TAPERED":
                 if len(load_parameter)==6:
@@ -288,7 +284,7 @@ class MemberSetLoad():
                     else:
                         clientObject.distance_b_relative = load_parameter[5]
                 else:
-                    raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
+                    raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
 
             elif load_distribution.name == "LOAD_DISTRIBUTION_PARABOLIC":
                 if len(load_parameter)==3:
@@ -296,15 +292,12 @@ class MemberSetLoad():
                     clientObject.magnitude_2 = load_parameter[1]
                     clientObject.magnitude_3 = load_parameter[2]
                 else:
-                    raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
+                    raise ValueError("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
             elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
-                try:
-                    len(load_parameter[0])==3
-                except:
-                    print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
                 clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
                 for i,j in enumerate(load_parameter):
+                    if len(load_parameter[i]) != 3:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                     mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                     mlvlp.no = i+1
                     mlvlp.row.distance = load_parameter[i][0]
@@ -319,13 +312,10 @@ class MemberSetLoad():
                     clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
 
             elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING_IN_Z":
-                try:
-                    len(load_parameter[0])==3
-                except:
-                    print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
                 clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
                 for i,j in enumerate(load_parameter):
+                    if len(load_parameter[i]) != 3:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                     mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                     mlvlp.no = i+1
                     mlvlp.row.distance = load_parameter[i][0]
@@ -351,7 +341,7 @@ class MemberSetLoad():
                 'eccentricity_z_at_end' and 'eccentricity_z_at_start' in params:
                 pass
             else:
-                raise Exception("WARNING: Params does not contain all the necessary parameters. Kindly check dictionary")
+                raise ValueError("WARNING: Params does not contain all the necessary parameters. Kindly check dictionary")
 
             params_ecc = {'eccentricity_horizontal_alignment': MemberSetLoadEccentricityHorizontalAlignment.ALIGN_NONE,
                            'eccentricity_vertical_alignment': MemberSetLoadEccentricityVerticalAlignment.ALIGN_NONE,
@@ -464,17 +454,13 @@ class MemberSetLoad():
 
         #Load Magnitude and Parameters
         if load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM":
-            try:
-                len(load_parameter)==1
-            except:
-                raise Exception("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 1:
+                raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_1":
-            try:
-                len(load_parameter)==3
-            except:
-                raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_CONCENTRATED_1. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 3:
+                raise ValueError("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_CONCENTRATED_1. Kindly check list inputs completeness and correctness.")
 
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             if load_parameter[0] == False:
@@ -485,10 +471,8 @@ class MemberSetLoad():
                 clientObject.distance_a_relative = load_parameter[2]
 
         elif load_distribution.name ==  "LOAD_DISTRIBUTION_CONCENTRATED_N":
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
             clientObject.magnitude = load_parameter[2]
@@ -505,10 +489,8 @@ class MemberSetLoad():
                 clientObject.distance_b_relative = load_parameter[5]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_2x2":
-            try:
-                len(load_parameter)==7
-            except:
-                raise Exception("WARNING: Load parameter array length should be 7 for LOAD_DISTRIBUTION_CONCENTRATED_2x2. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 7:
+                raise ValueError("WARNING: Load parameter array length should be 7 for LOAD_DISTRIBUTION_CONCENTRATED_2x2. Kindly check list inputs completeness and correctness.")
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
             clientObject.distance_c_is_defined_as_relative = load_parameter[2]
@@ -530,10 +512,8 @@ class MemberSetLoad():
                 clientObject.distance_c_relative = load_parameter[6]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_2":
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")
 
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
@@ -551,14 +531,10 @@ class MemberSetLoad():
                 clientObject.distance_b_relative = load_parameter[5]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_VARYING":
-            try:
-                len(load_parameter[0])==3
-            except:
-                print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
             clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
-
             for i,j in enumerate(load_parameter):
+                if len(load_parameter[i]) != 3:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
@@ -573,10 +549,8 @@ class MemberSetLoad():
                 clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_TRAPEZOIDAL":
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
             clientObject.magnitude_1 = load_parameter[2]
@@ -593,10 +567,8 @@ class MemberSetLoad():
                 clientObject.distance_b_relative = load_parameter[5]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_TAPERED":
-            try:
-                len(load_parameter)==4
-            except:
-                raise Exception("WARNING: Load parameter array length should be 4 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 4 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
             clientObject.magnitude_1 = load_parameter[2]
@@ -613,22 +585,17 @@ class MemberSetLoad():
                 clientObject.distance_b_relative = load_parameter[5]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_PARABOLIC":
-            try:
-                len(load_parameter)==3
-            except:
-                raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 3:
+                raise ValueError("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
             clientObject.magnitude_3 = load_parameter[2]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
-            try:
-                len(load_parameter[0])==3
-            except:
-                print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
             clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
+                if len(load_parameter[i]) != 3:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
@@ -700,7 +667,7 @@ class MemberSetLoad():
 
         # Individual Mass Components
         if not isinstance(individual_mass_components, bool):
-            raise Exception("WARNING: Type of individual mass components should be bool. Kindly check inputs correctness.")
+            raise ValueError("WARNING: Type of individual mass components should be bool. Kindly check inputs correctness.")
         clientObject.individual_mass_components = individual_mass_components
 
         # Mass magnitude
@@ -787,25 +754,21 @@ class MemberSetLoad():
 
         #Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            try:
-                len(load_parameter)==2
-            except:
-                raise Exception("WARNING: Load parameter array length should be 2 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) !=2:
+                raise ValueError("WARNING: Load parameter array length should be 2 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_t_b = load_parameter[0]
             clientObject.magnitude_t_t = load_parameter[1]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
-            try:
-                len(load_parameter)==8
-            except:
-                raise Exception("WARNING: Load parameter array length should be 8 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 8:
+                raise ValueError("WARNING: Load parameter array length should be 8 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_t_b_1 = load_parameter[0]
             clientObject.magnitude_t_b_2 = load_parameter[1]
             clientObject.magnitude_t_t_1 = load_parameter[2]
             clientObject.magnitude_t_t_2 = load_parameter[3]
 
             if not isinstance(load_over_total_length, bool):
-                raise Exception("WARNING: Type of load over total length should be bool. Kindly check inputs correctness.")
+                raise ValueError("WARNING: Type of load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
 
@@ -826,17 +789,15 @@ class MemberSetLoad():
                 clientObject.load_is_over_total_length = True
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
-            try:
-                len(load_parameter)==8
-            except:
-                raise Exception("WARNING: Load parameter array length should be 8 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 8:
+                raise ValueError("WARNING: Load parameter array length should be 8 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_t_b_1 = load_parameter[0]
             clientObject.magnitude_t_b_2 = load_parameter[1]
             clientObject.magnitude_t_t_1 = load_parameter[2]
             clientObject.magnitude_t_t_2 = load_parameter[3]
 
             if not isinstance(load_parameter[4], bool):
-                raise Exception("WARNING: Type of the fourth load parameter should be bool. Kindly check inputs correctness.")
+                raise ValueError("WARNING: Type of the fourth load parameter should be bool. Kindly check inputs correctness.")
 
             if load_parameter[4] == True:
                 clientObject.distance_a_is_defined_as_relative = True
@@ -846,7 +807,7 @@ class MemberSetLoad():
                 clientObject.distance_a_absolute = load_parameter[6]
 
             if not isinstance(load_parameter[5], bool):
-                raise Exception("WARNING: Type of the fifth load parameter should be bool. Kindly check inputs correctness.")
+                raise ValueError("WARNING: Type of the fifth load parameter should be bool. Kindly check inputs correctness.")
 
             if load_parameter[5] == True:
                 clientObject.distance_b_is_defined_as_relative = True
@@ -856,10 +817,8 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[7]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_t_b_1 = load_parameter[0]
             clientObject.magnitude_t_b_2 = load_parameter[1]
             clientObject.magnitude_t_b_3 = load_parameter[2]
@@ -868,13 +827,10 @@ class MemberSetLoad():
             clientObject.magnitude_t_t_3 = load_parameter[5]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
-            try:
-                len(load_parameter[0])==4
-            except:
-                print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
             clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
+                if len(load_parameter[i]) != 4:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
@@ -964,25 +920,21 @@ class MemberSetLoad():
 
         #Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            try:
-                len(load_parameter)==2
-            except:
-                raise Exception("WARNING: Load parameter array length should be 2 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) !=2:
+                raise ValueError("WARNING: Load parameter array length should be 2 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_delta_t = load_parameter[0]
             clientObject.magnitude_t_c = load_parameter[1]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
-            try:
-                len(load_parameter)==8
-            except:
-                raise Exception("WARNING: Load parameter array length should be 8 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 8:
+                raise ValueError("WARNING: Load parameter array length should be 8 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_delta_t_1 = load_parameter[0]
             clientObject.magnitude_delta_t_2 = load_parameter[1]
             clientObject.magnitude_t_c_1 = load_parameter[2]
             clientObject.magnitude_t_c_2 = load_parameter[3]
 
             if not isinstance(load_over_total_length, bool):
-                raise Exception("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
+                raise ValueError("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
 
@@ -1003,10 +955,8 @@ class MemberSetLoad():
                 clientObject.load_is_over_total_length = True
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
-            try:
-                len(load_parameter)==8
-            except:
-                raise Exception("WARNING: Load parameter array length should be 8 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 8:
+                raise ValueError("WARNING: Load parameter array length should be 8 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_delta_t_1 = load_parameter[0]
             clientObject.magnitude_delta_t_2 = load_parameter[1]
             clientObject.magnitude_t_c_1 = load_parameter[2]
@@ -1027,10 +977,8 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[7]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_delta_t_1 = load_parameter[0]
             clientObject.magnitude_delta_t_2 = load_parameter[1]
             clientObject.magnitude_delta_t_3 = load_parameter[2]
@@ -1039,13 +987,10 @@ class MemberSetLoad():
             clientObject.magnitude_t_c_3 = load_parameter[5]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
-            try:
-                len(load_parameter[0])==4
-            except:
-                print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
             clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
+                if len(load_parameter[i]) != 4:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
@@ -1135,22 +1080,18 @@ class MemberSetLoad():
 
         #Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            try:
-                len(load_parameter)==1
-            except:
-                raise Exception("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 1:
+                raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
             if not isinstance(load_over_total_length, bool):
-                raise Exception("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
+                raise ValueError("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
 
@@ -1171,10 +1112,8 @@ class MemberSetLoad():
                 clientObject.load_is_over_total_length = True
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
@@ -1193,22 +1132,17 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[5]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
-            try:
-                len(load_parameter)==3
-            except:
-                raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 3:
+                raise ValueError("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
             clientObject.magnitude_3 = load_parameter[2]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
-            try:
-                len(load_parameter[0])==3
-            except:
-                print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
             clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
+                if len(load_parameter[i]) != 4:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
@@ -1358,22 +1292,18 @@ class MemberSetLoad():
 
         #Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            try:
-                len(load_parameter)==1
-            except:
-                raise Exception("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 1:
+                raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
             if not isinstance(load_over_total_length, bool):
-                raise Exception("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
+                raise ValueError("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
 
@@ -1394,10 +1324,8 @@ class MemberSetLoad():
                 clientObject.load_is_over_total_length = True
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
 
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
@@ -1417,22 +1345,17 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[5]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
-            try:
-                len(load_parameter)==3
-            except:
-                raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 3:
+                raise ValueError("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
             clientObject.magnitude_3 = load_parameter[2]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
-            try:
-                len(load_parameter[0])==3
-            except:
-                print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
             clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
+                if len(load_parameter[i]) != 3:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
@@ -1589,17 +1512,13 @@ class MemberSetLoad():
 
         #Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            try:
-                len(load_parameter)==1
-            except:
-                raise Exception("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 1:
+                raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1:
-            try:
-                len(load_parameter)==3
-            except:
-                raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_CONCENTRATED_1. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 3:
+                raise ValueError("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_CONCENTRATED_1. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
             clientObject.distance_a_is_defined_as_relative = load_parameter[1]
             if load_parameter[1]:
@@ -1608,10 +1527,8 @@ class MemberSetLoad():
                 clientObject.distance_a_absolute = load_parameter[2]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N:
-            try:
-                len(load_parameter)==5
-            except:
-                raise Exception("WARNING: Load parameter array length should be 5 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 5:
+                raise ValueError("WARNING: Load parameter array length should be 5 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
             clientObject.distance_a_is_defined_as_relative = load_parameter[1]
             clientObject.distance_b_is_defined_as_relative = load_parameter[2]
@@ -1627,10 +1544,8 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[4]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2:
-            try:
-                len(load_parameter)==7
-            except:
-                raise Exception("WARNING: Load parameter array length should be 7 for LOAD_DISTRIBUTION_CONCENTRATED_2x2. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 7:
+                raise ValueError("WARNING: Load parameter array length should be 7 for LOAD_DISTRIBUTION_CONCENTRATED_2x2. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
             clientObject.distance_a_is_defined_as_relative = load_parameter[1]
             clientObject.distance_b_is_defined_as_relative = load_parameter[2]
@@ -1652,10 +1567,8 @@ class MemberSetLoad():
                 clientObject.distance_c_absolute = load_parameter[6]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
@@ -1673,13 +1586,10 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[5]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
-            try:
-                len(load_parameter[0])==3
-            except:
-                print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
             clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
+                if len(load_parameter[i]) != 3:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
@@ -1694,15 +1604,13 @@ class MemberSetLoad():
                 clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
             if not isinstance(load_over_total_length, bool):
-                raise Exception("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
+                raise ValueError("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
 
@@ -1723,10 +1631,8 @@ class MemberSetLoad():
                 clientObject.load_is_over_total_length = True
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
@@ -1744,22 +1650,17 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[5]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
-            try:
-                len(load_parameter)==3
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 3:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
             clientObject.magnitude_3 = load_parameter[2]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-            try:
-                len(load_parameter[0])==3
-            except:
-                print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
             clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
+                if len(load_parameter[i]) != 3:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
@@ -1856,17 +1757,13 @@ class MemberSetLoad():
 
         #Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            try:
-                len(load_parameter)==1
-            except:
-                raise Exception("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 1:
+                raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1:
-            try:
-                len(load_parameter) ==  3
-            except:
-                raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_CONCENTRATED_1. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 3:
+                raise ValueError("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_CONCENTRATED_1. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
             clientObject.distance_a_is_defined_as_relative = load_parameter[1]
             if load_parameter[1]:
@@ -1875,10 +1772,8 @@ class MemberSetLoad():
                 clientObject.distance_a_absolute = load_parameter[2]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N:
-            try:
-                len(load_parameter) ==  5
-            except:
-                raise Exception("WARNING: Load parameter array length should be 5 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 5:
+                raise ValueError("WARNING: Load parameter array length should be 5 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
             clientObject.distance_a_is_defined_as_relative = load_parameter[1]
             clientObject.distance_b_is_defined_as_relative = load_parameter[2]
@@ -1894,10 +1789,8 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[4]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2:
-            try:
-                len(load_parameter) ==  7
-            except:
-                raise Exception("WARNING: Load parameter array length should be 7 for LOAD_DISTRIBUTION_CONCENTRATED_2x2. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 7:
+                raise ValueError("WARNING: Load parameter array length should be 7 for LOAD_DISTRIBUTION_CONCENTRATED_2x2. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
             clientObject.distance_a_is_defined_as_relative = load_parameter[1]
             clientObject.distance_b_is_defined_as_relative = load_parameter[2]
@@ -1919,10 +1812,8 @@ class MemberSetLoad():
                 clientObject.distance_c_absolute = load_parameter[6]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
-            try:
-                len(load_parameter) ==  6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
@@ -1940,13 +1831,10 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[5]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
-            try:
-                len(load_parameter[0])==3
-            except:
-                print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
             clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
+                if len(load_parameter[i]) != 3:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]
@@ -1961,15 +1849,13 @@ class MemberSetLoad():
                 clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
-            try:
-                len(load_parameter) ==  6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
             if not isinstance(load_over_total_length, bool):
-                raise Exception("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
+                raise ValueError("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
 
@@ -1990,10 +1876,8 @@ class MemberSetLoad():
                 clientObject.load_is_over_total_length = True
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
-            try:
-                len(load_parameter) ==  6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
@@ -2011,22 +1895,17 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[5]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
-            try:
-                len(load_parameter) ==  3
-            except:
-                raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 3:
+                raise ValueError("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
             clientObject.magnitude_3 = load_parameter[2]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-            try:
-                len(load_parameter[0])==3
-            except:
-                print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
             clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
+                if len(load_parameter[i]) != 3:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row.distance = load_parameter[i][0]

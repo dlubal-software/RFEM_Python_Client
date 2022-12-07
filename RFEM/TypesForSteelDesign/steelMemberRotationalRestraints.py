@@ -59,7 +59,7 @@ class SteelMemberRotationalRestraint():
         # Deducing RFEM Language from steel_design_addon String:
         modelInfo = Model.clientModel.service.get_model_info()
         if modelInfo.property_addon_steel_design.split()[0] != 'Steel':
-            raise Exception("WARNING: The steelMemberRotationalRestraints operates with the RFEM Application set to English. Kindly switch RFEM to English such that Database searches can completed successfully.")
+            raise ValueError("WARNING: The steelMemberRotationalRestraints operates with the RFEM Application set to English. Kindly switch RFEM to English such that Database searches can completed successfully.")
 
         # Check if Steel Design Add-on is ON.
         if not GetAddonStatus(model.clientModel, AddOn.steel_design_active):

@@ -65,7 +65,7 @@ class ModalAnalysisSettings():
             clientObject.acting_masses_in_direction_y_enabled = acting_masses[4]
             clientObject.acting_masses_in_direction_z_enabled = acting_masses[5]
         else:
-            raise Exception('WARNING: The acting masses array needs to be of length 6. Kindly check list inputs for completeness and correctness.')
+            raise ValueError('WARNING: The acting masses array needs to be of length 6. Kindly check list inputs for completeness and correctness.')
 
         # Neglect Masses
         clientObject.neglect_masses = neglect_masses.name

@@ -1,3 +1,4 @@
+from multiprocessing.sharedctypes import Value
 from RFEM.initModel import Model, clearAttributes, ConvertToDlString, GetAddonStatus, SetAddonStatus
 from RFEM.enums import *
 
@@ -26,7 +27,7 @@ class TimberMemberRotationalRestraint():
         # Deducing RFEM Language from timber_design_addon String:
         modelInfo = Model.clientModel.service.get_model_info()
         if modelInfo.property_addon_timber_design.split()[0] != 'Timber':
-            raise Exception("WARNING: The TimberMemberRotationalRestraints operates with the RFEM Application set to English. Kindly switch RFEM to English such that Database searches can completed successfully.")
+            raise ValueError("WARNING: The TimberMemberRotationalRestraints operates with the RFEM Application set to English. Kindly switch RFEM to English such that Database searches can completed successfully.")
 
         # Check if Timber Design Add-on is ON.
         if not GetAddonStatus(model.clientModel, AddOn.timber_design_active):

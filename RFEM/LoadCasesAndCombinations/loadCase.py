@@ -46,25 +46,22 @@ class LoadCase():
 
         # Action Category
         if action_category.name not in LoadCasesAndCombinations.getAvailableLoadActionCategoryTypes():
-            raise Exception('WARNING: The selected Action Category is not available under the defined Standard.')
+            raise ValueError('WARNING: The selected Action Category is not available under the defined Standard.')
         clientObject.action_category = action_category.name
 
         # Self-weight Considerations
         clientObject.self_weight_active = self_weight[0]
         if not isinstance(self_weight[0], bool):
-            raise Exception(
-                'WARNING: Entry at index 0 of Self-Weight parameter to be of type bool')
+            raise ValueError('WARNING: Entry at index 0 of Self-Weight parameter to be of type bool')
         if self_weight[0]:
             if len(self_weight) != 4:
-                raise Exception(
-                    'WARNING: Self-weight is activated and therefore requires a list definition of length 4. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: Self-weight is activated and therefore requires a list definition of length 4. Kindly check list inputs for completeness and correctness.')
             clientObject.self_weight_factor_x = self_weight[1]
             clientObject.self_weight_factor_y = self_weight[2]
             clientObject.self_weight_factor_z = self_weight[3]
         else:
             if len(self_weight) != 1:
-                raise Exception(
-                    'WARNING: Self-weight is deactivated and therefore requires a list definition of length 1. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: Self-weight is deactivated and therefore requires a list definition of length 1. Kindly check list inputs for completeness and correctness.')
 
         # Comment
         clientObject.comment = comment
@@ -126,25 +123,22 @@ class LoadCase():
 
         # Action Category
         if action_category.name not in LoadCasesAndCombinations.getAvailableLoadActionCategoryTypes():
-            raise Exception('WARNING: The selected Action Category is not available under the defined Standard.')
+            raise ValueError('WARNING: The selected Action Category is not available under the defined Standard.')
         clientObject.action_category = action_category.name
 
         # Self-weight Considerations
         clientObject.self_weight_active = self_weight[0]
         if not isinstance(self_weight[0], bool):
-            raise Exception(
-                'WARNING: Entry at index 0 of Self-Weight parameter to be of type bool')
+            raise ValueError('WARNING: Entry at index 0 of Self-Weight parameter to be of type bool')
         if self_weight[0]:
             if len(self_weight) != 4:
-                raise Exception(
-                    'WARNING: Self-weight is activated and therefore requires a list definition of length 4. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: Self-weight is activated and therefore requires a list definition of length 4. Kindly check list inputs for completeness and correctness.')
             clientObject.self_weight_factor_x = self_weight[1]
             clientObject.self_weight_factor_y = self_weight[2]
             clientObject.self_weight_factor_z = self_weight[3]
         else:
             if len(self_weight) != 1:
-                raise Exception(
-                    'WARNING: Self-weight is deactivated and therefore requires a list definition of length 1. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: Self-weight is deactivated and therefore requires a list definition of length 1. Kindly check list inputs for completeness and correctness.')
 
         # Comment
         clientObject.comment = comment

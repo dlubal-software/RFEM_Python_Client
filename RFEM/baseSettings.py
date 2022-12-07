@@ -35,7 +35,7 @@ class BaseSettings():
 
         # Tolerances
         if len(tolerances) != 4:
-            raise Exception("WARNING:Expected size of the array. Kindly check the list correctness.")
+            raise ValueError("WARNING:Expected size of the array. Kindly check the list correctness.")
 
         clientObject.tolerance_for_nodes = tolerances[0]
         clientObject.tolerance_for_lines = tolerances[1]

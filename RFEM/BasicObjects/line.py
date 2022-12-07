@@ -443,7 +443,7 @@ class Line():
         # Order
         if control_points and weights and order:
             if len(control_points) != len(weights):
-                print("WARNING: The number of weigths prescribed must equal the number of control points defined.")
+                raise ValueError("WARNING: The number of weigths prescribed must equal the number of control points defined.")
             clientObject.nurbs_order = order
 
             # TODO: bug 24721
