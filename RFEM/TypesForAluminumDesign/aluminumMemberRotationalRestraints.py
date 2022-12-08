@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString, SetAddonStatus
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, SetAddonStatus
 from RFEM.enums import *
 
 class AluminumMemberRotationalRestraint():
@@ -128,5 +128,8 @@ class AluminumMemberRotationalRestraint():
             for key in params:
                 clientObject[key] = params[key]
 
-        # Adding Aluminum Member Rotational Restraint to Client Model
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
+        # Add Aluminum Member Rotational Restraint to Client Model
         model.clientModel.service.set_aluminum_member_rotational_restraint(clientObject)

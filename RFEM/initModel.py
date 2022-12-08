@@ -198,6 +198,21 @@ def clearAttributes(obj):
         obj[i[0]] = None
     return obj
 
+def deleteEmptyAttributes(obj):
+    '''
+    Delete all attributes that are None for better performance.
+
+    Args:
+        obj: object to clear
+    '''
+
+    # iterator
+    it = iter(obj)
+    for i in it:
+        if obj[i[0]] is None:
+            delattr(obj, i[0])
+    return obj
+
 def openFile(model_path):
     '''
     Open file with a name.

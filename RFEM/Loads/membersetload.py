@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import MemberSetLoadType, LoadDirectionType, MemberSetLoadDistribution, MemberSetLoadDirection, MemberSetLoadDirectionOrientation
 from RFEM.enums import MemberSetLoadEccentricityHorizontalAlignment, MemberSetLoadEccentricityVerticalAlignment, MemberSetLoadEccentricitySectionMiddle
 from RFEM.enums import MemberSetLoadAxisDefinitionType, MemberSetLoadAxisDefinitionAxisOrientation, MemberSetLoadAxisDefinition
@@ -62,6 +62,9 @@ class MemberSetLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Load Member Load to client model
         model.clientModel.service.set_member_set_load(load_case_no, clientObject)
@@ -384,6 +387,9 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
         model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
@@ -620,6 +626,9 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
         model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
@@ -685,6 +694,9 @@ class MemberSetLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Load Member Load to client model
         model.clientModel.service.set_member_set_load(load_case_no, clientObject)
@@ -852,6 +864,9 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
         model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
@@ -1012,6 +1027,9 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
         model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
@@ -1164,6 +1182,9 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
         model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
@@ -1223,6 +1244,9 @@ class MemberSetLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Load Member Load to client model
         model.clientModel.service.set_member_set_load(load_case_no, clientObject)
@@ -1377,6 +1401,9 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
         model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
@@ -1436,6 +1463,9 @@ class MemberSetLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Load Member Load to client model
         model.clientModel.service.set_member_set_load(load_case_no, clientObject)
@@ -1682,6 +1712,9 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
         model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
@@ -1927,6 +1960,9 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
         model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
@@ -1989,6 +2025,9 @@ class MemberSetLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Load Member Load to client model
         model.clientModel.service.set_member_set_load(load_case_no, clientObject)
@@ -2058,6 +2097,9 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
         model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
@@ -2115,6 +2157,9 @@ class MemberSetLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Load Member Load to client model
         model.clientModel.service.set_member_set_load(load_case_no, clientObject)
@@ -2203,6 +2248,9 @@ class MemberSetLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Load Member Load to client model
         model.clientModel.service.set_member_set_load(load_case_no, clientObject)

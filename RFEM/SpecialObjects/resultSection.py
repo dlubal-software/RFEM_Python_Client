@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import ResultSectionType, ResultSectionProjection, ResultSectionResultDirection
 
 class ResultSection():
@@ -84,6 +84,9 @@ class ResultSection():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Result Section to client model
         model.clientModel.service.set_result_section(clientObject)
@@ -176,6 +179,9 @@ class ResultSection():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Result Section to client model
         model.clientModel.service.set_result_section(clientObject)
 
@@ -243,6 +249,9 @@ class ResultSection():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Result Section to client model
         model.clientModel.service.set_result_section(clientObject)

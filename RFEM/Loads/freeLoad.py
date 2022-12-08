@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import FreeConcentratedLoadLoadType, FreeConcentratedLoadLoadDirection, FreeLoadLoadProjection
 from RFEM.enums import FreeLineLoadLoadDistribution, FreeLineLoadLoadDirection, FreeRectangularLoadLoadDistribution
 from RFEM.enums import FreeRectangularLoadLoadDirection, FreeRectangularLoadLoadLocationRectangle, FreeCircularLoadLoadDistribution
@@ -78,6 +78,9 @@ class FreeLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Free Concentrated Load to client model
         model.clientModel.service.set_free_concentrated_load(load_case_no, clientObject)
@@ -163,6 +166,9 @@ class FreeLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Free Concentrated Load to client model
         model.clientModel.service.set_free_line_load(load_case_no, clientObject)
@@ -439,6 +445,9 @@ class FreeLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Free Concentrated Load to client model
         model.clientModel.service.set_free_rectangular_load(load_case_no, clientObject)
 
@@ -522,6 +531,9 @@ class FreeLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Free Concentrated Load to client model
         model.clientModel.service.set_free_circular_load(load_case_no, clientObject)
@@ -631,6 +643,9 @@ class FreeLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Free Concentrated Load to client model
         model.clientModel.service.set_free_polygon_load(load_case_no, clientObject)

@@ -1,5 +1,5 @@
 from RFEM.enums import MemberNonlinearityType
-from RFEM.initModel import ConvertToDlString, Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString, deleteEmptyAttributes
 
 class MemberNonlinearity():
     def __init__(self,
@@ -56,6 +56,9 @@ class MemberNonlinearity():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Member Nonlinearity to client model
         model.clientModel.service.set_member_nonlinearity(clientObject)

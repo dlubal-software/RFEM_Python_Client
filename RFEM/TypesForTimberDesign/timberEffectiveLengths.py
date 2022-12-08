@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import TimberEffectiveLengthsSupportType, TimberEffectiveLengthsEccentricityType, TimberEffectiveLengthsSupportTypeInY, \
     TimberEffectiveLengthsRestraintTypeAboutX, TimberEffectiveLengthsDeterminationType
 
@@ -141,6 +141,9 @@ class TimberEffectiveLengths():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Timber Effective Lengths to client model
         model.clientModel.service.set_timber_effective_lengths(clientObject)

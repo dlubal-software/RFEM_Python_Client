@@ -1,5 +1,5 @@
 from RFEM.enums import MemberStiffnessModificationType
-from RFEM.initModel import ConvertToDlString, Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString, deleteEmptyAttributes
 
 class MemberStiffnessModification():
     def __init__(self,
@@ -99,6 +99,9 @@ class MemberStiffnessModification():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Member Stiffness Modification to client model
         model.clientModel.service.set_member_stiffness_modification(clientObject)

@@ -1,7 +1,7 @@
 from RFEM.enums import NodeType
 from RFEM.enums import NodeCoordinateSystemType
 from RFEM.enums import NodeReferenceType, ObjectTypes
-from RFEM.initModel import Model, clearAttributes, ConvertStrToListOfInt
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertStrToListOfInt
 from math import pi
 
 class Node():
@@ -45,6 +45,9 @@ class Node():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Node to client model
         model.clientModel.service.set_node(clientObject)
@@ -133,6 +136,9 @@ class Node():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Node to client model
         model.clientModel.service.set_node(clientObject)
 
@@ -213,6 +219,9 @@ class Node():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Node to client model
         model.clientModel.service.set_node(clientObject)
@@ -301,6 +310,9 @@ class Node():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Node to client model
         model.clientModel.service.set_node(clientObject)
 
@@ -366,6 +378,9 @@ class Node():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Node to client model
         model.clientModel.service.set_node(clientObject)
 
@@ -430,6 +445,9 @@ class Node():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Node to client model
         model.clientModel.service.set_node(clientObject)

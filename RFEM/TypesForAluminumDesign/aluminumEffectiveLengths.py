@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import AluminumEffectiveLengthsDeterminationMcrEurope
 
 class AluminumEffectiveLengths():
@@ -103,6 +103,9 @@ class AluminumEffectiveLengths():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Aluminum Effective Lengths to client model
         model.clientModel.service.set_aluminum_effective_lengths(clientObject)

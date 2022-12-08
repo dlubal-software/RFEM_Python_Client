@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.dataTypes import inf
 from RFEM.enums import LineSupportType
 
@@ -97,6 +97,9 @@ class LineSupport():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Line Support to client model
         model.clientModel.service.set_line_support(clientObject)

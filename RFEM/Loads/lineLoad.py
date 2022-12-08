@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, ConvertToDlString, clearAttributes
+from RFEM.initModel import Model, ConvertToDlString, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import *
 
 class LineLoad():
@@ -61,6 +61,9 @@ class LineLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Load Line Load to client model
         model.clientModel.service.set_line_load(load_case_no, clientObject)
@@ -306,6 +309,9 @@ class LineLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Line Load to client model
         model.clientModel.service.set_line_load(load_case_no, clientObject)
 
@@ -548,6 +554,9 @@ class LineLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Line Load to client model
         model.clientModel.service.set_line_load(load_case_no, clientObject)
 
@@ -624,6 +633,9 @@ class LineLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Load Line Load to client model
         model.clientModel.service.set_line_load(load_case_no, clientObject)

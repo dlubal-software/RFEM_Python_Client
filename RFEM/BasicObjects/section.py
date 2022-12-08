@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertStrToListOfInt
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertStrToListOfInt
 from RFEM.enums import ObjectTypes
 
 class Section():
@@ -42,6 +42,9 @@ class Section():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Section to client model
         model.clientModel.service.set_section(clientObject)

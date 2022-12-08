@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import LineMeshRefinementsType
 
 class LineMeshRefinements():
@@ -49,6 +49,9 @@ class LineMeshRefinements():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Line Mesh Refinement to client model
         model.clientModel.service.set_line_mesh_refinement(clientObject)
@@ -102,6 +105,9 @@ class LineMeshRefinements():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line Mesh Refinement to client model
         model.clientModel.service.set_line_mesh_refinement(clientObject)
 
@@ -154,6 +160,9 @@ class LineMeshRefinements():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line Mesh Refinement to client model
         model.clientModel.service.set_line_mesh_refinement(clientObject)
 
@@ -205,6 +214,9 @@ class LineMeshRefinements():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Line Mesh Refinement to client model
         model.clientModel.service.set_line_mesh_refinement(clientObject)

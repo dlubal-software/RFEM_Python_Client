@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, ConvertToDlString, clearAttributes
+from RFEM.initModel import Model, ConvertToDlString, clearAttributes, deleteEmptyAttributes
 from RFEM.dataTypes import inf
 
 class SurfaceSupport():
@@ -55,6 +55,9 @@ class SurfaceSupport():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Surface Support to client model
         model.clientModel.service.set_surface_support(clientObject)

@@ -1,5 +1,5 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString, GetAddonStatus, SetAddonStatus
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, GetAddonStatus, SetAddonStatus
+from RFEM.enums import AddOn, SteelMemberRotationalRestraintType
 
 class SteelMemberRotationalRestraint():
     def __init__(self,
@@ -129,5 +129,8 @@ class SteelMemberRotationalRestraint():
             for key in params:
                 clientObject[key] = params[key]
 
-        # Adding Steel Member Rotational Restraint to Client Model
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
+        # Add Steel Member Rotational Restraint to Client Model
         model.clientModel.service.set_steel_member_rotational_restraint(clientObject)

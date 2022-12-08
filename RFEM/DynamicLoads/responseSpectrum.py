@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import ResponseSpectrumDefinitionType
 
 class ResponseSpectrum():
@@ -71,7 +71,10 @@ class ResponseSpectrum():
             for key in params:
                 clientObject[key] = params[key]
 
-        # add global parameter to client model
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
+        # Add global parameter to client model
         model.clientModel.service.set_response_spectrum(clientObject)
 
 
@@ -143,6 +146,9 @@ class ResponseSpectrum():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # add global parameter to client model
         model.clientModel.service.set_response_spectrum(clientObject)

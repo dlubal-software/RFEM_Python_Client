@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 
 class ImposedLineDeformation():
 
@@ -51,6 +51,9 @@ class ImposedLineDeformation():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Nodal Support to client model
         model.clientModel.service.set_imposed_line_deformation(load_case_no, clientObject)

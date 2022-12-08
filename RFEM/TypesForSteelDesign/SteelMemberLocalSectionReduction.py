@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import SteelMemberLocalSectionReductionType, MultipleOffsetDefinitionType, FastenerDefinitionType
 
 class SteelMemberLocalSectionReduction():
@@ -95,5 +95,8 @@ class SteelMemberLocalSectionReduction():
             for key in params:
                 clientObject[key] = params[key]
 
-        #Add Steel Member Local Section Reduction to Client Model
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
+        # Add Steel Member Local Section Reduction to Client Model
         model.clientModel.service.set_steel_member_local_section_reduction(clientObject)

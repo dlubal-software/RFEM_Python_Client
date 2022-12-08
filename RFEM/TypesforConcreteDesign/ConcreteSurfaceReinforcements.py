@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import SurfaceReinforcementLocationType, SurfaceReinforcementType, SurfaceReinforcementDirectionType, SurfaceReinforcementDesignDirection
 from math import pi
 
@@ -169,6 +169,9 @@ class ConcreteSurfaceReinforcements():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Global Parameter to client model
         model.clientModel.service.set_surface_reinforcement(clientObject)

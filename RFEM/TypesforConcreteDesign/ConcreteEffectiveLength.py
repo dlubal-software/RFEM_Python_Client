@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import *
 
 class ConcreteEffectiveLength():
@@ -97,6 +97,9 @@ class ConcreteEffectiveLength():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Global Parameter to client model
         model.clientModel.service.set_concrete_effective_lengths(clientObject)
