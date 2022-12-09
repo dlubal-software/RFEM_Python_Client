@@ -12,7 +12,6 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsS
 
 from MyRFEM import *
 
-# TODO 17: Transfer the loads to RFEM in MyRFEM
 # TODO 24: Write load combinations in RFEM in MyRFEM
 # TODO 21: Set the right Action Category
 # TODO 22: The loads in UI should save in config.json and restore after start

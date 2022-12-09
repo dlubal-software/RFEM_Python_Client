@@ -6,7 +6,7 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.enums import NodalSupportType, MemberLoadDirection
+from RFEM.enums import NodalSupportType, MemberLoadDirection, AnalysisType
 from RFEM.initModel import Model, insertSpaces
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.material import Material
@@ -16,6 +16,7 @@ from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.LoadCasesAndCombinations.loadCombination import LoadCombination
 from RFEM.Loads.memberLoad import MemberLoad
 from RFEM.dataTypes import inf
 class MyRFEM():
@@ -163,9 +164,24 @@ class MyRFEM():
         MemberLoad(1, 3, '9-11', MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, magnitude)
 
         # Create load combinations
+        LoadCombination(1, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1.35, 1, 1, False]])
+        LoadCombination(2, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1.35, 1, 1, False], [1.5, 2, 2, True]])
+        LoadCombination(3, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1.35, 1, 1, False], [1.5, 2, 2, True], [1.05, 3, 3, False]])
+        LoadCombination(4, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1.35, 1, 1, False], [1.5, 3, 3, True]])
+        LoadCombination(5, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1.35, 1, 1, False], [0.75, 2, 2, False], [1.5, 3, 3, True]])
+        LoadCombination(6, AnalysisType.ANALYSIS_TYPE_STATIC, 2, '', 2, False, False, False, True, [[1.0, 1, 1, False]])
+        LoadCombination(7, AnalysisType.ANALYSIS_TYPE_STATIC, 2, '', 2, False, False, False, True, [[1.0, 1, 1, False], [1.0, 2, 2, True]])
+        LoadCombination(8, AnalysisType.ANALYSIS_TYPE_STATIC, 2, '', 2, False, False, False, True, [[1.0, 1, 1, False], [1.0, 2, 2, True], [0.7, 3, 3, False]])
+        LoadCombination(8, AnalysisType.ANALYSIS_TYPE_STATIC, 2, '', 2, False, False, False, True, [[1.0, 1, 1, False], [1.0, 2, 2, True], [0.7, 3, 3, False]])
+        LoadCombination(9, AnalysisType.ANALYSIS_TYPE_STATIC, 2, '', 2, False, False, False, True, [[1.0, 1, 1, False], [1.0, 3, 3, True]])
+        LoadCombination(10, AnalysisType.ANALYSIS_TYPE_STATIC, 2, '', 2, False, False, False, True, [[1.0, 1, 1, False], [0.5, 2, 2, False], [1.0, 3, 3, True]])
+        LoadCombination(11, AnalysisType.ANALYSIS_TYPE_STATIC, 3, '', 2, False, False, False, True, [[1.0, 1, 1, False]])
+        LoadCombination(12, AnalysisType.ANALYSIS_TYPE_STATIC, 3, '', 2, False, False, False, True, [[1.0, 1, 1, False], [0.2, 2, 2, True]])
+        LoadCombination(13, AnalysisType.ANALYSIS_TYPE_STATIC, 3, '', 2, False, False, False, True, [[1.0, 1, 1, False], [0.2, 2, 2, True], [0.3, 3, 3, False]])
+        LoadCombination(14, AnalysisType.ANALYSIS_TYPE_STATIC, 3, '', 2, False, False, False, True, [[1.0, 1, 1, False], [0.3, 3, 3, True]])
+        LoadCombination(15, AnalysisType.ANALYSIS_TYPE_STATIC, 4, '', 2, False, False, False, True, [[1.0, 1, 1, False]])
+        LoadCombination(16, AnalysisType.ANALYSIS_TYPE_STATIC, 4, '', 2, False, False, False, True, [[1.0, 1, 1, False], [0.3, 3, 3, True]])
 
-
-        
         Model.clientModel.service.finish_modification()
 
 
