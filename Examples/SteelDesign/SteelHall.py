@@ -18,6 +18,8 @@ from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.TypesForSteelDesign.steelEffectiveLengths import SteelEffectiveLengths
 from RFEM.TypesForSteelDesign.steelBoundaryConditions import SteelBoundaryConditions
 from RFEM.TypesForSteelDesign.steelMemberShearPanel import SteelMemberShearPanel
+from RFEM.Imperfections.imperfectionCase import ImperfectionCase
+from RFEM.Imperfections.memberImperfection import MemberImperfection
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
@@ -52,7 +54,7 @@ if __name__ == '__main__':
     Material(3)
     Section(1, 'IPE 500', 1)
     Section(2, 'IPE 300', 2)
-    Section(3, 'L 20x20x3', 3)
+    Section(3, 'R 40', 3)
     i = 0
     for j in range(frame_number):
 
@@ -75,8 +77,8 @@ if __name__ == '__main__':
         Member(i+1, k+1, k+2, 0, 1, 1)
         Member(i+2, k+2, k+3, 0, 1, 1)
         Member(i+3, k+3, k+4, 0, 1, 1)
-        Member(i+4, k+4, k+5, 0, 1, 1)
-        Member(i+5, k+5, k+6, 0, 1, 1)
+        Member(i+4, k+5, k+4, 0, 1, 1)
+        Member(i+5, k+6, k+5, 0, 1, 1)
         Member(i+6, k+1, k+7, 0, 1, 1)
         Member(i+7, k+5, k+8, 0, 1, 1)
         i, k = i+13, k+9
@@ -206,6 +208,17 @@ if __name__ == '__main__':
         k = k + 9
 
     NodalSupport(1, insertSpaces(nodes_no), NodalSupportType.HINGED)
+
+    # Imperfections
+    ImperfectionCase(1, ImperfectionType.IMPERFECTION_TYPE_LOCAL_IMPERFECTIONS, '4', assign_to_combinations_without_assigned_imperfection_case=True, active= True, params={'user_defined_name_enabled': True, 'name': 'Imp in X'})
+    ImperfectionCase(2, ImperfectionType.IMPERFECTION_TYPE_LOCAL_IMPERFECTIONS, '5', assign_to_combinations_without_assigned_imperfection_case=True, active= True, params={'user_defined_name_enabled': True, 'name': 'Imp in Y'})
+
+    # Member Imperfections
+    n, k = 0, 0
+    for j in range(frame_number):
+        MemberImperfection(n+1, 1, str(k+1)+' '+str(k+2)+' '+str(k+5)+' '+str(k+6), MemberImperfectionType.IMPERFECTION_TYPE_INITIAL_SWAY, MemberImperfectionDefinitionType.DEFINITION_TYPE_EN_1993_1_1, ImperfectionDirection.IMPERFECTION_DIRECTION_LOCAL_Z, [None, column_height, 2, None, None, None, None])
+        MemberImperfection(n+1, 2, str(k+1)+' '+str(k+2)+' '+str(k+5)+' '+str(k+6), MemberImperfectionType.IMPERFECTION_TYPE_INITIAL_SWAY, MemberImperfectionDefinitionType.DEFINITION_TYPE_EN_1993_1_1, ImperfectionDirection.IMPERFECTION_DIRECTION_LOCAL_Y, [None, column_height, frame_number, None, None, None, None])
+        n, k = n+1, k+13
 
     # Steel Effective Lengths
     n, k, l = 0, 0, 0
