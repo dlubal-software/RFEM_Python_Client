@@ -52,9 +52,9 @@ if __name__ == '__main__':
     Material(1, 'S235')
     Material(2)
     Material(3)
-    Section(1, 'IPE 500', 1)
-    Section(2, 'IPE 300', 2)
-    Section(3, 'R 40', 3)
+    Section(1, 'HEA 300', 1)
+    Section(2, 'IPE 240', 2)
+    Section(3, 'R 30', 3)
     i = 0
     for j in range(frame_number):
 
@@ -338,4 +338,4 @@ if __name__ == '__main__':
 
     Model.clientModel.service.finish_modification()
 
-    # Calculate_all()
+    Calculate_all()
