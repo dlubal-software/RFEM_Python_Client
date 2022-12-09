@@ -12,9 +12,9 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsS
 
 from MyRFEM import *
 
+# TODO 22: The loads in UI should save in config.json and restore after start
 # TODO 24: Write load combinations in RFEM in MyRFEM
 # TODO 21: Set the right Action Category
-# TODO 22: The loads in UI should save in config.json and restore after start
 # TODO 20: Read the data from load tab into the calculation_model and calculate it
 # TODO 18: Read the date from load tab into the graphic_model
 # TODO 19: Draw the loads
@@ -56,7 +56,7 @@ class MyWindow(QMainWindow):
 
         self.readConfig()
 
-        # Fill the LineEdits with the values form config
+        # Fill the LineEdits for structure with the values form config
         self.ui.lineEdit_l_1.setText(self.presets['dimensions'][0])
         self.ui.lineEdit_l_2.setText(self.presets['dimensions'][1])
         self.ui.lineEdit_l_3.setText(self.presets['dimensions'][2])
@@ -112,6 +112,13 @@ class MyWindow(QMainWindow):
         self.ui.comboBox_support_4.addItems(self.support_list)
         index = self.presets['supports'][3]
         self.ui.comboBox_support_4.setCurrentText(self.support_list[index])
+
+        # Fill the LineEdits for loads with the values form config
+        self.ui.lineEdit_g_r.setText(self.presets['loads']['self-weight'][0])
+        self.ui.lineEdit_g_s.setText(self.presets['loads']['self-weight'][1])
+        self.ui.lineEdit_g_w.setText(self.presets['loads']['self-weight'][2])
+        self.ui.lineEdit_s_r.setText(self.presets['loads']['snow'][0])
+        self.ui.lineEdit_p_s.setText(self.presets['loads']['slab'][0])
 
         # Slots for LineEdits
         self.ui.lineEdit_l_1.textChanged.connect(self.onChange_l_1)
