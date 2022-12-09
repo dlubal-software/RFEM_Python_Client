@@ -78,7 +78,7 @@ class ConcreteSurfaceReinforcements():
 
             clientObject.additional_transverse_reinforcement_enabled = reinforcement_type_parameters[2]
             if not isinstance(reinforcement_type_parameters[2], bool):
-                raise Exception("WARNING: Last parameter should be type bool for cover_offset. Kindly check list inputs completeness and correctness.")
+                raise ValueError("WARNING: Last parameter should be type bool for cover_offset. Kindly check list inputs completeness and correctness.")
 
             if reinforcement_type_parameters[2]:
                 clientObject.additional_rebar_diameter = reinforcement_type_parameters[3]
@@ -93,7 +93,7 @@ class ConcreteSurfaceReinforcements():
 
         # Concrete Cover Assignment
         if not isinstance(cover_offset[0], bool) and not isinstance(cover_offset[1], bool):
-            raise Exception("WARNING: First two parameters should be type bool for cover_offset. Kindly check list inputs completeness and correctness.")
+            raise ValueError("WARNING: First two parameters should be type bool for cover_offset. Kindly check list inputs completeness and correctness.")
         clientObject.alignment_top_enabled = cover_offset[0]
         clientObject.alignment_bottom_enabled = cover_offset[1]
 

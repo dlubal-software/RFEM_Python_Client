@@ -95,7 +95,7 @@ class Node():
         clientObject.coordinate_system_type = coordinate_system_type.name
 
         if len(coordinate_system) != 3:
-            raise Exception('WARNING: The coordinate system needs to be of length 3.')
+            raise ValueError('WARNING: The coordinate system needs to be of length 3.')
 
         if not all(isinstance(x, (int, float)) for x in coordinate_system):
             raise Exception ('WARNING: Coordinate system should be type "int" or "float".')

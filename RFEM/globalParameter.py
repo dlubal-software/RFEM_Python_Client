@@ -60,13 +60,13 @@ class GlobalParameter():
 
         if definition_type.name == 'DEFINITION_TYPE_FORMULA':
             if len(definition_parameter) != 1:
-                raise Exception('WARNING: The definition parameter needs to be of length 1. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The definition parameter needs to be of length 1. Kindly check list inputs for completeness and correctness.')
             clientObject.formula = definition_parameter[0]
 
         elif definition_type.name == 'DEFINITION_TYPE_OPTIMIZATION' or definition_type.name == 'DEFINITION_TYPE_OPTIMIZATION_ASCENDING' or definition_type.name == 'DEFINITION_TYPE_OPTIMIZATION_DESCENDING':
             SetAddonStatus(model.clientModel, AddOn.cost_estimation_active)
             if len(definition_parameter) != 4:
-                raise Exception('WARNING: The definition parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The definition parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
             clientObject.value = definition_parameter[0]
             clientObject.min = definition_parameter[1]
             clientObject.max = definition_parameter[2]
@@ -74,7 +74,7 @@ class GlobalParameter():
 
         elif definition_type.name == 'DEFINITION_TYPE_VALUE':
             if len(definition_parameter) != 1:
-                raise Exception('WARNING: The definition parameter needs to be of length 1. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The definition parameter needs to be of length 1. Kindly check list inputs for completeness and correctness.')
             clientObject.value = definition_parameter[0]
 
         # Comment
