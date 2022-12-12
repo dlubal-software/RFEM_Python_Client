@@ -1,5 +1,5 @@
 from RFEM.enums import SurfaceGeometry, SurfaceLoadDistributionDirection, SurfaceType, ObjectTypes
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString, ConvertStrToListOfInt
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, ConvertStrToListOfInt
 import math
 
 def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_type, geometry_type_parameters, thickness = None, comment = None, params = None, model = Model):
@@ -126,6 +126,9 @@ class Surface():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Surface to client model
         model.clientModel.service.set_surface(clientObject)
@@ -364,6 +367,9 @@ class Surface():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Surface to client model
         model.clientModel.service.set_surface(clientObject)

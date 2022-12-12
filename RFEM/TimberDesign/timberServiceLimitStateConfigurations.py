@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 
 class TimberDesignServiceLimitStateConfigurations():
 
@@ -58,6 +58,9 @@ class TimberDesignServiceLimitStateConfigurations():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Global Parameters to Client Model
         model.clientModel.service.set_timber_design_sls_configuration(clientObject)

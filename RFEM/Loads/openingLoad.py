@@ -1,5 +1,5 @@
-from RFEM.initModel import *
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString, deleteEmptyAttributes
+from RFEM.enums import OpeningLoadDistribution, OpeningLoadDirection
 
 class OpeningLoad():
 
@@ -74,6 +74,9 @@ class OpeningLoad():
         # Adding optional parameters via dictionary
         for key in params:
             clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Opening Load to client model
         Model.clientModel.service.set_opening_load(load_case_no, clientObject)

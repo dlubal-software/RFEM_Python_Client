@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString, ConvertStrToListOfInt
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, ConvertStrToListOfInt
 from RFEM.enums import LineType, LineArcAlphaAdjustmentTarget, ObjectTypes
 
 class Line():
@@ -37,6 +37,9 @@ class Line():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Line to client model
         model.clientModel.service.set_line(clientObject)
@@ -80,6 +83,9 @@ class Line():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Line to client model
         model.clientModel.service.set_line(clientObject)
@@ -133,6 +139,9 @@ class Line():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Line to client model
         model.clientModel.service.set_line(clientObject)
@@ -188,6 +197,9 @@ class Line():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Line to client model
         model.clientModel.service.set_line(clientObject)
@@ -252,6 +264,9 @@ class Line():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line to client model
         model.clientModel.service.set_line(clientObject)
 
@@ -302,6 +317,9 @@ class Line():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Line to client model
         model.clientModel.service.set_line(clientObject)
@@ -358,6 +376,9 @@ class Line():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line to client model
         model.clientModel.service.set_line(clientObject)
 
@@ -399,6 +420,9 @@ class Line():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Line to client model
         model.clientModel.service.set_line(clientObject)
@@ -465,6 +489,9 @@ class Line():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Line to client model
         model.clientModel.service.set_line(clientObject)

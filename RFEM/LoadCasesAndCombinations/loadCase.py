@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import AnalysisType, ActionCategoryType
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 
@@ -70,6 +70,9 @@ class LoadCase():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Load Case to client model
         model.clientModel.service.set_load_case(clientObject)
@@ -147,6 +150,9 @@ class LoadCase():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Load Case to client model
         model.clientModel.service.set_load_case(clientObject)

@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import ImperfectionType, ImperfectionCaseDirection, DirectionForLevelDirection
 from RFEM.enums import ImperfectionCaseSourceType, ImperfectionCaseAssignmentType
 
@@ -66,6 +66,9 @@ class ImperfectionCase():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Imperfection Case to client model
         model.clientModel.service.set_imperfection_case(clientObject)
 
@@ -122,6 +125,9 @@ class ImperfectionCase():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Imperfection Case to client model
         model.clientModel.service.set_imperfection_case(clientObject)
@@ -221,6 +227,9 @@ class ImperfectionCase():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Imperfection Case to client model
         model.clientModel.service.set_imperfection_case(clientObject)
 
@@ -286,6 +295,9 @@ class ImperfectionCase():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Imperfection Case to client model
         model.clientModel.service.set_imperfection_case(clientObject)
@@ -387,6 +399,9 @@ class ImperfectionCase():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Imperfection Case to client model
         model.clientModel.service.set_imperfection_case(clientObject)
 
@@ -462,6 +477,9 @@ class ImperfectionCase():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Imperfection Case to client model
         model.clientModel.service.set_imperfection_case(clientObject)

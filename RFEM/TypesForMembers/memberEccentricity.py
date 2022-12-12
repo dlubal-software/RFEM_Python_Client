@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import *
 
 class MemberEccentricity():
@@ -110,6 +110,9 @@ class MemberEccentricity():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Member Eccentricity to client model
         model.clientModel.service.set_member_eccentricity(clientObject)

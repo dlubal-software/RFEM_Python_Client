@@ -1,6 +1,6 @@
 from multiprocessing.sharedctypes import Value
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString, GetAddonStatus, SetAddonStatus
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, GetAddonStatus, SetAddonStatus
+from RFEM.enums import AddOn
 
 class TimberMemberRotationalRestraint():
     def __init__(self,
@@ -67,5 +67,8 @@ class TimberMemberRotationalRestraint():
             for key in params:
                 clientObject[key] = params[key]
 
-        # Adding Timber Member Rotational Restraint to Client Model
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
+        # Add Timber Member Rotational Restraint to Client Model
         model.clientModel.service.set_timber_member_rotational_restraint(clientObject)

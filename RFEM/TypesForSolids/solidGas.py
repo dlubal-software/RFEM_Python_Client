@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 
 class SolidGas():
     def __init__(self,
@@ -47,6 +47,9 @@ class SolidGas():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Solid Gas to client model
         model.clientModel.service.set_solid_gas(clientObject)

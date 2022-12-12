@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 
 class ResultCombination():
 
@@ -32,6 +32,9 @@ class ResultCombination():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Result Combination to client model
         model.clientModel.service.set_result_combination(clientObject)
