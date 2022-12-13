@@ -5,6 +5,7 @@ class CombinationWizard():
     def __init__(self,
                 no: int = 1,
                 name: str = 'Load Wizard 1',
+                generate_combinations: str = 'GENERATE_LOAD_COMBINATIONS',
                 static_analysis_settings: int = 1,
                 comment: str = '',
                 params: dict = None,
@@ -25,9 +26,14 @@ class CombinationWizard():
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
-        #Statical Analysis Model
+        #What to generate
 
-        clientObject.static_analysis_settings = static_analysis_settings
+        clientObject.generate_combinations = generate_combinations
+
+        if generate_combinations == 'GENERATE_LOAD_COMBINATIONS':
+
+            #Statical Analysis Model
+            clientObject.static_analysis_settings = static_analysis_settings
 
         #Comment
         if comment:
@@ -134,8 +140,8 @@ class CombinationWizard():
         model.clientModel.service.set_combination_wizard(clientObject)
 
 
-    #setting initial state
-    #enums for inital state definition have not yet been described
+    #Initial state
+    #WS for setting initial state is missing
     @staticmethod
     def SetInitialState(
                 no: int = 1,
@@ -155,7 +161,7 @@ class CombinationWizard():
             model.clientModel.service.set_combination_wizard(clientObject)
 
     #setting structure modification
-    #settings for a new structure modification are not yet defined
+    #WS for new structure modification not yet available
     @staticmethod
     def StructureModification(
                 no: int = 1,

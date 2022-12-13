@@ -9,8 +9,6 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.enums import NodalSupportType, LoadDirectionType, AddOn
 from RFEM.initModel import Model, SetAddonStatus
 
-from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
@@ -26,6 +24,7 @@ if Model.clientModel is None:
 
 def test_combinationWizard():
 
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     SetAddonStatus(Model.clientModel, addOn = AddOn.structure_stability_active, status = True)
@@ -54,7 +53,7 @@ def test_combinationWizard():
     NodalLoad(1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 1000)
 
     #setting up the combination wizard
-    CombinationWizard(1, 'Wizard 1', 1, 'this is Wizard no. 1')
+    CombinationWizard(1, 'Wizard 1','GENERATE_LOAD_COMBINATIONS', 1, 'this is Wizard no. 1')
 
     #going through each setting of the combination wizard
 
@@ -63,6 +62,18 @@ def test_combinationWizard():
     CombinationWizard.StaticAnalysisSettings(1, 1, model = Model)
 
     CombinationWizard.StabilityAnalyis(1, True, 1, model = Model)
+
+    config = Model.clientModel.service.get_combination_wizard(1)
+
+    assert config.no == 1
+    assert config.name == 'Wizard 1'
+    assert config.generate_combinations == 'GENERATE_LOAD_COMBINATIONS'
+    assert config.static_analysis_settings == 1
+    assert config.has_stability_analysis == True
+    assert config.stability_analysis_settings == 1
+    assert config.consider_imperfection_case == True
+    assert config.generate_same_CO_without_IC == True
+
 
     CombinationWizard.OptionsII(1, False, True, True, True, model = Model)
 
@@ -76,16 +87,8 @@ def test_combinationWizard():
 
     config = Model.clientModel.service.get_combination_wizard(1)
 
-    assert config.no == 1
-    assert config.name == 'Wizard 1'
-    assert config.static_analysis_settings == 1
-    assert config.has_stability_analysis == True
-    assert config.stability_analysis_settings == 1
-    #assert config.consider_imperfection_case == True
-    #assert config.generate_same_CO_without_IC == True
-    #assert config.consider_construction_stages == True
     assert config.user_defined_action_combinations == False
     assert config.comment == 'this is Wizard no. 1'
     assert config.consider_initial_state == True
-    assert config.structure_modification_enabled ==  True
+    assert config.structure_modification_enabled == True
     assert config.structure_modification == 1
