@@ -37,11 +37,11 @@ if __name__ == '__main__':
     gable_height = 2
 
     frame_number = int(input('Number of Frame : '))
-    # width = float(input('Width of Frame (in m) : '))
-    # frame_length = float(input('Length of Frame (in m) : '))
-    # console_height = float(input('Height of console (in m) : '))
-    # column_height = float(input('Height of column (in m) : '))
-    # gable_height = float(input('Height of Gable (in m) : '))
+    width = float(input('Width of Frame (in m) : '))
+    frame_length = float(input('Length of Frame (in m) : '))
+    console_height = float(input('Height of console (in m) : '))
+    column_height = float(input('Height of column (in m) : '))
+    gable_height = float(input('Height of Gable (in m) : '))
     console_length = 0.3
 
     Model(True, 'SteelHall')
@@ -52,8 +52,8 @@ if __name__ == '__main__':
     Material(1, 'S235')
     Material(2)
     Material(3)
-    Section(1, 'HEA 300', 1)
-    Section(2, 'IPE 240', 2)
+    Section(1, 'HEA 220', 1)
+    Section(2, 'IPE 160', 2)
     Section(3, 'R 30', 3)
     i = 0
     for j in range(frame_number):
@@ -149,7 +149,7 @@ if __name__ == '__main__':
     bracingH = input('Would you like to include Horizontal bracing? (Y/N) : ')
     if bracingH.lower() == 'yes' or bracingH.lower() == 'y':
 
-        if bracingV.lower() != 'yes' or bracingV.lower() != 'y':
+        if bracingV.lower() != 'yes' and bracingV.lower() != 'y':
             k = 1
             for j in range(frame_number-1):
                 Member.Tension(i+1, k+2, k+12, section_no= 3)
@@ -223,30 +223,28 @@ if __name__ == '__main__':
     # Steel Effective Lengths
     n, k, l = 0, 0, 0
     for j in range(frame_number):
-        if j in [0, frame_number-1]:
-            SteelEffectiveLengths(n+1, str(k+3), name='SEL'+str(n+1), nodal_supports=[[SteelEffectiveLengthsSupportType.SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION, True, 0.0, SteelEffectiveLengthsEccentricityType.ECCENTRICITY_TYPE_NONE, \
+        SteelEffectiveLengths(n+1, str(k+3), name='SEL'+str(n+1), nodal_supports=[[SteelEffectiveLengthsSupportType.SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION, True, 0.0, SteelEffectiveLengthsEccentricityType.ECCENTRICITY_TYPE_NONE, \
                       0.0, 0.0, 0.0, 0.0, SteelEffectiveLengthsSupportTypeInY.SUPPORT_STATUS_YES, SteelEffectiveLengthsRestraintTypeAboutX.SUPPORT_STATUS_YES, \
                       SteelEffectiveLengthsRestraintTypeAboutZ.SUPPORT_STATUS_NO, SteelEffectiveLengthsRestraintTypeWarping.SUPPORT_STATUS_NO, str(l+3)],
                       [SteelEffectiveLengthsSupportType.SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION, True, 0.0, SteelEffectiveLengthsEccentricityType.ECCENTRICITY_TYPE_NONE, \
                       0.0, 0.0, 0.0, 0.0, SteelEffectiveLengthsSupportTypeInY.SUPPORT_STATUS_YES, SteelEffectiveLengthsRestraintTypeAboutX.SUPPORT_STATUS_YES, \
                       SteelEffectiveLengthsRestraintTypeAboutZ.SUPPORT_STATUS_NO, SteelEffectiveLengthsRestraintTypeWarping.SUPPORT_STATUS_NO, str(l+4)]])
-            SteelEffectiveLengths(n+2, str(k+4), name='SEL'+str(n+2), nodal_supports=[[SteelEffectiveLengthsSupportType.SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION, True, 0.0, SteelEffectiveLengthsEccentricityType.ECCENTRICITY_TYPE_NONE, \
+        SteelEffectiveLengths(n+2, str(k+4), name='SEL'+str(n+2), nodal_supports=[[SteelEffectiveLengthsSupportType.SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION, True, 0.0, SteelEffectiveLengthsEccentricityType.ECCENTRICITY_TYPE_NONE, \
                       0.0, 0.0, 0.0, 0.0, SteelEffectiveLengthsSupportTypeInY.SUPPORT_STATUS_YES, SteelEffectiveLengthsRestraintTypeAboutX.SUPPORT_STATUS_YES, \
                       SteelEffectiveLengthsRestraintTypeAboutZ.SUPPORT_STATUS_NO, SteelEffectiveLengthsRestraintTypeWarping.SUPPORT_STATUS_NO, str(l+4)],
                       [SteelEffectiveLengthsSupportType.SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION, True, 0.0, SteelEffectiveLengthsEccentricityType.ECCENTRICITY_TYPE_NONE, \
                       0.0, 0.0, 0.0, 0.0, SteelEffectiveLengthsSupportTypeInY.SUPPORT_STATUS_YES, SteelEffectiveLengthsRestraintTypeAboutX.SUPPORT_STATUS_YES, \
                       SteelEffectiveLengthsRestraintTypeAboutZ.SUPPORT_STATUS_NO, SteelEffectiveLengthsRestraintTypeWarping.SUPPORT_STATUS_NO, str(l+5)]])
-            n = n+2
-        k, l = k+13, l+9
+        n, k, l = n+2, k+13, l+9
 
     # Steel Boundary Conditions
-    n, k = 0, 0
-    for j in range(frame_number):
-        if j not in [0, frame_number-1]:
-            SteelBoundaryConditions(n+1, 'SBC '+str(n+1), str(k+3))
-            SteelBoundaryConditions(n+2, 'SBC '+str(n+2), str(k+4))
-            n = n+2
-        k = k+13
+    # n, k = 0, 0
+    # for j in range(frame_number):
+    #     if j not in [0, frame_number-1]:
+    #         SteelBoundaryConditions(n+1, 'SBC '+str(n+1), str(k+3))
+    #         SteelBoundaryConditions(n+2, 'SBC '+str(n+2), str(k+4))
+    #         n = n+2
+    #     k = k+13
 
     # Steel Member Shear Panel
     n, k = 0, 0
@@ -259,37 +257,13 @@ if __name__ == '__main__':
     StaticAnalysisSettings.SecondOrderPDelta(2, "SecondOrder")
     StaticAnalysisSettings.LargeDeformation(3, "LargeDeformation")
 
+    # Load Cases and Combinations
     LoadCasesAndCombinations()
     LoadCase.StaticAnalysis(1, 'Self-Weight', True, 1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_G, [True, 0.0, 0.0, 1.0])
     LoadCase.StaticAnalysis(2, 'Live Load', True, 1, ActionCategoryType.ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_H_ROOFS_QI_H, [False])
     LoadCase.StaticAnalysis(3, 'Snow-Load', True, 1, ActionCategoryType.ACTION_CATEGORY_SNOW_ICE_LOADS_H_LESS_OR_EQUAL_TO_1000_M_QS, [False])
     LoadCase.StaticAnalysis(4, 'Wind-Load_x', True, 1, ActionCategoryType.ACTION_CATEGORY_WIND_QW, [False])
     LoadCase.StaticAnalysis(5, 'Wind-Load_y', True, 1, ActionCategoryType.ACTION_CATEGORY_WIND_QW, [False])
-
-    # Manual Load Combinations
-    # LoadCombination(1, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1,1,0,False],[1,2,0,False]])
-    # LoadCombination(2, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1,1,0,False],[1,3,0,False]])
-    # LoadCombination(3, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1,1,0,False],[1,4,0,False]])
-    # LoadCombination(4, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1,1,0,False],[1,5,0,False]])
-    # LoadCombination(5, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1,1,0,False],[1,2,0,False],[1,3,0,False],[1,4,0,False]])
-    # LoadCombination(6, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1,1,0,False],[1,2,0,False],[1,3,0,False],[1,5,0,False]])
-
-    # n,k = 0,0
-    # for j in range(frame_number):
-    #     MemberLoad(n+1, 1, str(k+3), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 500)
-    #     MemberLoad(n+2, 1, str(k+4), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 500)
-    #     MemberLoad(n+3, 1, str(k+7), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 500)
-    #     MemberLoad(n+4, 1, str(k+8), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 500)
-    #     n, k = n+4, k+13
-
-    # k = 0
-    # for j in range(frame_number-1):
-    #     MemberLoad(n+1, 1, str(k+9), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 500)
-    #     MemberLoad(n+2, 1, str(k+10), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 500)
-    #     MemberLoad(n+3, 1, str(k+11), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 500)
-    #     MemberLoad(n+4, 1, str(k+12), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 500)
-    #     MemberLoad(n+5, 1, str(k+13), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 500)
-    #     n, k = n+5, k+13
 
     # Loads for LC2:Live Load
     n, k, l = 0, 0, 0
