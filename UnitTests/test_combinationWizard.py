@@ -8,7 +8,6 @@ sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import NodalSupportType, LoadDirectionType, AddOn
 from RFEM.initModel import Model, SetAddonStatus
-
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
@@ -35,7 +34,6 @@ def test_combinationWizard():
     Line(1, '1 2')
     NodalSupport(1, '1', NodalSupportType.FIXED)
 
-
     #setting up the loading of the model, with differnet loading cases and calculatiion settings
     StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
     LoadCasesAndCombinations({
@@ -58,9 +56,7 @@ def test_combinationWizard():
     #going through each setting of the combination wizard
 
     CombinationWizard.Imperfection(1, True, True, model = Model)
-
     CombinationWizard.StaticAnalysisSettings(1, 1, model = Model)
-
     CombinationWizard.StabilityAnalyis(1, True, 1, model = Model)
 
     config = Model.clientModel.service.get_combination_wizard(1)
@@ -75,12 +71,9 @@ def test_combinationWizard():
     assert config.generate_same_CO_without_IC == True
 
 
-    CombinationWizard.OptionsII(1, False, True, True, True, model = Model)
-
+    CombinationWizard.OptionsII(1, False, True, True, model = Model)
     CombinationWizard.ResultCombination(1, True, model = Model)
-
     CombinationWizard.SetInitialState(1, True, 1, 'DEFINITION_TYPE_FINAL_STATE', model = Model)
-
     CombinationWizard.StructureModification(1, True, 1, model = Model)
 
     Model.clientModel.service.finish_modification()

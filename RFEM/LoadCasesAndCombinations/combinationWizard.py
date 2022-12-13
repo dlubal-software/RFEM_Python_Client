@@ -12,6 +12,18 @@ class CombinationWizard():
                 model = Model
                 ):
 
+        """
+        Args:
+            no (int): combination wizard tag
+            name (str, optional): User-Defined name
+            generate_combinatios: Which combinations should be created by wizard:
+                                  GENERATE_LOAD_COMBINATIONS/GENERATE_RESULT_COMBINATIONS
+            static_analysis_settings (int): Analysis Settings requiered to do combinations
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
+
         #Client Model | Combination Wizard
         clientObject = model.clientModel.factory.create('ns0:combination_wizard')
 
@@ -44,7 +56,6 @@ class CombinationWizard():
             for key in params:
                 clientObject[key] = params[key]
 
-        print(clientObject)
         model.clientModel.service.set_combination_wizard(clientObject)
 
 
@@ -55,25 +66,20 @@ class CombinationWizard():
                 static_analysis_setting: int = 1,
                 model = Model):
 
-            clientObject = model.clientModel.factory.create('ns0:combination_wizard')
-            clearAttributes(clientObject)
-            clientObject.no = no
-            clientObject.static_analysis_settings = static_analysis_setting
-            model.clientModel.service.set_combination_wizard(clientObject)
-
-
-    #Setting imperfection case
-    @staticmethod
-    def ImperfectionCase(
-                no: int = 1,
-                consider_imperfection_case: bool = False,
-                model = Model):
+        """
+        Args:
+            no (int): combination wizard to be edited
+            static_analysis_settings (int): Analysis Settings requiered to do combinations
+            model (RFEM Class, optional): Model to be edited
+        """
 
         clientObject = model.clientModel.factory.create('ns0:combination_wizard')
         clearAttributes(clientObject)
         clientObject.no = no
-        clientObject.consider_imperfection_case = consider_imperfection_case
+        clientObject.static_analysis_settings = static_analysis_setting
         model.clientModel.service.set_combination_wizard(clientObject)
+
+
 
     #Setting stability analysis
     @staticmethod
@@ -83,12 +89,21 @@ class CombinationWizard():
                 stability_analysis_setting: int = 1,
                 model = Model):
 
+        """
+        Args:
+            no (int): combination wizard to be edited
+            has_stabililty_analysis (bool): Enable/Disable Stability Analysis
+            model (RFEM Class, optional): Model to be edited
+        """
+
         clientObject = model.clientModel.factory.create('ns0:combination_wizard')
         clearAttributes(clientObject)
         clientObject.no = no
         clientObject.has_stability_analysis = has_stability_analysis
         clientObject.stability_analysis_settings = stability_analysis_setting
         model.clientModel.service.set_combination_wizard(clientObject)
+
+
 
     #Setting imperfections
     @staticmethod
@@ -97,6 +112,14 @@ class CombinationWizard():
                 consider_imperfection_case: bool = True,
                 generate_same_CO_without_IC: bool = True,
                 model = Model):
+
+        """
+        Args:
+            no (int): combination wizard to be edited
+            consider_imperfection_case (bool): Enable/Disable imperfection case
+            generate_same_CO_without_IC (bool): Enable/Disable
+            model (RFEM Class, optional): Model to be edited
+        """
 
         clientObject = model.clientModel.factory.create('ns0:combination_wizard')
         clearAttributes(clientObject)
@@ -112,17 +135,23 @@ class CombinationWizard():
                 user_defined_action_combinations: bool = False,
                 favorable_permanent_actions: bool = False,
                 reduce_number_of_generated_combinations: bool = False,
-                auxiliary_combinations: bool = False,
                 model = Model):
+
+        """
+        Args:
+            no (int): combination wizard to be edited
+            user_defined_action_combinations (bool): Enable/Disable
+            favorable_permanent_actions (bool): Enable/Disable
+            reduce_number_of_generated_combinations (bool): Enable/Disable
+            model (RFEM Class, optional): Model to be edited
+        """
 
         clientObject = model.clientModel.factory.create('ns0:combination_wizard')
         clearAttributes(clientObject)
-
         clientObject.no = no
         clientObject.user_defined_action_combinations = user_defined_action_combinations
         clientObject.favorable_permanent_actions = favorable_permanent_actions
         clientObject.reduce_number_of_generated_combinations = reduce_number_of_generated_combinations
-        clientObject.auxiliary_combinations = auxiliary_combinations
         model.clientModel.service.set_combination_wizard(clientObject)
 
 
@@ -132,6 +161,13 @@ class CombinationWizard():
                 no: int = 1,
                 generate_subcombinations_of_type_superposition: bool = False,
                 model = Model):
+
+        """
+        Args:
+            no (int): combination wizard to be edited
+            generate_subcombinations_of_type_superposition (bool): Enable/Disable
+            model (RFEM Class, optional): Model to be edited
+        """
 
         clientObject = model.clientModel.factory.create('ns0:combination_wizard')
         clearAttributes(clientObject)
@@ -150,15 +186,23 @@ class CombinationWizard():
                 initial_state_definition_type: str = 'DEFINITION_TYPE_FINAL_STATE',
                 model = Model):
 
-            clientObject = model.clientModel.factory.create('ns0:combination_wizard')
-            clearAttributes(clientObject)
+        """
+        Args:
+            no (int): combination wizard to be edited
+            consider_initial_state (bool): Enable/Disable
+            initial_state_case (int): No. of inital state
+            initial_state_definition_type (str): Type of the initial state
+            model (RFEM Class, optional): Model to be edited
+        """
 
-            clientObject.no = no
-            clientObject.consider_initial_state = consider_initial_state
-            clientObject.initial_state_case = initial_state_case
-            clientObject.initial_state_definition_type = initial_state_definition_type
+        clientObject = model.clientModel.factory.create('ns0:combination_wizard')
+        clearAttributes(clientObject)
+        clientObject.no = no
+        clientObject.consider_initial_state = consider_initial_state
+        clientObject.initial_state_case = initial_state_case
+        clientObject.initial_state_definition_type = initial_state_definition_type
 
-            model.clientModel.service.set_combination_wizard(clientObject)
+        model.clientModel.service.set_combination_wizard(clientObject)
 
     #setting structure modification
     #WS for new structure modification not yet available
@@ -169,9 +213,17 @@ class CombinationWizard():
                 structure_modification: int = 1,
                 model = Model):
 
-            clientObject = model.clientModel.factory.create('ns0:combination_wizard')
-            clearAttributes(clientObject)
-            clientObject.no = no
-            clientObject.structure_modification_enabled = structure_modification_enabled
-            clientObject.structure_modification = structure_modification
-            model.clientModel.service.set_combination_wizard(clientObject)
+        """
+        Args:
+            no (int): combination wizard to be edited
+            structure_modification_enabled (bool): Enable/Disable
+            structure_modification (int): No. of strucutre modification
+            model (RFEM Class, optional): Model to be edited
+        """
+
+        clientObject = model.clientModel.factory.create('ns0:combination_wizard')
+        clearAttributes(clientObject)
+        clientObject.no = no
+        clientObject.structure_modification_enabled = structure_modification_enabled
+        clientObject.structure_modification = structure_modification
+        model.clientModel.service.set_combination_wizard(clientObject)
