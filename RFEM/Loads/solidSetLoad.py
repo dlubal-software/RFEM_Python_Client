@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import SolidSetLoadType, SolidSetLoadDistribution, SolidSetLoadDirection
 
 class SolidSetLoad():
@@ -63,6 +63,9 @@ class SolidSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Solid Load to client model
         model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
 
@@ -122,6 +125,9 @@ class SolidSetLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Solid Load to client model
         model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
@@ -191,6 +197,9 @@ class SolidSetLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Solid Load to client model
         model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
@@ -267,6 +276,9 @@ class SolidSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Solid Load to client model
         model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
 
@@ -329,6 +341,9 @@ class SolidSetLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Solid Load to client model
         model.clientModel.service.set_solid_set_load(load_case_no, clientObject)

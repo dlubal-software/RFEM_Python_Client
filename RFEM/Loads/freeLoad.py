@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import FreeConcentratedLoadLoadType, FreeConcentratedLoadLoadDirection, FreeLoadLoadProjection
 from RFEM.enums import FreeLineLoadLoadDistribution, FreeLineLoadLoadDirection, FreeRectangularLoadLoadDistribution
 from RFEM.enums import FreeRectangularLoadLoadDirection, FreeRectangularLoadLoadLocationRectangle, FreeCircularLoadLoadDistribution
@@ -63,7 +63,7 @@ class FreeLoad():
 
         # Load Parameter
         if len(load_parameter) != 3:
-            raise Exception('WARNING: The load parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
+            raise ValueError('WARNING: The load parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
         clientObject.magnitude = load_parameter[0]
         clientObject.load_location_x = load_parameter[1]
         clientObject.load_location_y = load_parameter[2]
@@ -78,6 +78,9 @@ class FreeLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Free Concentrated Load to client model
         model.clientModel.service.set_free_concentrated_load(load_case_no, clientObject)
@@ -140,7 +143,7 @@ class FreeLoad():
         # Load Parameter
         if load_distribution.name == 'LOAD_DISTRIBUTION_UNIFORM':
             if len(load_parameter) != 5:
-                raise Exception('WARNING: The load parameter needs to be of length 5. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The load parameter needs to be of length 5. Kindly check list inputs for completeness and correctness.')
             clientObject.magnitude_uniform = load_parameter[0]
             clientObject.load_location_first_x = load_parameter[1]
             clientObject.load_location_first_y = load_parameter[2]
@@ -148,7 +151,7 @@ class FreeLoad():
             clientObject.load_location_second_y = load_parameter[4]
         elif load_distribution.name == 'LOAD_DISTRIBUTION_LINEAR':
             if len(load_parameter) != 6:
-                raise Exception('WARNING: The load parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The load parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.')
             clientObject.magnitude_first = load_parameter[0]
             clientObject.magnitude_second = load_parameter[1]
             clientObject.load_location_first_x = load_parameter[2]
@@ -163,6 +166,9 @@ class FreeLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Free Concentrated Load to client model
         model.clientModel.service.set_free_line_load(load_case_no, clientObject)
@@ -247,12 +253,12 @@ class FreeLoad():
         # Load Magnitude Parameter
         if load_distribution.name == 'LOAD_DISTRIBUTION_UNIFORM' or load_distribution.name == 'LOAD_DISTRIBUTION_VARYING_IN_Z' or load_distribution.name == 'LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER' or load_distribution.name == 'LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER':
             if len(load_magnitude_parameter) != 1:
-                raise Exception('WARNING: The load parameter for the selected distribution needs to be of length 1. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The load parameter for the selected distribution needs to be of length 1. Kindly check list inputs for completeness and correctness.')
             clientObject.magnitude_uniform = load_magnitude_parameter[0]
 
         elif load_distribution.name == 'LOAD_DISTRIBUTION_LINEAR_FIRST' or load_distribution.name == 'LOAD_DISTRIBUTION_LINEAR_SECOND':
             if len(load_magnitude_parameter) != 2:
-                raise Exception('WARNING: The load parameter for the selected distribution needs to be of length 2. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The load parameter for the selected distribution needs to be of length 2. Kindly check list inputs for completeness and correctness.')
             clientObject.magnitude_linear_first = load_magnitude_parameter[0]
             clientObject.magnitude_linear_second = load_magnitude_parameter[1]
 
@@ -263,7 +269,7 @@ class FreeLoad():
 
             if load_distribution.name == 'LOAD_DISTRIBUTION_UNIFORM' or load_distribution.name == 'LOAD_DISTRIBUTION_LINEAR_FIRST' or load_distribution.name == 'LOAD_DISTRIBUTION_LINEAR_SECOND':
                 if len(load_location_parameter) != 5:
-                    raise Exception('WARNING: The load location parameter for the designated location and distribution type needs to be of length 5. Kindly check list inputs for completeness and correctness.')
+                    raise ValueError('WARNING: The load location parameter for the designated location and distribution type needs to be of length 5. Kindly check list inputs for completeness and correctness.')
                 clientObject.load_location_first_x = load_location_parameter[0]
                 clientObject.load_location_first_y = load_location_parameter[1]
                 clientObject.load_location_second_x = load_location_parameter[2]
@@ -272,7 +278,7 @@ class FreeLoad():
 
             elif load_distribution.name == 'LOAD_DISTRIBUTION_VARYING_IN_Z':
                 if len(load_location_parameter) != 5:
-                    raise Exception('WARNING: The load location parameter for the designated location and distribution type needs to be of length 5. Kindly check list inputs for completeness and correctness.')
+                    raise ValueError('WARNING: The load location parameter for the designated location and distribution type needs to be of length 5. Kindly check list inputs for completeness and correctness.')
                 clientObject.load_location_first_x = load_location_parameter[0]
                 clientObject.load_location_first_y = load_location_parameter[1]
                 clientObject.load_location_second_x = load_location_parameter[2]
@@ -289,7 +295,7 @@ class FreeLoad():
 
             elif load_distribution.name == 'LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER':
                 if len(load_location_parameter) != 8:
-                    raise Exception('WARNING: The load location parameter for the designated location and distribution type needs to be of length 9. Kindly check list inputs for completeness and correctness.')
+                    raise ValueError('WARNING: The load location parameter for the designated location and distribution type needs to be of length 9. Kindly check list inputs for completeness and correctness.')
                 clientObject.load_location_first_x = load_location_parameter[0]
                 clientObject.load_location_first_y = load_location_parameter[1]
                 clientObject.load_location_second_x = load_location_parameter[2]
@@ -313,7 +319,7 @@ class FreeLoad():
 
             elif load_distribution.name == 'LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER':
                 if len(load_location_parameter) != 9:
-                    raise Exception('WARNING: The load location parameter for the designated location and distribution type needs to be of length 9. Kindly check list inputs for completeness and correctness.')
+                    raise ValueError('WARNING: The load location parameter for the designated location and distribution type needs to be of length 9. Kindly check list inputs for completeness and correctness.')
                 clientObject.load_location_first_x = load_location_parameter[0]
                 clientObject.load_location_first_y = load_location_parameter[1]
                 clientObject.load_location_second_x = load_location_parameter[2]
@@ -349,7 +355,7 @@ class FreeLoad():
 
             if load_distribution.name == 'LOAD_DISTRIBUTION_UNIFORM' or load_distribution.name == 'LOAD_DISTRIBUTION_LINEAR_FIRST' or load_distribution.name == 'LOAD_DISTRIBUTION_LINEAR_SECOND':
                 if len(load_location_parameter) != 5:
-                    raise Exception('WARNING: The load location parameter for the designated location and distribution type needs to be of length 5. Kindly check list inputs for completeness and correctness.')
+                    raise ValueError('WARNING: The load location parameter for the designated location and distribution type needs to be of length 5. Kindly check list inputs for completeness and correctness.')
                 clientObject.load_location_center_x = load_location_parameter[0]
                 clientObject.load_location_center_y = load_location_parameter[1]
                 clientObject.load_location_center_side_a = load_location_parameter[2]
@@ -358,7 +364,7 @@ class FreeLoad():
 
             elif load_distribution.name == 'LOAD_DISTRIBUTION_VARYING_IN_Z':
                 if len(load_location_parameter) != 5:
-                    raise Exception('WARNING: The load location parameter for the designated location and distribution type needs to be of length 5. Kindly check list inputs for completeness and correctness.')
+                    raise ValueError('WARNING: The load location parameter for the designated location and distribution type needs to be of length 5. Kindly check list inputs for completeness and correctness.')
                 clientObject.load_location_center_x = load_location_parameter[0]
                 clientObject.load_location_center_y = load_location_parameter[1]
                 clientObject.load_location_center_side_a = load_location_parameter[2]
@@ -375,7 +381,7 @@ class FreeLoad():
 
             elif load_distribution.name == 'LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER':
                 if len(load_location_parameter) != 8:
-                    raise Exception('WARNING: The load location parameter for the designated location and distribution type needs to be of length 9. Kindly check list inputs for completeness and correctness.')
+                    raise ValueError('WARNING: The load location parameter for the designated location and distribution type needs to be of length 9. Kindly check list inputs for completeness and correctness.')
                 clientObject.load_location_center_x = load_location_parameter[0]
                 clientObject.load_location_center_y = load_location_parameter[1]
                 clientObject.load_location_center_side_a = load_location_parameter[2]
@@ -399,7 +405,7 @@ class FreeLoad():
 
             elif load_distribution.name == 'LOAD_DISTRIBUTION_VARYING_IN_Z_AND_ALONG_PERIMETER':
                 if len(load_location_parameter) != 9:
-                    raise Exception('WARNING: The load location parameter for the designated location and distribution type needs to be of length 9. Kindly check list inputs for completeness and correctness.')
+                    raise ValueError('WARNING: The load location parameter for the designated location and distribution type needs to be of length 9. Kindly check list inputs for completeness and correctness.')
                 clientObject.load_location_center_x = load_location_parameter[0]
                 clientObject.load_location_center_y = load_location_parameter[1]
                 clientObject.load_location_center_side_a = load_location_parameter[2]
@@ -438,6 +444,9 @@ class FreeLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Free Concentrated Load to client model
         model.clientModel.service.set_free_rectangular_load(load_case_no, clientObject)
@@ -500,7 +509,7 @@ class FreeLoad():
         # Load Parameter
         if load_distribution.name == 'LOAD_DISTRIBUTION_UNIFORM':
             if len(load_parameter) != 4:
-                raise Exception('WARNING: The load parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The load parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
             clientObject.magnitude_uniform = load_parameter[0]
             clientObject.load_location_x = load_parameter[1]
             clientObject.load_location_y = load_parameter[2]
@@ -508,7 +517,7 @@ class FreeLoad():
 
         elif load_distribution.name == 'LOAD_DISTRIBUTION_LINEAR':
             if len(load_parameter) != 5:
-                raise Exception('WARNING: The load parameter needs to be of length 5. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The load parameter needs to be of length 5. Kindly check list inputs for completeness and correctness.')
             clientObject.magnitude_center = load_parameter[0]
             clientObject.magnitude_radius = load_parameter[1]
             clientObject.load_location_x = load_parameter[2]
@@ -522,6 +531,9 @@ class FreeLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Free Concentrated Load to client model
         model.clientModel.service.set_free_circular_load(load_case_no, clientObject)
@@ -603,12 +615,12 @@ class FreeLoad():
         # Load Parameter
         if load_distribution.name == 'LOAD_DISTRIBUTION_UNIFORM':
             if len(load_parameter) != 1:
-                raise Exception('WARNING: The load parameter needs to be of length 1. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The load parameter needs to be of length 1. Kindly check list inputs for completeness and correctness.')
             clientObject.magnitude_uniform = load_parameter[0]
 
         elif load_distribution.name == 'LOAD_DISTRIBUTION_LINEAR':
             if len(load_parameter) != 6:
-                raise Exception('WARNING: The load parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The load parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.')
             clientObject.magnitude_linear_1 = load_parameter[0]
             clientObject.magnitude_linear_2 = load_parameter[1]
             clientObject.magnitude_linear_3 = load_parameter[2]
@@ -618,7 +630,7 @@ class FreeLoad():
 
         elif load_distribution.name == 'LOAD_DISTRIBUTION_LINEAR_FIRST' or load_distribution.name == 'LOAD_DISTRIBUTION_LINEAR_SECOND':
             if len(load_parameter) != 4:
-                raise Exception('WARNING: The load parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The load parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
             clientObject.magnitude_linear_1 = load_parameter[0]
             clientObject.magnitude_linear_2 = load_parameter[1]
             clientObject.magnitude_linear_location_1 = load_parameter[2]
@@ -631,6 +643,9 @@ class FreeLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Free Concentrated Load to client model
         model.clientModel.service.set_free_polygon_load(load_case_no, clientObject)

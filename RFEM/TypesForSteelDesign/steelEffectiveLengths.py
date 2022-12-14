@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import *
 
 class SteelEffectiveLengths():
@@ -182,6 +182,9 @@ class SteelEffectiveLengths():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Steel Effective Lengths to client model
         model.clientModel.service.set_steel_effective_lengths(clientObject)

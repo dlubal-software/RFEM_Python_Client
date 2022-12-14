@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import SurfaceStiffnessModificationType
 
 class SurfaceStiffnessModification():
@@ -103,6 +103,9 @@ class SurfaceStiffnessModification():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Surface Stifness Modification to client model
         model.clientModel.service.set_surface_stiffness_modification(clientObject)

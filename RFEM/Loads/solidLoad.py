@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import SolidLoadType, SolidLoadDistribution, SolidLoadDirection
 
 class SolidLoad():
@@ -63,6 +63,9 @@ class SolidLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Solid Load to client model
         model.clientModel.service.set_solid_load(load_case_no, clientObject)
 
@@ -122,6 +125,9 @@ class SolidLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Solid Load to client model
         model.clientModel.service.set_solid_load(load_case_no, clientObject)
@@ -191,6 +197,9 @@ class SolidLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Solid Load to client model
         model.clientModel.service.set_solid_load(load_case_no, clientObject)
@@ -267,6 +276,9 @@ class SolidLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Solid Load to client model
         model.clientModel.service.set_solid_load(load_case_no, clientObject)
 
@@ -330,9 +342,13 @@ class SolidLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Solid Load to client model
         model.clientModel.service.set_solid_load(load_case_no, clientObject)
 
+    #TODO: solidLoad Buoyancy and Gas not implemented
     #def Buoyancy():
     #    print('The function Buoyancy() is not implemented yet.')
 

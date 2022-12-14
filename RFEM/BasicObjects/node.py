@@ -1,7 +1,7 @@
 from RFEM.enums import NodeType
 from RFEM.enums import NodeCoordinateSystemType
 from RFEM.enums import NodeReferenceType, ObjectTypes
-from RFEM.initModel import Model, clearAttributes, ConvertStrToListOfInt
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertStrToListOfInt
 from math import pi
 
 class Node():
@@ -45,6 +45,9 @@ class Node():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Node to client model
         model.clientModel.service.set_node(clientObject)
@@ -95,7 +98,7 @@ class Node():
         clientObject.coordinate_system_type = coordinate_system_type.name
 
         if len(coordinate_system) != 3:
-            raise Exception('WARNING: The coordinate system needs to be of length 3.')
+            raise ValueError('WARNING: The coordinate system needs to be of length 3.')
 
         if not all(isinstance(x, (int, float)) for x in coordinate_system):
             raise Exception ('WARNING: Coordinate system should be type "int" or "float".')
@@ -132,6 +135,9 @@ class Node():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Node to client model
         model.clientModel.service.set_node(clientObject)
@@ -213,6 +219,9 @@ class Node():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Node to client model
         model.clientModel.service.set_node(clientObject)
@@ -301,6 +310,9 @@ class Node():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Node to client model
         model.clientModel.service.set_node(clientObject)
 
@@ -366,6 +378,9 @@ class Node():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Node to client model
         model.clientModel.service.set_node(clientObject)
 
@@ -430,6 +445,9 @@ class Node():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Node to client model
         model.clientModel.service.set_node(clientObject)

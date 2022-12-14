@@ -1,6 +1,6 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 
-class SteelDesignUltimateConfigurations():
+class TimberDesignUltimateConfigurations():
 
     def __init__(self,
                  no: int = 1,
@@ -12,7 +12,7 @@ class SteelDesignUltimateConfigurations():
                  model = Model):
         """
         Args:
-            no (int): Steel Design Ultimate Configuration Tag
+            no (int): Timber Design Ultimate Configuration Tag
             user_defined_name (list): User Defined Name Configuration Name
             members_no (str): Assign Configuration to Selected Members
             member_sets_no (str): Assign Configuration to Selected Member Sets
@@ -21,8 +21,8 @@ class SteelDesignUltimateConfigurations():
             model (RFEM Class, optional): Model to be edited
         """
 
-        # Client Model | Steel Design Ultimate Configurations
-        clientObject = model.clientModel.factory.create('ns0:steel_design_uls_configuration')
+        # Client Model | Timber Design Ultimate Configurations
+        clientObject = model.clientModel.factory.create('ns0:timber_design_uls_configuration')
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
@@ -63,5 +63,5 @@ class SteelDesignUltimateConfigurations():
         deleteEmptyAttributes(clientObject)
 
         # Add Global Parameters to Client Model
-        model.clientModel.service.set_steel_design_uls_configuration(clientObject)
+        model.clientModel.service.set_timber_design_uls_configuration(clientObject)
 

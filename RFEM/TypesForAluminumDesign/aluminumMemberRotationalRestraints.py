@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString, SetAddonStatus
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, SetAddonStatus
 from RFEM.enums import *
 
 class AluminumMemberRotationalRestraint():
@@ -59,7 +59,7 @@ class AluminumMemberRotationalRestraint():
         # Deducing RFEM Language from aluminum_design_addon String:
         modelInfo = Model.clientModel.service.get_model_info()
         if modelInfo.property_addon_aluminum_design.split()[0] != 'Aluminum':
-            raise Exception("WARNING: The aluminumMemberRotationalRestraints operates with the RFEM Application set to English. Kindly switch RFEM to English such that Database searches can completed successfully.")
+            raise ValueError("WARNING: The aluminumMemberRotationalRestraints operates with the RFEM Application set to English. Kindly switch RFEM to English such that Database searches can completed successfully.")
 
         # Check if Aluminum Design Add-on is ON.
         SetAddonStatus(model.clientModel, AddOn.aluminum_design_active, True)
@@ -128,5 +128,8 @@ class AluminumMemberRotationalRestraint():
             for key in params:
                 clientObject[key] = params[key]
 
-        # Adding Aluminum Member Rotational Restraint to Client Model
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
+        # Add Aluminum Member Rotational Restraint to Client Model
         model.clientModel.service.set_aluminum_member_rotational_restraint(clientObject)

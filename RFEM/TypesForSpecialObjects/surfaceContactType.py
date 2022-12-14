@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import SurfaceContactPerpendicularType, SurfaceContactParallelType, SurfaceContactFrictionType
 
 class SurfaceContactType():
@@ -77,6 +77,9 @@ class SurfaceContactType():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface Contact to client model
         model.clientModel.service.set_surfaces_contact_type(clientObject)
 
@@ -120,6 +123,9 @@ class SurfaceContactType():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Surface Contact to client model
         model.clientModel.service.set_surfaces_contact_type(clientObject)
@@ -177,6 +183,9 @@ class SurfaceContactType():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Surface Contact to client model
         model.clientModel.service.set_surfaces_contact_type(clientObject)
@@ -240,6 +249,9 @@ class SurfaceContactType():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface Contact to client model
         model.clientModel.service.set_surfaces_contact_type(clientObject)
 
@@ -288,6 +300,9 @@ class SurfaceContactType():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Surface Contact to client model
         model.clientModel.service.set_surfaces_contact_type(clientObject)

@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import SetType
 
 class SolidSet():
@@ -43,6 +43,9 @@ class SolidSet():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Solid Set to client model
         model.clientModel.service.set_solid_set(clientObject)
 
@@ -86,6 +89,9 @@ class SolidSet():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Solid Set to client model
         model.clientModel.service.set_solid_set(clientObject)
 
@@ -128,6 +134,9 @@ class SolidSet():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Solid Set to client model
         model.clientModel.service.set_solid_set(clientObject)

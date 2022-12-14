@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import *
 
 class MemberEccentricity():
@@ -77,7 +77,7 @@ class MemberEccentricity():
             clientObject.vertical_section_alignment = eccentricity_parameters[5].name
 
         else:
-            print("WARNING: Invalid eccentricity type.")
+            raise ValueError("WARNING: Invalid eccentricity type.")
 
         # Transverse Offset Reference Type
         clientObject.transverse_offset_reference_type = transverse_offset_type.name
@@ -95,7 +95,7 @@ class MemberEccentricity():
             clientObject.transverse_offset_horizontal_alignment = transverse_offset_parameters[2].name
             clientObject.transverse_offset_vertical_alignment = transverse_offset_parameters[3].name
         else:
-            print("WARNING: Invalid transverse offset type.")
+            raise ValueError("WARNING: Invalid transverse offset type.")
 
         # Axial Offset Option
         clientObject.axial_offset_active = axial_offset_active
@@ -110,6 +110,9 @@ class MemberEccentricity():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Member Eccentricity to client model
         model.clientModel.service.set_member_eccentricity(clientObject)

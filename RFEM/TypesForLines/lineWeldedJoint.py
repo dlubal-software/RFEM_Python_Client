@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertStrToListOfInt
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertStrToListOfInt
 from RFEM.enums import LineWeldedJointType, WeldType, WeldLongitudalArrangement
 
 class LineWeldedJoint():
@@ -56,6 +56,9 @@ class LineWeldedJoint():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Line welded joint to client model
         model.clientModel.service.set_line_welded_joint(clientObject)

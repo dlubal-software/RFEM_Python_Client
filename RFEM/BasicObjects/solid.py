@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString, ConvertStrToListOfInt
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, ConvertStrToListOfInt
 from RFEM.enums import SolidType, ObjectTypes
 
 class Solid():
@@ -42,6 +42,9 @@ class Solid():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Surface to client model
         model.clientModel.service.set_solid(clientObject)
@@ -91,6 +94,9 @@ class Solid():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface to client model
         model.clientModel.service.set_solid(clientObject)
 
@@ -138,6 +144,9 @@ class Solid():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Surface to client model
         model.clientModel.service.set_solid(clientObject)
@@ -187,6 +196,9 @@ class Solid():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface to client model
         model.clientModel.service.set_solid(clientObject)
 
@@ -234,6 +246,9 @@ class Solid():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Surface to client model
         model.clientModel.service.set_solid(clientObject)
