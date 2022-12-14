@@ -15,7 +15,7 @@ sys.path.append(dirName + r'/../..')
 #Import all modeules required to access RFEM
 
 from RFEM.enums import *
-from RFEM.initModel import Model, SetAddonStatus, SetModelType, Calculate_all
+from RFEM.initModel import Model, SetAddonStatus, SetModelType, Calculate_all, GetModelInfo
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 
 from RFEM.BasicObjects.material import Material
@@ -23,8 +23,6 @@ from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 
 from RFEM.BasicObjects.node import Node
-
-from RFEM.BasicObjects.line import Line
 
 from RFEM.BasicObjects.member import Member
 
@@ -41,10 +39,11 @@ from RFEM.TimberDesign.timberUltimateConfigurations import TimberDesignUltimateC
 from RFEM.TimberDesign.timberServiceLimitStateConfigurations import TimberDesignServiceLimitStateConfigurations
 from RFEM.TypesForTimberDesign.timberServiceClass import TimberServiceClass
 
-
+from RFEM.LoadCasesAndCombinations.combinationWizard import CombinationWizard
 
 from RFEM.LoadCasesAndCombinations.designSituation import DesignSituation
-from RFEM.LoadCasesAndCombinations.loadCombination import LoadCombination
+
+from RFEM.Calculate.meshSettings import GetModelInfo
 
 #Create a new Model
 
@@ -88,7 +87,7 @@ LoadCasesAndCombinations({
 
 Material(1, 'GL24c | EN 14080:2013-08')
 
-#create section made from concrete
+#create section
 
 Section(1, 'R_M1 0.18/0.36',1)
 
@@ -125,7 +124,7 @@ LoadCase.StaticAnalysis(2, 'LIVE LOAD', True, 1, ActionCategoryType.ACTION_CATEG
 MemberLoad(1, 1, '1', LoadDirectionType.LOAD_DIRECTION_LOCAL_Z, 6000)
 MemberLoad(2, 2, '1', LoadDirectionType.LOAD_DIRECTION_LOCAL_Z, 3000)
 
-#setting concrete design choices
+#setting timber design choices
 
 TimberDesignUltimateConfigurations(1,
                  'ULS1',
@@ -156,12 +155,12 @@ TimberServiceClass(1,
 
 
 
-"""DesignSituation(1,
+DesignSituation(1,
             DesignSituationType.DESIGN_SITUATION_TYPE_STR_PERMANENT_AND_TRANSIENT_6_10,
             True,
             None,
             '',
-            None,
+            {'combination_wizard': 1},
             model = Model)
 
 DesignSituation(2,
@@ -169,61 +168,28 @@ DesignSituation(2,
             True,
             None,
             '',
+            {'combination_wizard': 1},
+            model = Model)
+
+DesignSituation(3,
+            DesignSituationType.DESIGN_SITUATION_TYPE_SLS_QUASI_PERMANENT,
+            True,
+            None,
+            '',
             None,
             model = Model)
 
-LoadCombination(1,
-                  AnalysisType.ANALYSIS_TYPE_STATIC,
-                  1,
-                  'ULS',
-                  1,
-                  False,
-                  False,
-                  False,
-                  True,
-                  [[1.35, 1, 0, False], [1.5, 2, 0, True]],
-                  '',
-                  None,
-                  model = Model)
+DesignSituation(4,
+            DesignSituationType.DESIGN_SITUATION_TYPE_SLS_CHARACTERISTIC_QUASI_PERMANENT,
+            True,
+            None,
+            '',
+            None,
+            model = Model)
 
-LoadCombination(2,
-                  AnalysisType.ANALYSIS_TYPE_STATIC,
-                  2,
-                  'SLS',
-                  1,
-                  False,
-                  False,
-                  False,
-                  True,
-                  [[1.0, 1, 0, False], [1.0, 2, 0, True]],
-                  '',
-                  None,
-                  model = Model)
+CombinationWizard(1, 'Load Wizard 1', 'GENERATE_LOAD_COMBINATIONS', 1)
 
-#Calculate_all()
-
-"""
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Calculate_all()
+GetModelInfo(Model)
 
 
