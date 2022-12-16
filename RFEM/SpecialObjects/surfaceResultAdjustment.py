@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import SurfaceResultsAdjustmentShape, SurfaceResultsAdjustmentType, SurfaceResultsAdjustmentProjection
 
 class SurfaceResultsAdjustment():
@@ -91,6 +91,9 @@ class SurfaceResultsAdjustment():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Surface Result Adjustmentto client model
         model.clientModel.service.set_surface_results_adjustment(clientObject)

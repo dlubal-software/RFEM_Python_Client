@@ -1,4 +1,4 @@
-from RFEM.initModel import ConvertToDlString, Model, SetAddonStatus, clearAttributes
+from RFEM.initModel import Model, SetAddonStatus, clearAttributes, ConvertToDlString, deleteEmptyAttributes
 from RFEM.enums import MemberTransverseStiffenerType, MemberTransverseStiffenerPosition, MemberTransverseStiffenerOffsetType, MemberTransverseStiffenerDefinitionType, AddOn
 
 class MemberTransverseStiffeners():
@@ -116,6 +116,9 @@ class MemberTransverseStiffeners():
         if params:
             for key in params:
                 clientObject[key]= params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Member Definable Stffness to client model
         model.clientModel.service.set_member_transverse_stiffener(clientObject)

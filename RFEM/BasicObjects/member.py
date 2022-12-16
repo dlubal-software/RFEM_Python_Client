@@ -1,5 +1,5 @@
 from RFEM.enums import MemberType, MemberRotationSpecificationType, MemberSectionDistributionType, MemberTypeRibAlignment, MemberReferenceLengthWidthType, MemberResultBeamIntegration, ObjectTypes
-from RFEM.initModel import Model, clearAttributes, ConvertStrToListOfInt
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertStrToListOfInt
 
 class Member():
     def __init__(self,
@@ -74,6 +74,9 @@ class Member():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Member to client model
         model.clientModel.service.set_member(clientObject)
@@ -350,6 +353,9 @@ class Member():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Member to client model
         model.clientModel.service.set_member(clientObject)
 
@@ -462,6 +468,9 @@ class Member():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Member to client model
         model.clientModel.service.set_member(clientObject)
@@ -603,6 +612,9 @@ class Member():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Member to client model
         model.clientModel.service.set_member(clientObject)
 
@@ -731,6 +743,9 @@ class Member():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Member to client model
         model.clientModel.service.set_member(clientObject)
@@ -861,6 +876,9 @@ class Member():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Member to client model
         model.clientModel.service.set_member(clientObject)
 
@@ -989,6 +1007,9 @@ class Member():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Member to client model
         model.clientModel.service.set_member(clientObject)
@@ -1119,6 +1140,9 @@ class Member():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Member to client model
         model.clientModel.service.set_member(clientObject)
 
@@ -1248,6 +1272,9 @@ class Member():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Member to client model
         model.clientModel.service.set_member(clientObject)
 
@@ -1364,6 +1391,9 @@ class Member():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Member to client model
         model.clientModel.service.set_member(clientObject)
@@ -1629,6 +1659,9 @@ class Member():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Member to client model
         model.clientModel.service.set_member(clientObject)
 
@@ -1742,6 +1775,9 @@ class Member():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Member to client model
         model.clientModel.service.set_member(clientObject)
 
@@ -1822,6 +1858,9 @@ class Member():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Member to client model
         model.clientModel.service.set_member(clientObject)
@@ -1904,6 +1943,9 @@ class Member():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Member to client model
         model.clientModel.service.set_member(clientObject)
 
@@ -1985,6 +2027,9 @@ class Member():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Member to client model
         model.clientModel.service.set_member(clientObject)
 
@@ -2065,6 +2110,9 @@ class Member():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Member to client model
         model.clientModel.service.set_member(clientObject)

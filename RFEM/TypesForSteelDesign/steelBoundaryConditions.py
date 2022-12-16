@@ -1,4 +1,4 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString, deleteEmptyAttributes
 from RFEM.enums import *
 
 class SteelBoundaryConditions():
@@ -176,6 +176,9 @@ class SteelBoundaryConditions():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Steel Boundary Conditions to client model
         model.clientModel.service.set_steel_boundary_conditions(clientObject)

@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, GetAddonStatus, SetAddonStatus
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, GetAddonStatus, SetAddonStatus
 from RFEM.enums import DirectionalComponentCombinationRule, PeriodicResponseCombinationRule, CqsDampingRule, AddOn
 
 class SpectralAnalysisSettings():
@@ -64,7 +64,7 @@ class SpectralAnalysisSettings():
         # Save Results of All Selected Modes
         clientObject.save_results_of_all_selected_modes = save_mode_results
 
-        # CURRENTLY DEACTIVATED IN RFEM
+        # TODO: Signed Results Using Dominant Mode are currently deactivated in RFEM
         # Signed Results Using Dominant Mode
         clientObject.signed_results_using_dominant_mode = signed_dominant_mode_results
         '''
@@ -88,5 +88,8 @@ class SpectralAnalysisSettings():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Static Analysis Settings to client model
         model.clientModel.service.set_spectral_analysis_settings(clientObject)

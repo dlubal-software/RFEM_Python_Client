@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import NodalMeshRefinementType
 from enum import Enum
 
@@ -64,6 +64,9 @@ class NodalMeshRefinement():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Nodal Mesh Refinement to client model
         model.clientModel.service.set_nodal_mesh_refinement(clientObject)
 
@@ -122,6 +125,9 @@ class NodalMeshRefinement():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Nodal Mesh Refinement to client model
         model.clientModel.service.set_nodal_mesh_refinement(clientObject)
 
@@ -173,6 +179,9 @@ class NodalMeshRefinement():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Nodal Mesh Refinement to client model
         model.clientModel.service.set_nodal_mesh_refinement(clientObject)

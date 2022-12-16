@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import TimberServiceClassServiceClass
 
 class TimberServiceClass():
@@ -61,6 +61,9 @@ class TimberServiceClass():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Service Class to client model
         Model.clientModel.service.set_timber_service_class(clientObject)

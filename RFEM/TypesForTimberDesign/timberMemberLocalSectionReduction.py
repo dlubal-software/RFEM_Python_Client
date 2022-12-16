@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import TimberMemberLocalSectionReductionType, MultipleOffsetDefinitionType, ZAxisReferenceType, OrientationType, DirectionType
 
 class Components():
@@ -209,5 +209,8 @@ class TimberMemberLocalSectionReduction():
             for key in params:
                 clientObject[key] = params[key]
 
-        #Add Timber Member Local Section Reduction to Client Model
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
+        # Add Timber Member Local Section Reduction to Client Model
         model.clientModel.service.set_timber_member_local_section_reduction(clientObject)

@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import AluminumMemberShearPanelDefinitionType, AluminumMemberShearPanelPositionOnSection, AluminumMemberShearPanelFasteningArrangement
 
 class AluminumMemberShearPanel():
@@ -164,6 +164,8 @@ class AluminumMemberShearPanel():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Aluminum Effective Lengths to client model
         Model.clientModel.service.set_aluminum_member_shear_panel(clientObject)
-

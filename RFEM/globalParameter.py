@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, SetAddonStatus
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, SetAddonStatus
 from RFEM.enums import GlobalParameterUnitGroup, GlobalParameterDefinitionType, AddOn
 
 class GlobalParameter():
@@ -84,6 +84,9 @@ class GlobalParameter():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Global Parameter to client model
         model.clientModel.service.set_global_parameter(clientObject)

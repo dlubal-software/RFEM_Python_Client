@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis
 from RFEM.enums import StaticAnalysisSettingsMethodOfEquationSystem
 from RFEM.enums import StaticAnalysisSettingsPlateBendingTheory, StaticAnalysisType
@@ -45,6 +45,9 @@ class StaticAnalysisSettings():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Static Analysis Settings to client model
         model.clientModel.service.set_static_analysis_settings(clientObject)
@@ -128,6 +131,9 @@ class StaticAnalysisSettings():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Static Analysis Settings to client model
         model.clientModel.service.set_static_analysis_settings(clientObject)
@@ -251,6 +257,9 @@ class StaticAnalysisSettings():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Static Analysis Settings to client model
         model.clientModel.service.set_static_analysis_settings(clientObject)
 
@@ -369,6 +378,9 @@ class StaticAnalysisSettings():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Static Analysis Settings to client model
         model.clientModel.service.set_static_analysis_settings(clientObject)

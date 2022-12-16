@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import SetType
 
 class LineSet():
@@ -43,6 +43,9 @@ class LineSet():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line Set to client model
         model.clientModel.service.set_line_set(clientObject)
 
@@ -86,6 +89,9 @@ class LineSet():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line Set to client model
         model.clientModel.service.set_line_set(clientObject)
 
@@ -128,6 +134,9 @@ class LineSet():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Line Set to client model
         model.clientModel.service.set_line_set(clientObject)

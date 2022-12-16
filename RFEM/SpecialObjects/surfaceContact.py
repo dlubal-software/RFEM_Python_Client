@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 
 class SurfaceContact():
     def __init__(self,
@@ -45,6 +45,9 @@ class SurfaceContact():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Surfaces Contact to client model
         model.clientModel.service.set_surfaces_contact(clientObject)

@@ -1,5 +1,5 @@
 from RFEM.enums import MemberSupportNonlinearity
-from RFEM.initModel import ConvertToDlString, Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString, deleteEmptyAttributes
 from RFEM.dataTypes import inf
 
 class MemberSupport():
@@ -63,6 +63,9 @@ class MemberSupport():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Member Support to client model
         model.clientModel.service.set_member_support(clientObject)

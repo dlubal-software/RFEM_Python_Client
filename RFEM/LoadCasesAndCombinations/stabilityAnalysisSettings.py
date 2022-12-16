@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import StabilityAnalysisSettingsAnalysisType
 from RFEM.enums import StabilityAnalysisSettingsEigenvalueMethod
 from RFEM.enums import StabilityAnalysisSettingsMatrixType
@@ -53,6 +53,9 @@ class StabilityAnalysisSettings():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Stability Analysis Settings to client model
         model.clientModel.service.set_stability_analysis_settings(clientObject)
@@ -150,6 +153,9 @@ class StabilityAnalysisSettings():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Stability Analysis Settings to client model
         model.clientModel.service.set_stability_analysis_settings(clientObject)
@@ -296,6 +302,9 @@ class StabilityAnalysisSettings():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Stability Analysis Settings to client model
         model.clientModel.service.set_stability_analysis_settings(clientObject)
 
@@ -409,6 +418,9 @@ class StabilityAnalysisSettings():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Stability Analysis Settings to client model
         model.clientModel.service.set_stability_analysis_settings(clientObject)

@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import LoadDirectionType, NodalLoadType, NodalLoadSpecificDirectionType
 
 class NodalLoad():
@@ -55,6 +55,9 @@ class NodalLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Nodal Force to client model
         model.clientModel.service.set_nodal_load(load_case_no, clientObject)
@@ -201,6 +204,9 @@ class NodalLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Nodal Force to client model
         model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
@@ -323,6 +329,9 @@ class NodalLoad():
         else:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Nodal Force to client model
         model.clientModel.service.set_nodal_load(load_case_no, clientObject)
@@ -463,6 +472,9 @@ class NodalLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Nodal Force to client model
         model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
@@ -533,6 +545,9 @@ class NodalLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Nodal Force to client model
         model.clientModel.service.set_nodal_load(load_case_no, clientObject)
