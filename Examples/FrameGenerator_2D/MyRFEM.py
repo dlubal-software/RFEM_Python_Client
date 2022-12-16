@@ -7,7 +7,7 @@ print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
 from RFEM.enums import NodalSupportType, MemberLoadDirection, AnalysisType
-from RFEM.initModel import Model, insertSpaces
+from RFEM.initModel import Model, insertSpaces, Calculate_all
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
@@ -15,6 +15,7 @@ from RFEM.TypesForMembers.memberHinge import MemberHinge
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.LoadCasesAndCombinations.designSituation import DesignSituation, DesignSituationType
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.loadCombination import LoadCombination
 from RFEM.Loads.memberLoad import MemberLoad
@@ -136,12 +137,19 @@ class MyRFEM():
 
         NodalSupport(4, '10', support)
 
-        NodalSupport(5, '3, 6', [0, inf, 0, 0, 0, 0])
+        NodalSupport(5, '2, 3, 5, 6, 7, 9, 11', [0, inf, 0, 0, 0, 0])
 
         # Create load cases and load combinations
         # TODO: Set the right Action Category
         StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
         StaticAnalysisSettings.SecondOrderPDelta(2, "SecondOrder")
+
+        # Create Design situations
+        #DesignSituation(1, DesignSituationType.DESIGN_SITUATION_TYPE_ULS_STR_GEO_PERMANENT_AND_TRANSIENT)
+        DesignSituation(1, DesignSituationType.DESIGN_SITUATION_TYPE_ULS_STR_GEO_PERMANENT_AND_TRANSIENT)
+        #DesignSituation(2, DesignSituationType.DESIGN_SITUATION_TYPE_SLS_CHARACTERISTIC)
+        #DesignSituation(3, DesignSituationType.DESIGN_SITUATION_TYPE_SLS_FREQUENT)
+        #DesignSituation(4, DesignSituationType.DESIGN_SITUATION_TYPE_SLS_QUASI_PERMANENT)
 
         LoadCase(1, 'Self-Weight', [True, 0.0, 0.0, 1.0])
         LoadCase(2, 'Snow', [False])
@@ -187,10 +195,12 @@ class MyRFEM():
 
 
     def calculate(self):
+        Calculate_all()
         return self.results
 
     def done(self):
-        # This method close the model and close the connection to RFEM server.
+        # This method Close the connection to RFEM server.
+        Model.clientModel.service.close_connection()
         pass
 
 

@@ -12,10 +12,8 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsS
 
 from MyRFEM import *
 
-# TODO 22: The loads in UI should save in config.json and restore after start
-# TODO 24: Write load combinations in RFEM in MyRFEM
+# TODO 20: Read the data from load tab into the calculation_model and calculate it. Calculation works. At the moment the connection is not closed after calculation. It should be captured if the calculation was not successful.
 # TODO 21: Set the right Action Category
-# TODO 20: Read the data from load tab into the calculation_model and calculate it
 # TODO 18: Read the date from load tab into the graphic_model
 # TODO 19: Draw the loads
 # TODO 8: Fill the tab for steel design
@@ -600,7 +598,6 @@ class MyWindow(QMainWindow):
         self.drawGraphic()
 
     def onChange_g_r(self):
-        print('g_r')
         s = self.ui.lineEdit_g_r.text()
         s = self.validate(s)
         self.presets['loads']['self-weight'][0] = s
@@ -611,7 +608,6 @@ class MyWindow(QMainWindow):
         pass
 
     def onChange_g_s(self):
-        print('g_s')
         s = self.ui.lineEdit_g_s.text()
         s = self.validate(s)
         self.presets['loads']['self-weight'][1] = s
@@ -622,7 +618,6 @@ class MyWindow(QMainWindow):
         pass
 
     def onChange_g_w(self):
-        print('g_w')
         s = self.ui.lineEdit_g_w.text()
         s = self.validate(s)
         self.presets['loads']['self-weight'][2] = s
@@ -633,7 +628,6 @@ class MyWindow(QMainWindow):
         pass
 
     def onChange_s_r(self):
-        print('s_r')
         s = self.ui.lineEdit_s_r.text()
         s = self.validate(s)
         self.presets['loads']['snow'][0] = s
@@ -644,7 +638,6 @@ class MyWindow(QMainWindow):
         pass
 
     def onChange_p_s(self):
-        print('p_s')
         s = self.ui.lineEdit_p_s.text()
         s = self.validate(s)
         self.presets['loads']['slab'][0] = s
