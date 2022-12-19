@@ -1,6 +1,25 @@
 import requests
 import json
-import pandas as pd
+import sys
+
+try:
+    import pandas as pd
+except:
+    print('Pandas library is not installed in your Python env.')
+    instPandas = input('Do you want to install it (y/n)?')
+    instPandas = instPandas.lower()
+    if instPandas == 'y':
+        import subprocess
+        try:
+            subprocess.call('python -m pip install pandas --user')
+        except:
+            print('WARNING: Installation of pandas library failed!')
+            print('Please use command "pip install pandas" in your Command Prompt')
+            input('Please Enter to exit...')
+            sys.exit()
+    else:
+        input('Please Enter to exit...')
+        sys.exit()
 
 def getAsceDataMulti(lat, long, risk, site, title):
 
@@ -65,3 +84,4 @@ def getAsceDataTwoMCEr(lat, long, risk, site, title):
     asceDataTwoMCEr['twoPeriodMCErSpectrumOrdinates'] = schema['response']['data']['twoPeriodMCErSpectrum']['ordinates']
 
     return asceDataTwoMCEr
+
