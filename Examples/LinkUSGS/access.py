@@ -67,7 +67,7 @@ def getAsceDataTwo(lat, long, risk, site, title):
     asceDataTwo['twoPeriodDesignSpectrumPeriods'] = schema['response']['data']['twoPeriodDesignSpectrum']['periods']
     asceDataTwo['twoPeriodDesignSpectrumOrdinates'] = schema['response']['data']['twoPeriodDesignSpectrum']['ordinates']
 
-    return asceDataTwo
+    return asceDataTwo.drop(10)
 
 def getAsceDataTwoMCEr(lat, long, risk, site, title):
 
@@ -83,5 +83,7 @@ def getAsceDataTwoMCEr(lat, long, risk, site, title):
     asceDataTwoMCEr['twoPeriodMCErSpectrumPeriods'] = schema['response']['data']['twoPeriodMCErSpectrum']['periods']
     asceDataTwoMCEr['twoPeriodMCErSpectrumOrdinates'] = schema['response']['data']['twoPeriodMCErSpectrum']['ordinates']
 
-    return asceDataTwoMCEr
+    return asceDataTwoMCEr.drop(10)
+
+
 
