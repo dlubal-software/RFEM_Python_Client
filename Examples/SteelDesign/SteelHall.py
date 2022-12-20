@@ -18,6 +18,7 @@ from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.TypesForSteelDesign.steelEffectiveLengths import SteelEffectiveLengths
 from RFEM.TypesForSteelDesign.steelBoundaryConditions import SteelBoundaryConditions
 from RFEM.TypesForSteelDesign.steelMemberShearPanel import SteelMemberShearPanel
+from RFEM.SteelDesign.steelUltimateConfigurations import SteelDesignUltimateConfigurations
 from RFEM.Imperfections.imperfectionCase import ImperfectionCase
 from RFEM.Imperfections.memberImperfection import MemberImperfection
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
@@ -262,11 +263,11 @@ if __name__ == '__main__':
     #     k = k+13
 
     # Steel Member Shear Panel
-    n, k = 0, 0
-    for j in range(frame_number):
-        SteelMemberShearPanel(n+1, 'SSP '+str(n+1), members=str(k+3), categories=[SteelMemberShearPanelPositionOnSection.POSITION_ON_UPPER_FLANGE, "HSW (-) E 160 - 1.00 (b: 1) | DIN 18807 | Hoesch E", SteelMemberShearPanelFasteningArrangement.FASTENING_ARRANGEMENT_EVERY_RIB], parameters=[15, 5, None, None])
-        SteelMemberShearPanel(n+2, 'SSP '+str(n+2), members=str(k+4), categories=[SteelMemberShearPanelPositionOnSection.POSITION_ON_UPPER_FLANGE, "HSW (-) E 160 - 1.00 (b: 1) | DIN 18807 | Hoesch E", SteelMemberShearPanelFasteningArrangement.FASTENING_ARRANGEMENT_EVERY_RIB], parameters=[15, 5, None, None])
-        n, k = n+2, k+13
+    # n, k = 0, 0
+    # for j in range(frame_number):
+    #     SteelMemberShearPanel(n+1, 'SSP '+str(n+1), members=str(k+3), categories=[SteelMemberShearPanelPositionOnSection.POSITION_ON_UPPER_FLANGE, "HSW (-) E 160 - 1.00 (b: 1) | DIN 18807 | Hoesch E", SteelMemberShearPanelFasteningArrangement.FASTENING_ARRANGEMENT_EVERY_RIB], parameters=[15, 5, None, None])
+    #     SteelMemberShearPanel(n+2, 'SSP '+str(n+2), members=str(k+4), categories=[SteelMemberShearPanelPositionOnSection.POSITION_ON_UPPER_FLANGE, "HSW (-) E 160 - 1.00 (b: 1) | DIN 18807 | Hoesch E", SteelMemberShearPanelFasteningArrangement.FASTENING_ARRANGEMENT_EVERY_RIB], parameters=[15, 5, None, None])
+    #     n, k = n+2, k+13
 
     StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
     StaticAnalysisSettings.SecondOrderPDelta(2, "SecondOrder")
@@ -324,6 +325,8 @@ if __name__ == '__main__':
         MemberLoad(n+5, 5, str(k+5), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 1500)
         MemberLoad(n+6, 5, str(k+6), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 1500)
         n, k = n+6, k+13
+
+    SteelDesignUltimateConfigurations(1, 'ULS1', 'All')
 
     Model.clientModel.service.finish_modification()
 
