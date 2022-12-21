@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 
 class SolidMeshRefinement():
     def __init__(self,
@@ -42,6 +42,9 @@ class SolidMeshRefinement():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Solid Mesh Refinement to client model
         model.clientModel.service.set_solid_mesh_refinement(clientObject)

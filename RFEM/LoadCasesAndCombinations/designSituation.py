@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import DesignSituationType
 
 class DesignSituation():
@@ -50,6 +50,9 @@ class DesignSituation():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Design Situation to client model
         model.clientModel.service.set_design_situation(clientObject)

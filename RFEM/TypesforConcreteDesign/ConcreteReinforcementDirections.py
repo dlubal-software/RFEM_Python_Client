@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import ReinforcementDirectionType
 from math import pi
 
@@ -56,13 +56,8 @@ class ConcreteReinforcementDirection():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Global Parameter to client model
         model.clientModel.service.set_reinforcement_direction(clientObject)
-
-
-
-
-
-
-
-

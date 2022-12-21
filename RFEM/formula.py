@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import ObjectTypes, FormulaParameter
 
 class Formula():
@@ -37,6 +37,12 @@ class Formula():
         lc.parent_no = 0
 
         opl.attribute = attribute
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(lc)
+        deleteEmptyAttributes(opl)
+
+        # Add Formula to client model
         model.clientModel.service.set_formula(lc, opl, formula)
 
 

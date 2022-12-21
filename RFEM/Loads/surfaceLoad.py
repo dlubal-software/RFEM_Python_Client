@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import SurfaceLoadType, SurfaceLoadDirection, SurfaceLoadDistribution, SurfaceLoadAxisDefinitionType
 
 class SurfaceLoad():
@@ -54,6 +54,9 @@ class SurfaceLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Surface Load to client model
         model.clientModel.service.set_surface_load(load_case_no, clientObject)
@@ -184,6 +187,9 @@ class SurfaceLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface Load to client model
         model.clientModel.service.set_surface_load(load_case_no, clientObject)
 
@@ -296,6 +302,9 @@ class SurfaceLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface Load to client model
         model.clientModel.service.set_surface_load(load_case_no, clientObject)
 
@@ -383,6 +392,9 @@ class SurfaceLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface Load to client model
         model.clientModel.service.set_surface_load(load_case_no, clientObject)
 
@@ -438,6 +450,9 @@ class SurfaceLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Surface Load to client model
         model.clientModel.service.set_surface_load(load_case_no, clientObject)
@@ -510,6 +525,9 @@ class SurfaceLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface Load to client model
         model.clientModel.service.set_surface_load(load_case_no, clientObject)
 
@@ -579,6 +597,9 @@ class SurfaceLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Surface Load to client model
         model.clientModel.service.set_surface_load(load_case_no, clientObject)
