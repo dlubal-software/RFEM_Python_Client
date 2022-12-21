@@ -6,7 +6,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.enums import NodalSupportType, LoadDirectionType, AddOn
+from RFEM.enums import NodalSupportType, LoadDirectionType, AddOn, LoadWizardType, InitialStateDefintionType
 from RFEM.initModel import Model, SetAddonStatus
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
@@ -50,38 +50,28 @@ def test_combinationWizard():
     LoadCase(1, 'Self-Weight', [True, 0.0, 0.0,1.0])
     NodalLoad(1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 1000)
 
-    #setting up the combination wizard
-    CombinationWizard(1, 'Wizard 1','GENERATE_LOAD_COMBINATIONS', 1, 'this is Wizard no. 1')
+    #setting up the combination wizard for load combinations
+    CombinationWizard(1, 'Wizard 1', 1, 1, False, False, 1, InitialStateDefintionType.DEFINITION_TYPE_FINAL_STATE, None, True, True, True, model = Model)
 
     #going through each setting of the combination wizard
-
-    CombinationWizard.Imperfection(1, True, True, model = Model)
-    CombinationWizard.StaticAnalysisSettings(1, 1, model = Model)
-    CombinationWizard.StabilityAnalyis(1, True, 1, model = Model)
 
     config = Model.clientModel.service.get_combination_wizard(1)
 
     assert config.no == 1
     assert config.name == 'Wizard 1'
-    assert config.generate_combinations == 'GENERATE_LOAD_COMBINATIONS'
+    assert config.generate_combinations == LoadWizardType.GENERATE_LOAD_COMBINATIONS.name
     assert config.static_analysis_settings == 1
     assert config.has_stability_analysis == True
     assert config.stability_analysis_settings == 1
-    assert config.consider_imperfection_case == True
-    assert config.generate_same_CO_without_IC == True
+    assert config.initial_state_case == 1
 
-
-    CombinationWizard.OptionsII(1, False, True, True, model = Model)
-    CombinationWizard.ResultCombination(1, True, model = Model)
-    CombinationWizard.SetInitialState(1, True, 1, 'DEFINITION_TYPE_FINAL_STATE', model = Model)
-    CombinationWizard.StructureModification(1, True, 1, model = Model)
+    CombinationWizard.SetResultCombination(2, 'Wizard 2', None, None, False, False, False, False, 'This is wizard no. 2',)
 
     Model.clientModel.service.finish_modification()
 
-    config = Model.clientModel.service.get_combination_wizard(1)
-
+    config = Model.clientModel.service.get_combination_wizard(2)
+    assert config.no == 2
+    assert config.generate_combinations == LoadWizardType.GENERATE_RESULT_COMBINATIONS.name
+    assert config.generate_subcombinations_of_type_superposition == False
     assert config.user_defined_action_combinations == False
-    assert config.comment == 'this is Wizard no. 1'
-    assert config.consider_initial_state == True
-    assert config.structure_modification_enabled == True
-    assert config.structure_modification == 1
+    assert config.comment == 'This is wizard no. 2'
