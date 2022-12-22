@@ -9,10 +9,13 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.enums import *
 from RFEM.initModel import Model, SetAddonStatus
 from RFEM.TypesForSteelDesign.steelMemberRotationalRestraints import *
+import pytest
 
 if Model.clientModel is None:
     Model()
 
+# Type not found: 'ns0:steel_member_rotational_restraint'
+@pytest.mark.skip()
 def test_steelMemberRotationalRestraints():
 
     Model.clientModel.service.delete_all()

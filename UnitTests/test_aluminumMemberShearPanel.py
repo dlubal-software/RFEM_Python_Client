@@ -8,12 +8,14 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import AluminumMemberShearPanelDefinitionType, AluminumMemberShearPanelPositionOnSection, AluminumMemberShearPanelFasteningArrangement
-from RFEM.initModel import Model, SetAddonStatus, AddOn
+from RFEM.initModel import Model, SetAddonStatus, AddOn, CheckIfMethodOrTypeExists
 from RFEM.TypesForAluminumDesign.aluminumMemberShearPanel import AluminumMemberShearPanel
 
 if Model.clientModel is None:
     Model()
 
+# skipped since ns0:aluminum_member_shear_panel not in RFEM GM yet.
+@pytest.mark.skipif()
 def test_steelMemberShearPanel():
 
     Model.clientModel.service.delete_all()

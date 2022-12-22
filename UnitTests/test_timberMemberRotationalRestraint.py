@@ -9,10 +9,13 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.enums import AddOn
 from RFEM.initModel import Model, SetAddonStatus
 from RFEM.TypesForTimberDesign.timberMemberRotationalRestraint import TimberMemberRotationalRestraint
+import pytest
 
 if Model.clientModel is None:
     Model()
 
+# Type not found ns0:timber_member_rotational_restraint
+@pytest.mark.skip()
 def test_timberMemberRotationalRestraints():
 
     Model.clientModel.service.delete_all()

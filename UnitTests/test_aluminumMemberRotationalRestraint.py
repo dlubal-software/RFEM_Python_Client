@@ -7,7 +7,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.initModel import Model, SetAddonStatus
+from RFEM.initModel import Model, SetAddonStatus, CheckIfMethodOrTypeExists
 from RFEM.enums import AddOn, AluminumMemberRotationalRestraintType, AluminumMemberRotationalRestraintContinuousBeamEffect
 from RFEM.enums import AluminumMemberRotationalRestraintPositionofSheeting, AddOn, AluminumMemberRotationalRestraintRotationalStiffness
 from RFEM.TypesForAluminumDesign.aluminumMemberRotationalRestraints import AluminumMemberRotationalRestraint
@@ -15,6 +15,8 @@ from RFEM.TypesForAluminumDesign.aluminumMemberRotationalRestraints import Alumi
 if Model.clientModel is None:
     Model()
 
+# skipped since ns0:aluminum_member_rotational_restraint not in RFEM GM yet.
+@pytest.mark.skipif()
 def test_aluminumMemberRotationalRestraints():
 
     Model.clientModel.service.delete_all()

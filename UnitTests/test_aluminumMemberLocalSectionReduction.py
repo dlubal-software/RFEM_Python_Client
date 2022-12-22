@@ -7,15 +7,16 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import AluminumMemberLocalSectionReductionType, FastenerDefinitionType, MultipleOffsetDefinitionType
-from RFEM.initModel import Model
+from RFEM.initModel import Model, CheckIfMethodOrTypeExists
 from RFEM.TypesForAluminumDesign.aluminumMemberLocalSectionReduction import AluminumMemberLocalSectionReduction
 from RFEM.initModel import AddOn, SetAddonStatus
+import pytest
 
 
 if Model.clientModel is None:
     Model()
 
-
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:aluminum_member_local_section_reduction'), reason="Type ns0:aluminum_member_local_section_reduction not in RFEM GM yet")
 def test_AluminumMemberLocalSectionReduction():
 
     Model.clientModel.service.delete_all()
@@ -44,7 +45,7 @@ def test_AluminumMemberLocalSectionReduction():
         )
 
     Model.clientModel.service.finish_modification()
-    
+
     smlr_1 = Model.clientModel.service.get_aluminum_member_local_section_reduction(1)
     assert smlr_1.components[0][0].row['position'] == 1
     assert smlr_1.components[0][0].row['multiple'] == False
