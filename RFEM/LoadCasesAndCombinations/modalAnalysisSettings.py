@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import ModalSolutionMethod, ModalMassConversionType, ModalMassMatrixType, ModalNeglectMasses
 
 class ModalAnalysisSettings():
@@ -65,7 +65,7 @@ class ModalAnalysisSettings():
             clientObject.acting_masses_in_direction_y_enabled = acting_masses[4]
             clientObject.acting_masses_in_direction_z_enabled = acting_masses[5]
         else:
-            raise Exception('WARNING: The acting masses array needs to be of length 6. Kindly check list inputs for completeness and correctness.')
+            raise ValueError('WARNING: The acting masses array needs to be of length 6. Kindly check list inputs for completeness and correctness.')
 
         # Neglect Masses
         clientObject.neglect_masses = neglect_masses.name
@@ -77,6 +77,9 @@ class ModalAnalysisSettings():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Static Analysis Settings to client model
         model.clientModel.service.set_modal_analysis_settings(clientObject)

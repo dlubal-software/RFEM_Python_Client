@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.dataTypes import inf
 
 class LineHinge():
@@ -59,6 +59,9 @@ class LineHinge():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Line Hinge to client model
         model.clientModel.service.set_line_hinge(clientObject)

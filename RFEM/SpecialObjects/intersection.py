@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 
 class Instersection():
     def __init__(self,
@@ -40,6 +40,9 @@ class Instersection():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Intersection to client model
         model.clientModel.service.set_intersection(clientObject)

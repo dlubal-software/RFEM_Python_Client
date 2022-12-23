@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import StabilityAnalysisSettingsAnalysisType
 from RFEM.enums import StabilityAnalysisSettingsEigenvalueMethod
 from RFEM.enums import StabilityAnalysisSettingsMatrixType
@@ -53,6 +53,9 @@ class StabilityAnalysisSettings():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Stability Analysis Settings to client model
         model.clientModel.service.set_stability_analysis_settings(clientObject)
@@ -150,6 +153,9 @@ class StabilityAnalysisSettings():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Stability Analysis Settings to client model
         model.clientModel.service.set_stability_analysis_settings(clientObject)
@@ -261,7 +267,7 @@ class StabilityAnalysisSettings():
 
         # Increase Loading
         if len(incrementally_increasing_loading) != 4:
-            raise Exception('WARNING: The incrementally increasing loading parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
+            raise ValueError('WARNING: The incrementally increasing loading parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
         clientObject.initial_load_factor = incrementally_increasing_loading[0]
         clientObject.load_factor_increment = incrementally_increasing_loading[1]
         clientObject.refinement_of_the_last_load_increment = incrementally_increasing_loading[2]
@@ -270,7 +276,7 @@ class StabilityAnalysisSettings():
         # Stopping of Load-Increasing
         if stopping_of_load_increasing:
             if len(stopping_of_load_increasing) != 3:
-                raise Exception('WARNING: For active stopping of load-increasing, the stopping of load increasing parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: For active stopping of load-increasing, the stopping of load increasing parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
             clientObject.activate_stopping_of_load_increasing = True
             clientObject.stopping_of_load_increasing_result = stopping_of_load_increasing[0].name
             if stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U_X' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U_Y' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U_Z':
@@ -295,6 +301,9 @@ class StabilityAnalysisSettings():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Stability Analysis Settings to client model
         model.clientModel.service.set_stability_analysis_settings(clientObject)
@@ -381,7 +390,7 @@ class StabilityAnalysisSettings():
 
         # Increase Loading
         if len(incrementally_increasing_loading) != 4:
-            raise Exception('WARNING: The incrementally increasing loading parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
+            raise ValueError('WARNING: The incrementally increasing loading parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
         clientObject.initial_load_factor = incrementally_increasing_loading[0]
         clientObject.load_factor_increment = incrementally_increasing_loading[1]
         clientObject.refinement_of_the_last_load_increment = incrementally_increasing_loading[2]
@@ -390,7 +399,7 @@ class StabilityAnalysisSettings():
         # Stopping of Load-Increasing
         if stopping_of_load_increasing:
             if len(stopping_of_load_increasing) != 3:
-                raise Exception('WARNING: For active stopping of load-increasing, the stopping of load increasing parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: For active stopping of load-increasing, the stopping of load increasing parameter needs to be of length 3. Kindly check list inputs for completeness and correctness.')
             clientObject.activate_stopping_of_load_increasing = True
             clientObject.stopping_of_load_increasing_result = stopping_of_load_increasing[0].name
             if stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U_X' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U_Y' or stopping_of_load_increasing[0].name == 'RESULT_TYPE_DISPLACEMENT_U_Z':
@@ -409,6 +418,9 @@ class StabilityAnalysisSettings():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Stability Analysis Settings to client model
         model.clientModel.service.set_stability_analysis_settings(clientObject)

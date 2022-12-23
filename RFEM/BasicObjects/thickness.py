@@ -2,7 +2,7 @@ from RFEM.enums import ThicknessDirection, ThicknessType, LayerType
 from RFEM.enums import ThicknessOrthotropyType, AddOn, ObjectTypes
 from RFEM.enums import ThicknessShapeOrthotropySelfWeightDefinitionType
 from RFEM.enums import ThicknessStiffnessMatrixSelfWeightDefinitionType
-from RFEM.initModel import Model, GetAddonStatus, clearAttributes, SetAddonStatus, ConvertStrToListOfInt
+from RFEM.initModel import Model, GetAddonStatus, clearAttributes, deleteEmptyAttributes, SetAddonStatus, ConvertStrToListOfInt
 from math import pi
 
 class Thickness():
@@ -57,6 +57,9 @@ class Thickness():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Thickness to client model
         model.clientModel.service.set_thickness(clientObject)
 
@@ -103,7 +106,7 @@ class Thickness():
 
         # Thickness Parameters
         if properties is None:
-            raise Exception('WARNING: The properties parameter cannot be empty.')
+            raise ValueError('WARNING: The properties parameter cannot be empty.')
         clientObject.uniform_thickness = properties[0]
 
         # Comment
@@ -113,6 +116,9 @@ class Thickness():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Thickness to client model
         model.clientModel.service.set_thickness(clientObject)
@@ -161,9 +167,9 @@ class Thickness():
 
         # Thickness Properties
         if properties is None:
-            raise Exception('WARNING: The properties parameter cannot be empty')
+            raise ValueError('WARNING: The properties parameter cannot be empty')
         elif len(properties) != 6:
-            raise Exception('WARNING: The properties parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.')
+            raise ValueError('WARNING: The properties parameter needs to be of length 6. Kindly check list inputs for completeness and correctness.')
         clientObject.thickness_1 = properties[0]
         clientObject.node_1 = properties[1]
         clientObject.thickness_2 = properties[2]
@@ -178,6 +184,9 @@ class Thickness():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Thickness to client model
         model.clientModel.service.set_thickness(clientObject)
@@ -227,7 +236,7 @@ class Thickness():
 
         # Thickness Properties
         if len(properties) != 5:
-            raise Exception('WARNING: The properties parameter needs to be of length 5. Kindly check list inputs for completeness and correctness.')
+            raise ValueError('WARNING: The properties parameter needs to be of length 5. Kindly check list inputs for completeness and correctness.')
         clientObject.thickness_1 = properties[0]
         clientObject.node_1 = properties[1]
         clientObject.thickness_2 = properties[2]
@@ -241,6 +250,9 @@ class Thickness():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Thickness to client model
         model.clientModel.service.set_thickness(clientObject)
@@ -290,9 +302,9 @@ class Thickness():
 
         # Thickness Properties
         if properties is None:
-            raise Exception('WARNING: The properties parameter cannot be empty')
+            raise ValueError('WARNING: The properties parameter cannot be empty')
         elif len(properties) != 8:
-            raise Exception('WARNING: The properties parameter needs to be of length 8. Kindly check list inputs for completeness and correctness.')
+            raise ValueError('WARNING: The properties parameter needs to be of length 8. Kindly check list inputs for completeness and correctness.')
         clientObject.thickness_1 = properties[0]
         clientObject.node_1 = properties[1]
         clientObject.thickness_2 = properties[2]
@@ -309,6 +321,9 @@ class Thickness():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Thickness to client model
         model.clientModel.service.set_thickness(clientObject)
@@ -357,9 +372,9 @@ class Thickness():
 
         # Thickness Properties
         if properties is None:
-            raise Exception('WARNING: The properties parameter cannot be empty')
+            raise ValueError('WARNING: The properties parameter cannot be empty')
         elif len(properties) != 2:
-            raise Exception('WARNING: The properties parameter needs to be of length 2. Kindly check list inputs for completeness and correctness.')
+            raise ValueError('WARNING: The properties parameter needs to be of length 2. Kindly check list inputs for completeness and correctness.')
         clientObject.thickness_circle_center = properties[0]
         clientObject.thickness_circle_line = properties[1]
 
@@ -370,6 +385,9 @@ class Thickness():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Thickness to client model
         model.clientModel.service.set_thickness(clientObject)
@@ -417,8 +435,6 @@ class Thickness():
         # Thickness Type
         clientObject.type = ThicknessType.TYPE_LAYERS.name
 
-
-
         # Layers
         clientObject.layers_reference_table = model.clientModel.factory.create('ns0:thickness.layers_reference_table')
 
@@ -448,6 +464,9 @@ class Thickness():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Thickness to client model
         model.clientModel.service.set_thickness(clientObject)
@@ -527,7 +546,7 @@ class Thickness():
 
         # Consideration of Self-Weight
         if len(consideration_of_self_weight) != 2:
-            raise Exception('WARNING: The consideration of self-weight parameter needs to be of length 2. Kindly check list inputs for completeness and correctness.')
+            raise ValueError('WARNING: The consideration of self-weight parameter needs to be of length 2. Kindly check list inputs for completeness and correctness.')
         clientObject.shape_orthotropy_self_weight_definition_type = consideration_of_self_weight[0].name
         if consideration_of_self_weight[0].name == 'SELF_WEIGHT_COMPUTED_FROM_PARAMETERS' or consideration_of_self_weight[0].name == 'SELF_WEIGHT_DEFINED_VIA_FICTITIOUS_THICKNESS':
             clientObject.orthotropy_fictitious_thickness = consideration_of_self_weight[1]
@@ -537,25 +556,25 @@ class Thickness():
         # Shape Orthotropy Parameters
         if orthotropy_type.name == 'EFFECTIVE_THICKNESS':
             if len(parameters) != 2:
-                raise Exception('WARNING: The parameters needs to be of length 2. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The parameters needs to be of length 2. Kindly check list inputs for completeness and correctness.')
             clientObject.shape_orthotropy_effective_thickness_x = parameters[0]
             clientObject.shape_orthotropy_effective_thickness_y = parameters[1]
         elif orthotropy_type.name == 'COUPLING':
             if len(parameters) != 3:
-                raise Exception('WARNING: The parameters needs to be of length 3. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The parameters needs to be of length 3. Kindly check list inputs for completeness and correctness.')
             clientObject.coupling_thickness = parameters[0]
             clientObject.coupling_spacing = parameters[1]
             clientObject.coupling_width = parameters[2]
         elif orthotropy_type.name == 'UNIDIRECTIONAL_RIBBED_PLATE':
             if len(parameters) != 4:
-                raise Exception('WARNING: The parameters needs to be of length 4. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The parameters needs to be of length 4. Kindly check list inputs for completeness and correctness.')
             clientObject.slab_thickness = parameters[0]
             clientObject.rib_height = parameters[1]
             clientObject.rib_spacing = parameters[2]
             clientObject.rib_width = parameters[3]
         elif orthotropy_type.name == 'BIDIRECTIONAL_RIBBED_PLATE':
             if len(parameters) != 7:
-                raise Exception('WARNING: The parameters needs to be of length 7. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The parameters needs to be of length 7. Kindly check list inputs for completeness and correctness.')
             clientObject.slab_thickness = parameters[0]
             clientObject.rib_height_x = parameters[1]
             clientObject.rib_height_y = parameters[2]
@@ -565,7 +584,7 @@ class Thickness():
             clientObject.rib_width_y = parameters[6]
         elif orthotropy_type.name == 'TRAPEZOIDAL_SHEET':
             if len(parameters) != 5:
-                raise Exception('WARNING: The parameters needs to be of length 5. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The parameters needs to be of length 5. Kindly check list inputs for completeness and correctness.')
             clientObject.sheet_thickness = parameters[0]
             clientObject.total_profile_height = parameters[1]
             clientObject.rib_spacing = parameters[2]
@@ -573,13 +592,13 @@ class Thickness():
             clientObject.bottom_flange_width = parameters[4]
         elif orthotropy_type.name == 'HOLLOW_CORE_SLAB':
             if len(parameters) != 3:
-                raise Exception('WARNING: The parameters needs to be of length 3. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The parameters needs to be of length 3. Kindly check list inputs for completeness and correctness.')
             clientObject.slab_thickness = parameters[0]
             clientObject.void_spacing = parameters[1]
             clientObject.void_diameter = parameters[2]
         elif orthotropy_type.name == 'GRILLAGE':
             if len(parameters) != 5:
-                raise Exception('WARNING: The parameters needs to be of length 5. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The parameters needs to be of length 5. Kindly check list inputs for completeness and correctness.')
             clientObject.slab_thickness = parameters[0]
             clientObject.rib_spacing_x = parameters[1]
             clientObject.rib_spacing_y = parameters[2]
@@ -593,6 +612,9 @@ class Thickness():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Thickness to client model
         model.clientModel.service.set_thickness(clientObject)
@@ -681,7 +703,7 @@ class Thickness():
         for item_length in stiffness_matrix:
             array_count.append(len(item_length))
         if array_count != [6, 3, 6, 6]:
-            raise Exception('WARNING: Kindly check Stiffness Matrix inputs for completeness and correctness.')
+            raise ValueError('WARNING: Kindly check Stiffness Matrix inputs for completeness and correctness.')
         clientObject.D11, clientObject.D12, clientObject.D13 = stiffness_matrix[0][0], stiffness_matrix[0][1], stiffness_matrix[0][2]
         clientObject.D22, clientObject.D23, clientObject.D33 = stiffness_matrix[0][3], stiffness_matrix[0][4], stiffness_matrix[0][5]
 
@@ -703,6 +725,9 @@ class Thickness():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Thickness to client model
         model.clientModel.service.set_thickness(clientObject)

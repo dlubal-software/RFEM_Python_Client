@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import MemberImperfectionType, MemberImperfectionDefinitionType
 from RFEM.enums import ImperfectionDirection, MemberImperfectionActiveCriterion
 
@@ -151,6 +151,9 @@ class MemberSetImperfection():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Member Imperfection to client model
         model.clientModel.service.set_member_set_imperfection(imperfection_case, clientObject)

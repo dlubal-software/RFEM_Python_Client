@@ -1,4 +1,4 @@
-from RFEM.initModel import ConvertToDlString, Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString, deleteEmptyAttributes
 
 class MemberResultIntermediatePoint():
     def __init__(self,
@@ -57,6 +57,9 @@ class MemberResultIntermediatePoint():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Member Result Intermediate Point to client model
         model.clientModel.service.set_member_result_intermediate_point(clientObject)

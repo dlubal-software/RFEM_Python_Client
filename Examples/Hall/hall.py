@@ -43,7 +43,6 @@ if __name__ == '__main__':
 
     # members
     Material(1, 'S235')
-    Material(2, 'C25/30')
 
     # sections
     Section(1, 'HEM 700', 1)
