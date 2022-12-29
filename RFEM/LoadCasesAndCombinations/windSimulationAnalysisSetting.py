@@ -13,23 +13,15 @@ class WindSimulaionAnalysisSettings():
     def __init__(self,
                  no: int = 1,
                  name: str = None,
-                 simulation_type= WindSimulationAnalysisSettingsSimulationType.STEADY_FLOW,
                  density: float = 1.25,
                  kinematic_viscosity: float = 0.000015,
                  member_load_distribution = WindSimulationAnalysisSettingsMemberLoadDistribution.CONCENTRATED,
-                 numerical_solver = WindSimulationAnalysisSettingsNumericalSolver.OPEN_FOAM,
                  finite_volume_mesh_density: float = 20.00,
-                 turbulence_model = WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON,
-                 maximum_number_of_iterations: float = 500,
-                 mesh_refinement = WindSimulationAnalysisSettingsMeshRefinementType.DISTANCE_FROM_SURFACE,
-                 consider_turbulence: bool = True,
-                 slip_boundary_on_bottom_boundary: bool=False,
-                 user_defined_dimensions_of_wind_tunnel: bool = False,
-
-                 use_potential_flow_for_initial_condition: bool=False,
-                 use_second_order_numerical_scheme: bool=False,
-                 save_solver_data_to_continue_calculation: bool=False,
-
+                 snap_to_model_edges: bool = True,
+                 calculation_parameters=[False, False, 500, WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON],
+                 options: list = [True, False, False, False],
+                 advanced_options: list = [0.2, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+                 residual_pressure: float = 0.001,
                  boundary_layers_checked: bool=False,
                  boundary_layers_value: float = 5,
                  comment: str = '',
@@ -39,11 +31,13 @@ class WindSimulaionAnalysisSettings():
         Args:
             no (int): Wind Simulation Analysis Setting Tag
             name (str): Wind Simulation Analysis Setting Name
-            simulation_type (enum): Simulation Type Enumeration
-            member_load_distribution (enum): Member Load Distribution Enumeration
-            numerical_solver (enum): Numerical Solver Enumeration
-            mesh_refinement (enum): Mesh Refinement Enumeration
-            turbulence_model (enum): Turbulence Model Enumeration
+            density(enum): Simulation Type Enumeration
+            kinematic_viscosity (enum): Kinematic Viscosity
+            member_load_distribution (enum): Wind Simulation Analysis Settings Member Load Distribution Enumeration
+            finite_volume_mesh_density (enum): Finite Volume Mesh Density
+            calculation_parameters (list): Calculation Parameters List
+                calculation_parameters = [Use Potential Flow to calculate initial Condition, Use Second Order numerical Scheme,
+                    Maximum number of Iterations, Turbulence Model]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -63,53 +57,84 @@ class WindSimulaionAnalysisSettings():
             clientObject.name = name
 
         # Simulation Type
-        clientObject.simulation_type = simulation_type.name
+        clientObject.simulation_type = WindSimulationAnalysisSettingsSimulationType.STEADY_FLOW.name
 
         # Density
         clientObject.density = density
 
-        # Member Load Distribution
-        clientObject.member_load_distribution = member_load_distribution.name
+        # Kinematic Viscosity
+        clientObject.kinematic_viscosity = kinematic_viscosity
 
         # Numerical Solver
-        clientObject.numerical_solver = numerical_solver.name
+        clientObject.numerical_solver = WindSimulationAnalysisSettingsNumericalSolver.OPEN_FOAM.name
 
         # Finite Volume Mesh Density
         clientObject.finite_volume_mesh_density = finite_volume_mesh_density
 
         # Mesh Refinement
-        clientObject.mesh_refinement = mesh_refinement
+        clientObject.mesh_refinement = WindSimulationAnalysisSettingsMeshRefinementType.DISTANCE_FROM_SURFACE.name
 
-        # Consider Turbulence
-        clientObject.consider_turbulence = consider_turbulence
-
-        # "Slip" Bounday Condition
-        clientObject.slip_boundary_on_bottom_boundary = slip_boundary_on_bottom_boundary
-
-
-
-        # User-Defined Dimensions of Wind Tunnel
-        clientObject.user_defined_dimensions_of_wind_tunnel = user_defined_dimensions_of_wind_tunnel
-
-        # Save Solver Data to continue Calculation
-        clientObject.save_solver_data_to_continue_calculation = save_solver_data_to_continue_calculation
+        # Snap to model edges
+        clientObject.snap_to_model_edges=snap_to_model_edges
 
         # Boundary Layers
         clientObject.boundary_layers_checked = boundary_layers_checked
         if boundary_layers_checked == True:
             clientObject.boundary_layers_value = boundary_layers_value
 
+        # Consider Turbulence
+        clientObject.consider_turbulence = options[0]
+
+        # "Slip" Boundary Condition
+        clientObject.slip_boundary_on_bottom_boundary = options[1]
+
+        # User-Defined Dimensions of Wind Tunnel
+        clientObject.user_defined_dimensions_of_wind_tunnel = options[2]
+
+        # Save Solver Data to continue Calculation
+        clientObject.save_solver_data_to_continue_calculation = options[3]
+
+        # Member Load Distribution
+        clientObject.member_load_distribution = member_load_distribution.name
+
         # Use Potential Flow to calculate initial Condition
-        clientObject.use_potential_flow_for_initial_condition = use_potential_flow_for_initial_condition
+        clientObject.use_potential_flow_for_initial_condition = calculation_parameters[0]
 
         # Use Second Order numerical Scheme
-        clientObject.use_second_order_numerical_scheme = use_second_order_numerical_scheme
+        clientObject.use_second_order_numerical_scheme = calculation_parameters[1]
 
         # Maximum number of Iterations
+        clientObject.maximum_numbers_of_iterations = calculation_parameters[2]
 
         # Turbulence Model
-        clientObject.turbulence_model = turbulence_model
+        clientObject.turbulence_model_type = calculation_parameters[3]
 
+        # Pressure Field
+        clientObject.pressure_field = advanced_options[0]
+
+        # Velocity field
+        clientObject.velocity_field = advanced_options[1]
+
+        # turbulence kinetic energy
+        clientObject.turbulence_kinetic_energy = advanced_options[2]
+
+        # Turbulence dissipation Rate
+        clientObject.turbulence_dissipation_rate = advanced_options[3]
+
+        # Specific Turbulence Dissipation Rate
+        clientObject.specific_turbulence_dissipation_rate = advanced_options[4]
+
+        # Modified Turbulence kinetic Viscosity
+        clientObject.turbulence_kinetic_viscosity = advanced_options[5]
+
+        # Turbulence Intermittency
+        clientObject.turbulence_intermittency = advanced_options[6]
+
+        # Momentum Thickness Reynolds Number
+        clientObject.momentum_thickness_reynolds_number = advanced_options[7]
+
+        # Residual Pressure
+        clientObject.residual_pressure = residual_pressure
 
         # Comment
         clientObject.comment = comment
@@ -130,7 +155,14 @@ class WindSimulaionAnalysisSettings():
     def Transient_Flow(self,
                  no: int = 1,
                  name: str = None,
-                 simulation_type= WindSimulationAnalysisSettingsSimulationType.TRANSIENT_FLOW,
+                 calculation_parameters: list = [True, 300, WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON, 0.1],
+                 user_defined_simulation_time: bool = False,
+                 simulation_time: float =10,
+                 start_time_for_saving_transient_result: float = 0,
+                 turbulence_model_type = WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_LES,
+                 saving_results: list = [0.01, 1000, 0.01, 1000],
+                 user_defined_in_domain_for_flow_animation: bool = True,
+                 user_defined_in_point_probes: bool = True,
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -150,12 +182,37 @@ class WindSimulaionAnalysisSettings():
             clientObject.name = name
 
         # Simulation Type
-        clientObject.simulation_type = simulation_type.name
+        clientObject.simulation_type = WindSimulationAnalysisSettingsSimulationType.TRANSIENT_FLOW.name
 
-        # Maximum Numer of Iterations of steady flow solver
+        # Use steady flow solver to calculate initial condition
+        clientObject.steady_flow_from_solver = calculation_parameters[0]
+
+        # Maximum Number of Iterations of steady flow solver
+        clientObject.maximum_number_of_iterations = calculation_parameters[1]
+
+        #Turbulence type for Initial condition
+        clientObject.turbulence_model_type_of_initial_condition = calculation_parameters[2]
+
         # User defined simulation time and time steps
-        # ...
+        clientObject.user_defined_simulation_time = user_defined_simulation_time
+        if user_defined_simulation_time==True:
+            clientObject.simulation_time = simulation_time
+            clientObject.start_time_for_saving_transient_result=start_time_for_saving_transient_result
 
+        #spalart-allmaras DDES
+        clientObject.turbulence_model_type = turbulence_model_type
+
+        # in domain for Flow Animation
+        clientObject.user_defined_in_domain_for_flow_animation = user_defined_in_domain_for_flow_animation
+        if user_defined_simulation_time==True and user_defined_in_domain_for_flow_animation ==True:
+            clientObject.transient_time_step_for_animation = saving_results[1]
+            clientObject.transient_flow_number_of_time_layers = saving_results[2]
+
+        # in Probe points for graphics
+        clientObject.user_defined_in_point_probes = user_defined_in_point_probes
+        if user_defined_simulation_time == True and user_defined_in_point_probes == True:
+            clientObject.transient_flow_time_step_probes = saving_results[3]
+            clientObject.transient_flow_number_of_time_layers_probes = saving_results[4]
 
         # Comment
         clientObject.comment = comment
