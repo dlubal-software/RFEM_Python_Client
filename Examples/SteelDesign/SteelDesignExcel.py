@@ -126,6 +126,7 @@ def main():
         Node(i+8, console_length, y, -console_height)
         Node(i+9, width-console_length, y, -console_height)
         i = i+9
+    nodes = i
 
     i, k = 1, 1
     for j in range(frame_number):
@@ -394,10 +395,76 @@ def main():
     print("Done!")
     
     # write outputs
-    outputSheet = wb.sheets['Outputs']
+    nodaldeformation = wb.sheets['Nodal Deformation']
+    nodalsupport = wb.sheets['Nodal Support']
+    deformationSheet = wb.sheets['Member Deformation']
+    InternalForceSheet = wb.sheets['Internal Force']
+
+    node_number, nodeSupportType, nodesupType = [], [], []
+    nodeDisp_abs, nodeDisp_x, nodeDisp_y, nodeDisp_z = [], [], [], []
+    nodeRotation_x, nodeRotation_y, nodeRotation_z = [], [], [] 
+    nodeSupportForce_x, nodeSupportForce_y, nodeSupportForce_z = [], [], []
+    nodeMoment_x, nodeMoment_y, nodeMoment_z = [], [], []
+
+    for j in range(nodes):
+        dispTab = ResultTables.NodesDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 7, j+1)
+        nodisp_abs = GetMaxValue(dispTab, 'displacement_absolute') * 1000
+        nodisp_x = GetMaxValue(dispTab, 'displacement_x') * 1000
+        nodisp_y = GetMaxValue(dispTab, 'displacement_y') * 1000
+        nodisp_z = GetMaxValue(dispTab, 'displacement_z') * 1000
+        nodeRot_x = GetMaxValue(dispTab, 'rotation_x') * 1000
+        nodeRot_y = GetMaxValue(dispTab, 'rotation_y') * 1000
+        nodeRot_z = GetMaxValue(dispTab, 'rotation_z') * 1000
+        node_number.append(j+1) 
+        nodeDisp_abs.append(round(nodisp_abs, 3)) 
+        nodeDisp_x.append(round(nodisp_x, 3)) 
+        nodeDisp_y.append(round(nodisp_y, 3)) 
+        nodeDisp_z.append(round(nodisp_z, 3))
+        nodeRotation_x.append(round(nodeRot_x, 3))
+        nodeRotation_y.append(round(nodeRot_y, 3))
+        nodeRotation_z.append(round(nodeRot_z, 3))
+
+        nodeType = '-'
+        if (j+1) in nodes_no:
+            nodeType = 'Hinged'
+            nodesupforce_x = GetMaxValue(dispTab, 'support_forces_p_x')
+            nodesupforce_y = GetMaxValue(dispTab, 'support_forces_p_y')
+            nodesupforce_z = GetMaxValue(dispTab, 'support_forces_p_z')
+            nodemom_x = GetMaxValue(dispTab, 'support_moments_m_x')
+            nodemom_y = GetMaxValue(dispTab, 'support_moments_m_y')
+            nodemom_z = GetMaxValue(dispTab, 'support_moments_m_z')
+            nodeSupportForce_x.append(round(nodesupforce_x, 3))
+            nodeSupportForce_y.append(round(nodesupforce_y, 3))
+            nodeSupportForce_z.append(round(nodesupforce_z, 3))
+            nodeMoment_x.append(round(nodemom_x, 3))
+            nodeMoment_y.append(round(nodemom_y, 3))
+            nodeMoment_z.append(round(nodemom_z, 3))
+            nodesupType.append(nodeType)
+
+        nodeSupportType.append(nodeType)
+    
+    node_number = np.array([node_number]).T
+    nodeSupportType = np.array([nodeSupportType]).T
+    nodeDisp_abs = np.array([nodeDisp_abs]).T
+    nodeDisp_x = np.array([nodeDisp_x]).T
+    nodeDisp_y = np.array([nodeDisp_y]).T
+    nodeDisp_z = np.array([nodeDisp_z]).T
+    nodeRotation_x = np.array([nodeRotation_x]).T
+    nodeRotation_y = np.array([nodeRotation_y]).T
+    nodeRotation_z = np.array([nodeRotation_z]).T
+    
+    nodes_no = np.array([nodes_no]).T
+    nodesupType = np.array([nodesupType]).T
+    nodeSupportForce_x = np.array([nodeSupportForce_x]).T
+    nodeSupportForce_y = np.array([nodeSupportForce_y]).T
+    nodeSupportForce_z = np.array([nodeSupportForce_z]).T
+    nodeMoment_x = np.array([nodeMoment_x]).T
+    nodeMoment_y = np.array([nodeMoment_y]).T
+    nodeMoment_z = np.array([nodeMoment_z]).T
+
 
     maxDisplacement_abs, maxDisplacement_x, maxDisplacement_y, maxDisplacement_z = [], [], [], []
-    maxMoment_n, maxMoment_mt, maxMoment_my, maxMoment_mz = [], [], [], []
+    maxForce_n, maxForce_vy, maxForce_vz, maxMoment_mt, maxMoment_my, maxMoment_mz = [], [], [], [], [], []
     k = 1
     for j in range(beam_column):
         dispTable = ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 7, object_no=k)
@@ -411,11 +478,15 @@ def main():
         maxDisplacement_z.append(round(maxDisp_z, 3))
 
         momentTable = ResultTables.MembersInternalForces(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 7, object_no=k)
-        maxMom_n = GetMaxValue(momentTable, 'internal_force_n') / 1000
+        maxFor_n = GetMaxValue(momentTable, 'internal_force_n') / 1000
+        maxFor_y = GetMaxValue(momentTable, 'internal_force_vy') / 1000
+        maxFor_z = GetMaxValue(momentTable, 'internal_force_vz') / 1000
         maxMoment_t = GetMaxValue(momentTable, 'internal_force_mt') / 1000
         maxMoment_y = GetMaxValue(momentTable, 'internal_force_my') / 1000
         maxMoment_z = GetMaxValue(momentTable, 'internal_force_mz') / 1000
-        maxMoment_n.append(round(maxMom_n, 3))
+        maxForce_n.append(round(maxFor_n, 3))
+        maxForce_vy.append(round(maxFor_y, 3))
+        maxForce_vz.append(round(maxFor_z, 3))
         maxMoment_mt.append(round(maxMoment_t, 3))
         maxMoment_my.append(round(maxMoment_y, 3))
         maxMoment_mz.append(round(maxMoment_z, 3))
@@ -436,24 +507,53 @@ def main():
     member_number = np.array([member_no]).T
     member_types = np.array([member_type]).T
     maxDisplacement_abs = np.array([maxDisplacement_abs]).T
-    maxMoment_n = np.array([maxMoment_n]).T
     maxDisplacement_x = np.array([maxDisplacement_x]).T
-    maxMoment_mt = np.array([maxMoment_mt]).T
     maxDisplacement_y = np.array([maxDisplacement_y]).T
-    maxMoment_my = np.array([maxMoment_my]).T
     maxDisplacement_z = np.array([maxDisplacement_z]).T
+    maxForce_n = np.array([maxForce_n]).T
+    maxForce_vy = np.array([maxForce_vy]).T
+    maxForce_vz = np.array([maxForce_vz]).T
+    maxMoment_mt = np.array([maxMoment_mt]).T
+    maxMoment_my = np.array([maxMoment_my]).T
     maxMoment_mz = np.array([maxMoment_mz]).T
 
-    outputSheet["A2:J500"].clear_contents()
+    nodaldeformation["A2:J500"].clear_contents()
+    nodalsupport["A2:J500"].clear_contents()
+    deformationSheet["A2:J500"].clear_contents()
+    InternalForceSheet["A2:J500"].clear_contents()
 
-    outputSheet["A2"].value = member_number
-    outputSheet["B2"].value = member_types
-    outputSheet["C2"].value = maxDisplacement_abs
-    outputSheet["D2"].value = maxDisplacement_x
-    outputSheet["E2"].value = maxDisplacement_y
-    outputSheet["F2"].value = maxDisplacement_z
-    outputSheet["G2"].value = maxMoment_n
-    outputSheet["H2"].value = maxMoment_mt
-    outputSheet["I2"].value = maxMoment_my
-    outputSheet["J2"].value = maxMoment_mz
+    nodaldeformation["A2"].value = node_number
+    nodaldeformation["B2"].value = nodeSupportType
+    nodaldeformation["C2"].value = nodeDisp_abs
+    nodaldeformation["D2"].value = nodeDisp_x
+    nodaldeformation["E2"].value = nodeDisp_y
+    nodaldeformation["F2"].value = nodeDisp_z
+    nodaldeformation["G2"].value = nodeRotation_x
+    nodaldeformation["H2"].value = nodeRotation_y
+    nodaldeformation["I2"].value = nodeRotation_z
+
+    nodalsupport["A2"].value = nodes_no
+    nodalsupport["B2"].value = nodesupType
+    nodalsupport["C2"].value = nodeSupportForce_x
+    nodalsupport["D2"].value = nodeSupportForce_y
+    nodalsupport["E2"].value = nodeSupportForce_z
+    nodalsupport["F2"].value = nodeMoment_x
+    nodalsupport["G2"].value = nodeMoment_y
+    nodalsupport["H2"].value = nodeMoment_z
+
+    deformationSheet["A2"].value = member_number
+    deformationSheet["B2"].value = member_types
+    deformationSheet["C2"].value = maxDisplacement_abs
+    deformationSheet["D2"].value = maxDisplacement_x
+    deformationSheet["E2"].value = maxDisplacement_y
+    deformationSheet["F2"].value = maxDisplacement_z
+
+    InternalForceSheet["A2"].value = member_number
+    InternalForceSheet["B2"].value = member_types
+    InternalForceSheet["C2"].value = maxForce_n
+    InternalForceSheet["D2"].value = maxForce_vy
+    InternalForceSheet["E2"].value = maxForce_vz
+    InternalForceSheet["F2"].value = maxMoment_mt
+    InternalForceSheet["G2"].value = maxMoment_my
+    InternalForceSheet["H2"].value = maxMoment_mz
 
