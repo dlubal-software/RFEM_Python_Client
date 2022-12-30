@@ -12,7 +12,6 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsS
 
 from MyRFEM import *
 
-# TODO 20: Read the data from load tab into the calculation_model and calculate it. Calculation works. At the moment the connection is not closed after calculation. It should be captured if the calculation was not successful.
 # TODO 21: Set the right Action Category
 # TODO 18: Read the date from load tab into the graphic_model
 # TODO 19: Draw the loads

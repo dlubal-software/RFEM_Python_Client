@@ -146,10 +146,10 @@ class MyRFEM():
 
         # Create Design situations
         #DesignSituation(1, DesignSituationType.DESIGN_SITUATION_TYPE_ULS_STR_GEO_PERMANENT_AND_TRANSIENT)
-        DesignSituation(1, DesignSituationType.DESIGN_SITUATION_TYPE_ULS_STR_GEO_PERMANENT_AND_TRANSIENT)
-        #DesignSituation(2, DesignSituationType.DESIGN_SITUATION_TYPE_SLS_CHARACTERISTIC)
-        #DesignSituation(3, DesignSituationType.DESIGN_SITUATION_TYPE_SLS_FREQUENT)
-        #DesignSituation(4, DesignSituationType.DESIGN_SITUATION_TYPE_SLS_QUASI_PERMANENT)
+        DesignSituation(1, DesignSituationType.DESIGN_SITUATION_TYPE_STR_PERMANENT_AND_TRANSIENT_6_10)
+        DesignSituation(2, DesignSituationType.DESIGN_SITUATION_TYPE_SLS_CHARACTERISTIC)
+        DesignSituation(3, DesignSituationType.DESIGN_SITUATION_TYPE_SLS_FREQUENT)
+        DesignSituation(4, DesignSituationType.DESIGN_SITUATION_TYPE_SLS_QUASI_PERMANENT)
 
         LoadCase(1, 'Self-Weight', [True, 0.0, 0.0, 1.0])
         LoadCase(2, 'Snow', [False])
