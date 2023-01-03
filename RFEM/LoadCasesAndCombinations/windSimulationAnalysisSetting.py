@@ -6,9 +6,7 @@ from RFEM.enums import WindSimulationAnalysisSettingsNumericalSolver
 from RFEM.enums import WindSimulationAnalysisSettingsTurbulenceModelType
 
 
-
 class WindSimulaionAnalysisSettings():
-
 
     def __init__(self,
                  no: int = 1,
@@ -31,17 +29,28 @@ class WindSimulaionAnalysisSettings():
         Args:
             no (int): Wind Simulation Analysis Setting Tag
             name (str): Wind Simulation Analysis Setting Name
-            density(enum): Simulation Type Enumeration
-            kinematic_viscosity (enum): Kinematic Viscosity
+            density (float): Simulation Type Enumeration
+            kinematic_viscosity (float): Kinematic Viscosity
             member_load_distribution (enum): Wind Simulation Analysis Settings Member Load Distribution Enumeration
-            finite_volume_mesh_density (enum): Finite Volume Mesh Density
+            finite_volume_mesh_density (float): Finite Volume Mesh Density
             calculation_parameters (list): Calculation Parameters List
                 calculation_parameters = [Use Potential Flow to calculate initial Condition, Use Second Order numerical Scheme,
                     Maximum number of Iterations, Turbulence Model]
+            options (list): Options
+                options = [Consider Turbulence, Slip Boundary on Bottom Boundary, User Defined Dimensions of Wind Tunnel,
+                    Save Solver Data To Continue Calculation]
+            advanced_options (list): Relaxation Factors
+                advanced_options = [Pressure Field, Velocity field, Turbulence Kinetic Energy, Turbulence dissipation Rate,
+                    Specific Turbulence Dissipation Rate, Modified Turbulence kinetic Viscosity, Turbulence Intermittency,
+                    Momentum Thickness Reynolds Number]
+            residual_pressure (float): Residual Pressure
+            boundary_layers_checked (bool): Boundary Layers Checked
+            boundary_layers_value (float): Boundary Layers Value
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
         """
+
         # Client model | Surface
         clientObject = model.clientModel.factory.create('ns0:wind_simulation_analysis_settings')
 
@@ -71,8 +80,8 @@ class WindSimulaionAnalysisSettings():
         # Finite Volume Mesh Density
         clientObject.finite_volume_mesh_density = finite_volume_mesh_density
 
-        # Mesh Refinement
-        clientObject.mesh_refinement = WindSimulationAnalysisSettingsMeshRefinementType.DISTANCE_FROM_SURFACE.name
+        # Mesh Refinement Type
+        clientObject.mesh_refinement_type = WindSimulationAnalysisSettingsMeshRefinementType.DISTANCE_FROM_SURFACE.name
 
         # Snap to model edges
         clientObject.snap_to_model_edges=snap_to_model_edges
@@ -86,7 +95,7 @@ class WindSimulaionAnalysisSettings():
         clientObject.consider_turbulence = options[0]
 
         # "Slip" Boundary Condition
-        clientObject.slip_boundary_on_bottom_boundary = options[1]
+        clientObject.slip_boundary_condition_on_bottom_boundary = options[1]
 
         # User-Defined Dimensions of Wind Tunnel
         clientObject.user_defined_dimensions_of_wind_tunnel = options[2]
@@ -104,7 +113,7 @@ class WindSimulaionAnalysisSettings():
         clientObject.use_second_order_numerical_scheme = calculation_parameters[1]
 
         # Maximum number of Iterations
-        clientObject.maximum_numbers_of_iterations = calculation_parameters[2]
+        clientObject.maximum_number_of_iterations = calculation_parameters[2]
 
         # Turbulence Model
         clientObject.turbulence_model_type = calculation_parameters[3]
@@ -167,6 +176,29 @@ class WindSimulaionAnalysisSettings():
                  params: dict = None,
                  model = Model):
 
+        """
+        Args:
+            no (int): Wind Simulation Analysis Setting Tag
+            name (str): Wind Simulation Analysis Setting Name
+            calculation_parameters (list): Calculation Parameters
+                calculation_parameters = [Use Steady Flow Solver To Calculate Initial Condition,
+                    Maximum Number Of Iterations Of Steady Flow Solver, Turbulence Type For Initial Condition,
+                    Error Tolerance for Data Compression]
+            user_defined_simulation_time (bool): User defined simulation time and time steps
+            simulation_time (flaot): Simulation Time
+            start_time_for_saving_transient_result (float): Start Time For Saving Transient Result
+            turbulence_model_type (enums): Wind Simulation Analysis Settings Turbulence Model Type
+            saving_results (list): Saving Results
+                saving_results = [Transient Flow Time Step For Animation, Transient Flow Number Of Time Layers,
+                    Transient Flow Time Step Probes, Transient Flow Number Of Time Layers Probes]
+            user_defined_in_domain_for_flow_animation (bool): User Defined In Domain For Flow Animation
+            user_defined_in_point_probes (bool): User Defined In Point Probes
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+
+        """
+
         # Client model | Surface
         clientObject = model.clientModel.factory.create('ns0:wind_simulation_analysis_settings')
 
@@ -190,8 +222,11 @@ class WindSimulaionAnalysisSettings():
         # Maximum Number of Iterations of steady flow solver
         clientObject.maximum_number_of_iterations = calculation_parameters[1]
 
-        #Turbulence type for Initial condition
+        # Turbulence Type For Initial Condition
         clientObject.turbulence_model_type_of_initial_condition = calculation_parameters[2]
+
+        # Error Tolerance for Data Compression
+        clientObject.data_compression_error_tolerance = calculation_parameters[3]
 
         # User defined simulation time and time steps
         clientObject.user_defined_simulation_time = user_defined_simulation_time
@@ -199,13 +234,13 @@ class WindSimulaionAnalysisSettings():
             clientObject.simulation_time = simulation_time
             clientObject.start_time_for_saving_transient_result=start_time_for_saving_transient_result
 
-        #spalart-allmaras DDES
+        # Spalart-Allmaras DDES
         clientObject.turbulence_model_type = turbulence_model_type
 
         # in domain for Flow Animation
         clientObject.user_defined_in_domain_for_flow_animation = user_defined_in_domain_for_flow_animation
         if user_defined_simulation_time==True and user_defined_in_domain_for_flow_animation ==True:
-            clientObject.transient_time_step_for_animation = saving_results[1]
+            clientObject.transient_flow_time_step_for_animation = saving_results[1]
             clientObject.transient_flow_number_of_time_layers = saving_results[2]
 
         # in Probe points for graphics
@@ -240,6 +275,18 @@ class WindSimulaionAnalysisSettings():
                  params: dict = None,
                  model = Model):
 
+        """
+        Args:
+            no (int): Wind Simulation Analysis Setting Tag
+            name (str): Wind Simulation Analysis Setting Name
+            consider_surface_roughness (bool): Consider Surface Roughness
+            sand_grain_roughness_height (float): Sand Grain Roughness Height
+            roughness_constant (float): Roughness Constant
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+
+        """
 
         # Client model | Surface
         clientObject = model.clientModel.factory.create('ns0:wind_simulation_analysis_settings')
