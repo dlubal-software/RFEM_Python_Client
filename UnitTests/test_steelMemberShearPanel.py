@@ -14,8 +14,7 @@ from RFEM.TypesForSteelDesign.steelMemberShearPanel import SteelMemberShearPanel
 if Model.clientModel is None:
     Model()
 
-# Type not found: 'ns0:steel_member_shear_panel'
-@pytest.mark.skip()
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:steel_member_shear_panel', True), reason="Type ns0:steel_member_shear_panel not in RFEM GM yet")
 def test_steelMemberShearPanel():
 
     Model.clientModel.service.delete_all()

@@ -7,15 +7,14 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import AddOn
-from RFEM.initModel import Model, SetAddonStatus
+from RFEM.initModel import Model, SetAddonStatus, CheckIfMethodOrTypeExists
 from RFEM.TypesForTimberDesign.timberMemberRotationalRestraint import TimberMemberRotationalRestraint
 import pytest
 
 if Model.clientModel is None:
     Model()
 
-# Type not found ns0:timber_member_rotational_restraint
-@pytest.mark.skip()
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:timber_member_rotational_restraint', True), reason="Type ns0:timber_member_rotational_restraint not in RFEM GM yet")
 def test_timberMemberRotationalRestraints():
 
     Model.clientModel.service.delete_all()

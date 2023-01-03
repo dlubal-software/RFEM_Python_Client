@@ -8,14 +8,13 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import AddOn, PositionOnSection
-from RFEM.initModel import Model, SetAddonStatus
+from RFEM.initModel import Model, SetAddonStatus, CheckIfMethodOrTypeExists
 from RFEM.TypesForTimberDesign.timberMemberShearPanel import TimberMemberShearPanel
 
 if Model.clientModel is None:
     Model()
 
-# Type not found: 'ns0:timber_member_shear_panel'
-@pytest.mark.skip()
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:timber_member_shear_panel', True), reason="Type ns0:timber_member_shear_panel not in RFEM GM yet")
 def test_timberMemberShearPanel():
 
     Model.clientModel.service.delete_all()
