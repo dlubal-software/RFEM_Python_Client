@@ -1,6 +1,8 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import SteelMemberShearPanelDefinitionType, SteelMemberShearPanelPositionOnSection, SteelMemberShearPanelFasteningArrangement
 
+# TODO
+# Upon US-8981 this object will be moved to Types For Members/Member Supports
 class SteelMemberShearPanel():
     def __init__(self,
                 no: int = 1,

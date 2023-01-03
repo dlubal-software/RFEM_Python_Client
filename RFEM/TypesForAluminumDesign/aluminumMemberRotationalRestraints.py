@@ -1,6 +1,8 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, SetAddonStatus
-from RFEM.enums import *
+from RFEM.enums import AluminumMemberRotationalRestraintType, AddOn
 
+# TODO
+# Upon US-8981 this object will be moved to Types For Members/Member Supports
 class AluminumMemberRotationalRestraint():
     def __init__(self,
                 no: int = 1,
