@@ -20,6 +20,7 @@ if Model.clientModel is None:
 
 def test_SteelDesignUltimateConfigurations():
 
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     SetAddonStatus(Model.clientModel, addOn=AddOn.steel_design_active, status=True)
