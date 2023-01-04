@@ -81,7 +81,7 @@ def main():
 
         if verticalBracing == 'Every Blocks':
             bracingV1 = 'yes'
-        
+
         elif verticalBracing == 'First and Last only':
             bracingV2 = 'yes'
 
@@ -90,13 +90,13 @@ def main():
 
         elif verticalBracing == 'Odd Blocks':
             bracingV3 = 'odd'
-    
+
     else:
         bracingV = 'no'
 
     if horizontalBracing == 'Yes':
         bracingH = 'yes'
-    
+
     else:
         bracingH = 'no'
 
@@ -150,7 +150,7 @@ def main():
             m, n, o = m+1, n+1, o+1
         i, k = i+13, k+9
 
-    
+
     #bracingV = input('Would you like to include vertical bracing? (Y/N) : ')
     i = frame_number*8 + (frame_number-1)*5
     beam_column = i
@@ -204,7 +204,7 @@ def main():
                     Member.Tension(i+4, k+4, k+15, section_no= 3)
                     i = i + 4
                 k = k+9
-        
+
     # bracingH = input('Would you like to include Horizontal bracing? (Y/N) : ')
     if bracingH.lower() == 'yes' or bracingH.lower() == 'y':
 
@@ -393,7 +393,7 @@ def main():
     print("Calculation started...")
     Calculate_all()
     print("Done!")
-    
+
     # write outputs
     nodaldeformation = wb.sheets['Nodal Deformation']
     nodalsupport = wb.sheets['Nodal Support']
@@ -402,7 +402,7 @@ def main():
 
     node_number, nodeSupportType, nodesupType = [], [], []
     nodeDisp_abs, nodeDisp_x, nodeDisp_y, nodeDisp_z = [], [], [], []
-    nodeRotation_x, nodeRotation_y, nodeRotation_z = [], [], [] 
+    nodeRotation_x, nodeRotation_y, nodeRotation_z = [], [], []
     nodeSupportForce_x, nodeSupportForce_y, nodeSupportForce_z = [], [], []
     nodeMoment_x, nodeMoment_y, nodeMoment_z = [], [], []
 
@@ -415,10 +415,10 @@ def main():
         nodeRot_x = GetMaxValue(dispTab, 'rotation_x') * 1000
         nodeRot_y = GetMaxValue(dispTab, 'rotation_y') * 1000
         nodeRot_z = GetMaxValue(dispTab, 'rotation_z') * 1000
-        node_number.append(j+1) 
-        nodeDisp_abs.append(round(nodisp_abs, 3)) 
-        nodeDisp_x.append(round(nodisp_x, 3)) 
-        nodeDisp_y.append(round(nodisp_y, 3)) 
+        node_number.append(j+1)
+        nodeDisp_abs.append(round(nodisp_abs, 3))
+        nodeDisp_x.append(round(nodisp_x, 3))
+        nodeDisp_y.append(round(nodisp_y, 3))
         nodeDisp_z.append(round(nodisp_z, 3))
         nodeRotation_x.append(round(nodeRot_x, 3))
         nodeRotation_y.append(round(nodeRot_y, 3))
@@ -442,7 +442,7 @@ def main():
             nodesupType.append(nodeType)
 
         nodeSupportType.append(nodeType)
-    
+
     node_number = np.array([node_number]).T
     nodeSupportType = np.array([nodeSupportType]).T
     nodeDisp_abs = np.array([nodeDisp_abs]).T
@@ -452,7 +452,7 @@ def main():
     nodeRotation_x = np.array([nodeRotation_x]).T
     nodeRotation_y = np.array([nodeRotation_y]).T
     nodeRotation_z = np.array([nodeRotation_z]).T
-    
+
     nodes_no = np.array([nodes_no]).T
     nodesupType = np.array([nodesupType]).T
     nodeSupportForce_x = np.array([nodeSupportForce_x]).T
@@ -498,7 +498,7 @@ def main():
         members = [k+1, k+2, k+3, k+4, k+5, k+6, k+7, k+8, k+9, k+10, k+11, k+12, k+13]
         k += 13
         member_no.extend(members)
-    
+
     types = ['Column', 'Column', 'Beam', 'Beam', 'Column', 'Column', 'Console', 'Console', 'Beam', 'Beam', 'Beam', 'Beam', 'Beam']
     member_type.extend((frame_number)*types)
     del member_no[-5:]
