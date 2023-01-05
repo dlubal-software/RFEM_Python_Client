@@ -16,15 +16,12 @@ from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.TypesForSteelDesign.steelEffectiveLengths import SteelEffectiveLengths
-from RFEM.TypesForSteelDesign.steelBoundaryConditions import SteelBoundaryConditions
-from RFEM.TypesForSteelDesign.steelMemberShearPanel import SteelMemberShearPanel
 from RFEM.SteelDesign.steelUltimateConfigurations import SteelDesignUltimateConfigurations
 from RFEM.Imperfections.imperfectionCase import ImperfectionCase
 from RFEM.Imperfections.memberImperfection import MemberImperfection
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
-from RFEM.LoadCasesAndCombinations.loadCombination import LoadCombination
 from RFEM.Loads.nodalLoad import NodalLoad
 from RFEM.Loads.memberLoad import MemberLoad
 
@@ -37,12 +34,12 @@ if __name__ == '__main__':
     column_height = 4
     gable_height = 2
 
-    frame_number = int(input('Number of Frame : '))
-    width = float(input('Width of Frame (in m) : '))
-    frame_length = float(input('Length of Frame (in m) : '))
-    console_height = float(input('Height of console (in m) : '))
-    column_height = float(input('Height of column (in m) : '))
-    gable_height = float(input('Height of Gable (in m) : '))
+    frame_number = int(input('Number of frames : '))
+    width = float(input('Frame width(in m) : '))
+    frame_length = float(input('Frame length(in m) : '))
+    console_height = float(input('Console height(in m) : '))
+    column_height = float(input('Column height(in m) : '))
+    gable_height = float(input('Gable Height(in m) : '))
     console_length = 0.3
 
     Model(True, 'SteelHall')
@@ -147,7 +144,7 @@ if __name__ == '__main__':
                     i = i + 4
                 k = k+9
 
-    bracingH = input('Would you like to include Horizontal bracing? (Y/N) : ')
+    bracingH = input('Would you like to include horizontal bracing? (Y/N) : ')
     if bracingH.lower() == 'yes' or bracingH.lower() == 'y':
 
         if bracingV.lower() != 'yes' and bracingV.lower() != 'y':

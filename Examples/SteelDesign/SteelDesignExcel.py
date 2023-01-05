@@ -1,7 +1,9 @@
-import xlwings as xw
-import numpy as np
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+import xlwings as xw
+import numpy as np
+import pandas as pd
 import os
 import sys
 baseName = os.path.basename(__file__)
@@ -18,27 +20,43 @@ from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.TypesForSteelDesign.steelEffectiveLengths import SteelEffectiveLengths
-from RFEM.TypesForSteelDesign.steelBoundaryConditions import SteelBoundaryConditions
-from RFEM.TypesForSteelDesign.steelMemberShearPanel import SteelMemberShearPanel
 from RFEM.SteelDesign.steelUltimateConfigurations import SteelDesignUltimateConfigurations
 from RFEM.Imperfections.imperfectionCase import ImperfectionCase
 from RFEM.Imperfections.memberImperfection import MemberImperfection
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
-from RFEM.LoadCasesAndCombinations.loadCombination import LoadCombination
 from RFEM.Loads.nodalLoad import NodalLoad
 from RFEM.Loads.memberLoad import MemberLoad
-from RFEM.Results.resultTables import ResultTables, GetMaxValue, ConvertResultsToListOfDct
-from RFEM.Results.designOverview import GetDesignOverview
+from RFEM.Results.resultTables import ResultTables, GetMaxValue
 
+try:
+    import xlwings
+except:
+    print('xlwings library is not installed in your Python env.')
+    installxlwings = input('Do you want to install it (y/n)?')
+    installxlwings = installxlwings.lower()
+    if installxlwings == 'y':
+        import subprocess
+        try:
+            subprocess.call('python -m pip install xlwings --user')
+        except:
+            print('WARNING: Installation of xlwings library failed!')
+            print('Please use command "pip install xlwings --user" in your Command Prompt.')
+            input('Press Enter to exit...')
+            sys.exit()
+    else:
+        input('Press Enter to exit...')
+        sys.exit()
+
+@xw.sub
 #if __name__ == '__main__':
 def main():
 
-    # open the excel sheet
+    # Open the excel sheet
     wb = xw.Book.caller()
 
-    # read inputs
+    # Read inputs
     inputSheet = wb.sheets('Inputs')
 
     frame_number = 6
@@ -48,42 +66,39 @@ def main():
     column_height = 4
     gable_height = 2
 
-    # frame_number = int(input('Number of Frame : '))
-    # width = float(input('Width of Frame (in m) : '))
-    # frame_length = float(input('Length of Frame (in m) : '))
-    # console_height = float(input('Height of console (in m) : '))
-    # column_height = float(input('Height of column (in m) : '))
-    # gable_height = float(input('Height of Gable (in m) : '))
+    # Geometric Inputs
     frame_number = int(inputSheet["G6"].value)  # number of frames
-    width = inputSheet["G7"].value
-    frame_length = inputSheet["G8"].value
-    console_height = inputSheet["G9"].value
-    column_height = inputSheet["G10"].value
-    gable_height = inputSheet["G11"].value
-    console_length = 0.3
+    width = inputSheet["G7"].value # Width of Frame
+    frame_length = inputSheet["G8"].value # Frame Length
+    console_height = inputSheet["G9"].value # Height of Console
+    column_height = inputSheet["G10"].value # Height of Column
+    gable_height = inputSheet["G11"].value # Height of Gable
+    console_length = 0.3 # Length of Console
 
-    # verticalBracing = 'Every Blocks'
-    # horizontalBracing = 'Yes'
-    verticalBracing = inputSheet["K6:K8"].value[0]
-    horizontalBracing = inputSheet["K9:K11"].value[0]
+    # Bracing Inputs
+    verticalBracing = inputSheet["K6:K8"].value[0] # Vertical Bracing
+    horizontalBracing = inputSheet["K9:K11"].value[0] # Horizontal Bracing
 
-    column_mat = str(inputSheet["H15:I15"].value[0])
-    beam_mat = str(inputSheet["H16:I16"].value[0])
-    bracing_mat = str(inputSheet["H17:I17"].value[0])
-    column = str(inputSheet["J15:K15"].value[0])
-    beam = str(inputSheet["J16:K16"].value[0])
-    bracing = str(inputSheet["J17:K17"].value[0])
+    # Member Materials and Sections
+    column_mat = str(inputSheet["H15:I15"].value[0]) # Column Material
+    beam_mat = str(inputSheet["H16:I16"].value[0]) # Beam Material
+    bracing_mat = str(inputSheet["H17:I17"].value[0]) # Bracing Material
+    column = str(inputSheet["J15:K15"].value[0]) # Column Section
+    beam = str(inputSheet["J16:K16"].value[0]) # Beam Section
+    bracing = str(inputSheet["J17:K17"].value[0]) # Bracing
 
-    bracingV1, bracingV2, bracingV3 = 'None', 'None', 'None'
+    # Assigning Bracing Input to different Bracing Options
+    bracingV1, bracingV2, bracingV3 = False, False, 'None'
 
+    bracingV, bracingH = False, False
     if verticalBracing.lower != 'no':
-        bracingV = 'yes'
+        bracingV = True
 
         if verticalBracing == 'Every Blocks':
-            bracingV1 = 'yes'
+            bracingV1 = True
 
         elif verticalBracing == 'First and Last only':
-            bracingV2 = 'yes'
+            bracingV2 = True
 
         elif verticalBracing == 'Even Blocks':
             bracingV3 = 'even'
@@ -91,27 +106,30 @@ def main():
         elif verticalBracing == 'Odd Blocks':
             bracingV3 = 'odd'
 
-    else:
-        bracingV = 'no'
-
     if horizontalBracing == 'Yes':
-        bracingH = 'yes'
+        bracingH = True
 
-    else:
-        bracingH = 'no'
-
+    # Creating Model
     Model(True, 'SteelHall', )
     Model.clientModel.service.begin_modification()
 
     print("Preparing...")
+
+    # Adding Add-Ons
     SetAddonStatus(Model.clientModel, AddOn.structure_stability_active)
     SetAddonStatus(Model.clientModel, AddOn.steel_design_active)
+
+    # Creating Materials
     Material(1, column_mat)
     Material(2, beam_mat)
     Material(3, bracing_mat)
+
+    # Creating Sections
     Section(1, column, 1)
     Section(2, beam, 2)
     Section(3, bracing, 3)
+
+    # Creating Nodes
     i = 0
     for j in range(frame_number):
 
@@ -128,6 +146,7 @@ def main():
         i = i+9
     nodes = i
 
+    # Creating Column and Beam Members
     i, k = 1, 1
     for j in range(frame_number):
 
@@ -150,15 +169,13 @@ def main():
             m, n, o = m+1, n+1, o+1
         i, k = i+13, k+9
 
-
-    #bracingV = input('Would you like to include vertical bracing? (Y/N) : ')
+    # Creating Vertical Bracing
     i = frame_number*8 + (frame_number-1)*5
     beam_column = i
-    if bracingV.lower() == 'yes' or bracingV.lower() == 'y':
 
-        #bracingV1 = input('Would you like to repeat a vertical bracing in every block? (Y/N): ')
+    if bracingV:
 
-        if bracingV1.lower() == 'yes' or bracingV1.lower() == 'y':
+        if bracingV1:
             k = 1
             for j in range(frame_number-1):
                 Member.Tension(i+1, k, k+11, section_no= 3)
@@ -167,10 +184,7 @@ def main():
                 Member.Tension(i+4, k+4, k+15, section_no= 3)
                 i, k = i+4, k+9
 
-        # else:
-        #     bracingV2 = input('Would you like to repeat a vertical bracing only in the first and last block? (Y/N): ')
-
-        if bracingV2.lower() == 'yes' or bracingV2.lower() == 'y':
+        if bracingV2:
             k = 1
             for j in range(frame_number-1):
                 if j in [0, frame_number-2]:
@@ -180,8 +194,6 @@ def main():
                     Member.Tension(i+4, k+4, k+15, section_no= 3)
                     i = i+4
                 k = k+9
-        # elif bracingV2.lower() == 'no' or bracingV2.lower() == 'n':
-        #     bracingV3 = input('Would you like to repeat a vertical bracing in even/odd blocks? (E/O/N): ')
 
         if bracingV3.lower() == 'even' or bracingV3.lower() == 'e':
             k = 1
@@ -205,10 +217,10 @@ def main():
                     i = i + 4
                 k = k+9
 
-    # bracingH = input('Would you like to include Horizontal bracing? (Y/N) : ')
-    if bracingH.lower() == 'yes' or bracingH.lower() == 'y':
+    # Creating Horizontal Bracing
+    if bracingH:
 
-        if bracingV.lower() != 'yes' and bracingV.lower() != 'y':
+        if bracingV == False:
             k = 1
             for j in range(frame_number-1):
                 Member.Tension(i+1, k+2, k+12, section_no= 3)
@@ -217,7 +229,7 @@ def main():
                 Member.Tension(i+4, k+4, k+12, section_no= 3)
                 i, k = i+4, k+9
 
-        if bracingV1.lower() == 'yes' or bracingV1.lower() == 'y':
+        if bracingV1:
             k = 1
             for j in range(frame_number-1):
                 Member.Tension(i+1, k+2, k+12, section_no= 3)
@@ -226,7 +238,7 @@ def main():
                 Member.Tension(i+4, k+4, k+12, section_no= 3)
                 i, k = i+4, k+9
 
-        if bracingV2.lower() == 'yes' or bracingV2.lower() == 'y':
+        if bracingV2:
             k = 1
             for j in range(frame_number-1):
                 if j in [0, frame_number-2]:
@@ -259,7 +271,7 @@ def main():
                     i = i + 4
                 k = k+9
 
-    # Nodal Support
+    # Creating Nodal Support
     nodes_no = []
     k = 1
     for j in range(frame_number):
@@ -268,18 +280,18 @@ def main():
 
     NodalSupport(1, insertSpaces(nodes_no), NodalSupportType.HINGED)
 
-    # Imperfections
+    # Creating Imperfections
     ImperfectionCase(1, ImperfectionType.IMPERFECTION_TYPE_LOCAL_IMPERFECTIONS, '4', assign_to_combinations_without_assigned_imperfection_case=True, active= True, params={'user_defined_name_enabled': True, 'name': 'Imp in X'})
     ImperfectionCase(2, ImperfectionType.IMPERFECTION_TYPE_LOCAL_IMPERFECTIONS, '5', assign_to_combinations_without_assigned_imperfection_case=True, active= True, params={'user_defined_name_enabled': True, 'name': 'Imp in Y'})
 
-    # Member Imperfections
+    # Creating Member Imperfections
     n, k = 0, 0
     for j in range(frame_number):
         MemberImperfection(n+1, 1, str(k+1)+' '+str(k+2)+' '+str(k+5)+' '+str(k+6), MemberImperfectionType.IMPERFECTION_TYPE_INITIAL_SWAY, MemberImperfectionDefinitionType.DEFINITION_TYPE_EN_1993_1_1, ImperfectionDirection.IMPERFECTION_DIRECTION_LOCAL_Z, [None, column_height, 2, None, None, None, None])
         MemberImperfection(n+1, 2, str(k+1)+' '+str(k+2)+' '+str(k+5)+' '+str(k+6), MemberImperfectionType.IMPERFECTION_TYPE_INITIAL_SWAY, MemberImperfectionDefinitionType.DEFINITION_TYPE_EN_1993_1_1, ImperfectionDirection.IMPERFECTION_DIRECTION_LOCAL_Y, [None, column_height, frame_number, None, None, None, None])
         n, k = n+1, k+13
 
-    # Steel Effective Lengths
+    # Creating Steel Effective Lengths
     n, k, l = 0, 0, 0
     for j in range(frame_number):
         SteelEffectiveLengths(n+1, str(k+3), name='SEL'+str(n+1), nodal_supports=[[SteelEffectiveLengthsSupportType.SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION, True, 0.0, SteelEffectiveLengthsEccentricityType.ECCENTRICITY_TYPE_NONE, \
@@ -311,27 +323,13 @@ def main():
                       0.0, 0.0, 0.0, 0.0, SteelEffectiveLengthsSupportTypeInY.SUPPORT_STATUS_YES, SteelEffectiveLengthsRestraintTypeAboutX.SUPPORT_STATUS_YES, \
                       SteelEffectiveLengthsRestraintTypeAboutZ.SUPPORT_STATUS_NO, SteelEffectiveLengthsRestraintTypeWarping.SUPPORT_STATUS_NO, str(l+11)+' '+str(l+12)+' '+str(l+13)+' '+str(l+14)+' '+str(l+15)]])
         n, k, l = n+1, k+13, l+9
-    # Steel Boundary Conditions
-    # n, k = 0, 0
-    # for j in range(frame_number):
-    #     if j not in [0, frame_number-1]:
-    #         SteelBoundaryConditions(n+1, 'SBC '+str(n+1), str(k+3))
-    #         SteelBoundaryConditions(n+2, 'SBC '+str(n+2), str(k+4))
-    #         n = n+2
-    #     k = k+13
 
-    # Steel Member Shear Panel
-    # n, k = 0, 0
-    # for j in range(frame_number):
-    #     SteelMemberShearPanel(n+1, 'SSP '+str(n+1), members=str(k+3), categories=[SteelMemberShearPanelPositionOnSection.POSITION_ON_UPPER_FLANGE, "HSW (-) E 160 - 1.00 (b: 1) | DIN 18807 | Hoesch E", SteelMemberShearPanelFasteningArrangement.FASTENING_ARRANGEMENT_EVERY_RIB], parameters=[15, 5, None, None])
-    #     SteelMemberShearPanel(n+2, 'SSP '+str(n+2), members=str(k+4), categories=[SteelMemberShearPanelPositionOnSection.POSITION_ON_UPPER_FLANGE, "HSW (-) E 160 - 1.00 (b: 1) | DIN 18807 | Hoesch E", SteelMemberShearPanelFasteningArrangement.FASTENING_ARRANGEMENT_EVERY_RIB], parameters=[15, 5, None, None])
-    #     n, k = n+2, k+13
-
+    # Creating Static Analysis Settings
     StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
     StaticAnalysisSettings.SecondOrderPDelta(2, "SecondOrder")
     StaticAnalysisSettings.LargeDeformation(3, "LargeDeformation")
 
-    # Load Cases and Combinations
+    # Creating Load Cases and Combinations
     LoadCasesAndCombinations()
     LoadCase.StaticAnalysis(1, 'Self-Weight', True, 1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_G, [True, 0.0, 0.0, 1.0])
     LoadCase.StaticAnalysis(2, 'Live Load', True, 1, ActionCategoryType.ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_H_ROOFS_QI_H, [False])
@@ -339,7 +337,7 @@ def main():
     LoadCase.StaticAnalysis(4, 'Wind-Load_x', True, 1, ActionCategoryType.ACTION_CATEGORY_WIND_QW, [False])
     LoadCase.StaticAnalysis(5, 'Wind-Load_y', True, 1, ActionCategoryType.ACTION_CATEGORY_WIND_QW, [False])
 
-    # Loads for LC2:Live Load
+    # Creating Loads for LC2:Live Load
     n, k, l = 0, 0, 0
     for j in range(frame_number):
         MemberLoad(n+1, 2, str(k+3), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 3500)
@@ -348,14 +346,14 @@ def main():
         NodalLoad.Components(n+2, 2, str(l+9), [0,0,10000,0,0,0])
         n, k, l = n+2, k+13, l+9
 
-    # Loads for LC3:Snow Load
+    # Creating Loads for LC3:Snow Load
     n, k = 0, 0
     for j in range(frame_number):
         MemberLoad(n+1, 3, str(k+3), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, 1500)
         MemberLoad(n+2, 3, str(k+4), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, 1500)
         n, k = n+2, k+13
 
-    # Loads for LC4:Wind-Load_x
+    # Creating Loads for LC4:Wind-Load_x
     n, k = 0, 0
     for j in range(frame_number):
         MemberLoad(n+1, 4, str(k+1), LoadDirectionType.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 2000)
@@ -373,7 +371,7 @@ def main():
         MemberLoad(n+5, 4, str(k+13), LoadDirectionType.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 1500)
         n, k = n+5, k+13
 
-    # Loads for LC5:Wind-Load_y
+    # Creating Loads for LC5:Wind-Load_y
     n, k = 0, 0
     for j in range(frame_number):
         MemberLoad(n+1, 5, str(k+1), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 1500)
@@ -384,27 +382,29 @@ def main():
         MemberLoad(n+6, 5, str(k+6), LoadDirectionType.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 1500)
         n, k = n+6, k+13
 
+    # Creating Steel Design Configuration
     SteelDesignUltimateConfigurations(1, 'ULS1', 'All')
 
     print('Model Created!')
 
+    # Finish Model
     Model.clientModel.service.finish_modification()
 
+    # Calculation
     print("Calculation started...")
     Calculate_all()
     print("Done!")
 
-    # write outputs
+    # Creating Output Sheets
     nodaldeformation = wb.sheets['Nodal Deformation']
     nodalsupport = wb.sheets['Nodal Support']
     deformationSheet = wb.sheets['Member Deformation']
     InternalForceSheet = wb.sheets['Internal Force']
+    Overview = wb.sheets['Overview']
 
-    node_number, nodeSupportType, nodesupType = [], [], []
-    nodeDisp_abs, nodeDisp_x, nodeDisp_y, nodeDisp_z = [], [], [], []
-    nodeRotation_x, nodeRotation_y, nodeRotation_z = [], [], []
-    nodeSupportForce_x, nodeSupportForce_y, nodeSupportForce_z = [], [], []
-    nodeMoment_x, nodeMoment_y, nodeMoment_z = [], [], []
+    # Getting Results for Nodal Deformation and Nodal Support
+    node_number, nodeSupportType, nodesupType, nodeDisp_abs, nodeDisp_x, nodeDisp_y, nodeDisp_z = (list(),)*7
+    nodeRotation_x, nodeRotation_y, nodeRotation_z, nodeSupportForce_x, nodeSupportForce_y, nodeSupportForce_z, nodeMoment_x, nodeMoment_y, nodeMoment_z = (list(),)*9
 
     for j in range(nodes):
         dispTab = ResultTables.NodesDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 7, j+1)
@@ -462,9 +462,8 @@ def main():
     nodeMoment_y = np.array([nodeMoment_y]).T
     nodeMoment_z = np.array([nodeMoment_z]).T
 
-
-    maxDisplacement_abs, maxDisplacement_x, maxDisplacement_y, maxDisplacement_z = [], [], [], []
-    maxForce_n, maxForce_vy, maxForce_vz, maxMoment_mt, maxMoment_my, maxMoment_mz = [], [], [], [], [], []
+    # Getting Results for Member Deformation and Internal Force
+    maxDisplacement_abs, maxDisplacement_x, maxDisplacement_y, maxDisplacement_z, maxForce_n, maxForce_vy, maxForce_vz, maxMoment_mt, maxMoment_my, maxMoment_mz = (list(),)*10
     k = 1
     for j in range(beam_column):
         dispTable = ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 7, object_no=k)
@@ -510,6 +509,7 @@ def main():
     maxDisplacement_x = np.array([maxDisplacement_x]).T
     maxDisplacement_y = np.array([maxDisplacement_y]).T
     maxDisplacement_z = np.array([maxDisplacement_z]).T
+
     maxForce_n = np.array([maxForce_n]).T
     maxForce_vy = np.array([maxForce_vy]).T
     maxForce_vz = np.array([maxForce_vz]).T
@@ -517,11 +517,18 @@ def main():
     maxMoment_my = np.array([maxMoment_my]).T
     maxMoment_mz = np.array([maxMoment_mz]).T
 
+    summary = ResultTables.Summary(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 7)
+    df = pd.DataFrame(summary)
+    new_df = df.loc[:,['description', 'value', 'units', 'notes']]
+
+    # Clearing Old Results if there are any
     nodaldeformation["A2:J500"].clear_contents()
     nodalsupport["A2:J500"].clear_contents()
     deformationSheet["A2:J500"].clear_contents()
     InternalForceSheet["A2:J500"].clear_contents()
+    Overview["A2:J500"].clear_contents()
 
+    # Writing Results to Output Sheets
     nodaldeformation["A2"].value = node_number
     nodaldeformation["B2"].value = nodeSupportType
     nodaldeformation["C2"].value = nodeDisp_abs
@@ -556,4 +563,6 @@ def main():
     InternalForceSheet["F2"].value = maxMoment_mt
     InternalForceSheet["G2"].value = maxMoment_my
     InternalForceSheet["H2"].value = maxMoment_mz
+
+    Overview["A1"].value = new_df
 
