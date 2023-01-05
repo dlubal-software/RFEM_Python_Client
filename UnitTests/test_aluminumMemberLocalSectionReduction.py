@@ -44,7 +44,7 @@ def test_AluminumMemberLocalSectionReduction():
         )
 
     Model.clientModel.service.finish_modification()
-    
+
     smlr_1 = Model.clientModel.service.get_aluminum_member_local_section_reduction(1)
     assert smlr_1.components[0][0].row['position'] == 1
     assert smlr_1.components[0][0].row['multiple'] == False
