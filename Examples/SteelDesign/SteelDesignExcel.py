@@ -29,6 +29,7 @@ from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisS
 from RFEM.Loads.nodalLoad import NodalLoad
 from RFEM.Loads.memberLoad import MemberLoad
 from RFEM.Results.resultTables import ResultTables, GetMaxValue
+from RFEM.Tools.PlausibilityCheck import PlausibilityCheck
 
 try:
     import xlwings
@@ -389,6 +390,7 @@ def main():
 
     # Finish Model
     Model.clientModel.service.finish_modification()
+    PlausibilityCheck(True)
 
     # Calculation
     print("Calculation started...")
@@ -403,8 +405,8 @@ def main():
     Overview = wb.sheets['Overview']
 
     # Getting Results for Nodal Deformation and Nodal Support
-    node_number, nodeSupportType, nodesupType, nodeDisp_abs, nodeDisp_x, nodeDisp_y, nodeDisp_z = (list(),)*7
-    nodeRotation_x, nodeRotation_y, nodeRotation_z, nodeSupportForce_x, nodeSupportForce_y, nodeSupportForce_z, nodeMoment_x, nodeMoment_y, nodeMoment_z = (list(),)*9
+    node_number, nodeSupportType, nodesupType, nodeDisp_abs, nodeDisp_x, nodeDisp_y, nodeDisp_z = [], [], [], [], [], [], []
+    nodeRotation_x, nodeRotation_y, nodeRotation_z, nodeSupportForce_x, nodeSupportForce_y, nodeSupportForce_z, nodeMoment_x, nodeMoment_y, nodeMoment_z = [], [], [], [], [], [], [], [], []
 
     for j in range(nodes):
         dispTab = ResultTables.NodesDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 7, j+1)
@@ -463,7 +465,8 @@ def main():
     nodeMoment_z = np.array([nodeMoment_z]).T
 
     # Getting Results for Member Deformation and Internal Force
-    maxDisplacement_abs, maxDisplacement_x, maxDisplacement_y, maxDisplacement_z, maxForce_n, maxForce_vy, maxForce_vz, maxMoment_mt, maxMoment_my, maxMoment_mz = (list(),)*10
+    maxDisplacement_abs, maxDisplacement_x, maxDisplacement_y, maxDisplacement_z, maxForce_n, maxForce_vy, maxForce_vz, maxMoment_mt, maxMoment_my, maxMoment_mz = [], [], [], [], [], [], [], [], [], []
+
     k = 1
     for j in range(beam_column):
         dispTable = ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 7, object_no=k)

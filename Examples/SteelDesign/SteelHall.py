@@ -9,7 +9,7 @@ print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
 from RFEM.enums import *
-from RFEM.initModel import Model, SetAddonStatus, insertSpaces, Calculate_all
+from RFEM.initModel import Model, SetAddonStatus, insertSpaces, Calculate_all, client, closeModel
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
@@ -24,6 +24,7 @@ from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.Loads.nodalLoad import NodalLoad
 from RFEM.Loads.memberLoad import MemberLoad
+from RFEM.Tools.PlausibilityCheck import PlausibilityCheck
 
 if __name__ == '__main__':
 
@@ -34,17 +35,38 @@ if __name__ == '__main__':
     column_height = 4
     gable_height = 2
 
+    print('Give a integer as a number of frame!')
     frame_number = int(input('Number of frames : '))
     width = float(input('Frame width(in m) : '))
+    print('Frame length is the distance between the each frame!')
     frame_length = float(input('Frame length(in m) : '))
     console_height = float(input('Console height(in m) : '))
+    print('Column height msut be more than console height!')
     column_height = float(input('Column height(in m) : '))
+    print('Gable height must be more than difference of column height and console height!')
     gable_height = float(input('Gable Height(in m) : '))
     console_length = 0.3
 
-    Model(True, 'SteelHall')
-    Model.clientModel.service.begin_modification()
+    lst = None
+    lst = client.service.get_model_list()
 
+    if lst:
+
+        if 'SteelHall' in lst[0]:
+            print('Closing old Model...!')
+            client.service.close_model(0, False)
+            print('Creating new model...!')
+            Model(True, 'SteelHall.rf6', delete_all= True)
+
+        else:
+            print('Creating new model...!')
+            Model(True, 'SteelHall.rf6', delete_all= True)
+
+    else:
+        print('Creating new model...!')
+        Model(True, 'SteelHall.rf6', delete_all= True)
+
+    Model.clientModel.service.begin_modification()
     SetAddonStatus(Model.clientModel, AddOn.structure_stability_active)
     SetAddonStatus(Model.clientModel, AddOn.steel_design_active)
     Material(1, 'S235')
@@ -250,21 +272,6 @@ if __name__ == '__main__':
                       0.0, 0.0, 0.0, 0.0, SteelEffectiveLengthsSupportTypeInY.SUPPORT_STATUS_YES, SteelEffectiveLengthsRestraintTypeAboutX.SUPPORT_STATUS_YES, \
                       SteelEffectiveLengthsRestraintTypeAboutZ.SUPPORT_STATUS_NO, SteelEffectiveLengthsRestraintTypeWarping.SUPPORT_STATUS_NO, str(l+11)+' '+str(l+12)+' '+str(l+13)+' '+str(l+14)+' '+str(l+15)]])
         n, k, l = n+1, k+13, l+9
-    # Steel Boundary Conditions
-    # n, k = 0, 0
-    # for j in range(frame_number):
-    #     if j not in [0, frame_number-1]:
-    #         SteelBoundaryConditions(n+1, 'SBC '+str(n+1), str(k+3))
-    #         SteelBoundaryConditions(n+2, 'SBC '+str(n+2), str(k+4))
-    #         n = n+2
-    #     k = k+13
-
-    # Steel Member Shear Panel
-    # n, k = 0, 0
-    # for j in range(frame_number):
-    #     SteelMemberShearPanel(n+1, 'SSP '+str(n+1), members=str(k+3), categories=[SteelMemberShearPanelPositionOnSection.POSITION_ON_UPPER_FLANGE, "HSW (-) E 160 - 1.00 (b: 1) | DIN 18807 | Hoesch E", SteelMemberShearPanelFasteningArrangement.FASTENING_ARRANGEMENT_EVERY_RIB], parameters=[15, 5, None, None])
-    #     SteelMemberShearPanel(n+2, 'SSP '+str(n+2), members=str(k+4), categories=[SteelMemberShearPanelPositionOnSection.POSITION_ON_UPPER_FLANGE, "HSW (-) E 160 - 1.00 (b: 1) | DIN 18807 | Hoesch E", SteelMemberShearPanelFasteningArrangement.FASTENING_ARRANGEMENT_EVERY_RIB], parameters=[15, 5, None, None])
-    #     n, k = n+2, k+13
 
     StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
     StaticAnalysisSettings.SecondOrderPDelta(2, "SecondOrder")
@@ -324,7 +331,9 @@ if __name__ == '__main__':
         n, k = n+6, k+13
 
     SteelDesignUltimateConfigurations(1, 'ULS1', 'All')
+    PlausibilityCheck(True)
 
     Model.clientModel.service.finish_modification()
-
     Calculate_all()
+
+    Model.clientModel.service.close_connection()
