@@ -6,7 +6,7 @@ from RFEM.enums import WindSimulationAnalysisSettingsNumericalSolver
 from RFEM.enums import WindSimulationAnalysisSettingsTurbulenceModelType
 
 
-class WindSimulaionAnalysisSettings():
+class WindSimulationAnalysisSettings():
 
     def __init__(self,
                  no: int = 1,
@@ -14,11 +14,11 @@ class WindSimulaionAnalysisSettings():
                  density: float = 1.25,
                  kinematic_viscosity: float = 0.000015,
                  member_load_distribution = WindSimulationAnalysisSettingsMemberLoadDistribution.CONCENTRATED,
-                 finite_volume_mesh_density: float = 20.00,
+                 finite_volume_mesh_density: float = 0.2,
                  snap_to_model_edges: bool = True,
-                 calculation_parameters=[False, False, 500, WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON],
-                 options: list = [True, False, False, False],
-                 advanced_options: list = [0.2, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+                 calculation_parameters = [False, False, 500, WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON],
+                 options = [True, False, False, False],
+                 advanced_options = [0.2, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
                  residual_pressure: float = 0.001,
                  boundary_layers_checked: bool=False,
                  boundary_layers_value: float = 5,
@@ -116,7 +116,7 @@ class WindSimulaionAnalysisSettings():
         clientObject.maximum_number_of_iterations = calculation_parameters[2]
 
         # Turbulence Model
-        clientObject.turbulence_model_type = calculation_parameters[3]
+        clientObject.turbulence_model_type = calculation_parameters[3].name
 
         # Pressure Field
         clientObject.pressure_field = advanced_options[0]
@@ -161,15 +161,15 @@ class WindSimulaionAnalysisSettings():
 
 
     @staticmethod
-    def Transient_Flow(self,
+    def Transient_Flow(
                  no: int = 1,
                  name: str = None,
-                 calculation_parameters: list = [True, 300, WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON, 0.1],
+                 calculation_parameters = [True, 300, WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON, 0.1],
                  user_defined_simulation_time: bool = False,
                  simulation_time: float =10,
                  start_time_for_saving_transient_result: float = 0,
                  turbulence_model_type = WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_LES,
-                 saving_results: list = [0.01, 1000, 0.01, 1000],
+                 saving_results = [0.01, 1000, 0.01, 1000],
                  user_defined_in_domain_for_flow_animation: bool = True,
                  user_defined_in_point_probes: bool = True,
                  comment: str = '',
@@ -223,7 +223,7 @@ class WindSimulaionAnalysisSettings():
         clientObject.maximum_number_of_iterations = calculation_parameters[1]
 
         # Turbulence Type For Initial Condition
-        clientObject.turbulence_model_type_of_initial_condition = calculation_parameters[2]
+        clientObject.turbulence_model_type_for_initial_condition = calculation_parameters[2].name
 
         # Error Tolerance for Data Compression
         clientObject.data_compression_error_tolerance = calculation_parameters[3]
@@ -235,7 +235,7 @@ class WindSimulaionAnalysisSettings():
             clientObject.start_time_for_saving_transient_result=start_time_for_saving_transient_result
 
         # Spalart-Allmaras DDES
-        clientObject.turbulence_model_type = turbulence_model_type
+        clientObject.turbulence_model_type = turbulence_model_type.name
 
         # in domain for Flow Animation
         clientObject.user_defined_in_domain_for_flow_animation = user_defined_in_domain_for_flow_animation
@@ -265,7 +265,7 @@ class WindSimulaionAnalysisSettings():
 
 
     @staticmethod
-    def Surface_Roughness(self,
+    def Surface_Roughness(
                  no: int = 1,
                  name: str = None,
                  consider_surface_roughness: bool=False,
