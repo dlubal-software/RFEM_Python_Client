@@ -41,7 +41,7 @@ The ribbon of the add-in is compatible with Excel >= 2007 on Windows and >= 2016
 
 
 > ``🛈`` **Note**:      
-The add-in is password protected with the password xlwings. For debugging or to add new extensions, you need to unprotect it. Alternatively, you can also install the add-in via xlwings addin install --unprotected.
+The add-in is password protected with the password `xlwings`. For debugging or to add new extensions, you need to unprotect it. Alternatively, you can also install the add-in via `xlwings addin install --unprotected`.
 
 ## Adding Python Interpreter
 
@@ -53,6 +53,6 @@ For example : ``C:\Python310\python.exe``
 
 ## Run the Script
 
-To run the python code press '``run main``' in xlwings ribbon.
+To run the python code press ``Run main`` in xlwings ribbon.
 
 ![xlwingsButton](img/xlwingsRun.png)
