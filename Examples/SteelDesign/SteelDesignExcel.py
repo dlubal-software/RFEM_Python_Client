@@ -13,7 +13,7 @@ print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
 from RFEM.enums import *
-from RFEM.initModel import Model, SetAddonStatus, insertSpaces, Calculate_all
+from RFEM.initModel import Model, SetAddonStatus, insertSpaces, Calculate_all, client
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
@@ -111,9 +111,20 @@ def main():
         bracingH = True
 
     # Creating Model
-    Model(True, 'SteelHall', )
-    Model.clientModel.service.begin_modification()
+    lst = None
+    lst = client.service.get_model_list()
 
+    if 'SteelHallExcel' in lst[0]:
+        print('Closing old Model...!')
+        client.service.close_model(0, False)
+        print('Creating new model...!')
+        Model(True, 'SteelHallExcel.rf6', delete_all= True)
+
+    else:
+        print('Creating new model...!')
+        Model(True, 'SteelHallExcel.rf6', delete_all= True)
+
+    Model.clientModel.service.begin_modification()
     print("Preparing...")
 
     # Adding Add-Ons
@@ -405,8 +416,8 @@ def main():
     Overview = wb.sheets['Overview']
 
     # Getting Results for Nodal Deformation and Nodal Support
-    node_number, nodeSupportType, nodesupType, nodeDisp_abs, nodeDisp_x, nodeDisp_y, nodeDisp_z = [], [], [], [], [], [], []
-    nodeRotation_x, nodeRotation_y, nodeRotation_z, nodeSupportForce_x, nodeSupportForce_y, nodeSupportForce_z, nodeMoment_x, nodeMoment_y, nodeMoment_z = [], [], [], [], [], [], [], [], []
+    node_number, nodeSupportType, nodesupType, nodeDisp_abs, nodeDisp_x, nodeDisp_y, nodeDisp_z, nodeRotation_x, nodeRotation_y, nodeRotation_z = [], [], [], [], [], [], [], [], [], []
+    nodeSupportForce_x, nodeSupportForce_y, nodeSupportForce_z, nodeMoment_x, nodeMoment_y, nodeMoment_z = [], [], [], [], [], []
 
     for j in range(nodes):
         dispTab = ResultTables.NodesDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 7, j+1)
@@ -525,11 +536,11 @@ def main():
     new_df = df.loc[:,['description', 'value', 'units', 'notes']]
 
     # Clearing Old Results if there are any
-    nodaldeformation["A2:J500"].clear_contents()
-    nodalsupport["A2:J500"].clear_contents()
-    deformationSheet["A2:J500"].clear_contents()
-    InternalForceSheet["A2:J500"].clear_contents()
-    Overview["A2:J500"].clear_contents()
+    nodaldeformation["A2:J5000"].clear_contents()
+    nodalsupport["A2:J5000"].clear_contents()
+    deformationSheet["A2:J5000"].clear_contents()
+    InternalForceSheet["A2:J5000"].clear_contents()
+    Overview["A2:J5000"].clear_contents()
 
     # Writing Results to Output Sheets
     nodaldeformation["A2"].value = node_number
