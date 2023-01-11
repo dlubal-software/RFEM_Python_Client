@@ -4,8 +4,8 @@
 
 Here, you can  find the step by step process to use Steel Design Example using MS Excel.
 
-1. [Install xlwings](https://docs.xlwings.org/en/stable/installation.html#id2))
-2. [Install xlwings Add-in]([#installing-xlwings-add-on](https://docs.xlwings.org/en/stable/installation.html#add-in))
+1. [Install xlwings](https://docs.xlwings.org/en/stable/installation.html#id2)
+2. [Install xlwings Add-in](https://docs.xlwings.org/en/stable/installation.html#add-in)
 3. Add Python Interpreter
 4. Run the Script
 
