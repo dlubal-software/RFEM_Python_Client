@@ -70,6 +70,6 @@ For example : ``C:\Python310\python.exe``
 
 ## Run the Script
 
-To run the python code press ``Run main`` in xlwings ribbon.
+To run the python code press ``Run main`` in xlwings ribbon in Excel.
 
 ![xlwingsButton](img/xlwingsRun.png)
