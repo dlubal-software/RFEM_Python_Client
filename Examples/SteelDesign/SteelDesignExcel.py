@@ -114,11 +114,16 @@ def main():
     lst = None
     lst = client.service.get_model_list()
 
-    if 'SteelHallExcel' in lst[0]:
-        print('Closing old Model...!')
-        client.service.close_model(0, False)
-        print('Creating new model...!')
-        Model(True, 'SteelHallExcel.rf6', delete_all= True)
+    if lst:
+        if 'SteelHallExcel' in lst[0]:
+            print('Closing old Model...!')
+            client.service.close_model(0, False)
+            print('Creating new model...!')
+            Model(True, 'SteelHallExcel.rf6', delete_all= True)
+
+        else:
+            print('Creating new model...!')
+            Model(True, 'SteelHallExcel.rf6', delete_all= True)
 
     else:
         print('Creating new model...!')
