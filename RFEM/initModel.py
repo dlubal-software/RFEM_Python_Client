@@ -1,11 +1,13 @@
 import os
 import sys
-import RFEM.dependencies
+import RFEM.dependencies # dependency check ahead of imports
 import socket
 import requests
 from suds.client import Client
 from RFEM.enums import ObjectTypes, ModelType, AddOn
 from RFEM.suds_requests import RequestsTransport
+from suds.cache import DocumentCache
+from tempfile import gettempdir
 
 # Connect to server
 # Check server port range set in "Program Options & Settings"
@@ -35,7 +37,8 @@ else:
 
 # Check for issues locally and remotely
 try:
-    client = Client(urlAndPort+'/wsdl', location = urlAndPort)
+    ca = DocumentCache(location=os.path.join(gettempdir(), 'WSDL'))
+    client = Client(urlAndPort+'/wsdl', location = urlAndPort, cache=ca)
 except:
     print('Error: Connection to server failed!')
     print('Please check:')
@@ -121,9 +124,10 @@ class Model():
                 modelCompletePath = modelUrlPort+'/wsdl'
 
                 if self.clientModelDct:
-                    cModel = Client(modelCompletePath, location = modelUrlPort)
+                    cModel = Client(modelCompletePath, location = modelUrlPort, cache=ca)
                 else:
-                    cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort)
+                    cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca)
+
                 self.clientModelDct[model_name] = cModel
 
         else:
