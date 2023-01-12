@@ -1,13 +1,30 @@
 # Steel Design Excel Integration
 
+Python version : Python 3.10 (recommended)  
+*Note: `xlwings` is not supported by `Python 3.11` at the moment.*
+
 ## Step by step guide
 
 Here, you can  find the step by step process to use Steel Design Example using MS Excel.
 
-1. [Install xlwings](https://docs.xlwings.org/en/stable/installation.html#id2)
-2. [Install xlwings Add-in](https://docs.xlwings.org/en/stable/installation.html#add-in)
-3. Add Python Interpreter
-4. Run the Script
+1. [Install pandas](https://pandas.pydata.org/pandas-docs/stable/getting_started/install.html)
+2. [Install xlwings](https://docs.xlwings.org/en/stable/installation.html#id2)
+3. [Install xlwings Add-in](https://docs.xlwings.org/en/stable/installation.html#add-in)
+4. Add Python Interpreter
+5. Run the Script
+
+## Installing pandas
+
+pandas can be installed via pip from [PyPI](https://pypi.org/project/pandas/).
+
+> ``🛈`` **Note**:      
+You must have `pip>=19.3` to install from PyPI.
+
+```
+pip install pandas
+```
+
+Python version support : Officially Python 3.8, 3.9, 3.10 and 3.11.
 
 ## Installing xlwings
 

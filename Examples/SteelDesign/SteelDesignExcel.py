@@ -32,6 +32,25 @@ from RFEM.Results.resultTables import ResultTables, GetMaxValue
 from RFEM.Tools.PlausibilityCheck import PlausibilityCheck
 
 try:
+    import pandas
+except:
+    print('pandas library is not installed in your Python env.')
+    installpandas = input('Do you want to install it (y/n)?')
+    installpandas = installpandas.lower()
+    if installpandas == 'y':
+        import subprocess
+        try:
+            subprocess.call('python -m pip install pandas --user')
+        except:
+            print('WARNING: Installation of pandas library failed!')
+            print('Please use command "pip install pandas --user" in your Command Prompt.')
+            input('Press Enter to exit...')
+            sys.exit()
+    else:
+        input('Press Enter to exit...')
+        sys.exit()
+
+try:
     import xlwings
 except:
     print('xlwings library is not installed in your Python env.')
