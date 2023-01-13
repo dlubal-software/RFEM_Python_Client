@@ -71,7 +71,7 @@
       <property name="title">
        <string>Options</string>
       </property>
-      <widget class="QCheckBox" name="checkBox">
+      <widget class="QCheckBox" name="checkBox_loads">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -84,7 +84,7 @@
         <string>Loads</string>
        </property>
       </widget>
-      <widget class="QCheckBox" name="checkBox_2">
+      <widget class="QCheckBox" name="checkBox_steel_design">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -687,7 +687,7 @@
         <x>10</x>
         <y>30</y>
         <width>761</width>
-        <height>161</height>
+        <height>71</height>
        </rect>
       </property>
       <property name="title">
@@ -815,9 +815,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>200</y>
+        <y>110</y>
         <width>761</width>
-        <height>161</height>
+        <height>71</height>
        </rect>
       </property>
       <property name="title">
@@ -867,9 +867,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>370</y>
+        <y>190</y>
         <width>761</width>
-        <height>181</height>
+        <height>71</height>
        </rect>
       </property>
       <property name="title">
@@ -916,9 +916,9 @@
       </widget>
      </widget>
     </widget>
-    <widget class="QWidget" name="Results">
+    <widget class="QWidget" name="SteelDesign">
      <attribute name="title">
-      <string>Results</string>
+      <string>Steel Design</string>
      </attribute>
     </widget>
    </widget>

@@ -6,8 +6,8 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.enums import NodalSupportType, MemberLoadDirection, AnalysisType
-from RFEM.initModel import Model, insertSpaces, Calculate_all
+from RFEM.enums import NodalSupportType, MemberLoadDirection, AnalysisType, ActionCategoryType, AddOn
+from RFEM.initModel import Model, insertSpaces, Calculate_all, SetAddonStatus
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
@@ -141,17 +141,18 @@ class MyRFEM():
 
         # Create load cases and load combinations
         # TODO: Set the right Action Category
+
+
         StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
         StaticAnalysisSettings.SecondOrderPDelta(2, "SecondOrder")
 
         # Create Design situations
-        #DesignSituation(1, DesignSituationType.DESIGN_SITUATION_TYPE_ULS_STR_GEO_PERMANENT_AND_TRANSIENT)
         DesignSituation(1, DesignSituationType.DESIGN_SITUATION_TYPE_STR_PERMANENT_AND_TRANSIENT_6_10)
         DesignSituation(2, DesignSituationType.DESIGN_SITUATION_TYPE_SLS_CHARACTERISTIC)
         DesignSituation(3, DesignSituationType.DESIGN_SITUATION_TYPE_SLS_FREQUENT)
         DesignSituation(4, DesignSituationType.DESIGN_SITUATION_TYPE_SLS_QUASI_PERMANENT)
 
-        LoadCase(1, 'Self-Weight', [True, 0.0, 0.0, 1.0])
+        LoadCase(1, 'Self-Weight', [True, 0.0, 0.0, 1.0], ActionCategoryType.ACTION_CATEGORY_PERMANENT_G)
         LoadCase(2, 'Snow', [False])
         LoadCase(3, 'Slab', [False])
 
@@ -190,6 +191,13 @@ class MyRFEM():
         LoadCombination(15, AnalysisType.ANALYSIS_TYPE_STATIC, 4, '', 2, False, False, False, True, [[1.0, 1, 1, False]])
         LoadCombination(16, AnalysisType.ANALYSIS_TYPE_STATIC, 4, '', 2, False, False, False, True, [[1.0, 1, 1, False], [0.3, 3, 3, True]])
 
+        # TODO Create imperfection cases
+
+        # Activate add on Steel Design
+        # TODO Do the following things when Checkbox Steel Design is active.
+        SetAddonStatus(Model.clientModel, AddOn.steel_design_active, True)
+        #Member(5, comment = 'Test')
+
         Model.clientModel.service.finish_modification()
 
 
@@ -207,5 +215,5 @@ class MyRFEM():
 
 if __name__ == "__main__":
     # ist ein Argument vorhanden?
-    # Wenn ja, dann die JSON-Datei einlesen und die Methode calculate() aufrufen.
+    # TODO Wenn ja, dann die JSON-Datei einlesen und die Methode calculate() aufrufen.
     pass

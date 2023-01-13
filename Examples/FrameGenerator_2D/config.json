@@ -1,1 +1,195 @@
-{"material_list": ["S235", "S275", "S355"], "cross_section_list_1": ["IPE 200", "IPE 300", "IPE 400", "IPE 450"], "cross_section_list_2": ["HEA 160", "HEA 180", "HEA 200", "HEA 220"], "support_list": ["Hinged", "Fixed"], "graphic_model": {"member_color": {"10": "standard", "11": "standard", "12": "standard", "13": "standard", "14": "standard", "01": "standard", "02": "ok", "03": "wrong", "04": "standard", "05": "standard", "06": "standard", "07": "standard", "08": "standard", "09": "standard"}, "node": {"10": [10.0, 7.6000000000000005], "11": [10.0, 4.4], "01": [0, 7.6000000000000005], "02": [0, 4.4], "03": [0, 1.2], "04": [15.0, 7.6000000000000005], "05": [15.0, 4.4], "06": [15.0, 1.2], "07": [7.5, 0], "08": [5, 7.6000000000000005], "09": [5, 4.4]}, "supports": {"1": "Hinged", "2": "Hinged", "3": "Hinged", "4": "Hinged"}}, "presets": {"cross_section": [1, 0, 3, 2], "dimensions": ["5", "6", "5", "3.2", "3.2", "1.2"], "loads": {"self-weight": ["1", "1", "1"], "slab": ["3"], "snow": ["2.5"]}, "material": [0, 0, 0, 0], "supports": [0, 0, 0, 0]}, "calculation_model": {"loads": {"self-weight": [1.0, 1.0, 1.0], "snow": [2.5], "slab": [3.0]}, "structure": {"cs": ["IPE 300", "HEA 160", "IPE 450", "IPE 400"], "dimensions": [5, 5.0, 5, 3.2, 3.2, 1.2], "material": ["S235", "S235", "S235", "S235"], "supports": ["Hinged", "Hinged", "Hinged", "Hinged"], "loads": {"self-weight": [0, 0, 0, 0], "snow": [1], "slab": [2]}}}}
+{
+  "material_list": [
+    "S235",
+    "S275",
+    "S355"
+  ],
+  "cross_section_list_1": [
+    "IPE 200",
+    "IPE 300",
+    "IPE 400",
+    "IPE 450"
+  ],
+  "cross_section_list_2": [
+    "HEA 160",
+    "HEA 180",
+    "HEA 200",
+    "HEA 220"
+  ],
+  "support_list": [
+    "Hinged",
+    "Fixed"
+  ],
+  "graphic_model": {
+    "member_color": {
+      "10": "standard",
+      "11": "standard",
+      "12": "standard",
+      "13": "standard",
+      "14": "standard",
+      "01": "standard",
+      "02": "ok",
+      "03": "wrong",
+      "04": "standard",
+      "05": "standard",
+      "06": "standard",
+      "07": "standard",
+      "08": "standard",
+      "09": "standard"
+    },
+    "node": {
+      "10": [
+        10,
+        7.6000000000000005
+      ],
+      "11": [
+        10,
+        4.4
+      ],
+      "01": [
+        0,
+        7.6000000000000005
+      ],
+      "02": [
+        0,
+        4.4
+      ],
+      "03": [
+        0,
+        1.2
+      ],
+      "04": [
+        15,
+        7.6000000000000005
+      ],
+      "05": [
+        15,
+        4.4
+      ],
+      "06": [
+        15,
+        1.2
+      ],
+      "07": [
+        7.5,
+        0
+      ],
+      "08": [
+        5,
+        7.6000000000000005
+      ],
+      "09": [
+        5,
+        4.4
+      ]
+    },
+    "supports": {
+      "1": "Hinged",
+      "2": "Hinged",
+      "3": "Hinged",
+      "4": "Hinged"
+    }
+  },
+  "presets": {
+    "check_load": 1,
+    "check_steel_design": 1,
+    "cross_section": [
+      1,
+      0,
+      3,
+      2
+    ],
+    "dimensions": [
+      "5",
+      "6",
+      "5",
+      "3.2",
+      "3.2",
+      "1.2"
+    ],
+    "loads": {
+      "self-weight": [
+        "1",
+        "1",
+        "1"
+      ],
+      "slab": [
+        "3"
+      ],
+      "snow": [
+        "2.5"
+      ]
+    },
+    "material": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "supports": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "calculation_model": {
+    "loads": {
+      "self-weight": [
+        1,
+        1,
+        1
+      ],
+      "snow": [
+        2.5
+      ],
+      "slab": [
+        3
+      ]
+    },
+    "structure": {
+      "cs": [
+        "IPE 300",
+        "HEA 160",
+        "IPE 450",
+        "IPE 400"
+      ],
+      "dimensions": [
+        5,
+        5,
+        5,
+        3.2,
+        3.2,
+        1.2
+      ],
+      "material": [
+        "S235",
+        "S235",
+        "S235",
+        "S235"
+      ],
+      "supports": [
+        "Hinged",
+        "Hinged",
+        "Hinged",
+        "Hinged"
+      ],
+      "loads": {
+        "self-weight": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "snow": [
+          1
+        ],
+        "slab": [
+          2
+        ]
+      }
+    },
+    "check_load": 1,
+    "check_steel_design": 1
+  }
+}

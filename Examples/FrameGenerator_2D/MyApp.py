@@ -53,6 +53,17 @@ class MyWindow(QMainWindow):
 
         self.readConfig()
 
+        # Fill the check boxes with the values form config
+        if self.presets['check_load'] == 1:
+            self.ui.checkBox_loads.setChecked(True)
+        else:
+            self.ui.checkBox_loads.setChecked(False)
+
+        if self.presets['check_steel_design'] == 1:
+            self.ui.checkBox_steel_design.setChecked(True)
+        else:
+            self.ui.checkBox_steel_design.setChecked(False)
+
         # Fill the LineEdits for structure with the values form config
         self.ui.lineEdit_l_1.setText(self.presets['dimensions'][0])
         self.ui.lineEdit_l_2.setText(self.presets['dimensions'][1])
@@ -116,6 +127,10 @@ class MyWindow(QMainWindow):
         self.ui.lineEdit_g_w.setText(self.presets['loads']['self-weight'][2])
         self.ui.lineEdit_s_r.setText(self.presets['loads']['snow'][0])
         self.ui.lineEdit_p_s.setText(self.presets['loads']['slab'][0])
+
+        # Slots for CheckBox
+        self.ui.checkBox_loads.stateChanged.connect(self.onChange_checkBox_loads)
+        self.ui.checkBox_steel_design.stateChanged.connect(self.onChange_checkBox_steel_design)
 
         # Slots for LineEdits
         self.ui.lineEdit_l_1.textChanged.connect(self.onChange_l_1)
@@ -368,6 +383,25 @@ class MyWindow(QMainWindow):
             s = '0'
 
         return s
+
+    def onChange_checkBox_loads(self):
+        # Voreinstellungen
+        if self.ui.checkBox_loads.checkState():
+            # save it in config
+            self.presets['check_load'] = 1
+            # save it in calculation model
+            self.calculation_model['check_load'] = 1
+        else:
+            self.presets['check_load'] = 0
+            self.calculation_model['check_load'] = 0
+
+    def onChange_checkBox_steel_design(self):
+        if self.ui.checkBox_steel_design.checkState():
+            self.presets['check_steel_design'] = 1
+            self.calculation_model['check_steel_design'] = 1
+        else:
+            self.presets['check_steel_design'] = 0
+            self.calculation_model['check_steel_design'] = 0
 
     def onChange_l_1(self):
         s = self.ui.lineEdit_l_1.text()
