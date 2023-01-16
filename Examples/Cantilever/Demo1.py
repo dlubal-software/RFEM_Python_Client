@@ -46,6 +46,7 @@ if __name__ == '__main__':
     LoadCase(1, 'Self-Weight', [True, 0.0, 0.0, 1.0])
 
     NodalLoad(1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, f*1000)
+    MemberLoad.Force(1,1,1,MemberLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, )
     Model.clientModel.service.finish_modification()
 
     Calculate_all()
