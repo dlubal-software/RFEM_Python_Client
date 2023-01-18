@@ -14,6 +14,8 @@ from RFEM.TypesForTimberDesign.timberMemberShearPanel import TimberMemberShearPa
 if Model.clientModel is None:
     Model()
 
+# Used method/type: ns0:timber_member_shear_panel is not implemented in Web Services yet.
+@pytest.mark.skip()
 def test_timberMemberShearPanel():
 
     Model.clientModel.service.delete_all()

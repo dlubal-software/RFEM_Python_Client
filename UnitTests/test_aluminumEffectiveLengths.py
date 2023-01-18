@@ -7,12 +7,14 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import *
-from RFEM.initModel import Model, SetAddonStatus
+from RFEM.initModel import Model, SetAddonStatus, CheckIfMethodOrTypeExists
 from RFEM.TypesForAluminumDesign.aluminumEffectiveLengths import AluminumEffectiveLengths
+import pytest
 
 if Model.clientModel is None:
     Model()
 
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:aluminum_effective_lengths'), reason="Type ns0:aluminum_effective_lengths not in RFEM GM yet")
 def test_aluminumEffectiveLengths():
 
     Model.clientModel.service.delete_all()

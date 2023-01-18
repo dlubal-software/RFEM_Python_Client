@@ -8,12 +8,15 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import AluminumMemberShearPanelDefinitionType, AluminumMemberShearPanelPositionOnSection, AluminumMemberShearPanelFasteningArrangement
-from RFEM.initModel import Model, SetAddonStatus, AddOn
+from RFEM.initModel import Model, SetAddonStatus, AddOn, CheckIfMethodOrTypeExists
 from RFEM.TypesForAluminumDesign.aluminumMemberShearPanel import AluminumMemberShearPanel
+import pytest
 
 if Model.clientModel is None:
     Model()
 
+# Used method: ns0:aluminum_member_shear_panel is not implemented in Web Services yet.
+@pytest.mark.skip()
 def test_steelMemberShearPanel():
 
     Model.clientModel.service.delete_all()
