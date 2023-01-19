@@ -1,17 +1,26 @@
 # Steel Design Excel Integration
 
 Python version : Python 3.10 (recommended)  
-*Note: `xlwings` is not supported by `Python 3.11` at the moment.*
+*`🛈` Note: `xlwings` is not supported by `Python 3.11` at the moment.*
 
 ## Step by step guide
 
 Here, you can  find the step by step process to use Steel Design Example using MS Excel.
 
-1. [Install pandas](https://pandas.pydata.org/pandas-docs/stable/getting_started/install.html)
-2. [Install xlwings](https://docs.xlwings.org/en/stable/installation.html#id2)
-3. [Install xlwings Add-in](https://docs.xlwings.org/en/stable/installation.html#add-in)
-4. Add Python Interpreter
-5. Run the Script
+1. [Install numpy](https://numpy.org/install/)
+2. [Install pandas](https://pandas.pydata.org/pandas-docs/stable/getting_started/install.html)
+3. [Install xlwings](https://docs.xlwings.org/en/stable/installation.html#id2)
+4. [Install xlwings Add-in](https://docs.xlwings.org/en/stable/installation.html#add-in)
+5. Add Python Interpreter
+6. Run the Script
+
+## Installing numpy
+
+You can install NumPy with:
+
+```
+pip install numpy
+```
 
 ## Installing pandas
 
@@ -53,9 +62,7 @@ xlwings addin install
 ```
 
 > ``🛈`` **Note**:      
-The ribbon of the add-in is compatible with Excel >= 2007 on Windows and >= 2016 on macOS. On macOS, all UDF related functionality is not available.
-
-
+The ribbon of the add-in is compatible with `Excel >= 2007 on Windows and >= 2016 on macOS`. On macOS, all UDF related functionality is not available.
 
 > ``🛈`` **Note**:      
 The add-in is password protected with the password `xlwings`. For debugging or to add new extensions, you need to unprotect it. Alternatively, you can also install the add-in via `xlwings addin install --unprotected`.
@@ -70,6 +77,6 @@ For example : ``C:\Python310\python.exe``
 
 ## Run the Script
 
-To run the python code press ``Run main`` in xlwings ribbon in Excel.
+To run the python code press ``Run main`` in xlwings ribbon.
 
 ![xlwingsButton](img/xlwingsRun.png)
