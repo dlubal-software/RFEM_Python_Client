@@ -1,11 +1,12 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
+from RFEM.dataTypes import inf
 from RFEM.enums import TranslationalReleaseNonlinearity, RotationalReleaseNonlinearity, LineReleaseLocalAxisSystem
 
 class LineReleaseType():
 
     def __init__(self,
                  no: int = 1,
-                 spring_constant: list = ['INF', 'INF', 'INF', 'INF'],
+                 spring_constant: list = [inf, inf, inf, inf],
                  nonlinearity: list = [TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_NONE, TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_NONE, \
                                        TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_NONE, RotationalReleaseNonlinearity.NONLINEARITY_TYPE_NONE],
                  local_axis_system = LineReleaseLocalAxisSystem.LOCAL_AXIS_SYSTEM_TYPE_ORIGINAL_LINE,
