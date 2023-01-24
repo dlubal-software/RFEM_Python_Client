@@ -10,7 +10,7 @@ class CombinationWizard():
                 consider_imperfection_case: bool = True,
                 generate_same_CO_without_IC: bool = True,
                 initial_state_case: int = 1,
-                initial_state_definition_type = InitialStateDefintionType.DEFINITION_TYPE_FINAL_STATE.name,
+                initial_state_definition_type = InitialStateDefintionType.DEFINITION_TYPE_FINAL_STATE,
                 structure_modification: int = 1,
                 user_defined_action_combinations: bool = False,
                 favorable_permanent_actions: bool = False,
