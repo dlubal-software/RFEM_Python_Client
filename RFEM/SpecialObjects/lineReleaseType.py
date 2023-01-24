@@ -1,14 +1,16 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.dataTypes import inf
-from RFEM.enums import TranslationalReleaseNonlinearity, RotationalReleaseNonlinearity, LineReleaseLocalAxisSystem
+from RFEM.enums import TranslationalReleaseNonlinearity, RotationalReleaseNonlinearity, LineReleaseLocalAxisSystem, PartialActivityAlongType
 
 class LineReleaseType():
 
     def __init__(self,
                  no: int = 1,
                  spring_constant: list = [inf, inf, inf, inf],
-                 nonlinearity: list = [TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_NONE, TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_NONE, \
-                                       TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_NONE, RotationalReleaseNonlinearity.NONLINEARITY_TYPE_NONE],
+                 translational_release_ux_nonlinearity: list = [TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_NONE, [None], [None]],
+                 translational_release_uy_nonlinearity: list = [TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_NONE, [None], [None]],
+                 translational_release_uz_nonlinearity: list = [TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_NONE, [None], [None]],
+                 rotational_release_phi_x_nonlinearity: list = [RotationalReleaseNonlinearity.NONLINEARITY_TYPE_NONE, [None], [None]],
                  local_axis_system = LineReleaseLocalAxisSystem.LOCAL_AXIS_SYSTEM_TYPE_ORIGINAL_LINE,
                  system_para: list = [0],
                  name: str = None,
@@ -39,10 +41,111 @@ class LineReleaseType():
         clientObject.rotational_release_phi_x = spring_constant[3]
 
         # Line Release Nonlinearity Type
-        clientObject.translational_release_u_x_nonlinearity = nonlinearity[0].name
-        clientObject.translational_release_u_y_nonlinearity = nonlinearity[1].name
-        clientObject.translational_release_u_z_nonlinearity = nonlinearity[2].name
-        clientObject.rotational_release_phi_x_nonlinearity = nonlinearity[3].name
+        clientObject.translational_release_u_x_nonlinearity = translational_release_ux_nonlinearity[0].name
+        clientObject.translational_release_u_y_nonlinearity = translational_release_uy_nonlinearity[0].name
+        clientObject.translational_release_u_z_nonlinearity = translational_release_uz_nonlinearity[0].name
+        clientObject.rotational_release_phi_x_nonlinearity = rotational_release_phi_x_nonlinearity[0].name
+
+        # Line Release Nonlinearity Parameters for Partial Activity
+        # For translational_release_u_x_nonlinearity
+        if translational_release_ux_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
+
+            # Negative Zone
+            clientObject.partial_activity_along_x_negative_type = translational_release_ux_nonlinearity[1][0]
+
+            if translational_release_ux_nonlinearity[1][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
+                clientObject.partial_activity_along_x_negative_slippage = translational_release_ux_nonlinearity[1][1]
+
+            elif translational_release_ux_nonlinearity[1][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FIXED:
+                clientObject.partial_activity_along_x_negative_slippage = translational_release_ux_nonlinearity[1][1]
+                clientObject.partial_activity_along_x_negative_displacement = translational_release_ux_nonlinearity[1][2]
+
+            elif translational_release_ux_nonlinearity[1][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE \
+                or translational_release_ux_nonlinearity[1][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE:
+                clientObject.partial_activity_along_x_negative_slippage = translational_release_ux_nonlinearity[1][1]
+                clientObject.partial_activity_along_x_negative_force = translational_release_ux_nonlinearity[1][2]
+
+            # Positive Zone
+            clientObject.partial_activity_along_x_positive_type = translational_release_ux_nonlinearity[2][0]
+
+            if translational_release_ux_nonlinearity[2][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
+                clientObject.partial_activity_along_x_positive_slippage = translational_release_ux_nonlinearity[2][1]
+
+            elif translational_release_ux_nonlinearity[2][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FIXED:
+                clientObject.partial_activity_along_x_positive_slippage = translational_release_ux_nonlinearity[2][1]
+                clientObject.partial_activity_along_x_positive_displacement = translational_release_ux_nonlinearity[2][2]
+
+            elif translational_release_ux_nonlinearity[2][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE \
+                or translational_release_ux_nonlinearity[2][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE:
+                clientObject.partial_activity_along_x_positive_slippage = translational_release_ux_nonlinearity[2][1]
+                clientObject.partial_activity_along_x_positive_force = translational_release_ux_nonlinearity[2][2]
+
+        # For translational_release_u_y_nonlinearity
+        if translational_release_uy_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
+
+            # Negative Zone
+            clientObject.partial_activity_along_y_negative_type = translational_release_uy_nonlinearity[1][0]
+
+            if translational_release_uy_nonlinearity[1][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
+                clientObject.partial_activity_along_y_negative_slippage = translational_release_uy_nonlinearity[1][1]
+
+            elif translational_release_uy_nonlinearity[1][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FIXED:
+                clientObject.partial_activity_along_y_negative_slippage = translational_release_uy_nonlinearity[1][1]
+                clientObject.partial_activity_along_y_negative_displacement = translational_release_uy_nonlinearity[1][2]
+
+            elif translational_release_uy_nonlinearity[1][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE \
+                or translational_release_uy_nonlinearity[1][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE:
+                clientObject.partial_activity_along_y_negative_slippage = translational_release_uy_nonlinearity[1][1]
+                clientObject.partial_activity_along_y_negative_force = translational_release_uy_nonlinearity[1][2]
+
+            # Positive Zone
+            clientObject.partial_activity_along_y_positive_type = translational_release_uy_nonlinearity[2][0]
+
+            if translational_release_uy_nonlinearity[2][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
+                clientObject.partial_activity_along_y_positive_slippage = translational_release_uy_nonlinearity[2][1]
+
+            elif translational_release_uy_nonlinearity[2][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FIXED:
+                clientObject.partial_activity_along_y_positive_slippage = translational_release_uy_nonlinearity[2][1]
+                clientObject.partial_activity_along_y_positive_displacement = translational_release_uy_nonlinearity[2][2]
+
+            elif translational_release_uy_nonlinearity[2][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE \
+                or translational_release_uy_nonlinearity[2][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE:
+                clientObject.partial_activity_along_y_positive_slippage = translational_release_uy_nonlinearity[2][1]
+                clientObject.partial_activity_along_y_positive_force = translational_release_uy_nonlinearity[2][2]
+
+        # For translational_release_u_z_nonlinearity
+        if translational_release_uz_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
+
+            # Negative Zone
+            clientObject.partial_activity_along_z_negative_type = translational_release_uz_nonlinearity[1][0]
+
+            if translational_release_uz_nonlinearity[1][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
+                clientObject.partial_activity_along_z_negative_slippage = translational_release_uz_nonlinearity[1][1]
+
+            elif translational_release_uz_nonlinearity[1][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FIXED:
+                clientObject.partial_activity_along_z_negative_slippage = translational_release_uz_nonlinearity[1][1]
+                clientObject.partial_activity_along_z_negative_displacement = translational_release_uz_nonlinearity[1][2]
+
+            elif translational_release_uz_nonlinearity[1][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE \
+                or translational_release_uz_nonlinearity[1][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE:
+                clientObject.partial_activity_along_z_negative_slippage = translational_release_uz_nonlinearity[1][1]
+                clientObject.partial_activity_along_z_negative_force = translational_release_uz_nonlinearity[1][2]
+
+            # Positive Zone
+            clientObject.partial_activity_along_z_positive_type = translational_release_uz_nonlinearity[2][0]
+
+            if translational_release_uz_nonlinearity[2][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
+                clientObject.partial_activity_along_z_positive_slippage = translational_release_uz_nonlinearity[2][1]
+
+            elif translational_release_uz_nonlinearity[2][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FIXED:
+                clientObject.partial_activity_along_z_positive_slippage = translational_release_uz_nonlinearity[2][1]
+                clientObject.partial_activity_along_z_positive_displacement = translational_release_uz_nonlinearity[2][2]
+
+            elif translational_release_uz_nonlinearity[2][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE \
+                or translational_release_uz_nonlinearity[2][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE:
+                clientObject.partial_activity_along_z_positive_slippage = translational_release_uz_nonlinearity[2][1]
+                clientObject.partial_activity_along_z_positive_force = translational_release_uz_nonlinearity[2][2]
+
 
         # Line Release Local Axis System
         clientObject.local_axis_system_object_type = local_axis_system.name
