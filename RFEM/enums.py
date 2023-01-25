@@ -2322,3 +2322,15 @@ class ResponseSpectrumDefinitionType(Enum):
     Response Spectrum Definition Type
     '''
     ACCORDING_TO_STANDARD, GENERATED_FROM_ACCELEROGRAM, USER_DEFINED, USER_DEFINED_IN_G_FACTOR = range(4)
+
+class LoadWizardType(Enum):
+    ''''
+    Types of Loading Wizards
+    '''
+    GENERATE_LOAD_COMBINATIONS, GENERATE_RESULT_COMBINATIONS = range(2)
+
+class InitialStateDefintionType(Enum):
+    '''
+    Types of Initial States
+    '''
+    DEFINITION_TYPE_FINAL_STATE, DEFINITION_TYPE_STIFFNESS, DEFINITION_TYPE_STRAINS, DEFINITION_TYPE_STRAINS_WITH_USER_DEFINED_FACTORS = range(4)
