@@ -545,9 +545,9 @@ class Member():
 
         # Section Distribution
         clientObject.section_distribution_type = section_distribution_type.name
-        try:
-            section_distribution_type.name == "MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM" or section_distribution_type.name == "MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR"
-        except:
+        if section_distribution_type.name == "SECTION_DISTRIBUTION_TYPE_UNIFORM" or section_distribution_type.name == "SECTION_DISTRIBUTION_TYPE_LINEAR":
+            pass
+        else:
             raise TypeError("WARNING: Only Uniform and Linear section distributions are available for Rib member. Kindly check inputs and correctness.")
 
         # Start Section No.
@@ -564,7 +564,7 @@ class Member():
         clientObject.member_type_rib_alignment = rib_alignment.name
 
         # Reference Length Width Type
-        clientObject.reference_length_width_type = reference_width_type.name
+        #clientObject.reference_length_width_type = reference_width_type.name
 
         # Update parameters
         params_up: dict = {'member_hinge_start':0, 'member_hinge_end': 0,

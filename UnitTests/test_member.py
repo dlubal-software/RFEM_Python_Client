@@ -76,7 +76,6 @@ def test_member_rigid():
     assert round(member.analytical_length, 5) == 5.19615
     assert member.type == "TYPE_RIGID"
 
-"""
 def test_member_rib():
 
     Model.clientModel.service.delete_all()
@@ -88,15 +87,14 @@ def test_member_rib():
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
 
-    Member.Rib(5, 1, 2, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, 1, 1)
+    Member.Rib(5, 1, 2, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, 1, 1, [0,1])
 
     Model.clientModel.service.finish_modification()
 
     member = Model.clientModel.service.get_member(5)
 
     assert round(member.analytical_length, 5) == 5.19615
-    assert member.type == "TYPE_RIGID"
-"""
+    assert member.type == "TYPE_RIB"
 
 def test_member_truss():
 
