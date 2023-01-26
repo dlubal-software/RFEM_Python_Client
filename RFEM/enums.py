@@ -2321,9 +2321,6 @@ class ResponseSpectrumDefinitionType(Enum):
     '''
     ACCORDING_TO_STANDARD, GENERATED_FROM_ACCELEROGRAM, USER_DEFINED, USER_DEFINED_IN_G_FACTOR = range(4)
 
-
-
-
 class WindSimulationAnalysisSettingsSimulationType(Enum):
     '''
     Wind Simulation Analysis Settings Simulation Type
@@ -2353,3 +2350,45 @@ class WindSimulationAnalysisSettingsTurbulenceModelType(Enum):
     Wind Simulation Analysis Settings Turbulence Model Type
     '''
     TURBULENCE_TYPE_EPSILON, TURBULENCE_TYPE_LES, TURBULENCE_TYPE_OMEGA = range(3)
+
+
+
+
+
+class NodalReleaseReleaseLocation(Enum):
+    '''
+    Nodal Release Release Location
+    '''
+    RELEASE_LOCATION_ORIGIN, RELEASE_LOCATION_RELEASED = range(2)
+
+class NodalReleaseTypeAxialReleaseNonlinearity(Enum):
+    '''
+    Nodal Release Type Axial Release Nonlinearity
+    '''
+    NONLINEARITY_TYPE_DIAGRAM, NONLINEARITY_TYPE_FAILURE_ALL_IF_NEGATIVE, NONLINEARITY_TYPE_FAILURE_ALL_IF_POSITIVE, \
+    NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE, NONLINEARITY_TYPE_FAILURE_IF_POSITIVE, NONLINEARITY_TYPE_FORCE_MOMENT_DIAGRAM, \
+    NONLINEARITY_TYPE_FRICTION_DIRECTION_1, NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2, NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2,\
+    NONLINEARITY_TYPE_FRICTION_DIRECTION_2, NONLINEARITY_TYPE_NONE, NONLINEARITY_TYPE_PARTIAL_ACTIVITY,\
+    NONLINEARITY_TYPE_STIFFNESS_DIAGRAM = range(13)
+
+class NodalReleaseTypeDiagram(Enum):
+    '''
+    Nodal Release Type Diagram
+    '''
+    DIAGRAM_ENDING_TYPE_CONTINUOUS, DIAGRAM_ENDING_TYPE_FAILURE, DIAGRAM_ENDING_TYPE_STOP, \
+    DIAGRAM_ENDING_TYPE_YIELDING = range(4)
+
+class NodalReleaseTypePartialActivityAlong(Enum):
+    '''
+    Nodal Release Type Partial Activity Along
+    '''
+    PARTIAL_ACTIVITY_TYPE_COMPLETE, PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE, PARTIAL_ACTIVITY_TYPE_FIXED, \
+    PARTIAL_ACTIVITY_TYPE_INEFFECTIVNESS, PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE = range(5)
+
+class NodalReleaseTypePartialActivityAround(Enum):
+    '''
+    Nodal Release Type Partial Activity Around
+    '''
+    PARTIAL_ACTIVITY_TYPE_COMPLETE, PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT, PARTIAL_ACTIVITY_TYPE_FIXED, \
+    PARTIAL_ACTIVITY_TYPE_INEFFECTIVNESS, PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT = range(5)
+
