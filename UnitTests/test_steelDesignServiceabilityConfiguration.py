@@ -13,21 +13,21 @@ from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
-from RFEM.TimberDesign.timberUltimateConfigurations import TimberDesignUltimateConfigurations
+from RFEM.SteelDesign.steelServiceabilityConfiguration import SteelDesignServiceabilityConfigurations
 
 if Model.clientModel is None:
     Model()
 
-def test_TimberDesignUltimateConfigurations():
+def test_SteelDesignServiceabilityConfigurations():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    SetAddonStatus(Model.clientModel, addOn=AddOn.timber_design_active, status=True)
+    SetAddonStatus(Model.clientModel, addOn=AddOn.steel_design_active, status=True)
 
-    Material(1, 'C24 | EN 338:2016-04')
+    Material(1, 'S235')
 
-    Section(1, 'R_M1 0.18/0.36')
+    Section(1, 'IPE 200')
 
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 5, 0.0, 0.0)
@@ -36,12 +36,13 @@ def test_TimberDesignUltimateConfigurations():
 
     NodalSupport(1, '1', NodalSupportType.FIXED)
 
-    TimberDesignUltimateConfigurations(1, name="myConfig")
+    SteelDesignServiceabilityConfigurations(1, 'Test SLS')
+    SteelDesignServiceabilityConfigurations(2, 'SLS2', '1')
 
     Model.clientModel.service.finish_modification()
 
-    config = Model.clientModel.service.get_timber_design_uls_configuration(1)
+    config1 = Model.clientModel.service.get_steel_design_sls_configuration(1)
+    config2 = Model.clientModel.service.get_steel_design_sls_configuration(2)
 
-    assert config.name == "myConfig"
-    assert config.assigned_to_all_members == True
-
+    assert config1.name == "Test SLS"
+    assert config2.assigned_to_members == '1'

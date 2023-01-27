@@ -9,8 +9,8 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.initModel import Model
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
-from RFEM.LoadCasesAndCombinations.loadCombination import *
-from RFEM.enums import ActionCategoryType
+from RFEM.LoadCasesAndCombinations.loadCombination import LoadCombination
+from RFEM.enums import ActionCategoryType, AnalysisType
 
 
 if Model.clientModel is None:

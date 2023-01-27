@@ -1,4 +1,3 @@
-from multiprocessing.sharedctypes import Value
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, GetAddonStatus, SetAddonStatus
 from RFEM.enums import AddOn
 

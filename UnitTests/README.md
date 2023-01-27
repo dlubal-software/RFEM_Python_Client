@@ -1,4 +1,4 @@
-# A guide to unit testing
+# Guide to unit testing
 ![image](https://img.shields.io/badge/framework-pytest-orange) ![image](https://img.shields.io/badge/code%20coverage-coverage-orange)
 
 ## Description
