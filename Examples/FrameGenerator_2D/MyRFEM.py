@@ -6,13 +6,14 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.enums import NodalSupportType, MemberLoadDirection, AnalysisType, ActionCategoryType, AddOn
+from RFEM.enums import NodalSupportType, MemberLoadDirection, AnalysisType, ActionCategoryType, AddOn, SetType
 from RFEM.initModel import Model, insertSpaces, Calculate_all, SetAddonStatus
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.TypesForMembers.memberHinge import MemberHinge
 from RFEM.BasicObjects.member import Member
+from RFEM.BasicObjects.memberSet import MemberSet
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.designSituation import DesignSituation, DesignSituationType
@@ -115,7 +116,7 @@ class MyRFEM():
         Member(10, 9, 11, 0.0, 4, 4)
         Member(11, 11, 5, 0.0, 4, 4, 0, 1)
 
-        # TODO 27: Generate an Member Set for the slap beam
+        MemberSet(1, '9-11', SetType.SET_TYPE_CONTINUOUS)
 
         if self.input['check_steel_design'] == 1:
             SteelEffectiveLengths(1, '5, 6', factors=[[1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]])
