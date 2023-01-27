@@ -30,6 +30,12 @@ class MyRFEM():
         Model()
         Model.clientModel.service.begin_modification()
 
+        # Activate add on Steel Design
+        if self.input['check_steel_design'] == 1:
+            SetAddonStatus(Model.clientModel, AddOn.steel_design_active, True)
+        else:
+            SetAddonStatus(Model.clientModel, AddOn.steel_design_active, False)
+
         # Creation the nodes
         x = 0.0
         y = 0.0
@@ -93,20 +99,40 @@ class MyRFEM():
         MemberHinge(1)
 
         # Create the members
-        Member(1, 1, 2, 0.0, 1, 1)
-        Member(2, 2, 3, 0.0, 1, 1)
-        Member(3, 4, 5, 0.0, 1, 1)
-        Member(4, 5, 6, 0.0, 1, 1)
+        if self.input['check_steel_design'] == 1:
+            Member(1, 1, 2, 0.0, 1, 1)
+            Member(2, 2, 3, 0.0, 1, 1)
+            Member(3, 4, 5, 0.0, 1, 1)
+            Member(4, 5, 6, 0.0, 1, 1)
 
-        Member(5, 8, 9, 0.0, 2, 2, 0, 1)
-        Member(6, 10, 11, 0.0, 2, 2, 0, 1)
+            p = {
+                'steel_effective_lengths': 1
+            }
 
-        Member(7, 3, 7, 0.0, 3, 3)
-        Member(8, 7, 6, 0.0, 3, 3)
+            Member(5, 8, 9, 0.0, 2, 2, 0, 1, params = p)
+            Member(6, 10, 11, 0.0, 2, 2, 0, 1,  params = p)
 
-        Member(9, 2, 9, 0.0, 4, 4, 1, 0)
-        Member(10, 9, 11, 0.0, 4, 4)
-        Member(11, 11, 5, 0.0, 4, 4, 0, 1)
+            Member(7, 3, 7, 0.0, 3, 3)
+            Member(8, 7, 6, 0.0, 3, 3)
+
+            Member(9, 2, 9, 0.0, 4, 4, 1, 0)
+            Member(10, 9, 11, 0.0, 4, 4)
+            Member(11, 11, 5, 0.0, 4, 4, 0, 1)
+        else:
+            Member(1, 1, 2, 0.0, 1, 1)
+            Member(2, 2, 3, 0.0, 1, 1)
+            Member(3, 4, 5, 0.0, 1, 1)
+            Member(4, 5, 6, 0.0, 1, 1)
+
+            Member(5, 8, 9, 0.0, 2, 2, 0, 1)
+            Member(6, 10, 11, 0.0, 2, 2, 0, 1)
+
+            Member(7, 3, 7, 0.0, 3, 3)
+            Member(8, 7, 6, 0.0, 3, 3)
+
+            Member(9, 2, 9, 0.0, 4, 4, 1, 0)
+            Member(10, 9, 11, 0.0, 4, 4)
+            Member(11, 11, 5, 0.0, 4, 4, 0, 1)
 
         # Create supports
         if self.input['structure']['supports'][0] == 'Fixed':
@@ -193,10 +219,6 @@ class MyRFEM():
 
         # TODO Create imperfection cases
 
-        # Activate add on Steel Design
-        # TODO Do the following things when Checkbox Steel Design is active.
-        SetAddonStatus(Model.clientModel, AddOn.steel_design_active, True)
-        #Member(5, comment = 'Test')
 
         Model.clientModel.service.finish_modification()
 

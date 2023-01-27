@@ -13,6 +13,8 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsS
 from MyRFEM import *
 
 # TODO 21: Set the right Action Category
+# TODO 25: Consideration of the checkboxes loads and steel_design in MyRFEM
+# TODO 26: Disable and enable the tabs in dependency of checkboxes
 # TODO 18: Read the date from load tab into the graphic_model
 # TODO 19: Draw the loads
 # TODO 8: Fill the tab for steel design
@@ -24,7 +26,8 @@ from MyRFEM import *
 # TODO 16: Write the done() method in class MyRFEM
 # TODO 23: Implement a "Wait" dialog. It should display after click of [Calculate] and
 #          should disappear when the calculation is finished (in done() method).
-# TODO 25:
+# TODO 27:
+
 class MyWindow(QMainWindow):
     # This dictionary stores the data for the graphic that will
     # be drawn with drawGraphic().
