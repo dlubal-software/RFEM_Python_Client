@@ -12,6 +12,8 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsS
 
 from MyRFEM import *
 
+# TODO 27: Generate an Member Set for the slap beam
+# TODO 28: Define the settings for Steel Design for the slap beam
 # TODO 21: Set the right Action Category
 # TODO 25: Consideration of the checkboxes loads and steel_design in MyRFEM
 # TODO 26: Disable and enable the tabs in dependency of checkboxes
@@ -26,7 +28,9 @@ from MyRFEM import *
 # TODO 16: Write the done() method in class MyRFEM
 # TODO 23: Implement a "Wait" dialog. It should display after click of [Calculate] and
 #          should disappear when the calculation is finished (in done() method).
-# TODO 27:
+# TODO 29:
+# TODO 30:
+# TODO 31:
 
 class MyWindow(QMainWindow):
     # This dictionary stores the data for the graphic that will

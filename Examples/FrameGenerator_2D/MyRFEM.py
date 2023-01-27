@@ -20,6 +20,7 @@ from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.loadCombination import LoadCombination
 from RFEM.Loads.memberLoad import MemberLoad
 from RFEM.dataTypes import inf
+from RFEM.TypesForSteelDesign.steelEffectiveLengths import SteelEffectiveLengths
 class MyRFEM():
     input ={}
     results ={}
@@ -99,40 +100,25 @@ class MyRFEM():
         MemberHinge(1)
 
         # Create the members
+        Member(1, 1, 2, 0.0, 1, 1)
+        Member(2, 2, 3, 0.0, 1, 1)
+        Member(3, 4, 5, 0.0, 1, 1)
+        Member(4, 5, 6, 0.0, 1, 1)
+
+        Member(5, 8, 9, 0.0, 2, 2, 0, 1)
+        Member(6, 10, 11, 0.0, 2, 2, 0, 1)
+
+        Member(7, 3, 7, 0.0, 3, 3)
+        Member(8, 7, 6, 0.0, 3, 3)
+
+        Member(9, 2, 9, 0.0, 4, 4, 1, 0)
+        Member(10, 9, 11, 0.0, 4, 4)
+        Member(11, 11, 5, 0.0, 4, 4, 0, 1)
+
+        # TODO 27: Generate an Member Set for the slap beam
+
         if self.input['check_steel_design'] == 1:
-            Member(1, 1, 2, 0.0, 1, 1)
-            Member(2, 2, 3, 0.0, 1, 1)
-            Member(3, 4, 5, 0.0, 1, 1)
-            Member(4, 5, 6, 0.0, 1, 1)
-
-            p = {
-                'steel_effective_lengths': 1
-            }
-
-            Member(5, 8, 9, 0.0, 2, 2, 0, 1, params = p)
-            Member(6, 10, 11, 0.0, 2, 2, 0, 1,  params = p)
-
-            Member(7, 3, 7, 0.0, 3, 3)
-            Member(8, 7, 6, 0.0, 3, 3)
-
-            Member(9, 2, 9, 0.0, 4, 4, 1, 0)
-            Member(10, 9, 11, 0.0, 4, 4)
-            Member(11, 11, 5, 0.0, 4, 4, 0, 1)
-        else:
-            Member(1, 1, 2, 0.0, 1, 1)
-            Member(2, 2, 3, 0.0, 1, 1)
-            Member(3, 4, 5, 0.0, 1, 1)
-            Member(4, 5, 6, 0.0, 1, 1)
-
-            Member(5, 8, 9, 0.0, 2, 2, 0, 1)
-            Member(6, 10, 11, 0.0, 2, 2, 0, 1)
-
-            Member(7, 3, 7, 0.0, 3, 3)
-            Member(8, 7, 6, 0.0, 3, 3)
-
-            Member(9, 2, 9, 0.0, 4, 4, 1, 0)
-            Member(10, 9, 11, 0.0, 4, 4)
-            Member(11, 11, 5, 0.0, 4, 4, 0, 1)
+            SteelEffectiveLengths(1, '5, 6', factors=[[1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]])
 
         # Create supports
         if self.input['structure']['supports'][0] == 'Fixed':
