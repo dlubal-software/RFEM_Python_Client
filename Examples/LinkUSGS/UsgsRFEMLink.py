@@ -8,7 +8,7 @@ from RFEM.enums import AddOn, ObjectTypes
 from RFEM.initModel import Model, AddOn, GetAddonStatus, SetAddonStatus, FirstFreeIdNumber
 from RFEM.DynamicLoads.responseSpectrum import ResponseSpectrum
 from access import getAsceDataMulti, getAsceDataMultiMCEr, getAsceDataTwo, getAsceDataTwoMCEr
-
+from PIL import Image
 try:
     import streamlit as st
 except:
@@ -52,7 +52,8 @@ if __name__ == '__main__':
 
     logoColumn, titleColumn = st.columns([1,10], gap='large')
     with logoColumn:
-        st.image('assets/logo_round.png', width=100)
+        logo = Image.open(dirName + '/assets/logo_round.png')
+        st.image(logo, width=100)
     with titleColumn:
         st.title("USGS-RFEM6 WebService Link")
 
