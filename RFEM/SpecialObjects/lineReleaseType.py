@@ -273,7 +273,7 @@ class LineReleaseType():
                 lrtdr.no = i+1
                 lrtdr.row.rotation = rotational_release_phi_x_nonlinearity[2][i][0]
                 lrtdr.row.moment = rotational_release_phi_x_nonlinearity[2][i][1]
-                lrtdr.row.spring = rotational_release_phi_x_nonlinearity[2][i][2]
+                #lrtdr.row.spring = rotational_release_phi_x_nonlinearity[2][i][2]
 
                 clientObject.diagram_around_x_table.line_release_type_diagram_around_x_table.append(lrtdr)
 

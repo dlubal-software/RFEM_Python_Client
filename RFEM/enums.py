@@ -2370,13 +2370,13 @@ class LineReleaseDiagram(Enum):
     '''
     DIAGRAM_ENDING_TYPE_CONTINUOUS, DIAGRAM_ENDING_TYPE_FAILURE, DIAGRAM_ENDING_TYPE_STOP, DIAGRAM_ENDING_TYPE_YIELDING = range(4)
 
-class LineReleaseForceMomentDiagram():
+class LineReleaseForceMomentDiagram(Enum):
     '''
     Line Release Force Moment Diagram Enumeration
     '''
     FORCE_MOMENT_DIAGRAM_ENDING_TYPE_CONTINUOUS, FORCE_MOMENT_DIAGRAM_ENDING_TYPE_FAILURE, FORCE_MOMENT_DIAGRAM_ENDING_TYPE_YIELDING = range(3)
 
-class LineReleaseForceMomentDepend():
+class LineReleaseForceMomentDepend(Enum):
     '''
     Line Release Force Moment Depend Enumeration
     '''
