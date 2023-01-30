@@ -286,7 +286,7 @@ class LineReleaseType():
             clientObject.force_moment_diagram_around_x_end = rotational_release_phi_x_nonlinearity[1][1].name
             clientObject.force_moment_diagram_around_x_depends_on = rotational_release_phi_x_nonlinearity[1][2].name
 
-            clientObject.force_moment_diagram_around_x_table = Model.clientModel.factory.create('ns0:array_of_line_release_type_force_moment_diagram_around_x_table')
+            clientObject.force_moment_diagram_around_x_table = Model.clientModel.factory.create('ns0:line_release_type.force_moment_diagram_around_x_table')
 
             for i,j in enumerate(rotational_release_phi_x_nonlinearity[2]):
                 lrtfm = Model.clientModel.factory.create('ns0:line_release_type_force_moment_diagram_around_x_table')

@@ -41,3 +41,10 @@ def test_LineReleaseType():
     assert lrt_1.diagram_around_x_start == "DIAGRAM_ENDING_TYPE_FAILURE"
     assert lrt_1.diagram_around_x_table[0][0].row['rotation'] == 0.01
     assert lrt_1.diagram_around_x_table[0][1].row['moment'] == 2000
+
+    lrt_2 = Model.clientModel.service.get_line_release_type(2)
+    assert lrt_2.diagram_along_z_end == "DIAGRAM_ENDING_TYPE_CONTINUOUS"
+    assert lrt_2.diagram_along_z_table[0][3].row['force'] == 500
+    assert lrt_2.force_moment_diagram_around_x_end == "FORCE_MOMENT_DIAGRAM_ENDING_TYPE_YIELDING"
+    assert lrt_2.force_moment_diagram_around_x_table[0][0].row['force'] == 1500
+    assert lrt_2.force_moment_diagram_around_x_table[0][2].row['max_moment'] == 450
