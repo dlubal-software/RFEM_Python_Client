@@ -1,7 +1,7 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.dataTypes import inf
 from RFEM.enums import TranslationalReleaseNonlinearity, RotationalReleaseNonlinearity, LineReleaseLocalAxisSystem, PartialActivityAlongType, PartialActivityAroundType, \
-    LineReleaseDiagramType
+    LineReleaseDiagram, LineReleaseForceMomentDiagram, LineReleaseForceMomentDepend
 
 class LineReleaseType():
 
@@ -186,7 +186,7 @@ class LineReleaseType():
             clientObject.diagram_along_x_symmetric = translational_release_ux_nonlinearity[1][0]
             clientObject.diagram_along_x_is_sorted = True
 
-            if translational_release_ux_nonlinearity[1][0] == True:
+            if translational_release_ux_nonlinearity[1][0]:
                 clientObject.diagram_along_x_start = translational_release_ux_nonlinearity[1][1].name
                 clientObject.diagram_along_x_end = translational_release_ux_nonlinearity[1][1].name
 
@@ -194,14 +194,14 @@ class LineReleaseType():
                 clientObject.diagram_along_x_start = translational_release_ux_nonlinearity[1][1].name
                 clientObject.diagram_along_x_end = translational_release_ux_nonlinearity[1][2].name
 
-            clientObject.diagram_along_x_table = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_x_table')
+            clientObject.diagram_along_x_table = Model.clientModel.factory.create('ns0:line_release_type.diagram_along_x_table')
 
             for i,j in enumerate(translational_release_ux_nonlinearity[2]):
                 lrtdx = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_x_table_row')
                 lrtdx.no = i+1
                 lrtdx.row.displacement = translational_release_ux_nonlinearity[2][i][0]
                 lrtdx.row.force = translational_release_ux_nonlinearity[2][i][1]
-                lrtdx.row.spring = translational_release_ux_nonlinearity[2][i][2]
+                #lrtdx.row.spring = translational_release_ux_nonlinearity[2][i][2]
 
                 clientObject.diagram_along_x_table.line_release_type_diagram_along_x_table.append(lrtdx)
 
@@ -210,7 +210,7 @@ class LineReleaseType():
             clientObject.diagram_along_y_symmetric = translational_release_uy_nonlinearity[1][0]
             clientObject.diagram_along_y_is_sorted = True
 
-            if translational_release_uy_nonlinearity[1][0] == True:
+            if translational_release_uy_nonlinearity[1][0]:
                 clientObject.diagram_along_y_start = translational_release_uy_nonlinearity[1][1].name
                 clientObject.diagram_along_y_end = translational_release_uy_nonlinearity[1][1].name
 
@@ -218,14 +218,14 @@ class LineReleaseType():
                 clientObject.diagram_along_y_start = translational_release_uy_nonlinearity[1][1].name
                 clientObject.diagram_along_y_end = translational_release_uy_nonlinearity[1][2].name
 
-            clientObject.diagram_along_y_table = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_y_table')
+            clientObject.diagram_along_y_table = Model.clientModel.factory.create('ns0:line_release_type.diagram_along_y_table')
 
             for i,j in enumerate(translational_release_uy_nonlinearity[2]):
                 lrtdy = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_y_table_row')
                 lrtdy.no = i+1
                 lrtdy.row.displacement = translational_release_uy_nonlinearity[2][i][0]
                 lrtdy.row.force = translational_release_uy_nonlinearity[2][i][1]
-                lrtdy.row.spring = translational_release_uy_nonlinearity[2][i][2]
+                #lrtdy.row.spring = translational_release_uy_nonlinearity[2][i][2]
 
                 clientObject.diagram_along_y_table.line_release_type_diagram_along_y_table.append(lrtdy)
 
@@ -234,7 +234,7 @@ class LineReleaseType():
             clientObject.diagram_along_z_symmetric = translational_release_uz_nonlinearity[1][0]
             clientObject.diagram_along_z_is_sorted = True
 
-            if translational_release_uz_nonlinearity[1][0] == True:
+            if translational_release_uz_nonlinearity[1][0]:
                 clientObject.diagram_along_z_start = translational_release_uz_nonlinearity[1][1].name
                 clientObject.diagram_along_z_end = translational_release_uz_nonlinearity[1][1].name
 
@@ -242,14 +242,14 @@ class LineReleaseType():
                 clientObject.diagram_along_z_start = translational_release_uz_nonlinearity[1][1].name
                 clientObject.diagram_along_z_end = translational_release_uz_nonlinearity[1][2].name
 
-            clientObject.diagram_along_z_table = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_z_table')
+            clientObject.diagram_along_z_table = Model.clientModel.factory.create('ns0:line_release_type.diagram_along_z_table')
 
             for i,j in enumerate(translational_release_uz_nonlinearity[2]):
                 lrtdz = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_z_table_row')
                 lrtdz.no = i+1
                 lrtdz.row.displacement = translational_release_uz_nonlinearity[2][i][0]
                 lrtdz.row.force = translational_release_uz_nonlinearity[2][i][1]
-                lrtdz.row.spring = translational_release_uz_nonlinearity[2][i][2]
+                #lrtdz.row.spring = translational_release_uz_nonlinearity[2][i][2]
 
                 clientObject.diagram_along_z_table.line_release_type_diagram_along_z_table.append(lrtdz)
 
@@ -258,7 +258,7 @@ class LineReleaseType():
             clientObject.diagram_around_x_symmetric = rotational_release_phi_x_nonlinearity[1][0]
             clientObject.diagram_around_x_is_sorted = True
 
-            if rotational_release_phi_x_nonlinearity[1][0] == True:
+            if rotational_release_phi_x_nonlinearity[1][0]:
                 clientObject.diagram_around_x_start = rotational_release_phi_x_nonlinearity[1][1].name
                 clientObject.diagram_around_x_end = rotational_release_phi_x_nonlinearity[1][1].name
 
@@ -276,6 +276,29 @@ class LineReleaseType():
                 lrtdr.row.spring = rotational_release_phi_x_nonlinearity[2][i][2]
 
                 clientObject.diagram_around_x_table.line_release_type_diagram_around_x_table.append(lrtdr)
+
+        # Line Release Nonlinearity Parameters for Force Moment Diagram
+        # For For rotational_release_phi_x_nonlinearity
+        if rotational_release_phi_x_nonlinearity[0] == RotationalReleaseNonlinearity.NONLINEARITY_TYPE_FORCE_MOMENT_DIAGRAM:
+            clientObject.force_moment_diagram_around_x_symmetric = rotational_release_phi_x_nonlinearity[1][0]
+            clientObject.force_moment_diagram_around_x_is_sorted = True
+            clientObject.force_moment_diagram_around_x_start = LineReleaseForceMomentDiagram.FORCE_MOMENT_DIAGRAM_ENDING_TYPE_YIELDING
+            clientObject.force_moment_diagram_around_x_end = rotational_release_phi_x_nonlinearity[1][1].name
+            clientObject.force_moment_diagram_around_x_depends_on = rotational_release_phi_x_nonlinearity[1][2].name
+
+            clientObject.force_moment_diagram_around_x_table = Model.clientModel.factory.create('ns0:array_of_line_release_type_force_moment_diagram_around_x_table')
+
+            for i,j in enumerate(rotational_release_phi_x_nonlinearity[2]):
+                lrtfm = Model.clientModel.factory.create('ns0:line_release_type_force_moment_diagram_around_x_table')
+                lrtfm.no = i+1
+                lrtfm.row.force = rotational_release_phi_x_nonlinearity[2][i][0]
+                lrtfm.row.max_moment = rotational_release_phi_x_nonlinearity[2][i][1]
+                if rotational_release_phi_x_nonlinearity[1][0]:
+                    lrtfm.row.min_moment = rotational_release_phi_x_nonlinearity[2][i][1]
+                else:
+                    lrtfm.row.min_moment = rotational_release_phi_x_nonlinearity[2][i][2]
+
+                clientObject.force_moment_diagram_around_x_table.line_release_type_force_moment_diagram_around_x_table.append(lrtfm)
 
         # Line Release Local Axis System
         clientObject.local_axis_system_object_type = local_axis_system.name
