@@ -1,9 +1,3 @@
-####
-
-# to run the website please run the command 'streamlit run UsgsRFEMLink.py' in your command prompt
-
-####
-
 import os
 import sys
 baseName = os.path.basename(__file__)
