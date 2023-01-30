@@ -27,8 +27,8 @@ def test_LineReleaseType():
         [RotationalReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM, [True, LineReleaseDiagram.DIAGRAM_ENDING_TYPE_FAILURE], [[0.01, 1000], [0.02, 2000], [0.03, 500]]], LineReleaseLocalAxisSystem.LOCAL_AXIS_SYSTEM_TYPE_ORIGINAL_LINE, [0.2], 'Type 1'
         )
 
-    LineReleaseType(1, [0.2, 0, 0, 0.1], [TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE], [TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_NONE], \
-        [TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM, [False, LineReleaseDiagram.DIAGRAM_ENDING_TYPE_YIELDING, LineReleaseDiagram.DIAGRAM_ENDING_TYPE_CONTINUOUS], [[0.01, 1000], [0.02, 2000], [0.03, 500]]], \
+    LineReleaseType(2, [0.2, 0, 0, 0.1], [TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE], [TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_NONE], \
+        [TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM, [False, LineReleaseDiagram.DIAGRAM_ENDING_TYPE_YIELDING, LineReleaseDiagram.DIAGRAM_ENDING_TYPE_CONTINUOUS], [[0,0], [0.01, 1000], [0.02, 2000], [0.03, 500]]], \
         [RotationalReleaseNonlinearity.NONLINEARITY_TYPE_FORCE_MOMENT_DIAGRAM, [True, LineReleaseForceMomentDiagram.FORCE_MOMENT_DIAGRAM_ENDING_TYPE_YIELDING, LineReleaseForceMomentDepend.FORCE_MOMENT_DIAGRAM_DEPENDS_ON_N], [[1500, 100], [2500, 200], [3000, 450]]], \
         LineReleaseLocalAxisSystem.E_LOCAL_AXIS_SYSTEM_TYPE_HELP_NODE, [0.3, 1, LocalAxisSystemObjectInPlane.LOCAL_AXIS_SYSTEM_IN_PLANE_XY], 'Type 2'
         )

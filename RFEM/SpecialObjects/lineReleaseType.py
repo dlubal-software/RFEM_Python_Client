@@ -282,14 +282,14 @@ class LineReleaseType():
         if rotational_release_phi_x_nonlinearity[0] == RotationalReleaseNonlinearity.NONLINEARITY_TYPE_FORCE_MOMENT_DIAGRAM:
             clientObject.force_moment_diagram_around_x_symmetric = rotational_release_phi_x_nonlinearity[1][0]
             clientObject.force_moment_diagram_around_x_is_sorted = True
-            clientObject.force_moment_diagram_around_x_start = LineReleaseForceMomentDiagram.FORCE_MOMENT_DIAGRAM_ENDING_TYPE_YIELDING
+            #clientObject.force_moment_diagram_around_x_start = LineReleaseForceMomentDiagram.FORCE_MOMENT_DIAGRAM_ENDING_TYPE_YIELDING
             clientObject.force_moment_diagram_around_x_end = rotational_release_phi_x_nonlinearity[1][1].name
             clientObject.force_moment_diagram_around_x_depends_on = rotational_release_phi_x_nonlinearity[1][2].name
 
             clientObject.force_moment_diagram_around_x_table = Model.clientModel.factory.create('ns0:line_release_type.force_moment_diagram_around_x_table')
 
             for i,j in enumerate(rotational_release_phi_x_nonlinearity[2]):
-                lrtfm = Model.clientModel.factory.create('ns0:line_release_type_force_moment_diagram_around_x_table')
+                lrtfm = Model.clientModel.factory.create('ns0:line_release_type_force_moment_diagram_around_x_table_row')
                 lrtfm.no = i+1
                 lrtfm.row.force = rotational_release_phi_x_nonlinearity[2][i][0]
                 lrtfm.row.max_moment = rotational_release_phi_x_nonlinearity[2][i][1]
