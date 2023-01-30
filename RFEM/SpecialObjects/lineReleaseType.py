@@ -52,7 +52,7 @@ class LineReleaseType():
         if translational_release_ux_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
 
             # Negative Zone
-            clientObject.partial_activity_along_x_negative_type = translational_release_ux_nonlinearity[1][0]
+            clientObject.partial_activity_along_x_negative_type = translational_release_ux_nonlinearity[1][0].name
 
             if translational_release_ux_nonlinearity[1][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_along_x_negative_slippage = translational_release_ux_nonlinearity[1][1]
@@ -67,7 +67,7 @@ class LineReleaseType():
                 clientObject.partial_activity_along_x_negative_force = translational_release_ux_nonlinearity[1][2]
 
             # Positive Zone
-            clientObject.partial_activity_along_x_positive_type = translational_release_ux_nonlinearity[2][0]
+            clientObject.partial_activity_along_x_positive_type = translational_release_ux_nonlinearity[2][0].name
 
             if translational_release_ux_nonlinearity[2][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_along_x_positive_slippage = translational_release_ux_nonlinearity[2][1]
@@ -85,7 +85,7 @@ class LineReleaseType():
         if translational_release_uy_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
 
             # Negative Zone
-            clientObject.partial_activity_along_y_negative_type = translational_release_uy_nonlinearity[1][0]
+            clientObject.partial_activity_along_y_negative_type = translational_release_uy_nonlinearity[1][0].name
 
             if translational_release_uy_nonlinearity[1][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_along_y_negative_slippage = translational_release_uy_nonlinearity[1][1]
@@ -100,7 +100,7 @@ class LineReleaseType():
                 clientObject.partial_activity_along_y_negative_force = translational_release_uy_nonlinearity[1][2]
 
             # Positive Zone
-            clientObject.partial_activity_along_y_positive_type = translational_release_uy_nonlinearity[2][0]
+            clientObject.partial_activity_along_y_positive_type = translational_release_uy_nonlinearity[2][0].name
 
             if translational_release_uy_nonlinearity[2][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_along_y_positive_slippage = translational_release_uy_nonlinearity[2][1]
@@ -118,7 +118,7 @@ class LineReleaseType():
         if translational_release_uz_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
 
             # Negative Zone
-            clientObject.partial_activity_along_z_negative_type = translational_release_uz_nonlinearity[1][0]
+            clientObject.partial_activity_along_z_negative_type = translational_release_uz_nonlinearity[1][0].name
 
             if translational_release_uz_nonlinearity[1][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_along_z_negative_slippage = translational_release_uz_nonlinearity[1][1]
@@ -133,7 +133,7 @@ class LineReleaseType():
                 clientObject.partial_activity_along_z_negative_force = translational_release_uz_nonlinearity[1][2]
 
             # Positive Zone
-            clientObject.partial_activity_along_z_positive_type = translational_release_uz_nonlinearity[2][0]
+            clientObject.partial_activity_along_z_positive_type = translational_release_uz_nonlinearity[2][0].name
 
             if translational_release_uz_nonlinearity[2][0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_along_z_positive_slippage = translational_release_uz_nonlinearity[2][1]
@@ -151,7 +151,7 @@ class LineReleaseType():
         if rotational_release_phi_x_nonlinearity[0] == RotationalReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
 
             # Negative Zone
-            clientObject.partial_activity_around_x_negative_type = rotational_release_phi_x_nonlinearity[1][0]
+            clientObject.partial_activity_around_x_negative_type = rotational_release_phi_x_nonlinearity[1][0].name
 
             if rotational_release_phi_x_nonlinearity[1][0] == PartialActivityAroundType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_around_x_negative_slippage = rotational_release_phi_x_nonlinearity[1][1]
@@ -166,7 +166,7 @@ class LineReleaseType():
                 clientObject.partial_activity_around_x_negative_moment = rotational_release_phi_x_nonlinearity[1][2]
 
             # Positive Zone
-            clientObject.partial_activity_around_x_positive_type = rotational_release_phi_x_nonlinearity[2][0]
+            clientObject.partial_activity_around_x_positive_type = rotational_release_phi_x_nonlinearity[2][0].name
 
             if rotational_release_phi_x_nonlinearity[2][0] == PartialActivityAroundType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_around_x_positive_slippage = rotational_release_phi_x_nonlinearity[2][1]
@@ -204,6 +204,78 @@ class LineReleaseType():
                 lrtdx.row.spring = translational_release_ux_nonlinearity[2][i][2]
 
                 clientObject.diagram_along_x_table.line_release_type_diagram_along_x_table.append(lrtdx)
+
+        # For translational_release_u_y_nonlinearity
+        if translational_release_uy_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
+            clientObject.diagram_along_y_symmetric = translational_release_uy_nonlinearity[1][0]
+            clientObject.diagram_along_y_is_sorted = True
+
+            if translational_release_uy_nonlinearity[1][0] == True:
+                clientObject.diagram_along_y_start = translational_release_uy_nonlinearity[1][1].name
+                clientObject.diagram_along_y_end = translational_release_uy_nonlinearity[1][1].name
+
+            else:
+                clientObject.diagram_along_y_start = translational_release_uy_nonlinearity[1][1].name
+                clientObject.diagram_along_y_end = translational_release_uy_nonlinearity[1][2].name
+
+            clientObject.diagram_along_y_table = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_y_table')
+
+            for i,j in enumerate(translational_release_uy_nonlinearity[2]):
+                lrtdy = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_y_table_row')
+                lrtdy.no = i+1
+                lrtdy.row.displacement = translational_release_uy_nonlinearity[2][i][0]
+                lrtdy.row.force = translational_release_uy_nonlinearity[2][i][1]
+                lrtdy.row.spring = translational_release_uy_nonlinearity[2][i][2]
+
+                clientObject.diagram_along_y_table.line_release_type_diagram_along_y_table.append(lrtdy)
+
+        # For translational_release_u_z_nonlinearity
+        if translational_release_uz_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
+            clientObject.diagram_along_z_symmetric = translational_release_uz_nonlinearity[1][0]
+            clientObject.diagram_along_z_is_sorted = True
+
+            if translational_release_uz_nonlinearity[1][0] == True:
+                clientObject.diagram_along_z_start = translational_release_uz_nonlinearity[1][1].name
+                clientObject.diagram_along_z_end = translational_release_uz_nonlinearity[1][1].name
+
+            else:
+                clientObject.diagram_along_z_start = translational_release_uz_nonlinearity[1][1].name
+                clientObject.diagram_along_z_end = translational_release_uz_nonlinearity[1][2].name
+
+            clientObject.diagram_along_z_table = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_z_table')
+
+            for i,j in enumerate(translational_release_uz_nonlinearity[2]):
+                lrtdz = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_z_table_row')
+                lrtdz.no = i+1
+                lrtdz.row.displacement = translational_release_uz_nonlinearity[2][i][0]
+                lrtdz.row.force = translational_release_uz_nonlinearity[2][i][1]
+                lrtdz.row.spring = translational_release_uz_nonlinearity[2][i][2]
+
+                clientObject.diagram_along_z_table.line_release_type_diagram_along_z_table.append(lrtdz)
+
+        # For rotational_release_phi_x_nonlinearity
+        if rotational_release_phi_x_nonlinearity[0] == RotationalReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
+            clientObject.diagram_around_x_symmetric = rotational_release_phi_x_nonlinearity[1][0]
+            clientObject.diagram_around_x_is_sorted = True
+
+            if rotational_release_phi_x_nonlinearity[1][0] == True:
+                clientObject.diagram_around_x_start = rotational_release_phi_x_nonlinearity[1][1].name
+                clientObject.diagram_around_x_end = rotational_release_phi_x_nonlinearity[1][1].name
+
+            else:
+                clientObject.diagram_around_x_start = rotational_release_phi_x_nonlinearity[1][1].name
+                clientObject.diagram_around_x_end = rotational_release_phi_x_nonlinearity[1][2].name
+
+            clientObject.diagram_around_x_table = Model.clientModel.factory.create('ns0:array_of_line_release_type_diagram_around_x_table')
+
+            for i,j in enumerate(rotational_release_phi_x_nonlinearity[2]):
+                lrtdr = Model.clientModel.factory.create('ns0:line_release_type_diagram_around_x_table_row')
+                lrtdr.no = i+1
+                lrtdr.row.rotation = rotational_release_phi_x_nonlinearity[2][i][0]
+                lrtdr.row.moment = rotational_release_phi_x_nonlinearity[2][i][1]
+                lrtdr.row.spring = rotational_release_phi_x_nonlinearity[2][i][2]
+
+                clientObject.diagram_around_x_table.line_release_type_diagram_around_x_table.append(lrtdr)
 
         # Line Release Local Axis System
         clientObject.local_axis_system_object_type = local_axis_system.name
