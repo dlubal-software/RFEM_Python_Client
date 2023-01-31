@@ -11,6 +11,7 @@ class LineRelease():
                  released_members: str = None,
                  released_surfaces: str = None,
                  released_solids: str = None,
+                 use_nodes_as_definition_nodes: str = None,
                  deactivated: bool = False,
                  name: str = None,
                  comment: str = '',
@@ -49,8 +50,11 @@ class LineRelease():
         # Released Solid
         clientObject.released_solids = ConvertToDlString(released_solids)
 
+        # Assign Nodes as Definition Nodes
+        clientObject.use_nodes_as_definition_nodes = ConvertToDlString(use_nodes_as_definition_nodes)
+
         # Activate/Deactivate Line Release
-        clientObject.deactivated = ConvertToDlString(deactivated)
+        clientObject.deactivated = deactivated
 
         # Line Release User defined name
         if name:
@@ -69,5 +73,4 @@ class LineRelease():
         deleteEmptyAttributes(clientObject)
 
         # Add Line Release Type to Client Model
-        model.clientModel.service.set_line_release_type(clientObject)
-
+        model.clientModel.service.set_line_release(clientObject)
