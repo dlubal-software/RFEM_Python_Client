@@ -8,7 +8,7 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-# This script follows the basic design of conrete beams / slabs
+# This script follows the basic design of timber structures
 # It is based on the following webinar: https://www.dlubal.com/en/support-and-learning/learning/webinars/002410
 
 import xlwings as xw
@@ -48,6 +48,9 @@ import numpy as np
 name = input('Please type the model name: ')
 Model(True, name)
 
+# starting modification of the model
+Model.clientModel.service.begin_modification()
+
 # deleting all available objects/materials/sections
 Model.clientModel.service.delete_all()
 
@@ -82,7 +85,7 @@ LoadCasesAndCombinations({
 LoadCase(1, 'self-weight', [True, 0, 0, 1], ActionCategoryType.ACTION_CATEGORY_PERMANENT_G)
 LoadCase(2, 'snow', [False], ActionCategoryType.ACTION_CATEGORY_SNOW_ICE_LOADS_H_LESS_OR_EQUAL_TO_1000_M_QS)
 
-CombinationWizard(1, 'Load Wizard 1', 'GENERATE_LOAD_COMBINATIONS', 1)
+CombinationWizard(1, 'Load Wizard 1', static_analysis_settings = 1)
 
 # creating variables for the loading in later stage of the script
 loading1 = ''
@@ -150,11 +153,14 @@ for i in range(4):
     Member.Truss(j + 7, start_node_no = m + 9, end_node_no = m + 20, section_no = 2)
     j = j + 7
 
+
 # creating the stiffening of the hall
 # deleting unused members
 Member.DeleteMember('49 50 51 52 53 54 55')
 Node.DeleteNode('54 55')
-Line.DeleteLine('49 50 51 52 53 54 55')
+Line.DeleteLine('49 50 51 52 53 54 55 153 154 155 156 157 158')
+
+
 
 # adding bracing
 # walls
@@ -197,14 +203,17 @@ nodes_no = [1, 3, 12, 14, 23, 25, 34, 36, 45, 47, 56, 57]
 NodalSupport(1, '1 3 12 14 23 25 34 36 45 47 56 57', NodalSupportType.HINGED)
 
 # defining service class for the hall
-TimberServiceClass(1, members = ' '.join(str(x) for x in GetObjectNumbersByType(ObjectTypes.E_OBJECT_TYPE_MEMBER)), service_class = TimberServiceClassServiceClass.TIMBER_SERVICE_CLASS_TYPE_1)
+member_lst = GetObjectNumbersByType(ObjectTypes.E_OBJECT_TYPE_MEMBER)
+# this is a temporary fix, as GetObjetNumbersByType returns a list with 0 value
+member_lst.remove(0)
+TimberServiceClass(1, members = ' '.join(str(x) for x in member_lst), service_class = TimberServiceClassServiceClass.TIMBER_SERVICE_CLASS_TYPE_1)
 
 # assigning effective lengths
 member_lst = GetObjectNumbersByType(ObjectTypes.E_OBJECT_TYPE_MEMBER)
 for i in [3,4,14,15,25,26,36,37,47,48]:
     member_lst.remove(i)
 
-TimberEffectiveLengths(members = ' '.join(str(x) for x in member_lst))
+TimberEffectiveLengths(1, members = ' '.join(str(x) for x in member_lst))
 
 # defining design situations
 DesignSituation(1, DesignSituationType.DESIGN_SITUATION_TYPE_STR_PERMANENT_AND_TRANSIENT_6_10, True, params = {'combination_wizard': 1})
