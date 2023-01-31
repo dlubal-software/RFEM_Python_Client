@@ -7,7 +7,7 @@ class LineRelease():
                  no: int = 1,
                  lines: str = '',
                  line_release_type: int = 1,
-                 release_location: str = LineReleaseReleaseLocation.RELEASE_LOCATION_RELEASED,
+                 release_location = LineReleaseReleaseLocation.RELEASE_LOCATION_RELEASED,
                  released_members: str = None,
                  released_surfaces: str = None,
                  released_solids: str = None,
@@ -20,7 +20,19 @@ class LineRelease():
 
         '''
         Args:
-
+            no (int): Line Release Tag
+            lines (str): Assigned Lines
+            line_release_type (int): Line Release Type Number
+            release_location (enum): Line Release Release Location
+            released_members (str): Assigned Release Members
+            released_surfaces (str): Assigned Release Surfaces
+            released_solids (str): Assigned Release Solids
+            use_nodes_as_definition_nodes (str): Assigned Definition Nodes
+            deactivated (bool): Activate/Deactivate Line Release
+            name (str): User Defined Name
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line Release

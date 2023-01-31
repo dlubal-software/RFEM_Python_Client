@@ -23,7 +23,24 @@ class LineReleaseType():
         Line Release Type
 
         Args:
-
+            no (int): Line Release Type Tag
+            spring_constant (list): Spring Constant List
+            translational_release_ux_nonlinearity (list of lists): Nonlinearity Parameter for Translation Release along X Direction
+            translational_release_ux_nonlinearity (list of lists): Nonlinearity Parameter for Translation Release along Y Direction
+            translational_release_ux_nonlinearity (list of lists): Nonlinearity Parameter for Translation Release along Z Direction
+            rotational_release_phi_x_nonlinearity (list of lists): Nonlinearity Parameter for Rotational Release around Z Direction
+            local_axis_system (enum): Line Release Local Axis System Enumeration
+            system_para (list): System Parameters
+                for local_axis_system ==LineReleaseLocalAxisSystem.LOCAL_AXIS_SYSTEM_TYPE_ORIGINAL_LINE:
+                    system_para = [rotational_angle]
+                for local_axis_system ==LineReleaseLocalAxisSystem.LOCAL_AXIS_SYSTEM_TYPE_Z_AXIS_PERPENDICULAR_TO_SURFACE:
+                    system_para = [rotational_angle, surface_tag]
+                for local_axis_system ==LineReleaseLocalAxisSystem.E_LOCAL_AXIS_SYSTEM_TYPE_HELP_NODE:
+                    system_para = [rotational_angle, node_tag, local_axis_system_object_in_plane]
+            name (str): User Defined Name
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line Release Type
