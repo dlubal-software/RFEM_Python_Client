@@ -2382,6 +2382,12 @@ class LineReleaseForceMomentDepend(Enum):
     '''
     FORCE_MOMENT_DIAGRAM_DEPENDS_ON_N, FORCE_MOMENT_DIAGRAM_DEPENDS_ON_VY, FORCE_MOMENT_DIAGRAM_DEPENDS_ON_VZ = range(3)
 
+class LineReleaseReleaseLocation(Enum):
+    '''
+    Line Release Release Location Enumeration
+    '''
+    RELEASE_LOCATION_ORIGIN, RELEASE_LOCATION_RELEASED = range(2)
+
 class LoadWizardType(Enum):
     ''''
     Types of Loading Wizards
