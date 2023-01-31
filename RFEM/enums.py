@@ -2381,3 +2381,15 @@ class LineReleaseForceMomentDepend(Enum):
     Line Release Force Moment Depend Enumeration
     '''
     FORCE_MOMENT_DIAGRAM_DEPENDS_ON_N, FORCE_MOMENT_DIAGRAM_DEPENDS_ON_VY, FORCE_MOMENT_DIAGRAM_DEPENDS_ON_VZ = range(3)
+
+class LoadWizardType(Enum):
+    ''''
+    Types of Loading Wizards
+    '''
+    GENERATE_LOAD_COMBINATIONS, GENERATE_RESULT_COMBINATIONS = range(2)
+
+class InitialStateDefintionType(Enum):
+    '''
+    Types of Initial States
+    '''
+    DEFINITION_TYPE_FINAL_STATE, DEFINITION_TYPE_STIFFNESS, DEFINITION_TYPE_STRAINS, DEFINITION_TYPE_STRAINS_WITH_USER_DEFINED_FACTORS = range(4)
