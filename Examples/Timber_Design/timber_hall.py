@@ -210,9 +210,10 @@ TimberServiceClass(1, members = ' '.join(str(x) for x in member_lst), service_cl
 
 # assigning effective lengths
 member_lst = GetObjectNumbersByType(ObjectTypes.E_OBJECT_TYPE_MEMBER)
+# this is a temporary fix, as GetObjetNumbersByType returns a list with 0 value
+member_lst.remove(0)
 for i in [3,4,14,15,25,26,36,37,47,48]:
     member_lst.remove(i)
-
 TimberEffectiveLengths(1, members = ' '.join(str(x) for x in member_lst))
 
 # defining design situations
