@@ -124,10 +124,8 @@ for i in range(5):
     Member.Truss(j + 10, start_node_no = j + 11, end_node_no = j + 8, section_no = 4)
     Member.Truss(j + 11, start_node_no = j + 11, end_node_no = j + 9, section_no = 4)
 
-
     # adding loading to the trusses
     # loading on the structure is simplified in this example
-
     if j + 1 == 1 or j + 1 == 45:
         loading1 = loading1 + ' ' +  str(j + 3) + ' ' + str(j + 4)
         MemberLoad(1, 1, loading1, MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 1000)
@@ -137,8 +135,6 @@ for i in range(5):
         loading2 = loading2 + ' ' + str(j + 3) + ' ' + str(j + 4)
         MemberLoad(2, 1, loading2, MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 2000)
         MemberLoad(4, 2, loading2, MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 3150)
-
-
 
 # connecting trusses with each other
 j = 55
@@ -153,14 +149,11 @@ for i in range(4):
     Member.Truss(j + 7, start_node_no = m + 9, end_node_no = m + 20, section_no = 2)
     j = j + 7
 
-
 # creating the stiffening of the hall
 # deleting unused members
 Member.DeleteMember('49 50 51 52 53 54 55')
 Node.DeleteNode('54 55')
 Line.DeleteLine('49 50 51 52 53 54 55 153 154 155 156 157 158')
-
-
 
 # adding bracing
 # walls
@@ -205,13 +198,15 @@ NodalSupport(1, '1 3 12 14 23 25 34 36 45 47 56 57', NodalSupportType.HINGED)
 # defining service class for the hall
 member_lst = GetObjectNumbersByType(ObjectTypes.E_OBJECT_TYPE_MEMBER)
 # this is a temporary fix, as GetObjetNumbersByType returns a list with 0 value
-member_lst.remove(0)
+if member_lst[0] == 0:
+    member_lst.remove(0)
 TimberServiceClass(1, members = ' '.join(str(x) for x in member_lst), service_class = TimberServiceClassServiceClass.TIMBER_SERVICE_CLASS_TYPE_1)
 
 # assigning effective lengths
 member_lst = GetObjectNumbersByType(ObjectTypes.E_OBJECT_TYPE_MEMBER)
 # this is a temporary fix, as GetObjetNumbersByType returns a list with 0 value
-member_lst.remove(0)
+if member_lst[0] == 0:
+    member_lst.remove(0)
 for i in [3,4,14,15,25,26,36,37,47,48]:
     member_lst.remove(i)
 TimberEffectiveLengths(1, members = ' '.join(str(x) for x in member_lst))
@@ -311,7 +306,6 @@ nodeSupportForce_z = np.array([nodeSupportForce_z]).T
 nodeMoment_x = np.array([nodeMoment_x]).T
 nodeMoment_y = np.array([nodeMoment_y]).T
 nodeMoment_z = np.array([nodeMoment_z]).T
-
 
 # adding headers for output sheets
 maxDisplacement_abs, maxDisplacement_x, maxDisplacement_y, maxDisplacement_z = ['Maximum Deformation (abs) (mm)'], ['Maximum Deformation (in x) (mm)'], ['Maximum Deformation (in y) (mm)'], ['Maximum Deformation (in z) (mm)']
