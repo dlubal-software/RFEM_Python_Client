@@ -28,7 +28,30 @@ class LineReleaseType():
             translational_release_ux_nonlinearity (list of lists): Nonlinearity Parameter for Translation Release along X Direction
             translational_release_ux_nonlinearity (list of lists): Nonlinearity Parameter for Translation Release along Y Direction
             translational_release_ux_nonlinearity (list of lists): Nonlinearity Parameter for Translation Release along Z Direction
-            rotational_release_phi_x_nonlinearity (list of lists): Nonlinearity Parameter for Rotational Release around Z Direction
+                for translational_release_ux/y/z_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
+                    translational_release_ux/y/z_nonlinearity = [nonlinearity type Partial_Activity, negative zone, positive zone]
+                    for negative/positive zone[0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
+                        negative/positive zone = [negative/positive zone type, slippage]
+                    for negative/positive zone[0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FIXED:
+                        negative/positive zone = [negative/positive zone type, slippage, displacement]  (Note: Displacement must be greater than slippage)
+                    for negative/positive zone[0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE/PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE:
+                        negative/positive zone = [negative/positive zone type, slippage, force]
+                for translational_release_ux/y/z_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
+                    translational_release_ux/y/z_nonlinearity = [nonlinearity type Diagram, [symmetric(bool), diagram start(enum), diagram end(enum)], [[displacement, force],...]]
+            rotational_release_phi_x_nonlinearity (list of lists): Nonlinearity Parameter for Rotational Release around X Direction
+                for rotational_release_phi_x_nonlinearity[0] == RotationalReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
+                    rotational_release_phi_x_nonlinearity = [nonlinearity type Partial_Activity, negative zone, positive zone]
+                    for negative/positive zone[0] == RotationalReleaseNonlinearity.PARTIAL_ACTIVITY_TYPE_COMPLETE:
+                        negative/positive zone = [negative/positive zone type, slippage]
+                    for negative/positive zone[0] == RotationalReleaseNonlinearity.PARTIAL_ACTIVITY_TYPE_FIXED:
+                        negative/positive zone = [negative/positive zone type, slippage, rotation]
+                    for negative/positive zone[0] == RotationalReleaseNonlinearity.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT/PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT:
+                        negative/positive zone = [negative/positive zone type, slippage, moment]
+                for rotational_release_phi_x_nonlinearity[0] == RotationalReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
+                    rotational_release_phi_x_nonlinearity = [nonlinearity type Diagram, [symmetric(bool), diagram start(enum), diagram end(enum)], [[rotation, moment],...]]
+                for rotational_release_phi_x_nonlinearity[0] == RotationalReleaseNonlinearity.NONLINEARITY_TYPE_FORCE_MOMENT_DIAGRAM:
+                    rotational_release_phi_x_nonlinearity = [nonlinearity type Force_Moment_Diagram, [symmetric(bool), diagram end(enum), depend on(enum)],
+                                                             [[force, max_moment, min_moment(if not symetric)],...]]
             local_axis_system (enum): Line Release Local Axis System Enumeration
             system_para (list): System Parameters
                 for local_axis_system ==LineReleaseLocalAxisSystem.LOCAL_AXIS_SYSTEM_TYPE_ORIGINAL_LINE:
