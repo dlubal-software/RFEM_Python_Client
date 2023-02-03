@@ -1,7 +1,7 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.dataTypes import inf
-from RFEM.enums import TranslationalReleaseNonlinearity, RotationalReleaseNonlinearity, LineReleaseLocalAxisSystem, PartialActivityAlongType, PartialActivityAroundType, \
-    LineReleaseDiagram, LineReleaseForceMomentDiagram, LineReleaseForceMomentDepend
+from RFEM.enums import TranslationalReleaseNonlinearity, RotationalReleaseNonlinearity, LineReleaseLocalAxisSystem, \
+    PartialActivityAlongType, PartialActivityAroundType
 
 class LineReleaseType():
 
@@ -37,7 +37,7 @@ class LineReleaseType():
                     for negative/positive zone[0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE/PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE:
                         negative/positive zone = [negative/positive zone type, slippage, force]
                 for translational_release_ux/y/z_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
-                    translational_release_ux/y/z_nonlinearity = [nonlinearity type Diagram, [symmetric(bool), diagram start(enum), diagram end(enum)], [[displacement, force],...]]
+                    translational_release_ux/y/z_nonlinearity = [nonlinearity type Diagram, [symmetric(bool), LineReleaseDiagram Enumeration(start), LineReleaseDiagram Enumeration(end)], [[displacement, force],...]]
             rotational_release_phi_x_nonlinearity (list of lists): Nonlinearity Parameter for Rotational Release around X Direction
                 for rotational_release_phi_x_nonlinearity[0] == RotationalReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
                     rotational_release_phi_x_nonlinearity = [nonlinearity type Partial_Activity, negative zone, positive zone]
@@ -48,9 +48,9 @@ class LineReleaseType():
                     for negative/positive zone[0] == RotationalReleaseNonlinearity.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT/PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT:
                         negative/positive zone = [negative/positive zone type, slippage, moment]
                 for rotational_release_phi_x_nonlinearity[0] == RotationalReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
-                    rotational_release_phi_x_nonlinearity = [nonlinearity type Diagram, [symmetric(bool), diagram start(enum), diagram end(enum)], [[rotation, moment],...]]
+                    rotational_release_phi_x_nonlinearity = [nonlinearity type Diagram, [symmetric(bool), LineReleaseDiagram Enumeration(start), LineReleaseDiagram Enumeration(end)], [[rotation, moment],...]]
                 for rotational_release_phi_x_nonlinearity[0] == RotationalReleaseNonlinearity.NONLINEARITY_TYPE_FORCE_MOMENT_DIAGRAM:
-                    rotational_release_phi_x_nonlinearity = [nonlinearity type Force_Moment_Diagram, [symmetric(bool), diagram end(enum), depend on(enum)],
+                    rotational_release_phi_x_nonlinearity = [nonlinearity type Force_Moment_Diagram, [symmetric(bool), LineReleaseForceMomentDiagram Enumeration(end), LineReleaseForceMomentDepend Enumeration],
                                                              [[force, max_moment, min_moment(if not symetric)],...]]
             local_axis_system (enum): Line Release Local Axis System Enumeration
             system_para (list): System Parameters
@@ -241,7 +241,6 @@ class LineReleaseType():
                 lrtdx.no = i+1
                 lrtdx.row.displacement = translational_release_ux_nonlinearity[2][i][0]
                 lrtdx.row.force = translational_release_ux_nonlinearity[2][i][1]
-                #lrtdx.row.spring = translational_release_ux_nonlinearity[2][i][2]
 
                 clientObject.diagram_along_x_table.line_release_type_diagram_along_x_table.append(lrtdx)
 
@@ -265,7 +264,6 @@ class LineReleaseType():
                 lrtdy.no = i+1
                 lrtdy.row.displacement = translational_release_uy_nonlinearity[2][i][0]
                 lrtdy.row.force = translational_release_uy_nonlinearity[2][i][1]
-                #lrtdy.row.spring = translational_release_uy_nonlinearity[2][i][2]
 
                 clientObject.diagram_along_y_table.line_release_type_diagram_along_y_table.append(lrtdy)
 
@@ -289,7 +287,6 @@ class LineReleaseType():
                 lrtdz.no = i+1
                 lrtdz.row.displacement = translational_release_uz_nonlinearity[2][i][0]
                 lrtdz.row.force = translational_release_uz_nonlinearity[2][i][1]
-                #lrtdz.row.spring = translational_release_uz_nonlinearity[2][i][2]
 
                 clientObject.diagram_along_z_table.line_release_type_diagram_along_z_table.append(lrtdz)
 
@@ -313,7 +310,6 @@ class LineReleaseType():
                 lrtdr.no = i+1
                 lrtdr.row.rotation = rotational_release_phi_x_nonlinearity[2][i][0]
                 lrtdr.row.moment = rotational_release_phi_x_nonlinearity[2][i][1]
-                #lrtdr.row.spring = rotational_release_phi_x_nonlinearity[2][i][2]
 
                 clientObject.diagram_around_x_table.line_release_type_diagram_around_x_table.append(lrtdr)
 
@@ -322,7 +318,6 @@ class LineReleaseType():
         if rotational_release_phi_x_nonlinearity[0] == RotationalReleaseNonlinearity.NONLINEARITY_TYPE_FORCE_MOMENT_DIAGRAM:
             clientObject.force_moment_diagram_around_x_symmetric = rotational_release_phi_x_nonlinearity[1][0]
             clientObject.force_moment_diagram_around_x_is_sorted = True
-            #clientObject.force_moment_diagram_around_x_start = LineReleaseForceMomentDiagram.FORCE_MOMENT_DIAGRAM_ENDING_TYPE_YIELDING
             clientObject.force_moment_diagram_around_x_end = rotational_release_phi_x_nonlinearity[1][1].name
             clientObject.force_moment_diagram_around_x_depends_on = rotational_release_phi_x_nonlinearity[1][2].name
 
