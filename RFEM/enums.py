@@ -2323,6 +2323,71 @@ class ResponseSpectrumDefinitionType(Enum):
     '''
     ACCORDING_TO_STANDARD, GENERATED_FROM_ACCELEROGRAM, USER_DEFINED, USER_DEFINED_IN_G_FACTOR = range(4)
 
+class TranslationalReleaseNonlinearity(Enum):
+    '''
+    Translational Release Nonlinearity Enumeration
+    '''
+    NONLINEARITY_TYPE_NONE, NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE, NONLINEARITY_TYPE_FAILURE_IF_POSITIVE, \
+    NONLINEARITY_TYPE_DIAGRAM, NONLINEARITY_TYPE_PARTIAL_ACTIVITY = range(5)
+
+class RotationalReleaseNonlinearity(Enum):
+    '''
+    Rotational Release Nonlinearity Enumeration
+    '''
+    NONLINEARITY_TYPE_NONE, NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE, NONLINEARITY_TYPE_FAILURE_IF_POSITIVE, \
+    NONLINEARITY_TYPE_DIAGRAM, NONLINEARITY_TYPE_PARTIAL_ACTIVITY, NONLINEARITY_TYPE_FORCE_MOMENT_DIAGRAM = range(6)
+
+class LineReleaseLocalAxisSystem(Enum):
+    '''
+    Line Release Local Axis System Enumeration
+    '''
+    LOCAL_AXIS_SYSTEM_TYPE_ORIGINAL_LINE, LOCAL_AXIS_SYSTEM_TYPE_MEMBER_ON_ORIGINAL_LINE, \
+    LOCAL_AXIS_SYSTEM_TYPE_Z_AXIS_PERPENDICULAR_TO_SURFACE, E_LOCAL_AXIS_SYSTEM_TYPE_HELP_NODE= range(4)
+
+class LocalAxisSystemObjectInPlane(Enum):
+    '''
+    Line Release Local Axis System Object In Plane Enumeration
+    '''
+    LOCAL_AXIS_SYSTEM_IN_PLANE_XY, LOCAL_AXIS_SYSTEM_IN_PLANE_XZ = range(2)
+
+class PartialActivityAlongType(Enum):
+    '''
+    Partial Activity Along Type Enumeration
+    '''
+    PARTIAL_ACTIVITY_TYPE_COMPLETE, PARTIAL_ACTIVITY_TYPE_FIXED, PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE, \
+    PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE, PARTIAL_ACTIVITY_TYPE_INEFFECTIVNESS = range(5)
+
+class PartialActivityAroundType(Enum):
+    '''
+    Partial Activity Around Type Enumeration
+    '''
+    PARTIAL_ACTIVITY_TYPE_COMPLETE, PARTIAL_ACTIVITY_TYPE_FIXED, PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT, \
+    PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT, PARTIAL_ACTIVITY_TYPE_INEFFECTIVNESS = range(5)
+
+class LineReleaseDiagram(Enum):
+    '''
+    Line Release Diagram Type Enumeration
+    '''
+    DIAGRAM_ENDING_TYPE_CONTINUOUS, DIAGRAM_ENDING_TYPE_FAILURE, DIAGRAM_ENDING_TYPE_STOP, DIAGRAM_ENDING_TYPE_YIELDING = range(4)
+
+class LineReleaseForceMomentDiagram(Enum):
+    '''
+    Line Release Force Moment Diagram Enumeration
+    '''
+    FORCE_MOMENT_DIAGRAM_ENDING_TYPE_CONTINUOUS, FORCE_MOMENT_DIAGRAM_ENDING_TYPE_FAILURE, FORCE_MOMENT_DIAGRAM_ENDING_TYPE_YIELDING = range(3)
+
+class LineReleaseForceMomentDepend(Enum):
+    '''
+    Line Release Force Moment Depend Enumeration
+    '''
+    FORCE_MOMENT_DIAGRAM_DEPENDS_ON_N, FORCE_MOMENT_DIAGRAM_DEPENDS_ON_VY, FORCE_MOMENT_DIAGRAM_DEPENDS_ON_VZ = range(3)
+
+class LineReleaseReleaseLocation(Enum):
+    '''
+    Line Release Release Location Enumeration
+    '''
+    RELEASE_LOCATION_ORIGIN, RELEASE_LOCATION_RELEASED = range(2)
+
 class LoadWizardType(Enum):
     ''''
     Types of Loading Wizards
