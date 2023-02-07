@@ -88,7 +88,7 @@ class WindSimulationAnalysisSettings():
 
         # Boundary Layers
         clientObject.boundary_layers_checked = boundary_layers_checked
-        if boundary_layers_checked == True:
+        if boundary_layers_checked:
             clientObject.boundary_layers_value = boundary_layers_value
 
         # Consider Turbulence
@@ -230,7 +230,7 @@ class WindSimulationAnalysisSettings():
 
         # User defined simulation time and time steps
         clientObject.user_defined_simulation_time = user_defined_simulation_time
-        if user_defined_simulation_time==True:
+        if user_defined_simulation_time:
             clientObject.simulation_time = simulation_time
             clientObject.start_time_for_saving_transient_result=start_time_for_saving_transient_result
 
@@ -239,13 +239,13 @@ class WindSimulationAnalysisSettings():
 
         # in domain for Flow Animation
         clientObject.user_defined_in_domain_for_flow_animation = user_defined_in_domain_for_flow_animation
-        if user_defined_simulation_time==True and user_defined_in_domain_for_flow_animation ==True:
+        if user_defined_simulation_time and user_defined_in_domain_for_flow_animation:
             clientObject.transient_flow_time_step_for_animation = saving_results[1]
             clientObject.transient_flow_number_of_time_layers = saving_results[2]
 
         # in Probe points for graphics
         clientObject.user_defined_in_point_probes = user_defined_in_point_probes
-        if user_defined_simulation_time == True and user_defined_in_point_probes == True:
+        if user_defined_simulation_time and user_defined_in_point_probes:
             clientObject.transient_flow_time_step_probes = saving_results[3]
             clientObject.transient_flow_number_of_time_layers_probes = saving_results[4]
 
@@ -304,7 +304,7 @@ class WindSimulationAnalysisSettings():
 
         # Consider Surface Roughness
         clientObject.consider_surface_roughness = consider_surface_roughness
-        if consider_surface_roughness==True:
+        if consider_surface_roughness:
             clientObject.sand_grain_roughness_height = sand_grain_roughness_height
             clientObject.roughness_constant = roughness_constant
 
