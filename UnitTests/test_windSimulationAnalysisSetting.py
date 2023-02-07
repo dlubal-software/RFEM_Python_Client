@@ -15,13 +15,13 @@ from RFEM.LoadCasesAndCombinations.windSimulationAnalysisSetting import WindSimu
 if Model.clientModel is None:
     Model()
 
-@pytest.mark.skipif(GetAddonStatus(Model.clientModel, AddOn.wind_simulation_active)==False, reason="wind_simulaion_active add on has to be checked manually")
+#@pytest.mark.skipif(GetAddonStatus(Model.clientModel, AddOn.wind_simulation_active)==False, reason="wind_simulaion_active add on has to be checked manually")
 def test_WindSimulationAnalysisSettings():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    # SetAddonStatus(Model.clientModel, AddOn.wind_simulation_active, True)
+    SetAddonStatus(Model.clientModel, AddOn.wind_simulation_active, True)
 
     # Set Static Analysis Settings
     WindSimulationAnalysisSettings(1, 'Steady Flow', 1.25, 0.000015, WindSimulationAnalysisSettingsMemberLoadDistribution.CONCENTRATED,

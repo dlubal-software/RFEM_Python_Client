@@ -304,7 +304,7 @@ class WindSimulationAnalysisSettings():
 
         # Consider Surface Roughness
         clientObject.consider_surface_roughness = consider_surface_roughness
-        if consider_surface_roughness==True:
+        if consider_surface_roughness:
             clientObject.sand_grain_roughness_height = sand_grain_roughness_height
             clientObject.roughness_constant = roughness_constant
 
