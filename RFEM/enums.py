@@ -2375,6 +2375,6 @@ class NodalReleaseTypePartialActivityAround(Enum):
 
 class NodalReleaseTypeLocalAxisSystemObjectType(Enum):
     '''
-    NodalReleaseTypeLocalAxisSystemObjectType
+    Nodal Release Type Local Axis System Object Type
     '''
     LOCAL_AXIS_SYSTEM_OBJECT_TYPE_LINE, LOCAL_AXIS_SYSTEM_OBJECT_TYPE_MEMBER = range(2)

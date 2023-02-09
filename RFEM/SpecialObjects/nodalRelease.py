@@ -7,9 +7,13 @@ from RFEM.enums import NodeReferenceType, ObjectTypes
 class NodalRelease():
     def __init__(self,
                  no: int = 1,
-                 nodal_release_type: int = 0,
+                 nodes: str = '',
+                 nodal_release_type: int = 1,
                  release_location = NodalReleaseReleaseLocation.RELEASE_LOCATION_ORIGIN,
-                 released: str = '',
+                 released_members: str = '1',
+                 released_surfaces: str ='',
+                 released_solids: str = '',
+                 generated_released_objects = '3',
                  deactivate_release: bool = False,
                  comment: str = '',
                  params: dict = None,
@@ -34,23 +38,26 @@ class NodalRelease():
         # Node No.
         clientObject.no = no
 
+        # Assigned Node
+        clientObject.nodes = ConvertToDlString(nodes)
+
         # Nodal Release Type
         clientObject.nodal_release_type = nodal_release_type
 
         # Released Members
-        clientObject.released_members = ConvertToDlString(released)
+        clientObject.released_members = ConvertToDlString(released_members)
 
         # Released Surfaces
-        clientObject.released_surfaces = ConvertToDlString(released)
+        clientObject.released_surfaces = ConvertToDlString(released_surfaces)
 
         # Released Solids
-        clientObject.released_solids = ConvertToDlString(released)
+        clientObject.released_solids = ConvertToDlString(released_solids)
 
         # Nodal Release
         clientObject.release_location = release_location.name
 
         # Generated Released Objects
-        clientObject.generated_released_objects = ConvertToDlString(released)
+        clientObject.generated_released_objects = ConvertToDlString(generated_released_objects)
 
         # Deactivate Release
         clientObject.deactivated = deactivate_release
@@ -67,6 +74,6 @@ class NodalRelease():
         deleteEmptyAttributes(clientObject)
 
         # Add Node to client model
-        model.clientModel.service.set_node(clientObject)
+        model.clientModel.service.set_nodal_release(clientObject)
 
 
