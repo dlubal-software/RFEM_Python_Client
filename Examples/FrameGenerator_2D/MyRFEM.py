@@ -6,7 +6,7 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.enums import NodalSupportType, MemberLoadDirection, AnalysisType, ActionCategoryType, AddOn, SetType
+from RFEM.enums import NodalSupportType, MemberLoadDirection, AnalysisType, ActionCategoryType, AddOn, SetType, SteelBoundaryConditionsSupportType, SteelBoundaryConditionsEccentricityTypeZ
 from RFEM.initModel import Model, insertSpaces, Calculate_all, SetAddonStatus
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.material import Material
@@ -22,6 +22,7 @@ from RFEM.LoadCasesAndCombinations.loadCombination import LoadCombination
 from RFEM.Loads.memberLoad import MemberLoad
 from RFEM.dataTypes import inf
 from RFEM.TypesForSteelDesign.steelEffectiveLengths import SteelEffectiveLengths
+from RFEM.TypesForSteelDesign.steelBoundaryConditions import SteelBoundaryConditions
 class MyRFEM():
     input ={}
     results ={}
@@ -119,7 +120,49 @@ class MyRFEM():
         MemberSet(1, '9-11', SetType.SET_TYPE_CONTINUOUS)
 
         if self.input['check_steel_design'] == 1:
+            # Columns
             SteelEffectiveLengths(1, '5, 6', factors=[[1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]])
+
+            # The design properties of members 9, 10, 11 are defined in
+            # member set No. 1 and not in member properties.
+            p = {
+                "design_properties_via_parent_member_set": True,
+                "design_properties_parent_member_set": 1
+            }
+
+            Member(9, 2, 9, 0.0, 4, 4, 1, 0, params=p)
+            Member(10, 9, 11, 0.0, 4, 4, params=p)
+            Member(11, 11, 5, 0.0, 4, 4, 0, 1, params=p)
+
+            # Slap beam
+            # TODO 29: SteelBoundaryConditions should be more detailed.
+            #
+            # Die Boundary Conditions werden momentan nicht richtig
+            # geschrieben. Zumindest läuft jetzt die Aktivierung der
+            # Design Properties zuverlässig. Ich habe es nach dem
+            # Muster in der Test-02.py umgesetzt.
+            #
+            l = [
+                #[1, SteelBoundaryConditionsSupportType.SUPPORT_TYPE_FIXED_IN_Y_AND_TORSION, False, True, False, True, False, False, False, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SteelBoundaryConditionsEccentricityTypeZ.ECCENTRICITY_TYPE_USER_VALUE, 0.0, 0.0, 0.0, ""]
+                [None, SteelBoundaryConditionsSupportType.SUPPORT_TYPE_FIXED_IN_Y_AND_TORSION, False, True, False, True, False, False, False,
+                0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SteelBoundaryConditionsEccentricityTypeZ.ECCENTRICITY_TYPE_USER_VALUE, 0.0, 0.0, 0.0, ""],
+                [None, SteelBoundaryConditionsSupportType.SUPPORT_TYPE_FIXED_IN_Y_AND_TORSION, False, True, False, True, False, False, False,
+                0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SteelBoundaryConditionsEccentricityTypeZ.ECCENTRICITY_TYPE_USER_VALUE, 0.0, 0.0, 0.0, "9"],
+                [None, SteelBoundaryConditionsSupportType.SUPPORT_TYPE_FIXED_IN_Y_AND_TORSION, False, True, False, True, False, False, False,
+                0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SteelBoundaryConditionsEccentricityTypeZ.ECCENTRICITY_TYPE_USER_VALUE, 0.0, 0.0, 0.0, ""]
+            ]
+            #SteelBoundaryConditions(1, member_sets='1', intermediate_nodes=True, nodal_supports=l)
+            SteelBoundaryConditions(1, member_sets='1', intermediate_nodes=True)
+            #SteelBoundaryConditions(1, 'My Name', '', '1', True)
+
+            p = {
+                "design_properties_activated": True,
+                "steel_boundary_conditions": 1
+            }
+            MemberSet(1, '9-11', SetType.SET_TYPE_CONTINUOUS, params=p)
+        else:
+            pass
+            #MemberSet(1, '9-11', SetType.SET_TYPE_CONTINUOUS)
 
         # Create supports
         if self.input['structure']['supports'][0] == 'Fixed':
