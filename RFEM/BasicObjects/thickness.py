@@ -2,10 +2,9 @@ from RFEM.enums import ThicknessDirection, ThicknessType, LayerType
 from RFEM.enums import ThicknessOrthotropyType, AddOn, ObjectTypes
 from RFEM.enums import ThicknessShapeOrthotropySelfWeightDefinitionType
 from RFEM.enums import ThicknessStiffnessMatrixSelfWeightDefinitionType
+from RFEM.enums import MaterialModel, ThicknessIntegrationMethod
 from RFEM.initModel import Model, GetAddonStatus, clearAttributes, deleteEmptyAttributes, SetAddonStatus, ConvertStrToListOfInt
 from math import pi
-
-from RFEM.enums import MaterialModel, ThicknessIntegrationMethod
 
 class Thickness():
     def __init__(self,
