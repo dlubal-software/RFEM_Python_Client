@@ -11,7 +11,7 @@ class Member():
                  end_section_no: int = 1,
                  start_member_hinge_no: int = 0,
                  end_member_hinge_no: int = 0,
-                 line = None,
+                 line: int = None,
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -43,11 +43,15 @@ class Member():
         # Member Type
         clientObject.type = MemberType.TYPE_BEAM.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
+        # Assigned Line No.
+        clientObject.line = line
 
-        # End Node No.
-        clientObject.node_end = end_node_no
+        if not line:
+            # Start Node No.
+            clientObject.node_start = start_node_no
+
+            # End Node No.
+            clientObject.node_end = end_node_no
 
         # Member Rotation Angle beta
         clientObject.rotation_angle = rotation_angle
@@ -57,9 +61,6 @@ class Member():
 
         # End Section No.
         clientObject.section_end = end_section_no
-
-        # Assigned Line No.
-        clientObject.line = line
 
         # Start Member Hinge No.
         clientObject.member_hinge_start = start_member_hinge_no
