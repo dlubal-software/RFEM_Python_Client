@@ -91,7 +91,7 @@ class NodalReleaseType():
             clientObject.axial_release_n_nonlinearity = translational_release_n_nonlinearity[0].name
 
         # Partial Activity
-        if translational_release_n_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
+        elif translational_release_n_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
             clientObject.axial_release_n_nonlinearity = translational_release_n_nonlinearity[0].name
 
             # Negative Zone
@@ -99,6 +99,10 @@ class NodalReleaseType():
 
             if translational_release_n_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_along_x_negative_slippage = translational_release_n_nonlinearity[1][1]
+
+            elif translational_release_n_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FIXED:
+                clientObject.partial_activity_along_x_negative_displacement = translational_release_n_nonlinearity[1][1]
+                clientObject.partial_activity_along_x_negative_slippage = translational_release_n_nonlinearity[1][2]
 
             elif translational_release_n_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE:
                 clientObject.partial_activity_along_x_negative_force = translational_release_n_nonlinearity[1][1]
@@ -114,6 +118,10 @@ class NodalReleaseType():
             if translational_release_n_nonlinearity[2][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_along_x_positive_slippage = translational_release_n_nonlinearity[2][1]
 
+            elif translational_release_n_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FIXED:
+                clientObject.partial_activity_along_x_positive_displacement = translational_release_n_nonlinearity[2][1]
+                clientObject.partial_activity_along_x_positive_slippage = translational_release_n_nonlinearity[2][2]
+
             elif translational_release_n_nonlinearity[2][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE:
                 clientObject.partial_activity_along_x_positive_force = translational_release_n_nonlinearity[2][1]
                 clientObject.partial_activity_along_x_positive_slippage = translational_release_n_nonlinearity[2][2]
@@ -124,11 +132,16 @@ class NodalReleaseType():
 
         elif translational_release_n_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
             clientObject.axial_release_n_nonlinearity = translational_release_n_nonlinearity[0].name
-            clientObject.diagram_along_x_symmetric = True
+            clientObject.diagram_along_x_symmetric = translational_release_n_nonlinearity[1][0]
             clientObject.diagram_along_x_is_sorted = True
 
-            clientObject.diagram_along_x_start = translational_release_n_nonlinearity[1][0].name
-            clientObject.diagram_along_x_end = translational_release_n_nonlinearity[1][1].name
+            if translational_release_n_nonlinearity[1][0]:
+                clientObject.diagram_along_y_start = translational_release_n_nonlinearity[1][1].name
+                clientObject.diagram_along_y_end = translational_release_n_nonlinearity[1][1].name
+
+            else:
+                clientObject.diagram_along_y_start = translational_release_n_nonlinearity[1][1].name
+                clientObject.diagram_along_y_end = translational_release_n_nonlinearity[1][2].name
 
             clientObject.diagram_along_x_table = Model.clientModel.factory.create('ns0:nodal_release_type.diagram_along_x_table')
 
@@ -159,7 +172,7 @@ class NodalReleaseType():
             clientObject.axial_release_vy_nonlinearity = translational_release_vy_nonlinearity[0].name
 
         # Partial Activity
-        elif translational_release_vy_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
+        elif translational_release_vy_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
             clientObject.axial_release_vy_nonlinearity = translational_release_vy_nonlinearity[0].name
 
             # Negative Zone
@@ -167,6 +180,10 @@ class NodalReleaseType():
 
             if translational_release_vy_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_along_y_negative_slippage = translational_release_vy_nonlinearity[1][1]
+
+            elif translational_release_vy_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FIXED:
+                clientObject.partial_activity_along_y_negative_displacement = translational_release_vy_nonlinearity[1][1]
+                clientObject.partial_activity_along_y_negative_slippage = translational_release_vy_nonlinearity[1][2]
 
             elif translational_release_vy_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE:
                 clientObject.partial_activity_along_y_negative_force = translational_release_vy_nonlinearity[1][1]
@@ -182,6 +199,10 @@ class NodalReleaseType():
             if translational_release_vy_nonlinearity[2][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_along_y_positive_slippage = translational_release_vy_nonlinearity[2][1]
 
+            elif translational_release_vy_nonlinearity[2][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FIXED:
+                clientObject.partial_activity_along_y_positive_displacement = translational_release_vy_nonlinearity[2][1]
+                clientObject.partial_activity_along_y_positive_slippage = translational_release_vy_nonlinearity[2][2]
+
             elif translational_release_vy_nonlinearity[2][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE:
                 clientObject.partial_activity_along_y_positive_force = translational_release_vy_nonlinearity[2][1]
                 clientObject.partial_activity_along_y_positive_slippage = translational_release_vy_nonlinearity[2][2]
@@ -192,11 +213,17 @@ class NodalReleaseType():
 
         elif translational_release_vy_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
             clientObject.axial_release_vy_nonlinearity = translational_release_vy_nonlinearity[0].name
-            clientObject.diagram_along_y_start = translational_release_vy_nonlinearity[1][0].name
-            clientObject.diagram_along_y_end = translational_release_vy_nonlinearity[1][1].name
 
-            clientObject.diagram_along_y_symmetric = True
+            clientObject.diagram_along_y_symmetric = translational_release_vy_nonlinearity[1][0]
             clientObject.diagram_along_y_is_sorted = True
+
+            if translational_release_vy_nonlinearity[1][0]:
+                clientObject.diagram_along_y_start = translational_release_vy_nonlinearity[1][1].name
+                clientObject.diagram_along_y_end = translational_release_vy_nonlinearity[1][1].name
+
+            else:
+                clientObject.diagram_along_y_start = translational_release_vy_nonlinearity[1][1].name
+                clientObject.diagram_along_y_end = translational_release_vy_nonlinearity[1][2].name
 
             clientObject.diagram_along_y_table = Model.clientModel.factory.create('ns0:nodal_release_type.diagram_along_y_table')
 
@@ -227,7 +254,7 @@ class NodalReleaseType():
             clientObject.axial_release_vz_nonlinearity = translational_release_vz_nonlinearity[0].name
 
         # Partial Activity
-        elif translational_release_vz_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
+        elif translational_release_vz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
             clientObject.axial_release_vz_nonlinearity = translational_release_vz_nonlinearity[0].name
 
             # Negative Zone
@@ -235,6 +262,10 @@ class NodalReleaseType():
 
             if translational_release_vz_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_along_z_negative_slippage = translational_release_vz_nonlinearity[1][1]
+
+            elif translational_release_vz_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FIXED:
+                clientObject.partial_activity_along_z_negative_displacement = translational_release_vz_nonlinearity[1][1]
+                clientObject.partial_activity_along_z_negative_slippage = translational_release_vz_nonlinearity[1][2]
 
             elif translational_release_vz_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE:
                 clientObject.partial_activity_along_z_negative_force = translational_release_vz_nonlinearity[1][1]
@@ -250,6 +281,10 @@ class NodalReleaseType():
             if translational_release_vz_nonlinearity[2][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_along_z_positive_slippage = translational_release_vz_nonlinearity[2][1]
 
+            elif translational_release_vz_nonlinearity[2][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FIXED:
+                clientObject.partial_activity_along_z_positive_displacement = translational_release_vz_nonlinearity[2][1]
+                clientObject.partial_activity_along_z_positive_slippage = translational_release_vz_nonlinearity[2][2]
+
             elif translational_release_vz_nonlinearity[2][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE:
                 clientObject.partial_activity_along_z_positive_force = translational_release_vz_nonlinearity[2][1]
                 clientObject.partial_activity_along_z_positive_slippage = translational_release_vz_nonlinearity[2][2]
@@ -260,11 +295,17 @@ class NodalReleaseType():
 
         elif translational_release_vz_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
             clientObject.axial_release_vz_nonlinearity = translational_release_vz_nonlinearity[0].name
-            clientObject.diagram_along_z_start = translational_release_vz_nonlinearity[1][0].name
-            clientObject.diagram_along_z_end = translational_release_vz_nonlinearity[1][1].name
 
-            clientObject.diagram_along_z_symmetric = True
+            clientObject.diagram_along_z_symmetric = translational_release_vz_nonlinearity[1][0]
             clientObject.diagram_along_z_is_sorted = True
+
+            if translational_release_vz_nonlinearity[1][0]:
+                clientObject.diagram_along_y_start = translational_release_vz_nonlinearity[1][1].name
+                clientObject.diagram_along_y_end = translational_release_vz_nonlinearity[1][1].name
+
+            else:
+                clientObject.diagram_along_y_start = translational_release_vz_nonlinearity[1][1].name
+                clientObject.diagram_along_y_end = translational_release_vz_nonlinearity[1][2].name
 
             clientObject.diagram_along_z_table = Model.clientModel.factory.create('ns0:member_hinge.diagram_along_z_table')
 
@@ -295,7 +336,7 @@ class NodalReleaseType():
             clientObject.moment_release_mt_nonlinearity = rotational_release_mt_nonlinearity[0].name
 
         # Partial Activity
-        elif rotational_release_mt_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
+        elif rotational_release_mt_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
             clientObject.moment_release_mt_nonlinearity = rotational_release_mt_nonlinearity[0].name
 
             # Negative Zone
@@ -304,12 +345,16 @@ class NodalReleaseType():
             if rotational_release_mt_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_around_x_negative_slippage = rotational_release_mt_nonlinearity[1][1]
 
+            elif rotational_release_mt_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FIXED:
+                clientObject.partial_activity_around_x_negative_displacement = rotational_release_mt_nonlinearity[1][1]
+                clientObject.partial_activity_around_x_negative_slippage = rotational_release_mt_nonlinearity[1][2]
+
             elif rotational_release_mt_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT:
-                clientObject.partial_activity_around_x_negative_force = rotational_release_mt_nonlinearity[1][1]
+                clientObject.partial_activity_around_x_negative_moment = rotational_release_mt_nonlinearity[1][1]
                 clientObject.partial_activity_around_x_negative_slippage = rotational_release_mt_nonlinearity[1][2]
 
             elif rotational_release_mt_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT:
-                clientObject.partial_activity_around_x_negative_force = rotational_release_mt_nonlinearity[1][1]
+                clientObject.partial_activity_around_x_negative_moment = rotational_release_mt_nonlinearity[1][1]
                 clientObject.partial_activity_around_x_negative_slippage = rotational_release_mt_nonlinearity[1][2]
 
             # Positive Zone
@@ -318,21 +363,32 @@ class NodalReleaseType():
             if rotational_release_mt_nonlinearity[2][0].name == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_around_x_positive_slippage = rotational_release_mt_nonlinearity[2][1]
 
+            elif rotational_release_mt_nonlinearity[2][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FIXED:
+                clientObject.partial_activity_around_x_positive_displacement = rotational_release_mt_nonlinearity[2][1]
+                clientObject.partial_activity_around_x_positive_slippage = rotational_release_mt_nonlinearity[2][2]
+
             elif rotational_release_mt_nonlinearity[2][0].name == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT:
-                clientObject.partial_activity_around_x_positive_force = rotational_release_mt_nonlinearity[2][1]
+                clientObject.partial_activity_around_x_positive_moment = rotational_release_mt_nonlinearity[2][1]
                 clientObject.partial_activity_around_x_positive_slippage = rotational_release_mt_nonlinearity[2][2]
 
             elif rotational_release_mt_nonlinearity[2][0].name == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT:
-                clientObject.partial_activity_around_x_positive_force = rotational_release_mt_nonlinearity[2][1]
+                clientObject.partial_activity_around_x_positive_moment = rotational_release_mt_nonlinearity[2][1]
                 clientObject.partial_activity_around_x_positive_slippage = rotational_release_mt_nonlinearity[2][2]
 
         elif rotational_release_mt_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
             clientObject.moment_release_mt_nonlinearity = rotational_release_mt_nonlinearity[0].name
-            clientObject.diagram_around_x_start = rotational_release_mt_nonlinearity[1][0].name
-            clientObject.diagram_around_x_end = rotational_release_mt_nonlinearity[1][1].name
 
-            clientObject.diagram_around_x_symmetric = True
+            clientObject.diagram_around_x_symmetric = rotational_release_mt_nonlinearity[1][0]
             clientObject.diagram_around_x_is_sorted = True
+
+            if rotational_release_mt_nonlinearity[1][0]:
+                clientObject.diagram_along_y_start = rotational_release_mt_nonlinearity[1][1].name
+                clientObject.diagram_along_y_end = rotational_release_mt_nonlinearity[1][1].name
+
+            else:
+                clientObject.diagram_along_y_start = rotational_release_mt_nonlinearity[1][1].name
+                clientObject.diagram_along_y_end = rotational_release_mt_nonlinearity[1][2].name
+
 
             clientObject.diagram_around_x_table = Model.clientModel.factory.create('ns0:nodal_release_type.diagram_around_x_table')
 
@@ -352,7 +408,7 @@ class NodalReleaseType():
             clientObject.moment_release_my_nonlinearity = rotational_release_my_nonlinearity[0].name
 
         # Partial Activity
-        elif rotational_release_my_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
+        elif rotational_release_my_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
             clientObject.moment_release_my_nonlinearity = rotational_release_my_nonlinearity[0].name
 
             # Negative Zone
@@ -360,6 +416,10 @@ class NodalReleaseType():
 
             if rotational_release_my_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_around_y_negative_slippage = rotational_release_my_nonlinearity[1][1]
+
+            elif rotational_release_my_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FIXED:
+                clientObject.partial_activity_around_x_negative_displacement = rotational_release_my_nonlinearity[1][1]
+                clientObject.partial_activity_around_x_negative_slippage = rotational_release_my_nonlinearity[1][2]
 
             elif rotational_release_my_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT:
                 clientObject.partial_activity_around_y_negative_force = rotational_release_my_nonlinearity[1][1]
@@ -375,6 +435,10 @@ class NodalReleaseType():
             if rotational_release_my_nonlinearity[2][0].name == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_around_y_positive_slippage = rotational_release_my_nonlinearity[2][1]
 
+            elif rotational_release_my_nonlinearity[2][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FIXED:
+                clientObject.partial_activity_around_x_positive_displacement = rotational_release_my_nonlinearity[2][1]
+                clientObject.partial_activity_around_x_positive_slippage = rotational_release_my_nonlinearity[2][2]
+
             elif rotational_release_my_nonlinearity[2][0].name == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT:
                 clientObject.partial_activity_around_y_positive_force = rotational_release_my_nonlinearity[2][1]
                 clientObject.partial_activity_around_y_positive_slippage = rotational_release_my_nonlinearity[2][2]
@@ -385,11 +449,18 @@ class NodalReleaseType():
 
         elif rotational_release_my_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
             clientObject.moment_release_my_nonlinearity = rotational_release_my_nonlinearity[0].name
-            clientObject.diagram_around_y_start = rotational_release_my_nonlinearity[1][0].name
-            clientObject.diagram_around_y_end = rotational_release_my_nonlinearity[1][1].name
 
-            clientObject.diagram_around_y_symmetric = True
+            clientObject.diagram_around_y_symmetric = rotational_release_my_nonlinearity[1][0]
             clientObject.diagram_around_y_is_sorted = True
+
+            if rotational_release_my_nonlinearity[1][0]:
+                clientObject.diagram_along_y_start = rotational_release_my_nonlinearity[1][1].name
+                clientObject.diagram_along_y_end = rotational_release_my_nonlinearity[1][1].name
+
+            else:
+                clientObject.diagram_along_y_start = rotational_release_my_nonlinearity[1][1].name
+                clientObject.diagram_along_y_end = rotational_release_my_nonlinearity[1][2].name
+
 
             clientObject.diagram_around_y_table = Model.clientModel.factory.create('ns0:nodal_release_type.diagram_around_y_table')
 
@@ -409,7 +480,7 @@ class NodalReleaseType():
             clientObject.moment_release_mz_nonlinearity = rotational_release_mz_nonlinearity[0].name
 
         # Partial Activity
-        elif rotational_release_mz_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
+        elif rotational_release_mz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
             clientObject.moment_release_mz_nonlinearity = rotational_release_mz_nonlinearity[0].name
 
             # Negative Zone
@@ -418,12 +489,16 @@ class NodalReleaseType():
             if rotational_release_mz_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_around_z_negative_slippage = rotational_release_mz_nonlinearity[1][1]
 
+            elif rotational_release_mz_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FIXED:
+                clientObject.partial_activity_around_z_negative_displacement = rotational_release_mz_nonlinearity[1][1]
+                clientObject.partial_activity_around_z_negative_slippage = rotational_release_mz_nonlinearity[1][2]
+
             elif rotational_release_mz_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT:
-                clientObject.partial_activity_around_z_negative_force = rotational_release_mz_nonlinearity[1][1]
+                clientObject.partial_activity_around_z_negative_moment = rotational_release_mz_nonlinearity[1][1]
                 clientObject.partial_activity_around_z_negative_slippage = rotational_release_mz_nonlinearity[1][2]
 
             elif rotational_release_mz_nonlinearity[1][0].name == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT:
-                clientObject.partial_activity_around_z_negative_force = rotational_release_mz_nonlinearity[1][1]
+                clientObject.partial_activity_around_z_negative_moment = rotational_release_mz_nonlinearity[1][1]
                 clientObject.partial_activity_around_z_negative_slippage = rotational_release_mz_nonlinearity[1][2]
 
             # Positive Zone
@@ -431,6 +506,10 @@ class NodalReleaseType():
 
             if rotational_release_mz_nonlinearity[2][0].name == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_around_z_positive_slippage = rotational_release_mz_nonlinearity[2][1]
+
+            elif rotational_release_mz_nonlinearity[2][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FIXED:
+                clientObject.partial_activity_around_z_positive_displacement = rotational_release_mz_nonlinearity[2][1]
+                clientObject.partial_activity_around_z_positive_slippage = rotational_release_mz_nonlinearity[2][2]
 
             elif rotational_release_mz_nonlinearity[2][0].name == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT:
                 clientObject.partial_activity_around_z_positive_force = rotational_release_mz_nonlinearity[2][1]
@@ -442,11 +521,18 @@ class NodalReleaseType():
 
         elif rotational_release_mz_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
             clientObject.moment_release_mz_nonlinearity = rotational_release_mz_nonlinearity[0].name
-            clientObject.diagram_around_z_start = rotational_release_mz_nonlinearity[1][0].name
-            clientObject.diagram_around_z_end = rotational_release_mz_nonlinearity[1][1].name
 
-            clientObject.diagram_around_z_symmetric = True
+            clientObject.diagram_around_z_symmetric = rotational_release_my_nonlinearity[1][0]
             clientObject.diagram_around_z_is_sorted = True
+
+            if rotational_release_mz_nonlinearity[1][0]:
+                clientObject.diagram_along_y_start = rotational_release_mz_nonlinearity[1][1].name
+                clientObject.diagram_along_y_end = rotational_release_mz_nonlinearity[1][1].name
+
+            else:
+                clientObject.diagram_along_y_start = rotational_release_mz_nonlinearity[1][1].name
+                clientObject.diagram_along_y_end = rotational_release_mz_nonlinearity[1][2].name
+
 
             clientObject.diagram_around_z_table = Model.clientModel.factory.create('ns0:nodal_release_type.diagram_around_z_table')
 
