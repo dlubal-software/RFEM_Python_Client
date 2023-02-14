@@ -14,15 +14,13 @@ class NodalReleaseType():
                  rotational_release_mt: float = inf,
                  rotational_release_my: float = 0.0,
                  rotational_release_mz: float = 0.0,
-                 translational_release_type_nonlinearity = [NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_NONE],
-                 translational_release_n_nonlinearity = [NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_COMPLETE],
-                 translational_release_vy_nonlinearity = [NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_COMPLETE],
-                 translational_release_vz_nonlinearity = [NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_COMPLETE],
-                 rotational_release_mt_nonlinearity = [NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_COMPLETE],
-                 rotational_release_my_nonlinearity = [NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_COMPLETE],
-                 rotational_release_mz_nonlinearity = [NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_COMPLETE],
-                 translational_release_diagram = [NodalReleaseTypeDiagram.DIAGRAM_ENDING_TYPE_CONTINUOUS],
-                 local_axis_system = [NodalReleaseTypeLocalAxisSystemObjectType.LOCAL_AXIS_SYSTEM_OBJECT_TYPE_MEMBER],
+                 translational_release_n_nonlinearity = [NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_NONE],
+                 translational_release_vy_nonlinearity = [NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_NONE],
+                 translational_release_vz_nonlinearity = [NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_NONE],
+                 rotational_release_mt_nonlinearity = [NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_NONE],
+                 rotational_release_my_nonlinearity = [NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_NONE],
+                 rotational_release_mz_nonlinearity = [NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_NONE],
+                 local_axis_system = NodalReleaseTypeLocalAxisSystemObjectType.LOCAL_AXIS_SYSTEM_OBJECT_TYPE_MEMBER,
                  local_axis_system_reference_object: int = 1,
                  name: str = None,
                  comment: str = '',
@@ -87,14 +85,14 @@ class NodalReleaseType():
         # Translational Release N Nonlinearity
 
         # Nonlinearity Types None, Fixed if Negative N, Fixed if Positive N
-        if translational_release_type_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_NONE \
-        or translational_release_type_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE \
-        or translational_release_type_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FAILURE_IF_POSITIVE :
-            clientObject.axial_release_n_nonlinearity = translational_release_type_nonlinearity[0].name
+        if translational_release_n_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_NONE \
+        or translational_release_n_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE \
+        or translational_release_n_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FAILURE_IF_POSITIVE :
+            clientObject.axial_release_n_nonlinearity = translational_release_n_nonlinearity[0].name
 
         # Partial Activity
-        elif translational_release_type_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
-            clientObject.axial_release_n_nonlinearity = translational_release_type_nonlinearity[0].name
+        if translational_release_n_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
+            clientObject.axial_release_n_nonlinearity = translational_release_n_nonlinearity[0].name
 
             # Negative Zone
             clientObject.partial_activity_along_x_negative_type = translational_release_n_nonlinearity[1][0].name
@@ -124,45 +122,45 @@ class NodalReleaseType():
                 clientObject.partial_activity_along_x_positive_force = translational_release_n_nonlinearity[2][1]
                 clientObject.partial_activity_along_x_positive_slippage = translational_release_n_nonlinearity[2][2]
 
-        elif translational_release_type_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
-            clientObject.axial_release_n_nonlinearity = translational_release_type_nonlinearity[0].name
+        elif translational_release_n_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
+            clientObject.axial_release_n_nonlinearity = translational_release_n_nonlinearity[0].name
             clientObject.diagram_along_x_symmetric = True
             clientObject.diagram_along_x_is_sorted = True
 
-            clientObject.diagram_along_x_start = translational_release_diagram[1][0].name
-            clientObject.diagram_along_x_end = translational_release_diagram[1][1].name
+            clientObject.diagram_along_x_start = translational_release_n_nonlinearity[1][0].name
+            clientObject.diagram_along_x_end = translational_release_n_nonlinearity[1][1].name
 
             clientObject.diagram_along_x_table = Model.clientModel.factory.create('ns0:nodal_release_type.diagram_along_x_table')
 
-            for i,j in enumerate(translational_release_type_nonlinearity[1][2]):
+            for i,j in enumerate(translational_release_n_nonlinearity[1][2]):
                 mlvlp = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_along_x_table_row')
                 mlvlp.no = i+1
-                mlvlp.row.displacement = translational_release_diagram[1][2][i][0]
-                mlvlp.row.force = translational_release_diagram[1][2][i][1]
-                mlvlp.row.spring = translational_release_diagram[1][2][i][2]
+                mlvlp.row.displacement = translational_release_n_nonlinearity[1][2][i][0]
+                mlvlp.row.force = translational_release_n_nonlinearity[1][2][i][1]
+                mlvlp.row.spring = translational_release_n_nonlinearity[1][2][i][2]
 
                 clientObject.diagram_along_x_table.nodal_release_type_diagram_along_x_table.append(mlvlp)
 
-        elif translational_release_type_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1 \
-        or translational_release_type_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_2 \
-        or translational_release_type_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2:
-            clientObject.axial_release_n_nonlinearity = translational_release_type_nonlinearity[0].name
-            clientObject.friction_coefficient_x = translational_release_type_nonlinearity[1][0]
+        elif translational_release_n_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1 \
+        or translational_release_n_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_2 \
+        or translational_release_n_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2:
+            clientObject.axial_release_n_nonlinearity = translational_release_n_nonlinearity[0].name
+            clientObject.friction_coefficient_x = translational_release_n_nonlinearity[1][0]
 
-        elif translational_release_type_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2:
-            clientObject.axial_release_n_nonlinearity = translational_release_type_nonlinearity[0].name
-            clientObject.friction_coefficient_xy = translational_release_type_nonlinearity[1][0]
-            clientObject.friction_coefficient_xz = translational_release_type_nonlinearity[1][1]
+        elif translational_release_n_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2:
+            clientObject.axial_release_n_nonlinearity = translational_release_n_nonlinearity[0].name
+            clientObject.friction_coefficient_xy = translational_release_n_nonlinearity[1][0]
+            clientObject.friction_coefficient_xz = translational_release_n_nonlinearity[1][1]
 
         # Translational Release Vy Nonlinearity
-        if translational_release_type_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_NONE \
-        or translational_release_type_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE \
-        or translational_release_type_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FAILURE_IF_POSITIVE:
-            clientObject.axial_release_vy_nonlinearity = translational_release_type_nonlinearity[0].name
+        if translational_release_vy_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_NONE \
+        or translational_release_vy_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE \
+        or translational_release_vy_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FAILURE_IF_POSITIVE:
+            clientObject.axial_release_vy_nonlinearity = translational_release_vy_nonlinearity[0].name
 
         # Partial Activity
-        elif translational_release_type_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
-            clientObject.axial_release_vy_nonlinearity = translational_release_type_nonlinearity[0].name
+        elif translational_release_vy_nonlinearity[0].name == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
+            clientObject.axial_release_vy_nonlinearity = translational_release_vy_nonlinearity[0].name
 
             # Negative Zone
             clientObject.partial_activity_along_y_negative_type = translational_release_vy_nonlinearity[1][0].name
@@ -179,7 +177,7 @@ class NodalReleaseType():
                 clientObject.partial_activity_along_y_negative_slippage = translational_release_vy_nonlinearity[1][2]
 
             # Positive Zone
-            clientObject.partial_activity_along_y_positive_type = translational_release_n_nonlinearity[2][0].name
+            clientObject.partial_activity_along_y_positive_type = translational_release_vy_nonlinearity[2][0].name
 
             if translational_release_vy_nonlinearity[2][0].name == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                 clientObject.partial_activity_along_y_positive_slippage = translational_release_vy_nonlinearity[2][1]
@@ -465,7 +463,7 @@ class NodalReleaseType():
         clientObject.local_axis_system_object_type = local_axis_system.name
 
         # Nodal Release Local Axis System Reference Object
-        clientObject.local_axis_system_reference_object = local_axis_system_reference_object.name
+        clientObject.local_axis_system_reference_object = local_axis_system_reference_object
 
         # Line Release Type User defined name
         if name:

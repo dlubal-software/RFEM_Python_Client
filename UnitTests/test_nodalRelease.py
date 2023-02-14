@@ -72,20 +72,20 @@ def test_NodalRelease():
 
     Solid(1, '1 2 3 4 5 6')
 
-    # NodalReleaseType(1, [0, inf, inf, 0])
-    # NodalReleaseType(2, [0, 0, 0, 0])
+    NodalReleaseType(1, [0, inf, inf, 0])
+    NodalReleaseType(2, [0, 0, 0, 0])
 
     NodalRelease(1, '1', 1, NodalReleaseReleaseLocation.RELEASE_LOCATION_ORIGIN, '1', '1 2', '1', '1')
     NodalRelease(2, '2 3', 2, NodalReleaseReleaseLocation.RELEASE_LOCATION_RELEASED, '2 3 11', '1 4 5', '1', '2 4')
 
     Model.clientModel.service.finish_modification()
 
-    lr1 = Model.clientModel.service.get_nodal_release(1)
-    assert lr1.nodal_release_type == 1
-    assert lr1.released_surfaces == '1 2'
-    assert lr1.released_solids == '1'
-    assert lr1.release_location == "RELEASE_LOCATION_ORIGIN"
+    nr1 = Model.clientModel.service.get_nodal_release(1)
+    assert nr1.nodal_release_type == 1
+    assert nr1.released_surfaces == '1 2'
+    assert nr1.released_solids == '1'
+    assert nr1.release_location == "RELEASE_LOCATION_ORIGIN"
 
-    lr2 = Model.clientModel.service.get_nodal_release(2)
-    assert lr2.nodes == '2 3'
-    assert lr2.release_location == "RELEASE_LOCATION_RELEASED"
+    nr2 = Model.clientModel.service.get_nodal_release(2)
+    assert nr2.nodes == '2 3'
+    assert nr2.release_location == "RELEASE_LOCATION_RELEASED"
