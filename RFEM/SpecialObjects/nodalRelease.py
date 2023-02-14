@@ -13,7 +13,6 @@ class NodalRelease():
                  released_members: str = '1',
                  released_surfaces: str ='',
                  released_solids: str = '',
-                 generated_released_objects = '3',
                  deactivate_release: bool = False,
                  comment: str = '',
                  params: dict = None,
@@ -55,9 +54,6 @@ class NodalRelease():
 
         # Nodal Release
         clientObject.release_location = release_location.name
-
-        # Generated Released Objects
-        clientObject.generated_released_objects = ConvertToDlString(generated_released_objects)
 
         # Deactivate Release
         clientObject.deactivated = deactivate_release
