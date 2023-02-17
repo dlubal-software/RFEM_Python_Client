@@ -23,6 +23,8 @@ from RFEM.Loads.memberLoad import MemberLoad
 from RFEM.dataTypes import inf
 from RFEM.TypesForSteelDesign.steelEffectiveLengths import SteelEffectiveLengths
 from RFEM.TypesForSteelDesign.steelBoundaryConditions import SteelBoundaryConditions
+from RFEM.SteelDesign.steelServiceabilityConfiguration import SteelDesignServiceabilityConfigurations
+from RFEM.SteelDesign.steelUltimateConfigurations import SteelDesignUltimateConfigurations
 class MyRFEM():
     input ={}
     results ={}
@@ -118,11 +120,26 @@ class MyRFEM():
         Member(11, 11, 5, 0.0, 4, 4, 0, 1)
 
         MemberSet(1, '9-11', SetType.SET_TYPE_CONTINUOUS)
+        MemberSet(2, '1-2', SetType.SET_TYPE_CONTINUOUS)
+        MemberSet(3, '3-4', SetType.SET_TYPE_CONTINUOUS)
 
         if self.input['check_steel_design'] == 1:
+            # Design Configurations
+            SteelDesignUltimateConfigurations(1, members_no='5, 6', member_sets_no='1-3')
+            SteelDesignServiceabilityConfigurations(1, members_no='5, 6', member_sets_no='1-3')
+
+            p = {
+                    "member_steel_design_uls_configuration": 1,
+                    "member_steel_design_sls_configuration": 1
+            }
+            MemberSet(1, '9-11', SetType.SET_TYPE_CONTINUOUS, params=p)
+            MemberSet(2, '1-2', SetType.SET_TYPE_CONTINUOUS, params=p)
+            MemberSet(3, '3-4', SetType.SET_TYPE_CONTINUOUS, params=p)
+
             # Columns
             SteelEffectiveLengths(1, '5, 6', factors=[[1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]])
 
+            # Slap beam
             # The design properties of members 9, 10, 11 are defined in
             # member set No. 1 and not in member properties.
             p = {
@@ -134,7 +151,6 @@ class MyRFEM():
             Member(10, 9, 11, 0.0, 4, 4, params=p)
             Member(11, 11, 5, 0.0, 4, 4, 0, 1, params=p)
 
-            # Slap beam
             l = [
                     [0, SteelBoundaryConditionsSupportType.SUPPORT_TYPE_FIXED_IN_Y_AND_TORSION, False, True, False, True, False, False, False,
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SteelBoundaryConditionsEccentricityTypeZ.ECCENTRICITY_TYPE_USER_VALUE, 0.0, 0.0, 0.0, "2"],
@@ -145,11 +161,51 @@ class MyRFEM():
                     [3, SteelBoundaryConditionsSupportType.SUPPORT_TYPE_FIXED_IN_Y_AND_TORSION, False, True, False, True, False, False, False,
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SteelBoundaryConditionsEccentricityTypeZ.ECCENTRICITY_TYPE_USER_VALUE, 0.0, 0.0, 0.0, "5"]
                 ]
+
             SteelBoundaryConditions(1, member_sets='1', intermediate_nodes=True, nodal_supports=l)
+
+            # Frame Columns
+            p = {
+                "design_properties_via_parent_member_set": True,
+                "design_properties_parent_member_set": 2
+            }
+
+            Member(1, 1, 2, 0.0, 1, 1, params=p)
+            Member(2, 2, 3, 0.0, 1, 1, params=p)
+
+            l = [
+                    [0, SteelBoundaryConditionsSupportType.SUPPORT_TYPE_FIXED_IN_Y_AND_TORSION, False, True, False, True, False, False, False,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SteelBoundaryConditionsEccentricityTypeZ.ECCENTRICITY_TYPE_USER_VALUE, 0.0, 0.0, 0.0, "1"],
+                    [1, SteelBoundaryConditionsSupportType.SUPPORT_TYPE_FIXED_IN_Y_AND_TORSION, False, True, False, True, False, False, False,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SteelBoundaryConditionsEccentricityTypeZ.ECCENTRICITY_TYPE_USER_VALUE, 0.0, 0.0, 0.0, "2"],
+                    [2, SteelBoundaryConditionsSupportType.SUPPORT_TYPE_FIXED_IN_Y_AND_TORSION, False, True, False, True, False, False, False,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SteelBoundaryConditionsEccentricityTypeZ.ECCENTRICITY_TYPE_USER_VALUE, 0.0, 0.0, 0.0, "3"]
+                ]
+
+            SteelBoundaryConditions(2, member_sets='2', intermediate_nodes=True, nodal_supports=l)
+
+            p = {
+                "design_properties_via_parent_member_set": True,
+                "design_properties_parent_member_set": 3
+            }
+
+            Member(3, 4, 5, 0.0, 1, 1, params=p)
+            Member(4, 5, 6, 0.0, 1, 1, params=p)
+
+            l = [
+                    [0, SteelBoundaryConditionsSupportType.SUPPORT_TYPE_FIXED_IN_Y_AND_TORSION, False, True, False, True, False, False, False,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SteelBoundaryConditionsEccentricityTypeZ.ECCENTRICITY_TYPE_USER_VALUE, 0.0, 0.0, 0.0, "4"],
+                    [1, SteelBoundaryConditionsSupportType.SUPPORT_TYPE_FIXED_IN_Y_AND_TORSION, False, True, False, True, False, False, False,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SteelBoundaryConditionsEccentricityTypeZ.ECCENTRICITY_TYPE_USER_VALUE, 0.0, 0.0, 0.0, "5"],
+                    [2, SteelBoundaryConditionsSupportType.SUPPORT_TYPE_FIXED_IN_Y_AND_TORSION, False, True, False, True, False, False, False,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SteelBoundaryConditionsEccentricityTypeZ.ECCENTRICITY_TYPE_USER_VALUE, 0.0, 0.0, 0.0, "6"]
+                ]
+
+            SteelBoundaryConditions(3, member_sets='3', intermediate_nodes=True, nodal_supports=l)
 
         else:
             pass
-            
+
         # Create supports
         if self.input['structure']['supports'][0] == 'Fixed':
             support = NodalSupportType.FIXED

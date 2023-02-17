@@ -12,6 +12,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsS
 
 from MyRFEM import *
 
+# TODO 31: Add Design Configurations
 # TODO 29: SteelBoundaryConditions should be more detailed.
 # TODO 28: Define the settings for Steel Design for the slap beam
 # TODO 21: Set the right Action Category
@@ -29,7 +30,8 @@ from MyRFEM import *
 # TODO 23: Implement a "Wait" dialog. It should display after click of [Calculate] and
 #          should disappear when the calculation is finished (in done() method).
 # TODO 30: delete test_DesignSituations.py
-# TODO 31:
+# TODO 32:
+# TODO 33:
 
 class MyWindow(QMainWindow):
     # This dictionary stores the data for the graphic that will
