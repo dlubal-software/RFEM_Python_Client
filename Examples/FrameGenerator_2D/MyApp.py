@@ -12,9 +12,6 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsS
 
 from MyRFEM import *
 
-# TODO 31: Add Design Configurations
-# TODO 29: SteelBoundaryConditions should be more detailed.
-# TODO 28: Define the settings for Steel Design for the slap beam
 # TODO 21: Set the right Action Category
 # TODO 25: Consideration of the checkboxes loads and steel_design in MyRFEM
 # TODO 26: Disable and enable the tabs in dependency of checkboxes

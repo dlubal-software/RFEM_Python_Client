@@ -6,7 +6,7 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.enums import NodalSupportType, MemberLoadDirection, AnalysisType, ActionCategoryType, AddOn, SetType, SteelBoundaryConditionsSupportType, SteelBoundaryConditionsEccentricityTypeZ
+from RFEM.enums import NodalSupportType, MemberLoadDirection, AnalysisType, ActionCategoryType, AddOn, SetType, SteelBoundaryConditionsSupportType, SteelBoundaryConditionsEccentricityTypeZ, SteelMemberShearPanelDefinitionType, SteelMemberShearPanelPositionOnSection, SteelMemberShearPanelFasteningArrangement
 from RFEM.initModel import Model, insertSpaces, Calculate_all, SetAddonStatus
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.material import Material
@@ -25,6 +25,7 @@ from RFEM.TypesForSteelDesign.steelEffectiveLengths import SteelEffectiveLengths
 from RFEM.TypesForSteelDesign.steelBoundaryConditions import SteelBoundaryConditions
 from RFEM.SteelDesign.steelServiceabilityConfiguration import SteelDesignServiceabilityConfigurations
 from RFEM.SteelDesign.steelUltimateConfigurations import SteelDesignUltimateConfigurations
+from RFEM.TypesForSteelDesign.steelMemberShearPanel import SteelMemberShearPanel
 class MyRFEM():
     input ={}
     results ={}
@@ -125,8 +126,8 @@ class MyRFEM():
 
         if self.input['check_steel_design'] == 1:
             # Design Configurations
-            SteelDesignUltimateConfigurations(1, members_no='5, 6', member_sets_no='1-3')
-            SteelDesignServiceabilityConfigurations(1, members_no='5, 6', member_sets_no='1-3')
+            SteelDesignUltimateConfigurations(1, members_no='5-8', member_sets_no='1-3')
+            SteelDesignServiceabilityConfigurations(1, members_no='5-8', member_sets_no='1-3')
 
             p = {
                     "member_steel_design_uls_configuration": 1,
@@ -202,6 +203,20 @@ class MyRFEM():
                 ]
 
             SteelBoundaryConditions(3, member_sets='3', intermediate_nodes=True, nodal_supports=l)
+
+            # Roof
+            SteelMemberShearPanel(1, "shearPanel", SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING, "1", "",
+                         categories=[SteelMemberShearPanelPositionOnSection.POSITION_DEFINE, "FI (+) 35/207 - 0.63 (b: 1) | DIN 18807 | Fischer Profil", SteelMemberShearPanelFasteningArrangement.FASTENING_ARRANGEMENT_EVERY_SECOND_RIB],
+                         parameters=[2,4, 0.00043, 0.00056, 0.05])
+
+            p = {
+                "steel_member_shear_pane": 1
+            }
+
+            Member(7, 3, 7, 0.0, 3, 3, params=p)
+            Member(8, 7, 6, 0.0, 3, 3, params=p)
+
+
 
         else:
             pass
