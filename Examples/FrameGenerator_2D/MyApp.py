@@ -28,7 +28,7 @@ from MyRFEM import *
 # TODO 16: Write the done() method in class MyRFEM
 # TODO 23: Implement a "Wait" dialog. It should display after click of [Calculate] and
 #          should disappear when the calculation is finished (in done() method).
-# TODO 30:
+# TODO 30: delete test_DesignSituations.py
 # TODO 31:
 
 class MyWindow(QMainWindow):

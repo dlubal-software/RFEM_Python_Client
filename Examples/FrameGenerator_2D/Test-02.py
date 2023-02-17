@@ -6,7 +6,7 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.enums import NodalSupportType, MemberLoadDirection, AnalysisType, ActionCategoryType, AddOn, SetType
+from RFEM.enums import NodalSupportType, MemberLoadDirection, AnalysisType, ActionCategoryType, AddOn, SetType, SteelBoundaryConditionsEccentricityTypeZ, SteelBoundaryConditionsSupportType
 from RFEM.initModel import Model, insertSpaces, Calculate_all, SetAddonStatus
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.material import Material
@@ -39,18 +39,9 @@ Section(1, 'IPE 300')
 
 NodalSupport(1, '1 3', NodalSupportType.FIXED)
 
-
-
-#Member(1, 1, 2, params=p)
 Member(1, 1, 2)
-#Member(2, 2, 3, params=p)
 Member(2, 2, 3)
 
-p = {
-    "design_properties_activated": True
-}
-
-#MemberSet(1, '1 2', SetType.SET_TYPE_CONTINUOUS, params=p) nicht notwendig
 MemberSet(1, '1 2', SetType.SET_TYPE_CONTINUOUS)
 
 p = {
@@ -60,5 +51,15 @@ p = {
 
 Member(1, 1, 2, params=p)
 Member(2, 2, 3, params=p)
+
+l = [
+        [0, SteelBoundaryConditionsSupportType.SUPPORT_TYPE_FIXED_IN_Y_AND_TORSION, False, True, False, True, False, False, False,
+        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SteelBoundaryConditionsEccentricityTypeZ.ECCENTRICITY_TYPE_USER_VALUE, 0.0, 0.0, 0.0, "1"],
+        [1, SteelBoundaryConditionsSupportType.SUPPORT_TYPE_FIXED_IN_Y_AND_TORSION, False, True, False, True, False, False, False,
+        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SteelBoundaryConditionsEccentricityTypeZ.ECCENTRICITY_TYPE_USER_VALUE, 0.0, 0.0, 0.0, "2"],
+        [2, SteelBoundaryConditionsSupportType.SUPPORT_TYPE_FIXED_IN_Y_AND_TORSION, False, True, False, True, False, False, False,
+        0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SteelBoundaryConditionsEccentricityTypeZ.ECCENTRICITY_TYPE_USER_VALUE, 0.0, 0.0, 0.0, "3"]
+    ]
+SteelBoundaryConditions(1, member_sets='1', intermediate_nodes=True, nodal_supports=l)
 
 Model.clientModel.service.finish_modification()
