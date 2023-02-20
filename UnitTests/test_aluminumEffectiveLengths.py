@@ -14,7 +14,7 @@ import pytest
 if Model.clientModel is None:
     Model()
 
-@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:aluminum_effective_lengths'), reason="Type ns0:aluminum_effective_lengths not in RFEM GM yet")
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:aluminum_effective_lengths', True), reason="Type ns0:aluminum_effective_lengths not in RFEM GM yet")
 def test_aluminumEffectiveLengths():
 
     Model.clientModel.service.delete_all()

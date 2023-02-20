@@ -17,7 +17,7 @@ if Model.clientModel is None:
     Model()
 
 # Used method: ns0:aluminum_member_rotational_restraint is not implemented in Web Services yet.
-@pytest.mark.skip()
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:aluminum_member_rotational_restraint', True), reason="Type ns0:aluminum_member_rotational_restraint not in RFEM GM yet")
 def test_aluminumMemberRotationalRestraints():
 
     Model.clientModel.service.delete_all()

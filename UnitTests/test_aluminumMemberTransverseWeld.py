@@ -14,7 +14,7 @@ import pytest
 if Model.clientModel is None:
     Model()
 
-@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:aluminum_member_transverse_weld'), reason="Type ns0:aluminum_member_transverse_weld not in RFEM GM yet")
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:aluminum_member_transverse_weld', True), reason="Type ns0:aluminum_member_transverse_weld not in RFEM GM yet")
 def test_aluminumMemberTransverseWeld():
 
     Model.clientModel.service.delete_all()

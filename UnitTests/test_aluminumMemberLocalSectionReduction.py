@@ -14,7 +14,7 @@ import pytest
 if Model.clientModel is None:
     Model()
 
-@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:aluminum_member_local_section_reduction'), reason="Type ns0:aluminum_member_local_section_reduction not in RFEM GM yet")
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:aluminum_member_local_section_reduction', True), reason="Type ns0:aluminum_member_local_section_reduction not in RFEM GM yet")
 def test_AluminumMemberLocalSectionReduction():
 
     Model.clientModel.service.delete_all()
