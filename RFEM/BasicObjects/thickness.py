@@ -451,7 +451,7 @@ class Thickness():
         # Layers
         clientObject.layers_reference_table = model.clientModel.factory.create('ns0:thickness.layers_reference_table')
 
-        for i in range(len(layers)):
+        for i, in enumerate(layers):
             tlrt = model.clientModel.factory.create('ns0:thickness_layers_reference_table_row')
             tlrt.no = i+1
             tlrt.row.layer_no = i+1
@@ -475,15 +475,15 @@ class Thickness():
         # Stiffness reduction
         if stiffness_reduction:
             clientObject.stiffness_reduction_enabled = stiffness_reduction
-        if stiffness_reduction and stiffness_modification:
-            clientObject.K33 = stiffness_modification[0][0]
-            clientObject.K33_note = stiffness_modification[0][1]
-            clientObject.K44 = stiffness_modification[1][0]
-            clientObject.K44_note = stiffness_modification[1][1]
-            clientObject.K55 = stiffness_modification[2][0]
-            clientObject.K55_note = stiffness_modification[2][1]
-            clientObject.K88 = stiffness_modification[3][0]
-            clientObject.K88_note = stiffness_modification[3][1]
+            if stiffness_modification:
+                clientObject.K33 = stiffness_modification[0][0]
+                clientObject.K33_note = stiffness_modification[0][1]
+                clientObject.K44 = stiffness_modification[1][0]
+                clientObject.K44_note = stiffness_modification[1][1]
+                clientObject.K55 = stiffness_modification[2][0]
+                clientObject.K55_note = stiffness_modification[2][1]
+                clientObject.K88 = stiffness_modification[3][0]
+                clientObject.K88_note = stiffness_modification[3][1]
 
             # Additional options for CLT
             '''
@@ -499,8 +499,7 @@ class Thickness():
         # Integration rule
         if specify_integration:
             clientObject.specify_integration_method_enabled = specify_integration
-            if specify_integration == True:
-                clientObject.integration_method_type = integration_type.name
+            clientObject.integration_method_type = integration_type.name
 
         # Comment
         clientObject.comment = comment
