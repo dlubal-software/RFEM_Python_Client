@@ -1548,9 +1548,9 @@ class AddOn(Enum):
     stress_analysis_active, concrete_design_active, steel_design_active, timber_design_active, aluminum_design_active, \
     steel_joints_active, timber_joints_active, craneway_design_active, masonry_design_active, multilayer_surfaces_design_active, \
     material_nonlinear_analysis_active, structure_stability_active, construction_stages_active, time_dependent_active, \
-    form_finding_active, cutting_patterns_active, torsional_warping_active, cost_estimation_active, modal_active, spectral_active, \
-    time_history_active, pushover_active, harmonic_response_active, building_model_active, wind_simulation_active, \
-    geotechnical_analysis_active = range(26)
+    influence_lines_areas_active, form_finding_active, cutting_patterns_active, torsional_warping_active, cost_estimation_active, modal_active, equivalent_lateral_forces_active, spectral_active, \
+    time_history_active, pushover_active, harmonic_response_active, building_model_active, wind_simulation_active, tower_wizard_active, tower_equipment_wizard_active, piping_active, air_cushions_active,\
+    geotechnical_analysis_active = range(32)
 
 
 class IFCExportType(Enum):

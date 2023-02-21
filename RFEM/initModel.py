@@ -437,6 +437,7 @@ def SetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active, status = T
         structure_stability_active
         construction_stages_active
         time_dependent_active
+        influence_lines_areas_active
         form_finding_active
         cutting_patterns_active
         torsional_warping_active
@@ -454,6 +455,7 @@ def SetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active, status = T
 
     Dynamic addOns list:
         modal_active
+        equivalent_lateral_forces_active
         spectral_active
         time_history_active
         pushover_active
@@ -462,6 +464,10 @@ def SetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active, status = T
     Special aadOns list:
         building_model_active
         wind_simulation_active
+        tower_wizard_active
+        tower_equipment_wizard_active
+        piping_active
+        air_cushions_active
         geotechnical_analysis_active
     """
 
