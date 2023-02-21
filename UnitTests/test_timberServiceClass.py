@@ -6,13 +6,12 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.enums import AddOn, SetType, TimberServiceClassServiceClass
+from RFEM.enums import AddOn, TimberServiceClassServiceClass
 from RFEM.initModel import Model, SetAddonStatus
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
-from RFEM.BasicObjects.memberSet import MemberSet
 from RFEM.TypesForTimberDesign.timberServiceClass import TimberServiceClass
 
 if Model.clientModel is None:

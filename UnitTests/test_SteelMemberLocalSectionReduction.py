@@ -7,13 +7,15 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import SteelMemberLocalSectionReductionType, FastenerDefinitionType, MultipleOffsetDefinitionType
-from RFEM.initModel import Model
+from RFEM.initModel import Model, CheckIfMethodOrTypeExists
 from RFEM.TypesForSteelDesign.SteelMemberLocalSectionReduction import SteelMemberLocalSectionReduction
 from RFEM.initModel import AddOn, SetAddonStatus
+import pytest
 
 if Model.clientModel is None:
     Model()
 
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:steel_member_local_section_reduction', True), reason="Type ns0:steel_member_local_section_reduction not in RFEM GM yet")
 def test_SteelMemberLocalSectionReduction():
 
     Model.clientModel.service.delete_all()

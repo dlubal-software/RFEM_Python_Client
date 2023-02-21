@@ -110,7 +110,9 @@ class LoadDirectionType(Enum):
     Load Direction Type
     '''
     LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,\
-    LOAD_DIRECTION_LOCAL_X, LOAD_DIRECTION_LOCAL_Y, LOAD_DIRECTION_LOCAL_Z = range(6)
+    LOAD_DIRECTION_LOCAL_X, LOAD_DIRECTION_LOCAL_Y, LOAD_DIRECTION_LOCAL_Z, LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,\
+    LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, \
+    LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED = range(10)
 
 
 class MemberLoadDirection(Enum):
@@ -898,8 +900,8 @@ class ObjectTypes(Enum):
     E_OBJECT_TYPE_SURFACE_MESH_REFINEMENT, E_OBJECT_TYPE_SURFACE_RESULTS_ADJUSTMENT, E_OBJECT_TYPE_SURFACE_SET, E_OBJECT_TYPE_SURFACE_SET_IMPERFECTION, E_OBJECT_TYPE_SURFACE_SET_LOAD, \
     E_OBJECT_TYPE_SURFACE_STIFFNESS_MODIFICATION, E_OBJECT_TYPE_SURFACE_SUPPORT, E_OBJECT_TYPE_TERRAIN, E_OBJECT_TYPE_THICKNESS, E_OBJECT_TYPE_TIMBER_EFFECTIVE_LENGTHS, \
     E_OBJECT_TYPE_TIMBER_MEMBER_LOCAL_SECTION_REDUCTION, E_OBJECT_TYPE_TIMBER_MEMBER_ROTATIONAL_RESTRAINT, E_OBJECT_TYPE_TIMBER_MEMBER_SHEAR_PANEL, E_OBJECT_TYPE_TIMBER_MOISTURE_CLASS, \
-    E_OBJECT_TYPE_TIMBER_SERVICE_CLASS, E_OBJECT_TYPE_TIMBER_SERVICE_CONDITIONS, E_OBJECT_TYPE_VISUAL_OBJECT, E_OBJECT_TYPE_WIND_PROFILE, E_OBJECT_TYPE_WIND_SIMULATION, E_OBJECT_TYPE_WIND_SIMULATION_ANALYSIS_SETTINGS = range(115)
-
+    E_OBJECT_TYPE_TIMBER_SERVICE_CLASS, E_OBJECT_TYPE_TIMBER_SERVICE_CONDITIONS, E_OBJECT_TYPE_VISUAL_OBJECT, E_OBJECT_TYPE_WIND_PROFILE, E_OBJECT_TYPE_WIND_SIMULATION, E_OBJECT_TYPE_WIND_SIMULATION_ANALYSIS_SETTINGS,\
+    E_OBJECT_TYPE_RESPONSE_SPECTRUM = range(116)
 
 class export_to_ifc_axis_rotation_sequence_type(Enum):
     '''
@@ -1546,9 +1548,9 @@ class AddOn(Enum):
     stress_analysis_active, concrete_design_active, steel_design_active, timber_design_active, aluminum_design_active, \
     steel_joints_active, timber_joints_active, craneway_design_active, masonry_design_active, multilayer_surfaces_design_active, \
     material_nonlinear_analysis_active, structure_stability_active, construction_stages_active, time_dependent_active, \
-    form_finding_active, cutting_patterns_active, torsional_warping_active, cost_estimation_active, modal_active, spectral_active, \
-    time_history_active, pushover_active, harmonic_response_active, building_model_active, wind_simulation_active, \
-    geotechnical_analysis_active = range(26)
+    influence_lines_areas_active, form_finding_active, cutting_patterns_active, torsional_warping_active, cost_estimation_active, modal_active, equivalent_lateral_forces_active, spectral_active, \
+    time_history_active, pushover_active, harmonic_response_active, building_model_active, wind_simulation_active, tower_wizard_active, tower_equipment_wizard_active, piping_active, air_cushions_active,\
+    geotechnical_analysis_active = range(32)
 
 
 class IFCExportType(Enum):
@@ -2350,3 +2352,93 @@ class WindSimulationAnalysisSettingsTurbulenceModelType(Enum):
     Wind Simulation Analysis Settings Turbulence Model Type
     '''
     TURBULENCE_TYPE_EPSILON, TURBULENCE_TYPE_LES, TURBULENCE_TYPE_OMEGA = range(3)
+
+class TranslationalReleaseNonlinearity(Enum):
+    '''
+    Translational Release Nonlinearity Enumeration
+    '''
+    NONLINEARITY_TYPE_NONE, NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE, NONLINEARITY_TYPE_FAILURE_IF_POSITIVE, \
+    NONLINEARITY_TYPE_DIAGRAM, NONLINEARITY_TYPE_PARTIAL_ACTIVITY = range(5)
+
+class RotationalReleaseNonlinearity(Enum):
+    '''
+    Rotational Release Nonlinearity Enumeration
+    '''
+    NONLINEARITY_TYPE_NONE, NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE, NONLINEARITY_TYPE_FAILURE_IF_POSITIVE, \
+    NONLINEARITY_TYPE_DIAGRAM, NONLINEARITY_TYPE_PARTIAL_ACTIVITY, NONLINEARITY_TYPE_FORCE_MOMENT_DIAGRAM = range(6)
+
+class LineReleaseLocalAxisSystem(Enum):
+    '''
+    Line Release Local Axis System Enumeration
+    '''
+    LOCAL_AXIS_SYSTEM_TYPE_ORIGINAL_LINE, LOCAL_AXIS_SYSTEM_TYPE_MEMBER_ON_ORIGINAL_LINE, \
+    LOCAL_AXIS_SYSTEM_TYPE_Z_AXIS_PERPENDICULAR_TO_SURFACE, E_LOCAL_AXIS_SYSTEM_TYPE_HELP_NODE= range(4)
+
+class LocalAxisSystemObjectInPlane(Enum):
+    '''
+    Line Release Local Axis System Object In Plane Enumeration
+    '''
+    LOCAL_AXIS_SYSTEM_IN_PLANE_XY, LOCAL_AXIS_SYSTEM_IN_PLANE_XZ = range(2)
+
+class PartialActivityAlongType(Enum):
+    '''
+    Partial Activity Along Type Enumeration
+    '''
+    PARTIAL_ACTIVITY_TYPE_COMPLETE, PARTIAL_ACTIVITY_TYPE_FIXED, PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE, \
+    PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE, PARTIAL_ACTIVITY_TYPE_INEFFECTIVNESS = range(5)
+
+class PartialActivityAroundType(Enum):
+    '''
+    Partial Activity Around Type Enumeration
+    '''
+    PARTIAL_ACTIVITY_TYPE_COMPLETE, PARTIAL_ACTIVITY_TYPE_FIXED, PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT, \
+    PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT, PARTIAL_ACTIVITY_TYPE_INEFFECTIVNESS = range(5)
+
+class LineReleaseDiagram(Enum):
+    '''
+    Line Release Diagram Type Enumeration
+    '''
+    DIAGRAM_ENDING_TYPE_CONTINUOUS, DIAGRAM_ENDING_TYPE_FAILURE, DIAGRAM_ENDING_TYPE_STOP, DIAGRAM_ENDING_TYPE_YIELDING = range(4)
+
+class LineReleaseForceMomentDiagram(Enum):
+    '''
+    Line Release Force Moment Diagram Enumeration
+    '''
+    FORCE_MOMENT_DIAGRAM_ENDING_TYPE_CONTINUOUS, FORCE_MOMENT_DIAGRAM_ENDING_TYPE_FAILURE, FORCE_MOMENT_DIAGRAM_ENDING_TYPE_YIELDING = range(3)
+
+class LineReleaseForceMomentDepend(Enum):
+    '''
+    Line Release Force Moment Depend Enumeration
+    '''
+    FORCE_MOMENT_DIAGRAM_DEPENDS_ON_N, FORCE_MOMENT_DIAGRAM_DEPENDS_ON_VY, FORCE_MOMENT_DIAGRAM_DEPENDS_ON_VZ = range(3)
+
+class LineReleaseReleaseLocation(Enum):
+    '''
+    Line Release Release Location Enumeration
+    '''
+    RELEASE_LOCATION_ORIGIN, RELEASE_LOCATION_RELEASED = range(2)
+
+class LoadWizardType(Enum):
+    ''''
+    Types of Loading Wizards
+    '''
+    GENERATE_LOAD_COMBINATIONS, GENERATE_RESULT_COMBINATIONS = range(2)
+
+class InitialStateDefintionType(Enum):
+    '''
+    Types of Initial States
+    '''
+    DEFINITION_TYPE_FINAL_STATE, DEFINITION_TYPE_STIFFNESS, DEFINITION_TYPE_STRAINS, DEFINITION_TYPE_STRAINS_WITH_USER_DEFINED_FACTORS = range(4)
+
+class MaterialModel(Enum):
+    '''
+    Types of Material Models
+    '''
+    MODEL_ISOTROPIC_DAMAGE_2D_3D, MODEL_ISOTROPIC_LINEAR_ELASTIC, MODEL_ISOTROPIC_MASONRY_PLASTIC_2D,MODEL_ISOTROPIC_NONLINEAR_ELASTIC_1D, MODEL_ISOTROPIC_NONLINEAR_ELASTIC_2D_3D, MODEL_ISOTROPIC_PLASTIC_1D, MODEL_ISOTROPIC_PLASTIC_2D_3D,MODEL_ISOTROPIC_SOIL_NONLINEAR_ELASTIC_3D,  MODEL_ISOTROPIC_SOIL_PLASTIC_3D, \
+    MODEL_ISOTROPIC_TIMBER_LINEAR_ELASTIC_MEMBERS, MODEL_ORTHOTROPIC_2D, MODEL_ORTHOTROPIC_3D, MODEL_ORTHOTROPIC_MASONRY_PLASTIC_2D,MODEL_ORTHOTROPIC_PLASTIC_2D, MODEL_ORTHOTROPIC_PLASTIC_3D, MODEL_ORTHOTROPIC_TIMBER_LINEAR_ELASTIC_SURFACES = range(16)
+
+class ThicknessIntegrationMethod(Enum):
+    '''
+    Types of Integration Methods
+    '''
+    INTEGRATION_METHOD_TYPE_GAUSS_LOBATTO_QUADRATURE, INTEGRATION_METHOD_TYPE_SIMPSONS_RULE, INTEGRATION_METHOD_TYPE_TRAPEZOIDAL_RULE = range(3)

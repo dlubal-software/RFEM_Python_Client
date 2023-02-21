@@ -7,14 +7,17 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.initModel import Model, SetAddonStatus
+from RFEM.initModel import Model, SetAddonStatus, CheckIfMethodOrTypeExists
 from RFEM.enums import AddOn, AluminumMemberRotationalRestraintType, AluminumMemberRotationalRestraintContinuousBeamEffect
 from RFEM.enums import AluminumMemberRotationalRestraintPositionofSheeting, AddOn, AluminumMemberRotationalRestraintRotationalStiffness
 from RFEM.TypesForAluminumDesign.aluminumMemberRotationalRestraints import AluminumMemberRotationalRestraint
+import pytest
 
 if Model.clientModel is None:
     Model()
 
+# Used method: ns0:aluminum_member_rotational_restraint is not implemented in Web Services yet.
+@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:aluminum_member_rotational_restraint', True), reason="Type ns0:aluminum_member_rotational_restraint not in RFEM GM yet")
 def test_aluminumMemberRotationalRestraints():
 
     Model.clientModel.service.delete_all()
