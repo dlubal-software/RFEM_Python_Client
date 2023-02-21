@@ -451,7 +451,7 @@ class Thickness():
         # Layers
         clientObject.layers_reference_table = model.clientModel.factory.create('ns0:thickness.layers_reference_table')
 
-        for i, in enumerate(layers):
+        for i,j in enumerate(layers):
             tlrt = model.clientModel.factory.create('ns0:thickness_layers_reference_table_row')
             tlrt.no = i+1
             tlrt.row.layer_no = i+1

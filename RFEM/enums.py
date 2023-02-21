@@ -2323,6 +2323,36 @@ class ResponseSpectrumDefinitionType(Enum):
     '''
     ACCORDING_TO_STANDARD, GENERATED_FROM_ACCELEROGRAM, USER_DEFINED, USER_DEFINED_IN_G_FACTOR = range(4)
 
+class WindSimulationAnalysisSettingsSimulationType(Enum):
+    '''
+    Wind Simulation Analysis Settings Simulation Type
+    '''
+    STEADY_FLOW, TRANSIENT_FLOW = range(2)
+
+class WindSimulationAnalysisSettingsMemberLoadDistribution(Enum):
+    '''
+    Wind Simulation Analysis Settings Member Load Distribution
+    '''
+    CONCENTRATED, TRAPEZODIAL, UNIFORM = range(3)
+
+class WindSimulationAnalysisSettingsMeshRefinementType(Enum):
+    '''
+    Wind Simulation Analysis Settings Mesh Refinement Type
+    '''
+    DISTANCE_FROM_SURFACE, SURFACE_CURVATURE = range(2)
+
+class WindSimulationAnalysisSettingsNumericalSolver(Enum):
+    '''
+    Wind Simulation Analysis Settings Numerical Solver
+    '''
+    OPEN_FOAM = range(1)
+
+class WindSimulationAnalysisSettingsTurbulenceModelType(Enum):
+    '''
+    Wind Simulation Analysis Settings Turbulence Model Type
+    '''
+    TURBULENCE_TYPE_EPSILON, TURBULENCE_TYPE_LES, TURBULENCE_TYPE_OMEGA = range(3)
+
 class TranslationalReleaseNonlinearity(Enum):
     '''
     Translational Release Nonlinearity Enumeration
