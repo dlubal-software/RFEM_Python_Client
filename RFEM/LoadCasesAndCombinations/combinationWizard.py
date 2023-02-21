@@ -21,17 +21,18 @@ class CombinationWizard():
                 ):
         """
         Args:
-            no (int): combination wizard tag
-            name (str, optional): User-Defined name
-            static_analysis_settings (int): Analysis Settings requiered to do combinations
-            consider_imperfection_case (bool): enable/disable
-            generate_same_CO_without_IC (bool): enable/disable
-            initial_state_case (int): Initial state to be considered
-            initial_state_definition_type (enum): Definition of initial state type enumeration
-            structure_modification (int): structure modification to be considered
-            user_defined_action_combinations (bool): enable/disable
-            favorable_permanent_actions (bool): enable/diable
-            reduce_number_of_generated_combinations (bool): enable/disable
+            no (int): Combination Wizard Tag
+            name (str, optional): User-Defined Name
+            static_analysis_settings (int): Static Analysis Settings requiered to do combinations
+            stability_analysis_setting (int): Assign Stability Analysis Setting Tag
+            consider_imperfection_case (bool): Enable/disable Inferpaction Case
+            generate_same_CO_without_IC (bool): Enable/disable Generate same CO without IC
+            initial_state_case (int): Initial State to be considered
+            initial_state_definition_type (enum): Initial State Defintion Type Enumeration
+            structure_modification (int): Structure Modification to be considered
+            user_defined_action_combinations (bool): Enable/disable User defined Combinations
+            favorable_permanent_actions (bool): Enable/diable Favourable Permanent Actions
+            reduce_number_of_generated_combinations (bool): Enable/disable Reduce Number of Generated Combinations
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited

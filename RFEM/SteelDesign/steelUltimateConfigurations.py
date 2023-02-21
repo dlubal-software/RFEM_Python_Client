@@ -13,7 +13,7 @@ class SteelDesignUltimateConfigurations():
         """
         Args:
             no (int): Steel Design Ultimate Configuration Tag
-            user_defined_name (list): User Defined Name Configuration Name
+            user_defined_name (list): User Defined Configuration Name
             members_no (str): Assign Configuration to Selected Members
             member_sets_no (str): Assign Configuration to Selected Member Sets
             comment (str, optional): Comment
