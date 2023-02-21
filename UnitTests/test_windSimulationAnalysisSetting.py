@@ -1,13 +1,12 @@
 import sys
 import os
-import pytest
 
 PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.path.dirname(__file__),
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.initModel import Model, SetAddonStatus, GetAddonStatus
+from RFEM.initModel import Model, SetAddonStatus
 from RFEM.enums import WindSimulationAnalysisSettingsSimulationType, WindSimulationAnalysisSettingsMemberLoadDistribution
 from RFEM.enums import WindSimulationAnalysisSettingsNumericalSolver, WindSimulationAnalysisSettingsTurbulenceModelType, AddOn
 from RFEM.LoadCasesAndCombinations.windSimulationAnalysisSetting import WindSimulationAnalysisSettings
@@ -15,7 +14,6 @@ from RFEM.LoadCasesAndCombinations.windSimulationAnalysisSetting import WindSimu
 if Model.clientModel is None:
     Model()
 
-#@pytest.mark.skipif(GetAddonStatus(Model.clientModel, AddOn.wind_simulation_active)==False, reason="wind_simulaion_active add on has to be checked manually")
 def test_WindSimulationAnalysisSettings():
 
     Model.clientModel.service.delete_all()
