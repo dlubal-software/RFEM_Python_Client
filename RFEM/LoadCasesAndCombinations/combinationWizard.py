@@ -23,11 +23,11 @@ class CombinationWizard():
         Args:
             no (int): Combination Wizard Tag
             name (str, optional): User-Defined Name
-            static_analysis_settings (int): Static Analysis Settings requiered to do combinations
-            stability_analysis_setting (int): Assign Stability Analysis Setting Tag
+            static_analysis_settings (int): Assign Static Analysis Settings
+            stability_analysis_setting (int): Assign Stability Analysis Setting
             consider_imperfection_case (bool): Enable/disable Inferpaction Case
             generate_same_CO_without_IC (bool): Enable/disable Generate same CO without IC
-            initial_state_case (int): Initial State to be considered
+            initial_state_case (int): Assign Initial State Case
             initial_state_definition_type (enum): Initial State Defintion Type Enumeration
             structure_modification (int): Structure Modification to be considered
             user_defined_action_combinations (bool): Enable/disable User defined Combinations
@@ -121,14 +121,14 @@ class CombinationWizard():
                 ):
         """
         Args:
-            no (int): combination wizard tag
-            name (str, optional): User-Defined name
-            stability_analysis_settings (int): stability settings requiered to do combinations
-            consider_imperfection_case (bool): enable/disable
-            generate_same_CO_without_IC (bool): enable/disable
-            user_defined_action_combinations (bool): enable/disable
-            favorable_permanent_actions (bool): enable/disable
-            generate_subcombinations_of_type_superposition (bool): enable/disable
+            no (int): Result Combination Wizard Tag
+            name (str, optional): User-Defined Name
+            stability_analysis_settings (int): Assign Stability Analysis Settings
+            consider_imperfection_case (bool): Enable/disable Imperfection Case
+            generate_same_CO_without_IC (bool): Enable/disable Generate same CO without IC
+            user_defined_action_combinations (bool): Enable/disable User Defined Action Combinations
+            favorable_permanent_actions (bool): Enable/disable Favorable Permanent Actions
+            generate_subcombinations_of_type_superposition (bool): Enable/disable Subcombinations of Type Superposition
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
