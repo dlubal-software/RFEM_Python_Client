@@ -26,8 +26,8 @@ class LineReleaseType():
             no (int): Line Release Type Tag
             spring_constant (list): Spring Constant List
             translational_release_ux_nonlinearity (list of lists): Nonlinearity Parameter for Translation Release along X Direction
-            translational_release_ux_nonlinearity (list of lists): Nonlinearity Parameter for Translation Release along Y Direction
-            translational_release_ux_nonlinearity (list of lists): Nonlinearity Parameter for Translation Release along Z Direction
+            translational_release_uy_nonlinearity (list of lists): Nonlinearity Parameter for Translation Release along Y Direction
+            translational_release_uz_nonlinearity (list of lists): Nonlinearity Parameter for Translation Release along Z Direction
                 for translational_release_ux/y/z_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
                     translational_release_ux/y/z_nonlinearity = [nonlinearity type Partial_Activity, negative zone, positive zone]
                     for negative/positive zone[0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
