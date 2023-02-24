@@ -7,7 +7,7 @@ print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
 from RFEM.enums import NodalSupportType, MemberLoadDirection, AnalysisType, ActionCategoryType, AddOn, SetType, SteelBoundaryConditionsSupportType, SteelBoundaryConditionsEccentricityTypeZ, SteelMemberShearPanelDefinitionType, SteelMemberShearPanelPositionOnSection, SteelMemberShearPanelFasteningArrangement
-from RFEM.initModel import Model, insertSpaces, Calculate_all, SetAddonStatus
+from RFEM.initModel import Model, Calculate_all, SetAddonStatus
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
@@ -205,18 +205,20 @@ class MyRFEM():
             SteelBoundaryConditions(3, member_sets='3', intermediate_nodes=True, nodal_supports=l)
 
             # Roof
-            SteelMemberShearPanel(1, "shearPanel", SteelMemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING, "1", "",
-                         categories=[SteelMemberShearPanelPositionOnSection.POSITION_DEFINE, "FI (+) 35/207 - 0.63 (b: 1) | DIN 18807 | Fischer Profil", SteelMemberShearPanelFasteningArrangement.FASTENING_ARRANGEMENT_EVERY_SECOND_RIB],
-                         parameters=[2,4, 0.00043, 0.00056, 0.05])
+            l = [
+                    [0, SteelBoundaryConditionsSupportType.SUPPORT_TYPE_FIXED_IN_Y_AND_TORSION, False, True, False, True, False, False, False,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SteelBoundaryConditionsEccentricityTypeZ.ECCENTRICITY_TYPE_USER_VALUE, 0.0, 0.0, 0.0, ""],
+                    [1, SteelBoundaryConditionsSupportType.SUPPORT_TYPE_FIXED_IN_Y_AND_TORSION, False, True, False, True, False, False, False,
+                    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, SteelBoundaryConditionsEccentricityTypeZ.ECCENTRICITY_TYPE_USER_VALUE, 0.0, 0.0, 0.0, ""]
+                ]
+            SteelBoundaryConditions(4, members='7, 8', intermediate_nodes=True, nodal_supports=l)
 
             p = {
-                "steel_member_shear_pane": 1
+                    "member_steel_design_uls_configuration": 1,
+                    "member_steel_design_sls_configuration": 1
             }
-
             Member(7, 3, 7, 0.0, 3, 3, params=p)
             Member(8, 7, 6, 0.0, 3, 3, params=p)
-
-
 
         else:
             pass
