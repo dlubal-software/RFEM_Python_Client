@@ -1548,9 +1548,9 @@ class AddOn(Enum):
     stress_analysis_active, concrete_design_active, steel_design_active, timber_design_active, aluminum_design_active, \
     steel_joints_active, timber_joints_active, craneway_design_active, masonry_design_active, multilayer_surfaces_design_active, \
     material_nonlinear_analysis_active, structure_stability_active, construction_stages_active, time_dependent_active, \
-    form_finding_active, cutting_patterns_active, torsional_warping_active, cost_estimation_active, modal_active, spectral_active, \
-    time_history_active, pushover_active, harmonic_response_active, building_model_active, wind_simulation_active, \
-    geotechnical_analysis_active = range(26)
+    influence_lines_areas_active, form_finding_active, cutting_patterns_active, torsional_warping_active, cost_estimation_active, modal_active, equivalent_lateral_forces_active, spectral_active, \
+    time_history_active, pushover_active, harmonic_response_active, building_model_active, wind_simulation_active, tower_wizard_active, tower_equipment_wizard_active, piping_active, air_cushions_active,\
+    geotechnical_analysis_active = range(32)
 
 
 class IFCExportType(Enum):
@@ -2322,6 +2322,36 @@ class ResponseSpectrumDefinitionType(Enum):
     Response Spectrum Definition Type
     '''
     ACCORDING_TO_STANDARD, GENERATED_FROM_ACCELEROGRAM, USER_DEFINED, USER_DEFINED_IN_G_FACTOR = range(4)
+
+class WindSimulationAnalysisSettingsSimulationType(Enum):
+    '''
+    Wind Simulation Analysis Settings Simulation Type
+    '''
+    STEADY_FLOW, TRANSIENT_FLOW = range(2)
+
+class WindSimulationAnalysisSettingsMemberLoadDistribution(Enum):
+    '''
+    Wind Simulation Analysis Settings Member Load Distribution
+    '''
+    CONCENTRATED, TRAPEZODIAL, UNIFORM = range(3)
+
+class WindSimulationAnalysisSettingsMeshRefinementType(Enum):
+    '''
+    Wind Simulation Analysis Settings Mesh Refinement Type
+    '''
+    DISTANCE_FROM_SURFACE, SURFACE_CURVATURE = range(2)
+
+class WindSimulationAnalysisSettingsNumericalSolver(Enum):
+    '''
+    Wind Simulation Analysis Settings Numerical Solver
+    '''
+    OPEN_FOAM = range(1)
+
+class WindSimulationAnalysisSettingsTurbulenceModelType(Enum):
+    '''
+    Wind Simulation Analysis Settings Turbulence Model Type
+    '''
+    TURBULENCE_TYPE_EPSILON, TURBULENCE_TYPE_LES, TURBULENCE_TYPE_OMEGA = range(3)
 
 class TranslationalReleaseNonlinearity(Enum):
     '''
