@@ -57,7 +57,7 @@
     </property>
     <widget class="QWidget" name="Structure">
      <attribute name="title">
-      <string>Structure</string>
+      <string>Structure and Loads</string>
      </attribute>
      <widget class="QGroupBox" name="groupBox">
       <property name="geometry">
@@ -85,6 +85,9 @@
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_steel_design">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -676,7 +679,10 @@
        <string/>
       </property>
      </widget>
-     <widget class="QGroupBox" name="groupBox_7">
+     <widget class="QGroupBox" name="groupBox_SW">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -806,7 +812,7 @@
        </property>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="groupBox_9">
+     <widget class="QGroupBox" name="groupBox_Snow">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -858,7 +864,7 @@
        </property>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="groupBox_11">
+     <widget class="QGroupBox" name="groupBox_Slab">
       <property name="geometry">
        <rect>
         <x>10</x>

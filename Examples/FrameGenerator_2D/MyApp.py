@@ -12,12 +12,10 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsS
 
 from MyRFEM import *
 
-# TODO 21: Set the right Action Category
+# TODO 26: Disable and enable GroupBoxes in dependency of checkboxes
 # TODO 25: Consideration of the checkboxes loads and steel_design in MyRFEM
-# TODO 26: Disable and enable the tabs in dependency of checkboxes
 # TODO 18: Read the date from load tab into the graphic_model
 # TODO 19: Draw the loads
-# TODO 8: Fill the tab for steel design
 # TODO 11: Make path specification better
 # TODO 12: Uniform use of ' or " in open()
 # TODO 13: Correct tab order of the dimensions
@@ -61,8 +59,16 @@ class MyWindow(QMainWindow):
         # Fill the check boxes with the values form config
         if self.presets['check_load'] == 1:
             self.ui.checkBox_loads.setChecked(True)
+            self.ui.groupBox_SW.setEnabled(True)
+            self.ui.groupBox_Snow.setEnabled(True)
+            self.ui.groupBox_Slab.setEnabled(True)
+            self.ui.checkBox_steel_design.setEnabled(True)
         else:
             self.ui.checkBox_loads.setChecked(False)
+            self.ui.groupBox_SW.setEnabled(False)
+            self.ui.groupBox_Snow.setEnabled(False)
+            self.ui.groupBox_Slab.setEnabled(False)
+            self.ui.checkBox_steel_design.setEnabled(False)
 
         if self.presets['check_steel_design'] == 1:
             self.ui.checkBox_steel_design.setChecked(True)
@@ -390,15 +396,27 @@ class MyWindow(QMainWindow):
         return s
 
     def onChange_checkBox_loads(self):
-        # Voreinstellungen
         if self.ui.checkBox_loads.checkState():
             # save it in config
             self.presets['check_load'] = 1
+
             # save it in calculation model
             self.calculation_model['check_load'] = 1
+
+            # enable GroupBoxes
+            self.ui.groupBox_SW.setEnabled(True)
+            self.ui.groupBox_Snow.setEnabled(True)
+            self.ui.groupBox_Slab.setEnabled(True)
+            self.ui.checkBox_steel_design.setEnabled(True)
         else:
             self.presets['check_load'] = 0
             self.calculation_model['check_load'] = 0
+
+            # disable GroupBoxes
+            self.ui.groupBox_SW.setEnabled(False)
+            self.ui.groupBox_Snow.setEnabled(False)
+            self.ui.groupBox_Slab.setEnabled(False)
+            self.ui.checkBox_steel_design.setEnabled(False)
 
     def onChange_checkBox_steel_design(self):
         if self.ui.checkBox_steel_design.checkState():
