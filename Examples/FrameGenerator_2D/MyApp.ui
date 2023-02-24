@@ -349,7 +349,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>470</y>
+        <y>280</y>
         <width>391</width>
         <height>171</height>
        </rect>
@@ -454,7 +454,7 @@
       <property name="geometry">
        <rect>
         <x>420</x>
-        <y>470</y>
+        <y>280</y>
         <width>351</width>
         <height>171</height>
        </rect>
@@ -558,9 +558,9 @@
      <widget class="QGroupBox" name="groupBox_5">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>280</y>
-        <width>391</width>
+        <x>420</x>
+        <y>30</y>
+        <width>351</width>
         <height>181</height>
        </rect>
       </property>
@@ -583,7 +583,7 @@
       <widget class="QComboBox" name="comboBox_Material_o_c">
        <property name="geometry">
         <rect>
-         <x>210</x>
+         <x>170</x>
          <y>40</y>
          <width>141</width>
          <height>22</height>
@@ -596,7 +596,7 @@
       <widget class="QComboBox" name="comboBox_Material_i_c">
        <property name="geometry">
         <rect>
-         <x>210</x>
+         <x>170</x>
          <y>70</y>
          <width>141</width>
          <height>22</height>
@@ -619,7 +619,7 @@
       <widget class="QComboBox" name="comboBox_Material_r">
        <property name="geometry">
         <rect>
-         <x>210</x>
+         <x>170</x>
          <y>100</y>
          <width>141</width>
          <height>22</height>
@@ -642,7 +642,7 @@
       <widget class="QComboBox" name="comboBox_Material_s">
        <property name="geometry">
         <rect>
-         <x>210</x>
+         <x>170</x>
          <y>130</y>
          <width>141</width>
          <height>22</height>
@@ -667,25 +667,20 @@
       <property name="geometry">
        <rect>
         <x>420</x>
-        <y>29</y>
+        <y>220</y>
         <width>351</width>
-        <height>431</height>
+        <height>51</height>
        </rect>
       </property>
       <property name="title">
        <string/>
       </property>
      </widget>
-    </widget>
-    <widget class="QWidget" name="Loads">
-     <attribute name="title">
-      <string>Loads</string>
-     </attribute>
      <widget class="QGroupBox" name="groupBox_7">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>30</y>
+        <y>460</y>
         <width>761</width>
         <height>71</height>
        </rect>
@@ -815,7 +810,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>110</y>
+        <y>540</y>
         <width>761</width>
         <height>71</height>
        </rect>
@@ -867,7 +862,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>190</y>
+        <y>620</y>
         <width>761</width>
         <height>71</height>
        </rect>
@@ -888,7 +883,7 @@
         <string>6</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_39">
+      <widget class="QLabel" name="label_41">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -901,7 +896,7 @@
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;p&lt;span style=&quot; vertical-align:sub;&quot;&gt;s&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
-      <widget class="QLabel" name="label_40">
+      <widget class="QLabel" name="label_42">
        <property name="geometry">
         <rect>
          <x>160</x>
@@ -916,9 +911,9 @@
       </widget>
      </widget>
     </widget>
-    <widget class="QWidget" name="SteelDesign">
+    <widget class="QWidget" name="Loads">
      <attribute name="title">
-      <string>Steel Design</string>
+      <string>Loads</string>
      </attribute>
     </widget>
    </widget>
@@ -926,7 +921,7 @@
     <property name="geometry">
      <rect>
       <x>820</x>
-      <y>30</y>
+      <y>40</y>
       <width>471</width>
       <height>711</height>
      </rect>

@@ -452,7 +452,7 @@ class MyWindow(QMainWindow):
     def onChange_l_2(self):
         s = self.ui.lineEdit_l_2.text()
         s = self.validate(s)
-        self.presets['dimensions'][2] = s
+        self.presets['dimensions'][1] = s
         l_2 = float(s)
 
         # Update calculation model
