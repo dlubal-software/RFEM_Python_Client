@@ -2,6 +2,7 @@ from RFEM.enums import ThicknessDirection, ThicknessType, LayerType
 from RFEM.enums import ThicknessOrthotropyType, AddOn, ObjectTypes
 from RFEM.enums import ThicknessShapeOrthotropySelfWeightDefinitionType
 from RFEM.enums import ThicknessStiffnessMatrixSelfWeightDefinitionType
+from RFEM.enums import MaterialModel, ThicknessIntegrationMethod
 from RFEM.initModel import Model, GetAddonStatus, clearAttributes, deleteEmptyAttributes, SetAddonStatus, ConvertStrToListOfInt
 from math import pi
 
@@ -397,6 +398,11 @@ class Thickness():
                  no: int = 1,
                  name: str = None,
                  layers = [[0, 1, 0.012], [0, 1, 0.01]],
+                 stiffness_reduction: bool = False,
+                 stiffness_modification: list = [[1, None], [1, None], [1, None], [1, None]],
+                 specify_integration: bool = False,
+                 integration_type = ThicknessIntegrationMethod.INTEGRATION_METHOD_TYPE_GAUSS_LOBATTO_QUADRATURE,
+                 clt_options: list = [[False, 100, 100], [False, 0 ,0]],
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -407,8 +413,15 @@ class Thickness():
         Args:
             no (int): Thickness Tag
             name (str): Thickness Name
-            layers (list of lists): Layers Table as an Array
-                layers = [[thickness_type, material, thickness], ...]
+            layers (list of lists): Layers Table as an Array. Angle of the material will be set if material model is orthotropic.
+                layers = [[thickness_type, material, thickness, angle], ...]
+            stiffness_reduction (bool, optional): True/False
+            stiffness_modification (list of lists, optional): Entries K33, K44, K55, K88 with notes, respectivly
+                stiffness_modification = [[K33, K33 notes], ...]
+            specify_integration (bool, optional): True/False
+            integration_type (enum): Specify which Integration should be used
+            clt_options (list of lists, optional): List that allows to set options for CLT
+                clt_options = [[False, 100, 100], [False, 0, 0]]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -443,11 +456,13 @@ class Thickness():
             tlrt.no = i+1
             tlrt.row.layer_no = i+1
             tlrt.row.layer_type = LayerType.E_LAYER_TYPE_LAYER.name
+
             tlrt.row.thickness_type = layers[i][0]
+
             tlrt.row.material = layers[i][1]
             tlrt.row.thickness = layers[i][2]
             tlrt.row.connection_with_other_topological_elements = False
-            if Model.clientModel.service.get_material(layers[i][1])['material_model'] == "MODEL_ORTHOTROPIC_2D":
+            if Model.clientModel.service.get_material(layers[i][1])['material_model'] == MaterialModel.MODEL_ORTHOTROPIC_2D.name:
                 tlrt.row.angle = layers[i][3] * (pi/180)
                 if len(layers[i]) == 5:
                     tlrt.row.comment = layers[i][4]
@@ -456,6 +471,35 @@ class Thickness():
                     tlrt.row.comment = layers[i][3]
 
             clientObject.layers_reference_table.thickness_layers_reference_table.append(tlrt)
+
+        # Stiffness reduction
+        if stiffness_reduction:
+            clientObject.stiffness_reduction_enabled = stiffness_reduction
+            if stiffness_modification:
+                clientObject.K33 = stiffness_modification[0][0]
+                clientObject.K33_note = stiffness_modification[0][1]
+                clientObject.K44 = stiffness_modification[1][0]
+                clientObject.K44_note = stiffness_modification[1][1]
+                clientObject.K55 = stiffness_modification[2][0]
+                clientObject.K55_note = stiffness_modification[2][1]
+                clientObject.K88 = stiffness_modification[3][0]
+                clientObject.K88_note = stiffness_modification[3][1]
+
+            # Additional options for CLT
+            '''
+            Currently, is_glued_at_narrow_sides can not be set in the WS
+
+            if clt_options:
+                clientObject.is_glued_at_narrow_sides = clt_options[0][0]
+                clientObject.plank_width_bx = clt_options[0][1]
+                clientObject.plank_width_by = clt_options[0][2]
+                clientObject.plank_width_including_gap_enabled = clt_options[1][0]
+            '''
+
+        # Integration rule
+        if specify_integration:
+            clientObject.specify_integration_method_enabled = specify_integration
+            clientObject.integration_method_type = integration_type.name
 
         # Comment
         clientObject.comment = comment
