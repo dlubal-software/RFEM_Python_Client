@@ -16,35 +16,33 @@ class WindSimulationAnalysisSettings():
                  member_load_distribution = WindSimulationAnalysisSettingsMemberLoadDistribution.CONCENTRATED,
                  finite_volume_mesh_density: float = 0.2,
                  snap_to_model_edges: bool = True,
-                 calculation_parameters = [False, False, 500, WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON],
-                 options = [True, False, False, False],
-                 advanced_options = [0.2, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+                 calculation_parameters: list = [False, False, 500, WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON],
+                 options: list = [True, False, False, False],
+                 advanced_options: list = [0.2, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
                  residual_pressure: float = 0.001,
-                 boundary_layers_checked: bool=False,
-                 boundary_layers_value: float = 5,
+                 boundary_layers_checked: bool = False,
+                 boundary_layers_value: float = 5.0,
                  comment: str = '',
                  params: dict = None,
                  model = Model):
         """
         Args:
             no (int): Wind Simulation Analysis Setting Tag
-            name (str): Wind Simulation Analysis Setting Name
-            density (float): Simulation Type Enumeration
+            name (str): User Defined Name
+            density (float): Density
             kinematic_viscosity (float): Kinematic Viscosity
             member_load_distribution (enum): Wind Simulation Analysis Settings Member Load Distribution Enumeration
             finite_volume_mesh_density (float): Finite Volume Mesh Density
+            snap_to_model_edges (bool): Enable/disable Snap to Model Edges
             calculation_parameters (list): Calculation Parameters List
-                calculation_parameters = [Use Potential Flow to calculate initial Condition, Use Second Order numerical Scheme,
-                    Maximum number of Iterations, Turbulence Model]
-            options (list): Options
-                options = [Consider Turbulence, Slip Boundary on Bottom Boundary, User Defined Dimensions of Wind Tunnel,
-                    Save Solver Data To Continue Calculation]
+                calculation_parameters = [Use Potential Flow to calculate initial Condition, Use Second Order numerical Scheme, Maximum number of Iterations, Turbulence Model]
+            options (list): Options List
+                options = [Consider Turbulence, Slip Boundary on Bottom Boundary, User Defined Dimensions of Wind Tunnel, Save Solver Data To Continue Calculation]
             advanced_options (list): Relaxation Factors
-                advanced_options = [Pressure Field, Velocity field, Turbulence Kinetic Energy, Turbulence dissipation Rate,
-                    Specific Turbulence Dissipation Rate, Modified Turbulence kinetic Viscosity, Turbulence Intermittency,
-                    Momentum Thickness Reynolds Number]
+                advanced_options = [Pressure Field, Velocity field, Turbulence Kinetic Energy, Turbulence dissipation Rate, Specific Turbulence Dissipation Rate,
+                    Modified Turbulence kinetic Viscosity, Turbulence Intermittency, Momentum Thickness Reynolds Number]
             residual_pressure (float): Residual Pressure
-            boundary_layers_checked (bool): Boundary Layers Checked
+            boundary_layers_checked (bool): Enable/disable Boundary Layers Checked
             boundary_layers_value (float): Boundary Layers Value
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -161,15 +159,15 @@ class WindSimulationAnalysisSettings():
 
 
     @staticmethod
-    def Transient_Flow(
+    def TransientFlow(
                  no: int = 1,
                  name: str = None,
-                 calculation_parameters = [True, 300, WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON, 0.1],
+                 calculation_parameters: list = [True, 300, WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON, 0.1],
                  user_defined_simulation_time: bool = False,
-                 simulation_time: float =10,
-                 start_time_for_saving_transient_result: float = 0,
+                 simulation_time: float = 10.0,
+                 start_time_for_saving_transient_result: float = 0.0,
                  turbulence_model_type = WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_LES,
-                 saving_results = [0.01, 1000, 0.01, 1000],
+                 saving_results: list = [0.01, 1000, 0.01, 1000],
                  user_defined_in_domain_for_flow_animation: bool = True,
                  user_defined_in_point_probes: bool = True,
                  comment: str = '',
@@ -179,20 +177,17 @@ class WindSimulationAnalysisSettings():
         """
         Args:
             no (int): Wind Simulation Analysis Setting Tag
-            name (str): Wind Simulation Analysis Setting Name
-            calculation_parameters (list): Calculation Parameters
-                calculation_parameters = [Use Steady Flow Solver To Calculate Initial Condition,
-                    Maximum Number Of Iterations Of Steady Flow Solver, Turbulence Type For Initial Condition,
-                    Error Tolerance for Data Compression]
-            user_defined_simulation_time (bool): User defined simulation time and time steps
+            name (str): User Defined Name
+            calculation_parameters (list): Calculation Parameters List
+                calculation_parameters = [Use Steady Flow Solver To Calculate Initial Condition, Maximum Number Of Iterations Of Steady Flow Solver, Turbulence Type For Initial Condition, Error Tolerance for Data Compression]
+            user_defined_simulation_time (bool): Enable/disable User defined simulation time and time steps
             simulation_time (flaot): Simulation Time
             start_time_for_saving_transient_result (float): Start Time For Saving Transient Result
             turbulence_model_type (enums): Wind Simulation Analysis Settings Turbulence Model Type
             saving_results (list): Saving Results
-                saving_results = [Transient Flow Time Step For Animation, Transient Flow Number Of Time Layers,
-                    Transient Flow Time Step Probes, Transient Flow Number Of Time Layers Probes]
-            user_defined_in_domain_for_flow_animation (bool): User Defined In Domain For Flow Animation
-            user_defined_in_point_probes (bool): User Defined In Point Probes
+                saving_results = [Transient Flow Time Step For Animation, Transient Flow Number Of Time Layers, Transient Flow Time Step Probes, Transient Flow Number Of Time Layers Probes]
+            user_defined_in_domain_for_flow_animation (bool): Enable/disable User Defined In Domain For Flow Animation
+            user_defined_in_point_probes (bool): Enable/disable User Defined In Point Probes
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -265,12 +260,12 @@ class WindSimulationAnalysisSettings():
 
 
     @staticmethod
-    def Surface_Roughness(
+    def SurfaceRoughness(
                  no: int = 1,
                  name: str = None,
-                 consider_surface_roughness: bool=False,
-                 sand_grain_roughness_height: float=2.0,
-                 roughness_constant: float=0.500,
+                 consider_surface_roughness: bool = False,
+                 sand_grain_roughness_height: float = 2.0,
+                 roughness_constant: float = 0.5,
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -278,8 +273,8 @@ class WindSimulationAnalysisSettings():
         """
         Args:
             no (int): Wind Simulation Analysis Setting Tag
-            name (str): Wind Simulation Analysis Setting Name
-            consider_surface_roughness (bool): Consider Surface Roughness
+            name (str): User Defined Name
+            consider_surface_roughness (bool): Enable/disable Surface Roughness
             sand_grain_roughness_height (float): Sand Grain Roughness Height
             roughness_constant (float): Roughness Constant
             comment (str, optional): Comments
