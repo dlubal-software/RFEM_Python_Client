@@ -7,11 +7,13 @@ installPyQt5()
 from PyQt5 import uic
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QBrush, QPainter, QPen
+from PyQt5.QtGui import QBrush, QPainter, QPen, QColor, QFont, QPalette
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsScene, QGraphicsRectItem, QGraphicsEllipseItem, QGraphicsItem, QVBoxLayout, QPushButton, QSlider, QHBoxLayout, QMessageBox
 
 from MyRFEM import *
 
+# TODO 35: add dimension
+# TODO 34: change color of dimension labels into blue
 # TODO 18: Read the date from load tab into the graphic_model
 # TODO 19: Draw the loads
 # TODO 33: Add buttons for switch on and switch of the load in graphic
@@ -25,8 +27,6 @@ from MyRFEM import *
 #          should disappear when the calculation is finished (in done() method).
 # TODO 15: Add spin buttons on edit lines
 # TODO 30: delete test_DesignSituations.py
-# TODO 34:
-# TODO 35:
 # TODO 36:
 # TODO 37:
 
@@ -211,6 +211,7 @@ class MyWindow(QMainWindow):
         scene = QGraphicsScene()
         self.ui.graphicsView.setScene(scene)
         self.ui.graphicsView.setRenderHints(QPainter.Antialiasing | QPainter.SmoothPixmapTransform)
+        self.ui.graphicsView.setBackgroundBrush(QColor(253, 250, 250, 255))
 
         n_01 = self.graphic_model['node']['01']
         n_02 = self.graphic_model['node']['02']
@@ -230,7 +231,7 @@ class MyWindow(QMainWindow):
 
         # TODO: This does't work. The background of the ellipse is still transparent.
         brush = QBrush()
-        brush.setColor(QtCore.Qt.green)
+        brush.setColor(Qt.green)
         ###
 
         # Diameter Circle
@@ -292,8 +293,39 @@ class MyWindow(QMainWindow):
             scene.addLine((n_10[0]* factor) - 10, (n_10[1]* factor), (n_10[0]* factor) + 10, (n_10[1]* factor), pen)
 
         # Hinges
-        scene.addEllipse((n_02[0]* factor), (n_02[1]* factor) - d/2, d, d, pen)
+        scene.addEllipse((n_02[0]* factor), (n_02[1]* factor) - d/2, d, d, pen, brush)
         scene.addEllipse((n_05[0]* factor) - d, (n_05[1]* factor) - d/2, d, d, pen)
+
+        # Dimensions
+        dim_pen = QPen()
+        dim_pen.setStyle(Qt.SolidLine)
+        dim_pen.setWidth(1)
+        dim_pen.setBrush(Qt.blue)
+        dim_pen.setCapStyle(Qt.RoundCap)
+        dim_pen.setJoinStyle(Qt.RoundJoin)
+
+        dim_spacing = 100
+        dim_length = 20
+        dim_font = QFont()
+
+        scene.addLine(n_01[0] * factor, n_01[1] * factor + dim_spacing, n_08[0] * factor, n_08[1] * factor + dim_spacing, dim_pen)
+        scene.addLine(n_08[0] * factor, n_08[1] * factor + dim_spacing, n_10[0] * factor, n_10[1] * factor + dim_spacing, dim_pen)
+        scene.addLine(n_10[0] * factor, n_10[1] * factor + dim_spacing, n_04[0] * factor, n_04[1] * factor + dim_spacing, dim_pen)
+
+        scene.addLine(n_01[0] * factor, n_01[1] * factor + dim_spacing - dim_length / 2, n_01[0] * factor, n_01[1] * factor + dim_spacing + dim_length / 2, dim_pen)
+        scene.addLine(n_08[0] * factor, n_08[1] * factor + dim_spacing - dim_length / 2, n_08[0] * factor, n_08[1] * factor + dim_spacing + dim_length / 2, dim_pen)
+        scene.addLine(n_10[0] * factor, n_10[1] * factor + dim_spacing - dim_length / 2, n_10[0] * factor, n_10[1] * factor + dim_spacing + dim_length / 2, dim_pen)
+        scene.addLine(n_04[0] * factor, n_04[1] * factor + dim_spacing - dim_length / 2, n_04[0] * factor, n_04[1] * factor + dim_spacing + dim_length / 2, dim_pen)
+
+        scene.addText('l 1').setPos((n_01[0] + n_08[0])/2 * factor, n_01[1] * factor + dim_spacing - dim_length, dim_font)
+        scene.addText('l 2').setPos((n_08[0] + n_10[0])/2 * factor, n_08[1] * factor + dim_spacing - dim_length, dim_font)
+        scene.addText('l 3').setPos((n_10[0] + n_04[0])/2 * factor, n_10[1] * factor + dim_spacing - dim_length, dim_font)
+
+
+
+
+
+
 
     def validate(self, s):
         # Replace comma with dot
