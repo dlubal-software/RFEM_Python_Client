@@ -210,6 +210,7 @@ class MyWindow(QMainWindow):
     def drawGraphic(self):
         scene = QGraphicsScene()
         self.ui.graphicsView.setScene(scene)
+        self.ui.graphicsView.setRenderHints(QPainter.Antialiasing | QPainter.SmoothPixmapTransform)
 
         n_01 = self.graphic_model['node']['01']
         n_02 = self.graphic_model['node']['02']
@@ -236,105 +237,25 @@ class MyWindow(QMainWindow):
         d = 7
 
         pen = QPen()
+        pen.setStyle(Qt.SolidLine)
         pen.setWidth(2)
+        pen.setBrush(Qt.black)
+        pen.setCapStyle(Qt.RoundCap)
+        pen.setJoinStyle(Qt.RoundJoin)
 
-        # TODO: The assignment of the colors does not work. It jumps to the correct branch. Nevertheless, everything is black.
-        if self.graphic_model['member_color']['01'] == 'wrong':
-            pen.setBrush(QtCore.Qt.red)
-        elif self.graphic_model['member_color']['01'] == 'ok':
-            pen.setBrush(QtCore.Qt.green)
-        else: pen.setBrush(QtCore.Qt.black)
         scene.addLine(n_02[0] * factor, n_02[1] * factor, n_03[0] * factor, n_03[1] * factor, pen)
-
-        if self.graphic_model['member_color']['02'] == 'wrong':
-            pen.setBrush(QtCore.Qt.red)
-        elif self.graphic_model['member_color']['02'] == 'ok':
-            pen.setBrush(QtCore.Qt.green)
-        else: pen.setBrush(QtCore.Qt.black)
         scene.addLine(n_01[0] * factor, n_01[1] * factor, n_02[0] * factor, n_02[1] * factor, pen)
-
-        if self.graphic_model['member_color']['03'] == 'wrong':
-            pen.setBrush(QtCore.Qt.red)
-        elif self.graphic_model['member_color']['03'] == 'ok':
-            pen.setBrush(QtCore.Qt.green)
-        else: pen.setBrush(QtCore.Qt.black)
         scene.addLine(n_01[0] * factor, n_01[1] * factor, n_02[0] * factor, n_02[1] * factor, pen)
-
-        if self.graphic_model['member_color']['04'] == 'wrong':
-            pen.setBrush(QtCore.Qt.red)
-        elif self.graphic_model['member_color']['04'] == 'ok':
-            pen.setBrush(QtCore.Qt.green)
-        else: pen.setBrush(QtCore.Qt.black)
         scene.addLine(n_01[0] * factor, n_01[1] * factor, n_02[0] * factor, n_02[1] * factor, pen)
-
-        if self.graphic_model['member_color']['05'] == 'wrong':
-            pen.setBrush(QtCore.Qt.red)
-        elif self.graphic_model['member_color']['05'] == 'ok':
-            pen.setBrush(QtCore.Qt.green)
-        else: pen.setBrush(QtCore.Qt.black)
         scene.addLine(n_01[0] * factor, n_01[1] * factor, n_02[0] * factor, n_02[1] * factor, pen)
-
-        if self.graphic_model['member_color']['06'] == 'wrong':
-            pen.setBrush(QtCore.Qt.red)
-        elif self.graphic_model['member_color']['06'] == 'ok':
-            pen.setBrush(QtCore.Qt.green)
-        else: pen.setBrush(QtCore.Qt.black)
         scene.addLine(n_05[0] * factor, n_05[1] * factor, n_06[0] * factor, n_06[1] * factor, pen)
-
-        if self.graphic_model['member_color']['07'] == 'wrong':
-            pen.setBrush(QtCore.Qt.red)
-        elif self.graphic_model['member_color']['07'] == 'ok':
-            pen.setBrush(QtCore.Qt.green)
-        else: pen.setBrush(QtCore.Qt.black)
         scene.addLine(n_04[0] * factor, n_04[1] * factor, n_05[0] * factor, n_05[1] * factor, pen)
-
-        if self.graphic_model['member_color']['08'] == 'wrong':
-            pen.setBrush(QtCore.Qt.red)
-        elif self.graphic_model['member_color']['08'] == 'ok':
-            pen.setBrush(QtCore.Qt.green)
-        else: pen.setBrush(QtCore.Qt.black)
         scene.addLine(n_03[0] * factor, n_03[1] * factor, n_07[0] * factor, n_07[1] * factor, pen)
-
-        if self.graphic_model['member_color']['09'] == 'wrong':
-            pen.setBrush(QtCore.Qt.red)
-        elif self.graphic_model['member_color']['09'] == 'ok':
-            pen.setBrush(QtCore.Qt.green)
-        else: pen.setBrush(QtCore.Qt.black)
         scene.addLine(n_07[0] * factor, n_07[1] * factor, n_06[0] * factor, n_06[1] * factor, pen)
-
-        if self.graphic_model['member_color']['10'] == 'wrong':
-            pen.setBrush(QtCore.Qt.red)
-        elif self.graphic_model['member_color']['10'] == 'ok':
-            pen.setBrush(QtCore.Qt.green)
-        else: pen.setBrush(QtCore.Qt.black)
         scene.addLine(n_08[0] * factor, n_08[1] * factor, n_09[0] * factor, n_09[1] * factor, pen)
-
-        if self.graphic_model['member_color']['11'] == 'wrong':
-            pen.setBrush(QtCore.Qt.red)
-        elif self.graphic_model['member_color']['11'] == 'ok':
-            pen.setBrush(QtCore.Qt.green)
-        else: pen.setBrush(QtCore.Qt.black)
         scene.addLine(n_10[0] * factor, n_10[1] * factor, n_11[0] * factor, n_11[1] * factor, pen)
-
-        if self.graphic_model['member_color']['12'] == 'wrong':
-            pen.setBrush(QtCore.Qt.red)
-        elif self.graphic_model['member_color']['12'] == 'ok':
-            pen.setBrush(QtCore.Qt.green)
-        else: pen.setBrush(QtCore.Qt.black)
         scene.addLine(n_02[0] * factor, n_02[1] * factor, n_09[0] * factor, n_09[1] * factor, pen)
-
-        if self.graphic_model['member_color']['13'] == 'wrong':
-            pen.setBrush(QtCore.Qt.red)
-        elif self.graphic_model['member_color']['13'] == 'ok':
-            pen.setBrush(QtCore.Qt.green)
-        else: pen.setBrush(QtCore.Qt.black)
         scene.addLine(n_09[0] * factor, n_09[1] * factor, n_11[0] * factor, n_11[1] * factor, pen)
-
-        if self.graphic_model['member_color']['14'] == 'wrong':
-            pen.setBrush(QtCore.Qt.red)
-        elif self.graphic_model['member_color']['14'] == 'ok':
-            pen.setBrush(QtCore.Qt.green)
-        else: pen.setBrush(QtCore.Qt.black)
         scene.addLine(n_11[0] * factor, n_11[1] * factor, n_05[0] * factor, n_05[1] * factor, pen)
 
         # Supports
