@@ -12,21 +12,23 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsS
 
 from MyRFEM import *
 
-# TODO 26: Disable and enable GroupBoxes in dependency of checkboxes
-# TODO 25: Consideration of the checkboxes loads and steel_design in MyRFEM
 # TODO 18: Read the date from load tab into the graphic_model
 # TODO 19: Draw the loads
+# TODO 33: Add buttons for switch on and switch of the load in graphic
+# TODO 32: Generate the report and display it an the tab
 # TODO 11: Make path specification better
 # TODO 12: Uniform use of ' or " in open()
 # TODO 13: Correct tab order of the dimensions
 # TODO 14: Make path specification better
-# TODO 15: Add spin buttons on edit lines
 # TODO 16: Write the done() method in class MyRFEM
 # TODO 23: Implement a "Wait" dialog. It should display after click of [Calculate] and
 #          should disappear when the calculation is finished (in done() method).
+# TODO 15: Add spin buttons on edit lines
 # TODO 30: delete test_DesignSituations.py
-# TODO 32:
-# TODO 33:
+# TODO 34:
+# TODO 35:
+# TODO 36:
+# TODO 37:
 
 class MyWindow(QMainWindow):
     # This dictionary stores the data for the graphic that will

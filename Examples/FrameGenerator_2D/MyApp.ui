@@ -917,9 +917,9 @@
       </widget>
      </widget>
     </widget>
-    <widget class="QWidget" name="Loads">
+    <widget class="QWidget" name="Results">
      <attribute name="title">
-      <string>Loads</string>
+      <string>Results</string>
      </attribute>
     </widget>
    </widget>
