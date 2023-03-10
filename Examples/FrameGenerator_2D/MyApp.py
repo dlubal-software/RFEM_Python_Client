@@ -12,8 +12,8 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsS
 
 from MyRFEM import *
 
-# TODO 35: add dimension
 # TODO 34: change color of dimension labels into blue
+# TODO 35: add dimension
 # TODO 18: Read the date from load tab into the graphic_model
 # TODO 19: Draw the loads
 # TODO 33: Add buttons for switch on and switch of the load in graphic
@@ -225,8 +225,12 @@ class MyWindow(QMainWindow):
         n_10 = self.graphic_model['node']['10']
         n_11 = self.graphic_model['node']['11']
 
-        factor_x = 400 / n_04[0]
-        factor_y = 700 / n_01[1]
+        # Distance dimension lines from static model
+        dim_spacing = 100
+        dim_length = 20
+
+        factor_x = (400 - dim_spacing) / n_04[0]
+        factor_y = (700 - dim_spacing) / n_01[1]
         factor = min(factor_x, factor_y)
 
         # TODO: This does't work. The background of the ellipse is still transparent.
@@ -304,9 +308,9 @@ class MyWindow(QMainWindow):
         dim_pen.setCapStyle(Qt.RoundCap)
         dim_pen.setJoinStyle(Qt.RoundJoin)
 
-        dim_spacing = 100
-        dim_length = 20
         dim_font = QFont()
+
+        # Horizontal dimensions
 
         scene.addLine(n_01[0] * factor, n_01[1] * factor + dim_spacing, n_08[0] * factor, n_08[1] * factor + dim_spacing, dim_pen)
         scene.addLine(n_08[0] * factor, n_08[1] * factor + dim_spacing, n_10[0] * factor, n_10[1] * factor + dim_spacing, dim_pen)
@@ -317,15 +321,24 @@ class MyWindow(QMainWindow):
         scene.addLine(n_10[0] * factor, n_10[1] * factor + dim_spacing - dim_length / 2, n_10[0] * factor, n_10[1] * factor + dim_spacing + dim_length / 2, dim_pen)
         scene.addLine(n_04[0] * factor, n_04[1] * factor + dim_spacing - dim_length / 2, n_04[0] * factor, n_04[1] * factor + dim_spacing + dim_length / 2, dim_pen)
 
-        scene.addText('l 1').setPos((n_01[0] + n_08[0])/2 * factor, n_01[1] * factor + dim_spacing - dim_length, dim_font)
-        scene.addText('l 2').setPos((n_08[0] + n_10[0])/2 * factor, n_08[1] * factor + dim_spacing - dim_length, dim_font)
-        scene.addText('l 3').setPos((n_10[0] + n_04[0])/2 * factor, n_10[1] * factor + dim_spacing - dim_length, dim_font)
+        scene.addText('l 1', dim_font).setPos((n_01[0] + n_08[0])/2 * factor, n_01[1] * factor + dim_spacing - dim_length)
+        scene.addText('l 2', dim_font).setPos((n_08[0] + n_10[0])/2 * factor, n_08[1] * factor + dim_spacing - dim_length)
+        scene.addText('l 3', dim_font).setPos((n_10[0] + n_04[0])/2 * factor, n_10[1] * factor + dim_spacing - dim_length)
 
+        # Vertical dimensions
 
+        scene.addLine(n_01[0] * factor - dim_spacing, n_01[1] * factor, n_02[0] * factor - dim_spacing, n_02[1] * factor, dim_pen)
+        scene.addLine(n_02[0] * factor - dim_spacing, n_02[1] * factor, n_03[0] * factor - dim_spacing, n_03[1] * factor, dim_pen)
+        scene.addLine(n_03[0] * factor - dim_spacing, n_03[1] * factor, n_03[0] * factor - dim_spacing, n_07[1] * factor, dim_pen)
 
+        scene.addLine(n_01[0] * factor - dim_spacing - dim_length / 2, n_01[1] * factor, n_01[0] * factor - dim_spacing + dim_length / 2, n_01[1] * factor, dim_pen)
+        scene.addLine(n_02[0] * factor - dim_spacing - dim_length / 2, n_02[1] * factor, n_02[0] * factor - dim_spacing + dim_length / 2, n_02[1] * factor, dim_pen)
+        scene.addLine(n_03[0] * factor - dim_spacing - dim_length / 2, n_03[1] * factor, n_03[0] * factor - dim_spacing + dim_length / 2, n_03[1] * factor, dim_pen)
+        scene.addLine(n_03[0] * factor - dim_spacing - dim_length / 2, n_07[1] * factor, n_03[0] * factor - dim_spacing + dim_length / 2, n_07[1] * factor, dim_pen)
 
-
-
+        scene.addText('h 1', dim_font).setPos(n_01[0] * factor - dim_spacing + dim_length / 2, (n_01[1] + n_02[1]) / 2 * factor - dim_length / 2)
+        scene.addText('h 2', dim_font).setPos(n_01[0] * factor - dim_spacing + dim_length / 2, (n_02[1] + n_03[1]) / 2 * factor - dim_length / 2)
+        scene.addText('h 3', dim_font).setPos(n_01[0] * factor - dim_spacing + dim_length / 2, (n_03[1] + n_07[1]) / 2 * factor - dim_length / 2)
 
     def validate(self, s):
         # Replace comma with dot
