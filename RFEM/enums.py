@@ -2472,6 +2472,7 @@ class NodalReleaseTypeLocalAxisSystemObjectType(Enum):
     Nodal Release Type Local Axis System Object Type
     '''
     LOCAL_AXIS_SYSTEM_OBJECT_TYPE_LINE, LOCAL_AXIS_SYSTEM_OBJECT_TYPE_MEMBER = range(2)
+
 class MaterialModel(Enum):
     '''
     Types of Material Models
