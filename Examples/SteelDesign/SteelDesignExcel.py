@@ -28,7 +28,7 @@ from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.Loads.nodalLoad import NodalLoad
 from RFEM.Loads.memberLoad import MemberLoad
-from RFEM.Results.resultTables import ResultTables, GetMaxValue
+from RFEM.Results.resultTables import ResultTables, GetMaxValue, GetMinValue
 from RFEM.Tools.PlausibilityCheck import PlausibilityCheck
 
 try:
@@ -515,12 +515,37 @@ def main():
         maxDisplacement_z.append(round(maxDisp_z, 3))
 
         momentTable = ResultTables.MembersInternalForces(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 7, object_no=k)
-        maxFor_n = GetMaxValue(momentTable, 'internal_force_n') / 1000
-        maxFor_y = GetMaxValue(momentTable, 'internal_force_vy') / 1000
-        maxFor_z = GetMaxValue(momentTable, 'internal_force_vz') / 1000
-        maxMoment_t = GetMaxValue(momentTable, 'internal_force_mt') / 1000
-        maxMoment_y = GetMaxValue(momentTable, 'internal_force_my') / 1000
-        maxMoment_z = GetMaxValue(momentTable, 'internal_force_mz') / 1000
+
+        if abs(GetMaxValue(momentTable, 'internal_force_n')) > abs(GetMinValue(momentTable, 'internal_force_n')):
+            maxFor_n = GetMaxValue(momentTable, 'internal_force_n') / 1000
+        else:
+            maxFor_n = GetMinValue(momentTable, 'internal_force_n') / 1000
+
+        if abs(GetMaxValue(momentTable, 'internal_force_vy')) > abs(GetMinValue(momentTable, 'internal_force_vy')):
+            maxFor_y = GetMaxValue(momentTable, 'internal_force_vy') / 1000
+        else:
+            maxFor_y = GetMinValue(momentTable, 'internal_force_vy') / 1000
+
+        if abs(GetMaxValue(momentTable, 'internal_force_vz')) > abs(GetMinValue(momentTable, 'internal_force_vz')):
+            maxFor_z = GetMaxValue(momentTable, 'internal_force_vz') / 1000
+        else:
+            maxFor_z = GetMinValue(momentTable, 'internal_force_vz') / 1000
+
+        if abs(GetMaxValue(momentTable, 'internal_force_mt')) > abs(GetMinValue(momentTable, 'internal_force_mt')):
+            maxMoment_t = GetMaxValue(momentTable, 'internal_force_mt') / 1000
+        else:
+            maxMoment_t = GetMinValue(momentTable, 'internal_force_mt') / 1000
+
+        if abs(GetMaxValue(momentTable, 'internal_force_my')) > abs(GetMinValue(momentTable, 'internal_force_my')):
+            maxMoment_y = GetMaxValue(momentTable, 'internal_force_my') / 1000
+        else:
+            maxMoment_y = GetMinValue(momentTable, 'internal_force_my') / 1000
+
+        if abs(GetMaxValue(momentTable, 'internal_force_mz')) > abs(GetMinValue(momentTable, 'internal_force_mz')):
+            maxMoment_z = GetMaxValue(momentTable, 'internal_force_mz') / 1000
+        else:
+            maxMoment_z = GetMinValue(momentTable, 'internal_force_mz') / 1000
+
         maxForce_n.append(round(maxFor_n, 3))
         maxForce_vy.append(round(maxFor_y, 3))
         maxForce_vz.append(round(maxFor_z, 3))
