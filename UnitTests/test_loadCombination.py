@@ -23,8 +23,8 @@ def test_loadCombination():
 
     StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
 
-    LoadCase.StaticAnalysis(1, 'DEAD', True, 1, ActionCategoryType.ACTION_CATEGORY_NONE_NONE, [True, 0, 0, 10])
-    LoadCase.StaticAnalysis(2, 'LIVE', True, 1, ActionCategoryType.ACTION_CATEGORY_NONE_NONE, [False])
+    LoadCase.StaticAnalysis(1, 'DEAD', True, 1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_G, [True, 0, 0, 10])
+    LoadCase.StaticAnalysis(2, 'LIVE', True, 1, ActionCategoryType.ACTION_CATEGORY_PRESTRESS_P, [False])
     LoadCase.StaticAnalysis(3)
     LoadCase(4)
 

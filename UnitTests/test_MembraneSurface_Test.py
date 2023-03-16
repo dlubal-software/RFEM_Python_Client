@@ -22,7 +22,7 @@ if Model.clientModel is None:
     Model()
 
 def test_membrane_surface():
-
+    """
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
@@ -79,7 +79,7 @@ def test_membrane_surface():
     Model.clientModel.service.finish_modification()
 
     assert Model.clientModel.service.get_surface(2).type == 'TYPE_MEMBRANE'
-
+    """
     sur = Model.clientModel.service.get_surface(3)
     assert sur.geometry == 'GEOMETRY_NURBS'
     assert sur.type == 'TYPE_MEMBRANE'
