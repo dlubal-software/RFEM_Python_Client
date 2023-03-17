@@ -12,10 +12,8 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsS
 
 from MyRFEM import *
 
-# TODO 34: change color of dimension labels into blue
-# TODO 35: add dimension
-# TODO 18: Read the date from load tab into the graphic_model
 # TODO 19: Draw the loads
+# TODO 18: Read the date from load tab into the graphic_model
 # TODO 33: Add buttons for switch on and switch of the load in graphic
 # TODO 32: Generate the report and display it an the tab
 # TODO 11: Make path specification better
@@ -25,7 +23,7 @@ from MyRFEM import *
 # TODO 16: Write the done() method in class MyRFEM
 # TODO 23: Implement a "Wait" dialog. It should display after click of [Calculate] and
 #          should disappear when the calculation is finished (in done() method).
-# TODO 15: Add spin buttons on edit lines
+# TODO 15: Add spin buttons on edit lines (?)
 # TODO 30: delete test_DesignSituations.py
 # TODO 36:
 # TODO 37:
@@ -227,10 +225,12 @@ class MyWindow(QMainWindow):
 
         # Distance dimension lines from static model
         dim_spacing = 100
+        load_spacing = 20
+        load_high = 30
         dim_length = 20
 
         factor_x = (400 - dim_spacing) / n_04[0]
-        factor_y = (700 - dim_spacing) / n_01[1]
+        factor_y = (700 - dim_spacing - load_spacing) / n_01[1]
         factor = min(factor_x, factor_y)
 
         # TODO: This does't work. The background of the ellipse is still transparent.
@@ -311,7 +311,6 @@ class MyWindow(QMainWindow):
         dim_font = QFont()
 
         # Horizontal dimensions
-
         scene.addLine(n_01[0] * factor, n_01[1] * factor + dim_spacing, n_08[0] * factor, n_08[1] * factor + dim_spacing, dim_pen)
         scene.addLine(n_08[0] * factor, n_08[1] * factor + dim_spacing, n_10[0] * factor, n_10[1] * factor + dim_spacing, dim_pen)
         scene.addLine(n_10[0] * factor, n_10[1] * factor + dim_spacing, n_04[0] * factor, n_04[1] * factor + dim_spacing, dim_pen)
@@ -326,7 +325,6 @@ class MyWindow(QMainWindow):
         scene.addText('l 3', dim_font).setPos((n_10[0] + n_04[0])/2 * factor, n_10[1] * factor + dim_spacing - dim_length)
 
         # Vertical dimensions
-
         scene.addLine(n_01[0] * factor - dim_spacing, n_01[1] * factor, n_02[0] * factor - dim_spacing, n_02[1] * factor, dim_pen)
         scene.addLine(n_02[0] * factor - dim_spacing, n_02[1] * factor, n_03[0] * factor - dim_spacing, n_03[1] * factor, dim_pen)
         scene.addLine(n_03[0] * factor - dim_spacing, n_03[1] * factor, n_03[0] * factor - dim_spacing, n_07[1] * factor, dim_pen)
@@ -339,6 +337,41 @@ class MyWindow(QMainWindow):
         scene.addText('h 1', dim_font).setPos(n_01[0] * factor - dim_spacing + dim_length / 2, (n_01[1] + n_02[1]) / 2 * factor - dim_length / 2)
         scene.addText('h 2', dim_font).setPos(n_01[0] * factor - dim_spacing + dim_length / 2, (n_02[1] + n_03[1]) / 2 * factor - dim_length / 2)
         scene.addText('h 3', dim_font).setPos(n_01[0] * factor - dim_spacing + dim_length / 2, (n_03[1] + n_07[1]) / 2 * factor - dim_length / 2)
+
+        # Loads
+        load_pen = QPen()
+        load_pen.setStyle(Qt.SolidLine)
+        load_pen.setWidth(1)
+        #load_pen.setBrush(Qt.green)
+        load_pen.setBrush(QColor(0, 120, 120, 127))
+        load_pen.setCapStyle(Qt.RoundCap)
+        load_pen.setJoinStyle(Qt.RoundJoin)
+
+        scene.addLine(n_03[0] * factor, n_03[1] * factor - load_spacing, n_07[0] * factor, n_07[1] * factor - load_spacing, load_pen)
+        scene.addLine(n_03[0] * factor, n_03[1] * factor - load_spacing - load_high, n_07[0] * factor, n_07[1] * factor - load_spacing - load_high, load_pen)
+        scene.addLine(n_07[0] * factor, n_07[1] * factor - load_spacing, n_06[0] * factor, n_06[1] * factor - load_spacing, load_pen)
+        scene.addLine(n_07[0] * factor, n_07[1] * factor - load_spacing - load_high, n_06[0] * factor, n_06[1] * factor - load_spacing - load_high, load_pen)
+
+        scene.addLine(n_03[0] * factor, n_03[1] * factor - load_spacing, n_03[0] * factor, n_03[1] * factor - load_spacing - load_high, load_pen)
+        scene.addLine(n_07[0] * factor, n_07[1] * factor - load_spacing, n_07[0] * factor, n_07[1] * factor - load_spacing - load_high, load_pen)
+        scene.addLine(n_06[0] * factor, n_06[1] * factor - load_spacing, n_06[0] * factor, n_06[1] * factor - load_spacing - load_high, load_pen)
+
+        scene.addLine(n_03[0] * factor, n_07[1] * factor - (load_spacing * 2 + load_high), n_06[0] * factor, n_07[1] * factor - (load_spacing * 2 + load_high), load_pen)
+        scene.addLine(n_03[0] * factor, n_07[1] * factor - (load_spacing * 2 + load_high *2), n_06[0] * factor, n_07[1] * factor - (load_spacing * 2 + load_high * 2), load_pen)
+
+        scene.addLine(n_03[0] * factor, n_07[1] * factor - (load_spacing * 2 + load_high), n_03[0] * factor, n_07[1] * factor - (load_spacing * 2 + load_high *2), load_pen)
+        scene.addLine(n_07[0] * factor, n_07[1] * factor - (load_spacing * 2 + load_high), n_07[0] * factor, n_07[1] * factor - (load_spacing * 2 + load_high *2), load_pen)
+        scene.addLine(n_06[0] * factor, n_07[1] * factor - (load_spacing * 2 + load_high), n_06[0] * factor, n_07[1] * factor - (load_spacing * 2 + load_high *2), load_pen)
+
+        scene.addLine(n_02[0] * factor, n_02[1] * factor - load_spacing, n_05[0] * factor, n_05[1] * factor - load_spacing, load_pen)
+        scene.addLine(n_02[0] * factor, n_02[1] * factor - (load_spacing + load_high), n_05[0] * factor, n_05[1] * factor - (load_spacing + load_high), load_pen)
+
+        scene.addLine(n_02[0] * factor, n_02[1] * factor - load_spacing, n_02[0] * factor, n_02[1] * factor - (load_spacing + load_high), load_pen)
+        scene.addLine(n_07[0] * factor, n_02[1] * factor - load_spacing, n_07[0] * factor, n_02[1] * factor - (load_spacing + load_high), load_pen)
+        scene.addLine(n_05[0] * factor, n_05[1] * factor - load_spacing, n_05[0] * factor, n_05[1] * factor - (load_spacing + load_high), load_pen)
+
+        #Beschriftung der Lasten
+
 
     def validate(self, s):
         # Replace comma with dot
@@ -358,6 +391,14 @@ class MyWindow(QMainWindow):
             msg.setIcon(QMessageBox.Critical)
             msg.setWindowTitle('Error')
             msg.setText('Please enter a number.')
+            msg.exec_()
+            s = '0'
+
+        if f <= 0.0:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            msg.setWindowTitle('Error')
+            msg.setText('Please enter a positive number.')
             msg.exec_()
             s = '0'
 
