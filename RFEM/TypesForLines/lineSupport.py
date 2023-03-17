@@ -43,7 +43,7 @@ class LineSupport():
         Args:
             no (int): Line Support Tag
             lines_no (str): Assigned Lines
-            support_type (enum): Line Support Type Enumeration
+            support_type (enum or list): Line Support Type Enumeration or Support Definition List
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -89,6 +89,9 @@ class LineSupport():
         elif support_type == LineSupportType.FREE:
             # FREE '--- ---'
             clientObject = setLineSupportConditions(clientObject, 10000, 0, 0, 0, 0, 0)
+
+        elif isinstance(support_type, list) and len(support_type) == 6:
+            clientObject = setLineSupportConditions(clientObject, support_type[0], support_type[1], support_type[2], support_type[3], support_type[4], support_type[5])
 
         # Comment
         clientObject.comment = comment
