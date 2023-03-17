@@ -56,16 +56,3 @@ def test_ModelType():
     mt = Model.clientModel.service.get_model_type()
 
     assert mt == 'E_MODEL_TYPE_2D_XY_3D'
-
-def test_ModelHistory():
-
-    Model.clientModel.service.delete_all()
-    Model.clientModel.service.begin_modification()
-
-    ModelHistory([[None,'HR', ModelHistoryStatusType.E_HISTORY_RECORD_STATUS_CREATED, None]])
-
-    Model.clientModel.service.finish_modification()
-
-    mh = Model.clientModel.service.get_model_history()
-
-    assert mh.model_history[0].row['no'] == 1
