@@ -8,12 +8,11 @@ class Note():
                  text: str = None,
                  type = NoteType.NOTE_TYPE_POINT,
                  parameter: list = None,
-                 offset: bool = False,
                  offset_para: list = None,
                  rotation: float = 0.0,
-                 show_comment: bool = False,
                  display_style: int = 0,
                  name: str = None,
+                 show_comment: bool = False,
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -46,12 +45,12 @@ class Note():
 
         # For Note Type Node
         elif type == NoteType.NOTE_TYPE_NODE:
-            clientObject.node = parameter[0]
+            clientObject.node = parameter
 
         # For Note Type Line
         elif type == NoteType.NOTE_TYPE_LINE:
             clientObject.line = parameter[0]
-            clientObject.member_reference_type = parameter[1]
+            clientObject.member_reference_type = parameter[1].name
             clientObject.member_distance_is_defined_as_relative = parameter[2]
 
             if parameter[2]:
@@ -62,7 +61,7 @@ class Note():
         # For Note Type Member
         elif type == NoteType.NOTE_TYPE_MEMBER:
             clientObject.member = parameter[0]
-            clientObject.member_reference_type = parameter[1]
+            clientObject.member_reference_type = parameter[1].name
             clientObject.member_distance_is_defined_as_relative = parameter[2]
 
             if parameter[2]:
@@ -73,15 +72,15 @@ class Note():
         # For Note Type Surface
         elif type == NoteType.NOTE_TYPE_SURFACE:
             clientObject.surface = parameter[0]
-            clientObject.surface_reference_type = parameter[1]
+            clientObject.surface_reference_type = parameter[1].name
             clientObject.surface_first_coordinate = parameter[2]
             clientObject.surface_second_coordinate = parameter[3]
 
         # offset of Note
-        clientObject.offset = offset
 
-        if offset:
-            clientObject.offset_type = offset_para[0]
+        if offset_para:
+            clientObject.offset = True
+            clientObject.offset_type = offset_para[0].name
 
             if offset_para[0] == NoteOffsetType.OFFSET_TYPE_XYZ:
                 clientObject.offset_coordinate_x = offset_para[1]
@@ -120,3 +119,6 @@ class Note():
 
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
+
+        # Add Note to client model
+        model.clientModel.service.set_note(clientObject)
