@@ -35,12 +35,12 @@ class NodalReleaseType():
             translational_release_vz_nonlinearity (list): Nonlinearity Parameter for Translation Release along Z Direction
                 for translational_release_n/vy/vz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
                     translational_release_n/vy/vz_nonlinearity = [nonlinearity type Partial_Activity, negative zone, positive zone]
-                    for negative/positive zone[0] == NodalReleaseTypePartialActivityAlong.PARTIAL_ACsTIVITY_TYPE_COMPLETE:
+                    for negative/positive zone[0] == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                         negative/positive zone = [negative/positive zone type, slippage]
                     for negative/positive zone[0] == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FIXED:
-                        negative/positive zone = [negative/positive zone type, slippage, displacement]  (Note: Displacement must be greater than slippage)
+                        negative/positive zone = [negative/positive zone type, displacement, slippage]  (Note: Displacement must be greater than slippage)
                     for negative/positive zone[0] == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE/PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE:
-                        negative/positive zone = [negative/positive zone type, slippage, force]
+                        negative/positive zone = [negative/positive zone type, force, slippage]
                 for translational_release_n/vy/vz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
                     translational_release_n/vy/vz_nonlinearity = [nonlinearity type Diagram, [symmetric(bool), NodalReleaseTypeDiagram Enumeration(start), NodalReleaseTypeDiagram Enumeration(end)], [[displacement, force],...]]
             rotational_release_mt/my/mz_nonlinearity (list): Nonlinearity Parameter for Rotational Release around X Direction
@@ -49,9 +49,9 @@ class NodalReleaseType():
                     for negative/positive zone[0] == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                         negative/positive zone = [negative/positive zone type, slippage]
                     for negative/positive zone[0] == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_FIXED:
-                        negative/positive zone = [negative/positive zone type, slippage, rotation]
+                        negative/positive zone = [negative/positive zone type, rotation, slippage]
                     for negative/positive zone[0] == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT/PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT:
-                        negative/positive zone = [negative/positive zone type, slippage, moment]
+                        negative/positive zone = [negative/positive zone type, moment, slippage]
                 for rotational_release_mt/my/mz_nonlinearity[0] == NodalReleaseTypePartialActivityAround.NONLINEARITY_TYPE_DIAGRAM:
                     rotational_release_mt/my/mz_nonlinearity = [nonlinearity type Diagram, [symmetric(bool), NodalReleaseTypeDiagram Enumeration(start), NodalReleaseTypeDiagram Enumeration(end)], [[rotation, moment],...]]
                 for rotational_release_mt/my/mz_nonlinearity[0] == NodalReleaseTypePartialActivityAround.NONLINEARITY_TYPE_FORCE_MOMENT_DIAGRAM:
