@@ -12,42 +12,51 @@ class ModelInfo():
 
 class ModelMainParameters():
     def __init__(self,
-                model_main_parameters_model: list = [str, str, str, str, str],
-                model_main_parameters_project: list = [str, str, str, str],
-                model = Model):
+                 model_id: str = '',
+                 model_name: str = '',
+                 model_description: str = '',
+                 model_comment: str = '',
+                 model_path: str = '',
+                 project_id: str = '',
+                 project_name: str = '',
+                 project_description: str = '',
+                 project_folder: str = '',
+                 model = Model):
 
         # Client Model | Get Model Main Parameters
+        # clientObject = model.clientModel.service.get_model_main_parameters()
         clientObject = model.clientModel.factory.create('ns0:model_main_parameters')
 
         # Model Id
-        clientObject.model_id = model_main_parameters_model[0]
+        # mid = model.clientModel.factory.create('ns0:model_id')
+        clientObject.model_id = model_id
 
         # Model Name
-        clientObject.model_name = model_main_parameters_model[1]
+        clientObject.model_name = model_name
 
         # Model Description
-        clientObject.model_description = model_main_parameters_model[2]
+        clientObject.model_description = model_description
 
         # Model Comment
-        clientObject.model_comment = model_main_parameters_model[3]
+        clientObject.model_comment = model_comment
 
         # Model Path
-        clientObject.model_path = model_main_parameters_model[4]
+        clientObject.model_path = model_path
 
         # Project ID
-        clientObject.project_id = model_main_parameters_project[0]
+        clientObject.project_id = project_id
 
         # Project Name
-        clientObject.project_name = model_main_parameters_project[1]
+        clientObject.project_name = project_name
 
         # Project Description
-        clientObject.project_description = model_main_parameters_project[2]
+        clientObject.project_description = project_description
 
         # Project Folder
-        clientObject.project_folder = model_main_parameters_project[3]
+        clientObject.project_folder = project_folder
 
         # Add Base Data Model Main Parameters to client model
-        model.clientModel.service.set_model_main_parameters(clientObject)
+        model.clientModel.service.set_model_parameters(clientObject)
 
 
 class ModelParameters():
@@ -113,24 +122,12 @@ class ModelHistory():
         model.clientModel.service.set_model_history(clientObject)
 
 
-class SessionID():
+class SessionId():
     def __init__(self,
-                 value: str = '',
                  model = Model):
-        '''
-        Args:
-            value (string): Value
-            model (RFEM Class, optional): Model to be edited
-        '''
 
         # Client Model | Get Session Id
         clientObject = model.clientModel.service.get_session_id()
-
-        # Value
-        clientObject.value = value
-
-        # Add Base Data Session Id to client model
-        model.clientModel.service.set_session_id(clientObject)
 
 
 

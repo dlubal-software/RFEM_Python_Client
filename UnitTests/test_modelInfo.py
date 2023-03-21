@@ -8,7 +8,7 @@ sys.path.append(PROJECT_ROOT)
 
 from RFEM.initModel import Model
 from RFEM.enums import ModelHistoryStatusType, ModelLocationRowType, ModelType
-from RFEM.modelInfo import ModelHistory, ModelParameters, ModelMainParameters, ModelInfo
+from RFEM.modelInfo import ModelHistory, ModelParameters, ModelMainParameters, ModelInfo, SessionId
 from RFEM.BasicObjects.node import Node
 
 if Model.clientModel is None:
@@ -35,13 +35,13 @@ def test_ModelMainParameters():
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    ModelMainParameters(['ID1236', 'ABC', 'tralala', 'hupsi', 'C:\...\your\path'], ['ID4567','Company name', 'Dlubal Software GmbH - schwups', 'folder'])
+    ModelMainParameters('ID1236', 'ABC', 'tralala', 'hupsi', 'C:\...\your\path', 'ID4567','Company name', 'Dlubal Software GmbH - schwups', 'folder')
 
     Model.clientModel.service.finish_modification()
 
     mp = Model.clientModel.service.get_model_main_parameters()
 
-    assert mp.model_main_parameters[0][0] == 'ID1232'
+    assert mp.model_id == 'ID1232'
     assert mp.model_main_parameters[0][2] == 'tralala'
     assert mp.model_main_parameters[1][2] == 'Dlubal Software GmbH - schwups'
     assert mp.model_main_parameters[1][3]== 'folder'
