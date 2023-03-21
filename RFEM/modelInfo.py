@@ -17,7 +17,7 @@ class ModelMainParameters():
                 model = Model):
 
         # Client Model | Get Model Main Parameters
-        clientObject = model.clientModel.service.get_model_main_parameters()
+        clientObject = model.clientModel.factory.create('ns0:model_main_parameters')
 
         # Model Id
         clientObject.model_id = model_main_parameters_model[0]
@@ -46,7 +46,7 @@ class ModelMainParameters():
         # Project Folder
         clientObject.project_folder = model_main_parameters_project[3]
 
-        # Add Base Data Model Parameters to client model
+        # Add Base Data Model Main Parameters to client model
         model.clientModel.service.set_model_main_parameters(clientObject)
 
 
