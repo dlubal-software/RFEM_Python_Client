@@ -136,7 +136,7 @@ class Model():
 
             if model_name in self.clientModelDct:
                 cModel = self.clientModelDct[model_name]
-            else:
+            elif model_name in modelLst:
                 id = 0
                 for i,j in enumerate(modelLst):
                     if modelLst[i] == model_name:
@@ -145,8 +145,11 @@ class Model():
                 modelPort = modelPath[-5:-1]
                 modelUrlPort = url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
-                cModel = Client(modelCompletePath, location = modelUrlPort)
+                cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca)
                 self.clientModelDct[model_name] = cModel
+            else:
+                print('Model name "'+model_name+'" is not created in RFEM. Consider changing new_model parameter in Model class from False to True.')
+                sys.exit()
 
             if delete:
                 print('Deleting results...')
