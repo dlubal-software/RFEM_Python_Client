@@ -1,7 +1,5 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
-from RFEM.enums import NodeType, NodalReleaseReleaseLocation
-from RFEM.enums import NodeCoordinateSystemType
-from RFEM.enums import NodeReferenceType, ObjectTypes
+from RFEM.enums import NodalReleaseReleaseLocation
 
 
 class NodalRelease():
@@ -71,5 +69,3 @@ class NodalRelease():
 
         # Add Node to client model
         model.clientModel.service.set_nodal_release(clientObject)
-
-

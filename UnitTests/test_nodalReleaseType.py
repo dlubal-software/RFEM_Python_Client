@@ -6,9 +6,9 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.dataTypes import inf
 from RFEM.initModel import Model
-from RFEM.enums import *
+from RFEM.enums import NodalReleaseTypeReleaseNonlinearity, NodalReleaseTypePartialActivityAround, NodalReleaseTypeLocalAxisSystemObjectType
+from RFEM.enums import NodalReleaseTypePartialActivityAlong, NodalReleaseTypeDiagram
 from RFEM.BasicObjects.node import Node
 from RFEM.SpecialObjects.nodalReleaseType import NodalReleaseType
 
@@ -55,5 +55,3 @@ def test_NodalReleaseType():
     assert nrt_2.diagram_along_y_start == "DIAGRAM_ENDING_TYPE_FAILURE"
     assert nrt_2.diagram_along_y_table[0][1].row['displacement'] == 0.02
     assert nrt_2.diagram_along_y_table[0][2].row['force'] == 500
-
-

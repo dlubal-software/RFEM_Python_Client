@@ -177,6 +177,9 @@ class NodalReleaseType():
             clientObject.friction_coefficient_xy = translational_release_n_nonlinearity[1][0]
             clientObject.friction_coefficient_xz = translational_release_n_nonlinearity[1][1]
 
+        else:
+            raise TypeError('Incorrect Nodal Release Nonlinearity Type')
+
         # Translational Release Vy Nonlinearity
         if translational_release_vy_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_NONE \
         or translational_release_vy_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE \
@@ -257,6 +260,9 @@ class NodalReleaseType():
             clientObject.axial_release_vy_nonlinearity = translational_release_vy_nonlinearity[0].name
             clientObject.friction_coefficient_yx = translational_release_vy_nonlinearity[1][0]
             clientObject.friction_coefficient_yz = translational_release_vy_nonlinearity[1][1]
+
+        else:
+            raise TypeError('Incorrect Nodal Release Nonlinearity Type')
 
         # Translational Release Vz Nonlinearity
         if translational_release_vz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_NONE \
@@ -339,6 +345,9 @@ class NodalReleaseType():
             clientObject.friction_coefficient_zx = translational_release_vz_nonlinearity[1][0]
             clientObject.friction_coefficient_zy = translational_release_vz_nonlinearity[1][1]
 
+        else:
+            raise TypeError('Incorrect Nodal Release Nonlinearity Type')
+
         # Rotational Release Mt Nonlinearity
         if rotational_release_mt_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_NONE \
         or rotational_release_mt_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE \
@@ -399,7 +408,6 @@ class NodalReleaseType():
                 clientObject.diagram_around_x_start = rotational_release_mt_nonlinearity[1][1].name
                 clientObject.diagram_around_x_end = rotational_release_mt_nonlinearity[1][2].name
 
-
             clientObject.diagram_around_x_table = Model.clientModel.factory.create('ns0:nodal_release_type.diagram_around_x_table')
 
             for i,j in enumerate(rotational_release_mt_nonlinearity[2]):
@@ -409,6 +417,9 @@ class NodalReleaseType():
                 mlvlp.row.moment = rotational_release_mt_nonlinearity[2][i][1]
 
                 clientObject.diagram_around_x_table.nodal_release_type_diagram_around_x_table.append(mlvlp)
+
+        else:
+            raise TypeError('Incorrect Nodal Release Nonlinearity Type')
 
         # Rotational Release My Nonlinearity
         if rotational_release_my_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_NONE\
@@ -470,7 +481,6 @@ class NodalReleaseType():
                 clientObject.diagram_around_y_start = rotational_release_my_nonlinearity[1][1].name
                 clientObject.diagram_around_y_end = rotational_release_my_nonlinearity[1][2].name
 
-
             clientObject.diagram_around_y_table = Model.clientModel.factory.create('ns0:nodal_release_type.diagram_around_y_table')
 
             for i,j in enumerate(rotational_release_my_nonlinearity[2]):
@@ -480,6 +490,9 @@ class NodalReleaseType():
                 mlvlp.row.moment = rotational_release_my_nonlinearity[2][i][1]
 
                 clientObject.diagram_around_y_table.nodal_release_type_diagram_around_y_table.append(mlvlp)
+
+        else:
+            raise TypeError('Incorrect Nodal Release Nonlinearity Type')
 
         # Rotational Release Mz Nonlinearity
         if rotational_release_mz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_NONE \
@@ -541,7 +554,6 @@ class NodalReleaseType():
                 clientObject.diagram_around_z_start = rotational_release_mz_nonlinearity[1][1].name
                 clientObject.diagram_around_z_end = rotational_release_mz_nonlinearity[1][2].name
 
-
             clientObject.diagram_around_z_table = Model.clientModel.factory.create('ns0:nodal_release_type.diagram_around_z_table')
 
             for i,j in enumerate(rotational_release_mz_nonlinearity[2]):
@@ -551,6 +563,9 @@ class NodalReleaseType():
                 mlvlp.row.moment = rotational_release_mz_nonlinearity[2][i][1]
 
                 clientObject.diagram_around_z_table.nodal_release_type_diagram_around_z_table.append(mlvlp)
+
+        else:
+            raise TypeError('Incorrect Nodal Release Nonlinearity Type')
 
         # Nodal Release Local Axis System Object Type
         clientObject.local_axis_system_object_type = local_axis_system.name

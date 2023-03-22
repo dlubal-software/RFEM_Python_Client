@@ -8,7 +8,7 @@ sys.path.append(PROJECT_ROOT)
 
 from RFEM.dataTypes import inf
 from RFEM.initModel import Model
-from RFEM.enums import *
+from RFEM.enums import NodalReleaseReleaseLocation
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.thickness import Thickness
