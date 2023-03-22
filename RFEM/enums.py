@@ -2454,3 +2454,9 @@ class ModelLocationRowType(Enum):
     Model Location Row Type Enumeration
     '''
     E_ROW_ALTITUDE, E_ROW_CITY, E_ROW_COUNTRY_ISO, E_ROW_LATITUDE, E_ROW_LONGITUDE, E_ROW_STATE, E_ROW_STREET, E_ROW_ZIP = range(8)
+
+class ApplicationTypes(Enum):
+    '''
+    Application Types
+    '''
+    DLUBAL_CENTER, REPORT_VIEWER, RFEM6, RSECTION, RSTAB9, WEB_SECTIONS =range(6)

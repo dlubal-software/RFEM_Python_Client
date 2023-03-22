@@ -6,10 +6,10 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.initModel import Model
-from RFEM.enums import ModelHistoryStatusType, ModelLocationRowType, ModelType
-from RFEM.modelInfo import ModelHistory, ModelParameters, ModelMainParameters, ModelInfo, SessionId
-from RFEM.BasicObjects.node import Node
+from RFEM.initModel import Model, client
+from RFEM.enums import ApplicationTypes
+from RFEM.modelInfo import ModelParameters, SessionId, ApplicationInfo
+import suds
 
 if Model.clientModel is None:
     Model()
@@ -30,19 +30,36 @@ def test_ModelParameters():
     assert mp.model_parameters[3].row['description_1'] == 'Dlubal Software GmbH'
     assert mp.model_parameters[4].row['description_2'] == 'h'
 
-def test_ModelMainParameters():
+def test_SessionID():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    ModelMainParameters('ID1236', 'ABC', 'tralala', 'hupsi', 'C:\...\your\path', 'ID4567','Company name', 'Dlubal Software GmbH - schwups', 'folder')
+    SessionId()
 
     Model.clientModel.service.finish_modification()
 
-    mp = Model.clientModel.service.get_model_main_parameters()
+    s = Model.clientModel.service.get_session_id()
+    x = type(s)
 
-    assert mp.model_id == 'ID1232'
-    assert mp.model_main_parameters[0][2] == 'tralala'
-    assert mp.model_main_parameters[1][2] == 'Dlubal Software GmbH - schwups'
-    assert mp.model_main_parameters[1][3]== 'folder'
+    assert x == suds.sax.text.Text
 
+def test_ApplicationName():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    ApplicationInfo.GetName('RFEM 6.02.0054', ApplicationTypes.RFEM6)
+
+    Model.clientModel.service.finish_modification()
+
+    an = client.service.get_information()
+
+    assert an.name == 'RFEM 6.02.0054'
+    assert an.type == 'RFEM6'
+
+def test_ApplicationVersion():
+    pass
+
+def test_ApplicationLanguage():
+    pass
