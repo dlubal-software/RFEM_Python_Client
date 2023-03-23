@@ -54,7 +54,7 @@ func_vec = [[ObjectTypes.E_OBJECT_TYPE_MATERIAL, lambda i: model.clientModel.ser
             [ObjectTypes.E_OBJECT_TYPE_RESULT_SECTION, lambda i: model.clientModel.service.get_result_section(i), 'from RFEM.SpecialObjects.resultSection import ResultSection\n', 'ResultSection'],
             [ObjectTypes.E_OBJECT_TYPE_STRUCTURE_MODIFICATION, lambda i: model.clientModel.service.get_structure_modification(i), 'from RFEM.SpecialObjects.structureModification import StructureModification\n', 'StructureModification'],
             # nodal_release
-            #[ObjectTypes.E_OBJECT_TYPE_LINE_RELEASE, lambda i: model.clientModel.service.get_line_release(i), 'from RFEM.SpecialObjects.lineRelease import LineRelease\n', 'LineRelease'],
+            [ObjectTypes.E_OBJECT_TYPE_LINE_RELEASE, lambda i: model.clientModel.service.get_line_release(i), 'from RFEM.SpecialObjects.lineRelease import LineRelease\n', 'LineRelease'],
             # surface_release
             # blocks
             # boreholes
@@ -93,18 +93,19 @@ func_vec = [[ObjectTypes.E_OBJECT_TYPE_MATERIAL, lambda i: model.clientModel.ser
             [ObjectTypes.E_OBJECT_TYPE_SURFACES_CONTACT_TYPE, lambda i: model.clientModel.service.get_surface_contact_type(i), 'from RFEM.TypesForSpecialObjects.surfaceContactType import SurfaceContactType\n', 'SurfaceContactType'],
 
             # nodal_release_type
-            #[ObjectTypes.E_OBJECT_TYPE_LINE_RELEASE_TYPE, lambda i: model.clientModel.service.get_line_release_type(i), 'from RFEM.SpecialObjects.lineReleaseType import LineReleaseType\n', 'LineReleaseType'],
+            [ObjectTypes.E_OBJECT_TYPE_LINE_RELEASE_TYPE, lambda i: model.clientModel.service.get_line_release_type(i), 'from RFEM.SpecialObjects.lineReleaseType import LineReleaseType\n', 'LineReleaseType'],
             # surface_release_ty
-            #[ObjectTypes.E_OBJECT_TYPE_CONCRETE_EFFECTIVE_LENGTHS, lambda i: model.clientModel.service.get_concrete_effective_lengths(i), 'from RFEM.TypesforConcreteDesign.ConcreteEffectiveLength import ConcreteEffectiveLength\n', 'ConcreteEffectiveLength'],
-            #[ObjectTypes.E_OBJECT_TYPE_CONCRETE_DURABILITY, lambda i: model.clientModel.service.get_concrete_durability(i), 'from RFEM.TypesforConcreteDesign.ConcreteDurability import ConcreteDurability\n', 'ConcreteDurability'],
-            #[ObjectTypes.E_OBJECT_TYPE_REINFORCEMENT_DIRECTIONS, lambda i: model.clientModel.service.get_reinforcement_direction(i), 'from RFEM.TypesforConcreteDesign.ConcreteReinforcementDirections import ConcreteReinforcementDirection\n', 'ConcreteReinforcementDirection'],
-            #[ObjectTypes.E_OBJECT_TYPE_SURFACE_REINFORCEMENTS, lambda i: model.clientModel.service.get_surface_reinforcement(i), 'from RFEM.TypesforConcreteDesign.ConcreteSurfaceReinforcements import ConcreteSurfaceReinforcements\n', 'ConcreteSurfaceReinforcements'],
+            [ObjectTypes.E_OBJECT_TYPE_CONCRETE_EFFECTIVE_LENGTHS, lambda i: model.clientModel.service.get_concrete_effective_lengths(i), 'from RFEM.TypesforConcreteDesign.ConcreteEffectiveLength import ConcreteEffectiveLength\n', 'ConcreteEffectiveLength'],
+            [ObjectTypes.E_OBJECT_TYPE_CONCRETE_DURABILITY, lambda i: model.clientModel.service.get_concrete_durability(i), 'from RFEM.TypesforConcreteDesign.ConcreteDurability import ConcreteDurability\n', 'ConcreteDurability'],
+            [ObjectTypes.E_OBJECT_TYPE_REINFORCEMENT_DIRECTION, lambda i: model.clientModel.service.get_reinforcement_direction(i), 'from RFEM.TypesforConcreteDesign.ConcreteReinforcementDirections import ConcreteReinforcementDirection\n', 'ConcreteReinforcementDirection'],
+            [ObjectTypes.E_OBJECT_TYPE_SURFACE_REINFORCEMENT, lambda i: model.clientModel.service.get_surface_reinforcement(i), 'from RFEM.TypesforConcreteDesign.ConcreteSurfaceReinforcements import ConcreteSurfaceReinforcements\n', 'ConcreteSurfaceReinforcements'],
             [ObjectTypes.E_OBJECT_TYPE_CONCRETE_DESIGN_SLS_CONFIGURATION, lambda i: model.clientModel.service.get_concrete_design_sls_configuration(i), 'from RFEM.ConcreteDesign.ConcreteServiceabilityConfigurations import ConcreteServiceabilityConfiguration\n', 'ConcreteServiceabilityConfiguration'],
             [ObjectTypes.E_OBJECT_TYPE_CONCRETE_DESIGN_ULS_CONFIGURATION, lambda i: model.clientModel.service.get_concrete_design_uls_configuration(i), 'from RFEM.ConcreteDesign.ConcreteUltimateConfigurations import ConcreteUltimateConfiguration\n', 'ConcreteUltimateConfiguration'],
             [ObjectTypes.E_OBJECT_TYPE_STEEL_EFFECTIVE_LENGTHS, lambda i: model.clientModel.service.get_steel_effective_lengths(i), 'from RFEM.TypesForSteelDesign.steelEffectiveLengths import SteelEffectiveLengths\n', 'SteelEffectiveLengths'],
             [ObjectTypes.E_OBJECT_TYPE_STEEL_BOUNDARY_CONDITIONS, lambda i: model.clientModel.service.get_steel_boundary_conditions(i), 'from RFEM.TypesForSteelDesign.steelBoundaryConditions import SteelBoundaryConditions\n', 'SteelBoundaryConditions'],
             [ObjectTypes.E_OBJECT_TYPE_STEEL_MEMBER_LOCAL_SECTION_REDUCTION, lambda i: model.clientModel.service.get_steel_member_local_section_reduction(i), 'from RFEM.TypesForSteelDesign.SteelMemberLocalSectionReduction import SteelMemberLocalSectionReduction\n', 'SteelMemberLocalSectionReduction'],
-            #[ObjectTypes.E_OBJECT_TYPE_STEEL_MEMBER_ROTATIONAL_RESTRAINT, lambda i: model.clientModel.service.get_(i), 'from RFEM.TypesForSteelDesign.steelMemberRotationalRestraints import SteelMemberRotationalRestraint\n', 'SteelMemberRotationalRestraint'],
+            ## E_OBJECT_TYPE_MEMBER_ROTATIONAL_RESTRAINT
+            ## [ObjectTypes.E_OBJECT_TYPE_STEEL_MEMBER_ROTATIONAL_RESTRAINT, lambda i: model.clientModel.service.get_(i), 'from RFEM.TypesForSteelDesign.steelMemberRotationalRestraints import SteelMemberRotationalRestraint\n', 'SteelMemberRotationalRestraint'],
             #[ObjectTypes.E_OBJECT_TYPE_STEEL_MEMBER_SHEAR_PANEL, lambda i: model.clientModel.service.get_steel_member_shear_panel(i), 'from RFEM.TypesForSteelDesign.steelMemberShearPanel import SteelMemberShearPanel\n', 'SteelMemberShearPanel'],
             [ObjectTypes.E_OBJECT_TYPE_STEEL_DESIGN_SLS_CONFIGURATION, lambda i: model.clientModel.service.get_steel_design_sls_configuration(i), 'from RFEM.SteelDesign.steelServiceabilityConfiguration import SteelDesignServiceabilityConfigurations\n', 'SteelDesignServiceabilityConfigurations'],
             [ObjectTypes.E_OBJECT_TYPE_STEEL_DESIGN_ULS_CONFIGURATION, lambda i: model.clientModel.service.get_steel_design_uls_configuration(i), 'from RFEM.SteelDesign.steelUltimateConfigurations import SteelDesignUltimateConfigurations\n', 'SteelDesignUltimateConfigurations'],
@@ -160,9 +161,9 @@ func_vec = [[ObjectTypes.E_OBJECT_TYPE_MATERIAL, lambda i: model.clientModel.ser
             [ObjectTypes.E_OBJECT_TYPE_FREE_CIRCULAR_LOAD, lambda i: model.clientModel.service.get_free_circular_load(i), 'from RFEM.Loads.freeLoad import CircularLoad\n', 'CircularLoad'],
             [ObjectTypes.E_OBJECT_TYPE_FREE_POLYGON_LOAD, lambda i: model.clientModel.service.get_free_polygon_load(i), 'from RFEM.Loads.freeLoad import PolygonLoad\n', 'PolygonLoad'],
             [ObjectTypes.E_OBJECT_TYPE_IMPOSED_NODAL_DEFORMATION, lambda i: model.clientModel.service.get_imposed_nodal_deformation(i), 'from RFEM.Loads.imposedNodalDeformation import ImposedNodalDeformation\n', 'ImposedNodalDeformation'],
-            [ObjectTypes.E_OBJECT_TYPE_IMPOSED_LINE_DEFORMATION, lambda i: model.clientModel.service.get_imposed_line_deformation(i), 'from RFEM.Loads.imposedLineDeformation import ImposedLineDeformation\n', 'ImposedLineDeformation']]
+            [ObjectTypes.E_OBJECT_TYPE_IMPOSED_LINE_DEFORMATION, lambda i: model.clientModel.service.get_imposed_line_deformation(i), 'from RFEM.Loads.imposedLineDeformation import ImposedLineDeformation\n', 'ImposedLineDeformation'],
             # calculations_diagra
-            #[ObjectTypes.E_OBJECT_TYPE_RESPONSE_SPECTRUM, lambda i: model.clientModel.service.get_response_spectrum(i), 'from RFEM.DynamicLoads.responseSpectrum import ResponseSpectrum\n', 'ResponseSpectrum']
+            [ObjectTypes.E_OBJECT_TYPE_RESPONSE_SPECTRUM, lambda i: model.clientModel.service.get_response_spectrum(i), 'from RFEM.DynamicLoads.responseSpectrum import ResponseSpectrum\n', 'ResponseSpectrum']]
 
 def convertSubclases(param):
     '''
@@ -195,7 +196,6 @@ def convertSubclases(param):
     return param
 
 importObjects = [''] # defines what to import with 'imports'
-missingInClient = [] #objects that can't be defined because they are not in Client, yet.
 lines = cons_imports # individual lines written in file
 
 # Get number of every type of object supported by Client.
@@ -209,10 +209,8 @@ for func in func_vec:
         for i in objNumbers:
             params = dict(func[1](i))
             params = convertSubclases(params)
-
-            # don't set these parameters
+            # don't set this parameter
             del params['id_for_export_import']
-            #del params['metadata_for_export_import']
 
             lines.append(func[3]+'(params='+str(params)+')\n')
 
@@ -230,11 +228,6 @@ lines.insert(6+len(importObjects)+3, '\n')
 lines.append('\n')
 lines.append('Model.clientModel.service.finish_modification()\n')
 lines.append('\n')
-
-if missingInClient:
-    lines.append('# Following are the objects that can NOT be set because they are not implemented in Client:\n')
-    for l in missingInClient:
-        lines.append('#    '+l)
 
 # Create file and write data
 f = open(os.path.dirname(__file__)+"/WSgeneratedScript.py", "w", encoding="utf-8")
