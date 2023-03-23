@@ -59,7 +59,29 @@ def test_ApplicationName():
     assert an.type == 'RFEM6'
 
 def test_ApplicationVersion():
-    pass
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    ApplicationInfo.GetVersion('6.02.0054')
+
+    Model.clientModel.service.finish_modification()
+
+    an = client.service.get_information()
+
+    assert an.version == '6.02.0054'
 
 def test_ApplicationLanguage():
-    pass
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    ApplicationInfo.GetLanguage('English', 'en')
+
+    Model.clientModel.service.finish_modification()
+
+    an = client.service.get_information()
+
+    assert an.language_name == 'English'
+    assert an.language_id == 'en'
+

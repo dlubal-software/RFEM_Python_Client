@@ -11,52 +11,52 @@ class ModelInfo():
         modelInfo = model.clientModel.service.get_model_info()
 
 # Currently, Model Main Parameters can not write manually in RFEM 6. So, Model Main Paramters can not be set with API.
-# class ModelMainParameters():
-#     def __init__(self,
-#                  model_id: str = 'ID1232',
-#                  model_name: str = '',
-#                  model_description: str = '',
-#                  model_comment: str = '',
-#                  model_path: str = '',
-#                  project_id: str = '',
-#                  project_name: str = '',
-#                  project_description: str = '',
-#                  project_folder: str = '',
-#                  model = Model):
+class ModelMainParameters():
+    def __init__(self,
+                 model_id: str = 'ID1232',
+                 model_name: str = '',
+                 model_description: str = '',
+                 model_comment: str = '',
+                 model_path: str = '',
+                 project_id: str = '',
+                 project_name: str = '',
+                 project_description: str = '',
+                 project_folder: str = '',
+                 model = Model):
 
-#         # Client Model | Get Model Main Parameters
-#         clientObject = model.clientModel.service.get_model_main_parameters()
-#         # clientObject = model.clientModel.factory.create('ns0:model_main_parameters')
+        # Client Model | Get Model Main Parameters
+        clientObject = model.clientModel.service.get_model_main_parameters()
+        # clientObject = model.clientModel.factory.create('ns0:model_main_parameters')
 
-#         # Model Id
-#         clientObject.model_id = model_id
+        # Model Id
+        clientObject.model_id = model_id
 
-#         # Model Name
-#         clientObject.model_name = model_name
+        # Model Name
+        clientObject.model_name = model_name
 
-#         # Model Description
-#         clientObject.model_description = model_description
+        # Model Description
+        clientObject.model_description = model_description
 
-#         # Model Comment
-#         clientObject.model_comment = model_comment
+        # Model Comment
+        clientObject.model_comment = model_comment
 
-#         # Model Path
-#         clientObject.model_path = model_path
+        # Model Path
+        clientObject.model_path = model_path
 
-#         # Project ID
-#         clientObject.project_id = project_id
+        # Project ID
+        clientObject.project_id = project_id
 
-#         # Project Name
-#         clientObject.project_name = project_name
+        # Project Name
+        clientObject.project_name = project_name
 
-#         # Project Description
-#         clientObject.project_description = project_description
+        # Project Description
+        clientObject.project_description = project_description
 
-#         # Project Folder
-#         clientObject.project_folder = project_folder
+        # Project Folder
+        clientObject.project_folder = project_folder
 
-#         # Add Base Data Model Main Parameters to client model
-#         model.clientModel.service.set_model_parameters(clientObject)
+        # Add Base Data Model Main Parameters to client model
+        model.clientModel.service.set_model_parameters(clientObject)
 
 
 class ModelParameters():
