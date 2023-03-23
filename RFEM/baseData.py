@@ -1,39 +1,6 @@
 from RFEM.initModel import Model
 from RFEM.enums import ModelType
 
-# Currently, Model History can not write manually in RFEM 6. So, Model History can not set with API.
-# class ModelHistory():
-
-#     def __init__(self,
-#                  model_history: list = None,
-#                  model = Model):
-
-#         '''
-#         Args:
-#             model_history (list of lists): Model History Table
-#                 model_history = [[time, username, ModelHistoryStatusType Enumeration, comment],...]
-#             model (RFEM Class, optional): Model to be edited
-#         '''
-
-#         # Client Model | Get Model History
-#         clientObject = model.clientModel.service.get_model_history()
-
-#         # Add Model History
-
-#         for i,j in enumerate(model_history):
-#             mh = Model.clientModel.factory.create('ns0:model_history_row')
-#             mh.no = i+1
-#             mh.description = i+1
-#             mh.row.time = model_history[i][0]
-#             mh.row.user = model_history[i][1]
-#             mh.row.history_status_type = model_history[i][2].name
-#             mh.row.comment = model_history[i][3]
-
-#             clientObject.model_history.append(mh)
-
-#         # Add Base Data Model History to client model
-#         model.clientModel.service.set_model_history(clientObject)
-
 class ModelParameters():
 
     def __init__(self,

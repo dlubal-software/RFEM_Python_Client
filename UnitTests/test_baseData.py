@@ -7,9 +7,8 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.initModel import Model
-from RFEM.enums import ModelHistoryStatusType, ModelLocationRowType, ModelType
-from RFEM.baseData import ModelHistory, ModelParameters, ModelParametersLocation, Modeltype
-from RFEM.BasicObjects.node import Node
+from RFEM.enums import ModelLocationRowType, ModelType
+from RFEM.baseData import ModelParameters, ModelParametersLocation, Modeltype
 
 if Model.clientModel is None:
     Model()
