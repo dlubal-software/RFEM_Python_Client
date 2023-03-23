@@ -23,7 +23,7 @@ cons_imports = ['import sys\n',
                 'from RFEM.dataTypes import inf\n',
                 '\n']
 
-i = 1 # object number
+i = 0 # object number
 
 # Steps to retrieve data from RFEM:
 # 1) get numbers of given object type via GetObjectNumbersByType(),
@@ -164,19 +164,9 @@ func_vec = [[ObjectTypes.E_OBJECT_TYPE_MATERIAL, lambda i: model.clientModel.ser
             # calculations_diagra
             #[ObjectTypes.E_OBJECT_TYPE_RESPONSE_SPECTRUM, lambda i: model.clientModel.service.get_response_spectrum(i), 'from RFEM.DynamicLoads.responseSpectrum import ResponseSpectrum\n', 'ResponseSpectrum']
 
-def convertSnakeCaseToCamelCase(str):
-    '''
-    Convert snake_case to CamelCase
-    '''
-    # split underscore using split
-    temp = str.split('_')
-    # joining result
-    res = temp[0].title() + ''.join(ele.title() for ele in temp[1:])
-    return res
-
 def convertSubclases(param):
     '''
-    Convert subclasses into dict
+    Convert structures/parameters
     '''
 
     if isinstance(param, str) or isinstance(param, int) or isinstance(param, float) or isinstance(param, bool):
