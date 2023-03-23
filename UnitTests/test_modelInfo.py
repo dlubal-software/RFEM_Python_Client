@@ -7,9 +7,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.initModel import Model, client
-from RFEM.enums import ApplicationTypes
-from RFEM.modelInfo import ModelParameters, SessionId, ApplicationInfo
-import suds
+from RFEM.modelInfo import ModelParameters, ApplicationInfo, ModelMainParameters
 
 if Model.clientModel is None:
     Model()
@@ -19,69 +17,60 @@ def test_ModelParameters():
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    ModelParameters([['Client Name', 'ABC', 'c'], ['Company name', 'Dlubal Software GmbH', 'g'], ['Project name', 'Cantilever', 'h']])
+    m = ModelParameters.ModelParameters()
 
     Model.clientModel.service.finish_modification()
 
-    mp = Model.clientModel.service.get_model_parameters()
+    assert m.model_parameters[0].no == 1
+    assert m.model_parameters[2].row['name'] == 'Client Name'
+    assert m.model_parameters[3].row['description_1'] == 'Dlubal Software GmbH'
+    assert m.model_parameters[4].row['description_2'] == 'h'
 
-    assert mp.model_parameters[0].no == 1
-    assert mp.model_parameters[2].row['name'] == 'Client Name'
-    assert mp.model_parameters[3].row['description_1'] == 'Dlubal Software GmbH'
-    assert mp.model_parameters[4].row['description_2'] == 'h'
 
-def test_SessionID():
+# Session ID changes with every call
+# def test_ApplicationSessionID():
+
+#     Model.clientModel.service.delete_all()
+#     Model.clientModel.service.begin_modification()
+
+#     sessionid = ApplicationSessionID.GetSessionId()
+
+#     Model.clientModel.service.finish_modification()
+
+#     s = client.service.get_session_id()
+
+#     assert s == sessionid
+
+
+def test_ModelMainParameters():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    SessionId()
+    m = ModelMainParameters.ModelMainParameters()
+    mi = ModelMainParameters.ModelId()
 
     Model.clientModel.service.finish_modification()
 
-    s = Model.clientModel.service.get_session_id()
-    x = type(s)
+    act_mi = Model.clientModel.service.get_model_main_parameters().model_id
 
-    assert x == suds.sax.text.Text
+    assert m.model_name == 'TestModel'
+    assert mi == act_mi
 
-def test_ApplicationName():
+
+def test_Application():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    ApplicationInfo.GetName('RFEM 6.02.0054', ApplicationTypes.RFEM6)
+    name = ApplicationInfo.GetName()
+    version = ApplicationInfo.GetVersion()
+    language = ApplicationInfo.GetLanguage()
 
     Model.clientModel.service.finish_modification()
 
     an = client.service.get_information()
 
-    assert an.name == 'RFEM 6.02.0054'
-    assert an.type == 'RFEM6'
-
-def test_ApplicationVersion():
-
-    Model.clientModel.service.delete_all()
-    Model.clientModel.service.begin_modification()
-
-    ApplicationInfo.GetVersion('6.02.0054')
-
-    Model.clientModel.service.finish_modification()
-
-    an = client.service.get_information()
-
-    assert an.version == '6.02.0054'
-
-def test_ApplicationLanguage():
-
-    Model.clientModel.service.delete_all()
-    Model.clientModel.service.begin_modification()
-
-    ApplicationInfo.GetLanguage('English', 'en')
-
-    Model.clientModel.service.finish_modification()
-
-    an = client.service.get_information()
-
-    assert an.language_name == 'English'
-    assert an.language_id == 'en'
-
+    assert an.name == name
+    assert an.version == version
+    assert an.language_name == language
