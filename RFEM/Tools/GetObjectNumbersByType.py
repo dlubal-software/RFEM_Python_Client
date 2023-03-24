@@ -41,8 +41,8 @@ class GetAllObjects:
     Args:
         model(RFEM Class, optional): Model to be edited
     Returns:
-        List of all objects that can be created via Client.
-        List of imports needed to be able to create objects from the first list.
+        objects: List of all objects that can be created via Client.
+        imports: List of imports needed to be able to create objects from the first list.
     """
     def __new__(cls,
                 model = Model):
@@ -89,7 +89,7 @@ class GetAllObjects:
             [ObjectTypes.E_OBJECT_TYPE_NODAL_MESH_REFINEMENT, lambda i: model.clientModel.service.get_nodal_mesh_refinement(i), 'from RFEM.TypesForNodes.nodalMeshRefinement import NodalMeshRefinement\n', 'NodalMeshRefinement'],
 
             [ObjectTypes.E_OBJECT_TYPE_LINE_SUPPORT, lambda i: model.clientModel.service.get_line_support(i), 'from RFEM.TypesForLines.lineSupport import LineSupport\n', 'LineSupport'],
-            [ObjectTypes.E_OBJECT_TYPE_LINE_MESH_REFINEMENT, lambda i: model.clientModel.service.get_line_mesh_refinements(i), 'from RFEM.TypesForLines.lineMeshRefinements import LineMeshRefinements\n', 'LineMeshRefinements'],
+            #[ObjectTypes.E_OBJECT_TYPE_LINE_MESH_REFINEMENT, lambda i: model.clientModel.service.get_line_mesh_refinements(i), 'from RFEM.TypesForLines.lineMeshRefinements import LineMeshRefinements\n', 'LineMeshRefinements'],
             [ObjectTypes.E_OBJECT_TYPE_LINE_HINGE, lambda i: model.clientModel.service.get_line_hinge(i), 'from RFEM.TypesForLines.lineHinge import LineHinge\n', 'LineHinge'],
             [ObjectTypes.E_OBJECT_TYPE_LINE_WELDED_JOINT, lambda i: model.clientModel.service.get_line_welded_joint(i), 'from RFEM.TypesForLines.lineWeldedJoint import LineWeldedJoint\n', 'LineWeldedJoint'],
 
@@ -103,8 +103,8 @@ class GetAllObjects:
             [ObjectTypes.E_OBJECT_TYPE_MEMBER_DEFINABLE_STIFFNESS, lambda i: model.clientModel.service.get_member_definable_stiffness(i), 'from RFEM.TypesForMembers.memberDefinableStiffness import MemberDefinableStiffness\n', 'MemberDefinableStiffness'],
             [ObjectTypes.E_OBJECT_TYPE_MEMBER_RESULT_INTERMEDIATE_POINT, lambda i: model.clientModel.service.get_member_result_intermediate_point(i), 'from RFEM.TypesForMembers.memberResultIntermediatePoints import MemberResultIntermediatePoint\n', 'MemberResultIntermediatePoint'],
             # design_support
-            # member_shear_panel
-            # member_rotational_restraint
+            [ObjectTypes.E_OBJECT_TYPE_MEMBER_ROTATIONAL_RESTRAINT, lambda i: model.clientModel.service.get_member_rotational_restraint(i), 'from RFEM.TypesForMembers.memberRotationalRestraints import MemberRotationalRestraint\n', 'MemberRotationalRestraint'],
+            [ObjectTypes.E_OBJECT_TYPE_MEMBER_SHEAR_PANEL, lambda i: model.clientModel.service.get_member_shear_panel(i), 'from RFEM.TypesForMembers.memberShearPanel import MemberShearPanel\n', 'MemberShearPanel'],
 
             [ObjectTypes.E_OBJECT_TYPE_SURFACE_SUPPORT, lambda i: model.clientModel.service.get_surface_support(i), 'from RFEM.TypesForSurfaces.surfaceSupport import SurfaceSupport\n', 'SurfaceSupport'],
             [ObjectTypes.E_OBJECT_TYPE_SURFACE_ECCENTRICITY, lambda i: model.clientModel.service.get_surface_eccentricity(i), 'from RFEM.TypesForSurfaces.surfaceEccentricity import SurfaceEccentricity\n', 'SurfaceEccentricity'],
@@ -129,22 +129,16 @@ class GetAllObjects:
             [ObjectTypes.E_OBJECT_TYPE_STEEL_EFFECTIVE_LENGTHS, lambda i: model.clientModel.service.get_steel_effective_lengths(i), 'from RFEM.TypesForSteelDesign.steelEffectiveLengths import SteelEffectiveLengths\n', 'SteelEffectiveLengths'],
             [ObjectTypes.E_OBJECT_TYPE_STEEL_BOUNDARY_CONDITIONS, lambda i: model.clientModel.service.get_steel_boundary_conditions(i), 'from RFEM.TypesForSteelDesign.steelBoundaryConditions import SteelBoundaryConditions\n', 'SteelBoundaryConditions'],
             [ObjectTypes.E_OBJECT_TYPE_STEEL_MEMBER_LOCAL_SECTION_REDUCTION, lambda i: model.clientModel.service.get_steel_member_local_section_reduction(i), 'from RFEM.TypesForSteelDesign.SteelMemberLocalSectionReduction import SteelMemberLocalSectionReduction\n', 'SteelMemberLocalSectionReduction'],
-            ## E_OBJECT_TYPE_MEMBER_ROTATIONAL_RESTRAINT
-            ## [ObjectTypes.E_OBJECT_TYPE_STEEL_MEMBER_ROTATIONAL_RESTRAINT, lambda i: model.clientModel.service.get_(i), 'from RFEM.TypesForSteelDesign.steelMemberRotationalRestraints import SteelMemberRotationalRestraint\n', 'SteelMemberRotationalRestraint'],
-            #[ObjectTypes.E_OBJECT_TYPE_STEEL_MEMBER_SHEAR_PANEL, lambda i: model.clientModel.service.get_steel_member_shear_panel(i), 'from RFEM.TypesForSteelDesign.steelMemberShearPanel import SteelMemberShearPanel\n', 'SteelMemberShearPanel'],
+
             [ObjectTypes.E_OBJECT_TYPE_STEEL_DESIGN_SLS_CONFIGURATION, lambda i: model.clientModel.service.get_steel_design_sls_configuration(i), 'from RFEM.SteelDesign.steelServiceabilityConfiguration import SteelDesignServiceabilityConfigurations\n', 'SteelDesignServiceabilityConfigurations'],
             [ObjectTypes.E_OBJECT_TYPE_STEEL_DESIGN_ULS_CONFIGURATION, lambda i: model.clientModel.service.get_steel_design_uls_configuration(i), 'from RFEM.SteelDesign.steelUltimateConfigurations import SteelDesignUltimateConfigurations\n', 'SteelDesignUltimateConfigurations'],
             [ObjectTypes.E_OBJECT_TYPE_TIMBER_EFFECTIVE_LENGTHS, lambda i: model.clientModel.service.get_timber_effective_lengths(i), 'from RFEM.TypesForTimberDesign.timberEffectiveLengths import TimberEffectiveLengths\n', 'TimberEffectiveLengths'],
             [ObjectTypes.E_OBJECT_TYPE_TIMBER_SERVICE_CLASS, lambda i: model.clientModel.service.get_timber_service_class(i), 'from RFEM.TypesForTimberDesign.timberServiceClass import TimberServiceClass\n', 'TimberServiceClass'],
             [ObjectTypes.E_OBJECT_TYPE_ALUMINUM_MEMBER_LOCAL_SECTION_REDUCTION, lambda i: model.clientModel.service.get_timber_member_local_section_reduction(i), 'from RFEM.TypesForTimberDesign.timberMemberLocalSectionReduction import TimberMemberLocalSectionReduction\n', 'TimberMemberLocalSectionReduction'],
-            #[ObjectTypes.E_OBJECT_TYPE_TIMBER_MEMBER_ROTATIONAL_RESTRAINT, lambda i: model.clientModel.service.get_timber_member_rotational_restraint(i), 'from RFEM.TypesForTimberDesign.timberMemberRotationalRestraint import TimberMemberRotationalRestraint\n', 'TimberMemberRotationalRestraint'],
-            #[ObjectTypes.E_OBJECT_TYPE_TIMBER_MEMBER_SHEAR_PANEL, lambda i: model.clientModel.service.get_timber_member_shear_panel(i), 'from RFEM.TypesForTimberDesign.timberMemberShearPanel import TimberMemberShearPanel\n', 'TimberMemberShearPanel'],
             [ObjectTypes.E_OBJECT_TYPE_TIMBER_DESIGN_SLS_CONFIGURATION, lambda i: model.clientModel.service.get_timber_design_sls_configuration(i), 'from RFEM.TimberDesign.timberServiceLimitStateConfigurations import TimberDesignServiceLimitStateConfigurations\n', 'TimberDesignServiceLimitStateConfigurations'],
             [ObjectTypes.E_OBJECT_TYPE_TIMBER_DESIGN_ULS_CONFIGURATION, lambda i: model.clientModel.service.get_timber_design_uls_configuration(i), 'from RFEM.TimberDesign.timberUltimateConfigurations import TimberDesignUltimateConfigurations\n', 'TimberDesignUltimateConfigurations'],
             [ObjectTypes.E_OBJECT_TYPE_ALUMINUM_EFFECTIVE_LENGTHS, lambda i: model.clientModel.service.get_aluminum_effective_lengths(i), 'from RFEM.TypesForAluminumDesign.aluminumEffectiveLengths import AluminumEffectiveLengths\n', 'AluminumEffectiveLengths'],
             [ObjectTypes.E_OBJECT_TYPE_ALUMINUM_MEMBER_LOCAL_SECTION_REDUCTION, lambda i: model.clientModel.service.get_aluminum_member_local_section_reduction(i), 'from RFEM.TypesForAluminumDesign.aluminumMemberLocalSectionReduction import AluminumMemberLocalSectionReduction\n', 'AluminumMemberLocalSectionReduction'],
-            #[ObjectTypes.E_OBJECT_TYPE_ALUMINUM_MEMBER_ROTATIONAL_RESTRAINT, lambda i: model.clientModel.service.get_aluminum_member_rotational_restraint(i), 'from RFEM.TypesForAluminumDesign.aluminumMemberRotationalRestraints import AluminumMemberRotationalRestraint\n', 'AluminumMemberRotationalRestraint'],
-            #[ObjectTypes.E_OBJECT_TYPE_ALUMINUM_MEMBER_SHEAR_PANEL, lambda i: model.clientModel.service.get_aluminum_member_shear_panel(i), 'from RFEM.TypesForAluminumDesign.aluminumMemberShearPanel import AluminumMemberShearPanel\n', 'AluminumMemberShearPanel'],
             [ObjectTypes.E_OBJECT_TYPE_ALUMINUM_MEMBER_TRANSVERSE_WELD, lambda i: model.clientModel.service.get_aluminum_member_transverse_weld(i), 'from RFEM.TypesForAluminumDesign.aluminumMemberTransverseWelds import AluminumMemberTransverseWeld\n', 'AluminumMemberTransverseWeld'],
             # steel_joints
             # craneways
@@ -187,7 +181,7 @@ class GetAllObjects:
             [ObjectTypes.E_OBJECT_TYPE_FREE_POLYGON_LOAD, lambda i: model.clientModel.service.get_free_polygon_load(i), 'from RFEM.Loads.freeLoad import PolygonLoad\n', 'PolygonLoad'],
             [ObjectTypes.E_OBJECT_TYPE_IMPOSED_NODAL_DEFORMATION, lambda i: model.clientModel.service.get_imposed_nodal_deformation(i), 'from RFEM.Loads.imposedNodalDeformation import ImposedNodalDeformation\n', 'ImposedNodalDeformation'],
             [ObjectTypes.E_OBJECT_TYPE_IMPOSED_LINE_DEFORMATION, lambda i: model.clientModel.service.get_imposed_line_deformation(i), 'from RFEM.Loads.imposedLineDeformation import ImposedLineDeformation\n', 'ImposedLineDeformation']]
-            # calculations_diagra
+            # calculations_diagram
             #[ObjectTypes.E_OBJECT_TYPE_RESPONSE_SPECTRUM, lambda i: model.clientModel.service.get_response_spectrum(i), 'from RFEM.DynamicLoads.responseSpectrum import ResponseSpectrum\n', 'ResponseSpectrum']]
 
         def convertSubclases(param):
