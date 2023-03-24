@@ -93,6 +93,9 @@ class LineSupport():
         elif isinstance(support_type, list) and len(support_type) == 6:
             clientObject = setLineSupportConditions(clientObject, support_type[0], support_type[1], support_type[2], support_type[3], support_type[4], support_type[5])
 
+        else:
+            raise ValueError('Support parameter can be enum or list with 6 items.')
+
         # Comment
         clientObject.comment = comment
 

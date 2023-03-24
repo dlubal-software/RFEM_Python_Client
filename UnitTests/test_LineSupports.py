@@ -8,7 +8,7 @@ sys.path.append(PROJECT_ROOT)
 
 from RFEM.dataTypes import inf
 from RFEM.initModel import Model
-from RFEM.enums import *
+from RFEM.enums import LineSupportType
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.TypesForLines.lineSupport import LineSupport
@@ -65,4 +65,3 @@ def test_LineSupports():
     assert ls4.rotational_restraint.x == 0.0
     assert ls4.rotational_restraint.y == 0.0
     assert ls4.rotational_restraint.z == 0.0
-
