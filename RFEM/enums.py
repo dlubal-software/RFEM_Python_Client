@@ -1674,12 +1674,6 @@ class DirectionType(Enum):
     '''
     E_DIRECTION_DEPTH_NEGATIVE, E_DIRECTION_DEPTH_POSITIVE, E_DIRECTION_WIDTH_NEGATIVE, E_DIRECTION_WIDTH_POSITIVE = range(4)
 
-class PositionOnSection(Enum):
-    '''
-    Timber Member Shear Panel Position On Section
-    '''
-    POSITION_DEFINE, POSITION_IN_CENTROID, POSITION_ON_LOWER_FLANGE, POSITION_ON_UPPER_FLANGE = range(4)
-
 class TimberServiceClassServiceClass(Enum):
     '''
     Timber Service Class Service Classs
@@ -1715,24 +1709,6 @@ class AluminumMemberRotationalRestraintRotationalStiffness(Enum):
     Steel Member Rotational Restraint Rotational Stiffness
     '''
     ROTATIONAL_STIFFNESS_INFINITELY, ROTATIONAL_STIFFNESS_MANUALLY = range(2)
-
-class AluminumMemberShearPanelDefinitionType(Enum):
-    '''
-    Aluminum Member Shear Panel Definition Type
-    '''
-    DEFINITION_TYPE_BRACING, DEFINITION_TYPE_DEFINE_S_PROV, DEFINITION_TYPE_TRAPEZOIDAL_SHEETING, DEFINITION_TYPE_TRAPEZOIDAL_SHEETING_AND_BRACING = range(4)
-
-class AluminumMemberShearPanelPositionOnSection(Enum):
-    '''
-    Aluminum Member Shear Panel Position On Section
-    '''
-    POSITION_DEFINE, POSITION_IN_CENTROID, POSITION_ON_LOWER_FLANGE, POSITION_ON_UPPER_FLANGE = range(4)
-
-class AluminumMemberShearPanelFasteningArrangement(Enum):
-    '''
-    Aluminum Member Shear Panel Fastening Arrangement
-    '''
-    FASTENING_ARRANGEMENT_EVERY_RIB, FASTENING_ARRANGEMENT_EVERY_SECOND_RIB = range(2)
 
 class SteelEffectiveLengthsDeterminationMcrIs800(Enum):
     '''
@@ -1838,24 +1814,6 @@ class SteelEffectiveLengthsMemberTypeZZ(Enum):
     Steel Effective Lengths Member Type ZZ
     '''
     MEMBER_TYPE_BEAM, MEMBER_TYPE_CANTILEVER = range(2)
-
-class SteelMemberShearPanelDefinitionType(Enum):
-    '''
-    Steel Member Shear Panel Definition Type
-    '''
-    DEFINITION_TYPE_BRACING, DEFINITION_TYPE_DEFINE_S_PROV, DEFINITION_TYPE_TRAPEZOIDAL_SHEETING, DEFINITION_TYPE_TRAPEZOIDAL_SHEETING_AND_BRACING = range(4)
-
-class SteelMemberShearPanelPositionOnSection(Enum):
-    '''
-    Steel Member Shear Panel Position On Section
-    '''
-    POSITION_DEFINE, POSITION_IN_CENTROID, POSITION_ON_LOWER_FLANGE, POSITION_ON_UPPER_FLANGE = range(4)
-
-class SteelMemberShearPanelFasteningArrangement(Enum):
-    '''
-    Steel Member Shear Panel Fastening Arrangement
-    '''
-    FASTENING_ARRANGEMENT_EVERY_RIB, FASTENING_ARRANGEMENT_EVERY_SECOND_RIB = range(2)
 
 class SteelMemberRotationalRestraintType(Enum):
     '''
@@ -2442,3 +2400,45 @@ class ThicknessIntegrationMethod(Enum):
     Types of Integration Methods
     '''
     INTEGRATION_METHOD_TYPE_GAUSS_LOBATTO_QUADRATURE, INTEGRATION_METHOD_TYPE_SIMPSONS_RULE, INTEGRATION_METHOD_TYPE_TRAPEZOIDAL_RULE = range(3)
+
+class MemberShearPanelDefinitionType(Enum):
+    '''
+    Member Shear Panel Definition Type
+    '''
+    DEFINITION_TYPE_BRACING, DEFINITION_TYPE_DEFINE_S_PROV, DEFINITION_TYPE_TRAPEZOIDAL_SHEETING, DEFINITION_TYPE_TRAPEZOIDAL_SHEETING_AND_BRACING = range(4)
+
+class MemberShearPanelFasteningArrangement(Enum):
+    '''
+    Member Shear Panel Fastening Arrangement
+    '''
+    FASTENING_ARRANGEMENT_EVERY_RIB, FASTENING_ARRANGEMENT_EVERY_SECOND_RIB = range(2)
+
+class MemberShearPanelPositionOnSection(Enum):
+    '''
+    Member Shear Panel Position On Section
+    '''
+    POSITION_DEFINE, POSITION_IN_CENTROID, POSITION_ON_LOWER_FLANGE, POSITION_ON_UPPER_FLANGE = range(4)
+
+class MemberRotationalRestraintSheetingPosition(Enum):
+    '''
+    Member Rotational Restraint Position of Sheeting
+    '''
+    SHEETING_POSITION_NEGATIVE, SHEETING_POSITION_POSITIVE = range(2)
+
+class MemberRotationalRestraintRotationalStiffness(Enum):
+    '''
+    Member Rotational Restraint Rotational Stiffness
+    '''
+    ROTATIONAL_STIFFNESS_INFINITELY, ROTATIONAL_STIFFNESS_MANUALLY = range(2)
+
+class MemberRotationalRestraintType(Enum):
+    '''
+    Member Rotational Restraint Type
+    '''
+    TYPE_CONTINUOUS, TYPE_DISCRETE, TYPE_MANUALLY = range(3)
+
+class MemberRotationalRestraintContinousBeamEffect(Enum):
+    '''
+    Member Rotational Restraint Continous Beam Effect
+    '''
+    CONTINUOUS_BEAM_EFFECT_END_PANEL, CONTINUOUS_BEAM_EFFECT_INTERNAL_PANEL = range(2)
