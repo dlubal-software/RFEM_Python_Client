@@ -196,9 +196,5 @@ def test_GetObjectNumbersByType():
 
     objects, imports = GetAllObjects()
 
-    #f=open('D:/Sources/getAllObjectsExport.txt', 'w', encoding='utf8')
-    #f.writelines(objects)
-    #f.close()
-
     assert objects == objects_check
     assert imports == imports_check
