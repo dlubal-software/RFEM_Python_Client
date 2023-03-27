@@ -18,10 +18,14 @@ class NodalRelease():
 
         '''
          Args:
-            no (int): Node Tag
-            coordinate_X (float): X-Coordinate
-            coordinate_Y (float): Y-Coordinate
-            coordinate_Z (float): Z-Coordinate
+            no (int): Nodal Release Tag
+            nodes (str): Nodes
+            nodal_release_type (int): Nodale Release Type
+            release_location (enums): Nodal Release Release Location
+            released_members (str): Released Members
+            released_surfaces (str): Released Surfaces
+            released_solids (str): Released Solids
+            deactivate_release (bool): Deactivate Release
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited

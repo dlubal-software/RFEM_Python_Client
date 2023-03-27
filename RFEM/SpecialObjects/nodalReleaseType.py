@@ -29,10 +29,10 @@ class NodalReleaseType():
         '''
          Args:
             no (int): Nodal Release Type Tag
-            coordinate_system (str): Coordinate System Selection
-            translational_release_n_nonlinearity (list): Nonlinearity Parameter for Translation Release along X Direction
-            translational_release_vy_nonlinearity (list): Nonlinearity Parameter for Translation Release along Y Direction
-            translational_release_vz_nonlinearity (list): Nonlinearity Parameter for Translation Release along Z Direction
+            coordinate_system (str/int): Coordinate System Selection
+            translational_release_n_nonlinearity (list/list of lists): Nonlinearity Parameter for Translation Release along X Direction
+            translational_release_vy_nonlinearity (list/list of lists): Nonlinearity Parameter for Translation Release along Y Direction
+            translational_release_vz_nonlinearity (list/list of lists): Nonlinearity Parameter for Translation Release along Z Direction
                 for translational_release_n/vy/vz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
                     translational_release_n/vy/vz_nonlinearity = [nonlinearity type Partial_Activity, negative zone, positive zone]
                     for negative/positive zone[0] == NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_COMPLETE:
@@ -43,7 +43,7 @@ class NodalReleaseType():
                         negative/positive zone = [negative/positive zone type, force, slippage]
                 for translational_release_n/vy/vz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
                     translational_release_n/vy/vz_nonlinearity = [nonlinearity type Diagram, [symmetric(bool), NodalReleaseTypeDiagram Enumeration(start), NodalReleaseTypeDiagram Enumeration(end)], [[displacement, force],...]]
-            rotational_release_mt/my/mz_nonlinearity (list): Nonlinearity Parameter for Rotational Release around X Direction
+            rotational_release_mt/my/mz_nonlinearity (list/list of lists): Nonlinearity Parameter for Rotational Release around X Direction
                 for rotational_release_mt/my/mz_nonlinearity[0] == NodalReleaseTypePartialActivityAround.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
                     rotational_release_mt/my/mz_nonlinearity = [nonlinearity type Partial_Activity, negative zone, positive zone]
                     for negative/positive zone[0] == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_COMPLETE:
