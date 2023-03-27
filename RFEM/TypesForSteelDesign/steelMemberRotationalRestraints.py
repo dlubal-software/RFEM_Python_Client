@@ -62,8 +62,7 @@ class SteelMemberRotationalRestraint():
             raise ValueError("WARNING: The steelMemberRotationalRestraints operates with the RFEM Application set to English. Kindly switch RFEM to English such that Database searches can completed successfully.")
 
         # Check if Steel Design Add-on is ON.
-        if not GetAddonStatus(model.clientModel, AddOn.steel_design_active):
-            SetAddonStatus(model.clientModel, AddOn.steel_design_active, True)
+        SetAddonStatus(model.clientModel, AddOn.steel_design_active, True)
 
         # Client Model / Types For Steel Design Member Rotational Restraints
         clientObject = model.clientModel.factory.create('ns0:steel_member_rotational_restraint')

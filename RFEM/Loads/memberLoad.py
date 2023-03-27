@@ -224,6 +224,7 @@ class MemberLoad():
                     raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
+                mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
@@ -278,6 +279,7 @@ class MemberLoad():
                     raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
+                mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
@@ -295,6 +297,7 @@ class MemberLoad():
                     raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
+                mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
@@ -504,6 +507,7 @@ class MemberLoad():
                     raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
+                mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
@@ -558,6 +562,7 @@ class MemberLoad():
                     raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
+                mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
@@ -792,6 +797,7 @@ class MemberLoad():
                     raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
+                mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
@@ -952,6 +958,7 @@ class MemberLoad():
                     raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
+                mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
@@ -1101,6 +1108,7 @@ class MemberLoad():
                     raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
+                mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
@@ -1315,6 +1323,7 @@ class MemberLoad():
                     raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
+                mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
@@ -1553,6 +1562,7 @@ class MemberLoad():
                     raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
+                mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
@@ -1614,6 +1624,7 @@ class MemberLoad():
                     raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
+                mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
@@ -1787,6 +1798,7 @@ class MemberLoad():
                     raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
+                mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
@@ -1848,6 +1860,7 @@ class MemberLoad():
                     raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
+                mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.note = None
