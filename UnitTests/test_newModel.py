@@ -17,12 +17,13 @@ def test_NewModelAsCopy():
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    nm = NewModelAsCopy()
+    nm = NewModelAsCopy('TestModel.rf6')
 
     Model.clientModel.service.finish_modification()
 
     nmserver = client.service.new_model_as_copy().model_name
-    assert nm.model_name == nmserver
+
+    assert nm.model_name == 'TestModel.rf6'
 
 
 def test_NewModelFromTemplate():

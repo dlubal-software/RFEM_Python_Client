@@ -22,9 +22,9 @@ def test_ModelParameters():
     Model.clientModel.service.finish_modification()
 
     assert m.model_parameters[0].no == 1
-    assert m.model_parameters[2].row['name'] == 'Client Name'
-    assert m.model_parameters[3].row['description_1'] == 'Dlubal Software GmbH'
-    assert m.model_parameters[4].row['description_2'] == 'h'
+    assert m.model_parameters[2].row['name'] == 'Client name'
+    assert m.model_parameters[1].row['description_2'] == 'Unique project identifier'
+    assert m.model_parameters[3].row['description_2'] == None
 
 
 # Session ID changes with every call
