@@ -86,6 +86,7 @@ class LoadCombination():
         for i,j in enumerate(combination_items):
             mlvlp = model.clientModel.factory.create('ns0:load_combination_items_row')
             mlvlp.no = i+1
+            mlvlp.row = model.clientModel.factory.create('ns0:load_combination_items')
             mlvlp.row.factor = combination_items[i][0]
             mlvlp.row.load_case = combination_items[i][1]
             mlvlp.row.action = combination_items[i][2]
@@ -110,7 +111,6 @@ class LoadCombination():
             mlvlp.row.k_creep=0
             mlvlp.row.shift=0
             mlvlp.row.amplitude_function_type = "CONSTANT"
-
 
             clientObject.items.load_combination_items.append(mlvlp)
 

@@ -2454,3 +2454,27 @@ class ModelLocationRowType(Enum):
     Model Location Row Type Enumeration
     '''
     E_ROW_ALTITUDE, E_ROW_CITY, E_ROW_COUNTRY_ISO, E_ROW_LATITUDE, E_ROW_LONGITUDE, E_ROW_STATE, E_ROW_STREET, E_ROW_ZIP = range(8)
+
+class NoteType(Enum):
+    '''
+    Note Type Enumeration
+    '''
+    NOTE_TYPE_LINE, NOTE_TYPE_MEMBER, NOTE_TYPE_NODE, NOTE_TYPE_POINT, NOTE_TYPE_SURFACE = range(5)
+
+class NoteOffsetType(Enum):
+    '''
+    Note Offset Type Enumeration
+    '''
+    OFFSET_TYPE_XY, OFFSET_TYPE_XYZ, OFFSET_TYPE_XZ, OFFSET_TYPE_YZ = range(4)
+
+class NoteMemberReferenceType(Enum):
+    '''
+    Note Member Reference Type Enumeration
+    '''
+    REFERENCE_TYPE_L, REFERENCE_TYPE_XY, REFERENCE_TYPE_XZ, REFERENCE_TYPE_YZ = range(4)
+
+class NoteSurfaceReferenceType(Enum):
+    '''
+    Note Surface Reference Type Enumeration
+    '''
+    OFFSET_TYPE_XY, OFFSET_TYPE_XZ, OFFSET_TYPE_YZ = range(3)

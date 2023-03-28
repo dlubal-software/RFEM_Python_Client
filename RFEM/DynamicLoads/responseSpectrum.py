@@ -57,6 +57,7 @@ class ResponseSpectrum():
             for i,j in enumerate(user_defined_spectrum):
                 rsp = model.clientModel.factory.create('ns0:response_spectrum_user_defined_response_spectrum_row')
                 rsp.no = i+1
+                rsp.row = model.clientModel.factory.create('ns0:response_spectrum_user_defined_response_spectrum')
                 rsp.row.period = user_defined_spectrum[i][0]
                 rsp.row.acceleration = user_defined_spectrum[i][1]
 
@@ -133,6 +134,7 @@ class ResponseSpectrum():
         for i,j in enumerate(user_defined_spectrum):
             rsp = model.clientModel.factory.create('ns0:response_spectrum_user_defined_response_spectrum_row')
             rsp.no = i+1
+            rsp.row = model.clientModel.factory.create('ns0:response_spectrum_user_defined_response_spectrum')
             rsp.row.period = user_defined_spectrum[i][0]
             rsp.row.acceleration = user_defined_spectrum[i][1]
 

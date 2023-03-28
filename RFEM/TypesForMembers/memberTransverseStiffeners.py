@@ -78,6 +78,7 @@ class MemberTransverseStiffeners():
         for i in components:
             mlvlp = Model.clientModel.factory.create('ns0:member_transverse_stiffener_components_row')
             mlvlp.no = i['no']
+            mlvlp.row = Model.clientModel.factory.create('ns0:member_transverse_stiffener_components')
             mlvlp.row.stiffener_type = i['stiffener_type'].name
             mlvlp.row.position = i['position']
             mlvlp.row.position_type = i['position_type'].name

@@ -110,6 +110,7 @@ class SteelBoundaryConditions():
         for i,j in enumerate(nodal_supports):
             mlvlp = model.clientModel.factory.create('ns0:steel_boundary_conditions_nodal_supports_row')
             mlvlp.no = i+1
+            mlvlp.row = model.clientModel.factory.create('ns0:steel_boundary_conditions_nodal_supports')
             mlvlp.row.node_seq_no = nodal_supports[i][0]
             mlvlp.row.support_type = nodal_supports[i][1].name
             mlvlp.row.support_in_x = nodal_supports[i][2]
@@ -144,6 +145,7 @@ class SteelBoundaryConditions():
         for i,j in enumerate(member_hinges):
             mlvlp = model.clientModel.factory.create('ns0:steel_boundary_conditions_member_hinges_row')
             mlvlp.no = i+1
+            mlvlp.row = model.clientModel.factory.create('ns0:steel_boundary_conditions_member_hinges')
             mlvlp.row.node_seq_no = member_hinges[i][0]
             mlvlp.row.release_in_x = member_hinges[i][1]
             mlvlp.row.release_in_y = member_hinges[i][2]

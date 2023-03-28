@@ -124,6 +124,7 @@ class SteelEffectiveLengths():
         for i,j in enumerate(nodal_supports):
             mlvlp = model.clientModel.factory.create('ns0:steel_effective_lengths_nodal_supports_row')
             mlvlp.no = i+1
+            mlvlp.row = model.clientModel.factory.create('ns0:steel_effective_lengths_nodal_supports')
             mlvlp.row.support_type = nodal_supports[i][0].name
             mlvlp.row.support_in_z = nodal_supports[i][1]
             mlvlp.row.support_spring_in_y = nodal_supports[i][2]
@@ -146,6 +147,7 @@ class SteelEffectiveLengths():
         for i,j in enumerate(factors):
             mlvlp_f = model.clientModel.factory.create('ns0:steel_effective_lengths_factors_row')
             mlvlp_f.no = i+1
+            mlvlp_f.row = model.clientModel.factory.create('ns0:steel_effective_lengths_factors')
             mlvlp_f.row.flexural_buckling_u = factors[i][0]
             mlvlp_f.row.flexural_buckling_v = factors[i][1]
             mlvlp_f.row.flexural_buckling_y = factors[i][2]
