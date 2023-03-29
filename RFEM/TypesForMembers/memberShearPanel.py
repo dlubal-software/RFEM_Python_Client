@@ -21,8 +21,7 @@ class MemberShearPanel():
         coefficient_k2: float = 0.0123,
         position_on_section_value: float = 1.0,
         comment: str = '',
-        params: dict = None
-    ):
+        params: dict = None):
         """
         Args:
             no (int): Member Shear Panel Tag
@@ -131,8 +130,7 @@ class MemberShearPanel():
         posts_section_area: float = 0.0009,
         position_on_section_value: float = 1.0,
         comment: str = '',
-        params: dict = None
-    ):
+        params: dict = None):
         """
         Args:
             no (int): Member Shear Panel Tag
@@ -245,8 +243,7 @@ class MemberShearPanel():
         shear_panel_stiffness: float = 1000.0,
         position_on_section_value: float = 1.0,
         comment: str = '',
-        params: dict = None
-    ):
+        params: dict = None):
         """
         Args:
             no (int): Member Shear Panel Tag

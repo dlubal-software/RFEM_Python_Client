@@ -5,8 +5,8 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.enums import SurfacesShapeOfFiniteElements, OptimizeOnType, Optimizer
-from RFEM.initModel import Model, client
+from RFEM.enums import SurfacesShapeOfFiniteElements, OptimizeOnType, Optimizer, AddOn
+from RFEM.initModel import Model, client, SetAddonStatus
 from RFEM.Calculate.meshSettings import GetMeshSettings, MeshSettings, GetModelInfo
 from RFEM.Calculate.optimizationSettings import OptimizationSettings
 from UnitTests.test_solids import test_solids_and_solid_sets
@@ -21,6 +21,7 @@ def test_mesh_settings():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
+    SetAddonStatus(Model.clientModel, AddOn.wind_simulation_active, False)
 
     common = MeshSettings.ComonMeshConfig
     common['general_target_length_of_fe'] = 0.4321

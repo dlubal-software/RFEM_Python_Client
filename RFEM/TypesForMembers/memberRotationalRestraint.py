@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, GetAddonStatus, SetAddonStatus
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import MemberRotationalRestraintContinousBeamEffect, MemberRotationalRestraintRotationalStiffness, MemberRotationalRestraintSheetingPosition, MemberRotationalRestraintType
 
 class MemberRotationalRestraint():
@@ -24,8 +24,7 @@ class MemberRotationalRestraint():
         spring_stiffness: float = 5200.0,
         beam_spacing: float= 3.0,
         comment: str = '',
-        params: dict = None
-    ):
+        params: dict = None):
         """
         Args:
             no (int): Member Rotational Restraint Tag
@@ -69,7 +68,7 @@ class MemberRotationalRestraint():
         clientObject.member_supports = ConvertToDlString(member_supports)
 
         # Member Rotational Restraint Definition Type
-        clientObject.type = "TYPE_CONTINUOUS"
+        clientObject.type = MemberRotationalRestraintType.TYPE_CONTINUOUS.name
 
         # Member Rotational Restraint Sheeting Material Name
         clientObject.material_name = sheeting_material
@@ -136,8 +135,7 @@ class MemberRotationalRestraint():
         purlin_spacing: float = 1.0,
         beam_spacing: float = 3.0,
         comment: str = '',
-        params: dict = None
-    ):
+        params: dict = None):
         """
         Args:
             no (int): Member Rotational Restraint Tag
@@ -182,7 +180,7 @@ class MemberRotationalRestraint():
         clientObject.member_supports = ConvertToDlString(member_supports)
 
         # Member Rotational Restraint Definition Type
-        clientObject.type = "TYPE_DISCRETE"
+        clientObject.type = MemberRotationalRestraintType.TYPE_DISCRETE.name
 
         # Member Rotational Restraint Section Material Name
         clientObject.material_name = section_material
@@ -192,7 +190,7 @@ class MemberRotationalRestraint():
 
         # Member Rotational Restraint Stiffness Cda
         clientObject.rotational_stiffness = rotational_stifness[0].name
-        if rotational_stifness[0].name == "ROTATIONAL_STIFFNESS_MANUALLY":
+        if rotational_stifness[0].name == MemberRotationalRestraintRotationalStiffness.ROTATIONAL_STIFFNESS_MANUALLY.name:
             clientObject.rotational_stiffness_value = rotational_stifness[1]
 
         # Member Rotational Restraint Continuous Beam Effect
@@ -234,8 +232,20 @@ class MemberRotationalRestraint():
         member_supports: str = '1',
         rotational_spring_stiffness: float = 3000.0,
         comment: str = '',
-        params: dict = None
-    ):
+        params: dict = None):
+        """
+        Args:
+            no (int): Member Rotational Restraint Tag
+            name (str): Member Shear Panel Name
+                if name == '':
+                    user_defined_name = False (Automatic Name Assignment)
+                else:
+                    user_defined_name = name
+            member_supports (str): Assigned Member Supports
+            rotational_spring_stiffness (float): Rotational Spring Stiffness
+            comment (str, optional): Comment
+            params (dict, optional): Params
+        """
 
         # Client Model | Member Rotational Restraint
         clientObject = Model.clientModel.factory.create('ns0:member_rotational_restraint')
@@ -255,7 +265,7 @@ class MemberRotationalRestraint():
         clientObject.member_supports = ConvertToDlString(member_supports)
 
         # Member Rotational Restraint Definition Type
-        clientObject.type = "TYPE_MANUALLY"
+        clientObject.type = MemberRotationalRestraintType.TYPE_MANUALLY.name
 
         # Member Rotational Restraint Total Rotational Spring Stiffness
         clientObject.total_rotational_spring_stiffness = rotational_spring_stiffness

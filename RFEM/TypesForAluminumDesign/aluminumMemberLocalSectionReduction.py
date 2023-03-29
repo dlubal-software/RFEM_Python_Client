@@ -68,9 +68,9 @@ class AluminumMemberLocalSectionReduction():
 
         for i,j in enumerate(components):
             smlsr = model.clientModel.factory.create('ns0:aluminum_member_local_section_reduction_components_row')
-            clearAttributes(smlsr.row)
-
             smlsr.no = i+1
+            smlsr.row = model.clientModel.factory.create('ns0:aluminum_member_local_section_reduction_components')
+            clearAttributes(smlsr.row)
             smlsr.row.reduction_type = components[i][0].name
             smlsr.row.position = components[i][1]
             smlsr.row.multiple = components[i][2]

@@ -7,7 +7,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.initModel import Model, SetAddonStatus
-from RFEM.enums import *
+from RFEM.enums import AddOn, MemberShearPanelPositionOnSection
 from RFEM.TypesForMembers.memberShearPanel import MemberShearPanel
 
 if Model.clientModel is None:
@@ -26,7 +26,7 @@ def test_memberShearPanel():
 
     MemberShearPanel.TrapezodialSheeting()
 
-    MemberShearPanel.TrapezodialSheeting(2, position_on_section=MemberShearPanelPositionOnSection.POSITION_ON_LOWER_FLANGE)
+    MemberShearPanel.TrapezodialSheeting(2, position_on_section = MemberShearPanelPositionOnSection.POSITION_ON_LOWER_FLANGE)
 
     MemberShearPanel.Bracing(3, panel_length=4)
 
