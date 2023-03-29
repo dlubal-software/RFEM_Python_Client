@@ -232,7 +232,6 @@ class LineLoad():
                 mlvlp.row = model.clientModel.factory.create('ns0:line_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
 
                 clientObject.varying_load_parameters.line_load_varying_load_parameters.append(mlvlp)
 
@@ -293,7 +292,6 @@ class LineLoad():
                 mlvlp.row = model.clientModel.factory.create('ns0:line_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
 
                 clientObject.varying_load_parameters.line_load_varying_load_parameters.append(mlvlp)
 
@@ -479,7 +477,6 @@ class LineLoad():
                 mlvlp.row = model.clientModel.factory.create('ns0:line_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
 
                 clientObject.varying_load_parameters.line_load_varying_load_parameters.append(mlvlp)
 
@@ -540,7 +537,6 @@ class LineLoad():
                 mlvlp.row = model.clientModel.factory.create('ns0:line_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
 
                 clientObject.varying_load_parameters.line_load_varying_load_parameters.append(mlvlp)
 

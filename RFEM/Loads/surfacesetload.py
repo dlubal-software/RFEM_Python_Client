@@ -175,9 +175,7 @@ class SurfaceSetLoad():
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:surface_set_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
                 mlvlp.row.magnitude = load_parameter[i][2]
-                mlvlp.row.note = None
                 clientObject.varying_load_parameters.surface_set_load_varying_load_parameters.append(mlvlp)
                 clientObject.varying_load_parameters_sorted = True
 
