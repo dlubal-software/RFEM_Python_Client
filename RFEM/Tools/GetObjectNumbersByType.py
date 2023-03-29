@@ -1,5 +1,6 @@
 from RFEM.initModel import Model
 from RFEM.enums import ObjectTypes
+from suds.sax.text import Text
 
 class GetObjectNumbersByType:
 
@@ -103,7 +104,7 @@ class GetAllObjects:
             [ObjectTypes.E_OBJECT_TYPE_MEMBER_DEFINABLE_STIFFNESS, lambda i: model.clientModel.service.get_member_definable_stiffness(i), 'from RFEM.TypesForMembers.memberDefinableStiffness import MemberDefinableStiffness\n', 'MemberDefinableStiffness'],
             [ObjectTypes.E_OBJECT_TYPE_MEMBER_RESULT_INTERMEDIATE_POINT, lambda i: model.clientModel.service.get_member_result_intermediate_point(i), 'from RFEM.TypesForMembers.memberResultIntermediatePoints import MemberResultIntermediatePoint\n', 'MemberResultIntermediatePoint'],
             # design_support
-            [ObjectTypes.E_OBJECT_TYPE_MEMBER_ROTATIONAL_RESTRAINT, lambda i: model.clientModel.service.get_member_rotational_restraint(i), 'from RFEM.TypesForMembers.memberRotationalRestraints import MemberRotationalRestraint\n', 'MemberRotationalRestraint'],
+            [ObjectTypes.E_OBJECT_TYPE_MEMBER_ROTATIONAL_RESTRAINT, lambda i: model.clientModel.service.get_member_rotational_restraint(i), 'from RFEM.TypesForMembers.memberRotationalRestraint import MemberRotationalRestraint\n', 'MemberRotationalRestraint'],
             [ObjectTypes.E_OBJECT_TYPE_MEMBER_SHEAR_PANEL, lambda i: model.clientModel.service.get_member_shear_panel(i), 'from RFEM.TypesForMembers.memberShearPanel import MemberShearPanel\n', 'MemberShearPanel'],
 
             [ObjectTypes.E_OBJECT_TYPE_SURFACE_SUPPORT, lambda i: model.clientModel.service.get_surface_support(i), 'from RFEM.TypesForSurfaces.surfaceSupport import SurfaceSupport\n', 'SurfaceSupport'],
@@ -188,15 +189,18 @@ class GetAllObjects:
             '''
             Convert structures/parameters to approriate structure
             '''
-
             if isinstance(param, str) or isinstance(param, int) or isinstance(param, float) or isinstance(param, bool):
                 pass
             elif isinstance(param, list):
                 toDel = []
                 for i,j in enumerate(param):
-                    # Parameters of value None or UNKNOWN are not exported
-                    if j == None or j == 'UNKNOWN':
+                    # Parameters of value None, UNKNOWN or "" are not exported
+                    if j == None or j == 'UNKNOWN' or j == "":
                         toDel.append(i)
+                    elif isinstance(j, Text):
+                        # Change to string
+                        param[i] = str(j)
+
                     else:
                         param[i] = convertSubclases(j)
                 for td in toDel:
@@ -205,9 +209,12 @@ class GetAllObjects:
                 param = dict(param)
                 toDel = []
                 for key in param.keys().__reversed__():
-                    # Parameters of value None or UNKNOWN are not exported
-                    if param[key] == None or param[key] == 'UNKNOWN':
+                    # Parameters of value None, UNKNOWN or "" are not exported
+                    if param[key] == None or param[key] == 'UNKNOWN' or param[key] == "":
                         toDel.append(key)
+                    elif isinstance(param[key], Text):
+                        # Change to string
+                        param[key] = str(param[key])
                     else:
                         param[key] = convertSubclases(param[key])
                 for td in toDel:

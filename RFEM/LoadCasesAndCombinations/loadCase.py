@@ -1,6 +1,8 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
-from RFEM.enums import AnalysisType, ActionCategoryType
+from RFEM.enums import AnalysisType, ActionCategoryType, ObjectTypes
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.Tools.GetObjectNumbersByType import GetObjectNumbersByType
 
 
 class LoadCase():
@@ -42,7 +44,12 @@ class LoadCase():
 
         # Analysis Type
         clientObject.analysis_type = AnalysisType.ANALYSIS_TYPE_STATIC.name
-        clientObject.static_analysis_settings = 1
+        sas = GetObjectNumbersByType(ObjectTypes.E_OBJECT_TYPE_STATIC_ANALYSIS_SETTINGS)
+        if sas:
+            clientObject.static_analysis_settings = sas[0]
+        else:
+            StaticAnalysisSettings(1)
+            clientObject.static_analysis_settings = 1
 
         # Action Category
         if action_category.name not in LoadCasesAndCombinations.getAvailableLoadActionCategoryTypes():
@@ -122,7 +129,12 @@ class LoadCase():
 
         # Analysis Type
         clientObject.analysis_type = AnalysisType.ANALYSIS_TYPE_STATIC.name
-        clientObject.static_analysis_settings = analysis_settings_no
+        sas = GetObjectNumbersByType(ObjectTypes.E_OBJECT_TYPE_STATIC_ANALYSIS_SETTINGS)
+        if analysis_settings_no in sas:
+            clientObject.static_analysis_settings = analysis_settings_no
+        else:
+            StaticAnalysisSettings(1)
+            clientObject.static_analysis_settings = 1
 
         # Action Category
         if action_category.name not in LoadCasesAndCombinations.getAvailableLoadActionCategoryTypes():

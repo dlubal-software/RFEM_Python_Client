@@ -33,3 +33,6 @@ def test_load_cases_and_combinations():
 
     assert combConfig.current_standard_for_combination_wizard == 6237
     assert combConfig.result_combinations_parentheses_active == False
+
+    # Return LoadCases and Combinations to the original state
+    LoadCasesAndCombinations()

@@ -121,9 +121,9 @@ class TimberMemberLocalSectionReduction():
 
         for i,j in enumerate(components):
             smlsr = model.clientModel.factory.create('ns0:timber_member_local_section_reduction_components_row')
-            clearAttributes(smlsr.row)
-
             smlsr.no = i+1
+            smlsr.row = model.clientModel.factory.create('ns0:timber_member_local_section_reduction_components')
+            clearAttributes(smlsr.row)
             smlsr.row.reduction_type = components[i].reduction_type
             if smlsr.row.reduction_type == 'REDUCTION_COMPONENT_TYPE_RECTANGLE_OPENING':
                 smlsr.row.position = components[i].position

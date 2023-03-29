@@ -65,6 +65,7 @@ class AluminumMemberTransverseWeld():
             clientWeld = model.clientModel.factory.create('ns0:aluminum_member_transverse_weld_components_row')
             clientWeld.no = count+1
             count = count+1
+            clientWeld.row = model.clientModel.factory.create('ns0:aluminum_member_transverse_weld_components')
             clientWeld.row.weld_type = comp['weld_type'].name
             clientWeld.row.position = comp['position']
             clientWeld.row.multiple = comp['multiple']
