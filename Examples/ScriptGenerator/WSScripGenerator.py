@@ -11,8 +11,8 @@ from RFEM.Tools.GetObjectNumbersByType import GetAllObjects
 # Define name of the model from which the data should be exported
 model_name = 'test.rf6'
 
-# Export active model to XML
-model = Model(True, model_name)
+# Connect to model
+model = Model(False, model_name)
 
 # Constant imports
 lines = ['import sys\n',

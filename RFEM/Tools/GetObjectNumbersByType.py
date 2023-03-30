@@ -1,6 +1,7 @@
 from RFEM.initModel import Model, ConvertStrToListOfInt
 from RFEM.enums import ObjectTypes
 from suds.sax.text import Text
+import sys
 
 class GetObjectNumbersByType:
 
@@ -196,9 +197,7 @@ class GetAllObjects:
                 toDel = []
                 for i,j in enumerate(param):
                     # Parameters of value None, UNKNOWN or "" are not exported
-                    if j == None or j == 'UNKNOWN' or j == "" or j == 'nan':
-                        if j == 'nan':
-                            print('nan')
+                    if j == None or j == 'UNKNOWN' or j == "":
                         toDel.append(i)
                     elif isinstance(j, Text):
                         # Change Text to string
@@ -212,9 +211,7 @@ class GetAllObjects:
                 toDel = []
                 for key in param.keys().__reversed__():
                     # Parameters of value None, UNKNOWN or "" are not exported
-                    if param[key] == None or param[key] == 'UNKNOWN' or param[key] == "" or param[key] == 'nan':
-                        if param[key] == 'nan':
-                            print('nan')
+                    if param[key] == None or param[key] == 'UNKNOWN' or param[key] == "":
                         toDel.append(key)
                     elif isinstance(param[key], Text):
                         # Change Text to string
@@ -243,18 +240,27 @@ class GetAllObjects:
         # Get info of each existing object.
         # Add import to lines.
         # Add each object to lines.
-        for func in func_vec:
+        for id, func in enumerate(func_vec):
+
             objNumbers = GetObjectNumbersByType(ObjectType=func[0])
             if objNumbers:
-                imports.append(func[2])
-                for i in objNumbers:
+                addImport = False
+                for idx,i in enumerate(objNumbers):
+
+                    # Print status
+                    percent = (idx/len(objNumbers))*100
+                    sys.stdout.write("                                         ")
+                    sys.stdout.write("\r{}: {:.0f}%, total progress: {:.1f}% ".format((id/len(func_vec))*100,func[3], percent))
+                    sys.stdout.flush()
+
                     try:
                         if isinstance(i, list):
                             params = dict(func[1](i[0], i[1]))
                         else:
                             params = dict(func[1](i))
+                        addImport = True
                     except:
-                        print('ERROR: Object', func[3], 'internal error.')
+                        print('INFO: There seems to a be phantom object or issue in your model. Type:', func[3], ', number:', str(i))
                         continue
                     params = convertSubclases(params)
                     # don't set this parameter
@@ -264,5 +270,9 @@ class GetAllObjects:
                         objects.append(func[3]+str(i[1])+', params='+str(params)+')\n')
                     else:
                         objects.append(func[3]+'(params='+str(params)+')\n')
+
+                # Add import if at least one object was added
+                if addImport:
+                    imports.append(func[2])
 
         return (objects, imports)
