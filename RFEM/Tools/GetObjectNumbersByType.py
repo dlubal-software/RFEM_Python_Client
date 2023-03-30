@@ -229,8 +229,15 @@ class GetAllObjects:
         objects = [] # individual lines written in file
 
         # Load Cases and Combinations setup
-        objects.append('LoadCasesAndCombinations(params='+str(dict(model.clientModel.service.get_load_cases_and_combinations()))+')\n')
+        loadCasesAndCombinations = convertSubclases(dict(model.clientModel.service.get_load_cases_and_combinations()))
+        settingsAndOptions = dict(model.clientModel.service.get_model_settings_and_options())
+        del settingsAndOptions['date_of_zero_day']
+        settingsAndOptions = convertSubclases(settingsAndOptions)
+
+        objects.append('LoadCasesAndCombinations(params='+str(loadCasesAndCombinations)+')\n')
+        objects.append('BaseSettings(params='+str(settingsAndOptions)+')\n')
         imports.append('from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations\n')
+        imports.append('from RFEM.baseSettings import BaseSettings\n')
 
         # Get number of every type of object supported by Client.
         # Get info of each existing object.
