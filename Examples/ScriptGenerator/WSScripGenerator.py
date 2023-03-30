@@ -19,7 +19,7 @@ lines = ['import sys\n',
          'sys.path.append("'+rfemDir.replace('\\', '/')+'")\n',
          'from RFEM.enums import *\n',
          'from RFEM.initModel import *\n',
-         'from RFEM.dataTypes import inf\n',
+         'from RFEM.dataTypes import inf, nan\n',
          '\n']
 
 objects, importObjects = GetAllObjects()
@@ -41,6 +41,6 @@ lines.append('Model.clientModel.service.finish_modification()\n')
 lines.append('\n')
 
 # Create file and write data
-f = open(os.path.dirname(__file__)+"/WSgeneratedScript2.py", "w", encoding="utf-8")
+f = open(os.path.dirname(__file__)+"/WSgeneratedScript.py", "w", encoding="utf-8")
 f.writelines(lines)
 f.close()

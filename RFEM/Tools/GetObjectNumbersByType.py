@@ -1,4 +1,4 @@
-from RFEM.initModel import Model
+from RFEM.initModel import Model, ConvertStrToListOfInt
 from RFEM.enums import ObjectTypes
 from suds.sax.text import Text
 
@@ -26,7 +26,9 @@ class GetObjectNumbersByType:
             for i in range(len(ObjectNumber.item)):
                 # this is used when requesting objects in loads (E_OBJECT_TYPE_NODAL_LOAD, E_OBJECT_TYPE_LINE_LOAD etc.)
                 try:
-                    ObjectNumberList.append([ObjectNumber.item[i].children, ObjectNumber.item[i].no])
+                    children = ConvertStrToListOfInt(ObjectNumber.item[i].children)
+                    for c in children:
+                        ObjectNumberList.append([c, ObjectNumber.item[i].no])
                 # all other objects
                 except:
                     ObjectNumberList.append(ObjectNumber.item[i].no)
@@ -49,9 +51,6 @@ class GetAllObjects:
     """
     def __new__(cls,
                 model = Model):
-
-        # Preliminary object number used in the func_vec list
-        i = 0
 
         # Steps to retrieve data from RFEM:
         # 1) get numbers of given object type via GetObjectNumbersByType(),
@@ -147,8 +146,8 @@ class GetAllObjects:
             # craneways
             # cran
             [ObjectTypes.E_OBJECT_TYPE_IMPERFECTION_CASE, lambda i: model.clientModel.service.get_imperfection_case(i), 'from RFEM.Imperfections.imperfectionCase import ImperfectionCase\n', 'ImperfectionCase'],
-            [ObjectTypes.E_OBJECT_TYPE_MEMBER_IMPERFECTION, lambda i: model.clientModel.service.get_member_imperfection(i), 'from RFEM.Imperfections.memberImperfection import MemberImperfection\n', 'MemberImperfection'],
-            [ObjectTypes.E_OBJECT_TYPE_MEMBER_SET_IMPERFECTION, lambda i: model.clientModel.service.get_member_set_imperfection(i), 'from RFEM.Imperfections.membersetImperfection import MemberSetImperfection\n', 'MemberSetImperfection'],
+            [ObjectTypes.E_OBJECT_TYPE_MEMBER_IMPERFECTION, lambda i,j: model.clientModel.service.get_member_imperfection(i,j), 'from RFEM.Imperfections.memberImperfection import MemberImperfection\n', 'MemberImperfection(imperfection_case='],
+            [ObjectTypes.E_OBJECT_TYPE_MEMBER_SET_IMPERFECTION, lambda i: model.clientModel.service.get_member_set_imperfection(i), 'from RFEM.Imperfections.membersetImperfection import MemberSetImperfection\n', 'MemberSetImperfection(imperfection_case='],
             # construction_stag
             [ObjectTypes.E_OBJECT_TYPE_LOAD_CASE, lambda i: model.clientModel.service.get_load_case(i), 'from RFEM.LoadCasesAndCombinations.loadCase import LoadCase\n', 'LoadCase'],
             [ObjectTypes.E_OBJECT_TYPE_DESIGN_SITUATION, lambda i: model.clientModel.service.get_design_situation(i), 'from RFEM.LoadCasesAndCombinations.designSituation import DesignSituation\n', 'DesignSituation'],
@@ -160,39 +159,33 @@ class GetAllObjects:
             [ObjectTypes.E_OBJECT_TYPE_MODAL_ANALYSIS_SETTINGS, lambda i: model.clientModel.service.get_modal_analysis_settings(i), 'from RFEM.LoadCasesAndCombinations.modalAnalysisSettings import ModalAnalysisSettings\n', 'ModalAnalysisSettings'],
             [ObjectTypes.E_OBJECT_TYPE_SPECTRAL_ANALYSIS_SETTINGS, lambda i: model.clientModel.service.get_spectral_analysis_settings(i), 'from RFEM.LoadCasesAndCombinations.spectralAnalysisSettings import SpectralAnalysisSettings\n', 'SpectralAnalysisSettings'],
             [ObjectTypes.E_OBJECT_TYPE_WIND_SIMULATION_ANALYSIS_SETTINGS, lambda i: model.clientModel.service.get_wind_simulation_analysis_settings(i), 'from RFEM.LoadCasesAndCombinations.windSimulationAnalysisSetting import WindSimulationAnalysisSettings\n', 'WindSimulationAnalysisSettings'],
-            [ObjectTypes.E_OBJECT_TYPE_COMBINATION_WIZARD, lambda i: model.clientModel.service.set_combination_wizard(i), 'from RFEM.LoadCasesAndCombinations.combinationWizard import CombinationWizard\n', 'CombinationWizard'],
+            [ObjectTypes.E_OBJECT_TYPE_COMBINATION_WIZARD, lambda i: model.clientModel.service.get_combination_wizard(i), 'from RFEM.LoadCasesAndCombinations.combinationWizard import CombinationWizard\n', 'CombinationWizard'],
             # member_loads_from_area_loads
             # member_loads_from_free_line_load
             # snow_loads
             # wind_loads
             # wind_profiles
             # wind_simulatio
-            [ObjectTypes.E_OBJECT_TYPE_NODAL_LOAD, lambda i,j: model.clientModel.service.get_nodal_load(i,j), 'from RFEM.Loads.nodalLoad import NodalLoad\n', 'NodalLoad'],
-            [ObjectTypes.E_OBJECT_TYPE_LINE_LOAD, lambda i,j: model.clientModel.service.get_line_load(i,j), 'from RFEM.Loads.lineLoad import LineLoad\n', 'LineLoad'],
-            [ObjectTypes.E_OBJECT_TYPE_MEMBER_LOAD, lambda i,j: model.clientModel.service.get_member_load(i,j), 'from RFEM.Loads.memberLoad import MemberLoad\n', 'MemberLoad'],
-            [ObjectTypes.E_OBJECT_TYPE_SURFACE_LOAD, lambda i,j: model.clientModel.service.get_surface_load(i,j), 'from RFEM.Loads.surfaceLoad import SurfaceLoad\n', 'SurfaceLoad'],
-            [ObjectTypes.E_OBJECT_TYPE_OPENING_LOAD, lambda i,j: model.clientModel.service.get_opening_load(i,j), 'from RFEM.Loads.openingLoad import OpeningLoad\n', 'OpeningLoad'],
-            [ObjectTypes.E_OBJECT_TYPE_SOLID_LOAD, lambda i,j: model.clientModel.service.get_solid_load(i,j), 'from RFEM.Loads.solidLoad import SolidLoad\n', 'SolidLoad'],
-            [ObjectTypes.E_OBJECT_TYPE_LINE_SET_LOAD, lambda i,j: model.clientModel.service.get_line_set_load(i,j), 'from RFEM.Loads.linesetLoad import LineSetLoad\n', 'LineSetLoad'],
-            [ObjectTypes.E_OBJECT_TYPE_MEMBER_SET_LOAD, lambda i,j: model.clientModel.service.get_member_set_load(i,j), 'from RFEM.Loads.membersetload import MemberSetLoad\n', 'MemberSetLoad'],
-            [ObjectTypes.E_OBJECT_TYPE_SURFACE_SET_LOAD, lambda i,j: model.clientModel.service.get_surface_set_load(i,j), 'from RFEM.Loads.surfacesetload import SurfaceSetLoad\n', 'SurfaceSetLoad'],
-            [ObjectTypes.E_OBJECT_TYPE_SOLID_SET_LOAD, lambda i,j: model.clientModel.service.get_solid_set_load(i,j), 'from RFEM.Loads.solidSetLoad import SolidSetLoad\n', 'SolidSetLoad'],
-            [ObjectTypes.E_OBJECT_TYPE_FREE_CONCENTRATED_LOAD, lambda i,j: model.clientModel.service.get_free_concentrated_load(i,j), 'from RFEM.Loads.freeLoad import ConcentratedLoad\n', 'ConcentratedLoad'],
-            [ObjectTypes.E_OBJECT_TYPE_FREE_LINE_LOAD, lambda i,j: model.clientModel.service.get_free_line_load(i,j), 'from RFEM.Loads.freeLoad import LineLoad\n', 'LineLoad'],
-            [ObjectTypes.E_OBJECT_TYPE_FREE_RECTANGULAR_LOAD, lambda i,j: model.clientModel.service.get_free_rectangular_load(i,j), 'from RFEM.Loads.freeLoad import RectangularLoad\n', 'RectangularLoad'],
-            [ObjectTypes.E_OBJECT_TYPE_FREE_CIRCULAR_LOAD, lambda i,j: model.clientModel.service.get_free_circular_load(i,j), 'from RFEM.Loads.freeLoad import CircularLoad\n', 'CircularLoad'],
-            [ObjectTypes.E_OBJECT_TYPE_FREE_POLYGON_LOAD, lambda i,j: model.clientModel.service.get_free_polygon_load(i,j), 'from RFEM.Loads.freeLoad import PolygonLoad\n', 'PolygonLoad'],
-            [ObjectTypes.E_OBJECT_TYPE_IMPOSED_NODAL_DEFORMATION, lambda i,j: model.clientModel.service.get_imposed_nodal_deformation(i,j), 'from RFEM.Loads.imposedNodalDeformation import ImposedNodalDeformation\n', 'ImposedNodalDeformation'],
-            [ObjectTypes.E_OBJECT_TYPE_IMPOSED_LINE_DEFORMATION, lambda i,j: model.clientModel.service.get_imposed_line_deformation(i,j), 'from RFEM.Loads.imposedLineDeformation import ImposedLineDeformation\n', 'ImposedLineDeformation']]
+            [ObjectTypes.E_OBJECT_TYPE_NODAL_LOAD, lambda i,j: model.clientModel.service.get_nodal_load(i,j), 'from RFEM.Loads.nodalLoad import NodalLoad\n', 'NodalLoad(load_case_no='],
+            [ObjectTypes.E_OBJECT_TYPE_LINE_LOAD, lambda i,j: model.clientModel.service.get_line_load(i,j), 'from RFEM.Loads.lineLoad import LineLoad\n', 'LineLoad(load_case_no='],
+            [ObjectTypes.E_OBJECT_TYPE_MEMBER_LOAD, lambda i,j: model.clientModel.service.get_member_load(i,j), 'from RFEM.Loads.memberLoad import MemberLoad\n', 'MemberLoad(load_case_no='],
+            [ObjectTypes.E_OBJECT_TYPE_SURFACE_LOAD, lambda i,j: model.clientModel.service.get_surface_load(i,j), 'from RFEM.Loads.surfaceLoad import SurfaceLoad\n', 'SurfaceLoad(load_case_no='],
+            [ObjectTypes.E_OBJECT_TYPE_OPENING_LOAD, lambda i,j: model.clientModel.service.get_opening_load(i,j), 'from RFEM.Loads.openingLoad import OpeningLoad\n', 'OpeningLoad(load_case_no='],
+            [ObjectTypes.E_OBJECT_TYPE_SOLID_LOAD, lambda i,j: model.clientModel.service.get_solid_load(i,j), 'from RFEM.Loads.solidLoad import SolidLoad\n', 'SolidLoad(load_case_no='],
+            [ObjectTypes.E_OBJECT_TYPE_LINE_SET_LOAD, lambda i,j: model.clientModel.service.get_line_set_load(i,j), 'from RFEM.Loads.linesetLoad import LineSetLoad\n', 'LineSetLoad(load_case_no='],
+            [ObjectTypes.E_OBJECT_TYPE_MEMBER_SET_LOAD, lambda i,j: model.clientModel.service.get_member_set_load(i,j), 'from RFEM.Loads.membersetload import MemberSetLoad\n', 'MemberSetLoad(load_case_no='],
+            [ObjectTypes.E_OBJECT_TYPE_SURFACE_SET_LOAD, lambda i,j: model.clientModel.service.get_surface_set_load(i,j), 'from RFEM.Loads.surfacesetload import SurfaceSetLoad\n', 'SurfaceSetLoad(load_case_no='],
+            [ObjectTypes.E_OBJECT_TYPE_SOLID_SET_LOAD, lambda i,j: model.clientModel.service.get_solid_set_load(i,j), 'from RFEM.Loads.solidSetLoad import SolidSetLoad\n', 'SolidSetLoad(load_case_no='],
+            [ObjectTypes.E_OBJECT_TYPE_FREE_CONCENTRATED_LOAD, lambda i,j: model.clientModel.service.get_free_concentrated_load(i,j), 'from RFEM.Loads.freeLoad import ConcentratedLoad\n', 'ConcentratedLoad(load_case_no='],
+            [ObjectTypes.E_OBJECT_TYPE_FREE_LINE_LOAD, lambda i,j: model.clientModel.service.get_free_line_load(i,j), 'from RFEM.Loads.freeLoad import LineLoad\n', 'LineLoad(load_case_no='],
+            [ObjectTypes.E_OBJECT_TYPE_FREE_RECTANGULAR_LOAD, lambda i,j: model.clientModel.service.get_free_rectangular_load(i,j), 'from RFEM.Loads.freeLoad import RectangularLoad\n', 'RectangularLoad(load_case_no='],
+            [ObjectTypes.E_OBJECT_TYPE_FREE_CIRCULAR_LOAD, lambda i,j: model.clientModel.service.get_free_circular_load(i,j), 'from RFEM.Loads.freeLoad import CircularLoad\n', 'CircularLoad(load_case_no='],
+            [ObjectTypes.E_OBJECT_TYPE_FREE_POLYGON_LOAD, lambda i,j: model.clientModel.service.get_free_polygon_load(i,j), 'from RFEM.Loads.freeLoad import PolygonLoad\n', 'PolygonLoad(load_case_no='],
+            [ObjectTypes.E_OBJECT_TYPE_IMPOSED_NODAL_DEFORMATION, lambda i,j: model.clientModel.service.get_imposed_nodal_deformation(i,j), 'from RFEM.Loads.imposedNodalDeformation import ImposedNodalDeformation\n', 'ImposedNodalDeformation(load_case_no='],
+            [ObjectTypes.E_OBJECT_TYPE_IMPOSED_LINE_DEFORMATION, lambda i,j: model.clientModel.service.get_imposed_line_deformation(i,j), 'from RFEM.Loads.imposedLineDeformation import ImposedLineDeformation\n', 'ImposedLineDeformation(load_case_no=']]
             # calculations_diagram
             #[ObjectTypes.E_OBJECT_TYPE_RESPONSE_SPECTRUM, lambda i: model.clientModel.service.get_response_spectrum(i), 'from RFEM.DynamicLoads.responseSpectrum import ResponseSpectrum\n', 'ResponseSpectrum']]
 
-        func_vec = [
-            [ObjectTypes.E_OBJECT_TYPE_MEMBER_IMPERFECTION, lambda i: model.clientModel.service.get_member_imperfection(i), 'from RFEM.Imperfections.memberImperfection import MemberImperfection\n', 'MemberImperfection'],
-            [ObjectTypes.E_OBJECT_TYPE_COMBINATION_WIZARD, lambda i: model.clientModel.service.set_combination_wizard(i), 'from RFEM.LoadCasesAndCombinations.combinationWizard import CombinationWizard\n', 'CombinationWizard'],
-            [ObjectTypes.E_OBJECT_TYPE_MEMBER_LOAD, lambda i,j: model.clientModel.service.get_member_load(i,j), 'from RFEM.Loads.memberLoad import MemberLoad\n', 'MemberLoad'],
-            [ObjectTypes.E_OBJECT_TYPE_SURFACE_LOAD, lambda i,j: model.clientModel.service.get_surface_load(i,j), 'from RFEM.Loads.surfaceLoad import SurfaceLoad\n', 'SurfaceLoad']
-        ]
         def convertSubclases(param):
             '''
             Convert structures/parameters to approriate structure
@@ -203,12 +196,13 @@ class GetAllObjects:
                 toDel = []
                 for i,j in enumerate(param):
                     # Parameters of value None, UNKNOWN or "" are not exported
-                    if j == None or j == 'UNKNOWN' or j == "":
+                    if j == None or j == 'UNKNOWN' or j == "" or j == 'nan':
+                        if j == 'nan':
+                            print('nan')
                         toDel.append(i)
                     elif isinstance(j, Text):
-                        # Change to string
+                        # Change Text to string
                         param[i] = str(j)
-
                     else:
                         param[i] = convertSubclases(j)
                 for td in toDel:
@@ -218,10 +212,12 @@ class GetAllObjects:
                 toDel = []
                 for key in param.keys().__reversed__():
                     # Parameters of value None, UNKNOWN or "" are not exported
-                    if param[key] == None or param[key] == 'UNKNOWN' or param[key] == "":
+                    if param[key] == None or param[key] == 'UNKNOWN' or param[key] == "" or param[key] == 'nan':
+                        if param[key] == 'nan':
+                            print('nan')
                         toDel.append(key)
                     elif isinstance(param[key], Text):
-                        # Change to string
+                        # Change Text to string
                         param[key] = str(param[key])
                     else:
                         param[key] = convertSubclases(param[key])
@@ -254,7 +250,7 @@ class GetAllObjects:
                     del params['id_for_export_import']
 
                     if isinstance(i, list):
-                        objects.append(func[3]+'(load_case_no='+str(i[1])+', params='+str(params)+')\n')
+                        objects.append(func[3]+str(i[1])+', params='+str(params)+')\n')
                     else:
                         objects.append(func[3]+'(params='+str(params)+')\n')
 
