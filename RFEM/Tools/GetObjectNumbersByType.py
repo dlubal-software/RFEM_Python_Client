@@ -228,6 +228,10 @@ class GetAllObjects:
         imports = [] # defines what to import with 'imports'
         objects = [] # individual lines written in file
 
+        # Load Cases and Combinations setup
+        objects.append('LoadCasesAndCombinations(params='+str(dict(model.clientModel.service.get_load_cases_and_combinations()))+')\n')
+        imports.append('from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations\n')
+
         # Get number of every type of object supported by Client.
         # Get info of each existing object.
         # Add import to lines.
