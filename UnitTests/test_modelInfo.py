@@ -12,6 +12,7 @@ from RFEM.modelInfo import ModelParameters, ApplicationInfo, ModelMainParameters
 if Model.clientModel is None:
     Model()
 
+
 def test_ModelParameters():
 
     Model.clientModel.service.delete_all()
@@ -25,21 +26,6 @@ def test_ModelParameters():
     assert m.model_parameters[2].row['name'] == 'Client name'
     assert m.model_parameters[1].row['description_2'] == 'Unique project identifier'
     assert m.model_parameters[3].row['description_2'] == None
-
-
-# Session ID changes with every call
-# def test_ApplicationSessionID():
-
-#     Model.clientModel.service.delete_all()
-#     Model.clientModel.service.begin_modification()
-
-#     sessionid = ApplicationSessionID.GetSessionId()
-
-#     Model.clientModel.service.finish_modification()
-
-#     s = client.service.get_session_id()
-
-#     assert s == sessionid
 
 
 def test_ModelMainParameters():
@@ -56,7 +42,6 @@ def test_ModelMainParameters():
 
     assert m.model_name == 'TestModel'
     assert mi == act_mi
-
 
 def test_Application():
 

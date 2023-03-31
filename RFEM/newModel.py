@@ -1,13 +1,17 @@
 from RFEM.initModel import client
-from RFEM.ImportExport.imports import importFrom
 import os
 
 
 class NewModelAsCopy():
-
     def __init__(self,
                  old_model_name: str = '',
                  old_model_folder: str = ''):
+
+        '''
+        Args:
+            old_model_name (str): Old Model Name
+            old_model_folder (str): Old Model Folder
+        '''
 
         # Old Model Name
         new_model_name = ''
@@ -21,5 +25,3 @@ class NewModelAsCopy():
 
         # New Model Name
         client.service.new_model_as_copy(new_model_name, old_model_path)
-
-

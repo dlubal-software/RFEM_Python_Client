@@ -23,7 +23,7 @@ def test_NewModelAsCopy():
 
     modelList = client.service.get_model_list()
     inList = False
-    if 'old_copy' in modelList.name:
+    if 'old_copy' in modelList[0]:
         inList = True
 
     assert inList == True

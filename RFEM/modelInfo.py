@@ -2,15 +2,25 @@ from RFEM.initModel import Model, client
 
 
 class ModelInfo():
-
     def __init__(self,
                  model = Model):
+
+        '''
+        Args:
+            model (RFEM Class, optional): Model to be edited
+        '''
 
         # Client Model | Get Model Info
         modelInfo = model.clientModel.service.get_model_info()
 
+
 class ModelMainParameters():
     def ModelMainParameters(model = Model):
+
+        '''
+        Args:
+            model (RFEM Class, optional): Model to be edited
+        '''
 
         # Client Model | Get Model Main Parameters
         clientObject = model.clientModel.service.get_model_main_parameters()
@@ -19,6 +29,12 @@ class ModelMainParameters():
 
     def ModelId(model = Model):
 
+        '''
+        Args:
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Client Model | Get Model ID
         clientModelId = model.clientModel.service.get_model_main_parameters().model_id
 
         return clientModelId
@@ -26,6 +42,11 @@ class ModelMainParameters():
 
 class ModelParameters():
     def ModelParameters(model = Model):
+
+        '''
+        Args:
+            model (RFEM Class, optional): Model to be edited
+        '''
 
         # Client Model | Get Model Parameters
         clientObject = model.clientModel.service.get_model_parameters()
@@ -35,6 +56,11 @@ class ModelParameters():
 
 class SessionId():
     def SessionId(model = Model):
+
+        '''
+        Args:
+            model (RFEM Class, optional): Model to be edited
+        '''
 
         # Client Model | Get Session Id
         clientObject = model.clientModel.service.get_session_id()
