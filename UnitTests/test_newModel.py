@@ -17,17 +17,13 @@ def test_NewModelAsCopy():
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    NewModelAsCopy('old.rf6', 'C:\Program Files\Dlubal\RFEM 6.02\models\TestFolder')
+    NewModelAsCopy('old.rf6', r'C:\Program Files\Dlubal\RFEM 6.02\models\TestFolder')
 
     Model.clientModel.service.finish_modification()
 
     modelList = client.service.get_model_list()
     inList = False
-    print(modelList[0])
-    if 'old_copy.rf6' in modelList[0]:
+    if 'old_copy' in modelList.name:
         inList = True
 
     assert inList == True
-
-
-
