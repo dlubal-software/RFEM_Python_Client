@@ -47,7 +47,6 @@ class MemberResultIntermediatePoint():
                 mlvlp.no = i+1
                 mlvlp.row = Model.clientModel.factory.create('ns0:member_result_intermediate_point_distances')
                 mlvlp.row.value = distances[i][0]
-                mlvlp.row.note = None
 
                 clientObject.distances.member_result_intermediate_point_distances.append(mlvlp)
 

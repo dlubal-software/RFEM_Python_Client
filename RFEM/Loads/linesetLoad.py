@@ -232,9 +232,8 @@ class LineSetLoad():
                 mlvlp.no = i+1
                 mlvlp.row = Model.clientModel.factory.create('ns0:line_set_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
+                #mlvlp.row.delta_distance = load_parameter[i][1]
                 mlvlp.row.magnitude = load_parameter[i][2]
-                mlvlp.row.note = None
 
                 clientObject.varying_load_parameters.line_set_load_varying_load_parameters.append(mlvlp)
 
@@ -294,9 +293,8 @@ class LineSetLoad():
                 mlvlp.no = i+1
                 mlvlp.row = Model.clientModel.factory.create('ns0:line_set_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
+                #mlvlp.row.delta_distance = load_parameter[i][1]
                 mlvlp.row.magnitude = load_parameter[i][2]
-                mlvlp.row.note = None
 
                 clientObject.varying_load_parameters.line_set_load_varying_load_parameters.append(mlvlp)
 
@@ -479,9 +477,8 @@ class LineSetLoad():
                 mlvlp.no = i+1
                 mlvlp.row = Model.clientModel.factory.create('ns0:line_set_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
+                #mlvlp.row.delta_distance = load_parameter[i][1]
                 mlvlp.row.magnitude = load_parameter[i][2]
-                mlvlp.row.note = None
 
                 clientObject.varying_load_parameters.line_set_load_varying_load_parameters.append(mlvlp)
 
@@ -541,9 +538,8 @@ class LineSetLoad():
                 mlvlp.no = i+1
                 mlvlp.row = Model.clientModel.factory.create('ns0:line_set_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.delta_distance = load_parameter[i][1]
+                #mlvlp.row.delta_distance = load_parameter[i][1]
                 mlvlp.row.magnitude = load_parameter[i][2]
-                mlvlp.row.note = None
 
                 clientObject.varying_load_parameters.line_set_load_varying_load_parameters.append(mlvlp)
 

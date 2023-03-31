@@ -227,11 +227,6 @@ class MemberLoad():
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
-                mlvlp.row.magnitude_t_c = 0.0
-                mlvlp.row.magnitude_delta_t = 0.0
-                mlvlp.row.magnitude_t_t = 0.0
-                mlvlp.row.magnitude_t_b = 0.0
 
                 clientObject.varying_load_parameters.member_load_varying_load_parameters.append(mlvlp)
 
@@ -282,11 +277,6 @@ class MemberLoad():
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
-                mlvlp.row.magnitude_t_c = 0.0
-                mlvlp.row.magnitude_delta_t = 0.0
-                mlvlp.row.magnitude_t_t = 0.0
-                mlvlp.row.magnitude_t_b = 0.0
 
                 clientObject.varying_load_parameters.member_load_varying_load_parameters.append(mlvlp)
 
@@ -300,11 +290,6 @@ class MemberLoad():
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
-                mlvlp.row.magnitude_t_c = 0.0
-                mlvlp.row.magnitude_delta_t = 0.0
-                mlvlp.row.magnitude_t_t = 0.0
-                mlvlp.row.magnitude_t_b = 0.0
 
                 clientObject.varying_load_parameters.member_load_varying_load_parameters.append(mlvlp)
 
@@ -510,11 +495,6 @@ class MemberLoad():
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
-                mlvlp.row.magnitude_t_c = 0.0
-                mlvlp.row.magnitude_delta_t = 0.0
-                mlvlp.row.magnitude_t_t = 0.0
-                mlvlp.row.magnitude_t_b = 0.0
 
                 clientObject.varying_load_parameters.member_load_varying_load_parameters.append(mlvlp)
 
@@ -565,11 +545,6 @@ class MemberLoad():
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
-                mlvlp.row.magnitude_t_c = 0.0
-                mlvlp.row.magnitude_delta_t = 0.0
-                mlvlp.row.magnitude_t_t = 0.0
-                mlvlp.row.magnitude_t_b = 0.0
 
                 clientObject.varying_load_parameters.member_load_varying_load_parameters.append(mlvlp)
 
@@ -800,7 +775,6 @@ class MemberLoad():
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
                 mlvlp.row.magnitude_t_c = load_parameter[i][1]
                 mlvlp.row.magnitude_delta_t = load_parameter[i][2]
                 mlvlp.row.magnitude_t_t = load_parameter[i][1]
@@ -961,7 +935,6 @@ class MemberLoad():
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
                 mlvlp.row.magnitude_t_c = load_parameter[i][1]
                 mlvlp.row.magnitude_delta_t = load_parameter[i][2]
                 mlvlp.row.magnitude_t_t = load_parameter[i][1]
@@ -1111,11 +1084,6 @@ class MemberLoad():
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
-                mlvlp.row.magnitude_t_c = 0.0
-                mlvlp.row.magnitude_delta_t = 0.0
-                mlvlp.row.magnitude_t_t = 0.0
-                mlvlp.row.magnitude_t_b = 0.0
 
                 clientObject.varying_load_parameters.member_load_varying_load_parameters.append(mlvlp)
 
@@ -1326,11 +1294,6 @@ class MemberLoad():
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
-                mlvlp.row.magnitude_t_c = 0.0
-                mlvlp.row.magnitude_delta_t = 0.0
-                mlvlp.row.magnitude_t_t = 0.0
-                mlvlp.row.magnitude_t_b = 0.0
 
                 clientObject.varying_load_parameters.member_load_varying_load_parameters.append(mlvlp)
 
@@ -1565,11 +1528,6 @@ class MemberLoad():
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
-                mlvlp.row.magnitude_t_c = 0.0
-                mlvlp.row.magnitude_delta_t = 0.0
-                mlvlp.row.magnitude_t_t = 0.0
-                mlvlp.row.magnitude_t_b = 0.0
 
                 clientObject.varying_load_parameters.member_load_varying_load_parameters.append(mlvlp)
 
@@ -1627,11 +1585,6 @@ class MemberLoad():
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
-                mlvlp.row.magnitude_t_c = 0.0
-                mlvlp.row.magnitude_delta_t = 0.0
-                mlvlp.row.magnitude_t_t = 0.0
-                mlvlp.row.magnitude_t_b = 0.0
 
                 clientObject.varying_load_parameters.member_load_varying_load_parameters.append(mlvlp)
 
@@ -1801,11 +1754,6 @@ class MemberLoad():
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
-                mlvlp.row.magnitude_t_c = 0.0
-                mlvlp.row.magnitude_delta_t = 0.0
-                mlvlp.row.magnitude_t_t = 0.0
-                mlvlp.row.magnitude_t_b = 0.0
 
                 clientObject.varying_load_parameters.member_load_varying_load_parameters.append(mlvlp)
 
@@ -1863,11 +1811,6 @@ class MemberLoad():
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
-                mlvlp.row.magnitude_t_c = 0.0
-                mlvlp.row.magnitude_delta_t = 0.0
-                mlvlp.row.magnitude_t_t = 0.0
-                mlvlp.row.magnitude_t_b = 0.0
 
                 clientObject.varying_load_parameters.member_load_varying_load_parameters.append(mlvlp)
 
