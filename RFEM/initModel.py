@@ -567,3 +567,97 @@ def GetModelType(model = Model):
     '''
 
     return model.clientModel.service.get_model_type()
+
+def NewModelAsCopy(old_model_name: str = '',
+                   old_model_folder: str = ''):
+
+    '''
+    Args:
+        old_model_name (str): Old Model Name
+        old_model_folder (str): Old Model Folder
+    '''
+
+    # Old Model Name
+    new_model_name = ''
+    if '.rf6' in old_model_name:
+        new_model_name = old_model_name[:-4] + '_copy'
+
+    else:
+         assert TypeError('Model ' + old_model_name +  ' does not exist')
+
+    old_model_path = os.path.join(old_model_folder, old_model_name)
+
+    # New Model Name
+    newModelAsCopy = client.service.new_model_as_copy(new_model_name, old_model_path)
+
+    return newModelAsCopy
+
+def ModelInfo(model = Model):
+
+    '''
+    Args:
+        model (RFEM Class, optional): Model to be edited
+    '''
+
+    # Client Model | Get Model Info
+    return model.clientModel.service.get_model_info()
+
+def ModelMainParameters(model = Model):
+
+    '''
+    Args:
+        model (RFEM Class, optional): Model to be edited
+    '''
+
+    # Client Model | Get Model Main Parameters
+    return model.clientModel.service.get_model_main_parameters()
+
+def ModelId(model = Model):
+
+    '''
+    Args:
+        model (RFEM Class, optional): Model to be edited
+    '''
+
+    # Client Model | Get Model ID
+    return model.clientModel.service.get_model_main_parameters().model_id
+
+def ModelParameters(model = Model):
+
+    '''
+    Args:
+        model (RFEM Class, optional): Model to be edited
+    '''
+
+    # Client Model | Get Model Parameters
+    return model.clientModel.service.get_model_parameters()
+
+def SessionId(model = Model):
+
+    '''
+    Args:
+        model (RFEM Class, optional): Model to be edited
+    '''
+
+    # Client Model | Get Session Id
+    return model.clientModel.service.get_session_id()
+
+def GetName():
+
+    # Client Application | Get Information
+    return client.service.get_information().name
+
+def GetVersion():
+
+    # Client Application | Get Information
+    return client.service.get_information().version
+
+def GetLanguage():
+
+    # Client Application | Get Information
+    return client.service.get_information().language_name
+
+def GetSessionId():
+
+    # Client Application | Get Session ID
+    return client.service.get_session_id()
