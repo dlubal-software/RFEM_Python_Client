@@ -789,3 +789,16 @@ class Thickness():
         # Delete from client model
         for thickness in ConvertStrToListOfInt(thickness_no):
             model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_THICKNESS.name, thickness)
+
+    @staticmethod
+    def GetThickness(object_index: int = 1,
+                model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Object Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Thickness from client model
+        return model.clientModel.service.get_thickness(object_index)

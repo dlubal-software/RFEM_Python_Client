@@ -265,3 +265,16 @@ class Solid():
         # Delete solids from client model
         for solid in ConvertStrToListOfInt(solids_no):
             model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_SOLID.name, solid)
+
+    @staticmethod
+    def GetSolid(object_index: int = 1,
+                model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Object Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Solid from client model
+        return model.clientModel.service.get_solid(object_index)

@@ -464,3 +464,16 @@ class Node():
         # Delete from client model
         for node in ConvertStrToListOfInt(nodes_no):
             model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_NODE.name, node)
+
+    @staticmethod
+    def GetNode(object_index: int = 1,
+                model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Object Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Node from client model
+        return model.clientModel.service.get_node(object_index)

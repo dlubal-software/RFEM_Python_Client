@@ -140,3 +140,16 @@ class MemberSet():
 
         # Add Member Set to client model
         model.clientModel.service.set_member_set(clientObject)
+
+    @staticmethod
+    def GetMemberSet(object_index: int = 1,
+                model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Object Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Member Set from client model
+        return model.clientModel.service.get_member_set(object_index)
