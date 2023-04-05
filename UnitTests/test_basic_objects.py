@@ -590,20 +590,20 @@ def test_get_opening():
     assert opening['position_full_description'] == "In plane XY of global CS"
 
 # us_spelling_properties connectivity issues!!!
-# def test_section():
+def test_section():
 
-#     Model.clientModel.service.delete_all()
-#     Model.clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
-#     Material(1, 'S235')
-#     Section(1, 'IPE 300')
+    Material(1, 'S235')
+    Section(1, 'IPE 300')
 
-#     Model.clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
-#     section = Model.clientModel.service.get_section(1)
+    section = Model.clientModel.service.get_section(1)
 
-#     assert section.no == 1
-#     assert section.name == 'IPE 300 | -- | British Steel'
+    assert section.no == 1
+    assert section.name == 'IPE 300 | -- | British Steel'
 
 ## Solid Class should be updated.
 
