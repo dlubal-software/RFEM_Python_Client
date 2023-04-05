@@ -7,7 +7,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.initModel import Model, client
-from RFEM.initModel import ModelParameters, ModelMainParameters, ModelId, GetName, GetLanguage, GetVersion
+from RFEM.initModel import GetModelParameters, GetModelMainParameters, GetModelId, GetName, GetLanguage, GetVersion
 
 if Model.clientModel is None:
     Model()
@@ -18,7 +18,7 @@ def test_ModelParameters():
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    m = ModelParameters()
+    m = GetModelParameters()
 
     Model.clientModel.service.finish_modification()
 
@@ -33,8 +33,8 @@ def test_ModelMainParameters():
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    m = ModelMainParameters()
-    mi = ModelId()
+    m = GetModelMainParameters()
+    mi = GetModelId()
 
     Model.clientModel.service.finish_modification()
 

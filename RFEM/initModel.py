@@ -572,6 +572,8 @@ def NewModelAsCopy(old_model_name: str = '',
                    old_model_folder: str = ''):
 
     '''
+    The method creates a new model as copy from an existing model
+
     Args:
         old_model_name (str): Old Model Name
         old_model_folder (str): Old Model Folder
@@ -592,19 +594,11 @@ def NewModelAsCopy(old_model_name: str = '',
 
     return newModelAsCopy
 
-def ModelInfo(model = Model):
+def GetModelMainParameters(model = Model):
 
     '''
-    Args:
-        model (RFEM Class, optional): Model to be edited
-    '''
+    The method returns the main parameters of the current model.
 
-    # Client Model | Get Model Info
-    return model.clientModel.service.get_model_info()
-
-def ModelMainParameters(model = Model):
-
-    '''
     Args:
         model (RFEM Class, optional): Model to be edited
     '''
@@ -612,9 +606,11 @@ def ModelMainParameters(model = Model):
     # Client Model | Get Model Main Parameters
     return model.clientModel.service.get_model_main_parameters()
 
-def ModelId(model = Model):
+def GetModelId(model = Model):
 
     '''
+    This method returns a string of the current model id.
+
     Args:
         model (RFEM Class, optional): Model to be edited
     '''
@@ -622,9 +618,11 @@ def ModelId(model = Model):
     # Client Model | Get Model ID
     return model.clientModel.service.get_model_main_parameters().model_id
 
-def ModelParameters(model = Model):
+def GetModelParameters(model = Model):
 
     '''
+    This method retuns the parameters of the current model.
+
     Args:
         model (RFEM Class, optional): Model to be edited
     '''
@@ -632,9 +630,11 @@ def ModelParameters(model = Model):
     # Client Model | Get Model Parameters
     return model.clientModel.service.get_model_parameters()
 
-def SessionId(model = Model):
+def GetModelSessionId(model = Model):
 
     '''
+    This method returns a string of the current model session id.
+
     Args:
         model (RFEM Class, optional): Model to be edited
     '''
@@ -644,20 +644,40 @@ def SessionId(model = Model):
 
 def GetName():
 
+    '''
+    This method returns a string of the current app name.
+
+    '''
+
     # Client Application | Get Information
     return client.service.get_information().name
 
 def GetVersion():
+
+    '''
+    This method returns a string of the current app version.
+
+    '''
 
     # Client Application | Get Information
     return client.service.get_information().version
 
 def GetLanguage():
 
+    '''
+    This method returns a string of the current app language.
+
+    '''
+
     # Client Application | Get Information
     return client.service.get_information().language_name
 
-def GetSessionId():
+def GetAppSessionId():
+
+    '''
+    Thsi method returs a string of the current app session id.
+
+    '''
 
     # Client Application | Get Session ID
     return client.service.get_session_id()
