@@ -59,14 +59,14 @@ except:
     sys.exit()
 
 # Persistent connection
-# Next 4 lines enables Client to work within 1 session which is much faster to execute.
+# Session and trans(port) enable Client to work within 1 session which is much faster to execute.
 # Without it the session lasts only one request which results in poor performance.
 # Assigning session to application Client (here client) instead of model Client
 # results also in poor performance.
-session = requests.Session()
-adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
-session.mount('http://', adapter)
-trans = RequestsTransport(session)
+
+# Session and trans defined here to have global reach
+session = None
+trans = None
 
 class Model():
     clientModel = None
@@ -126,6 +126,11 @@ class Model():
                 if self.clientModelDct:
                     cModel = Client(modelCompletePath, location = modelUrlPort, cache=ca)
                 else:
+                    session = requests.Session()
+                    adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
+                    session.mount('http://', adapter)
+                    trans = RequestsTransport(session)
+
                     cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca)
 
                 self.clientModelDct[model_name] = cModel
@@ -145,6 +150,7 @@ class Model():
                 modelPort = modelPath[-5:-1]
                 modelUrlPort = url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
+
                 cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca)
                 self.clientModelDct[model_name] = cModel
             else:
@@ -180,15 +186,16 @@ class Model():
             else:
                 self.clientModel = None
         if isinstance(index_or_name, int):
-            assert index_or_name <= len(self.clientModelDct)
+            #assert index_or_name <= len(self.clientModelDct)
             modelLs = client.service.get_model_list()
-            self.clientModelDct.pop(modelLs.name[index_or_name])
-            if len(self.clientModelDct) > 0:
-                model_key = list(self.clientModelDct)[-1]
-                self.clientModel = self.clientModelDct[model_key]
-
-            else:
-                self.clientModel = None
+            #print('\nmodelLs', modelLs is None, 'index:', index_or_name, 'clientModelDct:', self.clientModelDct)
+            if modelLs:
+                self.clientModelDct.pop(modelLs.name[index_or_name])
+                if len(self.clientModelDct) > 0:
+                    model_key = list(self.clientModelDct)[-1]
+                    self.clientModel = self.clientModelDct[model_key]
+                else:
+                    self.clientModel = None
 
 def clearAttributes(obj):
     '''
