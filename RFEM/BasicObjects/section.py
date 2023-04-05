@@ -52,15 +52,17 @@ class Section():
 
     @staticmethod
     def ImportFromRsection(no: int = None,
-                     file_path: str = None,
-                     model = Model):
+                           file_path: str = None,
+                           model = Model):
         '''
         Creating Section from RSECtion file
 
         Args:
-            no (int): Sec
-
+            no (int): Section number
+            file_path (str): file path where the RSECTION (.rsc) file located
+            model (RFEM Class, optional): Model to be edited
         '''
+
         assert os.path.exists(file_path)
 
         model.clientModel.service.create_section_from_rsection_file(no, file_path)
