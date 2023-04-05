@@ -1,3 +1,4 @@
+import os
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertStrToListOfInt
 from RFEM.enums import ObjectTypes
 
@@ -48,6 +49,21 @@ class Section():
 
         # Add Section to client model
         model.clientModel.service.set_section(clientObject)
+
+    @staticmethod
+    def ImportFromRsection(no: int = None,
+                     file_path: str = None,
+                     model = Model):
+        '''
+        Creating Section from RSECtion file
+
+        Args:
+            no (int): Sec
+
+        '''
+        assert os.path.exists(file_path)
+
+        model.clientModel.service.create_section_from_rsection_file(no, file_path)
 
     @staticmethod
     def DeleteSection(sections_no: str = '1 2', model = Model):
