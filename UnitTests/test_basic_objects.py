@@ -14,9 +14,12 @@ from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.surface import Surface
+from RFEM.BasicObjects.surfaceSet import SurfaceSet
 from RFEM.BasicObjects.opening import Opening
 from RFEM.BasicObjects.lineSet import LineSet
 from RFEM.BasicObjects.memberSet import MemberSet
+from RFEM.BasicObjects.solid import Solid
+from RFEM.BasicObjects.solidSet import SolidSet
 
 if Model.clientModel is None:
     Model()
@@ -250,6 +253,28 @@ def test_get_line():
     assert line1['no'] == 1
     assert line1['definition_nodes'] == "1 2"
 
+def test_get_line_set():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Node(1, 0, 0, 0)
+    Node(2, 0, 0, -5)
+    Node(3, 1, 0, 0)
+
+    Line(1, '1 2')
+    Line(2, '2 3')
+
+    LineSet(1, '1 2')
+
+    line1 = LineSet.GetLineSet(1)
+
+    Model.clientModel.service.finish_modification()
+
+    assert line1['no'] == 1
+    assert line1['lines'] == "1 2"
+    assert line1['name'] == "1,2 | Continuous Lines"
+
 def test_material():
 
     Model.clientModel.service.delete_all()
@@ -410,6 +435,32 @@ def test_member_set():
     assert member_set.members == '1 2'
     assert member_set.length == 10
 
+def test_get_member_set():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Node(1, 0, 0, 0)
+    Node(2, 5, 0, 0)
+    Node(3, 10, 0, 0)
+
+    Material(1, 'S235')
+
+    Section(1, 'IPE 300', 1)
+
+    Member(1, 1, 2, 0, 1, 1)
+    Member(2, 2, 3, 0, 1, 1)
+
+    MemberSet(1, '1 2', SetType.SET_TYPE_GROUP)
+
+    Model.clientModel.service.finish_modification()
+
+    member_set = MemberSet.GetMemberSet(1)
+
+    assert member_set.members == '1 2'
+    assert member_set.length == 10
+    assert member_set['no'] == 1
+
 def test_member_delete():
 
     Model.clientModel.service.delete_all()
@@ -538,6 +589,7 @@ def test_get_opening():
     assert opening['center_of_opening']['x'] == 2.5
     assert opening['position_full_description'] == "In plane XY of global CS"
 
+# us_spelling_properties connectivity issues!!!
 # def test_section():
 
 #     Model.clientModel.service.delete_all()
@@ -559,30 +611,185 @@ def test_get_opening():
 
 ## Surface Class should be update. Thickness no can't be assigned.
 
-# def test_get_surface():
+# is-layered_mesh_enabled connectivity issues!!!
+def test_get_solid():
 
-#     Model.clientModel.service.delete_all()
-#     Model.clientModel.service.begin_modification()
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
-#     Node(1, 0, 0, 0)
-#     Node(2, 4, 0, 0)
-#     Node(3, 0, 4, 0)
-#     Node(4, 4, 4, 0)
+    Node(1, 0.0, 0.0, 0.0)
+    Node(2, 10.0, 0.0, 0.0)
+    Node(3, 10.0, 10.0, 0.0)
+    Node(4, 0.0, 10.0, 0.0)
 
-#     Line(1, '1 2')
-#     Line(2, '2 4')
-#     Line(3, '4 3')
-#     Line(4, '3 1')
+    Node(5, 0.0, 0.0, -5.0)
+    Node(6, 10.0, 0.0, -5.0)
+    Node(7, 10.0, 10.0, -5.0)
+    Node(8, 0.0, 10.0, -5.0)
 
-#     Surface(1, '1 2 3 4', 1)
+    Line(1, '1 2')
+    Line(2, '2 3')
+    Line(3, '3 4')
+    Line(4, '4 1')
 
-#     Model.clientModel.service.finish_modification()
+    Line(5, '5 6')
+    Line(6, '6 7')
+    Line(7, '7 8')
+    Line(8, '8 5')
 
-#     surface = Surface.GetSurface(1)
-#     directsurface = Model.clientModel.service.get_surface(1)
+    Line(9, '1 5')
+    Line(10, '2 6')
+    Line(11, '3 7')
+    Line(12, '4 8')
 
-#     assert surface['no'] == '1'
-#     # assert surface == directsurface
+    Surface(1, '1-4', 1)
+    Surface(2, '5-8', 1)
+    Surface(3, '1 9 5 10', 1)
+    Surface(4, '2 10 6 11', 1)
+    Surface(5, '3 11 7 12', 1)
+    Surface(6, '4 12 8 9', 1)
+
+    Solid(1, '1 2 3 4 5 6', 1)
+
+    Model.clientModel.service.finish_modification()
+
+    solid = Solid.GetSolid(1)
+
+    assert solid['no'] ==  1
+    assert solid['surface_area'] == 400.0
+
+def test_solid_set():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    # Solid 1
+    Node(9, 0.0, 20.0, 0.0)
+    Node(10, 10.0, 20.0, 0.0)
+    Node(11, 10.0, 30.0, 0.0)
+    Node(12, 0.0, 30.0, 0.0)
+
+    Node(13, 0.0, 20.0, -5.0)
+    Node(14, 10.0, 20.0, -5.0)
+    Node(15, 10.0, 30.0, -5.0)
+    Node(16, 0.0, 30.0, -5.0)
+
+    Line(13, '9 10')
+    Line(14, '10 11')
+    Line(15, '11 12')
+    Line(16, '12 9')
+
+    Line(17, '13 14')
+    Line(18, '14 15')
+    Line(19, '15 16')
+    Line(20, '16 13')
+
+    Line(21, '9 13')
+    Line(22, '10 14')
+    Line(23, '11 15')
+    Line(24, '12 16')
+
+    Surface(7, '13-16', 1)
+    Surface(8, '17-20', 1)
+    Surface(9, '13 22 17 21', 1)
+    Surface(10, '15 23 19 24', 1)
+    Surface(11, '16 21 20 24', 1)
+    Surface(12, '14 22 18 23', 1)
+
+    # Solid 2
+    Node(17, 20.0, 20.0, 0.0)
+    Node(18, 20.0, 30.0, 0.0)
+    Node(19, 20.0, 20.0, -5.0)
+    Node(20, 20.0, 30.0, -5.0)
+
+    Line(25, '10 17')
+    Line(26, '17 18')
+    Line(27, '18 11')
+    Line(28, '14 19')
+    Line(29, '19 20')
+    Line(30, '20 15')
+    Line(31, '17 19')
+    Line(32, '18 20')
+
+    Surface(13, '25 26 27 14', 1)
+    Surface(14, '28 29 30 18', 1)
+    Surface(15, '25 31 28 22', 1)
+    Surface(16, '27 32 30 23', 1)
+    Surface(17, '26 31 29 32', 1)
+
+    Solid(1, '7 8 9 10 11 12', 1 )
+    Solid(2, '13 14 15 16 17 12', 1 )
+
+    SolidSet(1, '1 2')
+
+    Model.clientModel.service.finish_modification()
+
+    solidset = SolidSet.GetSolidSet(1)
+
+    assert solidset['no'] ==  1
+    assert solidset['solids'] == '1 2'
+
+# line_hinges_table connectivity issues!!!
+def test_get_surface():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Node(1, 0, 0, 0)
+    Node(2, 4, 0, 0)
+    Node(3, 0, 4, 0)
+    Node(4, 4, 4, 0)
+
+    Line(1, '1 2')
+    Line(2, '2 4')
+    Line(3, '4 3')
+    Line(4, '3 1')
+
+    Material(1, 'S235')
+    Thickness(1, '20 mm', 1, 0.02)
+
+    Surface(1, '1 2 3 4', 1)
+
+    Model.clientModel.service.finish_modification()
+
+    surface = Surface.GetSurface(1)
+
+    assert surface['no'] ==  1
+    assert surface['boundary_lines'] == '1 2 3 4'
+
+def test_get_surface_set():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Node(1, 0, 0, 0)
+    Node(2, 4, 0, 0)
+    Node(3, 0, 4, 4)
+    Node(4, 4, 4, 4)
+
+    Line(1, '1 2')
+    Line(2, '2 4')
+    Line(3, '4 3')
+    Line(4, '3 1')
+
+    Surface(1, '1 2 3 4', 1)
+
+    Node(7, 0, 4, 0)
+    Node(8, 4, 4, 0)
+
+    Line(6, '2 8')
+    Line(7, '8 7')
+    Line(8, '7 1')
+
+    Surface(2, '1 6 7 8', 1)
+    SurfaceSet(1, '1 2')
+
+    Model.clientModel.service.finish_modification()
+
+    surfaceset = SurfaceSet.GetSurfaceSet(1)
+
+    assert surfaceset['no'] ==  1
+    assert surfaceset['surfaces'] == '1 2'
 
 def test_thickness_init():
 

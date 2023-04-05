@@ -389,7 +389,7 @@ class Surface():
 
     @staticmethod
     def GetSurface(object_index: int = 1,
-                model = Model):
+                   model = Model):
 
         '''
         Args:
