@@ -589,7 +589,6 @@ def test_get_opening():
     assert opening['center_of_opening']['x'] == 2.5
     assert opening['position_full_description'] == "In plane XY of global CS"
 
-# us_spelling_properties connectivity issues!!!
 def test_section():
 
     Model.clientModel.service.delete_all()
@@ -611,7 +610,6 @@ def test_section():
 
 ## Surface Class should be update. Thickness no can't be assigned.
 
-# is-layered_mesh_enabled connectivity issues!!!
 def test_get_solid():
 
     Model.clientModel.service.delete_all()
@@ -729,7 +727,6 @@ def test_solid_set():
     assert solidset['no'] ==  1
     assert solidset['solids'] == '1 2'
 
-# line_hinges_table connectivity issues!!!
 def test_get_surface():
 
     Model.clientModel.service.delete_all()

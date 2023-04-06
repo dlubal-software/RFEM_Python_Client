@@ -147,7 +147,7 @@ class LineSet():
 
         '''
         Args:
-            obejct_index (int): Object Index
+            obejct_index (int): Line Set Index
             model (RFEM Class, optional): Model to be edited
         '''
 

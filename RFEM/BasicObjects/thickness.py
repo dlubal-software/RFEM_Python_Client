@@ -796,7 +796,7 @@ class Thickness():
 
         '''
         Args:
-            obejct_index (int): Object Index
+            obejct_index (int): Thickness Index
             model (RFEM Class, optional): Model to be edited
         '''
 

@@ -147,7 +147,7 @@ class SurfaceSet():
 
         '''
         Args:
-            obejct_index (int): Object Index
+            obejct_index (int): Surface Set Index
             model (RFEM Class, optional): Model to be edited
         '''
 
