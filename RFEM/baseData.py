@@ -22,7 +22,7 @@ class ModelParameters():
         for i,j in enumerate(model_parameters):
             mp = Model.clientModel.factory.create('ns0:model_parameters_row')
             mp.no = i+3
-            mp.description = i+3
+            #mp.description = i+3
             mp.row = Model.clientModel.factory.create('ns0:model_parameters')
             mp.row.name = model_parameters[i][0]
             mp.row.description_1 = model_parameters[i][1]
@@ -54,7 +54,7 @@ class ModelParametersLocation():
         for i,j in enumerate(model_parameters_location):
             mpl = Model.clientModel.factory.create('ns0:model_parameters_location_row')
             mpl.no = i+1
-            mpl.description = i+1
+            mpl.description = str(i+1)
             mpl.row = Model.clientModel.factory.create('ns0:model_parameters_location')
             mpl.row.location_row_type = model_parameters_location[i][0].name
             mpl.row.name = model_parameters_location[i][1]

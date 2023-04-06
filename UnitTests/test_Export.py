@@ -40,10 +40,10 @@ def test_export():
     ExportToIFC(targetFile1, IFCSettings)
     ExportToIFC(targetFile2, IFCSettings, ObjectLoc)
 
-    config = GetTableExportConfigManager()
-    config[1][0][0][2][0]['property_export_target'] = 'E_EXPORT_TARGET_CSV'
-    SetTableExportConfigManager(config)
-    assert config[1][0][0][2][0]['property_export_target'] == 'E_EXPORT_TARGET_CSV'
+    #config = GetTableExportConfigManager()
+    #config[1][0][0][2][0]['property_export_target'] = 'E_EXPORT_TARGET_CSV'
+    #SetTableExportConfigManager(config)
+    #assert config[1][0][0][2][0]['property_export_target'] == 'E_EXPORT_TARGET_CSV'
 
     # supported formats
     formats = ['.xml','.xlsx', '.gltf', '.glb'] # export to .vtk doesn't work

@@ -247,6 +247,7 @@ class NodalReleaseType():
             for i,j in enumerate(translational_release_vy_nonlinearity[2]):
                 mlvlp = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_along_y_table_row')
                 mlvlp.no = i+1
+                mlvlp.row = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_along_y_table')
                 mlvlp.row.displacement = translational_release_vy_nonlinearity[2][i][0]
                 mlvlp.row.force = translational_release_vy_nonlinearity[2][i][1]
 
@@ -415,6 +416,7 @@ class NodalReleaseType():
             for i,j in enumerate(rotational_release_mt_nonlinearity[2]):
                 mlvlp = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_around_x_table_row')
                 mlvlp.no = i+1
+                mlvlp.row = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_around_x_table')
                 mlvlp.row.rotation = rotational_release_mt_nonlinearity[2][i][0]
                 mlvlp.row.moment = rotational_release_mt_nonlinearity[2][i][1]
 
@@ -488,6 +490,7 @@ class NodalReleaseType():
             for i,j in enumerate(rotational_release_my_nonlinearity[2]):
                 mlvlp = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_around_y_table_row')
                 mlvlp.no = i+1
+                mlvlp.row = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_around_y_table')
                 mlvlp.row.rotation = rotational_release_my_nonlinearity[2][i][0]
                 mlvlp.row.moment = rotational_release_my_nonlinearity[2][i][1]
 
@@ -561,6 +564,7 @@ class NodalReleaseType():
             for i,j in enumerate(rotational_release_mz_nonlinearity[2]):
                 mlvlp = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_around_z_table_row')
                 mlvlp.no = i+1
+                mlvlp.row = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_around_z_table')
                 mlvlp.row.rotation = rotational_release_mz_nonlinearity[2][i][0]
                 mlvlp.row.moment = rotational_release_mz_nonlinearity[2][i][1]
 
