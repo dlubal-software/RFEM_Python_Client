@@ -71,7 +71,7 @@ def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_ty
     clientObject.boundary_lines = ConvertToDlString(boundary_lines_no)
 
     # Thickness
-    if type == 'TYPE_STANDARD'or type == 'TYPE_MEMBRANE' or type == 'TYPE_WITHOUT_MEMBRANE_TENSION':
+    if surface_type in [SurfaceType.TYPE_STANDARD, SurfaceType.TYPE_MEMBRANE, SurfaceType.TYPE_WITHOUT_MEMBRANE_TENSION]:
         clientObject.thickness = thickness
 
     # Comment
