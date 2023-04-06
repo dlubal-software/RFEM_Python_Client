@@ -12,6 +12,8 @@ class LoadCase():
                  name: str = 'Self-weight',
                  self_weight: list = [True, 0.0, 0.0, 1.0],
                  action_category=ActionCategoryType.ACTION_CATEGORY_NONE_NONE,
+                 imperfection_case: int = None,
+                 structure_modification: int = None,
                  comment: str = 'Comment',
                  params: dict = None,
                  model = Model):
@@ -22,6 +24,8 @@ class LoadCase():
             self_weight (list): Self-Weight Parameters
                 self_weight = [self_weight_active, self_weight_factor_x, self_weight_factor_y, self_weight_factor_z]
             action_category (enum): Action Category Type Enumeration
+            imperfection_case (int, optional): Assign Imperfection Case
+            structure_modification (int,optional): Assign Structure Modification
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -70,6 +74,23 @@ class LoadCase():
             if len(self_weight) != 1:
                 raise ValueError('WARNING: Self-weight is deactivated and therefore requires a list definition of length 1. Kindly check list inputs for completeness and correctness.')
 
+        # Options
+        if imperfection_case:
+            clientObject.consider_imperfection = True
+            ic = GetObjectNumbersByType(ObjectTypes.E_OBJECT_TYPE_IMPERFECTION_CASE)
+            if imperfection_case in ic:
+                clientObject.imperfection_case = imperfection_case
+        else:
+            clientObject.consider_imperfection = False
+
+        if structure_modification:
+            clientObject.structure_modification_enabled = True
+            sm = GetObjectNumbersByType(ObjectTypes.E_OBJECT_TYPE_STRUCTURE_MODIFICATION)
+            if structure_modification in sm:
+                clientObject.structure_modification = structure_modification
+        else:
+            clientObject.structure_modification_enabled = False
+
         # Comment
         clientObject.comment = comment
 
@@ -92,6 +113,8 @@ class LoadCase():
             analysis_settings_no: int = 1,
             action_category=ActionCategoryType.ACTION_CATEGORY_NONE_NONE,
             self_weight: list =[True, 0.0, 0.0, 10.0],
+            imperfection_case: int = None,
+            structure_modification: int = None,
             comment: str = 'Comment',
             params: dict = None,
             model = Model):
@@ -107,6 +130,8 @@ class LoadCase():
                     self_weight = [True, self_weight_factor_x, self_weight_factor_y, self_weight_factor_z]
                 for no self-weight considerations;
                     self_weight = [False]
+            imperfection_case (int, optional): Assign Imperfection Case
+            structure_modification (int,optional): Assign Structure Modification
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -154,6 +179,23 @@ class LoadCase():
         else:
             if len(self_weight) != 1:
                 raise ValueError('WARNING: Self-weight is deactivated and therefore requires a list definition of length 1. Kindly check list inputs for completeness and correctness.')
+
+        # Options
+        if imperfection_case:
+            clientObject.consider_imperfection = True
+            ic = GetObjectNumbersByType(ObjectTypes.E_OBJECT_TYPE_IMPERFECTION_CASE)
+            if imperfection_case in ic:
+                clientObject.imperfection_case = imperfection_case
+        else:
+            clientObject.consider_imperfection = False
+
+        if structure_modification:
+            clientObject.structure_modification_enabled = True
+            sm = GetObjectNumbersByType(ObjectTypes.E_OBJECT_TYPE_STRUCTURE_MODIFICATION)
+            if structure_modification in sm:
+                clientObject.structure_modification = structure_modification
+        else:
+            clientObject.structure_modification_enabled = False
 
         # Comment
         clientObject.comment = comment
