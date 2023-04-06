@@ -59,14 +59,10 @@ except:
     sys.exit()
 
 # Persistent connection
-# Session and trans(port) enable Client to work within 1 session which is much faster to execute.
+# 'session' and 'trans'(port) enable Client to work within 1 session which is much faster to execute.
 # Without it the session lasts only one request which results in poor performance.
 # Assigning session to application Client (here client) instead of model Client
 # results also in poor performance.
-
-# Session and trans defined here to have global reach
-session = None
-trans = None
 
 class Model():
     clientModel = None
@@ -151,6 +147,11 @@ class Model():
                 modelUrlPort = url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
 
+                session = requests.Session()
+                adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
+                session.mount('http://', adapter)
+                trans = RequestsTransport(session)
+
                 cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca)
                 self.clientModelDct[model_name] = cModel
             else:
@@ -186,9 +187,9 @@ class Model():
             else:
                 self.clientModel = None
         if isinstance(index_or_name, int):
-            #assert index_or_name <= len(self.clientModelDct)
+            assert index_or_name <= len(self.clientModelDct)
             modelLs = client.service.get_model_list()
-            #print('\nmodelLs', modelLs is None, 'index:', index_or_name, 'clientModelDct:', self.clientModelDct)
+
             if modelLs:
                 self.clientModelDct.pop(modelLs.name[index_or_name])
                 if len(self.clientModelDct) > 0:
