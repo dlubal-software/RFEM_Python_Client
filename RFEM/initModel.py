@@ -93,8 +93,8 @@ class Model():
 
         # The model suffix is omitted in modelLs, so it must be omitted in model_name to match exactly
         original_model_name = model_name
-        if '.rf6' in model_name:
-            model_name = model_name[:-4]
+        if '.' in model_name:
+            model_name = model_name.split('.')[0]
 
         if new_model:
             # Requested new model but the model with given name was already connected
@@ -147,12 +147,16 @@ class Model():
                 modelUrlPort = url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
 
-                session = requests.Session()
-                adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
-                session.mount('http://', adapter)
-                trans = RequestsTransport(session)
+                if self.clientModelDct:
+                    cModel = Client(modelCompletePath, location = modelUrlPort, cache=ca)
+                else:
+                    session = requests.Session()
+                    adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
+                    session.mount('http://', adapter)
+                    trans = RequestsTransport(session)
 
-                cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca)
+                    cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca)
+
                 self.clientModelDct[model_name] = cModel
             else:
                 print('Model name "'+model_name+'" is not created in RFEM. Consider changing new_model parameter in Model class from False to True.')
