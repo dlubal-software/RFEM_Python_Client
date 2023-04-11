@@ -2130,3 +2130,15 @@ class Member():
         # Delete from client model
         for member in ConvertStrToListOfInt(members_no):
             model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, member)
+
+    @staticmethod
+    def GetMember(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Member Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Member from client model
+        return model.clientModel.service.get_member(object_index)
