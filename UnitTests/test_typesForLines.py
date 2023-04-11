@@ -57,8 +57,7 @@ def test_typesForLines():
 
     LineWeldedJoint(1,'5','1 2', LineWeldedJointType.BUTT_JOINT, WeldType.WELD_SINGLE_V, 0.005)
 
-    params = LineMeshRefinements.TypeSpecificParams
-    LineMeshRefinements(1,'3', LineMeshRefinementsType.TYPE_LENGTH, 2, '', params)
+    LineMeshRefinements(1,'3', LineMeshRefinementsType.TYPE_LENGTH, 2)
 
     LineMeshRefinements.TargetFELength(2, '4', 0.05)
     LineMeshRefinements.NumberFiniteElements(3,'5',15)
