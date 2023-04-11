@@ -142,8 +142,7 @@ class SolidSet():
         model.clientModel.service.set_solid_set(clientObject)
 
     @staticmethod
-    def GetSolidSet(object_index: int = 1,
-                model = Model):
+    def GetSolidSet(object_index: int = 1, model = Model):
 
         '''
         Args:

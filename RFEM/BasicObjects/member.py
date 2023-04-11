@@ -2132,8 +2132,7 @@ class Member():
             model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, member)
 
     @staticmethod
-    def GetMember(object_index: int = 1,
-                model = Model):
+    def GetMember(object_index: int = 1, model = Model):
 
         '''
         Args:

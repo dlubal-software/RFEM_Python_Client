@@ -142,8 +142,7 @@ class SurfaceSet():
         model.clientModel.service.set_surface_set(clientObject)
 
     @staticmethod
-    def GetSurfaceSet(object_index: int = 1,
-                model = Model):
+    def GetSurfaceSet(object_index: int = 1, model = Model):
 
         '''
         Args:

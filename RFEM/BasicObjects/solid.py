@@ -267,8 +267,7 @@ class Solid():
             model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_SOLID.name, solid)
 
     @staticmethod
-    def GetSolid(object_index: int = 1,
-                model = Model):
+    def GetSolid(object_index: int = 1, model = Model):
 
         '''
         Args:

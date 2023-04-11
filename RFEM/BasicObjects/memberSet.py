@@ -142,8 +142,7 @@ class MemberSet():
         model.clientModel.service.set_member_set(clientObject)
 
     @staticmethod
-    def GetMemberSet(object_index: int = 1,
-                model = Model):
+    def GetMemberSet(object_index: int = 1, model = Model):
 
         '''
         Args:

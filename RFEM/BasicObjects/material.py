@@ -59,8 +59,7 @@ class Material():
             model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_MATERIAL.name, material)
 
     @staticmethod
-    def GetMaterial(object_index: int = 1,
-                model = Model):
+    def GetMaterial(object_index: int = 1, model = Model):
 
         '''
         Args:

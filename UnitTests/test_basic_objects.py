@@ -333,26 +333,23 @@ def test_get_node():
     assert node1['type'] == "TYPE_STANDARD"
 
 
-# def test_member_init():
+def test_member_init():
 
-#     Model.clientModel.service.delete_all()
-#     Model.clientModel.service.begin_modification()
+     Model.clientModel.service.delete_all()
+     Model.clientModel.service.begin_modification()
 
-#     Node(1, 0, 0, 0)
-#     Node(2, 5, 0, 0)
+     Node(1, 0, 0, 0)
+     Node(2, 5, 0, 0)
+     Material(1, 'S235')
+     Section(1, 'IPE 300', 1)
+     Member(1,  1, 2, 0, 1, 1)
 
-#     Material(1, 'S235')
+     Model.clientModel.service.finish_modification()
+     
+     member = Model.clientModel.service.get_member(1)
 
-#     Section(1, 'IPE 300', 1)
-
-#     Member(1,  1, 2, 0, 1, 1)
-
-#     Model.clientModel.service.finish_modification()
-
-#     member = Model.clientModel.service.get_member(1)
-
-#     assert member.analytical_length == 5
-#     assert member.section_start == 1
+     assert member.analytical_length == 5
+     assert member.section_start == 1
 
 def test_member_types():
 

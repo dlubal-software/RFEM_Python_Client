@@ -466,8 +466,7 @@ class Node():
             model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_NODE.name, node)
 
     @staticmethod
-    def GetNode(object_index: int = 1,
-                model = Model):
+    def GetNode(object_index: int = 1, model = Model):
 
         '''
         Args:

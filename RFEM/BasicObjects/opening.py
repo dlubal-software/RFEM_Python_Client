@@ -58,8 +58,7 @@ class Opening():
             model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_OPENING.name, opening)
 
     @staticmethod
-    def GetOpening(object_index: int = 1,
-                model = Model):
+    def GetOpening(object_index: int = 1, model = Model):
 
         '''
         Args:

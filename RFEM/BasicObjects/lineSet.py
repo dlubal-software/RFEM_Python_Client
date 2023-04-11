@@ -142,8 +142,7 @@ class LineSet():
         model.clientModel.service.set_line_set(clientObject)
 
     @staticmethod
-    def GetLineSet(object_index: int = 1,
-                model = Model):
+    def GetLineSet(object_index: int = 1, model = Model):
 
         '''
         Args:
