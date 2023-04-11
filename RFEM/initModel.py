@@ -309,7 +309,8 @@ def Calculate_all(generateXmlSolverInput: bool = False, model = Model):
         generateXmlSolverInput (bool): Generate XML Solver Input
         model (RFEM Class, optional): Model to be edited
     '''
-    model.clientModel.service.calculate_all(generateXmlSolverInput)
+    calculationMessages = model.clientModel.service.calculate_all(generateXmlSolverInput)
+    return calculationMessages
 
 def ConvertToDlString(s):
     '''
@@ -499,7 +500,7 @@ def SetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active, status = T
 
         modelClient.service.set_addon_statuses(addonLst)
 
-def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None, model = Model):
+def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None,skipWarnings = True, model = Model):
     '''
     This method calculate just selected objects - load cases, designSituations, loadCombinations
 
@@ -509,32 +510,34 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
         loadCombinations (list, optional): Load Combinations List
         model (RFEM Class, optional): Model to be edited
     '''
-    specificObjectsToCalculate = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements')
+    specificObjectsToCalculate = model.clientModel.factory.create('ns0:calculate_specific_loadings')
     if loadCases:
         for loadCase in loadCases:
-            specificObjectsToCalculateLC = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
-            specificObjectsToCalculateLC.no = loadCase
-            specificObjectsToCalculateLC.parent_no = 0
-            specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
-            specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
+            specificObjectsToCalculateLS = model.clientModel.factory.create('ns0:calculate_specific_loadings.loading')
+            specificObjectsToCalculateLS.no = loadCase
+            specificObjectsToCalculateLS.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
+            specificObjectsToCalculate.loading.append(specificObjectsToCalculateLS)
 
     if designSituations:
         for designSituation in designSituations:
-            specificObjectsToCalculateDS = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
+            specificObjectsToCalculateDS = model.clientModel.factory.create('ns0:calculate_specific_loadings.loading')
             specificObjectsToCalculateDS.no = designSituation
-            specificObjectsToCalculateDS.parent_no = 0
             specificObjectsToCalculateDS.type = ObjectTypes.E_OBJECT_TYPE_DESIGN_SITUATION.name
-            specificObjectsToCalculate.element.append(specificObjectsToCalculateDS)
+            specificObjectsToCalculate.loading.append(specificObjectsToCalculateDS)
+
 
     if loadCombinations:
         for loadCombination in loadCombinations:
-            specificObjectsToCalculateLC = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
-            specificObjectsToCalculateLC.no = loadCombination
-            specificObjectsToCalculateLC.parent_no = 0
-            specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
-            specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
+            specificObjectsToCalculateCC = model.clientModel.factory.create('ns0:calculate_specific_loadings.loading')
+            specificObjectsToCalculateCC.no = loadCombination
+            specificObjectsToCalculateCC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_COMBINATION.name
+            specificObjectsToCalculate.loading.append(specificObjectsToCalculateCC)
+    try:
+        calculationMessages = model.clientModel.service.calculate_specific(specificObjectsToCalculate,skipWarnings)
+    except Exception as inst:
+        calculationMessages = "Calculation was unsuccessful: " + inst.fault.faultstring
 
-    model.clientModel.service.calculate_specific_objects(specificObjectsToCalculate)
+    return calculationMessages
 
 def FirstFreeIdNumber(memType = ObjectTypes.E_OBJECT_TYPE_MEMBER, parent_no: int = 0, model = Model):
     '''
