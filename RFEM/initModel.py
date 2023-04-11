@@ -570,7 +570,6 @@ def SetModelType(model_type = ModelType.E_MODEL_TYPE_3D, model = Model):
     model.clientModel.service.set_model_type(model_type.name)
 
 def GetModelType(model = Model):
-
     '''
     The method returns a string of the current model type.
 
@@ -579,3 +578,104 @@ def GetModelType(model = Model):
     '''
 
     return model.clientModel.service.get_model_type()
+
+def NewModelAsCopy(old_model_name: str = '',
+                   old_model_folder: str = ''):
+    '''
+    The method creates a new model as copy from an existing model
+
+    Args:
+        old_model_name (str): Old Model Name
+        old_model_folder (str): Old Model Folder
+    '''
+
+    # Old Model Name
+    new_model_name = ''
+    if '.rf6' in old_model_name:
+        new_model_name = old_model_name[:-4] + '_copy'
+
+    else:
+         assert TypeError('Model ' + old_model_name +  ' does not exist')
+
+    old_model_path = os.path.join(old_model_folder, old_model_name)
+
+    # New Model Name
+    newModelAsCopy = client.service.new_model_as_copy(new_model_name, old_model_path)
+
+    return newModelAsCopy
+
+def GetModelMainParameters(model = Model):
+    '''
+    The method returns the main parameters of the current model.
+
+    Args:
+        model (RFEM Class, optional): Model to be edited
+    '''
+
+    # Client Model | Get Model Main Parameters
+    return model.clientModel.service.get_model_main_parameters()
+
+def GetModelId(model = Model):
+    '''
+    This method returns model id as a string.
+
+    Args:
+        model (RFEM Class, optional): Model to be edited
+    '''
+
+    # Client Model | Get Model ID
+    return model.clientModel.service.get_model_main_parameters().model_id
+
+def GetModelParameters(model = Model):
+    '''
+    This method retuns the parameters of the current model.
+
+    Args:
+        model (RFEM Class, optional): Model to be edited
+    '''
+
+    # Client Model | Get Model Parameters
+    return model.clientModel.service.get_model_parameters()
+
+def GetModelSessionId(model = Model):
+    '''
+    This method returns model session id as a string.
+
+    Args:
+        model (RFEM Class, optional): Model to be edited
+    '''
+
+    # Client Model | Get Session Id
+    return model.clientModel.service.get_session_id()
+
+def GetName():
+    '''
+    This method returns app name as a string.
+    '''
+
+    # Client Application | Get Information
+    return client.service.get_information().name
+
+def GetVersion():
+    '''
+    This method returns version as a string.
+    '''
+
+    # Client Application | Get Information
+    return client.service.get_information().version
+
+def GetLanguage():
+    '''
+    This method returns language as a string.
+    '''
+
+    # Client Application | Get Information
+    return client.service.get_information().language_name
+
+def GetAppSessionId():
+    '''
+    This method returns session id as a string.
+    '''
+
+    # Client Application | Get Session ID
+    return client.service.get_session_id()
