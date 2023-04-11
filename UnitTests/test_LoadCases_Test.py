@@ -7,6 +7,8 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.initModel import Model
+from RFEM.Imperfections.imperfectionCase import ImperfectionCase
+from RFEM.SpecialObjects.structureModification import StructureModification
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.enums import ActionCategoryType
@@ -20,8 +22,11 @@ def test_load_case():
     Model.clientModel.service.begin_modification()
 
     StaticAnalysisSettings()
-    LoadCase.StaticAnalysis(1, 'SW', True, 1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_G, [True, 0, 0, 1])
-    LoadCase.StaticAnalysis(2, 'SDL', True,  1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_IMPOSED_GQ, [True, 0.1, 0.1, 0])
+    ImperfectionCase(1)
+    ImperfectionCase(2)
+    StructureModification(1)
+    LoadCase.StaticAnalysis(1, 'SW', True, 1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_G, [True, 0, 0, 1], 2)
+    LoadCase.StaticAnalysis(2, 'SDL', True,  1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_IMPOSED_GQ, [True, 0.1, 0.1, 0], 1, 1)
     LoadCase.StaticAnalysis(3, 'Snow', True,  1, ActionCategoryType.ACTION_CATEGORY_SNOW_ICE_LOADS_H_LESS_OR_EQUAL_TO_1000_M_QS, [False])
     LoadCase.StaticAnalysis(4, 'Wind', False,  1, ActionCategoryType.ACTION_CATEGORY_WIND_QW, [False])
 
@@ -33,14 +38,20 @@ def test_load_case():
     assert lc_1.self_weight_active == True
     assert lc_1.self_weight_factor_x == 0
     assert lc_1.self_weight_factor_z == 1
+    assert lc_1.imperfection_case == 2
+    assert lc_1.structure_modification_enabled == False
 
     lc_2 = Model.clientModel.service.get_load_case(2)
     assert lc_2.action_category == 'ACTION_CATEGORY_PERMANENT_IMPOSED_GQ'
     assert lc_2.self_weight_factor_x == 0.1
     assert lc_2.self_weight_factor_z == 0
+    assert lc_2.imperfection_case == 1
+    assert lc_2.structure_modification == 1
 
     lc_3 = Model.clientModel.service.get_load_case(3)
     assert lc_3.action_category == 'ACTION_CATEGORY_SNOW_ICE_LOADS_H_LESS_OR_EQUAL_TO_1000_M_QS'
     assert lc_3.self_weight_active == False
+    assert lc_3.consider_imperfection == False
+    assert lc_3.structure_modification_enabled == False
 
     assert Model.clientModel.service.get_load_case(4).self_weight_active == False
