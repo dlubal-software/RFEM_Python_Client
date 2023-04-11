@@ -2,9 +2,7 @@ from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, Conver
 from RFEM.enums import LineMeshRefinementsType
 
 class LineMeshRefinements():
-    TypeSpecificParams = {'target_length': 0.1, #Target FE Length Type
-                          'elements_finite_elements': 0, # Number Finite Elements Type
-                          'gradual_rows': 0} # Gradually Type
+
     def __init__(self,
                  no: int = 1,
                  lines: str = '3 4 5',

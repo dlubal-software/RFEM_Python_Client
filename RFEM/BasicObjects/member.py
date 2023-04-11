@@ -476,7 +476,7 @@ class Member():
         # Add Member to client model
         model.clientModel.service.set_member(clientObject)
 
-	## Rib Member should be corrected.
+    # Rib Member should be corrected.
     @staticmethod
     def Rib(
             no: int = 1,

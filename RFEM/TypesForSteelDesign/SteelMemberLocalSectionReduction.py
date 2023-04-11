@@ -49,21 +49,21 @@ class SteelMemberLocalSectionReduction():
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
 
-        #Local Section Reduction No.
+        # Local Section Reduction No.
         clientObject.no = no
 
-        #Local Section Reduction Assigned Members
+        # Local Section Reduction Assigned Members
         clientObject.members = ConvertToDlString(members)
 
-        #Local Section Reduction Assigned Member Sets
+        # Local Section Reduction Assigned Member Sets
         clientObject.member_sets = ConvertToDlString(member_sets)
 
-        #Local Section Reduction User defined Name
+        # Local Section Reduction User defined Name
         if user_defined_name:
             clientObject.user_defined_name_enabled = True
             clientObject.name = user_defined_name
 
-        #Local Section Reduction Components
+        # Local Section Reduction Components
         clientObject.components = model.clientModel.factory.create('ns0:array_of_steel_member_local_section_reduction_components')
 
         for i,j in enumerate(components):

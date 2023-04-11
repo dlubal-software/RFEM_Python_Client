@@ -52,7 +52,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = magnitude
 
         # Comment
@@ -149,7 +149,7 @@ class MemberSetLoad():
         # Member Load Distribution
         clientObject.load_distribution= load_distribution.name
 
-        #Load Magnitude and Parameters
+        # Load Magnitude and Parameters
         if load_parameter == []:
             raise ValueError("WARNING: Load parameter cannot be empty. Kindly check list inputs completeness and correctness.")
         else:
@@ -320,7 +320,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Force Eccentiricity
+        # Force Eccentiricity
         clientObject.has_force_eccentricity = force_eccentricity
 
         if force_eccentricity == True:
@@ -443,7 +443,7 @@ class MemberSetLoad():
         # Member Load Distribution
         clientObject.load_distribution= load_distribution.name
 
-        #Load Magnitude and Parameters
+        # Load Magnitude and Parameters
         if load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM":
             if len(load_parameter) != 1:
                 raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
@@ -739,7 +739,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             if len(load_parameter) != 2:
                 raise ValueError("WARNING: Load parameter array length should be 2 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
@@ -906,7 +906,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             if len(load_parameter) != 2:
                 raise ValueError("WARNING: Load parameter array length should be 2 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
@@ -1067,7 +1067,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             if len(load_parameter) != 1:
                 raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
@@ -1200,7 +1200,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = magnitude
 
         # Comment
@@ -1280,7 +1280,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             if len(load_parameter) != 1:
                 raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
@@ -1414,7 +1414,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = magnitude
 
         # Comment
@@ -1501,7 +1501,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             if len(load_parameter) != 1:
                 raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
@@ -1739,7 +1739,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             if len(load_parameter) != 1:
                 raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
@@ -1953,10 +1953,10 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = MemberSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE.name
 
-        #Member Load Orientation
+        # Member Load Orientation
         clientObject.load_direction_orientation = load_direction_orientation.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = specific_weight
 
         # Comment
@@ -2021,13 +2021,13 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = MemberSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE.name
 
-        #Member Load Orientation
+        # Member Load Orientation
         clientObject.load_direction_orientation = load_direction_orientation.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = specific_weight
 
-        #Filling Height
+        # Filling Height
         clientObject.filling_height = filling_height
 
         # Comment
@@ -2088,7 +2088,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = pressure
 
         # Comment
@@ -2155,16 +2155,16 @@ class MemberSetLoad():
         load_type = MemberSetLoadType.LOAD_TYPE_ROTARY_MOTION
         clientObject.load_type = load_type.name
 
-        #Angular Acceleration
+        # Angular Acceleration
         clientObject.angular_acceleration = angular_acceleration
 
-        #Angular Velocity
+        # Angular Velocity
         clientObject.angular_velocity = angular_velocity
 
-        #Axis Definition Type
+        # Axis Definition Type
         clientObject.axis_definition_type = axis_definition_type.name
 
-        #Axis definition
+        # Axis definition
         if clientObject.axis_definition_type == "AXIS_DEFINITION_TWO_POINTS":
             clientObject.axis_definition_p1_x = axis_definition_p1[0]
             clientObject.axis_definition_p1_y = axis_definition_p1[1]

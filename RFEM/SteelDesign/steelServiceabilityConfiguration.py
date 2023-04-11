@@ -44,7 +44,7 @@ class SteelDesignServiceabilityConfigurations():
             clientObject.assigned_to_all_members = False
             clientObject.assigned_to_members = ConvertToDlString(members_no)
 
-        #Assigned Member Sets
+        # Assigned Member Sets
         if member_sets_no == 'All':
             clientObject.assigned_to_all_member_sets = True
 

@@ -7,15 +7,15 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.initModel import Model, closeModel
+from RFEM.initModel import Model, closeAllModels
 
 def pytest_exception_interact():
     '''
-    Called when an exception was raised which can potentially be interactively handled.
-    Called after the failed test.
+    Called when an exception was raised which can potentially be interactively handled,
+    in our case after the failed test.
     '''
 
     # This ensures that the tests executed after failed test are not affected.
     if Model.clientModel:
-        closeModel(0)
+        closeAllModels()
     Model()

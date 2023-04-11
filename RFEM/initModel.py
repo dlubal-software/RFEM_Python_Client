@@ -269,14 +269,22 @@ def closeModel(index_or_name, save_changes = False):
         if '.rf6' in index_or_name:
             index_or_name = index_or_name[:-4]
 
-        modelLs = client.service.get_model_list()
-        for i,j in enumerate(modelLs.name):
-            if modelLs.name[i] == index_or_name:
-                Model.__delete__(Model, index_or_name)
-                client.service.close_model(i, save_changes)
-                continue
+        modelLs = client.service.get_model_list().name
+        Model.__delete__(Model, index_or_name)
+        client.service.close_model(modelLs.index(index_or_name), save_changes)
     else:
         assert False, 'Parameter index_or_name must be int or string.'
+
+def closeAllModels(save_changes = False):
+    '''
+    Function that closes all opened models in reverse order.
+
+    Args:
+        save_changes (bool): Enable/Disable Save Changes Option
+    '''
+    modelLs = client.service.get_model_list().name
+    for j in reversed(modelLs):
+        closeModel(j, save_changes)
 
 def saveFile(model_path):
     '''
@@ -353,8 +361,7 @@ def ConvertToDlString(s):
         else:
             new_lst.append(element)
 
-    s = ' '.join(new_lst)
-    return s
+    return ' '.join(new_lst)
 
 def ConvertStrToListOfInt(st):
     """
