@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 
 class ImposedNodalDeformation():
 
@@ -35,8 +35,7 @@ class ImposedNodalDeformation():
         clientObject.load_case = load_case_no
 
         # Assigned Node No.
-        #clientObject.node_no = ConvertToDlString(node_no()
-        clientObject.nodes = node_no
+        clientObject.nodes = ConvertToDlString(node_no)
 
         # Load Parameter
         clientObject.imposed_displacement_x = load_parameter[0]

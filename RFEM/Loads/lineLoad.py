@@ -384,7 +384,7 @@ class LineLoad():
         # Line Load Distribution
         clientObject.load_distribution= load_distribution.name
 
-        #Load Magnitude and Parameters
+        # Load Magnitude and Parameters
         if load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM":
             clientObject.magnitude = load_parameter
 
@@ -543,7 +543,7 @@ class LineLoad():
         # Line Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Reference to List of Lines
+        # Reference to List of Lines
         clientObject.reference_to_list_of_lines = list_reference
 
         # Comment

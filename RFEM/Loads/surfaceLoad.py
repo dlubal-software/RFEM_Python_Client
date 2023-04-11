@@ -436,7 +436,7 @@ class SurfaceLoad():
         # Load Distribution
         clientObject.load_distribution = SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM.name
 
-        #Load Direction
+        # Load Direction
         clientObject.load_direction = SurfaceLoadDirection.LOAD_DIRECTION_LOCAL_Z.name
 
         # Load Magnitude
@@ -575,10 +575,10 @@ class SurfaceLoad():
         # Load Distribution
         clientObject.load_distribution = SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM.name
 
-        #Load Direction
+        # Load Direction
         clientObject.load_direction = SurfaceLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE.name
 
-        #Individual Mass Components
+        # Individual Mass Components
         clientObject.individual_mass_components = individual_mass_components
 
         # Load Magnitude

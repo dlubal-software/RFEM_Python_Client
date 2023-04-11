@@ -18,14 +18,14 @@ def test_ModelParameters():
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    ModelParameters([['Client Name', 'ABC', 'c'], ['Company name', 'Dlubal Software GmbH', 'g'], ['Project name', 'Cantilever', 'h']])
+    ModelParameters([['Client name', 'ABC', 'c'], ['Company name', 'Dlubal Software GmbH', 'g'], ['Project name', 'Cantilever', 'h']])
 
     Model.clientModel.service.finish_modification()
 
     mp = Model.clientModel.service.get_model_parameters()
 
     assert mp.model_parameters[0].no == 1
-    assert mp.model_parameters[2].row['name'] == 'Client Name'
+    assert mp.model_parameters[2].row['name'] == 'Client name'
     assert mp.model_parameters[3].row['description_1'] == 'Dlubal Software GmbH'
     assert mp.model_parameters[4].row['description_2'] == 'h'
 

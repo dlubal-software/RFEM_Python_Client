@@ -440,7 +440,7 @@ class SurfaceSetLoad():
         # Load Distribution
         clientObject.load_distribution = SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM.name
 
-        #Load Direction
+        # Load Direction
         clientObject.load_direction = SurfaceSetLoadDirection.LOAD_DIRECTION_LOCAL_Z.name
 
         # Load Magnitude
@@ -576,7 +576,7 @@ class SurfaceSetLoad():
         # Surfaces No. (e.g. '5 6 7 12')
         clientObject.surface_sets = ConvertToDlString(surface_sets)
 
-        #Individual Mass Components
+        # Individual Mass Components
         clientObject.individual_mass_components = individual_mass_components
 
         # Load Magnitude

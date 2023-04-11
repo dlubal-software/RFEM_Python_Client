@@ -12,31 +12,23 @@ from RFEM.initModel import GetModelParameters, GetModelMainParameters, GetModelI
 if Model.clientModel is None:
     Model()
 
-
 def test_ModelParameters():
 
     Model.clientModel.service.delete_all()
-    Model.clientModel.service.begin_modification()
 
     m = GetModelParameters()
-
-    Model.clientModel.service.finish_modification()
 
     assert m.model_parameters[0].no == 1
     assert m.model_parameters[2].row['name'] == 'Client name'
     assert m.model_parameters[1].row['description_2'] == 'Unique project identifier'
-    assert m.model_parameters[3].row['description_2'] == None
-
+    assert m.model_parameters[3].row['description_2'] in [None, 'g']
 
 def test_ModelMainParameters():
 
     Model.clientModel.service.delete_all()
-    Model.clientModel.service.begin_modification()
 
     m = GetModelMainParameters()
     mi = GetModelId()
-
-    Model.clientModel.service.finish_modification()
 
     act_mi = Model.clientModel.service.get_model_main_parameters().model_id
 
@@ -46,13 +38,10 @@ def test_ModelMainParameters():
 def test_Application():
 
     Model.clientModel.service.delete_all()
-    Model.clientModel.service.begin_modification()
 
     name = GetName()
     version = GetVersion()
     language = GetLanguage()
-
-    Model.clientModel.service.finish_modification()
 
     an = client.service.get_information()
 

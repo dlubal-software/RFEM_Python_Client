@@ -73,7 +73,7 @@ class LineRelease():
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
-        #Comment
+        # Comment
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
