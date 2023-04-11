@@ -558,7 +558,6 @@ def SetModelType(model_type = ModelType.E_MODEL_TYPE_3D, model = Model):
     model.clientModel.service.set_model_type(model_type.name)
 
 def GetModelType(model = Model):
-
     '''
     The method returns a string of the current model type.
 
@@ -570,7 +569,6 @@ def GetModelType(model = Model):
 
 def NewModelAsCopy(old_model_name: str = '',
                    old_model_folder: str = ''):
-
     '''
     The method creates a new model as copy from an existing model
 
@@ -595,7 +593,6 @@ def NewModelAsCopy(old_model_name: str = '',
     return newModelAsCopy
 
 def GetModelMainParameters(model = Model):
-
     '''
     The method returns the main parameters of the current model.
 
@@ -607,9 +604,8 @@ def GetModelMainParameters(model = Model):
     return model.clientModel.service.get_model_main_parameters()
 
 def GetModelId(model = Model):
-
     '''
-    This method returns a string of the current model id.
+    This method returns model id as a string.
 
     Args:
         model (RFEM Class, optional): Model to be edited
@@ -619,7 +615,6 @@ def GetModelId(model = Model):
     return model.clientModel.service.get_model_main_parameters().model_id
 
 def GetModelParameters(model = Model):
-
     '''
     This method retuns the parameters of the current model.
 
@@ -631,9 +626,8 @@ def GetModelParameters(model = Model):
     return model.clientModel.service.get_model_parameters()
 
 def GetModelSessionId(model = Model):
-
     '''
-    This method returns a string of the current model session id.
+    This method returns model session id as a string.
 
     Args:
         model (RFEM Class, optional): Model to be edited
@@ -643,40 +637,32 @@ def GetModelSessionId(model = Model):
     return model.clientModel.service.get_session_id()
 
 def GetName():
-
     '''
-    This method returns a string of the current app name.
-
+    This method returns app name as a string.
     '''
 
     # Client Application | Get Information
     return client.service.get_information().name
 
 def GetVersion():
-
     '''
-    This method returns a string of the current app version.
-
+    This method returns version as a string.
     '''
 
     # Client Application | Get Information
     return client.service.get_information().version
 
 def GetLanguage():
-
     '''
-    This method returns a string of the current app language.
-
+    This method returns language as a string.
     '''
 
     # Client Application | Get Information
     return client.service.get_information().language_name
 
 def GetAppSessionId():
-
     '''
-    Thsi method returs a string of the current app session id.
-
+    This method returns session id as a string.
     '''
 
     # Client Application | Get Session ID
