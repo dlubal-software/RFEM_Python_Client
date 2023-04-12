@@ -51,26 +51,18 @@ def test_calculate_specific():
     createmodel()
     messages = CalculateSelectedCases([1])
 
-    # assert len(messages) != 0
-
-    hasResultLC1 = Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
-    assert hasResultLC1 == True
-
-    hasResultLC2 =  Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
-    assert hasResultLC2 == False
+    assert not messages
+    assert  Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
+    assert not Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
 
 def test_calculate_all():
 
     createmodel()
     messages = Calculate_all()
 
-    # assert len(messages) != 0
-
-    hasResultLC1 = Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
-    assert hasResultLC1 == True
-
-    hasResultLC2 =  Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
-    assert hasResultLC2 == True
+    assert not messages
+    assert Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
+    assert Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
 
 # CAUTION:
 # These tests needs to be executed last because they change global settings.
