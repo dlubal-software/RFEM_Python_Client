@@ -5,14 +5,72 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.enums import SurfacesShapeOfFiniteElements, OptimizeOnType, Optimizer, AddOn
-from RFEM.initModel import Model, client, SetAddonStatus
+from RFEM.enums import SurfacesShapeOfFiniteElements, OptimizeOnType, Optimizer, AddOn,NodalSupportType, LoadDirectionType, ActionCategoryType, ObjectTypes
+from RFEM.initModel import Model, client, SetAddonStatus,Calculate_all, CalculateSelectedCases
 from RFEM.Calculate.meshSettings import GetMeshSettings, MeshSettings, GetModelInfo
 from RFEM.Calculate.optimizationSettings import OptimizationSettings
 from UnitTests.test_solids import test_solids_and_solid_sets
+from RFEM.BasicObjects.material import Material
+from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.member import Member
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.Loads.nodalLoad import NodalLoad
+
 
 if Model.clientModel is None:
     Model()
+
+def createmodel():
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+
+    Material(1, 'S235')
+
+    Section(1, 'IPE 200')
+
+    Node(1, 0.0, 0.0, 0.0)
+    Node(2, 5.0, 0.0, 0.0)
+
+    Member(1, 1, 2, 0.0, 1, 1)
+
+    NodalSupport(1, '1', NodalSupportType.FIXED)
+
+    StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
+    LoadCase.StaticAnalysis(1, 'SW', True, 1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_G, [True, 0, 0, 1])
+    LoadCase.StaticAnalysis(2, 'SDL', True,  1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_IMPOSED_GQ, [False])
+
+    NodalLoad(1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 150*1000)
+    Model.clientModel.service.finish_modification()
+
+def test_calculate_specific():
+
+    createmodel()
+    messages = CalculateSelectedCases([1])
+
+    # assert len(messages) != 0
+
+    hasResultLC1 = Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
+    assert hasResultLC1 == True
+
+    hasResultLC2 =  Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
+    assert hasResultLC2 == False
+
+def test_calculate_all():
+
+    createmodel()
+    messages = Calculate_all()
+
+    # assert len(messages) != 0
+
+    hasResultLC1 = Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
+    assert hasResultLC1 == True
+
+    hasResultLC2 =  Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
+    assert hasResultLC2 == True
 
 # CAUTION:
 # These tests needs to be executed last because they change global settings.
