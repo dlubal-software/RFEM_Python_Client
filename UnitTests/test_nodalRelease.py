@@ -17,7 +17,7 @@ from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.surface import Surface
 from RFEM.BasicObjects.solid import Solid
-from RFEM.SpecialObjects.nodalReleaseType import NodalReleaseType
+from RFEM.TypesForSpecialObjects.nodalReleaseType import NodalReleaseType
 from RFEM.SpecialObjects.nodalRelease import NodalRelease
 
 if Model.clientModel is None:

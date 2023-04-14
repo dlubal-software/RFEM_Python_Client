@@ -17,6 +17,7 @@ from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 from RFEM.Loads.nodalLoad import NodalLoad
 
 
@@ -39,6 +40,7 @@ def createmodel():
 
     NodalSupport(1, '1', NodalSupportType.FIXED)
 
+    LoadCasesAndCombinations(params = {"current_standard_for_combination_wizard": 6208})
     StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
     LoadCase.StaticAnalysis(1, 'SW', True, 1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_G, [True, 0, 0, 1])
     LoadCase.StaticAnalysis(2, 'SDL', True,  1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_IMPOSED_GQ, [False])

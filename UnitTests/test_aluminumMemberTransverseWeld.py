@@ -7,7 +7,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import AddOn, WeldComponentType
-from RFEM.initModel import Model, SetAddonStatus, CheckIfMethodOrTypeExists
+from RFEM.initModel import Model, SetAddonStatus
 from RFEM.TypesForAluminumDesign. aluminumMemberTransverseWelds import AluminumMemberTransverseWeld, transverseWeldComponent
 import pytest
 
