@@ -921,6 +921,16 @@
      <attribute name="title">
       <string>Results</string>
      </attribute>
+     <widget class="QWebEngineView" name="webEngineView">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>761</width>
+        <height>681</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QGraphicsView" name="graphicsView">

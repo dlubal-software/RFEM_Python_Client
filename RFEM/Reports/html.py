@@ -202,7 +202,7 @@ def __writeToFile(TargetFilePath, output):
                     line = line[:beginId]+'<sup>'+line[beginId+1:endId]+'</sup>'+line[endId:]
             f.write(line+'\n')
 
-def ExportResultTablesToHtml(TargetFolderPath: str):
+def ExportResultTablesToHtml(TargetFolderPath: str, OpenBrowser: bool = True):
     '''
     This feature allows the user to create an output HTML file with the results.
     The results are in the same form as result tables in RFEM.
@@ -280,5 +280,6 @@ def ExportResultTablesToHtml(TargetFolderPath: str):
         for line in indexOutput:
             f.write(line+'\n')
 
-    # Open result html page
-    os.system(f"start {os.path.join(TargetFolderPath, 'index.html')}")
+    if OpenBrowser:
+        # Open result html page
+        os.system(f"start {os.path.join(TargetFolderPath, 'index.html')}")

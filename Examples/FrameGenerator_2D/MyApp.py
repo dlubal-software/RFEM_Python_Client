@@ -1,21 +1,22 @@
 import json
 import sys
 
+from mdurl import URL
+
 from InstallPyQt5 import installPyQt5
 installPyQt5()
 
-from PyQt5 import uic
+from PyQt5 import uic, QtWebEngineWidgets
 from PyQt5 import QtCore
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QUrl
 from PyQt5.QtGui import QBrush, QPainter, QPen, QColor, QFont, QPalette
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsScene, QGraphicsRectItem, QGraphicsEllipseItem, QGraphicsItem, QVBoxLayout, QPushButton, QSlider, QHBoxLayout, QMessageBox
 
+
 from MyRFEM import *
 
-# TODO 19: Draw the loads
-# TODO 18: Read the date from load tab into the graphic_model
-# TODO 33: Add buttons for switch on and switch of the load in graphic
 # TODO 32: Generate the report and display it an the tab
+# TODO 33: Add buttons for switch on and switch of the load in graphic
 # TODO 11: Make path specification better
 # TODO 12: Uniform use of ' or " in open()
 # TODO 13: Correct tab order of the dimensions
@@ -25,8 +26,10 @@ from MyRFEM import *
 #          should disappear when the calculation is finished (in done() method).
 # TODO 15: Add spin buttons on edit lines (?)
 # TODO 30: delete test_DesignSituations.py
-# TODO 36:
-# TODO 37:
+# TODO 37: add pip install PyQtWebEngine to InstallPyQt5.py
+# TODO 38:
+# TODO 39:
+# TODO 40:
 
 class MyWindow(QMainWindow):
     # This dictionary stores the data for the graphic that will
@@ -36,7 +39,8 @@ class MyWindow(QMainWindow):
     # This dictionary contains all calculation relevant information.
     calculation_model = {}
 
-    results = {}
+    # It stores if results are available in RFEM or not.
+    results = False
 
     # All usable materials are defined in this list.
     material_list = []
@@ -810,6 +814,11 @@ class MyWindow(QMainWindow):
 
         # Call the calculation method in the class and store the results in a dictionary
         self.results = my_rfem.calculate()
+
+        # Protocol
+        if self.results:
+            self.ui.webEngineView.load(QUrl(my_rfem.get_report()))
+
 
         # This method close the model and close the connection to RFEM server.
         my_rfem.done()

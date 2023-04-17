@@ -1,12 +1,13 @@
 import os
 import sys
+import tempfile
 baseName = os.path.basename(__file__)
 dirName = os.path.dirname(__file__)
 print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.enums import NodalSupportType, MemberLoadDirection, AnalysisType, ActionCategoryType, AddOn, SetType, SteelBoundaryConditionsSupportType, SteelBoundaryConditionsEccentricityTypeZ, SteelMemberShearPanelDefinitionType, SteelMemberShearPanelPositionOnSection, SteelMemberShearPanelFasteningArrangement
+from RFEM.enums import NodalSupportType, MemberLoadDirection, AnalysisType, ActionCategoryType, AddOn, SetType, SteelBoundaryConditionsSupportType, SteelBoundaryConditionsEccentricityTypeZ
 from RFEM.initModel import Model, Calculate_all, SetAddonStatus
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.material import Material
@@ -25,10 +26,10 @@ from RFEM.TypesForSteelDesign.steelEffectiveLengths import SteelEffectiveLengths
 from RFEM.TypesForSteelDesign.steelBoundaryConditions import SteelBoundaryConditions
 from RFEM.SteelDesign.steelServiceabilityConfiguration import SteelDesignServiceabilityConfigurations
 from RFEM.SteelDesign.steelUltimateConfigurations import SteelDesignUltimateConfigurations
-from RFEM.TypesForSteelDesign.steelMemberShearPanel import SteelMemberShearPanel
+from RFEM.Reports.html import ExportResultTablesToHtml
 class MyRFEM():
-    input ={}
-    results ={}
+    input = {}
+    results = False
 
     def __init__(self, calculation_model):
         self.input = calculation_model
@@ -315,14 +316,19 @@ class MyRFEM():
 
     def calculate(self):
         Calculate_all()
+        # Was the calculation successful?
+        self.results = True
         return self.results
+
+    def get_report(self):
+        report_dir = tempfile.gettempdir() + '\\PyExample\\'
+        report_dir = report_dir.replace('\\', '/')
+        ExportResultTablesToHtml(report_dir, OpenBrowser=False)
+        return report_dir + 'index.html'
 
     def done(self):
         # This method Close the connection to RFEM server.
         Model.clientModel.service.close_connection()
-        pass
-
-
 
 if __name__ == "__main__":
     # ist ein Argument vorhanden?

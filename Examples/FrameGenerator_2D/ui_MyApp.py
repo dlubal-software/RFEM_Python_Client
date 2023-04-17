@@ -240,6 +240,9 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.Structure, "")
         self.Results = QtWidgets.QWidget()
         self.Results.setObjectName("Results")
+        self.webEngineView = QtWebEngineWidgets.QWebEngineView(self.Results)
+        self.webEngineView.setGeometry(QtCore.QRect(10, 10, 761, 681))
+        self.webEngineView.setObjectName("webEngineView")
         self.tabWidget.addTab(self.Results, "")
         self.graphicsView = QtWidgets.QGraphicsView(self.centralwidget)
         self.graphicsView.setGeometry(QtCore.QRect(820, 40, 471, 711))
@@ -319,3 +322,4 @@ class Ui_MainWindow(object):
         self.label_42.setText(_translate("MainWindow", "kN/m"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Structure), _translate("MainWindow", "Structure and Loads"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Results), _translate("MainWindow", "Results"))
+from PyQt5 import QtWebEngineWidgets
