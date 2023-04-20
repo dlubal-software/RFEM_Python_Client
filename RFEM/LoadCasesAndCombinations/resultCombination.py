@@ -1,26 +1,31 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
-from RFEM.enums import ResultCombinationType, OperatorType, ActionLoadType, CaseObjectSubResultType
+from RFEM.enums import ResultCombinationType, OperatorType, ActionLoadType
 
 class ResultCombination():
 
     def __init__(self,
                  no: int = 1,
-                 name: str = '',
                  design_situation: int = 1,
                  combination_type = ResultCombinationType.COMBINATION_TYPE_GENERAL,
                  combination_items: list = [
-                    [1, OperatorType.OPERATOR_OR, False, False, 1.2, CaseObjectSubResultType.SUB_RESULT_INCREMENTAL_FINAL_STATE, ActionLoadType.LOAD_TYPE_TRANSIENT],
-                    [2, OperatorType.OPERATOR_NONE, False, False, 1.6, CaseObjectSubResultType.SUB_RESULT_INCREMENTAL_FINAL_STATE, ActionLoadType.LOAD_TYPE_TRANSIENT]
+                    [1, OperatorType.OPERATOR_OR, 1.2, ActionLoadType.LOAD_TYPE_TRANSIENT],
+                    [2, OperatorType.OPERATOR_NONE, 1.6, ActionLoadType.LOAD_TYPE_TRANSIENT]
                     ],
-                 srss_combination: list = [False],
                  generate_subcombinations: bool = False,
+                 srss_combination: list = None,
+                 name: str = '',
                  comment: str = '',
                  params: dict = None,
                  model = Model):
 
         '''
         Args:
-            no (int): Result Combination Tag
+            no (int, mandatory): Result combination tag
+            design_situation (int, mandatory): Design situation
+            combination_type (enum, mandatory): Combination type
+            combination_items (list of lists, mandatory): Combination items
+            srss_combination (list, optional): SRSS Combination. If None then False.
+            name (str, optional): Result combination name
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -54,17 +59,13 @@ class ResultCombination():
             rci.row = model.clientModel.factory.create('ns0:result_combination_items')
             rci.row.case_object_item = combination_items[i][0]
             rci.row.operator_type = combination_items[i][1].name
-            rci.row.left_parenthesis = combination_items[i][2]
-            rci.row.right_parenthesis = combination_items[i][3]
-            rci.row.case_object_factor = combination_items[i][4]
-            rci.row.case_object_sub_result_type = combination_items[i][5].name
-            rci.row.case_object_load_type = combination_items[i][6].name
+            rci.row.case_object_factor = combination_items[i][2]
+            rci.row.case_object_load_type = combination_items[i][3].name
 
-            deleteEmptyAttributes(rci)
             clientObject.items.result_combination_items.append(rci)
 
         # SRSS Combinations
-        if srss_combination[0] == False:
+        if not srss_combination:
             clientObject.srss_combination = False
         else:
             clientObject.srss_combination = True
@@ -89,6 +90,3 @@ class ResultCombination():
 
         # Add Result Combination to client model
         model.clientModel.service.set_result_combination(clientObject)
-
-        # print(clientObject)
-

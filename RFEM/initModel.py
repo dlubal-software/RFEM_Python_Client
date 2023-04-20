@@ -214,7 +214,11 @@ def clearAttributes(obj):
     # iterator
     it = iter(obj)
     for i in it:
-        obj[i[0]] = None
+        try:
+            it = iter(obj[i[0]])
+            obj[i[0]] = clearAttributes(obj[i[0]])
+        except:
+            obj[i[0]] = None
     return obj
 
 def deleteEmptyAttributes(obj):
@@ -224,12 +228,29 @@ def deleteEmptyAttributes(obj):
     Args:
         obj: object to clear
     '''
+    it = [] # iterator
+    try:
+        it = iter(obj)
+    except:
+        ValueError('WARNING: Object feeded to deleteEmptyAttributes function is not iterable. It is type: '+str(type(obj)+'.'))
 
-    # iterator
-    it = iter(obj)
     for i in it:
-        if obj[i[0]] is None:
+        if isinstance(i, str) or isinstance(i, int) or isinstance(i, float) or isinstance(i, bool):
+            continue
+        if len(i) > 2:
+            i = deleteEmptyAttributes(i)
+        elif i[1] is None or i[1] == "":
             delattr(obj, i[0])
+        elif isinstance(i[1], str) or isinstance(i[1], int) or isinstance(i[1], float) or isinstance(i[1], bool):
+            pass
+        else:
+            if isinstance(i, tuple):
+                i = list(i)
+                i[1] = deleteEmptyAttributes(i[1])
+                i = tuple(i)
+            else:
+                i[1] = deleteEmptyAttributes(i[1])
+
     return obj
 
 def openFile(model_path):
