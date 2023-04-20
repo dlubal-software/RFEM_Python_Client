@@ -2472,3 +2472,28 @@ class NoteSurfaceReferenceType(Enum):
     Note Surface Reference Type Enumeration
     '''
     OFFSET_TYPE_XY, OFFSET_TYPE_XZ, OFFSET_TYPE_YZ = range(3)
+
+class TimberMoistureClassMoistureClass(Enum):
+    '''
+    Timber Moisture Class
+    '''
+    TIMBER_MOISTURE_CLASS_TYPE_1, TIMBER_MOISTURE_CLASS_TYPE_2, TIMBER_MOISTURE_CLASS_TYPE_3 = range(3)
+
+class TimberServiceConditionsMoistureServiceCondition(Enum):
+    '''
+    Timber Service Conditions Moisture Service Condition
+    '''
+    TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_DRY, TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_MOIST, TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_VERY_DRY, TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_WET = range(4)
+
+class TimberServiceConditionsTemperature(Enum):
+    '''
+    Timber Service Conditions Temperature
+    '''
+    TEMPERATURE_TYPE_EQUAL_TO_50, TEMPERATURE_TYPE_LESS_OR_EQUAL_100, TEMPERATURE_TYPE_LESS_OR_EQUAL_35, TEMPERATURE_TYPE_RANGE_100_125, TEMPERATURE_TYPE_RANGE_125_150, TEMPERATURE_TYPE_RANGE_35_50, \
+    TEMPERATURE_TYPE_TEMPERATURE_ZONE_1, TEMPERATURE_TYPE_TEMPERATURE_ZONE_2, TEMPERATURE_TYPE_TEMPERATURE_ZONE_3 = range(9)
+
+class TimberServiceConditionsTreatment(Enum):
+    '''
+    Timber Service Conditions Treatment
+    '''
+    TREATMENT_TYPE_FIRE_RETARDANT, TREATMENT_TYPE_NONE, TREATMENT_TYPE_PRESERVATIVE = range(3)
