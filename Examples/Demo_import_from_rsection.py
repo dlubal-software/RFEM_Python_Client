@@ -22,11 +22,11 @@ from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisS
 
 if __name__ == '__main__':
 
-    filepath = str(input('Filepath: '))
+    filepath = str(input('Filepath: ')) # give local filepath
     f = float(input('Force in kN: '))
     l = float(input('Length in m: '))
 
-    Model(True, "Demo_Rsection")
+    Model(True, "Demo_Rsection") # create new Model Demo_Rsection
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
