@@ -71,7 +71,7 @@ def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_ty
     clientObject.boundary_lines = ConvertToDlString(boundary_lines_no)
 
     # Thickness
-    if type == 'TYPE_STANDARD'or type == 'TYPE_MEMBRANE' or type == 'TYPE_WITHOUT_MEMBRANE_TENSION':
+    if surface_type in [SurfaceType.TYPE_STANDARD, SurfaceType.TYPE_MEMBRANE, SurfaceType.TYPE_WITHOUT_MEMBRANE_TENSION]:
         clientObject.thickness = thickness
 
     # Comment
@@ -386,3 +386,15 @@ class Surface():
         # Delete surfaces from client model
         for surface in ConvertStrToListOfInt(surfaces_no):
             model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, surface)
+
+    @staticmethod
+    def GetSurface(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Surface Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Surface from client  model
+        return model.clientModel.service.get_surface(object_index)

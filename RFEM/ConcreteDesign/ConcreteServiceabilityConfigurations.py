@@ -74,7 +74,7 @@ class ConcreteServiceabilityConfiguration():
             clientObject.assigned_to_all_surface_sets = False
             clientObject.assigned_to_surface_sets = ConvertToDlString(surface_sets)
 
-        #Assinged Nodes
+        # Assinged Nodes
         clientObject.assigned_to_nodes = ConvertToDlString(nodes)
 
         # Comment

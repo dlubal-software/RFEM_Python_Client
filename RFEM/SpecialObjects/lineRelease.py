@@ -23,7 +23,7 @@ class LineRelease():
             no (int): Line Release Tag
             lines (str): Assigned Lines
             line_release_type (int): Line Release Type Number
-            release_location (enum): Line Release Release Location
+            release_location (enum): Line Release Release Location Enumeration
             released_members (str): Assigned Release Members
             released_surfaces (str): Assigned Release Surfaces
             released_solids (str): Assigned Release Solids
@@ -73,7 +73,7 @@ class LineRelease():
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
-        #Comment
+        # Comment
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary

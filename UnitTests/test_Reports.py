@@ -19,7 +19,7 @@ if Model.clientModel is None:
                     It is not necessary to evaluate Client as functional. Localy this tests still gets executed.")
 def test_html_report():
     Model.clientModel.service.delete_all()
-    Model.clientModel.service.run_script('..\\scripts\\internal\\Demos\\Demo-003 Castellated Beam.js')
+    Model.clientModel.service.run_script('..\\scripts\\internal\\Demos\\Demo-002 Cantilever Beams.js')
     Model.clientModel.service.calculate_all(False)
 
     dirname = os.path.join(os.getcwd(), os.path.dirname(__file__))

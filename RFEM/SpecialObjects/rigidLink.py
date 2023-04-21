@@ -31,7 +31,7 @@ class RigidLink():
         clearAttributes(clientObject)
 
         # Type
-        #clientObject.type = RigidLinkType.TYPE_LINE_TO_LINE.name
+        clientObject.type = RigidLinkType.TYPE_LINE_TO_LINE.name
 
         # Rigid Link No.
         clientObject.no = no

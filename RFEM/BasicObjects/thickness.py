@@ -415,10 +415,10 @@ class Thickness():
             name (str): Thickness Name
             layers (list of lists): Layers Table as an Array. Angle of the material will be set if material model is orthotropic.
                 layers = [[thickness_type, material, thickness, angle], ...]
-            stiffness_reduction (bool, optional): True/False
-            stiffness_modification (list of lists, optional): Entries K33, K44, K55, K88 with notes, respectivly
+            stiffness_reduction (bool, optional): Enable/disable Stiffness Reduction
+            stiffness_modification (list of lists, optional): Stiffness Modification Table (Entries K33, K44, K55, K88 with notes, respectivly)
                 stiffness_modification = [[K33, K33 notes], ...]
-            specify_integration (bool, optional): True/False
+            specify_integration (bool, optional): Enable/disable Specify Integration
             integration_type (enum): Specify which Integration should be used
             clt_options (list of lists, optional): List that allows to set options for CLT
                 clt_options = [[False, 100, 100], [False, 0, 0]]
@@ -454,6 +454,7 @@ class Thickness():
         for i,j in enumerate(layers):
             tlrt = model.clientModel.factory.create('ns0:thickness_layers_reference_table_row')
             tlrt.no = i+1
+            tlrt.row = model.clientModel.factory.create('ns0:thickness_layers_reference_table')
             tlrt.row.layer_no = i+1
             tlrt.row.layer_type = LayerType.E_LAYER_TYPE_LAYER.name
 
@@ -788,3 +789,15 @@ class Thickness():
         # Delete from client model
         for thickness in ConvertStrToListOfInt(thickness_no):
             model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_THICKNESS.name, thickness)
+
+    @staticmethod
+    def GetThickness(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Thickness Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Thickness from client model
+        return model.clientModel.service.get_thickness(object_index)

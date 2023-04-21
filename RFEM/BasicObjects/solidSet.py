@@ -140,3 +140,15 @@ class SolidSet():
 
         # Add Solid Set to client model
         model.clientModel.service.set_solid_set(clientObject)
+
+    @staticmethod
+    def GetSolidSet(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Solid Set Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Solid Set from client model
+        return model.clientModel.service.get_solid_set(object_index)

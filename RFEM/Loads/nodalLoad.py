@@ -125,10 +125,10 @@ class NodalLoad():
         load_type = NodalLoadType.LOAD_TYPE_FORCE
         clientObject.load_type = load_type.name
 
-        ## Force Magnitude
+        # Force Magnitude
         clientObject.force_magnitude = magnitude
 
-        #Option Check
+        # Option Check
         if force_eccentricity and shifted_display:
             raise ValueError("Only one of force_eccentiricity and shifted_display could be TRUE")
 
@@ -165,7 +165,7 @@ class NodalLoad():
             elif params_s[0] == NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER:
                 clientObject.parallel_to_member = params_s[1]
 
-        #Force Eccentiricity
+        # Force Eccentiricity
         if force_eccentricity:
 
             if 'force_eccentricity' not in list(params.keys()):
@@ -179,7 +179,7 @@ class NodalLoad():
             clientObject.force_eccentricity_y = params_e[1]
             clientObject.force_eccentricity_z = params_e[2]
 
-        #Shifted Display
+        # Shifted Display
         if shifted_display:
 
             if 'shifted_display' not in list(params.keys()):
@@ -269,7 +269,7 @@ class NodalLoad():
         load_type = NodalLoadType.LOAD_TYPE_MOMENT
         clientObject.load_type = load_type.name
 
-        ## Force Magnitude
+        # Force Magnitude
         clientObject.moment_magnitude = moment_magnitude
 
         # Specific Direction
@@ -305,7 +305,7 @@ class NodalLoad():
             elif params_s[0] == NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER:
                 clientObject.parallel_to_member = params_s[1]
 
-        #Shifted Display
+        # Shifted Display
         if shifted_display:
 
             if 'shifted_display' not in list(params.keys()):
@@ -391,7 +391,7 @@ class NodalLoad():
         load_type = NodalLoadType.LOAD_TYPE_COMPONENTS
         clientObject.load_type = load_type.name
 
-        #Load Magnitudes
+        # Load Magnitudes
         if len(components) == 6:
             clientObject.components_force_x = components[0]
             clientObject.components_force_y = components[1]
@@ -403,7 +403,7 @@ class NodalLoad():
         else:
             raise ValueError("WARNING: The components must contain 6 elements. Kindly check list inputs for completeness and correctness.")
 
-        #Option Check
+        # Option Check
         if force_eccentricity and shifted_display:
             raise ValueError("WARNING: Only one of force_eccentiricity and shifted_display could be TRUE")
 
@@ -433,7 +433,7 @@ class NodalLoad():
             elif params_s[0] == NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER:
                 clientObject.parallel_to_member = params_s[1]
 
-        #Force Eccentiricity
+        # Force Eccentiricity
         if force_eccentricity:
 
             if 'force_eccentricity' not in list(params.keys()):
@@ -447,7 +447,7 @@ class NodalLoad():
             clientObject.force_eccentricity_y = params_e[1]
             clientObject.force_eccentricity_z = params_e[2]
 
-        #Shifted Display
+        # Shifted Display
         if shifted_display:
 
             if 'shifted_display' not in list(params.keys()):

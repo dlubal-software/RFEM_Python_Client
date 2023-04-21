@@ -229,9 +229,9 @@ class LineLoad():
                     raise ValueError("WARNING: LineLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:line_load_varying_load_parameters_row')
                 mlvlp.no = i+1
+                mlvlp.row = model.clientModel.factory.create('ns0:line_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
 
                 clientObject.varying_load_parameters.line_load_varying_load_parameters.append(mlvlp)
 
@@ -289,9 +289,9 @@ class LineLoad():
                     raise ValueError("WARNING: LineLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:line_load_varying_load_parameters_row')
                 mlvlp.no = i+1
+                mlvlp.row = model.clientModel.factory.create('ns0:line_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
 
                 clientObject.varying_load_parameters.line_load_varying_load_parameters.append(mlvlp)
 
@@ -384,7 +384,7 @@ class LineLoad():
         # Line Load Distribution
         clientObject.load_distribution= load_distribution.name
 
-        #Load Magnitude and Parameters
+        # Load Magnitude and Parameters
         if load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM":
             clientObject.magnitude = load_parameter
 
@@ -474,9 +474,9 @@ class LineLoad():
                     raise ValueError("WARNING: LineLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:line_load_varying_load_parameters_row')
                 mlvlp.no = i+1
+                mlvlp.row = model.clientModel.factory.create('ns0:line_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
 
                 clientObject.varying_load_parameters.line_load_varying_load_parameters.append(mlvlp)
 
@@ -534,16 +534,16 @@ class LineLoad():
                     raise ValueError("WARNING: LineLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = model.clientModel.factory.create('ns0:line_load_varying_load_parameters_row')
                 mlvlp.no = i+1
+                mlvlp.row = model.clientModel.factory.create('ns0:line_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
-                mlvlp.row.note = None
 
                 clientObject.varying_load_parameters.line_load_varying_load_parameters.append(mlvlp)
 
         # Line Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Reference to List of Lines
+        # Reference to List of Lines
         clientObject.reference_to_list_of_lines = list_reference
 
         # Comment

@@ -14,7 +14,7 @@ class SteelDesignServiceabilityConfigurations():
         """
         Args:
             no (int): Steel Design Serviceability Configuration Tag
-            user_defined_name (list): User Defined Name Configuration Name
+            name (list): User Defined Configuration Name
             members_no (str): Assign Configuration to Selected Members
             member_sets_no (str): Assign Configuration to Selected Member Sets
             comment (str, optional): Comment
@@ -44,7 +44,7 @@ class SteelDesignServiceabilityConfigurations():
             clientObject.assigned_to_all_members = False
             clientObject.assigned_to_members = ConvertToDlString(members_no)
 
-        #Assigned Member Sets
+        # Assigned Member Sets
         if member_sets_no == 'All':
             clientObject.assigned_to_all_member_sets = True
 

@@ -59,14 +59,10 @@ except:
     sys.exit()
 
 # Persistent connection
-# Next 4 lines enables Client to work within 1 session which is much faster to execute.
+# 'session' and 'trans'(port) enable Client to work within 1 session which is much faster to execute.
 # Without it the session lasts only one request which results in poor performance.
 # Assigning session to application Client (here client) instead of model Client
 # results also in poor performance.
-session = requests.Session()
-adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
-session.mount('http://', adapter)
-trans = RequestsTransport(session)
 
 class Model():
     clientModel = None
@@ -97,8 +93,8 @@ class Model():
 
         # The model suffix is omitted in modelLs, so it must be omitted in model_name to match exactly
         original_model_name = model_name
-        if '.rf6' in model_name:
-            model_name = model_name[:-4]
+        if '.' in model_name:
+            model_name = model_name.split('.')[0]
 
         if new_model:
             # Requested new model but the model with given name was already connected
@@ -112,10 +108,7 @@ class Model():
                 modelPath = ''
                 # Requested new model, model with given name was NOT connected yet but file with the same name was opened
                 if model_name in modelLst:
-                    id = 0
-                    for i,j in enumerate(modelLst):
-                        if modelLst[i] == model_name:
-                            id = i
+                    id = modelLst.index(model_name)
                     modelPath =  client.service.get_model(id)
                 else:
                     modelPath =  client.service.new_model(original_model_name)
@@ -126,6 +119,11 @@ class Model():
                 if self.clientModelDct:
                     cModel = Client(modelCompletePath, location = modelUrlPort, cache=ca)
                 else:
+                    session = requests.Session()
+                    adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
+                    session.mount('http://', adapter)
+                    trans = RequestsTransport(session)
+
                     cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca)
 
                 self.clientModelDct[model_name] = cModel
@@ -136,7 +134,7 @@ class Model():
 
             if model_name in self.clientModelDct:
                 cModel = self.clientModelDct[model_name]
-            else:
+            elif model_name in modelLst:
                 id = 0
                 for i,j in enumerate(modelLst):
                     if modelLst[i] == model_name:
@@ -145,8 +143,21 @@ class Model():
                 modelPort = modelPath[-5:-1]
                 modelUrlPort = url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
-                cModel = Client(modelCompletePath, location = modelUrlPort)
+
+                if self.clientModelDct:
+                    cModel = Client(modelCompletePath, location = modelUrlPort, cache=ca)
+                else:
+                    session = requests.Session()
+                    adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
+                    session.mount('http://', adapter)
+                    trans = RequestsTransport(session)
+
+                    cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca)
+
                 self.clientModelDct[model_name] = cModel
+            else:
+                print('Model name "'+model_name+'" is not created in RFEM. Consider changing new_model parameter in Model class from False to True.')
+                sys.exit()
 
             if delete:
                 print('Deleting results...')
@@ -179,13 +190,14 @@ class Model():
         if isinstance(index_or_name, int):
             assert index_or_name <= len(self.clientModelDct)
             modelLs = client.service.get_model_list()
-            self.clientModelDct.pop(modelLs.name[index_or_name])
-            if len(self.clientModelDct) > 0:
-                model_key = list(self.clientModelDct)[-1]
-                self.clientModel = self.clientModelDct[model_key]
 
-            else:
-                self.clientModel = None
+            if modelLs:
+                self.clientModelDct.pop(modelLs.name[index_or_name])
+                if len(self.clientModelDct) > 0:
+                    model_key = list(self.clientModelDct)[-1]
+                    self.clientModel = self.clientModelDct[model_key]
+                else:
+                    self.clientModel = None
 
 def clearAttributes(obj):
     '''
@@ -255,13 +267,22 @@ def closeModel(index_or_name, save_changes = False):
             index_or_name = index_or_name[:-4]
 
         modelLs = client.service.get_model_list()
-        for i,j in enumerate(modelLs.name):
-            if modelLs.name[i] == index_or_name:
-                Model.__delete__(Model, index_or_name)
-                client.service.close_model(i, save_changes)
-                continue
+        Model.__delete__(Model, index_or_name)
+        client.service.close_model(modelLs.name.index(index_or_name), save_changes)
     else:
         assert False, 'Parameter index_or_name must be int or string.'
+
+def closeAllModels(save_changes = False):
+    '''
+    Function that closes all opened models in reverse order.
+
+    Args:
+        save_changes (bool): Enable/Disable Save Changes Option
+    '''
+    modelLs = client.service.get_model_list()
+    if modelLs:
+        for j in reversed(modelLs.name):
+            closeModel(j, save_changes)
 
 def saveFile(model_path):
     '''
@@ -294,7 +315,8 @@ def Calculate_all(generateXmlSolverInput: bool = False, model = Model):
         generateXmlSolverInput (bool): Generate XML Solver Input
         model (RFEM Class, optional): Model to be edited
     '''
-    model.clientModel.service.calculate_all(generateXmlSolverInput)
+    calculationMessages = model.clientModel.service.calculate_all(generateXmlSolverInput)
+    return calculationMessages
 
 def ConvertToDlString(s):
     '''
@@ -337,8 +359,7 @@ def ConvertToDlString(s):
         else:
             new_lst.append(element)
 
-    s = ' '.join(new_lst)
-    return s
+    return ' '.join(new_lst)
 
 def ConvertStrToListOfInt(st):
     """
@@ -484,7 +505,7 @@ def SetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active, status = T
 
         modelClient.service.set_addon_statuses(addonLst)
 
-def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None, model = Model):
+def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None,skipWarnings = True, model = Model):
     '''
     This method calculate just selected objects - load cases, designSituations, loadCombinations
 
@@ -494,32 +515,34 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
         loadCombinations (list, optional): Load Combinations List
         model (RFEM Class, optional): Model to be edited
     '''
-    specificObjectsToCalculate = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements')
+    specificObjectsToCalculate = model.clientModel.factory.create('ns0:calculate_specific_loadings')
     if loadCases:
         for loadCase in loadCases:
-            specificObjectsToCalculateLC = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
-            specificObjectsToCalculateLC.no = loadCase
-            specificObjectsToCalculateLC.parent_no = 0
-            specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
-            specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
+            specificObjectsToCalculateLS = model.clientModel.factory.create('ns0:calculate_specific_loadings.loading')
+            specificObjectsToCalculateLS.no = loadCase
+            specificObjectsToCalculateLS.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
+            specificObjectsToCalculate.loading.append(specificObjectsToCalculateLS)
 
     if designSituations:
         for designSituation in designSituations:
-            specificObjectsToCalculateDS = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
+            specificObjectsToCalculateDS = model.clientModel.factory.create('ns0:calculate_specific_loadings.loading')
             specificObjectsToCalculateDS.no = designSituation
-            specificObjectsToCalculateDS.parent_no = 0
             specificObjectsToCalculateDS.type = ObjectTypes.E_OBJECT_TYPE_DESIGN_SITUATION.name
-            specificObjectsToCalculate.element.append(specificObjectsToCalculateDS)
+            specificObjectsToCalculate.loading.append(specificObjectsToCalculateDS)
+
 
     if loadCombinations:
         for loadCombination in loadCombinations:
-            specificObjectsToCalculateLC = model.clientModel.factory.create('ns0:array_of_calculate_specific_objects_elements.element')
-            specificObjectsToCalculateLC.no = loadCombination
-            specificObjectsToCalculateLC.parent_no = 0
-            specificObjectsToCalculateLC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
-            specificObjectsToCalculate.element.append(specificObjectsToCalculateLC)
+            specificObjectsToCalculateCC = model.clientModel.factory.create('ns0:calculate_specific_loadings.loading')
+            specificObjectsToCalculateCC.no = loadCombination
+            specificObjectsToCalculateCC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_COMBINATION.name
+            specificObjectsToCalculate.loading.append(specificObjectsToCalculateCC)
+    try:
+        calculationMessages = model.clientModel.service.calculate_specific(specificObjectsToCalculate, skipWarnings)
+    except Exception as inst:
+        calculationMessages = "Calculation was unsuccessful: " + inst.fault.faultstring
 
-    model.clientModel.service.calculate_specific_objects(specificObjectsToCalculate)
+    return calculationMessages
 
 def FirstFreeIdNumber(memType = ObjectTypes.E_OBJECT_TYPE_MEMBER, parent_no: int = 0, model = Model):
     '''
@@ -555,7 +578,6 @@ def SetModelType(model_type = ModelType.E_MODEL_TYPE_3D, model = Model):
     model.clientModel.service.set_model_type(model_type.name)
 
 def GetModelType(model = Model):
-
     '''
     The method returns a string of the current model type.
 
@@ -564,3 +586,104 @@ def GetModelType(model = Model):
     '''
 
     return model.clientModel.service.get_model_type()
+
+def NewModelAsCopy(old_model_name: str = '',
+                   old_model_folder: str = ''):
+    '''
+    The method creates a new model as copy from an existing model
+
+    Args:
+        old_model_name (str): Old Model Name
+        old_model_folder (str): Old Model Folder
+    '''
+
+    # Old Model Name
+    new_model_name = ''
+    if '.rf6' in old_model_name:
+        new_model_name = old_model_name[:-4] + '_copy'
+
+    else:
+         assert TypeError('Model ' + old_model_name +  ' does not exist')
+
+    old_model_path = os.path.join(old_model_folder, old_model_name)
+
+    # New Model Name
+    newModelAsCopy = client.service.new_model_as_copy(new_model_name, old_model_path)
+
+    return newModelAsCopy
+
+def GetModelMainParameters(model = Model):
+    '''
+    The method returns the main parameters of the current model.
+
+    Args:
+        model (RFEM Class, optional): Model to be edited
+    '''
+
+    # Client Model | Get Model Main Parameters
+    return model.clientModel.service.get_model_main_parameters()
+
+def GetModelId(model = Model):
+    '''
+    This method returns model id as a string.
+
+    Args:
+        model (RFEM Class, optional): Model to be edited
+    '''
+
+    # Client Model | Get Model ID
+    return model.clientModel.service.get_model_main_parameters().model_id
+
+def GetModelParameters(model = Model):
+    '''
+    This method retuns the parameters of the current model.
+
+    Args:
+        model (RFEM Class, optional): Model to be edited
+    '''
+
+    # Client Model | Get Model Parameters
+    return model.clientModel.service.get_model_parameters()
+
+def GetModelSessionId(model = Model):
+    '''
+    This method returns model session id as a string.
+
+    Args:
+        model (RFEM Class, optional): Model to be edited
+    '''
+
+    # Client Model | Get Session Id
+    return model.clientModel.service.get_session_id()
+
+def GetName():
+    '''
+    This method returns app name as a string.
+    '''
+
+    # Client Application | Get Information
+    return client.service.get_information().name
+
+def GetVersion():
+    '''
+    This method returns version as a string.
+    '''
+
+    # Client Application | Get Information
+    return client.service.get_information().version
+
+def GetLanguage():
+    '''
+    This method returns language as a string.
+    '''
+
+    # Client Application | Get Information
+    return client.service.get_information().language_name
+
+def GetAppSessionId():
+    '''
+    This method returns session id as a string.
+    '''
+
+    # Client Application | Get Session ID
+    return client.service.get_session_id()

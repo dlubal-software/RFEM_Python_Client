@@ -18,10 +18,8 @@ class ResponseSpectrum():
             name (str): User Defined Name
             constant_period_step (float): Enables Constant Period Step
             sort_table (bool): Sort Table Option
-            user_defined_spectrum (list): User Defined Spectrum
-
+            user_defined_spectrum (list of lists): User Defined Spectrum
                 user_defined_spectrum = [[period, acceleration], [period, acceleration], ...]
-
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -55,13 +53,15 @@ class ResponseSpectrum():
         # user defined spectrum
         clientObject.user_defined_response_spectrum = model.clientModel.factory.create('ns0:response_spectrum.user_defined_response_spectrum')
 
-        for i,j in enumerate(user_defined_spectrum):
-            rsp = model.clientModel.factory.create('ns0:response_spectrum_user_defined_response_spectrum_row')
-            rsp.no = i+1
-            rsp.row.period = user_defined_spectrum[i][0]
-            rsp.row.acceleration = user_defined_spectrum[i][1]
+        if user_defined_spectrum:
+            for i,j in enumerate(user_defined_spectrum):
+                rsp = model.clientModel.factory.create('ns0:response_spectrum_user_defined_response_spectrum_row')
+                rsp.no = i+1
+                rsp.row = model.clientModel.factory.create('ns0:response_spectrum_user_defined_response_spectrum')
+                rsp.row.period = user_defined_spectrum[i][0]
+                rsp.row.acceleration = user_defined_spectrum[i][1]
 
-            clientObject.user_defined_response_spectrum.response_spectrum_user_defined_response_spectrum.append(rsp)
+                clientObject.user_defined_response_spectrum.response_spectrum_user_defined_response_spectrum.append(rsp)
 
         # comment
         clientObject.comment = comment
@@ -134,6 +134,7 @@ class ResponseSpectrum():
         for i,j in enumerate(user_defined_spectrum):
             rsp = model.clientModel.factory.create('ns0:response_spectrum_user_defined_response_spectrum_row')
             rsp.no = i+1
+            rsp.row = model.clientModel.factory.create('ns0:response_spectrum_user_defined_response_spectrum')
             rsp.row.period = user_defined_spectrum[i][0]
             rsp.row.acceleration = user_defined_spectrum[i][1]
 
