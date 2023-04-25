@@ -5,7 +5,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.enums import SurfacesShapeOfFiniteElements, OptimizeOnType, Optimizer, AddOn,NodalSupportType, LoadDirectionType, ActionCategoryType, ObjectTypes
+from RFEM.enums import SurfacesShapeOfFiniteElements, OptimizerType, OptimizationTargetValueType, AddOn,NodalSupportType, LoadDirectionType, ActionCategoryType, ObjectTypes
 from RFEM.initModel import Model, client, SetAddonStatus,Calculate_all, CalculateSelectedCases
 from RFEM.Calculate.meshSettings import GetMeshSettings, MeshSettings, GetModelInfo
 from RFEM.Calculate.optimizationSettings import OptimizationSettings
@@ -17,8 +17,8 @@ from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 from RFEM.Loads.nodalLoad import NodalLoad
-
 
 if Model.clientModel is None:
     Model()
@@ -26,7 +26,6 @@ if Model.clientModel is None:
 def createmodel():
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
-
 
     Material(1, 'S235')
 
@@ -39,6 +38,7 @@ def createmodel():
 
     NodalSupport(1, '1', NodalSupportType.FIXED)
 
+    LoadCasesAndCombinations(params = {"current_standard_for_combination_wizard": 6208})
     StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
     LoadCase.StaticAnalysis(1, 'SW', True, 1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_G, [True, 0, 0, 1])
     LoadCase.StaticAnalysis(2, 'SDL', True,  1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_IMPOSED_GQ, [False])
@@ -51,26 +51,18 @@ def test_calculate_specific():
     createmodel()
     messages = CalculateSelectedCases([1])
 
-    # assert len(messages) != 0
-
-    hasResultLC1 = Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
-    assert hasResultLC1 == True
-
-    hasResultLC2 =  Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
-    assert hasResultLC2 == False
+    assert not messages
+    assert  Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
+    assert not Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
 
 def test_calculate_all():
 
     createmodel()
     messages = Calculate_all()
 
-    # assert len(messages) != 0
-
-    hasResultLC1 = Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
-    assert hasResultLC1 == True
-
-    hasResultLC2 =  Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
-    assert hasResultLC2 == True
+    assert not messages
+    assert Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
+    assert Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
 
 # CAUTION:
 # These tests needs to be executed last because they change global settings.
@@ -114,18 +106,21 @@ def test_mesh_settings():
 
 def test_optimization_settings():
 
-    OptimizationSettings(True, 11, OptimizeOnType.E_OPTIMIZE_ON_TYPE_MIN_COST,
-                         Optimizer.E_OPTIMIZER_TYPE_PERCENTS_OF_RANDOM_MUTATIONS,
-                         0.3)
-    opt_sett = OptimizationSettings.get()
-    assert opt_sett.general_optimization_active
-    assert opt_sett.general_keep_best_number_model_mutations == 11
-    assert opt_sett.general_optimize_on == OptimizeOnType.E_OPTIMIZE_ON_TYPE_MIN_COST.name
-    assert opt_sett.general_optimizer == Optimizer.E_OPTIMIZER_TYPE_PERCENTS_OF_RANDOM_MUTATIONS.name
-    assert opt_sett.general_number_random_mutations == 0.3
+    Model.clientModel.service.delete_all()
+    #Model.clientModel.service.begin_modification()
 
-    opt_sett.general_keep_best_number_model_mutations = 15
-    OptimizationSettings.set(opt_sett)
+    SetAddonStatus(Model.clientModel, AddOn.cost_estimation_active)
+    OptimizationSettings()
+
+    #Model.clientModel.service.finish_modification()
+
+    opt_sett = OptimizationSettings.GetOptimizationSettings(1)
+
+    assert opt_sett.active
+    assert opt_sett.number_of_mutations_to_keep == 20
+    assert opt_sett.target_value_type == OptimizationTargetValueType.MIN_TOTAL_WEIGHT.name
+    assert opt_sett.general_optimizer == OptimizerType.ALL_MUTATIONS.name
+    assert opt_sett.percent_of_mutations == 0.1
 
     # Testing model is closed at the end of the testing session to enable easier and cleaned restart of the unit tests.
     client.service.close_model(0, False)

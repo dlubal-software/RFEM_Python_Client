@@ -10,7 +10,7 @@ from RFEM.initModel import Model
 from RFEM.enums import NodalReleaseTypeReleaseNonlinearity, NodalReleaseTypePartialActivityAround, NodalReleaseTypeLocalAxisSystemObjectType
 from RFEM.enums import NodalReleaseTypePartialActivityAlong, NodalReleaseTypeDiagram
 from RFEM.BasicObjects.node import Node
-from RFEM.SpecialObjects.nodalReleaseType import NodalReleaseType
+from RFEM.TypesForSpecialObjects.nodalReleaseType import NodalReleaseType
 
 if Model.clientModel is None:
     Model()

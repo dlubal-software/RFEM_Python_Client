@@ -16,6 +16,6 @@ def pytest_exception_interact():
     '''
 
     # This ensures that the tests executed after failed test are not affected.
-    if Model.clientModel:
-        closeAllModels()
-    Model()
+    #if Model.clientModel:
+    #    closeAllModels()
+    #Model()

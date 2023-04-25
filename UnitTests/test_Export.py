@@ -8,7 +8,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import ObjectTypes
-from RFEM.initModel import client, Model, url, closeModel
+from RFEM.initModel import Model, url, closeModel
 from RFEM.ImportExport.exports import IFCExportSettings, ObjectLocation, ObjectLocations, ExportToIFC, GetTableExportConfigManager, SetTableExportConfigManager, ExportTo
 from RFEM.ImportExport.imports import getConversionTables, setConversionTables, getSAFSettings, setSAFSettings, importFrom
 

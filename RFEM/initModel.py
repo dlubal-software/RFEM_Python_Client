@@ -108,10 +108,7 @@ class Model():
                 modelPath = ''
                 # Requested new model, model with given name was NOT connected yet but file with the same name was opened
                 if model_name in modelLst:
-                    id = 0
-                    for i,j in enumerate(modelLst):
-                        if modelLst[i] == model_name:
-                            id = i
+                    id = modelLst.index(model_name)
                     modelPath =  client.service.get_model(id)
                 else:
                     modelPath =  client.service.new_model(original_model_name)
@@ -290,9 +287,9 @@ def closeModel(index_or_name, save_changes = False):
         if '.rf6' in index_or_name:
             index_or_name = index_or_name[:-4]
 
-        modelLs = client.service.get_model_list().name
+        modelLs = client.service.get_model_list()
         Model.__delete__(Model, index_or_name)
-        client.service.close_model(modelLs.index(index_or_name), save_changes)
+        client.service.close_model(modelLs.name.index(index_or_name), save_changes)
     else:
         assert False, 'Parameter index_or_name must be int or string.'
 
@@ -303,9 +300,10 @@ def closeAllModels(save_changes = False):
     Args:
         save_changes (bool): Enable/Disable Save Changes Option
     '''
-    modelLs = client.service.get_model_list().name
-    for j in reversed(modelLs):
-        closeModel(j, save_changes)
+    modelLs = client.service.get_model_list()
+    if modelLs:
+        for j in reversed(modelLs.name):
+            closeModel(j, save_changes)
 
 def saveFile(model_path):
     '''
@@ -561,7 +559,7 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculateCC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_COMBINATION.name
             specificObjectsToCalculate.loading.append(specificObjectsToCalculateCC)
     try:
-        calculationMessages = model.clientModel.service.calculate_specific(specificObjectsToCalculate,skipWarnings)
+        calculationMessages = model.clientModel.service.calculate_specific(specificObjectsToCalculate, skipWarnings)
     except Exception as inst:
         calculationMessages = "Calculation was unsuccessful: " + inst.fault.faultstring
 
