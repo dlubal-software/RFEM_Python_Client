@@ -18,6 +18,7 @@ class LoadCasesAndCombinations():
         """
         Args:
             params(dict, optional): Combination Wizard Parameters
+            model (RFEM Class, optional): Model to be edited
 
                         National Annex                                      Codes
                        ----------------                                     -----

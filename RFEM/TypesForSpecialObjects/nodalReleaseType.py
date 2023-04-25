@@ -30,6 +30,12 @@ class NodalReleaseType():
          Args:
             no (int): Nodal Release Type Tag
             coordinate_system (str/int): Coordinate System Selection
+            translational_release_n (float): Spring Constant for Translation Release along X Direction
+            translational_release_vy (float): Spring Constant for Translation Release along Y Direction
+            translational_release_vz (float): Spring Constant for Translation Release along Z Direction
+            rotational_release_mt (float): Spring Constant for Rotational Release around X Direction
+            rotational_release_my (float): Spring Constant for Rotational Release around Y Direction
+            rotational_release_mz (float): Spring Constant for Rotational Release around Z Direction
             translational_release_n_nonlinearity (list/list of lists): Nonlinearity Parameter for Translation Release along X Direction
             translational_release_vy_nonlinearity (list/list of lists): Nonlinearity Parameter for Translation Release along Y Direction
             translational_release_vz_nonlinearity (list/list of lists): Nonlinearity Parameter for Translation Release along Z Direction

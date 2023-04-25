@@ -14,8 +14,8 @@ class TimberServiceClass():
                 params: dict = None):
         """
         Args:
-            no (int): Timber Member Shear Panel Tag
-            name (str): User Defined Member Shear Panel Name
+            no (int): Timber Service Class Tag
+            name (str): User Defined Timber Service Class Name
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
             surfaces (str): Assigned Surfaces
