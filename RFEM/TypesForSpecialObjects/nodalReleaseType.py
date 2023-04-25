@@ -2,8 +2,8 @@ from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import NodalReleaseTypePartialActivityAlong, NodalReleaseTypePartialActivityAround, NodalReleaseTypeLocalAxisSystemObjectType, NodalReleaseTypeReleaseNonlinearity
 from RFEM.dataTypes import inf
 
-
 class NodalReleaseType():
+
     def __init__(self,
                  no: int = 1,
                  coordinate_system: str = "Local",
@@ -67,22 +67,22 @@ class NodalReleaseType():
                                                              [[force, max_moment, min_moment(if not symetric)],...]]
             local_axis_system (enum): Nodal Release Local Axis System Enumeration
             local_axis_system_reference_object (int): Nodal Release Local Axis System Reference Object Enumeration
-            name (str): User Defined Name
+            name (str, optional): User Defined Nodal Release Type Name
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
         '''
 
-        # Client model | Node
+        # Client model | Nodal Release Type
         clientObject = model.clientModel.factory.create('ns0:nodal_release_type')
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
 
-        # Node No.
+        # Nodal Release Type No.
         clientObject.no = no
 
-        # Nodal Release Typ
+        # Nodal Release Type
         clientObject.coordinate_system = coordinate_system
 
          # Translational Release/Spring [N/m] N
@@ -585,7 +585,7 @@ class NodalReleaseType():
         # Nodal Release Local Axis System Reference Object
         clientObject.local_axis_system_reference_object = local_axis_system_reference_object
 
-        # Line Release Type User defined name
+        # Nodal Release Type User defined name
         if name:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
@@ -601,5 +601,5 @@ class NodalReleaseType():
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
 
-        # Add Node to client model
+        # Add Nodal Release Type to client model
         model.clientModel.service.set_nodal_release_type(clientObject)

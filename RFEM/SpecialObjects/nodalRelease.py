@@ -1,8 +1,8 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import NodalReleaseReleaseLocation
 
-
 class NodalRelease():
+
     def __init__(self,
                  no: int = 1,
                  nodes: str = '',
@@ -12,6 +12,7 @@ class NodalRelease():
                  released_surfaces: str ='',
                  released_solids: str = '',
                  deactivate_release: bool = False,
+                 name: str = '',
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -19,27 +20,29 @@ class NodalRelease():
         '''
          Args:
             no (int): Nodal Release Tag
-            nodes (str): Nodes
-            nodal_release_type (int): Nodale Release Type
-            release_location (enums): Nodal Release Release Location
-            released_members (str): Released Members
-            released_surfaces (str): Released Surfaces
-            released_solids (str): Released Solids
-            deactivate_release (bool): Deactivate Release
+            nodes (str): Assigned Nodes
+            nodal_release_type (int): Nodale Release Type Number
+            release_location (enums): Nodal Release Release Location Enumeration
+            released_members (str): Assigned Released Members
+            released_surfaces (str): Assigned Released Surfaces
+            released_solids (str): Assigned Released Solids
+            deactivate_release (bool): Activate/Deactivate Nodal Release
+            name (str, optional): User Defined Nodal Release Name
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
         '''
-        # Client model | Node
+
+        # Client model | Nodal Release
         clientObject = model.clientModel.factory.create('ns0:nodal_release')
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
 
-        # Node No.
+        # Nodal Release No.
         clientObject.no = no
 
-        # Assigned Node
+        # Assigned Nodes
         clientObject.nodes = ConvertToDlString(nodes)
 
         # Nodal Release Type
@@ -54,11 +57,16 @@ class NodalRelease():
         # Released Solids
         clientObject.released_solids = ConvertToDlString(released_solids)
 
-        # Nodal Release
+        # Nodal Release Location
         clientObject.release_location = release_location.name
 
         # Deactivate Release
         clientObject.deactivated = deactivate_release
+
+        # Nodal Release User defined name
+        if name:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Comment
         clientObject.comment = comment
@@ -71,5 +79,5 @@ class NodalRelease():
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
 
-        # Add Node to client model
+        # Add Nodal Release to client model
         model.clientModel.service.set_nodal_release(clientObject)

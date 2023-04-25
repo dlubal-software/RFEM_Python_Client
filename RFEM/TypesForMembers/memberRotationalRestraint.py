@@ -30,11 +30,12 @@ class MemberRotationalRestraint():
         """
         Args:
             no (int): Member Rotational Restraint Tag
-            name (str): Member Shear Panel Name
+            name (str): User Defined Member Rotational Restraint Name
                 if name == '':
-                    name = False (Automatic Name Assignment)
+                    user_defined_name_enabled = False (Automatic Name Assignment)
                 else:
-                    name = name
+                    user_defined_name_enabled = True
+                    name = User Defined Name
             member_supports (str): Assigned Member Supports
             sheeting_material (str): Sheeting Material
             sheeting_name (str): Sheeting Material
@@ -144,11 +145,12 @@ class MemberRotationalRestraint():
         """
         Args:
             no (int): Member Rotational Restraint Tag
-            name (str): Member Shear Panel Name
+            name (str): User Defined Member Rotational Restraint Name
                 if name == '':
-                    name = False (Automatic Name Assignment)
+                    user_defined_name_enabled = False (Automatic Name Assignment)
                 else:
-                    name = name
+                    user_defined_name_enabled = True
+                    name = User Defined Name
             member_supports (str): Assigned Member Supports
             section_material (str): Section Material
             section_name (str): Section Name
@@ -244,11 +246,12 @@ class MemberRotationalRestraint():
         """
         Args:
             no (int): Member Rotational Restraint Tag
-            name (str): Member Shear Panel Name
+            name (str): User Defined Member Rotational Restraint Name
                 if name == '':
-                    name = False (Automatic Name Assignment)
+                    user_defined_name_enabled = False (Automatic Name Assignment)
                 else:
-                    name = name
+                    user_defined_name_enabled = True
+                    name = User Defined Name
             member_supports (str): Assigned Member Supports
             rotational_spring_stiffness (float): Rotational Spring Stiffness
             comment (str, optional): Comment
