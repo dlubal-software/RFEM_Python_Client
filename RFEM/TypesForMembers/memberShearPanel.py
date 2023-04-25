@@ -28,9 +28,9 @@ class MemberShearPanel():
             no (int): Member Shear Panel Tag
             name (str): Member Shear Panel Name
                 if name == '':
-                    user_defined_name = False (Automatic Name Assignment)
+                    name = False (Automatic Name Assignment)
                 else:
-                    user_defined_name = name
+                    name = name
             member_supports (str): Assigned Member Supports
             position_on_section (enum): Member Shear Panel Position Enumeration
             girder_length_definition (list): Girder Length Definition List
@@ -140,9 +140,9 @@ class MemberShearPanel():
             no (int): Member Shear Panel Tag
             name (str): Member Shear Panel Name
                 if name == '':
-                    user_defined_name = False (Automatic Name Assignment)
+                    name = False (Automatic Name Assignment)
                 else:
-                    user_defined_name = name
+                    name = name
             member_supports (str): Assigned Member Supports
             position_on_section (enum): Member Shear Panel Position Enumeration
             girder_length_definition (list): Girder Length Definition List
@@ -259,9 +259,9 @@ class MemberShearPanel():
             no (int): Member Shear Panel Tag
             name (str): Member Shear Panel Name
                 if name == '':
-                    user_defined_name = False (Automatic Name Assignment)
+                    name = False (Automatic Name Assignment)
                 else:
-                    user_defined_name = name
+                    name = name
             member_supports (str): Assigned Member Supports
             position_on_section (enum): Position on Section Enumeration
             girder_length_definition (list): Girder Length Definition List
@@ -356,9 +356,9 @@ class MemberShearPanel():
             no (int): Member Shear Panel Tag
             name (str): Member Shear Panel Name
                 if name == '':
-                    user_defined_name = False (Automatic Name Assignment)
+                    name = False (Automatic Name Assignment)
                 else:
-                    user_defined_name = name
+                    name = name
             member_supports (str): Assigned Member Supports
             position_on_section (enum): Position on Section Enumeration
             sheeting_name (str): Sheeting Name

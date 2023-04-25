@@ -105,7 +105,7 @@ class LineSetLoad():
                 for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_2:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
                 for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
                 for load_distribution == LOAD_DISTRIBUTION_TRAPEZOIDAL:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
                 for load_distribution == LOAD_DISTRIBUTION_TAPERED:
@@ -113,7 +113,7 @@ class LineSetLoad():
                 for load_distribution == LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
                 for load_distribution == LOAD_DISTRIBUTION_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
             list_reference (bool) : List Reference Bool
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -232,8 +232,7 @@ class LineSetLoad():
                 mlvlp.no = i+1
                 mlvlp.row = Model.clientModel.factory.create('ns0:line_set_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
-                #mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
 
                 clientObject.varying_load_parameters.line_set_load_varying_load_parameters.append(mlvlp)
 
@@ -293,8 +292,7 @@ class LineSetLoad():
                 mlvlp.no = i+1
                 mlvlp.row = Model.clientModel.factory.create('ns0:line_set_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
-                #mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
 
                 clientObject.varying_load_parameters.line_set_load_varying_load_parameters.append(mlvlp)
 
@@ -349,7 +347,7 @@ class LineSetLoad():
                 for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_2:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
                 for load_distribution == LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
                 for load_distribution == LOAD_DISTRIBUTION_TRAPEZOIDAL:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
                 for load_distribution == LOAD_DISTRIBUTION_TAPERED:
@@ -357,7 +355,7 @@ class LineSetLoad():
                 for load_distribution == LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
                 for load_distribution == LOAD_DISTRIBUTION_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
             list_reference (bool) : List Reference Bool
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -477,8 +475,7 @@ class LineSetLoad():
                 mlvlp.no = i+1
                 mlvlp.row = Model.clientModel.factory.create('ns0:line_set_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
-                #mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
 
                 clientObject.varying_load_parameters.line_set_load_varying_load_parameters.append(mlvlp)
 
@@ -538,8 +535,7 @@ class LineSetLoad():
                 mlvlp.no = i+1
                 mlvlp.row = Model.clientModel.factory.create('ns0:line_set_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
-                #mlvlp.row.delta_distance = load_parameter[i][1]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
 
                 clientObject.varying_load_parameters.line_set_load_varying_load_parameters.append(mlvlp)
 
