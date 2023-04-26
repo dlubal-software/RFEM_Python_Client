@@ -1,5 +1,6 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import TimberMoistureClassMoistureClass
+from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 
 class TimberMoistureClass():
     def __init__(self,
