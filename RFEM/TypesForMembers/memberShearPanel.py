@@ -37,14 +37,13 @@ class MemberShearPanel():
             girder_length_definition (list): Girder Length Definition List
                 girder_length_definition[0] (bool): Activate/Deactivate Automatically Girder Length
                 girder_length_definition[1] (float): Girder Length Value
-            sheeting_name (str): Sheeting Name
+            sheeting_name (str): Sheeting Name According to Library
             fastening_arrangement (enum): Fastening Arrangement Enumeration
             panel_length (float): Panel Length
             beam_spacing (float): Beam Spacing
             coefficient_k1 (float, optional): Coefficient K1
             coefficient_k2 (float, optional): Coefficient K2
-            position_on_section_value (float): Position on Section Value
-                only for position_on_section == MemberShearPanelPositionOnSection.POSITION_DEFINE
+            position_on_section_value (float): Position on Section Value (only for position_on_section == MemberShearPanelPositionOnSection.POSITION_DEFINE)
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -160,8 +159,7 @@ class MemberShearPanel():
             number_of_bracings (int): Number of Bracings
             diagonals_section_area (float, optional): Diagonals Section Area
             posts_section_area (float, optional): Posts Section Area
-            position_on_section_value (float): Position of Section Value
-                only for position_on_section == MemberShearPanelPositionOnSection.POSITION_DEFINE
+            position_on_section_value (float): Position of Section Value (only for position_on_section == MemberShearPanelPositionOnSection.POSITION_DEFINE)
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -271,8 +269,7 @@ class MemberShearPanel():
                 girder_length_definition[0] (bool): Activate/Deactivate Automatically Girder Length
                 girder_length_definition[1] (float): Girder Length Value
             shear_panel_stiffness (float): Shear Panel Stiffness
-            position_on_section_value (float): Position on Section Value
-                only for position_on_section == MemberShearPanelPositionOnSection.POSITION_DEFINE
+            position_on_section_value (float): Position on Section Value (only for position_on_section == MemberShearPanelPositionOnSection.POSITION_DEFINE)
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -365,7 +362,7 @@ class MemberShearPanel():
                     name = User Defined Name
             member_supports (str): Assigned Member Supports
             position_on_section (enum): Position on Section Enumeration
-            sheeting_name (str): Sheeting Name
+            sheeting_name (str): Sheeting Name According to Library
             material_name (str): Material Name
             diagonals_section (str): Diagonals Section
             posts_section (str): Posts Section
@@ -382,8 +379,7 @@ class MemberShearPanel():
             number_of_bracing (int): Number of Bracings
             diagonals_section_area (float, optional): Diagonals Section Area
             posts_section_area (float, optional): Posts Section Area
-            position_on_section_value (float): Position on Section Value
-                only for position_on_section == MemberShearPanelPositionOnSection.POSITION_DEFINE
+            position_on_section_value (float): Position on Section Value (only for position_on_section == MemberShearPanelPositionOnSection.POSITION_DEFINE)
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited

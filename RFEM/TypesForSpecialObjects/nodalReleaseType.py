@@ -49,10 +49,14 @@ class NodalReleaseType():
                         negative/positive zone = [negative/positive zone type, force, slippage]
                 for translational_release_n/vy/vz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
                     translational_release_n/vy/vz_nonlinearity = [nonlinearity type Diagram, [symmetric(bool), NodalReleaseTypeDiagram Enumeration(start), NodalReleaseTypeDiagram Enumeration(end)], [[displacement, force],...]]
+                for translational_release_n/vy/vz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1/NONLINEARITY_TYPE_FRICTION_DIRECTION_2/NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2:
+                    translational_release_n/vy/vz_nonlinearity = [nonlinearity type Diagram, [friction coefficient(float)]]
+                for translational_release_n/vy/vz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2:
+                    translational_release_n/vy/vz_nonlinearity = [nonlinearity type Diagram, [friction coefficient 1(float), friction coefficient 2(float)]]
             rotational_release_mt_nonlinearity (list/list of lists): Nonlinearity Parameter for Rotational Release around X Direction
             rotational_release_my_nonlinearity (list/list of lists): Nonlinearity Parameter for Rotational Release around Y Direction
             rotational_release_mz_nonlinearity (list/list of lists): Nonlinearity Parameter for Rotational Release around Z Direction
-                for rotational_release_mt/my/mz_nonlinearity[0] == NodalReleaseTypePartialActivityAround.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
+                for rotational_release_mt/my/mz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
                     rotational_release_mt/my/mz_nonlinearity = [nonlinearity type Partial_Activity, negative zone, positive zone]
                     for negative/positive zone[0] == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                         negative/positive zone = [negative/positive zone type, slippage]
@@ -60,13 +64,10 @@ class NodalReleaseType():
                         negative/positive zone = [negative/positive zone type, rotation, slippage]
                     for negative/positive zone[0] == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT/PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT:
                         negative/positive zone = [negative/positive zone type, moment, slippage]
-                for rotational_release_mt/my/mz_nonlinearity[0] == NodalReleaseTypePartialActivityAround.NONLINEARITY_TYPE_DIAGRAM:
+                for rotational_release_mt/my/mz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
                     rotational_release_mt/my/mz_nonlinearity = [nonlinearity type Diagram, [symmetric(bool), NodalReleaseTypeDiagram Enumeration(start), NodalReleaseTypeDiagram Enumeration(end)], [[rotation, moment],...]]
-                for rotational_release_mt/my/mz_nonlinearity[0] == NodalReleaseTypePartialActivityAround.NONLINEARITY_TYPE_FORCE_MOMENT_DIAGRAM:
-                    rotational_release_mt/my/mz_nonlinearity = [nonlinearity type Force_Moment_Diagram, [symmetric(bool), NodalReleaseTypeReleaseNonlinearity Enumeration(end), NodalReleaseTypeReleaseNonlinearity Enumeration],
-                                                             [[force, max_moment, min_moment(if not symetric)],...]]
             local_axis_system (enum): Nodal Release Local Axis System Enumeration
-            local_axis_system_reference_object (int): Nodal Release Local Axis System Reference Object Enumeration
+            local_axis_system_reference_object (int): Nodal Release Local Axis System Reference Object Number
             name (str, optional): User Defined Nodal Release Type Name
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary

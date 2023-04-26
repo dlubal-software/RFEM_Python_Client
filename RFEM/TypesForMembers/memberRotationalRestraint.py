@@ -38,7 +38,7 @@ class MemberRotationalRestraint():
                     name = User Defined Name
             member_supports (str): Assigned Member Supports
             sheeting_material (str): Sheeting Material
-            sheeting_name (str): Sheeting Material
+            sheeting_name (str): Sheeting Name According to Library
             position_of_sheeting (enum): Position of Sheeting Enumeration
             continuous_beam_effect (enum): Continous Beam Effect Enumeration
             section_deformation_cdb (bool): Section Deformation Cdb Option

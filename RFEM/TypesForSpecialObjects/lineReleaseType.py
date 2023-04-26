@@ -42,11 +42,11 @@ class LineReleaseType():
             rotational_release_phi_x_nonlinearity (list of lists): Nonlinearity Parameter for Rotational Release around X Direction
                 for rotational_release_phi_x_nonlinearity[0] == RotationalReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
                     rotational_release_phi_x_nonlinearity = [nonlinearity type Partial_Activity, negative zone, positive zone]
-                    for negative/positive zone[0] == RotationalReleaseNonlinearity.PARTIAL_ACTIVITY_TYPE_COMPLETE:
+                    for negative/positive zone[0] == PartialActivityAroundType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                         negative/positive zone = [negative/positive zone type, slippage]
-                    for negative/positive zone[0] == RotationalReleaseNonlinearity.PARTIAL_ACTIVITY_TYPE_FIXED:
+                    for negative/positive zone[0] == PartialActivityAroundType.PARTIAL_ACTIVITY_TYPE_FIXED:
                         negative/positive zone = [negative/positive zone type, slippage, rotation]
-                    for negative/positive zone[0] == RotationalReleaseNonlinearity.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT/PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT:
+                    for negative/positive zone[0] == PartialActivityAroundType.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT/PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT:
                         negative/positive zone = [negative/positive zone type, slippage, moment]
                 for rotational_release_phi_x_nonlinearity[0] == RotationalReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
                     rotational_release_phi_x_nonlinearity = [nonlinearity type Diagram, [symmetric(bool), LineReleaseDiagram Enumeration(start), LineReleaseDiagram Enumeration(end)], [[rotation, moment],...]]
