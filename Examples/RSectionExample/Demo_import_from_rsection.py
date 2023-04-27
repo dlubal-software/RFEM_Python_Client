@@ -6,7 +6,7 @@ baseName = os.path.basename(__file__)
 dirName = os.path.dirname(__file__)
 print('basename:    ', baseName)
 print('dirname:     ', dirName)
-sys.path.append(dirName + r'/../')
+sys.path.append(dirName + r'/../../')
 
 from RFEM.enums import NodalSupportType, LoadDirectionType
 from RFEM.initModel import Model, Calculate_all
@@ -22,7 +22,7 @@ from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisS
 
 if __name__ == '__main__':
 
-    filepath = os.path.join(os.path.dirname(__file__), 'RSectionImport\\thin_walled.rsc')
+    filepath = os.path.join(os.path.dirname(__file__), 'thin_walled.rsc')
     f = float(input('Force in kN: '))
     l = float(input('Length in m: '))
 
