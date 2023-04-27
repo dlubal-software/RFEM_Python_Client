@@ -3,7 +3,7 @@ from RFEM.enums import TimberServiceConditionsMoistureServiceCondition, TimberSe
 from RFEM.enums import TimberServiceConditionsTreatment
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 
-class TimberServiceCondition():
+class TimberServiceConditions():
     def __init__(self,
                 no: int = 1,
                 name: str = '',
@@ -11,7 +11,7 @@ class TimberServiceCondition():
                 member_sets: str = '',
                 surfaces: str = '',
                 surface_sets: str = '',
-                standard = LoadCasesAndCombinations(params = {"current_standard_for_combination_wizard": 6336}),
+                standard: int = 6336,
                 moisture_service_condition = TimberServiceConditionsMoistureServiceCondition.TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_DRY,
                 temperature = TimberServiceConditionsTemperature.TEMPERATURE_TYPE_TEMPERATURE_ZONE_1,
                 treatment = [False, True, TimberServiceConditionsTreatment.TREATMENT_TYPE_NONE],
@@ -31,8 +31,11 @@ class TimberServiceCondition():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
 
+
+
+
          # Client Model | Types For Timber Design Service Condition
-        clientObject = Model.clientModel.factory.create('ns0:timber_service_condition')
+        clientObject = Model.clientModel.factory.create('ns0:timber_service_conditions')
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
@@ -53,19 +56,39 @@ class TimberServiceCondition():
         clientObject.surface_sets = ConvertToDlString(surface_sets)
 
         # Service Condition if Standard CSA - Moisture Service Conditions and Treatment
-        if standard:
+        if standard == 6336:
+            LoadCasesAndCombinations(params = {"current_standard_for_combination_wizard": standard,
+                                            "activate_combination_wizard_and_classification": True,
+                                            "activate_combination_wizard": True,
+                                            "result_combinations_active": True,
+                                            "result_combinations_parentheses_active": False,
+                                            "result_combinations_consider_sub_results": False,
+                                            "combination_name_according_to_action_category": True}),
             clientObject.moisture_service_condition = moisture_service_condition
             clientObject.treatment = treatment[2]
 
         # Service Condition if Standard NDS(USA) - Service Moisture Conditions, Treatment and Temperature
-        if standard == LoadCasesAndCombinations(params = {"current_standard_for_combination_wizard": 6579}):
+        if standard == 6579:
+            LoadCasesAndCombinations(params = {"current_standard_for_combination_wizard": standard,
+                                                "activate_combination_wizard_and_classification": True,
+                                                "activate_combination_wizard": True,
+                                                "result_combinations_active": True,
+                                                "result_combinations_parentheses_active": False,
+                                                "result_combinations_consider_sub_results": False,
+                                                "combination_name_according_to_action_category": True}),
             clientObject.moisture_service_condition = moisture_service_condition
             clientObject.temperature = temperature
             clientObject.member_pressure_treated = treatment[1]
 
         # Treatment if Standard GB
-        if standard == LoadCasesAndCombinations(params = {"current_standard_for_combination_wizard": 6514}) \
-        or standard == LoadCasesAndCombinations(params = {"current_standard_for_combination_wizard": 6516}):
+        if standard == 6514 or standard == 6516:
+            LoadCasesAndCombinations(params = {"current_standard_for_combination_wizard": standard,
+                                                "activate_combination_wizard_and_classification": True,
+                                                "activate_combination_wizard": True,
+                                                "result_combinations_active": True,
+                                                "result_combinations_parentheses_active": False,
+                                                "result_combinations_consider_sub_results": False,
+                                                "combination_name_according_to_action_category": True}),
             clientObject.moisture_service_condition = moisture_service_condition
             clientObject.outdoor_environment = service_conditions[0]
             clientObject.long_term_high_temperature_of_surface = service_conditions[1]
@@ -91,4 +114,4 @@ class TimberServiceCondition():
         deleteEmptyAttributes(clientObject)
 
         # Add Service Class to client model
-        Model.clientModel.service.set_timber_service_condition(clientObject)
+        Model.clientModel.service.set_timber_service_conditions(clientObject)
