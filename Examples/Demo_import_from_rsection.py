@@ -22,7 +22,7 @@ from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisS
 
 if __name__ == '__main__':
 
-    filepath = str(input('Filepath: ')) # give local filepath
+    filepath = os.path.join(os.path.dirname(__file__), 'RSectionImport\\thin_walled.rsc')
     f = float(input('Force in kN: '))
     l = float(input('Length in m: '))
 
