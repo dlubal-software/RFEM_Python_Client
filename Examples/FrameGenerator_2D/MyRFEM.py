@@ -34,7 +34,7 @@ class MyRFEM():
     def __init__(self, calculation_model):
         self.input = calculation_model
 
-        Model()
+        Model(True, 'Frame')
         Model.clientModel.service.begin_modification()
 
         # Activate add on Steel Design
@@ -221,9 +221,6 @@ class MyRFEM():
             Member(7, 3, 7, 0.0, 3, 3, params=p)
             Member(8, 7, 6, 0.0, 3, 3, params=p)
 
-        else:
-            pass
-
         # Create supports
         if self.input['structure']['supports'][0] == 'Fixed':
             support = NodalSupportType.FIXED
@@ -289,8 +286,8 @@ class MyRFEM():
         MemberLoad(1, 3, '9-11', MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, magnitude)
 
         # Create load combinations
-        #LoadCombination(1, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1.35, 1, 1, False]])
-        LoadCombination(1, combination_items=[[1.35, 1, 1, False]])
+        LoadCombination(1, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1.35, 1, 1, False]])
+        #LoadCombination(1, combination_items=[[1.35, 1, 1, False]])
         #LoadCombination(2, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1.35, 1, 1, False], [1.5, 2, 2, True]])
         #LoadCombination(3, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1.35, 1, 1, False], [1.5, 2, 2, True], [1.05, 3, 3, False]])
         #LoadCombination(4, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1.35, 1, 1, False], [1.5, 3, 3, True]])
