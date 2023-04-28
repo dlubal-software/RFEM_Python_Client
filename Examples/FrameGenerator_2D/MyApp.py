@@ -27,7 +27,7 @@ from MyRFEM import *
 # TODO 15: Add spin buttons on edit lines (?)
 # TODO 30: delete test_DesignSituations.py
 # TODO 37: add pip install PyQtWebEngine to InstallPyQt5.py
-# TODO 38:
+# TODO 38: Check the import in line 4: from mdurl import URL
 # TODO 39:
 # TODO 40:
 

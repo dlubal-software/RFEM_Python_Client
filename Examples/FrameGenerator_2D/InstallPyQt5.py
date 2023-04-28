@@ -1,6 +1,7 @@
 import sys
 
 def installPyQt5():
+    # Todo: pip install PyQtWebEngine
     try:
         from PyQt5 import QtWidgets
     except:
