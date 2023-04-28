@@ -38,7 +38,7 @@ if __name__ == '__main__':
 
     Member(1, 1, 2, 0.0, 1, 1)
 
-    NodalSupport(1, '1', NodalSupportType.HINGED)
+    NodalSupport(1, '1', NodalSupportType.FIXED)
 
     StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
     StaticAnalysisSettings.SecondOrderPDelta(2, "SecondOrder")
