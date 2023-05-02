@@ -8,6 +8,7 @@ from RFEM.enums import ObjectTypes, ModelType, AddOn
 from RFEM.suds_requests import RequestsTransport
 from suds.cache import DocumentCache
 from tempfile import gettempdir
+import time
 
 # Connect to server
 # Check server port range set in "Program Options & Settings"
@@ -35,9 +36,17 @@ else:
     a_socket.close()
     sys.exit()
 
+# Delete cached WSDL older than 1 day to reflect newer version of RFEM
+cacheLoc = os.path.join(gettempdir(), 'WSDL')
+currentTime = time.time()
+for file in os.listdir(cacheLoc):
+    filePath = os.path.join(cacheLoc, file)
+    if (currentTime - os.path.getmtime(filePath)) > 86400:
+        os.remove(filePath)
+
 # Check for issues locally and remotely
 try:
-    ca = DocumentCache(location=os.path.join(gettempdir(), 'WSDL'))
+    ca = DocumentCache(location=cacheLoc)
     client = Client(urlAndPort+'/wsdl', location = urlAndPort, cache=ca)
 except:
     print('Error: Connection to server failed!')
@@ -108,7 +117,10 @@ class Model():
                 modelPath = ''
                 # Requested new model, model with given name was NOT connected yet but file with the same name was opened
                 if model_name in modelLst:
-                    id = modelLst.index(model_name)
+                    id = 0
+                    for i,j in enumerate(modelLst):
+                        if modelLst[i] == model_name:
+                            id = i
                     modelPath =  client.service.get_model(id)
                 else:
                     modelPath =  client.service.new_model(original_model_name)
@@ -287,9 +299,9 @@ def closeModel(index_or_name, save_changes = False):
         if '.rf6' in index_or_name:
             index_or_name = index_or_name[:-4]
 
-        modelLs = client.service.get_model_list()
+        modelLs = client.service.get_model_list().name
         Model.__delete__(Model, index_or_name)
-        client.service.close_model(modelLs.name.index(index_or_name), save_changes)
+        client.service.close_model(modelLs.index(index_or_name), save_changes)
     else:
         assert False, 'Parameter index_or_name must be int or string.'
 
@@ -300,10 +312,9 @@ def closeAllModels(save_changes = False):
     Args:
         save_changes (bool): Enable/Disable Save Changes Option
     '''
-    modelLs = client.service.get_model_list()
-    if modelLs:
-        for j in reversed(modelLs.name):
-            closeModel(j, save_changes)
+    modelLs = client.service.get_model_list().name
+    for j in reversed(modelLs):
+        closeModel(j, save_changes)
 
 def saveFile(model_path):
     '''
@@ -559,7 +570,7 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculateCC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_COMBINATION.name
             specificObjectsToCalculate.loading.append(specificObjectsToCalculateCC)
     try:
-        calculationMessages = model.clientModel.service.calculate_specific(specificObjectsToCalculate, skipWarnings)
+        calculationMessages = model.clientModel.service.calculate_specific(specificObjectsToCalculate,skipWarnings)
     except Exception as inst:
         calculationMessages = "Calculation was unsuccessful: " + inst.fault.faultstring
 

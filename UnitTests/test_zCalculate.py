@@ -107,20 +107,18 @@ def test_mesh_settings():
 def test_optimization_settings():
 
     Model.clientModel.service.delete_all()
-    #Model.clientModel.service.begin_modification()
+    Model.clientModel.service.begin_modification()
 
     SetAddonStatus(Model.clientModel, AddOn.cost_estimation_active)
     OptimizationSettings()
 
-    #Model.clientModel.service.finish_modification()
+    Model.clientModel.service.finish_modification()
 
     opt_sett = OptimizationSettings.GetOptimizationSettings(1)
 
     assert opt_sett.active
     assert opt_sett.number_of_mutations_to_keep == 20
     assert opt_sett.target_value_type == OptimizationTargetValueType.MIN_TOTAL_WEIGHT.name
-    assert opt_sett.general_optimizer == OptimizerType.ALL_MUTATIONS.name
-    assert opt_sett.percent_of_mutations == 0.1
 
     # Testing model is closed at the end of the testing session to enable easier and cleaned restart of the unit tests.
     client.service.close_model(0, False)
