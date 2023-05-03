@@ -22,13 +22,21 @@ class TimberServiceConditions():
                 params: dict = None):
         """
         Args:
-            no (int): Timber Member Shear Panel Tag
-            name (str): User Defined Member Shear Panel Name
+            no (int): Timber Service Conditions Tag
+            name (str): User Defined Timber Service Condition Name
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
             surfaces (str): Assigned Surfaces
             surface_sets (str): Assigned Surface Sets
-            service_class (enum): Timber Service Condition
+            standard (int): Code Number
+            moisture_service_condition (enum): Timber Service Condition
+            temperature (enum): Timber Service Conditions Temperature
+            treatment_csa (enum): Timber Service Conditions Treatment
+            treatment_nds (bool): Member Pressure Treated
+            treatment_gb (bool): Timber Is Point Impregnated
+            service_conditions (list): Service Conditions
+                service_conditions = [outdoor_environment, long_term_high_temperature_of_surface, permanent_load_design_situation,
+                                      timber_structures, short_term_construction_or_maintenance]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """

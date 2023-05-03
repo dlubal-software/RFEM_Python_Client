@@ -7,13 +7,14 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import AddOn, TimberMoistureClassMoistureClass
-from RFEM.initModel import Model, SetAddonStatus, AddOn
+from RFEM.initModel import Model, SetAddonStatus, AddOn, GetAddonStatus
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForTimberDesign.timberMoistureClass import TimberMoistureClass
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
+import pytest
 
 ## Important!!
 # First Run: Model set to True and Comments in the test set the way they are right now ---> Run
@@ -26,7 +27,7 @@ from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndC
 #               ----> Run again
 
 Model(True, "Test_Timber_Moisture")
-
+@pytest.mark.skipif(GetAddonStatus(Model.clientModel, AddOn.timber_design_active) == False, reason="Code has to be set manually")
 def test_timberMoistureClass():
 
     Model.clientModel.service.delete_all()
