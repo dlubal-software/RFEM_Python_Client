@@ -39,10 +39,11 @@ else:
 # Delete cached WSDL older than 1 day to reflect newer version of RFEM
 cacheLoc = os.path.join(gettempdir(), 'WSDL')
 currentTime = time.time()
-for file in os.listdir(cacheLoc):
-    filePath = os.path.join(cacheLoc, file)
-    if (currentTime - os.path.getmtime(filePath)) > 86400:
-        os.remove(filePath)
+if os.path.exists(cacheLoc):
+    for file in os.listdir(cacheLoc):
+        filePath = os.path.join(cacheLoc, file)
+        if (currentTime - os.path.getmtime(filePath)) > 86400:
+            os.remove(filePath)
 
 # Check for issues locally and remotely
 try:
