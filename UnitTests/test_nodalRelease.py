@@ -76,7 +76,7 @@ def test_NodalRelease():
     NodalReleaseType(2, [0, 0, 0, 0])
 
     NodalRelease(1, '1', 1, NodalReleaseReleaseLocation.RELEASE_LOCATION_ORIGIN, '1 4', '1', '1')
-    NodalRelease(2, '2 3', 2, NodalReleaseReleaseLocation.RELEASE_LOCATION_RELEASED, '2 3 11', '1 4 5', '1')
+    NodalRelease(2, '2 3', 2, NodalReleaseReleaseLocation.RELEASE_LOCATION_RELEASED, '2 3 11', '1 4 5', '1', False, 'NR2')
 
     Model.clientModel.service.finish_modification()
 
@@ -89,3 +89,4 @@ def test_NodalRelease():
     nr2 = Model.clientModel.service.get_nodal_release(2)
     assert nr2.nodes == '2 3'
     assert nr2.release_location == "RELEASE_LOCATION_RELEASED"
+    assert nr2.name == 'NR2'
