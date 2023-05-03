@@ -16,16 +16,17 @@ from RFEM.TypesForTimberDesign.timberServiceCondition import TimberServiceCondit
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 
 ## Important!!
-# First Run: Model set to True and and Comments in the test set the way they are right now
+# First Run: Model set to True and and Comments in the test set the way they are right now ---> Run
 # --> after First Run: In RFEM > Base Data > Standard I > Design | Standard Group > Timber Design: Set to CSA 086
 # Second Run: 1. Set Model to False ( Model(True, "Test_Timber_Service") --> Model(False, "Test_Timber_Service") )
-#             2. Uncomment TimberServiceConditions(no=1, moisture_service_condition=TimberServiceConditionsMoistureServiceCondition.TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_WET.name, \
+#             2. Uncomment: TimberServiceConditions(no=1, moisture_service_condition=TimberServiceConditionsMoistureServiceCondition.TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_WET.name, \
 #                                                  treatment_csa = TimberServiceConditionsTreatment.TREATMENT_TYPE_PRESERVATIVE.name)
 #             3. Uncomment: tcs1 = Model.clientModel.service.get_timber_service_conditions(1)
 #                           assert tcs1.moisture_service_condition == "TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_WET"
+#                           assert tcs1.treatment == "TREATMENT_TYPE_PRESERVATIVE"
+#               ---> Run again !
 
-
-Model(True, "Test_Timber_Service")
+Model(True, "Test_Timber_Service_CSA")
 
 def test_timberServiceConditionsCSA():
 
@@ -50,10 +51,11 @@ def test_timberServiceConditionsCSA():
         "result_combinations_consider_sub_results": False,
         "combination_name_according_to_action_category": False})
 
-    # TimberServiceConditions(no=1, moisture_service_condition=TimberServiceConditionsMoistureServiceCondition.TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_WET.name, \
-    #                        treatment_csa = TimberServiceConditionsTreatment.TREATMENT_TYPE_PRESERVATIVE.name)
+    # TimberServiceConditions(no=1, standard = 6336, moisture_service_condition=TimberServiceConditionsMoistureServiceCondition.TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_WET.name, \
+    #                         treatment_csa = TimberServiceConditionsTreatment.TREATMENT_TYPE_PRESERVATIVE.name)
 
     Model.clientModel.service.finish_modification()
 
     # tcs1 = Model.clientModel.service.get_timber_service_conditions(1)
     # assert tcs1.moisture_service_condition == "TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_WET"
+    # assert tcs1.treatment == "TREATMENT_TYPE_PRESERVATIVE"
