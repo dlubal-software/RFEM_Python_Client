@@ -94,7 +94,7 @@ class SurfaceSetLoad():
                     if SurfaceSetLoadAxisDefinitionType == AXIS_DEFINITION_POINT_AND_AXIS:
                         load_parameter = [magnitude_1, magnitude_2, node_1, node_2, SurfaceLoadAxisDefinitionType, SurfaceLoadAxisDefinitionAxis, axis_definition_p1]
                 for load_distribution == SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
-                    load_parameter = [[distance_1, delta_distance_1, magnitude_1], [distance_2, delta_distance_2, magnitude_2]...]
+                    load_parameter = [[distance_1, magnitude_1], [distance_2, magnitude_2]...]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -175,7 +175,7 @@ class SurfaceSetLoad():
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:surface_set_load_varying_load_parameters')
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
                 clientObject.varying_load_parameters.surface_set_load_varying_load_parameters.append(mlvlp)
                 clientObject.varying_load_parameters_sorted = True
 
