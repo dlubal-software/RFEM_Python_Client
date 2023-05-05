@@ -21,8 +21,7 @@ from MyRFEM import *
 #          should disappear when the calculation is finished (in done() method).
 # TODO 30: delete test_DesignSituations.py
 # TODO 37: add pip install PyQtWebEngine to InstallPyQt5.py
-# TODO 39: Rename Calculate button in Generate button if check box loads is disabled
-# TODO 40: Handle negativ values in validate()
+# TODO 40:
 # TODO 41:
 
 class MyWindow(QMainWindow):

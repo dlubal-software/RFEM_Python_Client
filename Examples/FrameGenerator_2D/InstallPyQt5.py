@@ -12,9 +12,11 @@ def installPyQt5():
             import subprocess
             try:
                 subprocess.call('python -m pip install PyQt5 --user')
+                subprocess.call('python -m pip install PyQtWebEngine --user')
             except:
                 print('WARNING: Installation of PyQt5 library failed!')
                 print('Please use command "pip install PyQt5 --user" in your Command Prompt.')
+                print('Please use command "pip install PyQtWebEngine --user" in your Command Prompt.')
                 input('Press Enter to exit...')
                 sys.exit()
         else:
