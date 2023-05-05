@@ -2,6 +2,7 @@ from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, Conver
 from RFEM.enums import TimberServiceClassServiceClass
 
 class TimberServiceClass():
+
     def __init__(self,
                 no: int = 1,
                 name: str = '',
@@ -11,11 +12,13 @@ class TimberServiceClass():
                 surface_sets: str = '',
                 service_class = TimberServiceClassServiceClass.TIMBER_SERVICE_CLASS_TYPE_1,
                 comment: str = '',
-                params: dict = None):
+                params: dict = None,
+                model = Model):
+
         """
         Args:
-            no (int): Timber Member Shear Panel Tag
-            name (str): User Defined Member Shear Panel Name
+            no (int): Timber Service Class Tag
+            name (str): User Defined Timber Service Class Name
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
             surfaces (str): Assigned Surfaces
@@ -23,10 +26,11 @@ class TimberServiceClass():
             service_class (enum): Timber Service Class Service Class
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
          # Client Model | Types For Timber Design Service Class
-        clientObject = Model.clientModel.factory.create('ns0:timber_service_class')
+        clientObject = model.clientModel.factory.create('ns0:timber_service_class')
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
@@ -66,4 +70,4 @@ class TimberServiceClass():
         deleteEmptyAttributes(clientObject)
 
         # Add Service Class to client model
-        Model.clientModel.service.set_timber_service_class(clientObject)
+        model.clientModel.service.set_timber_service_class(clientObject)
