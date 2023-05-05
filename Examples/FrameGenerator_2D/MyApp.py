@@ -381,19 +381,18 @@ class MyWindow(QMainWindow):
 
         try:
             f = float(s)
+            if f <= 0.0:
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Critical)
+                msg.setWindowTitle('Error')
+                msg.setText('Please enter a positive number.')
+                msg.exec
+                
         except:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Critical)
             msg.setWindowTitle('Error')
             msg.setText('Please enter a number.')
-            msg.exec_()
-            s = '0'
-
-        if f <= 0.0:
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Critical)
-            msg.setWindowTitle('Error')
-            msg.setText('Please enter a positive number.')
             msg.exec_()
             s = '0'
 
