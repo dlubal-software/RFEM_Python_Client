@@ -19,9 +19,7 @@ from MyRFEM import *
 # TODO 16: Write the done() method in class MyRFEM
 # TODO 23: Implement a "Wait" dialog. It should display after click of [Calculate] and
 #          should disappear when the calculation is finished (in done() method).
-# TODO 30: delete test_DesignSituations.py
-# TODO 37: add pip install PyQtWebEngine to InstallPyQt5.py
-# TODO 40:
+# TODO 40: Fix the crash after input negative value
 # TODO 41:
 
 class MyWindow(QMainWindow):
