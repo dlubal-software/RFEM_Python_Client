@@ -12,14 +12,10 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsScene, QMessageB
 from MyRFEM import *
 
 # TODO 33: Add buttons for switch on and switch of the load in graphic
-# TODO 11: Make path specification better
-# TODO 12: Uniform use of ' or " in open()
 # TODO 13: Correct tab order of the dimensions
-# TODO 14: Make path specification better
 # TODO 16: Write the done() method in class MyRFEM
 # TODO 23: Implement a "Wait" dialog. It should display after click of [Calculate] and
 #          should disappear when the calculation is finished (in done() method).
-# TODO 41: Labels for loads in graphic
 # TODO 42:
 
 class MyWindow(QMainWindow):
@@ -46,9 +42,7 @@ class MyWindow(QMainWindow):
 
     def __init__(self):
         super(MyWindow, self).__init__()
-        # TODO: Make path specification better
         self.ui = uic.loadUi("./Examples/FrameGenerator_2D/MyApp.ui", self)
-
         self.readConfig()
 
         # Fill the check boxes with the values form config
@@ -176,7 +170,6 @@ class MyWindow(QMainWindow):
         self.drawGraphic()
 
     def readConfig(self):
-        # TODO: Make path specification better
         with open('./Examples/FrameGenerator_2D/config.json', 'r') as f:
             config = json.load(f)
         self.material_list = config['material_list']
@@ -196,7 +189,6 @@ class MyWindow(QMainWindow):
         config['graphic_model'] = self.graphic_model
         config['presets'] = self.presets
         config['calculation_model'] = self.calculation_model
-        # TODO: Make path specification better
         with open('./Examples/FrameGenerator_2D/config.json', 'w') as f:
             json.dump(config, f)
 
@@ -228,10 +220,7 @@ class MyWindow(QMainWindow):
         factor_y = (700 - dim_spacing - load_spacing) / n_01[1]
         factor = min(factor_x, factor_y)
 
-        # TODO: This does't work. The background of the ellipse is still transparent.
         brush = QBrush()
-        brush.setColor(Qt.green)
-        ###
 
         # Diameter Circle
         d = 7
@@ -294,6 +283,8 @@ class MyWindow(QMainWindow):
         # Hinges
         scene.addEllipse((n_02[0]* factor), (n_02[1]* factor) - d/2, d, d, pen, brush)
         scene.addEllipse((n_05[0]* factor) - d, (n_05[1]* factor) - d/2, d, d, pen)
+        scene.addEllipse((n_09[0]* factor) - d/2, (n_09[1]* factor), d, d, pen)
+        scene.addEllipse((n_11[0]* factor) - d/2, (n_11[1]* factor), d, d, pen)
 
         # Dimensions
         dim_pen = QPen()
@@ -831,19 +822,13 @@ class MyWindow(QMainWindow):
         '''
 
     def onCancel(self):
-        print('Schluss jetzt!')
         self.close()
 
-
-def window():
+if __name__ == "__main__":
     app = QApplication(sys.argv)
-    # TODO: Make path specification better
     with open('./Examples/FrameGenerator_2D/styles.qss', 'r') as f:
         style = f.read()
         app.setStyleSheet(style)
     win = MyWindow()
     win.show()
     sys.exit(app.exec_())
-
-if __name__ == "__main__":
-	window()
