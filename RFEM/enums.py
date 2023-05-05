@@ -2490,6 +2490,12 @@ class ActionLoadType(Enum):
     '''
     LOAD_TYPE_PERMANENT, LOAD_TYPE_TRANSIENT = range(2)
 
+class ResultCombinationExtremeValueSign(Enum):
+    '''
+    Result Combination SRSS Extreme Value Sign
+    '''
+    EXTREME_VALUE_SIGN_ACCORDING_TO_LC_CO, EXTREME_VALUE_SIGN_NEGATIVE, EXTREME_VALUE_SIGN_POSITIVE, EXTREME_VALUE_SIGN_POSITIVE_OR_NEGATIVE = range(4)
+
 class CaseObjectSubResultType(Enum):
     '''
     Case Object Sub Result Type

@@ -241,6 +241,7 @@ class LineReleaseType():
                 lrtdx = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_x_table_row')
                 lrtdx.no = i+1
                 lrtdx.row = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_x_table')
+                clearAttributes(lrtdx.row)
                 lrtdx.row.displacement = translational_release_ux_nonlinearity[2][i][0]
                 lrtdx.row.force = translational_release_ux_nonlinearity[2][i][1]
 
@@ -265,6 +266,7 @@ class LineReleaseType():
                 lrtdy = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_y_table_row')
                 lrtdy.no = i+1
                 lrtdy.row = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_y_table')
+                clearAttributes(lrtdy.row)
                 lrtdy.row.displacement = translational_release_uy_nonlinearity[2][i][0]
                 lrtdy.row.force = translational_release_uy_nonlinearity[2][i][1]
 
@@ -289,6 +291,7 @@ class LineReleaseType():
                 lrtdz = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_z_table_row')
                 lrtdz.no = i+1
                 lrtdz.row = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_z_table')
+                clearAttributes(lrtdz.row)
                 lrtdz.row.displacement = translational_release_uz_nonlinearity[2][i][0]
                 lrtdz.row.force = translational_release_uz_nonlinearity[2][i][1]
 
@@ -313,6 +316,7 @@ class LineReleaseType():
                 lrtdr = Model.clientModel.factory.create('ns0:line_release_type_diagram_around_x_table_row')
                 lrtdr.no = i+1
                 lrtdr.row = Model.clientModel.factory.create('ns0:line_release_type_diagram_around_x_table')
+                clearAttributes(lrtdr.row)
                 lrtdr.row.rotation = rotational_release_phi_x_nonlinearity[2][i][0]
                 lrtdr.row.moment = rotational_release_phi_x_nonlinearity[2][i][1]
 
@@ -332,6 +336,7 @@ class LineReleaseType():
                 lrtfm = Model.clientModel.factory.create('ns0:line_release_type_force_moment_diagram_around_x_table_row')
                 lrtfm.no = i+1
                 lrtfm.row = Model.clientModel.factory.create('ns0:line_release_type_force_moment_diagram_around_x_table')
+                clearAttributes(lrtfm.row)
                 lrtfm.row.force = rotational_release_phi_x_nonlinearity[2][i][0]
                 lrtfm.row.max_moment = rotational_release_phi_x_nonlinearity[2][i][1]
                 if rotational_release_phi_x_nonlinearity[1][0]:

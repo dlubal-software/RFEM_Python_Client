@@ -25,6 +25,7 @@ class ResultCombination():
             combination_type (enum, mandatory): Combination type
             combination_items (list of lists, mandatory): Combination items
             srss_combination (list, optional): SRSS Combination. If None then False.
+                [srss_use_equivalent_linear_combination[bool], ]
             name (str, optional): Result combination name
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -33,6 +34,8 @@ class ResultCombination():
 
         # Client model | Result Combination
         clientObject = model.clientModel.factory.create('ns0:result_combination')
+
+        print('1:',clientObject)
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
@@ -51,12 +54,14 @@ class ResultCombination():
         # Result Combination Type
         clientObject.combination_type = combination_type.name
 
+
         # Combination Items
         clientObject.items = model.clientModel.factory.create('ns0:result_combination.items')
         for i,j in enumerate(combination_items):
             rci = model.clientModel.factory.create('ns0:result_combination_items_row')
             rci.no = i+1
             rci.row = model.clientModel.factory.create('ns0:result_combination_items')
+            clearAttributes(rci.row)
             rci.row.case_object_item = combination_items[i][0]
             rci.row.operator_type = combination_items[i][1].name
             rci.row.case_object_factor = combination_items[i][2]
@@ -69,13 +74,15 @@ class ResultCombination():
             clientObject.srss_combination = False
         else:
             clientObject.srss_combination = True
-            clientObject.srss_use_equivalent_linear_combination = srss_combination[1]
-            clientObject.srss_extreme_value_sign = srss_combination[2].name
-            if srss_combination[2].name == "EXTREME_VALUE_SIGN_ACCORDING_TO_LC_CO":
-                clientObject.srss_according_load_case_or_combination = srss_combination[3]
+            clientObject.srss_use_equivalent_linear_combination = srss_combination[0]
+            clientObject.srss_extreme_value_sign = srss_combination[1].name
+            if srss_combination[1].name == "EXTREME_VALUE_SIGN_ACCORDING_TO_LC_CO":
+                clientObject.srss_according_load_case_or_combination = srss_combination[2]
 
         # Subcombinations
         clientObject.generate_subcombinations = generate_subcombinations
+
+        clientObject.to_solve = True
 
         # Comment
         clientObject.comment = comment
@@ -87,6 +94,8 @@ class ResultCombination():
 
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
+
+        print('2:',clientObject)
 
         # Add Result Combination to client model
         model.clientModel.service.set_result_combination(clientObject)

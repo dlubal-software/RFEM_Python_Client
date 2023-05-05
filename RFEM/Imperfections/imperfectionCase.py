@@ -208,6 +208,7 @@ class ImperfectionCase():
             li_proto = model.clientModel.factory.create('ns0:imperfection_case_level_imperfections_row')
             li_proto.no = i['no']
             li_proto.row = model.clientModel.factory.create('ns0:imperfection_case_level_imperfections')
+            clearAttributes(li_proto.row)
             li_proto.row.level = i['level']
             li_proto.row.e_1 = i['e_1']
             li_proto.row.theta_1 = i['theta_1']
@@ -462,6 +463,7 @@ class ImperfectionCase():
             li_proto = model.clientModel.factory.create('ns0:imperfection_case_imperfection_cases_items_row')
             li_proto.no = i['no']
             li_proto.row = model.clientModel.factory.create('ns0:imperfection_case_imperfection_cases_items')
+            clearAttributes(li_proto.row)
             li_proto.row.name = i['name']
             li_proto.row.factor = i['factor']
             li_proto.row.operator_type = i['operator_type']

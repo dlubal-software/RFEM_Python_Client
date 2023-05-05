@@ -216,6 +216,7 @@ def clearAttributes(obj):
     '''
     Clears object attributes.
     Sets all attributes to None.
+    Use it whenever you create new (sub)object.
 
     Args:
         obj: object to clear
@@ -224,11 +225,8 @@ def clearAttributes(obj):
     # iterator
     it = iter(obj)
     for i in it:
-        try:
-            it = iter(obj[i[0]])
-            obj[i[0]] = clearAttributes(obj[i[0]])
-        except:
-            obj[i[0]] = None
+        obj[i[0]] = None
+        
     return obj
 
 def deleteEmptyAttributes(obj):
