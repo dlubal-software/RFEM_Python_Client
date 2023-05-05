@@ -1,21 +1,16 @@
 import json
 import sys
 
-from mdurl import URL
-
 from InstallPyQt5 import installPyQt5
 installPyQt5()
 
-from PyQt5 import uic, QtWebEngineWidgets
-from PyQt5 import QtCore
-from PyQt5.QtCore import Qt, QUrl
-from PyQt5.QtGui import QBrush, QPainter, QPen, QColor, QFont, QPalette
-from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsView, QGraphicsScene, QGraphicsRectItem, QGraphicsEllipseItem, QGraphicsItem, QVBoxLayout, QPushButton, QSlider, QHBoxLayout, QMessageBox
-
+from PyQt5 import uic
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QBrush, QPainter, QPen, QColor, QFont
+from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsScene, QMessageBox
 
 from MyRFEM import *
 
-# TODO 32: Generate the report and display it an the tab
 # TODO 33: Add buttons for switch on and switch of the load in graphic
 # TODO 11: Make path specification better
 # TODO 12: Uniform use of ' or " in open()
@@ -808,7 +803,7 @@ class MyWindow(QMainWindow):
     def onCalculate(self):
         # Save data in dialog
         self.writeConfig()
-
+        '''
         # Make an instance of class MyRFEM and init it
         my_rfem = MyRFEM(self.calculation_model)
 
@@ -822,6 +817,7 @@ class MyWindow(QMainWindow):
 
         # This method close the model and close the connection to RFEM server.
         my_rfem.done()
+        '''
 
     def onCancel(self):
         print('Schluss jetzt!')
