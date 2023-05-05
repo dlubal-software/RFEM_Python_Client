@@ -255,6 +255,7 @@ class NodalReleaseType():
                 mlvlp = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_along_y_table_row')
                 mlvlp.no = i+1
                 mlvlp.row = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_along_y_table')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.displacement = translational_release_vy_nonlinearity[2][i][0]
                 mlvlp.row.force = translational_release_vy_nonlinearity[2][i][1]
 
@@ -424,6 +425,7 @@ class NodalReleaseType():
                 mlvlp = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_around_x_table_row')
                 mlvlp.no = i+1
                 mlvlp.row = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_around_x_table')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.rotation = rotational_release_mt_nonlinearity[2][i][0]
                 mlvlp.row.moment = rotational_release_mt_nonlinearity[2][i][1]
 
@@ -498,6 +500,7 @@ class NodalReleaseType():
                 mlvlp = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_around_y_table_row')
                 mlvlp.no = i+1
                 mlvlp.row = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_around_y_table')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.rotation = rotational_release_my_nonlinearity[2][i][0]
                 mlvlp.row.moment = rotational_release_my_nonlinearity[2][i][1]
 
@@ -572,6 +575,7 @@ class NodalReleaseType():
                 mlvlp = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_around_z_table_row')
                 mlvlp.no = i+1
                 mlvlp.row = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_around_z_table')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.rotation = rotational_release_mz_nonlinearity[2][i][0]
                 mlvlp.row.moment = rotational_release_mz_nonlinearity[2][i][1]
 

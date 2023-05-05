@@ -1,5 +1,4 @@
 from RFEM.initModel import Model, clearAttributes
-from enum import Enum
 
 class LoadCasesAndCombinations():
 
