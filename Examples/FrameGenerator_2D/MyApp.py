@@ -4,7 +4,7 @@ import sys
 from InstallPyQt5 import installPyQt5
 installPyQt5()
 
-from PyQt5 import uic
+from PyQt5 import uic, QtWebEngineWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QBrush, QPainter, QPen, QColor, QFont
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsScene, QMessageBox
@@ -19,12 +19,11 @@ from MyRFEM import *
 # TODO 16: Write the done() method in class MyRFEM
 # TODO 23: Implement a "Wait" dialog. It should display after click of [Calculate] and
 #          should disappear when the calculation is finished (in done() method).
-# TODO 15: Add spin buttons on edit lines (?)
 # TODO 30: delete test_DesignSituations.py
 # TODO 37: add pip install PyQtWebEngine to InstallPyQt5.py
-# TODO 38: Check the import in line 4: from mdurl import URL
-# TODO 39:
-# TODO 40:
+# TODO 39: Rename Calculate button in Generate button if check box loads is disabled
+# TODO 40: Handle negativ values in validate()
+# TODO 41:
 
 class MyWindow(QMainWindow):
     # This dictionary stores the data for the graphic that will
@@ -416,6 +415,9 @@ class MyWindow(QMainWindow):
             self.ui.groupBox_Snow.setEnabled(True)
             self.ui.groupBox_Slab.setEnabled(True)
             self.ui.checkBox_steel_design.setEnabled(True)
+
+            # change the text in calculate button
+            self.ui.buttonCalculate.setText('Calculate')
         else:
             self.presets['check_load'] = 0
             self.calculation_model['check_load'] = 0
@@ -425,6 +427,9 @@ class MyWindow(QMainWindow):
             self.ui.groupBox_Snow.setEnabled(False)
             self.ui.groupBox_Slab.setEnabled(False)
             self.ui.checkBox_steel_design.setEnabled(False)
+
+            # change the text in calculate button
+            self.ui.buttonCalculate.setText('Generate')
 
     def onChange_checkBox_steel_design(self):
         if self.ui.checkBox_steel_design.checkState():
