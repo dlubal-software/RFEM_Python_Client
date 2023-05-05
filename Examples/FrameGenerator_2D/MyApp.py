@@ -19,8 +19,8 @@ from MyRFEM import *
 # TODO 16: Write the done() method in class MyRFEM
 # TODO 23: Implement a "Wait" dialog. It should display after click of [Calculate] and
 #          should disappear when the calculation is finished (in done() method).
-# TODO 40: Fix the crash after input negative value
-# TODO 41:
+# TODO 41: Labels for loads in graphic
+# TODO 42:
 
 class MyWindow(QMainWindow):
     # This dictionary stores the data for the graphic that will
@@ -337,7 +337,6 @@ class MyWindow(QMainWindow):
         load_pen = QPen()
         load_pen.setStyle(Qt.SolidLine)
         load_pen.setWidth(1)
-        #load_pen.setBrush(Qt.green)
         load_pen.setBrush(QColor(0, 120, 120, 127))
         load_pen.setCapStyle(Qt.RoundCap)
         load_pen.setJoinStyle(Qt.RoundJoin)
@@ -365,8 +364,9 @@ class MyWindow(QMainWindow):
         scene.addLine(n_07[0] * factor, n_02[1] * factor - load_spacing, n_07[0] * factor, n_02[1] * factor - (load_spacing + load_high), load_pen)
         scene.addLine(n_05[0] * factor, n_05[1] * factor - load_spacing, n_05[0] * factor, n_05[1] * factor - (load_spacing + load_high), load_pen)
 
-        #Beschriftung der Lasten
-
+        scene.addText('g_r = ' + str(self.calculation_model['loads']['self-weight'][0]), dim_font).setPos(n_07[0] * factor, (n_07[1]) * factor - 2 * load_spacing)
+        scene.addText('g_s = ' + str(self.calculation_model['loads']['self-weight'][1]) + ', p_s = ' + str(self.calculation_model['loads']['slab'][0]), dim_font).setPos(n_07[0] * factor, (n_02[1]) * factor - 2 * load_spacing)
+        scene.addText('s_r = ' + str(self.calculation_model['loads']['snow'][0]), dim_font).setPos(n_07[0] * factor, (n_07[1]) * factor - (3 * load_spacing + load_high))
 
     def validate(self, s):
         # Replace comma with dot
@@ -387,7 +387,7 @@ class MyWindow(QMainWindow):
                 msg.setWindowTitle('Error')
                 msg.setText('Please enter a positive number.')
                 msg.exec
-                
+
         except:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Critical)
@@ -670,7 +670,9 @@ class MyWindow(QMainWindow):
 
         # Update calculation model
         self.calculation_model['loads']['self-weight'][0] = g_r
-        pass
+
+        # Update graphic
+        self.drawGraphic()
 
     def onChange_g_s(self):
         s = self.ui.lineEdit_g_s.text()
@@ -680,7 +682,9 @@ class MyWindow(QMainWindow):
 
         # Update calculation model
         self.calculation_model['loads']['self-weight'][1] = g_s
-        pass
+
+        # Update graphic
+        self.drawGraphic()
 
     def onChange_g_w(self):
         s = self.ui.lineEdit_g_w.text()
@@ -690,7 +694,9 @@ class MyWindow(QMainWindow):
 
         # Update calculation model
         self.calculation_model['loads']['self-weight'][2] = g_w
-        pass
+
+        # Update graphic
+        self.drawGraphic()
 
     def onChange_s_r(self):
         s = self.ui.lineEdit_s_r.text()
@@ -700,7 +706,9 @@ class MyWindow(QMainWindow):
 
         # Update calculation model
         self.calculation_model['loads']['snow'][0] = s_r
-        pass
+
+        # Update graphic
+        self.drawGraphic()
 
     def onChange_p_s(self):
         s = self.ui.lineEdit_p_s.text()
@@ -710,7 +718,9 @@ class MyWindow(QMainWindow):
 
         # Update calculation model
         self.calculation_model['loads']['slab'][0] = p_s
-        pass
+
+        # Update graphic
+        self.drawGraphic()
 
     def onCurrentIndexChanged_Material_o_c(self, index):
         self.presets['material'][0] = index
