@@ -140,3 +140,15 @@ class LineSet():
 
         # Add Line Set to client model
         model.clientModel.service.set_line_set(clientObject)
+
+    @staticmethod
+    def GetLineSet(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Line Set Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Line Set from client model
+        return model.clientModel.service.get_line_set(object_index)

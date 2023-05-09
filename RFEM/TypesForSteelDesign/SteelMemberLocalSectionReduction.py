@@ -12,7 +12,7 @@ class SteelMemberLocalSectionReduction():
                      FastenerDefinitionType.DEFINITION_TYPE_ABSOLUTE, 0.5, 2,\
                      MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 1.0]
                                     ],
-                 user_defined_name: str = '',
+                 name: str = '',
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -37,7 +37,7 @@ class SteelMemberLocalSectionReduction():
                         components[i][7] (float): Multiple Offset Value
                     for components[i][6] == MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_RELATIVE;
                         components[i][7] (float): Multiple Offset Value (value must be between 0.0 and 1.0)
-            user_defined_name (str): User Defined  Member Local Section Reduction Name
+            name (str): User Defined  Member Local Section Reduction Name
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -49,21 +49,21 @@ class SteelMemberLocalSectionReduction():
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
 
-        #Local Section Reduction No.
+        # Local Section Reduction No.
         clientObject.no = no
 
-        #Local Section Reduction Assigned Members
+        # Local Section Reduction Assigned Members
         clientObject.members = ConvertToDlString(members)
 
-        #Local Section Reduction Assigned Member Sets
+        # Local Section Reduction Assigned Member Sets
         clientObject.member_sets = ConvertToDlString(member_sets)
 
-        #Local Section Reduction User defined Name
-        if user_defined_name:
+        # Local Section Reduction User defined Name
+        if name:
             clientObject.user_defined_name_enabled = True
-            clientObject.name = user_defined_name
+            clientObject.name = name
 
-        #Local Section Reduction Components
+        # Local Section Reduction Components
         clientObject.components = model.clientModel.factory.create('ns0:array_of_steel_member_local_section_reduction_components')
 
         for i,j in enumerate(components):

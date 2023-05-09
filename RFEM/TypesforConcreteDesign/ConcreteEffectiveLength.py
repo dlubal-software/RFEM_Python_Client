@@ -70,6 +70,7 @@ class ConcreteEffectiveLength():
             mlvlp = model.clientModel.factory.create('ns0:concrete_effective_lengths_factors_row')
             mlvlp.no = i+1
             mlvlp.row = model.clientModel.factory.create('ns0:concrete_effective_lengths_factors')
+            clearAttributes(mlvlp.row)
             mlvlp.row.flexural_buckling_y = factors[i][0]
             mlvlp.row.flexural_buckling_z = factors[i][1]
 
@@ -81,6 +82,7 @@ class ConcreteEffectiveLength():
             mlvlp = model.clientModel.factory.create('ns0:concrete_effective_lengths_nodal_supports_row')
             mlvlp.no = i+1
             mlvlp.row = model.clientModel.factory.create('ns0:concrete_effective_lengths_nodal_supports')
+            clearAttributes(mlvlp.row)
             mlvlp.row.support_type = nodal_supports[i][0].name
             mlvlp.row.support_in_z = nodal_supports[i][1]
             mlvlp.row.eccentricity_type = nodal_supports[i][2].name

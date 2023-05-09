@@ -10,7 +10,7 @@ from RFEM.dataTypes import inf
 from RFEM.initModel import Model
 from RFEM.enums import *
 from RFEM.BasicObjects.node import Node
-from RFEM.SpecialObjects.lineReleaseType import LineReleaseType
+from RFEM.TypesForSpecialObjects.lineReleaseType import LineReleaseType
 
 if Model.clientModel is None:
     Model()

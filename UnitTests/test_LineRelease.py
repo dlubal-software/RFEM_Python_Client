@@ -17,7 +17,7 @@ from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.surface import Surface
 from RFEM.BasicObjects.solid import Solid
-from RFEM.SpecialObjects.lineReleaseType import LineReleaseType
+from RFEM.TypesForSpecialObjects.lineReleaseType import LineReleaseType
 from RFEM.SpecialObjects.lineRelease import LineRelease
 
 if Model.clientModel is None:

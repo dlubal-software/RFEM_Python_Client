@@ -94,7 +94,7 @@ class SurfaceLoad():
                     if SurfaceLoadAxisDefinitionType == AXIS_DEFINITION_POINT_AND_AXIS:
                         load_parameter = [magnitude_1, magnitude_2, node_1, node_2, SurfaceLoadAxisDefinitionType, SurfaceLoadAxisDefinitionAxis, axis_definition_p1]
                 for load_distribution == SurfaceLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
-                    load_parameter = [[distance_1, delta_distance_1, magnitude_1], [distance_2, delta_distance_2, magnitude_2]...]
+                    load_parameter = [[distance_1, magnitude_1], [distance_2, magnitude_2]...]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -173,8 +173,9 @@ class SurfaceLoad():
                 mlvlp = model.clientModel.factory.create('ns0:surface_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:surface_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
-                mlvlp.row.magnitude = load_parameter[i][2]
+                mlvlp.row.magnitude = load_parameter[i][1]
                 clientObject.varying_load_parameters.surface_load_varying_load_parameters.append(mlvlp)
                 clientObject.varying_load_parameters_sorted = True
 
@@ -436,7 +437,7 @@ class SurfaceLoad():
         # Load Distribution
         clientObject.load_distribution = SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM.name
 
-        #Load Direction
+        # Load Direction
         clientObject.load_direction = SurfaceLoadDirection.LOAD_DIRECTION_LOCAL_Z.name
 
         # Load Magnitude
@@ -575,10 +576,10 @@ class SurfaceLoad():
         # Load Distribution
         clientObject.load_distribution = SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM.name
 
-        #Load Direction
+        # Load Direction
         clientObject.load_direction = SurfaceLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE.name
 
-        #Individual Mass Components
+        # Individual Mass Components
         clientObject.individual_mass_components = individual_mass_components
 
         # Load Magnitude

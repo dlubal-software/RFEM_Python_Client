@@ -23,7 +23,7 @@ def test_SaveFile():
 
     Material(1, 'S235')
 
-    saveFile(dirName + r'/testResults/save.rf6')
+    saveFile(dirName + '/testResults/save.rf6')
 
     closeModel('save.rf6')
 

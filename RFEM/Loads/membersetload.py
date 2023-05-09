@@ -52,7 +52,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = magnitude
 
         # Comment
@@ -102,7 +102,7 @@ class MemberSetLoad():
                 for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
                 for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
                 for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
                 for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
@@ -110,9 +110,9 @@ class MemberSetLoad():
                 for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
                 for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
                 for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
             force_eccentricity (bool): Force Eccentricity Option
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -149,7 +149,7 @@ class MemberSetLoad():
         # Member Load Distribution
         clientObject.load_distribution= load_distribution.name
 
-        #Load Magnitude and Parameters
+        # Load Magnitude and Parameters
         if load_parameter == []:
             raise ValueError("WARNING: Load parameter cannot be empty. Kindly check list inputs completeness and correctness.")
         else:
@@ -241,6 +241,7 @@ class MemberSetLoad():
                     mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                     mlvlp.no = i+1
                     mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                    clearAttributes(mlvlp.row)
                     mlvlp.row.distance = load_parameter[i][0]
                     mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -299,6 +300,7 @@ class MemberSetLoad():
                     mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                     mlvlp.no = i+1
                     mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                    clearAttributes(mlvlp.row)
                     mlvlp.row.distance = load_parameter[i][0]
                     mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -312,6 +314,7 @@ class MemberSetLoad():
                     mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                     mlvlp.no = i+1
                     mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                    clearAttributes(mlvlp.row)
                     mlvlp.row.distance = load_parameter[i][0]
                     mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -320,7 +323,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Force Eccentiricity
+        # Force Eccentiricity
         clientObject.has_force_eccentricity = force_eccentricity
 
         if force_eccentricity == True:
@@ -408,7 +411,7 @@ class MemberSetLoad():
                 for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
                 for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
                 for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
                     load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
                 for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
@@ -416,7 +419,7 @@ class MemberSetLoad():
                 for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
                 for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -443,7 +446,7 @@ class MemberSetLoad():
         # Member Load Distribution
         clientObject.load_distribution= load_distribution.name
 
-        #Load Magnitude and Parameters
+        # Load Magnitude and Parameters
         if load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM":
             if len(load_parameter) != 1:
                 raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
@@ -529,6 +532,7 @@ class MemberSetLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -585,6 +589,7 @@ class MemberSetLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -708,7 +713,7 @@ class MemberSetLoad():
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [tb1, tb2, tb3, tt1, tt2, tt3]
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
             load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -739,7 +744,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             if len(load_parameter) != 2:
                 raise ValueError("WARNING: Load parameter array length should be 2 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
@@ -821,6 +826,7 @@ class MemberSetLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.magnitude_t_c = load_parameter[i][1]
@@ -875,7 +881,7 @@ class MemberSetLoad():
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [delta_t_1, delta_t_2, delta_t_3, t_c_1, t_c_2, t_c_3]
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
             load_over_total_length (bool): Load Over Total Length Option
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -906,7 +912,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             if len(load_parameter) != 2:
                 raise ValueError("WARNING: Load parameter array length should be 2 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
@@ -982,6 +988,7 @@ class MemberSetLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.magnitude_t_c = load_parameter[i][1]
@@ -1036,7 +1043,7 @@ class MemberSetLoad():
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
                     load_parameter = [epsilon1, epsilon2, epsilon3]
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
             load_over_total_length (bool): Load Over Total Length Option
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -1067,7 +1074,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             if len(load_parameter) != 1:
                 raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
@@ -1135,6 +1142,7 @@ class MemberSetLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -1200,7 +1208,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = magnitude
 
         # Comment
@@ -1249,7 +1257,7 @@ class MemberSetLoad():
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
             load_over_total_length (bool): Load Over Total Lenth Option
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -1280,7 +1288,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             if len(load_parameter) != 1:
                 raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
@@ -1349,6 +1357,7 @@ class MemberSetLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -1414,7 +1423,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = magnitude
 
         # Comment
@@ -1462,7 +1471,7 @@ class MemberSetLoad():
                 for load_distrubition = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
                     load_parameter = [magnitude_1, magnitude_2, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
                     load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
@@ -1470,7 +1479,7 @@ class MemberSetLoad():
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
             load_over_total_length (bool): Load Over Total Length Option
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -1501,7 +1510,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             if len(load_parameter) != 1:
                 raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
@@ -1584,6 +1593,7 @@ class MemberSetLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -1650,6 +1660,7 @@ class MemberSetLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -1700,7 +1711,7 @@ class MemberSetLoad():
                 for load_distrubition = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
                     load_parameter = [magnitude_1, magnitude_2, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
                     load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
@@ -1708,7 +1719,7 @@ class MemberSetLoad():
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
                     load_parameter = [magnitude_1, magnitude_2, magnitude_3]
                 for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-                    load_parameter = [[distance, delta_distance, magnitude], ...]
+                    load_parameter = [[distance, magnitude], ...]
             load_over_total_length (bool): Load Over Total Length
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -1739,7 +1750,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             if len(load_parameter) != 1:
                 raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
@@ -1822,6 +1833,7 @@ class MemberSetLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -1888,6 +1900,7 @@ class MemberSetLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -1953,10 +1966,10 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = MemberSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE.name
 
-        #Member Load Orientation
+        # Member Load Orientation
         clientObject.load_direction_orientation = load_direction_orientation.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = specific_weight
 
         # Comment
@@ -2021,13 +2034,13 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = MemberSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE.name
 
-        #Member Load Orientation
+        # Member Load Orientation
         clientObject.load_direction_orientation = load_direction_orientation.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = specific_weight
 
-        #Filling Height
+        # Filling Height
         clientObject.filling_height = filling_height
 
         # Comment
@@ -2088,7 +2101,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = pressure
 
         # Comment
@@ -2155,16 +2168,16 @@ class MemberSetLoad():
         load_type = MemberSetLoadType.LOAD_TYPE_ROTARY_MOTION
         clientObject.load_type = load_type.name
 
-        #Angular Acceleration
+        # Angular Acceleration
         clientObject.angular_acceleration = angular_acceleration
 
-        #Angular Velocity
+        # Angular Velocity
         clientObject.angular_velocity = angular_velocity
 
-        #Axis Definition Type
+        # Axis Definition Type
         clientObject.axis_definition_type = axis_definition_type.name
 
-        #Axis definition
+        # Axis definition
         if clientObject.axis_definition_type == "AXIS_DEFINITION_TWO_POINTS":
             clientObject.axis_definition_p1_x = axis_definition_p1[0]
             clientObject.axis_definition_p1_y = axis_definition_p1[1]

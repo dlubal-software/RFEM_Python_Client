@@ -51,7 +51,7 @@ class MemberLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = magnitude
 
         # Comment
@@ -150,7 +150,7 @@ class MemberLoad():
         # Member Load Distribution
         clientObject.load_distribution= load_distribution.name
 
-        #Load Magnitude and Parameters
+        # Load Magnitude and Parameters
         if load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM" or load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM_TOTAL":
             clientObject.magnitude = load_parameter[0]
 
@@ -225,6 +225,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -275,6 +276,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -288,6 +290,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -296,10 +299,10 @@ class MemberLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Reference to List of Members
+        # Reference to List of Members
         clientObject.reference_to_list_of_members = list_reference
 
-        #Force Eccentiricity
+        # Force Eccentiricity
         clientObject.has_force_eccentricity = force_eccentricity
 
         if force_eccentricity == True:
@@ -418,7 +421,7 @@ class MemberLoad():
         # Member Load Distribution
         clientObject.load_distribution= load_distribution.name
 
-        #Load Magnitude and Parameters
+        # Load Magnitude and Parameters
         if load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM":
             clientObject.magnitude = load_parameter[0]
 
@@ -493,6 +496,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -543,6 +547,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -551,7 +556,7 @@ class MemberLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Reference to List of Members
+        # Reference to List of Members
         clientObject.reference_to_list_of_members = list_reference
 
         # Comment
@@ -706,7 +711,7 @@ class MemberLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             clientObject.magnitude_t_b = load_parameter[0]
             clientObject.magnitude_t_t = load_parameter[1]
@@ -773,6 +778,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.magnitude_t_c = load_parameter[i][1]
@@ -866,7 +872,7 @@ class MemberLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             clientObject.magnitude_delta_t = load_parameter[0]
             clientObject.magnitude_t_c = load_parameter[1]
@@ -933,6 +939,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
                 mlvlp.row.magnitude_t_c = load_parameter[i][1]
@@ -1023,7 +1030,7 @@ class MemberLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             clientObject.magnitude = load_parameter[0]
 
@@ -1082,6 +1089,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -1152,7 +1160,7 @@ class MemberLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = magnitude
 
         # Comment
@@ -1233,7 +1241,7 @@ class MemberLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             clientObject.magnitude = load_parameter[0]
 
@@ -1292,6 +1300,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -1362,7 +1371,7 @@ class MemberLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = magnitude
 
         # Comment
@@ -1453,7 +1462,7 @@ class MemberLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             clientObject.magnitude = load_parameter[0]
 
@@ -1526,6 +1535,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -1583,6 +1593,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -1679,7 +1690,7 @@ class MemberLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
             clientObject.magnitude = load_parameter[0]
 
@@ -1752,6 +1763,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -1809,6 +1821,7 @@ class MemberLoad():
                 mlvlp = model.clientModel.factory.create('ns0:member_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:member_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
 
@@ -1879,10 +1892,10 @@ class MemberLoad():
         # Member Load Direction
         clientObject.load_direction = MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE.name
 
-        #Member Load Orientation
+        # Member Load Orientation
         clientObject.load_direction_orientation = load_direction_orientation.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = specific_weight
 
         # Comment
@@ -1949,13 +1962,13 @@ class MemberLoad():
         # Member Load Direction
         clientObject.load_direction = MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE.name
 
-        #Member Load Orientation
+        # Member Load Orientation
         clientObject.load_direction_orientation = load_direction_orientation.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = specific_weight
 
-        #Filling Height
+        # Filling Height
         clientObject.filling_height = filling_height
 
         # Comment
@@ -2018,7 +2031,7 @@ class MemberLoad():
         # Member Load Direction
         clientObject.load_direction = MemberLoadDirection.LOAD_DIRECTION_LOCAL_X.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = pressure
 
         # Comment
@@ -2087,16 +2100,16 @@ class MemberLoad():
         load_type = MemberLoadType.LOAD_TYPE_ROTARY_MOTION
         clientObject.load_type = load_type.name
 
-        #Angular Acceleration
+        # Angular Acceleration
         clientObject.angular_acceleration = angular_acceleration
 
-        #Angular Velocity
+        # Angular Velocity
         clientObject.angular_velocity = angular_velocity
 
-        #Axis Definition Type
+        # Axis Definition Type
         clientObject.axis_definition_type = axis_definition_type.name
 
-        #Axis definition
+        # Axis definition
         if axis_definition_type == MemberLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS.name:
             clientObject.axis_definition_p1_x = axis_definition_p1[0]
             clientObject.axis_definition_p1_y = axis_definition_p1[1]

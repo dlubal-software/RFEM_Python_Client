@@ -508,3 +508,15 @@ class Line():
         # Delete from client model
         for line in ConvertStrToListOfInt(lines_no):
             model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_LINE.name, line)
+
+    @staticmethod
+    def GetLine(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Line Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Line from client model
+        return model.clientModel.service.get_line(object_index)

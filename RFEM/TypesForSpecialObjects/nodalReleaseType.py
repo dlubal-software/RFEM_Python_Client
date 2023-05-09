@@ -2,8 +2,8 @@ from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import NodalReleaseTypePartialActivityAlong, NodalReleaseTypePartialActivityAround, NodalReleaseTypeLocalAxisSystemObjectType, NodalReleaseTypeReleaseNonlinearity
 from RFEM.dataTypes import inf
 
-
 class NodalReleaseType():
+
     def __init__(self,
                  no: int = 1,
                  coordinate_system: str = "Local",
@@ -30,6 +30,12 @@ class NodalReleaseType():
          Args:
             no (int): Nodal Release Type Tag
             coordinate_system (str/int): Coordinate System Selection
+            translational_release_n (float): Spring Constant for Translation Release along X Direction
+            translational_release_vy (float): Spring Constant for Translation Release along Y Direction
+            translational_release_vz (float): Spring Constant for Translation Release along Z Direction
+            rotational_release_mt (float): Spring Constant for Rotational Release around X Direction
+            rotational_release_my (float): Spring Constant for Rotational Release around Y Direction
+            rotational_release_mz (float): Spring Constant for Rotational Release around Z Direction
             translational_release_n_nonlinearity (list/list of lists): Nonlinearity Parameter for Translation Release along X Direction
             translational_release_vy_nonlinearity (list/list of lists): Nonlinearity Parameter for Translation Release along Y Direction
             translational_release_vz_nonlinearity (list/list of lists): Nonlinearity Parameter for Translation Release along Z Direction
@@ -43,10 +49,14 @@ class NodalReleaseType():
                         negative/positive zone = [negative/positive zone type, force, slippage]
                 for translational_release_n/vy/vz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
                     translational_release_n/vy/vz_nonlinearity = [nonlinearity type Diagram, [symmetric(bool), NodalReleaseTypeDiagram Enumeration(start), NodalReleaseTypeDiagram Enumeration(end)], [[displacement, force],...]]
+                for translational_release_n/vy/vz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1/NONLINEARITY_TYPE_FRICTION_DIRECTION_2/NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2:
+                    translational_release_n/vy/vz_nonlinearity = [nonlinearity type Diagram, [friction coefficient(float)]]
+                for translational_release_n/vy/vz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2:
+                    translational_release_n/vy/vz_nonlinearity = [nonlinearity type Diagram, [friction coefficient 1(float), friction coefficient 2(float)]]
             rotational_release_mt_nonlinearity (list/list of lists): Nonlinearity Parameter for Rotational Release around X Direction
             rotational_release_my_nonlinearity (list/list of lists): Nonlinearity Parameter for Rotational Release around Y Direction
             rotational_release_mz_nonlinearity (list/list of lists): Nonlinearity Parameter for Rotational Release around Z Direction
-                for rotational_release_mt/my/mz_nonlinearity[0] == NodalReleaseTypePartialActivityAround.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
+                for rotational_release_mt/my/mz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
                     rotational_release_mt/my/mz_nonlinearity = [nonlinearity type Partial_Activity, negative zone, positive zone]
                     for negative/positive zone[0] == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_COMPLETE:
                         negative/positive zone = [negative/positive zone type, slippage]
@@ -54,29 +64,26 @@ class NodalReleaseType():
                         negative/positive zone = [negative/positive zone type, rotation, slippage]
                     for negative/positive zone[0] == NodalReleaseTypePartialActivityAround.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT/PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT:
                         negative/positive zone = [negative/positive zone type, moment, slippage]
-                for rotational_release_mt/my/mz_nonlinearity[0] == NodalReleaseTypePartialActivityAround.NONLINEARITY_TYPE_DIAGRAM:
+                for rotational_release_mt/my/mz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
                     rotational_release_mt/my/mz_nonlinearity = [nonlinearity type Diagram, [symmetric(bool), NodalReleaseTypeDiagram Enumeration(start), NodalReleaseTypeDiagram Enumeration(end)], [[rotation, moment],...]]
-                for rotational_release_mt/my/mz_nonlinearity[0] == NodalReleaseTypePartialActivityAround.NONLINEARITY_TYPE_FORCE_MOMENT_DIAGRAM:
-                    rotational_release_mt/my/mz_nonlinearity = [nonlinearity type Force_Moment_Diagram, [symmetric(bool), NodalReleaseTypeReleaseNonlinearity Enumeration(end), NodalReleaseTypeReleaseNonlinearity Enumeration],
-                                                             [[force, max_moment, min_moment(if not symetric)],...]]
             local_axis_system (enum): Nodal Release Local Axis System Enumeration
-            local_axis_system_reference_object (int): Nodal Release Local Axis System Reference Object Enumeration
-            name (str): User Defined Name
+            local_axis_system_reference_object (int): Nodal Release Local Axis System Reference Object Number
+            name (str, optional): User Defined Nodal Release Type Name
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
         '''
 
-        # Client model | Node
+        # Client model | Nodal Release Type
         clientObject = model.clientModel.factory.create('ns0:nodal_release_type')
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
 
-        # Node No.
+        # Nodal Release Type No.
         clientObject.no = no
 
-        # Nodal Release Typ
+        # Nodal Release Type
         clientObject.coordinate_system = coordinate_system
 
          # Translational Release/Spring [N/m] N
@@ -247,6 +254,8 @@ class NodalReleaseType():
             for i,j in enumerate(translational_release_vy_nonlinearity[2]):
                 mlvlp = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_along_y_table_row')
                 mlvlp.no = i+1
+                mlvlp.row = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_along_y_table')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.displacement = translational_release_vy_nonlinearity[2][i][0]
                 mlvlp.row.force = translational_release_vy_nonlinearity[2][i][1]
 
@@ -415,6 +424,8 @@ class NodalReleaseType():
             for i,j in enumerate(rotational_release_mt_nonlinearity[2]):
                 mlvlp = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_around_x_table_row')
                 mlvlp.no = i+1
+                mlvlp.row = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_around_x_table')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.rotation = rotational_release_mt_nonlinearity[2][i][0]
                 mlvlp.row.moment = rotational_release_mt_nonlinearity[2][i][1]
 
@@ -488,6 +499,8 @@ class NodalReleaseType():
             for i,j in enumerate(rotational_release_my_nonlinearity[2]):
                 mlvlp = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_around_y_table_row')
                 mlvlp.no = i+1
+                mlvlp.row = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_around_y_table')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.rotation = rotational_release_my_nonlinearity[2][i][0]
                 mlvlp.row.moment = rotational_release_my_nonlinearity[2][i][1]
 
@@ -561,6 +574,8 @@ class NodalReleaseType():
             for i,j in enumerate(rotational_release_mz_nonlinearity[2]):
                 mlvlp = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_around_z_table_row')
                 mlvlp.no = i+1
+                mlvlp.row = Model.clientModel.factory.create('ns0:nodal_release_type_diagram_around_z_table')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.rotation = rotational_release_mz_nonlinearity[2][i][0]
                 mlvlp.row.moment = rotational_release_mz_nonlinearity[2][i][1]
 
@@ -575,7 +590,7 @@ class NodalReleaseType():
         # Nodal Release Local Axis System Reference Object
         clientObject.local_axis_system_reference_object = local_axis_system_reference_object
 
-        # Line Release Type User defined name
+        # Nodal Release Type User defined name
         if name:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
@@ -591,5 +606,5 @@ class NodalReleaseType():
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
 
-        # Add Node to client model
+        # Add Nodal Release Type to client model
         model.clientModel.service.set_nodal_release_type(clientObject)
