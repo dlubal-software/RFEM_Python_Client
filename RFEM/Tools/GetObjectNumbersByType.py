@@ -249,7 +249,7 @@ class GetAllObjects:
 
                     # Print status
                     percent = (idx/len(objNumbers))*100
-                    sys.stdout.write("                                                                       ")
+                    sys.stdout.write("\r                                                                       ")
                     sys.stdout.write("\r{}: {:.0f}%, total progress: {:.1f}% ".format(func[3], (id/len(func_vec))*100, percent))
                     sys.stdout.flush()
 
@@ -275,5 +275,7 @@ class GetAllObjects:
                 if addImport:
                     imports.append(func[2])
 
-        sys.stdout.write("\nDone 100%")
+        sys.stdout.write("\r                                                                       ")
+        sys.stdout.write("\rDone 100%\n")
+        sys.stdout.flush()
         return (objects, imports)
