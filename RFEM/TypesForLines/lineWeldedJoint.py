@@ -72,6 +72,7 @@ class LineWeldedJoint():
             clientWeld = model.clientModel.factory.create('ns0:line_line_weld_assignment_row')
             clientWeld.no = count+1
             clientWeld.row = model.clientModel.factory.create('ns0:line_line_weld_assignment')
+            clearAttributes(clientWeld.row)
             clientWeld.row.weld = no
             clientWeld.row.surface1 = iSurfaces[0]
             clientWeld.row.surface2 = iSurfaces[1]

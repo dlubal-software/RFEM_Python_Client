@@ -1,4 +1,5 @@
-from RFEM.initModel import client
+import os
+from RFEM.initModel import client, Model
 
 def importFrom(targetFilePath: str):
     '''
@@ -8,6 +9,10 @@ def importFrom(targetFilePath: str):
         targetFilePath (string): Destination path to the file
     '''
     client.service.import_from(targetFilePath)
+    head, tail = os.path.split(targetFilePath)
+    if '.' in tail:
+            tail = tail.split('.')[0]
+    Model(False, tail)
 
 def getConversionTables():
     '''

@@ -455,6 +455,7 @@ class Thickness():
             tlrt = model.clientModel.factory.create('ns0:thickness_layers_reference_table_row')
             tlrt.no = i+1
             tlrt.row = model.clientModel.factory.create('ns0:thickness_layers_reference_table')
+            clearAttributes(tlrt.row)
             tlrt.row.layer_no = i+1
             tlrt.row.layer_type = LayerType.E_LAYER_TYPE_LAYER.name
 
@@ -789,3 +790,15 @@ class Thickness():
         # Delete from client model
         for thickness in ConvertStrToListOfInt(thickness_no):
             model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_THICKNESS.name, thickness)
+
+    @staticmethod
+    def GetThickness(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Thickness Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Thickness from client model
+        return model.clientModel.service.get_thickness(object_index)

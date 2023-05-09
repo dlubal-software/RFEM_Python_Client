@@ -6,16 +6,13 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-import pytest
 from RFEM.enums import *
-from RFEM.initModel import Model, CheckIfMethodOrTypeExists, SetAddonStatus
+from RFEM.initModel import Model, SetAddonStatus
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.material import Material
 from RFEM.TypesforConcreteDesign.ConcreteDurability import ConcreteDurability
-#from RFEM.ConcreteDesign.ConcreteUltimateConfigurations import ConcreteUltimateConfiguration
-#from RFEM.ConcreteDesign.ConcreteServiceabilityConfigurations import ConcreteServiceabilityConfiguration
 from RFEM.TypesforConcreteDesign.ConcreteEffectiveLength import ConcreteEffectiveLength
 from RFEM.TypesforConcreteDesign.ConcreteReinforcementDirections import ConcreteReinforcementDirection
 from RFEM.TypesforConcreteDesign.ConcreteSurfaceReinforcements import ConcreteSurfaceReinforcements
@@ -23,8 +20,6 @@ from RFEM.TypesforConcreteDesign.ConcreteSurfaceReinforcements import ConcreteSu
 if Model.clientModel is None:
     Model()
 
-# TODO: US-8087
-@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:concrete_durability', True), reason="ns0:concrete_durability not in RFEM GM yet")
 def test_concrete_design():
 
     Model.clientModel.service.delete_all()
@@ -63,12 +58,6 @@ def test_concrete_design():
     ConcreteDurability(10, "XC 10", '1', '', '', [True, False, False, False], [], [False, False, False], [], [DurabilityStructuralClassType.STANDARD, False, False, False, False], [True, DurabilityStainlessSteelType.DEFINED, 0.012], [True, DurabilityAdditionalProtectionType.DEFINED, 0.02], [DurabilityAllowanceDeviationType.STANDARD, True, DurabilityConcreteCast.AGAINST_PREPARED_GROUND])
 
     ConcreteDurability(11, "XC 11", '1', '', '', [True, False, False, False], [], [False, False, False], [], [DurabilityStructuralClassType.STANDARD, False, False, False, False], [True, DurabilityStainlessSteelType.DEFINED, 0.012], [True, DurabilityAdditionalProtectionType.DEFINED, 0.02], [DurabilityAllowanceDeviationType.DEFINED, 0.008])
-
-    # Concrete Ultimate Configuration
-    # ConcreteUltimateConfiguration(1, 'ULS', '1')
-
-    # Concrete Serviceability Configuration
-    #ConcreteServiceabilityConfiguration(1, 'SLS', '1')
 
     # Concrete Effective Lengths
     ConcreteEffectiveLength()

@@ -10,10 +10,11 @@ class SteelDesignUltimateConfigurations():
                  comment: str = '',
                  params: dict = None,
                  model = Model):
+
         """
         Args:
             no (int): Steel Design Ultimate Configuration Tag
-            user_defined_name (list): User Defined Configuration Name
+            name (str): User Defined Configuration Name
             members_no (str): Assign Configuration to Selected Members
             member_sets_no (str): Assign Configuration to Selected Member Sets
             comment (str, optional): Comment
@@ -43,7 +44,7 @@ class SteelDesignUltimateConfigurations():
             clientObject.assigned_to_all_members = False
             clientObject.assigned_to_members = ConvertToDlString(members_no)
 
-        #Assigned Member Sets
+        # Assigned Member Sets
         if member_sets_no == 'All':
             clientObject.assigned_to_all_member_sets = True
 
@@ -64,4 +65,3 @@ class SteelDesignUltimateConfigurations():
 
         # Add Global Parameters to Client Model
         model.clientModel.service.set_steel_design_uls_configuration(clientObject)
-

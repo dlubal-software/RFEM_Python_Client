@@ -68,7 +68,7 @@ def calculateTank(d, h, util):
                       surface_no = '1 2',
                       load_direction = SurfaceLoadDirection.LOAD_DIRECTION_LOCAL_Z,
                       load_distribution = SurfaceLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z,
-                      load_parameter = [[-load_height, -load_height, 0],[0, load_height, 9.81 * load_height * 1000]])
+                      load_parameter = [[-load_height, 0],[0, 9.81 * load_height * 1000]])
 
     Calculate_all()
 

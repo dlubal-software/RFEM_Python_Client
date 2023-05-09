@@ -24,12 +24,12 @@ class LineRelease():
             lines (str): Assigned Lines
             line_release_type (int): Line Release Type Number
             release_location (enum): Line Release Release Location Enumeration
-            released_members (str): Assigned Release Members
-            released_surfaces (str): Assigned Release Surfaces
-            released_solids (str): Assigned Release Solids
+            released_members (str): Assigned Released Members
+            released_surfaces (str): Assigned Released Surfaces
+            released_solids (str): Assigned Released Solids
             use_nodes_as_definition_nodes (str): Assigned Definition Nodes
             deactivated (bool): Activate/Deactivate Line Release
-            name (str): User Defined Name
+            name (str, optional): User Defined Line Release Name
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -73,7 +73,7 @@ class LineRelease():
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
-        #Comment
+        # Comment
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
