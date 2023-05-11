@@ -22,7 +22,7 @@ if Model.clientModel is None:
     Model()
 
 def test_membrane_surface():
-
+    
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 

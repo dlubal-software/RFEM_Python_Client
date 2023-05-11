@@ -23,7 +23,7 @@ class TimberDesignServiceLimitStateConfigurations():
         """
 
         # Client Model | Timber Design Service Limit State Configurations
-        clientObject = model.clientModel.factory.create('ns0:timber_design_uls_configuration')
+        clientObject = model.clientModel.factory.create('ns0:timber_design_sls_configuration')
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)

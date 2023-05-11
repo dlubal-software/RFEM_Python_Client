@@ -10,7 +10,7 @@ class LineHinge():
 
     def __init__(self,
                  no: int = 1,
-                 assigned_to: str = '3/5; 2/5',
+                 assigned_to: str = '3/5; 2/5', # 1/1,3; 2/6
                  translational_release: list = [800, inf, inf],
                  rotational_release_phi: int = inf,
                  comment: str = '',
@@ -18,12 +18,9 @@ class LineHinge():
                  model = Model):
 
         """
-        assigned_to doesn't work. Can't figure why.
-        Assignment in surfaces also doesn't work (surface.has_line_hinges = True).
-
         Args:
             no (int): Line Hinge Tag
-            assigned_to (str): Assigned to
+            assigned_to (str): Assigned to, format: 1/1,3; 2/6
             translational_release (list): Translation Release List
             rotational_release_phi (int): Rotational Release phi
             comment (str, optional): Comments
@@ -40,7 +37,7 @@ class LineHinge():
         # Line Hinge No.
         clientObject.no = no
 
-        # Assigned to surface and its line (format 1/3)
+        # Assigned to surface and its line (format 1/1,3; 2/6)
         clientObject.assigned_to = assigned_to
 
         # Translatioonal and totational release

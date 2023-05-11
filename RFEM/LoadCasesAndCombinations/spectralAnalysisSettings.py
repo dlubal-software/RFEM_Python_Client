@@ -35,8 +35,7 @@ class SpectralAnalysisSettings():
             model (RFEM Class, optional): Model to be edited
         '''
         # Check if Spectral Add-on is active.
-        if not GetAddonStatus(model.clientModel, AddOn.spectral_active):
-            SetAddonStatus(model.clientModel, AddOn.spectral_active)
+        SetAddonStatus(model.clientModel, AddOn.spectral_active)
 
         # Client model | Surface
         clientObject = model.clientModel.factory.create('ns0:spectral_analysis_settings')
