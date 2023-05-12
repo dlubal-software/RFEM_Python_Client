@@ -12,7 +12,6 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsScene, QMessageB
 from MyRFEM import *
 
 # TODO 33: Add buttons for switch on and switch of the load in graphic
-# TODO 16: Write the done() method in class MyRFEM
 # TODO 23: Implement a "Wait" dialog. It should display after click of [Calculate] and
 #          should disappear when the calculation is finished (in done() method).
 # TODO 42:
@@ -804,7 +803,7 @@ class MyWindow(QMainWindow):
     def onCalculate(self):
         # Save data in dialog
         self.writeConfig()
-        
+
         # Make an instance of class MyRFEM and init it
         my_rfem = MyRFEM(self.calculation_model)
 
@@ -814,11 +813,15 @@ class MyWindow(QMainWindow):
         # Protocol
         if self.results:
             self.ui.webEngineView.load(QUrl(my_rfem.get_report()))
-
+        else:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Critical)
+            msg.setWindowTitle('Error')
+            msg.setText('Calculation failed.')
+            msg.exec
 
         # This method close the model and close the connection to RFEM server.
         my_rfem.done()
-
 
     def onCancel(self):
         self.close()

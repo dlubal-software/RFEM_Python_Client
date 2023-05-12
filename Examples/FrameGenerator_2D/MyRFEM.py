@@ -252,10 +252,6 @@ class MyRFEM():
 
         NodalSupport(5, '2, 3, 5, 6, 7, 9, 11', [0, inf, 0, 0, 0, 0])
 
-        # Create load cases and load combinations
-        # TODO: Set the right Action Category
-
-
         StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
         StaticAnalysisSettings.SecondOrderPDelta(2, "SecondOrder")
 
@@ -287,35 +283,33 @@ class MyRFEM():
 
         # Create load combinations
         LoadCombination(1, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1.35, 1, 1, False]])
-        #LoadCombination(1, combination_items=[[1.35, 1, 1, False]])
-        #LoadCombination(2, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1.35, 1, 1, False], [1.5, 2, 2, True]])
-        #LoadCombination(3, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1.35, 1, 1, False], [1.5, 2, 2, True], [1.05, 3, 3, False]])
-        #LoadCombination(4, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1.35, 1, 1, False], [1.5, 3, 3, True]])
-        #LoadCombination(5, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1.35, 1, 1, False], [0.75, 2, 2, False], [1.5, 3, 3, True]])
-        #LoadCombination(6, AnalysisType.ANALYSIS_TYPE_STATIC, 2, '', 2, False, False, False, True, [[1.0, 1, 1, False]])
-        #LoadCombination(7, AnalysisType.ANALYSIS_TYPE_STATIC, 2, '', 2, False, False, False, True, [[1.0, 1, 1, False], [1.0, 2, 2, True]])
-        #LoadCombination(8, AnalysisType.ANALYSIS_TYPE_STATIC, 2, '', 2, False, False, False, True, [[1.0, 1, 1, False], [1.0, 2, 2, True], [0.7, 3, 3, False]])
-        #LoadCombination(8, AnalysisType.ANALYSIS_TYPE_STATIC, 2, '', 2, False, False, False, True, [[1.0, 1, 1, False], [1.0, 2, 2, True], [0.7, 3, 3, False]])
-        #LoadCombination(9, AnalysisType.ANALYSIS_TYPE_STATIC, 2, '', 2, False, False, False, True, [[1.0, 1, 1, False], [1.0, 3, 3, True]])
-        #LoadCombination(10, AnalysisType.ANALYSIS_TYPE_STATIC, 2, '', 2, False, False, False, True, [[1.0, 1, 1, False], [0.5, 2, 2, False], [1.0, 3, 3, True]])
-        #LoadCombination(11, AnalysisType.ANALYSIS_TYPE_STATIC, 3, '', 2, False, False, False, True, [[1.0, 1, 1, False]])
-        #LoadCombination(12, AnalysisType.ANALYSIS_TYPE_STATIC, 3, '', 2, False, False, False, True, [[1.0, 1, 1, False], [0.2, 2, 2, True]])
-        #LoadCombination(13, AnalysisType.ANALYSIS_TYPE_STATIC, 3, '', 2, False, False, False, True, [[1.0, 1, 1, False], [0.2, 2, 2, True], [0.3, 3, 3, False]])
-        #LoadCombination(14, AnalysisType.ANALYSIS_TYPE_STATIC, 3, '', 2, False, False, False, True, [[1.0, 1, 1, False], [0.3, 3, 3, True]])
-        #LoadCombination(15, AnalysisType.ANALYSIS_TYPE_STATIC, 4, '', 2, False, False, False, True, [[1.0, 1, 1, False]])
-        #LoadCombination(16, AnalysisType.ANALYSIS_TYPE_STATIC, 4, '', 2, False, False, False, True, [[1.0, 1, 1, False], [0.3, 3, 3, True]])
-
-        # TODO Create imperfection cases
-
+        LoadCombination(1, combination_items=[[1.35, 1, 1, False]])
+        LoadCombination(2, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1.35, 1, 1, False], [1.5, 2, 2, True]])
+        LoadCombination(3, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1.35, 1, 1, False], [1.5, 2, 2, True], [1.05, 3, 3, False]])
+        LoadCombination(4, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1.35, 1, 1, False], [1.5, 3, 3, True]])
+        LoadCombination(5, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 2, False, False, False, True, [[1.35, 1, 1, False], [0.75, 2, 2, False], [1.5, 3, 3, True]])
+        LoadCombination(6, AnalysisType.ANALYSIS_TYPE_STATIC, 2, '', 2, False, False, False, True, [[1.0, 1, 1, False]])
+        LoadCombination(7, AnalysisType.ANALYSIS_TYPE_STATIC, 2, '', 2, False, False, False, True, [[1.0, 1, 1, False], [1.0, 2, 2, True]])
+        LoadCombination(8, AnalysisType.ANALYSIS_TYPE_STATIC, 2, '', 2, False, False, False, True, [[1.0, 1, 1, False], [1.0, 2, 2, True], [0.7, 3, 3, False]])
+        LoadCombination(8, AnalysisType.ANALYSIS_TYPE_STATIC, 2, '', 2, False, False, False, True, [[1.0, 1, 1, False], [1.0, 2, 2, True], [0.7, 3, 3, False]])
+        LoadCombination(9, AnalysisType.ANALYSIS_TYPE_STATIC, 2, '', 2, False, False, False, True, [[1.0, 1, 1, False], [1.0, 3, 3, True]])
+        LoadCombination(10, AnalysisType.ANALYSIS_TYPE_STATIC, 2, '', 2, False, False, False, True, [[1.0, 1, 1, False], [0.5, 2, 2, False], [1.0, 3, 3, True]])
+        LoadCombination(11, AnalysisType.ANALYSIS_TYPE_STATIC, 3, '', 2, False, False, False, True, [[1.0, 1, 1, False]])
+        LoadCombination(12, AnalysisType.ANALYSIS_TYPE_STATIC, 3, '', 2, False, False, False, True, [[1.0, 1, 1, False], [0.2, 2, 2, True]])
+        LoadCombination(13, AnalysisType.ANALYSIS_TYPE_STATIC, 3, '', 2, False, False, False, True, [[1.0, 1, 1, False], [0.2, 2, 2, True], [0.3, 3, 3, False]])
+        LoadCombination(14, AnalysisType.ANALYSIS_TYPE_STATIC, 3, '', 2, False, False, False, True, [[1.0, 1, 1, False], [0.3, 3, 3, True]])
+        LoadCombination(15, AnalysisType.ANALYSIS_TYPE_STATIC, 4, '', 2, False, False, False, True, [[1.0, 1, 1, False]])
+        LoadCombination(16, AnalysisType.ANALYSIS_TYPE_STATIC, 4, '', 2, False, False, False, True, [[1.0, 1, 1, False], [0.3, 3, 3, True]])
 
         Model.clientModel.service.finish_modification()
 
-
-
     def calculate(self):
-        Calculate_all()
+        calculationMessages = Calculate_all()
         # Was the calculation successful?
-        self.results = True
+        if calculationMessages == '':
+            self.results = True
+        else:
+            self.results = False
         return self.results
 
     def get_report(self):
