@@ -435,15 +435,20 @@ class Line():
               weights: list = None,
               order: int = 0,
               comment: str = '',
-              params: dict = None, model = Model):
+              params: dict = None,
+              model = Model):
 
         '''
         Args:
             no (int): Line Tag
             nodes_no (str): Nodes creating the curve. By default these are taken as control points.
             control_points (list of lists, optional): Nested List of Respective Control Point's Cartesian Co-Ordinates
-            weights (list, optional): Control points weights e.g. [1,1,1]
-            order (int, optional): Order of the curve with 3 as default value
+                control_points = [[start_point_x, start_point_y, start_point_z],
+                                 [control_point_x, control_point_y, control_point_z],
+                                 ....,
+                                 [end_point_x, end_point_y, end_point_z]]
+            weights (list, optional): Control points weights e.g. [1,1,1] (Length of list must be same as length of list of control_points)
+            order (int, optional): Nurbs order (for nurbs order must define control_points)
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -464,23 +469,28 @@ class Line():
         # Type
         clientObject.type = LineType.TYPE_NURBS.name
 
-        # Order
-        if control_points and weights and order:
+        # Control Point
+        if control_points and weights:
             if len(control_points) != len(weights):
                 raise ValueError("WARNING: The number of weigths prescribed must equal the number of control points defined.")
-            clientObject.nurbs_order = order
 
-            # TODO: bug 24721
-            nurbs_control_points = []
+        if control_points:
+            clientObject.nurbs_control_points_by_components = model.clientModel.factory.create('ns0:line.nurbs_control_points_by_components')
             for i,j in enumerate(control_points):
-                point = model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
+                point = model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components_row')
                 point.no = i+1
-                point.global_coordinate_x = control_points[i][0]
-                point.global_coordinate_y = control_points[i][1]
-                point.global_coordinate_z = control_points[i][2]
-                point.weight = 1 if not weights else weights[i]
-                nurbs_control_points.append(point)
-            clientObject.nurbs_control_points_by_components = model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
+                point.row.global_coordinate_x = control_points[i][0]
+                point.row.global_coordinate_y = control_points[i][1]
+                point.row.global_coordinate_z = control_points[i][2]
+                point.row.weight = 1 if not weights else weights[i]
+                clientObject.nurbs_control_points_by_components.line_nurbs_control_points_by_components.append(point)
+
+        # Nurbs Order
+        if order != 0:
+            if order > 1 and order <= len(control_points):
+                clientObject.nurbs_order = order
+            else:
+                print('Error: Please write Nurbs order in range 2 and number of Control Points!')
 
         # Comment
         clientObject.comment = comment
