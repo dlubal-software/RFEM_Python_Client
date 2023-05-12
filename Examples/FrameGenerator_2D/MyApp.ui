@@ -921,7 +921,7 @@
      <attribute name="title">
       <string>Results</string>
      </attribute>
-     <widget class="QWebEngineView" name="webEngineView">
+     <widget class="QWebEngineView" name="webEngineView" native="true">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -956,6 +956,44 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QWebEngineView</class>
+   <extends>QWidget</extends>
+   <header>qwebengineview.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>checkBox_loads</tabstop>
+  <tabstop>checkBox_steel_design</tabstop>
+  <tabstop>lineEdit_l_1</tabstop>
+  <tabstop>lineEdit_l_2</tabstop>
+  <tabstop>lineEdit_l_3</tabstop>
+  <tabstop>lineEdit_h_1</tabstop>
+  <tabstop>lineEdit_h_2</tabstop>
+  <tabstop>lineEdit_h_3</tabstop>
+  <tabstop>comboBox_CS_o_c</tabstop>
+  <tabstop>comboBox_CS_i_c</tabstop>
+  <tabstop>comboBox_CS_r</tabstop>
+  <tabstop>comboBox_CS_s</tabstop>
+  <tabstop>comboBox_Material_o_c</tabstop>
+  <tabstop>comboBox_Material_i_c</tabstop>
+  <tabstop>comboBox_Material_r</tabstop>
+  <tabstop>comboBox_Material_s</tabstop>
+  <tabstop>comboBox_support_1</tabstop>
+  <tabstop>comboBox_support_2</tabstop>
+  <tabstop>comboBox_support_3</tabstop>
+  <tabstop>comboBox_support_4</tabstop>
+  <tabstop>lineEdit_g_r</tabstop>
+  <tabstop>lineEdit_g_s</tabstop>
+  <tabstop>lineEdit_g_w</tabstop>
+  <tabstop>lineEdit_s_r</tabstop>
+  <tabstop>lineEdit_p_s</tabstop>
+  <tabstop>buttonCalculate</tabstop>
+  <tabstop>buttonCancel</tabstop>
+  <tabstop>graphicsView</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

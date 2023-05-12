@@ -12,7 +12,6 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsScene, QMessageB
 from MyRFEM import *
 
 # TODO 33: Add buttons for switch on and switch of the load in graphic
-# TODO 13: Correct tab order of the dimensions
 # TODO 16: Write the done() method in class MyRFEM
 # TODO 23: Implement a "Wait" dialog. It should display after click of [Calculate] and
 #          should disappear when the calculation is finished (in done() method).
