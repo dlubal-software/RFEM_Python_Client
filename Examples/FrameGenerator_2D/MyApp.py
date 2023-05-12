@@ -5,7 +5,7 @@ from InstallPyQt5 import installPyQt5
 installPyQt5()
 
 from PyQt5 import uic, QtWebEngineWidgets
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QUrl
 from PyQt5.QtGui import QBrush, QPainter, QPen, QColor, QFont
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsScene, QMessageBox
 
@@ -804,7 +804,7 @@ class MyWindow(QMainWindow):
     def onCalculate(self):
         # Save data in dialog
         self.writeConfig()
-        '''
+        
         # Make an instance of class MyRFEM and init it
         my_rfem = MyRFEM(self.calculation_model)
 
@@ -818,7 +818,7 @@ class MyWindow(QMainWindow):
 
         # This method close the model and close the connection to RFEM server.
         my_rfem.done()
-        '''
+
 
     def onCancel(self):
         self.close()
