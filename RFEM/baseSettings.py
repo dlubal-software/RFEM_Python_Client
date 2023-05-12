@@ -9,6 +9,7 @@ class BaseSettings():
                 tolerances: list = [0.0005, 0.0005, 0.0005, 0.0005],
                 member_representatives: bool = False,
                 member_set_representatives: bool = False,
+                params: dict = None,
                 model = Model):
         """
         Args:
@@ -19,6 +20,7 @@ class BaseSettings():
                 tolerances = [tolerance_for_nodes, tolerance_for_lines, tolerance_for_surfaces_and_planes, tolerance_for_directions]
             member_representatives (bool): Member Representatives
             member_set_representatives (bool): Member Set Representatives
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
         """
         # Client model | Get Model Settings
@@ -47,6 +49,11 @@ class BaseSettings():
 
         # Member Set Representatives
         clientObject.member_set_representatives_active = member_set_representatives
+
+        # Adding optional parameters via dictionary
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Add Base Data Settings to client model
         model.clientModel.service.set_model_settings_and_options(clientObject)

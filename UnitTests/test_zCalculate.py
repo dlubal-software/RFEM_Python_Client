@@ -5,7 +5,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.enums import SurfacesShapeOfFiniteElements, OptimizeOnType, Optimizer, AddOn,NodalSupportType, LoadDirectionType, ActionCategoryType, ObjectTypes
+from RFEM.enums import SurfacesShapeOfFiniteElements, OptimizerType, OptimizationTargetValueType, AddOn,NodalSupportType, LoadDirectionType, ActionCategoryType, ObjectTypes
 from RFEM.initModel import Model, client, SetAddonStatus,Calculate_all, CalculateSelectedCases
 from RFEM.Calculate.meshSettings import GetMeshSettings, MeshSettings, GetModelInfo
 from RFEM.Calculate.optimizationSettings import OptimizationSettings
@@ -20,14 +20,12 @@ from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 from RFEM.Loads.nodalLoad import NodalLoad
 
-
 if Model.clientModel is None:
     Model()
 
 def createmodel():
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
-
 
     Material(1, 'S235')
 
@@ -108,18 +106,19 @@ def test_mesh_settings():
 
 def test_optimization_settings():
 
-    OptimizationSettings(True, 11, OptimizeOnType.E_OPTIMIZE_ON_TYPE_MIN_COST,
-                         Optimizer.E_OPTIMIZER_TYPE_PERCENTS_OF_RANDOM_MUTATIONS,
-                         0.3)
-    opt_sett = OptimizationSettings.get()
-    assert opt_sett.general_optimization_active
-    assert opt_sett.general_keep_best_number_model_mutations == 11
-    assert opt_sett.general_optimize_on == OptimizeOnType.E_OPTIMIZE_ON_TYPE_MIN_COST.name
-    assert opt_sett.general_optimizer == Optimizer.E_OPTIMIZER_TYPE_PERCENTS_OF_RANDOM_MUTATIONS.name
-    assert opt_sett.general_number_random_mutations == 0.3
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
-    opt_sett.general_keep_best_number_model_mutations = 15
-    OptimizationSettings.set(opt_sett)
+    SetAddonStatus(Model.clientModel, AddOn.cost_estimation_active)
+    OptimizationSettings()
+
+    Model.clientModel.service.finish_modification()
+
+    opt_sett = OptimizationSettings.GetOptimizationSettings(1)
+
+    assert opt_sett.active
+    assert opt_sett.number_of_mutations_to_keep == 20
+    assert opt_sett.target_value_type == OptimizationTargetValueType.MIN_TOTAL_WEIGHT.name
 
     # Testing model is closed at the end of the testing session to enable easier and cleaned restart of the unit tests.
     client.service.close_model(0, False)

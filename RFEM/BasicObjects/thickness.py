@@ -455,6 +455,7 @@ class Thickness():
             tlrt = model.clientModel.factory.create('ns0:thickness_layers_reference_table_row')
             tlrt.no = i+1
             tlrt.row = model.clientModel.factory.create('ns0:thickness_layers_reference_table')
+            clearAttributes(tlrt.row)
             tlrt.row.layer_no = i+1
             tlrt.row.layer_type = LayerType.E_LAYER_TYPE_LAYER.name
 

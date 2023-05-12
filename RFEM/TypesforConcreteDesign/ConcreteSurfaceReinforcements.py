@@ -153,6 +153,7 @@ class ConcreteSurfaceReinforcements():
                 mlvlp = model.clientModel.factory.create('ns0:surface_reinforcement_polygon_points_row')
                 mlvlp.no = i+1
                 mlvlp.row = model.clientModel.factory.create('ns0:surface_reinforcement_polygon_points')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.first_coordinate = reinforcement_location[i][0]
                 mlvlp.row.second_coordinate = reinforcement_location[i][1]
                 mlvlp.row.comment = reinforcement_location[i][2]

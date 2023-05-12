@@ -1,4 +1,4 @@
-from RFEM.initModel import Model
+from RFEM.initModel import Model, clearAttributes
 from RFEM.enums import ModelType
 
 class ModelParameters():
@@ -23,6 +23,7 @@ class ModelParameters():
             mp = Model.clientModel.factory.create('ns0:model_parameters_row')
             mp.no = i+3
             mp.row = Model.clientModel.factory.create('ns0:model_parameters')
+            clearAttributes(mp.row)
             mp.row.name = model_parameters[i][0]
             mp.row.description_1 = model_parameters[i][1]
             mp.row.description_2 = model_parameters[i][2]
@@ -55,6 +56,7 @@ class ModelParametersLocation():
             mpl.no = i+1
             mpl.description = str(i+1)
             mpl.row = Model.clientModel.factory.create('ns0:model_parameters_location')
+            clearAttributes(mpl.row)
             mpl.row.location_row_type = model_parameters_location[i][0].name
             mpl.row.name = model_parameters_location[i][1]
             mpl.row.value = model_parameters_location[i][2]

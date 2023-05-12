@@ -129,3 +129,4 @@ dmypy.json
 # Examples
 Examples/TankWebApp/export.vtk
 Examples/TankWebApp/export/
+Examples/ScriptGenerator/
