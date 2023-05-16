@@ -6,34 +6,36 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.initModel import Model, CheckIfMethodOrTypeExists
-from RFEM.enums import ObjectTypes
+from RFEM.initModel import Model
+from RFEM.enums import ObjectTypes,GlobalParameterUnitGroup, GlobalParameterDefinitionType
+from RFEM.globalParameter import GlobalParameter
 
 if __name__ == "__main__":
 
-    Model()
-    CheckIfMethodOrTypeExists(Model.clientModel,'ns0:object_location')
-    CheckIfMethodOrTypeExists(Model.clientModel,'ns0:object_parameter_location_type')
-    CheckIfMethodOrTypeExists(Model.clientModel,'ns0:object_parameter_location_type.parameter_path_in_nested_models_hierarchy')
-    CheckIfMethodOrTypeExists(Model.clientModel,'ns0:object_parameter_location_type.parameter_path_in_nested_models_hierarchy.node')
-    CheckIfMethodOrTypeExists(Model.clientModel,'get_formula')
+    Model(True, "ExcelGlobalParamTest")
 
-    objectLocation = Model.clientModel.factory.create('ns0:object_location')
-    objectLocation.type = ObjectTypes.E_OBJECT_TYPE_SECTION.name
-    objectLocation.no = 1
-    objectLocation.parent_no = 0
+    Model.clientModel.service.begin_modification()
 
-    objectParameterLocation = Model.clientModel.factory.create('ns0:object_parameter_location_type')
-    objectParameterLocation.attribute = "parametrization"
-    parameterPathInNestedModelsHierarchy = Model.clientModel.factory.create('ns0:object_parameter_location_type.parameter_path_in_nested_models_hierarchy')
-    parameterPathInNestedModelsHierarchyNode = Model.clientModel.factory.create('ns0:object_parameter_location_type.parameter_path_in_nested_models_hierarchy.node')
-    parameterPathInNestedModelsHierarchyNode.row_path =  "0, 0"
-    parameterPathInNestedModelsHierarchyNode.column_string_id = "section_parameter_value"
-    parameterPathInNestedModelsHierarchy.node = parameterPathInNestedModelsHierarchyNode
-    objectParameterLocation.parameter_path_in_nested_models_hierarchy = parameterPathInNestedModelsHierarchy
+    GlobalParameter.AddParameter(
+        no=1,
+        name='Test_1',
+        symbol='Test_1',
+        unit_group=GlobalParameterUnitGroup.LENGTH,
+        definition_type=GlobalParameterDefinitionType.DEFINITION_TYPE_FORMULA,
+        definition_parameter=['1+1'],
+        comment='Comment_1')
 
-    formula = Model.clientModel.service.get_formula(objectLocation, objectParameterLocation)
+    GlobalParameter.AddParameter(
+        no=2,
+        name='Test_2',
+        symbol='Test_2',
+        unit_group=GlobalParameterUnitGroup.LOADS_FORCE_PER_UNIT_LENGTH,
+        definition_type=GlobalParameterDefinitionType.DEFINITION_TYPE_VALUE,
+        definition_parameter=[2000],
+        comment='Comment_2')
 
-    print('formula: ' + formula.formula)
-    print('Calculated value: ' + str(formula.calculated_value))
-    print('Validation results: ' + formula.validation_result)
+    Model.clientModel.service.finish_modification()
+
+    GlobalParameter.SetFormula(ObjectTypes.E_OBJECT_TYPE_LINE_LOAD,1,1,"magnitude_1","4 + Test_2")
+    formula = GlobalParameter.GetFormula(ObjectTypes.E_OBJECT_TYPE_LINE_LOAD,1,1,"magnitude_1")
+
