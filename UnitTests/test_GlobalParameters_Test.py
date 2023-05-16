@@ -102,6 +102,12 @@ def test_set_and_get_formula():
         definition_parameter=[2000],
         comment='Comment_2')
 
+    result = GlobalParameter.IsFormulaAllowed(ObjectTypes.E_OBJECT_TYPE_LINE_LOAD,1,2,"magnitude")
+    assert result == True
+
+    result = GlobalParameter.IsFormulaAllowed(ObjectTypes.E_OBJECT_TYPE_NODAL_LOAD,1,2,"magnitude")
+    assert result == False
+
     result = GlobalParameter.SetFormula(ObjectTypes.E_OBJECT_TYPE_LINE_LOAD,1,2,"magnitude","4 + Test_2")
     assert result == True
 

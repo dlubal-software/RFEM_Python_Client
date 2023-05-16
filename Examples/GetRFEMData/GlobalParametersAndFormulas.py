@@ -10,7 +10,22 @@ from RFEM.initModel import Model
 from RFEM.enums import ObjectTypes,GlobalParameterUnitGroup, GlobalParameterDefinitionType
 from RFEM.globalParameter import GlobalParameter
 
+import xlwings as xw
+
 if __name__ == "__main__":
+
+    wb = xw.Book('ExcelGlobalParamTest.xlsx')
+
+    inputSheet = wb.sheets('Inputs')
+
+    formula =  inputSheet["B2"].formula
+    cell = inputSheet["B2"]
+    cellFromat = inputSheet["B2"].number_format #'General'
+    cellFromat = inputSheet["B3"].number_format#'0.00'
+    cellFromat = inputSheet["B4"].number_format#'@'
+    cellFromat = inputSheet["B5"].number_format#'General'
+
+    apii = inputSheet["B2"].api.HasFormula # check if formula is in cell
 
     Model(True, "ExcelGlobalParamTest")
 

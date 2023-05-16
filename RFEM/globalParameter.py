@@ -103,19 +103,7 @@ class GlobalParameter():
         objectLocation.no = no
         objectLocation.parent_no = parent_no
 
-        allowedParameters = None
-        try:
-            allowedParameters = Model.clientModel.service.get_list_of_parameters_formula_allowed_for(
-                objectLocation)
-        except Exception as inst:
-            print(inst)
-
-        parameterAllowed = False
-        if allowedParameters != None:
-            for location in allowedParameters.object_parameter_location:
-                if location.attribute == attribute:
-                    parameterAllowed = True
-
+        parameterAllowed = GlobalParameter.IsFormulaAllowed(ObjectType, no, parent_no, attribute)
 
         if parameterAllowed:
             objectParameterLocation = Model.clientModel.factory.create(
@@ -140,18 +128,7 @@ class GlobalParameter():
         objectLocation.no = no
         objectLocation.parent_no = parent_no
 
-        allowedParameters = None
-        try:
-            allowedParameters = Model.clientModel.service.get_list_of_parameters_formula_allowed_for(
-                objectLocation)
-        except Exception as inst:
-            print(inst)
-
-        parameterAllowed = False
-        if allowedParameters != None:
-            for location in allowedParameters.object_parameter_location:
-                if location.attribute == attribute:
-                    parameterAllowed = True
+        parameterAllowed = GlobalParameter.IsFormulaAllowed(ObjectType, no, parent_no, attribute)
 
         formula = None
         if parameterAllowed:
@@ -162,3 +139,29 @@ class GlobalParameter():
                 objectLocation, objectParameterLocation)
 
         return formula
+
+    @staticmethod
+    def IsFormulaAllowed(ObjectType, no, parent_no, attribute):
+
+        parameterAllowed = False
+
+        objectLocation = Model.clientModel.factory.create('ns0:object_location')
+        objectLocation.type = ObjectType.name
+        objectLocation.no = no
+        objectLocation.parent_no = parent_no
+
+        allowedParameters = None
+
+        try:
+            allowedParameters = Model.clientModel.service.get_list_of_parameters_formula_allowed_for(
+                objectLocation)
+        except Exception as ex:
+            print(ex)
+
+
+        if allowedParameters != None:
+            for location in allowedParameters.object_parameter_location:
+                if location.attribute == attribute:
+                    parameterAllowed = True
+
+        return parameterAllowed
