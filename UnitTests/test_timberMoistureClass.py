@@ -6,29 +6,22 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.enums import AddOn, TimberMoistureClassMoistureClass
-from RFEM.initModel import Model, SetAddonStatus, AddOn, GetAddonStatus
+from RFEM.enums import AddOn, TimberMoistureClass
+from RFEM.initModel import Model, SetAddonStatus, AddOn, openFile, closeModel
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForTimberDesign.timberMoistureClass import TimberMoistureClass
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
-import pytest
 
-## Important!!
-# First Run: Model set to True and Comments in the test set the way they are right now ---> Run
-# --> after First Run: In RFEM > Base Data > Standard I > Design | Standard Group > Timber Design: Set to SIA 265
-# Second Run: 1. Set Model to False ( Model(True, "Test_Timber_Moisture") --> Model(False, "Test_Timber_Moisture") )
-#             2. Uncomment TimberMoistureClass(no = 1, members='1', moisture_class=TimberMoistureClassMoistureClass.TIMBER_MOISTURE_CLASS_TYPE_2)
-#             3. Uncomment: tmc1 = Model.clientModel.service.get_timber_moisture_class(1)
-#                           assert tmc1.member == '1'
-#                           assert tmc1.moisture_class == TimberMoistureClassMoistureClass.TIMBER_MOISTURE_CLASS_TYPE_2.name
-#               ----> Run again
+if Model.clientModel is None:
+    Model()
 
-Model(True, "Test_Timber_Moisture")
-@pytest.mark.skipif(GetAddonStatus(Model.clientModel, AddOn.timber_design_active) == False, reason="Code has to be set manually")
 def test_timberMoistureClass():
+
+    dirname = os.path.join(os.getcwd(), os.path.dirname(__file__))
+    openFile(os.path.join(dirname, 'src', 'timberMoistureClass.rf6'))
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
@@ -51,10 +44,12 @@ def test_timberMoistureClass():
         "result_combinations_consider_sub_results": False,
         "combination_name_according_to_action_category": False})
 
-    # TimberMoistureClass(no = 1, members='1', moisture_class=TimberMoistureClassMoistureClass.TIMBER_MOISTURE_CLASS_TYPE_2)
+    TimberMoistureClass(no = 1, members='1', moisture_class=TimberMoistureClass.TIMBER_MOISTURE_CLASS_TYPE_2)
 
     Model.clientModel.service.finish_modification()
 
-    # tmc1 = Model.clientModel.service.get_timber_moisture_class(1)
-    # assert tmc1.member == '1'
-    # assert tmc1.moisture_class == TimberMoistureClassMoistureClass.TIMBER_MOISTURE_CLASS_TYPE_2.name
+    tmc = Model.clientModel.service.get_timber_moisture_class(1)
+    assert tmc.member == '1'
+    assert tmc.moisture_class == TimberMoistureClass.TIMBER_MOISTURE_CLASS_TYPE_2.name
+
+    closeModel('timberMoistureClass.rf6')

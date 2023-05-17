@@ -2473,13 +2473,13 @@ class NoteSurfaceReferenceType(Enum):
     '''
     OFFSET_TYPE_XY, OFFSET_TYPE_XZ, OFFSET_TYPE_YZ = range(3)
 
-class TimberMoistureClassMoistureClass(Enum):
+class TimberMoistureClass(Enum):
     '''
     Timber Moisture Class
     '''
     TIMBER_MOISTURE_CLASS_TYPE_1, TIMBER_MOISTURE_CLASS_TYPE_2, TIMBER_MOISTURE_CLASS_TYPE_3 = range(3)
 
-class TimberServiceConditionsMoistureServiceCondition(Enum):
+class TimberServiceConditionsMoisture(Enum):
     '''
     Timber Service Conditions Moisture Service Condition
     '''

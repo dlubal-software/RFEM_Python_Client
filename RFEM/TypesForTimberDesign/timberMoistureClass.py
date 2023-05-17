@@ -1,6 +1,5 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
-from RFEM.enums import TimberMoistureClassMoistureClass
-from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
+from RFEM.enums import TimberMoistureClass
 
 class TimberMoistureClass():
     def __init__(self,
@@ -10,9 +9,10 @@ class TimberMoistureClass():
                 member_sets: str = '',
                 surfaces: str = '',
                 surface_sets: str = '',
-                moisture_class = TimberMoistureClassMoistureClass.TIMBER_MOISTURE_CLASS_TYPE_1,
+                moisture_class = TimberMoistureClass.TIMBER_MOISTURE_CLASS_TYPE_1,
                 comment: str = '',
-                params: dict = None):
+                params: dict = None,
+                model = Model):
         """
         Args:
             no (int): Timber Moisture Class Tag
@@ -21,13 +21,13 @@ class TimberMoistureClass():
             member_sets (str): Assigned Member Sets
             surfaces (str): Assigned Surfaces
             surface_sets (str): Assigned Surface Sets
-            moisture_class (enum): Timber Moisture Class
+            moisture_class (enum): Timber Moisture Class Enumeration
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
         """
 
          # Client Model | Types For Timber Design Moisture Class
-        clientObject = Model.clientModel.factory.create('ns0:timber_moisture_class')
+        clientObject = model.clientModel.factory.create('ns0:timber_moisture_class')
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
@@ -67,4 +67,4 @@ class TimberMoistureClass():
         deleteEmptyAttributes(clientObject)
 
         # Add Service Class to client model
-        Model.clientModel.service.set_timber_moisture_class(clientObject)
+        model.clientModel.service.set_timber_moisture_class(clientObject)

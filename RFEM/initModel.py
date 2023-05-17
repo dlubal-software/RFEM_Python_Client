@@ -116,21 +116,18 @@ class Model():
                 modelUrlPort = url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
 
-                if self.clientModelDct:
-                    cModel = Client(modelCompletePath, location = modelUrlPort, cache=ca)
-                else:
-                    session = requests.Session()
-                    adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
-                    session.mount('http://', adapter)
-                    trans = RequestsTransport(session)
+                session = requests.Session()
+                adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
+                session.mount('http://', adapter)
+                trans = RequestsTransport(session)
 
-                    cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca)
+                cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca)
 
                 self.clientModelDct[model_name] = cModel
 
         else:
             # Requested model which was already connected
-            assert model_name in self.clientModelDct or model_name in modelLst, 'WARNING: '+model_name +'is not connected neither opened in RFEM.'
+            assert model_name in self.clientModelDct or model_name in modelLst, 'WARNING: '+model_name +' is not connected neither opened in RFEM.'
 
             if model_name in self.clientModelDct:
                 cModel = self.clientModelDct[model_name]
@@ -144,15 +141,12 @@ class Model():
                 modelUrlPort = url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
 
-                if self.clientModelDct:
-                    cModel = Client(modelCompletePath, location = modelUrlPort, cache=ca)
-                else:
-                    session = requests.Session()
-                    adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
-                    session.mount('http://', adapter)
-                    trans = RequestsTransport(session)
+                session = requests.Session()
+                adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
+                session.mount('http://', adapter)
+                trans = RequestsTransport(session)
 
-                    cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca)
+                cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca)
 
                 self.clientModelDct[model_name] = cModel
             else:

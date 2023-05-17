@@ -6,30 +6,22 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.enums import AddOn, TimberServiceConditionsMoistureServiceCondition, TimberServiceConditionsTreatment
-from RFEM.initModel import Model, SetAddonStatus, AddOn, GetAddonStatus
+from RFEM.enums import AddOn, TimberServiceConditionsMoisture
+from RFEM.initModel import Model, SetAddonStatus, AddOn, openFile, closeModel
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForTimberDesign.timberServiceCondition import TimberServiceConditions
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
-import pytest
 
-## Important!!
-# First Run: Model set to True and and Comments in the test set the way they are right now ---> Run
-# --> after First Run: In RFEM > Base Data > Standard I > Design | Standard Group > Timber Design: Set to GB 50005
-# Second Run: 1. Set Model to False ( Model(True, "Test_Timber_Service_GB") --> Model(False, "Test_Timber_Service_GB") )
-#             2. Uncomment: TimberServiceConditions(no=1, standard=6514, moisture_service_condition=TimberServiceConditionsMoistureServiceCondition.TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_WET.name, \
-#                                                   service_conditions = [True, False, False, False, False])
-#             3. Uncomment: tcs1 = Model.clientModel.service.get_timber_service_conditions(1)
-#                           assert tcs1.moisture_service_condition == "TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_WET"
-#                           assert tcs1.outdoor_environment == True
-#               ---> Run again !
+if Model.clientModel is None:
+    Model()
 
-Model(True, "Test_Timber_Service_GB")
-@pytest.mark.skipif(GetAddonStatus(Model.clientModel, AddOn.timber_design_active) == False, reason="Code has to be set manually")
-def test_timberServiceConditionsCSA():
+def test_timberServiceConditionsGB():
+
+    dirname = os.path.join(os.getcwd(), os.path.dirname(__file__))
+    openFile(os.path.join(dirname, 'src', 'timberServiceConditionGB.rf6'))
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
@@ -52,11 +44,13 @@ def test_timberServiceConditionsCSA():
         "result_combinations_consider_sub_results": False,
         "combination_name_according_to_action_category": False})
 
-    # TimberServiceConditions(no=1, standard=6514, moisture_service_condition=TimberServiceConditionsMoistureServiceCondition.TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_WET.name, \
-    #                         service_conditions = [True, False, False, False, False])
+    TimberServiceConditions(no=1, standard=6514, moisture_service_condition=TimberServiceConditionsMoisture.TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_WET.name, \
+                            service_conditions = [True, False, False, False, False])
 
     Model.clientModel.service.finish_modification()
 
-    # tcs1 = Model.clientModel.service.get_timber_service_conditions(1)
-    # assert tcs1.moisture_service_condition == "TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_WET"
-    # assert tcs1.outdoor_environment == True
+    tcs = Model.clientModel.service.get_timber_service_conditions(1)
+    assert tcs.moisture_service_condition == "TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_WET"
+    assert tcs.outdoor_environment == True
+
+    closeModel('timberServiceConditionGB.rf6')

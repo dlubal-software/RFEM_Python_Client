@@ -1,5 +1,5 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
-from RFEM.enums import TimberServiceConditionsMoistureServiceCondition, TimberServiceConditionsTemperature
+from RFEM.enums import TimberServiceConditionsMoisture, TimberServiceConditionsTemperature
 from RFEM.enums import TimberServiceConditionsTreatment
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 
@@ -12,14 +12,15 @@ class TimberServiceConditions():
                 surfaces: str = '',
                 surface_sets: str = '',
                 standard: int = 6336,
-                moisture_service_condition = TimberServiceConditionsMoistureServiceCondition.TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_DRY,
+                moisture_service_condition = TimberServiceConditionsMoisture.TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_DRY,
                 temperature = TimberServiceConditionsTemperature.TEMPERATURE_TYPE_TEMPERATURE_ZONE_1,
                 treatment_csa = TimberServiceConditionsTreatment.TREATMENT_TYPE_NONE,
                 treatment_nds: bool = True,
                 treatment_gb: bool = False,
                 service_conditions = [False, False, False, False, False],
                 comment: str = '',
-                params: dict = None):
+                params: dict = None,
+                model = Model):
         """
         Args:
             no (int): Timber Service Conditions Tag
@@ -29,9 +30,9 @@ class TimberServiceConditions():
             surfaces (str): Assigned Surfaces
             surface_sets (str): Assigned Surface Sets
             standard (int): Code Number
-            moisture_service_condition (enum): Timber Service Condition
-            temperature (enum): Timber Service Conditions Temperature
-            treatment_csa (enum): Timber Service Conditions Treatment
+            moisture_service_condition (enum): Timber Service Condition Enumeration
+            temperature (enum): Timber Service Conditions Temperature Enumeration
+            treatment_csa (enum): Timber Service Conditions Treatment Enumeration
             treatment_nds (bool): Member Pressure Treated
             treatment_gb (bool): Timber Is Point Impregnated
             service_conditions (list): Service Conditions
@@ -62,47 +63,35 @@ class TimberServiceConditions():
         # Assigned Surface Sets
         clientObject.surface_sets = ConvertToDlString(surface_sets)
 
-        # Service Condition if Standard CSA - Moisture Service Conditions and Treatment
-        if standard == 6336:
-            LoadCasesAndCombinations(params = {"current_standard_for_combination_wizard": standard,
-                                            "activate_combination_wizard_and_classification": True,
-                                            "activate_combination_wizard": True,
-                                            "result_combinations_active": True,
-                                            "result_combinations_parentheses_active": False,
-                                            "result_combinations_consider_sub_results": False,
-                                            "combination_name_according_to_action_category": False}),
-            clientObject.moisture_service_condition = moisture_service_condition
-            clientObject.treatment = treatment_csa
-
-        # Service Condition if Standard NDS(USA) - Service Moisture Conditions, Treatment and Temperature
-        if standard == 6579:
+        if standard in [6336, 6579, 6514, 6516]:
             LoadCasesAndCombinations(params = {"current_standard_for_combination_wizard": standard,
                                                 "activate_combination_wizard_and_classification": True,
                                                 "activate_combination_wizard": True,
                                                 "result_combinations_active": True,
                                                 "result_combinations_parentheses_active": False,
                                                 "result_combinations_consider_sub_results": False,
-                                                "combination_name_according_to_action_category": False}),
-            clientObject.moisture_service_condition = moisture_service_condition
-            clientObject.temperature = temperature
-            clientObject.member_pressure_treated = treatment_nds
+                                                "combination_name_according_to_action_category": False})
 
-        # Treatment if Standard GB
-        if standard == 6514 or standard == 6516:
-            LoadCasesAndCombinations(params = {"current_standard_for_combination_wizard": standard,
-                                                "activate_combination_wizard_and_classification": True,
-                                                "activate_combination_wizard": True,
-                                                "result_combinations_active": True,
-                                                "result_combinations_parentheses_active": False,
-                                                "result_combinations_consider_sub_results": False,
-                                                "combination_name_according_to_action_category": False}),
-            clientObject.moisture_service_condition = moisture_service_condition
-            clientObject.outdoor_environment = service_conditions[0]
-            clientObject.long_term_high_temperature_of_surface = service_conditions[1]
-            clientObject.permanent_load_design_situation = service_conditions[2]
-            clientObject.timber_structures = service_conditions[3]
-            clientObject.short_term_construction_or_maintenance = service_conditions[4]
-            clientObject.timber_is_point_impregnated = treatment_gb
+            # Service Condition if Standard CSA - Moisture Service Conditions and Treatment
+            if standard == 6336:
+                clientObject.moisture_service_condition = moisture_service_condition
+                clientObject.treatment = treatment_csa
+
+            # Service Condition if Standard NDS(USA) - Service Moisture Conditions, Treatment and Temperature
+            elif standard == 6579:
+                clientObject.moisture_service_condition = moisture_service_condition
+                clientObject.temperature = temperature
+                clientObject.member_pressure_treated = treatment_nds
+
+            # Treatment if Standard GB
+            else:
+                clientObject.moisture_service_condition = moisture_service_condition
+                clientObject.outdoor_environment = service_conditions[0]
+                clientObject.long_term_high_temperature_of_surface = service_conditions[1]
+                clientObject.permanent_load_design_situation = service_conditions[2]
+                clientObject.timber_structures = service_conditions[3]
+                clientObject.short_term_construction_or_maintenance = service_conditions[4]
+                clientObject.timber_is_point_impregnated = treatment_gb
 
         # User Defined Name
         if name:
@@ -121,4 +110,4 @@ class TimberServiceConditions():
         deleteEmptyAttributes(clientObject)
 
         # Add Service Class to client model
-        Model.clientModel.service.set_timber_service_conditions(clientObject)
+        model.clientModel.service.set_timber_service_conditions(clientObject)
