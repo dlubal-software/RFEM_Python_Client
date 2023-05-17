@@ -8,50 +8,54 @@ class MemberRotationalRestraint():
 
     @staticmethod
     def Continuous(
-        no: int = 1,
-        name: str = '',
-        member_supports: str = '1',
-        sheeting_material: str = 'S235',
-        sheeting_name: str = 'Arval (-) 35/207 - 0.63 (b: 1) | DIN 18807 | Arval',
-        position_of_sheeting = MemberRotationalRestraintSheetingPosition.SHEETING_POSITION_POSITIVE,
-        continuous_beam_effect = MemberRotationalRestraintContinousBeamEffect.CONTINUOUS_BEAM_EFFECT_END_PANEL,
-        section_deformation_cdb: bool = True,
-        modulus_of_elasticity: float = 205000000000.0,
-        sheeting_thickness: float = 0.00063,
-        sheeting_moment_of_inertia: float = 7.5e-08,
-        sheeting_distance_of_ribs: float = 0.207,
-        width_of_sheeting_flange: float = 0.106,
-        spring_stiffness: float = 5200.0,
-        beam_spacing: float= 3.0,
-        comment: str = '',
-        params: dict = None):
+                no: int = 1,
+                name: str = '',
+                member_supports: str = '1',
+                sheeting_material: str = 'S235',
+                sheeting_name: str = 'Arval (-) 35/207 - 0.63 (b: 1) | DIN 18807 | Arval',
+                position_of_sheeting = MemberRotationalRestraintSheetingPosition.SHEETING_POSITION_POSITIVE,
+                continuous_beam_effect = MemberRotationalRestraintContinousBeamEffect.CONTINUOUS_BEAM_EFFECT_END_PANEL,
+                section_deformation_cdb: bool = True,
+                modulus_of_elasticity: float = None,
+                sheeting_thickness: float = None,
+                sheeting_moment_of_inertia: float = None,
+                sheeting_distance_of_ribs: float = None,
+                width_of_sheeting_flange: float = None,
+                spring_stiffness: float = 5200.0,
+                beam_spacing: float= 3.0,
+                comment: str = '',
+                params: dict = None,
+                model = Model):
+
         """
         Args:
             no (int): Member Rotational Restraint Tag
-            name (str): Member Shear Panel Name
+            name (str): User Defined Member Rotational Restraint Name
                 if name == '':
-                    user_defined_name = False (Automatic Name Assignment)
+                    user_defined_name_enabled = False (Automatic Name Assignment)
                 else:
-                    user_defined_name = name
+                    user_defined_name_enabled = True
+                    name = User Defined Name
             member_supports (str): Assigned Member Supports
             sheeting_material (str): Sheeting Material
-            sheeting_name (str): Sheeting Material
+            sheeting_name (str): Sheeting Name According to Library
             position_of_sheeting (enum): Position of Sheeting Enumeration
             continuous_beam_effect (enum): Continous Beam Effect Enumeration
             section_deformation_cdb (bool): Section Deformation Cdb Option
-            modulus_of_elasticity (float): Modulus of Elasticity
-            sheeting_thickness (float): Sheeting Thickness
-            sheeting_moment_of_inertia (float): Sheeting Moment of Inertia
-            sheeting_distance_of_ribs (float): Sheeting Distance of Ribs
-            width_of_sheeting_flange (float): Width of Sheeting Flange
+            modulus_of_elasticity (float, optional): Modulus of Elasticity
+            sheeting_thickness (float, optional): Sheeting Thickness
+            sheeting_moment_of_inertia (float, optional): Sheeting Moment of Inertia
+            sheeting_distance_of_ribs (float, optional): Sheeting Distance of Ribs
+            width_of_sheeting_flange (float, optional): Width of Sheeting Flange
             spring_stiffness (float): Spring Stiffness
             beam_spacing (float): Beam Spacing
             comment (str, optional): Comment
-            params (dict, optional): Parameters
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client Model | Member Rotational Restraint
-        clientObject = Model.clientModel.factory.create('ns0:member_rotational_restraint')
+        clientObject = model.clientModel.factory.create('ns0:member_rotational_restraint')
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
@@ -118,32 +122,35 @@ class MemberRotationalRestraint():
         deleteEmptyAttributes(clientObject)
 
         # Add Member Rotational Restraint to client model
-        Model.clientModel.service.set_member_rotational_restraint(clientObject)
+        model.clientModel.service.set_member_rotational_restraint(clientObject)
 
     @staticmethod
     def Discrete(
-        no: int = 1,
-        name: str = '',
-        member_supports: str = '1',
-        section_material: str = 'S235',
-        section_name: str = 'CHC 60.3x3.2',
-        rotational_stifness: list = [MemberRotationalRestraintRotationalStiffness.ROTATIONAL_STIFFNESS_INFINITELY],
-        continous_beam_effect = MemberRotationalRestraintContinousBeamEffect.CONTINUOUS_BEAM_EFFECT_END_PANEL,
-        section_deformation_cdb: bool =  True,
-        modulus_of_elasticity: float = 205000000000.0,
-        section_moment_of_inertia: float = 2.35e-07,
-        purlin_spacing: float = 1.0,
-        beam_spacing: float = 3.0,
-        comment: str = '',
-        params: dict = None):
+                no: int = 1,
+                name: str = '',
+                member_supports: str = '1',
+                section_material: str = 'S235',
+                section_name: str = 'CHC 60.3x3.2',
+                rotational_stifness: list = [MemberRotationalRestraintRotationalStiffness.ROTATIONAL_STIFFNESS_INFINITELY],
+                continous_beam_effect = MemberRotationalRestraintContinousBeamEffect.CONTINUOUS_BEAM_EFFECT_END_PANEL,
+                section_deformation_cdb: bool =  True,
+                modulus_of_elasticity: float = None,
+                section_moment_of_inertia: float = None,
+                purlin_spacing: float = 1.0,
+                beam_spacing: float = 3.0,
+                comment: str = '',
+                params: dict = None,
+                model = Model):
+
         """
         Args:
             no (int): Member Rotational Restraint Tag
-            name (str): Member Shear Panel Name
+            name (str): User Defined Member Rotational Restraint Name
                 if name == '':
-                    user_defined_name = False (Automatic Name Assignment)
+                    user_defined_name_enabled = False (Automatic Name Assignment)
                 else:
-                    user_defined_name = name
+                    user_defined_name_enabled = True
+                    name = User Defined Name
             member_supports (str): Assigned Member Supports
             section_material (str): Section Material
             section_name (str): Section Name
@@ -151,19 +158,20 @@ class MemberRotationalRestraint():
                 if rotational_stiffness[0] == MemberRotationalRestraintRotationalStiffness.ROTATIONAL_STIFFNESS_INFINITELY:
                     pass
                 elif rotational_stiffness[0] == MemberRotationalRestraintRotationalStiffness.ROTATIONAL_STIFFNESS_MANUALLY:
-                    rotational_stiffness[1] = rotational_stiffness_value
+                    rotational_stiffness[1] (float): Rotational Stiffness Value
             continous_beam_effect (enum): Continous Beam Effect Enumeration
             section_deformation_cdb (bool): Section Deformation Cdb Option
-            modulus_of_elasticity (float): Modulus of Elasticity
-            section_moment_of_inertia (float): Section Moment of Inertia
+            modulus_of_elasticity (float, optional): Modulus of Elasticity
+            section_moment_of_inertia (float, optional): Section Moment of Inertia
             purlin_spacing (float): Purlin Spacing
             beam_spacing (float): Beam Spacing
             comment (str, optional): Comment
-            params (dict, optional): Params
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client Model | Member Rotational Restraint
-        clientObject = Model.clientModel.factory.create('ns0:member_rotational_restraint')
+        clientObject = model.clientModel.factory.create('ns0:member_rotational_restraint')
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
@@ -223,32 +231,36 @@ class MemberRotationalRestraint():
         deleteEmptyAttributes(clientObject)
 
         # Add Member Rotational Restraint to client model
-        Model.clientModel.service.set_member_rotational_restraint(clientObject)
+        model.clientModel.service.set_member_rotational_restraint(clientObject)
 
     @staticmethod
     def Manually(
-        no: int = 1,
-        name: str = '',
-        member_supports: str = '1',
-        rotational_spring_stiffness: float = 3000.0,
-        comment: str = '',
-        params: dict = None):
+                no: int = 1,
+                name: str = '',
+                member_supports: str = '1',
+                rotational_spring_stiffness: float = 3000.0,
+                comment: str = '',
+                params: dict = None,
+                model = Model):
+
         """
         Args:
             no (int): Member Rotational Restraint Tag
-            name (str): Member Shear Panel Name
+            name (str): User Defined Member Rotational Restraint Name
                 if name == '':
-                    user_defined_name = False (Automatic Name Assignment)
+                    user_defined_name_enabled = False (Automatic Name Assignment)
                 else:
-                    user_defined_name = name
+                    user_defined_name_enabled = True
+                    name = User Defined Name
             member_supports (str): Assigned Member Supports
             rotational_spring_stiffness (float): Rotational Spring Stiffness
             comment (str, optional): Comment
-            params (dict, optional): Params
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client Model | Member Rotational Restraint
-        clientObject = Model.clientModel.factory.create('ns0:member_rotational_restraint')
+        clientObject = model.clientModel.factory.create('ns0:member_rotational_restraint')
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
@@ -282,4 +294,4 @@ class MemberRotationalRestraint():
         deleteEmptyAttributes(clientObject)
 
         # Add Member Rotational Restraint to client model
-        Model.clientModel.service.set_member_rotational_restraint(clientObject)
+        model.clientModel.service.set_member_rotational_restraint(clientObject)

@@ -51,9 +51,8 @@ def test_printout_report():
     assert len(PrintoutReport.getList()) == 2
 
     PrintoutReport.exportToHTML(1, os.path.join(folderPath, 'printout.html'))
-    assert os.path.exists(os.path.join(folderPath, 'printout.html')) == True
-
     PrintoutReport.exportToPDF(2, os.path.join(folderPath, 'printout.pdf'))
-    assert os.path.exists(os.path.join(folderPath, 'printout.pdf')) == True
-
     closeModel(1)
+
+    assert os.path.exists(os.path.join(folderPath, 'printout.html')) == True
+    assert os.path.exists(os.path.join(folderPath, 'printout.pdf')) == True

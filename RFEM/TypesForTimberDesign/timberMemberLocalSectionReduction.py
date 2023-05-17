@@ -80,7 +80,7 @@ class TimberMemberLocalSectionReduction():
                  members: str = '1',
                  member_sets: str = '',
                  components: list = None,
-                 user_defined_name: str = '',
+                 name: str = '',
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -90,7 +90,7 @@ class TimberMemberLocalSectionReduction():
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
             components (list): List of Component classes
-            user_defined_name (str): User Defined  Member Local Section Reduction Name
+            name (str): User Defined  Member Local Section Reduction Name
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -112,9 +112,9 @@ class TimberMemberLocalSectionReduction():
         clientObject.member_sets = ConvertToDlString(member_sets)
 
         # Local Section Reduction User defined Name
-        if user_defined_name:
+        if name:
             clientObject.user_defined_name_enabled = True
-            clientObject.name = user_defined_name
+            clientObject.name = name
 
         # Local Section Reduction Components
         clientObject.components = model.clientModel.factory.create('ns0:array_of_timber_member_local_section_reduction_components')

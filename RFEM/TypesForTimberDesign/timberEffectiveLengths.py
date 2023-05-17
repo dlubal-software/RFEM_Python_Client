@@ -105,6 +105,7 @@ class TimberEffectiveLengths():
             mlvlp = model.clientModel.factory.create('ns0:timber_effective_lengths_nodal_supports_row')
             mlvlp.no = i+1
             mlvlp.row = model.clientModel.factory.create('ns0:timber_effective_lengths_nodal_supports')
+            clearAttributes(mlvlp.row)
             mlvlp.row.support_type = nodal_supports[i][0].name
             mlvlp.row.support_in_z = nodal_supports[i][1]
             mlvlp.row.eccentricity_type = nodal_supports[i][2].name
@@ -121,6 +122,7 @@ class TimberEffectiveLengths():
             mlvlp_f = model.clientModel.factory.create('ns0:timber_effective_lengths_factors_row')
             mlvlp_f.no = i+1
             mlvlp_f.row = model.clientModel.factory.create('ns0:timber_effective_lengths_factors')
+            clearAttributes(mlvlp_f.row)
             mlvlp_f.row.flexural_buckling_u = factors[i][0]
             mlvlp_f.row.flexural_buckling_v = factors[i][1]
             mlvlp_f.row.lateral_torsional_buckling = factors[i][2]

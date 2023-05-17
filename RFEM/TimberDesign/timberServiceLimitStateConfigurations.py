@@ -10,10 +10,11 @@ class TimberDesignServiceLimitStateConfigurations():
                  comment: str = '',
                  params: dict = None,
                  model = Model):
+
         """
         Args:
             no (int): Timber Design Service Limit State Configuration Tag
-            user_defined_name (list): User Defined Configuration Name
+            name (str): User Defined Configuration Name
             members_no (str): Assign Configuration to Selected Members
             member_sets_no (str): Assign Configuration to Selected Member Sets
             comment (str, optional): Comment
@@ -22,7 +23,7 @@ class TimberDesignServiceLimitStateConfigurations():
         """
 
         # Client Model | Timber Design Service Limit State Configurations
-        clientObject = model.clientModel.factory.create('ns0:timber_design_uls_configuration')
+        clientObject = model.clientModel.factory.create('ns0:timber_design_sls_configuration')
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
@@ -64,4 +65,3 @@ class TimberDesignServiceLimitStateConfigurations():
 
         # Add Global Parameters to Client Model
         model.clientModel.service.set_timber_design_sls_configuration(clientObject)
-

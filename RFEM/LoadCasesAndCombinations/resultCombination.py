@@ -1,16 +1,32 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
+from RFEM.enums import ResultCombinationType, OperatorType, ActionLoadType
 
 class ResultCombination():
 
     def __init__(self,
                  no: int = 1,
+                 design_situation: int = 1,
+                 combination_type = ResultCombinationType.COMBINATION_TYPE_GENERAL,
+                 combination_items: list = [
+                    [1, OperatorType.OPERATOR_OR, 1.2, ActionLoadType.LOAD_TYPE_TRANSIENT],
+                    [2, OperatorType.OPERATOR_NONE, 1.6, ActionLoadType.LOAD_TYPE_TRANSIENT]
+                    ],
+                 generate_subcombinations: bool = False,
+                 srss_combination: list = None,
+                 name: str = '',
                  comment: str = '',
                  params: dict = None,
                  model = Model):
 
         '''
         Args:
-            no (int): Result Combination Tag
+            no (int, mandatory): Result combination tag
+            design_situation (int, mandatory): Design situation
+            combination_type (enum, mandatory): Combination type
+            combination_items (list of lists, mandatory): Combination items
+            srss_combination (list, optional): SRSS Combination. If None then False.
+                [srss_use_equivalent_linear_combination[bool], ]
+            name (str, optional): Result combination name
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -19,11 +35,54 @@ class ResultCombination():
         # Client model | Result Combination
         clientObject = model.clientModel.factory.create('ns0:result_combination')
 
+        print('1:',clientObject)
+
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
 
         # Result Combination No.
         clientObject.no = no
+
+        # Result Combination Name
+        if name:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
+
+        # Assigned Design Situation
+        clientObject.design_situation = design_situation
+
+        # Result Combination Type
+        clientObject.combination_type = combination_type.name
+
+
+        # Combination Items
+        clientObject.items = model.clientModel.factory.create('ns0:result_combination.items')
+        for i,j in enumerate(combination_items):
+            rci = model.clientModel.factory.create('ns0:result_combination_items_row')
+            rci.no = i+1
+            rci.row = model.clientModel.factory.create('ns0:result_combination_items')
+            clearAttributes(rci.row)
+            rci.row.case_object_item = combination_items[i][0]
+            rci.row.operator_type = combination_items[i][1].name
+            rci.row.case_object_factor = combination_items[i][2]
+            rci.row.case_object_load_type = combination_items[i][3].name
+
+            clientObject.items.result_combination_items.append(rci)
+
+        # SRSS Combinations
+        if not srss_combination:
+            clientObject.srss_combination = False
+        else:
+            clientObject.srss_combination = True
+            clientObject.srss_use_equivalent_linear_combination = srss_combination[0]
+            clientObject.srss_extreme_value_sign = srss_combination[1].name
+            if srss_combination[1].name == "EXTREME_VALUE_SIGN_ACCORDING_TO_LC_CO":
+                clientObject.srss_according_load_case_or_combination = srss_combination[2]
+
+        # Subcombinations
+        clientObject.generate_subcombinations = generate_subcombinations
+
+        clientObject.to_solve = True
 
         # Comment
         clientObject.comment = comment
@@ -35,6 +94,8 @@ class ResultCombination():
 
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
+
+        print('2:',clientObject)
 
         # Add Result Combination to client model
         model.clientModel.service.set_result_combination(clientObject)
