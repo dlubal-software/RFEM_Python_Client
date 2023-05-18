@@ -6,7 +6,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.enums import AddOn, TimberServiceConditionsMoisture, TimberServiceConditionsTreatment
+from RFEM.enums import AddOn, TimberServiceConditionsMoistureType, TimberServiceConditionsTreatmentType
 from RFEM.initModel import Model, SetAddonStatus, AddOn, openFile, closeModel
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
@@ -44,8 +44,8 @@ def test_timberServiceConditionsCSA():
         "result_combinations_consider_sub_results": False,
         "combination_name_according_to_action_category": False})
 
-    TimberServiceConditions(no=1, standard = 6336, moisture_service_condition=TimberServiceConditionsMoisture.TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_WET.name, \
-                            treatment_csa = TimberServiceConditionsTreatment.TREATMENT_TYPE_PRESERVATIVE.name)
+    TimberServiceConditions(no=1, standard = 6336, moisture_service_condition=TimberServiceConditionsMoistureType.TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_WET.name, \
+                            treatment_csa = TimberServiceConditionsTreatmentType.TREATMENT_TYPE_PRESERVATIVE.name)
 
     Model.clientModel.service.finish_modification()
 

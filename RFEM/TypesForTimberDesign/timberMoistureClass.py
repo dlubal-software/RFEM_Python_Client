@@ -1,5 +1,5 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
-from RFEM.enums import TimberMoistureClassEnum
+from RFEM.enums import TimberMoistureClassType
 
 class TimberMoistureClass():
     def __init__(self,
@@ -9,7 +9,7 @@ class TimberMoistureClass():
                 member_sets: str = '',
                 surfaces: str = '',
                 surface_sets: str = '',
-                moisture_class = TimberMoistureClassEnum.TIMBER_MOISTURE_CLASS_TYPE_1,
+                moisture_class = TimberMoistureClassType.TIMBER_MOISTURE_CLASS_TYPE_1,
                 comment: str = '',
                 params: dict = None,
                 model = Model):
@@ -24,6 +24,7 @@ class TimberMoistureClass():
             moisture_class (enum): Timber Moisture Class Enumeration
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
          # Client Model | Types For Timber Design Moisture Class

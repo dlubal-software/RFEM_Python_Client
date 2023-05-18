@@ -2509,26 +2509,26 @@ class CaseObjectSubResultType(Enum):
     SUB_RESULT_SPECTRAL_ANALYSIS_DIRECTION_Z_WITH_MODE_SHAPE, SUB_RESULT_SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE, SUB_RESULT_SPECTRAL_ANALYSIS_SCALED_SUM_FULL_X, SUB_RESULT_SPECTRAL_ANALYSIS_SCALED_SUM_FULL_Y, \
     SUB_RESULT_SPECTRAL_ANALYSIS_SCALED_SUM_FULL_Z, SUB_RESULT_SPECTRAL_ANALYSIS_SRSS = range(15)
 
-class TimberMoistureClassEnum(Enum):
+class TimberMoistureClassType(Enum):
     '''
     Timber Moisture Class
     '''
     TIMBER_MOISTURE_CLASS_TYPE_1, TIMBER_MOISTURE_CLASS_TYPE_2, TIMBER_MOISTURE_CLASS_TYPE_3 = range(3)
 
-class TimberServiceConditionsMoisture(Enum):
+class TimberServiceConditionsMoistureType(Enum):
     '''
     Timber Service Conditions Moisture Service Condition
     '''
     TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_DRY, TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_MOIST, TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_VERY_DRY, TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_WET = range(4)
 
-class TimberServiceConditionsTemperature(Enum):
+class TimberServiceConditionsTemperatureType(Enum):
     '''
     Timber Service Conditions Temperature
     '''
     TEMPERATURE_TYPE_EQUAL_TO_50, TEMPERATURE_TYPE_LESS_OR_EQUAL_100, TEMPERATURE_TYPE_LESS_OR_EQUAL_35, TEMPERATURE_TYPE_RANGE_100_125, TEMPERATURE_TYPE_RANGE_125_150, TEMPERATURE_TYPE_RANGE_35_50, \
     TEMPERATURE_TYPE_TEMPERATURE_ZONE_1, TEMPERATURE_TYPE_TEMPERATURE_ZONE_2, TEMPERATURE_TYPE_TEMPERATURE_ZONE_3 = range(9)
 
-class TimberServiceConditionsTreatment(Enum):
+class TimberServiceConditionsTreatmentType(Enum):
     '''
     Timber Service Conditions Treatment
     '''

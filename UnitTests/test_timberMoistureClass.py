@@ -6,7 +6,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.enums import AddOn, TimberMoistureClassEnum
+from RFEM.enums import AddOn, TimberMoistureClassType
 from RFEM.initModel import Model, SetAddonStatus, AddOn, openFile, closeModel
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
@@ -44,12 +44,12 @@ def test_timberMoistureClass():
         "result_combinations_consider_sub_results": False,
         "combination_name_according_to_action_category": False})
 
-    TimberMoistureClass(no = 1, members='1', moisture_class=TimberMoistureClassEnum.TIMBER_MOISTURE_CLASS_TYPE_2)
+    TimberMoistureClass(no = 1, members='1', moisture_class=TimberMoistureClassType.TIMBER_MOISTURE_CLASS_TYPE_2)
 
     Model.clientModel.service.finish_modification()
 
     tmc = Model.clientModel.service.get_timber_moisture_class(1)
     assert tmc.member == '1'
-    assert tmc.moisture_class == TimberMoistureClassEnum.TIMBER_MOISTURE_CLASS_TYPE_2.name
+    assert tmc.moisture_class == TimberMoistureClassType.TIMBER_MOISTURE_CLASS_TYPE_2.name
 
     closeModel('timberMoistureClass.rf6')

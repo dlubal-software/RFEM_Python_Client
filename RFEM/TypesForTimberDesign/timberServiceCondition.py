@@ -1,6 +1,6 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
-from RFEM.enums import TimberServiceConditionsMoisture, TimberServiceConditionsTemperature
-from RFEM.enums import TimberServiceConditionsTreatment
+from RFEM.enums import TimberServiceConditionsMoistureType, TimberServiceConditionsTemperatureType
+from RFEM.enums import TimberServiceConditionsTreatmentType
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 
 class TimberServiceConditions():
@@ -12,9 +12,9 @@ class TimberServiceConditions():
                 surfaces: str = '',
                 surface_sets: str = '',
                 standard: int = 6336,
-                moisture_service_condition = TimberServiceConditionsMoisture.TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_DRY,
-                temperature = TimberServiceConditionsTemperature.TEMPERATURE_TYPE_TEMPERATURE_ZONE_1,
-                treatment_csa = TimberServiceConditionsTreatment.TREATMENT_TYPE_NONE,
+                moisture_service_condition = TimberServiceConditionsMoistureType.TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_DRY,
+                temperature = TimberServiceConditionsTemperatureType.TEMPERATURE_TYPE_TEMPERATURE_ZONE_1,
+                treatment_csa = TimberServiceConditionsTreatmentType.TREATMENT_TYPE_NONE,
                 treatment_nds: bool = True,
                 treatment_gb: bool = False,
                 service_conditions = [False, False, False, False, False],
@@ -30,7 +30,7 @@ class TimberServiceConditions():
             surfaces (str): Assigned Surfaces
             surface_sets (str): Assigned Surface Sets
             standard (int): Code Number
-            moisture_service_condition (enum): Timber Service Condition Enumeration
+            moisture_service_condition (enum): Timber Moisture Service Condition Enumeration
             temperature (enum): Timber Service Conditions Temperature Enumeration
             treatment_csa (enum): Timber Service Conditions Treatment Enumeration
             treatment_nds (bool): Member Pressure Treated
@@ -40,6 +40,7 @@ class TimberServiceConditions():
                                       timber_structures, short_term_construction_or_maintenance]
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
          # Client Model | Types For Timber Design Service Condition
