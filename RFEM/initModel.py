@@ -23,6 +23,7 @@ urlAndPort = url+':'+port
 
 # Check if port is listening
 a_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#a_socket.settimeout(360)
 
 location = (url[7:], int(port))
 result_of_check = a_socket.connect_ex(location)
@@ -220,7 +221,7 @@ def clearAttributes(obj):
     it = iter(obj)
     for i in it:
         obj[i[0]] = None
-        
+
     return obj
 
 def deleteEmptyAttributes(obj):

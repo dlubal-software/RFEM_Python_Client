@@ -14,8 +14,8 @@ class MemberSupport():
                  spring_shear_x: float = 0.0,
                  spring_shear_y: float = 0.0,
                  spring_shear_z: float = 0.0,
-                 member_shear_panel: list = [False],
-                 member_rotational_restraint: list = [False],
+                 member_shear_panel: int = 0,
+                 member_rotational_restraint: list = None,
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -60,7 +60,7 @@ class MemberSupport():
         clientObject.spring_translation_x = spring_translation_x
         clientObject.spring_translation_y = spring_translation_y
         clientObject.spring_translation_z = spring_translation_z[0]
-        clientObject.nonlinearity = spring_translation_z[1].name
+        #clientObject.nonlinearity = spring_translation_z[1].name
 
         # Spring Shear
         clientObject.spring_shear_x = spring_shear_x
@@ -68,15 +68,15 @@ class MemberSupport():
         clientObject.spring_shear_z = spring_shear_z
 
         # Member Shear Panel
-        clientObject.shear_panel_enabled = member_shear_panel[0]
-        if member_shear_panel[0]:
-            clientObject.member_shear_panel = member_shear_panel[1]
+        #clientObject.member_shear_panel_z = member_shear_panel
+        #if member_shear_panel[0]:
+        #    clientObject.member_shear_panel = member_shear_panel[1]
 
         # Member Rotational Restraint
-        clientObject.rotational_restraint_enabled = member_rotational_restraint[0]
-        if member_rotational_restraint[0]:
-            clientObject.member_rotational_restraint = member_rotational_restraint[1]
-            clientObject.load_introduced_from_sheeting_to_beam = member_rotational_restraint[2]
+        #☻clientObject.rotational_restraint_enabled = member_rotational_restraint[0]
+        if member_rotational_restraint:
+            clientObject.member_rotational_restraint = member_rotational_restraint[0]
+            clientObject.load_introduced_from_sheeting_to_beam = member_rotational_restraint[1]
 
         # Comment
         clientObject.comment = comment

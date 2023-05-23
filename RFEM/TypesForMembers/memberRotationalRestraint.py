@@ -10,7 +10,6 @@ class MemberRotationalRestraint():
     def Continuous(
                 no: int = 1,
                 name: str = '',
-                member_supports: str = '1',
                 sheeting_material: str = 'S235',
                 sheeting_name: str = 'Arval (-) 35/207 - 0.63 (b: 1) | DIN 18807 | Arval',
                 position_of_sheeting = MemberRotationalRestraintSheetingPosition.SHEETING_POSITION_POSITIVE,
@@ -36,7 +35,6 @@ class MemberRotationalRestraint():
                 else:
                     user_defined_name_enabled = True
                     name = User Defined Name
-            member_supports (str): Assigned Member Supports
             sheeting_material (str): Sheeting Material
             sheeting_name (str): Sheeting Name According to Library
             position_of_sheeting (enum): Position of Sheeting Enumeration
@@ -67,9 +65,6 @@ class MemberRotationalRestraint():
         if name:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
-
-        # Member Rotational Restraints Assigned Member Supports
-        clientObject.member_supports = ConvertToDlString(member_supports)
 
         # Member Rotational Restraint Definition Type
         clientObject.type = MemberRotationalRestraintType.TYPE_CONTINUOUS.name
@@ -128,7 +123,6 @@ class MemberRotationalRestraint():
     def Discrete(
                 no: int = 1,
                 name: str = '',
-                member_supports: str = '1',
                 section_material: str = 'S235',
                 section_name: str = 'CHC 60.3x3.2',
                 rotational_stifness: list = [MemberRotationalRestraintRotationalStiffness.ROTATIONAL_STIFFNESS_INFINITELY],
@@ -151,7 +145,6 @@ class MemberRotationalRestraint():
                 else:
                     user_defined_name_enabled = True
                     name = User Defined Name
-            member_supports (str): Assigned Member Supports
             section_material (str): Section Material
             section_name (str): Section Name
             rotational_stifness (list): Rotational Stiffness
@@ -183,9 +176,6 @@ class MemberRotationalRestraint():
         if name:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
-
-        # Member Rotational Restraints Assigned Member Supports
-        clientObject.member_supports = ConvertToDlString(member_supports)
 
         # Member Rotational Restraint Definition Type
         clientObject.type = MemberRotationalRestraintType.TYPE_DISCRETE.name
@@ -237,7 +227,6 @@ class MemberRotationalRestraint():
     def Manually(
                 no: int = 1,
                 name: str = '',
-                member_supports: str = '1',
                 rotational_spring_stiffness: float = 3000.0,
                 comment: str = '',
                 params: dict = None,
@@ -252,7 +241,6 @@ class MemberRotationalRestraint():
                 else:
                     user_defined_name_enabled = True
                     name = User Defined Name
-            member_supports (str): Assigned Member Supports
             rotational_spring_stiffness (float): Rotational Spring Stiffness
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -272,9 +260,6 @@ class MemberRotationalRestraint():
         if name:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
-
-        # Member Rotational Restraints Assigned Member Supports
-        clientObject.member_supports = ConvertToDlString(member_supports)
 
         # Member Rotational Restraint Definition Type
         clientObject.type = MemberRotationalRestraintType.TYPE_MANUALLY.name
