@@ -30,13 +30,10 @@ class MemberSupport():
             spring_shear_x (float): Shear X Spring Constant
             spring_shear_y (float): Shear Y Spring Constant
             spring_shear_z (float): Shear Z Spring Constant
-            member_shear_panel (list): Member Shear Panel Option
-                if member_shear_panel[0] == True:
-                    member_shear_panel[1] (int): Member Shear Panel Number
             member_rotational_restraint (list): Member Rotational Restraint Option
-                if member_rotational_restraint[0] == True:
-                    member_rotational_restraint[1] (int): Member Rotational Restraint Number
-                    member_rotational_restraint[2] (float): Load Introduced from Sheeting to Beam
+                if member_rotational_restraint:
+                    member_rotational_restraint[0] (int): Member Rotational Restraint Number
+                    member_rotational_restraint[1] (float): Load Introduced from Sheeting to Beam
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -59,7 +56,6 @@ class MemberSupport():
         clientObject.spring_translation_x = spring_translation_x
         clientObject.spring_translation_y = spring_translation_y
         clientObject.spring_translation_z = spring_translation_z[0]
-        #clientObject.nonlinearity = spring_translation_z[1].name
 
         # Spring Shear
         clientObject.spring_shear_x = spring_shear_x
