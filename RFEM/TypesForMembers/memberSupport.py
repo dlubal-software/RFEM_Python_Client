@@ -14,7 +14,6 @@ class MemberSupport():
                  spring_shear_x: float = 0.0,
                  spring_shear_y: float = 0.0,
                  spring_shear_z: float = 0.0,
-                 member_shear_panel: int = 0,
                  member_rotational_restraint: list = None,
                  comment: str = '',
                  params: dict = None,
@@ -67,13 +66,7 @@ class MemberSupport():
         clientObject.spring_shear_y = spring_shear_y
         clientObject.spring_shear_z = spring_shear_z
 
-        # Member Shear Panel
-        #clientObject.member_shear_panel_z = member_shear_panel
-        #if member_shear_panel[0]:
-        #    clientObject.member_shear_panel = member_shear_panel[1]
-
         # Member Rotational Restraint
-        #☻clientObject.rotational_restraint_enabled = member_rotational_restraint[0]
         if member_rotational_restraint:
             clientObject.member_rotational_restraint = member_rotational_restraint[0]
             clientObject.load_introduced_from_sheeting_to_beam = member_rotational_restraint[1]

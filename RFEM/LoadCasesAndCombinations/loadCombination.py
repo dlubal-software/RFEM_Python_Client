@@ -43,8 +43,6 @@ class LoadCombination():
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
 
-        print('1:',clientObject)
-
         # Load Combination No.
         clientObject.no = no
 
@@ -99,8 +97,6 @@ class LoadCombination():
 
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
-
-        print('2:',clientObject)
 
         # Add Load Combination to client model
         model.clientModel.service.set_load_combination(clientObject)
