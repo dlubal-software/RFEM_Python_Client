@@ -20,8 +20,7 @@ def test_NodalReleaseType():
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    Node(1, 0, 0)
-
+    Model.clientModel.service.run_script('..\\scripts\\internal\\Demos\\Demo-002 Cantilever Beams.js')
 
     NodalReleaseType(1, 'Local', 0.0, 1.0, 2.0, 1.5, 1.0, 2.0, [NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_NONE] , \
                     [NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY, [NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_COMPLETE, 0.3], [NodalReleaseTypePartialActivityAlong.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE, 1500.0, 0.3]], \

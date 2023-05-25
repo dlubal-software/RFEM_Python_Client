@@ -59,7 +59,7 @@ def test_member_loads():
     LoadCase(1, 'DEAD', [True, 0.0, 0.0, 1.0])
 
     ## Initial Member Load ##
-    MemberLoad(1, 1, '1', LoadDirectionType.LOAD_DIRECTION_LOCAL_Z, 5000)
+    MemberLoad(1, 1, '1', MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, 5000)
 
     ## Force Type Member Load with LOAD_DISTRIBUTION_UNIFORM ##
     MemberLoad.Force(2, 1, '1', MemberLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_parameter=[5000])

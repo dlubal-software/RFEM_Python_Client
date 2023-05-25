@@ -251,9 +251,6 @@ class MemberShearPanel():
         # Member Shear Panel Definition Type
         clientObject.definition_type = MemberShearPanelDefinitionType.DEFINITION_TYPE_DEFINE_S_PROV.name
 
-        # Member Shear Panel Assigned Member Supports
-        #clientObject.member_supports = ConvertToDlString(member_supports)
-
         # Member Shear Panel User Defined Name
         if name:
             clientObject.user_defined_name_enabled = True

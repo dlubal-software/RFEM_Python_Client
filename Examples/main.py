@@ -10,7 +10,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType, MemberLoadDistribution, MemberLoadDirection, MemberRotationSpecificationType
+from RFEM.enums import NodalSupportType, StaticAnalysisType, NodalLoadDirection, MemberLoadDistribution, MemberLoadDirection, MemberRotationSpecificationType
 from Examples.window import window
 from RFEM.dataTypes import inf
 from RFEM.initModel import Model, Calculate_all, insertSpaces, modelLst
@@ -222,7 +222,7 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
 
 # -------------------------------------------------------------
     # Nodal Forces
-    NodalLoad(1, 3, "9 4 7 2", LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 2000.0)
+    NodalLoad(1, 3, "9 4 7 2", NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 2000.0)
 
 # -------------------------------------------------------------
     # Member Loads
