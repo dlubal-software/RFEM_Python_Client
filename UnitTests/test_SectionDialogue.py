@@ -15,7 +15,7 @@ from RFEM.BasicObjects.material import Material
 if Model.clientModel is None:
     Model()
 
-#TODO: US-8351
+# TODO: US-8351
 @pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'create_section_favorite_list', True), reason="create_section_favorite_list not in RFEM GM yet")
 def test_section_dialogue():
 

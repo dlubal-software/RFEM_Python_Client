@@ -56,6 +56,7 @@ class MemberSupport():
         clientObject.spring_translation_x = spring_translation_x
         clientObject.spring_translation_y = spring_translation_y
         clientObject.spring_translation_z = spring_translation_z[0]
+        clientObject.nonlinearity_translational_z = spring_translation_z[1].name
 
         # Spring Shear
         clientObject.spring_shear_x = spring_shear_x
