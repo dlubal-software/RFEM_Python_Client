@@ -7,7 +7,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.initModel import Model, closeAllModels
+from RFEM.initModel import Model, closeAllModels, cacheLoc
 
 def pytest_exception_interact():
     '''
@@ -16,6 +16,10 @@ def pytest_exception_interact():
     '''
 
     # This ensures that the tests executed after failed test are not affected.
-    #if Model.clientModel:
-    #    closeAllModels()
-    #Model()
+    if Model.clientModel:
+        closeAllModels()
+        if os.path.exists(cacheLoc):
+            for file in os.listdir(cacheLoc):
+                filePath = os.path.join(cacheLoc, file)
+                os.remove(filePath)
+    Model()

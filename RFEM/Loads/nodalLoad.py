@@ -1,5 +1,5 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
-from RFEM.enums import LoadDirectionType, NodalLoadType, NodalLoadSpecificDirectionType
+from RFEM.enums import NodalLoadDirection, NodalLoadType, NodalLoadSpecificDirectionType
 
 class NodalLoad():
 
@@ -7,7 +7,7 @@ class NodalLoad():
                  no: int = 1,
                  load_case_no: int = 1,
                  nodes_no: str= '1',
-                 load_direction= LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
+                 load_direction= NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
                  magnitude: float = 0.0,
                  comment: str= '',
                  params: dict= None,
@@ -67,7 +67,7 @@ class NodalLoad():
               no: int= 1,
               load_case_no: int = 1,
               nodes_no: str= '1',
-              load_direction= LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
+              load_direction= NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
               magnitude: float= 0.0,
               force_eccentricity: bool = False,
               specific_direction: bool = False,
@@ -215,7 +215,7 @@ class NodalLoad():
               no: int= 1,
               load_case_no: int= 1,
               nodes_no: str= '1',
-              load_direction= LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
+              load_direction= NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
               moment_magnitude: float= 0.0,
               specific_direction: bool= False,
               shifted_display: bool= False,

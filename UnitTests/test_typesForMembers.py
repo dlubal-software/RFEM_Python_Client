@@ -120,7 +120,7 @@ def test_memberSupport():
     Model.clientModel.service.begin_modification()
 
     MemberSupport()
-    MemberSupport(2, '', 1,2, [inf, MemberSupportNonlinearity.NONLINEARITY_FAILURE_IF_NEGATIVE_CONTACT_STRESS_Z], 3, 4, 5, 6)
+    MemberSupport(2, '', 1, 2, [inf, MemberSupportNonlinearity.NONLINEARITY_FAILURE_IF_NEGATIVE_CONTACT_STRESS_Z], 3, 4, 5, 6)
 
     Model.clientModel.service.finish_modification()
 
@@ -129,6 +129,7 @@ def test_memberSupport():
 
     assert memberSupport_1.no == 1
     assert memberSupport_2.spring_translation_y == 2
+    assert memberSupport_2.nonlinearity_translational_z == MemberSupportNonlinearity.NONLINEARITY_FAILURE_IF_NEGATIVE_CONTACT_STRESS_Z.name
 
 
 def test_memberTransverseStiffeners():

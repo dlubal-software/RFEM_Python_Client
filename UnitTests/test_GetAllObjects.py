@@ -11,7 +11,7 @@ from RFEM.Tools.GetObjectNumbersByType import GetAllObjects
 if Model.clientModel is None:
     Model()
 
-def test_GetObjectNumbersByType():
+def test_GetAllObjects():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.run_script('..\\scripts\\internal\\Demos\\Demo-002 Cantilever Beams.js')

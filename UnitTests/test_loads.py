@@ -41,7 +41,7 @@ def test_nodal_load_init():
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
-    NodalLoad(1, 1, '1', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 5000)
+    NodalLoad(1, 1, '1', NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 5000)
 
     Model.clientModel.service.finish_modification()
 
@@ -60,7 +60,7 @@ def test_nodal_load_force():
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
-    NodalLoad.Force(1, 1, '1', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 5000)
+    NodalLoad.Force(1, 1, '1', NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 5000)
     Model.clientModel.service.finish_modification()
 
     nodal_load = Model.clientModel.service.get_nodal_load(1, 1)
@@ -78,7 +78,7 @@ def test_nodal_load_moment():
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
-    NodalLoad.Moment(1, 1, '1', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 5000)
+    NodalLoad.Moment(1, 1, '1', NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 5000)
 
     Model.clientModel.service.finish_modification()
 
@@ -142,7 +142,7 @@ def test_member_load_init():
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
     LoadCase(1, 'DEAD')
 
-    MemberLoad(1, 1, '1', LoadDirectionType.LOAD_DIRECTION_LOCAL_Z, 4000)
+    MemberLoad(1, 1, '1', MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, 4000)
 
     Model.clientModel.service.finish_modification()
 

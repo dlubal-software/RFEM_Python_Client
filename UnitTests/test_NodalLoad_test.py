@@ -14,7 +14,7 @@ from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.material import Material
 from RFEM.initModel import Model
-from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType
+from RFEM.enums import NodalSupportType, StaticAnalysisType, NodalLoadDirection
 
 if Model.clientModel is None:
     Model()
@@ -62,13 +62,13 @@ def test_nodal_load():
     LoadCase(1, 'DEAD', [True, 0.0, 0.0, 1.0])
 
     # Initial Nodal Load
-    NodalLoad(1, 1, '2', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 5000)
+    NodalLoad(1, 1, '2', NodalLoadDirection.LOAD_DIRECTION_LOCAL_X, 5000)
 
     # Force Type Nodal Load
-    NodalLoad.Force(2, 1, '2', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 5000)
+    NodalLoad.Force(2, 1, '2', NodalLoadDirection.LOAD_DIRECTION_LOCAL_X, 5000)
 
     # Moment Type Nodal Load
-    NodalLoad.Moment(3, 1, '4', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 5000)
+    NodalLoad.Moment(3, 1, '4', NodalLoadDirection.LOAD_DIRECTION_LOCAL_X, 5000)
 
     # Component Type Nodal Load
     NodalLoad.Components(4, 1, '6', [5000, 4000, 30, 10, 5210, 75])

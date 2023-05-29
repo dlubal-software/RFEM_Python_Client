@@ -6,7 +6,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.enums import NodalSupportType, LoadDirectionType, OperatorType, ResultCombinationType
+from RFEM.enums import NodalSupportType, NodalLoadDirection, OperatorType, ResultCombinationType
 from RFEM.enums import DesignSituationType, ActionLoadType, ResultCombinationExtremeValueSign, CaseObjectSubResultType
 from RFEM.initModel import Model
 from RFEM.BasicObjects.node import Node
@@ -45,7 +45,7 @@ def test_resultCombination():
                  model= Model)
 
     LoadCase(1, 'Self-Weight', [True, 0.0, 0.0,1.0])
-    NodalLoad(1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 1000)
+    NodalLoad(1, 1, '2', NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 1000)
 
     DesignSituation(1, DesignSituationType.DESIGN_SITUATION_TYPE_SLS_CHARACTERISTIC)
     ResultCombination(2, 1, ResultCombinationType.COMBINATION_TYPE_GENERAL, [[1, OperatorType.OPERATOR_NONE, 1.1, ActionLoadType.LOAD_TYPE_TRANSIENT]], False, [True, ResultCombinationExtremeValueSign.EXTREME_VALUE_SIGN_NEGATIVE], 'Res Comb')

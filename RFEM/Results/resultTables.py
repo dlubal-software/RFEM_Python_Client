@@ -1,4 +1,3 @@
-from cmath import inf
 import enum
 from RFEM.initModel import Model
 from RFEM.enums import CaseObjectType

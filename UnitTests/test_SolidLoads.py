@@ -8,7 +8,7 @@ sys.path.append(PROJECT_ROOT)
 
 from RFEM.Loads.solidLoad import SolidLoad
 from RFEM.Loads.solidSetLoad import SolidSetLoad
-from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType, SolidLoadType, SolidLoadDistribution
+from RFEM.enums import NodalSupportType, StaticAnalysisType, NodalLoadDirection, SolidLoadType, SolidLoadDistribution
 from RFEM.enums import SolidLoadDirection, SolidSetLoadType, SolidSetLoadDistribution, SolidSetLoadDirection
 from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
@@ -76,7 +76,7 @@ def test_solid_loads():
 
     LoadCase(1 , 'Test load case', [True, 0.0, 0.0, 1.0])
 
-    NodalLoad(1, 1, '1', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 12.8)
+    NodalLoad(1, 1, '1', NodalLoadDirection.LOAD_DIRECTION_LOCAL_X, 12.8)
 
     SolidLoad(1, 1, '1', SolidLoadType.LOAD_TYPE_FORCE, SolidLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 1289.0, 'My Comment')
     SolidLoad.Force(2, 1, '1', SolidLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 8569.21, 'My 2nd Comment')
