@@ -124,12 +124,9 @@ def test_thickness():
     assert th.thickness_circle_center == 0.1
     assert th.thickness_circle_line == 0.5
 
-    # FAILED
-    # suds.TypeNotFound: Type not found: 'is_enabled_design_of_failure'
-
-    #th = Model.clientModel.service.get_thickness(7)
-    #assert th.layers_reference_table['thickness_layers_reference_table'][0].row['thickness'] == 0.123
-    #assert th.layers_reference_table['thickness_layers_reference_table'][1].row['thickness'] == 0.456
+    th = Model.clientModel.service.get_thickness(7)
+    assert th.layers_reference_table['thickness_layers_reference_table'][0].row['thickness'] == 0.123
+    assert th.layers_reference_table['thickness_layers_reference_table'][1].row['thickness'] == 0.456
 
     th = Model.clientModel.service.get_thickness(8)
     assert th.orthotropy_type == 'ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB'
