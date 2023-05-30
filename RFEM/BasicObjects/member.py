@@ -510,7 +510,6 @@ class Member():
             end_section_no (int): Tag of End Section
             rib_surfaces_no (list): Surfaces Tags Assigned to Rib
             rib_alignment (enum): Rib Alignment Enumeration
-            reference_width_type (enum): Reference Width Type Enumeration
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
