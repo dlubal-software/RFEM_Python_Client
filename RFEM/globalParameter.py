@@ -26,9 +26,9 @@ class GlobalParameter():
                 for definition_type = GlobalParameterDefinitionType.DEFINITION_TYPE_FORMULA:
                     definition_parameter = [formula]
                 for definition_type = GlobalParameterDefinitionType.DEFINITION_TYPE_OPTIMIZATION:
-                    definition_parameter = [min, max, increment, steps]
+                    definition_parameter = [value, min, max, steps]
                 for definition_type = GlobalParameterDefinitionType.DEFINITION_TYPE_OPTIMIZATION_ASCENDING:
-                    definition_parameter = [min, max, increment, steps]
+                    definition_parameter = [value, min, max, steps]
                 for definition_type = GlobalParameterDefinitionType.DEFINITION_TYPE_OPTIMIZATION_DESCENDING:
                     definition_parameter = [value, min, max, steps]
                 for definition_type = GlobalParameterDefinitionType.DEFINITION_TYPE_VALUE:
@@ -97,7 +97,19 @@ class GlobalParameter():
 
     @staticmethod
     def SetFormula(ObjectType, no, parent_no, attribute, formula):
+        '''
+        Function sets formula for selected attribute of selected object
 
+        Args:
+            ObjectType (enum): Enumeration of object type e.g. ObjectTypes.E_OBJECT_TYPE_LINE_LOAD
+            no (int): Id of object where formula is going to be applied
+            parent_no (int): Id of parent of object - e.g. Id of load case for loads
+            attribute (str): attribute of object where formula is going to be applied eg. 'magnitude'
+            formula (str): formula e.g. '4 + H'
+
+        Returns:
+            bool: True if set of formula was successful
+        '''
         objectLocation = Model.clientModel.factory.create('ns0:object_location')
         objectLocation.type = ObjectType.name
         objectLocation.no = no
@@ -122,7 +134,18 @@ class GlobalParameter():
 
     @staticmethod
     def GetFormula(ObjectType, no, parent_no, attribute):
+        '''
+        Function get formula for selected attribute of selected object
 
+        Args:
+            ObjectType (enum): Enumeration of object type e.g. ObjectTypes.E_OBJECT_TYPE_LINE_LOAD
+            no (int): Id of object
+            parent_no (int): Id of parent of object - e.g. Id of load case for loads
+            attribute (str): attribute of object where formula is applied eg. 'magnitude'
+
+        Returns:
+            dict: Formula
+        '''
         objectLocation = Model.clientModel.factory.create('ns0:object_location')
         objectLocation.type = ObjectType.name
         objectLocation.no = no
@@ -142,7 +165,18 @@ class GlobalParameter():
 
     @staticmethod
     def IsFormulaAllowed(ObjectType, no, parent_no, attribute):
+        '''
+        Function check if formula could be assigned to attribute of object
 
+        Args:
+            ObjectType (enum): Enumeration of object type e.g. ObjectTypes.E_OBJECT_TYPE_LINE_LOAD
+            no (int): Id of object
+            parent_no (int): Id of parent of object - e.g. Id of load case for loads
+            attribute (str): attribute of object where formula is applied eg. 'magnitude'
+
+        Returns:
+            bool: Returns True if formula is allowed for attribute of object
+        '''
         parameterAllowed = False
 
         objectLocation = Model.clientModel.factory.create('ns0:object_location')
