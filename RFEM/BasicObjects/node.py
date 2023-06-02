@@ -49,6 +49,7 @@ class Node():
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
 
+
         # Add Node to client model
         model.clientModel.service.set_node(clientObject)
 
