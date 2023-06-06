@@ -5,7 +5,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
     os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.initModel import Model
+from RFEM.initModel import Model, getPathToRunningRFEM
 from RFEM.Tools.GetObjectNumbersByType import GetAllObjects
 
 if Model.clientModel is None:
@@ -14,7 +14,7 @@ if Model.clientModel is None:
 def test_GetAllObjects():
 
     Model.clientModel.service.delete_all()
-    Model.clientModel.service.run_script('..\\scripts\\internal\\Demos\\Demo-002 Cantilever Beams.js')
+    Model.clientModel.service.run_script(os.path.join(getPathToRunningRFEM(),'scripts\\internal\\Demos\\Demo-002 Cantilever Beams.js'))
 
     objects, imports = GetAllObjects()
 
