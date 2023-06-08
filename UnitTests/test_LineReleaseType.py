@@ -6,7 +6,6 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.dataTypes import inf
 from RFEM.initModel import Model
 from RFEM.enums import *
 from RFEM.BasicObjects.node import Node

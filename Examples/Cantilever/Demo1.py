@@ -9,7 +9,7 @@ print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
 from RFEM.enums import NodalSupportType, NodalLoadDirection, ActionCategoryType
-from RFEM.initModel import Model, Calculate_all, CalculateSelectedCases
+from RFEM.initModel import CalculateSelectedCases, Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
@@ -19,7 +19,6 @@ from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisS
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.Loads.nodalLoad import NodalLoad
 from RFEM.Calculate.meshSettings import GetModelInfo
-from RFEM.ImportExport.exports import ExportDetailsOfDesignToCSV
 
 if __name__ == '__main__':
     l = float(input('Length of the cantilever in m: '))

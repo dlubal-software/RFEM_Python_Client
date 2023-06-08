@@ -7,7 +7,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import NodalSupportType, NodalLoadDirection, OperatorType, ResultCombinationType
-from RFEM.enums import DesignSituationType, ActionLoadType, ResultCombinationExtremeValueSign, CaseObjectSubResultType
+from RFEM.enums import ActionLoadType, DesignSituationType, ResultCombinationExtremeValueSign
 from RFEM.initModel import Model
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line

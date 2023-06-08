@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import MemberRotationalRestraintContinousBeamEffect, MemberRotationalRestraintRotationalStiffness, MemberRotationalRestraintSheetingPosition, MemberRotationalRestraintType
 
 class MemberRotationalRestraint():
