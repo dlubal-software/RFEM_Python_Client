@@ -9,7 +9,7 @@ print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
 from RFEM.enums import *
-from RFEM.initModel import Model, SetAddonStatus, insertSpaces, Calculate_all, client, closeModel
+from RFEM.initModel import Calculate_all, Model, SetAddonStatus, client, insertSpaces
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node

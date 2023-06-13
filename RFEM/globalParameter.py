@@ -1,5 +1,5 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, SetAddonStatus
-from RFEM.enums import GlobalParameterUnitGroup, GlobalParameterDefinitionType, AddOn
+from RFEM.enums import GlobalParameterUnitGroup, GlobalParameterDefinitionType, AddOn, ObjectTypes
 
 
 class GlobalParameter():
@@ -14,7 +14,7 @@ class GlobalParameter():
             definition_parameter: list = None,
             comment: str = '',
             params: dict = None,
-            model=Model):
+            model = Model):
         '''
         Args:
             no (int): Global Parameter Tag
@@ -96,21 +96,27 @@ class GlobalParameter():
         model.clientModel.service.set_global_parameter(clientObject)
 
     @staticmethod
-    def SetFormula(ObjectType, no, parent_no, attribute, formula):
+    def SetFormula(ObjectType = ObjectTypes.E_OBJECT_TYPE_LINE_LOAD,
+                   no: int = 1,
+                   parent_no: int = 1,
+                   attribute: str = 'magnitude',
+                   formula: str = '4 + H',
+                   model = Model):
         '''
-        Function sets formula for selected attribute of selected object
+        Set formula for selected attribute of selected object.
 
         Args:
-            ObjectType (enum): Enumeration of object type e.g. ObjectTypes.E_OBJECT_TYPE_LINE_LOAD
+            ObjectType (enum): Enumeration of object type
             no (int): Id of object where formula is going to be applied
             parent_no (int): Id of parent of object - e.g. Id of load case for loads
-            attribute (str): attribute of object where formula is going to be applied eg. 'magnitude'
-            formula (str): formula e.g. '4 + H'
+            attribute (str): attribute of object where formula is going to be applied
+            formula (str): formula
+            model (RFEM Class, optional): Model to be edited
 
         Returns:
-            bool: True if set of formula was successful
+            bool: True if formula was successfuly set
         '''
-        objectLocation = Model.clientModel.factory.create('ns0:object_location')
+        objectLocation = model.clientModel.factory.create('ns0:object_location')
         objectLocation.type = ObjectType.name
         objectLocation.no = no
         objectLocation.parent_no = parent_no
@@ -118,12 +124,10 @@ class GlobalParameter():
         parameterAllowed = GlobalParameter.IsFormulaAllowed(ObjectType, no, parent_no, attribute)
 
         if parameterAllowed:
-            objectParameterLocation = Model.clientModel.factory.create(
-                'ns0:object_parameter_location')
+            objectParameterLocation = model.clientModel.factory.create('ns0:object_parameter_location')
             objectParameterLocation.attribute = attribute
             try:
-                Model.clientModel.service.set_formula(
-                    objectLocation, objectParameterLocation, formula)
+                model.clientModel.service.set_formula(objectLocation, objectParameterLocation, formula)
                 return True
             except Exception as ex:
                 print(ex)
@@ -133,20 +137,25 @@ class GlobalParameter():
             return False
 
     @staticmethod
-    def GetFormula(ObjectType, no, parent_no, attribute):
+    def GetFormula(ObjectType = ObjectTypes.E_OBJECT_TYPE_LINE_LOAD,
+                   no: int = 1,
+                   parent_no: int = 1,
+                   attribute: str = 'magnitude',
+                   model = Model):
         '''
-        Function get formula for selected attribute of selected object
+        Get formula for selected attribute of selected object.
 
         Args:
             ObjectType (enum): Enumeration of object type e.g. ObjectTypes.E_OBJECT_TYPE_LINE_LOAD
-            no (int): Id of object
+            no (int): ID of object
             parent_no (int): Id of parent of object - e.g. Id of load case for loads
-            attribute (str): attribute of object where formula is applied eg. 'magnitude'
+            attribute (str): attribute of object where formula is applied
+            model (RFEM Class, optional): Model to be edited
 
         Returns:
             dict: Formula
         '''
-        objectLocation = Model.clientModel.factory.create('ns0:object_location')
+        objectLocation = model.clientModel.factory.create('ns0:object_location')
         objectLocation.type = ObjectType.name
         objectLocation.no = no
         objectLocation.parent_no = parent_no
@@ -155,31 +164,34 @@ class GlobalParameter():
 
         formula = None
         if parameterAllowed:
-            objectParameterLocation = Model.clientModel.factory.create(
-                'ns0:object_parameter_location')
+            objectParameterLocation = model.clientModel.factory.create('ns0:object_parameter_location')
             objectParameterLocation.attribute = attribute
-            formula = Model.clientModel.service.get_formula(
-                objectLocation, objectParameterLocation)
+            formula = model.clientModel.service.get_formula(objectLocation, objectParameterLocation)
 
         return formula
 
     @staticmethod
-    def IsFormulaAllowed(ObjectType, no, parent_no, attribute):
+    def IsFormulaAllowed(ObjectType = ObjectTypes.E_OBJECT_TYPE_LINE_LOAD,
+                         no: int = 1,
+                         parent_no: int = 1,
+                         attribute: str = 'magnitude',
+                         model = Model):
         '''
-        Function check if formula could be assigned to attribute of object
+        Function check if formula can be assigned to attribute of the object.
 
         Args:
             ObjectType (enum): Enumeration of object type e.g. ObjectTypes.E_OBJECT_TYPE_LINE_LOAD
             no (int): Id of object
             parent_no (int): Id of parent of object - e.g. Id of load case for loads
             attribute (str): attribute of object where formula is applied eg. 'magnitude'
+            model (RFEM Class, optional): Model to be edited
 
         Returns:
-            bool: Returns True if formula is allowed for attribute of object
+            bool: True if formula is allowed for attribute of the object
         '''
         parameterAllowed = False
 
-        objectLocation = Model.clientModel.factory.create('ns0:object_location')
+        objectLocation = model.clientModel.factory.create('ns0:object_location')
         objectLocation.type = ObjectType.name
         objectLocation.no = no
         objectLocation.parent_no = parent_no
@@ -187,11 +199,10 @@ class GlobalParameter():
         allowedParameters = None
 
         try:
-            allowedParameters = Model.clientModel.service.get_list_of_parameters_formula_allowed_for(
+            allowedParameters = model.clientModel.service.get_list_of_parameters_formula_allowed_for(
                 objectLocation)
         except Exception as ex:
             print(ex)
-
 
         if allowedParameters != None:
             for location in allowedParameters.object_parameter_location:

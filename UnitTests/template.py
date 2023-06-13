@@ -11,7 +11,6 @@
 
 # import only used modules
 # avoid wild-card import (from RFEM.enums import *) if possible
-from RFEM.enums import MemberType
 from RFEM.initModel import Model, CheckIfMethodOrTypeExists
 import pytest
 import os

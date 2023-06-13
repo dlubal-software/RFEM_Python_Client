@@ -11,7 +11,7 @@ sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import GlobalParameterUnitGroup, GlobalParameterDefinitionType, ObjectTypes
 from RFEM.globalParameter import GlobalParameter
-from RFEM.initModel import Model
+from RFEM.initModel import Model, getPathToRunningRFEM
 
 if Model.clientModel is None:
     Model()
@@ -77,12 +77,12 @@ def test_global_parameters():
     assert gp_2.max == 100
     assert gp_2.steps == 4
     assert gp_2.unit_group == 'LOADS_DENSITY'
-#
+
 def test_set_and_get_formula():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.reset()
-    Model.clientModel.service.run_script('..\\scripts\\internal\\Demos\\Demo-004 Bus Station-Concrete Design.js')
+    Model.clientModel.service.run_script(os.path.join(getPathToRunningRFEM(),'scripts\\internal\\Demos\\Demo-004 Bus Station-Concrete Design.js'))
 
     GlobalParameter.AddParameter(
         no=1,
