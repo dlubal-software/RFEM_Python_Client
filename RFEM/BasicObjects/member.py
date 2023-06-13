@@ -487,7 +487,6 @@ class Member():
             end_section_no: int = 1,
             rib_surfaces_no =  [],
             rib_alignment = MemberTypeRibAlignment.ALIGNMENT_ON_Z_SIDE_POSITIVE,
-            reference_width_type = MemberReferenceLengthWidthType.REFERENCE_LENGTH_WIDTH_SIXTH,
             line = None,
             comment: str = '',
             params: dict = {'member_hinge_start':0, 'member_hinge_end': 0,
@@ -511,7 +510,6 @@ class Member():
             end_section_no (int): Tag of End Section
             rib_surfaces_no (list): Surfaces Tags Assigned to Rib
             rib_alignment (enum): Rib Alignment Enumeration
-            reference_width_type (enum): Reference Width Type Enumeration
             line (int, optional): Assigned Line
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -563,9 +561,6 @@ class Member():
 
         # Rib Alignment
         clientObject.member_type_rib_alignment = rib_alignment.name
-
-        # Reference Length Width Type
-        #clientObject.reference_length_width_type = reference_width_type.name
 
         # Update parameters
         params_up: dict = {'member_hinge_start':0, 'member_hinge_end': 0,

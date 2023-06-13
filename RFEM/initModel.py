@@ -23,6 +23,8 @@ urlAndPort = url+':'+port
 
 # Check if port is listening
 a_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# TODO: increse timeout in client
+# a_socket.settimeout(360)
 
 location = (url[7:], int(port))
 result_of_check = a_socket.connect_ex(location)
@@ -129,21 +131,18 @@ class Model():
                 modelUrlPort = url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
 
-                if self.clientModelDct:
-                    cModel = Client(modelCompletePath, location = modelUrlPort, cache=ca)
-                else:
-                    session = requests.Session()
-                    adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
-                    session.mount('http://', adapter)
-                    trans = RequestsTransport(session)
+                session = requests.Session()
+                adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
+                session.mount('http://', adapter)
+                trans = RequestsTransport(session)
 
-                    cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca)
+                cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca)
 
                 self.clientModelDct[model_name] = cModel
 
         else:
             # Requested model which was already connected
-            assert model_name in self.clientModelDct or model_name in modelLst, 'WARNING: '+model_name +'is not connected neither opened in RFEM.'
+            assert model_name in self.clientModelDct or model_name in modelLst, 'WARNING: '+model_name +' is not connected neither opened in RFEM.'
 
             if model_name in self.clientModelDct:
                 cModel = self.clientModelDct[model_name]
@@ -157,15 +156,12 @@ class Model():
                 modelUrlPort = url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
 
-                if self.clientModelDct:
-                    cModel = Client(modelCompletePath, location = modelUrlPort, cache=ca)
-                else:
-                    session = requests.Session()
-                    adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
-                    session.mount('http://', adapter)
-                    trans = RequestsTransport(session)
+                session = requests.Session()
+                adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
+                session.mount('http://', adapter)
+                trans = RequestsTransport(session)
 
-                    cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca)
+                cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca)
 
                 self.clientModelDct[model_name] = cModel
             else:
@@ -226,7 +222,7 @@ def clearAttributes(obj):
     it = iter(obj)
     for i in it:
         obj[i[0]] = None
-        
+
     return obj
 
 def deleteEmptyAttributes(obj):

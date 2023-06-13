@@ -6,7 +6,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.enums import NodalSupportType, LoadDirectionType, AddOn, LoadWizardType, InitialStateDefintionType
+from RFEM.enums import NodalSupportType, NodalLoadDirection, AddOn, LoadWizardType, InitialStateDefintionType
 from RFEM.initModel import Model, SetAddonStatus
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
@@ -48,7 +48,7 @@ def test_combinationWizard():
                  model= Model)
 
     LoadCase(1, 'Self-Weight', [True, 0.0, 0.0,1.0])
-    NodalLoad(1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 1000)
+    NodalLoad(1, 1, '2', NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 1000)
 
     #setting up the combination wizard for load combinations
     CombinationWizard(1, 'Wizard 1', 1, 1, False, False, 1, InitialStateDefintionType.DEFINITION_TYPE_FINAL_STATE, None, True, True, True, model = Model)

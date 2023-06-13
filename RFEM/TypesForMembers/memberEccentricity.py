@@ -17,7 +17,7 @@ class MemberEccentricity():
         """
         Args:
             no (int): Eccentricity Tag
-            name (list): User Defined Name
+            name (str): User Defined Name
             eccentricity_type (enum): Member Eccentricity Specification Type Enumeration
             eccentricity_parameters (list): Eccentricity Parameters List
                 for eccentricity_type == MemberEccentricitySpecificationType.TYPE_RELATIVE:

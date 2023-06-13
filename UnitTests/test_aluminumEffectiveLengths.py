@@ -33,6 +33,21 @@ def test_aluminumEffectiveLengths():
     assert ef_1.flexural_buckling_about_y == True
 
     ef_2 = Model.clientModel.service.get_aluminum_effective_lengths(2)
+    assert ef_2.no == 2
+    assert ef_2.user_defined_name_enabled == True
+    assert ef_2.name == "SEL2"
+    assert ef_2.comment == None
+    assert ef_2.members == ""
+    assert ef_2.member_sets == ""
+    assert ef_2.flexural_buckling_about_y == False
+    assert ef_2.flexural_buckling_about_z == False
+    assert ef_2.torsional_buckling == False
+    assert ef_2.lateral_torsional_buckling == True
+    assert ef_2.principal_section_axes == True
+    assert ef_2.geometric_section_axes == False
+    assert ef_2.factors_definition_absolute == False
+    assert ef_2.intermediate_nodes == True
+    assert ef_2.different_properties == True
     assert ef_2.principal_section_axes == True
     assert ef_2.nodal_supports[0][0].row['support_type'] == 'SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION'
     assert ef_2.determination_mcr_europe == SteelEffectiveLengthsDeterminationMcrEurope.DETERMINATION_EUROPE_USER_DEFINED.name

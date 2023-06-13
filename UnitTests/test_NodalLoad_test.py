@@ -14,7 +14,7 @@ from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.material import Material
 from RFEM.initModel import Model
-from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType
+from RFEM.enums import NodalSupportType, StaticAnalysisType, NodalLoadDirection
 
 if Model.clientModel is None:
     Model()
@@ -62,19 +62,19 @@ def test_nodal_load():
     LoadCase(1, 'DEAD', [True, 0.0, 0.0, 1.0])
 
     # Initial Nodal Load
-    NodalLoad(1, 1, '2', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 5000)
+    NodalLoad(1, 1, '2', NodalLoadDirection.LOAD_DIRECTION_LOCAL_X, 5000)
 
     # Force Type Nodal Load
-    NodalLoad.Force(2, 1, '2', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 5000)
+    NodalLoad.Force(2, 1, '2', NodalLoadDirection.LOAD_DIRECTION_LOCAL_X, 5000)
 
     # Moment Type Nodal Load
-    NodalLoad.Moment(3, 1, '4', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 5000)
+    NodalLoad.Moment(3, 1, '4', NodalLoadDirection.LOAD_DIRECTION_LOCAL_X, 5000)
 
     # Component Type Nodal Load
     NodalLoad.Components(4, 1, '6', [5000, 4000, 30, 10, 5210, 75])
 
     #Mass Type Nodal Load
-    NodalLoad.Mass(5, 1, '8', True, [4000, 3000, 2000, 1000, 500, 100]) # Bugfix G-30467: Individual Mass Components
+    NodalLoad.Mass(5, 1, '8', True, [4000, 3000, 2000, 1000, 500, 100])
     NodalLoad.Mass(6, 1, '8', False, [4000])
 
     Model.clientModel.service.finish_modification()
@@ -110,9 +110,9 @@ def test_nodal_load():
     nl = Model.clientModel.service.get_nodal_load(5, 1)
     assert nl.nodes == '8'
     assert nl.load_type == 'LOAD_TYPE_MASS'
-    #assert nl.mass_x == 4000 # Bugfix G-30467: Individual Mass Components
-    #assert nl.mass_y == 3000 # Bugfix G-30467: Individual Mass Components
-    #assert nl.mass_z == 2000 # Bugfix G-30467: Individual Mass Components
+    assert nl.mass_x == 4000
+    assert nl.mass_y == 3000
+    assert nl.mass_z == 2000
     assert nl.mass_moment_of_inertia_x == 1000
     assert nl.mass_moment_of_inertia_y == 500
     assert nl.mass_moment_of_inertia_z == 100

@@ -1,5 +1,5 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
-from RFEM.enums import MemberSetLoadType, LoadDirectionType, MemberSetLoadDistribution, MemberSetLoadDirection, MemberSetLoadDirectionOrientation
+from RFEM.enums import MemberSetLoadType, MemberSetLoadDirection, MemberSetLoadDistribution, MemberSetLoadDirection, MemberSetLoadDirectionOrientation
 from RFEM.enums import MemberSetLoadEccentricityHorizontalAlignment, MemberSetLoadEccentricityVerticalAlignment, MemberSetLoadEccentricitySectionMiddle
 from RFEM.enums import MemberSetLoadAxisDefinitionType, MemberSetLoadAxisDefinitionAxisOrientation, MemberSetLoadAxisDefinition
 
@@ -9,7 +9,7 @@ class MemberSetLoad():
                  no: int = 1,
                  load_case_no: int = 1,
                  member_sets: str = '1',
-                 load_direction = LoadDirectionType.LOAD_DIRECTION_LOCAL_Z,
+                 load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
                  magnitude: float = 0.0,
                  comment: str = '',
                  params: dict = None,

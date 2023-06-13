@@ -1,5 +1,5 @@
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
-from RFEM.enums import MemberShearPanelDefinitionType, MemberShearPanelFasteningArrangement, MemberShearPanelPositionOnSection
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
+from RFEM.enums import MemberShearPanelDefinitionType, MemberShearPanelFasteningArrangement
 
 class MemberShearPanel():
 
@@ -9,8 +9,6 @@ class MemberShearPanel():
     @staticmethod
     def TrapezodialSheeting(no: int = 1,
                             name: str = '',
-                            member_supports: str = '1',
-                            position_on_section = MemberShearPanelPositionOnSection.POSITION_ON_UPPER_FLANGE,
                             girder_length_definition: list = [True],
                             sheeting_name: str = 'FI (+) 35/207 - 0.63 (b: 1) | DIN 18807 | Fischer Profil',
                             fastening_arrangement = MemberShearPanelFasteningArrangement.FASTENING_ARRANGEMENT_EVERY_RIB,
@@ -18,7 +16,6 @@ class MemberShearPanel():
                             beam_spacing: float = 1.0,
                             coefficient_k1: float = None,
                             coefficient_k2: float = None,
-                            position_on_section_value: float = None,
                             comment: str = '',
                             params: dict = None,
                             model = Model):
@@ -32,8 +29,6 @@ class MemberShearPanel():
                 else:
                     user_defined_name_enabled = True
                     name = User Defined Name
-            member_supports (str): Assigned Member Supports
-            position_on_section (enum): Member Shear Panel Position Enumeration
             girder_length_definition (list): Girder Length Definition List
                 girder_length_definition[0] (bool): Activate/Deactivate Automatically Girder Length
                 girder_length_definition[1] (float): Girder Length Value
@@ -43,7 +38,6 @@ class MemberShearPanel():
             beam_spacing (float): Beam Spacing
             coefficient_k1 (float, optional): Coefficient K1
             coefficient_k2 (float, optional): Coefficient K2
-            position_on_section_value (float): Position on Section Value (only for position_on_section == MemberShearPanelPositionOnSection.POSITION_DEFINE)
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -61,19 +55,10 @@ class MemberShearPanel():
         # Member Shear Panel Definition Type
         clientObject.definition_type = MemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING.name
 
-        # Member Shear Panel Assigned Member Supports
-        clientObject.member_supports = ConvertToDlString(member_supports)
-
         # Member Shear Panel User Defined Name
         if name:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
-
-        # Member Shear Panel Position On Section
-        clientObject.position_on_section = position_on_section.name
-
-        if position_on_section == MemberShearPanelPositionOnSection.POSITION_DEFINE:
-            clientObject.position_on_section_value = position_on_section_value
 
         # Member Shear Panel Girder Length Definition
         if girder_length_definition[0]:
@@ -117,8 +102,6 @@ class MemberShearPanel():
     @staticmethod
     def Bracing(no: int = 1,
                 name: str = '',
-                member_supports: str = '1',
-                position_on_section = MemberShearPanelPositionOnSection.POSITION_ON_UPPER_FLANGE,
                 girder_length_definition: list = [True],
                 material_name: str = 'S235',
                 diagonal_section: str = 'CHC 60.3x4.0',
@@ -130,7 +113,6 @@ class MemberShearPanel():
                 number_of_bracings: int = 2,
                 diagonals_section_area: float = None,
                 posts_section_area: float = None,
-                position_on_section_value: float = None,
                 comment: str = '',
                 params: dict = None,
                 model = Model):
@@ -144,8 +126,6 @@ class MemberShearPanel():
                 else:
                     user_defined_name_enabled = True
                     name = User Defined Name
-            member_supports (str): Assigned Member Supports
-            position_on_section (enum): Member Shear Panel Position Enumeration
             girder_length_definition (list): Girder Length Definition List
                 girder_length_definition[0] (bool): Activate/Deactivate Automatically Girder Length
                 girder_length_definition[1] (float): Girder Length Value
@@ -159,7 +139,6 @@ class MemberShearPanel():
             number_of_bracings (int): Number of Bracings
             diagonals_section_area (float, optional): Diagonals Section Area
             posts_section_area (float, optional): Posts Section Area
-            position_on_section_value (float): Position of Section Value (only for position_on_section == MemberShearPanelPositionOnSection.POSITION_DEFINE)
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -177,19 +156,10 @@ class MemberShearPanel():
         # Member Shear Panel Definition Type
         clientObject.definition_type = MemberShearPanelDefinitionType.DEFINITION_TYPE_BRACING.name
 
-        # Member Shear Panel Assigned Member Supports
-        clientObject.member_supports = ConvertToDlString(member_supports)
-
         # Member Shear Panel User Defined Name
         if name:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
-
-        # Member Shear Panel Position On Section
-        clientObject.position_on_section = position_on_section.name
-
-        if position_on_section == MemberShearPanelPositionOnSection.POSITION_DEFINE:
-            clientObject.position_on_section_value = position_on_section_value
 
         # Member Shear Panel Girder Length Definition
         if girder_length_definition[0]:
@@ -245,11 +215,8 @@ class MemberShearPanel():
     @staticmethod
     def DefineSProv(no: int = 1,
                     name: str = '',
-                    member_supports: str = '1',
-                    position_on_section = MemberShearPanelPositionOnSection.POSITION_ON_UPPER_FLANGE,
                     girder_length_definition: list = [True],
                     shear_panel_stiffness: float = 1000.0,
-                    position_on_section_value: float = None,
                     comment: str = '',
                     params: dict = None,
                     model = Model):
@@ -263,13 +230,10 @@ class MemberShearPanel():
                 else:
                     user_defined_name_enabled = True
                     name = User Defined Name
-            member_supports (str): Assigned Member Supports
-            position_on_section (enum): Position on Section Enumeration
             girder_length_definition (list): Girder Length Definition List
                 girder_length_definition[0] (bool): Activate/Deactivate Automatically Girder Length
                 girder_length_definition[1] (float): Girder Length Value
             shear_panel_stiffness (float): Shear Panel Stiffness
-            position_on_section_value (float): Position on Section Value (only for position_on_section == MemberShearPanelPositionOnSection.POSITION_DEFINE)
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -287,19 +251,10 @@ class MemberShearPanel():
         # Member Shear Panel Definition Type
         clientObject.definition_type = MemberShearPanelDefinitionType.DEFINITION_TYPE_DEFINE_S_PROV.name
 
-        # Member Shear Panel Assigned Member Supports
-        clientObject.member_supports = ConvertToDlString(member_supports)
-
         # Member Shear Panel User Defined Name
         if name:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
-
-        # Member Shear Panel Position On Section
-        clientObject.position_on_section = position_on_section.name
-
-        if position_on_section == MemberShearPanelPositionOnSection.POSITION_DEFINE:
-            clientObject.position_on_section_value = position_on_section_value
 
         # Member Shear Panel Stiffness
         clientObject.stiffness = shear_panel_stiffness
@@ -329,8 +284,6 @@ class MemberShearPanel():
     def TrapeziodalSheetingAndBracing(
                     no: int = 1,
                     name: str = '',
-                    member_supports: str = '1',
-                    position_on_section = MemberShearPanelPositionOnSection.POSITION_ON_UPPER_FLANGE,
                     sheeting_name: str = 'FI (+) 35/207 - 0.63 (b: 1) | DIN 18807 | Fischer Profil',
                     material_name: str = 'S235',
                     diagonals_section: str = 'CHC 60.3x3.2',
@@ -346,7 +299,6 @@ class MemberShearPanel():
                     number_of_bracing: int = 2,
                     diagonals_section_area: float = None,
                     posts_section_area: float = None,
-                    position_on_section_value: float = None,
                     comment: str = '',
                     params: dict = None,
                     model = Model):
@@ -360,8 +312,6 @@ class MemberShearPanel():
                 else:
                     user_defined_name_enabled = True
                     name = User Defined Name
-            member_supports (str): Assigned Member Supports
-            position_on_section (enum): Position on Section Enumeration
             sheeting_name (str): Sheeting Name According to Library
             material_name (str): Material Name
             diagonals_section (str): Diagonals Section
@@ -379,7 +329,6 @@ class MemberShearPanel():
             number_of_bracing (int): Number of Bracings
             diagonals_section_area (float, optional): Diagonals Section Area
             posts_section_area (float, optional): Posts Section Area
-            position_on_section_value (float): Position on Section Value (only for position_on_section == MemberShearPanelPositionOnSection.POSITION_DEFINE)
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -397,19 +346,10 @@ class MemberShearPanel():
         # Member Shear Panel Definition Type
         clientObject.definition_type = MemberShearPanelDefinitionType.DEFINITION_TYPE_TRAPEZOIDAL_SHEETING_AND_BRACING.name
 
-        # Member Shear Panel Assigned Member Supports
-        clientObject.member_supports = ConvertToDlString(member_supports)
-
         # Member Shear Panel User Defined Name
         if name:
             clientObject.user_defined_name_enabled = True
             clientObject.name = name
-
-        # Member Shear Panel Position On Section
-        clientObject.position_on_section = position_on_section.name
-
-        if position_on_section == MemberShearPanelPositionOnSection.POSITION_DEFINE:
-            clientObject.position_on_section_value = position_on_section_value
 
         # Member Shear Panel Sheeting Name
         clientObject.sheeting_name = sheeting_name

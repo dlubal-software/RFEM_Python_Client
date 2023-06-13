@@ -42,6 +42,26 @@ def test_load_distribution_surface():
     Model.clientModel.service.finish_modification()
 
     surface = Model.clientModel.service.get_surface(2)
-    assert surface.type == 'TYPE_LOAD_TRANSFER'
-    assert surface.load_transfer_direction == 'LOAD_TRANSFER_DIRECTION_IN_BOTH'
+    assert surface.no == 2
+    assert surface.geometry == "GEOMETRY_PLANE"
+    assert surface.type == "TYPE_LOAD_TRANSFER"
+    assert surface.boundary_lines == "5 6 7 8"
+    assert surface.analytical_area == 100.0
+    assert surface.analytical_center_of_gravity_x == 5.0
+    assert surface.analytical_center_of_gravity_y == -10.0
+    assert surface.analytical_center_of_gravity_z == 0.0
+    assert surface.area == 100.0
+    assert surface.center_of_gravity_x == 5.0
+    assert surface.center_of_gravity_y == -10.0
+    assert surface.center_of_gravity_z == 0.0
+    assert surface.position == "In plane XY of global CS"
+    assert surface.position_short == "In XY"
+    assert surface.load_transfer_direction == "LOAD_TRANSFER_DIRECTION_IN_BOTH"
+    assert surface.is_surface_weight_enabled == True
+    assert surface.is_advanced_distribution_settings_enabled == False
+    assert surface.surface_weight == 10.0
+    assert surface.consider_member_eccentricity == False
+    assert surface.consider_section_distribution == False
+    assert surface.load_distribution == "LOAD_DISTRIBUTION_VARYING"
+    assert surface.neglect_equilibrium_of_moments == False
     assert surface.excluded_lines == '5'
