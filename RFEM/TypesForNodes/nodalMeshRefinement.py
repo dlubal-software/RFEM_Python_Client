@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import NodalMeshRefinementType
 from enum import Enum
 
@@ -73,6 +73,7 @@ class NodalMeshRefinement():
     @staticmethod
     def Circular(
                  no: int = 1,
+                 assigned_nodes: str = '1 2',
                  circular_radius: float = 2.5,
                  circular_target_inner_length: float = 0.1,
                  circular_target_outer_length: float = 0.5,
@@ -86,6 +87,7 @@ class NodalMeshRefinement():
 
         Args:
             no (int): Nodal Mesh Refinement Tag
+            assigned_nodes (str): Assigned Nodes
             circular_radius (float): Radius
             circular_target_inner_length (float): Inner Target FE Length
             circular_target_outer_length (float): Outer Target FE Length
@@ -104,6 +106,9 @@ class NodalMeshRefinement():
 
         # Nodal Mesh Refinement No.
         clientObject.no = no
+
+        # Nodal Mesh Refinement Assigned Nodes No.
+        clientObject.nodes = ConvertToDlString(assigned_nodes)
 
         # Nodal Mesh Refinement Type
         clientObject.type = NodalMeshRefinementType.TYPE_CIRCULAR.name
@@ -134,6 +139,7 @@ class NodalMeshRefinement():
     @staticmethod
     def Rectangular(
                  no: int = 1,
+                 assigned_nodes: str = '1 2',
                  rectangular_side: float = 2.5,
                  rectangular_target_inner_length: float = 0.1,
                  apply_on_selected_surfaces: bool = False,
@@ -145,6 +151,7 @@ class NodalMeshRefinement():
 
         Args:
             no (int): Nodal Mesh Refinement Tag
+            assigned_nodes (str): Assigned Nodes
             rectangular_side (float): Side Length
             rectangular_target_inner_length (float): Inner Target FE Length
             apply_on_selected_surfaces (bool): Enable/Disable Apply on Selected Surfaces
@@ -161,6 +168,9 @@ class NodalMeshRefinement():
 
         # Nodal Mesh Refinement No.
         clientObject.no = no
+
+        # Nodal Mesh Refinement Assigned Nodes No.
+        clientObject.nodes = ConvertToDlString(assigned_nodes)
 
         # Nodal Mesh Refinement Type
         clientObject.type = NodalMeshRefinementType.TYPE_RECTANGULAR.name
