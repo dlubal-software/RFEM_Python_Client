@@ -8,6 +8,7 @@ class FElengthArrangement(Enum):
 class NodalMeshRefinement():
     def __init__(self,
                  no: int = 1,
+                 assigned_nodes: str = '1 2',
                  type = NodalMeshRefinementType.TYPE_CIRCULAR,
                  mesh_parameters: list = None,
                  apply_on_selected_surfaces: bool = False,
@@ -20,6 +21,7 @@ class NodalMeshRefinement():
         Args:
             no (int): Nodal Mesh Refinement Tag
             type (enum): Nodal Mesh Refinement Type Enumeration
+            assigned_nodes (str): Assigned Nodes
             mesh_parameters (list): Mesh Parameters List
                 for type == NodalMeshRefinementType.TYPE_CIRCULAR:
                     mesh_parameters = [circular_radius, circular_target_inner_length, circular_target_outer_length, circular_length_arrangement]; example: [2.5, 0.1, 0.5, FElengthArrangement.LENGTH_ARRANGEMENT_RADIAL]
@@ -39,6 +41,9 @@ class NodalMeshRefinement():
 
         # Nodal Mesh Refinement No.
         clientObject.no = no
+
+        # Nodal Mesh Refinement Assigned Nodes No.
+        clientObject.nodes = ConvertToDlString(assigned_nodes)
 
         # Nodal Mesh Refinement Type
         clientObject.type = type.name
