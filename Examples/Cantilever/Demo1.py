@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-baseName = os.path.basename(__file__)5
+baseName = os.path.basename(__file__)
 dirName = os.path.dirname(__file__)
 print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.enums import NodalSupportType, LoadDirectionType
-from RFEM.initModel import Model, Calculate_all
+from RFEM.enums import NodalSupportType, NodalLoadDirection, ActionCategoryType
+from RFEM.initModel import CalculateSelectedCases, Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
@@ -43,12 +43,21 @@ if __name__ == '__main__':
     StaticAnalysisSettings.SecondOrderPDelta(2, "SecondOrder")
     StaticAnalysisSettings.LargeDeformation(3, "LargeDeformation")
 
-    LoadCase(1, 'Self-Weight', [True, 0.0, 0.0, 1.0])
+    LoadCase.StaticAnalysis(1, 'Self-Weight',analysis_settings_no=1,self_weight=[True, 0.0, 0.0, 1.0])
+    LoadCase.StaticAnalysis(2, 'Variable',analysis_settings_no=1,action_category=ActionCategoryType.ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_B_OFFICE_AREAS_QI_B)
 
-    NodalLoad(1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, f*1000)
+    NodalLoad(1, 1, '2', NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, f*1000)
     Model.clientModel.service.finish_modification()
 
-    Calculate_all()
+    # Calculate_all()
+    messages = CalculateSelectedCases([1])
+    if len(messages) != 0:
+        print("Calculation finished unsuccessfully")
+        print(messages)
+        # for message in messages:
+        #     print("{0}\t{1}: {2} - {3} {4} {5}".format("Yes" if message.result else "No", message.message_type.ToString(), message.message, message.@object, message.current_value, message.input_field))
+    else:
+        print("Calculation finished successfully")
 
     # model status
     modelStatus = GetModelInfo()
@@ -66,3 +75,8 @@ if __name__ == '__main__':
     print ("Model dimension x " + str(modelStatus.property_dimensions.x))
     print ("Model dimension y " + str(modelStatus.property_dimensions.y))
     print ("Model dimension z " + str(modelStatus.property_dimensions.z))
+
+    node = Model.clientModel.service.get_node(1)
+    print ("Node x coordinate " + str(node.coordinate_1))
+
+    # ExportDetailsOfDesignToCSV(r"C:/WORK/TEMP/")

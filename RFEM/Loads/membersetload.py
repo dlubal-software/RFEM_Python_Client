@@ -1,5 +1,5 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
-from RFEM.enums import MemberSetLoadType, LoadDirectionType, MemberSetLoadDistribution, MemberSetLoadDirection, MemberSetLoadDirectionOrientation
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
+from RFEM.enums import MemberSetLoadType, MemberSetLoadDirection, MemberSetLoadDistribution, MemberSetLoadDirection, MemberSetLoadDirectionOrientation
 from RFEM.enums import MemberSetLoadEccentricityHorizontalAlignment, MemberSetLoadEccentricityVerticalAlignment, MemberSetLoadEccentricitySectionMiddle
 from RFEM.enums import MemberSetLoadAxisDefinitionType, MemberSetLoadAxisDefinitionAxisOrientation, MemberSetLoadAxisDefinition
 
@@ -9,26 +9,28 @@ class MemberSetLoad():
                  no: int = 1,
                  load_case_no: int = 1,
                  member_sets: str = '1',
-                 load_direction = LoadDirectionType.LOAD_DIRECTION_LOCAL_Z,
-                 magnitude: float = 0,
+                 load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
+                 magnitude: float = 0.0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_direction (enum): Load Case Enumeration
+            load_direction (enum): Load Direction Enumeration
             magnitude (float): Load Magnitude
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -50,7 +52,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = magnitude
 
         # Comment
@@ -61,8 +63,11 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def Force(
@@ -71,62 +76,62 @@ class MemberSetLoad():
                  member_sets: str = '1',
                  load_distribution= MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_direction= MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
-                 load_parameter = [],
+                 load_parameter: list = None,
                  force_eccentricity: bool= False,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
-            load_parameter (list): Load Parameter
+            load_distribution (enum): MemberSet Load Distribution Enumeration
+            load_direction (enum): MemberSet Load Direction Enumeration
+            load_parameter (list/list of lists): Load Parameter
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+                    load_parameter = [magnitude]
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM_TOTAL:
+                    load_parameter = [magnitude]
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1:
+                    load_parameter = [relative_distance = False, magnitude, distance_a]
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude, count_n, distance_a, distance_b]
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, relative_distance_c = False, magnitude, distance_a, distance_b, distance_c]
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
+                    load_parameter = [[distance, magnitude], ...]
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
+                    load_parameter = [magnitude_1, magnitude_2, magnitude_3]
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
+                    load_parameter = [[distance, magnitude], ...]
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
+                    load_parameter = [[distance, magnitude], ...]
             force_eccentricity (bool): Force Eccentricity Option
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-
-            for LOAD_DISTRIBUTION_UNIFORM:
-                load_parameter = [magnitude]
-            for LOAD_DISTRIBUTION_UNIFORM_TOTAL:
-                load_parameter = [magnitude]
-            for LOAD_DISTRIBUTION_CONCENTRATED_1:
-                load_parameter = [relative_distance = False, magnitude, distance_a]
-            for LOAD_DISTRIBUTION_CONCENTRATED_N:
-                load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude, count_n, distance_a, distance_b]
-            for LOAD_DISTRIBUTION_CONCENTRATED_2x2:
-                load_parameter = [relative_distance_a = False, relative_distance_b = False, relative_distance_c = False, magnitude, distance_a, distance_b, distance_c]
-            for LOAD_DISTRIBUTION_CONCENTRATED_2:
-                load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
-            for LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
-                load_parameter = [[distance, delta_distance, magnitude], ...]
-            for LOAD_DISTRIBUTION_TRAPEZOIDAL:
-                load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-            for LOAD_DISTRIBUTION_TAPERED:
-                load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-            for LOAD_DISTRIBUTION_PARABOLIC:
-                load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-            for LOAD_DISTRIBUTION_VARYING:
-                load_parameter = [[distance, delta_distance, magnitude], ...]
-            for LOAD_DISTRIBUTION_VARYING_IN_Z:
-                load_parameter = [[distance, delta_distance, magnitude], ...]
-
-        params:
-            {'eccentricity_horizontal_alignment': MemberSetLoadEccentricityHorizontalAlignment.ALIGN_NONE,
-            'eccentricity_vertical_alignment': MemberSetLoadEccentricityVerticalAlignment.ALIGN_NONE,
-            'eccentricity_section_middle': MemberSetLoadEccentricitySectionMiddle.LOAD_ECCENTRICITY_SECTION_MIDDLE_CENTER_OF_GRAVITY,
-            'is_eccentricity_at_end_different_from_start': False,
-            'eccentricity_y_at_end': 0.0,
-            'eccentricity_y_at_start': 0.0,
-            'eccentricity_z_at_end': 0.0,
-            'eccentricity_z_at_start': 0.0}
+                for force_eccentricity == True:
+                    params = {'eccentricity_horizontal_alignment': MemberSetLoadEccentricityHorizontalAlignment.ALIGN_NONE,
+                    'eccentricity_vertical_alignment': MemberSetLoadEccentricityVerticalAlignment.ALIGN_NONE,
+                    'eccentricity_section_middle': MemberSetLoadEccentricitySectionMiddle.LOAD_ECCENTRICITY_SECTION_MIDDLE_CENTER_OF_GRAVITY,
+                    'is_eccentricity_at_end_different_from_start': False,
+                    'eccentricity_y_at_end': 0.0,
+                    'eccentricity_y_at_start': 0.0,
+                    'eccentricity_z_at_end': 0.0,
+                    'eccentricity_z_at_start': 0.0}
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -144,15 +149,15 @@ class MemberSetLoad():
         # Member Load Distribution
         clientObject.load_distribution= load_distribution.name
 
-        #Load Magnitude and Parameters
+        # Load Magnitude and Parameters
         if load_parameter == []:
-            raise Exception("WARNING: Load parameter cannot be empty. Kindly check list inputs completeness and correctness.")
+            raise ValueError("WARNING: Load parameter cannot be empty. Kindly check list inputs completeness and correctness.")
         else:
             if load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM" or load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM_TOTAL":
                 if len(load_parameter) == 1:
                     clientObject.magnitude = load_parameter[0]
                 else:
-                    raise Exception("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
+                    raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
 
             elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_1":
                 if len(load_parameter) == 3:
@@ -164,7 +169,7 @@ class MemberSetLoad():
                         clientObject.magnitude = load_parameter[1]
                         clientObject.distance_a_relative = load_parameter[2]
                 else:
-                    raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_CONCENTRATED_1. Kindly check list inputs completeness and correctness.")
+                    raise ValueError("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_CONCENTRATED_1. Kindly check list inputs completeness and correctness.")
 
             elif load_distribution.name ==  "LOAD_DISTRIBUTION_CONCENTRATED_N":
                 if len(load_parameter) == 6:
@@ -183,7 +188,7 @@ class MemberSetLoad():
                     else:
                         clientObject.distance_b_relative = load_parameter[5]
                 else:
-                    raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
+                    raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
 
             elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_2x2":
                 if len(load_parameter) == 7:
@@ -207,7 +212,7 @@ class MemberSetLoad():
                     else:
                         clientObject.distance_c_relative = load_parameter[6]
                 else:
-                    raise Exception("WARNING: Load parameter array length should be 7 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
+                    raise ValueError("WARNING: Load parameter array length should be 7 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
 
             elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_2":
                 if len(load_parameter) == 6:
@@ -226,27 +231,19 @@ class MemberSetLoad():
                     else:
                         clientObject.distance_b_relative = load_parameter[5]
                 else:
-                    raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")
+                    raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")
 
             elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_VARYING":
-                try:
-                    len(load_parameter[0])==3
-                except:
-                    print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
-                clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
-
+                clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
                 for i,j in enumerate(load_parameter):
-                    mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                    if len(load_parameter[i]) != 2:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
+                    mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                     mlvlp.no = i+1
-                    mlvlp.distance = load_parameter[i][0]
-                    mlvlp.delta_distance = load_parameter[i][1]
-                    mlvlp.magnitude = load_parameter[i][2]
-                    mlvlp.note = None
-                    mlvlp.magnitude_t_c = 0.0
-                    mlvlp.magnitude_delta_t = 0.0
-                    mlvlp.magnitude_t_t = 0.0
-                    mlvlp.magnitude_t_b = 0.0
+                    mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                    clearAttributes(mlvlp.row)
+                    mlvlp.row.distance = load_parameter[i][0]
+                    mlvlp.row.magnitude = load_parameter[i][1]
 
                     clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
 
@@ -267,7 +264,7 @@ class MemberSetLoad():
                     else:
                         clientObject.distance_b_relative = load_parameter[5]
                 else:
-                    raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
+                    raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
 
             elif load_distribution.name == "LOAD_DISTRIBUTION_TAPERED":
                 if len(load_parameter)==6:
@@ -286,7 +283,7 @@ class MemberSetLoad():
                     else:
                         clientObject.distance_b_relative = load_parameter[5]
                 else:
-                    raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
+                    raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
 
             elif load_distribution.name == "LOAD_DISTRIBUTION_PARABOLIC":
                 if len(load_parameter)==3:
@@ -294,53 +291,39 @@ class MemberSetLoad():
                     clientObject.magnitude_2 = load_parameter[1]
                     clientObject.magnitude_3 = load_parameter[2]
                 else:
-                    raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
+                    raise ValueError("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
             elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
-                try:
-                    len(load_parameter[0])==3
-                except:
-                    print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
-                clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+                clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
                 for i,j in enumerate(load_parameter):
-                    mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                    if len(load_parameter[i]) != 2:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
+                    mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                     mlvlp.no = i+1
-                    mlvlp.distance = load_parameter[i][0]
-                    mlvlp.delta_distance = load_parameter[i][1]
-                    mlvlp.magnitude = load_parameter[i][2]
-                    mlvlp.note = None
-                    mlvlp.magnitude_t_c = 0.0
-                    mlvlp.magnitude_delta_t = 0.0
-                    mlvlp.magnitude_t_t = 0.0
-                    mlvlp.magnitude_t_b = 0.0
+                    mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                    clearAttributes(mlvlp.row)
+                    mlvlp.row.distance = load_parameter[i][0]
+                    mlvlp.row.magnitude = load_parameter[i][1]
 
                     clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
 
             elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING_IN_Z":
-                try:
-                    len(load_parameter[0])==3
-                except:
-                    print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
-                clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+                clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
                 for i,j in enumerate(load_parameter):
-                    mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                    if len(load_parameter[i]) != 2:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
+                    mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                     mlvlp.no = i+1
-                    mlvlp.distance = load_parameter[i][0]
-                    mlvlp.delta_distance = load_parameter[i][1]
-                    mlvlp.magnitude = load_parameter[i][2]
-                    mlvlp.note = None
-                    mlvlp.magnitude_t_c = 0.0
-                    mlvlp.magnitude_delta_t = 0.0
-                    mlvlp.magnitude_t_t = 0.0
-                    mlvlp.magnitude_t_b = 0.0
+                    mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                    clearAttributes(mlvlp.row)
+                    mlvlp.row.distance = load_parameter[i][0]
+                    mlvlp.row.magnitude = load_parameter[i][1]
 
                     clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
 
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Force Eccentiricity
+        # Force Eccentiricity
         clientObject.has_force_eccentricity = force_eccentricity
 
         if force_eccentricity == True:
@@ -349,7 +332,7 @@ class MemberSetLoad():
                 'eccentricity_z_at_end' and 'eccentricity_z_at_start' in params:
                 pass
             else:
-                raise Exception("WARNING: Params does not contain all the necessary parameters. Kindly check dictionary")
+                raise ValueError("WARNING: Params does not contain all the necessary parameters. Kindly check dictionary")
 
             params_ecc = {'eccentricity_horizontal_alignment': MemberSetLoadEccentricityHorizontalAlignment.ALIGN_NONE,
                            'eccentricity_vertical_alignment': MemberSetLoadEccentricityVerticalAlignment.ALIGN_NONE,
@@ -392,8 +375,11 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def Moment(
@@ -402,46 +388,47 @@ class MemberSetLoad():
                  member_sets: str = '1',
                  load_distribution= MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_direction= MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
-                 load_parameter = [],
+                 load_parameter: list = None,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
-            load_parameter (list): Load Parameters
+            load_distribution (enum): MemberSet Load Distribution Enumeration
+            load_direction (enum): MemberSet Load Direction Enumeration
+            load_parameter (list/list of lists): Load Parameters
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+                    load_parameter = [magnitude]
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1:
+                    load_parameter = [relative_distance = False, magnitude, distance_a]
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude, count_n, distance_a, distance_b]
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, relative_distance_c = False, magnitude, distance_a, distance_b, distance_c]
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
+                    load_parameter = [[distance, magnitude], ...]
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
+                    load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
+                    load_parameter = [magnitude_1, magnitude_2, magnitude_3]
+                for load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
+                    load_parameter = [[distance, magnitude], ...]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-
-            for LOAD_DISTRIBUTION_UNIFORM:
-                load_parameter = magnitude
-            for LOAD_DISTRIBUTION_CONCENTRATED_1:
-                load_parameter = [relative_distance = False, magnitude, distance_a]
-            for LOAD_DISTRIBUTION_CONCENTRATED_N:
-                load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude, count_n, distance_a, distance_b]
-            for LOAD_DISTRIBUTION_CONCENTRATED_2x2:
-                load_parameter = [relative_distance_a = False, relative_distance_b = False, relative_distance_c = False, magnitude, distance_a, distance_b, distance_c]
-            for LOAD_DISTRIBUTION_CONCENTRATED_2:
-                load_parameter = [relative_distance_a = False, relative_distance_b = False, magnitude_1, magnitude_2, distance_a, distance_b]
-            for LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
-                load_parameter = [[distance, delta_distance, magnitude], ...]
-            for LOAD_DISTRIBUTION_TRAPEZOIDAL:
-                load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-            for LOAD_DISTRIBUTION_TAPERED:
-                load_parameter = [relative_distance_a = False, relative_distance_b = False,magnitude_1, magnitude_2, distance_a, distance_b]
-            for LOAD_DISTRIBUTION_PARABOLIC:
-                load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-            for LOAD_DISTRIBUTION_VARYING:
-                load_parameter = [[distance, delta_distance, magnitude], ...]
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -459,19 +446,15 @@ class MemberSetLoad():
         # Member Load Distribution
         clientObject.load_distribution= load_distribution.name
 
-        #Load Magnitude and Parameters
+        # Load Magnitude and Parameters
         if load_distribution.name == "LOAD_DISTRIBUTION_UNIFORM":
-            try:
-                len(load_parameter)==1
-            except:
-                raise Exception("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 1:
+                raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_1":
-            try:
-                len(load_parameter)==3
-            except:
-                raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_CONCENTRATED_1. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 3:
+                raise ValueError("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_CONCENTRATED_1. Kindly check list inputs completeness and correctness.")
 
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             if load_parameter[0] == False:
@@ -482,10 +465,8 @@ class MemberSetLoad():
                 clientObject.distance_a_relative = load_parameter[2]
 
         elif load_distribution.name ==  "LOAD_DISTRIBUTION_CONCENTRATED_N":
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
             clientObject.magnitude = load_parameter[2]
@@ -502,10 +483,8 @@ class MemberSetLoad():
                 clientObject.distance_b_relative = load_parameter[5]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_2x2":
-            try:
-                len(load_parameter)==7
-            except:
-                raise Exception("WARNING: Load parameter array length should be 7 for LOAD_DISTRIBUTION_CONCENTRATED_2x2. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 7:
+                raise ValueError("WARNING: Load parameter array length should be 7 for LOAD_DISTRIBUTION_CONCENTRATED_2x2. Kindly check list inputs completeness and correctness.")
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
             clientObject.distance_c_is_defined_as_relative = load_parameter[2]
@@ -527,10 +506,8 @@ class MemberSetLoad():
                 clientObject.distance_c_relative = load_parameter[6]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_2":
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")
 
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
@@ -548,32 +525,22 @@ class MemberSetLoad():
                 clientObject.distance_b_relative = load_parameter[5]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_VARYING":
-            try:
-                len(load_parameter[0])==3
-            except:
-                print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
-
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                if len(load_parameter[i]) != 2:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
+                mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
-                mlvlp.distance = load_parameter[i][0]
-                mlvlp.delta_distance = load_parameter[i][1]
-                mlvlp.magnitude = load_parameter[i][2]
-                mlvlp.note = None
-                mlvlp.magnitude_t_c = 0.0
-                mlvlp.magnitude_delta_t = 0.0
-                mlvlp.magnitude_t_t = 0.0
-                mlvlp.magnitude_t_b = 0.0
+                mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
+                mlvlp.row.distance = load_parameter[i][0]
+                mlvlp.row.magnitude = load_parameter[i][1]
 
                 clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_TRAPEZOIDAL":
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
             clientObject.magnitude_1 = load_parameter[2]
@@ -590,10 +557,8 @@ class MemberSetLoad():
                 clientObject.distance_b_relative = load_parameter[5]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_TAPERED":
-            try:
-                len(load_parameter)==4
-            except:
-                raise Exception("WARNING: Load parameter array length should be 4 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
             clientObject.distance_a_is_defined_as_relative = load_parameter[0]
             clientObject.distance_b_is_defined_as_relative = load_parameter[1]
             clientObject.magnitude_1 = load_parameter[2]
@@ -610,32 +575,23 @@ class MemberSetLoad():
                 clientObject.distance_b_relative = load_parameter[5]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_PARABOLIC":
-            try:
-                len(load_parameter)==3
-            except:
-                raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 3:
+                raise ValueError("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
             clientObject.magnitude_3 = load_parameter[2]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
-            try:
-                len(load_parameter[0])==3
-            except:
-                print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                if len(load_parameter[i]) != 2:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
+                mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
-                mlvlp.distance = load_parameter[i][0]
-                mlvlp.delta_distance = load_parameter[i][1]
-                mlvlp.magnitude = load_parameter[i][2]
-                mlvlp.note = None
-                mlvlp.magnitude_t_c = 0.0
-                mlvlp.magnitude_delta_t = 0.0
-                mlvlp.magnitude_t_t = 0.0
-                mlvlp.magnitude_t_b = 0.0
+                mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
+                mlvlp.row.distance = load_parameter[i][0]
+                mlvlp.row.magnitude = load_parameter[i][1]
 
                 clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
 
@@ -650,8 +606,11 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def Mass(
@@ -659,9 +618,10 @@ class MemberSetLoad():
                 load_case_no: int = 1,
                 member_sets: str = '1',
                 individual_mass_components: bool=False,
-                mass_components = [],
+                mass_components: list = None,
                 comment: str = '',
-                params: dict = None):
+                params: dict = None,
+                model = Model):
         """
         Args:
             no (int): Load Tag
@@ -671,12 +631,13 @@ class MemberSetLoad():
             mass_components (list): Mass Components
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -695,7 +656,7 @@ class MemberSetLoad():
 
         # Individual Mass Components
         if not isinstance(individual_mass_components, bool):
-            raise Exception("WARNING: Type of individual mass components should be bool. Kindly check inputs correctness.")
+            raise ValueError("WARNING: Type of individual mass components should be bool. Kindly check inputs correctness.")
         clientObject.individual_mass_components = individual_mass_components
 
         # Mass magnitude
@@ -714,8 +675,11 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def Temperature(
@@ -724,41 +688,42 @@ class MemberSetLoad():
                  member_sets: str = '1',
                  load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
-                 load_parameter = [],
+                 load_parameter: list = None,
                  load_over_total_length: bool= False,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
-            load_parameter (list): Load Parameters
-            load_over_total_length (bool): Load Over Total Length Option
+            load_distribution (enum): MemberSet Load Distribution Enumeration
+            load_direction (enum): MemberSet Load Direction Enumeration
+            load_parameter (list/list of lists): Load Parameters
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+                    load_parameter = [tt, tb]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
+                    for load_over_total_length: bool= False:
+                        load_parameter = [tt1, tt2, tb1, tb2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
+                    for load_over_total_length: bool= True:
+                        load_parameter = [tt1, tt2, tb1, tb2]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
+                    load_parameter = [tt1, tt2, tb1, tb2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
+                    load_parameter = [tb1, tb2, tb3, tt1, tt2, tt3]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
+                    load_parameter = [[distance, magnitude], ...]
+            load_over_total_length (bool): Enable/Disable Load Over Total Length Option
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            load_parameter = [tt, tb]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
-            for load_over_total_length: bool= False:
-                load_parameter = [tt1, tt2, tb1, tb2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-            for load_over_total_length: bool= True:
-                load_parameter = [tt1, tt2, tb1, tb2]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
-            load_parameter = [tt1, tt2, tb1, tb2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
-            load_parameter = [tb1, tb2, tb3, tt1, tt2, tt3]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-            load_parameter = [[distance, delta_distance, magnitude], ...]
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -779,27 +744,23 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            try:
-                len(load_parameter)==2
-            except:
-                raise Exception("WARNING: Load parameter array length should be 2 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 2:
+                raise ValueError("WARNING: Load parameter array length should be 2 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_t_b = load_parameter[0]
             clientObject.magnitude_t_t = load_parameter[1]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
-            try:
-                len(load_parameter)==8
-            except:
-                raise Exception("WARNING: Load parameter array length should be 8 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 8:
+                raise ValueError("WARNING: Load parameter array length should be 8 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_t_b_1 = load_parameter[0]
             clientObject.magnitude_t_b_2 = load_parameter[1]
             clientObject.magnitude_t_t_1 = load_parameter[2]
             clientObject.magnitude_t_t_2 = load_parameter[3]
 
             if not isinstance(load_over_total_length, bool):
-                raise Exception("WARNING: Type of load over total length should be bool. Kindly check inputs correctness.")
+                raise ValueError("WARNING: Type of load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
 
@@ -820,17 +781,15 @@ class MemberSetLoad():
                 clientObject.load_is_over_total_length = True
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
-            try:
-                len(load_parameter)==8
-            except:
-                raise Exception("WARNING: Load parameter array length should be 8 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 8:
+                raise ValueError("WARNING: Load parameter array length should be 8 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_t_b_1 = load_parameter[0]
             clientObject.magnitude_t_b_2 = load_parameter[1]
             clientObject.magnitude_t_t_1 = load_parameter[2]
             clientObject.magnitude_t_t_2 = load_parameter[3]
 
             if not isinstance(load_parameter[4], bool):
-                raise Exception("WARNING: Type of the fourth load parameter should be bool. Kindly check inputs correctness.")
+                raise ValueError("WARNING: Type of the fourth load parameter should be bool. Kindly check inputs correctness.")
 
             if load_parameter[4] == True:
                 clientObject.distance_a_is_defined_as_relative = True
@@ -840,7 +799,7 @@ class MemberSetLoad():
                 clientObject.distance_a_absolute = load_parameter[6]
 
             if not isinstance(load_parameter[5], bool):
-                raise Exception("WARNING: Type of the fifth load parameter should be bool. Kindly check inputs correctness.")
+                raise ValueError("WARNING: Type of the fifth load parameter should be bool. Kindly check inputs correctness.")
 
             if load_parameter[5] == True:
                 clientObject.distance_b_is_defined_as_relative = True
@@ -850,10 +809,8 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[7]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_t_b_1 = load_parameter[0]
             clientObject.magnitude_t_b_2 = load_parameter[1]
             clientObject.magnitude_t_b_3 = load_parameter[2]
@@ -862,23 +819,19 @@ class MemberSetLoad():
             clientObject.magnitude_t_t_3 = load_parameter[5]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
-            try:
-                len(load_parameter[0])==4
-            except:
-                print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                if len(load_parameter[i]) != 3:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
+                mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
-                mlvlp.distance = load_parameter[i][0]
-                mlvlp.delta_distance = load_parameter[i][1]
-                mlvlp.magnitude = load_parameter[i][2]
-                mlvlp.note = None
-                mlvlp.magnitude_t_c = load_parameter[i][2]
-                mlvlp.magnitude_delta_t = load_parameter[i][3]
-                mlvlp.magnitude_t_t = load_parameter[i][2]
-                mlvlp.magnitude_t_b = load_parameter[i][3]
+                mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
+                mlvlp.row.distance = load_parameter[i][0]
+                mlvlp.row.magnitude = load_parameter[i][1]
+                mlvlp.row.magnitude_t_c = load_parameter[i][1]
+                mlvlp.row.magnitude_t_t = load_parameter[i][1]
+                mlvlp.row.magnitude_t_b = load_parameter[i][2]
 
                 clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
 
@@ -890,8 +843,11 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def TemperatureChange(
@@ -900,41 +856,42 @@ class MemberSetLoad():
                            member_sets: str = '1',
                            load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                            load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
-                           load_parameter = [],
+                           load_parameter: list = None,
                            load_over_total_length: bool= False,
                            comment: str = '',
-                           params: dict = None):
+                           params: dict = None,
+                           model = Model):
         """
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
-            load_parameter (list): Load Parameters
+            load_distribution (enum): MemberSet Load Distribution Enumeration
+            load_direction (enum): MemberSet Load Direction Enumeration
+            load_parameter (list/list of lists): Load Parameters
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+                    load_parameter = [tc, delta_t]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
+                    for load_over_total_length: bool= False:
+                        load_parameter = [delta_t_1, delta_t_2, t_c_1, t_c_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
+                    for load_over_total_length: bool= True:
+                        load_parameter = [delta_t_1, delta_t_2, t_c_1, t_c_2]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
+                    load_parameter = [delta_t_1, delta_t_2, t_c_1, t_c_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
+                    load_parameter = [delta_t_1, delta_t_2, delta_t_3, t_c_1, t_c_2, t_c_3]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
+                    load_parameter = [[distance, magnitude], ...]
             load_over_total_length (bool): Load Over Total Length Option
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            load_parameter = [tc, delta_t]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
-            for load_over_total_length: bool= False:
-                load_parameter = [delta_t_1, delta_t_2, t_c_1, t_c_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-            for load_over_total_length: bool= True:
-                load_parameter = [delta_t_1, delta_t_2, t_c_1, t_c_2]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
-            load_parameter = [delta_t_1, delta_t_2, t_c_1, t_c_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
-            load_parameter = [delta_t_1, delta_t_2, delta_t_3, t_c_1, t_c_2, t_c_3]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-            load_parameter = [[distance, delta_distance, magnitude], ...]
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -955,27 +912,23 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            try:
-                len(load_parameter)==2
-            except:
-                raise Exception("WARNING: Load parameter array length should be 2 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 2:
+                raise ValueError("WARNING: Load parameter array length should be 2 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_delta_t = load_parameter[0]
             clientObject.magnitude_t_c = load_parameter[1]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
-            try:
-                len(load_parameter)==8
-            except:
-                raise Exception("WARNING: Load parameter array length should be 8 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 8:
+                raise ValueError("WARNING: Load parameter array length should be 8 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_delta_t_1 = load_parameter[0]
             clientObject.magnitude_delta_t_2 = load_parameter[1]
             clientObject.magnitude_t_c_1 = load_parameter[2]
             clientObject.magnitude_t_c_2 = load_parameter[3]
 
             if not isinstance(load_over_total_length, bool):
-                raise Exception("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
+                raise ValueError("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
 
@@ -996,10 +949,8 @@ class MemberSetLoad():
                 clientObject.load_is_over_total_length = True
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
-            try:
-                len(load_parameter)==8
-            except:
-                raise Exception("WARNING: Load parameter array length should be 8 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 8:
+                raise ValueError("WARNING: Load parameter array length should be 8 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_delta_t_1 = load_parameter[0]
             clientObject.magnitude_delta_t_2 = load_parameter[1]
             clientObject.magnitude_t_c_1 = load_parameter[2]
@@ -1020,10 +971,8 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[7]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_delta_t_1 = load_parameter[0]
             clientObject.magnitude_delta_t_2 = load_parameter[1]
             clientObject.magnitude_delta_t_3 = load_parameter[2]
@@ -1032,23 +981,19 @@ class MemberSetLoad():
             clientObject.magnitude_t_c_3 = load_parameter[5]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
-            try:
-                len(load_parameter[0])==4
-            except:
-                print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                if len(load_parameter[i]) != 3:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
+                mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
-                mlvlp.distance = load_parameter[i][0]
-                mlvlp.delta_distance = load_parameter[i][1]
-                mlvlp.magnitude = load_parameter[i][2]
-                mlvlp.note = None
-                mlvlp.magnitude_t_c = load_parameter[i][2]
-                mlvlp.magnitude_delta_t = load_parameter[i][3]
-                mlvlp.magnitude_t_t = load_parameter[i][2]
-                mlvlp.magnitude_t_b = load_parameter[i][3]
+                mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
+                mlvlp.row.distance = load_parameter[i][0]
+                mlvlp.row.magnitude = load_parameter[i][1]
+                mlvlp.row.magnitude_t_c = load_parameter[i][1]
+                mlvlp.row.magnitude_t_t = load_parameter[i][1]
+                mlvlp.row.magnitude_t_b = load_parameter[i][2]
 
                 clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
 
@@ -1060,8 +1005,11 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def AxialStrain(
@@ -1070,38 +1018,42 @@ class MemberSetLoad():
                     member_sets: str = '1',
                     load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                     load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X,
-                    load_parameter = [],
+                    load_parameter: list = None,
                     load_over_total_length: bool= False,
                     comment: str = '',
-                    params: dict = None):
+                    params: dict = None,
+                    model = Model):
         """
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
-            load_parameter (list): Load Parameters
+            load_distribution (enum): MemberSet Load Distribution Enumeration
+            load_direction (enum): MemberSet Load Direction Enumeration
+            load_parameter (list/list of lists): Load Parameters
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+                    load_parameter = [epsilon]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
+                    for load_over_total_length: bool= False:
+                        load_parameter = [epsilon1, epsilon2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
+                    for load_over_total_length: bool= True:
+                        load_parameter = [epsilon1, epsilon2]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
+                    load_parameter = [epsilon1, epsilon2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
+                    load_parameter = [epsilon1, epsilon2, epsilon3]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
+                    load_parameter = [[distance, magnitude], ...]
             load_over_total_length (bool): Load Over Total Length Option
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            load_parameter = [epsilon]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
-            load_parameter = [epsilon1, epsilon2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
-            load_parameter = [epsilon1, epsilon2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
-            load_parameter = [epsilon1, epsilon2, epsilon3]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-            load_parameter = [[distance, delta_distance, magnitude], ...]
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -1122,24 +1074,20 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            try:
-                len(load_parameter)==1
-            except:
-                raise Exception("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 1:
+                raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
             if not isinstance(load_over_total_length, bool):
-                raise Exception("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
+                raise ValueError("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
 
@@ -1160,10 +1108,8 @@ class MemberSetLoad():
                 clientObject.load_is_over_total_length = True
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
@@ -1182,32 +1128,23 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[5]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
-            try:
-                len(load_parameter)==3
-            except:
-                raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 3:
+                raise ValueError("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
             clientObject.magnitude_3 = load_parameter[2]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
-            try:
-                len(load_parameter[0])==3
-            except:
-                print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                if len(load_parameter[i]) != 2:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
+                mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
-                mlvlp.distance = load_parameter[i][0]
-                mlvlp.delta_distance = load_parameter[i][1]
-                mlvlp.magnitude = load_parameter[i][2]
-                mlvlp.note = None
-                mlvlp.magnitude_t_c = 0.0
-                mlvlp.magnitude_delta_t = 0.0
-                mlvlp.magnitude_t_t = 0.0
-                mlvlp.magnitude_t_b = 0.0
+                mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
+                mlvlp.row.distance = load_parameter[i][0]
+                mlvlp.row.magnitude = load_parameter[i][1]
 
                 clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
 
@@ -1219,8 +1156,11 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def AxialDisplacement(
@@ -1230,22 +1170,24 @@ class MemberSetLoad():
                     load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X,
                     magnitude : float = 0.0,
                     comment: str = '',
-                    params: dict = None):
+                    params: dict = None,
+                    model = Model):
         """
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Set
-            load_direction (enum): Load Direction Enumeration
+            load_direction (enum): MemberSet Load Direction Enumeration
             magnitude (float): Load Magnitude
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -1266,7 +1208,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = magnitude
 
         # Comment
@@ -1277,8 +1219,11 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def Precamber(
@@ -1287,38 +1232,42 @@ class MemberSetLoad():
                  member_sets: str = '1',
                  load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
-                 load_parameter = [],
+                 load_parameter: list = None,
                  load_over_total_length: bool= False,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
-            load_parameter (enum): Load Parameters
+            load_distribution (enum): MemberSet Load Distribution Enumeration
+            load_direction (enum): MemberSet Load Direction Enumeration
+            load_parameter (list/list of lists): Load Parameters
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+                    load_parameter = [magnitude]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
+                    for load_over_total_length: bool= False:
+                        load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
+                    for load_over_total_length: bool= True:
+                        load_parameter = [magnitude_1, magnitude_2]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
+                    load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
+                    load_parameter = [magnitude_1, magnitude_2, magnitude_3]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
+                    load_parameter = [[distance, magnitude], ...]
             load_over_total_length (bool): Load Over Total Lenth Option
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-
-            for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-                load_parameter = [magnitude]
-            for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
-                load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-            for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
-                load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-            for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
-                load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-            for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-                load_parameter = [[distance, delta_distance, magnitude], ...]
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -1339,24 +1288,20 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            try:
-                len(load_parameter)==1
-            except:
-                raise Exception("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 1:
+                raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
             if not isinstance(load_over_total_length, bool):
-                raise Exception("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
+                raise ValueError("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
 
@@ -1377,10 +1322,8 @@ class MemberSetLoad():
                 clientObject.load_is_over_total_length = True
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
 
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
@@ -1400,32 +1343,23 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[5]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
-            try:
-                len(load_parameter)==3
-            except:
-                raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 3:
+                raise ValueError("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
             clientObject.magnitude_3 = load_parameter[2]
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
-            try:
-                len(load_parameter[0])==3
-            except:
-                print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                if len(load_parameter[i]) != 2:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
+                mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
-                mlvlp.distance = load_parameter[i][0]
-                mlvlp.delta_distance = load_parameter[i][1]
-                mlvlp.magnitude = load_parameter[i][2]
-                mlvlp.note = None
-                mlvlp.magnitude_t_c = 0.0
-                mlvlp.magnitude_delta_t = 0.0
-                mlvlp.magnitude_t_t = 0.0
-                mlvlp.magnitude_t_b = 0.0
+                mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
+                mlvlp.row.distance = load_parameter[i][0]
+                mlvlp.row.magnitude = load_parameter[i][1]
 
                 clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
 
@@ -1437,8 +1371,11 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def InitialPrestress(
@@ -1448,22 +1385,24 @@ class MemberSetLoad():
                  load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X,
                  magnitude : float = 0.0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_direction (enum): Load Direction Enumeration
+            load_direction (enum): MemberSet Load Direction Enumeration
             magnitude (float): Load Magnitude
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -1484,7 +1423,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = magnitude
 
         # Comment
@@ -1495,8 +1434,11 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def Displacement(
@@ -1505,48 +1447,49 @@ class MemberSetLoad():
                  member_sets: str = '1',
                  load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
-                 load_parameter = [],
+                 load_parameter: list = None,
                  load_over_total_length: bool= False,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
-            load_parameter (list): Load Parameters
+            load_distribution (enum): MemberSet Load Distribution Enumeration
+            load_direction (enum): MemberSet Load Direction Enumeration
+            load_parameter (list/list of lists): Load Parameters
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+                    load_parameter = [magnitude]
+                for load_distrubition = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1:
+                    load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_a]
+                for load_distrubition = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N:
+                    load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
+                for load_distrubition = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2:
+                    load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_c_is_defined_as_relative = False, distance_a, distance_b, distance_c]
+                for load_distrubition = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
+                    load_parameter = [magnitude_1, magnitude_2, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
+                    load_parameter = [[distance, magnitude], ...]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
+                    load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
+                    load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
+                    load_parameter = [magnitude_1, magnitude_2, magnitude_3]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
+                    load_parameter = [[distance, magnitude], ...]
             load_over_total_length (bool): Load Over Total Length Option
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            load_parameter = [magnitude]
-        for load_distrubition = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1:
-            load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_a]
-        for load_distrubition = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N:
-            load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
-        for load_distrubition = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2:
-            load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_c_is_defined_as_relative = False, distance_a, distance_b, distance_c]
-        for load_distrubition = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
-            load_parameter = [magnitude_1, magnitude_2, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
-            load_parameter = [[distance, delta_distance, magnitude], ...]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
-            load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
-            load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
-            load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-            load_parameter = [[distance, delta_distance, magnitude], ...]
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -1567,19 +1510,15 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            try:
-                len(load_parameter)==1
-            except:
-                raise Exception("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 1:
+                raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1:
-            try:
-                len(load_parameter)==3
-            except:
-                raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_CONCENTRATED_1. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 3:
+                raise ValueError("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_CONCENTRATED_1. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
             clientObject.distance_a_is_defined_as_relative = load_parameter[1]
             if load_parameter[1]:
@@ -1588,10 +1527,8 @@ class MemberSetLoad():
                 clientObject.distance_a_absolute = load_parameter[2]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N:
-            try:
-                len(load_parameter)==5
-            except:
-                raise Exception("WARNING: Load parameter array length should be 5 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 5:
+                raise ValueError("WARNING: Load parameter array length should be 5 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
             clientObject.distance_a_is_defined_as_relative = load_parameter[1]
             clientObject.distance_b_is_defined_as_relative = load_parameter[2]
@@ -1607,10 +1544,8 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[4]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2:
-            try:
-                len(load_parameter)==7
-            except:
-                raise Exception("WARNING: Load parameter array length should be 7 for LOAD_DISTRIBUTION_CONCENTRATED_2x2. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 7:
+                raise ValueError("WARNING: Load parameter array length should be 7 for LOAD_DISTRIBUTION_CONCENTRATED_2x2. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
             clientObject.distance_a_is_defined_as_relative = load_parameter[1]
             clientObject.distance_b_is_defined_as_relative = load_parameter[2]
@@ -1632,10 +1567,8 @@ class MemberSetLoad():
                 clientObject.distance_c_absolute = load_parameter[6]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
@@ -1653,36 +1586,27 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[5]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
-            try:
-                len(load_parameter[0])==3
-            except:
-                print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                if len(load_parameter[i]) != 2:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
+                mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
-                mlvlp.distance = load_parameter[i][0]
-                mlvlp.delta_distance = load_parameter[i][1]
-                mlvlp.magnitude = load_parameter[i][2]
-                mlvlp.note = None
-                mlvlp.magnitude_t_c = 0.0
-                mlvlp.magnitude_delta_t = 0.0
-                mlvlp.magnitude_t_t = 0.0
-                mlvlp.magnitude_t_b = 0.0
+                mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
+                mlvlp.row.distance = load_parameter[i][0]
+                mlvlp.row.magnitude = load_parameter[i][1]
 
                 clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
             if not isinstance(load_over_total_length, bool):
-                raise Exception("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
+                raise ValueError("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
 
@@ -1703,10 +1627,8 @@ class MemberSetLoad():
                 clientObject.load_is_over_total_length = True
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
-            try:
-                len(load_parameter)==6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
@@ -1724,32 +1646,23 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[5]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
-            try:
-                len(load_parameter)==3
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 3:
+                raise ValueError("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
             clientObject.magnitude_3 = load_parameter[2]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-            try:
-                len(load_parameter[0])==3
-            except:
-                print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                if len(load_parameter[i]) != 2:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
+                mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
-                mlvlp.distance = load_parameter[i][0]
-                mlvlp.delta_distance = load_parameter[i][1]
-                mlvlp.magnitude = load_parameter[i][2]
-                mlvlp.note = None
-                mlvlp.magnitude_t_c = 0.0
-                mlvlp.magnitude_delta_t = 0.0
-                mlvlp.magnitude_t_t = 0.0
-                mlvlp.magnitude_t_b = 0.0
+                mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
+                mlvlp.row.distance = load_parameter[i][0]
+                mlvlp.row.magnitude = load_parameter[i][1]
 
                 clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
 
@@ -1761,8 +1674,11 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def Rotation(
@@ -1771,48 +1687,49 @@ class MemberSetLoad():
                  member_sets: str = '1',
                  load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_Z,
-                 load_parameter = [],
+                 load_parameter: list = None,
                  load_over_total_length: bool= False,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_distribution (enum): Load Distribution Enumeration
-            load_direction (enum): Load Direction Enumeration
-            load_parameter (list): Load Parameters
+            load_distribution (enum): MemberSet Load Distribution Enumeration
+            load_direction (enum): MemberSet Load Direction Enumeration
+            load_parameter (list/list of lists): Load Parameters
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+                    load_parameter = [magnitude]
+                for load_distrubition = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1:
+                    load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_a]
+                for load_distrubition = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N:
+                    load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
+                for load_distrubition = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2:
+                    load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_c_is_defined_as_relative = False, distance_a, distance_b, distance_c]
+                for load_distrubition = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
+                    load_parameter = [magnitude_1, magnitude_2, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
+                    load_parameter = [[distance, magnitude], ...]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
+                    load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
+                    load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
+                    load_parameter = [magnitude_1, magnitude_2, magnitude_3]
+                for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
+                    load_parameter = [[distance, magnitude], ...]
             load_over_total_length (bool): Load Over Total Length
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
-
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            load_parameter = [magnitude]
-        for load_distrubition = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1:
-            load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_a]
-        for load_distrubition = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N:
-            load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
-        for load_distrubition = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2:
-            load_parameter = [magnitude, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_c_is_defined_as_relative = False, distance_a, distance_b, distance_c]
-        for load_distrubition = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
-            load_parameter = [magnitude_1, magnitude_2, distance_a_is_defined_as_relative = False, distance_b_is_defined_as_relative = False, distance_a, distance_b]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
-            load_parameter = [[distance, delta_distance, magnitude], ...]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZIODAL:
-            load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
-            load_parameter = [magnitude_1, magnitude_2, distance_a_relative = False, distance_a_relative = False, a_distance, b_distance]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
-            load_parameter = [magnitude_1, magnitude_2, magnitude_3]
-        for load_distribution = MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-            load_parameter = [[distance, delta_distance, magnitude], ...]
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -1833,19 +1750,15 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = load_direction.name
 
-        #Load Magnitude
+        # Load Magnitude
         if load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
-            try:
-                len(load_parameter)==1
-            except:
-                raise Exception("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 1:
+                raise ValueError("WARNING: Load parameter array length should be 1 for LOAD_DISTRIBUTION_UNIFORM. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_1:
-            try:
-                len(load_parameter) ==  3
-            except:
-                raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_CONCENTRATED_1. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 3:
+                raise ValueError("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_CONCENTRATED_1. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
             clientObject.distance_a_is_defined_as_relative = load_parameter[1]
             if load_parameter[1]:
@@ -1854,10 +1767,8 @@ class MemberSetLoad():
                 clientObject.distance_a_absolute = load_parameter[2]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_N:
-            try:
-                len(load_parameter) ==  5
-            except:
-                raise Exception("WARNING: Load parameter array length should be 5 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 5:
+                raise ValueError("WARNING: Load parameter array length should be 5 for LOAD_DISTRIBUTION_CONCENTRATED_N. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
             clientObject.distance_a_is_defined_as_relative = load_parameter[1]
             clientObject.distance_b_is_defined_as_relative = load_parameter[2]
@@ -1873,10 +1784,8 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[4]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2x2:
-            try:
-                len(load_parameter) ==  7
-            except:
-                raise Exception("WARNING: Load parameter array length should be 7 for LOAD_DISTRIBUTION_CONCENTRATED_2x2. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 7:
+                raise ValueError("WARNING: Load parameter array length should be 7 for LOAD_DISTRIBUTION_CONCENTRATED_2x2. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude = load_parameter[0]
             clientObject.distance_a_is_defined_as_relative = load_parameter[1]
             clientObject.distance_b_is_defined_as_relative = load_parameter[2]
@@ -1898,10 +1807,8 @@ class MemberSetLoad():
                 clientObject.distance_c_absolute = load_parameter[6]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_2:
-            try:
-                len(load_parameter) ==  6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_CONCENTRATED_2. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
@@ -1919,36 +1826,27 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[5]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING:
-            try:
-                len(load_parameter[0])==3
-            except:
-                print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                if len(load_parameter[i]) != 2:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
+                mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
-                mlvlp.distance = load_parameter[i][0]
-                mlvlp.delta_distance = load_parameter[i][1]
-                mlvlp.magnitude = load_parameter[i][2]
-                mlvlp.note = None
-                mlvlp.magnitude_t_c = 0.0
-                mlvlp.magnitude_delta_t = 0.0
-                mlvlp.magnitude_t_t = 0.0
-                mlvlp.magnitude_t_b = 0.0
+                mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
+                mlvlp.row.distance = load_parameter[i][0]
+                mlvlp.row.magnitude = load_parameter[i][1]
 
                 clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TRAPEZOIDAL:
-            try:
-                len(load_parameter) ==  6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TRAPEZOIDAL. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
             if not isinstance(load_over_total_length, bool):
-                raise Exception("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
+                raise ValueError("WARNING: Type of the load over total length should be bool. Kindly check inputs correctness.")
 
             if load_over_total_length == False:
 
@@ -1969,10 +1867,8 @@ class MemberSetLoad():
                 clientObject.load_is_over_total_length = True
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_TAPERED:
-            try:
-                len(load_parameter) ==  6
-            except:
-                raise Exception("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 6:
+                raise ValueError("WARNING: Load parameter array length should be 6 for LOAD_DISTRIBUTION_TAPERED. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
 
@@ -1990,32 +1886,23 @@ class MemberSetLoad():
                 clientObject.distance_b_absolute = load_parameter[5]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_PARABOLIC:
-            try:
-                len(load_parameter) ==  3
-            except:
-                raise Exception("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
+            if len(load_parameter) != 3:
+                raise ValueError("WARNING: Load parameter array length should be 3 for LOAD_DISTRIBUTION_PARABOLIC. Kindly check list inputs completeness and correctness.")
             clientObject.magnitude_1 = load_parameter[0]
             clientObject.magnitude_2 = load_parameter[1]
             clientObject.magnitude_3 = load_parameter[2]
 
         elif load_distribution == MemberSetLoadDistribution.LOAD_DISTRIBUTION_VARYING:
-            try:
-                len(load_parameter[0])==3
-            except:
-                print("WARNING: MemberSetLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
-
-            clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
+            clientObject.varying_load_parameters = model.clientModel.factory.create('ns0:member_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                mlvlp = Model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                if len(load_parameter[i]) != 2:
+                        raise ValueError("WARNING: MemberLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
+                mlvlp = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
-                mlvlp.distance = load_parameter[i][0]
-                mlvlp.delta_distance = load_parameter[i][1]
-                mlvlp.magnitude = load_parameter[i][2]
-                mlvlp.note = None
-                mlvlp.magnitude_t_c = 0.0
-                mlvlp.magnitude_delta_t = 0.0
-                mlvlp.magnitude_t_t = 0.0
-                mlvlp.magnitude_t_b = 0.0
+                mlvlp.row = model.clientModel.factory.create('ns0:member_set_load_varying_load_parameters')
+                clearAttributes(mlvlp.row)
+                mlvlp.row.distance = load_parameter[i][0]
+                mlvlp.row.magnitude = load_parameter[i][1]
 
                 clientObject.varying_load_parameters.member_set_load_varying_load_parameters.append(mlvlp)
 
@@ -2027,8 +1914,11 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def PipeContentFull(
@@ -2038,22 +1928,24 @@ class MemberSetLoad():
                  load_direction_orientation = MemberSetLoadDirectionOrientation.LOAD_DIRECTION_FORWARD,
                  specific_weight : float = 0.0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_direction_orientation (enum): Load Direction Orientation Enumeration
+            load_direction_orientation (enum): MemberSet Load Direction Orientation Enumeration
             specific_weight (float): Specific Weight
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -2074,10 +1966,10 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = MemberSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE.name
 
-        #Member Load Orientation
+        # Member Load Orientation
         clientObject.load_direction_orientation = load_direction_orientation.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = specific_weight
 
         # Comment
@@ -2088,8 +1980,11 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def PipeContentPartial(
@@ -2100,23 +1995,25 @@ class MemberSetLoad():
                  specific_weight : float = 0.0,
                  filling_height : float = 0.0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
             load_case_no (int): Assigned Load Case
             member_sets (str): Assigned Member Sets
-            load_direction_orientation (enum): Load Direction Orientation Enumeration
+            load_direction_orientation (enum): MemberSet Load Direction Orientation Enumeration
             specific_weight (float): Specific Weight
             filling_height (float): Filling Height
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -2137,13 +2034,13 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = MemberSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE.name
 
-        #Member Load Orientation
+        # Member Load Orientation
         clientObject.load_direction_orientation = load_direction_orientation.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = specific_weight
 
-        #Filling Height
+        # Filling Height
         clientObject.filling_height = filling_height
 
         # Comment
@@ -2154,8 +2051,11 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def PipeInternalPressure(
@@ -2164,7 +2064,8 @@ class MemberSetLoad():
                  member_sets: str = '1',
                  pressure : float = 0.0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -2173,12 +2074,13 @@ class MemberSetLoad():
             pressure (float): Pressure
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -2199,7 +2101,7 @@ class MemberSetLoad():
         # Member Load Direction
         clientObject.load_direction = MemberSetLoadDirection.LOAD_DIRECTION_LOCAL_X.name
 
-        #Load Magnitude
+        # Load Magnitude
         clientObject.magnitude = pressure
 
         # Comment
@@ -2210,8 +2112,11 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)
 
     @staticmethod
     def RotaryMotion(
@@ -2223,10 +2128,11 @@ class MemberSetLoad():
                  axis_definition_type = MemberSetLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS,
                  axis_orientation = MemberSetLoadAxisDefinitionAxisOrientation.AXIS_POSITIVE,
                  axis_definition = MemberSetLoadAxisDefinition.AXIS_X,
-                 axis_definition_p1 = [],
-                 axis_definition_p2 = [],
+                 axis_definition_p1: list = None,
+                 axis_definition_p2: list = None,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -2234,19 +2140,20 @@ class MemberSetLoad():
             member_sets (str): Assigned Member Sets
             angular_acceleration (float): Angular Acceleration
             angular_velocity (float): Angular Velocity
-            axis_definition_type (enum): Axis Definition Type Enumeration
-            axis_orientation (enum): Axis Orientation Enumeration
-            axis_definition (enum): Axis Definition Enumeration
+            axis_definition_type (enum): MemberSet Load Axis Definition Type Enumeration
+            axis_orientation (enum): MemberSet Load Axis Orientation Enumeration
+            axis_definition (enum): MemberSet Load Axis Definition Enumeration
             axis_definition_p1 (list):Axis Definition First Point
             axis_definition_p2 (list): Axis Definition Second Point
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Member Load
-        clientObject = Model.clientModel.factory.create('ns0:member_set_load')
+        clientObject = model.clientModel.factory.create('ns0:member_set_load')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Member Load No.
         clientObject.no = no
@@ -2261,16 +2168,16 @@ class MemberSetLoad():
         load_type = MemberSetLoadType.LOAD_TYPE_ROTARY_MOTION
         clientObject.load_type = load_type.name
 
-        #Angular Acceleration
+        # Angular Acceleration
         clientObject.angular_acceleration = angular_acceleration
 
-        #Angular Velocity
+        # Angular Velocity
         clientObject.angular_velocity = angular_velocity
 
-        #Axis Definition Type
+        # Axis Definition Type
         clientObject.axis_definition_type = axis_definition_type.name
 
-        #Axis definition
+        # Axis definition
         if clientObject.axis_definition_type == "AXIS_DEFINITION_TWO_POINTS":
             clientObject.axis_definition_p1_x = axis_definition_p1[0]
             clientObject.axis_definition_p1_y = axis_definition_p1[1]
@@ -2296,5 +2203,8 @@ class MemberSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Load Member Load to client model
-        Model.clientModel.service.set_member_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_member_set_load(load_case_no, clientObject)

@@ -1,23 +1,32 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import LineMeshRefinementsType
 
 class LineMeshRefinements():
-    TypeSpecificParams = {'target_length': 0.1, #Target FE Length Type
-                          'elements_finite_elements': 0, # Number Finite Elements Type
-                          'gradual_rows': 0} # Gradually Type
+
     def __init__(self,
                  no: int = 1,
                  lines: str = '3 4 5',
                  type = LineMeshRefinementsType.TYPE_LENGTH,
                  number_of_layers: int = 2,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
+        """
+        Args:
+            no (int): Line Mesh Refinements Tag
+            lines (str): Assigned Lines
+            type (enum):
+            number_of_layers (int): Number of Layers
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
 
         # Client model | Line Mesh Refinement
-        clientObject = Model.clientModel.factory.create('ns0:line_mesh_refinement')
+        clientObject = model.clientModel.factory.create('ns0:line_mesh_refinement')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line Mesh Refinement No.
         clientObject.no = no
@@ -39,8 +48,11 @@ class LineMeshRefinements():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line Mesh Refinement to client model
-        Model.clientModel.service.set_line_mesh_refinement(clientObject)
+        model.clientModel.service.set_line_mesh_refinement(clientObject)
 
     @staticmethod
     def TargetFELength(
@@ -49,13 +61,24 @@ class LineMeshRefinements():
                        target_length: float = 0.1,
                        number_of_layers: int = 2,
                        comment: str = '',
-                       params: dict = None):
+                       params: dict = None,
+                       model = Model):
+        """
+        Args:
+            no (int): Line Mesh Refinements Tag
+            lines (str): Assigned Lines
+            target_length (float): Target Length
+            number_of_layers (int): Number of Layers
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
 
         # Client model | Line Mesh Refinement
-        clientObject = Model.clientModel.factory.create('ns0:line_mesh_refinement')
+        clientObject = model.clientModel.factory.create('ns0:line_mesh_refinement')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line Mesh Refinement No.
         clientObject.no = no
@@ -80,8 +103,11 @@ class LineMeshRefinements():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line Mesh Refinement to client model
-        Model.clientModel.service.set_line_mesh_refinement(clientObject)
+        model.clientModel.service.set_line_mesh_refinement(clientObject)
 
     @staticmethod
     def NumberFiniteElements(
@@ -90,13 +116,24 @@ class LineMeshRefinements():
                              elements_finite_elements: int = 10,
                              number_of_layers: int = 2,
                              comment: str = '',
-                             params: dict = None):
+                             params: dict = None,
+                             model = Model):
+        """
+        Args:
+            no (int): Line Mesh Refinements Tag
+            lines (str): Assigned Lines
+            elements_finite_elements (int): Elements Finite Elements
+            number_of_layers (int): Number of Layers
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
 
         # Client model | Line Mesh Refinement
-        clientObject = Model.clientModel.factory.create('ns0:line_mesh_refinement')
+        clientObject = model.clientModel.factory.create('ns0:line_mesh_refinement')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line Mesh Refinement No.
         clientObject.no = no
@@ -121,8 +158,11 @@ class LineMeshRefinements():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line Mesh Refinement to client model
-        Model.clientModel.service.set_line_mesh_refinement(clientObject)
+        model.clientModel.service.set_line_mesh_refinement(clientObject)
 
     @staticmethod
     def Gradually(
@@ -131,13 +171,24 @@ class LineMeshRefinements():
                   gradual_rows: int = 10,
                   number_of_layers: int = 2,
                   comment: str = '',
-                  params: dict = None):
+                  params: dict = None,
+                  model = Model):
+        """
+        Args:
+            no (int): Line Mesh Refinements Tag
+            lines (str): Assigned Lines
+            gradual_rows (int): Gradual Rows
+            number_of_layers (int): Number of Layers
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
 
         # Client model | Line Mesh Refinement
-        clientObject = Model.clientModel.factory.create('ns0:line_mesh_refinement')
+        clientObject = model.clientModel.factory.create('ns0:line_mesh_refinement')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line Mesh Refinement No.
         clientObject.no = no
@@ -162,5 +213,8 @@ class LineMeshRefinements():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line Mesh Refinement to client model
-        Model.clientModel.service.set_line_mesh_refinement(clientObject)
+        model.clientModel.service.set_line_mesh_refinement(clientObject)

@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import SolidSetLoadType, SolidSetLoadDistribution, SolidSetLoadDirection
 
 class SolidSetLoad():
@@ -10,15 +10,29 @@ class SolidSetLoad():
                  load_type = SolidSetLoadType.LOAD_TYPE_FORCE,
                  load_distribution = SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
                  load_direction = SolidSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
-                 magnitude: float = 0,
+                 magnitude: float = 0.0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
+        """
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            solid_sets_no (str): Assigned Solid Sets
+            load_type (enum): Solid Set Load Type Enumeration
+            load_distribution (enum): Solid Set Load Distribution Enumeration
+            load_direction (enum): Solid Set Load Direction Enumeration
+            magnitude (float): Uniform Magnitude
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
 
         # Client model | Solid Load
-        clientObject = Model.clientModel.factory.create('ns0:solid_set_load')
+        clientObject = model.clientModel.factory.create('ns0:solid_set_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Load No.
         clientObject.no = no
@@ -49,8 +63,11 @@ class SolidSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Solid Load to client model
-        Model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
 
 
     @staticmethod
@@ -59,15 +76,26 @@ class SolidSetLoad():
               load_case_no: int = 1,
               solid_sets_no: str= '1',
               load_direction = SolidSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE,
-              magnitude: float = 0,
+              magnitude: float = 0.0,
               comment: str = '',
-              params: dict = None):
-
+              params: dict = None,
+              model = Model):
+        '''
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            solid_sets_no (str): Assigned Solid Sets
+            load_direction (enum): Solid Set Load Direction Enumeration
+            magnitude (float): Uniform Magnitude
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        '''
         # Client model | Solid Load
-        clientObject = Model.clientModel.factory.create('ns0:solid_set_load')
+        clientObject = model.clientModel.factory.create('ns0:solid_set_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Load No.
         clientObject.no = no
@@ -98,8 +126,11 @@ class SolidSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Solid Load to client model
-        Model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
 
     @staticmethod
     def Temperature(
@@ -107,23 +138,34 @@ class SolidSetLoad():
                     load_case_no: int = 1,
                     solid_sets_no: str= '1',
                     load_distribution = SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
-                    load_parameter = None,
+                    load_parameter: list = None,
                     comment: str = '',
-                    params: dict = None):
+                    params: dict = None,
+                    model = Model):
         '''
-        load_parameter:
-            LOAD_DISTRIBUTION_UNIFORM: load_parameter = magnitude
-            LOAD_DISTRIBUTION_LINEAR_IN_X: load_parameter = [magnitude_1, magnitude_2, node_1, node_2]
-            LOAD_DISTRIBUTION_LINEAR_IN_Y: load_parameter = [magnitude_1, magnitude_2, node_1, node_2]
-            LOAD_DISTRIBUTION_LINEAR_IN_Z: load_parameter = [magnitude_1, magnitude_2, node_1, node_2]
-        params:
-            {''}
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            solid_sets_no (str): Assigned Solid Sets
+            load_distribution (enum): Solid Set Load Distribution Enumeration
+            load_parameter (float/list): Load Parameter List
+                for load_distribution == SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+                    load_parameter = magnitude
+                for load_distribution == SolidSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X:
+                    load_parameter = [magnitude_1, magnitude_2, node_1, node_2]
+                for load_distribution == SolidSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y:
+                    load_parameter = [magnitude_1, magnitude_2, node_1, node_2]
+                for load_distribution == SolidSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z:
+                    load_parameter = [magnitude_1, magnitude_2, node_1, node_2]
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
         # Client model | Solid Load
-        clientObject = Model.clientModel.factory.create('ns0:solid_set_load')
+        clientObject = model.clientModel.factory.create('ns0:solid_set_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Load No.
         clientObject.no = no
@@ -156,8 +198,11 @@ class SolidSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Solid Load to client model
-        Model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
 
     @staticmethod
     def Strain(
@@ -165,23 +210,34 @@ class SolidSetLoad():
                load_case_no: int = 1,
                solid_sets_no: str= '1',
                load_distribution = SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM,
-               load_parameter = None,
+               load_parameter: list = None,
                comment: str = '',
-               params: dict = None):
+               params: dict = None,
+               model = Model):
         '''
-        load_parameter:
-            LOAD_DISTRIBUTION_UNIFORM: load_parameter = [strain_uniform_magnitude_x, strain_uniform_magnitude_y, strain_uniform_magnitude_z]
-            LOAD_DISTRIBUTION_LINEAR_IN_X: load_parameter = [strain_magnitude_x1, strain_magnitude_y1, strain_magnitude_z1, strain_magnitude_x2, strain_magnitude_y2, strain_magnitude_z2, node_1, node_2]
-            LOAD_DISTRIBUTION_LINEAR_IN_Y: load_parameter = [strain_magnitude_x1, strain_magnitude_y1, strain_magnitude_z1, strain_magnitude_x2, strain_magnitude_y2, strain_magnitude_z2, node_1, node_2]
-            LOAD_DISTRIBUTION_LINEAR_IN_Z: load_parameter = [strain_magnitude_x1, strain_magnitude_y1, strain_magnitude_z1, strain_magnitude_x2, strain_magnitude_y2, strain_magnitude_z2, node_1, node_2]
-        params:
-            {''}
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            solid_sets_no (str): Assigned Solid Sets
+            load_distribution (enum): Solid Load Distribution Enumeration
+            load_parameter (list): Load Parameter List
+                for load_distribution == SolidSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM:
+                    load_parameter = [strain_uniform_magnitude_x, strain_uniform_magnitude_y, strain_uniform_magnitude_z]
+                for load_distribution == SolidSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_X:
+                    load_parameter = [strain_magnitude_x1, strain_magnitude_y1, strain_magnitude_z1, strain_magnitude_x2, strain_magnitude_y2, strain_magnitude_z2, node_1, node_2]
+                for load_distribution == SolidSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Y:
+                    load_parameter = [strain_magnitude_x1, strain_magnitude_y1, strain_magnitude_z1, strain_magnitude_x2, strain_magnitude_y2, strain_magnitude_z2, node_1, node_2]
+                for load_distribution == SolidSetLoadDistribution.LOAD_DISTRIBUTION_LINEAR_IN_Z:
+                    load_parameter = [strain_magnitude_x1, strain_magnitude_y1, strain_magnitude_z1, strain_magnitude_x2, strain_magnitude_y2, strain_magnitude_z2, node_1, node_2]
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
         # Client model | Solid Load
-        clientObject = Model.clientModel.factory.create('ns0:solid_set_load')
+        clientObject = model.clientModel.factory.create('ns0:solid_set_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Load No.
         clientObject.no = no
@@ -220,28 +276,37 @@ class SolidSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Solid Load to client model
-        Model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
 
     @staticmethod
     def Motion(
                no: int = 1,
                load_case_no: int = 1,
                solid_sets_no: str= '1',
-               load_parameter = None,
+               load_parameter: list = None,
                comment: str = '',
-               params: dict = None):
+               params: dict = None,
+               model = Model):
         '''
-        load_parameter:
-            load_parameter = [angular_velocity, angular_acceleration, axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z, axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z]
-        params:
-            {''}
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            solid_sets_no (str): Assigned Solid Sets
+            load_parameter: Load Parameter List
+                load_parameter = [angular_velocity, angular_acceleration, axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z, axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z]
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
         # Client model | Solid Load
-        clientObject = Model.clientModel.factory.create('ns0:solid_set_load')
+        clientObject = model.clientModel.factory.create('ns0:solid_set_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Load No.
         clientObject.no = no
@@ -277,8 +342,11 @@ class SolidSetLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Solid Load to client model
-        Model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
+        model.clientModel.service.set_solid_set_load(load_case_no, clientObject)
 
     #def Buoyancy():
     #    print('The function Buoyancy() is not implemented yet.')

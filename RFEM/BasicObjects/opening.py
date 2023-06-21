@@ -1,25 +1,28 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, ConvertStrToListOfInt
+from RFEM.enums import ObjectTypes
 
 class Opening():
     def __init__(self,
                  no: int = 1,
                  lines_no: str = '1 2 3 4',
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Opening Tag
-            lines_no (str): Tags of Lines defining Opening
+            lines_no (str): Numbers of Lines defining Opening
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Opening
-        clientObject = Model.clientModel.factory.create('ns0:opening')
+        clientObject = model.clientModel.factory.create('ns0:opening')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Opening No.
         clientObject.no = no
@@ -35,5 +38,33 @@ class Opening():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Opening to client model
-        Model.clientModel.service.set_opening(clientObject)
+        model.clientModel.service.set_opening(clientObject)
+
+    @staticmethod
+    def DeleteOpening(openings_no: str = '1 2', model = Model):
+
+        '''
+        Args:
+            openings_no (str): Numbers of Openings to be deleted
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Delete from client model
+        for opening in ConvertStrToListOfInt(openings_no):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_OPENING.name, opening)
+
+    @staticmethod
+    def GetOpening(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Opening Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Opening from client model
+        return model.clientModel.service.get_opening(object_index)

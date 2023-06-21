@@ -1,7 +1,8 @@
-from RFEM.initModel import Model, clearAtributes
-from RFEM.enums import DirectionalComponentCombinationRule, PeriodicResponseCombinationRule, CqsDampingRule
+from RFEM.initModel import Model, SetAddonStatus, clearAttributes, deleteEmptyAttributes
+from RFEM.enums import DirectionalComponentCombinationRule, PeriodicResponseCombinationRule, CqsDampingRule, AddOn
 
 class SpectralAnalysisSettings():
+
     def __init__(self,
                  no: int = 1,
                  name: str = 'SRSS | SRSS',
@@ -14,7 +15,8 @@ class SpectralAnalysisSettings():
                  damping_for_cqc_rule = CqsDampingRule.CONSTANT_FOR_EACH_MODE,
                  constant_d_for_each_mode: float = 0.0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -30,20 +32,24 @@ class SpectralAnalysisSettings():
             constant_d_for_each_mode (float): Constant d for Each Mode
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
+        # Check if Spectral Add-on is active.
+        SetAddonStatus(model.clientModel, AddOn.spectral_active)
 
         # Client model | Surface
-        clientObject = Model.clientModel.factory.create('ns0:spectral_analysis_settings')
+        clientObject = model.clientModel.factory.create('ns0:spectral_analysis_settings')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Static Analysis Settings No.
         clientObject.no = no
 
         # Name
-        clientObject.name = name
-        clientObject.user_defined_name_enabled = True
+        if name:
+            clientObject.name = name
+            clientObject.user_defined_name_enabled = True
 
         # Periodic Combination
         clientObject.combination_rule_for_periodic_responses = periodic_combination.name
@@ -57,12 +63,14 @@ class SpectralAnalysisSettings():
         # Save Results of All Selected Modes
         clientObject.save_results_of_all_selected_modes = save_mode_results
 
+        # TODO: Signed Results Using Dominant Mode are currently deactivated in RFEM
         # Signed Results Using Dominant Mode
         clientObject.signed_results_using_dominant_mode = signed_dominant_mode_results
-
+        '''
         if signed_dominant_mode_results:
             if directional_combination != DirectionalComponentCombinationRule.SCALED_SUM:
-                raise Exception("WARNING: Signed results using dominant mode is only available with Scaled Sum Directional Combination.")
+                raise ValueError("WARNING: Signed results using dominant mode is only available with Scaled Sum Directional Combination.")
+        '''
 
         # Further Options
         if directional_combination == DirectionalComponentCombinationRule.SCALED_SUM:
@@ -79,5 +87,8 @@ class SpectralAnalysisSettings():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Static Analysis Settings to client model
-        Model.clientModel.service.set_spectral_analysis_settings(clientObject)
+        model.clientModel.service.set_spectral_analysis_settings(clientObject)

@@ -1,5 +1,5 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
-from RFEM.enums import LoadDirectionType, NodalLoadType, NodalLoadSpecificDirectionType
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
+from RFEM.enums import NodalLoadDirection, NodalLoadType, NodalLoadSpecificDirectionType
 
 class NodalLoad():
 
@@ -7,10 +7,11 @@ class NodalLoad():
                  no: int = 1,
                  load_case_no: int = 1,
                  nodes_no: str= '1',
-                 load_direction= LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
+                 load_direction= NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
                  magnitude: float = 0.0,
                  comment: str= '',
-                 params: dict= {}):
+                 params: dict= None,
+                 model = Model):
         """
         Args:
             no (int): Load Tag
@@ -20,12 +21,13 @@ class NodalLoad():
             magnitude (float): Force Magnitude
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Nodal Force
-        clientObject = Model.clientModel.factory.create('ns0:nodal_load')
+        clientObject = model.clientModel.factory.create('ns0:nodal_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Nodal Force No.
         clientObject.no = no
@@ -54,21 +56,25 @@ class NodalLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Nodal Force to client model
-        Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
+        model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
     @staticmethod
     def Force(
               no: int= 1,
               load_case_no: int = 1,
               nodes_no: str= '1',
-              load_direction= LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
+              load_direction= NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
               magnitude: float= 0.0,
               force_eccentricity: bool = False,
               specific_direction: bool = False,
               shifted_display: bool = False,
               comment: str= '',
-              params= {}):
+              params: dict = None,
+              model = Model):
         """
         Args:
             no (int): Load Tag
@@ -81,7 +87,6 @@ class NodalLoad():
             shifted_display (bool): Enable/Disable Shifted Display Option
             comment (str, optional): Comments
             params (dict, optional):
-
                 For specific_direction type DIRECTION_TYPE_ROTATED_VIA_3_ANGLES;
                     params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_ROTATED_VIA_3_ANGLES, NodalLoadAxesSequence, angle_1, angle_2, angle_3, angle_x, angle_y, angle_z]}
                 For specific_direction type DIRECTION_TYPE_DIRECTED_TO_NODE;
@@ -96,12 +101,13 @@ class NodalLoad():
                     params={'force_eccentricity' : [ex, ey, ez]}
                 For shifted_display;
                     params={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Nodal Force
-        clientObject = Model.clientModel.factory.create('ns0:nodal_load')
+        clientObject = model.clientModel.factory.create('ns0:nodal_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Nodal Force No.
         clientObject.no = no
@@ -119,18 +125,18 @@ class NodalLoad():
         load_type = NodalLoadType.LOAD_TYPE_FORCE
         clientObject.load_type = load_type.name
 
-        ## Force Magnitude
+        # Force Magnitude
         clientObject.force_magnitude = magnitude
 
-        #Option Check
+        # Option Check
         if force_eccentricity and shifted_display:
-            raise Exception("Only one of force_eccentiricity and shifted_display could be TRUE")
+            raise ValueError("Only one of force_eccentiricity and shifted_display could be TRUE")
 
         # Specific Direction
         if specific_direction:
 
             if 'specific_direction' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_s = params['specific_direction']
 
@@ -159,11 +165,11 @@ class NodalLoad():
             elif params_s[0] == NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER:
                 clientObject.parallel_to_member = params_s[1]
 
-        #Force Eccentiricity
+        # Force Eccentiricity
         if force_eccentricity:
 
             if 'force_eccentricity' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_e = params['force_eccentricity']
 
@@ -173,11 +179,11 @@ class NodalLoad():
             clientObject.force_eccentricity_y = params_e[1]
             clientObject.force_eccentricity_z = params_e[2]
 
-        #Shifted Display
+        # Shifted Display
         if shifted_display:
 
             if 'shifted_display' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_d = params['shifted_display']
 
@@ -198,20 +204,24 @@ class NodalLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Nodal Force to client model
-        Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
+        model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
     @staticmethod
     def Moment(
               no: int= 1,
               load_case_no: int= 1,
               nodes_no: str= '1',
-              load_direction= LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
+              load_direction= NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
               moment_magnitude: float= 0.0,
               specific_direction: bool= False,
               shifted_display: bool= False,
               comment: str = '',
-              params: dict = None):
+              params: dict = None,
+              model = Model):
         """
         Args:
             no (int): Load Tag
@@ -235,12 +245,13 @@ class NodalLoad():
                     params={'specific_direction' : [NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER, member_no]}
                 For shifted_display;
                     params={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Nodal Force
-        clientObject = Model.clientModel.factory.create('ns0:nodal_load')
+        clientObject = model.clientModel.factory.create('ns0:nodal_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Nodal Force No.
         clientObject.no = no
@@ -258,14 +269,14 @@ class NodalLoad():
         load_type = NodalLoadType.LOAD_TYPE_MOMENT
         clientObject.load_type = load_type.name
 
-        ## Force Magnitude
+        # Force Magnitude
         clientObject.moment_magnitude = moment_magnitude
 
         # Specific Direction
         if specific_direction:
 
             if 'specific_direction' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_s = params['specific_direction']
 
@@ -294,11 +305,11 @@ class NodalLoad():
             elif params_s[0] == NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER:
                 clientObject.parallel_to_member = params_s[1]
 
-        #Shifted Display
+        # Shifted Display
         if shifted_display:
 
             if 'shifted_display' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_d = params['shifted_display']
 
@@ -319,20 +330,24 @@ class NodalLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Nodal Force to client model
-        Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
+        model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
     @staticmethod
     def Components(
               no: int= 1,
               load_case_no: int= 1,
               nodes_no: str= '1',
-              components = [],
+              components: list = None,
               specific_direction: bool= False,
               force_eccentricity: bool= False,
               shifted_display: bool= False,
               comment: str= '',
-              params: dict= {}):
+              params: dict= None,
+              model = Model):
         """
         Args:
             no (int): Load Tag
@@ -355,12 +370,13 @@ class NodalLoad():
 
                 For shifted_display;
                     params={'shifted_display' : [offset_x, offset_y, offset_y, distance]}
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Nodal Force
-        clientObject = Model.clientModel.factory.create('ns0:nodal_load')
+        clientObject = model.clientModel.factory.create('ns0:nodal_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Nodal Force No.
         clientObject.no = no
@@ -375,7 +391,7 @@ class NodalLoad():
         load_type = NodalLoadType.LOAD_TYPE_COMPONENTS
         clientObject.load_type = load_type.name
 
-        #Load Magnitudes
+        # Load Magnitudes
         if len(components) == 6:
             clientObject.components_force_x = components[0]
             clientObject.components_force_y = components[1]
@@ -385,17 +401,17 @@ class NodalLoad():
             clientObject.components_moment_y = components[4]
             clientObject.components_moment_z = components[5]
         else:
-            raise Exception("WARNING: The components must contain 6 elements. Kindly check list inputs for completeness and correctness.")
+            raise ValueError("WARNING: The components must contain 6 elements. Kindly check list inputs for completeness and correctness.")
 
-        #Option Check
+        # Option Check
         if force_eccentricity and shifted_display:
-            raise Exception("WARNING: Only one of force_eccentiricity and shifted_display could be TRUE")
+            raise ValueError("WARNING: Only one of force_eccentiricity and shifted_display could be TRUE")
 
         # Specific Direction
         if specific_direction:
 
             if 'specific_direction' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_s = params['specific_direction']
 
@@ -417,11 +433,11 @@ class NodalLoad():
             elif params_s[0] == NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER:
                 clientObject.parallel_to_member = params_s[1]
 
-        #Force Eccentiricity
+        # Force Eccentiricity
         if force_eccentricity:
 
             if 'force_eccentricity' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_e = params['force_eccentricity']
 
@@ -431,11 +447,11 @@ class NodalLoad():
             clientObject.force_eccentricity_y = params_e[1]
             clientObject.force_eccentricity_z = params_e[2]
 
-        #Shifted Display
+        # Shifted Display
         if shifted_display:
 
             if 'shifted_display' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_d = params['shifted_display']
 
@@ -456,8 +472,11 @@ class NodalLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Nodal Force to client model
-        Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
+        model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
     @staticmethod
     def Mass(
@@ -465,9 +484,10 @@ class NodalLoad():
               load_case_no: int = 1,
               nodes_no: str = '1',
               individual_mass_components : bool = False,
-              mass = [],
+              mass: list = None,
               comment: str = '',
-              params: dict = None):
+              params: dict = None,
+              model = Model):
         """
         Args:
             no (int): Load Tag
@@ -481,12 +501,13 @@ class NodalLoad():
                     mass = [Mx, My, Mz, Ix, Iy, Iz]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
         # Client model | Nodal Force
-        clientObject = Model.clientModel.factory.create('ns0:nodal_load')
+        clientObject = model.clientModel.factory.create('ns0:nodal_load')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Nodal Force No.
         clientObject.no = no
@@ -515,8 +536,7 @@ class NodalLoad():
 
         else:
             clientObject.individual_mass_components = individual_mass_components
-
-        clientObject.mass_global = mass[0]
+            clientObject.mass_global = mass[0]
 
         # Comment
         clientObject.comment = comment
@@ -526,5 +546,8 @@ class NodalLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Nodal Force to client model
-        Model.clientModel.service.set_nodal_load(load_case_no, clientObject)
+        model.clientModel.service.set_nodal_load(load_case_no, clientObject)

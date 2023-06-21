@@ -1,18 +1,19 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
+
 
 class ConcreteServiceabilityConfiguration():
 
     def __init__(self,
                 no: int = 1,
                 name: str = 'SLS',
-                members = '1',
-                member_sets = '',
-                surfaces = '',
-                surface_sets = '',
-                nodes = '',
+                members: str = 'All',
+                member_sets: str = 'All',
+                surfaces: str = 'All',
+                surface_sets: str = 'All',
+                nodes: str = '',
                 comment: str = '',
-                params: dict = None):
+                params: dict = None,
+                model = Model):
         """
         Args:
             no (int): Configuration Tag
@@ -24,34 +25,56 @@ class ConcreteServiceabilityConfiguration():
             nodes (str): Assigned Nodes
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client model | Concrete Durabilities
-        clientObject = Model.clientModel.factory.create('ns0:sls_configuration')
+        clientObject = model.clientModel.factory.create('ns0:concrete_design_sls_configuration')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Concrete Durability No.
         clientObject.no = no
 
         # User Defined Name
-        clientObject.user_defined_name_enabled = True
-        clientObject.name = name
+        if name:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Assigned Members
-        clientObject.assigned_to_members = ConvertToDlString(members)
+        if members == 'All':
+            clientObject.assigned_to_all_members = True
+
+        else:
+            clientObject.assigned_to_all_members = False
+            clientObject.assigned_to_members = ConvertToDlString(members)
 
         # Assigned Member Sets
-        clientObject.assigned_to_member_sets = ConvertToDlString(member_sets)
+        if member_sets == 'All':
+            clientObject.assigned_to_all_member_sets = True
+
+        else:
+            clientObject.assigned_to_all_member_sets = False
+            clientObject.assigned_to_member_sets = ConvertToDlString(member_sets)
 
         # Assigned Surfaces
-        clientObject.assigned_to_surfaces = ConvertToDlString(surfaces)
+        if surfaces == 'All':
+            clientObject.assigned_to_all_surfaces = True
+
+        else:
+            clientObject.assigned_to_all_surfaces = False
+            clientObject.assigned_to_surfaces = ConvertToDlString(surfaces)
 
         # Assigned Surface Sets
-        clientObject.assigned_to_surface_sets = ConvertToDlString(surface_sets)
+        if surface_sets == 'All':
+            clientObject.assigned_to_all_surface_sets = True
 
-        #Assinged Nodes
+        else:
+            clientObject.assigned_to_all_surface_sets = False
+            clientObject.assigned_to_surface_sets = ConvertToDlString(surface_sets)
+
+        # Assinged Nodes
         clientObject.assigned_to_nodes = ConvertToDlString(nodes)
 
         # Comment
@@ -62,5 +85,8 @@ class ConcreteServiceabilityConfiguration():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Global Parameter to client model
-        Model.clientModel.service.set_sls_configuration(clientObject)
+        model.clientModel.service.set_concrete_design_sls_configuration(clientObject)

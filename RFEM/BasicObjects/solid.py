@@ -1,5 +1,5 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
-from RFEM.enums import SolidType
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, ConvertStrToListOfInt
+from RFEM.enums import SolidType, ObjectTypes
 
 class Solid():
     def __init__(self,
@@ -7,22 +7,24 @@ class Solid():
                  boundary_surfaces_no: str = '1 2',
                  material_no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Solid Tag
-            boundary_surfaces_no (str): Tags of Surfaces defining Solid
+            boundary_surfaces_no (str): Numbers of Surfaces defining Solid
             material_no (int): Tag of Material assigned to Solid
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Solid
-        clientObject = Model.clientModel.factory.create('ns0:solid')
+        clientObject = model.clientModel.factory.create('ns0:solid')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Solid No.
         clientObject.no = no
@@ -41,8 +43,11 @@ class Solid():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface to client model
-        Model.clientModel.service.set_solid(clientObject)
+        model.clientModel.service.set_solid(clientObject)
 
     @staticmethod
     def Standard(
@@ -50,22 +55,24 @@ class Solid():
                  boundary_surfaces_no: str = '1 2',
                  material_no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Solid Tag
-            boundary_surfaces_no (str): Tags of Surfaces defining Solid
+            boundary_surfaces_no (str): Numbers of Surfaces defining Solid
             material_no (int): Tag of Material assigned to Solid
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Solid
-        clientObject = Model.clientModel.factory.create('ns0:solid')
+        clientObject = model.clientModel.factory.create('ns0:solid')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Solid No.
         clientObject.no = no
@@ -87,8 +94,11 @@ class Solid():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface to client model
-        Model.clientModel.service.set_solid(clientObject)
+        model.clientModel.service.set_solid(clientObject)
 
     @staticmethod
     def Gas(
@@ -96,22 +106,24 @@ class Solid():
                  boundary_surfaces_no: str = '1 2',
                  material_no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Solid Tag
-            boundary_surfaces_no (str): Tags of Surfaces defining Gas
+            boundary_surfaces_no (str): Numbers of Surfaces defining Gas
             material_no (int): Tag of Material assigned to Solid
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Solid
-        clientObject = Model.clientModel.factory.create('ns0:solid')
+        clientObject = model.clientModel.factory.create('ns0:solid')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Solid No.
         clientObject.no = no
@@ -133,8 +145,11 @@ class Solid():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface to client model
-        Model.clientModel.service.set_solid(clientObject)
+        model.clientModel.service.set_solid(clientObject)
 
     @staticmethod
     def Contact(
@@ -142,22 +157,24 @@ class Solid():
                  boundary_surfaces_no: str = '1 2',
                  material_no: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Solid Tag
-            boundary_surfaces_no (str): Tags of Surfaces defining Contact
+            boundary_surfaces_no (str): Numbers of Surfaces defining Contact
             material_no (int): Tag of Material assigned to Solid
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Solid
-        clientObject = Model.clientModel.factory.create('ns0:solid')
+        clientObject = model.clientModel.factory.create('ns0:solid')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Solid No.
         clientObject.no = no
@@ -179,8 +196,11 @@ class Solid():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface to client model
-        Model.clientModel.service.set_solid(clientObject)
+        model.clientModel.service.set_solid(clientObject)
 
     @staticmethod
     def Soil(
@@ -188,22 +208,24 @@ class Solid():
              boundary_surfaces_no: str = '1 2',
              material_no: int = 1,
              comment: str = '',
-             params: dict = None):
+             params: dict = None,
+             model = Model):
 
         '''
         Args:
             no (int): Solid Tag
-            boundary_surfaces_no (str): Tags of Surfaces defining Soil
+            boundary_surfaces_no (str): Numbers of Surfaces defining Soil
             material_no (int): Tag of Material assigned to Solid
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Solid
-        clientObject = Model.clientModel.factory.create('ns0:solid')
+        clientObject = model.clientModel.factory.create('ns0:solid')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Solid No.
         clientObject.no = no
@@ -225,5 +247,33 @@ class Solid():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface to client model
-        Model.clientModel.service.set_solid(clientObject)
+        model.clientModel.service.set_solid(clientObject)
+
+    @staticmethod
+    def DeleteSolid(solids_no: str = '1 2', model = Model):
+
+        '''
+        Args:
+            solids_no (str): Numbers of Solids to be deleted
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Delete solids from client model
+        for solid in ConvertStrToListOfInt(solids_no):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_SOLID.name, solid)
+
+    @staticmethod
+    def GetSolid(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Solid Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Solid from client model
+        return model.clientModel.service.get_solid(object_index)

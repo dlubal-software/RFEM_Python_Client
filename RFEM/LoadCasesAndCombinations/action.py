@@ -1,16 +1,17 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import ActionCategoryType, ActionType
 
 class Action():
     def __init__(self,
                  no: int = 1,
                  action_category = ActionCategoryType.ACTION_CATEGORY_PERMANENT_G,
-                 action_type = ActionType.ACTING_SIMULTANEOUSLY,
+                 action_type = ActionType.ACTING_ALTERNATIVELY,
                  action_items: list = None,
                  name: str = '',
                  is_active: bool = True,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         '''
         Combination Wizard Action
 
@@ -23,33 +24,37 @@ class Action():
             is_active (bool, optional): Define if active
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
-        # Client model | Result Combination
-        clientObject = Model.clientModel.factory.create('ns0:action')
+        # Client model | Action
+        clientObject = model.clientModel.factory.create('ns0:action')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
-        # Result Combination No.
+        # Action No.
         clientObject.no = no
 
         # Action Category
-        clientObject.action_category = action_category
+        clientObject.action_category = action_category.name
 
         # Action Type
-        clientObject.action_type = action_type
-
-        items = []
-        for i in action_items:
-            item = {}
-            item['no'] = i[0]
-            item['load_case_item'] = i[1]
-            item['acting_group_number'] = i[2]
-            items.append(item)
+        clientObject.action_type = action_type.name
 
         # Action Items
-        clientObject.action_items = items
+        if action_items:
+            items = model.clientModel.factory.create('ns0:array_of_action_items')
+            for i,j in enumerate(action_items):
+                item = model.clientModel.factory.create('ns0:action_items_row')
+                item.no = i+1
+                item.row = model.clientModel.factory.create('ns0:action_items')
+                clearAttributes(item.row)
+                #item.row.no = i[0]
+                item.row.load_case_item = action_items[i]
+                #item.row.acting_group_number = i[2]
+
+                items.append(item)
 
         # Active
         clientObject.is_active = is_active
@@ -67,5 +72,8 @@ class Action():
             for key in params:
                 clientObject[key] = params[key]
 
-        # Add Result Combination to client model
-        Model.clientModel.service.set_action(clientObject)
+        # Clearing unused attributes
+        #deleteEmptyAttributes(clientObject)
+
+        # Add Action to client model
+        model.clientModel.service.set_action(clientObject)

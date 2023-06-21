@@ -25,7 +25,7 @@ try:
 except:
     print('qdarkstyle library is not installed in your Python env.')
     instqdark = input('Do you want to install it (y/n)? ')
-    instqdark = instPyQt5.lower()
+    instqdark = instqdark.lower()
     if instqdark == 'y':
         import subprocess
         try:
@@ -43,9 +43,9 @@ try:
     import numpy as np
 except:
     print('numpy library is not installed in your Python env.')
-    instqdark = input('Do you want to install it (y/n)? ')
-    instqdark = instPyQt5.lower()
-    if instqdark == 'y':
+    instnumpy = input('Do you want to install it (y/n)? ')
+    instnumpy = instnumpy.lower()
+    if instnumpy == 'y':
         import subprocess
         try:
             subprocess.call('python -m pip install numpy')
@@ -64,8 +64,6 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 from RFEM.enums import *
-from RFEM.window import *
-from RFEM.dataTypes import *
 from RFEM.initModel import *
 from RFEM.BasicObjects.material import *
 from RFEM.BasicObjects.section import *

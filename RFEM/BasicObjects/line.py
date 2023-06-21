@@ -1,12 +1,13 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
-from RFEM.enums import LineType, LineArcAlphaAdjustmentTarget
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, ConvertStrToListOfInt
+from RFEM.enums import LineType, LineArcAlphaAdjustmentTarget, ObjectTypes
 
 class Line():
     def __init__(self,
                  no: int = 1,
                  nodes_no: str = '1 2',
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -14,13 +15,14 @@ class Line():
             nodes_no (str): Nodes Defining Line
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line
-        clientObject = Model.clientModel.factory.create('ns0:line')
+        clientObject = model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line No.
         clientObject.no = no
@@ -36,15 +38,19 @@ class Line():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line to client model
-        Model.clientModel.service.set_line(clientObject)
+        model.clientModel.service.set_line(clientObject)
 
     @staticmethod
     def Polyline(
                  no: int = 1,
                  nodes_no: str = '1 2',
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -52,13 +58,14 @@ class Line():
             nodes_no (str): Nodes Defining Polyline
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line
-        clientObject = Model.clientModel.factory.create('ns0:line')
+        clientObject = model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line No.
         clientObject.no = no
@@ -77,8 +84,11 @@ class Line():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line to client model
-        Model.clientModel.service.set_line(clientObject)
+        model.clientModel.service.set_line(clientObject)
 
     @staticmethod
     def Arc(
@@ -87,7 +97,8 @@ class Line():
             control_point: list,
             alpha_adjustment_target = LineArcAlphaAdjustmentTarget.ALPHA_ADJUSTMENT_TARGET_BEGINNING_OF_ARC,
             comment: str = '',
-            params: dict = None):
+            params: dict = None,
+            model = Model):
 
         '''
         Args:
@@ -97,13 +108,14 @@ class Line():
             alpha_adjustment_target (enum): Line Arc Alpha Adjustment Target Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line
-        clientObject = Model.clientModel.factory.create('ns0:line')
+        clientObject = model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line No.
         clientObject.no = no
@@ -128,8 +140,11 @@ class Line():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line to client model
-        Model.clientModel.service.set_line(clientObject)
+        model.clientModel.service.set_line(clientObject)
 
     @staticmethod
     def Circle(
@@ -138,24 +153,24 @@ class Line():
                 circle_radius: float = 1.0,
                 point_of_normal_to_circle_plane: list = [1,0,0],
                 comment: str = '',
-                params: dict = None):
+                params: dict = None, model = Model):
 
         '''
         Args:
             no (int): Line Tag
-            nodes_no (str): Nodes on Line of Circle
             center_of_circle (list): Cartesian Co-Ordinates of Circle Centre [X, Y, Z]
             circle_radius (float): Magnitude of Circle Radius
             point_of_normal_to_circle_plane (list): Vector from Circle Centre to this Point [X, Y, Z] defines Vector Normal to Circle Plane
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line
-        clientObject = Model.clientModel.factory.create('ns0:line')
+        clientObject = model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line No.
         clientObject.no = no
@@ -183,8 +198,11 @@ class Line():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line to client model
-        Model.clientModel.service.set_line(clientObject)
+        model.clientModel.service.set_line(clientObject)
 
     @staticmethod
     def EllipticalArc(
@@ -195,7 +213,7 @@ class Line():
                       arc_angle_alpha: float = 0,
                       arc_angle_beta: float = 3.141592653589793,
                       comment: str = '',
-                      params: dict = None):
+                      params: dict = None, model = Model):
 
         '''
         Args:
@@ -207,13 +225,14 @@ class Line():
             arc_angle_beta (float): Beta Arc Angle (in Radians)
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line
-        clientObject = Model.clientModel.factory.create('ns0:line')
+        clientObject = model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line No.
         clientObject.no = no
@@ -245,8 +264,11 @@ class Line():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line to client model
-        Model.clientModel.service.set_line(clientObject)
+        model.clientModel.service.set_line(clientObject)
 
     @staticmethod
     def Ellipse(
@@ -254,7 +276,7 @@ class Line():
                 nodes_no: list = [5,10],
                 ellipse_control_point: list = [18,-4.8,0],
                 comment: str = '',
-                params: dict = None):
+                params: dict = None, model = Model):
 
         '''
         Args:
@@ -263,13 +285,14 @@ class Line():
             ellipse_control_point (list): Ellipse Control Point [X, Y, Z]
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line
-        clientObject = Model.clientModel.factory.create('ns0:line')
+        clientObject = model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line No.
         clientObject.no = no
@@ -295,17 +318,20 @@ class Line():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line to client model
-        Model.clientModel.service.set_line(clientObject)
+        model.clientModel.service.set_line(clientObject)
 
     @staticmethod
     def Parabola(
                  no: int = 1,
-                 nodes_no: str = [3,8],
+                 nodes_no: list = [3,8],
                  parabola_control_point: list = [10,-3,0],
                  parabola_alpha: float = 0,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None, model = Model):
 
         '''
         Args:
@@ -315,13 +341,14 @@ class Line():
             parabola_alpha (float): Alpha Angle (in Radians)
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line
-        clientObject = Model.clientModel.factory.create('ns0:line')
+        clientObject = model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line No.
         clientObject.no = no
@@ -349,15 +376,18 @@ class Line():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line to client model
-        Model.clientModel.service.set_line(clientObject)
+        model.clientModel.service.set_line(clientObject)
 
     @staticmethod
     def Spline(
                no: int = 1,
                nodes_no: str = '1 3 5',
                comment: str = '',
-               params: dict = None):
+               params: dict = None, model = Model):
 
         '''
         Args:
@@ -365,13 +395,14 @@ class Line():
             nodes_no (str): Node Tags on Line of Spline
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line
-        clientObject = Model.clientModel.factory.create('ns0:line')
+        clientObject = model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line No.
         clientObject.no = no
@@ -390,8 +421,11 @@ class Line():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line to client model
-        Model.clientModel.service.set_line(clientObject)
+        model.clientModel.service.set_line(clientObject)
 
     @staticmethod
     def NURBS(
@@ -401,24 +435,30 @@ class Line():
               weights: list = None,
               order: int = 0,
               comment: str = '',
-              params: dict = None):
+              params: dict = None,
+              model = Model):
 
         '''
         Args:
             no (int): Line Tag
-            nodes_no (str): Nodes creating the curve. By default theese are taken as control points.
+            nodes_no (str): Nodes creating the curve. By default these are taken as control points.
             control_points (list of lists, optional): Nested List of Respective Control Point's Cartesian Co-Ordinates
-            weights (list, optional): Control points weights e.g. [1,1,1]
-            order (int, optional): Order of the curve with 3 as default value
+                control_points = [[start_point_x, start_point_y, start_point_z],
+                                 [control_point_x, control_point_y, control_point_z],
+                                 ....,
+                                 [end_point_x, end_point_y, end_point_z]]
+            weights (list, optional): Control points weights e.g. [1,1,1] (Length of list must be same as length of list of control_points)
+            order (int, optional): Nurbs order (for nurbs order must define control_points)
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line
-        clientObject = Model.clientModel.factory.create('ns0:line')
+        clientObject = model.clientModel.factory.create('ns0:line')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line No.
         clientObject.no = no
@@ -429,23 +469,28 @@ class Line():
         # Type
         clientObject.type = LineType.TYPE_NURBS.name
 
-        # Order
-        if control_points and weights and order:
+        # Control Point
+        if control_points and weights:
             if len(control_points) != len(weights):
-                print("WARNING: The number of weigths prescribed must equal the number of control points defined.")
-            clientObject.nurbs_order = order
+                raise ValueError("WARNING: The number of weigths prescribed must equal the number of control points defined.")
 
-            # TODO: bug 24721
-            nurbs_control_points = []
+        if control_points:
+            clientObject.nurbs_control_points_by_components = model.clientModel.factory.create('ns0:line.nurbs_control_points_by_components')
             for i,j in enumerate(control_points):
-                point = Model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
+                point = model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components_row')
                 point.no = i+1
-                point.global_coordinate_x = control_points[i][0]
-                point.global_coordinate_y = control_points[i][1]
-                point.global_coordinate_z = control_points[i][2]
-                point.weight = 1 if not weights else weights[i]
-                nurbs_control_points.append(point)
-            clientObject.nurbs_control_points_by_components = Model.clientModel.factory.create('ns0:line_nurbs_control_points_by_components')
+                point.row.global_coordinate_x = control_points[i][0]
+                point.row.global_coordinate_y = control_points[i][1]
+                point.row.global_coordinate_z = control_points[i][2]
+                point.row.weight = 1 if not weights else weights[i]
+                clientObject.nurbs_control_points_by_components.line_nurbs_control_points_by_components.append(point)
+
+        # Nurbs Order
+        if order != 0:
+            if order > 1 and order <= len(control_points):
+                clientObject.nurbs_order = order
+            else:
+                print('Error: Please write Nurbs order in range 2 and number of Control Points!')
 
         # Comment
         clientObject.comment = comment
@@ -455,5 +500,33 @@ class Line():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line to client model
-        Model.clientModel.service.set_line(clientObject)
+        model.clientModel.service.set_line(clientObject)
+
+    @staticmethod
+    def DeleteLine(lines_no: str = '1 2', model = Model):
+
+        '''
+        Args:
+            lines_no (str): Numbers of Lines to be deleted
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Delete from client model
+        for line in ConvertStrToListOfInt(lines_no):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_LINE.name, line)
+
+    @staticmethod
+    def GetLine(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Line Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Line from client model
+        return model.clientModel.service.get_line(object_index)

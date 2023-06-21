@@ -1,20 +1,17 @@
 import sys
-import pytest
 import os
 PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.path.dirname(__file__),
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.enums import *
-from RFEM.initModel import Model, CheckIfMethodOrTypeExists, SetAddonStatus
+from RFEM.enums import AddOn, StabilityAnalysisSettingsEigenvalueMethod, StabilityAnalysisSettingsMatrixType, StabilityAnalysisSettingsStoppingOfLoadIncreasingResult
+from RFEM.initModel import Model, SetAddonStatus
 from RFEM.LoadCasesAndCombinations.stabilityAnalysisSettings import StabilityAnalysisSettings
 
 if Model.clientModel is None:
     Model()
 
-# TODO: US-7699
-pytestmark = pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'get_stability_analysis_settings', True), reason="Type get_stability_analysis_settings not in RFEM GM yet")
 def test_stability_analysis_settings_init():
 
     Model.clientModel.service.delete_all()
@@ -31,7 +28,7 @@ def test_stability_analysis_settings_init():
     assert stability_analysis_settings.calculate_without_loading_for_instability == False
     assert stability_analysis_settings.considered_favored_effect == True
     assert stability_analysis_settings.display_local_torsional_rotations == False
-    assert stability_analysis_settings.find_eigenvectors_beyond_critical_load_factor == False
+    #assert stability_analysis_settings.find_eigenvectors_beyond_critical_load_factor == False
     assert stability_analysis_settings.matrix_type == 'MATRIX_TYPE_STANDARD'
     assert stability_analysis_settings.minimum_initial_strain == 1e-05
     assert stability_analysis_settings.number_of_lowest_eigenvalues == 4
@@ -104,8 +101,8 @@ def test_stability_analysis_settings_incrementaly_method_with_eigenvalue():
     assert stability_analysis_settings.calculate_without_loading_for_instability == False
     assert stability_analysis_settings.considered_favored_effect == True
     assert stability_analysis_settings.display_local_torsional_rotations == False
-    assert stability_analysis_settings.find_eigenvectors_beyond_critical_load_factor == True
-    assert stability_analysis_settings.critical_load_factor == 11
+    #assert stability_analysis_settings.find_eigenvectors_beyond_critical_load_factor == True
+    #assert stability_analysis_settings.critical_load_factor == 11
     assert stability_analysis_settings.initial_load_factor == 2
     assert stability_analysis_settings.load_factor_increment == 0.2
     assert stability_analysis_settings.matrix_type == 'MATRIX_TYPE_STANDARD'

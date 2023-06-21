@@ -15,7 +15,7 @@ from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.material import Material
-from RFEM.initModel import Model, Calculate_all
+from RFEM.initModel import Model
 from RFEM.enums import *
 
 if Model.clientModel is None:
@@ -114,7 +114,7 @@ def test_surface_set_load():
     SurfaceSetLoad.Force(5, 1, '1', SurfaceSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_RADIAL,(2000, 4000, 1, 6, SurfaceSetLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS, [0,0,0], [0,0,1]))
 
     ## Force Type Surface Set Load with varying in Z
-    SurfaceSetLoad.Force(32, 1, '2', SurfaceSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, load_parameter=[[1, 1, 1000], [2, 1, 2000]])
+    SurfaceSetLoad.Force(32, 1, '2', SurfaceSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, load_parameter=[[1, 1000], [2, 2000]])
 
     ## Temperature Type Surface Load with UNIFORM Load Distribution ##
     SurfaceSetLoad.Temperature(6, 1, '1', SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, load_parameter=[18, 2])
@@ -144,6 +144,47 @@ def test_surface_set_load():
     SurfaceSetLoad.Mass(14, 1, '1', True, [500, 600, 700])
     SurfaceSetLoad.Mass(15, 1, '1', False, [0.5])
 
-    #Calculate_all() # Don't use in unit tests. See template for more info.
-
     Model.clientModel.service.finish_modification()
+
+    assert Model.clientModel.service.get_surface_set_load(1, 1).uniform_magnitude == 5000
+
+    ssl = Model.clientModel.service.get_surface_set_load(3, 1)
+    assert ssl.load_distribution == 'LOAD_DISTRIBUTION_LINEAR'
+    assert ssl.magnitude_2 == 6000
+    assert ssl.magnitude_3 == 7000
+    assert ssl.node_2 == 3
+
+    ssl = Model.clientModel.service.get_surface_set_load(4, 1)
+    assert ssl.load_distribution == 'LOAD_DISTRIBUTION_LINEAR_IN_X'
+    assert ssl.magnitude_2 == 6000
+    assert ssl.node_1 == 2
+
+    ssl = Model.clientModel.service.get_surface_set_load(5, 1)
+    assert ssl.load_distribution == 'LOAD_DISTRIBUTION_RADIAL'
+    assert ssl.axis_definition_type == 'AXIS_DEFINITION_TWO_POINTS'
+    assert ssl.axis_definition_p2_z == 1
+    assert ssl.axis_definition_p1_x == 0
+    assert ssl.magnitude_2 == 4000
+    assert ssl.node_1 == 1
+
+    ssl = Model.clientModel.service.get_surface_set_load(7, 1)
+    assert ssl.magnitude_t_c_3 == 22
+    assert ssl.node_2 == 3
+
+    ssl = Model.clientModel.service.get_surface_set_load(10, 1)
+    assert ssl.magnitude_axial_strain_2y == 0.008
+    assert ssl.node_1 == 2
+
+    ssl = Model.clientModel.service.get_surface_set_load(12, 1)
+    assert ssl.load_type == 'LOAD_TYPE_PRECAMBER'
+    assert ssl.uniform_magnitude == 50
+
+    ssl = Model.clientModel.service.get_surface_set_load(13, 1)
+    assert ssl.angular_velocity == 2
+    assert ssl.angular_acceleration == 1
+    assert ssl.axis_definition_p1_z == 3
+    assert ssl.axis_definition_p2_x == 4
+
+    ssl = Model.clientModel.service.get_surface_set_load(14, 1)
+    assert ssl.magnitude_mass_y == 600
+    assert ssl.magnitude_mass_z == 700

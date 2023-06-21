@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 
 class ImposedNodalDeformation():
 
@@ -6,18 +6,27 @@ class ImposedNodalDeformation():
                  no: int = 1,
                  load_case_no: int = 1,
                  node_no: str = '1',
-                 load_parameter = None,
+                 load_parameter: list = None,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
+
         '''
-        load_parameter:
-            load_parameter = [imposed_displacement_x, imposed_displacement_y, imposed_displacement_z, imposed_rotation_x, imposed_rotation_y imposed_rotation_z]
+        Args:
+            no (int): Load Tag
+            load_case_no (int): Assigned Load Case
+            node_no (str): Assigned node(s)
+            load_parameter (list): Load Parameters List
+                load_parameter = [imposed_displacement_x, imposed_displacement_y, imposed_displacement_z, imposed_rotation_x, imposed_rotation_y imposed_rotation_z]
+            comment (str, optional): Comments
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
         # Client model | Imposed Nodal Deformation
-        clientObject = Model.clientModel.factory.create('ns0:imposed_nodal_deformation')
+        clientObject = model.clientModel.factory.create('ns0:imposed_nodal_deformation')
 
         # Clears object attributes | Sets all attributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Load No.
         clientObject.no = no
@@ -26,8 +35,7 @@ class ImposedNodalDeformation():
         clientObject.load_case = load_case_no
 
         # Assigned Node No.
-        #clientObject.node_no = ConvertToDlString(node_no()
-        clientObject.nodes = node_no
+        clientObject.nodes = ConvertToDlString(node_no)
 
         # Load Parameter
         clientObject.imposed_displacement_x = load_parameter[0]
@@ -46,5 +54,8 @@ class ImposedNodalDeformation():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Imposed Nodal Deformation to client model
-        Model.clientModel.service.set_imposed_nodal_deformation(load_case_no, clientObject)
+        model.clientModel.service.set_imposed_nodal_deformation(load_case_no, clientObject)

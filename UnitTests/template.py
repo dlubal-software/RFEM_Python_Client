@@ -11,7 +11,6 @@
 
 # import only used modules
 # avoid wild-card import (from RFEM.enums import *) if possible
-from RFEM.enums import MemberType
 from RFEM.initModel import Model, CheckIfMethodOrTypeExists
 import pytest
 import os
@@ -59,9 +58,9 @@ def template():
     # individualy but when running all of them it causes RFEM to stuck and generates
     # failures, which are hard to investigate.
 
-    assert Model.clientModel is not None, "WARNING: clientModel is not initialized"
-    #assert member.length == 5
-    #assert member.result_beam_z_minus == 4
+    # Errors
+    # To test various errors like ValueError, just put 'with pytest.raises(ValueError):'
+    # before expression that should raise a ValueError.
 
     # COMMENTS
     # Broken object or type can by commented out assuming author will add
@@ -70,15 +69,22 @@ def template():
 
     Model.clientModel.service.finish_modification()
 
+    assert Model.clientModel is not None, "WARNING: clientModel is not initialized"
+    #assert member.length == 5
+    #assert member.result_beam_z_minus == 4
+
     # The only way to test corrrectness is by using ASSERTS.
     # Get the object that was set by test and verify its parameterts.
     # Asserts are well recieved by pytest and messages are reported to user.
     # Always test type specific parameters if possible.
     # If not, test some general ones like type or length.
+    # Put all asserts after the finish_modification so it is more readable
+    # and allows for clear distinction between setting values and checking them.
 
 # No print("Ready") is necessary. Pytest doesn't print stdout to user if not specified or asserted.
 # No return code is necessary. Pytest doesn't use it.
 
+# !!!!
 # Make sure that all changed global settings have been switched back before the end of the test.
 # It could cause a mess in the results of tests that take place afterwards.
 

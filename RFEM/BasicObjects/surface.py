@@ -1,13 +1,13 @@
-from RFEM.enums import SurfaceGeometry, SurfaceLoadDistributionDirection, SurfaceType
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.enums import SurfaceGeometry, SurfaceLoadDistributionDirection, SurfaceType, ObjectTypes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, ConvertStrToListOfInt
 import math
 
-def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_type, geometry_type_parameters, thickness = None, comment = None, params = None):
+def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_type, geometry_type_parameters, thickness = None, comment = None, params = None, model = Model):
     '''
         Args:
             no (int): Surface Tag
             surface_type (enum): Surface Type Enumeration
-            boundary_lines_no (str): Tags of Lines defining Standard Surface
+            boundary_lines_no (str): Numbers of Lines defining Standard Surface
             geometry_type (enum): Geometry Type Enumeration
             geometry_type_parameters (list): Geometry Type Parameters
                 for geometry_type == SurfaceGeometry.GEOMETRY_NURBS:
@@ -21,12 +21,13 @@ def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_ty
             thickness (int): Tag of Thickness assigned to Standard Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
     # Client model | Surface
-    clientObject = Model.clientModel.factory.create('ns0:surface')
+    clientObject = model.clientModel.factory.create('ns0:surface')
 
     # Clears object atributes | Sets all atributes to None
-    clearAtributes(clientObject)
+    clearAttributes(clientObject)
 
     # Surface No.
     clientObject.no = no
@@ -38,10 +39,10 @@ def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_ty
     boundary_lines_list = boundary_lines_no.split(sep= ' ')
     if geometry_type.name == 'GEOMETRY_NURBS':
         if len(geometry_type_parameters) != 4:
-            raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
+            raise ValueError('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
         for line in boundary_lines_list:
-            if Model.clientModel.service.get_line(int(line))['type'] != 'TYPE_NURBS':
-                raise Exception('WARNING: For a NURBS Surface, the boundary lines need to be NURBS Curves')
+            if model.clientModel.service.get_line(int(line))['type'] != 'TYPE_NURBS':
+                raise ValueError('WARNING: For a NURBS Surface, the boundary lines need to be NURBS Curves')
         clientObject.nurbs_control_point_count_in_direction_u = geometry_type_parameters[0]
         clientObject.nurbs_control_point_count_in_direction_v = geometry_type_parameters[1]
         clientObject.nurbs_order_in_direction_u = geometry_type_parameters[2]
@@ -59,7 +60,7 @@ def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_ty
         clientObject.rotated_boundary_line = geometry_type_parameters[3]
     elif geometry_type.name == 'GEOMETRY_QUADRANGLE':
         if len(geometry_type_parameters) != 4:
-            raise Exception('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
+            raise ValueError('WARNING: The geometry type parameter needs to be of length 4. Kindly check list inputs for completeness and correctness.')
         clientObject.quadrangle_corner_node_1 = geometry_type_parameters[0]
         clientObject.quadrangle_corner_node_2 = geometry_type_parameters[1]
         clientObject.quadrangle_corner_node_3 = geometry_type_parameters[2]
@@ -70,7 +71,7 @@ def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_ty
     clientObject.boundary_lines = ConvertToDlString(boundary_lines_no)
 
     # Thickness
-    if type == 'TYPE_STANDARD'or type == 'TYPE_MEMBRANE' or type == 'TYPE_WITHOUT_MEMBRANE_TENSION':
+    if surface_type in [SurfaceType.TYPE_STANDARD, SurfaceType.TYPE_MEMBRANE, SurfaceType.TYPE_WITHOUT_MEMBRANE_TENSION]:
         clientObject.thickness = thickness
 
     # Comment
@@ -82,7 +83,7 @@ def CreateGeometryAndSetToModel(no, surface_type, boundary_lines_no, geometry_ty
             clientObject[key] = params[key]
 
     # Add Surface to client model
-    Model.clientModel.service.set_surface(clientObject)
+    model.clientModel.service.set_surface(clientObject)
 
 class Surface():
     def __init__(self,
@@ -90,22 +91,24 @@ class Surface():
                  boundary_lines_no: str = '1 2 3 4',
                  thickness: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Surface Tag
-            boundary_lines_no (str): Tags of Lines defining Surface
+            boundary_lines_no (str): Numbers of Lines defining Surface
             thickness (int): Tag of Thickness assigned to Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Surface
-        clientObject = Model.clientModel.factory.create('ns0:surface')
+        clientObject = model.clientModel.factory.create('ns0:surface')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface No.
         clientObject.no = no
@@ -124,8 +127,11 @@ class Surface():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface to client model
-        Model.clientModel.service.set_surface(clientObject)
+        model.clientModel.service.set_surface(clientObject)
 
     @staticmethod
     def Standard(
@@ -135,7 +141,8 @@ class Surface():
                  boundary_lines_no: str = '1 2 3 4',
                  thickness: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -148,13 +155,14 @@ class Surface():
                     geometry_type_parameters = None
                 for geometry_type == SurfaceGeometry.GEOMETRY_QUADRANGLE:
                     geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
-            boundary_lines_no (str): Tags of Lines defining Standard Surface
+            boundary_lines_no (str): Numbers of Lines defining Standard Surface
             thickness (int): Tag of Thickness assigned to Standard Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
-        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_STANDARD, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params)
+        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_STANDARD, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params, model)
 
     @staticmethod
     def WithoutThickness(
@@ -163,7 +171,8 @@ class Surface():
                  geometry_type_parameters = None,
                  boundary_lines_no: str = '1 2 3 4',
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -176,12 +185,13 @@ class Surface():
                     geometry_type_parameters = None
                 for geometry_type == SurfaceGeometry.GEOMETRY_QUADRANGLE:
                     geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
-            boundary_lines_no (str): Tags of Lines defining Without Thickness Surface
+            boundary_lines_no (str): Numbers of Lines defining Without Thickness Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
-        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, comment=comment, params=params)
+        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, comment=comment, params=params, model=model)
 
     @staticmethod
     def Rigid(
@@ -190,7 +200,8 @@ class Surface():
                  geometry_type_parameters = None,
                  boundary_lines_no: str = '1 2 3 4',
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -203,12 +214,13 @@ class Surface():
                     geometry_type_parameters = None
                 for geometry_type == SurfaceGeometry.GEOMETRY_QUADRANGLE:
                     geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
-            boundary_lines_no (str): Tags of Lines defining Rigid Surface
+            boundary_lines_no (str): Numbers of Lines defining Rigid Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
-        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_RIGID, boundary_lines_no, geometry_type, geometry_type_parameters, comment=comment, params=params)
+        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_RIGID, boundary_lines_no, geometry_type, geometry_type_parameters, comment=comment, params=params, model=model)
 
     @staticmethod
     def Membrane(
@@ -218,7 +230,8 @@ class Surface():
                  boundary_lines_no: str = '1 2 3 4',
                  thickness: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -231,13 +244,14 @@ class Surface():
                     geometry_type_parameters = None
                 for geometry_type == SurfaceGeometry.GEOMETRY_QUADRANGLE:
                     geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
-            boundary_lines_no (str): Tags of Lines defining Membrane Surface
+            boundary_lines_no (str): Numbers of Lines defining Membrane Surface
             thickness (int): Tag of Thickness assigned to Membrane Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
-        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params)
+        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_MEMBRANE, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params, model)
 
     @staticmethod
     def WithoutMemberaneTension(
@@ -247,7 +261,8 @@ class Surface():
                  boundary_lines_no: str = '1 2 3 4',
                  thickness: int = 1,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -260,13 +275,14 @@ class Surface():
                     geometry_type_parameters = None
                 for geometry_type == SurfaceGeometry.GEOMETRY_QUADRANGLE:
                     geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
-            boundary_lines_no (str): Tags of Lines defining Without Membrane Tension Surface
+            boundary_lines_no (str): Numbers of Lines defining Without Membrane Tension Surface
             thickness (int): Tag of Thickness assigned to Without Membrane Tension Surface
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
-        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_THICKNESS, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params)
+        CreateGeometryAndSetToModel(no, SurfaceType.TYPE_WITHOUT_MEMBRANE_TENSION, boundary_lines_no, geometry_type, geometry_type_parameters, thickness, comment, params, model)
 
     @staticmethod
     def LoadDistribution(
@@ -282,12 +298,13 @@ class Surface():
                  loaded_members = None,
                  loaded_lines = None,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Surface Tag
-            boundary_lines_no (str): Tags of Lines defining Load Distribution Surface
+            boundary_lines_no (str): Numbers of Lines defining Load Distribution Surface
             load_transfer_direction (enum): Surface Load Transfer Direction Enumeration
             surface_weight_enabled (bool): Activate/De-Activate Surface Weight
             surface_weight (float): Magnitude of Surface Weight
@@ -299,13 +316,14 @@ class Surface():
             loaded_lines (str): Tag of Loaded Lines
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Surface
-        clientObject = Model.clientModel.factory.create('ns0:surface')
+        clientObject = model.clientModel.factory.create('ns0:surface')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface No.
         clientObject.no = no
@@ -340,7 +358,7 @@ class Surface():
         if loaded_lines is not None:
             clientObject.loaded_lines = ConvertToDlString(loaded_lines)
         if loaded_lines is None and loaded_members is None:
-            raise Exception('WARNING: Loaded lines and/or members need to be specified.')
+            raise ValueError('WARNING: Loaded lines and/or members need to be specified.')
 
         # Comment
         clientObject.comment = comment
@@ -350,5 +368,33 @@ class Surface():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface to client model
-        Model.clientModel.service.set_surface(clientObject)
+        model.clientModel.service.set_surface(clientObject)
+
+    @staticmethod
+    def DeleteSurface(surfaces_no: str = '1 2', model = Model):
+
+        '''
+        Args:
+            surfaces_no (str): Numbers of Surfaces to be deleted
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Delete surfaces from client model
+        for surface in ConvertStrToListOfInt(surfaces_no):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, surface)
+
+    @staticmethod
+    def GetSurface(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Surface Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Surface from client  model
+        return model.clientModel.service.get_surface(object_index)

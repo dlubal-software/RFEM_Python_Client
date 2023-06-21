@@ -14,7 +14,7 @@ from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.material import Material
 from RFEM.initModel import Model
-from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType
+from RFEM.enums import NodalSupportType, StaticAnalysisType, NodalLoadDirection
 
 if Model.clientModel is None:
     Model()
@@ -62,20 +62,62 @@ def test_nodal_load():
     LoadCase(1, 'DEAD', [True, 0.0, 0.0, 1.0])
 
     # Initial Nodal Load
-    NodalLoad(1, 1, '2', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 5000)
+    NodalLoad(1, 1, '2', NodalLoadDirection.LOAD_DIRECTION_LOCAL_X, 5000)
 
     # Force Type Nodal Load
-    NodalLoad.Force(2, 1, '2', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 5000)
+    NodalLoad.Force(2, 1, '2', NodalLoadDirection.LOAD_DIRECTION_LOCAL_X, 5000)
 
     # Moment Type Nodal Load
-    NodalLoad.Moment(3, 1, '4', LoadDirectionType.LOAD_DIRECTION_LOCAL_X, 5000)
+    NodalLoad.Moment(3, 1, '4', NodalLoadDirection.LOAD_DIRECTION_LOCAL_X, 5000)
 
     # Component Type Nodal Load
-    NodalLoad.Components(4, 1, '6', [5000, 5000, 0, 0, 5000, 0])
+    NodalLoad.Components(4, 1, '6', [5000, 4000, 30, 10, 5210, 75])
 
     #Mass Type Nodal Load
-    NodalLoad.Mass(5, 1, '8', True, [5000, 5000, 0, 0, 5000, 0])
-
-    #Calculate_all() # Don't use in unit tests. See template for more info.
+    NodalLoad.Mass(5, 1, '8', True, [4000, 3000, 2000, 1000, 500, 100])
+    NodalLoad.Mass(6, 1, '8', False, [4000])
 
     Model.clientModel.service.finish_modification()
+
+    # Initial Nodal Load
+    nl = Model.clientModel.service.get_nodal_load(1, 1)
+    assert nl.nodes == '2'
+    assert nl.force_magnitude == 5000
+    assert nl.load_direction == 'LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U'
+
+    # Force Type Nodal Load
+    nl = Model.clientModel.service.get_nodal_load(2, 1)
+    assert nl.nodes == '2'
+    assert nl.load_type == 'LOAD_TYPE_FORCE'
+
+    # Moment Type Nodal Load
+    nl = Model.clientModel.service.get_nodal_load(3, 1)
+    assert nl.nodes == '4'
+    assert nl.load_type == 'LOAD_TYPE_MOMENT'
+
+    # Component Type Nodal Load
+    nl = Model.clientModel.service.get_nodal_load(4, 1)
+    assert nl.nodes == '6'
+    assert nl.load_type == 'LOAD_TYPE_COMPONENTS'
+    assert nl.components_force_x == 5000
+    assert nl.components_force_y == 4000
+    assert nl.components_force_z == 30
+    assert nl.components_moment_x == 10
+    assert nl.components_moment_y == 5210
+    assert nl.components_moment_z == 75
+
+    #Mass Type Nodal Load
+    nl = Model.clientModel.service.get_nodal_load(5, 1)
+    assert nl.nodes == '8'
+    assert nl.load_type == 'LOAD_TYPE_MASS'
+    assert nl.mass_x == 4000
+    assert nl.mass_y == 3000
+    assert nl.mass_z == 2000
+    assert nl.mass_moment_of_inertia_x == 1000
+    assert nl.mass_moment_of_inertia_y == 500
+    assert nl.mass_moment_of_inertia_z == 100
+
+    nl = Model.clientModel.service.get_nodal_load(6, 1)
+    assert nl.nodes == '8'
+    assert nl.load_type == 'LOAD_TYPE_MASS'
+    assert nl.mass_global == 4000

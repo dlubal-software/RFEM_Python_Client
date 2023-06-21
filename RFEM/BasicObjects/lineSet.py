@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import SetType
 
 class LineSet():
@@ -7,22 +7,24 @@ class LineSet():
                  lines_no: str = '33 36 39 42 45',
                  line_set_type = SetType.SET_TYPE_CONTINUOUS,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Line Set Tag
-            lines_no (str): Tags of Lines Contained Within Line Set
+            lines_no (str): Numbers of Lines Contained Within Line Set
             line_set_type (enum): Line Set Type Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line Set
-        clientObject = Model.clientModel.factory.create('ns0:line_set')
+        clientObject = model.clientModel.factory.create('ns0:line_set')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line Set No.
         clientObject.no = no
@@ -41,29 +43,34 @@ class LineSet():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line Set to client model
-        Model.clientModel.service.set_line_set(clientObject)
+        model.clientModel.service.set_line_set(clientObject)
 
     @staticmethod
     def ContinuousLines(
                  no: int = 1,
                  lines_no: str = '33 36 39 42 45',
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Line Set Tag
-            lines_no (str): Tags of Lines Contained Within Continuous Line Set
+            lines_no (str): Numbers of Lines Contained Within Continuous Line Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line Set
-        clientObject = Model.clientModel.factory.create('ns0:line_set')
+        clientObject = model.clientModel.factory.create('ns0:line_set')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line Set No.
         clientObject.no = no
@@ -82,29 +89,34 @@ class LineSet():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line Set to client model
-        Model.clientModel.service.set_line_set(clientObject)
+        model.clientModel.service.set_line_set(clientObject)
 
     @staticmethod
     def GroupOfLines(
                  no: int = 1,
                  lines_no: str = '33 36 39 42 45',
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Line Set Tag
-            lines_no (str): Tags of Lines Contained Within Group of Lines Line Set
+            lines_no (str): Numbers of Lines Contained Within Group of Lines Line Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Line Set
-        clientObject = Model.clientModel.factory.create('ns0:line_set')
+        clientObject = model.clientModel.factory.create('ns0:line_set')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Line Set No.
         clientObject.no = no
@@ -123,5 +135,20 @@ class LineSet():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line Set to client model
-        Model.clientModel.service.set_line_set(clientObject)
+        model.clientModel.service.set_line_set(clientObject)
+
+    @staticmethod
+    def GetLineSet(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Line Set Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Line Set from client model
+        return model.clientModel.service.get_line_set(object_index)

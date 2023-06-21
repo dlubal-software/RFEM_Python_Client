@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import SetType
 
 class SurfaceSet():
@@ -7,22 +7,24 @@ class SurfaceSet():
                  surfaces_no: str = '2 4 7',
                  surface_set_type = SetType.SET_TYPE_GROUP,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Surfaces Set Tag
-            surfaces_no (str): Tags of Surfaces Contained Within Surface Set
+            surfaces_no (str): Numbers of Surfaces Contained Within Surface Set
             surfaces_set_type (enum): Surface Set Type Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Surface Set
-        clientObject = Model.clientModel.factory.create('ns0:surface_set')
+        clientObject = model.clientModel.factory.create('ns0:surface_set')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Set No.
         clientObject.no = no
@@ -41,30 +43,34 @@ class SurfaceSet():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface Set to client model
-        Model.clientModel.service.set_surface_set(clientObject)
+        model.clientModel.service.set_surface_set(clientObject)
 
     @staticmethod
     def ContinuousSurfaces(
                  no: int = 1,
                  surfaces_no: str = '2 4 7',
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Surfaces Set Tag
-            surfaces_no (str): Tags of Surfaces Contained Within Continuous Surface Set
-            surfaces_set_type (enum): Surface Set Type Enumeration
+            surfaces_no (str): Numbers of Surfaces Contained Within Continuous Surface Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Surface Set
-        clientObject = Model.clientModel.factory.create('ns0:surface_set')
+        clientObject = model.clientModel.factory.create('ns0:surface_set')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Set No.
         clientObject.no = no
@@ -83,29 +89,34 @@ class SurfaceSet():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface Set to client model
-        Model.clientModel.service.set_surface_set(clientObject)
+        model.clientModel.service.set_surface_set(clientObject)
 
     @staticmethod
     def GroupOfSurfaces(
                  no: int = 1,
                  surfaces_no: str = '2 4 7',
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Surfaces Set Tag
-            surfaces_no (str): Tags of Surfaces Contained Within Group of Surfaces Surface Set
+            surfaces_no (str): Numbers of Surfaces Contained Within Group of Surfaces Surface Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Surface Set
-        clientObject = Model.clientModel.factory.create('ns0:surface_set')
+        clientObject = model.clientModel.factory.create('ns0:surface_set')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Surface Set No.
         clientObject.no = no
@@ -124,5 +135,20 @@ class SurfaceSet():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface Set to client model
-        Model.clientModel.service.set_surface_set(clientObject)
+        model.clientModel.service.set_surface_set(clientObject)
+
+    @staticmethod
+    def GetSurfaceSet(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Surface Set Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Surface Set from client model
+        return model.clientModel.service.get_surface_set(object_index)

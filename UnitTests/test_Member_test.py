@@ -56,7 +56,7 @@ def test_all_member_types():
 
     # Beam Member with End Modifications
     Member.Beam(5, 9, 10, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 1,
-    params={'end_modifications_member_start_extension': 1, 'end_modifications_member_start_slope_y': 0.03, 'end_modifications_member_start_slope_z': 0.05, 'end_modifications_member_end_extension': 4, 'end_modifications_member_end_slope_y': 0.08, 'end_modifications_member_end_slope_z': 0.1})
+                params={'end_modifications_member_start_extension': 1, 'end_modifications_member_start_slope_y': 0.03, 'end_modifications_member_start_slope_z': 0.05, 'end_modifications_member_end_extension': 4, 'end_modifications_member_end_slope_y': 0.08, 'end_modifications_member_end_slope_z': 0.1})
 
     # Beam Member with Linear Distribution
     Member.Beam(6, 11, 12, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 2, [MemberSectionAlignment.SECTION_ALIGNMENT_BOTTOM])
@@ -135,3 +135,41 @@ def test_all_member_types():
     Member.CouplingHingeHinge(30, 59, 60)
 
     Model.clientModel.service.finish_modification()
+
+    mem = Model.clientModel.service.get_member(1)
+    assert mem.type == 'TYPE_BEAM'
+    assert mem.section_distribution_type == 'SECTION_DISTRIBUTION_TYPE_UNIFORM'
+
+    mem = Model.clientModel.service.get_member(2)
+    assert mem.rotation_specification_type == 'COORDINATE_SYSTEM_ROTATION_VIA_ANGLE'
+    assert round(mem.rotation_angle, 5) == 2.43363
+
+    mem = Model.clientModel.service.get_member(3)
+    assert mem.rotation_specification_type == 'COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE'
+    assert mem.rotation_help_node == 5
+    assert mem.rotation_plane_type == 'ROTATION_PLANE_XY'
+
+    mem = Model.clientModel.service.get_member(15)
+    assert mem.type == 'TYPE_RIGID'
+    assert mem.member_hinge_start == 1
+    assert mem.member_hinge_end == 1
+
+    mem = Model.clientModel.service.get_member(17)
+    assert mem.type == 'TYPE_TRUSS_ONLY_N'
+    assert mem.node_start == 33
+
+    assert Model.clientModel.service.get_member(18).type == 'TYPE_TENSION'
+    assert Model.clientModel.service.get_member(19).type == 'TYPE_COMPRESSION'
+    assert Model.clientModel.service.get_member(20).type == 'TYPE_BUCKLING'
+    assert Model.clientModel.service.get_member(21).type == 'TYPE_CABLE'
+
+    mem = Model.clientModel.service.get_member(23)
+    assert mem.type == 'TYPE_RESULT_BEAM'
+    assert mem.result_beam_integrate_stresses_and_forces == 'INTEGRATE_WITHIN_CUBOID_GENERAL'
+    assert mem.result_beam_y_plus == 0.1
+    assert mem.result_beam_z_plus == 0.2
+    assert mem.result_beam_y_minus == 0.3
+    assert mem.result_beam_z_minus == 0.4
+
+    assert Model.clientModel.service.get_member(26).type == 'TYPE_DEFINABLE_STIFFNESS'
+    assert Model.clientModel.service.get_member(30).type == 'TYPE_COUPLING_HINGE_HINGE'

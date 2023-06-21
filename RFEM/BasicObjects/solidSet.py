@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import SetType
 
 class SolidSet():
@@ -7,22 +7,24 @@ class SolidSet():
                  solids_no: str = '1 2',
                  solid_set_type = SetType.SET_TYPE_GROUP,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Solid Set Tag
-            solids_no (str): Tags of Solids Contained Within Solid Set
+            solids_no (str): Numbers of Solids Contained Within Solid Set
             solid_set_type (enum): Solid Set Type Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Solid Set
-        clientObject = Model.clientModel.factory.create('ns0:solid_set')
+        clientObject = model.clientModel.factory.create('ns0:solid_set')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Solid Set No.
         clientObject.no = no
@@ -41,29 +43,34 @@ class SolidSet():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Solid Set to client model
-        Model.clientModel.service.set_solid_set(clientObject)
+        model.clientModel.service.set_solid_set(clientObject)
 
     @staticmethod
     def ContinuousSolids(
                  no: int = 1,
                  solids_no: str = '1 2',
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Solid Set Tag
-            solids_no (str): Tags of Solids Contained Within Continuous Solid Set
+            solids_no (str): Numbers of Solids Contained Within Continuous Solid Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Solid Set
-        clientObject = Model.clientModel.factory.create('ns0:solid_set')
+        clientObject = model.clientModel.factory.create('ns0:solid_set')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Solid Set No.
         clientObject.no = no
@@ -82,29 +89,34 @@ class SolidSet():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Solid Set to client model
-        Model.clientModel.service.set_solid_set(clientObject)
+        model.clientModel.service.set_solid_set(clientObject)
 
     @staticmethod
     def GroupOfSolids(
                  no: int = 1,
                  solids_no: str = '1 2',
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
             no (int): Solid Set Tag
-            solids_no (str): Tags of Solids Contained Within Group of Solids Solid Set
+            solids_no (str): Numbers of Solids Contained Within Group of Solids Solid Set
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Solid Set
-        clientObject = Model.clientModel.factory.create('ns0:solid_set')
+        clientObject = model.clientModel.factory.create('ns0:solid_set')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Solid Set No.
         clientObject.no = no
@@ -123,5 +135,20 @@ class SolidSet():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Solid Set to client model
-        Model.clientModel.service.set_solid_set(clientObject)
+        model.clientModel.service.set_solid_set(clientObject)
+
+    @staticmethod
+    def GetSolidSet(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Solid Set Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Solid Set from client model
+        return model.clientModel.service.get_solid_set(object_index)

@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAtributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import *
 
 class SteelEffectiveLengths():
@@ -12,7 +12,7 @@ class SteelEffectiveLengths():
                  lateral_torsional_buckling: bool = True,
                  principal_section_axes: bool = True,
                  geometric_section_axes: bool = True,
-                 user_defined_name: list = [False],
+                 name: str = 'SEL1',
                  nodal_supports: list = [
                      [SteelEffectiveLengthsSupportType.SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION, True, 0.0, SteelEffectiveLengthsEccentricityType.ECCENTRICITY_TYPE_NONE, \
                       0.0, 0.0, 0.0, 0.0, SteelEffectiveLengthsSupportTypeInY.SUPPORT_STATUS_YES, SteelEffectiveLengthsRestraintTypeAboutX.SUPPORT_STATUS_YES, \
@@ -30,10 +30,11 @@ class SteelEffectiveLengths():
                  import_from_stability_analysis_enabled: bool = False,
                  determination_of_mcr = SteelEffectiveLengthsDeterminationMcrEurope.DETERMINATION_EUROPE_EIGENVALUE,
                  comment: str = '',
-                 params: dict = None):
+                 params: dict = None,
+                 model = Model):
         """
         Args:
-            no (int): Effective Length Tag
+            no (int): Steel Effective Length Tag
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
             flexural_buckling_about_y (bool): Flexural Buckling About Y Option
@@ -42,15 +43,8 @@ class SteelEffectiveLengths():
             lateral_torsional_buckling (bool): Lateral Torsional Buckling Option
             principal_section_axes (bool): Principal Section Axes Option
             geometric_section_axes (bool): Geometric Section Axes Option
-            user_defined_name (lst): User Defined Effective Length Name
-
-            for user_defined_name[0] == False:
-                pass
-            for user_defined_name == True:
-                user_defined_name[1] = Defined Name
-
+            name (str): User Defined Effective Length Name
             nodal_supports (lst): Nodal Support Table Definition
-
                 nodal_supports[i][0] (enum): Support Type Enumeration Type
                 nodal_supports[i][1] (bool): Support in Z Option
                 nodal_supports[i][2] (float): Support Spring in Y Coefficient
@@ -64,9 +58,7 @@ class SteelEffectiveLengths():
                 nodal_supports[i][10] (enum): Restraint Type in Z Enumeration Type
                 nodal_supports[i][11] (enum): Restraint Type Warping Enumeration Type
                 nodal_supports[i][12] (str): Assigned Nodes
-
-            factors (lst): Effective Length Factors
-
+            factors (list of lists): Effective Length Factors
                 factors[i][0] (float): Flexural Buckling in U Coefficient
                 factors[i][1] (float): Flexural Buckling in V Coefficient
                 factors[i][2] (float): Flexural Buckling in Y Coefficient
@@ -78,21 +70,21 @@ class SteelEffectiveLengths():
                 factors[i][8] (float): Twist Restraint Coefficient
                 factors[i][9] (float): Lateral Torsional Restraint Coefficient
                 factors[i][10] (float): Critical Moment
-
             intermediate_nodes (bool): Intermediate Nodes Option
             different_properties (bool): Different Properties Option
             factors_definition_absolute (bool): Absolute Factors Definition Option
             import_from_stability_analysis_enabled (bool): Import From Stability Analysis Option
-            determination_of_mcr (enum): Determination of MCR or CB Enumeration Item
-            comment (str): Comments
-            params (dict): Parameters
+            determination_of_mcr (enum): Steel Effective Lengths Determination Mcr Europe Enumeration Item
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         """
 
         # Client Model | Types For Steel Design Effective Lengths
-        clientObject = Model.clientModel.factory.create('ns0:steel_effective_lengths')
+        clientObject = model.clientModel.factory.create('ns0:steel_effective_lengths')
 
         # Clears object atributes | Sets all atributes to None
-        clearAtributes(clientObject)
+        clearAttributes(clientObject)
 
         # Effective Lengths No.
         clientObject.no = no
@@ -122,51 +114,53 @@ class SteelEffectiveLengths():
         clientObject.geometric_section_axes = geometric_section_axes
 
         # Effective Lengths User Defined Name
-        if user_defined_name[0] == False:
-            clientObject.user_defined_name_enabled = user_defined_name[0]
-        else:
-            clientObject.user_defined_name_enabled = user_defined_name[0]
-            clientObject.name = user_defined_name[1]
+        if name:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Effective Lengths Nodal Supports
-        clientObject.nodal_supports = Model.clientModel.factory.create('ns0:steel_effective_lengths.nodal_supports')
+        clientObject.nodal_supports = model.clientModel.factory.create('ns0:array_of_steel_effective_lengths_nodal_supports')
 
         for i,j in enumerate(nodal_supports):
-            mlvlp = Model.clientModel.factory.create('ns0:steel_effective_lengths_nodal_supports')
-            mlvlp.no = i
-            mlvlp.support_type = nodal_supports[i][0].name
-            mlvlp.support_in_z = nodal_supports[i][1]
-            mlvlp.support_spring_in_y = nodal_supports[i][2]
-            mlvlp.eccentricity_type = nodal_supports[i][3].name
-            mlvlp.eccentricity_ez = nodal_supports[i][4]
-            mlvlp.restraint_spring_about_x = nodal_supports[i][5]
-            mlvlp.restraint_spring_about_z = nodal_supports[i][6]
-            mlvlp.restraint_spring_warping = nodal_supports[i][7]
-            mlvlp.support_in_y_type = nodal_supports[i][8].name
-            mlvlp.restraint_about_x_type = nodal_supports[i][9].name
-            mlvlp.restraint_about_z_type = nodal_supports[i][10].name
-            mlvlp.restraint_warping_type = nodal_supports[i][11].name
-            mlvlp.nodes = ConvertToDlString(nodal_supports[i][12])
+            mlvlp = model.clientModel.factory.create('ns0:steel_effective_lengths_nodal_supports_row')
+            mlvlp.no = i+1
+            mlvlp.row = model.clientModel.factory.create('ns0:steel_effective_lengths_nodal_supports')
+            clearAttributes(mlvlp.row)
+            mlvlp.row.support_type = nodal_supports[i][0].name
+            mlvlp.row.support_in_z = nodal_supports[i][1]
+            mlvlp.row.support_spring_in_y = nodal_supports[i][2]
+            mlvlp.row.eccentricity_type = nodal_supports[i][3].name
+            mlvlp.row.eccentricity_ez = nodal_supports[i][4]
+            mlvlp.row.restraint_spring_about_x = nodal_supports[i][5]
+            mlvlp.row.restraint_spring_about_z = nodal_supports[i][6]
+            mlvlp.row.restraint_spring_warping = nodal_supports[i][7]
+            mlvlp.row.support_in_y_type = nodal_supports[i][8].name
+            mlvlp.row.restraint_about_x_type = nodal_supports[i][9].name
+            mlvlp.row.restraint_about_z_type = nodal_supports[i][10].name
+            mlvlp.row.restraint_warping_type = nodal_supports[i][11].name
+            mlvlp.row.nodes = ConvertToDlString(nodal_supports[i][12])
 
             clientObject.nodal_supports.steel_effective_lengths_nodal_supports.append(mlvlp)
 
         # Effective Lengths Factors
-        clientObject.factors = Model.clientModel.factory.create('ns0:steel_effective_lengths.factors')
+        clientObject.factors = model.clientModel.factory.create('ns0:array_of_steel_effective_lengths_factors')
 
         for i,j in enumerate(factors):
-            mlvlp_f = Model.clientModel.factory.create('ns0:steel_effective_lengths_factors')
-            mlvlp_f.no = i
-            mlvlp_f.flexural_buckling_u= factors[i][0]
-            mlvlp_f.flexural_buckling_v= factors[i][1]
-            mlvlp_f.flexural_buckling_y= factors[i][2]
-            mlvlp_f.flexural_buckling_z= factors[i][3]
-            mlvlp_f.torsional_buckling= factors[i][4]
-            mlvlp_f.lateral_torsional_buckling= factors[i][5]
-            mlvlp_f.lateral_torsional_buckling_top= factors[i][6]
-            mlvlp_f.lateral_torsional_buckling_bottom= factors[i][7]
-            mlvlp_f.twist_restraint= factors[i][8]
-            mlvlp_f.lateral_torsional_restraint= factors[i][9]
-            mlvlp_f.critical_moment= factors[i][10]
+            mlvlp_f = model.clientModel.factory.create('ns0:steel_effective_lengths_factors_row')
+            mlvlp_f.no = i+1
+            mlvlp_f.row = model.clientModel.factory.create('ns0:steel_effective_lengths_factors')
+            clearAttributes(mlvlp_f.row)
+            mlvlp_f.row.flexural_buckling_u = factors[i][0]
+            mlvlp_f.row.flexural_buckling_v = factors[i][1]
+            mlvlp_f.row.flexural_buckling_y = factors[i][2]
+            mlvlp_f.row.flexural_buckling_z = factors[i][3]
+            mlvlp_f.row.torsional_buckling = factors[i][4]
+            mlvlp_f.row.lateral_torsional_buckling = factors[i][5]
+            mlvlp_f.row.lateral_torsional_buckling_top = factors[i][6]
+            mlvlp_f.row.lateral_torsional_buckling_bottom = factors[i][7]
+            mlvlp_f.row.twist_restraint = factors[i][8]
+            mlvlp_f.row.lateral_torsional_restraint = factors[i][9]
+            mlvlp_f.row.critical_moment = factors[i][10]
 
             clientObject.factors.steel_effective_lengths_factors.append(mlvlp_f)
 
@@ -193,5 +187,8 @@ class SteelEffectiveLengths():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Steel Effective Lengths to client model
-        Model.clientModel.service.set_steel_effective_lengths(clientObject)
+        model.clientModel.service.set_steel_effective_lengths(clientObject)
