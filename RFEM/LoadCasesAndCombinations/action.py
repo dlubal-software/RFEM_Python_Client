@@ -73,7 +73,7 @@ class Action():
                 clientObject[key] = params[key]
 
         # Clearing unused attributes
-        #deleteEmptyAttributes(clientObject)
+        deleteEmptyAttributes(clientObject)
 
         # Add Action to client model
         model.clientModel.service.set_action(clientObject)
