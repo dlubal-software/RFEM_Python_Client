@@ -166,12 +166,12 @@ class Model():
                 print('Model name "'+model_name+'" is not created in RFEM. Consider changing new_model parameter in Model class from False to True.')
                 sys.exit()
 
-            if delete:
-                print('Deleting results...')
-                cModel.service.delete_all_results()
-            if delete_all:
-                print('Delete all...')
-                cModel.service.delete_all()
+        if delete:
+            print('Deleting results...')
+            cModel.service.delete_all_results()
+        if delete_all:
+            print('Delete all...')
+            cModel.service.delete_all()
 
         # when using multiple instances/model
         self.clientModel = cModel
