@@ -24,7 +24,6 @@ def test_designOverview():
     Model.clientModel.service.calculate_all(False)
 
     designOverview = GetDesignOverview()
-    print(designOverview)
     assert round(designOverview[0][0].row['design_ratio']) == 3
     assert designOverview[0][0].row['design_check_type'] == 'DM0210.00'
 
