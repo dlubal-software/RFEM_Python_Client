@@ -5,7 +5,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.initModel import Model
+from RFEM.initModel import Model, getPathToRunningRFEM
 from RFEM.enums import CaseObjectType
 from RFEM.Results.resultTables import ResultTables, GetMaxValue, GetMinValue
 
@@ -14,7 +14,7 @@ if Model.clientModel is None:
 
 def test_result_tables():
     Model.clientModel.service.delete_all()
-    Model.clientModel.service.run_script('..\\scripts\\internal\\Demos\\Demo-004 Bus Station-Concrete Design.js')
+    Model.clientModel.service.run_script(os.path.join(getPathToRunningRFEM(),'scripts\\internal\\Demos\\Demo-004 Bus Station-Concrete Design.js'))
     Model.clientModel.service.calculate_all(False)
 
     assert Model.clientModel.service.has_any_results()

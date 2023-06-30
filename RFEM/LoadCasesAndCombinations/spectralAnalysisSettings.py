@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, GetAddonStatus, SetAddonStatus
+from RFEM.initModel import Model, SetAddonStatus, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import DirectionalComponentCombinationRule, PeriodicResponseCombinationRule, CqsDampingRule, AddOn
 
 class SpectralAnalysisSettings():

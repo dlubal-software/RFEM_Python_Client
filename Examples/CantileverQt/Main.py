@@ -6,7 +6,7 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.enums import NodalSupportType, StaticAnalysisType, LoadDirectionType
+from RFEM.enums import NodalSupportType, StaticAnalysisType, NodalLoadDirection
 from RFEM.initModel import Model, Calculate_all
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
@@ -76,7 +76,7 @@ class MyDialog(QtWidgets.QDialog):
 
         LoadCase(1, 'Eigengewicht',[True, 0.0, 0.0, 1.0])
 
-        NodalLoad(1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, f*1000)
+        NodalLoad(1, 1, '2', NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, f*1000)
 
         Calculate_all()
 

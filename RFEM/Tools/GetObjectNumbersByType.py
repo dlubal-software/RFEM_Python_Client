@@ -20,7 +20,7 @@ class GetObjectNumbersByType:
             ObjectNumberList (list): Sorted list of object numbers or list of lists if there is parent number (e.g. nodal_load).
         """
 
-        ObjectNumber = Model.clientModel.service.get_all_object_numbers_by_type(ObjectType.name)
+        ObjectNumber = model.clientModel.service.get_all_object_numbers_by_type(ObjectType.name)
         ObjectNumberList = []
 
         if len(ObjectNumber):

@@ -129,21 +129,18 @@ class Model():
                 modelUrlPort = url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
 
-                if self.clientModelDct:
-                    cModel = Client(modelCompletePath, location = modelUrlPort, cache=ca)
-                else:
-                    session = requests.Session()
-                    adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
-                    session.mount('http://', adapter)
-                    trans = RequestsTransport(session)
+                session = requests.Session()
+                adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
+                session.mount('http://', adapter)
+                trans = RequestsTransport(session)
 
-                    cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca)
+                cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca, timeout=360)
 
                 self.clientModelDct[model_name] = cModel
 
         else:
             # Requested model which was already connected
-            assert model_name in self.clientModelDct or model_name in modelLst, 'WARNING: '+model_name +'is not connected neither opened in RFEM.'
+            assert model_name in self.clientModelDct or model_name in modelLst, 'WARNING: '+model_name +' is not connected neither opened in RFEM.'
 
             if model_name in self.clientModelDct:
                 cModel = self.clientModelDct[model_name]
@@ -157,27 +154,24 @@ class Model():
                 modelUrlPort = url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
 
-                if self.clientModelDct:
-                    cModel = Client(modelCompletePath, location = modelUrlPort, cache=ca)
-                else:
-                    session = requests.Session()
-                    adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
-                    session.mount('http://', adapter)
-                    trans = RequestsTransport(session)
+                session = requests.Session()
+                adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
+                session.mount('http://', adapter)
+                trans = RequestsTransport(session)
 
-                    cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca)
+                cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca, timeout=360)
 
                 self.clientModelDct[model_name] = cModel
             else:
                 print('Model name "'+model_name+'" is not created in RFEM. Consider changing new_model parameter in Model class from False to True.')
                 sys.exit()
 
-            if delete:
-                print('Deleting results...')
-                cModel.service.delete_all_results()
-            if delete_all:
-                print('Delete all...')
-                cModel.service.delete_all()
+        if delete:
+            print('Deleting results...')
+            cModel.service.delete_all_results()
+        if delete_all:
+            print('Delete all...')
+            cModel.service.delete_all()
 
         # when using multiple instances/model
         self.clientModel = cModel
@@ -226,7 +220,7 @@ def clearAttributes(obj):
     it = iter(obj)
     for i in it:
         obj[i[0]] = None
-        
+
     return obj
 
 def deleteEmptyAttributes(obj):
@@ -718,3 +712,32 @@ def GetAppSessionId():
 
     # Client Application | Get Session ID
     return client.service.get_session_id()
+
+def getPathToRunningRFEM():
+    '''
+    Find the path to the directory where RFEM is currently running.
+    This is helpful when using server version, because it can't process relative paths.
+    '''
+    import psutil
+    rstab9 = False
+    rstab9Server = False
+    path = ''
+
+    for p in psutil.process_iter(['name', 'exe']):
+        if p.info['name'] == 'RFEM6.exe':
+            idx = p.info['exe'].find('bin')
+            path = p.info['exe'][:idx]
+        elif p.info['name'] == 'RFEM6Server.exe':
+            idx = p.info['exe'].find('bin')
+            path = p.info['exe'][:idx]
+        elif p.info['name'] == 'RSTAB9.exe':
+            rstab9 = True
+        elif p.info['name'] == 'RSTAB9Server.exe':
+            rstab9Server = True
+
+    if rstab9 or rstab9Server:
+        raise ValueError('Careful! You are running RFEM Python Client on RSTAB.')
+    if not path:
+        raise ValueError('Is it possible that RFEM is not runnnning?')
+
+    return path

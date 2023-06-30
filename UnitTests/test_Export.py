@@ -8,7 +8,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import ObjectTypes
-from RFEM.initModel import Model, url, closeModel
+from RFEM.initModel import Model, url, closeModel, getPathToRunningRFEM
 from RFEM.ImportExport.exports import IFCExportSettings, ObjectLocation, ObjectLocations, ExportToIFC, GetTableExportConfigManager, SetTableExportConfigManager, ExportTo
 from RFEM.ImportExport.imports import getConversionTables, setConversionTables, getSAFSettings, setSAFSettings, importFrom
 
@@ -20,7 +20,7 @@ if Model.clientModel is None:
 def test_export():
 
     Model.clientModel.service.delete_all()
-    Model.clientModel.service.run_script('..\\scripts\\internal\\Demos\\Demo-002 Cantilever Beams.js')
+    Model.clientModel.service.run_script(os.path.join(getPathToRunningRFEM(),'scripts\\internal\\Demos\\Demo-002 Cantilever Beams.js'))
 
     dirname = os.path.join(os.getcwd(), os.path.dirname(__file__), 'testResults')
     targetFile1 = os.path.join(dirname, 'test_ifcExport1.ifc')
@@ -40,10 +40,11 @@ def test_export():
     ExportToIFC(targetFile1, IFCSettings)
     ExportToIFC(targetFile2, IFCSettings, ObjectLoc)
 
-    #config = GetTableExportConfigManager()
-    #config[1][0][0][2][0]['property_export_target'] = 'E_EXPORT_TARGET_CSV'
-    #SetTableExportConfigManager(config)
-    #assert config[1][0][0][2][0]['property_export_target'] == 'E_EXPORT_TARGET_CSV'
+    config = GetTableExportConfigManager()
+    config[1][0][0][2][0]['property_export_target'] = 'E_EXPORT_TARGET_CSV'
+    SetTableExportConfigManager(config)
+    config = GetTableExportConfigManager()
+    assert config[1][0][0][2][0]['property_export_target'] == 'E_EXPORT_TARGET_CSV'
 
     # supported formats
     formats = ['.xml','.xlsx', '.gltf', '.glb'] # export to .vtk doesn't work

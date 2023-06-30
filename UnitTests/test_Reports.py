@@ -7,7 +7,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 from RFEM.Reports.printoutReport import PrintoutReport
 from RFEM.Reports.html import ExportResultTablesToHtml
-from RFEM.initModel import Model, url, closeModel, openFile
+from RFEM.initModel import Model, url, closeModel, openFile, getPathToRunningRFEM
 from shutil import rmtree
 import pytest
 
@@ -19,7 +19,7 @@ if Model.clientModel is None:
                     It is not necessary to evaluate Client as functional. Localy this tests still gets executed.")
 def test_html_report():
     Model.clientModel.service.delete_all()
-    Model.clientModel.service.run_script('..\\scripts\\internal\\Demos\\Demo-002 Cantilever Beams.js')
+    Model.clientModel.service.run_script(os.path.join(getPathToRunningRFEM(),'scripts\\internal\\Demos\\Demo-002 Cantilever Beams.js'))
     Model.clientModel.service.calculate_all(False)
 
     dirname = os.path.join(os.getcwd(), os.path.dirname(__file__))
@@ -51,9 +51,8 @@ def test_printout_report():
     assert len(PrintoutReport.getList()) == 2
 
     PrintoutReport.exportToHTML(1, os.path.join(folderPath, 'printout.html'))
-    assert os.path.exists(os.path.join(folderPath, 'printout.html')) == True
-
     PrintoutReport.exportToPDF(2, os.path.join(folderPath, 'printout.pdf'))
-    assert os.path.exists(os.path.join(folderPath, 'printout.pdf')) == True
-
     closeModel(1)
+
+    assert os.path.exists(os.path.join(folderPath, 'printout.html')) == True
+    assert os.path.exists(os.path.join(folderPath, 'printout.pdf')) == True

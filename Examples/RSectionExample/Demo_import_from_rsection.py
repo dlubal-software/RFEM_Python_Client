@@ -8,7 +8,7 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../../')
 
-from RFEM.enums import NodalSupportType, LoadDirectionType
+from RFEM.enums import NodalSupportType, NodalLoadDirection
 from RFEM.initModel import Model, Calculate_all
 from RFEM.BasicObjects.material import Material
 from RFEM.Tools.sectionDialogue import CreateSectionFromRsectionFile
@@ -47,7 +47,7 @@ if __name__ == '__main__':
 
     LoadCase(1, 'Self-Weight', [True, 0.0, 0.0, 1.0])
 
-    NodalLoad(1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, f*1000)
+    NodalLoad(1, 1, '2', NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, f*1000)
 
     Model.clientModel.service.finish_modification()
 

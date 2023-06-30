@@ -35,8 +35,6 @@ class ResultCombination():
         # Client model | Result Combination
         clientObject = model.clientModel.factory.create('ns0:result_combination')
 
-        print('1:',clientObject)
-
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
 
@@ -94,8 +92,6 @@ class ResultCombination():
 
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
-
-        print('2:',clientObject)
 
         # Add Result Combination to client model
         model.clientModel.service.set_result_combination(clientObject)

@@ -348,7 +348,7 @@ class SolidLoad():
         # Add Solid Load to client model
         model.clientModel.service.set_solid_load(load_case_no, clientObject)
 
-    #TODO: solidLoad Buoyancy and Gas not implemented
+    # TODO: solidLoad Buoyancy and Gas not implemented
     #def Buoyancy():
     #    print('The function Buoyancy() is not implemented yet.')
 

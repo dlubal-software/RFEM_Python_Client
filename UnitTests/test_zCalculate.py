@@ -5,8 +5,8 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.enums import SurfacesShapeOfFiniteElements, OptimizerType, OptimizationTargetValueType, AddOn,NodalSupportType, LoadDirectionType, ActionCategoryType, ObjectTypes
-from RFEM.initModel import Model, client, SetAddonStatus,Calculate_all, CalculateSelectedCases
+from RFEM.enums import SurfacesShapeOfFiniteElements, OptimizationTargetValueType, AddOn,NodalSupportType, NodalLoadDirection, ActionCategoryType, ObjectTypes
+from RFEM.initModel import Model, client, SetAddonStatus, Calculate_all, CalculateSelectedCases
 from RFEM.Calculate.meshSettings import GetMeshSettings, MeshSettings, GetModelInfo
 from RFEM.Calculate.optimizationSettings import OptimizationSettings
 from UnitTests.test_solids import test_solids_and_solid_sets
@@ -43,7 +43,7 @@ def createmodel():
     LoadCase.StaticAnalysis(1, 'SW', True, 1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_G, [True, 0, 0, 1])
     LoadCase.StaticAnalysis(2, 'SDL', True,  1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_IMPOSED_GQ, [False])
 
-    NodalLoad(1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 150*1000)
+    NodalLoad(1, 1, '2', NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 150*1000)
     Model.clientModel.service.finish_modification()
 
 def test_calculate_specific():

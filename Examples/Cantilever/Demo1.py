@@ -8,8 +8,8 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.enums import NodalSupportType, LoadDirectionType, ActionCategoryType
-from RFEM.initModel import Model, Calculate_all, CalculateSelectedCases
+from RFEM.enums import NodalSupportType, NodalLoadDirection, ActionCategoryType
+from RFEM.initModel import CalculateSelectedCases, Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
@@ -19,7 +19,6 @@ from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisS
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.Loads.nodalLoad import NodalLoad
 from RFEM.Calculate.meshSettings import GetModelInfo
-from RFEM.ImportExport.exports import ExportDetailsOfDesignToCSV
 
 if __name__ == '__main__':
     l = float(input('Length of the cantilever in m: '))
@@ -47,7 +46,7 @@ if __name__ == '__main__':
     LoadCase.StaticAnalysis(1, 'Self-Weight',analysis_settings_no=1,self_weight=[True, 0.0, 0.0, 1.0])
     LoadCase.StaticAnalysis(2, 'Variable',analysis_settings_no=1,action_category=ActionCategoryType.ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_B_OFFICE_AREAS_QI_B)
 
-    NodalLoad(1, 1, '2', LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, f*1000)
+    NodalLoad(1, 1, '2', NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, f*1000)
     Model.clientModel.service.finish_modification()
 
     # Calculate_all()

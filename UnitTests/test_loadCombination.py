@@ -41,7 +41,17 @@ def test_loadCombination():
 
     Model.clientModel.service.finish_modification()
 
-    combination = Model.clientModel.service.get_load_combination(1)
+    comb = Model.clientModel.service.get_load_combination(1)
 
-    #assert round(combination.items[0][0].row.factor, 2) == 1.20
-    #assert combination.items[0][0].row.load_case == 1
+    assert comb.no == 1
+    assert comb.analysis_type == "ANALYSIS_TYPE_STATIC"
+    assert comb.design_situation == 1
+    assert comb.user_defined_name_enabled == True
+    assert comb.name == "CO1"
+    assert comb.static_analysis_settings == 1
+    assert comb.consider_imperfection == False
+    assert comb.consider_initial_state == False
+    assert comb.structure_modification_enabled == False
+    assert comb.to_solve == True
+    assert round(comb.items[0][0].row.factor, 2) == 1.35
+    assert comb.items[0][0].row.load_case == 1
