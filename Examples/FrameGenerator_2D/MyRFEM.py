@@ -91,10 +91,13 @@ class MyRFEM():
         Node(11, x, y, z)
 
         # Create materials
-        Material(1, self.input['structure']['material'][0])
-        Material(2, self.input['structure']['material'][1])
-        Material(3, self.input['structure']['material'][2])
-        Material(4, self.input['structure']['material'][3])
+        p = {
+            "material_model": "MODEL_ISOTROPIC_LINEAR_ELASTIC"
+        }
+        Material(1, self.input['structure']['material'][0], params=p)
+        Material(2, self.input['structure']['material'][1], params=p)
+        Material(3, self.input['structure']['material'][2], params=p)
+        Material(4, self.input['structure']['material'][3], params=p)
 
         # Create cross-sections
         Section(1, self.input['structure']['cs'][0], 1)
@@ -323,6 +326,4 @@ class MyRFEM():
         Model.clientModel.service.close_connection()
 
 if __name__ == "__main__":
-    # ist ein Argument vorhanden?
-    # TODO Wenn ja, dann die JSON-Datei einlesen und die Methode calculate() aufrufen.
     pass

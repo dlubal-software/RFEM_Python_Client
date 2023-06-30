@@ -8,13 +8,7 @@ from PyQt5 import uic, QtWebEngineWidgets
 from PyQt5.QtCore import Qt, QUrl
 from PyQt5.QtGui import QBrush, QPainter, QPen, QColor, QFont
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsScene, QMessageBox
-
 from MyRFEM import *
-
-# TODO 33: Add buttons for switch on and switch of the load in graphic
-# TODO 23: Implement a "Wait" dialog. It should display after click of [Calculate] and
-#          should disappear when the calculation is finished (in done() method).
-# TODO 42:
 
 class MyWindow(QMainWindow):
     # This dictionary stores the data for the graphic that will
@@ -35,11 +29,12 @@ class MyWindow(QMainWindow):
     cross_section_list_2 = []
 
     # Presets for UI
-    # The data is loaded from config.json.
+    # The data are loaded from config.json.
     presets = {}
 
     def __init__(self):
         super(MyWindow, self).__init__()
+        # Build the UI from XML file.
         self.ui = uic.loadUi("./Examples/FrameGenerator_2D/MyApp.ui", self)
         self.readConfig()
 
@@ -214,13 +209,14 @@ class MyWindow(QMainWindow):
         load_high = 30
         dim_length = 20
 
+        # Scale factor for graphic
         factor_x = (400 - dim_spacing) / n_04[0]
         factor_y = (700 - dim_spacing - load_spacing) / n_01[1]
         factor = min(factor_x, factor_y)
 
         brush = QBrush()
 
-        # Diameter Circle
+        # Diameter circle for hinges
         d = 7
 
         pen = QPen()
@@ -230,6 +226,7 @@ class MyWindow(QMainWindow):
         pen.setCapStyle(Qt.RoundCap)
         pen.setJoinStyle(Qt.RoundJoin)
 
+        # Draw the members
         scene.addLine(n_02[0] * factor, n_02[1] * factor, n_03[0] * factor, n_03[1] * factor, pen)
         scene.addLine(n_01[0] * factor, n_01[1] * factor, n_02[0] * factor, n_02[1] * factor, pen)
         scene.addLine(n_01[0] * factor, n_01[1] * factor, n_02[0] * factor, n_02[1] * factor, pen)
@@ -245,7 +242,7 @@ class MyWindow(QMainWindow):
         scene.addLine(n_09[0] * factor, n_09[1] * factor, n_11[0] * factor, n_11[1] * factor, pen)
         scene.addLine(n_11[0] * factor, n_11[1] * factor, n_05[0] * factor, n_05[1] * factor, pen)
 
-        # Supports
+        # Draw the supports
         if self.graphic_model['supports']['1'] == 'Hinged':
             scene.addEllipse((n_01[0]* factor) - d/2, n_01[1]* factor, d, d, pen, brush)
             scene.addLine(n_01[0]* factor, (n_01[1]* factor) + d, (n_01[0]* factor) - 10, (n_01[1]* factor) + d + 10, pen)
@@ -278,13 +275,13 @@ class MyWindow(QMainWindow):
         else:
             scene.addLine((n_10[0]* factor) - 10, (n_10[1]* factor), (n_10[0]* factor) + 10, (n_10[1]* factor), pen)
 
-        # Hinges
+        # Draw the hinges
         scene.addEllipse((n_02[0]* factor), (n_02[1]* factor) - d/2, d, d, pen, brush)
         scene.addEllipse((n_05[0]* factor) - d, (n_05[1]* factor) - d/2, d, d, pen)
         scene.addEllipse((n_09[0]* factor) - d/2, (n_09[1]* factor), d, d, pen)
         scene.addEllipse((n_11[0]* factor) - d/2, (n_11[1]* factor), d, d, pen)
 
-        # Dimensions
+        # Draw the dimension lines
         dim_pen = QPen()
         dim_pen.setStyle(Qt.SolidLine)
         dim_pen.setWidth(1)
@@ -322,7 +319,7 @@ class MyWindow(QMainWindow):
         scene.addText('h 2', dim_font).setPos(n_01[0] * factor - dim_spacing + dim_length / 2, (n_02[1] + n_03[1]) / 2 * factor - dim_length / 2)
         scene.addText('h 3', dim_font).setPos(n_01[0] * factor - dim_spacing + dim_length / 2, (n_03[1] + n_07[1]) / 2 * factor - dim_length / 2)
 
-        # Loads
+        # Draw the loads
         load_pen = QPen()
         load_pen.setStyle(Qt.SolidLine)
         load_pen.setWidth(1)
@@ -358,6 +355,8 @@ class MyWindow(QMainWindow):
         scene.addText('s_r = ' + str(self.calculation_model['loads']['snow'][0]), dim_font).setPos(n_07[0] * factor, (n_07[1]) * factor - (3 * load_spacing + load_high))
 
     def validate(self, s):
+        # This method validates the user inputs in all line edits.
+
         # Replace comma with dot
         s = s.replace(',', '.')
 
@@ -368,6 +367,7 @@ class MyWindow(QMainWindow):
         # Remove spaces
         s = s.rstrip()
 
+        # Was a number entered?
         try:
             f = float(s)
             if f <= 0.0:
@@ -395,7 +395,7 @@ class MyWindow(QMainWindow):
             # save it in calculation model
             self.calculation_model['check_load'] = 1
 
-            # enable GroupBoxes
+            # enable GroupBoxes for loads
             self.ui.groupBox_SW.setEnabled(True)
             self.ui.groupBox_Snow.setEnabled(True)
             self.ui.groupBox_Slab.setEnabled(True)
@@ -433,6 +433,7 @@ class MyWindow(QMainWindow):
         # Update calculation model
         self.calculation_model['structure']['dimensions'][0] = l_1
 
+        # Update graphic
         n_4 = self.graphic_model['node']['04']
         n_5 = self.graphic_model['node']['05']
         n_6 = self.graphic_model['node']['06']
@@ -462,7 +463,6 @@ class MyWindow(QMainWindow):
         self.graphic_model['node']['10'][0] = n_10[0]
         self.graphic_model['node']['11'][0] = n_11[0]
 
-        # Update graphic
         self.drawGraphic()
 
     def onChange_l_2(self):
@@ -474,6 +474,7 @@ class MyWindow(QMainWindow):
         # Update calculation model
         self.calculation_model['structure']['dimensions'][1] = l_2
 
+        # Update graphic
         n_4 = self.graphic_model['node']['04']
         n_5 = self.graphic_model['node']['05']
         n_6 = self.graphic_model['node']['06']
@@ -498,7 +499,6 @@ class MyWindow(QMainWindow):
         self.graphic_model['node']['10'][0] = n_10[0]
         self.graphic_model['node']['11'][0] = n_11[0]
 
-        # Update graphic
         self.drawGraphic()
 
     def onChange_l_3(self):
@@ -510,6 +510,7 @@ class MyWindow(QMainWindow):
         # Update calculation model
         self.calculation_model['structure']['dimensions'][2] = l_3
 
+        # Update graphic
         n_4 = self.graphic_model['node']['04']
         n_5 = self.graphic_model['node']['05']
         n_6 = self.graphic_model['node']['06']
@@ -529,7 +530,6 @@ class MyWindow(QMainWindow):
         self.graphic_model['node']['06'][0] = n_6[0]
         self.graphic_model['node']['07'][0] = n_7[0]
 
-        # Update graphic
         self.drawGraphic()
 
     def onChange_h_1(self):
@@ -541,6 +541,7 @@ class MyWindow(QMainWindow):
         # Update calculation model
         self.calculation_model['structure']['dimensions'][3] = h_1
 
+        # Update graphic
         n_1 = self.graphic_model['node']['01']
         n_2 = self.graphic_model['node']['02']
         n_8 = self.graphic_model['node']['08']
@@ -559,7 +560,6 @@ class MyWindow(QMainWindow):
         self.graphic_model['node']['08'][1] = n_8[1]
         self.graphic_model['node']['10'][1] = n_10[1]
 
-        # Update graphic
         self.drawGraphic()
 
     def onChange_h_2(self):
@@ -571,6 +571,7 @@ class MyWindow(QMainWindow):
         # Update calculation model
         self.calculation_model['structure']['dimensions'][4] = h_2
 
+        # Update graphic
         n_1 = self.graphic_model['node']['01']
         n_2 = self.graphic_model['node']['02']
         n_3 = self.graphic_model['node']['03']
@@ -601,7 +602,6 @@ class MyWindow(QMainWindow):
         self.graphic_model['node']['10'][1] = n_10[1]
         self.graphic_model['node']['11'][1] = n_11[1]
 
-        # Update graphic
         self.drawGraphic()
 
     def onChange_h_3(self):
@@ -613,6 +613,7 @@ class MyWindow(QMainWindow):
         # Update calculation model
         self.calculation_model['structure']['dimensions'][5] = h_3
 
+        # Update graphic
         n_1 = self.graphic_model['node']['01']
         n_2 = self.graphic_model['node']['02']
         n_3 = self.graphic_model['node']['03']
@@ -648,7 +649,6 @@ class MyWindow(QMainWindow):
         self.graphic_model['node']['10'][1] = n_10[1]
         self.graphic_model['node']['11'][1] = n_11[1]
 
-        # Update graphic
         self.drawGraphic()
 
     def onChange_g_r(self):
@@ -801,13 +801,14 @@ class MyWindow(QMainWindow):
 
 
     def onCalculate(self):
-        # Save data in dialog
+        # Save data in JSON file
         self.writeConfig()
 
         # Make an instance of class MyRFEM and init it
         my_rfem = MyRFEM(self.calculation_model)
 
-        # Call the calculation method in the class and store the results in a dictionary
+        # Call the calculation method in the class
+        # If the calculation was successful, then results is true.
         self.results = my_rfem.calculate()
 
         # Protocol
@@ -820,7 +821,7 @@ class MyWindow(QMainWindow):
             msg.setText('Calculation failed.')
             msg.exec
 
-        # This method close the model and close the connection to RFEM server.
+        # This method close the connection to RFEM server.
         my_rfem.done()
 
     def onCancel(self):
