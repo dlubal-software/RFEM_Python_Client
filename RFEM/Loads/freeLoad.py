@@ -205,7 +205,7 @@ class FreeLoad():
             load_location_parameter (list): Load Location Parameters
                 for load_location == FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CORNER_POINTS:
                     for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM or FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_FIRST or FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_SECOND:
-                        load_location_parameter = [load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y, axis_start_angle]
+                        load_location_parameter = [load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y, load_location_rotation]
                     for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
                         load_location_parameter = [load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y, [[distance, factor], ...]
                     for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER:
@@ -214,7 +214,7 @@ class FreeLoad():
                         load_location_parameter = [load_location_first_x, load_location_first_y, load_location_second_x, load_location_second_y, [[distance, factor], ...], [axis_definition_p1_x, axis_definition_p1_y, axis_definition_p1_z], [axis_definition_p2_x, axis_definition_p2_y, axis_definition_p2_z], axis_start_angle,[[alpha, factor], ...]
                 for load_location == FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CENTER_AND_SIDES:
                     for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_UNIFORM or FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_FIRST or FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_SECOND:
-                        load_location_parameter = [load_location_center_x, load_location_center_y, load_location_center_side_a, load_location_center_side_b, axis_start_angle]
+                        load_location_parameter = [load_location_center_x, load_location_center_y, load_location_center_side_a, load_location_center_side_b, load_location_rotation]
                     for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z:
                         load_location_parameter = [load_location_center_x, load_location_center_y, load_location_center_side_a, load_location_center_side_b, [[distance, factor], ...]
                     for load_distribution == FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER:
@@ -274,7 +274,7 @@ class FreeLoad():
                 clientObject.load_location_first_y = load_location_parameter[1]
                 clientObject.load_location_second_x = load_location_parameter[2]
                 clientObject.load_location_second_y = load_location_parameter[3]
-                clientObject.axis_start_angle = load_location_parameter[4] * (pi/180)
+                clientObject.load_location_rotation = load_location_parameter[4] * (pi/180)
 
             elif load_distribution.name == 'LOAD_DISTRIBUTION_VARYING_IN_Z':
                 if len(load_location_parameter) != 5:
@@ -368,7 +368,7 @@ class FreeLoad():
                 clientObject.load_location_center_y = load_location_parameter[1]
                 clientObject.load_location_center_side_a = load_location_parameter[2]
                 clientObject.load_location_center_side_b = load_location_parameter[3]
-                clientObject.axis_start_angle = load_location_parameter[4] * (pi/180)
+                clientObject.load_location_rotation = load_location_parameter[4] * (pi/180)
 
             elif load_distribution.name == 'LOAD_DISTRIBUTION_VARYING_IN_Z':
                 if len(load_location_parameter) != 5:
