@@ -20,7 +20,7 @@ from RFEM.BasicObjects.lineSet import LineSet
 from RFEM.BasicObjects.memberSet import MemberSet
 from RFEM.BasicObjects.solid import Solid
 from RFEM.BasicObjects.solidSet import SolidSet
-from RFEM.BasicObjects.coordinate_system import CoordinateSystem
+from RFEM.BasicObjects.coordinateSystem import CoordinateSystem
 
 if Model.clientModel is None:
     Model()
@@ -957,7 +957,11 @@ def test_coordinate_system():
 
     Node(1, 0, 0, 0)
 
+    CoordinateSystem()
     CoordinateSystem.OffsetXYZ(2)
+    CoordinateSystem.ThreePoints(3)
+    CoordinateSystem.TwoPointsAndAngle(4)
+    CoordinateSystem.PointAndThreeAngles(5)
 
     Model.clientModel.service.finish_modification()
 

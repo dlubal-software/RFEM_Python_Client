@@ -57,7 +57,6 @@ class CoordinateSystem():
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
 
-
         # Add Coordinate System to client model
         model.clientModel.service.set_coordinate_system(clientObject)
 
@@ -114,21 +113,20 @@ class CoordinateSystem():
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
 
-
         # Add Coordinate System to client model
         model.clientModel.service.set_coordinate_system(clientObject)
 
     @staticmethod
     def ThreePoints(no: int = 1,
-                    origin_coordinate_x: float = 0.0,
+                    origin_coordinate_x: float = 1.0,
                     origin_coordinate_y: float = 0.0,
                     origin_coordinate_z: float = 0.0,
                     u_axis_point_coordinate_x: float = 0.0,
-                    u_axis_point_coordinate_y: float = 0.0,
+                    u_axis_point_coordinate_y: float = 1.0,
                     u_axis_point_coordinate_z: float = 0.0,
                     uw_plane_point_coordinate_x: float = 0.0,
                     uw_plane_point_coordinate_y: float = 0.0,
-                    uw_plane_point_coordinate_z: float = 0.0,
+                    uw_plane_point_coordinate_z: float = 1.0,
                     name: str = '',
                     comment: str = '',
                     params: dict = None,
@@ -191,13 +189,12 @@ class CoordinateSystem():
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
 
-
         # Add Coordinate System to client model
         model.clientModel.service.set_coordinate_system(clientObject)
 
     @staticmethod
     def TwoPointsAndAngle(no: int = 1,
-                          origin_coordinate_x: float = 0.0,
+                          origin_coordinate_x: float = 1.0,
                           origin_coordinate_y: float = 0.0,
                           origin_coordinate_z: float = 0.0,
                           u_axis_point_coordinate_x: float = 0.0,
@@ -262,15 +259,14 @@ class CoordinateSystem():
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
 
-
         # Add Coordinate System to client model
         model.clientModel.service.set_coordinate_system(clientObject)
 
     @staticmethod
     def PointAndThreeAngles(no: int = 1,
-                            origin_coordinate_x: float = 0.0,
-                            origin_coordinate_y: float = 0.0,
-                            origin_coordinate_z: float = 0.0,
+                            origin_coordinate_x: float = 1.0,
+                            origin_coordinate_y: float = 2.0,
+                            origin_coordinate_z: float = 3.0,
                             rotation_angles_sequence: float = CoordinateSystemRotationAnglesSequence.SEQUENCE_XYZ,
                             rotation_angle_1: float = 0.0,
                             rotation_angle_2: float = 0.0,
@@ -314,7 +310,7 @@ class CoordinateSystem():
         clientObject.origin_coordinate_z = origin_coordinate_z
 
         # Rotation Angles
-        clientObject.rotation_angles_sequence = rotation_angles_sequence
+        clientObject.rotation_angles_sequence = rotation_angles_sequence.name
 
         clientObject.rotation_angle_1 = rotation_angle_1
         clientObject.rotation_angle_2 = rotation_angle_2
@@ -332,6 +328,7 @@ class CoordinateSystem():
             for key in params:
                 clientObject[key] = params[key]
 
+        print(clientObject)
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
 
