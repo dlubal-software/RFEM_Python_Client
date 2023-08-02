@@ -20,6 +20,7 @@ from RFEM.BasicObjects.lineSet import LineSet
 from RFEM.BasicObjects.memberSet import MemberSet
 from RFEM.BasicObjects.solid import Solid
 from RFEM.BasicObjects.solidSet import SolidSet
+from RFEM.BasicObjects.coordinateSystem import CoordinateSystem
 
 if Model.clientModel is None:
     Model()
@@ -946,3 +947,24 @@ def test_get_thickness():
 
     assert thickness['type'] == "TYPE_UNIFORM"
     assert thickness['uniform_thickness'] == 0.02
+
+def test_coordinate_system():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Material(1, 'S235')
+
+    Node(1, 0, 0, 0)
+
+    CoordinateSystem()
+    CoordinateSystem.OffsetXYZ(2)
+    CoordinateSystem.ThreePoints(3)
+    CoordinateSystem.TwoPointsAndAngle(4)
+    CoordinateSystem.PointAndThreeAngles(5)
+
+    Model.clientModel.service.finish_modification()
+
+    coord = Model.clientModel.service.get_coordinate_system(2)
+
+    assert coord.type == 'TYPE_OFFSET_XYZ'

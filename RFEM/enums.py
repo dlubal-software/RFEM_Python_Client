@@ -2532,3 +2532,16 @@ class TimberServiceConditionsTreatmentType(Enum):
     Timber Service Conditions Treatment
     '''
     TREATMENT_TYPE_FIRE_RETARDANT, TREATMENT_TYPE_NONE, TREATMENT_TYPE_PRESERVATIVE = range(3)
+
+class CoordinateSystemType(Enum):
+    '''
+    Coordinate System Type
+    '''
+    TYPE_2_POINTS_AND_ANGLE, TYPE_3_POINTS, TYPE_GLOBAL_XYZ, TYPE_OFFSET_XYZ, TYPE_POINT_AND_3_ANGLES = range(5)
+
+class CoordinateSystemRotationAnglesSequence(Enum):
+    '''
+    Coordinate System Rotation Angles Sequence
+    '''
+    SEQUENCE_XYZ, SEQUENCE_XZY, SEQUENCE_YXZ, SEQUENCE_YZX, SEQUENCE_ZXY, SEQUENCE_ZYX = range(6)
+

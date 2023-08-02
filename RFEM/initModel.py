@@ -224,6 +224,7 @@ def clearAttributes(obj):
     return obj
 
 def deleteEmptyAttributes(obj):
+    from enum import Enum
     '''
     Delete all attributes that are None for better performance.
 
@@ -237,13 +238,13 @@ def deleteEmptyAttributes(obj):
         ValueError('WARNING: Object feeded to deleteEmptyAttributes function is not iterable. It is type: '+str(type(obj)+'.'))
 
     for i in it:
-        if isinstance(i, str) or isinstance(i, int) or isinstance(i, float) or isinstance(i, bool):
+        if isinstance(i, str) or isinstance(i, int) or isinstance(i, float) or isinstance(i, bool) or isinstance(i, Enum):
             continue
         if len(i) > 2:
             i = deleteEmptyAttributes(i)
         elif i[1] is None or i[1] == "":
             delattr(obj, i[0])
-        elif isinstance(i[1], str) or isinstance(i[1], int) or isinstance(i[1], float) or isinstance(i[1], bool):
+        elif isinstance(i[1], str) or isinstance(i[1], int) or isinstance(i[1], float) or isinstance(i[1], bool) or isinstance(i[1], Enum):
             pass
         else:
             if isinstance(i, tuple):
