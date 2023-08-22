@@ -120,12 +120,12 @@ class NodalSupport():
                      nodes: str = "1",
                      coordinate_system: int = 1,
                      spring_constant: list = [inf, inf, inf, 0.0, 0.0, inf],
-                     spring_x_nonlinearity: list = [NodalSupportNonlinearity.NONLINEARITY_TYPE_NONE, [None], [None]],
-                     spring_y_nonlinearity: list = [NodalSupportNonlinearity.NONLINEARITY_TYPE_NONE, [None], [None]],
-                     spring_z_nonlinearity: list = [NodalSupportNonlinearity.NONLINEARITY_TYPE_NONE, [None], [None]],
-                     rotational_x_nonlinearity: list = [NodalSupportNonlinearity.NONLINEARITY_TYPE_NONE, [None], [None]],
-                     rotational_y_nonlinearity: list = [NodalSupportNonlinearity.NONLINEARITY_TYPE_NONE, [None], [None]],
-                     rotational_z_nonlinearity: list = [NodalSupportNonlinearity.NONLINEARITY_TYPE_NONE, [None], [None]],
+                     spring_x_nonlinearity: list = [NodalSupportNonlinearity.NONLINEARITY_TYPE_NONE],
+                     spring_y_nonlinearity: list = [NodalSupportNonlinearity.NONLINEARITY_TYPE_NONE],
+                     spring_z_nonlinearity: list = [NodalSupportNonlinearity.NONLINEARITY_TYPE_NONE],
+                     rotational_x_nonlinearity: list = [NodalSupportNonlinearity.NONLINEARITY_TYPE_NONE],
+                     rotational_y_nonlinearity: list = [NodalSupportNonlinearity.NONLINEARITY_TYPE_NONE],
+                     rotational_z_nonlinearity: list = [NodalSupportNonlinearity.NONLINEARITY_TYPE_NONE],
                      name: str = None,
                      comment: str = '',
                      params: dict = None,
@@ -185,6 +185,205 @@ class NodalSupport():
         clientObject.rotational_restraint_x_nonlinearity = rotational_x_nonlinearity[0].name
         clientObject.rotational_restraint_y_nonlinearity = rotational_y_nonlinearity[0].name
         clientObject.rotational_restraint_z_nonlinearity = rotational_z_nonlinearity[0].name
+
+        # Nodal Support Nonlinearity Parameters for Partial Activity
+        # For spring_x_nonlinearity
+        if spring_x_nonlinearity[0].name == "NONLINEARITY_TYPE_PARTIAL_ACTIVITY":
+
+            # Negative Zone
+            clientObject.partial_activity_along_x_negative_type = spring_x_nonlinearity[1][0].name
+
+            if spring_x_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_COMPLETE':
+                clientObject.partial_activity_along_x_negative_slippage = spring_x_nonlinearity[1][1]
+
+            elif spring_x_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_FIXED':
+                clientObject.partial_activity_along_x_negative_slippage = spring_x_nonlinearity[1][1]
+                clientObject.partial_activity_along_x_negative_displacement = spring_x_nonlinearity[1][2]
+
+            elif spring_x_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE' or \
+                spring_x_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE':
+                clientObject.partial_activity_along_x_negative_slippage = spring_x_nonlinearity[1][1]
+                clientObject.partial_activity_along_x_negative_force = spring_x_nonlinearity[1][2]
+
+            # Positive Zone
+            clientObject.partial_activity_along_x_positive_type = spring_x_nonlinearity[2][0].name
+
+            if spring_x_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_COMPLETE':
+                clientObject.partial_activity_along_x_positive_slippage = spring_x_nonlinearity[2][1]
+
+            elif spring_x_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_FIXED':
+                clientObject.partial_activity_along_x_positive_slippage = spring_x_nonlinearity[2][1]
+                clientObject.partial_activity_along_x_positive_displacement = spring_x_nonlinearity[2][2]
+
+            elif spring_x_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE' or \
+                spring_x_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE':
+                clientObject.partial_activity_along_x_positive_slippage = spring_x_nonlinearity[2][1]
+                clientObject.partial_activity_along_x_positive_force = spring_x_nonlinearity[2][2]
+
+        # For spring_y_nonlinearity
+        if spring_y_nonlinearity[0].name == "NONLINEARITY_TYPE_PARTIAL_ACTIVITY":
+
+            # Negative Zone
+            clientObject.partial_activity_along_y_negative_type = spring_y_nonlinearity[1][0].name
+
+            if spring_y_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_COMPLETE':
+                clientObject.partial_activity_along_y_negative_slippage = spring_y_nonlinearity[1][1]
+
+            elif spring_y_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_FIXED':
+                clientObject.partial_activity_along_y_negative_slippage = spring_y_nonlinearity[1][1]
+                clientObject.partial_activity_along_y_negative_displacement = spring_y_nonlinearity[1][2]
+
+            elif spring_y_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE' or \
+                spring_y_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE':
+                clientObject.partial_activity_along_y_negative_slippage = spring_y_nonlinearity[1][1]
+                clientObject.partial_activity_along_y_negative_force = spring_y_nonlinearity[1][2]
+
+            # Positive Zone
+            clientObject.partial_activity_along_y_positive_type = spring_y_nonlinearity[2][0].name
+
+            if spring_y_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_COMPLETE':
+                clientObject.partial_activity_along_y_positive_slippage = spring_y_nonlinearity[2][1]
+
+            elif spring_y_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_FIXED':
+                clientObject.partial_activity_along_y_positive_slippage = spring_y_nonlinearity[2][1]
+                clientObject.partial_activity_along_y_positive_displacement = spring_y_nonlinearity[2][2]
+
+            elif spring_y_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE' or \
+                spring_y_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE':
+                clientObject.partial_activity_along_y_positive_slippage = spring_y_nonlinearity[2][1]
+                clientObject.partial_activity_along_y_positive_force = spring_y_nonlinearity[2][2]
+
+        # For spring_z_nonlinearity
+        if spring_z_nonlinearity[0].name == "NONLINEARITY_TYPE_PARTIAL_ACTIVITY":
+
+            # Negative Zone
+            clientObject.partial_activity_along_z_negative_type  = spring_z_nonlinearity[1][0].name
+
+            if spring_z_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_COMPLETE':
+                clientObject.partial_activity_along_z_negative_slippage = spring_z_nonlinearity[1][1]
+
+            elif spring_z_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_FIXED':
+                clientObject.partial_activity_along_z_negative_slippage = spring_z_nonlinearity[1][1]
+                clientObject.partial_activity_along_z_negative_displacement = spring_z_nonlinearity[1][2]
+
+            elif spring_z_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE' or \
+                spring_z_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE':
+                clientObject.partial_activity_along_z_negative_slippage = spring_z_nonlinearity[1][1]
+                clientObject.partial_activity_along_z_negative_force = spring_z_nonlinearity[1][2]
+
+            # Positive Zone
+            clientObject.partial_activity_along_z_positive_type = spring_z_nonlinearity[2][0].name
+
+            if spring_z_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_COMPLETE':
+                clientObject.partial_activity_along_z_positive_slippage = spring_z_nonlinearity[2][1]
+
+            elif spring_z_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_FIXED':
+                clientObject.partial_activity_along_z_positive_slippage = spring_z_nonlinearity[2][1]
+                clientObject.partial_activity_along_z_positive_displacement = spring_z_nonlinearity[2][2]
+
+            elif spring_z_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE' or \
+                spring_z_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE':
+                clientObject.partial_activity_along_z_positive_slippage = spring_z_nonlinearity[2][1]
+                clientObject.partial_activity_along_z_positive_force = spring_z_nonlinearity[2][2]
+
+        # For rotational_x_nonlinearity
+        if rotational_x_nonlinearity[0].name == "NONLINEARITY_TYPE_PARTIAL_ACTIVITY":
+
+            # Negative Zone
+            clientObject.partial_activity_around_x_negative_type  = rotational_x_nonlinearity[1][0].name
+
+            if rotational_x_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_COMPLETE':
+                clientObject.partial_activity_around_x_negative_slippage = rotational_x_nonlinearity[1][1]
+
+            elif rotational_x_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_FIXED':
+                clientObject.partial_activity_around_x_negative_slippage = rotational_x_nonlinearity[1][1]
+                clientObject.partial_activity_around_x_negative_rotation = rotational_x_nonlinearity[1][2]
+
+            elif rotational_x_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT' or \
+                rotational_x_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT':
+                clientObject.partial_activity_around_x_negative_slippage = rotational_x_nonlinearity[1][1]
+                clientObject.partial_activity_around_x_negative_moment = rotational_x_nonlinearity[1][2]
+
+            # Positive Zone
+            clientObject.partial_activity_around_x_positive_type  = rotational_x_nonlinearity[2][0].name
+
+            if rotational_x_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_COMPLETE':
+                clientObject.partial_activity_around_x_positive_slippage = rotational_x_nonlinearity[2][1]
+
+            elif rotational_x_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_FIXED':
+                clientObject.partial_activity_around_x_positive_slippage = rotational_x_nonlinearity[2][1]
+                clientObject.partial_activity_around_x_positive_rotation = rotational_x_nonlinearity[2][2]
+
+            elif rotational_x_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT' or \
+                rotational_x_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT':
+                clientObject.partial_activity_around_x_positive_slippage = rotational_x_nonlinearity[2][1]
+                clientObject.partial_activity_around_x_positive_moment = rotational_x_nonlinearity[2][2]
+
+        # For rotational_y_nonlinearity
+        if rotational_y_nonlinearity[0].name == "NONLINEARITY_TYPE_PARTIAL_ACTIVITY":
+
+            # Negative Zone
+            clientObject.partial_activity_around_y_negative_type  = rotational_y_nonlinearity[1][0].name
+
+            if rotational_y_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_COMPLETE':
+                clientObject.partial_activity_around_y_negative_slippage = rotational_y_nonlinearity[1][1]
+
+            elif rotational_y_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_FIXED':
+                clientObject.partial_activity_around_y_negative_slippage = rotational_y_nonlinearity[1][1]
+                clientObject.partial_activity_around_y_negative_rotation = rotational_y_nonlinearity[1][2]
+
+            elif rotational_y_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT' or \
+                rotational_y_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT':
+                clientObject.partial_activity_around_y_negative_slippage = rotational_y_nonlinearity[1][1]
+                clientObject.partial_activity_around_y_negative_moment = rotational_y_nonlinearity[1][2]
+
+            # Positive Zone
+            clientObject.partial_activity_around_y_positive_type  = rotational_y_nonlinearity[2][0].name
+
+            if rotational_y_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_COMPLETE':
+                clientObject.partial_activity_around_y_positive_slippage = rotational_y_nonlinearity[2][1]
+
+            elif rotational_y_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_FIXED':
+                clientObject.partial_activity_around_y_positive_slippage = rotational_y_nonlinearity[2][1]
+                clientObject.partial_activity_around_y_positive_rotation = rotational_y_nonlinearity[2][2]
+
+            elif rotational_y_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT' or \
+                rotational_y_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT':
+                clientObject.partial_activity_around_y_positive_slippage = rotational_y_nonlinearity[2][1]
+                clientObject.partial_activity_around_y_positive_moment = rotational_y_nonlinearity[2][2]
+
+        # For rotational_z_nonlinearity
+        if rotational_z_nonlinearity[0].name == "NONLINEARITY_TYPE_PARTIAL_ACTIVITY":
+
+            # Negative Zone
+            clientObject.partial_activity_around_z_negative_type  = rotational_z_nonlinearity[1][0].name
+
+            if rotational_z_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_COMPLETE':
+                clientObject.partial_activity_around_z_negative_slippage = rotational_z_nonlinearity[1][1]
+
+            elif rotational_z_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_FIXED':
+                clientObject.partial_activity_around_z_negative_slippage = rotational_z_nonlinearity[1][1]
+                clientObject.partial_activity_around_z_negative_rotation = rotational_z_nonlinearity[1][2]
+
+            elif rotational_z_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT' or \
+                rotational_z_nonlinearity[1][0].name == 'PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT':
+                clientObject.partial_activity_around_z_negative_slippage = rotational_z_nonlinearity[1][1]
+                clientObject.partial_activity_around_z_negative_moment = rotational_z_nonlinearity[1][2]
+
+            # Positive Zone
+            clientObject.partial_activity_around_z_positive_type  = rotational_z_nonlinearity[2][0].name
+
+            if rotational_z_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_COMPLETE':
+                clientObject.partial_activity_around_z_positive_slippage = rotational_z_nonlinearity[2][1]
+
+            elif rotational_z_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_FIXED':
+                clientObject.partial_activity_around_z_positive_slippage = rotational_z_nonlinearity[2][1]
+                clientObject.partial_activity_around_z_positive_rotation = rotational_z_nonlinearity[2][2]
+
+            elif rotational_z_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT' or \
+                rotational_z_nonlinearity[2][0].name == 'PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT':
+                clientObject.partial_activity_around_z_positive_slippage = rotational_z_nonlinearity[2][1]
+                clientObject.partial_activity_around_z_positive_moment = rotational_z_nonlinearity[2][2]
 
         # Nodal Support Nonlinearity Parameters for Diagram
         # For spring_x_nonlinearity
