@@ -7,7 +7,8 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 import pytest
-from RFEM.enums import NodalMeshRefinementType, NodalSupportType, NodalSupportNonlinearity, NodalSupportDiagramType, SupportPartialActivityAlongType, SupportPartialActivityAroundType
+from RFEM.enums import NodalMeshRefinementType, NodalSupportType, NodalSupportNonlinearity, NodalSupportDiagramType, SupportPartialActivityAlongType, \
+    SupportPartialActivityAroundType, SupportStiffnessDiagramDependOn, NodalSupportStiffnessDiagramType
 from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.node import Node
@@ -111,10 +112,15 @@ def test_nodalsupportnonlinearity():
                               [NodalSupportNonlinearity.NONLINEARITY_TYPE_DIAGRAM, [False, NodalSupportDiagramType.DIAGRAM_ENDING_TYPE_FAILURE, NodalSupportDiagramType.DIAGRAM_ENDING_TYPE_YIELDING], [[-1, -1.5], [-0.5, -1], [0, 0], [1, 1], [2, 2.5]]], \
                                 rotational_y_nonlinearity= [NodalSupportNonlinearity.NONLINEARITY_TYPE_DIAGRAM, [True, NodalSupportDiagramType.DIAGRAM_ENDING_TYPE_STOP], [[1,0.5], [2, 1], [3, 3]]], name='Nonlinear')
 
-    NodalSupport.Nonlinearity(2, '2', 1, [10000.0, 20000.0, 0, 400000, 30000, 0], [NodalSupportNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY, [SupportPartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FAILURE], [SupportPartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE, 1]], \
-                              [NodalSupportNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY, [SupportPartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FIXED, 0.000, 2], [SupportPartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE, 3]], \
-                              [NodalSupportNonlinearity.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE], [NodalSupportNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY, [SupportPartialActivityAroundType.PARTIAL_ACTIVITY_TYPE_FIXED, 0.000, 150], [SupportPartialActivityAroundType.PARTIAL_ACTIVITY_TYPE_FAILURE]], \
+    NodalSupport.Nonlinearity(2, '2', 1, [100.0, 200.0, 0.1, 400, 300, 0.2], [NodalSupportNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY, [SupportPartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FAILURE], [SupportPartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE, 1]], \
+                              [NodalSupportNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY, [SupportPartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FIXED, 0.0, 2], [SupportPartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE, 3]], \
+                              [NodalSupportNonlinearity.NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE], [NodalSupportNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY, [SupportPartialActivityAroundType.PARTIAL_ACTIVITY_TYPE_FIXED, 0.0, 150], [SupportPartialActivityAroundType.PARTIAL_ACTIVITY_TYPE_FAILURE]], \
                               [NodalSupportNonlinearity.NONLINEARITY_TYPE_FAILURE_ALL_IF_POSITIVE], [NodalSupportNonlinearity.NONLINEARITY_TYPE_NONE], "Nonlinearity2")
+
+    NodalSupport.Nonlinearity(3, '3', 1, [1,2,3,4,5,6], [NodalSupportNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1, 10], [NodalSupportNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2, 20], [NodalSupportNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2, 30, 40], \
+                              [NodalSupportNonlinearity.NONLINEARITY_TYPE_STIFFNESS_DIAGRAM, [SupportStiffnessDiagramDependOn.STIFFNESS_DIAGRAM_DEPENDS_ON_PX, True, NodalSupportStiffnessDiagramType.STIFFNESS_DIAGRAM_ENDING_TYPE_YIELDING], [[1,1],[2,3],[3,4]]], \
+                              [NodalSupportNonlinearity.NONLINEARITY_TYPE_STIFFNESS_DIAGRAM, [SupportStiffnessDiagramDependOn.STIFFNESS_DIAGRAM_DEPENDS_ON_PZ, False, NodalSupportStiffnessDiagramType.STIFFNESS_DIAGRAM_ENDING_TYPE_FAILURE, NodalSupportStiffnessDiagramType.STIFFNESS_DIAGRAM_ENDING_TYPE_CONTINUOUS], [[-2,-3],[-1.5,1],[0,0],[1,2],[2,5]]], \
+                              [NodalSupportNonlinearity.NONLINEARITY_TYPE_STIFFNESS_DIAGRAM, [SupportStiffnessDiagramDependOn.STIFFNESS_DIAGRAM_DEPENDS_ON_P, True, NodalSupportStiffnessDiagramType.STIFFNESS_DIAGRAM_ENDING_TYPE_CONTINUOUS], [[0,1],[10,2],[15,4]]], 'Nonlinearity3')
 
     Model.clientModel.service.finish_modification()
 
@@ -127,3 +133,9 @@ def test_nodalsupportnonlinearity():
     nsn2 = Model.clientModel.service.get_nodal_support(2)
     assert nsn2.name == 'Nonlinearity2'
     assert nsn2.partial_activity_around_x_negative_type == 'PARTIAL_ACTIVITY_TYPE_FIXED'
+
+    nsn3 = Model.clientModel.service.get_nodal_support(3)
+    assert nsn3.name == 'Nonlinearity3'
+    assert nsn3.spring_z_nonlinearity == 'NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2'
+    assert nsn3.stiffness_diagram_around_y_symmetric == False
+    assert nsn3.stiffness_diagram_around_z_table[0][2].row['force'] == 15
