@@ -542,6 +542,128 @@ class NodalSupport():
 
             clientObject.diagram_around_z_is_sorted = True
 
+        # Nodal Support Nonlinearity Parameters for Frictions
+        # For spring_x_nonlinearity
+        if spring_x_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_1" or \
+            spring_x_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_2" or \
+            spring_x_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2":
+            clientObject.friction_coefficient_x = spring_x_nonlinearity[1]
+
+        elif spring_x_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2":
+            clientObject.friction_coefficient_xy = spring_x_nonlinearity[1]
+            clientObject.friction_coefficient_xz = spring_x_nonlinearity[2]
+
+        # For spring_y_nonlinearity
+        if spring_y_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_1" or \
+            spring_y_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_2" or \
+            spring_y_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2":
+            clientObject.friction_coefficient_y = spring_y_nonlinearity[1]
+
+        elif spring_y_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2":
+            clientObject.friction_coefficient_yx = spring_y_nonlinearity[1]
+            clientObject.friction_coefficient_yz = spring_y_nonlinearity[2]
+
+        # For spring_z_nonlinearity
+        if spring_z_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_1" or \
+            spring_z_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_2" or \
+            spring_z_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2":
+            clientObject.friction_coefficient_z = spring_z_nonlinearity[1]
+
+        elif spring_z_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2":
+            clientObject.friction_coefficient_zx = spring_z_nonlinearity[1]
+            clientObject.friction_coefficient_zy = spring_z_nonlinearity[2]
+
+        # Nodal Support Nonlinearity Parameters for Stifness Diagram
+        # For rotational_x_nonlinearity
+        if rotational_x_nonlinearity[0].name == "NONLINEARITY_TYPE_STIFFNESS_DIAGRAM":
+
+            clientObject.stiffness_diagram_around_x_depends_on = rotational_x_nonlinearity[1][0].name
+            clientObject.stiffness_diagram_around_x_symmetric = rotational_x_nonlinearity[1][1]
+            if rotational_x_nonlinearity[1][0].name == 'STIFFNESS_DIAGRAM_DEPENDS_ON_P':
+                clientObject.stiffness_diagram_around_x_symmetric = True
+
+            if rotational_x_nonlinearity[1][1]:
+                clientObject.stiffness_diagram_around_x_end = rotational_x_nonlinearity[1][2].name
+                clientObject.stiffness_diagram_around_x_start = rotational_x_nonlinearity[1][2].name
+
+            else:
+                clientObject.stiffness_diagram_around_x_start = rotational_x_nonlinearity[1][2].name
+                clientObject.stiffness_diagram_around_x_end = rotational_x_nonlinearity[1][3].name
+
+            clientObject.stiffness_diagram_around_x_table = Model.clientModel.factory.create('ns0:nodal_support.stiffness_diagram_around_x_table')
+
+            for i, j in enumerate(rotational_x_nonlinearity[2]):
+                nssrx = Model.clientModel.factory.create('ns0:nodal_support_stiffness_diagram_around_x_table_row')
+                nssrx.no = i+1
+                nssrx.row = model.clientModel.factory.create('ns0:nodal_support_stiffness_diagram_around_x_table')
+                clearAttributes(nssrx.row)
+                nssrx.row.force = rotational_x_nonlinearity[2][i][0]
+                nssrx.row.spring = rotational_x_nonlinearity[2][i][1]
+
+                clientObject.stiffness_diagram_around_x_table.nodal_support_stiffness_diagram_around_x_table.append(nssrx)
+
+            clientObject.stiffness_diagram_around_x_is_sorted = True
+
+        # For rotational_y_nonlinearity
+        if rotational_y_nonlinearity[0].name == "NONLINEARITY_TYPE_STIFFNESS_DIAGRAM":
+
+            clientObject.stiffness_diagram_around_y_depends_on = rotational_y_nonlinearity[1][0].name
+            clientObject.stiffness_diagram_around_y_symmetric = rotational_y_nonlinearity[1][1]
+            if rotational_y_nonlinearity[1][0].name == 'STIFFNESS_DIAGRAM_DEPENDS_ON_P':
+                clientObject.stiffness_diagram_around_y_symmetric = True
+
+            if rotational_y_nonlinearity[1][1]:
+                clientObject.stiffness_diagram_around_y_end = rotational_y_nonlinearity[1][2].name
+                clientObject.stiffness_diagram_around_y_start = rotational_y_nonlinearity[1][2].name
+
+            else:
+                clientObject.stiffness_diagram_around_y_start = rotational_y_nonlinearity[1][2].name
+                clientObject.stiffness_diagram_around_y_end = rotational_y_nonlinearity[1][3].name
+
+            clientObject.stiffness_diagram_around_y_table = Model.clientModel.factory.create('ns0:nodal_support.stiffness_diagram_around_y_table')
+
+            for i, j in enumerate(rotational_y_nonlinearity[2]):
+                nssry = Model.clientModel.factory.create('ns0:nodal_support_stiffness_diagram_around_y_table_row')
+                nssry.no = i+1
+                nssry.row = model.clientModel.factory.create('ns0:nodal_support_stiffness_diagram_around_y_table')
+                clearAttributes(nssry.row)
+                nssry.row.force = rotational_y_nonlinearity[2][i][0]
+                nssry.row.spring = rotational_y_nonlinearity[2][i][1]
+
+                clientObject.stiffness_diagram_around_y_table.nodal_support_stiffness_diagram_around_y_table.append(nssry)
+
+            clientObject.stiffness_diagram_around_y_is_sorted = True
+
+        # For rotational_z_nonlinearity
+        if rotational_z_nonlinearity[0].name == "NONLINEARITY_TYPE_STIFFNESS_DIAGRAM":
+
+            clientObject.stiffness_diagram_around_z_depends_on = rotational_z_nonlinearity[1][0].name
+            clientObject.stiffness_diagram_around_z_symmetric = rotational_z_nonlinearity[1][1]
+            if rotational_z_nonlinearity[1][0].name == 'STIFFNESS_DIAGRAM_DEPENDS_ON_P':
+                clientObject.stiffness_diagram_around_z_symmetric = True
+
+            if rotational_z_nonlinearity[1][1]:
+                clientObject.stiffness_diagram_around_z_end = rotational_z_nonlinearity[1][2].name
+                clientObject.stiffness_diagram_around_z_start = rotational_z_nonlinearity[1][2].name
+
+            else:
+                clientObject.stiffness_diagram_around_z_start = rotational_z_nonlinearity[1][2].name
+                clientObject.stiffness_diagram_around_z_end = rotational_z_nonlinearity[1][3].name
+
+            clientObject.stiffness_diagram_around_z_table = Model.clientModel.factory.create('ns0:nodal_support.stiffness_diagram_around_z_table')
+
+            for i, j in enumerate(rotational_z_nonlinearity[2]):
+                nssrz = Model.clientModel.factory.create('ns0:nodal_support_stiffness_diagram_around_z_table_row')
+                nssrz.no = i+1
+                nssrz.row = model.clientModel.factory.create('ns0:nodal_support_stiffness_diagram_around_z_table')
+                clearAttributes(nssrz.row)
+                nssrz.row.force = rotational_z_nonlinearity[2][i][0]
+                nssrz.row.spring = rotational_z_nonlinearity[2][i][1]
+
+                clientObject.stiffness_diagram_around_z_table.nodal_support_stiffness_diagram_around_z_table.append(nssrz)
+
+            clientObject.stiffness_diagram_around_z_is_sorted = True
+
         # User Defined Name
         if name:
             clientObject.user_defined_name_enabled = True
