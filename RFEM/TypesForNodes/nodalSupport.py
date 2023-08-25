@@ -138,16 +138,39 @@ class NodalSupport():
             coordinate_system (int): Assigned Coordinate System
             spring_constant (list): Spring Constant List
                 spring_constant = [spring_x, spring_y, spring_z, rotational_restraint_x, rotational_restraint_y, rotational_restraint_z]
-            spring_x_nonlinearity (list of lists): Nonlinearity Parameters for Nodal Support along X direction
-            spring_y_nonlinearity (list of lists): Nonlinearity Parameters for Nodal Support along Y direction
-            spring_z_nonlinearity (list of lists): Nonlinearity Parameters for Nodal Support along Z direction
+            spring_x_nonlinearity (list/list of lists): Nonlinearity Parameters for Nodal Support along X direction
+            spring_y_nonlinearity (list/list of lists): Nonlinearity Parameters for Nodal Support along Y direction
+            spring_z_nonlinearity (list/list of lists): Nonlinearity Parameters for Nodal Support along Z direction
+                for spring_x/y/z_nonlinearity[0] == NodalSupportNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
+                    spring_x/y/z_nonlinearity = [Nodal Support nonlinearity Partial_Activity, negative zone, positive zone]
+                    for negative/positive zone[0] == SupportPartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
+                        negative/positive zone = [negative/positive zone type, slippage]
+                    for negative/positive zone[0] == SupportPartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FIXED:
+                        negative/positive zone = [negative/positive zone type, slippage, displacement]  (Note: Displacement must be greater than slippage)
+                    for negative/positive zone[0] == SupportPartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE/PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE:
+                        negative/positive zone = [negative/positive zone type, slippage, force]
                 for spring_x/y/z_nonlinearity[0] == NodalSupportNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
                     spring_x/y/z_nonlinearity = [nonlinearity_type_diagram, [symmetric(bool), diagram_type_enumeration(start), diagram_type_enumeration(end)], [[displacement, force],...]]
+                for spring_x/y/z_nonlinearity[0] == NodalSupportNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1/NONLINEARITY_TYPE_FRICTION_DIRECTION_2/NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2:
+                    spring_x/y/z_nonlinearity = [nonlinearity_type_friction, friction_coefficient]
+                for spring_x/y/z_nonlinearity[0] == NodalSupportNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2:
+                    spring_x/y/z_nonlinearity = [nonlinearity_type_friction, friction_coefficient_1, friction_coefficient_2]
             rotational_x_nonlinearity (list of lists): Nonlinearity Parameters for Nodal Support around X direction
             rotational_y_nonlinearity (list of lists): Nonlinearity Parameters for Nodal Support around Y direction
             rotational_z_nonlinearity (list of lists): Nonlinearity Parameters for Nodal Support around Z direction
+                for rotational_x/y/z_nonlinearity[0] == NodalSupportNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
+                    rotational_x/y/z_nonlinearity = [Nodal Support nonlinearity Partial_Activity, negative zone, positive zone]
+                    for negative/positive zone[0] == SupportPartialActivityAroundType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
+                        negative/positive zone = [negative/positive zone type, slippage]
+                    for negative/positive zone[0] == SupportPartialActivityAroundType.PARTIAL_ACTIVITY_TYPE_FIXED:
+                        negative/positive zone = [negative/positive zone type, slippage, rotation]
+                    for negative/positive zone[0] == SupportPartialActivityAroundType.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT/PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT:
+                        negative/positive zone = [negative/positive zone type, slippage, moment]
                 for rotational_x/y/z_nonlinearity[0] == NodalSupportNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
                     rotational_x/y/z_nonlinearity = [nonlinearity_type_diagram, [symmetric(bool), diagram_type_enumeration(start), diagram_type_enumeration(end)], [[rotation, moment],...]]
+                for rotational_x/y/z_nonlinearity[0] == NodalSupportNonlinearity.NONLINEARITY_TYPE_STIFFNESS_DIAGRAM:
+                    rotational_x/y/z_nonlinearity = [nonlinearity_type_stiffness_diagram, [stiffness_diagram_around_depends_on, symmetric(bool), diagram_type_enumeration(start), diagram_type_enumeration(end)], [[force, spring],...]]
+                    (note: for stiffness_diagram_around_depends_on == SupportStiffnessDiagramDependOn.STIFFNESS_DIAGRAM_DEPENDS_ON_P: symmetric must be True.)
             name (str, optional): User Defined Nodal Support Name
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
