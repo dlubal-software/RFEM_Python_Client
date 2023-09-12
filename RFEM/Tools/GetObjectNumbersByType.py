@@ -61,7 +61,8 @@ class GetAllObjects:
         # For each of these steps individual record is made (4 total).
 
         # Vector of all function
-        func_vec = [[ObjectTypes.E_OBJECT_TYPE_MATERIAL, lambda i: model.clientModel.service.get_material(i), 'from RFEM.BasicObjects.material import Material\n', 'Material'],
+        func_vec = [[ObjectTypes.E_OBJECT_TYPE_COORDINATE_SYSTEM, lambda i: model.clientModel.service.get_coordinate_system(i), 'from RFEM.BasicObjects.coordinateSystem import CoordinateSystem\n', 'CoordinateSystem'],
+            [ObjectTypes.E_OBJECT_TYPE_MATERIAL, lambda i: model.clientModel.service.get_material(i), 'from RFEM.BasicObjects.material import Material\n', 'Material'],
             [ObjectTypes.E_OBJECT_TYPE_SECTION, lambda i: model.clientModel.service.get_section(i), 'from RFEM.BasicObjects.section import Section\n', 'Section'],
             [ObjectTypes.E_OBJECT_TYPE_THICKNESS, lambda i: model.clientModel.service.get_thickness(i), 'from RFEM.BasicObjects.thickness import Thickness\n', 'Thickness'],
             [ObjectTypes.E_OBJECT_TYPE_NODE, lambda i: model.clientModel.service.get_node(i), 'from RFEM.BasicObjects.node import Node\n', 'Node'],
@@ -80,7 +81,6 @@ class GetAllObjects:
             [ObjectTypes.E_OBJECT_TYPE_SURFACES_CONTACT, lambda i: model.clientModel.service.get_surface_contact(i), 'from RFEM.SpecialObjects.surfaceContact import SurfaceContact\n', 'SurfaceContact'],
             [ObjectTypes.E_OBJECT_TYPE_RIGID_LINK, lambda i: model.clientModel.service.get_rigid_link(i), 'from RFEM.SpecialObjects.rigidLink import RigidLink\n', 'RigidLink'],
             [ObjectTypes.E_OBJECT_TYPE_RESULT_SECTION, lambda i: model.clientModel.service.get_result_section(i), 'from RFEM.SpecialObjects.resultSection import ResultSection\n', 'ResultSection'],
-            [ObjectTypes.E_OBJECT_TYPE_STRUCTURE_MODIFICATION, lambda i: model.clientModel.service.get_structure_modification(i), 'from RFEM.SpecialObjects.structureModification import StructureModification\n', 'StructureModification'],
             # nodal_release
             [ObjectTypes.E_OBJECT_TYPE_LINE_RELEASE, lambda i: model.clientModel.service.get_line_release(i), 'from RFEM.SpecialObjects.lineRelease import LineRelease\n', 'LineRelease'],
             # surface_release
@@ -161,6 +161,8 @@ class GetAllObjects:
             [ObjectTypes.E_OBJECT_TYPE_SPECTRAL_ANALYSIS_SETTINGS, lambda i: model.clientModel.service.get_spectral_analysis_settings(i), 'from RFEM.LoadCasesAndCombinations.spectralAnalysisSettings import SpectralAnalysisSettings\n', 'SpectralAnalysisSettings'],
             [ObjectTypes.E_OBJECT_TYPE_WIND_SIMULATION_ANALYSIS_SETTINGS, lambda i: model.clientModel.service.get_wind_simulation_analysis_settings(i), 'from RFEM.LoadCasesAndCombinations.windSimulationAnalysisSetting import WindSimulationAnalysisSettings\n', 'WindSimulationAnalysisSettings'],
             [ObjectTypes.E_OBJECT_TYPE_COMBINATION_WIZARD, lambda i: model.clientModel.service.get_combination_wizard(i), 'from RFEM.LoadCasesAndCombinations.combinationWizard import CombinationWizard\n', 'CombinationWizard'],
+
+            [ObjectTypes.E_OBJECT_TYPE_STRUCTURE_MODIFICATION, lambda i: model.clientModel.service.get_structure_modification(i), 'from RFEM.SpecialObjects.structureModification import StructureModification\n', 'StructureModification'],
             # member_loads_from_area_loads
             # member_loads_from_free_line_load
             # snow_loads
@@ -177,11 +179,11 @@ class GetAllObjects:
             [ObjectTypes.E_OBJECT_TYPE_MEMBER_SET_LOAD, lambda i,j: model.clientModel.service.get_member_set_load(i,j), 'from RFEM.Loads.membersetload import MemberSetLoad\n', 'MemberSetLoad(load_case_no='],
             [ObjectTypes.E_OBJECT_TYPE_SURFACE_SET_LOAD, lambda i,j: model.clientModel.service.get_surface_set_load(i,j), 'from RFEM.Loads.surfacesetload import SurfaceSetLoad\n', 'SurfaceSetLoad(load_case_no='],
             [ObjectTypes.E_OBJECT_TYPE_SOLID_SET_LOAD, lambda i,j: model.clientModel.service.get_solid_set_load(i,j), 'from RFEM.Loads.solidSetLoad import SolidSetLoad\n', 'SolidSetLoad(load_case_no='],
-            [ObjectTypes.E_OBJECT_TYPE_FREE_CONCENTRATED_LOAD, lambda i,j: model.clientModel.service.get_free_concentrated_load(i,j), 'from RFEM.Loads.freeLoad import ConcentratedLoad\n', 'ConcentratedLoad(load_case_no='],
-            [ObjectTypes.E_OBJECT_TYPE_FREE_LINE_LOAD, lambda i,j: model.clientModel.service.get_free_line_load(i,j), 'from RFEM.Loads.freeLoad import LineLoad\n', 'LineLoad(load_case_no='],
-            [ObjectTypes.E_OBJECT_TYPE_FREE_RECTANGULAR_LOAD, lambda i,j: model.clientModel.service.get_free_rectangular_load(i,j), 'from RFEM.Loads.freeLoad import RectangularLoad\n', 'RectangularLoad(load_case_no='],
+            [ObjectTypes.E_OBJECT_TYPE_FREE_CONCENTRATED_LOAD, lambda i,j: model.clientModel.service.get_free_concentrated_load(i,j), 'from RFEM.Loads.freeLoad import FreeLoad\n', 'FreeLoad.ConcentratedLoad(load_case_no='],
+            [ObjectTypes.E_OBJECT_TYPE_FREE_LINE_LOAD, lambda i,j: model.clientModel.service.get_free_line_load(i,j), 'from RFEM.Loads.freeLoad import FreeLoad\n', 'FreeLoad.LineLoad(load_case_no='],
+            [ObjectTypes.E_OBJECT_TYPE_FREE_RECTANGULAR_LOAD, lambda i,j: model.clientModel.service.get_free_rectangular_load(i,j), 'from RFEM.Loads.freeLoad import FreeLoad\n', 'FreeLoad.RectangularLoad(load_case_no='],
             [ObjectTypes.E_OBJECT_TYPE_FREE_CIRCULAR_LOAD, lambda i,j: model.clientModel.service.get_free_circular_load(i,j), 'from RFEM.Loads.freeLoad import CircularLoad\n', 'CircularLoad(load_case_no='],
-            [ObjectTypes.E_OBJECT_TYPE_FREE_POLYGON_LOAD, lambda i,j: model.clientModel.service.get_free_polygon_load(i,j), 'from RFEM.Loads.freeLoad import PolygonLoad\n', 'PolygonLoad(load_case_no='],
+            [ObjectTypes.E_OBJECT_TYPE_FREE_POLYGON_LOAD, lambda i,j: model.clientModel.service.get_free_polygon_load(i,j), 'from RFEM.Loads.freeLoad import FreeLoad\n', 'FreeLoad.PolygonLoad(load_case_no='],
             [ObjectTypes.E_OBJECT_TYPE_IMPOSED_NODAL_DEFORMATION, lambda i,j: model.clientModel.service.get_imposed_nodal_deformation(i,j), 'from RFEM.Loads.imposedNodalDeformation import ImposedNodalDeformation\n', 'ImposedNodalDeformation(load_case_no='],
             [ObjectTypes.E_OBJECT_TYPE_IMPOSED_LINE_DEFORMATION, lambda i,j: model.clientModel.service.get_imposed_line_deformation(i,j), 'from RFEM.Loads.imposedLineDeformation import ImposedLineDeformation\n', 'ImposedLineDeformation(load_case_no=']]
             # calculations_diagram
