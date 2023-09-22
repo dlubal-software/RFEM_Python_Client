@@ -9,10 +9,10 @@ import xml.etree.ElementTree as ET
 from RFEM.ImportExport.exports import ExportTo
 
 # Define name of the model from which the data should be exported
-model_name = 'test.rf6'
+model_name = '001128_NBC_2015_RSA_RFEM_Model.rf6'
 
 # Export active model to XML
-model = Model(False, model_name)
+model = Model(True, model_name)
 ExportTo(os.path.dirname(__file__)+"/export.xml", model)
 
 # Parse exported XML
@@ -51,7 +51,7 @@ imports = {'formula': 'from RFEM.formula import Formula',
            'combination_wizard': 'from RFEM.LoadCasesAndCombinations.combinationWizard import CombinationWizard',
            'design_situation': 'from RFEM.LoadCasesAndCombinations.designSituation import DesignSituation',
            'load_case': 'from RFEM.LoadCasesAndCombinations.loadCase import LoadCase',
-           'load_cases_and_combinations': 'from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations',
+           #'load_cases_and_combinations': 'from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations',
            'load_combination': 'from RFEM.LoadCasesAndCombinations.loadCombination import LoadCombination',
            'modal_analysis_settings': 'from RFEM.LoadCasesAndCombinations.modalAnalysisSettings import ModalAnalysisSettings',
            'result_combination': 'from RFEM.LoadCasesAndCombinations.resultCombination import ResultCombination',
@@ -72,13 +72,13 @@ imports = {'formula': 'from RFEM.formula import Formula',
            'solid_set_load': 'from RFEM.Loads.solidSetLoad import SolidSetLoad',
            'surface_load': 'from RFEM.Loads.surfaceLoad import SurfaceLoad',
            'surface_set_load': 'from RFEM.Loads.surfacesetload import SurfaceSetLoad',
-           'instersection': 'from RFEM.SpecialObjects.intersection import Instersection',
+           'intersection': 'from RFEM.SpecialObjects.intersection import Intersection',
            'line_release': 'from RFEM.SpecialObjects.lineRelease import LineRelease',
            'line_release_type': 'from RFEM.SpecialObjects.lineReleaseType import LineReleaseType',
            'result_section': 'from RFEM.SpecialObjects.resultSection import ResultSection',
            'rigid_link': 'from RFEM.SpecialObjects.rigidLink import RigidLink',
            'structure_modification': 'from RFEM.SpecialObjects.structureModification import StructureModification',
-           'surface_contact': 'from RFEM.SpecialObjects.surfaceContact import SurfaceContact',
+           'surfaces_contact': 'from RFEM.SpecialObjects.surfaceContact import SurfaceContact',
            'surface_results_adjustment': 'from RFEM.SpecialObjects.surfaceResultAdjustment import SurfaceResultsAdjustment',
            'steel_design_serviceability_configurations': 'from RFEM.SteelDesign.steelServiceabilityConfiguration import SteelDesignServiceabilityConfigurations',
            'steel_design_ultimate_configurations': 'from RFEM.SteelDesign.steelUltimateConfigurations import SteelDesignUltimateConfigurations',
@@ -94,7 +94,7 @@ imports = {'formula': 'from RFEM.formula import Formula',
            'concrete_reinforcement_direction': 'from RFEM.TypesforConcreteDesign.ConcreteReinforcementDirections import ConcreteReinforcementDirection',
            'concrete_surface_reinforcements': 'from RFEM.TypesforConcreteDesign.ConcreteSurfaceReinforcements import ConcreteSurfaceReinforcements',
            'line_hinge': 'from RFEM.TypesForLines.lineHinge import LineHinge',
-           'line_mesh_refinements': 'from RFEM.TypesForLines.lineMeshRefinements import LineMeshRefinements',
+           'line_mesh_refinement': 'from RFEM.TypesForLines.lineMeshRefinements import LineMeshRefinement',
            'line_support': 'from RFEM.TypesForLines.lineSupport import LineSupport',
            'line_welded_joint': 'from RFEM.TypesForLines.lineWeldedJoint import LineWeldedJoint',
            'member_definable_stiffness': 'from RFEM.TypesForMembers.memberDefinableStiffness import MemberDefinableStiffness',
@@ -104,13 +104,13 @@ imports = {'formula': 'from RFEM.formula import Formula',
            'member_result_intermediate_point': 'from RFEM.TypesForMembers.memberResultIntermediatePoints import MemberResultIntermediatePoint',
            'member_stiffness_modification': 'from RFEM.TypesForMembers.memberStiffnessModification import MemberStiffnessModification',
            'member_support': 'from RFEM.TypesForMembers.memberSupport import MemberSupport',
-           'member_transverse_stiffeners': 'from RFEM.TypesForMembers.memberTransverseStiffeners import MemberTransverseStiffeners',
+           'member_transverse_stiffener': 'from RFEM.TypesForMembers.memberTransverseStiffeners import MemberTransverseStiffener',
            'nodal_mesh_refinement': 'from RFEM.TypesForNodes.nodalMeshRefinement import NodalMeshRefinement',
            'nodal_support': 'from RFEM.TypesForNodes.nodalSupport import NodalSupport',
-           'solid_contact': 'from RFEM.TypesForSolids.solidContact import SolidContact',
+           'solid_contacts': 'from RFEM.TypesForSolids.solidContact import SolidContacts',
            'solid_gas': 'from RFEM.TypesForSolids.solidGas import SolidGas',
            'solid_mesh_refinement': 'from RFEM.TypesForSolids.solidMeshRefinement import SolidMeshRefinement',
-           'surface_contact_type': 'from RFEM.TypesForSpecialObjects.surfaceContactType import SurfaceContactType',
+           'surfaces_contact': 'from RFEM.SpecialObjects.surfaceContact import SurfaceContact',
            'steel_boundary_conditions': 'from RFEM.TypesForSteelDesign.steelBoundaryConditions import SteelBoundaryConditions',
            'steel_effective_lengths': 'from RFEM.TypesForSteelDesign.steelEffectiveLengths import SteelEffectiveLengths',
            'steel_member_local_section_reduction': 'from RFEM.TypesForSteelDesign.SteelMemberLocalSectionReduction import SteelMemberLocalSectionReduction',
@@ -169,7 +169,15 @@ for child in range(len(root)):
 
                         params = ''
                         for key in tags:
-                            params = params+'"'+key+'"'+':"'+str(tags[key])+'", '
+                            if any(i.isdigit() for i in tags[key]) and key != 'name' and not any(i.isalpha() for i in tags[key]):
+                                # lists of numbers
+                                if ',' in tags[key]:
+                                    params = params+'"'+key+'"'+':['+str(tags[key])+'], '
+                                # individual numbers
+                                else:
+                                    params = params+'"'+key+'"'+':'+str(tags[key])+', '
+                            else:
+                                params = params+'"'+key+'"'+':"'+str(tags[key])+'", '
                         params = params[:-2]
                         lines.append(convertSnakeCaseToCamelCase(root[child][id_1][id_2].tag)+'(params={'+params+'})'+'\n')
 
