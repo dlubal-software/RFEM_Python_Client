@@ -1427,6 +1427,13 @@ class PlausibilityCheckResult(Enum):
     CHECK_IS_OK, CHECK_FAILED = range(2)
 
 
+class PlausibilityCheckType(Enum):
+    '''
+    Plausibility Check Type
+    '''
+    CALCULATION, MESH_GENERATOR, PART_LIST, PLAUSIBILITY_CHECK = range(4)
+
+
 class ModelCheckGetOptionType(Enum):
     '''
     Model Check Get Object Groups Option Type

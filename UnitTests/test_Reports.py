@@ -10,9 +10,11 @@ from RFEM.Reports.html import ExportResultTablesToHtml
 from RFEM.initModel import Model, url, closeModel, openFile, getPathToRunningRFEM
 from shutil import rmtree
 import pytest
+import time
 
 if Model.clientModel is None:
     Model()
+
 
 @pytest.mark.skipif(url != 'http://127.0.0.1', reason="This test fails on remote PC due to incorrect file path. \
                     Althought it is easy to change, it would not be easy to update on every remote computer.\
@@ -27,7 +29,7 @@ def test_html_report():
     # Remove any previous results if they exist
     if os.path.isdir(folderPath):
         rmtree(folderPath)
-    ExportResultTablesToHtml(folderPath)
+    ExportResultTablesToHtml(folderPath, False)
 
     assert os.path.exists(folderPath)
 
@@ -38,10 +40,13 @@ def test_printout_report():
     if not os.path.isdir(folderPath):
         os.mkdir(folderPath)
 
-    if os.path.exists(os.path.join(folderPath, 'printout.html')):
-        os.remove(os.path.join(folderPath, 'printout.html'))
-    if os.path.exists(os.path.join(folderPath, 'printout.pdf')):
-        os.remove(os.path.join(folderPath, 'printout.pdf'))
+    htmlPath = os.path.join(folderPath, 'printout.html')
+    pdfPath = os.path.join(folderPath, 'printout.pdf')
+
+    if os.path.exists(htmlPath):
+        os.remove(htmlPath)
+    if os.path.exists(pdfPath):
+        os.remove(pdfPath)
     if os.path.isdir(os.path.join(folderPath, 'printout_data')):
         rmtree(os.path.join(folderPath, 'printout_data'))
 
@@ -50,9 +55,12 @@ def test_printout_report():
     PrintoutReport.delete(3)
     assert len(PrintoutReport.getList()) == 2
 
-    PrintoutReport.exportToHTML(1, os.path.join(folderPath, 'printout.html'))
-    PrintoutReport.exportToPDF(2, os.path.join(folderPath, 'printout.pdf'))
-    closeModel(1)
+    PrintoutReport.exportToHTML(1, htmlPath)
+    PrintoutReport.exportToPDF(2, pdfPath)
 
-    assert os.path.exists(os.path.join(folderPath, 'printout.html')) == True
-    assert os.path.exists(os.path.join(folderPath, 'printout.pdf')) == True
+    time.sleep(3)
+    
+    assert os.path.exists(htmlPath)
+    assert os.path.exists(pdfPath)
+
+    closeModel('printout.rf6')
