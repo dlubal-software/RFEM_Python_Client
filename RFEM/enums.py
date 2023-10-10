@@ -2568,7 +2568,7 @@ class SupportPartialActivityAlongType(Enum):
 
 class SupportPartialActivityAroundType(Enum):
     '''
-    Support Partial Activity Along Type Enumeration
+    Support Partial Activity Around Type Enumeration
     '''
     PARTIAL_ACTIVITY_TYPE_COMPLETE, PARTIAL_ACTIVITY_TYPE_FAILURE, PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT, PARTIAL_ACTIVITY_TYPE_FIXED, \
     PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT = range(5)
