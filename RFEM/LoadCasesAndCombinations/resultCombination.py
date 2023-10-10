@@ -64,6 +64,12 @@ class ResultCombination():
             rci.row.operator_type = combination_items[i][1].name
             rci.row.case_object_factor = combination_items[i][2]
             rci.row.case_object_load_type = combination_items[i][3].name
+            rci.row.left_parenthesis = combination_items[i][4]
+            rci.row.right_parenthesis = combination_items[i][5]
+            if combination_items[i][4]:
+                rci.row.group_factor = combination_items[i][6]
+            if combination_items[i][5]:
+                rci.row.group_load_type = combination_items[i][7].name
 
             clientObject.items.result_combination_items.append(rci)
 
