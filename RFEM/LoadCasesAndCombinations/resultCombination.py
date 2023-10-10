@@ -30,7 +30,7 @@ class ResultCombination():
                 combination_item[3](enum) = case_object_load_type enumeration
                 combination_item[4](bool) = left_parenthesis (if parenthesis active in LoadCaseandCombination)
                 combination_item[5](bool) = right_parenthesis (if parenthesis active in LoadCaseandCombination)
-                combination_item[6](float) = group_factor (if left_parenthesis is True then vale else None)
+                combination_item[6](float) = group_factor (if left_parenthesis is True then value else None)
                 combination_item[7](enum) = group_load_type (if right_parenthesis is True then enumeration else None)
             srss_combination (list, optional): SRSS Combination. If None then False.
                 [srss_use_equivalent_linear_combination[bool], ]
@@ -72,12 +72,13 @@ class ResultCombination():
             rci.row.operator_type = combination_items[i][1].name
             rci.row.case_object_factor = combination_items[i][2]
             rci.row.case_object_load_type = combination_items[i][3].name
-            rci.row.left_parenthesis = combination_items[i][4]
-            rci.row.right_parenthesis = combination_items[i][5]
-            if combination_items[i][4]:
-                rci.row.group_factor = combination_items[i][6]
-            if combination_items[i][5]:
-                rci.row.group_load_type = combination_items[i][7].name
+            if len(combination_items[i]) > 4:
+                rci.row.left_parenthesis = combination_items[i][4]
+                rci.row.right_parenthesis = combination_items[i][5]
+                if combination_items[i][4]:
+                    rci.row.group_factor = combination_items[i][6]
+                if combination_items[i][5]:
+                    rci.row.group_load_type = combination_items[i][7].name
 
             clientObject.items.result_combination_items.append(rci)
 
