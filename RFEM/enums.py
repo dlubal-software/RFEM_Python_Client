@@ -2558,3 +2558,29 @@ class NodalSupportDiagramType(Enum):
     Nodal Support Diagram Type Enumeration
     '''
     DIAGRAM_ENDING_TYPE_CONTINUOUS, DIAGRAM_ENDING_TYPE_FAILURE, DIAGRAM_ENDING_TYPE_STOP, DIAGRAM_ENDING_TYPE_YIELDING = range(4)
+
+class SupportPartialActivityAlongType(Enum):
+    '''
+    Support Partial Activity Along Type Enumeration
+    '''
+    PARTIAL_ACTIVITY_TYPE_COMPLETE, PARTIAL_ACTIVITY_TYPE_FAILURE, PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE, PARTIAL_ACTIVITY_TYPE_FIXED, \
+    PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE = range(5)
+
+class SupportPartialActivityAroundType(Enum):
+    '''
+    Support Partial Activity Around Type Enumeration
+    '''
+    PARTIAL_ACTIVITY_TYPE_COMPLETE, PARTIAL_ACTIVITY_TYPE_FAILURE, PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT, PARTIAL_ACTIVITY_TYPE_FIXED, \
+    PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT = range(5)
+
+class SupportStiffnessDiagramDependOn(Enum):
+    '''
+    Support Stiffness Diagram Depend On Enumeration
+    '''
+    STIFFNESS_DIAGRAM_DEPENDS_ON_P, STIFFNESS_DIAGRAM_DEPENDS_ON_PX, STIFFNESS_DIAGRAM_DEPENDS_ON_PY, STIFFNESS_DIAGRAM_DEPENDS_ON_PZ = range(4)
+
+class NodalSupportStiffnessDiagramType(Enum):
+    '''
+    Nodal Support Stiffness Diagram Type Enumeration
+    '''
+    STIFFNESS_DIAGRAM_ENDING_TYPE_CONTINUOUS, STIFFNESS_DIAGRAM_ENDING_TYPE_FAILURE, STIFFNESS_DIAGRAM_ENDING_TYPE_YIELDING = range(3)
