@@ -2584,3 +2584,13 @@ class NodalSupportStiffnessDiagramType(Enum):
     Nodal Support Stiffness Diagram Type Enumeration
     '''
     STIFFNESS_DIAGRAM_ENDING_TYPE_CONTINUOUS, STIFFNESS_DIAGRAM_ENDING_TYPE_FAILURE, STIFFNESS_DIAGRAM_ENDING_TYPE_YIELDING = range(3)
+
+class ResultOfCalculation(Enum):
+
+    SUCCESSFUL_CALCULATION, UNSUCCESSFUL_CALCULATION = range(2)
+
+class MessageType(Enum):
+    INFO, WARNING, ERROR = range(3)
+
+class PlausibilityCheckType(Enum):
+    CALCULATION, MESH_GENERATOR, PART_LIST, PLAUSIBILITY_CHECK = range(4)

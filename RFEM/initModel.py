@@ -9,6 +9,8 @@ from RFEM.suds_requests import RequestsTransport
 from suds.cache import DocumentCache
 from tempfile import gettempdir
 import time
+import logging
+# from RFEM.Results.calculationResultInfo import CalculationResultInfo
 
 # Connect to server
 # Check server port range set in "Program Options & Settings"
@@ -77,6 +79,7 @@ except:
 class Model():
     clientModel = None
     clientModelDct = {}
+    ModelLogger = None
 
     def __init__(self,
                  new_model: bool=True,
@@ -94,7 +97,8 @@ class Model():
             delete (bool, optional):  Delete results
             delete_all (bool, optional): Delete all objects in Model.
         """
-
+        self.ModelLogger = logging.getLogger('RFEM.Client' + self.__class__.__name__)
+        Model.ModelLogger = logging.getLogger('RFEM.Client' + self.__class__.__name__)
         cModel = None
         modelLst = []
         modelVct = client.service.get_model_list()
@@ -333,7 +337,46 @@ def insertSpaces(lst: list):
     '''
     return ' '.join(str(item) for item in lst)
 
-def Calculate_all(generateXmlSolverInput: bool = False, model = Model):
+from RFEM.enums import ResultOfCalculation
+
+class CalculationResultInfo():
+
+    result_of_calculation = None
+
+    def __init__(self,
+                 calculation_result,
+                 model = Model):
+
+        if calculation_result.succeeded:
+            self.result_of_calculation = ResultOfCalculation.SUCCESSFUL_CALCULATION
+            model.ModelLogger.info('Calculation finished successfully')
+        else:
+            self.result_of_calculation = ResultOfCalculation.UNSUCCESSFUL_CALCULATION
+            model.ModelLogger.error('Calculation finished unsuccessfully')
+            if (calculation_result.messages):
+                model.ModelLogger.error(f"{calculation_result.messages}")
+            if any(calculation_result.errors_and_warnings):
+                for message in calculation_result.errors_and_warnings.message:
+                    error_message = f"{message.message_type}  {message.message} {message.input_field if hasattr(message, 'input_field') else ''} {message.object if hasattr(message, 'object') else ''} {message.current_value if hasattr(message, 'current_value') else ''} {str(message.result)}"
+                    model.ModelLogger.error(error_message)
+
+        if ("For more information call get_calculation_errors.") in calculation_result.messages:
+            errors = model.clientModel.service.get_calculation_errors()
+            if any(errors.errors):
+                for error in errors.errors:
+                    error_message = f"{error.no} {error.description}  {error.row.analysis_type} {error.row.description} {error.row.error_or_warning_number} {error.row.object}"
+                    model.ModelLogger.error(error_message)
+
+
+    def IsCalculationOK(self):
+
+        pass
+
+    def GetErrorMessage(self):
+
+        pass
+
+def Calculate_all(skip_warnings: bool = True, model = Model):
     '''
     Calculates model.
     CAUTION: Don't use it in unit tests!
@@ -344,8 +387,20 @@ def Calculate_all(generateXmlSolverInput: bool = False, model = Model):
         generateXmlSolverInput (bool): Generate XML Solver Input
         model (RFEM Class, optional): Model to be edited
     '''
-    calculationMessages = model.clientModel.service.calculate_all(generateXmlSolverInput)
-    return calculationMessages
+    model.ModelLogger.info('Staring calculation')
+    start_time = time.time()
+    calculation_result = None
+    try:
+        calculation_result = model.clientModel.service.calculate_all(skip_warnings)
+    except Exception as inst:
+        model.ModelLogger.exception(inst.fault.faultstring)
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    model.ModelLogger.info(f'Elapsed calculation time: {elapsed_time}')
+
+    calculation_results_info = CalculationResultInfo(calculation_result, model)
+
+    return calculation_results_info
 
 def ConvertToDlString(s):
     '''
@@ -566,12 +621,21 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculateCC.no = loadCombination
             specificObjectsToCalculateCC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_COMBINATION.name
             specificObjectsToCalculate.loading.append(specificObjectsToCalculateCC)
-    try:
-        calculationMessages = model.clientModel.service.calculate_specific(specificObjectsToCalculate,skipWarnings)
-    except Exception as inst:
-        calculationMessages = "Calculation was unsuccessful: " + inst.fault.faultstring
 
-    return calculationMessages
+    model.ModelLogger.info('Staring calculation')
+    start_time = time.time()
+    calculation_result = None
+    try:
+        calculation_result = model.clientModel.service.calculate_specific(specificObjectsToCalculate,skipWarnings)
+    except Exception as inst:
+        model.ModelLogger.exception(inst.fault.faultstring)
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    model.ModelLogger.info(f'Elapsed calculation time: {elapsed_time}')
+
+    calculation_results_info = CalculationResultInfo(calculation_result, model)
+
+    return calculation_results_info
 
 def FirstFreeIdNumber(memType = ObjectTypes.E_OBJECT_TYPE_MEMBER, parent_no: int = 0, model = Model):
     '''
