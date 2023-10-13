@@ -337,14 +337,18 @@ def insertSpaces(lst: list):
     '''
     return ' '.join(str(item) for item in lst)
 
-from RFEM.enums import ResultOfCalculation
+from RFEM.enums import ResultOfCalculation, MessageType
 
 class CalculationResultInfo():
 
     result_of_calculation = None
+    error_messages = []
+    calculation_messages = None
+    calculation_errors = []
 
     def __init__(self,
                  calculation_result,
+                 get_calculation_error: bool = True,
                  model = Model):
 
         if calculation_result.succeeded:
@@ -354,29 +358,87 @@ class CalculationResultInfo():
             self.result_of_calculation = ResultOfCalculation.UNSUCCESSFUL_CALCULATION
             model.ModelLogger.error('Calculation finished unsuccessfully')
             if (calculation_result.messages):
+                self.calculation_messages = calculation_result.messages
                 model.ModelLogger.error(f"{calculation_result.messages}")
             if any(calculation_result.errors_and_warnings):
                 for message in calculation_result.errors_and_warnings.message:
-                    error_message = f"{message.message_type}  {message.message} {message.input_field if hasattr(message, 'input_field') else ''} {message.object if hasattr(message, 'object') else ''} {message.current_value if hasattr(message, 'current_value') else ''} {str(message.result)}"
-                    model.ModelLogger.error(error_message)
+                    err = ErrorMessage(message)
+                    self.error_messages.append(err)
+                    model.ModelLogger.error(err.GetErrorMessageString())
 
-        if ("For more information call get_calculation_errors.") in calculation_result.messages:
+        if ("For more information call get_calculation_errors.") in calculation_result.messages and get_calculation_error:
             errors = model.clientModel.service.get_calculation_errors()
             if any(errors.errors):
                 for error in errors.errors:
-                    error_message = f"{error.no} {error.description}  {error.row.analysis_type} {error.row.description} {error.row.error_or_warning_number} {error.row.object}"
-                    model.ModelLogger.error(error_message)
+                    calculation_error = CalculationError(error)
+                    self.calculation_errors.append(calculation_error)
+                    model.ModelLogger.error(calculation_error.GetCalculationErrorString())
 
 
-    def IsCalculationOK(self):
+    def IsCalculationSucessful(self):
+        if result_of_calculation is ResultOfCalculation.SUCCESSFUL_CALCULATION:
+            return True
+        else:
+            return False
 
-        pass
 
-    def GetErrorMessage(self):
 
-        pass
+    def GetErrorMessages(self):
+        return self.error_messages
 
-def Calculate_all(skip_warnings: bool = True, model = Model):
+class ErrorMessage():
+
+    message_type: MessageType = None
+    message: str = ''
+    input_field: str = ''
+    object: str = ''
+    current_value: str = ''
+    result: bool = False
+
+    def __init__(self, message):
+        self.message = message.message
+        if hasattr(message, 'input_field'):
+            self.input_field = message.input_field
+        if hasattr(message, 'object'):
+            self.object = message.object
+        if hasattr(message, 'current_value'):
+            self.current_value = message.current_value
+        self.result = message.result
+        if 'WARNING' in message.message_type:
+            self.message_type = MessageType.WARNING
+        elif 'ERROR' in message.message_type:
+            self.message_type = MessageType.ERROR
+        elif 'INFO' in message.message_type:
+            self.message_type = MessageType.INFO
+
+    def GetErrorMessageString(self) -> str:
+        error = str(f"{self.message_type.name}  {self.message} {self.input_field if self.input_field is not None else ''} {self.object  if self.object is not None else ''} {self.current_value if self.current_value is not None else ''} {str(self.result)}")
+        return error
+
+class CalculationError():
+
+    calculation_error_no: int = 0
+    description: str = ''
+    analysis_type: str = ''
+    calculation_error_description: str = ''
+    calculation_error_or_warning_number: str = ''
+    calculation_error_object: str = ''
+
+
+    def __init__(self, calculation_error):
+        self.calculation_error_no = calculation_error.no
+        self.description = calculation_error.description
+        self.analysis_type = calculation_error.row.analysis_type
+        self.calculation_error_description = calculation_error.row.description
+        self.calculation_error_or_warning_number = calculation_error.row.error_or_warning_number
+        self.calculation_error_object = calculation_error.row.object
+
+    def GetCalculationErrorString(self) -> str:
+        error = str(f"{self.calculation_error_no} {self.calculation_error_description} {self.analysis_type} {self.calculation_error_or_warning_number} {self.description} {self.calculation_error_object}")
+        return error
+
+
+def Calculate_all(skip_warnings: bool = True, model = Model) -> CalculationResultInfo:
     '''
     Calculates model.
     CAUTION: Don't use it in unit tests!
@@ -398,7 +460,7 @@ def Calculate_all(skip_warnings: bool = True, model = Model):
     elapsed_time = end_time - start_time
     model.ModelLogger.info(f'Elapsed calculation time: {elapsed_time}')
 
-    calculation_results_info = CalculationResultInfo(calculation_result, model)
+    calculation_results_info = CalculationResultInfo(calculation_result,True, model)
 
     return calculation_results_info
 
@@ -589,7 +651,7 @@ def SetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active, status = T
 
         modelClient.service.set_addon_statuses(addonLst)
 
-def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None,skipWarnings = True, model = Model):
+def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None,skipWarnings: bool = True, model = Model) -> CalculationResultInfo:
     '''
     This method calculate just selected objects - load cases, designSituations, loadCombinations
 
@@ -633,7 +695,7 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
     elapsed_time = end_time - start_time
     model.ModelLogger.info(f'Elapsed calculation time: {elapsed_time}')
 
-    calculation_results_info = CalculationResultInfo(calculation_result, model)
+    calculation_results_info = CalculationResultInfo(calculation_result,True, model)
 
     return calculation_results_info
 
