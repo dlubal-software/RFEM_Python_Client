@@ -10,7 +10,7 @@ def GetResultTableParameters(results):
     '''
     Returns dict with 3 atributes: base, row and error.
     '''
-    params = {'base':[], 'row':[], 'error': None}
+    params = {'base':[], 'row':[]}
 
     if not results:
         return ''
@@ -20,10 +20,38 @@ def GetResultTableParameters(results):
             params['base'] = list(set(params['base'] + i.__keylist__))
             if 'row' in i.__keylist__ and i.row:
                 params['row'] = list(set(params['row'] + i.row.__keylist__))
-            else:
-                params['errors'] = "Result table doesn't have attribute 'row'."
 
     return params
+
+def TryParseValueFromRow(result, params):
+    '''
+    Args:
+        result: ResultTable
+        params: list of params form params['row']
+    Returns:
+        Dictionaries. Dictionary corresponds to one line in result table.
+    '''
+
+    dct = {}
+    # Sometimes the parameters are not in table or
+    # they are defined by type+value structure called 'variant',
+    # hence using try-except notation
+    for param in params:
+        try:
+            dct[param] = float(result.row[param].value)
+        except:
+            try:
+                dct[param] = result.row[param].value
+            except:
+                try:
+                    dct[param] = float(result.row[param])
+                except:
+                    try:
+                        dct[param] = result.row[param]
+                    except:
+                        pass
+    return dct
+
 
 def ConvertResultsToListOfDct(results, includeBase = False):
     '''
@@ -39,28 +67,12 @@ def ConvertResultsToListOfDct(results, includeBase = False):
     params = GetResultTableParameters(results)
     lstOfDct = []
 
-    for r in results[0]:
+    for index, r in enumerate(results[0]):
         dct = {}
         if includeBase and params['base']:
             for i in params['base']:
                 if i == 'row':
-                    for y in params['row']:
-                        # Sometimes the parameters are not in table or
-                        # they are defined by type+value structure called 'variant',
-                        # hence using try-except notation
-                        try:
-                            dct[y] = float(r.row[y].value)
-                        except:
-                            try:
-                                dct[y] = r.row[y].value
-                            except:
-                                try:
-                                    dct[y] = float(r.row[y])
-                                except:
-                                    try:
-                                        dct[y] = r.row[y]
-                                    except:
-                                        pass
+                    dct = TryParseValueFromRow(r, params['row'])
                 else:
                     try:
                         dct[i] = float(r[i])
@@ -69,28 +81,17 @@ def ConvertResultsToListOfDct(results, includeBase = False):
                             dct[i] = r[i]
                         except:
                             pass
-            lstOfDct.append(dct)
+
         # include only row
         else:
             if params['row']:
-                for i in params['row']:
-                    try:
-                        dct[i] = float(r.row[i].value)
-                    except:
-                        try:
-                            dct[i] = r.row[i].value
-                        except:
-                            try:
-                                dct[i] = float(r.row[i])
-                            except:
-                                try:
-                                    dct[i] = r.row[i]
-                                except:
-                                    pass
-                lstOfDct.append(dct)
+                dct = TryParseValueFromRow(r, params['row'])
 
-    if params['error']:
-        return lstOfDct.append({'error': params['error']})
+        # In steel design, there is a "header" which is first line of the table and we do not need it
+        if index == 0 and dct == {}:
+            pass
+        else:
+            lstOfDct.append(dct)
 
     return lstOfDct
 
@@ -146,7 +147,7 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
