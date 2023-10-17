@@ -67,7 +67,7 @@ def ConvertResultsToListOfDct(results, includeBase = False):
     params = GetResultTableParameters(results)
     lstOfDct = []
 
-    for index, r in enumerate(results[0]):
+    for r in results[0]:
         dct = {}
         if includeBase and params['base']:
             for i in params['base']:
@@ -87,10 +87,8 @@ def ConvertResultsToListOfDct(results, includeBase = False):
             if params['row']:
                 dct = TryParseValueFromRow(r, params['row'])
 
-        # In steel design, there is a "header" which is first line of the table and we do not need it
-        if index == 0 and dct == {}:
-            pass
-        else:
+        # In steel design, some lines of table does not include results, but serves purpose as header
+        if dct != {}:
             lstOfDct.append(dct)
 
     return lstOfDct
