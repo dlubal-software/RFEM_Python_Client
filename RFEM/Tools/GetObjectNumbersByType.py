@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, ConvertStrToListOfInt
+from RFEM.initModel import Model, ConvertStrToListOfInt, GetAllAddonStatuses
 from RFEM.enums import ObjectTypes
 from suds.sax.text import Text
 import sys
@@ -76,9 +76,9 @@ class GetAllObjects:
             [ObjectTypes.E_OBJECT_TYPE_SURFACE_SET, lambda i: model.clientModel.service.get_surface_set(i), 'from RFEM.BasicObjects.surfaceSet import SurfaceSet\n', 'SurfaceSet'],
             [ObjectTypes.E_OBJECT_TYPE_SOLID_SET, lambda i: model.clientModel.service.get_solid_set(i), 'from RFEM.BasicObjects.solidSet import SolidSet\n', 'SolidSet'],
 
-            [ObjectTypes.E_OBJECT_TYPE_INTERSECTION, lambda i: model.clientModel.service.get_instersection(i), 'from RFEM.SpecialObjects.intersection import Instersection\n', 'Instersection'],
+            [ObjectTypes.E_OBJECT_TYPE_INTERSECTION, lambda i: model.clientModel.service.get_intersection(i), 'from RFEM.SpecialObjects.intersection import Intersection\n', 'Intersection'],
             [ObjectTypes.E_OBJECT_TYPE_SURFACE_RESULTS_ADJUSTMENT, lambda i: model.clientModel.service.get_surface_results_adjustment(i), 'from RFEM.SpecialObjects.surfaceResultAdjustment import SurfaceResultsAdjustment\n', 'SurfaceResultsAdjustment'],
-            [ObjectTypes.E_OBJECT_TYPE_SURFACES_CONTACT, lambda i: model.clientModel.service.get_surface_contact(i), 'from RFEM.SpecialObjects.surfaceContact import SurfaceContact\n', 'SurfaceContact'],
+            [ObjectTypes.E_OBJECT_TYPE_SURFACES_CONTACT, lambda i: model.clientModel.service.get_surfaces_contact(i), 'from RFEM.SpecialObjects.surfaceContact import SurfaceContact\n', 'SurfaceContact'],
             [ObjectTypes.E_OBJECT_TYPE_RIGID_LINK, lambda i: model.clientModel.service.get_rigid_link(i), 'from RFEM.SpecialObjects.rigidLink import RigidLink\n', 'RigidLink'],
             [ObjectTypes.E_OBJECT_TYPE_RESULT_SECTION, lambda i: model.clientModel.service.get_result_section(i), 'from RFEM.SpecialObjects.resultSection import ResultSection\n', 'ResultSection'],
             # nodal_release
@@ -92,14 +92,14 @@ class GetAllObjects:
             [ObjectTypes.E_OBJECT_TYPE_NODAL_MESH_REFINEMENT, lambda i: model.clientModel.service.get_nodal_mesh_refinement(i), 'from RFEM.TypesForNodes.nodalMeshRefinement import NodalMeshRefinement\n', 'NodalMeshRefinement'],
 
             [ObjectTypes.E_OBJECT_TYPE_LINE_SUPPORT, lambda i: model.clientModel.service.get_line_support(i), 'from RFEM.TypesForLines.lineSupport import LineSupport\n', 'LineSupport'],
-            #[ObjectTypes.E_OBJECT_TYPE_LINE_MESH_REFINEMENT, lambda i: model.clientModel.service.get_line_mesh_refinements(i), 'from RFEM.TypesForLines.lineMeshRefinements import LineMeshRefinements\n', 'LineMeshRefinements'],
+            [ObjectTypes.E_OBJECT_TYPE_LINE_MESH_REFINEMENT, lambda i: model.clientModel.service.get_line_mesh_refinement(i), 'from RFEM.TypesForLines.lineMeshRefinements import LineMeshRefinement\n', 'LineMeshRefinement'],
             [ObjectTypes.E_OBJECT_TYPE_LINE_HINGE, lambda i: model.clientModel.service.get_line_hinge(i), 'from RFEM.TypesForLines.lineHinge import LineHinge\n', 'LineHinge'],
             [ObjectTypes.E_OBJECT_TYPE_LINE_WELDED_JOINT, lambda i: model.clientModel.service.get_line_welded_joint(i), 'from RFEM.TypesForLines.lineWeldedJoint import LineWeldedJoint\n', 'LineWeldedJoint'],
 
             [ObjectTypes.E_OBJECT_TYPE_MEMBER_HINGE, lambda i: model.clientModel.service.get_member_hinge(i), 'from RFEM.TypesForMembers.memberHinge import MemberHinge\n', 'MemberHinge'],
             [ObjectTypes.E_OBJECT_TYPE_MEMBER_ECCENTRICITY, lambda i: model.clientModel.service.get_member_eccentricity(i), 'from RFEM.TypesForMembers.memberEccentricity import MemberEccentricity\n', 'MemberEccentricity'],
             [ObjectTypes.E_OBJECT_TYPE_MEMBER_SUPPORT, lambda i: model.clientModel.service.get_member_support(i), 'from RFEM.TypesForMembers.memberSupport import MemberSupport\n', 'MemberSupport'],
-            [ObjectTypes.E_OBJECT_TYPE_MEMBER_TRANSVERSE_STIFFENER, lambda i: model.clientModel.service.get_member_transverse_stiffeners(i), 'from RFEM.TypesForMembers.memberTransverseStiffeners import MemberTransverseStiffeners\n', 'MemberTransverseStiffeners'],
+            [ObjectTypes.E_OBJECT_TYPE_MEMBER_TRANSVERSE_STIFFENER, lambda i: model.clientModel.service.get_member_transverse_stiffener(i), 'from RFEM.TypesForMembers.memberTransverseStiffeners import MemberTransverseStiffener\n', 'MemberTransverseStiffener'],
             # member_opening
             [ObjectTypes.E_OBJECT_TYPE_MEMBER_STIFFNESS_MODIFICATION, lambda i: model.clientModel.service.get_member_stiffness_modification(i), 'from RFEM.TypesForMembers.memberStiffnessModification import MemberStiffnessModification\n', 'MemberStiffnessModification'],
             [ObjectTypes.E_OBJECT_TYPE_MEMBER_NONLINEARITY, lambda i: model.clientModel.service.get_member_nonlinearity(i), 'from RFEM.TypesForMembers.memberNonlinearity import MemberNonlinearity\n', 'MemberNonlinearity'],
@@ -116,9 +116,9 @@ class GetAllObjects:
 
             [ObjectTypes.E_OBJECT_TYPE_SOLID_MESH_REFINEMENT, lambda i: model.clientModel.service.get_solid_mesh_refinement(i), 'from RFEM.TypesForSolids.solidMeshRefinement import SolidMeshRefinement\n', 'SolidMeshRefinement'],
             [ObjectTypes.E_OBJECT_TYPE_SOLID_GAS, lambda i: model.clientModel.service.get_solid_gas(i), 'from RFEM.TypesForSolids.solidGas import SolidGas\n', 'SolidGas'],
-            [ObjectTypes.E_OBJECT_TYPE_SOLID_CONTACTS, lambda i: model.clientModel.service.get_solid_contact(i), 'from RFEM.TypesForSolids.solidContact import SolidContact\n', 'SolidContact'],
+            [ObjectTypes.E_OBJECT_TYPE_SOLID_CONTACTS, lambda i: model.clientModel.service.get_solid_contacts(i), 'from RFEM.TypesForSolids.solidContact import SolidContacts\n', 'SolidContacts'],
 
-            [ObjectTypes.E_OBJECT_TYPE_SURFACES_CONTACT_TYPE, lambda i: model.clientModel.service.get_surface_contact_type(i), 'from RFEM.TypesForSpecialObjects.surfaceContactType import SurfaceContactType\n', 'SurfaceContactType'],
+            [ObjectTypes.E_OBJECT_TYPE_SURFACES_CONTACT, lambda i: model.clientModel.service.get_surfaces_contact(i), 'from RFEM.SpecialObjects.surfaceContact import SurfaceContact\n', 'SurfaceContact'],
 
             # nodal_release_type
             [ObjectTypes.E_OBJECT_TYPE_LINE_RELEASE_TYPE, lambda i: model.clientModel.service.get_line_release_type(i), 'from RFEM.SpecialObjects.lineReleaseType import LineReleaseType\n', 'LineReleaseType'],
@@ -153,7 +153,7 @@ class GetAllObjects:
             [ObjectTypes.E_OBJECT_TYPE_LOAD_CASE, lambda i: model.clientModel.service.get_load_case(i), 'from RFEM.LoadCasesAndCombinations.loadCase import LoadCase\n', 'LoadCase'],
             [ObjectTypes.E_OBJECT_TYPE_DESIGN_SITUATION, lambda i: model.clientModel.service.get_design_situation(i), 'from RFEM.LoadCasesAndCombinations.designSituation import DesignSituation\n', 'DesignSituation'],
             [ObjectTypes.E_OBJECT_TYPE_LOAD_COMBINATION, lambda i: model.clientModel.service.get_load_combination(i), 'from RFEM.LoadCasesAndCombinations.loadCombination import LoadCombination\n', 'LoadCombination'],
-            #[ObjectTypes, lambda i: model.clientModel.service.get_(i), 'from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations',]
+            #[ObjectTypes, lambda i: model.clientModel.service.get_load_cases_and_combinations(), 'from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations\n', 'LoadCasesAndCombinations']
             [ObjectTypes.E_OBJECT_TYPE_RESULT_COMBINATION, lambda i: model.clientModel.service.get_result_combination(i), 'from RFEM.LoadCasesAndCombinations.resultCombination import ResultCombination\n', 'ResultCombination'],
             [ObjectTypes.E_OBJECT_TYPE_STATIC_ANALYSIS_SETTINGS, lambda i: model.clientModel.service.get_static_analysis_settings(i), 'from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings\n', 'StaticAnalysisSettings'],
             [ObjectTypes.E_OBJECT_TYPE_STABILITY_ANALYSIS_SETTINGS, lambda i: model.clientModel.service.get_stability_analysis_settings(i), 'from RFEM.LoadCasesAndCombinations.stabilityAnalysisSettings import StabilityAnalysisSettings\n', 'StabilityAnalysisSettings'],
@@ -230,13 +230,18 @@ class GetAllObjects:
         # Load Cases and Combinations setup
         loadCasesAndCombinations = convertSubclases(dict(model.clientModel.service.get_load_cases_and_combinations()))
         settingsAndOptions = dict(model.clientModel.service.get_model_settings_and_options())
+        mainObjectsToActivate = dict(model.clientModel.service.get_main_objects_to_activate())
+        addonStatuses = GetAllAddonStatuses(model.clientModel)
         del settingsAndOptions['date_of_zero_day']
         settingsAndOptions = convertSubclases(settingsAndOptions)
 
         objects.append('LoadCasesAndCombinations(params='+str(loadCasesAndCombinations)+')\n')
         objects.append('BaseSettings(params='+str(settingsAndOptions)+')\n')
+        objects.append('MainObjectsToActivate(params='+str(mainObjectsToActivate)+')\n')
+        objects.append('SetAddonStatuses('+str(addonStatuses)+')\n')
+
         imports.append('from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations\n')
-        imports.append('from RFEM.baseSettings import BaseSettings\n')
+        imports.append('from RFEM.baseSettings import BaseSettings, MainObjectsToActivate\n')
 
         # Get number of every type of object supported by Client.
         # Get info of each existing object.

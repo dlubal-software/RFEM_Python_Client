@@ -223,7 +223,7 @@ TimberDesignServiceLimitStateConfigurations(1, 'SLS1', members_no = 'All')
 
 # finishing modification and calculating the model
 Model.clientModel.service.finish_modification()
-PlausibilityCheck(True)
+PlausibilityCheck()
 Calculate_all()
 
 # write outputs to an excel sheet

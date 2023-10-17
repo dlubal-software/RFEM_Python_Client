@@ -328,7 +328,6 @@ class CoordinateSystem():
             for key in params:
                 clientObject[key] = params[key]
 
-        print(clientObject)
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
 

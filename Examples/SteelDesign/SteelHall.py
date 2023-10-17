@@ -331,7 +331,7 @@ if __name__ == '__main__':
         n, k = n+6, k+13
 
     SteelDesignUltimateConfigurations(1, 'ULS1', 'All')
-    PlausibilityCheck(True)
+    PlausibilityCheck()
 
     Model.clientModel.service.finish_modification()
     Calculate_all()

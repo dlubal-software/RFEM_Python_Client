@@ -9,7 +9,8 @@ from RFEM.initModel import Model
 from RFEM.Tools.GetObjectNumbersByType import GetAllObjects
 
 # Define name of the model from which the data should be exported
-model_name = 'test.rf6'
+model_name = '000874_99_Hochhaus.rf6'
+folderPath = 'c:/Users/MichalO/Desktop/RFEM_modely/script_generator/000874_99_Hochhaus/'
 
 # Connect to model
 model = Model(False, model_name)
@@ -29,9 +30,17 @@ lines += objects
 for i,v in enumerate(importObjects):
     lines.insert(i+6, v)
 
+modelNameStr = ""
+if '.' in model_name:
+    idx = model_name.rfind('.')
+    postfix = model_name[idx:]
+    modelNameStr = '"'+model_name[:idx-1]+'_gen'+postfix+'"'
+else:
+    modelNameStr = '"'+model_name+'_gen.rf6"'
+
 # Add mandatory steps
 lines.insert(6+len(importObjects), '\n')
-lines.insert(6+len(importObjects)+1, 'Model()\n')
+lines.insert(6+len(importObjects)+1, 'Model(True,'+modelNameStr+')\n')
 lines.insert(6+len(importObjects)+2, 'Model.clientModel.service.begin_modification()\n')
 lines.insert(6+len(importObjects)+3, '\n')
 
@@ -41,6 +50,10 @@ lines.append('Model.clientModel.service.finish_modification()\n')
 lines.append('\n')
 
 # Create file and write data
-f = open(os.path.dirname(__file__)+"/WSgeneratedScript.py", "w", encoding="utf-8")
-f.writelines(lines)
-f.close()
+if not folderPath:
+    folderPath = os.path.dirname(__file__)
+
+model_name = model_name[:-3]+'py'
+with open(folderPath+'/'+model_name, 'w', encoding='utf-8') as f:
+    f.writelines(lines)
+    f.close()
