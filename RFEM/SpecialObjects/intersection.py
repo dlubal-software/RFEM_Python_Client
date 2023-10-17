@@ -1,6 +1,7 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 
 class Intersection():
+
     def __init__(self,
                  no: int = 1,
                  surface_1: int = 1,

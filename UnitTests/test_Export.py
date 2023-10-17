@@ -83,9 +83,9 @@ def test_import():
     importFrom(os.path.join(dirname, 'import_test_xlsx.xlsx'))
     importFrom(os.path.join(dirname, 'import_test_xml.xml'))
 
-    closeModel('import_test_xml', False)
-    closeModel('import_test_xlsx', False)
-    closeModel('import_test_saf', False)
+    closeModel(3, False)
+    closeModel(2, False)
+    closeModel(1, False)
 
     #assert getSAFSettings().property_general_run_excel_application == False
     assert getSAFSettings().property_export_saf_version == '1_0_5'
