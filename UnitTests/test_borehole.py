@@ -43,3 +43,23 @@ def test_borehole():
     assert bore2.coordinate_2 == -2
     assert bore2.layers_table[0][0].row['thickness'] == 3.5
     assert bore2.name == 'Borehole 2'
+
+def test_getBorehole():
+
+    SetAddonStatus(Model.clientModel, AddOn.geotechnical_analysis_active, True)
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Material(1, 'Sand, closely graded (fine sand) | --')
+    Material(2, 'Clay, medium plastic | --')
+    Material(3, 'Gravel, well-graded (GW) | DIN 18196:2011-05')
+
+    Borehole(1, [0,0,0], None, [[1, 2.5], [3, 4.5], [2, 7]], name = 'Borehole')
+
+    borehole = Borehole.GetBorehole(1)
+
+    Model.clientModel.service.finish_modification()
+
+    assert borehole['no'] == 1
+    assert borehole['coordinate_2'] == 0
+    assert borehole['name'] == 'Borehole'

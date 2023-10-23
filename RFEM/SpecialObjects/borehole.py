@@ -80,3 +80,15 @@ class Borehole:
 
         # Add Nodal Support to client model
         model.clientModel.service.set_borehole(clientObject)
+
+    @staticmethod
+    def GetBorehole(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Borehole Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Node from client model
+        return model.clientModel.service.get_borehole(object_index)
