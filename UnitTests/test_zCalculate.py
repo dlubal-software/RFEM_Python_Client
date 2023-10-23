@@ -5,8 +5,9 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.enums import SurfacesShapeOfFiniteElements, OptimizationTargetValueType, AddOn,NodalSupportType, NodalLoadDirection, ActionCategoryType, ObjectTypes
-from RFEM.initModel import Model, client, SetAddonStatus, Calculate_all, CalculateSelectedCases
+from RFEM.enums import SurfacesShapeOfFiniteElements, OptimizationTargetValueType, AddOn,NodalSupportType, NodalLoadDirection, ActionCategoryType, ObjectTypes,ResultOfCalculation
+from RFEM.initModel import Model, client, SetAddonStatus
+from RFEM.Calculate.calculate import Calculate_all, CalculateSelectedCases
 from RFEM.Calculate.meshSettings import GetMeshSettings, MeshSettings, GetModelInfo
 from RFEM.Calculate.optimizationSettings import OptimizationSettings
 from UnitTests.test_solids import test_solids_and_solid_sets
@@ -50,8 +51,8 @@ def test_calculate_specific():
 
     createmodel()
     messages = CalculateSelectedCases([1])
-
-    assert not messages
+    assert messages.result_of_calculation == ResultOfCalculation.SUCCESSFUL_CALCULATION
+    # assert not messages
     assert  Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
     assert not Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
 
@@ -60,7 +61,8 @@ def test_calculate_all():
     createmodel()
     messages = Calculate_all()
 
-    assert not messages
+    assert messages.result_of_calculation == ResultOfCalculation.SUCCESSFUL_CALCULATION
+    # assert not messages
     assert Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
     assert Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
 
