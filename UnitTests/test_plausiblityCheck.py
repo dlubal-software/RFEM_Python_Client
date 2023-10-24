@@ -12,6 +12,7 @@ from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.material import Material
 from RFEM.initModel import Model
 from RFEM.Tools.PlausibilityCheck import PlausibilityCheck
+from RFEM.enums import PlausibilityCheckResult, PlausibilityCheckType
 
 if Model.clientModel is None:
     Model()
@@ -40,7 +41,7 @@ def test_plausibility_check():
     Model.clientModel.service.finish_modification()
 
     check = PlausibilityCheck()
-    assert check.message == 'Success'
-    assert check.errormessage == ''
+    assert check.GetPlausibilityCheckResult() == PlausibilityCheckResult.CHECK_IS_OK
+    assert check.messages == ''
     assert check.IsModelOK()
-    assert check.GetErrorMessage() == ''
+    assert len(check.GetErrorMessage()) == 0
