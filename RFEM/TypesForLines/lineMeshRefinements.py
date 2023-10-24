@@ -1,7 +1,7 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import LineMeshRefinementsType
 
-class LineMeshRefinements():
+class LineMeshRefinement():
 
     def __init__(self,
                  no: int = 1,

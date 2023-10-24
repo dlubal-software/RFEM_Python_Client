@@ -425,7 +425,7 @@ def main():
 
     # Finish Model
     Model.clientModel.service.finish_modification()
-    PlausibilityCheck(True)
+    PlausibilityCheck()
 
     # Calculation
     print("Calculation started...")

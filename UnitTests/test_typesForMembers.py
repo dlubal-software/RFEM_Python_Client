@@ -20,7 +20,7 @@ from RFEM.TypesForMembers.memberDefinableStiffness import MemberDefinableStiffne
 from RFEM.TypesForMembers.memberEccentricity import MemberEccentricity
 from RFEM.TypesForMembers.memberNonlinearity import MemberNonlinearity
 from RFEM.TypesForMembers.memberStiffnessModification import MemberStiffnessModification
-from RFEM.TypesForMembers.memberTransverseStiffeners import MemberTransverseStiffeners
+from RFEM.TypesForMembers.memberTransverseStiffeners import MemberTransverseStiffener
 from RFEM.BasicObjects.material import Material
 
 if Model.clientModel is None:
@@ -139,7 +139,7 @@ def test_memberTransverseStiffeners():
 
     Material(1, 'S235')
 
-    MemberTransverseStiffeners(1)
+    MemberTransverseStiffener(1)
 
     Model.clientModel.service.finish_modification()
 

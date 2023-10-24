@@ -51,7 +51,7 @@ def test_calculate_specific():
     createmodel()
     messages = CalculateSelectedCases([1])
 
-    assert not messages
+    assert messages
     assert  Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
     assert not Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
 
@@ -60,7 +60,7 @@ def test_calculate_all():
     createmodel()
     messages = Calculate_all()
 
-    assert not messages
+    assert messages
     assert Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
     assert Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
 

@@ -11,7 +11,7 @@ from RFEM.initModel import Model, closeAllModels, cacheLoc
 
 def pytest_exception_interact():
     '''
-    Called when an exception was raised which can potentially be interactively handled,
+    Called when an exception is raised which can potentially be interactively handled,
     in our case after the failed test.
     '''
 
@@ -23,3 +23,4 @@ def pytest_exception_interact():
                 filePath = os.path.join(cacheLoc, file)
                 os.remove(filePath)
     Model()
+

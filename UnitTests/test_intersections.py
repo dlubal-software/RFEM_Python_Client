@@ -12,7 +12,7 @@ from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.surface import Surface
-from RFEM.SpecialObjects.intersection import Instersection
+from RFEM.SpecialObjects.intersection import Intersection
 from RFEM.BasicObjects.thickness import Thickness
 
 
@@ -56,8 +56,8 @@ def test_intersections():
     Surface(2, '5-8')
     Surface.Standard(3,SurfaceGeometry.GEOMETRY_PIPE, params={'pipe_radius':0.3, 'pipe_center_line':9})
 
-    Instersection(1,1,2)
-    Instersection(2,1,3)
+    Intersection(1,1,2)
+    Intersection(2,1,3)
 
     Model.clientModel.service.finish_modification()
 
