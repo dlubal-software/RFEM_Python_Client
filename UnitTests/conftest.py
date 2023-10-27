@@ -16,11 +16,11 @@ def pytest_exception_interact():
     '''
 
     # This ensures that the tests executed after failed test are not affected.
-    if Model.clientModel:
-        closeAllModels()
-        if os.path.exists(cacheLoc):
-            for file in os.listdir(cacheLoc):
-                filePath = os.path.join(cacheLoc, file)
-                os.remove(filePath)
-    Model()
+    #if Model.clientModel:
+    #    closeAllModels()
+    #    if os.path.exists(cacheLoc):
+    #        for file in os.listdir(cacheLoc):
+    #            filePath = os.path.join(cacheLoc, file)
+    #            os.remove(filePath)
+    #Model()
 
