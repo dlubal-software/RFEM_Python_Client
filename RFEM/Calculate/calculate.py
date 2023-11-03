@@ -1,18 +1,20 @@
 import time
 from typing import List
-from RFEM.enums import ResultOfCalculation, MessageType,ObjectTypes
+from RFEM.enums import ResultOfCalculation, MessageType, ObjectTypes
 from RFEM.initModel import Model
+
 
 class ErrorMessage():
 
-    message_type: MessageType = None
+    message_type: MessageType
     message: str = ''
     input_field: str = ''
     object: str = ''
     current_value: str = ''
     result: bool = False
 
-    def __init__(self, message):
+    def __init__(self, message) -> None:
+
         self.message = message.message
         if hasattr(message, 'input_field'):
             self.input_field = message.input_field
@@ -32,6 +34,7 @@ class ErrorMessage():
         error = str(f"{self.message_type.name}  {self.message} {self.input_field if self.input_field is not None else ''} {self.object  if self.object is not None else ''} {self.current_value if self.current_value is not None else ''} {str(self.result)}")
         return error
 
+
 class CalculationError():
 
     calculation_error_no: int = 0
@@ -41,8 +44,8 @@ class CalculationError():
     calculation_error_or_warnings_number: str = ''
     calculation_error_object: str = ''
 
+    def __init__(self, calculation_error) -> None:
 
-    def __init__(self, calculation_error):
         self.calculation_error_no = calculation_error.no
         self.description = calculation_error.description
         self.analysis_type = calculation_error.row.analysis_type
@@ -55,21 +58,25 @@ class CalculationError():
         return error
 
 
-def GetCalculationError( model = Model ) -> List[CalculationError]:
+def GetCalculationError( model: type[Model] = Model) -> List[type[CalculationError]]:
+
     errors = model.clientModel.service.get_calculation_errors()
-    calculation_errors = [CalculationError]
+    calculation_errors: list[type[CalculationError]] = []
+
     if any(errors.errors):
         for error in errors.errors:
             calculation_error = CalculationError(error)
             calculation_errors.append(calculation_error)
             model.ModelLogger.error(calculation_error.GetCalculationErrorString())
 
+    return calculation_errors
+
 
 class CalculationResult():
 
     succeeded: bool = False
     messages: str = ''
-    errors_and_warnings = []
+    errors_and_warnings: list[type[object]] = []
 
     def __init__(self, succeeded: bool = False, messages: str = '') -> None:
         self.succeeded = succeeded
@@ -79,19 +86,19 @@ class CalculationResult():
 class CalculationResultInfo():
 
     result_of_calculation = None
-    error_messages = []
-    calculation_messages = None
-    calculation_errors = []
-    get_calculation_error = False
+    error_messages: list[ErrorMessage] = []
+    calculation_messages: str = ''
+    calculation_errors: list[type[CalculationError]] = []
+    get_calculation_error: bool = False
 
     def __init__(self,
-                 calculation_result,
+                 calculation_result: object,
                  get_calculation_error: bool = True,
-                 model = Model):
+                 model: type[Model] = Model)-> None:
 
         self.get_calculation_error = get_calculation_error
 
-        if calculation_result.succeeded:
+        if calculation_result.succeeded and not calculation_result.messages:
             self.result_of_calculation = ResultOfCalculation.SUCCESSFUL_CALCULATION
             model.ModelLogger.info('Calculation finished successfully')
         else:
@@ -107,7 +114,7 @@ class CalculationResultInfo():
                     model.ModelLogger.error(err.GetErrorMessageString())
 
         if self.result_of_calculation is ResultOfCalculation.UNSUCCESSFUL_CALCULATION:
-            if  self.calculation_messages and ("For more information call get_calculation_errors.") in self.calculation_messages and self.get_calculation_error:
+            if self.calculation_messages and self.get_calculation_error:
                 self.calculation_errors = GetCalculationError(model)
 
     def IsCalculationSucessful(self) -> bool:
@@ -123,14 +130,15 @@ class CalculationResultInfo():
         return self.calculation_messages
 
 
-def HandleCalculationException(faultstring: str='', model = Model):
+def HandleCalculationException(faultstring: str = '', model: type[Model] = Model):
 
-    calculation_result = CalculationResult(False,faultstring)
-    calculation_results_info = CalculationResultInfo(calculation_result,False, model)
+    calculation_result = CalculationResult(False, faultstring)
+    calculation_results_info = CalculationResultInfo(calculation_result, False, model)
 
     return calculation_results_info
 
-def Calculate_all(skip_warnings: bool = True, get_calculation_errors: bool = True, model = Model) -> CalculationResultInfo:
+
+def Calculate_all(skip_warnings: bool = True, get_calculation_errors: bool = True, model: type[Model] = Model) -> CalculationResultInfo:
     '''
     Calculates model.
     CAUTION: Don't use it in unit tests!
@@ -138,13 +146,14 @@ def Calculate_all(skip_warnings: bool = True, get_calculation_errors: bool = Tru
     it causes RFEM to stuck and generates failures, which are hard to investigate.
 
     Args:
-        generateXmlSolverInput (bool): Generate XML Solver Input
+        skip_warnings (bool): if calculation can skip warnings
+        get_calculation_errors: if function should call get_calculation_errors after unsuccessful calculation
         model (RFEM Class, optional): Model to be edited
     '''
     model.ModelLogger.info('Staring calculation')
-    start_time = time.time()
+    start_time: float = time.time()
     calculation_result = None
-    calculation_results_info = None
+    calculation_results_info: CalculationResultInfo
 
     try:
         calculation_result = model.clientModel.service.calculate_all(skip_warnings)
@@ -158,14 +167,14 @@ def Calculate_all(skip_warnings: bool = True, get_calculation_errors: bool = Tru
         else:
             calculation_results_info = CalculationResultInfo(calculation_result,get_calculation_errors, model)
 
-    end_time = time.time()
-    elapsed_time = end_time - start_time
+    end_time: float = time.time()
+    elapsed_time: float = end_time - start_time
     model.ModelLogger.info(f'Elapsed calculation time: {elapsed_time}')
 
     return calculation_results_info
 
 
-def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None,skipWarnings: bool = True, get_calculation_errors: bool  = True, model = Model) -> CalculationResultInfo:
+def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None,skipWarnings: bool = True, get_calculation_errors: bool  = True, model: type[Model] = Model) -> CalculationResultInfo:
     '''
     This method calculate just selected objects - load cases, designSituations, loadCombinations
 
@@ -173,6 +182,8 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
         loadCases (list, optional): Load Case List
         designSituations (list, optional): Design Situations List
         loadCombinations (list, optional): Load Combinations List
+        skip_warnings (bool): if calculation can skip warnings
+        get_calculation_errors: if function should call get_calculation_errors after unsuccessful calculation
         model (RFEM Class, optional): Model to be edited
     '''
     specificObjectsToCalculate = model.clientModel.factory.create('ns0:calculate_specific_loadings')
@@ -198,9 +209,9 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculate.loading.append(specificObjectsToCalculateCC)
 
     model.ModelLogger.info('Staring calculation')
-    start_time = time.time()
+    start_time: float = time.time()
     calculation_result = None
-    calculation_results_info = None
+    calculation_results_info: CalculationResultInfo
 
     try:
         calculation_result = model.clientModel.service.calculate_specific(specificObjectsToCalculate,skipWarnings)
@@ -214,8 +225,12 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
         else:
             calculation_results_info = CalculationResultInfo(calculation_result,get_calculation_errors, model)
 
-    end_time = time.time()
-    elapsed_time = end_time - start_time
+    end_time: float = time.time()
+    elapsed_time: float = end_time - start_time
     model.ModelLogger.info(f'Elapsed calculation time: {elapsed_time}')
 
     return calculation_results_info
+
+
+def HasAnyResults() -> None:
+    pass
