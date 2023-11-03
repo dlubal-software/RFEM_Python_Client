@@ -625,15 +625,16 @@ class FreeLoad():
         clientObject.load_direction = load_direction.name
 
         # Load Location
-        clientObject.load_location = model.clientModel.factory.create('ns0:free_polygon_load.load_location')
-        for i,j in enumerate(load_location):
-            fplld = model.clientModel.factory.create('ns0:free_polygon_load_load_location_row')
-            fplld.no = i+1
-            fplld.row = model.clientModel.factory.create('ns0:free_polygon_load_load_location')
-            clearAttributes(fplld.row)
-            fplld.row.first_coordinate = load_location[i][0]
-            fplld.row.second_coordinate = load_location[i][1]
-            clientObject.load_location.free_polygon_load_load_location.append(fplld)
+        if load_location:
+            clientObject.load_location = model.clientModel.factory.create('ns0:free_polygon_load.load_location')
+            for i,j in enumerate(load_location):
+                fplld = model.clientModel.factory.create('ns0:free_polygon_load_load_location_row')
+                fplld.no = i+1
+                fplld.row = model.clientModel.factory.create('ns0:free_polygon_load_load_location')
+                clearAttributes(fplld.row)
+                fplld.row.first_coordinate = load_location[i][0]
+                fplld.row.second_coordinate = load_location[i][1]
+                clientObject.load_location.free_polygon_load_load_location.append(fplld)
 
         # Load Parameter
         if load_parameter:

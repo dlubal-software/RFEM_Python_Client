@@ -7,7 +7,7 @@ readme = (here/"README.md").read_text(encoding="utf-8")
 
 setup(
     name='RFEM',
-    version='1.18.0',
+    version='1.19.1',
     description='Python Framework for RFEM6 Web Services',
     long_description=readme,
     long_description_content_type = "text/markdown",
@@ -24,6 +24,6 @@ setup(
     packages=find_packages(),
     package_dir={"RFEM":"RFEM"},
     include_package_data=True,
-    install_requires=["requests", "six", "suds-py3", "xmltodict", "pytest", "mock", "setuptools"],
+    install_requires=["requests", "six", "suds-py3", "xmltodict", "pytest", "psutil", "mock", "setuptools"],
     zip_safe = False
 )

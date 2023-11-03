@@ -28,4 +28,4 @@ def test_SaveFile():
     closeModel('save.rf6')
 
     assert os.path.isfile(dirName + "/testResults/save.rf6")
-    os.remove(dirName + '/testResults/save.rf6')
+    #os.remove(dirName + '/testResults/save.rf6')

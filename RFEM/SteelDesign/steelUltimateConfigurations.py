@@ -65,3 +65,4 @@ class SteelDesignUltimateConfigurations():
 
         # Add Global Parameters to Client Model
         model.clientModel.service.set_steel_design_uls_configuration(clientObject)
+

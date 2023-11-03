@@ -2,21 +2,22 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
+import re
 rfemDir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 sys.path.append(rfemDir)
-from RFEM.initModel import Model
+from RFEM.initModel import Model, ConvertToDlString
 import xml.etree.ElementTree as ET
 from RFEM.ImportExport.exports import ExportTo
 
 # Define name of the model from which the data should be exported
-model_name = 'test.rf6'
+model_name = '001128_NBC_2015_RSA_RFEM_Model.rf6'
 
 # Export active model to XML
-model = Model(False, model_name)
-ExportTo(os.path.dirname(__file__)+"/export.xml", model)
+model = Model(True, model_name)
+ExportTo(os.path.dirname(__file__)+'/export.xml', model)
 
 # Parse exported XML
-tree = ET.parse(os.path.dirname(__file__)+"/export.xml")
+tree = ET.parse(os.path.dirname(__file__)+'/export.xml')
 root = tree.getroot()
 
 # Constant imports
@@ -51,7 +52,7 @@ imports = {'formula': 'from RFEM.formula import Formula',
            'combination_wizard': 'from RFEM.LoadCasesAndCombinations.combinationWizard import CombinationWizard',
            'design_situation': 'from RFEM.LoadCasesAndCombinations.designSituation import DesignSituation',
            'load_case': 'from RFEM.LoadCasesAndCombinations.loadCase import LoadCase',
-           'load_cases_and_combinations': 'from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations',
+           #'load_cases_and_combinations': 'from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations',
            'load_combination': 'from RFEM.LoadCasesAndCombinations.loadCombination import LoadCombination',
            'modal_analysis_settings': 'from RFEM.LoadCasesAndCombinations.modalAnalysisSettings import ModalAnalysisSettings',
            'result_combination': 'from RFEM.LoadCasesAndCombinations.resultCombination import ResultCombination',
@@ -72,13 +73,13 @@ imports = {'formula': 'from RFEM.formula import Formula',
            'solid_set_load': 'from RFEM.Loads.solidSetLoad import SolidSetLoad',
            'surface_load': 'from RFEM.Loads.surfaceLoad import SurfaceLoad',
            'surface_set_load': 'from RFEM.Loads.surfacesetload import SurfaceSetLoad',
-           'instersection': 'from RFEM.SpecialObjects.intersection import Instersection',
+           'intersection': 'from RFEM.SpecialObjects.intersection import Intersection',
            'line_release': 'from RFEM.SpecialObjects.lineRelease import LineRelease',
            'line_release_type': 'from RFEM.SpecialObjects.lineReleaseType import LineReleaseType',
            'result_section': 'from RFEM.SpecialObjects.resultSection import ResultSection',
            'rigid_link': 'from RFEM.SpecialObjects.rigidLink import RigidLink',
            'structure_modification': 'from RFEM.SpecialObjects.structureModification import StructureModification',
-           'surface_contact': 'from RFEM.SpecialObjects.surfaceContact import SurfaceContact',
+           'surfaces_contact': 'from RFEM.SpecialObjects.surfaceContact import SurfaceContact',
            'surface_results_adjustment': 'from RFEM.SpecialObjects.surfaceResultAdjustment import SurfaceResultsAdjustment',
            'steel_design_serviceability_configurations': 'from RFEM.SteelDesign.steelServiceabilityConfiguration import SteelDesignServiceabilityConfigurations',
            'steel_design_ultimate_configurations': 'from RFEM.SteelDesign.steelUltimateConfigurations import SteelDesignUltimateConfigurations',
@@ -94,7 +95,7 @@ imports = {'formula': 'from RFEM.formula import Formula',
            'concrete_reinforcement_direction': 'from RFEM.TypesforConcreteDesign.ConcreteReinforcementDirections import ConcreteReinforcementDirection',
            'concrete_surface_reinforcements': 'from RFEM.TypesforConcreteDesign.ConcreteSurfaceReinforcements import ConcreteSurfaceReinforcements',
            'line_hinge': 'from RFEM.TypesForLines.lineHinge import LineHinge',
-           'line_mesh_refinements': 'from RFEM.TypesForLines.lineMeshRefinements import LineMeshRefinements',
+           'line_mesh_refinement': 'from RFEM.TypesForLines.lineMeshRefinements import LineMeshRefinement',
            'line_support': 'from RFEM.TypesForLines.lineSupport import LineSupport',
            'line_welded_joint': 'from RFEM.TypesForLines.lineWeldedJoint import LineWeldedJoint',
            'member_definable_stiffness': 'from RFEM.TypesForMembers.memberDefinableStiffness import MemberDefinableStiffness',
@@ -104,13 +105,12 @@ imports = {'formula': 'from RFEM.formula import Formula',
            'member_result_intermediate_point': 'from RFEM.TypesForMembers.memberResultIntermediatePoints import MemberResultIntermediatePoint',
            'member_stiffness_modification': 'from RFEM.TypesForMembers.memberStiffnessModification import MemberStiffnessModification',
            'member_support': 'from RFEM.TypesForMembers.memberSupport import MemberSupport',
-           'member_transverse_stiffeners': 'from RFEM.TypesForMembers.memberTransverseStiffeners import MemberTransverseStiffeners',
+           'member_transverse_stiffener': 'from RFEM.TypesForMembers.memberTransverseStiffeners import MemberTransverseStiffener',
            'nodal_mesh_refinement': 'from RFEM.TypesForNodes.nodalMeshRefinement import NodalMeshRefinement',
            'nodal_support': 'from RFEM.TypesForNodes.nodalSupport import NodalSupport',
-           'solid_contact': 'from RFEM.TypesForSolids.solidContact import SolidContact',
+           'solid_contacts': 'from RFEM.TypesForSolids.solidContact import SolidContacts',
            'solid_gas': 'from RFEM.TypesForSolids.solidGas import SolidGas',
            'solid_mesh_refinement': 'from RFEM.TypesForSolids.solidMeshRefinement import SolidMeshRefinement',
-           'surface_contact_type': 'from RFEM.TypesForSpecialObjects.surfaceContactType import SurfaceContactType',
            'steel_boundary_conditions': 'from RFEM.TypesForSteelDesign.steelBoundaryConditions import SteelBoundaryConditions',
            'steel_effective_lengths': 'from RFEM.TypesForSteelDesign.steelEffectiveLengths import SteelEffectiveLengths',
            'steel_member_local_section_reduction': 'from RFEM.TypesForSteelDesign.SteelMemberLocalSectionReduction import SteelMemberLocalSectionReduction',
@@ -141,48 +141,69 @@ missingInClient = [] #objects that can't be defined because they are not in Clie
 lines = cons_imports # individual lines written in file
 
 # Process XML data
-for child in range(len(root)):
-    if root[child].tag == 'model_configuration':
+for c1, e1 in enumerate(root):
+    if root[c1].tag == 'model_configuration':
         pass
-    elif root[child].tag == 'model':
-        for id_1 in range(len(root[child])):
-            for id_2 in range(len(root[child][id_1])):
-                if root[child][id_1][id_2].tag in imports.keys():
-                    importObjects.append(imports[root[child][id_1][id_2].tag]+'\n')
-
-                    for id_3 in range(len(root[child][id_1][id_2])):
+    elif root[c1].tag == 'model':
+        for c2, e2 in enumerate(root[c1]):
+            for c3, e3 in enumerate(root[c1][c2]):
+                if root[c1][c2][c3].tag in imports.keys():
+                    importObjects.append(imports[root[c1][c2][c3].tag]+'\n')
+                    for c4, e4 in enumerate(root[c1][c2][c3]):
                         tags = {}
-                        for id_4 in range(len(root[child][id_1][id_2][id_3])):
-                            if root[child][id_1][id_2][id_3][id_4].text == '\n                        ':
+                        for c5, e5 in enumerate(root[c1][c2][c3][c4]):
+                            if root[c1][c2][c3][c4][c5].text == '\n                        ':
                                 items = {}
-                                if len(root[child][id_1][id_2][id_3][id_4][0]):
-                                    for id_5 in range(len(root[child][id_1][id_2][id_3][id_4][0])):
-                                        items[root[child][id_1][id_2][id_3][id_4][0][id_5].tag] = root[child][id_1][id_2][id_3][id_4][0][id_5].text
-                                    tags[root[child][id_1][id_2][id_3][id_4].tag] = items
-                                # skipped: empty dicts like 'coordinates:{}'
-                                #else:
-                                #    for id_5 in range(len(root[child][id_1][id_2][id_3][id_4])):
-                                #        items[root[child][id_1][id_2][id_3][id_4][id_5].tag] = root[child][id_1][id_2][id_3][id_4][id_5].text
-
+                                if len(root[c1][c2][c3][c4][c5][0]):
+                                    for c6, e6 in enumerate(root[c1][c2][c3][c4][c5][0]):
+                                        items[root[c1][c2][c3][c4][c5][0][c6].tag] = root[c1][c2][c3][c4][c5][0][c6].text
+                                    tags[root[c1][c2][c3][c4][c5].tag] = items
+                                # empty dicts like 'coordinates:{}' are skipped
                             else:
-                                tags[root[child][id_1][id_2][id_3][id_4].tag] = root[child][id_1][id_2][id_3][id_4].text
+                                tags[root[c1][c2][c3][c4][c5].tag] = root[c1][c2][c3][c4][c5].text
 
                         params = ''
-                        for key in tags:
-                            params = params+'"'+key+'"'+':"'+str(tags[key])+'", '
+                        # dictionary
+                        for key1 in tags:
+                            if tags[key1] in ('true', 'false') :
+                                params = params+'"'+key1+'"'+':'+str(tags[key1]).capitalize()+', '
+                            elif tags[key1] == 'inf' or (any(i.isdigit() for i in tags[key1]) and key1 != 'name' and not any(i.isalpha() for i in tags[key1])):
+                                # lists of numbers
+                                if ',' in tags[key1] or re.search(r'\d-\d', tags[key1]):
+                                    params = params+'"'+key1+'"'+':"'+str(ConvertToDlString(tags[key1]))+'", '
+                                # individual numbers
+                                else:
+                                    params = params+'"'+key1+'"'+':'+str(tags[key1])+', '
+                            else:
+                                # nested dictionary
+                                if isinstance(tags[key1], dict):
+                                    params2 = ''
+                                    for key2 in tags[key1]:
+                                        if tags[key1][key2] in ('true', 'false'):
+                                            params2 = params2+'"'+key2+'"'+':'+str(tags[key1][key2]).capitalize()+', '
+                                        elif tags[key1][key2] == 'inf' or (any(i.isdigit() for i in tags[key1][key2]) and key2 != 'name' and not any(i.isalpha() for i in tags[key1][key2])):
+                                            # lists of numbers
+                                            if ',' in tags[key1][key2] or re.match(r'\d-\d',tags[key1][key2]):
+                                                params2 = params2+'"'+key2+'"'+':"'+str(ConvertToDlString(tags[key1][key2]))+'", '
+                                            # individual numbers
+                                            else:
+                                                params2 = params2+'"'+key2+'"'+':'+str(tags[key1][key2])+', '
+                                    params += '"'+key1+'":{'+params2[:-2]+'}, '
+                                else:
+                                    params = params+'"'+key1+'"'+':"'+str(tags[key1])+'", '
                         params = params[:-2]
-                        lines.append(convertSnakeCaseToCamelCase(root[child][id_1][id_2].tag)+'(params={'+params+'})'+'\n')
+                        lines.append(convertSnakeCaseToCamelCase(root[c1][c2][c3].tag)+'(params={'+params+'})'+'\n')
 
                 else:
-                    if root[child][id_1][id_2].tag == 'item':
-                        missingInClient.append(convertSnakeCaseToCamelCase(root[child][id_1][id_2].tag)+', '+str(root[child][id_1].tag)+'\n')
+                    if root[c1][c2][c3].tag == 'item':
+                        missingInClient.append(convertSnakeCaseToCamelCase(root[c1][c2][c3].tag)+', '+str(root[c1][c2].tag)+'\n')
                     else:
-                        missingInClient.append(convertSnakeCaseToCamelCase(root[child][id_1][id_2].tag)+'\n')
+                        missingInClient.append(convertSnakeCaseToCamelCase(root[c1][c2][c3].tag)+'\n')
 
-    elif root[child].tag == 'addons':
+    elif root[c1].tag == 'addons':
         pass
     else:
-        ValueError('Branch "'+root[child].tag+'" was not recognized. Only model informatin is currently processed.')
+        ValueError('Branch "'+root[c1].tag+'" was not recognized. Only model informatin is currently processed.')
 
 # Add imports to 'lines'
 for i,v in enumerate(importObjects):
@@ -203,6 +224,6 @@ for l in missingInClient:
     lines.append('#    '+l)
 
 # Create file and write data
-f = open(os.path.dirname(__file__)+"/generatedScript.py", "w", encoding="utf-8")
+f = open(os.path.dirname(__file__)+'/generatedScript2.py', 'w', encoding='utf-8')
 f.writelines(lines)
 f.close()
