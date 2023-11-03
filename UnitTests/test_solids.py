@@ -15,7 +15,7 @@ from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.surface import Surface
 from RFEM.BasicObjects.solid import Solid
 from RFEM.TypesForSolids.solidGas import SolidGas
-from RFEM.TypesForSolids.solidContact import SolidContact
+from RFEM.TypesForSolids.solidContact import SolidContacts
 from RFEM.BasicObjects.solidSet import SolidSet
 
 if Model.clientModel is None:
@@ -124,7 +124,7 @@ def test_solids_and_solid_sets():
     Surface(16, '27 32 30 23', 1)
     Surface(17, '26 31 29 32', 1)
 
-    SolidContact()
+    SolidContacts()
     Solid.Contact(3, '13-17,12', 1, params={'solid_contact': 1,
                  'solid_contact_first_surface':12})
 

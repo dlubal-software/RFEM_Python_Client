@@ -1,7 +1,8 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import SolidContactPerpendicularType, SolidContactParallelType
 
-class SolidContact():
+class SolidContacts():
+
     def __init__(self,
                  no: int = 1,
                  perpendicular_contact = SolidContactPerpendicularType.FAILURE_UNDER_TENSION,

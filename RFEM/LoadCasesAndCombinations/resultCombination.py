@@ -60,27 +60,27 @@ class ResultCombination():
         # Result Combination Type
         clientObject.combination_type = combination_type.name
 
-
         # Combination Items
-        clientObject.items = model.clientModel.factory.create('ns0:result_combination.items')
-        for i,j in enumerate(combination_items):
-            rci = model.clientModel.factory.create('ns0:result_combination_items_row')
-            rci.no = i+1
-            rci.row = model.clientModel.factory.create('ns0:result_combination_items')
-            clearAttributes(rci.row)
-            rci.row.case_object_item = combination_items[i][0]
-            rci.row.operator_type = combination_items[i][1].name
-            rci.row.case_object_factor = combination_items[i][2]
-            rci.row.case_object_load_type = combination_items[i][3].name
-            if len(combination_items[i]) > 4:
-                rci.row.left_parenthesis = combination_items[i][4]
-                rci.row.right_parenthesis = combination_items[i][5]
-                if combination_items[i][4]:
-                    rci.row.group_factor = combination_items[i][6]
-                if combination_items[i][5]:
-                    rci.row.group_load_type = combination_items[i][7].name
+        if combination_items:
+            clientObject.items = model.clientModel.factory.create('ns0:result_combination.items')
+            for i,j in enumerate(combination_items):
+                rci = model.clientModel.factory.create('ns0:result_combination_items_row')
+                rci.no = i+1
+                rci.row = model.clientModel.factory.create('ns0:result_combination_items')
+                clearAttributes(rci.row)
+                rci.row.case_object_item = combination_items[i][0]
+                rci.row.operator_type = combination_items[i][1].name
+                rci.row.case_object_factor = combination_items[i][2]
+                rci.row.case_object_load_type = combination_items[i][3].name
+                if len(combination_items[i]) > 4:
+                    rci.row.left_parenthesis = combination_items[i][4]
+                    rci.row.right_parenthesis = combination_items[i][5]
+                    if combination_items[i][4]:
+                        rci.row.group_factor = combination_items[i][6]
+                    if combination_items[i][5]:
+                        rci.row.group_load_type = combination_items[i][7].name
 
-            clientObject.items.result_combination_items.append(rci)
+                clientObject.items.result_combination_items.append(rci)
 
         # SRSS Combinations
         if not srss_combination:

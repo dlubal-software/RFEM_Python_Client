@@ -51,20 +51,24 @@ def test_calculate_specific():
 
     createmodel()
     messages = CalculateSelectedCases([1])
+
     assert messages.result_of_calculation == ResultOfCalculation.SUCCESSFUL_CALCULATION
     # assert not messages
     assert HasResults(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
     assert not HasResults(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
+
 
 def test_calculate_all():
 
     createmodel()
     messages = Calculate_all()
 
+
     assert messages.result_of_calculation == ResultOfCalculation.SUCCESSFUL_CALCULATION
     # assert not messages
     assert HasResults(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
     assert HasResults(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
+
 
 # CAUTION:
 # These tests needs to be executed last because they change global settings.

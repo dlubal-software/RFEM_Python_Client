@@ -30,7 +30,7 @@ def test_typesForNodes():
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    Material(1, "S235")
+    Material(1, 'S235')
     Thickness(1, "12mm", 1, 0.012)
 
     Node(1, 0,0,0)

@@ -10,7 +10,7 @@ import pytest
 from RFEM.enums import SolidContactPerpendicularType, SolidContactParallelType
 from RFEM.initModel import Model
 from RFEM.TypesForSolids.solidGas import SolidGas
-from RFEM.TypesForSolids.solidContact import SolidContact
+from RFEM.TypesForSolids.solidContact import SolidContacts
 from RFEM.TypesForSolids.solidMeshRefinement import SolidMeshRefinement
 
 if Model.clientModel is None:
@@ -25,15 +25,15 @@ def test_types_for_solids():
 
     SolidGas(1, 130000, 284)
 
-    SolidContact(1, SolidContactPerpendicularType.FAILURE_UNDER_COMPRESSION, SolidContactParallelType.FAILURE_IF_CONTACT_PERPENDICULAR_TO_SURFACES_FAILED)
-    SolidContact(2, SolidContactPerpendicularType.FAILURE_UNDER_TENSION, SolidContactParallelType.FULL_FORCE_TRANSMISSION)
-    SolidContact(3, SolidContactPerpendicularType.FULL_FORCE_TRANSMISSION, SolidContactParallelType.RIGID_FRICTION, [2])
-    SolidContact(4, SolidContactPerpendicularType.FAILURE_UNDER_COMPRESSION, SolidContactParallelType.RIGID_FRICTION_LIMIT, [10000000])
-    SolidContact(5, SolidContactPerpendicularType.FAILURE_UNDER_COMPRESSION, SolidContactParallelType.ELASTIC_FRICTION, [510, 0.5])
-    SolidContact(6, SolidContactPerpendicularType.FAILURE_UNDER_COMPRESSION, SolidContactParallelType.ELASTIC_FRICTION_LIMIT, [520, 11000000])
-    SolidContact(7, SolidContactPerpendicularType.FAILURE_UNDER_COMPRESSION, SolidContactParallelType.ELASTIC_SOLID, [530])
+    SolidContacts(1, SolidContactPerpendicularType.FAILURE_UNDER_COMPRESSION, SolidContactParallelType.FAILURE_IF_CONTACT_PERPENDICULAR_TO_SURFACES_FAILED)
+    SolidContacts(2, SolidContactPerpendicularType.FAILURE_UNDER_TENSION, SolidContactParallelType.FULL_FORCE_TRANSMISSION)
+    SolidContacts(3, SolidContactPerpendicularType.FULL_FORCE_TRANSMISSION, SolidContactParallelType.RIGID_FRICTION, [2])
+    SolidContacts(4, SolidContactPerpendicularType.FAILURE_UNDER_COMPRESSION, SolidContactParallelType.RIGID_FRICTION_LIMIT, [10000000])
+    SolidContacts(5, SolidContactPerpendicularType.FAILURE_UNDER_COMPRESSION, SolidContactParallelType.ELASTIC_FRICTION, [510, 0.5])
+    SolidContacts(6, SolidContactPerpendicularType.FAILURE_UNDER_COMPRESSION, SolidContactParallelType.ELASTIC_FRICTION_LIMIT, [520, 11000000])
+    SolidContacts(7, SolidContactPerpendicularType.FAILURE_UNDER_COMPRESSION, SolidContactParallelType.ELASTIC_SOLID, [530])
     with pytest.raises(ValueError):
-        SolidContact(8, SolidContactPerpendicularType.FAILURE_UNDER_TENSION, SolidContactParallelType.FULL_FORCE_TRANSMISSION, [0.15])
+        SolidContacts(8, SolidContactPerpendicularType.FAILURE_UNDER_TENSION, SolidContactParallelType.FULL_FORCE_TRANSMISSION, [0.15])
 
     Model.clientModel.service.finish_modification()
 

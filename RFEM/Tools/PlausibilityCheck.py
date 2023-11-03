@@ -1,6 +1,9 @@
+import enum
 from RFEM.initModel import Model
 from RFEM.enums import PlausibilityCheckResult, PlausibilityCheckType
+
 from RFEM.Calculate.calculate import ErrorMessage
+
 
 
 class PlausibilityCheck():
@@ -32,8 +35,11 @@ class PlausibilityCheck():
                         model.ModelLogger.error(err.GetErrorMessageString())
 
     def IsModelOK(self) -> bool:
+                 plausibility_check_type:enum = PlausibilityCheckType.PLAUSIBILITY_CHECK,
+                 skip_warnings:bool = False,
+                 model = Model):
 
-        return True if self.plausibility_check_result == PlausibilityCheckResult.CHECK_IS_OK else False
+        response = model.clientModel.service.plausibility_check(plausibility_check_type.name, skip_warnings)
 
     def GetErrorMessage(self) -> list[type[ErrorMessage]]:
 
