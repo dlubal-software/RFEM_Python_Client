@@ -699,3 +699,19 @@ def getPathToRunningRFEM():
         raise ValueError('Is it possible that RFEM is not runnnning?')
 
     return path
+
+
+# @DeprecationWarning
+def Calculate_all(generateXmlSolverInput: bool = False, model = Model):
+
+    from RFEM.Calculate.calculate import Calculate_all
+    Calculate_all(generateXmlSolverInput, False, model)
+    import warnings
+    warnings.warn("This method is deprecated", DeprecationWarning)
+
+
+# @DeprecationWarning
+def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None,skipWarnings = True, model = Model):
+
+    from RFEM.Calculate.calculate import CalculateSelectedCases
+    CalculateSelectedCases(loadCases, designSituations, loadCombinations, skipWarnings, False, model)
