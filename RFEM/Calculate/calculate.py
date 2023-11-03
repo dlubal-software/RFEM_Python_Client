@@ -232,5 +232,18 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
     return calculation_results_info
 
 
-def HasAnyResults() -> None:
-    pass
+def HasAnyResults(model: type[Model] = Model) -> bool:
+
+    try:
+        return  model.clientModel.service.has_any_results()
+    except Exception as inst:
+        model.ModelLogger.exception(inst.fault.faultstring)
+        return False
+
+def HasResults(case_type_object: type[ObjectTypes] = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE, object_no: int = 1, model: type[Model] = Model) -> bool:
+
+    try:
+        return  model.clientModel.service.has_results(case_type_object, object_no)
+    except Exception as inst:
+        model.ModelLogger.exception(inst.fault.faultstring)
+        return False

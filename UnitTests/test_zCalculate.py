@@ -7,7 +7,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 from RFEM.enums import SurfacesShapeOfFiniteElements, OptimizationTargetValueType, AddOn,NodalSupportType, NodalLoadDirection, ActionCategoryType, ObjectTypes,ResultOfCalculation
 from RFEM.initModel import Model, client, SetAddonStatus
-from RFEM.Calculate.calculate import Calculate_all, CalculateSelectedCases
+from RFEM.Calculate.calculate import Calculate_all, CalculateSelectedCases, HasAnyResults,HasResults
 from RFEM.Calculate.meshSettings import GetMeshSettings, MeshSettings, GetModelInfo
 from RFEM.Calculate.optimizationSettings import OptimizationSettings
 from UnitTests.test_solids import test_solids_and_solid_sets
@@ -53,8 +53,8 @@ def test_calculate_specific():
     messages = CalculateSelectedCases([1])
     assert messages.result_of_calculation == ResultOfCalculation.SUCCESSFUL_CALCULATION
     # assert not messages
-    assert  Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
-    assert not Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
+    assert HasResults(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
+    assert not HasResults(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
 
 def test_calculate_all():
 
@@ -63,8 +63,8 @@ def test_calculate_all():
 
     assert messages.result_of_calculation == ResultOfCalculation.SUCCESSFUL_CALCULATION
     # assert not messages
-    assert Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
-    assert Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
+    assert HasResults(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
+    assert HasResults(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
 
 # CAUTION:
 # These tests needs to be executed last because they change global settings.
