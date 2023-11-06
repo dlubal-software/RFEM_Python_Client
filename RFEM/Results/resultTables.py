@@ -18,7 +18,7 @@ def GetResultTableParameters(results):
     if results[0][0]:
         for i in results[0]:
             params['base'] = list(set(params['base'] + i.__keylist__))
-            if 'row' in i.__keylist__:
+            if 'row' in i.__keylist__ and i.row:
                 params['row'] = list(set(params['row'] + i.row.__keylist__))
             else:
                 params['errors'] = "Result table doesn't have attribute 'row'."
