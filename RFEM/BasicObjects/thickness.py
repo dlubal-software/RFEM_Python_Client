@@ -730,6 +730,9 @@ class Thickness():
         clientObject.orthotropy_rotation_beta = rotation_beta * (pi/180)
 
         # Consideration of Self-Weight
+        ## Conversion from N/m^2 to kg/m^2 (see https://www.convertunits.com/from/N/m2/to/kilogram-force/square+metre)
+        consideration_of_self_weight[2] = 0.10197162129779 * consideration_of_self_weight[2]
+
         clientObject.stiffness_matrix_self_weight_definition_type = consideration_of_self_weight[0].name
         if consideration_of_self_weight[0].name == 'SELF_WEIGHT_DEFINITION_TYPE_DEFINED_VIA_FICTITIOUS_THICKNESS_AND_BULK_DENSITY':
             clientObject.orthotropy_fictitious_thickness = consideration_of_self_weight[1]
