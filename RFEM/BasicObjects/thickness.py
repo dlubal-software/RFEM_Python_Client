@@ -416,7 +416,7 @@ class Thickness():
             layers (list of lists): Layers Table as an Array. Angle of the material will be set if material model is orthotropic.
                 layers = [layer[0], layer[1], layer[2],...]
                 for layers[i][0] == 'E_THICKNESS_TYPE_DIRECTLY':
-                    layers[i] = ['E_THICKNESS_TYPE_DIRECTLY', material, thickness, comment(optional)]
+                    layers[i] = ['E_THICKNESS_TYPE_DIRECTLY', material_tag(int), thickness_in_meter(float), comment(optional)]
                 for layers[i][0] == previously_defined_thickness_tag:
                     layers[i] = [previously_defined_thickness_tag(int), comment(optional)]
             stiffness_reduction (bool, optional): Enable/disable Stiffness Reduction
