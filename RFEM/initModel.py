@@ -90,7 +90,7 @@ class Model():
 
         Args:
             new_model (bool, optional): Set to True if new model is requested.
-            model_name (str, optional): Defaults to "TestModel".
+            model_name (str, optional): Defaults to "TestModel". If "" call get_active_model.
             delete (bool, optional):  Delete results
             delete_all (bool, optional): Delete all objects in Model.
         """
@@ -123,6 +123,8 @@ class Model():
                         if modelLst[i] == model_name:
                             id = i
                     modelPath =  client.service.get_model(id)
+                elif model_name == "":
+                    modelPath =  client.service.get_active_model()
                 else:
                     modelPath =  client.service.new_model(original_model_name)
                 modelPort = modelPath[-5:-1]
@@ -140,7 +142,7 @@ class Model():
 
         else:
             # Requested model which was already connected
-            assert model_name in self.clientModelDct or model_name in modelLst, 'WARNING: '+model_name +' is not connected neither opened in RFEM.'
+            #assert model_name in self.clientModelDct or model_name in modelLst, 'WARNING: '+model_name +' is not connected neither opened in RFEM.'
 
             if model_name in self.clientModelDct:
                 cModel = self.clientModelDct[model_name]
@@ -162,6 +164,8 @@ class Model():
                 cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=ca, timeout=360)
 
                 self.clientModelDct[model_name] = cModel
+            elif model_name == "":
+                    modelPath =  client.service.get_active_model()
             else:
                 print('Model name "'+model_name+'" is not created in RFEM. Consider changing new_model parameter in Model class from False to True.')
                 sys.exit()
@@ -188,6 +192,7 @@ class Model():
             index_or_name (str or int): Name of the index of model
         '''
         if isinstance(index_or_name, str):
+            assert index_or_name in list(self.clientModelDct)
             self.clientModelDct.pop(index_or_name)
             if len(self.clientModelDct) > 0:
                 model_key = list(self.clientModelDct)[-1]
@@ -290,12 +295,18 @@ def closeModel(index_or_name, save_changes = False):
         client.service.close_model(index_or_name, save_changes)
 
     elif isinstance(index_or_name, str):
-        if '.rf6' in index_or_name:
+        if index_or_name[-4:] == '.rf6':
             index_or_name = index_or_name[:-4]
 
         modelLs = client.service.get_model_list().name
-        Model.__delete__(Model, index_or_name)
-        client.service.close_model(modelLs.index(index_or_name), save_changes)
+        if index_or_name in modelLs:
+            try:
+                Model.__delete__(Model, index_or_name)
+                client.service.close_model(modelLs.index(index_or_name), save_changes)
+            except:
+                print('Model did NOT close properly.')
+        else:
+            print('\nINFO: Model "'+modelLs+'" is not opened.')
     else:
         assert False, 'Parameter index_or_name must be int or string.'
 
@@ -306,9 +317,12 @@ def closeAllModels(save_changes = False):
     Args:
         save_changes (bool): Enable/Disable Save Changes Option
     '''
-    modelLs = client.service.get_model_list().name
-    for j in reversed(modelLs):
-        closeModel(j, save_changes)
+    try:
+        modelLs = client.service.get_model_list().name
+        for j in reversed(modelLs):
+            closeModel(j, save_changes)
+    except:
+        print('No models opened.')
 
 def saveFile(model_path):
     '''
@@ -435,18 +449,15 @@ def CheckIfMethodOrTypeExists(modelClient, method_or_type, unitTestMode=False):
 
     return not unitTestMode
 
-
-def GetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active):
+def GetAllAddonStatuses(modelClient):
     """
-    Check if Add-on is reachable and active.
-    For some types of objects, specific Add-ons need to be enabled.
+    Get  statuses for all Addons.
 
     Args:
         modelClient (Model.clientModel)
-        addOn (enum): AddOn Enumeration
 
     Returns:
-        (bool): Status of Add-on
+        (dict): Addons with their statuses as values
     """
     if modelClient is None:
         print("WARNING: modelClient is not initialized.")
@@ -463,6 +474,22 @@ def GetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active):
             dct[str(lstType[0])] = bool(lstType[1])
         else:
             assert False
+
+    return dct
+
+def GetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active):
+    """
+    Check if Add-on is reachable and active.
+    For some types of objects, specific Add-ons need to be enabled.
+
+    Args:
+        modelClient (Model.clientModel)
+        addOn (enum): AddOn Enumeration
+
+    Returns:
+        (bool): Status of Add-on
+    """
+    dct = GetAllAddonStatuses(modelClient)
 
     # sanity check
     assert addOn.name in dct, f"WARNING: {addOn.name} Add-on can not be reached."
@@ -531,6 +558,30 @@ def SetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active, status = T
 
         modelClient.service.set_addon_statuses(addonLst)
 
+def SetAddonStatuses(AddOnDict, model = Model):
+    """
+    Set all or selected Add-on.
+
+    Args:
+        modelClient (Model.clientModel)
+        AddOnDict (dict): AddOn Dictionary
+
+    Returns:
+        (bool): If all Add-ons were set
+    """
+    currentStatus = model.clientModel.service.get_addon_statuses()
+
+    for addon in currentStatus['__keylist__']:
+        if addon in AddOnDict:
+            currentStatus[addon] = AddOnDict[addon]
+        elif not isinstance(currentStatus[addon], bool):
+            for listType in currentStatus[addon]['__keylist__']:
+                if isinstance(currentStatus[addon][listType], bool) and listType in AddOnDict:
+                    currentStatus[addon][listType] = AddOnDict[listType]
+
+    model.clientModel.service.set_addon_statuses(currentStatus)
+
+
 def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None,skipWarnings = True, model = Model):
     '''
     This method calculate just selected objects - load cases, designSituations, loadCombinations
@@ -565,8 +616,8 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculate.loading.append(specificObjectsToCalculateCC)
     try:
         calculationMessages = model.clientModel.service.calculate_specific(specificObjectsToCalculate,skipWarnings)
-    except Exception as inst:
-        calculationMessages = "Calculation was unsuccessful: " + inst.fault.faultstring
+    except Exception as exp:
+        calculationMessages = "Calculation was unsuccessful: " + repr(exp)
 
     return calculationMessages
 

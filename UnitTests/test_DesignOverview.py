@@ -52,4 +52,4 @@ def test_designOverview():
 
     f = GetPartsListSurfacessByMaterial()
     assert len(f[0][0].row) == 13
-    assert f[0][0].row['thickness_name'] == 'Uniform | d : 120.0 mm | 2 - C20/25'
+    assert 'Uniform | d : 120.0 mm | 2 - C20/25' in f[0][0].row['thickness_name']

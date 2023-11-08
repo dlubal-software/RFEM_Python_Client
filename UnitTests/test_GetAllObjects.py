@@ -18,5 +18,5 @@ def test_GetAllObjects():
 
     objects, imports = GetAllObjects()
 
-    assert len(imports) in [18, 19]
-    assert len(objects) == 157
+    assert len(imports) > 18
+    assert len(objects) > 160

@@ -14,7 +14,7 @@ from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.surface import Surface
-from RFEM.SpecialObjects.intersection import Instersection
+from RFEM.SpecialObjects.intersection import Intersection
 from RFEM.SpecialObjects.surfaceResultAdjustment import SurfaceResultsAdjustment
 from RFEM.SpecialObjects.surfaceContact import SurfaceContact
 from RFEM.SpecialObjects.resultSection import ResultSection
@@ -84,7 +84,7 @@ def test_special_objects():
     Surface(3, '8 9 10 11', 1)
     Surface(4, '12 13 14 9', 1)
 
-    Instersection(1, 1, 2)
+    Intersection(1, 1, 2)
 
     SurfaceResultsAdjustment(1,SurfaceResultsAdjustmentShape.SHAPE_RECTANGLE, [1.1,1.2,0])
 

@@ -60,3 +60,36 @@ def test_resultCombination():
     assert config.combination_type == ResultCombinationType.COMBINATION_TYPE_GENERAL.name
     assert config.srss_combination == True
     assert config.generate_subcombinations == False
+
+def test_resultCombination2():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    LoadCasesAndCombinations({
+                    "current_standard_for_combination_wizard": 6207,
+                    "activate_combination_wizard_and_classification": True,
+                    "activate_combination_wizard": False,
+                    "result_combinations_active": True,
+                    "result_combinations_parentheses_active": True,
+                    "result_combinations_consider_sub_results": True,
+                    "combination_name_according_to_action_category": False
+                 },
+                 model= Model)
+    LoadCase(1)
+    LoadCase(2)
+    LoadCase(3)
+    LoadCase(4)
+    ResultCombination(1, combination_items= [
+                    [1, OperatorType.OPERATOR_OR, 1, ActionLoadType.LOAD_TYPE_TRANSIENT, True, False, 1.0, None],
+                    [2, OperatorType.OPERATOR_AND, 1.1, ActionLoadType.LOAD_TYPE_TRANSIENT, False, True, None, ActionLoadType.LOAD_TYPE_TRANSIENT],
+                    [3, OperatorType.OPERATOR_OR, 1.5, ActionLoadType.LOAD_TYPE_TRANSIENT, True, False, 2.0, None],
+                    [4, OperatorType.OPERATOR_NONE, 1.8, ActionLoadType.LOAD_TYPE_TRANSIENT, False, True, None, ActionLoadType.LOAD_TYPE_TRANSIENT]
+                    ])
+
+    Model.clientModel.service.finish_modification()
+
+    resCom = Model.clientModel.service.get_result_combination(1)
+
+    assert resCom.no == 1
+    assert resCom.name == '(LC1 or 1.10 * LC2) + 2.00 * (1.50 * LC3 or 1.80 * LC4)'

@@ -14,7 +14,7 @@ class MemberSupport():
                  spring_shear_x: float = 0.0,
                  spring_shear_y: float = 0.0,
                  spring_shear_z: float = 0.0,
-                 member_rotational_restraint: list = None,
+                 member_rotational_restraint: int = 1,
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -30,10 +30,7 @@ class MemberSupport():
             spring_shear_x (float): Shear X Spring Constant
             spring_shear_y (float): Shear Y Spring Constant
             spring_shear_z (float): Shear Z Spring Constant
-            member_rotational_restraint (list): Member Rotational Restraint Option
-                if member_rotational_restraint:
-                    member_rotational_restraint[0] (int): Member Rotational Restraint Number
-                    member_rotational_restraint[1] (float): Load Introduced from Sheeting to Beam
+            member_rotational_restraint (int): Member Rotational Restraint Number
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -64,9 +61,7 @@ class MemberSupport():
         clientObject.spring_shear_z = spring_shear_z
 
         # Member Rotational Restraint
-        if member_rotational_restraint:
-            clientObject.member_rotational_restraint = member_rotational_restraint[0]
-            clientObject.load_introduced_from_sheeting_to_beam = member_rotational_restraint[1]
+        clientObject.member_rotational_restraint = member_rotational_restraint
 
         # Comment
         clientObject.comment = comment
