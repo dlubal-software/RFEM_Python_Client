@@ -19,7 +19,9 @@ class Action():
             no (int, optional): Action number
             action_category (enum, optional): Action category
             action_type (enum, optional): Action type
-            action_items (list of lists, optional): [[no, Load_case, acting_group],...]
+            action_items (list or list of lists, optional):
+                - if action_type == 'ACTING_DIFFERENTLY': [[Load_case, acting_group], ...]
+                - else: [Load_case, Load_case, ...]
             name (str, optional): Action name
             is_active (bool, optional): Define if active
             comment (str, optional): Comments
@@ -44,15 +46,34 @@ class Action():
 
         # Action Items
         if action_items:
+            # Sanity check
+            sCheck = True
+            for i in action_items:
+                if action_type == ActionType.ACTING_DIFFERENTLY:
+                    if not isinstance(i, list) or len(i) != 2:
+                        ValueError('WARNING: Object Action, parameter action_items, size of the nested list must be 2.')
+                    if isinstance(i[0], int) or isinstance(i[1], int):
+                        pass
+                    else:
+                        ValueError('WARNING: Object Action, parameter action_items, items in the nested list must be integers.')
+                else:
+                    if not isinstance(ï, int):
+                        ValueError('WARNING: Object Action, parameter action_items must be list of integers.')
+
+
+            if action_type == ActionType.ACTING_DIFFERENTLY and isinstance(action_items[0], list) and len(action_items[])
+
             items = model.clientModel.factory.create('ns0:array_of_action_items')
             for i,j in enumerate(action_items):
                 item = model.clientModel.factory.create('ns0:action_items_row')
                 item.no = i+1
                 item.row = model.clientModel.factory.create('ns0:action_items')
                 clearAttributes(item.row)
-                #item.row.no = i[0]
-                item.row.load_case_item = action_items[i]
-                #item.row.acting_group_number = i[2]
+                if action_type == ActionType.ACTING_DIFFERENTLY:
+                    item.row.load_case_item = i[1]
+                    item.row.acting_group_number = i[2]
+                else:
+                    item.row.load_case_item = i
 
                 items.append(item)
 
