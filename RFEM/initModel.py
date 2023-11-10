@@ -100,6 +100,10 @@ class Model():
             delete (bool, optional):  Delete results
             delete_all (bool, optional): Delete all objects in Model.
         """
+
+        # This condition is here so there is backward compatibility for test etc.
+        # But it is possible now to connect to server in different place
+        # and then use Model(connect_toserver=False)
         if connect_to_server:
             connectToServer()
 
