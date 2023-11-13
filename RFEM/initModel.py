@@ -40,17 +40,17 @@ def connectToServer(url=globalsEnhancement.url, port=globalsEnhancement.port):
         sys.exit()
 
     # Delete cached WSDL older than 1 day to reflect newer version of RFEM
-    cacheLoc = os.path.join(gettempdir(), 'WSDL')
+    globalsEnhancement.cacheLoc = os.path.join(gettempdir(), 'WSDL')
     currentTime = time.time()
-    if os.path.exists(cacheLoc):
-        for file in os.listdir(cacheLoc):
-            filePath = os.path.join(cacheLoc, file)
+    if os.path.exists(globalsEnhancement.cacheLoc):
+        for file in os.listdir(globalsEnhancement.cacheLoc):
+            filePath = os.path.join(globalsEnhancement.cacheLoc, file)
             if (currentTime - os.path.getmtime(filePath)) > 86400:
                 os.remove(filePath)
 
     # Check for issues locally and remotely
     try:
-        globalsEnhancement.ca = DocumentCache(location=cacheLoc)
+        globalsEnhancement.ca = DocumentCache(location=globalsEnhancement.cacheLoc)
         globalsEnhancement.client = Client(urlAndPort+'/wsdl', location = urlAndPort, cache=globalsEnhancement.ca)
         globalsEnhancement.connected = True
 
