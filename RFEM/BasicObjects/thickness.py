@@ -397,7 +397,7 @@ class Thickness():
     def Layers(
                  no: int = 1,
                  name: str = None,
-                 layers = [[0, 1, 0.012], [0, 1, 0.01]],
+                 layers = [['E_THICKNESS_TYPE_DIRECTLY', 1, 0.012], ['E_THICKNESS_TYPE_DIRECTLY', 1, 0.01]],
                  stiffness_reduction: bool = False,
                  stiffness_modification: list = [[1, None], [1, None], [1, None], [1, None]],
                  specify_integration: bool = False,
@@ -414,7 +414,11 @@ class Thickness():
             no (int): Thickness Tag
             name (str): Thickness Name
             layers (list of lists): Layers Table as an Array. Angle of the material will be set if material model is orthotropic.
-                layers = [[thickness_type, material, thickness, angle], ...]
+                layers = [layer[0], layer[1], layer[2],...]
+                for layers[i][0] == 'E_THICKNESS_TYPE_DIRECTLY':
+                    layers[i] = ['E_THICKNESS_TYPE_DIRECTLY', material_tag(int), thickness_in_meter(float), comment(optional)]
+                for layers[i][0] == previously_defined_thickness_tag:
+                    layers[i] = [previously_defined_thickness_tag(int), comment(optional)]
             stiffness_reduction (bool, optional): Enable/disable Stiffness Reduction
             stiffness_modification (list of lists, optional): Stiffness Modification Table (Entries K33, K44, K55, K88 with notes, respectivly)
                 stiffness_modification = [[K33, K33 notes], ...]
@@ -458,19 +462,17 @@ class Thickness():
             clearAttributes(tlrt.row)
             tlrt.row.layer_no = i+1
             tlrt.row.layer_type = LayerType.E_LAYER_TYPE_LAYER.name
-
-            tlrt.row.thickness_type = layers[i][0]
-
-            tlrt.row.material = layers[i][1]
-            tlrt.row.thickness = layers[i][2]
-            tlrt.row.connection_with_other_topological_elements = False
-            if Model.clientModel.service.get_material(layers[i][1])['material_model'] == MaterialModel.MODEL_ORTHOTROPIC_2D.name:
-                tlrt.row.angle = layers[i][3] * (pi/180)
-                if len(layers[i]) == 5:
-                    tlrt.row.comment = layers[i][4]
-            else:
+            if layers[i][0] == 'E_THICKNESS_TYPE_DIRECTLY':
+                tlrt.row.thickness_type_or_id = 'E_THICKNESS_TYPE_DIRECTLY'
+                tlrt.row.material = layers[i][1]
+                tlrt.row.thickness = layers[i][2]
                 if len(layers[i]) == 4:
                     tlrt.row.comment = layers[i][3]
+            elif type(layers[i][0]) == int:
+                tlrt.row.thickness_type_or_id = str(layers[i][0])
+                if len(layers[i]) == 2:
+                    tlrt.row.comment = layers[i][1]
+            tlrt.row.connection_with_other_topological_elements = False
 
             clientObject.layers_reference_table.thickness_layers_reference_table.append(tlrt)
 
