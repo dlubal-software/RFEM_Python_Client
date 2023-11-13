@@ -6,7 +6,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 from RFEM.enums import SurfacesShapeOfFiniteElements, OptimizationTargetValueType, AddOn,NodalSupportType, NodalLoadDirection, ActionCategoryType, ObjectTypes
-from RFEM.initModel import Model, client, SetAddonStatus, Calculate_all, CalculateSelectedCases
+from RFEM.initModel import Model, SetAddonStatus, Calculate_all, CalculateSelectedCases
 from RFEM.Calculate.meshSettings import GetMeshSettings, MeshSettings, GetModelInfo
 from RFEM.Calculate.optimizationSettings import OptimizationSettings
 from UnitTests.test_solids import test_solids_and_solid_sets
@@ -19,6 +19,9 @@ from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisS
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 from RFEM.Loads.nodalLoad import NodalLoad
+
+sys.path.append('..')
+from RFEM import globalsEnhancement
 
 if Model.clientModel is None:
     Model()
@@ -121,4 +124,4 @@ def test_optimization_settings():
     assert opt_sett.target_value_type == OptimizationTargetValueType.MIN_TOTAL_WEIGHT.name
 
     # Testing model is closed at the end of the testing session to enable easier and cleaned restart of the unit tests.
-    client.service.close_model(0, False)
+    globalsEnhancement.client.service.close_model(0, False)
