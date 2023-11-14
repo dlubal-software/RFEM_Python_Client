@@ -13,7 +13,10 @@ import time
 import RFEM.globalsEnhancement as globalsEnhancement
 
 def connectToServer(url=globalsEnhancement.url, port=globalsEnhancement.port):
-    # Connect to server
+    """
+    Function for connecting to the server - code moved to function,
+    so it is not executed on import of the module
+    """
     # Check server port range set in "Program Options & Settings"
     # By default range is set between 8081 ... 8089
     if globalsEnhancement.connected:
