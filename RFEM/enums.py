@@ -2593,3 +2593,15 @@ class NodalSupportStiffnessDiagramType(Enum):
     Nodal Support Stiffness Diagram Type Enumeration
     '''
     STIFFNESS_DIAGRAM_ENDING_TYPE_CONTINUOUS, STIFFNESS_DIAGRAM_ENDING_TYPE_FAILURE, STIFFNESS_DIAGRAM_ENDING_TYPE_YIELDING = range(3)
+
+class SurfaceTranslationalReleaseNonlinearity(Enum):
+    '''
+    Surface Translational Release Nonlinearity Enumeration
+    '''
+    NONLINEARITY_TYPE_NONE, NONLINEARITY_TYPE_FAILURE_IF_NEGATIVE, NONLINEARITY_TYPE_FAILURE_IF_POSITIVE = range(3)
+
+class SurfaceReleaseTypeLocalAxisSystemType(Enum):
+    '''
+    Surface Release Type Local Axis System Type
+    '''
+    LOCAL_AXIS_SYSTEM_TYPE_REVERSED_TO_ORIGINAL_SURFACE, LOCAL_AXIS_SYSTEM_TYPE_SAME_AS_ORIGINAL_SURFACE = range(2)
