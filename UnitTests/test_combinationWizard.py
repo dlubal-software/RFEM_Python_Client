@@ -14,6 +14,7 @@ from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
+from RFEM.LoadCasesAndCombinations.stabilityAnalysisSettings import StabilityAnalysisSettings
 from RFEM.Loads.nodalLoad import NodalLoad
 
 from RFEM.LoadCasesAndCombinations.combinationWizard import CombinationWizard
@@ -50,8 +51,9 @@ def test_combinationWizard():
     LoadCase(1, 'Self-Weight', [True, 0.0, 0.0,1.0])
     NodalLoad(1, 1, '2', NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 1000)
 
+    StabilityAnalysisSettings()
     #setting up the combination wizard for load combinations
-    CombinationWizard(1, 'Wizard 1', 1, 1, False, False, 1, InitialStateDefintionType.DEFINITION_TYPE_FINAL_STATE, None, True, True, True, model = Model)
+    CombinationWizard(1, 'Wizard 1', 1, 1, False, False, [[1, InitialStateDefintionType.DEFINITION_TYPE_FINAL_STATE]], None, True, True, True)
 
     #going through each setting of the combination wizard
 
@@ -63,7 +65,6 @@ def test_combinationWizard():
     assert config.static_analysis_settings == 1
     assert config.has_stability_analysis == True
     assert config.stability_analysis_settings == 1
-    assert config.initial_state_case == 1
 
     CombinationWizard.SetResultCombination(2, 'Wizard 2', None, None, False, False, False, False, 'This is wizard no. 2',)
 

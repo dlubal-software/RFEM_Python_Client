@@ -75,8 +75,8 @@ def test_thickness():
     Thickness.Layers(
                      no= 7,
                      name= 'Layers',
-                     layers= [[0, 1, 0.123],
-                              [0, 1, 0.456]],
+                     layers= [['E_THICKNESS_TYPE_DIRECTLY', 1, 0.123],
+                              [2, 'Defined Thicness']],
                      comment= 'Comment')
 
     # Shape Orthotropy
@@ -126,7 +126,8 @@ def test_thickness():
 
     th = Model.clientModel.service.get_thickness(7)
     assert th.layers_reference_table['thickness_layers_reference_table'][0].row['thickness'] == 0.123
-    assert th.layers_reference_table['thickness_layers_reference_table'][1].row['thickness'] == 0.456
+    assert th.layers_reference_table['thickness_layers_reference_table'][1].row['thickness_type_or_id'] == '2'
+    assert th.layers_reference_table['thickness_layers_reference_table'][1].row['comment'] == 'Defined Thicness'
 
     th = Model.clientModel.service.get_thickness(8)
     assert th.orthotropy_type == 'ORTHOTROPIC_THICKNESS_TYPE_HOLLOW_CORE_SLAB'

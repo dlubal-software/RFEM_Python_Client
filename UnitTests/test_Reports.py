@@ -58,7 +58,10 @@ def test_printout_report():
     PrintoutReport.exportToHTML(1, htmlPath)
     PrintoutReport.exportToPDF(2, pdfPath)
 
-    #assert os.path.exists(htmlPath)
-    #assert os.path.exists(pdfPath) # this check creates timeouts
+    time.sleep(2)
+
+    assert os.path.exists(htmlPath)
+    assert os.path.exists(pdfPath) # this check creates timeouts
 
     closeModel('printout.rf6')
+    time.sleep(1)

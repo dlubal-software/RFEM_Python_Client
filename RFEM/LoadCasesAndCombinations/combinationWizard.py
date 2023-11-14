@@ -1,5 +1,5 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
-from RFEM.enums import LoadWizardType, InitialStateDefintionType
+from RFEM.enums import LoadWizardType
 
 class CombinationWizard():
     def __init__(self,
@@ -9,16 +9,14 @@ class CombinationWizard():
                 stability_analysis_setting: int = 1,
                 consider_imperfection_case: bool = True,
                 generate_same_CO_without_IC: bool = True,
-                initial_state_case: int = 1,
-                initial_state_definition_type = InitialStateDefintionType.DEFINITION_TYPE_FINAL_STATE,
+                initial_state_cases: list = None,
                 structure_modification: int = 1,
                 user_defined_action_combinations: bool = False,
                 favorable_permanent_actions: bool = False,
                 reduce_number_of_generated_combinations: bool = False,
                 comment: str = '',
                 params: dict = None,
-                model = Model
-                ):
+                model = Model):
         """
         Args:
             no (int): Combination Wizard Tag
@@ -27,8 +25,8 @@ class CombinationWizard():
             stability_analysis_setting (int): Assign Stability Analysis Setting
             consider_imperfection_case (bool): Enable/disable Inferpaction Case
             generate_same_CO_without_IC (bool): Enable/disable Generate same CO without IC
-            initial_state_case (int): Assign Initial State Case
-            initial_state_definition_type (enum): Initial State Defintion Type Enumeration
+            initial_state_cases (list): Assign Initial State Cases
+                [[case_object (int), definition_type (initial_state_definition_type enum)],... ]
             structure_modification (int): Structure Modification to be considered
             user_defined_action_combinations (bool): Enable/disable User defined Combinations
             favorable_permanent_actions (bool): Enable/diable Favourable Permanent Actions
@@ -67,10 +65,19 @@ class CombinationWizard():
         clientObject.generate_same_CO_without_IC = generate_same_CO_without_IC
 
         # Setting initial state
-        if initial_state_case:
+        if initial_state_cases:
             clientObject.consider_initial_state = True
-            clientObject.initial_state_case = initial_state_case
-            clientObject.initial_state_definition_type = initial_state_definition_type.name
+            clientObject.initial_state_items = model.clientModel.factory.create('ns0:array_of_combination_wizard_initial_state_items')
+
+            for i,j in enumerate(initial_state_cases):
+                cwisi = model.clientModel.factory.create('ns0:combination_wizard_initial_state_items_row')
+                cwisi.no = i+1
+                cwisi.row = model.clientModel.factory.create('ns0:combination_wizard_initial_state_items')
+                clearAttributes(cwisi.row)
+                cwisi.row.case_object = initial_state_cases[i][0] # int
+                cwisi.row.definition_type = initial_state_cases[i][1].name # initial_state_definition_type enum
+
+                clientObject.initial_state_items.combination_wizard_initial_state_items.append(cwisi)
 
         # Setting structure modificication
         # WS for new structure modification not yet available

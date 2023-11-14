@@ -45,10 +45,10 @@ def test_action():
 
     LoadCase(1, 'Self-Weight', [True, 0.0, 0.0,1.0])
 
-    Action()
+    Action(1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_G, ActionType.ACTING_DIFFERENTLY, [[1,1]])
 
     Model.clientModel.service.finish_modification()
 
     action = Model.clientModel.service.get_action(1)
     assert action.action_category == ActionCategoryType.ACTION_CATEGORY_PERMANENT_G.name
-    assert action.action_type == ActionType.ACTING_ALTERNATIVELY.name
+    assert action.action_type == ActionType.ACTING_DIFFERENTLY.name

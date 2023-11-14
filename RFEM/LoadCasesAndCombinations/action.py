@@ -57,11 +57,8 @@ class Action():
                     else:
                         ValueError('WARNING: Object Action, parameter action_items, items in the nested list must be integers.')
                 else:
-                    if not isinstance(ï, int):
+                    if not isinstance(i, int):
                         ValueError('WARNING: Object Action, parameter action_items must be list of integers.')
-
-
-            if action_type == ActionType.ACTING_DIFFERENTLY and isinstance(action_items[0], list) and len(action_items[])
 
             items = model.clientModel.factory.create('ns0:array_of_action_items')
             for i,j in enumerate(action_items):
@@ -70,12 +67,12 @@ class Action():
                 item.row = model.clientModel.factory.create('ns0:action_items')
                 clearAttributes(item.row)
                 if action_type == ActionType.ACTING_DIFFERENTLY:
-                    item.row.load_case_item = i[1]
-                    item.row.acting_group_number = i[2]
+                    item.row.load_case_item = j[0]
+                    item.row.acting_group_number = j[1]
                 else:
-                    item.row.load_case_item = i
+                    item.row.load_case_item = j
 
-                items.append(item)
+                items.action_items.append(item)
 
         # Active
         clientObject.is_active = is_active
