@@ -9,8 +9,7 @@ from RFEM.suds_requests import RequestsTransport
 from suds.cache import DocumentCache
 from tempfile import gettempdir
 import time
-
-import RFEM.globalsEnhancement as globalsEnhancement
+from RFEM import globalsEnhancement
 
 def connectToServer(url=globalsEnhancement.url, port=globalsEnhancement.port):
     """
@@ -25,7 +24,7 @@ def connectToServer(url=globalsEnhancement.url, port=globalsEnhancement.port):
     print('Connecting to server...')
 
     # local machine url format: 'http://127.0.0.1'
-    urlAndPort = f"{url}:{port}"
+    urlAndPort = f'{url}:{port}'
 
     # Check if port is listening
     a_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -180,7 +179,7 @@ class Model():
 
                 self.clientModelDct[model_name] = cModel
             elif model_name == "":
-                    modelPath =  globalsEnhancement.client.service.get_active_model()
+                modelPath =  globalsEnhancement.client.service.get_active_model()
             else:
                 print('Model name "'+model_name+'" is not created in RFEM. Consider changing new_model parameter in Model class from False to True.')
                 sys.exit()
