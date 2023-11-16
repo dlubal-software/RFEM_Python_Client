@@ -8,7 +8,7 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.Reports.printoutReport import PrintoutReport
 from RFEM.Reports.html import ExportResultTablesToHtml
 from RFEM.initModel import Model, closeModel, openFile, getPathToRunningRFEM
-from RFEM.globalsEnhancement import url
+from RFEM.connectionGlobals import url
 from shutil import rmtree
 import pytest
 import time

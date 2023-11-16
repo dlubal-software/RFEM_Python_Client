@@ -9,7 +9,7 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.initModel import Model
 from RFEM.initModel import GetModelParameters, GetModelMainParameters, GetModelId, GetName, GetLanguage, GetVersion
 sys.path.append('..')
-from RFEM import globalsEnhancement
+from RFEM import connectionGlobals
 
 if Model.clientModel is None:
     Model()
@@ -45,7 +45,7 @@ def test_Application():
     version = GetVersion()
     language = GetLanguage()
 
-    an = globalsEnhancement.client.service.get_information()
+    an = connectionGlobals.client.service.get_information()
 
     assert an.name == name
     assert an.version == version

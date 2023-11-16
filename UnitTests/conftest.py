@@ -8,7 +8,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 from RFEM.initModel import Model, closeAllModels
-from RFEM.globalsEnhancement import cacheLoc
+from RFEM.connectionGlobals import cacheLoc
 
 def pytest_exception_interact():
     '''

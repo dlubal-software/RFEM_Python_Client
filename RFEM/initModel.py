@@ -9,16 +9,16 @@ from RFEM.suds_requests import RequestsTransport
 from suds.cache import DocumentCache
 from tempfile import gettempdir
 import time
-from RFEM import globalsEnhancement
+from RFEM import connectionGlobals
 
-def connectToServer(url=globalsEnhancement.url, port=globalsEnhancement.port):
+def connectToServer(url=connectionGlobals.url, port=connectionGlobals.port):
     """
     Function for connecting to the server - code moved to function,
     so it is not executed on import of the module
     """
     # Check server port range set in "Program Options & Settings"
     # By default range is set between 8081 ... 8089
-    if globalsEnhancement.connected:
+    if connectionGlobals.connected:
         return
 
     print('Connecting to server...')
@@ -42,19 +42,19 @@ def connectToServer(url=globalsEnhancement.url, port=globalsEnhancement.port):
         sys.exit()
 
     # Delete cached WSDL older than 1 day to reflect newer version of RFEM
-    globalsEnhancement.cacheLoc = os.path.join(gettempdir(), 'WSDL')
+    connectionGlobals.cacheLoc = os.path.join(gettempdir(), 'WSDL')
     currentTime = time.time()
-    if os.path.exists(globalsEnhancement.cacheLoc):
-        for file in os.listdir(globalsEnhancement.cacheLoc):
-            filePath = os.path.join(globalsEnhancement.cacheLoc, file)
+    if os.path.exists(connectionGlobals.cacheLoc):
+        for file in os.listdir(connectionGlobals.cacheLoc):
+            filePath = os.path.join(connectionGlobals.cacheLoc, file)
             if (currentTime - os.path.getmtime(filePath)) > 86400:
                 os.remove(filePath)
 
     # Check for issues locally and remotely
     try:
-        globalsEnhancement.ca = DocumentCache(location=globalsEnhancement.cacheLoc)
-        globalsEnhancement.client = Client(urlAndPort+'/wsdl', location = urlAndPort, cache=globalsEnhancement.ca)
-        globalsEnhancement.connected = True
+        connectionGlobals.ca = DocumentCache(location=connectionGlobals.cacheLoc)
+        connectionGlobals.client = Client(urlAndPort+'/wsdl', location = urlAndPort, cache=connectionGlobals.ca)
+        connectionGlobals.connected = True
 
     except:
         print('Error: Connection to server failed!')
@@ -69,7 +69,7 @@ def connectToServer(url=globalsEnhancement.url, port=globalsEnhancement.port):
         sys.exit()
 
     try:
-        modelLst = globalsEnhancement.client.service.get_model_list()
+        modelLst = connectionGlobals.client.service.get_model_list()
     except:
         print('Error: Please check if all RFEM dialogs are closed.')
         input('Press Enter to exit...')
@@ -111,7 +111,7 @@ class Model():
 
         cModel = None
         modelLst = []
-        modelVct = globalsEnhancement.client.service.get_model_list()
+        modelVct = connectionGlobals.client.service.get_model_list()
         if modelVct:
             modelLst = modelVct.name
 
@@ -136,13 +136,13 @@ class Model():
                     for i,j in enumerate(modelLst):
                         if modelLst[i] == model_name:
                             id = i
-                    modelPath =  globalsEnhancement.client.service.get_model(id)
+                    modelPath =  connectionGlobals.client.service.get_model(id)
                 elif model_name == "":
-                    modelPath =  globalsEnhancement.client.service.get_active_model()
+                    modelPath =  connectionGlobals.client.service.get_active_model()
                 else:
-                    modelPath =  globalsEnhancement.client.service.new_model(original_model_name)
+                    modelPath =  connectionGlobals.client.service.new_model(original_model_name)
                 modelPort = modelPath[-5:-1]
-                modelUrlPort = globalsEnhancement.url+':'+modelPort
+                modelUrlPort = connectionGlobals.url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
 
                 session = requests.Session()
@@ -150,7 +150,7 @@ class Model():
                 session.mount('http://', adapter)
                 trans = RequestsTransport(session)
 
-                cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=globalsEnhancement.ca, timeout=360)
+                cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=connectionGlobals.ca, timeout=360)
 
                 self.clientModelDct[model_name] = cModel
 
@@ -165,9 +165,9 @@ class Model():
                 for i,j in enumerate(modelLst):
                     if modelLst[i] == model_name:
                         id = i
-                modelPath =  globalsEnhancement.client.service.get_model(id)
+                modelPath =  connectionGlobals.client.service.get_model(id)
                 modelPort = modelPath[-5:-1]
-                modelUrlPort = globalsEnhancement.url+':'+modelPort
+                modelUrlPort = connectionGlobals.url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
 
                 session = requests.Session()
@@ -175,11 +175,11 @@ class Model():
                 session.mount('http://', adapter)
                 trans = RequestsTransport(session)
 
-                cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=globalsEnhancement.ca, timeout=360)
+                cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=connectionGlobals.ca, timeout=360)
 
                 self.clientModelDct[model_name] = cModel
             elif model_name == "":
-                modelPath =  globalsEnhancement.client.service.get_active_model()
+                modelPath =  connectionGlobals.client.service.get_active_model()
             else:
                 print('Model name "'+model_name+'" is not created in RFEM. Consider changing new_model parameter in Model class from False to True.')
                 sys.exit()
@@ -215,7 +215,7 @@ class Model():
                 self.clientModel = None
         if isinstance(index_or_name, int):
             assert index_or_name <= len(self.clientModelDct)
-            modelLs = globalsEnhancement.client.service.get_model_list()
+            modelLs = connectionGlobals.client.service.get_model_list()
 
             if modelLs:
                 self.clientModelDct.pop(modelLs.name[index_or_name])
@@ -291,7 +291,7 @@ def openFile(model_path):
     assert os.path.exists(model_path)
 
     file_name = os.path.basename(model_path)
-    globalsEnhancement.client.service.open_model(model_path)
+    connectionGlobals.client.service.open_model(model_path)
     return Model(True, file_name)
 
 def closeModel(index_or_name, save_changes = False):
@@ -306,17 +306,17 @@ def closeModel(index_or_name, save_changes = False):
     '''
     if isinstance(index_or_name, int):
         Model.__delete__(Model, index_or_name)
-        globalsEnhancement.client.service.close_model(index_or_name, save_changes)
+        connectionGlobals.client.service.close_model(index_or_name, save_changes)
 
     elif isinstance(index_or_name, str):
         if index_or_name[-4:] == '.rf6':
             index_or_name = index_or_name[:-4]
 
-        modelLs = globalsEnhancement.client.service.get_model_list().name
+        modelLs = connectionGlobals.client.service.get_model_list().name
         if index_or_name in modelLs:
             try:
                 Model.__delete__(Model, index_or_name)
-                globalsEnhancement.client.service.close_model(modelLs.index(index_or_name), save_changes)
+                connectionGlobals.client.service.close_model(modelLs.index(index_or_name), save_changes)
             except:
                 print('Model did NOT close properly.')
         else:
@@ -332,7 +332,7 @@ def closeAllModels(save_changes = False):
         save_changes (bool): Enable/Disable Save Changes Option
     '''
     try:
-        modelLs = globalsEnhancement.client.service.get_model_list().name
+        modelLs = connectionGlobals.client.service.get_model_list().name
         for j in reversed(modelLs):
             closeModel(j, save_changes)
     except:
@@ -699,7 +699,7 @@ def NewModelAsCopy(old_model_name: str = '',
     old_model_path = os.path.join(old_model_folder, old_model_name)
 
     # New Model Name
-    newModelAsCopy = globalsEnhancement.client.service.new_model_as_copy(new_model_name, old_model_path)
+    newModelAsCopy = connectionGlobals.client.service.new_model_as_copy(new_model_name, old_model_path)
 
     return newModelAsCopy
 
@@ -753,7 +753,7 @@ def GetName():
     '''
 
     # Client Application | Get Information
-    return globalsEnhancement.client.service.get_information().name
+    return connectionGlobals.client.service.get_information().name
 
 def GetVersion():
     '''
@@ -761,7 +761,7 @@ def GetVersion():
     '''
 
     # Client Application | Get Information
-    return globalsEnhancement.client.service.get_information().version
+    return connectionGlobals.client.service.get_information().version
 
 def GetLanguage():
     '''
@@ -769,7 +769,7 @@ def GetLanguage():
     '''
 
     # Client Application | Get Information
-    return globalsEnhancement.client.service.get_information().language_name
+    return connectionGlobals.client.service.get_information().language_name
 
 def GetAppSessionId():
     '''
@@ -777,7 +777,7 @@ def GetAppSessionId():
     '''
 
     # Client Application | Get Session ID
-    return globalsEnhancement.client.service.get_session_id()
+    return connectionGlobals.client.service.get_session_id()
 
 def getPathToRunningRFEM():
     '''

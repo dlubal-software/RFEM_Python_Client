@@ -1,6 +1,6 @@
 import os
 import sys
-# In order to use globalsEnhancement we need to adjust the sys path
+# In order to use connectionGlobals we need to adjust the sys path
 PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.path.dirname(__file__),
                   os.pardir)
@@ -8,7 +8,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.clear()
 sys.path.append(PROJECT_ROOT)
 from RFEM.initModel import Model
-from RFEM import globalsEnhancement
+from RFEM import connectionGlobals
 
 def importFrom(targetFilePath: str):
     '''
@@ -17,7 +17,7 @@ def importFrom(targetFilePath: str):
     Args:
         targetFilePath (string): Destination path to the file
     '''
-    globalsEnhancement.client.service.import_from(targetFilePath)
+    connectionGlobals.client.service.import_from(targetFilePath)
     head, tail = os.path.split(targetFilePath)
     if '.' in tail:
             tail = tail.split('.')[0]
@@ -27,7 +27,7 @@ def getConversionTables():
     '''
     Get conversion tables.
     '''
-    return globalsEnhancement.client.service.get_conversion_tables()
+    return connectionGlobals.client.service.get_conversion_tables()
 
 def setConversionTables(ConversionTables):
     '''
@@ -36,13 +36,13 @@ def setConversionTables(ConversionTables):
     Args:
         ConversionTables (ns0:ConversionTables): Conversion tables structure
     '''
-    globalsEnhancement.client.service.set_conversion_tables(ConversionTables)
+    connectionGlobals.client.service.set_conversion_tables(ConversionTables)
 
 def getSAFSettings():
     '''
     Get SAF import/export settings.
     '''
-    return globalsEnhancement.client.service.get_saf_settings()
+    return connectionGlobals.client.service.get_saf_settings()
 
 def setSAFSettings(SafConfiguration):
     '''
@@ -51,4 +51,4 @@ def setSAFSettings(SafConfiguration):
     Args:
         SafConfiguration (ns0:SafConfiguration) SAF settings obtained by getSAFSettings()
     '''
-    globalsEnhancement.client.service.set_saf_settings(SafConfiguration)
+    connectionGlobals.client.service.set_saf_settings(SafConfiguration)

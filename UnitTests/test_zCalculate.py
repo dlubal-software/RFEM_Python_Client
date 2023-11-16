@@ -21,7 +21,7 @@ from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndC
 from RFEM.Loads.nodalLoad import NodalLoad
 
 sys.path.append('..')
-from RFEM import globalsEnhancement
+from RFEM import connectionGlobals
 
 if Model.clientModel is None:
     Model()
@@ -124,4 +124,4 @@ def test_optimization_settings():
     assert opt_sett.target_value_type == OptimizationTargetValueType.MIN_TOTAL_WEIGHT.name
 
     # Testing model is closed at the end of the testing session to enable easier and cleaned restart of the unit tests.
-    globalsEnhancement.client.service.close_model(0, False)
+    connectionGlobals.client.service.close_model(0, False)
