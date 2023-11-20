@@ -2605,3 +2605,9 @@ class SurfaceReleaseTypeLocalAxisSystemType(Enum):
     Surface Release Type Local Axis System Type
     '''
     LOCAL_AXIS_SYSTEM_TYPE_REVERSED_TO_ORIGINAL_SURFACE, LOCAL_AXIS_SYSTEM_TYPE_SAME_AS_ORIGINAL_SURFACE = range(2)
+
+class SurfaceReleaseReleaseLocation(Enum):
+    '''
+    Surface Release Release Location Enumeration
+    '''
+    RELEASE_LOCATION_ORIGIN, RELEASE_LOCATION_RELEASED = range(2)
