@@ -1,16 +1,15 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 
-# Obsolete since 12.10.2022
-'''
+
 class ConcreteUltimateConfiguration():
 
     def __init__(self,
                 no: int = 1,
                 name: str = 'ULS',
-                members: str = '1',
-                member_sets: str = '',
-                surfaces: str = '',
-                surface_sets: str = '',
+                members: str = 'All',
+                member_sets: str = 'All',
+                surfaces: str = 'All',
+                surface_sets: str = 'All',
                 nodes: str = '',
                 comment: str = '',
                 params: dict = None,
@@ -30,7 +29,7 @@ class ConcreteUltimateConfiguration():
         """
 
         # Client model | Concrete Durabilities
-        clientObject = model.clientModel.factory.create('ns0:uls_configuration')
+        clientObject = model.clientModel.factory.create('ns0:concrete_design_uls_configuration')
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
@@ -44,18 +43,38 @@ class ConcreteUltimateConfiguration():
             clientObject.name = name
 
         # Assigned Members
-        clientObject.assigned_to_members = ConvertToDlString(members)
+        if members == 'All':
+            clientObject.assigned_to_all_members = True
+
+        else:
+            clientObject.assigned_to_all_members = False
+            clientObject.assigned_to_members = ConvertToDlString(members)
 
         # Assigned Member Sets
-        clientObject.assigned_to_member_sets = ConvertToDlString(member_sets)
+        if member_sets == 'All':
+            clientObject.assigned_to_all_member_sets = True
+
+        else:
+            clientObject.assigned_to_all_member_sets = False
+            clientObject.assigned_to_member_sets = ConvertToDlString(member_sets)
 
         # Assigned Surfaces
-        clientObject.assigned_to_surfaces = ConvertToDlString(surfaces)
+        if surfaces == 'All':
+            clientObject.assigned_to_all_surfaces = True
+
+        else:
+            clientObject.assigned_to_all_surfaces = False
+            clientObject.assigned_to_surfaces = ConvertToDlString(surfaces)
 
         # Assigned Surface Sets
-        clientObject.assigned_to_surface_sets = ConvertToDlString(surface_sets)
+        if surface_sets == 'All':
+            clientObject.assigned_to_all_surface_sets = True
 
-        #Assinged Nodes
+        else:
+            clientObject.assigned_to_all_surface_sets = False
+            clientObject.assigned_to_surface_sets = ConvertToDlString(surface_sets)
+
+        # Assinged Nodes
         clientObject.assigned_to_nodes = ConvertToDlString(nodes)
 
         # Comment
@@ -66,6 +85,8 @@ class ConcreteUltimateConfiguration():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Global Parameter to client model
-        model.clientModel.service.set_uls_configuration(clientObject)
-'''
+        model.clientModel.service.set_concrete_design_uls_configuration(clientObject)

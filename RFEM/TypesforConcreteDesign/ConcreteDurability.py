@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import DurabilityStructuralClassType, DurabilityAllowanceDeviationType
 
 class ConcreteDurability():
@@ -69,17 +69,17 @@ class ConcreteDurability():
         clientObject.corrosion_induced_by_chlorides_from_sea_water_enabled = exposure_classes_reinforcement[3]
 
         if all(exposure_classes_reinforcement):
-            raise Exception("WARNING: At least one reinforcement exposure class must be selected.")
+            raise ValueError("WARNING: At least one reinforcement exposure class must be selected.")
 
         for i in exposure_classes_reinforcement:
             if not isinstance(i, bool):
-                raise Exception('WARNING: The type of parameters should be bool. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The type of parameters should be bool. Kindly check list inputs for completeness and correctness.')
 
         if exposure_classes_reinforcement[0]:
             clientObject.no_risk_of_corrosion_or_attack = "VERY_DRY"
             for i in exposure_classes_reinforcement[1:]:
                 if i:
-                    raise Exception('WARNING: If No Risk of Corrosion is True, other parameters cannot be selected. Kindly check list inputs for completeness and correctness.')
+                    raise ValueError('WARNING: If No Risk of Corrosion is True, other parameters cannot be selected. Kindly check list inputs for completeness and correctness.')
 
         if exposure_classes_reinforcement[1] :
             clientObject.corrosion_induced_by_carbonation = exposure_classes_reinforcement_types[0].name
@@ -91,7 +91,7 @@ class ConcreteDurability():
         # Exposure Classes for Concrete
         for i in exposure_classes_concrete:
             if not isinstance(i, bool):
-                raise Exception('WARNING: The type of parameters should be bool. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The type of parameters should be bool. Kindly check list inputs for completeness and correctness.')
 
         if exposure_classes_concrete[0]:
             clientObject.freeze_thaw_attack_enabled = True
@@ -109,7 +109,7 @@ class ConcreteDurability():
         if structural_class[0].name == "STANDARD":
             for i in structural_class[1:]:
                 if not isinstance(i, bool):
-                    raise Exception('WARNING: The type of last three parameters should be bool. Kindly check list inputs for completeness and correctness.')
+                    raise ValueError('WARNING: The type of last three parameters should be bool. Kindly check list inputs for completeness and correctness.')
 
             clientObject.increase_design_working_life_from_50_to_100_years_enabled = structural_class[1]
             clientObject.position_of_reinforcement_not_affected_by_construction_process_enabled = structural_class[2]
@@ -122,7 +122,7 @@ class ConcreteDurability():
         clientObject.stainless_steel_enabled = stainless_steel_reduction[0]
 
         if not isinstance(stainless_steel_reduction[0], bool):
-            raise Exception('WARNING: The type of the first parameter should be bool. Kindly check list inputs for completeness and correctness.')
+            raise ValueError('WARNING: The type of the first parameter should be bool. Kindly check list inputs for completeness and correctness.')
 
         if stainless_steel_reduction[0]:
             clientObject.stainless_steel_type = stainless_steel_reduction[1].name
@@ -134,7 +134,7 @@ class ConcreteDurability():
         clientObject.additional_protection_enabled = additional_protection_reduction[0]
 
         if not isinstance(additional_protection_reduction[0], bool):
-            raise Exception('WARNING: The type of the first parameter should be bool. Kindly check list inputs for completeness and correctness.')
+            raise ValueError('WARNING: The type of the first parameter should be bool. Kindly check list inputs for completeness and correctness.')
 
         if additional_protection_reduction[0]:
             clientObject.additional_protection_type = additional_protection_reduction[1].name
@@ -149,7 +149,7 @@ class ConcreteDurability():
             clientObject.concrete_cast_enabled = allowance_deviation[1]
 
             if not isinstance(allowance_deviation[1], bool):
-                raise Exception('WARNING: The type of the second parameter should be bool. Kindly check list inputs for completeness and correctness.')
+                raise ValueError('WARNING: The type of the second parameter should be bool. Kindly check list inputs for completeness and correctness.')
 
             if allowance_deviation[1]:
                 clientObject.concrete_cast = allowance_deviation[2].name
@@ -164,6 +164,9 @@ class ConcreteDurability():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Global Parameter to client model
         model.clientModel.service.set_concrete_durability(clientObject)

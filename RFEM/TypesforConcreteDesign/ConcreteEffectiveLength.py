@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import *
 
 class ConcreteEffectiveLength():
@@ -69,6 +69,8 @@ class ConcreteEffectiveLength():
         for i in range(len(factors)):
             mlvlp = model.clientModel.factory.create('ns0:concrete_effective_lengths_factors_row')
             mlvlp.no = i+1
+            mlvlp.row = model.clientModel.factory.create('ns0:concrete_effective_lengths_factors')
+            clearAttributes(mlvlp.row)
             mlvlp.row.flexural_buckling_y = factors[i][0]
             mlvlp.row.flexural_buckling_z = factors[i][1]
 
@@ -79,6 +81,8 @@ class ConcreteEffectiveLength():
         for i in range(len(nodal_supports)):
             mlvlp = model.clientModel.factory.create('ns0:concrete_effective_lengths_nodal_supports_row')
             mlvlp.no = i+1
+            mlvlp.row = model.clientModel.factory.create('ns0:concrete_effective_lengths_nodal_supports')
+            clearAttributes(mlvlp.row)
             mlvlp.row.support_type = nodal_supports[i][0].name
             mlvlp.row.support_in_z = nodal_supports[i][1]
             mlvlp.row.eccentricity_type = nodal_supports[i][2].name
@@ -97,6 +101,9 @@ class ConcreteEffectiveLength():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Global Parameter to client model
         model.clientModel.service.set_concrete_effective_lengths(clientObject)

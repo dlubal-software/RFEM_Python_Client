@@ -16,7 +16,7 @@ from RFEM.BasicObjects.thickness import Thickness
 from RFEM.TypesForLines.lineSupport import LineSupport
 from RFEM.TypesForLines.lineHinge import LineHinge
 from RFEM.TypesForLines.lineWeldedJoint import LineWeldedJoint
-from RFEM.TypesForLines.lineMeshRefinements import LineMeshRefinements
+from RFEM.TypesForLines.lineMeshRefinements import LineMeshRefinement
 
 
 if Model.clientModel is None:
@@ -57,12 +57,11 @@ def test_typesForLines():
 
     LineWeldedJoint(1,'5','1 2', LineWeldedJointType.BUTT_JOINT, WeldType.WELD_SINGLE_V, 0.005)
 
-    params = LineMeshRefinements.TypeSpecificParams
-    LineMeshRefinements(1,'3', LineMeshRefinementsType.TYPE_LENGTH, 2, '', params)
+    LineMeshRefinement(1,'3', LineMeshRefinementsType.TYPE_LENGTH, 2)
 
-    LineMeshRefinements.TargetFELength(2, '4', 0.05)
-    LineMeshRefinements.NumberFiniteElements(3,'5',15)
-    LineMeshRefinements.Gradually(4,'6',4)
+    LineMeshRefinement.TargetFELength(2, '4', 0.05)
+    LineMeshRefinement.NumberFiniteElements(3,'5',15)
+    LineMeshRefinement.Gradually(4,'6',4)
 
     Model.clientModel.service.finish_modification()
 

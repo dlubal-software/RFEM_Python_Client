@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import *
 
 class SteelEffectiveLengths():
@@ -12,7 +12,7 @@ class SteelEffectiveLengths():
                  lateral_torsional_buckling: bool = True,
                  principal_section_axes: bool = True,
                  geometric_section_axes: bool = True,
-                 user_defined_name: str = 'SEL1',
+                 name: str = 'SEL1',
                  nodal_supports: list = [
                      [SteelEffectiveLengthsSupportType.SUPPORT_TYPE_FIXED_IN_Z_Y_AND_TORSION, True, 0.0, SteelEffectiveLengthsEccentricityType.ECCENTRICITY_TYPE_NONE, \
                       0.0, 0.0, 0.0, 0.0, SteelEffectiveLengthsSupportTypeInY.SUPPORT_STATUS_YES, SteelEffectiveLengthsRestraintTypeAboutX.SUPPORT_STATUS_YES, \
@@ -43,7 +43,7 @@ class SteelEffectiveLengths():
             lateral_torsional_buckling (bool): Lateral Torsional Buckling Option
             principal_section_axes (bool): Principal Section Axes Option
             geometric_section_axes (bool): Geometric Section Axes Option
-            user_defined_name (str): User Defined Effective Length Name
+            name (str): User Defined Effective Length Name
             nodal_supports (lst): Nodal Support Table Definition
                 nodal_supports[i][0] (enum): Support Type Enumeration Type
                 nodal_supports[i][1] (bool): Support in Z Option
@@ -114,9 +114,9 @@ class SteelEffectiveLengths():
         clientObject.geometric_section_axes = geometric_section_axes
 
         # Effective Lengths User Defined Name
-        if user_defined_name:
+        if name:
             clientObject.user_defined_name_enabled = True
-            clientObject.name = user_defined_name
+            clientObject.name = name
 
         # Effective Lengths Nodal Supports
         clientObject.nodal_supports = model.clientModel.factory.create('ns0:array_of_steel_effective_lengths_nodal_supports')
@@ -124,6 +124,8 @@ class SteelEffectiveLengths():
         for i,j in enumerate(nodal_supports):
             mlvlp = model.clientModel.factory.create('ns0:steel_effective_lengths_nodal_supports_row')
             mlvlp.no = i+1
+            mlvlp.row = model.clientModel.factory.create('ns0:steel_effective_lengths_nodal_supports')
+            clearAttributes(mlvlp.row)
             mlvlp.row.support_type = nodal_supports[i][0].name
             mlvlp.row.support_in_z = nodal_supports[i][1]
             mlvlp.row.support_spring_in_y = nodal_supports[i][2]
@@ -146,6 +148,8 @@ class SteelEffectiveLengths():
         for i,j in enumerate(factors):
             mlvlp_f = model.clientModel.factory.create('ns0:steel_effective_lengths_factors_row')
             mlvlp_f.no = i+1
+            mlvlp_f.row = model.clientModel.factory.create('ns0:steel_effective_lengths_factors')
+            clearAttributes(mlvlp_f.row)
             mlvlp_f.row.flexural_buckling_u = factors[i][0]
             mlvlp_f.row.flexural_buckling_v = factors[i][1]
             mlvlp_f.row.flexural_buckling_y = factors[i][2]
@@ -182,6 +186,9 @@ class SteelEffectiveLengths():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Steel Effective Lengths to client model
         model.clientModel.service.set_steel_effective_lengths(clientObject)

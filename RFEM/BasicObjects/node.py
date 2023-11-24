@@ -1,7 +1,7 @@
 from RFEM.enums import NodeType
 from RFEM.enums import NodeCoordinateSystemType
 from RFEM.enums import NodeReferenceType, ObjectTypes
-from RFEM.initModel import Model, clearAttributes, ConvertStrToListOfInt
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertStrToListOfInt
 from math import pi
 
 class Node():
@@ -45,6 +45,10 @@ class Node():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
 
         # Add Node to client model
         model.clientModel.service.set_node(clientObject)
@@ -95,7 +99,7 @@ class Node():
         clientObject.coordinate_system_type = coordinate_system_type.name
 
         if len(coordinate_system) != 3:
-            raise Exception('WARNING: The coordinate system needs to be of length 3.')
+            raise ValueError('WARNING: The coordinate system needs to be of length 3.')
 
         if not all(isinstance(x, (int, float)) for x in coordinate_system):
             raise Exception ('WARNING: Coordinate system should be type "int" or "float".')
@@ -132,6 +136,9 @@ class Node():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Node to client model
         model.clientModel.service.set_node(clientObject)
@@ -189,14 +196,12 @@ class Node():
         clientObject.between_two_nodes_end_node = end_node_no
 
          # Length between i and j
-
         clientObject.reference_type = node_reference.name
 
         clientObject.reference_object_projected_length = length_between_i_and_j
 
         # Distance between node k and start point
-
-        if parameters[0]: #if parameters[0]==True
+        if parameters[0]:
             clientObject.distance_from_start_relative = parameters[1]
         else:
             clientObject.distance_from_start_absolute = parameters[1]
@@ -213,6 +218,9 @@ class Node():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Node to client model
         model.clientModel.service.set_node(clientObject)
@@ -301,6 +309,9 @@ class Node():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Node to client model
         model.clientModel.service.set_node(clientObject)
 
@@ -365,6 +376,9 @@ class Node():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Node to client model
         model.clientModel.service.set_node(clientObject)
@@ -431,6 +445,9 @@ class Node():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Node to client model
         model.clientModel.service.set_node(clientObject)
 
@@ -446,3 +463,15 @@ class Node():
         # Delete from client model
         for node in ConvertStrToListOfInt(nodes_no):
             model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_NODE.name, node)
+
+    @staticmethod
+    def GetNode(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Node Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Node from client model
+        return model.clientModel.service.get_node(object_index)

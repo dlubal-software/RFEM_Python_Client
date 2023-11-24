@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis
 from RFEM.enums import StaticAnalysisSettingsMethodOfEquationSystem
 from RFEM.enums import StaticAnalysisSettingsPlateBendingTheory, StaticAnalysisType
@@ -46,6 +46,9 @@ class StaticAnalysisSettings():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Static Analysis Settings to client model
         model.clientModel.service.set_static_analysis_settings(clientObject)
 
@@ -53,12 +56,12 @@ class StaticAnalysisSettings():
     def GeometricallyLinear(
                   no: int = 1,
                   name: str = None,
-                  load_modification = [False, 1, False],
+                  load_modification: list = [False, 1, False],
                   bourdon_effect: bool = False,
                   nonsymmetric_direct_solver: bool = False,
                   method_of_equation_system = StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT,
                   plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
-                  mass_conversion = [False, 0, 0, 0],
+                  mass_conversion: list = [False, 0, 0, 0],
                   comment: str = '',
                   params: dict = None,
                   model = Model):
@@ -129,6 +132,9 @@ class StaticAnalysisSettings():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Static Analysis Settings to client model
         model.clientModel.service.set_static_analysis_settings(clientObject)
 
@@ -137,15 +143,15 @@ class StaticAnalysisSettings():
                   no: int = 1,
                   name: str = None,
                   iterative_method = StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis.NEWTON_RAPHSON,
-                  standard_precision_and_tolerance_settings = [False, 1.0, 1.0, 1.0],
-                  control_nonlinear_analysis = [100, 1],
-                  load_modification = [False, 1, False],
+                  standard_precision_and_tolerance_settings: list = [False, 1.0, 1.0, 1.0],
+                  control_nonlinear_analysis: list = [100, 1],
+                  load_modification: list = [False, 1, False],
                   instabil_structure_calculation : bool = True,
                   bourdon_effect: bool = True,
                   nonsymmetric_direct_solver: bool = True,
                   method_of_equation_system = StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT,
                   plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
-                  mass_conversion = [False, 0, 0, 1],
+                  mass_conversion: list = [False, 0, 0, 1],
                   comment: str = '',
                   params: dict = {'save_results_of_all_load_increments': False},
                   model = Model):
@@ -251,6 +257,9 @@ class StaticAnalysisSettings():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Static Analysis Settings to client model
         model.clientModel.service.set_static_analysis_settings(clientObject)
 
@@ -259,16 +268,16 @@ class StaticAnalysisSettings():
                   no: int = 1,
                   name: str = None,
                   iterative_method = StaticAnalysisSettingsIterativeMethodForNonlinearAnalysis.NEWTON_RAPHSON,
-                  standard_precision_and_tolerance_settings = [False, 1.0, 1.0, 1.0],
-                  control_nonlinear_analysis = [100, 1],
-                  load_modification = [False, 0, False],
+                  standard_precision_and_tolerance_settings: list = [False, 1.0, 1.0, 1.0],
+                  control_nonlinear_analysis: list = [100, 1],
+                  load_modification: list = [False, 0, False],
                   favorable_effect_due_to_tension_in_members : bool = False,
                   bourdon_effect: bool = True,
                   nonsymmetric_direct_solver: bool = True,
-                  internal_forces_to_deformed_structure = [True, True, True, True],
+                  internal_forces_to_deformed_structure: list = [True, True, True, True],
                   method_of_equation_system = StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT,
                   plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
-                  mass_conversion = [False, 0, 0, 1],
+                  mass_conversion: list = [False, 0, 0, 1],
                   comment: str = '',
                   params: dict = None,
                   model = Model):
@@ -369,6 +378,9 @@ class StaticAnalysisSettings():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Static Analysis Settings to client model
         model.clientModel.service.set_static_analysis_settings(clientObject)

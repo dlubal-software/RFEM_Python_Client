@@ -1,5 +1,5 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
-from RFEM.enums import LoadDirectionType, NodalLoadType, NodalLoadSpecificDirectionType
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
+from RFEM.enums import NodalLoadDirection, NodalLoadType, NodalLoadSpecificDirectionType
 
 class NodalLoad():
 
@@ -7,7 +7,7 @@ class NodalLoad():
                  no: int = 1,
                  load_case_no: int = 1,
                  nodes_no: str= '1',
-                 load_direction= LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
+                 load_direction= NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
                  magnitude: float = 0.0,
                  comment: str= '',
                  params: dict= None,
@@ -56,6 +56,9 @@ class NodalLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Nodal Force to client model
         model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
@@ -64,7 +67,7 @@ class NodalLoad():
               no: int= 1,
               load_case_no: int = 1,
               nodes_no: str= '1',
-              load_direction= LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
+              load_direction= NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
               magnitude: float= 0.0,
               force_eccentricity: bool = False,
               specific_direction: bool = False,
@@ -122,18 +125,18 @@ class NodalLoad():
         load_type = NodalLoadType.LOAD_TYPE_FORCE
         clientObject.load_type = load_type.name
 
-        ## Force Magnitude
+        # Force Magnitude
         clientObject.force_magnitude = magnitude
 
-        #Option Check
+        # Option Check
         if force_eccentricity and shifted_display:
-            raise Exception("Only one of force_eccentiricity and shifted_display could be TRUE")
+            raise ValueError("Only one of force_eccentiricity and shifted_display could be TRUE")
 
         # Specific Direction
         if specific_direction:
 
             if 'specific_direction' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_s = params['specific_direction']
 
@@ -162,11 +165,11 @@ class NodalLoad():
             elif params_s[0] == NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER:
                 clientObject.parallel_to_member = params_s[1]
 
-        #Force Eccentiricity
+        # Force Eccentiricity
         if force_eccentricity:
 
             if 'force_eccentricity' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_e = params['force_eccentricity']
 
@@ -176,11 +179,11 @@ class NodalLoad():
             clientObject.force_eccentricity_y = params_e[1]
             clientObject.force_eccentricity_z = params_e[2]
 
-        #Shifted Display
+        # Shifted Display
         if shifted_display:
 
             if 'shifted_display' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_d = params['shifted_display']
 
@@ -201,6 +204,9 @@ class NodalLoad():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Nodal Force to client model
         model.clientModel.service.set_nodal_load(load_case_no, clientObject)
 
@@ -209,7 +215,7 @@ class NodalLoad():
               no: int= 1,
               load_case_no: int= 1,
               nodes_no: str= '1',
-              load_direction= LoadDirectionType.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
+              load_direction= NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W,
               moment_magnitude: float= 0.0,
               specific_direction: bool= False,
               shifted_display: bool= False,
@@ -263,14 +269,14 @@ class NodalLoad():
         load_type = NodalLoadType.LOAD_TYPE_MOMENT
         clientObject.load_type = load_type.name
 
-        ## Force Magnitude
+        # Force Magnitude
         clientObject.moment_magnitude = moment_magnitude
 
         # Specific Direction
         if specific_direction:
 
             if 'specific_direction' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_s = params['specific_direction']
 
@@ -299,11 +305,11 @@ class NodalLoad():
             elif params_s[0] == NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER:
                 clientObject.parallel_to_member = params_s[1]
 
-        #Shifted Display
+        # Shifted Display
         if shifted_display:
 
             if 'shifted_display' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_d = params['shifted_display']
 
@@ -323,6 +329,9 @@ class NodalLoad():
         else:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Nodal Force to client model
         model.clientModel.service.set_nodal_load(load_case_no, clientObject)
@@ -382,7 +391,7 @@ class NodalLoad():
         load_type = NodalLoadType.LOAD_TYPE_COMPONENTS
         clientObject.load_type = load_type.name
 
-        #Load Magnitudes
+        # Load Magnitudes
         if len(components) == 6:
             clientObject.components_force_x = components[0]
             clientObject.components_force_y = components[1]
@@ -392,17 +401,17 @@ class NodalLoad():
             clientObject.components_moment_y = components[4]
             clientObject.components_moment_z = components[5]
         else:
-            raise Exception("WARNING: The components must contain 6 elements. Kindly check list inputs for completeness and correctness.")
+            raise ValueError("WARNING: The components must contain 6 elements. Kindly check list inputs for completeness and correctness.")
 
-        #Option Check
+        # Option Check
         if force_eccentricity and shifted_display:
-            raise Exception("WARNING: Only one of force_eccentiricity and shifted_display could be TRUE")
+            raise ValueError("WARNING: Only one of force_eccentiricity and shifted_display could be TRUE")
 
         # Specific Direction
         if specific_direction:
 
             if 'specific_direction' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_s = params['specific_direction']
 
@@ -424,11 +433,11 @@ class NodalLoad():
             elif params_s[0] == NodalLoadSpecificDirectionType.DIRECTION_TYPE_PARALLEL_TO_CS_OF_MEMBER:
                 clientObject.parallel_to_member = params_s[1]
 
-        #Force Eccentiricity
+        # Force Eccentiricity
         if force_eccentricity:
 
             if 'force_eccentricity' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_e = params['force_eccentricity']
 
@@ -438,11 +447,11 @@ class NodalLoad():
             clientObject.force_eccentricity_y = params_e[1]
             clientObject.force_eccentricity_z = params_e[2]
 
-        #Shifted Display
+        # Shifted Display
         if shifted_display:
 
             if 'shifted_display' not in list(params.keys()):
-                raise Exception("Required key is missing")
+                raise ValueError("Required key is missing")
 
             params_d = params['shifted_display']
 
@@ -462,6 +471,9 @@ class NodalLoad():
         else:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Nodal Force to client model
         model.clientModel.service.set_nodal_load(load_case_no, clientObject)
@@ -533,6 +545,9 @@ class NodalLoad():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Nodal Force to client model
         model.clientModel.service.set_nodal_load(load_case_no, clientObject)

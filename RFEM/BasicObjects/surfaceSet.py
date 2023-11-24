@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import SetType
 
 class SurfaceSet():
@@ -43,6 +43,9 @@ class SurfaceSet():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface Set to client model
         model.clientModel.service.set_surface_set(clientObject)
 
@@ -85,6 +88,9 @@ class SurfaceSet():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Surface Set to client model
         model.clientModel.service.set_surface_set(clientObject)
@@ -129,5 +135,20 @@ class SurfaceSet():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface Set to client model
         model.clientModel.service.set_surface_set(clientObject)
+
+    @staticmethod
+    def GetSurfaceSet(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Surface Set Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Surface Set from client model
+        return model.clientModel.service.get_surface_set(object_index)

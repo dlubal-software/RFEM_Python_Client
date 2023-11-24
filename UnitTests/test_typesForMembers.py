@@ -20,7 +20,7 @@ from RFEM.TypesForMembers.memberDefinableStiffness import MemberDefinableStiffne
 from RFEM.TypesForMembers.memberEccentricity import MemberEccentricity
 from RFEM.TypesForMembers.memberNonlinearity import MemberNonlinearity
 from RFEM.TypesForMembers.memberStiffnessModification import MemberStiffnessModification
-from RFEM.TypesForMembers.memberTransverseStiffeners import MemberTransverseStiffeners
+from RFEM.TypesForMembers.memberTransverseStiffeners import MemberTransverseStiffener
 from RFEM.BasicObjects.material import Material
 
 if Model.clientModel is None:
@@ -31,7 +31,7 @@ def test_memberDefinableStiffness():
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
-    MemberDefinableStiffness(1, [False], "", 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12)
+    MemberDefinableStiffness(1, '', '', 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12)
 
     Model.clientModel.service.finish_modification()
 
@@ -120,7 +120,7 @@ def test_memberSupport():
     Model.clientModel.service.begin_modification()
 
     MemberSupport()
-    MemberSupport(2, '', 1,2, [inf, MemberSupportNonlinearity.NONLINEARITY_FAILURE_IF_NEGATIVE_CONTACT_STRESS_Z], 3, 4, 5, 6)
+    MemberSupport(2, '', 1, 2, [inf, MemberSupportNonlinearity.NONLINEARITY_FAILURE_IF_NEGATIVE_CONTACT_STRESS_Z], 3, 4, 5, 6)
 
     Model.clientModel.service.finish_modification()
 
@@ -129,6 +129,7 @@ def test_memberSupport():
 
     assert memberSupport_1.no == 1
     assert memberSupport_2.spring_translation_y == 2
+    assert memberSupport_2.nonlinearity_translational_z == MemberSupportNonlinearity.NONLINEARITY_FAILURE_IF_NEGATIVE_CONTACT_STRESS_Z.name
 
 
 def test_memberTransverseStiffeners():
@@ -138,7 +139,7 @@ def test_memberTransverseStiffeners():
 
     Material(1, 'S235')
 
-    MemberTransverseStiffeners(1)
+    MemberTransverseStiffener(1)
 
     Model.clientModel.service.finish_modification()
 

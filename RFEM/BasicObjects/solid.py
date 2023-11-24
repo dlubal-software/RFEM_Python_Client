@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString, ConvertStrToListOfInt
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, ConvertStrToListOfInt
 from RFEM.enums import SolidType, ObjectTypes
 
 class Solid():
@@ -42,6 +42,9 @@ class Solid():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Surface to client model
         model.clientModel.service.set_solid(clientObject)
@@ -91,6 +94,9 @@ class Solid():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface to client model
         model.clientModel.service.set_solid(clientObject)
 
@@ -138,6 +144,9 @@ class Solid():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Surface to client model
         model.clientModel.service.set_solid(clientObject)
@@ -187,6 +196,9 @@ class Solid():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface to client model
         model.clientModel.service.set_solid(clientObject)
 
@@ -235,6 +247,9 @@ class Solid():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Surface to client model
         model.clientModel.service.set_solid(clientObject)
 
@@ -250,3 +265,15 @@ class Solid():
         # Delete solids from client model
         for solid in ConvertStrToListOfInt(solids_no):
             model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_SOLID.name, solid)
+
+    @staticmethod
+    def GetSolid(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Solid Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Solid from client model
+        return model.clientModel.service.get_solid(object_index)

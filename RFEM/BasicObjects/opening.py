@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString, ConvertStrToListOfInt
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, ConvertStrToListOfInt
 from RFEM.enums import ObjectTypes
 
 class Opening():
@@ -38,6 +38,9 @@ class Opening():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Opening to client model
         model.clientModel.service.set_opening(clientObject)
 
@@ -53,3 +56,15 @@ class Opening():
         # Delete from client model
         for opening in ConvertStrToListOfInt(openings_no):
             model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_OPENING.name, opening)
+
+    @staticmethod
+    def GetOpening(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Opening Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Opening from client model
+        return model.clientModel.service.get_opening(object_index)

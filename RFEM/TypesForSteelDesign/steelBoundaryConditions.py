@@ -1,10 +1,10 @@
-from RFEM.initModel import *
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString, deleteEmptyAttributes
 from RFEM.enums import *
 
 class SteelBoundaryConditions():
     def __init__(self,
                 no: int = 1,
-                user_defined_name: str = '',
+                name: str = '',
                 members: str = '',
                 member_sets : str = '',
                 intermediate_nodes : bool = False,
@@ -27,7 +27,7 @@ class SteelBoundaryConditions():
         """
         Args:
             no (int): Boundary Conditions Tag
-            user_defined_name (str): User Defined Boundary Conditions Name
+            name (str): User Defined Boundary Conditions Name
             members (str): Assigned Members
             member_sets (str): Assigned Member Sets
             intermediate_nodes (bool): Enable/Disable Intermediate Nodes Option
@@ -91,9 +91,9 @@ class SteelBoundaryConditions():
         clientObject.no = no
 
         # Boundary Conditions User Defined Name
-        if user_defined_name:
+        if name:
             clientObject.user_defined_name_enabled = True
-            clientObject.name = user_defined_name
+            clientObject.name = name
 
         # Intermediate Nodes Option
         clientObject.intermediate_nodes = intermediate_nodes
@@ -110,6 +110,8 @@ class SteelBoundaryConditions():
         for i,j in enumerate(nodal_supports):
             mlvlp = model.clientModel.factory.create('ns0:steel_boundary_conditions_nodal_supports_row')
             mlvlp.no = i+1
+            mlvlp.row = model.clientModel.factory.create('ns0:steel_boundary_conditions_nodal_supports')
+            clearAttributes(mlvlp.row)
             mlvlp.row.node_seq_no = nodal_supports[i][0]
             mlvlp.row.support_type = nodal_supports[i][1].name
             mlvlp.row.support_in_x = nodal_supports[i][2]
@@ -144,6 +146,8 @@ class SteelBoundaryConditions():
         for i,j in enumerate(member_hinges):
             mlvlp = model.clientModel.factory.create('ns0:steel_boundary_conditions_member_hinges_row')
             mlvlp.no = i+1
+            mlvlp.row = model.clientModel.factory.create('ns0:steel_boundary_conditions_member_hinges')
+            clearAttributes(mlvlp.row)
             mlvlp.row.node_seq_no = member_hinges[i][0]
             mlvlp.row.release_in_x = member_hinges[i][1]
             mlvlp.row.release_in_y = member_hinges[i][2]
@@ -176,6 +180,9 @@ class SteelBoundaryConditions():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Steel Boundary Conditions to client model
         model.clientModel.service.set_steel_boundary_conditions(clientObject)

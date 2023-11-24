@@ -1,21 +1,18 @@
 import sys
 import os
 PROJECT_ROOT = os.path.abspath(os.path.join(
-                  os.path.dirname(__file__),
-                  os.pardir)
+               os.path.dirname(__file__),
+               os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
 
-import pytest
 from RFEM.enums import *
-from RFEM.initModel import Model, CheckIfMethodOrTypeExists, SetAddonStatus
+from RFEM.initModel import Model, SetAddonStatus
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.material import Material
 from RFEM.TypesforConcreteDesign.ConcreteDurability import ConcreteDurability
-#from RFEM.ConcreteDesign.ConcreteUltimateConfigurations import ConcreteUltimateConfiguration
-#from RFEM.ConcreteDesign.ConcreteServiceabilityConfigurations import ConcreteServiceabilityConfiguration
 from RFEM.TypesforConcreteDesign.ConcreteEffectiveLength import ConcreteEffectiveLength
 from RFEM.TypesforConcreteDesign.ConcreteReinforcementDirections import ConcreteReinforcementDirection
 from RFEM.TypesforConcreteDesign.ConcreteSurfaceReinforcements import ConcreteSurfaceReinforcements
@@ -23,8 +20,6 @@ from RFEM.TypesforConcreteDesign.ConcreteSurfaceReinforcements import ConcreteSu
 if Model.clientModel is None:
     Model()
 
-# TODO: US-8087
-@pytest.mark.skipif(CheckIfMethodOrTypeExists(Model.clientModel,'ns0:concrete_durability', True), reason="ns0:concrete_durability not in RFEM GM yet")
 def test_concrete_design():
 
     Model.clientModel.service.delete_all()
@@ -64,12 +59,6 @@ def test_concrete_design():
 
     ConcreteDurability(11, "XC 11", '1', '', '', [True, False, False, False], [], [False, False, False], [], [DurabilityStructuralClassType.STANDARD, False, False, False, False], [True, DurabilityStainlessSteelType.DEFINED, 0.012], [True, DurabilityAdditionalProtectionType.DEFINED, 0.02], [DurabilityAllowanceDeviationType.DEFINED, 0.008])
 
-    # Concrete Ultimate Configuration
-    # ConcreteUltimateConfiguration(1, 'ULS', '1')
-
-    # Concrete Serviceability Configuration
-    #ConcreteServiceabilityConfiguration(1, 'SLS', '1')
-
     # Concrete Effective Lengths
     ConcreteEffectiveLength()
 
@@ -84,9 +73,89 @@ def test_concrete_design():
     ConcreteSurfaceReinforcements(3, "RD 3", "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_ON_SURFACE, SurfaceReinforcementType.REINFORCEMENT_TYPE_MESH, [SurfaceReinforcementMeshProductRange.MESHSTANDARD_GERMANY_1997_01_01, SurfaceReinforcementMeshShape.MESHSHAPE_Q_MESH, "Q131A"])
     ConcreteSurfaceReinforcements(4, "RD 4", "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_ON_SURFACE, reinforcement_direction=SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_PARALLEL_TO_TWO_POINTS, reinforcement_direction_parameters=[1, 2, 3, 4, "1", SurfaceReinforcementProjectionPlane.PROJECTION_PLANE_XY_OR_UV])
     ConcreteSurfaceReinforcements(5, "RD 5", "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_ON_SURFACE, reinforcement_direction=SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION, reinforcement_direction_parameters=[SurfaceReinforcementDesignDirection.DESIGN_REINFORCEMENT_DIRECTION_A_S_1, "1", SurfaceReinforcementProjectionPlane.PROJECTION_PLANE_XY_OR_UV], reinforcement_location=[SurfaceReinforcementLocationRectangleType.RECTANGLE_TYPE_CORNER_POINTS, 1, 2, 3, 4, 35], reinforcement_acting_region=["-inf", "+inf"])
-    ConcreteSurfaceReinforcements(6, 'RD 6', "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_FREE_RECTANGULAR, SurfaceReinforcementType.REINFORCEMENT_TYPE_STIRRUPS, [0.01, 0.15], reinforcement_direction =SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION, reinforcement_direction_parameters = [SurfaceReinforcementDesignDirection.DESIGN_REINFORCEMENT_DIRECTION_A_S_1, "1", SurfaceReinforcementProjectionPlane.PROJECTION_PLANE_XY_OR_UV], reinforcement_location=[SurfaceReinforcementLocationRectangleType.RECTANGLE_TYPE_CORNER_POINTS, 1, 2, 3, 4, 35], reinforcement_acting_region=["-inf", "+inf"])
+    ConcreteSurfaceReinforcements(6, 'RD 6', "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_FREE_RECTANGULAR, SurfaceReinforcementType.REINFORCEMENT_TYPE_STIRRUPS, [0.01, 0.15], reinforcement_direction=SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION, reinforcement_direction_parameters = [SurfaceReinforcementDesignDirection.DESIGN_REINFORCEMENT_DIRECTION_A_S_1, "1", SurfaceReinforcementProjectionPlane.PROJECTION_PLANE_XY_OR_UV], reinforcement_location=[SurfaceReinforcementLocationRectangleType.RECTANGLE_TYPE_CORNER_POINTS, 1, 2, 3, 4, 35], reinforcement_acting_region=["-inf", "+inf"])
     ConcreteSurfaceReinforcements(7, 'RD 7', "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_FREE_RECTANGULAR, SurfaceReinforcementType.REINFORCEMENT_TYPE_STIRRUPS, [0.01, 0.15], reinforcement_direction=SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION, reinforcement_direction_parameters = [SurfaceReinforcementDesignDirection.DESIGN_REINFORCEMENT_DIRECTION_A_S_1, "1", SurfaceReinforcementProjectionPlane.PROJECTION_PLANE_XY_OR_UV], reinforcement_location=[SurfaceReinforcementLocationRectangleType.RECTANGLE_TYPE_CENTER_AND_SIDES, 2, 3, 2, 2, 35], reinforcement_acting_region=["-inf", "+inf"])
     ConcreteSurfaceReinforcements(8, 'RD 8', "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_FREE_CIRCULAR, SurfaceReinforcementType.REINFORCEMENT_TYPE_STIRRUPS, [0.01, 0.15], reinforcement_direction=SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION, reinforcement_direction_parameters = [SurfaceReinforcementDesignDirection.DESIGN_REINFORCEMENT_DIRECTION_A_S_1, "1", SurfaceReinforcementProjectionPlane.PROJECTION_PLANE_XY_OR_UV], reinforcement_location=[1, 2, 3], reinforcement_acting_region=["-inf", "+inf"])
     ConcreteSurfaceReinforcements(9, 'RD 9', "", "2", SurfaceReinforcementLocationType.LOCATION_TYPE_FREE_POLYGON, SurfaceReinforcementType.REINFORCEMENT_TYPE_STIRRUPS, [0.01, 0.15], reinforcement_direction=SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION, reinforcement_direction_parameters = [SurfaceReinforcementDesignDirection.DESIGN_REINFORCEMENT_DIRECTION_A_S_1, "1", SurfaceReinforcementProjectionPlane.PROJECTION_PLANE_XY_OR_UV], reinforcement_location=[[1, 1, ""], [2, 2, ""], [3, 2, ""]], reinforcement_acting_region=["-inf", "+inf"])
 
     Model.clientModel.service.finish_modification()
+
+    cd = Model.clientModel.service.get_concrete_durability(1)
+    assert cd.no == 1
+    assert cd.user_defined_name_enabled == True
+    assert cd.name == "XC 1"
+    assert cd.members == ""
+    assert cd.member_sets == ""
+    assert cd.surfaces == ""
+    assert cd.no_risk_of_corrosion_or_attack_enabled == True
+    assert cd.no_risk_of_corrosion_or_attack == "VERY_DRY"
+    assert cd.freeze_thaw_attack_enabled == False
+    assert cd.chemical_attack_enabled == False
+    assert cd.concrete_corrosion_induced_by_wear_enabled == False
+    assert cd.structural_class_type == "STANDARD"
+    assert cd.increase_design_working_life_from_50_to_100_years_enabled == False
+    assert cd.position_of_reinforcement_not_affected_by_construction_process_enabled == False
+    assert cd.special_quality_control_of_production_enabled == False
+    assert cd.air_entrainment_of_more_than_4_percent_enabled == False
+    assert cd.stainless_steel_enabled == False
+    assert cd.additional_protection_enabled == False
+    assert cd.allowance_of_deviation_type == "STANDARD"
+    assert cd.concrete_cast_enabled == False
+
+    cdu = Model.clientModel.service.get_concrete_effective_lengths(1)
+    assert cdu.no == 1
+    assert cdu.user_defined_name_enabled == True
+    assert cdu.name == "EL 1"
+    assert cdu.comment == None
+    assert cdu.members == ""
+    assert cdu.member_sets == ""
+    assert cdu.is_generated == False
+    assert cdu.intermediate_nodes == False
+    assert cdu.different_properties == True
+    assert cdu.factors_definition_absolute == False
+    assert cdu.import_from_stability_analysis_enabled == False
+    assert cdu.structure_type_about_axis_y == "STRUCTURE_TYPE_UNBRACED"
+    assert cdu.structure_type_about_axis_z == "STRUCTURE_TYPE_UNBRACED"
+    assert cdu.flexural_buckling_about_y == True
+    assert cdu.flexural_buckling_about_z == True
+
+    crd = Model.clientModel.service.get_reinforcement_direction(1)
+    assert crd.no == 1
+    assert crd.user_defined_name_enabled == True
+    assert crd.name == "RD 1"
+    assert crd.surfaces == ""
+    assert crd.reinforcement_direction_type == "REINFORCEMENT_DIRECTION_TYPE_FIRST_REINFORCEMENT_IN_X"
+
+    csr1 = Model.clientModel.service.get_surface_reinforcement(1)
+    assert csr1.no == 1
+    assert csr1.location_type == "LOCATION_TYPE_ON_SURFACE"
+    assert csr1.user_defined_name_enabled == True
+    assert csr1.name == "RD 1"
+    assert csr1.surfaces == ""
+    assert csr1.material == 2
+    assert csr1.reinforcement_type == "REINFORCEMENT_TYPE_REBAR"
+    assert csr1.rebar_diameter == 0.01
+    assert csr1.rebar_spacing == 0.15
+    assert csr1.additional_transverse_reinforcement_enabled == False
+    assert csr1.alignment_top_enabled == True
+    assert csr1.alignment_bottom_enabled == True
+    assert csr1.additional_offset_to_concrete_cover_top == 0.0
+    assert csr1.additional_offset_to_concrete_cover_bottom == 0.0
+    assert csr1.reinforcement_direction_type == "REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION"
+    assert csr1.design_reinforcement_direction == "DESIGN_REINFORCEMENT_DIRECTION_A_S_1"
+    assert csr1.reinforcement_area_as1 == 0.0010471975511965978
+    assert csr1.reinforcement_area_as1_top == 0.0005235987755982989
+    assert csr1.reinforcement_area_as1_bottom == 0.0005235987755982989
+
+
+    csr2 = Model.clientModel.service.get_surface_reinforcement(2)
+    assert csr2.no == 2
+    assert csr2.location_type == "LOCATION_TYPE_ON_SURFACE"
+    assert csr2.user_defined_name_enabled == True
+    assert csr2.name == "RD 2"
+    assert csr2.surfaces == ""
+    assert csr2.material == 2
+    assert csr2.reinforcement_type == "REINFORCEMENT_TYPE_STIRRUPS"
+    assert csr2.stirrup_diameter == 0.01
+    assert csr2.stirrup_spacing == 0.15
+    assert csr2.stirrup_reinforcement_area_asw == 0.0034906585039886596

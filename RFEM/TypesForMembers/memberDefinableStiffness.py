@@ -1,9 +1,9 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 
 class MemberDefinableStiffness():
     def __init__(self,
                  no: int = 1,
-                 name: str = '',
+                 name: str = 'MemberDefinableStiffness',
                  members: str = "1",
                  torsional_stiffness: float = 0.0,
                  bending_stiffness_y: float = 0.0,
@@ -94,6 +94,9 @@ class MemberDefinableStiffness():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Member Definable Stffness to client model
         model.clientModel.service.set_member_definable_stiffness(clientObject)

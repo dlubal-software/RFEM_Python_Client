@@ -114,7 +114,7 @@ def test_surface_set_load():
     SurfaceSetLoad.Force(5, 1, '1', SurfaceSetLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_RADIAL,(2000, 4000, 1, 6, SurfaceSetLoadAxisDefinitionType.AXIS_DEFINITION_TWO_POINTS, [0,0,0], [0,0,1]))
 
     ## Force Type Surface Set Load with varying in Z
-    SurfaceSetLoad.Force(32, 1, '2', SurfaceSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, load_parameter=[[1, 1, 1000], [2, 1, 2000]])
+    SurfaceSetLoad.Force(32, 1, '2', SurfaceSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, load_parameter=[[1, 1000], [2, 2000]])
 
     ## Temperature Type Surface Load with UNIFORM Load Distribution ##
     SurfaceSetLoad.Temperature(6, 1, '1', SurfaceSetLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, load_parameter=[18, 2])

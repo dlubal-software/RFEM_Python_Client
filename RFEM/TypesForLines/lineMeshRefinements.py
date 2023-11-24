@@ -1,10 +1,8 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import LineMeshRefinementsType
 
-class LineMeshRefinements():
-    TypeSpecificParams = {'target_length': 0.1, #Target FE Length Type
-                          'elements_finite_elements': 0, # Number Finite Elements Type
-                          'gradual_rows': 0} # Gradually Type
+class LineMeshRefinement():
+
     def __init__(self,
                  no: int = 1,
                  lines: str = '3 4 5',
@@ -49,6 +47,9 @@ class LineMeshRefinements():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Line Mesh Refinement to client model
         model.clientModel.service.set_line_mesh_refinement(clientObject)
@@ -102,6 +103,9 @@ class LineMeshRefinements():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line Mesh Refinement to client model
         model.clientModel.service.set_line_mesh_refinement(clientObject)
 
@@ -154,6 +158,9 @@ class LineMeshRefinements():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line Mesh Refinement to client model
         model.clientModel.service.set_line_mesh_refinement(clientObject)
 
@@ -205,6 +212,9 @@ class LineMeshRefinements():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Line Mesh Refinement to client model
         model.clientModel.service.set_line_mesh_refinement(clientObject)

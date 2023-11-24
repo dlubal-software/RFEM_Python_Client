@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document name="rtest.rf6">
+<document name="import_test_xml.rf6">
     <addons>
         <MASONRY_DESIGN>false</MASONRY_DESIGN>
     </addons>
@@ -8,18 +8,18 @@
             <current_standard_for_aluminum_design>6300</current_standard_for_aluminum_design>
             <current_standard_for_combination_wizard>6207</current_standard_for_combination_wizard>
             <current_standard_for_concrete_design>12</current_standard_for_concrete_design>
-            <current_standard_for_concrete_foundation_design>6553</current_standard_for_concrete_foundation_design>
-            <current_standard_for_glass_design>6554</current_standard_for_glass_design>
+            <current_standard_for_concrete_foundation_design>100004</current_standard_for_concrete_foundation_design>
+            <current_standard_for_glass_design>100005</current_standard_for_glass_design>
             <current_standard_for_load_wizard>6211</current_standard_for_load_wizard>
-            <current_standard_for_piping_design>6555</current_standard_for_piping_design>
+            <current_standard_for_piping_design>100008</current_standard_for_piping_design>
             <current_standard_for_dynamic_analysis>3008</current_standard_for_dynamic_analysis>
-            <current_standard_for_geotechnical_analysis>6556</current_standard_for_geotechnical_analysis>
+            <current_standard_for_geotechnical_analysis>6217</current_standard_for_geotechnical_analysis>
             <current_standard_for_steel_design>17</current_standard_for_steel_design>
             <current_standard_for_steel_joint_design>17</current_standard_for_steel_joint_design>
             <current_standard_for_timber_design>4377</current_standard_for_timber_design>
             <current_standard_for_masonry_design>6406</current_standard_for_masonry_design>
-            <current_standard_for_timber_joint_design>6557</current_standard_for_timber_joint_design>
-            <current_standard_for_tower_design>6558</current_standard_for_tower_design>
+            <current_standard_for_timber_joint_design>100014</current_standard_for_timber_joint_design>
+            <current_standard_for_tower_design>100015</current_standard_for_tower_design>
             <activate_load_wizards>true</activate_load_wizards>
             <activate_combination_wizard_and_classification>true</activate_combination_wizard_and_classification>
             <activate_combination_wizard>false</activate_combination_wizard>
@@ -28,6 +28,7 @@
             <result_combinations_consider_sub_results>false</result_combinations_consider_sub_results>
             <member_representatives_active>false</member_representatives_active>
             <member_set_representatives_active>false</member_set_representatives_active>
+            <surface_cells_active>false</surface_cells_active>
             <combination_name_according_to_action_category>false</combination_name_according_to_action_category>
             <generate_load_cases_from_construction_stages_just_before_calculation_active>true</generate_load_cases_from_construction_stages_just_before_calculation_active>
             <global_axes_orientation>GLOBAL_AXES_ORIENTATION_ZDOWN</global_axes_orientation>
@@ -63,7 +64,7 @@
                     <material_model>MODEL_ISOTROPIC_LINEAR_ELASTIC</material_model>
                     <application_context>STEEL_DESIGN</application_context>
                     <user_defined_name_enabled>false</user_defined_name_enabled>
-                    <name>S235</name>
+                    <name>S235 | EN 1993-1-1:2005-05</name>
                     <user_defined>false</user_defined>
                     <definition_type>DERIVED_G</definition_type>
                     <is_temperature_dependent>false</is_temperature_dependent>
@@ -104,7 +105,7 @@
                     <material_model>MODEL_ISOTROPIC_LINEAR_ELASTIC</material_model>
                     <application_context>CONCRETE_DESIGN</application_context>
                     <user_defined_name_enabled>false</user_defined_name_enabled>
-                    <name>C12/15</name>
+                    <name>C12/15 | SIA 262:2013</name>
                     <user_defined>false</user_defined>
                     <definition_type>DERIVED_G</definition_type>
                     <is_temperature_dependent>false</is_temperature_dependent>
@@ -145,7 +146,7 @@
                     <no>1</no>
                     <type>TYPE_STANDARDIZED_STEEL</type>
                     <manufacturing_type>MANUFACTURING_TYPE_HOT_ROLLED</manufacturing_type>
-                    <name>IPE 80</name>
+                    <name>IPE 80 | DIN 1025-5:1994-03; ... | --</name>
                     <shear_stiffness_deactivated>false</shear_stiffness_deactivated>
                     <warping_stiffness_deactivated>true</warping_stiffness_deactivated>
                     <thin_walled_model>true</thin_walled_model>
@@ -153,9 +154,11 @@
                     <stress_smoothing_to_avoid_singularities>false</stress_smoothing_to_avoid_singularities>
                     <area_axial>0.00076429999999999998</area_axial>
                     <area_shear_y>0.00038390226036105529</area_shear_y>
-                    <area_shear_z>0.00027881499425774341</area_shear_z>
+                    <area_shear_z>0.0002788149942577413</area_shear_z>
                     <inclination_principal_axes>0</inclination_principal_axes>
                     <rotation_angle>0</rotation_angle>
+                    <location_of_centroidal_axis_y>0.023</location_of_centroidal_axis_y>
+                    <location_of_centroidal_axis_z>0.040000000000000001</location_of_centroidal_axis_z>
                     <moment_of_inertia_bending_y>8.0140000000000007e-07</moment_of_inertia_bending_y>
                     <moment_of_inertia_bending_z>8.4890000000000014e-08</moment_of_inertia_bending_z>
                     <moment_of_inertia_torsion>6.7269999999999996e-09</moment_of_inertia_torsion>
@@ -174,6 +177,7 @@
                     <type>TYPE_UNIFORM</type>
                     <material>1</material>
                     <uniform_thickness>0.0052000000000000006</uniform_thickness>
+                    <uniform_or_fictitious_thickness>0.0052000000000000006</uniform_or_fictitious_thickness>
                     <is_generated>false</is_generated>
                 </item>
                 <item>
@@ -184,6 +188,7 @@
                     <type>TYPE_UNIFORM</type>
                     <material>1</material>
                     <uniform_thickness>0.0038</uniform_thickness>
+                    <uniform_or_fictitious_thickness>0.0038</uniform_or_fictitious_thickness>
                     <is_generated>false</is_generated>
                 </item>
             </thickness>
@@ -2732,7 +2737,7 @@
                     <consider_imperfection>false</consider_imperfection>
                     <consider_initial_state>false</consider_initial_state>
                     <to_solve>true</to_solve>
-                    <action_category>Permanent | G</action_category>
+                    <action_category>ACTION_CATEGORY_PERMANENT_G</action_category>
                     <self_weight_active>true</self_weight_active>
                     <self_weight_factors>
                         <x>0</x>
@@ -2767,7 +2772,7 @@
                     <consider_imperfection>false</consider_imperfection>
                     <consider_initial_state>false</consider_initial_state>
                     <to_solve>true</to_solve>
-                    <action_category>Permanent/Imposed | Gq</action_category>
+                    <action_category>ACTION_CATEGORY_PERMANENT_IMPOSED_GQ</action_category>
                     <self_weight_active>false</self_weight_active>
                     <line_loads>
                         <item>
@@ -2792,7 +2797,7 @@
                     <no>1</no>
                     <user_defined_name_enabled>true</user_defined_name_enabled>
                     <name>DS 1</name>
-                    <design_situation_type>6122</design_situation_type>
+                    <design_situation_type>DESIGN_SITUATION_TYPE_EQU_PERMANENT_AND_TRANSIENT</design_situation_type>
                     <active>true</active>
                     <is_generated>false</is_generated>
                 </item>
@@ -2853,10 +2858,10 @@
                     <analysis_type>GEOMETRICALLY_LINEAR</analysis_type>
                     <method_of_equation_system>METHOD_OF_EQUATION_SYSTEM_DIRECT</method_of_equation_system>
                     <plate_bending_theory>PLATE_BENDING_THEORY_MINDLIN</plate_bending_theory>
-                    <calculation_diagrams_enabled>false</calculation_diagrams_enabled>
                     <modify_loading_by_multiplier_factor>false</modify_loading_by_multiplier_factor>
                     <displacements_due_to_bourdon_effect>false</displacements_due_to_bourdon_effect>
-                    <nonsymmetric_direct_solver>false</nonsymmetric_direct_solver>
+                    <nonsymmetric_direct_solver>true</nonsymmetric_direct_solver>
+                    <equilibrium_for_undeformed_structure>false</equilibrium_for_undeformed_structure>
                     <mass_conversion_enabled>false</mass_conversion_enabled>
                 </item>
                 <item>
@@ -2872,11 +2877,12 @@
                     <plate_bending_theory>PLATE_BENDING_THEORY_MINDLIN</plate_bending_theory>
                     <standard_precision_and_tolerance_settings_enabled>false</standard_precision_and_tolerance_settings_enabled>
                     <ignore_all_nonlinearities_enabled>false</ignore_all_nonlinearities_enabled>
-                    <calculation_diagrams_enabled>false</calculation_diagrams_enabled>
                     <modify_loading_by_multiplier_factor>false</modify_loading_by_multiplier_factor>
                     <consider_favorable_effect_due_to_tension_in_members>true</consider_favorable_effect_due_to_tension_in_members>
+                    <check_of_stability_based_on_rate_of_deformation>false</check_of_stability_based_on_rate_of_deformation>
                     <displacements_due_to_bourdon_effect>false</displacements_due_to_bourdon_effect>
-                    <nonsymmetric_direct_solver>false</nonsymmetric_direct_solver>
+                    <nonsymmetric_direct_solver>true</nonsymmetric_direct_solver>
+                    <equilibrium_for_undeformed_structure>false</equilibrium_for_undeformed_structure>
                     <refer_internal_forces_to_deformed_structure>true</refer_internal_forces_to_deformed_structure>
                     <refer_internal_forces_to_deformed_structure_for_normal_forces>true</refer_internal_forces_to_deformed_structure_for_normal_forces>
                     <refer_internal_forces_to_deformed_structure_for_shear_forces>true</refer_internal_forces_to_deformed_structure_for_shear_forces>
@@ -2895,13 +2901,14 @@
                     <plate_bending_theory>PLATE_BENDING_THEORY_MINDLIN</plate_bending_theory>
                     <standard_precision_and_tolerance_settings_enabled>false</standard_precision_and_tolerance_settings_enabled>
                     <ignore_all_nonlinearities_enabled>false</ignore_all_nonlinearities_enabled>
-                    <calculation_diagrams_enabled>false</calculation_diagrams_enabled>
                     <modify_loading_by_multiplier_factor>false</modify_loading_by_multiplier_factor>
                     <consider_favorable_effect_due_to_tension_in_members>true</consider_favorable_effect_due_to_tension_in_members>
+                    <check_of_stability_based_on_rate_of_deformation>false</check_of_stability_based_on_rate_of_deformation>
                     <try_to_calculate_instabil_structure>false</try_to_calculate_instabil_structure>
                     <displacements_due_to_bourdon_effect>false</displacements_due_to_bourdon_effect>
                     <save_results_of_all_load_increments>false</save_results_of_all_load_increments>
-                    <nonsymmetric_direct_solver>false</nonsymmetric_direct_solver>
+                    <nonsymmetric_direct_solver>true</nonsymmetric_direct_solver>
+                    <equilibrium_for_undeformed_structure>false</equilibrium_for_undeformed_structure>
                     <mass_conversion_enabled>false</mass_conversion_enabled>
                 </item>
             </static_analysis_settings>

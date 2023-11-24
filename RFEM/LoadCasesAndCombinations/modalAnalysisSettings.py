@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import ModalSolutionMethod, ModalMassConversionType, ModalMassMatrixType, ModalNeglectMasses
 
 class ModalAnalysisSettings():
@@ -39,8 +39,9 @@ class ModalAnalysisSettings():
         clientObject.no = no
 
         # Name
-        clientObject.user_defined_name_enabled = True
-        clientObject.name = name
+        if name:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Analysis Type
         clientObject.solution_method = solution_method.name
@@ -56,15 +57,16 @@ class ModalAnalysisSettings():
         clientObject.number_of_modes = number_of_modes
 
         # Acting Masses
-        if len(acting_masses) == 6:
-            clientObject.acting_masses_about_axis_x_enabled = acting_masses[0]
-            clientObject.acting_masses_about_axis_y_enabled = acting_masses[1]
-            clientObject.acting_masses_about_axis_z_enabled = acting_masses[2]
-            clientObject.acting_masses_in_direction_x_enabled = acting_masses[3]
-            clientObject.acting_masses_in_direction_y_enabled = acting_masses[4]
-            clientObject.acting_masses_in_direction_z_enabled = acting_masses[5]
-        else:
-            raise Exception('WARNING: The acting masses array needs to be of length 6. Kindly check list inputs for completeness and correctness.')
+        if acting_masses:
+            if len(acting_masses) == 6:
+                clientObject.acting_masses_about_axis_x_enabled = acting_masses[0]
+                clientObject.acting_masses_about_axis_y_enabled = acting_masses[1]
+                clientObject.acting_masses_about_axis_z_enabled = acting_masses[2]
+                clientObject.acting_masses_in_direction_x_enabled = acting_masses[3]
+                clientObject.acting_masses_in_direction_y_enabled = acting_masses[4]
+                clientObject.acting_masses_in_direction_z_enabled = acting_masses[5]
+            else:
+                raise ValueError('WARNING: The acting masses array needs to be of length 6. Kindly check list inputs for completeness and correctness.')
 
         # Neglect Masses
         clientObject.neglect_masses = neglect_masses.name
@@ -76,6 +78,9 @@ class ModalAnalysisSettings():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Static Analysis Settings to client model
         model.clientModel.service.set_modal_analysis_settings(clientObject)

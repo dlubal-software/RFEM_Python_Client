@@ -1,4 +1,4 @@
-from RFEM.initModel import ConvertToDlString, Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString, deleteEmptyAttributes
 
 class MemberResultIntermediatePoint():
     def __init__(self,
@@ -45,8 +45,8 @@ class MemberResultIntermediatePoint():
             for i,j in enumerate(distances):
                 mlvlp = Model.clientModel.factory.create('ns0:member_result_intermediate_point_distances_row')
                 mlvlp.no = i+1
+                mlvlp.row = Model.clientModel.factory.create('ns0:member_result_intermediate_point_distances')
                 mlvlp.row.value = distances[i][0]
-                mlvlp.row.note = None
 
                 clientObject.distances.member_result_intermediate_point_distances.append(mlvlp)
 
@@ -57,6 +57,9 @@ class MemberResultIntermediatePoint():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Member Result Intermediate Point to client model
         model.clientModel.service.set_member_result_intermediate_point(clientObject)

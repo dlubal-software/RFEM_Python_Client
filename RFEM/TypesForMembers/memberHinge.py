@@ -1,5 +1,5 @@
 from RFEM.enums import MemberHingeNonlinearity
-from RFEM.initModel import ConvertToDlString, Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, ConvertToDlString, deleteEmptyAttributes
 from RFEM.dataTypes import inf
 
 class MemberHinge():
@@ -133,6 +133,8 @@ class MemberHinge():
             for i,j in enumerate(translational_release_n_nonlinearity[1][2]):
                 mlvlp = Model.clientModel.factory.create('ns0:member_hinge_diagram_along_x_table_row')
                 mlvlp.no = i+1
+                mlvlp.row = Model.clientModel.factory.create('ns0:member_hinge_diagram_along_x_table')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.displacement = translational_release_n_nonlinearity[1][2][i][0]
                 mlvlp.row.force = translational_release_n_nonlinearity[1][2][i][1]
                 mlvlp.row.spring = translational_release_n_nonlinearity[1][2][i][2]
@@ -204,6 +206,8 @@ class MemberHinge():
             for i,j in enumerate(translational_release_vy_nonlinearity[1][2]):
                 mlvlp = Model.clientModel.factory.create('ns0:member_hinge_diagram_along_y_table_row')
                 mlvlp.no = i+1
+                mlvlp.row = Model.clientModel.factory.create('ns0:member_hinge_diagram_along_y_table')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.displacement = translational_release_vy_nonlinearity[1][2][i][0]
                 mlvlp.row.force = translational_release_vy_nonlinearity[1][2][i][1]
                 mlvlp.row.spring = translational_release_vy_nonlinearity[1][2][i][2]
@@ -275,6 +279,8 @@ class MemberHinge():
             for i,j in enumerate(translational_release_vz_nonlinearity[1][2]):
                 mlvlp = Model.clientModel.factory.create('ns0:member_hinge_diagram_along_z_table_row')
                 mlvlp.no = i+1
+                mlvlp.row = Model.clientModel.factory.create('ns0:member_hinge_diagram_along_z_table')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.displacement = translational_release_vz_nonlinearity[1][2][i][0]
                 mlvlp.row.force = translational_release_vz_nonlinearity[1][2][i][1]
                 mlvlp.row.spring = translational_release_vz_nonlinearity[1][2][i][2]
@@ -346,6 +352,8 @@ class MemberHinge():
             for i,j in enumerate(rotational_release_mt_nonlinearity[1][2]):
                 mlvlp = Model.clientModel.factory.create('ns0:member_hinge_diagram_around_x_table_row')
                 mlvlp.no = i+1
+                mlvlp.row = Model.clientModel.factory.create('ns0:member_hinge_diagram_around_x_table')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.rotation = rotational_release_mt_nonlinearity[1][2][i][0]
                 mlvlp.row.moment = rotational_release_mt_nonlinearity[1][2][i][1]
                 mlvlp.row.spring = rotational_release_mt_nonlinearity[1][2][i][2]
@@ -406,6 +414,8 @@ class MemberHinge():
             for i,j in enumerate(rotational_release_my_nonlinearity[1][2]):
                 mlvlp = Model.clientModel.factory.create('ns0:member_hinge_diagram_around_y_table_row')
                 mlvlp.no = i+1
+                mlvlp.row = Model.clientModel.factory.create('ns0:member_hinge_diagram_around_y_table')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.rotation = rotational_release_my_nonlinearity[1][2][i][0]
                 mlvlp.row.moment = rotational_release_my_nonlinearity[1][2][i][1]
                 mlvlp.row.spring = rotational_release_my_nonlinearity[1][2][i][2]
@@ -466,6 +476,8 @@ class MemberHinge():
             for i,j in enumerate(rotational_release_mz_nonlinearity[1][2]):
                 mlvlp = Model.clientModel.factory.create('ns0:member_hinge_diagram_around_z_table_row')
                 mlvlp.no = i+1
+                mlvlp.row = Model.clientModel.factory.create('ns0:member_hinge_diagram_around_z_table')
+                clearAttributes(mlvlp.row)
                 mlvlp.row.rotation = rotational_release_mz_nonlinearity[1][2][i][0]
                 mlvlp.row.moment = rotational_release_mz_nonlinearity[1][2][i][1]
                 mlvlp.row.spring = rotational_release_mz_nonlinearity[1][2][i][2]
@@ -479,6 +491,9 @@ class MemberHinge():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Line to client model
         model.clientModel.service.set_member_hinge(clientObject)

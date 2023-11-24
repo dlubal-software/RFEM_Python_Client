@@ -1,7 +1,8 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 from RFEM.enums import SolidContactPerpendicularType, SolidContactParallelType
 
-class SolidContact():
+class SolidContacts():
+
     def __init__(self,
                  no: int = 1,
                  perpendicular_contact = SolidContactPerpendicularType.FAILURE_UNDER_TENSION,
@@ -79,6 +80,9 @@ class SolidContact():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Solid Contact to client model
         model.clientModel.service.set_solid_contacts(clientObject)

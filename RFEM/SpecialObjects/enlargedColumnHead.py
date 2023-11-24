@@ -26,5 +26,8 @@
 #            for key in params:
 #                clientObject[key] = params[key]
 #
+#        # Delete None attributes for improved performance
+#        deleteEmptyAttributes(clientObject)
+#
 #        # Add Enlarged Column Head to client model
 #        model.clientModel.service.set_enlarged_column_head(clientObject)

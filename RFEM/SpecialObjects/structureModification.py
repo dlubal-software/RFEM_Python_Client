@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 
 class StructureModification():
     material_item = {'no': 1, 'material_name': 1, 'modification_type': 'DIVISION_FACTOR', 'E_and_G': 1.5, 'comment': 'comment'}
@@ -143,11 +143,16 @@ class StructureModification():
                 clientObject.modify_stiffnesses_members_table[0][idx].row.members = i['members']
                 clientObject.modify_stiffnesses_members_table[0][idx].row.comment = i['comment']
         if modify_stiffnesses['modify_stiffnesses_surfaces']:
+            stiff_surface_table = model.clientModel.factory.create('ns0:array_of_structure_modification_modify_stiffnesses_surface_table')
             for i in modify_stiffnesses_surfaces_list:
-                idx = i['no']-1
-                clientObject.modify_stiffnesses_surfaces_table[0][idx].row.surface_modification = i['surface_modification']
-                clientObject.modify_stiffnesses_surfaces_table[0][idx].row.surfaces = i['surfaces']
-                clientObject.modify_stiffnesses_surfaces_table[0][idx].row.comment = i['comment']
+                stiff_surface_table_row = model.clientModel.factory.create('ns0:structure_modification_modify_stiffnesses_surface_table_row')
+                stiff_surface_table_row.no = i['no']
+                stiff_surface_table_row.row = model.clientModel.factory.create('ns0:structure_modification_modify_stiffnesses_surface_table')
+                stiff_surface_table_row.row.surface_modification = i['surface_modification']
+                stiff_surface_table_row.row.surfaces = i['surfaces']
+                stiff_surface_table_row.row.comment = i['comment']
+                stiff_surface_table.structure_modification_modify_stiffnesses_surface_table.append(stiff_surface_table_row)
+            clientObject.modify_stiffnesses_surface_table = stiff_surface_table
         if modify_stiffnesses['modify_stiffnesses_member_hinges']:
             for i in modify_stiffnesses_member_hinges_list:
                 idx = i['no']-1
@@ -211,6 +216,9 @@ class StructureModification():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Structure Modification to client model
         model.clientModel.service.set_structure_modification(clientObject)

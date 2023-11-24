@@ -5,14 +5,67 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.enums import SurfacesShapeOfFiniteElements, OptimizeOnType, Optimizer
-from RFEM.initModel import Model, client
+from RFEM.enums import SurfacesShapeOfFiniteElements, OptimizationTargetValueType, AddOn,NodalSupportType, NodalLoadDirection, ActionCategoryType, ObjectTypes
+from RFEM.initModel import Model, SetAddonStatus, Calculate_all, CalculateSelectedCases
 from RFEM.Calculate.meshSettings import GetMeshSettings, MeshSettings, GetModelInfo
 from RFEM.Calculate.optimizationSettings import OptimizationSettings
 from UnitTests.test_solids import test_solids_and_solid_sets
+from RFEM.BasicObjects.material import Material
+from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.member import Member
+from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
+from RFEM.Loads.nodalLoad import NodalLoad
+
+sys.path.append('..')
+from RFEM import connectionGlobals
 
 if Model.clientModel is None:
     Model()
+
+def createmodel():
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Material(1, 'S235')
+
+    Section(1, 'IPE 200')
+
+    Node(1, 0.0, 0.0, 0.0)
+    Node(2, 5.0, 0.0, 0.0)
+
+    Member(1, 1, 2, 0.0, 1, 1)
+
+    NodalSupport(1, '1', NodalSupportType.FIXED)
+
+    LoadCasesAndCombinations(params = {"current_standard_for_combination_wizard": 6208})
+    StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
+    LoadCase.StaticAnalysis(1, 'SW', True, 1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_G, [True, 0, 0, 1])
+    LoadCase.StaticAnalysis(2, 'SDL', True,  1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_IMPOSED_GQ, [False])
+
+    NodalLoad(1, 1, '2', NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 150*1000)
+    Model.clientModel.service.finish_modification()
+
+def test_calculate_specific():
+
+    createmodel()
+    messages = CalculateSelectedCases([1])
+
+    assert messages
+    assert  Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
+    assert not Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
+
+def test_calculate_all():
+
+    createmodel()
+    messages = Calculate_all()
+
+    assert messages
+    assert Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 1)
+    assert Model.clientModel.service.has_results(ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name, 2)
 
 # CAUTION:
 # These tests needs to be executed last because they change global settings.
@@ -21,6 +74,7 @@ def test_mesh_settings():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
+    SetAddonStatus(Model.clientModel, AddOn.wind_simulation_active, False)
 
     common = MeshSettings.ComonMeshConfig
     common['general_target_length_of_fe'] = 0.4321
@@ -55,18 +109,19 @@ def test_mesh_settings():
 
 def test_optimization_settings():
 
-    OptimizationSettings(True, 11, OptimizeOnType.E_OPTIMIZE_ON_TYPE_MIN_COST,
-                         Optimizer.E_OPTIMIZER_TYPE_PERCENTS_OF_RANDOM_MUTATIONS,
-                         0.3)
-    opt_sett = OptimizationSettings.get()
-    assert opt_sett.general_optimization_active
-    assert opt_sett.general_keep_best_number_model_mutations == 11
-    assert opt_sett.general_optimize_on == OptimizeOnType.E_OPTIMIZE_ON_TYPE_MIN_COST.name
-    assert opt_sett.general_optimizer == Optimizer.E_OPTIMIZER_TYPE_PERCENTS_OF_RANDOM_MUTATIONS.name
-    assert opt_sett.general_number_random_mutations == 0.3
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
 
-    opt_sett.general_keep_best_number_model_mutations = 15
-    OptimizationSettings.set(opt_sett)
+    SetAddonStatus(Model.clientModel, AddOn.cost_estimation_active)
+    OptimizationSettings()
+
+    Model.clientModel.service.finish_modification()
+
+    opt_sett = OptimizationSettings.GetOptimizationSettings(1)
+
+    assert opt_sett.active
+    assert opt_sett.number_of_mutations_to_keep == 20
+    assert opt_sett.target_value_type == OptimizationTargetValueType.MIN_TOTAL_WEIGHT.name
 
     # Testing model is closed at the end of the testing session to enable easier and cleaned restart of the unit tests.
-    client.service.close_model(0, False)
+    connectionGlobals.client.service.close_model(0, False)

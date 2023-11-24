@@ -7,6 +7,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.Loads.freeLoad import FreeLoad
+from math import pi
 from RFEM.enums import *
 from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
@@ -125,7 +126,7 @@ def test_free_load():
                              FreeRectangularLoadLoadDirection.LOAD_DIRECTION_GLOBAL_Z_TRUE,
                              [5000],
                              FreeRectangularLoadLoadLocationRectangle.LOAD_LOCATION_RECTANGLE_CENTER_AND_SIDES,
-                             [2, 9, 2, 2, 0])
+                             [2, 9, 2, 2, 10])
 
     FreeLoad.RectangularLoad(2, 3, '1',
                             FreeRectangularLoadLoadDistribution.LOAD_DISTRIBUTION_LINEAR_FIRST,
@@ -225,11 +226,13 @@ def test_free_load():
     assert fll.load_location_second_y == 5
 
     frl = Model.clientModel.service.get_free_rectangular_load(5, 3)
+    fr2 = Model.clientModel.service.get_free_rectangular_load(1, 3)
     assert frl.load_projection == 'LOAD_PROJECTION_XY_OR_UV'
     assert frl.load_direction == 'LOAD_DIRECTION_GLOBAL_Z_TRUE'
     assert frl.load_distribution == 'LOAD_DISTRIBUTION_VARYING_ALONG_PERIMETER'
     assert frl.load_location_center_y == 6
     assert frl.load_location_center_side_b == 3
+    assert fr2.load_location_rotation == 10 * (pi/180)
 
     fcl = Model.clientModel.service.get_free_circular_load(2, 4)
     assert fcl.magnitude_center == 10000

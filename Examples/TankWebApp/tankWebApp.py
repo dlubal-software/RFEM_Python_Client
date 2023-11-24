@@ -1,5 +1,5 @@
 import os
-import time
+import sys
 import webbrowser
 from threading import Timer
 from responsiveTank import *
@@ -51,8 +51,15 @@ app = Dash(__name__)
 
 logoPath = 'assets/logo.png'
 
-obj_file = dirName + '/export.obj'
+obj_file = dirName + '/export/export.obj'
 txt_content = None
+
+if not os.path.exists(dirName + '/export'):
+   os.mkdir(dirName + '/export')
+
+if not os.path.exists(obj_file):
+    open(obj_file, "x")
+
 with open(obj_file, 'r') as file:
   txt_content = file.read()
 
@@ -182,9 +189,14 @@ def update(value, height, diameter, uti):
 
         result = html.P(id='stressResult',
                         children=[html.H5('The maximum stress:'), html.H2(' {} MPa'.format(stress))])
-        print(stress)
 
-    obj_file = dirName + '/export.obj'
+    obj_file = dirName + '/export/export.obj'
+
+    if not os.path.exists(dirName + '/export'):
+       os.mkdir(dirName + '/export')
+
+    if not os.path.exists(obj_file):
+        open(obj_file, "x")
 
     txt_content = None
     with open(obj_file, 'r') as file:
@@ -209,4 +221,4 @@ def open_browser():
 
 if __name__ == "__main__":
     Timer(1, open_browser).start()
-    app.run_server(debug=True, port=8050)
+    app.run(debug=True, port=8050) # run_server is deprecated

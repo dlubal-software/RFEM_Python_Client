@@ -15,7 +15,7 @@ from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.surface import Surface
 from RFEM.BasicObjects.solid import Solid
 from RFEM.TypesForSolids.solidGas import SolidGas
-from RFEM.TypesForSolids.solidContact import SolidContact
+from RFEM.TypesForSolids.solidContact import SolidContacts
 from RFEM.BasicObjects.solidSet import SolidSet
 
 if Model.clientModel is None:
@@ -67,10 +67,6 @@ def test_solids_and_solid_sets():
 
     Solid.Soil(1, '1-6', 2)
 
-    solid = Model.clientModel.service.get_solid(1)
-    assert round(solid.volume, 1) == 500
-    assert solid.type == 'TYPE_SOIL'
-
     # Solid 2
     Node(9, 0.0, 20.0, 0.0)
     Node(10, 10.0, 20.0, 0.0)
@@ -107,10 +103,6 @@ def test_solids_and_solid_sets():
     Material(3, 'S275')
     Solid.Standard(2, '7-12', 3)
 
-    solid = Model.clientModel.service.get_solid(2)
-    assert round(solid.volume, 1) == 500
-    assert solid.type == 'TYPE_STANDARD'
-
     # Solid 3
     Node(17, 20.0, 20.0, 0.0)
     Node(18, 20.0, 30.0, 0.0)
@@ -132,14 +124,9 @@ def test_solids_and_solid_sets():
     Surface(16, '27 32 30 23', 1)
     Surface(17, '26 31 29 32', 1)
 
-    SolidContact()
+    SolidContacts()
     Solid.Contact(3, '13-17,12', 1, params={'solid_contact': 1,
                  'solid_contact_first_surface':12})
-
-    solid = Model.clientModel.service.get_solid(3)
-    assert solid.type == 'TYPE_CONTACT'
-    assert solid.solid_contact_first_surface == 12
-    assert solid.solid_contact_second_surface == 17
 
     # Solid 4
     Node(21, 11.0, 0.0, 0.0)
@@ -182,6 +169,19 @@ def test_solids_and_solid_sets():
     SolidSet.GroupOfSolids(3, '1 4')
 
     Model.clientModel.service.finish_modification()
+
+    solid = Model.clientModel.service.get_solid(1)
+    assert round(solid.volume, 1) == 500
+    assert solid.type == 'TYPE_SOIL'
+
+    solid = Model.clientModel.service.get_solid(2)
+    assert round(solid.volume, 1) == 500
+    assert solid.type == 'TYPE_STANDARD'
+
+    solid = Model.clientModel.service.get_solid(3)
+    assert solid.type == 'TYPE_CONTACT'
+    assert solid.solid_contact_first_surface == 12
+    assert solid.solid_contact_second_surface == 17
 
     solid = Model.clientModel.service.get_solid(4)
     assert round(solid.volume, 1) == 1000

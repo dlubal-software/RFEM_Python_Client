@@ -1,7 +1,8 @@
-from RFEM.initModel import Model, clearAttributes, ConvertStrToListOfInt
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertStrToListOfInt
 from RFEM.enums import LineWeldedJointType, WeldType, WeldLongitudalArrangement
 
 class LineWeldedJoint():
+
     def __init__(self,
                  no: int = 1,
                  lines: str = '5',
@@ -56,6 +57,9 @@ class LineWeldedJoint():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Line welded joint to client model
         model.clientModel.service.set_line_welded_joint(clientObject)
 
@@ -67,6 +71,8 @@ class LineWeldedJoint():
             line.has_line_welds = True
             clientWeld = model.clientModel.factory.create('ns0:line_line_weld_assignment_row')
             clientWeld.no = count+1
+            clientWeld.row = model.clientModel.factory.create('ns0:line_line_weld_assignment')
+            clearAttributes(clientWeld.row)
             clientWeld.row.weld = no
             clientWeld.row.surface1 = iSurfaces[0]
             clientWeld.row.surface2 = iSurfaces[1]

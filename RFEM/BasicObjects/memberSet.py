@@ -1,4 +1,4 @@
-from RFEM.initModel import Model, clearAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
 from RFEM.enums import SetType
 
 class MemberSet():
@@ -43,6 +43,9 @@ class MemberSet():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Member Set to client model
         model.clientModel.service.set_member_set(clientObject)
 
@@ -85,6 +88,9 @@ class MemberSet():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Member Set to client model
         model.clientModel.service.set_member_set(clientObject)
@@ -129,5 +135,20 @@ class MemberSet():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add Member Set to client model
         model.clientModel.service.set_member_set(clientObject)
+
+    @staticmethod
+    def GetMemberSet(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Member Set Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Member Set from client model
+        return model.clientModel.service.get_member_set(object_index)

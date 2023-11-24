@@ -1,5 +1,5 @@
-from RFEM.initModel import Model, clearAttributes
-from RFEM.enums import *
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
+from RFEM.enums import RigidLinkType
 
 class RigidLink():
     def __init__(self,
@@ -31,7 +31,7 @@ class RigidLink():
         clearAttributes(clientObject)
 
         # Type
-        #clientObject.type = RigidLinkType.TYPE_LINE_TO_LINE.name
+        clientObject.type = RigidLinkType.TYPE_LINE_TO_LINE.name
 
         # Rigid Link No.
         clientObject.no = no
@@ -50,6 +50,9 @@ class RigidLink():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add rigid link to client model
         model.clientModel.service.set_rigid_link(clientObject)
@@ -102,6 +105,9 @@ class RigidLink():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add rigid link to client model
         model.clientModel.service.set_rigid_link(clientObject)
@@ -156,6 +162,9 @@ class RigidLink():
             for key in params:
                 clientObject[key] = params[key]
 
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
         # Add rigid link to client model
         model.clientModel.service.set_rigid_link(clientObject)
 
@@ -202,6 +211,9 @@ class RigidLink():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add rigid link to client model
         model.clientModel.service.set_rigid_link(clientObject)
