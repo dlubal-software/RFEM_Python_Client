@@ -8,14 +8,15 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import ObjectTypes
-from RFEM.initModel import Model, url, closeModel, getPathToRunningRFEM
+from RFEM.initModel import Model, closeModel, getPathToRunningRFEM
 from RFEM.ImportExport.exports import IFCExportSettings, ObjectLocation, ObjectLocations, ExportToIFC, GetTableExportConfigManager, SetTableExportConfigManager, ExportTo
 from RFEM.ImportExport.imports import getConversionTables, setConversionTables, getSAFSettings, setSAFSettings, importFrom
+sys.path.append('..')
+from RFEM import connectionGlobals
 
 
 if Model.clientModel is None:
     Model()
-
 
 def test_export():
 
@@ -56,11 +57,11 @@ def test_export():
 
     Model.clientModel.service.finish_modification()
 
-@pytest.mark.skipif(url != 'http://127.0.0.1', reason="This test fails on remote PC due to incorrect file paths. \
+@pytest.mark.skipif(connectionGlobals.url != 'http://127.0.0.1', reason="This test fails on remote PC due to incorrect file paths. \
                     Althought it is easy to change, it would not be easy to update on every remote computer.\
                     It is not necessary to evaluate Client as functional. Localy this tests still gets executed.")
 def test_import():
-
+    print(connectionGlobals.url, connectionGlobals.client)
     Model.clientModel.service.delete_all()
     ct = getConversionTables()
     setConversionTables(ct)

@@ -6,8 +6,10 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.initModel import Model, client
+from RFEM.initModel import Model
 from RFEM.initModel import GetModelParameters, GetModelMainParameters, GetModelId, GetName, GetLanguage, GetVersion
+sys.path.append('..')
+from RFEM import connectionGlobals
 
 if Model.clientModel is None:
     Model()
@@ -43,7 +45,7 @@ def test_Application():
     version = GetVersion()
     language = GetLanguage()
 
-    an = client.service.get_information()
+    an = connectionGlobals.client.service.get_information()
 
     assert an.name == name
     assert an.version == version
