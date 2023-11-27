@@ -372,6 +372,23 @@ def Calculate_all(generateXmlSolverInput: bool = False, model = Model):
     calculationMessages = model.clientModel.service.calculate_all(generateXmlSolverInput)
     return calculationMessages
 
+def CalculateInCloud(machine_id, run_plausibility_check, calculate_despite_warnings_and_errors, email_notification, model = Model):
+    '''
+    Starts cloud calculation of model.
+
+    Args:
+        machine_id (str): virtual machine ID (Dlu_1, F4s_v2, F8s_v2, F16s_v2, F32s_v2)
+        run_plausibility_check (bool): Activate/Deactivate plausibility check before cloud calculation
+        calculate_despite_warnings_and_errors (bool): Activate/Deactivate to start cloud calculation despite warnings and errors
+        email_notification (bool): Activate/Deactivate email notification
+    '''
+    try:
+        cloudCalculationResult = model.clientModel.service.calculate_all_in_cloud(machine_id, run_plausibility_check, calculate_despite_warnings_and_errors, email_notification)
+        print("Cloud calculation was started.")
+        return cloudCalculationResult # list
+    except:
+        print("The cloud calculation could not be started.")
+
 def ConvertToDlString(s):
     '''
     The function converts strings commonly used in RFEM so that they
