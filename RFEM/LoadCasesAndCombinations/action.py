@@ -46,8 +46,6 @@ class Action():
 
         # Action Items
         if action_items:
-            # Sanity check
-            sCheck = True
             for i in action_items:
                 if action_type == ActionType.ACTING_DIFFERENTLY:
                     if not isinstance(i, list) or len(i) != 2:
