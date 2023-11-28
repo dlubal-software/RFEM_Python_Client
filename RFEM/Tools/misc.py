@@ -1,6 +1,7 @@
 from RFEM.BasicObjects.member import Member
-from RFEM.initModel import Model, client
-from RFEM.enums import ProgramLanguage, ActionType, ImposedLoadCategory, ActionCombinationItems
+from RFEM.initModel import Model
+from RFEM.enums import ActionType, ImposedLoadCategory, ActionCombinationItems
+from RFEM import connectionGlobals
 
 ###########################################
 # Application functions
@@ -10,7 +11,7 @@ def closeApplication():
     '''
     Close RFEM/RSTAB app
     '''
-    client.service.close_application()
+    connectionGlobals.client.service.close_application()
 
 def closeModel(model_index, save_changes = True):
     '''
@@ -19,13 +20,13 @@ def closeModel(model_index, save_changes = True):
         model_index (int): Index
         save_changes (bool): True by default
     '''
-    client.service.close_model(model_index, save_changes)
+    connectionGlobals.client.service.close_model(model_index, save_changes)
 
 def deleteProject(projectPath):
     '''
     Delete project
     '''
-    client.service.delete_project(projectPath)
+    connectionGlobals.client.service.delete_project(projectPath)
 
 def newModel(model_name):
     '''
@@ -34,7 +35,7 @@ def newModel(model_name):
     Args:
         model_name(str): Model name
     '''
-    client.service.new_model(model_name)
+    connectionGlobals.client.service.new_model(model_name)
 
 def newModelAsCopy(model_name, file_path):
     '''
@@ -44,7 +45,7 @@ def newModelAsCopy(model_name, file_path):
         model_name (str): Name of the model
         file_path (str): Path to the file
     '''
-    client.service.new_model_as_copy(model_name, file_path)
+    connectionGlobals.client.service.new_model_as_copy(model_name, file_path)
 
 def newModelFromTemplate(model_name, file_path):
     '''
@@ -54,7 +55,7 @@ def newModelFromTemplate(model_name, file_path):
         model_name (str): Name of the model
         file_path (str): Path to the file
     '''
-    client.service.new_model_from_template(model_name, file_path)
+    connectionGlobals.client.service.new_model_from_template(model_name, file_path)
 
 def newProject(name, description, parent_path, folder_path):
     '''
@@ -66,13 +67,13 @@ def newProject(name, description, parent_path, folder_path):
         parent_path (str): Parenth path
         folder_path (str): Folder path
     '''
-    pi = client.factory.create('ns0:project_info')
+    pi = connectionGlobals.client.factory.create('ns0:project_info')
     pi.name = name
     pi.description = description
     pi.parent_path = parent_path
     pi.folder_path = folder_path
 
-    client.service.new_project(pi)
+    connectionGlobals.client.service.new_project(pi)
 
 def newTemplate(template_info): #ns0:template_info doesn't work
     '''
@@ -81,7 +82,7 @@ def newTemplate(template_info): #ns0:template_info doesn't work
     Args:
         template_info
     '''
-    client.service.new_template(template_info)
+    connectionGlobals.client.service.new_template(template_info)
 
 def openModel(model_path):
     '''
@@ -90,7 +91,7 @@ def openModel(model_path):
     Args:
         model_path (str): Path to model
     '''
-    client.service.open_model(model_path)
+    connectionGlobals.client.service.open_model(model_path)
 
 def saveModel(model_index):
     '''
@@ -99,10 +100,10 @@ def saveModel(model_index):
     Args:
         model_index (int): Index of model to be saved
     '''
-    client.service.save_model(model_index)
+    connectionGlobals.client.service.save_model(model_index)
 
 def setAsCurrentProject(project_path):
-    client.service.set_as_current_project(project_path)
+    connectionGlobals.client.service.set_as_current_project(project_path)
 
 def setDetailedLogging(logging = True):
     '''
@@ -111,7 +112,7 @@ def setDetailedLogging(logging = True):
     Args:
         logging (bool): Enable or disable detailed logging
     '''
-    client.service.set_detailed_logging(logging)
+    connectionGlobals.client.service.set_detailed_logging(logging)
 
 def setSettingsProgramLanguage(language):
     '''
@@ -120,7 +121,7 @@ def setSettingsProgramLanguage(language):
     Args:
         language (enum ProgramLanguage): Program language
     '''
-    client.service.set_settings_program_language(language)
+    connectionGlobals.client.service.set_settings_program_language(language)
 
 ###########################################
 # Model functions
