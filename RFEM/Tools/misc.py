@@ -1,4 +1,3 @@
-from RFEM.BasicObjects.member import Member
 from RFEM.initModel import Model
 from RFEM.enums import ActionType, ImposedLoadCategory, ActionCombinationItems
 from RFEM import connectionGlobals
@@ -13,21 +12,14 @@ def closeApplication():
     '''
     connectionGlobals.client.service.close_application()
 
-def closeModel(model_index, save_changes = True):
-    '''
-    Close model at given index
-    Args:
-        model_index (int): Index
-        save_changes (bool): True by default
-    '''
-    connectionGlobals.client.service.close_model(model_index, save_changes)
-
+# For both / and \\ in file path I get invalid file path
 def deleteProject(projectPath):
     '''
     Delete project
     '''
     connectionGlobals.client.service.delete_project(projectPath)
 
+# Not in coverage results, but works
 def newModel(model_name):
     '''
     Create new model
@@ -37,16 +29,7 @@ def newModel(model_name):
     '''
     connectionGlobals.client.service.new_model(model_name)
 
-def newModelAsCopy(model_name, file_path):
-    '''
-    Create new model as copy
-
-    Args:
-        model_name (str): Name of the model
-        file_path (str): Path to the file
-    '''
-    connectionGlobals.client.service.new_model_as_copy(model_name, file_path)
-
+# Not tested, see newTemplate
 def newModelFromTemplate(model_name, file_path):
     '''
     Create newmodel from template
@@ -57,6 +40,7 @@ def newModelFromTemplate(model_name, file_path):
     '''
     connectionGlobals.client.service.new_model_from_template(model_name, file_path)
 
+# Cannot figure out the parent path
 def newProject(name, description, parent_path, folder_path):
     '''
     Create new project
@@ -75,6 +59,8 @@ def newProject(name, description, parent_path, folder_path):
 
     connectionGlobals.client.service.new_project(pi)
 
+# Function changed? new_template(ns0:project_info template_info, )
+# Also cannot create template_info
 def newTemplate(template_info): #ns0:template_info doesn't work
     '''
     Create new template
@@ -84,6 +70,8 @@ def newTemplate(template_info): #ns0:template_info doesn't work
     '''
     connectionGlobals.client.service.new_template(template_info)
 
+# Not in coverage results, and it is in initModel as openFile
+# I suggest deleting it
 def openModel(model_path):
     '''
     Open existing model
@@ -93,6 +81,7 @@ def openModel(model_path):
     '''
     connectionGlobals.client.service.open_model(model_path)
 
+############ BOOKMARK ###################################################
 def saveModel(model_index):
     '''
     Save model
