@@ -9,8 +9,8 @@ from RFEM.initModel import Model
 from RFEM.Tools.GetObjectNumbersByType import GetAllObjects
 
 # Define name of the model from which the data should be exported
-model_name = '000874_99_Hochhaus.rf6'
-folderPath = 'c:/Users/MichalO/Desktop/RFEM_modely/script_generator/000874_99_Hochhaus/'
+model_name = 'test.rf6'
+folderPath = ''
 
 # Connect to model
 model = Model(False, model_name)
