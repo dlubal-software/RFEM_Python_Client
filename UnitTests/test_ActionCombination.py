@@ -6,19 +6,14 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.enums import NodalSupportType, AddOn, ActionCategoryType, ActionType, DesignSituationType, OperatorType, InitialStateDefintionType
+from RFEM.enums import AddOn, ActionCategoryType, ActionType, OperatorType
 from RFEM.initModel import Model, SetAddonStatus
-from RFEM.BasicObjects.node import Node
-from RFEM.BasicObjects.line import Line
-from RFEM.TypesForNodes.nodalSupport import NodalSupport
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 from RFEM.LoadCasesAndCombinations.designSituation import DesignSituation
 from RFEM.LoadCasesAndCombinations.combinationWizard import CombinationWizard
 from RFEM.LoadCasesAndCombinations.action import Action
 from RFEM.LoadCasesAndCombinations.actionCombination import ActionCombination, ActionCombinationItem
-from RFEM.LoadCasesAndCombinations.stabilityAnalysisSettings import StabilityAnalysisSettings
 
 if Model.clientModel is None:
     Model()
