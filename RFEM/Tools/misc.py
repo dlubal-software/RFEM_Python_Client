@@ -103,17 +103,6 @@ def newTemplate(template_info): #ns0:template_info doesn't work
     '''
     connectionGlobals.client.service.new_template(template_info)
 
-# Not in coverage results, and it is in initModel as openFile
-# I suggest deleting it
-def openModel(model_path):
-    '''
-    Open existing model
-
-    Args:
-        model_path (str): Path to model
-    '''
-    connectionGlobals.client.service.open_model(model_path)
-
 ############ BOOKMARK ###################################################
 def saveModel(model_index):
     '''
