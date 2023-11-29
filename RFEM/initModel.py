@@ -81,6 +81,12 @@ def connectToServer(url=connectionGlobals.url, port=connectionGlobals.port):
     # Assigning session to application Client (here client) instead of model Client
     # results also in poor performance.
 
+def closeConnection():
+    '''
+    Terminate connection to server(RFEM/RSTAB)
+    '''
+    Model.clientModel.service.close_connection()
+
 class Model():
     clientModel = None
     clientModelDct = {}
