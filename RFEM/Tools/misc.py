@@ -6,6 +6,39 @@ from RFEM import connectionGlobals
 # Application functions
 ###########################################
 
+"""
+Additional functions missing in this file.
+Date: 29/11/2023,
+RFEM 6.04.0009.197.2f47af57c08
+
+['get_current_project', 'get_detailed_logging', 'get_list_of_existing_projects',
+'get_list_of_existing_templates', 'get_model_list_with_indexes', 'get_project', 'get_settings_program_language', 'get_template',
+'calculate_all_in_cloud', 'export_to_asf', 'get_Dxf_file_model_object', 'get_Dxf_model_object', 'get_accelerogram',
+'get_action', 'get_action_categories_for_action', 'get_action_categories_for_load_case', 'get_action_combination',
+'get_all_available_machines_in_cloud', 'get_all_object_numbers_by_type', 'get_all_selected_objects',
+'get_aluminum_design_sls_configuration', 'get_aluminum_design_uls_configuration', 'get_building_grid', 'get_building_story',
+'get_calculation_diagram', 'get_calculation_errors', 'get_clipping_box', 'get_clipping_plane', 'get_construction_stage',
+'get_design_situation_types', 'get_design_support', 'get_dimension', 'get_floor_set', 'get_global_parameter', 'get_member_openings',
+'get_member_representative', 'get_member_set_representative', 'get_model_history', 'get_nodal_release', 'get_nodal_release_type',
+'get_note', 'get_nth_object_number', 'get_object_count', 'get_object_information', 'get_object_snap', 'get_optimized_values',
+'get_parts_list_deep_beams_by_material', 'get_parts_list_member_set_representatives_by_material', 'get_parts_list_shear_walls_by_material',
+'get_punching_reinforcement', 'get_pushover_analysis_settings', 'get_relationship_between_load_cases', 'get_shear_wall', 'get_soil_massif',
+'get_steel_design_fr_configuration', 'get_steel_design_seismic_configuration', 'get_surface_imperfection', 'get_surface_release',
+'get_surface_release_type', 'get_surface_set_imperfection', 'get_surfaces_contact_type', 'get_terrain', 'get_timber_design_fr_configuration',
+'get_timber_moisture_class', 'get_timber_service_conditions', 'get_visual_object', 'get_wind_profile', 'get_wind_simulation_analysis_settings',
+'set_accelerogram', 'set_aluminum_design_sls_configuration', 'set_aluminum_design_uls_configuration', 'set_building_grid','set_calculation_diagram',
+'set_floor_set', 'set_member_openings', 'set_model_id', 'set_pushover_analysis_settings','set_shear_wall',
+'set_steel_design_fr_configuration', 'set_steel_design_seismic_configuration','set_timber_design_fr_configuration', 'use_detailed_member_results']
+
+What is not here is somewhere else in the project often in initModel.py or excluded.
+
+Excluded functions:
+For these functions doesn't make sense to create dedicated function.
+
+['beginModification', 'finishModeification']
+"""
+
+
 def closeApplication():
     '''
     Close RFEM/RSTAB app
@@ -116,17 +149,6 @@ def setSettingsProgramLanguage(language):
 # Model functions
 ############################################
 
-def beginModification(modification_name):
-    '''
-    Begin modification.
-    Needs to be set before settingnew values to RFEM.
-    Modifications take place after executing finishModification (finish_modification).
-
-    Args:
-        modification_name (str): name of the modification. Not significant.
-    '''
-    Model.clientModel.service.begin_modification(modification_name)
-
 def calculateSpecific(loadings, skip_warnings = True): #ns0:calculate_specific_loadings, list
     '''
     Calculate specified loadings
@@ -140,7 +162,7 @@ def calculateSpecific(loadings, skip_warnings = True): #ns0:calculate_specific_l
 
 def cancelModification():
     '''
-    Abort modification
+    Abort modification and clear buffer
     '''
     Model.clientModel.service.cancel_modification()
 
@@ -188,12 +210,6 @@ def divideByIntersections(member_list, line_list, surface_list):
     '''
     Model.clientModel.service.divide_by_intersections(member_list, line_list, surface_list)
 
-def finishModification():
-    '''
-    Finish modification i.e. apply all changes.
-    '''
-    Model.clientModel.service.finish_modification()
-
 def generateAndValidateXmlSolverInput(solver_input_file_path):
     '''
     Generate and validate XML input
@@ -224,14 +240,6 @@ def runScript(script_file_path):
     '''
     Model.clientModel.service.run_script(script_file_path)
 
-def save(file_path):
-    '''
-    Save As...
-
-    Args:
-        file_path (str): Path to the file
-    '''
-    Model.clientModel.service.save(file_path)
 
 Dxf_file_model_object = {
    'no' : None,
@@ -336,10 +344,6 @@ def setActionCombination(
     model.clientModel.service.set_action_combination(clientObject)
 
 
-
-def setBorehole(bore_hole): # ns0:borehole
-    Model.clientModel.service.set_borehole(bore_hole)
-
 def setBuildingStory(building_story): # ns0:building_story
     Model.clientModel.service.set_building_story(building_story)
 
@@ -349,29 +353,14 @@ def setClippingBox(clipping_box): # ns0:clipping_box
 def setClippingPlane(clipping_plane): # ns0:clipping_plane
     Model.clientModel.service.set_clipping_plane(clipping_plane)
 
-def setCombinationWizard(combination_wizard): # ns0:combination_wizard
-    Model.clientModel.service.set_combination_wizard(combination_wizard)
-
 def setConstructionStage(construction_stag): # ns0:construction_stag
     Model.clientModel.service.set_construction_stage(construction_stag)
-
-def setCoordinateSystem(coordinate_system): # ns0:coordinate_system
-    Model.clientModel.service.set_coordinate_system(coordinate_system)
 
 def setDesignSupport(design_situation): # ns0:design_situation
     Model.clientModel.service.set_design_support(design_situation)
 
 def setDimension(dimension): # ns0:dimension
     Model.clientModel.service.set_dimension(dimension)
-
-def setLineGrid(line_grid): #ns0:line_grid
-    Model.clientModel.service.set_line_grid(line_grid)
-
-def setLoadCasesAndCombinations(load_cases_and_combinations): # ns0:load_cases_and_combinations
-    Model.clientModel.service.set_load_cases_and_combinations(load_cases_and_combinations)
-
-def setMainObjectsToActivate(main_objects_to_activate): # ns0:main_objects_to_activate
-    Model.clientModel.service.set_main_objects_to_activate(main_objects_to_activate)
 
 def setMemberRepresentative(member_representative): # ns0:member_representative
     Model.clientModel.service.set_member_representative(member_representative)
@@ -381,21 +370,6 @@ def setMemberSetRepresentative(member_set_representative): # ns0:member_set_repr
 
 def setModelHistory(history): # ns0:array_of_model_history
     Model.clientModel.service.set_model_history(history)
-
-def setModelParameters(model_parameters): # ns0:array_of_model_parameters
-    Model.clientModel.service.set_model_parameters(model_parameters)
-
-def setModelParametersLocation(location): # ns0:array_of_model_parameters_location
-    Model.clientModel.service.set_model_parameters_location(location)
-
-def setModelSettingsAndOptions(model_settings_and_options): # ns0:model_settings_and_options
-    Model.clientModel.service.set_model_settings_and_options(model_settings_and_options)
-
-def setModelType(model_type): # ns0:model_type *
-    Model.clientModel.service.set_model_type(model_type)
-
-def setNote(note): # ns0:note should be string !?
-    Model.clientModel.service.set_note(note)
 
 def setObjectSnap(snap): #ns0:object_snap
     Model.clientModel.service.set_object_snap(snap)
@@ -421,12 +395,6 @@ def setSurfaceSetImperfection(imperfection_case_no, surface_set_imperfection): #
 def setTerrain(terrain): # ns0:terrain
     Model.clientModel.service.set_terrain(terrain)
 
-def setTimberMoistureClass(timber_moisture_class): # ns0:timber_moisture_class
-    Model.clientModel.service.set_timber_moisture_class(timber_moisture_class)
-
-def setTimberServiceConditions(timber_service_conditions): # ns0:timber_service_conditions
-    Model.clientModel.service.set_timber_service_conditions(timber_service_conditions)
-
 def setVisualObject(visual_object): # ns0:visual_object
     Model.clientModel.service.set_visual_object(visual_object)
 
@@ -435,9 +403,6 @@ def setWindProfile(wind_profile): # ns0:wind_profile
 
 def setWindSimulation(wind_simulation): # ns0:wind_simulation
     Model.clientModel.service.set_wind_simulation(wind_simulation)
-
-def setWindSimulationAnalysisSettings(wind_simulation_analysis_settings): # ns0:wind_simulation_analysis_settings
-    Model.clientModel.service.set_wind_simulation_analysis_settings(wind_simulation_analysis_settings)
 
 def uniteNodesAndSupports(tolerance):
     Model.clientModel.service.unite_nodes_and_supports(tolerance)
