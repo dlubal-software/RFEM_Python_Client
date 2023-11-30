@@ -1,5 +1,5 @@
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
-from RFEM.enums import TimberMoistureClassType
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, ConvertStrToListOfInt
+from RFEM.enums import TimberMoistureClassType, ObjectTypes
 
 class TimberMoistureClass():
     def __init__(self,
@@ -69,3 +69,28 @@ class TimberMoistureClass():
 
         # Add Service Class to client model
         model.clientModel.service.set_timber_moisture_class(clientObject)
+
+    @staticmethod
+    def Delete(numbers: str = '1 2', model = Model):
+
+        '''
+        Args:
+            numbers (str): Numbers of Timber Moisture Class to be deleted
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Delete from client model
+        for i in ConvertStrToListOfInt(numbers):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_TIMBER_MOISTURE_CLASS.name, i)
+
+    @staticmethod
+    def Get(idx: int = 1, model = Model):
+
+        '''
+        Args:
+            idx (int): Timber Moisture Class Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Timber Moisture Class from client model
+        return model.clientModel.service.get_timber_moisture_class(idx)

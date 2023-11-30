@@ -1,5 +1,5 @@
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
-from RFEM.enums import NodalReleaseReleaseLocation
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, ConvertStrToListOfInt
+from RFEM.enums import NodalReleaseReleaseLocation, ObjectTypes
 
 class NodalRelease():
 
@@ -81,3 +81,28 @@ class NodalRelease():
 
         # Add Nodal Release to client model
         model.clientModel.service.set_nodal_release(clientObject)
+
+    @staticmethod
+    def Delete(numbers: str = '1 2', model = Model):
+
+        '''
+        Args:
+            numbers (str): Numbers of Nodal Release to be deleted
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Delete from client model
+        for i in ConvertStrToListOfInt(numbers):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_NODAL_RELEASE.name, i)
+
+    @staticmethod
+    def Get(idx: int = 1, model = Model):
+
+        '''
+        Args:
+            idx (int): Nodal Release Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Nodal Release from client model
+        return model.clientModel.service.get_nodal_release(idx)

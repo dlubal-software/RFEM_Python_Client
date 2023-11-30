@@ -1,5 +1,5 @@
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
-from RFEM.enums import SurfaceReleaseReleaseLocation
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, ConvertStrToListOfInt
+from RFEM.enums import SurfaceReleaseReleaseLocation, ObjectTypes
 
 class SurfaceRelease():
 
@@ -89,5 +89,30 @@ class SurfaceRelease():
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
 
-        # Add Surface Release Type to Client Model
+        # Add Surface Release to Client Model
         model.clientModel.service.set_surface_release(clientObject)
+
+    @staticmethod
+    def Delete(numbers: str = '1 2', model = Model):
+
+        '''
+        Args:
+            numbers (str): Numbers of Surface Release to be deleted
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Delete from client model
+        for i in ConvertStrToListOfInt(numbers):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_SURFACE_RELEASE.name, i)
+
+    @staticmethod
+    def Get(idx: int = 1, model = Model):
+
+        '''
+        Args:
+            idx (int): Surface Release Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Surface Release from client model
+        return model.clientModel.service.get_surface_release(idx)

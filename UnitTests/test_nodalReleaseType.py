@@ -35,7 +35,7 @@ def test_NodalReleaseType():
 
     Model.clientModel.service.finish_modification()
 
-    nrt_1 = Model.clientModel.service.get_nodal_release_type(1)
+    nrt_1 = NodalReleaseType.Get(1)
     assert nrt_1.partial_activity_along_y_positive_type == "PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE"
     assert nrt_1.partial_activity_along_y_positive_force == 1500
     assert nrt_1.diagram_around_x_start == "DIAGRAM_ENDING_TYPE_FAILURE"
@@ -43,7 +43,7 @@ def test_NodalReleaseType():
     assert nrt_1.diagram_around_x_table[0][0].row['moment'] == 1000
 
 
-    nrt_2 = Model.clientModel.service.get_nodal_release_type(2)
+    nrt_2 = NodalReleaseType.Get(2)
     assert nrt_2.axial_release_vy_nonlinearity == "NONLINEARITY_TYPE_DIAGRAM"
     assert nrt_2.partial_activity_along_x_positive_type == "PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE"
     assert nrt_2.partial_activity_along_x_negative_force == 1600

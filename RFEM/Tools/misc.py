@@ -11,26 +11,6 @@ Additional functions missing in this file.
 Date: 29/11/2023,
 RFEM 6.04.0009.197.2f47af57c08
 
-['get_current_project', 'get_list_of_existing_projects',
-'get_list_of_existing_templates', 'get_model_list_with_indexes', 'get_project', 'get_settings_program_language', 'get_template',
-'calculate_all_in_cloud', 'export_to_asf', 'get_Dxf_file_model_object', 'get_Dxf_model_object', 'get_accelerogram',
-'get_action', 'get_action_categories_for_action', 'get_action_categories_for_load_case', 'get_action_combination',
-'get_all_available_machines_in_cloud', 'get_all_object_numbers_by_type', 'get_all_selected_objects',
-'get_aluminum_design_sls_configuration', 'get_aluminum_design_uls_configuration', 'get_building_grid', 'get_building_story',
-'get_calculation_diagram', 'get_calculation_errors', 'get_clipping_box', 'get_clipping_plane', 'get_construction_stage',
-'get_design_situation_types', 'get_design_support', 'get_dimension', 'get_floor_set', 'get_global_parameter', 'get_member_openings',
-'get_member_representative', 'get_member_set_representative', 'get_model_history', 'get_nodal_release', 'get_nodal_release_type',
-'get_note', 'get_nth_object_number', 'get_object_count', 'get_object_information', 'get_object_snap', 'get_optimized_values',
-'get_parts_list_deep_beams_by_material', 'get_parts_list_member_set_representatives_by_material', 'get_parts_list_shear_walls_by_material',
-'get_punching_reinforcement', 'get_pushover_analysis_settings', 'get_relationship_between_load_cases', 'get_shear_wall', 'get_soil_massif',
-'get_steel_design_fr_configuration', 'get_steel_design_seismic_configuration', 'get_surface_imperfection', 'get_surface_release',
-'get_surface_release_type', 'get_surface_set_imperfection', 'get_surfaces_contact_type', 'get_terrain', 'get_timber_design_fr_configuration',
-'get_timber_moisture_class', 'get_timber_service_conditions', 'get_visual_object', 'get_wind_profile', 'get_wind_simulation_analysis_settings',
-'set_accelerogram', 'set_aluminum_design_sls_configuration', 'set_aluminum_design_uls_configuration', 'set_building_grid','set_calculation_diagram',
-'set_floor_set', 'set_member_openings', 'set_model_id', 'set_pushover_analysis_settings','set_shear_wall',
-'set_steel_design_fr_configuration', 'set_steel_design_seismic_configuration','set_timber_design_fr_configuration', 'use_detailed_member_results']
-
-What is not here is somewhere else in the project often in initModel.py or excluded.
 
 Excluded functions:
 For these functions doesn't make sense to create dedicated function.
@@ -158,27 +138,27 @@ def calculateSpecific(loadings, skip_warnings=True):
         skip_warnings (bool): Set to True if warnings should be skipped
     '''
 
-    Model.clientModel.service.calculate_specific(loadings, skip_warnings)
+    connectionGlobals.client.service.calculate_specific(loadings, skip_warnings)
 
 # Not tested, there is no set selection yet
 def clearSelection():
     '''
     Empty selection
     '''
-    Model.clientModel.service.clear_selection()
+    connectionGlobals.client.service.clear_selection()
 
 def deleteAll():
     '''
     Delete all objects
     '''
-    Model.clientModel.service.delete_all()
+    connectionGlobals.client.service.delete_all()
 
 # Not tested, because, when I modify the model nothing is added to the history, so I can't verify, if it works
 def deleteAllHistory():
     '''
     Delete whole history
     '''
-    Model.clientModel.service.delete_all_history()
+    connectionGlobals.client.service.delete_all_history()
 
 def deleteAllResults(delete_mesh = True):
     '''
@@ -187,7 +167,7 @@ def deleteAllResults(delete_mesh = True):
     Args:
         delete_mesh (bool): Put True if the mesh should be deleted
     '''
-    Model.clientModel.service.delete_all_results(delete_mesh)
+    connectionGlobals.client.service.delete_all_results(delete_mesh)
 
 # Not tested, because I dont know what it should do
 def divideByIntersections(member_list, line_list, surface_list):
@@ -199,7 +179,7 @@ def divideByIntersections(member_list, line_list, surface_list):
         line_list (list): List of lines
         surface_list (list): List of surfaces
     '''
-    Model.clientModel.service.divide_by_intersections(member_list, line_list, surface_list)
+    connectionGlobals.client.service.divide_by_intersections(member_list, line_list, surface_list)
 
 # I think this function doesn't generate anything, so the name is wrong,
 # and the validation also doesn't work - it returns Success on any file with .xml extension
@@ -211,20 +191,20 @@ def generateAndValidateXmlSolverInput(solver_input_file_path):
     Args:
         solver_input_file_path(str): Path to XML
     '''
-    return Model.clientModel.service.generate_and_validate_xml_solver_input(solver_input_file_path)
+    return connectionGlobals.client.service.generate_and_validate_xml_solver_input(solver_input_file_path)
 
 # Don't know what this should produce, but neither LC or CO was generated
 def generateLoadCasesAndCombinations():
     '''
     Generate load cases and combinations
     '''
-    Model.clientModel.service.generate_load_cases_and_combinations()
+    connectionGlobals.client.service.generate_load_cases_and_combinations()
 
 def reset():
     '''
     Resets everything
     '''
-    Model.clientModel.service.reset()
+    connectionGlobals.client.service.reset()
 
 def runScript(script_file_path):
     '''
@@ -233,7 +213,7 @@ def runScript(script_file_path):
     Args:
         script_file_path (str): Path to JS script.
     '''
-    Model.clientModel.service.run_script(script_file_path)
+    connectionGlobals.client.service.run_script(script_file_path)
 
 
 Dxf_file_model_object = {
@@ -267,11 +247,11 @@ def setDxfFileModelObject(dxf_file_model_object): # ns0:Dxf_file_model_object
     '''
     Set DXF import parameters
     '''
-    Model.clientModel.service.set_Dxf_file_model_object(dxf_file_model_object)
+    connectionGlobals.client.service.set_Dxf_file_model_object(dxf_file_model_object)
 
 # Not tested, I need dxf file
 def setDxfModelObject(parent_no, dxf_model_object): # ns0:Dxf_model_object
-    Model.clientModel.service.set_Dxf_model_object(parent_no, dxf_model_object)
+    connectionGlobals.client.service.set_Dxf_model_object(parent_no, dxf_model_object)
 
 Action = {
    'no' : None,
@@ -299,7 +279,7 @@ def setAction(action): # ns0:action
     '''
     Set Action
     '''
-    Model.clientModel.service.set_action()
+    connectionGlobals.client.service.set_action()
 
 # Isn't this part of your PR?
 def setActionCombination(
@@ -319,7 +299,7 @@ def setActionCombination(
     '''
     Set Action combination
     '''
-    clientObject = model.clientModel.factory.create('ns0:action_combination')
+    clientObject = connectionGlobals.client.factory.create('ns0:action_combination')
 
     clientObject.no = no
     clientObject.design_situation = design_situation
@@ -340,69 +320,558 @@ def setActionCombination(
         for key in params:
             clientObject[key] = params[key]
 
-    model.clientModel.service.set_action_combination(clientObject)
+    connectionGlobals.client.service.set_action_combination(clientObject)
 
 
 ############ BOOKMARK ###################################################
+
 def setBuildingStory(building_story): # ns0:building_story
-    Model.clientModel.service.set_building_story(building_story)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_building_story(building_story)
 
 def setClippingBox(clipping_box): # ns0:clipping_box
-    Model.clientModel.service.set_clipping_box(clipping_box)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_clipping_box(clipping_box)
 
 def setClippingPlane(clipping_plane): # ns0:clipping_plane
-    Model.clientModel.service.set_clipping_plane(clipping_plane)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_clipping_plane(clipping_plane)
 
 def setConstructionStage(construction_stag): # ns0:construction_stag
-    Model.clientModel.service.set_construction_stage(construction_stag)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_construction_stage(construction_stag)
 
 def setDesignSupport(design_situation): # ns0:design_situation
-    Model.clientModel.service.set_design_support(design_situation)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_design_support(design_situation)
 
 def setDimension(dimension): # ns0:dimension
-    Model.clientModel.service.set_dimension(dimension)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_dimension(dimension)
 
 def setMemberRepresentative(member_representative): # ns0:member_representative
-    Model.clientModel.service.set_member_representative(member_representative)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_member_representative(member_representative)
 
 def setMemberSetRepresentative(member_set_representative): # ns0:member_set_representative
-    Model.clientModel.service.set_member_set_representative(member_set_representative)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_member_set_representative(member_set_representative)
 
 def setModelHistory(history): # ns0:array_of_model_history
-    Model.clientModel.service.set_model_history(history)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_model_history(history)
 
 def setObjectSnap(snap): #ns0:object_snap
-    Model.clientModel.service.set_object_snap(snap)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_object_snap(snap)
 
 def setPunchingReinforcement(punching_reinforcement): # ns0:punching_reinforcement
-    Model.clientModel.service.set_punching_reinforcement(punching_reinforcement)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_punching_reinforcement(punching_reinforcement)
 
 def setRelationshipBetweenLoadCases(relationship_between_load_cases): #ns0:relationship_between_load_cases
-    Model.clientModel.service.set_relationship_between_load_cases(relationship_between_load_cases)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_relationship_between_load_cases(relationship_between_load_cases)
 
 def setSelectedObjects(selected_objects): # ns0:object_location_array
-    Model.clientModel.service.set_selected_objects(selected_objects)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_selected_objects(selected_objects)
 
 def setSoilMassif(soil_massif): # ns0:soil_massif
-    Model.clientModel.service.set_soil_massif(soil_massif)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_soil_massif(soil_massif)
 
 def setSurfaceImperfection(imperfection_case_no, surface_imperfection): # ns0:surface_imperfection
-    Model.clientModel.service.set_surface_imperfection(imperfection_case_no, surface_imperfection)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_surface_imperfection(imperfection_case_no, surface_imperfection)
 
 def setSurfaceSetImperfection(imperfection_case_no, surface_set_imperfection): # ns0:surface_set_imperfection
-    Model.clientModel.service.set_surface_set_imperfection(imperfection_case_no, surface_set_imperfection)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_surface_set_imperfection(imperfection_case_no, surface_set_imperfection)
 
 def setTerrain(terrain): # ns0:terrain
-    Model.clientModel.service.set_terrain(terrain)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_terrain(terrain)
 
 def setVisualObject(visual_object): # ns0:visual_object
-    Model.clientModel.service.set_visual_object(visual_object)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_visual_object(visual_object)
 
 def setWindProfile(wind_profile): # ns0:wind_profile
-    Model.clientModel.service.set_wind_profile(wind_profile)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_wind_profile(wind_profile)
 
 def setWindSimulation(wind_simulation): # ns0:wind_simulation
-    Model.clientModel.service.set_wind_simulation(wind_simulation)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_wind_simulation(wind_simulation)
 
 def uniteNodesAndSupports(tolerance):
-    Model.clientModel.service.unite_nodes_and_supports(tolerance)
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.unite_nodes_and_supports(tolerance)
+
+########## ADDED FUNCTIONS 30.11.2023 ###########
+#################### SETTERS ####################
+
+def SetAccelerogram():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_accelerogram()
+
+def SetAluminumDesignSLSConfiguration():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_aluminum_design_sls_configuration()
+
+def SetAluminumDesignULSConfiguration():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_aluminum_design_uls_configuration()
+
+def SetBuildingGrid():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_building_grid()
+
+def SetCalculationDiagram():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_calculation_diagram()
+
+def SetFloorSet():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_floor_set()
+
+def SetMemberOpenings():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_member_openings()
+
+def SetModelId():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_model_id()
+
+def SetPushoverAnalysisSettings():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_pushover_analysis_settings()
+
+def SetShearWall():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_shear_wall()
+
+def SetSteelDesignFRConfiguration():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_steel_design_fr_configuration()
+
+def SetSteelDesignSeismicConfiguration():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_steel_design_seismic_configuration()
+
+def SetTimberDesignFRConfiguration():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.set_timber_design_fr_configuration()
+
+def UseDetailedMemberResults():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.use_detailed_member_results()
+
+def CalculateAllInCloud():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.calculate_all_in_cloud()
+
+def ExportToAsf():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.export_to_asf()
+
+#################### GETTERS #####################
+
+def GetCurrentProject():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_current_project()
+
+def GetListOfExistingProjects():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_list_of_existing_projects()
+
+def GetListOfExistingTemplates():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_list_of_existing_templates()
+
+def GetModelListWithIndexes():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_model_list_with_indexes()
+
+def GetProject():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_project()
+
+def GetSettingsProgramLanguage():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_settings_program_language()
+
+def GetTemplate():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_template()
+
+def GetDXFFileModelObject():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_Dxf_file_model_object()
+
+def GetDXFModelObject():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_Dxf_model_object()
+
+def GetAccelerogram():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_accelerogram()
+
+def GetActionCategoriesForAction():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_action_categories_for_action()
+
+def GetActionCategoriesForLoadCase():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_action_categories_for_load_case()
+
+def GetAllAvailableMachinesInCloud():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_all_available_machines_in_cloud()
+
+def GetAllSelectedObjects():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_all_selected_objects()
+
+def GetAluminumDesignSLSConfiguration():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_aluminum_design_sls_configuration()
+
+def GetAluminumDesignUlsConfiguration():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_aluminum_design_uls_configuration()
+
+def GetBuildingGrid():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_building_grid()
+
+def GetBuildingStory():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_building_story()
+
+def GetCalculationDiagram():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_calculation_diagram()
+
+def GetCalculationErrors():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_calculation_errors()
+
+def GetClippingBox():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_clipping_box()
+
+def GetClippingPlane():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_clipping_plane()
+
+def GetConstructionStage():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_construction_stage()
+
+def GetDesignSituationTypes():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_design_situation_types()
+
+def GetDesignSupport():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_design_support()
+
+def GetDimension():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_dimension()
+
+def GetFloorSet():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_floor_set()
+
+def GetGlobalParameter():
+    '''
+    Description *
+    '''
+    connectionGlobals.client.service.get_global_parameter()
+
+def GetMemberOpenings():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_member_openings()
+
+def GetMemberRepresentative():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_member_representative()
+
+def GetMemberSetRepresentative():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_member_set_representative()
+
+def GetModelHistory():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_model_history()
+
+def GetNthObjectNumber():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_nth_object_number()
+
+def GetObjectCount():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_object_count()
+
+def GetObjectInformation():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_object_information()
+
+def GetObjectSnap():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_object_snap()
+
+def GetOptimizedValues():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_optimized_values()
+
+def GetPartsListDeepBeamsByMaterial():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_parts_list_deep_beams_by_material()
+
+def GetPartsListMemberSetRepresentativesByMaterial():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_parts_list_member_set_representatives_by_material()
+
+def GetPartsListShearWallsByMaterial():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_parts_list_shear_walls_by_material()
+
+def GetPunchingReinforcement():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_punching_reinforcement()
+
+def GetPushoverAnalysisSettings():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_pushover_analysis_settings()
+
+def GetRelationshipBetweenLoadCases():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_relationship_between_load_cases()
+
+def GetShearWall():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_shear_wall()
+
+def GetSoilMassif():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_soil_massif()
+
+def GetSteelDesignFRConfiguration():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_steel_design_fr_configuration()
+
+def GetSteelDesignSeismicConfiguration():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_steel_design_seismic_configuration()
+
+def GetSurfaceImperfection():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_surface_imperfection()
+
+def GetSurfaceReleaseType():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_surface_release_type()
+
+def GetSurfaceSetImperfection():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_surface_set_imperfection()
+
+def GetTerrain():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_terrain()
+
+def GetTimberDesignFrConfiguration():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_timber_design_fr_configuration()
+
+def GetVisualObject():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_visual_object()
+
+def GetWindProfile():
+    '''
+    Description
+    '''
+    connectionGlobals.client.service.get_wind_profile()

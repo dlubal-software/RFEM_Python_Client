@@ -1,9 +1,9 @@
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertStrToListOfInt
 from RFEM.enums import WindSimulationAnalysisSettingsSimulationType
 from RFEM.enums import WindSimulationAnalysisSettingsMemberLoadDistribution
 from RFEM.enums import WindSimulationAnalysisSettingsMeshRefinementType
 from RFEM.enums import WindSimulationAnalysisSettingsNumericalSolver
-from RFEM.enums import WindSimulationAnalysisSettingsTurbulenceModelType
+from RFEM.enums import WindSimulationAnalysisSettingsTurbulenceModelType, ObjectTypes
 
 
 class WindSimulationAnalysisSettings():
@@ -317,4 +317,27 @@ class WindSimulationAnalysisSettings():
         # Add Wind Simulation Analysis Settings to client model
         model.clientModel.service.set_wind_simulation_analysis_settings(clientObject)
 
+    @staticmethod
+    def Delete(numbers: str = '1 2', model = Model):
 
+        '''
+        Args:
+            numbers (str): Numbers of Wind Simulation Analysis Settings to be deleted
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Delete from client model
+        for i in ConvertStrToListOfInt(numbers):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_WIND_SIMULATION_ANALYSIS_SETTINGS.name, i)
+
+    @staticmethod
+    def Get(idx: int = 1, model = Model):
+
+        '''
+        Args:
+            idx (int): Wind Simulation Analysis Settings Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Wind Simulation Analysis Settings from client model
+        return model.clientModel.service.get_wind_simulation_analysis_settings(idx)

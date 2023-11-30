@@ -49,7 +49,7 @@ def test_timberServiceConditionsGB():
 
     Model.clientModel.service.finish_modification()
 
-    tcs = Model.clientModel.service.get_timber_service_conditions(1)
+    tcs = TimberServiceConditions.Get(1)
     assert tcs.moisture_service_condition == "TIMBER_MOISTURE_SERVICE_CONDITION_TYPE_WET"
     assert tcs.outdoor_environment == True
 

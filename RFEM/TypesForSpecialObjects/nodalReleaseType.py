@@ -1,5 +1,6 @@
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
-from RFEM.enums import NodalReleaseTypePartialActivityAlong, NodalReleaseTypePartialActivityAround, NodalReleaseTypeLocalAxisSystemObjectType, NodalReleaseTypeReleaseNonlinearity
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertStrToListOfInt
+from RFEM.enums import NodalReleaseTypePartialActivityAlong, NodalReleaseTypePartialActivityAround
+from RFEM.enums import NodalReleaseTypeLocalAxisSystemObjectType, NodalReleaseTypeReleaseNonlinearity, ObjectTypes
 from RFEM.dataTypes import inf
 
 class NodalReleaseType():
@@ -608,3 +609,28 @@ class NodalReleaseType():
 
         # Add Nodal Release Type to client model
         model.clientModel.service.set_nodal_release_type(clientObject)
+
+    @staticmethod
+    def Delete(numbers: str = '1 2', model = Model):
+
+        '''
+        Args:
+            numbers (str): Numbers of Nodal Release Type to be deleted
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Delete from client model
+        for i in ConvertStrToListOfInt(numbers):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_NODAL_RELEASE_TYPE.name, i)
+
+    @staticmethod
+    def Get(idx: int = 1, model = Model):
+
+        '''
+        Args:
+            idx (int): Nodal Release Type Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Nodal Release Type from client model
+        return model.clientModel.service.get_nodal_release_type(idx)

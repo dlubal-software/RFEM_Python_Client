@@ -32,7 +32,7 @@ def test_WindSimulationAnalysisSettings():
 
     Model.clientModel.service.finish_modification()
 
-    steady_flow = Model.clientModel.service.get_wind_simulation_analysis_settings(1)
+    steady_flow = WindSimulationAnalysisSettings.Get(1)
     assert steady_flow['simulation_type'] == WindSimulationAnalysisSettingsSimulationType.STEADY_FLOW.name
     assert steady_flow['density'] == 1.25
     assert steady_flow['kinematic_viscosity'] == 0.000015
@@ -40,13 +40,13 @@ def test_WindSimulationAnalysisSettings():
     assert steady_flow['numerical_solver'] == WindSimulationAnalysisSettingsNumericalSolver.OPEN_FOAM.name
     assert steady_flow['consider_turbulence'] == True
 
-    transient_flow = Model.clientModel.service.get_wind_simulation_analysis_settings(2)
+    transient_flow = WindSimulationAnalysisSettings.Get(2)
     assert transient_flow['steady_flow_from_solver'] == True
     assert transient_flow['maximum_number_of_iterations'] == 250
     assert transient_flow['turbulence_model_type_for_initial_condition'] == WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON.name
     assert transient_flow['data_compression_error_tolerance'] == 0.03
     assert transient_flow['user_defined_in_point_probes'] == True
 
-    surface_roughness= Model.clientModel.service.get_wind_simulation_analysis_settings(3)
+    surface_roughness= WindSimulationAnalysisSettings.Get(3)
     assert surface_roughness['consider_surface_roughness'] == True
 

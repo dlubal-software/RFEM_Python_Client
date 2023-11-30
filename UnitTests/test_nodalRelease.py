@@ -80,13 +80,13 @@ def test_NodalRelease():
 
     Model.clientModel.service.finish_modification()
 
-    nr1 = Model.clientModel.service.get_nodal_release(1)
+    nr1 = NodalRelease.Get(1)
     assert nr1.nodal_release_type == 1
     assert nr1.released_surfaces == '1'
     assert nr1.released_solids == '1'
     assert nr1.release_location == "RELEASE_LOCATION_ORIGIN"
 
-    nr2 = Model.clientModel.service.get_nodal_release(2)
+    nr2 = NodalRelease.Get(2)
     assert nr2.nodes == '2 3'
     assert nr2.release_location == "RELEASE_LOCATION_RELEASED"
     assert nr2.name == 'NR2'

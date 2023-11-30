@@ -49,23 +49,23 @@ def test_note():
 
     Model.clientModel.service.finish_modification()
 
-    note1 = Model.clientModel.service.get_note(1)
+    note1 = Note.Get(1)
     assert note1.type == 'NOTE_TYPE_POINT'
     assert note1.offset == False
 
-    note2 = Model.clientModel.service.get_note(2)
+    note2 = Note.Get(2)
     assert note2.node == 2
     assert note2.offset_type == 'OFFSET_TYPE_XYZ'
     assert note2.name == 'Node'
 
-    note3 = Model.clientModel.service.get_note(3)
+    note3 = Note.Get(3)
     assert note3.line == 2
     assert note3.display_properties_index == 2
 
-    note4 = Model.clientModel.service.get_note(4)
+    note4 = Note.Get(4)
     assert note4.member == 1
     assert note4.member_distance_absolute == 7
 
-    note5 = Model.clientModel.service.get_note(5)
+    note5 = Note.Get(5)
     assert note5.surface_first_coordinate == 5
     assert note5.offset_coordinate_y == 2

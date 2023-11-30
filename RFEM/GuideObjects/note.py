@@ -1,5 +1,5 @@
-from RFEM.enums import NoteType, NoteOffsetType
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertStrToListOfInt
+from RFEM.enums import NoteType, NoteOffsetType, ObjectTypes
 
 class Note():
 
@@ -151,3 +151,28 @@ class Note():
 
         # Add Note to client model
         model.clientModel.service.set_note(clientObject)
+
+    @staticmethod
+    def Delete(numbers: str = '1 2', model = Model):
+
+        '''
+        Args:
+            numbers (str): Numbers of Notes to be deleted
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Delete from client model
+        for i in ConvertStrToListOfInt(numbers):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_NOTE.name, i)
+
+    @staticmethod
+    def Get(idx: int = 1, model = Model):
+
+        '''
+        Args:
+            idx (int): Note Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Note from client model
+        return model.clientModel.service.get_note(idx)

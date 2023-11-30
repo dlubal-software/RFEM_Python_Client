@@ -1,12 +1,12 @@
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
-from RFEM.enums import SurfaceContactPerpendicularType, SurfaceContactParallelType, SurfaceContactFrictionType
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertStrToListOfInt
+from RFEM.enums import SurfaceContactPerpendicularType, SurfaceContactParallelType, SurfaceContactFrictionType, ObjectTypes
 
 class SurfaceContactType():
     def __init__(self,
                  no: int = 1,
                  perpendicular_contact = SurfaceContactPerpendicularType.FAILURE_UNDER_TENSION,
                  parallel_contact = SurfaceContactParallelType.FULL_FORCE_TRANSMISSION,
-                 contact_parameters = None,
+                 contact_parameters: list = None,
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -306,3 +306,28 @@ class SurfaceContactType():
 
         # Add Surface Contact to client model
         model.clientModel.service.set_surfaces_contact_type(clientObject)
+
+    @staticmethod
+    def Delete(numbers: str = '1 2', model = Model):
+
+        '''
+        Args:
+            numbers (str): Numbers of Surfaces Contact Type to be deleted
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Delete from client model
+        for i in ConvertStrToListOfInt(numbers):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_WIND_SIMULATION_ANALYSIS_SETTINGS.name, i)
+
+    @staticmethod
+    def Get(idx: int = 1, model = Model):
+
+        '''
+        Args:
+            idx (int): Surfaces Contact Type Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Surfaces Contact Type from client model
+        return model.clientModel.service.get_surfaces_contact_type(idx)

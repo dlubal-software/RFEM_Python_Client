@@ -1,6 +1,6 @@
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, ConvertStrToListOfInt
 from RFEM.enums import TimberServiceConditionsMoistureType, TimberServiceConditionsTemperatureType
-from RFEM.enums import TimberServiceConditionsTreatmentType
+from RFEM.enums import TimberServiceConditionsTreatmentType, ObjectTypes
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 
 class TimberServiceConditions():
@@ -112,3 +112,28 @@ class TimberServiceConditions():
 
         # Add Service Class to client model
         model.clientModel.service.set_timber_service_conditions(clientObject)
+
+    @staticmethod
+    def Delete(numbers: str = '1 2', model = Model):
+
+        '''
+        Args:
+            numbers (str): Numbers of Timber Service Condition to be deleted
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Delete from client model
+        for i in ConvertStrToListOfInt(numbers):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_TIMBER_SERVICE_CONDITIONS.name, i)
+
+    @staticmethod
+    def Get(idx: int = 1, model = Model):
+
+        '''
+        Args:
+            idx (int): Timber Service Condition Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Timber Service Condition from client model
+        return model.clientModel.service.get_timber_service_conditions(idx)

@@ -1,6 +1,6 @@
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, ConvertStrToListOfInt
 from RFEM.dataTypes import inf
-from RFEM.enums import SurfaceTranslationalReleaseNonlinearity, SurfaceReleaseTypeLocalAxisSystemType
+from RFEM.enums import SurfaceTranslationalReleaseNonlinearity, SurfaceReleaseTypeLocalAxisSystemType, ObjectTypes
 
 class SurfaceReleaseType():
 
@@ -79,3 +79,28 @@ class SurfaceReleaseType():
 
         # Add Surface Release Type to Client Model
         model.clientModel.service.set_surface_release_type(clientObject)
+
+    @staticmethod
+    def Delete(numbers: str = '1 2', model = Model):
+
+        '''
+        Args:
+            numbers (str): Numbers of Surface Release Type to be deleted
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Delete from client model
+        for i in ConvertStrToListOfInt(numbers):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_SURFACE_RELEASE_TYPE.name, i)
+
+    @staticmethod
+    def Get(idx: int = 1, model = Model):
+
+        '''
+        Args:
+            idx (int): Surface Release Type Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Surface Release Type from client model
+        return model.clientModel.service.get_surface_release_type(idx)
