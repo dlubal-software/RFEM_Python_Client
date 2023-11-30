@@ -1,4 +1,5 @@
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertStrToListOfInt
+from RFEM.enums import ObjectTypes
 
 def ActionCombinationItem(model = Model, **kwargs):
     '''
@@ -100,3 +101,29 @@ class ActionCombination():
 
         # Add Action to client model
         model.clientModel.service.set_action_combination(clientObject)
+
+    @staticmethod
+    def DeleteActionCombination(action_combination_no: str = '1 2', model = Model):
+        '''
+        Delete Action Combination objects
+
+        Args:
+            actions_no (str): Numbers of Action Combinations to be deleted
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Delete Action Combinations from client model
+        for ac in ConvertStrToListOfInt(action_combination_no):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_ACTION_COMBINATION.name, ac)
+
+    @staticmethod
+    def GetActionCombination(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Action Combination Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Action Combination from client  model
+        return model.clientModel.service.get_action_combination(object_index)

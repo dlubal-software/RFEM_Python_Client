@@ -1,5 +1,5 @@
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
-from RFEM.enums import ActionCategoryType, ActionType
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertStrToListOfInt
+from RFEM.enums import ActionCategoryType, ActionType, ObjectTypes
 
 class Action():
     def __init__(self,
@@ -93,3 +93,30 @@ class Action():
 
         # Add Action to client model
         model.clientModel.service.set_action(clientObject)
+
+
+    @staticmethod
+    def DeleteAction(action_no: str = '1 2', model = Model):
+        '''
+        Delete Action objects
+
+        Args:
+            actions_no (str): Numbers of Actions to be deleted
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Delete Actions from client model
+        for action in ConvertStrToListOfInt(action_no):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_ACTION.name, action)
+
+    @staticmethod
+    def GetAction(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Action Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Action from client  model
+        return model.clientModel.service.get_action(object_index)
