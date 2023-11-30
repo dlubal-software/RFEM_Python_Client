@@ -11,7 +11,7 @@ Additional functions missing in this file.
 Date: 29/11/2023,
 RFEM 6.04.0009.197.2f47af57c08
 
-['get_current_project', 'get_detailed_logging', 'get_list_of_existing_projects',
+['get_current_project', 'get_list_of_existing_projects',
 'get_list_of_existing_templates', 'get_model_list_with_indexes', 'get_project', 'get_settings_program_language', 'get_template',
 'calculate_all_in_cloud', 'export_to_asf', 'get_Dxf_file_model_object', 'get_Dxf_model_object', 'get_accelerogram',
 'get_action', 'get_action_categories_for_action', 'get_action_categories_for_load_case', 'get_action_combination',
@@ -35,7 +35,7 @@ What is not here is somewhere else in the project often in initModel.py or exclu
 Excluded functions:
 For these functions doesn't make sense to create dedicated function.
 
-['beginModification', 'finishModeification']
+['beginModification', 'finishModeification', 'cancel_modification']
 """
 
 
@@ -103,7 +103,7 @@ def newTemplate(template_info): #ns0:template_info doesn't work
     '''
     connectionGlobals.client.service.new_template(template_info)
 
-############ BOOKMARK ###################################################
+# I am getting HTTP Error 500 Internal server error model at index cannot be saved
 def saveModel(model_index):
     '''
     Save model
@@ -113,10 +113,11 @@ def saveModel(model_index):
     '''
     connectionGlobals.client.service.save_model(model_index)
 
+# It seems that I don't understand the project conept, because it says, that i have invalid file path, but I think, that project is not a file but a folder, anyways, I don't know how to use it
 def setAsCurrentProject(project_path):
     connectionGlobals.client.service.set_as_current_project(project_path)
 
-def setDetailedLogging(logging = True):
+def setDetailedLogging(logging=True):
     '''
     Enable detailed logging
 
@@ -125,6 +126,13 @@ def setDetailedLogging(logging = True):
     '''
     connectionGlobals.client.service.set_detailed_logging(logging)
 
+def getDetailedLogging():
+    '''
+    Get the status of detailed logging (returns bool)
+    '''
+    return connectionGlobals.client.service.get_detailed_logging()
+
+# Doesn't work (tested on: ProgramLanguage.CZECH, etc.)
 def setSettingsProgramLanguage(language):
     '''
     Set program language
@@ -138,7 +146,10 @@ def setSettingsProgramLanguage(language):
 # Model functions
 ############################################
 
-def calculateSpecific(loadings, skip_warnings = True): #ns0:calculate_specific_loadings, list
+# I think I dont understand the list of loadings -
+# when I tried it with [0] and [1] i got same results, but when i tried with [1, 2, 3] I got "unexpected structure of data"
+def calculateSpecific(loadings, skip_warnings=True):
+# calculate_specific(ns0:calculate_specific_loadings loadings, xs:boolean skip_warnings, )
     '''
     Calculate specified loadings
 
@@ -149,23 +160,12 @@ def calculateSpecific(loadings, skip_warnings = True): #ns0:calculate_specific_l
 
     Model.clientModel.service.calculate_specific(loadings, skip_warnings)
 
-def cancelModification():
-    '''
-    Abort modification and clear buffer
-    '''
-    Model.clientModel.service.cancel_modification()
-
+# Not tested, there is no set selection yet
 def clearSelection():
     '''
     Empty selection
     '''
     Model.clientModel.service.clear_selection()
-
-def closeConnection():
-    '''
-    Terminate connection to server(RFEM/RSTAB)
-    '''
-    Model.clientModel.service.close_connection()
 
 def deleteAll():
     '''
@@ -173,6 +173,7 @@ def deleteAll():
     '''
     Model.clientModel.service.delete_all()
 
+# Not tested, because, when I modify the model nothing is added to the history, so I can't verify, if it works
 def deleteAllHistory():
     '''
     Delete whole history
@@ -188,6 +189,7 @@ def deleteAllResults(delete_mesh = True):
     '''
     Model.clientModel.service.delete_all_results(delete_mesh)
 
+# Not tested, because I dont know what it should do
 def divideByIntersections(member_list, line_list, surface_list):
     '''
     Divide by intersections
@@ -199,15 +201,19 @@ def divideByIntersections(member_list, line_list, surface_list):
     '''
     Model.clientModel.service.divide_by_intersections(member_list, line_list, surface_list)
 
+# I think this function doesn't generate anything, so the name is wrong,
+# and the validation also doesn't work - it returns Success on any file with .xml extension
 def generateAndValidateXmlSolverInput(solver_input_file_path):
     '''
     Generate and validate XML input
+    Returns result of validation
 
     Args:
         solver_input_file_path(str): Path to XML
     '''
-    Model.clientModel.service.generate_and_validate_xml_solver_input(solver_input_file_path)
+    return Model.clientModel.service.generate_and_validate_xml_solver_input(solver_input_file_path)
 
+# Don't know what this should produce, but neither LC or CO was generated
 def generateLoadCasesAndCombinations():
     '''
     Generate load cases and combinations
@@ -216,7 +222,7 @@ def generateLoadCasesAndCombinations():
 
 def reset():
     '''
-    Needs no introduction.
+    Resets everything
     '''
     Model.clientModel.service.reset()
 
@@ -256,12 +262,14 @@ Dxf_file_model_object = {
    'scale_absolute_z' : None
  }
 
+# Not tested, I need dxf file
 def setDxfFileModelObject(dxf_file_model_object): # ns0:Dxf_file_model_object
     '''
     Set DXF import parameters
     '''
     Model.clientModel.service.set_Dxf_file_model_object(dxf_file_model_object)
 
+# Not tested, I need dxf file
 def setDxfModelObject(parent_no, dxf_model_object): # ns0:Dxf_model_object
     Model.clientModel.service.set_Dxf_model_object(parent_no, dxf_model_object)
 
@@ -286,12 +294,14 @@ Action = {
    'inclusive_action' : None
  }
 
+# Isn't this part of your PR?
 def setAction(action): # ns0:action
     '''
     Set Action
     '''
     Model.clientModel.service.set_action()
 
+# Isn't this part of your PR?
 def setActionCombination(
     no : int = 1,
     design_situation = None,
@@ -333,6 +343,7 @@ def setActionCombination(
     model.clientModel.service.set_action_combination(clientObject)
 
 
+############ BOOKMARK ###################################################
 def setBuildingStory(building_story): # ns0:building_story
     Model.clientModel.service.set_building_story(building_story)
 
