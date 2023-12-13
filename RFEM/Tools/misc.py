@@ -1,5 +1,3 @@
-from RFEM.initModel import Model
-from RFEM.enums import ActionType, ImposedLoadCategory, ActionCombinationItems
 from RFEM import connectionGlobals
 
 ###########################################
@@ -384,101 +382,101 @@ def uniteNodesAndSupports(tolerance):
 ########## ADDED FUNCTIONS 30.11.2023 ###########
 #################### SETTERS ####################
 
-def SetAccelerogram():
+def SetAccelerogram(accelerogram): #ns0:accelerogram
     '''
     Description
     '''
-    connectionGlobals.client.service.set_accelerogram()
+    connectionGlobals.client.service.set_accelerogram(accelerogram)
 
-def SetAluminumDesignSLSConfiguration():
+def SetAluminumDesignSLSConfiguration(aluminum_design_sls_configuration): #ns0:aluminum_design_sls_configuration
     '''
     Description
     '''
-    connectionGlobals.client.service.set_aluminum_design_sls_configuration()
+    connectionGlobals.client.service.set_aluminum_design_sls_configuration(aluminum_design_sls_configuration)
 
-def SetAluminumDesignULSConfiguration():
+def SetAluminumDesignULSConfiguration(aluminum_design_uls_configuration): # ns0:aluminum_design_uls_configuration
     '''
     Description
     '''
-    connectionGlobals.client.service.set_aluminum_design_uls_configuration()
+    connectionGlobals.client.service.set_aluminum_design_uls_configuration(aluminum_design_uls_configuration)
 
-def SetBuildingGrid():
+def SetBuildingGrid(building_grid): # ns0:building_grid
     '''
     Description
     '''
-    connectionGlobals.client.service.set_building_grid()
+    connectionGlobals.client.service.set_building_grid(building_grid)
 
-def SetCalculationDiagram():
+def SetCalculationDiagram(calculation_diagram): # ns0:calculation_diagram
     '''
     Description
     '''
-    connectionGlobals.client.service.set_calculation_diagram()
+    connectionGlobals.client.service.set_calculation_diagram(calculation_diagram)
 
-def SetFloorSet():
+def SetFloorSet(floor_set): # ns0:floor_set
     '''
     Description
     '''
-    connectionGlobals.client.service.set_floor_set()
+    connectionGlobals.client.service.set_floor_set(floor_set)
 
-def SetMemberOpenings():
+def SetMemberOpenings(member_openings): # ns0:member_openings
     '''
     Description
     '''
-    connectionGlobals.client.service.set_member_openings()
+    connectionGlobals.client.service.set_member_openings(member_openings)
 
-def SetModelId():
+def SetModelId(id): # xs:string id
     '''
     Description
     '''
-    connectionGlobals.client.service.set_model_id()
+    connectionGlobals.client.service.set_model_id(id)
 
-def SetPushoverAnalysisSettings():
+def SetPushoverAnalysisSettings(pushover_analysis_settings): # ns0:pushover_analysis_settings
     '''
     Description
     '''
-    connectionGlobals.client.service.set_pushover_analysis_settings()
+    connectionGlobals.client.service.set_pushover_analysis_settings(pushover_analysis_settings)
 
-def SetShearWall():
+def SetShearWall(shear_wall): # ns0:shear_wall
     '''
     Description
     '''
-    connectionGlobals.client.service.set_shear_wall()
+    connectionGlobals.client.service.set_shear_wall(shear_wall)
 
-def SetSteelDesignFRConfiguration():
+def SetSteelDesignFRConfiguration(steel_design_fr_configuration): # ns0:steel_design_fr_configuration
     '''
     Description
     '''
-    connectionGlobals.client.service.set_steel_design_fr_configuration()
+    connectionGlobals.client.service.set_steel_design_fr_configuration(steel_design_fr_configuration)
 
-def SetSteelDesignSeismicConfiguration():
+def SetSteelDesignSeismicConfiguration(steel_design_seismic_configuration): # ns0:steel_design_seismic_configuration
     '''
     Description
     '''
-    connectionGlobals.client.service.set_steel_design_seismic_configuration()
+    connectionGlobals.client.service.set_steel_design_seismic_configuration(steel_design_seismic_configuration)
 
-def SetTimberDesignFRConfiguration():
+def SetTimberDesignFRConfiguration(timber_design_fr_configuration): # ns0:timber_design_fr_configuration
     '''
     Description
     '''
-    connectionGlobals.client.service.set_timber_design_fr_configuration()
+    connectionGlobals.client.service.set_timber_design_fr_configuration(timber_design_fr_configuration)
 
-def UseDetailedMemberResults():
+def UseDetailedMemberResults(use): # xs:boolean use
     '''
     Description
     '''
-    connectionGlobals.client.service.use_detailed_member_results()
+    connectionGlobals.client.service.use_detailed_member_results(use)
 
-def CalculateAllInCloud():
+def CalculateAllInCloud(machine_id, run_plausibility_check, calculate_despite_warnings_or_errors, email_notification): # xs:string machine_id, xs:boolean run_plausibility_check, xs:boolean calculate_despite_warnings_or_errors, xs:boolean email_notification
     '''
     Description
     '''
-    connectionGlobals.client.service.calculate_all_in_cloud()
+    connectionGlobals.client.service.calculate_all_in_cloud(machine_id, run_plausibility_check, calculate_despite_warnings_or_errors, email_notification)
 
-def ExportToAsf():
+def ExportToAsf(file_path, type_of_reinforcement, surfaces): #xs:string file_path, ns0:asf_export_data_type type_of_reinforcement, ns0:array_of_int surfaces
     '''
     Description
     '''
-    connectionGlobals.client.service.export_to_asf()
+    connectionGlobals.client.service.export_to_asf(file_path, type_of_reinforcement, surfaces)
 
 #################### GETTERS #####################
 
@@ -506,11 +504,11 @@ def GetModelListWithIndexes():
     '''
     connectionGlobals.client.service.get_model_list_with_indexes()
 
-def GetProject():
+def GetProject(project_path): #xs:string project_path
     '''
     Description
     '''
-    connectionGlobals.client.service.get_project()
+    connectionGlobals.client.service.get_project(project_path)
 
 def GetSettingsProgramLanguage():
     '''
@@ -518,29 +516,29 @@ def GetSettingsProgramLanguage():
     '''
     connectionGlobals.client.service.get_settings_program_language()
 
-def GetTemplate():
+def GetTemplate(template_path): #xs:string template_path
     '''
     Description
     '''
-    connectionGlobals.client.service.get_template()
+    connectionGlobals.client.service.get_template(template_path)
 
-def GetDXFFileModelObject():
+def GetDXFFileModelObject(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_Dxf_file_model_object()
+    connectionGlobals.client.service.get_Dxf_file_model_object(no)
 
-def GetDXFModelObject():
+def GetDXFModelObject(no, parent_no): # xs:int no, xs:int parent_no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_Dxf_model_object()
+    connectionGlobals.client.service.get_Dxf_model_object(no, parent_no)
 
-def GetAccelerogram():
+def GetAccelerogram(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_accelerogram()
+    connectionGlobals.client.service.get_accelerogram(no)
 
 def GetActionCategoriesForAction():
     '''
@@ -566,35 +564,35 @@ def GetAllSelectedObjects():
     '''
     connectionGlobals.client.service.get_all_selected_objects()
 
-def GetAluminumDesignSLSConfiguration():
+def GetAluminumDesignSLSConfiguration(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_aluminum_design_sls_configuration()
+    connectionGlobals.client.service.get_aluminum_design_sls_configuration(no)
 
-def GetAluminumDesignUlsConfiguration():
+def GetAluminumDesignUlsConfiguration(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_aluminum_design_uls_configuration()
+    connectionGlobals.client.service.get_aluminum_design_uls_configuration(no)
 
-def GetBuildingGrid():
+def GetBuildingGrid(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_building_grid()
+    connectionGlobals.client.service.get_building_grid(no)
 
-def GetBuildingStory():
+def GetBuildingStory(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_building_story()
+    connectionGlobals.client.service.get_building_story(no)
 
-def GetCalculationDiagram():
+def GetCalculationDiagram(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_calculation_diagram()
+    connectionGlobals.client.service.get_calculation_diagram(no)
 
 def GetCalculationErrors():
     '''
@@ -602,23 +600,23 @@ def GetCalculationErrors():
     '''
     connectionGlobals.client.service.get_calculation_errors()
 
-def GetClippingBox():
+def GetClippingBox(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_clipping_box()
+    connectionGlobals.client.service.get_clipping_box(no)
 
-def GetClippingPlane():
+def GetClippingPlane(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_clipping_plane()
+    connectionGlobals.client.service.get_clipping_plane(no)
 
-def GetConstructionStage():
+def GetConstructionStage(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_construction_stage()
+    connectionGlobals.client.service.get_construction_stage(no)
 
 def GetDesignSituationTypes():
     '''
@@ -626,47 +624,47 @@ def GetDesignSituationTypes():
     '''
     connectionGlobals.client.service.get_design_situation_types()
 
-def GetDesignSupport():
+def GetDesignSupport(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_design_support()
+    connectionGlobals.client.service.get_design_support(no)
 
-def GetDimension():
+def GetDimension(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_dimension()
+    connectionGlobals.client.service.get_dimension(no)
 
-def GetFloorSet():
+def GetFloorSet(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_floor_set()
+    connectionGlobals.client.service.get_floor_set(no)
 
-def GetGlobalParameter():
+def GetGlobalParameter(no): # xs:int no
     '''
     Description *
     '''
-    connectionGlobals.client.service.get_global_parameter()
+    connectionGlobals.client.service.get_global_parameter(no)
 
-def GetMemberOpenings():
+def GetMemberOpenings(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_member_openings()
+    connectionGlobals.client.service.get_member_openings(no)
 
-def GetMemberRepresentative():
+def GetMemberRepresentative(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_member_representative()
+    connectionGlobals.client.service.get_member_representative(no)
 
-def GetMemberSetRepresentative():
+def GetMemberSetRepresentative(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_member_set_representative()
+    connectionGlobals.client.service.get_member_set_representative(no)
 
 def GetModelHistory():
     '''
@@ -674,29 +672,29 @@ def GetModelHistory():
     '''
     connectionGlobals.client.service.get_model_history()
 
-def GetNthObjectNumber():
+def GetNthObjectNumber(types, order, parent_no): # ns0:object_types types, xs:int order, xs:int parent_no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_nth_object_number()
+    connectionGlobals.client.service.get_nth_object_number(types, order, parent_no)
 
-def GetObjectCount():
+def GetObjectCount(types, parent_no): # ns0:object_types types, xs:int parent_no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_object_count()
+    connectionGlobals.client.service.get_object_count(types, parent_no)
 
-def GetObjectInformation():
+def GetObjectInformation(types): # ns0:object_types types
     '''
     Description
     '''
-    connectionGlobals.client.service.get_object_information()
+    connectionGlobals.client.service.get_object_information(types)
 
-def GetObjectSnap():
+def GetObjectSnap(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_object_snap()
+    connectionGlobals.client.service.get_object_snap(no)
 
 def GetOptimizedValues():
     '''
@@ -722,86 +720,86 @@ def GetPartsListShearWallsByMaterial():
     '''
     connectionGlobals.client.service.get_parts_list_shear_walls_by_material()
 
-def GetPunchingReinforcement():
+def GetPunchingReinforcement(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_punching_reinforcement()
+    connectionGlobals.client.service.get_punching_reinforcement(no)
 
-def GetPushoverAnalysisSettings():
+def GetPushoverAnalysisSettings(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_pushover_analysis_settings()
+    connectionGlobals.client.service.get_pushover_analysis_settings(no)
 
-def GetRelationshipBetweenLoadCases():
+def GetRelationshipBetweenLoadCases(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_relationship_between_load_cases()
+    connectionGlobals.client.service.get_relationship_between_load_cases(no)
 
-def GetShearWall():
+def GetShearWall(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_shear_wall()
+    connectionGlobals.client.service.get_shear_wall(no)
 
-def GetSoilMassif():
+def GetSoilMassif(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_soil_massif()
+    connectionGlobals.client.service.get_soil_massif(no)
 
-def GetSteelDesignFRConfiguration():
+def GetSteelDesignFRConfiguration(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_steel_design_fr_configuration()
+    connectionGlobals.client.service.get_steel_design_fr_configuration(no)
 
-def GetSteelDesignSeismicConfiguration():
+def GetSteelDesignSeismicConfiguration(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_steel_design_seismic_configuration()
+    connectionGlobals.client.service.get_steel_design_seismic_configuration(no)
 
-def GetSurfaceImperfection():
+def GetSurfaceImperfection(no, imperfection_case_no): # xs:int no, xs:int imperfection_case_no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_surface_imperfection()
+    connectionGlobals.client.service.get_surface_imperfection(no, imperfection_case_no)
 
-def GetSurfaceReleaseType():
+def GetSurfaceReleaseType(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_surface_release_type()
+    connectionGlobals.client.service.get_surface_release_type(no)
 
-def GetSurfaceSetImperfection():
+def GetSurfaceSetImperfection(no, imperfection_case_no): #xs:int no, xs:int imperfection_case_no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_surface_set_imperfection()
+    connectionGlobals.client.service.get_surface_set_imperfection(no, imperfection_case_no)
 
-def GetTerrain():
+def GetTerrain(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_terrain()
+    connectionGlobals.client.service.get_terrain(no)
 
-def GetTimberDesignFrConfiguration():
+def GetTimberDesignFrConfiguration(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_timber_design_fr_configuration()
+    connectionGlobals.client.service.get_timber_design_fr_configuration(no)
 
-def GetVisualObject():
+def GetVisualObject(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_visual_object()
+    connectionGlobals.client.service.get_visual_object(no)
 
-def GetWindProfile():
+def GetWindProfile(no): # xs:int no
     '''
     Description
     '''
-    connectionGlobals.client.service.get_wind_profile()
+    connectionGlobals.client.service.get_wind_profile(no)
