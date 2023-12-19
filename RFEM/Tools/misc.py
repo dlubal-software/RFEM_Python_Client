@@ -226,37 +226,44 @@ def setDxfModelObject(parent_no, dxf_model_object): # ns0:Dxf_model_object
     Model.clientModel.service.set_Dxf_model_object(parent_no, dxf_model_object)
 
 ############ BOOKMARK ###################################################
+# Functions below are not tested yet, I am creating objects for them
 
+# Type added to specialObjects.py
 def setBuildingStory(building_story): # ns0:building_story
     '''
     Description
     '''
     Model.clientModel.service.set_building_story(building_story)
 
+# Type added to specialObjects.py
 def setClippingBox(clipping_box): # ns0:clipping_box
     '''
     Description
     '''
     Model.clientModel.service.set_clipping_box(clipping_box)
 
+# Type added to specialObjects.py
 def setClippingPlane(clipping_plane): # ns0:clipping_plane
     '''
     Description
     '''
     Model.clientModel.service.set_clipping_plane(clipping_plane)
 
-def setConstructionStage(construction_stag): # ns0:construction_stag
+# Type added to specialObjects.py
+def setConstructionStage(construction_stage): # ns0:construction_stage
     '''
     Description
     '''
-    Model.clientModel.service.set_construction_stage(construction_stag)
+    Model.clientModel.service.set_construction_stage(construction_stage)
 
+# Type added to specialObjects.py
 def setDesignSupport(design_situation): # ns0:design_situation
     '''
     Description
     '''
     Model.clientModel.service.set_design_support(design_situation)
 
+# Type added to specialObjects.py
 def setDimension(dimension): # ns0:dimension
     '''
     Description
