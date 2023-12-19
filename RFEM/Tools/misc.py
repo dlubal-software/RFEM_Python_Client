@@ -214,33 +214,6 @@ def runScript(script_file_path):
     '''
     Model.clientModel.service.run_script(script_file_path)
 
-
-Dxf_file_model_object = {
-   'no' : None,
-   'origin_coordinate_x' : None,
-   'origin_coordinate_y' : None,
-   'origin_coordinate_z' : None,
-   'rotation_angles_sequence' : {'value' : None},
-   'rotation_angle_1' : None,
-   'rotation_angle_2' : None,
-   'rotation_angle_3' : None,
-   'user_defined_name_enabled' : None,
-   'name' : None,
-   'filename' : None,
-   'coordinate_system' : None,
-   'insert_point' : {'value' : None},
-   'scale_is_nonuniform' : None,
-   'scale_is_defined_as_relative' : None,
-   'scale_relative' : None,
-   'scale_absolute' : None,
-   'scale_relative_x' : None,
-   'scale_relative_y' : None,
-   'scale_relative_z' : None,
-   'scale_absolute_x' : None,
-   'scale_absolute_y' : None,
-   'scale_absolute_z' : None
- }
-
 # Not tested, I need dxf file
 def setDxfFileModelObject(dxf_file_model_object): # ns0:Dxf_file_model_object
     '''
