@@ -1,0 +1,35 @@
+<!-- Replace content of this file with desired complexType from WSDL, the contents should like this: -->
+
+<complexType name="building_story">
+<sequence>
+<element name="no" type="int"/>
+<element name="type" minOccurs="0" type="xsd:building_story_type"/>
+<element name="user_defined_name_enabled" minOccurs="0" type="boolean"/>
+<element name="name" minOccurs="0" type="string"/>
+<element name="story_no" minOccurs="0" type="int"/>
+<element name="elevation" minOccurs="0" type="double"/>
+<element name="bottom_elevation" minOccurs="0" type="double"/>
+<element name="height" minOccurs="0" type="double"/>
+<element name="modified_height" minOccurs="0" type="double"/>
+<element name="thickness" minOccurs="0" type="double"/>
+<element name="info" minOccurs="0" type="xsd:array_of_building_story_info_and_child_items"/>
+<element name="comment" minOccurs="0" type="string"/>
+<element name="total_info" minOccurs="0" type="xsd:array_of_building_story_total_info_and_child_items"/>
+<element name="modify_geometry_type" minOccurs="0" type="xsd:building_story_modify_geometry_type"/>
+<element name="thickness_type" minOccurs="0" type="xsd:building_story_thickness_type"/>
+<element name="slab_stiffness_type" minOccurs="0" type="xsd:building_story_slab_stiffness_type"/>
+<element name="create_result_sections" minOccurs="0" type="boolean"/>
+<element name="floor_stiffness_type" minOccurs="0" type="xsd:building_story_floor_stiffness_type"/>
+<element name="vertical_result_line_active" minOccurs="0" type="boolean"/>
+<element name="vertical_result_line_position_x" minOccurs="0" type="double"/>
+<element name="vertical_result_line_position_y" minOccurs="0" type="double"/>
+<element name="vertical_result_line_relative" minOccurs="0" type="boolean"/>
+<element name="vertical_result_line_relative_position_x" minOccurs="0" type="double"/>
+<element name="vertical_result_line_relative_position_y" minOccurs="0" type="double"/>
+<element name="mass" minOccurs="0" type="double"/>
+<element name="center_of_gravity_x" minOccurs="0" type="double"/>
+<element name="center_of_gravity_y" minOccurs="0" type="double"/>
+<element name="id_for_export_import" minOccurs="0" type="string"/>
+<element name="metadata_for_export_import" minOccurs="0" type="string"/>
+</sequence>
+</complexType>
