@@ -2,12 +2,12 @@ import xml.etree.ElementTree as ET
 """
 This file is helping tool for creating python classes for complex types in RFEM API
 It is not necessary to use it, but it is very helpful for creating new complex types
+WSDL file: http://localhost:8082/wsdl (RFEM must be running)
 Usage:
     1) Create file 'complexType.xml' in the same folder as this file
     2) Copy complex type from wsdl file to 'complexType.xml' (the whole complexType starting with <complexType name="..."> and ending with </complexType>)
     3) Run this file and copy the output to the complexTypes.py file
     4) You can directly append new type to the complexTypes.py file by running this file with '>> complexTypes.py' at the end of the command, but I noticed some errors in PowerShell
-
 """
 
 def snake_to_camel(word):
@@ -42,5 +42,5 @@ if  __name__ == "__main__":
     tree = ET.parse('./complexType.xml')
     root = tree.getroot()
 
-    # It is possible to adjust code here and goo through multiple elemets or even whole wsdl file
+    # It is possible to adjust code here and go through multiple elemets or even whole wsdl file
     createClass(root)

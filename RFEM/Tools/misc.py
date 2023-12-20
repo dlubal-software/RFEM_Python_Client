@@ -228,127 +228,147 @@ def setDxfModelObject(parent_no, dxf_model_object): # ns0:Dxf_model_object
 ############ BOOKMARK ###################################################
 # Functions below are not tested yet, I am creating objects for them
 
-# Type added to specialObjects.py
+# Type added to complexTypes.py
 def setBuildingStory(building_story): # ns0:building_story
     '''
     Description
     '''
     Model.clientModel.service.set_building_story(building_story)
 
+# Type added to complexTypes.py
 def setClippingBox(clipping_box): # ns0:clipping_box
     '''
     Description
     '''
     Model.clientModel.service.set_clipping_box(clipping_box)
 
+# Type added to complexTypes.py
 def setClippingPlane(clipping_plane): # ns0:clipping_plane
     '''
     Description
     '''
     Model.clientModel.service.set_clipping_plane(clipping_plane)
 
+# Type added to complexTypes.py
 def setConstructionStage(construction_stage): # ns0:construction_stage
     '''
     Description
     '''
     Model.clientModel.service.set_construction_stage(construction_stage)
 
+# Type added to complexTypes.py
 def setDesignSupport(design_situation): # ns0:design_situation
     '''
     Description
     '''
     Model.clientModel.service.set_design_support(design_situation)
 
+# Type added to complexTypes.py
 def setDimension(dimension): # ns0:dimension
     '''
     Description
     '''
     Model.clientModel.service.set_dimension(dimension)
 
+# Type added to complexTypes.py
 def setMemberRepresentative(member_representative): # ns0:member_representative
     '''
     Description
     '''
     Model.clientModel.service.set_member_representative(member_representative)
 
+# Type added to complexTypes.py
 def setMemberSetRepresentative(member_set_representative): # ns0:member_set_representative
     '''
     Description
     '''
     Model.clientModel.service.set_member_set_representative(member_set_representative)
 
+# Type added to complexTypes.py
 def setModelHistory(history): # ns0:array_of_model_history
     '''
     Description
     '''
     Model.clientModel.service.set_model_history(history)
 
+# Type added to complexTypes.py
 def setObjectSnap(snap): #ns0:object_snap
     '''
     Description
     '''
     Model.clientModel.service.set_object_snap(snap)
 
+# Type added to complexTypes.py
 def setPunchingReinforcement(punching_reinforcement): # ns0:punching_reinforcement
     '''
     Description
     '''
     Model.clientModel.service.set_punching_reinforcement(punching_reinforcement)
 
+# Type added to complexTypes.py
 def setRelationshipBetweenLoadCases(relationship_between_load_cases): #ns0:relationship_between_load_cases
     '''
     Description
     '''
     Model.clientModel.service.set_relationship_between_load_cases(relationship_between_load_cases)
 
+# Type added to complexTypes.py
 def setSelectedObjects(selected_objects): # ns0:object_location_array
     '''
     Description
     '''
     Model.clientModel.service.set_selected_objects(selected_objects)
 
+# Type added to complexTypes.py
 def setSoilMassif(soil_massif): # ns0:soil_massif
     '''
     Description
     '''
     Model.clientModel.service.set_soil_massif(soil_massif)
 
+# Type added to complexTypes.py
 def setSurfaceImperfection(imperfection_case_no, surface_imperfection): # ns0:surface_imperfection
     '''
     Description
     '''
     Model.clientModel.service.set_surface_imperfection(imperfection_case_no, surface_imperfection)
 
+# Type added to complexTypes.py
 def setSurfaceSetImperfection(imperfection_case_no, surface_set_imperfection): # ns0:surface_set_imperfection
     '''
     Description
     '''
     Model.clientModel.service.set_surface_set_imperfection(imperfection_case_no, surface_set_imperfection)
 
+# Type added to complexTypes.py
 def setTerrain(terrain): # ns0:terrain
     '''
     Description
     '''
     Model.clientModel.service.set_terrain(terrain)
 
+# Type added to complexTypes.py
 def setVisualObject(visual_object): # ns0:visual_object
     '''
     Description
     '''
     Model.clientModel.service.set_visual_object(visual_object)
 
+# Type added to complexTypes.py
 def setWindProfile(wind_profile): # ns0:wind_profile
     '''
     Description
     '''
     Model.clientModel.service.set_wind_profile(wind_profile)
 
+# Type added to complexTypes.py
 def setWindSimulation(wind_simulation): # ns0:wind_simulation
     '''
     Description
     '''
     Model.clientModel.service.set_wind_simulation(wind_simulation)
 
+# Type will probably be just double
 def uniteNodesAndSupports(tolerance):
     '''
     Description
@@ -358,96 +378,112 @@ def uniteNodesAndSupports(tolerance):
 ########## ADDED FUNCTIONS 30.11.2023 ###########
 #################### SETTERS ####################
 
+# Type added to complexTypes.py
 def SetAccelerogram(accelerogram): #ns0:accelerogram
     '''
     Description
     '''
     Model.clientModel.service.set_accelerogram(accelerogram)
 
+# Type added to complexTypes.py
 def SetAluminumDesignSLSConfiguration(aluminum_design_sls_configuration): #ns0:aluminum_design_sls_configuration
     '''
     Description
     '''
     Model.clientModel.service.set_aluminum_design_sls_configuration(aluminum_design_sls_configuration)
 
+# Type added to complexTypes.py
 def SetAluminumDesignULSConfiguration(aluminum_design_uls_configuration): # ns0:aluminum_design_uls_configuration
     '''
     Description
     '''
     Model.clientModel.service.set_aluminum_design_uls_configuration(aluminum_design_uls_configuration)
 
+# Type added to complexTypes.py
 def SetBuildingGrid(building_grid): # ns0:building_grid
     '''
     Description
     '''
     Model.clientModel.service.set_building_grid(building_grid)
 
+# Type added to complexTypes.py
 def SetCalculationDiagram(calculation_diagram): # ns0:calculation_diagram
     '''
     Description
     '''
     Model.clientModel.service.set_calculation_diagram(calculation_diagram)
 
+# Type added to complexTypes.py
 def SetFloorSet(floor_set): # ns0:floor_set
     '''
     Description
     '''
     Model.clientModel.service.set_floor_set(floor_set)
 
+# Type added to complexTypes.py
 def SetMemberOpenings(member_openings): # ns0:member_openings
     '''
     Description
     '''
     Model.clientModel.service.set_member_openings(member_openings)
 
+# Type is just string?
 def SetModelId(id): # xs:string id
     '''
     Description
     '''
     Model.clientModel.service.set_model_id(id)
 
+# Type added to complexTypes.py
 def SetPushoverAnalysisSettings(pushover_analysis_settings): # ns0:pushover_analysis_settings
     '''
     Description
     '''
     Model.clientModel.service.set_pushover_analysis_settings(pushover_analysis_settings)
 
+# Type added to complexTypes.py
 def SetShearWall(shear_wall): # ns0:shear_wall
     '''
     Description
     '''
     Model.clientModel.service.set_shear_wall(shear_wall)
 
+# Type added to complexTypes.py
 def SetSteelDesignFRConfiguration(steel_design_fr_configuration): # ns0:steel_design_fr_configuration
     '''
     Description
     '''
     Model.clientModel.service.set_steel_design_fr_configuration(steel_design_fr_configuration)
 
+# Type added to complexTypes.py
 def SetSteelDesignSeismicConfiguration(steel_design_seismic_configuration): # ns0:steel_design_seismic_configuration
     '''
     Description
     '''
     Model.clientModel.service.set_steel_design_seismic_configuration(steel_design_seismic_configuration)
 
+# Type added to complexTypes.py
 def SetTimberDesignFRConfiguration(timber_design_fr_configuration): # ns0:timber_design_fr_configuration
     '''
     Description
     '''
     Model.clientModel.service.set_timber_design_fr_configuration(timber_design_fr_configuration)
 
+# Type is just bool?
 def UseDetailedMemberResults(use): # xs:boolean use
     '''
     Description
     '''
     Model.clientModel.service.use_detailed_member_results(use)
 
+# I guess just normal types
 def CalculateAllInCloud(machine_id, run_plausibility_check, calculate_despite_warnings_or_errors, email_notification): # xs:string machine_id, xs:boolean run_plausibility_check, xs:boolean calculate_despite_warnings_or_errors, xs:boolean email_notification
     '''
     Description
     '''
     Model.clientModel.service.calculate_all_in_cloud(machine_id, run_plausibility_check, calculate_despite_warnings_or_errors, email_notification)
 
+# asf_export_data_type is simple type TODO: add it to complexTypes.py???
 def ExportToAsf(file_path, type_of_reinforcement, surfaces): #xs:string file_path, ns0:asf_export_data_type type_of_reinforcement, ns0:array_of_int surfaces
     '''
     Description
@@ -654,6 +690,7 @@ def GetNthObjectNumber(types, order, parent_no): # ns0:object_types types, xs:in
     '''
     Model.clientModel.service.get_nth_object_number(types, order, parent_no)
 
+# TODO object_types is simple type and I think it is enum
 def GetObjectCount(types, parent_no): # ns0:object_types types, xs:int parent_no
     '''
     Description
