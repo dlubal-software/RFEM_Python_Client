@@ -68,6 +68,10 @@ class ModalAnalysisSettings():
             else:
                 raise ValueError('WARNING: The acting masses array needs to be of length 6. Kindly check list inputs for completeness and correctness.')
 
+        # Name
+        if name:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
         # Neglect Masses
         clientObject.neglect_masses = neglect_masses.name
 
