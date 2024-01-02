@@ -3,6 +3,7 @@ import sys
 import RFEM.dependencies # dependency check ahead of imports
 import socket
 import requests
+from suds import WebFault
 from suds.client import Client
 from RFEM.enums import ObjectTypes, ModelType, AddOn
 from RFEM.suds_requests import RequestsTransport
@@ -371,6 +372,26 @@ def Calculate_all(generateXmlSolverInput: bool = False, model = Model):
     '''
     calculationMessages = model.clientModel.service.calculate_all(generateXmlSolverInput)
     return calculationMessages
+
+def CalculateInCloud(machine_id, run_plausibility_check, calculate_despite_warnings_and_errors, email_notification, model = Model):
+    '''
+    Sends the current model to the defined server to be calculated in the cloud. Plausibility check before and email notification after the cloud calculation are optional.
+    CAUTION: Don't use it in unit tests!
+    It works when executing tests individually but when running all of them
+    it causes RFEM to stuck and generates failures, which are hard to investigate.
+
+    Args:
+        machine_id (str): virtual machine ID (Dlu_1, F4s_v2, F8s_v2, F16s_v2, F32s_v2)
+        run_plausibility_check (bool): Activate/Deactivate plausibility check of model before cloud calculation is started
+        calculate_despite_warnings_and_errors (bool): Activate/Deactivate to start cloud calculation despite warnings and errors during plausibility check
+        email_notification (bool): Activate/Deactivate email notification about start and end of cloud calculation
+    '''
+    try:
+        cloudCalculationResult = model.clientModel.service.calculate_all_in_cloud(machine_id, run_plausibility_check, calculate_despite_warnings_and_errors, email_notification)
+        print("Cloud calculation was started.")
+        return cloudCalculationResult # list
+    except WebFault as e:
+        print(f"Caught exception: {e.fault.faultstring}")
 
 def ConvertToDlString(s):
     '''
