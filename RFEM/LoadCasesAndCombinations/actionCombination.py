@@ -12,6 +12,8 @@ def ActionCombinationItem(model = Model, **kwargs):
         action_item, operator_type, left_parenthesis, right_parenthesis, group_factor, action_factor,
         action_load_type, group_load_type, action, is_leading, gamma, psi, xi, k_fi, c_esl, k_def,
         psi_0, psi_1, psi_2, fi, gamma_0, alfa, k_f, phi, omega_0, gamma_l_1, k_creep, gamma_n, j_2
+    Usage:
+        aci1 = ActionCombinationItem(Model, action_item=1, operator_type=OperatorType.OPERATOR_AND.name, action_factor=1.0, action=1)
 
     '''
 
@@ -39,19 +41,17 @@ class ActionCombination():
                  params: dict = None,
                  model = Model):
         '''
-        Combination Wizard Action
+        Action Combination
 
-        Object: Action Combination No. 18
         Attribute: Design Situation
-        Error: Only design situations with an assigned combination wizard where a user-defined action combination is set are valid.
+        WARNING: Only design situations with an assigned combination wizard where a user-defined action combination is set are valid.
 
         Args:
             no (int, mandatory): Action number
-            action_category (enum, mandatory): Action category
-            action_type (enum, mandatory): Action type
-            action_items (list, mandatory): List of ActionCombinationItem objects
-            name (str, optional): Action name
-            active (bool, optional): Define if active
+            design_situation (int, mandatory): Design Situation
+            action_combination_items (list, mandatory): Action Combination Items list
+            name (str, optional): Action Combination name
+            active (bool, optional): Define if Active
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -105,7 +105,7 @@ class ActionCombination():
     @staticmethod
     def DeleteActionCombination(action_combination_no: str = '1 2', model = Model):
         '''
-        Delete Action Combination objects
+        Delete Action Combination object(s)
 
         Args:
             actions_no (str): Numbers of Action Combinations to be deleted
@@ -118,8 +118,9 @@ class ActionCombination():
 
     @staticmethod
     def GetActionCombination(object_index: int = 1, model = Model):
-
         '''
+        Get action Combination object
+
         Args:
             obejct_index (int): Action Combination Index
             model (RFEM Class, optional): Model to be edited

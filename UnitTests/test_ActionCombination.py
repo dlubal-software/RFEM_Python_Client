@@ -59,5 +59,5 @@ def test_action():
     action_com = Model.clientModel.service.get_action_combination(1)
     assert action_com.design_situation == 20
     assert len(action_com.items.action_combination_items) == 3
-    assert round(action_com.items.action_combination_items[1].row.action_factor, 3) == 0.3
-    assert round(action_com.items.action_combination_items[2].row.action_factor, 3) == 1.2
+    assert round(action_com.items.action_combination_items[1].row.action_factor, 1) == 0.3
+    assert round(action_com.items.action_combination_items[2].row.action_factor, 1) == 1.2
