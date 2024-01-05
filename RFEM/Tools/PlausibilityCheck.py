@@ -35,11 +35,12 @@ class PlausibilityCheck():
                         model.ModelLogger.error(err.GetErrorMessageString())
 
     def IsModelOK(self) -> bool:
-                 plausibility_check_type:enum = PlausibilityCheckType.PLAUSIBILITY_CHECK,
-                 skip_warnings:bool = False,
-                 model = Model):
+                #  plausibility_check_type:enum = PlausibilityCheckType.PLAUSIBILITY_CHECK,
+                #  skip_warnings:bool = False,
+                #  model = Model):
 
         response = model.clientModel.service.plausibility_check(plausibility_check_type.name, skip_warnings)
+        return response
 
     def GetErrorMessage(self) -> list[type[ErrorMessage]]:
 

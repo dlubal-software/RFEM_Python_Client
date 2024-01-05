@@ -7,7 +7,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 from RFEM.enums import SurfacesShapeOfFiniteElements, OptimizationTargetValueType, AddOn,NodalSupportType, NodalLoadDirection, ActionCategoryType, ObjectTypes,ResultOfCalculation
 from RFEM.initModel import Model, client, SetAddonStatus
-from RFEM.Calculate.calculate import Calculate_all, CalculateSelectedCases, HasAnyResults,HasResults
+from RFEM.Calculate.calculate import Calculate_all, CalculateSelectedCases, HasAnyResults,HasResults, GetAvailableMachinesForCloudCalculation,CalculateAllInCloud
 from RFEM.Calculate.meshSettings import GetMeshSettings, MeshSettings, GetModelInfo
 from RFEM.Calculate.optimizationSettings import OptimizationSettings
 from UnitTests.test_solids import test_solids_and_solid_sets
@@ -128,3 +128,19 @@ def test_optimization_settings():
 
     # Testing model is closed at the end of the testing session to enable easier and cleaned restart of the unit tests.
     client.service.close_model(0, False)
+
+
+def test_get_all_avaliable_machines_for_cloud_calculation():
+
+    machines = GetAvailableMachinesForCloudCalculation()
+    assert len(machines) == 5
+
+
+def test_calculate_all_in_cloud():
+
+    createmodel()
+    result = CalculateAllInCloud()
+    assert result.status is not 'Uploaded_and_queued'
+    result.task_guid  is not None
+    result.task_id > 0
+    assert result is None

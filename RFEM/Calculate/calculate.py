@@ -247,3 +247,32 @@ def HasResults(case_type_object: type[ObjectTypes] = ObjectTypes.E_OBJECT_TYPE_L
     except Exception as inst:
         model.ModelLogger.exception(inst.fault.faultstring)
         return False
+
+
+def GetFENode(index:int = 1, model: type[Model] = Model):
+    pass
+
+def GetFE1DElement(index:int = 1, model: type[Model] = Model):
+    pass
+
+def GetFE2DElement(index:int = 1, model: type[Model] = Model):
+    pass
+
+def GetFE3DElement(index:int = 1, model: type[Model] = Model):
+    pass
+
+def CalculateAllInCloud(machine_id: str = 'Dlu_1', run_plausibility_check: bool = True, calculate_despite_warnings_or_errors: bool = False, email_notification: bool = True, model: type[Model] = Model):
+
+    result = model.clientModel.service.calculate_all_in_cloud(machine_id, run_plausibility_check, calculate_despite_warnings_or_errors, email_notification)
+    return result
+
+def GetAvailableMachinesForCloudCalculation(model: type[Model] = Model):
+
+    machines = model.clientModel.service.get_all_available_machines_in_cloud()
+
+    return machines
+
+
+# indices = Model.clientModel.service.get_FE_mesh_indices('NODES')
+#     lst = indices.split()
+#     numbers = [int(num) for num in lst]
