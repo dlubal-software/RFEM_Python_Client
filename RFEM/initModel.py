@@ -828,3 +828,10 @@ def getPathToRunningRFEM():
         raise ValueError('Is it possible that RFEM is not runnnning?')
 
     return path
+
+def GetListOfOpendModels() -> None:
+
+    connectToServer()
+    models = connectionGlobals.client.service.get_model_list()
+
+    return models
