@@ -4,6 +4,11 @@ baseName = os.path.basename(__file__)
 dirName = os.path.dirname(__file__)
 sys.path.append(dirName + r'/../..')
 
+##############################
+# USAGE:
+# python.exe -m streamlit run ./Examples/LinkUSGS/UsgsRFEMLink.py
+##############################
+
 from RFEM.enums import AddOn, ObjectTypes
 from RFEM.initModel import Model, AddOn, GetAddonStatus, SetAddonStatus, FirstFreeIdNumber
 from RFEM.DynamicLoads.responseSpectrum import ResponseSpectrum
