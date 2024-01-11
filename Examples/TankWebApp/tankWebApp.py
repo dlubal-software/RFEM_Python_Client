@@ -15,6 +15,7 @@ except:
         import subprocess
         try:
             subprocess.call('python -m pip install Dash --user')
+            os.execv(sys.executable, ['python'] + sys.argv)
         except:
             print('WARNING: Installation of Dash library failed!')
             print('Please use command "pip install Dash --user" in your Command Prompt.')
@@ -35,6 +36,7 @@ except:
         import subprocess
         try:
             subprocess.call('python -m pip install dash_vtk --user')
+            os.execv(sys.executable, ['python'] + sys.argv)
         except:
             print('WARNING: Installation of dash_vtk library failed!')
             print('Please use command "pip install dash_vtk --user" in your Command Prompt.')

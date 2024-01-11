@@ -41,6 +41,7 @@ except:
         import subprocess
         try:
             subprocess.call('python -m pip install pandas --user')
+            os.execv(sys.executable, ['python'] + sys.argv)
         except:
             print('WARNING: Installation of pandas library failed!')
             print('Please use command "pip install pandas --user" in your Command Prompt.')
@@ -60,6 +61,7 @@ except:
         import subprocess
         try:
             subprocess.call('python -m pip install xlwings --user')
+            os.execv(sys.executable, ['python'] + sys.argv)
         except:
             print('WARNING: Installation of xlwings library failed!')
             print('Please use command "pip install xlwings --user" in your Command Prompt.')
