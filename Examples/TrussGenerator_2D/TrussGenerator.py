@@ -11,6 +11,7 @@ except:
         import subprocess
         try:
             subprocess.call('python -m pip install PyQt5 --user')
+            os.execv(sys.executable, ['python'] + sys.argv)
         except:
             print('WARNING: Installation of PyQt5 library failed!')
             print('Please use command "pip install PyQt5 --user" in your Command Prompt.')
@@ -30,6 +31,7 @@ except:
         import subprocess
         try:
             subprocess.call('python -m pip install qdarkstyle')
+            os.execv(sys.executable, ['python'] + sys.argv)
         except:
             print('WARNING: Installation of qdarkstyle library failed!')
             print('Please use command "pip install qdarkstyle" in your Command Prompt.')
@@ -49,6 +51,7 @@ except:
         import subprocess
         try:
             subprocess.call('python -m pip install numpy')
+            os.execv(sys.executable, ['python'] + sys.argv)
         except:
             print('WARNING: Installation of numpy library failed!')
             print('Please use command "pip install numpy" in your Command Prompt.')
@@ -85,6 +88,7 @@ from RFEM.LoadCasesAndCombinations.loadCase import *
 from RFEM.Loads.nodalLoad import *
 from RFEM.Loads.memberLoad import *
 from RFEM.Loads.surfaceLoad import *
+from RFEM import connectionGlobals
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -1602,7 +1606,7 @@ class Ui_MainWindow(object):
                     msg.setWindowTitle("WARNING")
                     msg.exec_()
 
-        session.close()
+        connectionGlobals.session.close()
 
     def close(self):
         sys.exit(app.exec_())

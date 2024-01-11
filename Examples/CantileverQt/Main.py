@@ -27,6 +27,7 @@ except:
         import subprocess
         try:
             subprocess.call('python -m pip install PyQt5 --user')
+            os.execv(sys.executable, ['python'] + sys.argv)
         except:
             print('WARNING: Installation of PyQt5 library failed!')
             print('Please use command "pip install PyQt5 --user" in your Command Prompt.')
