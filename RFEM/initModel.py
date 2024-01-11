@@ -146,10 +146,10 @@ class Model():
                 modelUrlPort = connectionGlobals.url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
 
-                session = requests.Session()
+                connectionGlobals.session = requests.Session()
                 adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
-                session.mount('http://', adapter)
-                trans = RequestsTransport(session)
+                connectionGlobals.session.mount('http://', adapter)
+                trans = RequestsTransport(connectionGlobals.session)
 
                 cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=connectionGlobals.ca, timeout=360)
 
@@ -171,10 +171,10 @@ class Model():
                 modelUrlPort = connectionGlobals.url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
 
-                session = requests.Session()
+                connectionGlobals.session = requests.Session()
                 adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
-                session.mount('http://', adapter)
-                trans = RequestsTransport(session)
+                connectionGlobals.session.mount('http://', adapter)
+                trans = RequestsTransport(connectionGlobals.session)
 
                 cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=connectionGlobals.ca, timeout=360)
 
@@ -255,7 +255,7 @@ def deleteEmptyAttributes(obj):
     try:
         it = iter(obj)
     except:
-        ValueError('WARNING: Object feeded to deleteEmptyAttributes function is not iterable. It is type: '+str(type(obj)+'.'))
+        ValueError('WARNING: Object feeded to deleteEmptyAttributes function is not iterable. It is type: '+str(type(obj))+'.')
 
     for i in it:
         if isinstance(i, str) or isinstance(i, int) or isinstance(i, float) or isinstance(i, bool) or isinstance(i, Enum):
@@ -829,7 +829,7 @@ def getPathToRunningRFEM():
 
     return path
 
-def GetListOfOpendModels() -> None:
+def GetListOfOpenedModels():
 
     connectToServer()
     models = connectionGlobals.client.service.get_model_list()

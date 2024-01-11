@@ -12,6 +12,7 @@ except:
         import subprocess
         try:
             subprocess.call('python -m pip install pandas --user')
+            os.execv(sys.executable, ['python'] + sys.argv)
         except:
             print('WARNING: Installation of pandas library failed!')
             print('Please use command "pip install pandas" in your Command Prompt')

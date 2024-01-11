@@ -5,15 +5,12 @@ dirName = os.path.dirname(__file__)
 print('basename:    ', baseName)
 print('dirname:     ', dirName)
 
-PROJECT_ROOT = os.path.abspath(os.path.join(
-                  os.path.dirname(__file__),
-                  os.pardir)
-)
-sys.path.append(PROJECT_ROOT)
+sys.path.append(dirName + r'/../..')
+
 from RFEM.enums import NodalSupportType, StaticAnalysisType, NodalLoadDirection, MemberLoadDistribution, MemberLoadDirection, MemberRotationSpecificationType
-from Examples.window import window
+from Examples.BasicExample.window import window
 from RFEM.dataTypes import inf
-from RFEM.initModel import Model, Calculate_all, insertSpaces,GetListOfOpendModels
+from RFEM.initModel import Model, Calculate_all, insertSpaces, GetListOfOpenedModels
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.thickness import Thickness
@@ -283,5 +280,5 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
     sys.exit()
 
 if __name__ == '__main__':
-    modelLst = GetListOfOpendModels()
+    modelLst = GetListOfOpenedModels()
     window(main, modelLst)
