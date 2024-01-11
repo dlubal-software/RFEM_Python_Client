@@ -2217,7 +2217,7 @@ class ActionType(Enum):
     '''
     Action Type
     '''
-    ACTING_ALTERNATIVELY, ACTING_DIFFERENTLY, ACTING_SIMULTANEOUSLY, DYNAMIC_LOAD_CASE = range(4)
+    ACTING_ALTERNATIVELY, ACTING_DIFFERENTLY, ACTING_SIMULTANEOUSLY = range(3)
 
 class ImposedLoadCategory(Enum):
     '''
