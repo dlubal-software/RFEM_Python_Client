@@ -9,8 +9,8 @@ print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
 #Import all modules required to access RFEM
-from RFEM.enums import AddOn, StaticAnalysisType, ActionCategoryType, NodeReferenceType, MemberLoadDirection, NodalSupportType, ObjectTypes, \
-     DesignSituationType, CaseObjectType, MemberSectionDistributionType, MemberSectionAlignment
+from RFEM.enums import AddOn, MemberEccentricitySpecificationType, StaticAnalysisType, ActionCategoryType, NodeReferenceType, MemberLoadDirection, NodalSupportType, ObjectTypes, \
+     DesignSituationType, CaseObjectType, MemberSectionDistributionType, MemberSectionAlignment, SurfaceEccentricityAlignment
 from RFEM.initModel import Model, SetAddonStatus, Calculate_all, connectToServer
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 from RFEM.BasicObjects.material import Material
@@ -21,6 +21,8 @@ from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.surface import Surface
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
+from RFEM.TypesForSurfaces.surfaceEccentricity import SurfaceEccentricity
+from RFEM.TypesForMembers.memberEccentricity import MemberEccentricity
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.Loads.memberLoad import MemberLoad
@@ -119,36 +121,54 @@ if __name__ == "__main__":
 
     # members - pillars
     m_count = 0
+    MemberEccentricity(5, name= 'pillar ecc.', eccentricity_type = MemberEccentricitySpecificationType.TYPE_ABSOLUTE,
+                           eccentricity_parameters= [1, 0, 0, girder_height+slab_thickness])
     for i in range(1, pillar_node_count, 2):
         m_count += 1
-        Member(m_count, i, i+1)
+        Member(m_count, i, i+1, params= {"member_eccentricity_end":5})
     print(f"Generating {m_count} pillars.")
     num_pillars = m_count
 
     # members - girder
     print("Generating girder.")
     m_count += 1
-    Member(m_count, girder_node_1, girder_node_2, start_section_no=2, end_section_no=2)
+    MemberEccentricity(4, name= 'girder ecc.', eccentricity_type = MemberEccentricitySpecificationType.TYPE_ABSOLUTE,
+                           eccentricity_parameters= [1, 0, 0, girder_height/2+slab_thickness])
+    Member(m_count, girder_node_1, girder_node_2, start_section_no=2, end_section_no=2,
+           params= {"member_eccentricity_start":4, "member_eccentricity_end":4})
     # members - beams
+    MemberEccentricity(1, name= 'beam ecc.1', eccentricity_type = MemberEccentricitySpecificationType.TYPE_ABSOLUTE,
+                           eccentricity_parameters= [1, 0, 0, beam_height_outwards/2+slab_thickness])
+    MemberEccentricity(2, name= 'beam ecc.2', eccentricity_type = MemberEccentricitySpecificationType.TYPE_ABSOLUTE,
+                           eccentricity_parameters= [1, 0, -girder_width/2, beam_height_outwards/2+slab_thickness])
+    MemberEccentricity(3, name= 'beam ecc.3', eccentricity_type = MemberEccentricitySpecificationType.TYPE_ABSOLUTE,
+                           eccentricity_parameters= [1, 0, girder_width/2, beam_height_outwards/2+slab_thickness])
     for n in range(beams_per_field*num_bridge_fields):
         Member.Beam(
                     m_count+1, beam_start_node, beam_start_node+1,
                     MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR,
                     start_section_no=3, end_section_no=4,
-                    distribution_parameters= [MemberSectionAlignment.SECTION_ALIGNMENT_TOP]
+                    distribution_parameters= [MemberSectionAlignment.SECTION_ALIGNMENT_TOP],
+                    params= {"member_eccentricity_start":2, "member_eccentricity_end":1}
                     )
         Member.Beam(
                     m_count+2, beam_start_node, beam_start_node+2,
                     MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR,
                     start_section_no=3, end_section_no=4,
-                    distribution_parameters= [MemberSectionAlignment.SECTION_ALIGNMENT_TOP]
+                    distribution_parameters= [MemberSectionAlignment.SECTION_ALIGNMENT_TOP],
+                    params= {"member_eccentricity_start":3, "member_eccentricity_end":1}
                     )
+
+
         m_count += 2
         beam_start_node += 3
 
     print(f"Generating {m_count-num_pillars-1} is {2*beams_per_field*num_bridge_fields} support beams.")
     # bridge concrete slab
-    print(f"Generating support slab, thickness {slab_thickness} ")
+    print(f"Generating support slab, thickness {slab_thickness}.")
     s_count = 1
     Surface(s_count, "1", 1, "bridge slab")
+    SurfaceEccentricity(1, 0, f"{s_count}", thickness_alignment= SurfaceEccentricityAlignment.ALIGN_TOP,
+                        transverse_offset_object= None)
+
     Model.clientModel.service.finish_modification()
