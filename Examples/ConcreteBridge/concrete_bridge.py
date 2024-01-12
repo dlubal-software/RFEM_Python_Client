@@ -39,12 +39,14 @@ if __name__ == "__main__":
     while model_name in model_list:
         name_counter += 1
         model_name = "concrete_bridge_" + str(name_counter)
+
+    # ----------------INPUT PARAMETERS------------------#
     # inicialize model and define parameters
     Model(model_name=model_name)
 
-    num_bridge_fields = 1       # number of whole bridge fields (between pillars)
-    bridge_height = float(5)   # primary parameters, input in meters
-    bridge_width = float(7)
+    num_bridge_fields = 4       # number of whole bridge fields (between pillars)
+    bridge_height = float(6)   # primary parameters, input in meters
+    bridge_width = float(9)
     bridge_length = float(16)   # length of one field/span
                                 # secondary (derived) parameters, input optional in meters
     pillar_dimension = bridge_width/5
@@ -53,11 +55,13 @@ if __name__ == "__main__":
     beam_width = 0.4
     beam_height_inwards = bridge_width/8
     beam_height_outwards = bridge_width/16
+    slab_thickness = 0.25
     # beam spacing setup
     for b in range(1, int(bridge_length)):
-        if bridge_length/b < 4.0:
+        if bridge_length/b < 5.0:
             beam_spacing = bridge_length/b
             beams_per_field = b
+            break
 
     # starting modification of the model
     Model.clientModel.service.begin_modification()
@@ -70,7 +74,7 @@ if __name__ == "__main__":
     Section(3, f"R_M1 {beam_width}/{beam_height_inwards}", 2, "beam_1")
     Section(4, f"R_M1 {beam_width}/{beam_height_outwards}", 2, "beam_2")
     # thicknesses
-    Thickness(1, material_no= 1, uniform_thickness_d= 0.25)
+    Thickness(1, material_no= 1, uniform_thickness_d= slab_thickness)
 
     # --------- BUILDING MODEL ----------- #
     print("Constructing bridge...")
@@ -80,26 +84,27 @@ if __name__ == "__main__":
     node_counter = 1
     for i in range(1, num_bridge_fields+2):
         Node(node_counter,(i-1)*bridge_length, 0, 0)
-        Node(node_counter+1,(i-1)*bridge_length, 0, -bridge_height+girder_height)
+        NodalSupport(i, f"{node_counter}", NodalSupportType.FIXED)
+        Node(node_counter+1,(i-1)*bridge_length, 0, -bridge_height)
         node_counter += 2
     pillar_node_count = node_counter
 
     # girder nodes
-    Node(node_counter, -pillar_dimension/2, 0, -bridge_height+girder_height/2)
-    Node(node_counter+1, num_bridge_fields*bridge_length+pillar_dimension/2, 0, -bridge_height+girder_height/2)
+    Node(node_counter, -pillar_dimension/2, 0, -bridge_height)
+    Node(node_counter+1, num_bridge_fields*bridge_length+pillar_dimension/2, 0, -bridge_height)
     girder_node_1 = node_counter
     girder_node_2 = node_counter + 1
     node_counter += 2
 
     # beam nodes
-    x_for_beams = 0
+    x_for_beams = beam_spacing/2
     beam_start_node = node_counter
-    for n in range(beams_per_field*num_bridge_fields+1):
-        Node(node_counter, x_for_beams, -pillar_dimension/2, -bridge_height+beam_height_outwards/2)
-        Node(node_counter+1, x_for_beams, -bridge_width/2, -bridge_height+beam_height_outwards/2)
-        Node(node_counter+2, x_for_beams, pillar_dimension/2, -bridge_height+beam_height_outwards/2)
-        Node(node_counter+3, x_for_beams, bridge_width/2, -bridge_height+beam_height_outwards/2)
-        node_counter += 4
+    for n in range(beams_per_field*num_bridge_fields):
+        if x_for_beams!=n*bridge_length:
+            Node(node_counter, x_for_beams, 0, -bridge_height)
+            Node(node_counter+1, x_for_beams, -bridge_width/2, -bridge_height)
+            Node(node_counter+2, x_for_beams, bridge_width/2, -bridge_height)
+            node_counter += 3
         x_for_beams += beam_spacing
 
     # slab nodes and lines
@@ -118,24 +123,32 @@ if __name__ == "__main__":
         m_count += 1
         Member(m_count, i, i+1)
     print(f"Generating {m_count} pillars.")
+    num_pillars = m_count
+
     # members - girder
     print("Generating girder.")
     m_count += 1
     Member(m_count, girder_node_1, girder_node_2, start_section_no=2, end_section_no=2)
     # members - beams
-    for n in range(2*(beams_per_field*num_bridge_fields+1)):
+    for n in range(beams_per_field*num_bridge_fields):
         Member.Beam(
                     m_count+1, beam_start_node, beam_start_node+1,
                     MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR,
                     start_section_no=3, end_section_no=4,
                     distribution_parameters= [MemberSectionAlignment.SECTION_ALIGNMENT_TOP]
                     )
-        m_count += 1
-        beam_start_node += 2
-    m_count -= 1
-    print(f"Generating {m_count} support beams.")
+        Member.Beam(
+                    m_count+2, beam_start_node, beam_start_node+2,
+                    MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR,
+                    start_section_no=3, end_section_no=4,
+                    distribution_parameters= [MemberSectionAlignment.SECTION_ALIGNMENT_TOP]
+                    )
+        m_count += 2
+        beam_start_node += 3
+
+    print(f"Generating {m_count-num_pillars-1} is {2*beams_per_field*num_bridge_fields} support beams.")
     # bridge concrete slab
-    print("Generating support slab.")
+    print(f"Generating support slab, thickness {slab_thickness} ")
     s_count = 1
     Surface(s_count, "1", 1, "bridge slab")
     Model.clientModel.service.finish_modification()
