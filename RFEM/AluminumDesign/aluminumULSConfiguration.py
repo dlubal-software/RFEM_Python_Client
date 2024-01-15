@@ -63,6 +63,6 @@ class AluminumDesignULSConfigurations():
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
 
-        # Add Global Parameters to Client Model
+        # Add Aluminum Design ULS Configuration to Client Model
         model.clientModel.service.set_aluminum_design_uls_configuration(clientObject)
 

@@ -63,5 +63,5 @@ class AluminumDesignSLSConfigurations():
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
 
-        # Add Global Parameters to Client Model
+        # Add Aluminum Design SLS Configuration to Client Model
         model.clientModel.service.set_aluminum_design_sls_configuration(clientObject)
