@@ -8,6 +8,11 @@ sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import *
 from RFEM.initModel import Model, SetAddonStatus
+from RFEM.BasicObjects.node import Node
+from RFEM.BasicObjects.material import Material
+from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.member import Member
+from RFEM.BasicObjects.memberSet import MemberSet
 from RFEM.TypesForSteelDesign.steelEffectiveLengths import SteelEffectiveLengths
 
 if Model.clientModel is None:
@@ -20,7 +25,20 @@ def test_steelEffectiveLengths():
 
     SetAddonStatus(Model.clientModel, AddOn.steel_design_active, True)
 
-    SteelEffectiveLengths(1, "", "", True, False, False, False, True, False, 'SEL1',
+    Node(1, 0, 0, 0)
+    Node(2, 5, 0, 0)
+    Node(3, 10, 0, 0)
+
+    Material(1, 'S235')
+
+    Section(1, 'IPE 300', 1)
+
+    Member(1, 1, 2, 0, 1, 1)
+    Member(2, 2, 3, 0, 1, 1)
+
+    MemberSet(1, '1 2', SetType.SET_TYPE_GROUP)
+
+    SteelEffectiveLengths(1, "", "1", True, False, False, False, True, False, 'SEL1',
         [
             [SteelEffectiveLengthsSupportType.SUPPORT_TYPE_FIXED_IN_Z, True, 0, SteelEffectiveLengthsEccentricityType.ECCENTRICITY_TYPE_NONE, 0, 0, 0, 0, SteelEffectiveLengthsSupportTypeInY.SUPPORT_STATUS_YES, \
             SteelEffectiveLengthsRestraintTypeAboutX.SUPPORT_STATUS_YES, SteelEffectiveLengthsRestraintTypeAboutZ.SUPPORT_STATUS_NO, SteelEffectiveLengthsRestraintTypeWarping.SUPPORT_STATUS_NO, ""],
@@ -34,7 +52,7 @@ def test_steelEffectiveLengths():
         ]
                         )
 
-    SteelEffectiveLengths(2, "", "", False, False, False, True, True, False, 'SEL2',
+    SteelEffectiveLengths(2, "", "1", False, False, False, True, True, False, 'SEL2',
         [
             [SteelEffectiveLengthsSupportType.SUPPORT_TYPE_FIXED_ALL, True, 0.0, SteelEffectiveLengthsEccentricityType.ECCENTRICITY_TYPE_NONE, 0, 0, 0, 0, SteelEffectiveLengthsSupportTypeInY.SUPPORT_STATUS_YES, \
             SteelEffectiveLengthsRestraintTypeAboutX.SUPPORT_STATUS_YES, SteelEffectiveLengthsRestraintTypeAboutZ.SUPPORT_STATUS_YES, SteelEffectiveLengthsRestraintTypeWarping.SUPPORT_STATUS_YES, ""],
@@ -54,7 +72,7 @@ def test_steelEffectiveLengths():
         intermediate_nodes=True, different_properties=True, determination_of_mcr=SteelEffectiveLengthsDeterminationMcrEurope.DETERMINATION_EUROPE_USER_DEFINED,
                         )
 
-    SteelEffectiveLengths(3, "", "", True, False, False, False, True, True, 'SEL3',
+    SteelEffectiveLengths(3, "", "1", True, False, False, False, True, True, 'SEL3',
         [
             [SteelEffectiveLengthsSupportType.SUPPORT_TYPE_FIXED_IN_Z, True, 0.0, SteelEffectiveLengthsEccentricityType.ECCENTRICITY_TYPE_NONE, 0, 0, 0, 0, SteelEffectiveLengthsSupportTypeInY.SUPPORT_STATUS_YES, \
             SteelEffectiveLengthsRestraintTypeAboutX.SUPPORT_STATUS_YES, SteelEffectiveLengthsRestraintTypeAboutZ.SUPPORT_STATUS_NO, SteelEffectiveLengthsRestraintTypeWarping.SUPPORT_STATUS_NO, ""],

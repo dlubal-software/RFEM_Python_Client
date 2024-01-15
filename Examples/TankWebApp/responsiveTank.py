@@ -5,7 +5,7 @@ dirName = os.path.dirname(__file__)
 sys.path.append(dirName + r'/../..')
 import pyvista as pv
 from RFEM.enums import LineSupportType, SurfaceGeometry, SurfaceLoadDirection, SurfaceLoadDistribution
-from RFEM.initModel import Calculate_all, Model, client
+from RFEM.initModel import Calculate_all, Model
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.material import Material
@@ -25,22 +25,8 @@ def calculateTank(d, h, util):
         h (float): Tank Height
         util (float) : Utilization of Tank Capacity (in %)
     """
-    lst = None
-    lst = client.service.get_model_list()
-
-    if lst:
-
-        if 'responsiveTank' in lst[0]:
-            print('Editing old Model...!')
-            Model(False, 'responsiveTank.rf6', True)
-
-        else:
-            print('Creating new model...!')
-            Model(True, 'responsiveTank.rf6', delete_all= True)
-
-    else:
-        print('Creating new model...!')
-        Model(True, 'responsiveTank.rf6', delete_all= True)
+    Model(True, 'responsiveTank.rf6')
+    Model.clientModel.service.begin_modification()
 
     Material(1, "S235")
     Node(1, d/2, 0,0)
@@ -69,6 +55,7 @@ def calculateTank(d, h, util):
                       load_direction = SurfaceLoadDirection.LOAD_DIRECTION_LOCAL_Z,
                       load_distribution = SurfaceLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z,
                       load_parameter = [[-load_height, 0],[0, 9.81 * load_height * 1000]])
+    Model.clientModel.service.finish_modification()
 
     Calculate_all()
 

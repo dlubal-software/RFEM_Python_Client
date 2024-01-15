@@ -30,7 +30,7 @@ def ExportResultTablesToXML(targetFilePath: str, model = Model):
     '''
     model.clientModel.service.export_result_tables_to_xml(targetFilePath)
 
-def ExportResultTablesWithDetaliedMembersResultsToCSV(targetDirectoryPath: str, model = Model):
+def ExportResultTablesWithDetailedMembersResultsToCSV(targetDirectoryPath: str, model = Model):
     '''
     Export result tables with detailed member results to CSV format.
 
@@ -39,7 +39,7 @@ def ExportResultTablesWithDetaliedMembersResultsToCSV(targetDirectoryPath: str, 
     '''
     model.clientModel.service.export_result_tables_with_detailed_members_results_to_csv(targetDirectoryPath)
 
-def ExportResultTablesWithDetaliedMembersResultsToXML(targetFilePath: str, model = Model):
+def ExportResultTablesWithDetailedMembersResultsToXML(targetFilePath: str, model = Model):
     '''
     Export result tables with detailed member results to XML format.
 

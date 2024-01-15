@@ -10,7 +10,7 @@ import xml.etree.ElementTree as ET
 from RFEM.ImportExport.exports import ExportTo
 
 # Define name of the model from which the data should be exported
-model_name = '001128_NBC_2015_RSA_RFEM_Model.rf6'
+model_name = 'TestModel.rf6'
 
 # Export active model to XML
 model = Model(True, model_name)

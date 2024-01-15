@@ -6,3 +6,4 @@ connected = False
 client = None
 ca = None
 cacheLoc = ""
+session = None

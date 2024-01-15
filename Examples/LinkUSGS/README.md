@@ -1,17 +1,13 @@
 ## How to Run USGS Link Web App
 
-- First install ```streamlit``` library in your Python env. using pip.
+- First, install all prerequisites like _streamlit_, _plotly.express_ or _PIL_ in your Python env. using pip. If you skip this step, you'll be prompted automatically.
 
-![image](https://user-images.githubusercontent.com/61163577/215473641-2adfbd4f-20aa-4aa9-89ba-7a4e0ee5e651.png)
+```pip install streamlit plotly.express pillow --user```
 
-- Open your terminal and change current directory.
+- Open your terminal and run following command.
 
-![image](https://user-images.githubusercontent.com/61163577/215473248-e6a69188-58b0-4b02-8e8c-649943be5243.png)
+```python -m streamlit run .\Examples\LinkUSGS\UsgsRFEMLink.py```
 
-- Run the command ```streamlit run .\UsgsRFEMLink.py``` or ```python -m streamlit run .\UsgsRFEMLink.py``` in your terminal.
-
-![image](https://user-images.githubusercontent.com/61163577/215473390-b34f8480-f970-4a98-9f81-439d33cf397a.png)
-
-- Web application will start automatically in your web browser.
+- Web application will start automatically in your web browser on address http://localhost:8501.
 
 ![image](https://user-images.githubusercontent.com/61163577/215473458-fefab8d1-6d11-4348-99a7-486e9d09f86f.png)

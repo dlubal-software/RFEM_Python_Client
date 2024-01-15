@@ -16,6 +16,7 @@ from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.Loads.nodalLoad import NodalLoad
+from RFEM import connectionGlobals
 
 try:
     from PyQt5 import QtWidgets, uic
@@ -27,6 +28,7 @@ except:
         import subprocess
         try:
             subprocess.call('python -m pip install PyQt5 --user')
+            os.execv(sys.executable, ['python'] + sys.argv)
         except:
             print('WARNING: Installation of PyQt5 library failed!')
             print('Please use command "pip install PyQt5 --user" in your Command Prompt.')
@@ -83,6 +85,7 @@ class MyDialog(QtWidgets.QDialog):
         print('Ready!')
 
         Model.clientModel.service.finish_modification()
+        connectionGlobals.session.close()
 
     def onCancel(self):
         print('Cancel')

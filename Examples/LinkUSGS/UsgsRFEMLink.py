@@ -4,11 +4,17 @@ baseName = os.path.basename(__file__)
 dirName = os.path.dirname(__file__)
 sys.path.append(dirName + r'/../..')
 
+##############################
+# USAGE:
+# python.exe -m streamlit run ./Examples/LinkUSGS/UsgsRFEMLink.py
+##############################
+
 from RFEM.enums import AddOn, ObjectTypes
 from RFEM.initModel import Model, AddOn, GetAddonStatus, SetAddonStatus, FirstFreeIdNumber
 from RFEM.DynamicLoads.responseSpectrum import ResponseSpectrum
 from access import getAsceDataMulti, getAsceDataMultiMCEr, getAsceDataTwo, getAsceDataTwoMCEr
 from PIL import Image
+
 try:
     import streamlit as st
 except:
@@ -19,6 +25,7 @@ except:
         import subprocess
         try:
             subprocess.call('python -m pip install streamlit --user')
+            os.execv(sys.executable, ['python'] + sys.argv)
         except:
             print('WARNING: Installation of streamlit library failed!')
             print('Please use command "pip install streamlit --user" in your Command Prompt.')
@@ -37,6 +44,7 @@ except:
         import subprocess
         try:
             subprocess.call('python -m pip install plotly.express  --user')
+            os.execv(sys.executable, ['python'] + sys.argv)
         except:
             print('WARNING: Installation of plotly.express  library failed!')
             print('Please use command "pip install plotly.express  --user" in your Command Prompt.')
@@ -325,4 +333,3 @@ if __name__ == '__main__':
                 Model.clientModel.service.finish_modification()
                 Model.clientModel.service.close_connection()
                 st.success('Succesful Transer!')
-

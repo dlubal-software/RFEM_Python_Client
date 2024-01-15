@@ -28,6 +28,7 @@ except:
         try:
             subprocess.call('python -m pip install --upgrade pip')
             subprocess.call('python -m pip install psutil requests six suds-py3 xmltodict pytest mock --user')
+            os.execv(sys.executable, ['python'] + sys.argv)
         except:
             print('WARNING: Installation of modules failed!')
             print('Please use command "python -m pip install psutil requests six suds-py3 xmltodict pytest mock --user" in your Command Prompt.')
