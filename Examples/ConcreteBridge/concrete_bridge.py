@@ -11,7 +11,7 @@ sys.path.append(dirName + r'/../..')
 #Import all modules required to access RFEM
 from RFEM.enums import MemberEccentricitySpecificationType, ActionCategoryType, NodalSupportType,\
      MemberSectionDistributionType, MemberSectionAlignment, SurfaceEccentricityAlignment
-from RFEM.initModel import Model, SetAddonStatus, Calculate_all, connectToServer
+from RFEM.initModel import Model, Calculate_all, connectToServer
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.thickness import Thickness
@@ -174,7 +174,7 @@ if __name__ == "__main__":
 
     print(f"Generating {m_count-num_pillars-1} support beams.")
     # bridge concrete slab
-    print(f"Generating support slab, thickness {slab_thickness}.")
+    print(f"Generating support slab, thickness {slab_thickness*1000}mm.")
     s_count = 1
     Surface(s_count, "1", 1, "bridge slab")
     SurfaceEccentricity(1, 0, f"{s_count}", thickness_alignment= SurfaceEccentricityAlignment.ALIGN_TOP,
