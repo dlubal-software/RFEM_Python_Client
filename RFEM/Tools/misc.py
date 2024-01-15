@@ -1,5 +1,7 @@
 from RFEM import connectionGlobals
 from RFEM.initModel import Model
+from RFEM.tools.complexTypes import *
+from RFEM.enums import ObjectTypes, ProgramLanguage, ASFExportDataType
 
 ###########################################
 # Application functions
@@ -25,6 +27,7 @@ def closeApplication():
     connectionGlobals.client.service.close_application()
 
 # For both / and \\ in file path I get invalid file path
+# TODO: bug 158867
 def deleteProject(projectPath):
     '''
     Delete project
@@ -71,9 +74,7 @@ def newProject(name, description, parent_path, folder_path):
 
     connectionGlobals.client.service.new_project(pi)
 
-# Function changed? new_template(ns0:project_info template_info, )
-# Also cannot create template_info
-def newTemplate(template_info): #ns0:template_info doesn't work
+def newTemplate(template_info): #ns0:project_info
     '''
     Create new template
 
@@ -82,18 +83,22 @@ def newTemplate(template_info): #ns0:template_info doesn't work
     '''
     connectionGlobals.client.service.new_template(template_info)
 
-# I am getting HTTP Error 500 Internal server error model at index cannot be saved
 def saveModel(model_index):
     '''
-    Save model
+    Saving existing model from application side by idex starting from 0
 
     Args:
         model_index (int): Index of model to be saved
     '''
     connectionGlobals.client.service.save_model(model_index)
 
-# It seems that I don't understand the project conept, because it says, that i have invalid file path, but I think, that project is not a file but a folder, anyways, I don't know how to use it
 def setAsCurrentProject(project_path):
+    '''
+    Setting open model as active
+
+    Args:
+        project_path (str): Path to model which should be set as current
+    '''
     connectionGlobals.client.service.set_as_current_project(project_path)
 
 def setDetailedLogging(logging=True):
@@ -112,7 +117,7 @@ def getDetailedLogging():
     return connectionGlobals.client.service.get_detailed_logging()
 
 # Doesn't work (tested on: ProgramLanguage.CZECH, etc.)
-def setSettingsProgramLanguage(language):
+def setSettingsProgramLanguage(language:ProgramLanguage):
     '''
     Set program language
 
@@ -125,24 +130,20 @@ def setSettingsProgramLanguage(language):
 # Model functions
 ############################################
 
-# I think I dont understand the list of loadings -
-# when I tried it with [0] and [1] i got same results, but when i tried with [1, 2, 3] I got "unexpected structure of data"
 def calculateSpecific(loadings, skip_warnings=True):
-# calculate_specific(ns0:calculate_specific_loadings loadings, xs:boolean skip_warnings, )
     '''
-    Calculate specified loadings
+    Calculate specified loadings. Equals to 'To Calculate' in RFEM.
 
     Args:
-        loadings (list): List of loadings
+        loadings (list of strings): List of loadings
         skip_warnings (bool): Set to True if warnings should be skipped
     '''
 
     Model.clientModel.service.calculate_specific(loadings, skip_warnings)
 
-# Not tested, there is no set selection yet
 def clearSelection():
     '''
-    Empty selection
+    Clears the selection of objects
     '''
     Model.clientModel.service.clear_selection()
 
@@ -152,7 +153,6 @@ def deleteAll():
     '''
     Model.clientModel.service.delete_all()
 
-# Not tested, because, when I modify the model nothing is added to the history, so I can't verify, if it works
 def deleteAllHistory():
     '''
     Delete whole history
@@ -168,7 +168,6 @@ def deleteAllResults(delete_mesh = True):
     '''
     Model.clientModel.service.delete_all_results(delete_mesh)
 
-# Not tested, because I dont know what it should do
 def divideByIntersections(member_list, line_list, surface_list):
     '''
     Divide by intersections
@@ -180,42 +179,73 @@ def divideByIntersections(member_list, line_list, surface_list):
     '''
     Model.clientModel.service.divide_by_intersections(member_list, line_list, surface_list)
 
-# I think this function doesn't generate anything, so the name is wrong,
-# and the validation also doesn't work - it returns Success on any file with .xml extension
-def generateAndValidateXmlSolverInput(solver_input_file_path):
+def generateAndValidateXmlSolverInput(target_file_path):
     '''
-    Generate and validate XML input
-    Returns result of validation
+    Generate and validate XML solver input
+    Returns generate_and_validate_xml_solver_input_result containing parameters: succeeded, result, and messages.
 
     Args:
-        solver_input_file_path(str): Path to XML
+        target_file_path(str): Path to XML
     '''
-    return Model.clientModel.service.generate_and_validate_xml_solver_input(solver_input_file_path)
+    return Model.clientModel.service.generate_and_validate_xml_solver_input(target_file_path)
 
-# Don't know what this should produce, but neither LC or CO was generated
 def generateLoadCasesAndCombinations():
     '''
     Generate load cases and combinations
+    TODO: Don't know if or how this works.
     '''
     Model.clientModel.service.generate_load_cases_and_combinations()
 
 def reset():
     '''
-    Resets everything
+    Reset everything
     '''
     Model.clientModel.service.reset()
 
 def runScript(script_file_path):
     '''
-    Run JS script.
+    Run JS script
 
     Args:
         script_file_path (str): Path to JS script.
     '''
     Model.clientModel.service.run_script(script_file_path)
 
+def UniteNodesAndSupports(tolerance:float):
+    '''
+    Unite Node sAnd Supports
+    '''
+    Model.clientModel.service.unite_nodes_and_supports(tolerance)
+
+def UseDetailedMemberResults(use:bool):
+    '''
+    Set Use Detailed Member Results
+    '''
+    Model.clientModel.service.use_detailed_member_results(use)
+
+def CalculateAllInCloud(machine_id:str, run_plausibility_check:bool, calculate_despite_warnings_or_errors:bool, email_notification:bool):
+    '''
+    Calculate All In Cloud
+    '''
+    Model.clientModel.service.calculate_all_in_cloud(machine_id, run_plausibility_check, calculate_despite_warnings_or_errors, email_notification)
+
+def ExportToAsf(file_path:str, type_of_reinforcement:ASFExportDataType, surfaces:list):
+    '''
+    Export to ASF
+
+    Args:
+        file_path (str): Path to target file
+        type_of_reinforcement (enum): Enum of available types for ASF export data.
+        surfaces (list of integers): List of surfaces
+    '''
+    Model.clientModel.service.export_to_asf(file_path, type_of_reinforcement, surfaces)
+
+
+#################### SETTERS ####################
+
+
 # Not tested, I need dxf file
-def setDxfFileModelObject(dxf_file_model_object): # ns0:Dxf_file_model_object
+def setDxfFileModelObject(dxf_file_model_object:DxfFileModelObject): # ns0:Dxf_file_model_object
     '''
     Set DXF import parameters
     '''
@@ -223,274 +253,200 @@ def setDxfFileModelObject(dxf_file_model_object): # ns0:Dxf_file_model_object
 
 # Not tested, I need dxf file
 def setDxfModelObject(parent_no, dxf_model_object): # ns0:Dxf_model_object
+    '''
+    Set Dxf Model Object
+    '''
     Model.clientModel.service.set_Dxf_model_object(parent_no, dxf_model_object)
 
-############ BOOKMARK ###################################################
-# Functions below are not tested yet, I am creating objects for them
-
-# Type added to complexTypes.py
-def setBuildingStory(building_story): # ns0:building_story
+def setBuildingStory(building_story:BuildingStory): # ns0:building_story
     '''
     Description
     '''
     Model.clientModel.service.set_building_story(building_story)
 
-# Type added to complexTypes.py
-def setClippingBox(clipping_box): # ns0:clipping_box
+def setClippingBox(clipping_box:ClippingBox): # ns0:clipping_box
     '''
     Description
     '''
     Model.clientModel.service.set_clipping_box(clipping_box)
 
-# Type added to complexTypes.py
-def setClippingPlane(clipping_plane): # ns0:clipping_plane
+def setClippingPlane(clipping_plane:ClippingPlane): # ns0:clipping_plane
     '''
     Description
     '''
     Model.clientModel.service.set_clipping_plane(clipping_plane)
 
-# Type added to complexTypes.py
-def setConstructionStage(construction_stage): # ns0:construction_stage
+def setConstructionStage(construction_stage:ConstructionStage): # ns0:construction_stage
     '''
     Description
     '''
     Model.clientModel.service.set_construction_stage(construction_stage)
 
-# Type added to complexTypes.py
-def setDesignSupport(design_situation): # ns0:design_situation
+def setDesignSupport(design_situation:DesignSituation): # ns0:design_situation
     '''
     Description
     '''
     Model.clientModel.service.set_design_support(design_situation)
 
-# Type added to complexTypes.py
-def setDimension(dimension): # ns0:dimension
+def setDimension(dimension:Dimension): # ns0:dimension
     '''
     Description
     '''
     Model.clientModel.service.set_dimension(dimension)
 
-# Type added to complexTypes.py
-def setMemberRepresentative(member_representative): # ns0:member_representative
+def setMemberRepresentative(member_representative:MemberRepresentative): # ns0:member_representative
     '''
     Description
     '''
     Model.clientModel.service.set_member_representative(member_representative)
 
-# Type added to complexTypes.py
-def setMemberSetRepresentative(member_set_representative): # ns0:member_set_representative
+def setMemberSetRepresentative(member_set_representative:MemberSetRepresentative): # ns0:member_set_representative
     '''
     Description
     '''
     Model.clientModel.service.set_member_set_representative(member_set_representative)
 
-# Type added to complexTypes.py
-def setModelHistory(history): # ns0:array_of_model_history
+def setModelHistory(history:ArrayOfModelHistory): # ns0:array_of_model_history
     '''
     Description
     '''
     Model.clientModel.service.set_model_history(history)
 
-# Type added to complexTypes.py
-def setObjectSnap(snap): #ns0:object_snap
+def setObjectSnap(snap:ObjectSnap): #ns0:object_snap
     '''
     Description
     '''
     Model.clientModel.service.set_object_snap(snap)
 
-# Type added to complexTypes.py
-def setPunchingReinforcement(punching_reinforcement): # ns0:punching_reinforcement
+def setPunchingReinforcement(punching_reinforcement:PunchingReinforcement): # ns0:punching_reinforcement
     '''
     Description
     '''
     Model.clientModel.service.set_punching_reinforcement(punching_reinforcement)
 
-# Type added to complexTypes.py
-def setRelationshipBetweenLoadCases(relationship_between_load_cases): #ns0:relationship_between_load_cases
+def setRelationshipBetweenLoadCases(relationship_between_load_cases:RelationshipBetweenLoadCases): #ns0:relationship_between_load_cases
     '''
     Description
     '''
     Model.clientModel.service.set_relationship_between_load_cases(relationship_between_load_cases)
 
-# Type added to complexTypes.py
-def setSelectedObjects(selected_objects): # ns0:object_location_array
+def setSelectedObjects(selected_objects:ObjectLocationArray): # ns0:object_location_array
     '''
     Description
     '''
     Model.clientModel.service.set_selected_objects(selected_objects)
 
-# Type added to complexTypes.py
-def setSoilMassif(soil_massif): # ns0:soil_massif
+def setSoilMassif(soil_massif:SoilMassif): # ns0:soil_massif
     '''
     Description
     '''
     Model.clientModel.service.set_soil_massif(soil_massif)
 
-# Type added to complexTypes.py
-def setSurfaceImperfection(imperfection_case_no, surface_imperfection): # ns0:surface_imperfection
+def setSurfaceImperfection(imperfection_case_no, surface_imperfection:SurfaceImperfection): # ns0:surface_imperfection
     '''
     Description
     '''
     Model.clientModel.service.set_surface_imperfection(imperfection_case_no, surface_imperfection)
 
-# Type added to complexTypes.py
-def setSurfaceSetImperfection(imperfection_case_no, surface_set_imperfection): # ns0:surface_set_imperfection
+def setSurfaceSetImperfection(imperfection_case_no, surface_set_imperfection:SurfaceSetImperfection): # ns0:surface_set_imperfection
     '''
     Description
     '''
     Model.clientModel.service.set_surface_set_imperfection(imperfection_case_no, surface_set_imperfection)
 
-# Type added to complexTypes.py
-def setTerrain(terrain): # ns0:terrain
+def setTerrain(terrain:Terrain): # ns0:terrain
     '''
     Description
     '''
     Model.clientModel.service.set_terrain(terrain)
 
-# Type added to complexTypes.py
-def setVisualObject(visual_object): # ns0:visual_object
+def setVisualObject(visual_object:VisualObject): # ns0:visual_object
     '''
     Description
     '''
     Model.clientModel.service.set_visual_object(visual_object)
 
-# Type added to complexTypes.py
-def setWindProfile(wind_profile): # ns0:wind_profile
+def setWindProfile(wind_profile:WindProfile): # ns0:wind_profile
     '''
     Description
     '''
     Model.clientModel.service.set_wind_profile(wind_profile)
 
-# Type added to complexTypes.py
-def setWindSimulation(wind_simulation): # ns0:wind_simulation
+def setWindSimulation(wind_simulation:WindSimulation): # ns0:wind_simulation
     '''
     Description
     '''
     Model.clientModel.service.set_wind_simulation(wind_simulation)
 
-# Type will probably be just double
-def uniteNodesAndSupports(tolerance):
-    '''
-    Description
-    '''
-    Model.clientModel.service.unite_nodes_and_supports(tolerance)
-
-########## ADDED FUNCTIONS 30.11.2023 ###########
-#################### SETTERS ####################
-
-# Type added to complexTypes.py
-def SetAccelerogram(accelerogram): #ns0:accelerogram
+def SetAccelerogram(accelerogram:Accelerogram): #ns0:accelerogram
     '''
     Description
     '''
     Model.clientModel.service.set_accelerogram(accelerogram)
 
-# Type added to complexTypes.py
-def SetAluminumDesignSLSConfiguration(aluminum_design_sls_configuration): #ns0:aluminum_design_sls_configuration
-    '''
-    Description
-    '''
-    Model.clientModel.service.set_aluminum_design_sls_configuration(aluminum_design_sls_configuration)
-
-# Type added to complexTypes.py
-def SetAluminumDesignULSConfiguration(aluminum_design_uls_configuration): # ns0:aluminum_design_uls_configuration
-    '''
-    Description
-    '''
-    Model.clientModel.service.set_aluminum_design_uls_configuration(aluminum_design_uls_configuration)
-
-# Type added to complexTypes.py
-def SetBuildingGrid(building_grid): # ns0:building_grid
+def SetBuildingGrid(building_grid:BuildingGrid): # ns0:building_grid
     '''
     Description
     '''
     Model.clientModel.service.set_building_grid(building_grid)
 
-# Type added to complexTypes.py
-def SetCalculationDiagram(calculation_diagram): # ns0:calculation_diagram
+def SetCalculationDiagram(calculation_diagram:CalculationDiagram): # ns0:calculation_diagram
     '''
     Description
     '''
     Model.clientModel.service.set_calculation_diagram(calculation_diagram)
 
-# Type added to complexTypes.py
-def SetFloorSet(floor_set): # ns0:floor_set
+def SetFloorSet(floor_set:FloorSet): # ns0:floor_set
     '''
     Description
     '''
     Model.clientModel.service.set_floor_set(floor_set)
 
-# Type added to complexTypes.py
-def SetMemberOpenings(member_openings): # ns0:member_openings
+def SetMemberOpenings(member_openings:MemberOpenings): # ns0:member_openings
     '''
     Description
     '''
     Model.clientModel.service.set_member_openings(member_openings)
 
-# Type is just string?
-def SetModelId(id): # xs:string id
+def SetModelId(id:str): # xs:string id
     '''
     Description
     '''
     Model.clientModel.service.set_model_id(id)
 
-# Type added to complexTypes.py
-def SetPushoverAnalysisSettings(pushover_analysis_settings): # ns0:pushover_analysis_settings
+def SetPushoverAnalysisSettings(pushover_analysis_settings:GetPushoverAnalysisSettings): # ns0:pushover_analysis_settings
     '''
     Description
     '''
     Model.clientModel.service.set_pushover_analysis_settings(pushover_analysis_settings)
 
-# Type added to complexTypes.py
-def SetShearWall(shear_wall): # ns0:shear_wall
+def SetShearWall(shear_wall:ShearWall): # ns0:shear_wall
     '''
     Description
     '''
     Model.clientModel.service.set_shear_wall(shear_wall)
 
-# Type added to complexTypes.py
-def SetSteelDesignFRConfiguration(steel_design_fr_configuration): # ns0:steel_design_fr_configuration
+def SetSteelDesignFRConfiguration(steel_design_fr_configuration:SteelDesignFrConfiguration): # ns0:steel_design_fr_configuration
     '''
     Description
     '''
     Model.clientModel.service.set_steel_design_fr_configuration(steel_design_fr_configuration)
 
-# Type added to complexTypes.py
-def SetSteelDesignSeismicConfiguration(steel_design_seismic_configuration): # ns0:steel_design_seismic_configuration
+def SetSteelDesignSeismicConfiguration(steel_design_seismic_configuration:SteelDesignSeismicConfiguration): # ns0:steel_design_seismic_configuration
     '''
     Description
     '''
     Model.clientModel.service.set_steel_design_seismic_configuration(steel_design_seismic_configuration)
 
-# Type added to complexTypes.py
-def SetTimberDesignFRConfiguration(timber_design_fr_configuration): # ns0:timber_design_fr_configuration
+def SetTimberDesignFRConfiguration(timber_design_fr_configuration:TimberDesignFrConfiguration): # ns0:timber_design_fr_configuration
     '''
     Description
     '''
     Model.clientModel.service.set_timber_design_fr_configuration(timber_design_fr_configuration)
 
-# Type is just bool?
-def UseDetailedMemberResults(use): # xs:boolean use
-    '''
-    Description
-    '''
-    Model.clientModel.service.use_detailed_member_results(use)
-
-# I guess just normal types
-def CalculateAllInCloud(machine_id, run_plausibility_check, calculate_despite_warnings_or_errors, email_notification): # xs:string machine_id, xs:boolean run_plausibility_check, xs:boolean calculate_despite_warnings_or_errors, xs:boolean email_notification
-    '''
-    Description
-    '''
-    Model.clientModel.service.calculate_all_in_cloud(machine_id, run_plausibility_check, calculate_despite_warnings_or_errors, email_notification)
-
-# asf_export_data_type is simple type TODO: add it to complexTypes.py???
-def ExportToAsf(file_path, type_of_reinforcement, surfaces): #xs:string file_path, ns0:asf_export_data_type type_of_reinforcement, ns0:array_of_int surfaces
-    '''
-    Description
-    '''
-    Model.clientModel.service.export_to_asf(file_path, type_of_reinforcement, surfaces)
 
 #################### GETTERS #####################
+
 
 def GetCurrentProject():
     '''
@@ -684,14 +640,14 @@ def GetModelHistory():
     '''
     Model.clientModel.service.get_model_history()
 
-def GetNthObjectNumber(types, order, parent_no): # ns0:object_types types, xs:int order, xs:int parent_no
+def GetNthObjectNumber(types:ObjectTypes, order, parent_no): # ns0:object_types types, xs:int order, xs:int parent_no
     '''
     Description
     '''
     Model.clientModel.service.get_nth_object_number(types, order, parent_no)
 
 # TODO object_types is simple type and I think it is enum
-def GetObjectCount(types, parent_no): # ns0:object_types types, xs:int parent_no
+def GetObjectCount(types:ObjectTypes, parent_no:int): # ns0:object_types types, xs:int parent_no
     '''
     Description
     '''

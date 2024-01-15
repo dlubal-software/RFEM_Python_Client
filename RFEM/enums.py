@@ -2611,3 +2611,9 @@ class SurfaceReleaseReleaseLocation(Enum):
     Surface Release Release Location Enumeration
     '''
     RELEASE_LOCATION_ORIGIN, RELEASE_LOCATION_RELEASED = range(2)
+
+class ASFExportDataType(Enum):
+    '''
+    ASF Export Data Type
+    '''
+    EXPORT_NOT_COVERED_REINFORCEMENT, EXPORT_PROVIDED_REINFORCEMENT, EXPORT_REQUIRED_REINFORCEMENT = range(3)

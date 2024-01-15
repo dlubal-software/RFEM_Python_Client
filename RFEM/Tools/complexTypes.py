@@ -2020,57 +2020,6 @@ class Accelerogram(BaseComplexType):
         self.id_for_export_import = id_for_export_import
         self.metadata_for_export_import = metadata_for_export_import
 
-
-class AluminumDesignSlsConfiguration(BaseComplexType):
-    def __init__(self,
-        no = None, # int
-        user_defined_name_enabled = None, # boolean
-        name = None, # string
-        assigned_to_all_members = None, # boolean
-        assigned_to_members = None, # xsd:array_of_int
-        assigned_to_all_member_sets = None, # boolean
-        assigned_to_member_sets = None, # xsd:array_of_int
-        comment = None, # string
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
-    ):
-        self.no = no
-        self.user_defined_name_enabled = user_defined_name_enabled
-        self.name = name
-        self.assigned_to_all_members = assigned_to_all_members
-        self.assigned_to_members = assigned_to_members
-        self.assigned_to_all_member_sets = assigned_to_all_member_sets
-        self.assigned_to_member_sets = assigned_to_member_sets
-        self.comment = comment
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
-
-
-class AluminumDesignUlsConfiguration(BaseComplexType):
-    def __init__(self,
-        no = None, # int
-        user_defined_name_enabled = None, # boolean
-        name = None, # string
-        assigned_to_all_members = None, # boolean
-        assigned_to_members = None, # xsd:array_of_int
-        assigned_to_all_member_sets = None, # boolean
-        assigned_to_member_sets = None, # xsd:array_of_int
-        comment = None, # string
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
-    ):
-        self.no = no
-        self.user_defined_name_enabled = user_defined_name_enabled
-        self.name = name
-        self.assigned_to_all_members = assigned_to_all_members
-        self.assigned_to_members = assigned_to_members
-        self.assigned_to_all_member_sets = assigned_to_all_member_sets
-        self.assigned_to_member_sets = assigned_to_member_sets
-        self.comment = comment
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
-
-
 class BuildingGrid(BaseComplexType):
     def __init__(self,
         no = None, # int
