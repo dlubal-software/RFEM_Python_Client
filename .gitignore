@@ -127,6 +127,5 @@ dmypy.json
 .pyre/
 
 # Examples
-Examples/TankWebApp/export.vtk
-Examples/TankWebApp/export/
+Examples/TankWebApp/
 Examples/ScriptGenerator/
