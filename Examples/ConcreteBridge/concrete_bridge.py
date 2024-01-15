@@ -9,10 +9,9 @@ print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
 #Import all modules required to access RFEM
-from RFEM.enums import AddOn, MemberEccentricitySpecificationType, StaticAnalysisType, ActionCategoryType, NodeReferenceType, MemberLoadDirection, NodalSupportType, ObjectTypes, \
-     DesignSituationType, CaseObjectType, MemberSectionDistributionType, MemberSectionAlignment, SurfaceEccentricityAlignment
+from RFEM.enums import MemberEccentricitySpecificationType, ActionCategoryType, NodalSupportType,\
+     MemberSectionDistributionType, MemberSectionAlignment, SurfaceEccentricityAlignment
 from RFEM.initModel import Model, SetAddonStatus, Calculate_all, connectToServer
-from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.thickness import Thickness
@@ -23,9 +22,8 @@ from RFEM.BasicObjects.surface import Surface
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.TypesForSurfaces.surfaceEccentricity import SurfaceEccentricity
 from RFEM.TypesForMembers.memberEccentricity import MemberEccentricity
-from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
-from RFEM.Loads.memberLoad import MemberLoad
+from RFEM.Loads.surfaceLoad import SurfaceLoad
 from RFEM.Tools.PlausibilityCheck import PlausibilityCheck
 from RFEM import connectionGlobals
 
@@ -34,8 +32,12 @@ if __name__ == "__main__":
     # connect to server and establish a naming scheme
     connectToServer()
     array_of_models = connectionGlobals.client.service.get_model_list()
-    model_list = array_of_models[0]
-    print("List of active models:", model_list)
+    if array_of_models:
+        model_list = array_of_models[0]
+        print("List of active models:", model_list)
+    else:
+        print("Creating new model.")
+        model_list = []
     name_counter = 1
     model_name = "concrete_bridge_" + str(name_counter)
     while model_name in model_list:
@@ -47,11 +49,11 @@ if __name__ == "__main__":
     Model(model_name=model_name)
 
     num_bridge_fields = 4       # number of whole bridge fields (between pillars)
-    bridge_height = float(6)   # primary parameters, input in meters
-    bridge_width = float(9)
-    bridge_length = float(16)   # length of one field/span
+    bridge_height = float(18.5)   # primary parameters, input in meters
+    bridge_width = float(12)
+    bridge_length = float(22.48)   # length of one field/span
                                 # secondary (derived) parameters, input optional in meters
-    pillar_dimension = bridge_width/5
+    pillar_dimension = bridge_width/6
     girder_width = pillar_dimension
     girder_height = bridge_width/4
     beam_width = 0.4
@@ -64,6 +66,8 @@ if __name__ == "__main__":
             beam_spacing = bridge_length/b
             beams_per_field = b
             break
+
+    # ----------------INPUT PARAMETERS------------------#
 
     # starting modification of the model
     Model.clientModel.service.begin_modification()
@@ -163,7 +167,7 @@ if __name__ == "__main__":
         m_count += 2
         beam_start_node += 3
 
-    print(f"Generating {m_count-num_pillars-1} is {2*beams_per_field*num_bridge_fields} support beams.")
+    print(f"Generating {m_count-num_pillars-1} support beams.")
     # bridge concrete slab
     print(f"Generating support slab, thickness {slab_thickness}.")
     s_count = 1
@@ -171,4 +175,14 @@ if __name__ == "__main__":
     SurfaceEccentricity(1, 0, f"{s_count}", thickness_alignment= SurfaceEccentricityAlignment.ALIGN_TOP,
                         transverse_offset_object= None)
 
+    # loadcases
+    LoadCase() # self weight
+    LoadCase(2, "Active Load", [True, 0, 0, 1],
+             ActionCategoryType.ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_F_TRAFFIC_AREA_VEHICLE_WEIGHT_LESS_OR_EQUAL_TO_30_KN_QI_F,
+             )
+    SurfaceLoad(1, 2, "1", 20000, "Road Traffic")
+
     Model.clientModel.service.finish_modification()
+    PlausibilityCheck()
+    print("Calculating results.")
+    Calculate_all()
