@@ -24,6 +24,7 @@ from RFEM.TypesForSurfaces.surfaceEccentricity import SurfaceEccentricity
 from RFEM.TypesForMembers.memberEccentricity import MemberEccentricity
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.Loads.surfaceLoad import SurfaceLoad
+from RFEM.Loads.freeLoad import FreeLoad
 from RFEM.Tools.PlausibilityCheck import PlausibilityCheck
 from RFEM import connectionGlobals
 
@@ -48,10 +49,10 @@ if __name__ == "__main__":
     # inicialize model and define parameters
     Model(model_name=model_name)
 
-    num_bridge_fields = 4       # number of whole bridge fields (between pillars)
-    bridge_height = float(18.5)   # primary parameters, input in meters
-    bridge_width = float(12)
-    bridge_length = float(22.48)   # length of one field/span
+    num_bridge_fields = 9      # number of whole bridge fields (between pillars)
+    bridge_height = float(7.5)   # primary parameters, input in meters
+    bridge_width = float(4)
+    bridge_length = float(14)   # length of one field/span
                                 # secondary (derived) parameters, input optional in meters
     pillar_dimension = bridge_width/6
     girder_width = pillar_dimension
@@ -66,6 +67,10 @@ if __name__ == "__main__":
             beam_spacing = bridge_length/b
             beams_per_field = b
             break
+    # LOADING SETUP - if, true, the live load will only be applied on odd bridge fields
+    # if false, loading will be constant for the whole bridge length
+    alternating_live_loads = False
+    live_load_magnitude = 20000.0
 
     # ----------------INPUT PARAMETERS------------------#
 
@@ -180,7 +185,24 @@ if __name__ == "__main__":
     LoadCase(2, "Active Load", [True, 0, 0, 1],
              ActionCategoryType.ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_F_TRAFFIC_AREA_VEHICLE_WEIGHT_LESS_OR_EQUAL_TO_30_KN_QI_F,
              )
-    SurfaceLoad(1, 2, "1", 20000, "Road Traffic")
+    if alternating_live_loads:
+        if num_bridge_fields == 1:
+            FreeLoad.RectangularLoad(1, 2, "1", load_magnitude_parameter= [live_load_magnitude],
+                                    load_location_parameter= [-pillar_dimension/2, -bridge_width/2, bridge_length+pillar_dimension/2, bridge_width/2, 0])
+        else:
+            # first field
+            FreeLoad.RectangularLoad(1, 2, "1", load_magnitude_parameter= [live_load_magnitude],
+                                        load_location_parameter= [-pillar_dimension/2, -bridge_width/2, bridge_length, bridge_width/2, 0])
+            # inner fields
+            for i in range(2, num_bridge_fields, 2):
+                FreeLoad.RectangularLoad(1+i, 2, "1", load_magnitude_parameter= [live_load_magnitude],
+                                        load_location_parameter= [bridge_length*i, -bridge_width/2, bridge_length*(i+1), bridge_width/2, 0])
+            # last field
+            if num_bridge_fields%2 != 0:
+                FreeLoad.RectangularLoad(num_bridge_fields, 2, "1", load_magnitude_parameter= [live_load_magnitude],
+                                        load_location_parameter= [bridge_length*(num_bridge_fields-1), -bridge_width/2, bridge_length*num_bridge_fields+pillar_dimension/2, bridge_width/2, 0])
+    else:
+        SurfaceLoad(1, 2, "1", 20000, "Road Traffic")
 
     Model.clientModel.service.finish_modification()
     PlausibilityCheck()
