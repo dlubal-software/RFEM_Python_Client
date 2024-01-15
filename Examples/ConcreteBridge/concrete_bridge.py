@@ -174,7 +174,7 @@ if __name__ == "__main__":
 
     print(f"Generating {m_count-num_pillars-1} support beams.")
     # bridge concrete slab
-    print(f"Generating support slab, thickness {slab_thickness*1000}mm.")
+    print(f"Generating support slab, thickness {slab_thickness*1000} mm.")
     s_count = 1
     Surface(s_count, "1", 1, "bridge slab")
     SurfaceEccentricity(1, 0, f"{s_count}", thickness_alignment= SurfaceEccentricityAlignment.ALIGN_TOP,
