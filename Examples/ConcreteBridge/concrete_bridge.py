@@ -51,7 +51,7 @@ if __name__ == "__main__":
 
     num_bridge_fields = 9      # number of whole bridge fields (between pillars)
     bridge_height = float(7.5)   # primary parameters, input in meters
-    bridge_width = float(4)
+    bridge_width = float(9)
     bridge_length = float(14)   # length of one field/span
                                 # secondary (derived) parameters, input optional in meters
     pillar_dimension = bridge_width/6
@@ -69,7 +69,7 @@ if __name__ == "__main__":
             break
     # LOADING SETUP - if, true, the live load will only be applied on odd bridge fields
     # if false, loading will be constant for the whole bridge length
-    alternating_live_loads = False
+    alternating_live_loads = True
     live_load_magnitude = 20000.0
 
     # ----------------INPUT PARAMETERS------------------#
