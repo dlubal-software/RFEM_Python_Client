@@ -382,6 +382,59 @@ class ConstructionStage(BaseComplexType):
         self.metadata_for_export_import = metadata_for_export_import
 
 
+class DesignSupport(BaseComplexType):
+    def __init__(self,
+        no = None, # int
+        type = None, # xsd:design_support_type
+        user_defined_name_enabled = None, # boolean
+        name = None, # string
+        assigned_to_members = None, # string
+        assigned_to_member_sets = None, # string
+        assigned_to_nodes = None, # string
+        assigned_to_objects = None, # string
+        comment = None, # string
+        is_generated = None, # bool
+        activate_in_y = None, # bool
+        activate_in_z = None, # bool
+        consider_in_deflection_design_y = None, # bool
+        consider_in_deflection_design_z = None, # bool
+        concrete_monolithic_connection_z_enabled = None, # bool
+        concrete_ratio_of_moment_redistribution_z = None, # float
+        design_support_orientation_z = None, # enum
+        direct_support_z_enabled = None, # bool
+        inner_support_z_enabled = None, # bool
+        support_depth_by_section_width_of_member_z_enabled = None, # bool
+        support_width_y = None, # float
+        support_width_z = None, # float
+        id_for_export_import = None, # string
+        metadata_for_export_import = None # string
+    ):
+        self.no = no
+        self.type = type
+        self.user_defined_name_enabled = user_defined_name_enabled
+        self.name = name
+        self.assigned_to_members = assigned_to_members
+        self.assigned_to_member_sets = assigned_to_member_sets
+        self.assigned_to_nodes = assigned_to_nodes
+        self.assigned_to_objects = assigned_to_objects
+        self.comment = comment
+        self.is_generated = is_generated
+        self.activate_in_y = activate_in_y
+        self.activate_in_z = activate_in_z
+        self.consider_in_deflection_design_y = consider_in_deflection_design_y
+        self.consider_in_deflection_design_z = consider_in_deflection_design_z
+        self.concrete_monolithic_connection_z_enabled = concrete_monolithic_connection_z_enabled
+        self.concrete_ratio_of_moment_redistribution_z = concrete_ratio_of_moment_redistribution_z
+        self.design_support_orientation_z = design_support_orientation_z
+        self.direct_support_z_enabled = direct_support_z_enabled
+        self.inner_support_z_enabled = inner_support_z_enabled
+        self.support_depth_by_section_width_of_member_z_enabled = support_depth_by_section_width_of_member_z_enabled
+        self.support_width_y = support_width_y
+        self.support_width_z = support_width_z
+        self.id_for_export_import = id_for_export_import
+        self.metadata_for_export_import = metadata_for_export_import
+
+
 class DesignSituation(BaseComplexType):
     def __init__(self,
         no = None, # int

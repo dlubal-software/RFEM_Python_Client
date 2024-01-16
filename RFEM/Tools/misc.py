@@ -77,6 +77,7 @@ def newProject(name, description, parent_path, folder_path):
 def newTemplate(template_info): #ns0:project_info
     '''
     Create new template
+    TODO: project_info doesn't exist says WS
 
     Args:
         template_info
@@ -92,7 +93,7 @@ def saveModel(model_index):
     '''
     connectionGlobals.client.service.save_model(model_index)
 
-def setAsCurrentProject(project_path):
+def SetAsCurrentProject(project_path):
     '''
     Setting open model as active
 
@@ -101,7 +102,7 @@ def setAsCurrentProject(project_path):
     '''
     connectionGlobals.client.service.set_as_current_project(project_path)
 
-def setDetailedLogging(logging=True):
+def SetDetailedLogging(logging=True):
     '''
     Enable detailed logging
 
@@ -117,9 +118,12 @@ def getDetailedLogging():
     return connectionGlobals.client.service.get_detailed_logging()
 
 # Doesn't work (tested on: ProgramLanguage.CZECH, etc.)
-def setSettingsProgramLanguage(language:ProgramLanguage):
+def SetSettingsProgramLanguage(language:ProgramLanguage):
     '''
     Set program language
+    TODO: set_settings_program_language doesn't work.
+          The option in the settings does not change,
+          nor does a message about change being applied after restart pop up.
 
     Args:
         language (enum ProgramLanguage): Program language
@@ -133,6 +137,16 @@ def setSettingsProgramLanguage(language:ProgramLanguage):
 def calculateSpecific(loadings, skip_warnings=True):
     '''
     Calculate specified loadings. Equals to 'To Calculate' in RFEM.
+
+    TODO: It is not clear in what format the loadings parameter should be set.
+          Is it list of integers or list of strings? Putting any kind of load case for example returns same result:
+          (calculation_result){
+          succeeded = True
+          errors_and_warnings = ""
+          messages = None}
+
+          which I question if it is correct, because I don't see any results.
+          Also I see no calculation process in RFEM. In this case 'succeeded' parameter should be False and have some message.
 
     Args:
         loadings (list of strings): List of loadings
@@ -213,19 +227,31 @@ def runScript(script_file_path):
 
 def UniteNodesAndSupports(tolerance:float):
     '''
-    Unite Node sAnd Supports
+    Unite Nodes And Supports
+
+    Args:
+        tolerance (float): Tolerance
     '''
     Model.clientModel.service.unite_nodes_and_supports(tolerance)
 
 def UseDetailedMemberResults(use:bool):
     '''
     Set Use Detailed Member Results
+
+    Args:
+        use (bool): If to use detailed member results
     '''
     Model.clientModel.service.use_detailed_member_results(use)
 
 def CalculateAllInCloud(machine_id:str, run_plausibility_check:bool, calculate_despite_warnings_or_errors:bool, email_notification:bool):
     '''
     Calculate All In Cloud
+
+    Args:
+        machine_id (str):
+        run_plausibility_check (bool):
+        calculate_despite_warnings_or_errors (bool):
+        email_notification (bool):
     '''
     Model.clientModel.service.calculate_all_in_cloud(machine_id, run_plausibility_check, calculate_despite_warnings_or_errors, email_notification)
 
@@ -244,203 +270,206 @@ def ExportToAsf(file_path:str, type_of_reinforcement:ASFExportDataType, surfaces
 #################### SETTERS ####################
 
 
-# Not tested, I need dxf file
-def setDxfFileModelObject(dxf_file_model_object:DxfFileModelObject): # ns0:Dxf_file_model_object
+def SetDxfFileModelObject(dxf_file_model_object:DxfFileModelObject):
     '''
     Set DXF import parameters
+
+    Args:
+        dxf_file_model_object (DxfFileModelObject): Complex Type
     '''
     Model.clientModel.service.set_Dxf_file_model_object(dxf_file_model_object)
 
-# Not tested, I need dxf file
-def setDxfModelObject(parent_no, dxf_model_object): # ns0:Dxf_model_object
+def SetDxfModelObject(parent_no, dxf_model_object):
     '''
     Set Dxf Model Object
+
+    Args:
     '''
     Model.clientModel.service.set_Dxf_model_object(parent_no, dxf_model_object)
 
-def setBuildingStory(building_story:BuildingStory): # ns0:building_story
+def SetBuildingStory(building_story:BuildingStory):
     '''
-    Description
+    Set Building Story
     '''
     Model.clientModel.service.set_building_story(building_story)
 
-def setClippingBox(clipping_box:ClippingBox): # ns0:clipping_box
+def SetClippingBox(clipping_box:ClippingBox):
     '''
-    Description
+    Set Clipping Box
     '''
     Model.clientModel.service.set_clipping_box(clipping_box)
 
-def setClippingPlane(clipping_plane:ClippingPlane): # ns0:clipping_plane
+def SetClippingPlane(clipping_plane:ClippingPlane):
     '''
-    Description
+    Set Clipping Plane
     '''
     Model.clientModel.service.set_clipping_plane(clipping_plane)
 
-def setConstructionStage(construction_stage:ConstructionStage): # ns0:construction_stage
+def SetConstructionStage(construction_stage:ConstructionStage):
     '''
-    Description
+    Set Construction Stage
     '''
     Model.clientModel.service.set_construction_stage(construction_stage)
 
-def setDesignSupport(design_situation:DesignSituation): # ns0:design_situation
+def SetDesignSupport(design_support:DesignSupport):
     '''
-    Description
+    Set Design Support
     '''
-    Model.clientModel.service.set_design_support(design_situation)
+    Model.clientModel.service.set_design_support(design_support)
 
-def setDimension(dimension:Dimension): # ns0:dimension
+def SetDimension(dimension:Dimension):
     '''
-    Description
+    Set Dimension
     '''
     Model.clientModel.service.set_dimension(dimension)
 
-def setMemberRepresentative(member_representative:MemberRepresentative): # ns0:member_representative
+def SetMemberRepresentative(member_representative:MemberRepresentative):
     '''
-    Description
+    Set Member Representative
     '''
     Model.clientModel.service.set_member_representative(member_representative)
 
-def setMemberSetRepresentative(member_set_representative:MemberSetRepresentative): # ns0:member_set_representative
+def SetMemberSetRepresentative(member_set_representative:MemberSetRepresentative):
     '''
-    Description
+    Set Member Set Representative
     '''
     Model.clientModel.service.set_member_set_representative(member_set_representative)
 
-def setModelHistory(history:ArrayOfModelHistory): # ns0:array_of_model_history
+def SetModelHistory(history:ArrayOfModelHistory):
     '''
-    Description
+    Set Model History
     '''
     Model.clientModel.service.set_model_history(history)
 
-def setObjectSnap(snap:ObjectSnap): #ns0:object_snap
+def SetObjectSnap(snap:ObjectSnap):
     '''
-    Description
+    Set Object Snap
     '''
     Model.clientModel.service.set_object_snap(snap)
 
-def setPunchingReinforcement(punching_reinforcement:PunchingReinforcement): # ns0:punching_reinforcement
+def SetPunchingReinforcement(punching_reinforcement:PunchingReinforcement):
     '''
-    Description
+    Set Punching Reinforcement
     '''
     Model.clientModel.service.set_punching_reinforcement(punching_reinforcement)
 
-def setRelationshipBetweenLoadCases(relationship_between_load_cases:RelationshipBetweenLoadCases): #ns0:relationship_between_load_cases
+def SetRelationshipBetweenLoadCases(relationship_between_load_cases:RelationshipBetweenLoadCases):
     '''
-    Description
+    Set Relationship Between Load Cases
     '''
     Model.clientModel.service.set_relationship_between_load_cases(relationship_between_load_cases)
 
-def setSelectedObjects(selected_objects:ObjectLocationArray): # ns0:object_location_array
+def SetSelectedObjects(selected_objects:ObjectLocationArray):
     '''
-    Description
+    Set Selected Objects
     '''
     Model.clientModel.service.set_selected_objects(selected_objects)
 
-def setSoilMassif(soil_massif:SoilMassif): # ns0:soil_massif
+def SetSoilMassif(soil_massif:SoilMassif):
     '''
-    Description
+    Set Soil Massif
     '''
     Model.clientModel.service.set_soil_massif(soil_massif)
 
-def setSurfaceImperfection(imperfection_case_no, surface_imperfection:SurfaceImperfection): # ns0:surface_imperfection
+def SetSurfaceImperfection(imperfection_case_no, surface_imperfection:SurfaceImperfection):
     '''
-    Description
+    Set Surface Imperfection
     '''
     Model.clientModel.service.set_surface_imperfection(imperfection_case_no, surface_imperfection)
 
-def setSurfaceSetImperfection(imperfection_case_no, surface_set_imperfection:SurfaceSetImperfection): # ns0:surface_set_imperfection
+def SetSurfaceSetImperfection(imperfection_case_no, surface_set_imperfection:SurfaceSetImperfection):
     '''
-    Description
+    Set Surface Set Imperfection
     '''
     Model.clientModel.service.set_surface_set_imperfection(imperfection_case_no, surface_set_imperfection)
 
-def setTerrain(terrain:Terrain): # ns0:terrain
+def SetTerrain(terrain:Terrain):
     '''
-    Description
+    Set Terrain
     '''
     Model.clientModel.service.set_terrain(terrain)
 
-def setVisualObject(visual_object:VisualObject): # ns0:visual_object
+def SetVisualObject(visual_object:VisualObject):
     '''
-    Description
+    Set Visual Object
     '''
     Model.clientModel.service.set_visual_object(visual_object)
 
-def setWindProfile(wind_profile:WindProfile): # ns0:wind_profile
+def SetWindProfile(wind_profile:WindProfile):
     '''
-    Description
+    Set Wind Profile
     '''
     Model.clientModel.service.set_wind_profile(wind_profile)
 
-def setWindSimulation(wind_simulation:WindSimulation): # ns0:wind_simulation
+def SetWindSimulation(wind_simulation:WindSimulation):
     '''
-    Description
+    Set Wind Simulation
     '''
     Model.clientModel.service.set_wind_simulation(wind_simulation)
 
-def SetAccelerogram(accelerogram:Accelerogram): #ns0:accelerogram
+def SetAccelerogram(accelerogram:Accelerogram):
     '''
-    Description
+    Set Accelerogram
     '''
     Model.clientModel.service.set_accelerogram(accelerogram)
 
-def SetBuildingGrid(building_grid:BuildingGrid): # ns0:building_grid
+def SetBuildingGrid(building_grid:BuildingGrid):
     '''
-    Description
+    Set Building Grid
     '''
     Model.clientModel.service.set_building_grid(building_grid)
 
-def SetCalculationDiagram(calculation_diagram:CalculationDiagram): # ns0:calculation_diagram
+def SetCalculationDiagram(calculation_diagram:CalculationDiagram):
     '''
-    Description
+    Set Calculation Diagram
     '''
     Model.clientModel.service.set_calculation_diagram(calculation_diagram)
 
-def SetFloorSet(floor_set:FloorSet): # ns0:floor_set
+def SetFloorSet(floor_set:FloorSet):
     '''
-    Description
+    Set Floor Set
     '''
     Model.clientModel.service.set_floor_set(floor_set)
 
-def SetMemberOpenings(member_openings:MemberOpenings): # ns0:member_openings
+def SetMemberOpenings(member_openings:MemberOpenings):
     '''
-    Description
+    Set Member Openings
     '''
     Model.clientModel.service.set_member_openings(member_openings)
 
-def SetModelId(id:str): # xs:string id
+def SetModelID(id:str):
     '''
-    Description
+    Set Model ID
     '''
     Model.clientModel.service.set_model_id(id)
 
-def SetPushoverAnalysisSettings(pushover_analysis_settings:GetPushoverAnalysisSettings): # ns0:pushover_analysis_settings
+def SetPushoverAnalysisSettings(pushover_analysis_settings:GetPushoverAnalysisSettings):
     '''
-    Description
+    Set Pushover Analysis Settings
     '''
     Model.clientModel.service.set_pushover_analysis_settings(pushover_analysis_settings)
 
-def SetShearWall(shear_wall:ShearWall): # ns0:shear_wall
+def SetShearWall(shear_wall:ShearWall):
     '''
-    Description
+    Set Shear Wall
     '''
     Model.clientModel.service.set_shear_wall(shear_wall)
 
-def SetSteelDesignFRConfiguration(steel_design_fr_configuration:SteelDesignFrConfiguration): # ns0:steel_design_fr_configuration
+def SetSteelDesignFRConfiguration(steel_design_fr_configuration:SteelDesignFrConfiguration):
     '''
-    Description
+    Set Steel Design FR Configuration
     '''
     Model.clientModel.service.set_steel_design_fr_configuration(steel_design_fr_configuration)
 
-def SetSteelDesignSeismicConfiguration(steel_design_seismic_configuration:SteelDesignSeismicConfiguration): # ns0:steel_design_seismic_configuration
+def SetSteelDesignSeismicConfiguration(steel_design_seismic_configuration:SteelDesignSeismicConfiguration):
     '''
-    Description
+    Set Steel Design Seismic Configuration
     '''
     Model.clientModel.service.set_steel_design_seismic_configuration(steel_design_seismic_configuration)
 
-def SetTimberDesignFRConfiguration(timber_design_fr_configuration:TimberDesignFrConfiguration): # ns0:timber_design_fr_configuration
+def SetTimberDesignFRConfiguration(timber_design_fr_configuration:TimberDesignFrConfiguration):
     '''
-    Description
+    Set Timber Design FR Configuration
     '''
     Model.clientModel.service.set_timber_design_fr_configuration(timber_design_fr_configuration)
 
@@ -450,325 +479,334 @@ def SetTimberDesignFRConfiguration(timber_design_fr_configuration:TimberDesignFr
 
 def GetCurrentProject():
     '''
-    Description
+    Get Current Project
+    TODO: "Server raised fault: 'Current project does not exist.'"
     '''
     connectionGlobals.client.service.get_current_project()
 
 def GetListOfExistingProjects():
     '''
-    Description
+    Get List Of Existing Projects
+    TODO: the result is empty
     '''
     connectionGlobals.client.service.get_list_of_existing_projects()
 
 def GetListOfExistingTemplates():
     '''
-    Description
+    Get List Of Existing Templates
+    TODO: the result is empty
     '''
     connectionGlobals.client.service.get_list_of_existing_templates()
 
 def GetModelListWithIndexes():
     '''
-    Description
+    Get Model List With Indexes
     '''
     connectionGlobals.client.service.get_model_list_with_indexes()
 
 def GetProject(project_path): #xs:string project_path
     '''
-    Description
+    Get Project
+    TODO: ivalid file path
     '''
     connectionGlobals.client.service.get_project(project_path)
 
 def GetSettingsProgramLanguage():
     '''
-    Description
+    Get Settings Program Language
     '''
     connectionGlobals.client.service.get_settings_program_language()
 
 def GetTemplate(template_path): #xs:string template_path
     '''
-    Description
+    Get Template
+    TODO: Invalid file path 'D:/BuildMaster/grandmaster/grandmaster_b234034_038703b7d8a/models/TestModel.ft6
     '''
     connectionGlobals.client.service.get_template(template_path)
 
 def GetDXFFileModelObject(no): # xs:int no
     '''
-    Description
+    Get DXF File Model Object
+    TODO: Do not know how this function works. I think there is missing paramter called 'path'.
     '''
     Model.clientModel.service.get_Dxf_file_model_object(no)
 
 def GetDXFModelObject(no, parent_no): # xs:int no, xs:int parent_no
     '''
-    Description
+    Get DXF Model Object
+    TODO: Do not know how this function works.
     '''
     Model.clientModel.service.get_Dxf_model_object(no, parent_no)
 
 def GetAccelerogram(no): # xs:int no
     '''
-    Description
+    Get Accelerogram
+    TODO: Not tested. Don't know which Add-on should be used. Harmonic Response Anaylsis is disabled.
     '''
     Model.clientModel.service.get_accelerogram(no)
 
 def GetActionCategoriesForAction():
     '''
-    Description
+    Get all Action Categories for Action
     '''
     Model.clientModel.service.get_action_categories_for_action()
 
 def GetActionCategoriesForLoadCase():
     '''
-    Description
+    Get all Action Categories for Load Cases
     '''
     Model.clientModel.service.get_action_categories_for_load_case()
 
 def GetAllAvailableMachinesInCloud():
     '''
-    Description
+    Get list of available machines
     '''
     Model.clientModel.service.get_all_available_machines_in_cloud()
 
 def GetAllSelectedObjects():
     '''
-    Description
+    Get list of selected objects, their type and no.
     '''
     Model.clientModel.service.get_all_selected_objects()
 
-def GetAluminumDesignSLSConfiguration(no): # xs:int no
+def GetAluminumDesignSLSConfiguration(no):
     '''
-    Description
+    Get Aluminum Design SLS Configuration
     '''
     Model.clientModel.service.get_aluminum_design_sls_configuration(no)
 
-def GetAluminumDesignUlsConfiguration(no): # xs:int no
+def GetAluminumDesignULSConfiguration(no):
     '''
-    Description
+    Get Aluminum Design ULS Configuration
     '''
     Model.clientModel.service.get_aluminum_design_uls_configuration(no)
 
 def GetBuildingGrid(no): # xs:int no
     '''
-    Description
+    Get Building Grid
+    TODO: Not tested. Don't know what it is.
     '''
     Model.clientModel.service.get_building_grid(no)
 
-def GetBuildingStory(no): # xs:int no
+def GetBuildingStory(no):
     '''
-    Description
+    Get building story
     '''
     Model.clientModel.service.get_building_story(no)
 
-def GetCalculationDiagram(no): # xs:int no
+def GetCalculationDiagram(no):
     '''
-    Description
+    Get Calculation Diagram
+    TODO: Not tested. Don't know what it is.
     '''
     Model.clientModel.service.get_calculation_diagram(no)
 
 def GetCalculationErrors():
     '''
-    Description
+    Get Calculation Errors
     '''
     Model.clientModel.service.get_calculation_errors()
 
-def GetClippingBox(no): # xs:int no
+def GetClippingBox(no):
     '''
-    Description
+    Get Clipping Box
     '''
     Model.clientModel.service.get_clipping_box(no)
 
-def GetClippingPlane(no): # xs:int no
+def GetClippingPlane(no):
     '''
-    Description
+    Get Clipping Plane
     '''
     Model.clientModel.service.get_clipping_plane(no)
 
-def GetConstructionStage(no): # xs:int no
+def GetConstructionStage(no):
     '''
-    Description
+    Get Construction Stage
     '''
     Model.clientModel.service.get_construction_stage(no)
 
 def GetDesignSituationTypes():
     '''
-    Description
+    Get list of all Design Situation Types
     '''
     Model.clientModel.service.get_design_situation_types()
 
-def GetDesignSupport(no): # xs:int no
+def GetDesignSupport(no):
     '''
-    Description
+    Get Design Support
     '''
     Model.clientModel.service.get_design_support(no)
 
-def GetDimension(no): # xs:int no
+def GetDimension(no):
     '''
-    Description
+    Get Dimension
     '''
     Model.clientModel.service.get_dimension(no)
 
-def GetFloorSet(no): # xs:int no
+def GetFloorSet(no):
     '''
-    Description
+    Get Floor Set
     '''
     Model.clientModel.service.get_floor_set(no)
 
-def GetGlobalParameter(no): # xs:int no
+def GetGlobalParameter(no):
     '''
-    Description
+    Get Global Parameter
     '''
     Model.clientModel.service.get_global_parameter(no)
 
-def GetMemberOpenings(no): # xs:int no
+def GetMemberOpenings(no):
     '''
-    Description
+    Get Member Openings
     '''
     Model.clientModel.service.get_member_openings(no)
 
-def GetMemberRepresentative(no): # xs:int no
+def GetMemberRepresentative(no):
     '''
-    Description
+    Get Member Representative
     '''
     Model.clientModel.service.get_member_representative(no)
 
-def GetMemberSetRepresentative(no): # xs:int no
+def GetMemberSetRepresentative(no):
     '''
-    Description
+    Get Member Set Representative
     '''
     Model.clientModel.service.get_member_set_representative(no)
 
 def GetModelHistory():
     '''
-    Description
+    Get Model History
     '''
     Model.clientModel.service.get_model_history()
 
-def GetNthObjectNumber(types:ObjectTypes, order, parent_no): # ns0:object_types types, xs:int order, xs:int parent_no
+def GetNthObjectNumber(types:ObjectTypes, order:int, parent_no:int):
     '''
-    Description
+    Get Nth Object Number
     '''
     Model.clientModel.service.get_nth_object_number(types, order, parent_no)
 
-# TODO object_types is simple type and I think it is enum
-def GetObjectCount(types:ObjectTypes, parent_no:int): # ns0:object_types types, xs:int parent_no
+def GetObjectCount(types:ObjectTypes, parent_no:int):
     '''
-    Description
+    Get Count of objects given by type
     '''
     Model.clientModel.service.get_object_count(types, parent_no)
 
-def GetObjectInformation(types): # ns0:object_types types
+def GetObjectInformation(types:ObjectTypes):
     '''
-    Description
+    Get Object Information
     '''
     Model.clientModel.service.get_object_information(types)
 
-def GetObjectSnap(no): # xs:int no
+def GetObjectSnap(no):
     '''
-    Description
+    Get Object Snap
     '''
     Model.clientModel.service.get_object_snap(no)
 
 def GetOptimizedValues():
     '''
-    Description
+    Get Optimized Values
     '''
     Model.clientModel.service.get_optimized_values()
 
 def GetPartsListDeepBeamsByMaterial():
     '''
-    Description
+    Get Parts List Deep Beams By Material
     '''
     Model.clientModel.service.get_parts_list_deep_beams_by_material()
 
 def GetPartsListMemberSetRepresentativesByMaterial():
     '''
-    Description
+    Get Parts List Member Set Representatives By Material
     '''
     Model.clientModel.service.get_parts_list_member_set_representatives_by_material()
 
 def GetPartsListShearWallsByMaterial():
     '''
-    Description
+    Get Parts List Shear Walls By Material
     '''
     Model.clientModel.service.get_parts_list_shear_walls_by_material()
 
-def GetPunchingReinforcement(no): # xs:int no
+def GetPunchingReinforcement(no):
     '''
-    Description
+    Get Punching Reinforcement
     '''
     Model.clientModel.service.get_punching_reinforcement(no)
 
-def GetPushoverAnalysisSettings(no): # xs:int no
+def GetPushoverAnalysisSettings(no):
     '''
-    Description
+    Get Pushover Analysis Settings
     '''
     Model.clientModel.service.get_pushover_analysis_settings(no)
 
-def GetRelationshipBetweenLoadCases(no): # xs:int no
+def GetRelationshipBetweenLoadCases(no):
     '''
-    Description
+    Get Relationship Between Load Cases
     '''
     Model.clientModel.service.get_relationship_between_load_cases(no)
 
-def GetShearWall(no): # xs:int no
+def GetShearWall(no):
     '''
-    Description
+    Get Shear Wall
     '''
     Model.clientModel.service.get_shear_wall(no)
 
-def GetSoilMassif(no): # xs:int no
+def GetSoilMassif(no):
     '''
-    Description
+    Get Soil Massif
     '''
     Model.clientModel.service.get_soil_massif(no)
 
 def GetSteelDesignFRConfiguration(no): # xs:int no
     '''
-    Description
+    Get Steel Design FR Configuration
     '''
     Model.clientModel.service.get_steel_design_fr_configuration(no)
 
-def GetSteelDesignSeismicConfiguration(no): # xs:int no
+def GetSteelDesignSeismicConfiguration(no):
     '''
-    Description
+    Get Steel Design Seismic Configuration
     '''
     Model.clientModel.service.get_steel_design_seismic_configuration(no)
 
-def GetSurfaceImperfection(no, imperfection_case_no): # xs:int no, xs:int imperfection_case_no
+def GetSurfaceImperfection(no:int, imperfection_case_no:int):
     '''
-    Description
+    Get Surface Imperfection
     '''
     Model.clientModel.service.get_surface_imperfection(no, imperfection_case_no)
 
-def GetSurfaceReleaseType(no): # xs:int no
+def GetSurfaceReleaseType(no):
     '''
-    Description
+    Get Surface Release Type
     '''
     Model.clientModel.service.get_surface_release_type(no)
 
-def GetSurfaceSetImperfection(no, imperfection_case_no): #xs:int no, xs:int imperfection_case_no
+def GetSurfaceSetImperfection(no:int, imperfection_case_no:int):
     '''
-    Description
+    Get Surface Set Imperfection
     '''
     Model.clientModel.service.get_surface_set_imperfection(no, imperfection_case_no)
 
-def GetTerrain(no): # xs:int no
+def GetTerrain(no):
     '''
-    Description
+    Get Terrain
     '''
     Model.clientModel.service.get_terrain(no)
 
-def GetTimberDesignFrConfiguration(no): # xs:int no
+def GetTimberDesignFRConfiguration(no):
     '''
-    Description
+    Get Timber Design FR Configuration
     '''
     Model.clientModel.service.get_timber_design_fr_configuration(no)
 
-def GetVisualObject(no): # xs:int no
+def GetVisualObject(no):
     '''
-    Description
+    Get Visual Object
     '''
     Model.clientModel.service.get_visual_object(no)
 
-def GetWindProfile(no): # xs:int no
+def GetWindProfile(no):
     '''
-    Description
+    Get Wind Profile
     '''
     Model.clientModel.service.get_wind_profile(no)
