@@ -47,12 +47,12 @@ if __name__ == "__main__":
 
     # ----------------INPUT PARAMETERS------------------#
     # inicialize model and define parameters
-    Model(model_name=model_name)
+    Model(model_name="Concrete_bridge")
 
-    num_bridge_fields = 9      # number of whole bridge fields (between pillars)
-    bridge_height = float(7.5)   # primary parameters, input in meters
+    num_bridge_fields = 3      # number of whole bridge fields (between pillars)
+    bridge_height = float(9)   # primary parameters, input in meters
     bridge_width = float(9)
-    bridge_length = float(14)   # length of one field/span
+    bridge_length = float(9)   # length of one field/span
                                 # secondary (derived) parameters, input optional in meters
     pillar_dimension = bridge_width/6
     girder_width = pillar_dimension
@@ -62,8 +62,10 @@ if __name__ == "__main__":
     beam_height_outwards = bridge_width/16
     slab_thickness = 0.25
     # beam spacing setup
+    beam_spacing = 5.0    # for variable establishment, not to be adjusted
+    beams_per_field = 1   # for variable establishment, not to be adjusted
     for b in range(1, int(bridge_length)):
-        if bridge_length/b < 5.0:
+        if bridge_length/b < 5.0:    # <- adjust maximum beam spacing here
             beam_spacing = bridge_length/b
             beams_per_field = b
             break
