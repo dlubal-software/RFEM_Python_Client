@@ -11,7 +11,7 @@ sys.path.append(dirName + r'/../..')
 #Import all modules required to access RFEM
 from RFEM.enums import MemberEccentricitySpecificationType, ActionCategoryType, NodalSupportType,\
      MemberSectionDistributionType, MemberSectionAlignment, SurfaceEccentricityAlignment
-from RFEM.initModel import Model, Calculate_all, connectToServer
+from RFEM.initModel import Model, Calculate_all
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.thickness import Thickness
@@ -26,33 +26,16 @@ from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.Loads.surfaceLoad import SurfaceLoad
 from RFEM.Loads.freeLoad import FreeLoad
 from RFEM.Tools.PlausibilityCheck import PlausibilityCheck
-from RFEM import connectionGlobals
-
 
 if __name__ == "__main__":
-    # connect to server and establish a naming scheme
-    connectToServer()
-    array_of_models = connectionGlobals.client.service.get_model_list()
-    if array_of_models:
-        model_list = array_of_models[0]
-        print("List of active models:", model_list)
-    else:
-        print("Creating new model.")
-        model_list = []
-    name_counter = 1
-    model_name = "concrete_bridge_" + str(name_counter)
-    while model_name in model_list:
-        name_counter += 1
-        model_name = "concrete_bridge_" + str(name_counter)
-
     # ----------------INPUT PARAMETERS------------------#
     # inicialize model and define parameters
     Model(model_name="Concrete_bridge")
 
-    num_bridge_fields = 3      # number of whole bridge fields (between pillars)
-    bridge_height = float(9)   # primary parameters, input in meters
-    bridge_width = float(9)
-    bridge_length = float(9)   # length of one field/span
+    num_bridge_fields = 8      # number of whole bridge fields (between pillars)
+    bridge_height = float(18)   # primary parameters, input in meters
+    bridge_width = float(12)
+    bridge_length = float(16)   # length of one field/span
                                 # secondary (derived) parameters, input optional in meters
     pillar_dimension = bridge_width/6
     girder_width = pillar_dimension
