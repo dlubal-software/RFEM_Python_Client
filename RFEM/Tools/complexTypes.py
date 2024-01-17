@@ -36,9 +36,7 @@ class DxfFileModelObject(BaseComplexType):
         scale_absolute_z = None, # double
         comment = None, # string
         is_generated = None, # boolean
-        generating_object_info = None, # string
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        generating_object_info = None # string
     ):
         self.no = no
         self.origin_coordinates = origin_coordinates
@@ -68,8 +66,7 @@ class DxfFileModelObject(BaseComplexType):
         self.comment = comment
         self.is_generated = is_generated
         self.generating_object_info = generating_object_info
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
+
 
 
 class BuildingStory(BaseComplexType):
@@ -100,9 +97,7 @@ class BuildingStory(BaseComplexType):
         vertical_result_line_relative_position_y = None, # double
         mass = None, # double
         center_of_gravity_x = None, # double
-        center_of_gravity_y = None, # double
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        center_of_gravity_y = None # double
     ):
         self.no = no
         self.type = type
@@ -131,8 +126,6 @@ class BuildingStory(BaseComplexType):
         self.mass = mass
         self.center_of_gravity_x = center_of_gravity_x
         self.center_of_gravity_y = center_of_gravity_y
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class ClippingBox(BaseComplexType):
@@ -149,9 +142,7 @@ class ClippingBox(BaseComplexType):
         dimension_x = None, # double
         dimension_y = None, # double
         dimension_z = None, # double
-        comment = None, # string
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        comment = None # string
     ):
         self.no = no
         self.user_defined_name_enabled = user_defined_name_enabled
@@ -166,8 +157,6 @@ class ClippingBox(BaseComplexType):
         self.dimension_y = dimension_y
         self.dimension_z = dimension_z
         self.comment = comment
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class ClippingPlane(BaseComplexType):
@@ -198,9 +187,7 @@ class ClippingPlane(BaseComplexType):
         orientation = None, # xsd:clipping_plane_orientation
         comment = None, # string
         is_generated = None, # boolean
-        generating_object_info = None, # string
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        generating_object_info = None # string
     ):
         self.no = no
         self.type = type
@@ -229,8 +216,6 @@ class ClippingPlane(BaseComplexType):
         self.comment = comment
         self.is_generated = is_generated
         self.generating_object_info = generating_object_info
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class ConstructionStage(BaseComplexType):
@@ -304,9 +289,7 @@ class ConstructionStage(BaseComplexType):
         add_line_welded_joints = None, # string
         deactivated_line_welded_joints = None, # string
         current_line_welded_joints = None, # string
-        geotechnical_analysis_reset_small_strain_history = None, # boolean
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        geotechnical_analysis_reset_small_strain_history = None # boolean
     ):
         self.no = no
         self.user_defined_name_enabled = user_defined_name_enabled
@@ -378,8 +361,6 @@ class ConstructionStage(BaseComplexType):
         self.deactivated_line_welded_joints = deactivated_line_welded_joints
         self.current_line_welded_joints = current_line_welded_joints
         self.geotechnical_analysis_reset_small_strain_history = geotechnical_analysis_reset_small_strain_history
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class DesignSupport(BaseComplexType):
@@ -405,9 +386,7 @@ class DesignSupport(BaseComplexType):
         inner_support_z_enabled = None, # bool
         support_depth_by_section_width_of_member_z_enabled = None, # bool
         support_width_y = None, # float
-        support_width_z = None, # float
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        support_width_z = None # float
     ):
         self.no = no
         self.type = type
@@ -431,8 +410,6 @@ class DesignSupport(BaseComplexType):
         self.support_depth_by_section_width_of_member_z_enabled = support_depth_by_section_width_of_member_z_enabled
         self.support_width_y = support_width_y
         self.support_width_z = support_width_z
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class DesignSituation(BaseComplexType):
@@ -448,9 +425,7 @@ class DesignSituation(BaseComplexType):
         combination_wizard = None, # int
         consider_inclusive_exclusive_load_cases = None, # boolean
         relationship_between_load_cases = None, # int
-        case_objects = None, # xsd:array_of_design_situation_case_objects
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        case_objects = None # xsd:array_of_design_situation_case_objects
     ):
         self.no = no
         self.user_defined_name_enabled = user_defined_name_enabled
@@ -464,8 +439,6 @@ class DesignSituation(BaseComplexType):
         self.consider_inclusive_exclusive_load_cases = consider_inclusive_exclusive_load_cases
         self.relationship_between_load_cases = relationship_between_load_cases
         self.case_objects = case_objects
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class Dimension(BaseComplexType):
@@ -531,9 +504,7 @@ class Dimension(BaseComplexType):
         elevation_is_altitude = None, # boolean
         elevation_altitude = None, # double
         is_generated = None, # boolean
-        generating_object_info = None, # string
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        generating_object_info = None # string
     ):
         self.no = no
         self.type = type
@@ -597,8 +568,6 @@ class Dimension(BaseComplexType):
         self.elevation_altitude = elevation_altitude
         self.is_generated = is_generated
         self.generating_object_info = generating_object_info
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class MemberRepresentative(BaseComplexType):
@@ -771,9 +740,7 @@ class MemberRepresentative(BaseComplexType):
         concrete_shear_reinforcement_span = None, # xsd:array_of_member_representative_concrete_shear_reinforcement_span
         design_properties_via_member = None, # boolean
         design_properties_via_parent_member_set = None, # boolean
-        design_properties_parent_member_set = None, # int
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        design_properties_parent_member_set = None # int
     ):
         self.no = no
         self.type = type
@@ -944,8 +911,6 @@ class MemberRepresentative(BaseComplexType):
         self.design_properties_via_member = design_properties_via_member
         self.design_properties_via_parent_member_set = design_properties_via_parent_member_set
         self.design_properties_parent_member_set = design_properties_parent_member_set
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class MemberSetRepresentative(BaseComplexType):
@@ -1203,9 +1168,7 @@ class MemberSetRepresentative(BaseComplexType):
         member_set_model_deflection_segments_y_axis = None, # xsd:array_of_member_set_representative_member_set_model_deflection_segments_y_axis
         member_set_model_deflection_segments_z_axis = None, # xsd:array_of_member_set_representative_member_set_model_deflection_segments_z_axis
         concrete_longitudinal_reinforcement_span = None, # xsd:array_of_member_set_representative_concrete_longitudinal_reinforcement_span
-        concrete_shear_reinforcement_span = None, # xsd:array_of_member_set_representative_concrete_shear_reinforcement_span
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        concrete_shear_reinforcement_span = None # xsd:array_of_member_set_representative_concrete_shear_reinforcement_span
     ):
         self.no = no
         self.user_defined_name_enabled = user_defined_name_enabled
@@ -1461,8 +1424,6 @@ class MemberSetRepresentative(BaseComplexType):
         self.member_set_model_deflection_segments_z_axis = member_set_model_deflection_segments_z_axis
         self.concrete_longitudinal_reinforcement_span = concrete_longitudinal_reinforcement_span
         self.concrete_shear_reinforcement_span = concrete_shear_reinforcement_span
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class ArrayOfModelHistory(BaseComplexType):
@@ -1505,9 +1466,7 @@ class ObjectSnap(BaseComplexType):
         snap_middle_edge = None, # boolean
         snap_parts_of_section_edge = None, # boolean
         snap_relative_distance_on_section_edge = None, # boolean
-        snap_surface_thickness_points = None, # boolean
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        snap_surface_thickness_points = None # boolean
     ):
         self.no = no
         self.type = type
@@ -1541,8 +1500,6 @@ class ObjectSnap(BaseComplexType):
         self.snap_parts_of_section_edge = snap_parts_of_section_edge
         self.snap_relative_distance_on_section_edge = snap_relative_distance_on_section_edge
         self.snap_surface_thickness_points = snap_surface_thickness_points
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class PunchingReinforcement(BaseComplexType):
@@ -1613,9 +1570,7 @@ class PunchingReinforcement(BaseComplexType):
         absolute_spacing_between_perimeters_auto_maximum = None, # double
         absolute_spacing_between_perimeters_auto_minimum = None, # double
         absolute_spacing_between_perimeters_auto_priority = None, # int
-        absolute_spacing_between_perimeters_calculated = None, # double
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        absolute_spacing_between_perimeters_calculated = None # double
     ):
         self.no = no
         self.type = type
@@ -1684,8 +1639,6 @@ class PunchingReinforcement(BaseComplexType):
         self.absolute_spacing_between_perimeters_auto_minimum = absolute_spacing_between_perimeters_auto_minimum
         self.absolute_spacing_between_perimeters_auto_priority = absolute_spacing_between_perimeters_auto_priority
         self.absolute_spacing_between_perimeters_calculated = absolute_spacing_between_perimeters_calculated
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class RelationshipBetweenLoadCases(BaseComplexType):
@@ -1696,9 +1649,7 @@ class RelationshipBetweenLoadCases(BaseComplexType):
         inclusive_load_cases = None, # xsd:array_of_relationship_between_load_cases_inclusive_load_cases
         exclusive_load_cases = None, # xsd:array_of_relationship_between_load_cases_exclusive_load_cases
         comment = None, # string
-        assigned_to = None, # xsd:array_of_int
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        assigned_to = None # xsd:array_of_int
     ):
         self.no = no
         self.user_defined_name_enabled = user_defined_name_enabled
@@ -1707,8 +1658,6 @@ class RelationshipBetweenLoadCases(BaseComplexType):
         self.exclusive_load_cases = exclusive_load_cases
         self.comment = comment
         self.assigned_to = assigned_to
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class ObjectLocationArray(BaseComplexType):
@@ -1756,9 +1705,7 @@ class SoilMassif(BaseComplexType):
         degree_of_nurbs_surface = None, # int
         max_iterations = None, # int
         max_pieces = None, # int
-        comment = None, # string
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        comment = None # string
     ):
         self.no = no
         self.type = type
@@ -1797,8 +1744,6 @@ class SoilMassif(BaseComplexType):
         self.max_iterations = max_iterations
         self.max_pieces = max_pieces
         self.comment = comment
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class SurfaceImperfection(BaseComplexType):
@@ -1814,9 +1759,7 @@ class SurfaceImperfection(BaseComplexType):
         surfaces = None, # xsd:array_of_int
         comment = None, # string
         is_generated = None, # boolean
-        generating_object_info = None, # string
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        generating_object_info = None # string
     ):
         self.no = no
         self.definition_type = definition_type
@@ -1830,8 +1773,6 @@ class SurfaceImperfection(BaseComplexType):
         self.comment = comment
         self.is_generated = is_generated
         self.generating_object_info = generating_object_info
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class SurfaceSetImperfection(BaseComplexType):
@@ -1847,9 +1788,7 @@ class SurfaceSetImperfection(BaseComplexType):
         surface_sets = None, # xsd:array_of_int
         comment = None, # string
         is_generated = None, # boolean
-        generating_object_info = None, # string
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        generating_object_info = None # string
     ):
         self.no = no
         self.definition_type = definition_type
@@ -1863,8 +1802,6 @@ class SurfaceSetImperfection(BaseComplexType):
         self.comment = comment
         self.is_generated = is_generated
         self.generating_object_info = generating_object_info
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class Terrain(BaseComplexType):
@@ -1878,9 +1815,7 @@ class Terrain(BaseComplexType):
         rotation_around_Z = None, # double
         consider_boreholes = None, # boolean
         coordinate_system = None, # int
-        terrain_table = None, # xsd:array_of_terrain_terrain_table
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        terrain_table = None # xsd:array_of_terrain_terrain_table
     ):
         self.no = no
         self.type = type
@@ -1892,8 +1827,6 @@ class Terrain(BaseComplexType):
         self.consider_boreholes = consider_boreholes
         self.coordinate_system = coordinate_system
         self.terrain_table = terrain_table
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class VisualObject(BaseComplexType):
@@ -1925,9 +1858,7 @@ class VisualObject(BaseComplexType):
         scale_relative_z = None, # double
         comment = None, # string
         is_generated = None, # boolean
-        generating_object_info = None, # string
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        generating_object_info = None # string
     ):
         self.no = no
         self.user_defined_name_enabled = user_defined_name_enabled
@@ -1957,8 +1888,6 @@ class VisualObject(BaseComplexType):
         self.comment = comment
         self.is_generated = is_generated
         self.generating_object_info = generating_object_info
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class WindProfile(BaseComplexType):
@@ -1975,9 +1904,7 @@ class WindProfile(BaseComplexType):
         user_defined_wind_profile = None, # xsd:array_of_wind_profile_user_defined_wind_profile
         comment = None, # string
         load_zone = None, # xsd:wind_profile_load_zone
-        definition_type = None, # xsd:wind_profile_definition_type
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        definition_type = None # xsd:wind_profile_definition_type
     ):
         self.no = no
         self.user_defined_name_enabled = user_defined_name_enabled
@@ -1992,8 +1919,6 @@ class WindProfile(BaseComplexType):
         self.comment = comment
         self.load_zone = load_zone
         self.definition_type = definition_type
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class WindSimulation(BaseComplexType):
@@ -2015,9 +1940,7 @@ class WindSimulation(BaseComplexType):
         initial_state_case = None, # int
         initial_state_definition_type = None, # xsd:wind_simulation_initial_state_definition_type
         individual_factors_of_selected_objects_table = None, # xsd:array_of_wind_simulation_individual_factors_of_selected_objects_table
-        comment = None, # string
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        comment = None # string
     ):
         self.no = no
         self.type = type
@@ -2037,8 +1960,6 @@ class WindSimulation(BaseComplexType):
         self.initial_state_definition_type = initial_state_definition_type
         self.individual_factors_of_selected_objects_table = individual_factors_of_selected_objects_table
         self.comment = comment
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class Accelerogram(BaseComplexType):
@@ -2054,9 +1975,7 @@ class Accelerogram(BaseComplexType):
         user_defined_accelerogram = None, # xsd:array_of_accelerogram_user_defined_accelerogram
         comment = None, # string
         is_generated = None, # boolean
-        generating_object_info = None, # string
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        generating_object_info = None # string
     ):
         self.no = no
         self.definition_type = definition_type
@@ -2070,8 +1989,7 @@ class Accelerogram(BaseComplexType):
         self.comment = comment
         self.is_generated = is_generated
         self.generating_object_info = generating_object_info
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
+
 
 class BuildingGrid(BaseComplexType):
     def __init__(self,
@@ -2135,9 +2053,7 @@ class BuildingGrid(BaseComplexType):
         line_start_extension_z = None, # double
         line_start_label_x = None, # boolean
         line_start_label_y = None, # boolean
-        line_start_label_z = None, # boolean
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        line_start_label_z = None # boolean
     ):
         self.no = no
         self.type = type
@@ -2200,8 +2116,6 @@ class BuildingGrid(BaseComplexType):
         self.line_start_label_x = line_start_label_x
         self.line_start_label_y = line_start_label_y
         self.line_start_label_z = line_start_label_z
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class CalculationDiagram(BaseComplexType):
@@ -2221,9 +2135,7 @@ class CalculationDiagram(BaseComplexType):
         vertical_axis_object = None, # int
         vertical_axis_node = None, # int
         table = None, # xsd:array_of_calculation_diagram_table
-        comment = None, # string
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        comment = None # string
     ):
         self.no = no
         self.user_defined_name_enabled = user_defined_name_enabled
@@ -2241,8 +2153,6 @@ class CalculationDiagram(BaseComplexType):
         self.vertical_axis_node = vertical_axis_node
         self.table = table
         self.comment = comment
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class FloorSet(BaseComplexType):
@@ -2264,9 +2174,7 @@ class FloorSet(BaseComplexType):
         center_of_gravity_z = None, # double
         comment = None, # string
         is_generated = None, # boolean
-        generating_object_info = None, # string
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        generating_object_info = None # string
     ):
         self.no = no
         self.type = type
@@ -2286,8 +2194,6 @@ class FloorSet(BaseComplexType):
         self.comment = comment
         self.is_generated = is_generated
         self.generating_object_info = generating_object_info
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class MemberOpenings(BaseComplexType):
@@ -2300,9 +2206,7 @@ class MemberOpenings(BaseComplexType):
         components = None, # xsd:array_of_member_openings_components
         is_generated = None, # boolean
         generating_object_info = None, # string
-        comment = None, # string
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        comment = None # string
     ):
         self.no = no
         self.user_defined_name_enabled = user_defined_name_enabled
@@ -2313,15 +2217,41 @@ class MemberOpenings(BaseComplexType):
         self.is_generated = is_generated
         self.generating_object_info = generating_object_info
         self.comment = comment
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
-class GetPushoverAnalysisSettings(BaseComplexType):
+class PushoverAnalysisSettings(BaseComplexType):
     def __init__(self,
-        no = None # int
+        no = None, # int
+        user_defined_name_enabled = None, # boolean
+        name = None, # string
+        comment = None, # string
+        assigned_to = None, # string
+        considering_iterative_procedure = None, # boolean
+        difference_treshold_for_iterative_procedure = None,
+        end_of_capacity_curve = None, # pushover_analysis_settings_end_of_capacity_curve
+        limit_deformation = None,
+        automatic_selection_of_the_highest_node = None,
+        control_node = None,
+        initial_load_factor = None,
+        load_factor_increment = None,
+        refinement_of_the_last_load_increment = None,
+        maximum_number_of_load_increments = None
     ):
         self.no = no
+        self.user_defined_name_enabled = user_defined_name_enabled
+        self.name = name
+        self.comment = comment
+        self.assigned_to = assigned_to
+        self.considering_iterative_procedure = considering_iterative_procedure
+        self.difference_treshold_for_iterative_procedure = difference_treshold_for_iterative_procedure
+        self.end_of_capacity_curve = end_of_capacity_curve
+        self.limit_deformation = limit_deformation
+        self.automatic_selection_of_the_highest_node = automatic_selection_of_the_highest_node
+        self.control_node = control_node
+        self.initial_load_factor = initial_load_factor
+        self.load_factor_increment = load_factor_increment
+        self.refinement_of_the_last_load_increment = refinement_of_the_last_load_increment
+        self.maximum_number_of_load_increments = maximum_number_of_load_increments
 
 
 class ShearWall(BaseComplexType):
@@ -2347,9 +2277,7 @@ class ShearWall(BaseComplexType):
         result_sections_in_all_member_location = None, # boolean
         comment = None, # string
         is_generated = None, # boolean
-        generating_object_info = None, # string
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        generating_object_info = None # string
     ):
         self.no = no
         self.type = type
@@ -2373,8 +2301,6 @@ class ShearWall(BaseComplexType):
         self.comment = comment
         self.is_generated = is_generated
         self.generating_object_info = generating_object_info
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class SteelDesignFrConfiguration(BaseComplexType):
@@ -2386,9 +2312,7 @@ class SteelDesignFrConfiguration(BaseComplexType):
         assigned_to_members = None, # xsd:array_of_int
         assigned_to_all_member_sets = None, # boolean
         assigned_to_member_sets = None, # xsd:array_of_int
-        comment = None, # string
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        comment = None # string
     ):
         self.no = no
         self.user_defined_name_enabled = user_defined_name_enabled
@@ -2398,8 +2322,6 @@ class SteelDesignFrConfiguration(BaseComplexType):
         self.assigned_to_all_member_sets = assigned_to_all_member_sets
         self.assigned_to_member_sets = assigned_to_member_sets
         self.comment = comment
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class SteelDesignSeismicConfiguration(BaseComplexType):
@@ -2411,9 +2333,7 @@ class SteelDesignSeismicConfiguration(BaseComplexType):
         assigned_to_members = None, # xsd:array_of_int
         assigned_to_all_member_sets = None, # boolean
         assigned_to_member_sets = None, # xsd:array_of_int
-        comment = None, # string
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        comment = None # string
     ):
         self.no = no
         self.user_defined_name_enabled = user_defined_name_enabled
@@ -2423,8 +2343,6 @@ class SteelDesignSeismicConfiguration(BaseComplexType):
         self.assigned_to_all_member_sets = assigned_to_all_member_sets
         self.assigned_to_member_sets = assigned_to_member_sets
         self.comment = comment
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
 
 
 class TimberDesignFrConfiguration(BaseComplexType):
@@ -2436,9 +2354,7 @@ class TimberDesignFrConfiguration(BaseComplexType):
         assigned_to_members = None, # xsd:array_of_int
         assigned_to_all_member_sets = None, # boolean
         assigned_to_member_sets = None, # xsd:array_of_int
-        comment = None, # string
-        id_for_export_import = None, # string
-        metadata_for_export_import = None # string
+        comment = None # string
     ):
         self.no = no
         self.user_defined_name_enabled = user_defined_name_enabled
@@ -2448,5 +2364,3 @@ class TimberDesignFrConfiguration(BaseComplexType):
         self.assigned_to_all_member_sets = assigned_to_all_member_sets
         self.assigned_to_member_sets = assigned_to_member_sets
         self.comment = comment
-        self.id_for_export_import = id_for_export_import
-        self.metadata_for_export_import = metadata_for_export_import
