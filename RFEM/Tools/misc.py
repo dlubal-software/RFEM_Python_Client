@@ -11,12 +11,6 @@ from RFEM.enums import ObjectTypes, ProgramLanguage, ASFExportDataType
 Additional functions missing in this file.
 Date: 29/11/2023,
 RFEM 6.04.0009.197.2f47af57c08
-
-
-Excluded functions:
-For these functions doesn't make sense to create dedicated function.
-
-['beginModification', 'finishModeification', 'cancel_modification']
 """
 
 
@@ -585,21 +579,18 @@ def SetTimberDesignFRConfiguration(timber_design_fr_configuration:TimberDesignFr
 def GetCurrentProject():
     '''
     Get Current Project
-    TODO: "Server raised fault: 'Current project does not exist.'"
     '''
     connectionGlobals.client.service.get_current_project()
 
 def GetListOfExistingProjects():
     '''
-    Get List Of Existing Projects
-    TODO: the result is empty
+    Get List Of Existing Projects. Visit Dlubal Center.
     '''
     connectionGlobals.client.service.get_list_of_existing_projects()
 
 def GetListOfExistingTemplates():
     '''
-    Get List Of Existing Templates
-    TODO: the result is empty
+    Get List Of Existing Templates. Visit Dlubal Center.
     '''
     connectionGlobals.client.service.get_list_of_existing_templates()
 
@@ -609,10 +600,12 @@ def GetModelListWithIndexes():
     '''
     connectionGlobals.client.service.get_model_list_with_indexes()
 
-def GetProject(project_path): #xs:string project_path
+def GetProject(project_path:str):
     '''
     Get Project
-    TODO: ivalid file path
+
+    Args:
+        project_pat (str): Path to project file (.rf6). Visit Dlubal Center.
     '''
     connectionGlobals.client.service.get_project(project_path)
 
@@ -622,10 +615,12 @@ def GetSettingsProgramLanguage():
     '''
     connectionGlobals.client.service.get_settings_program_language()
 
-def GetTemplate(template_path): #xs:string template_path
+def GetTemplate(template_path:str):
     '''
-    Get Template
-    TODO: Invalid file path 'D:/BuildMaster/grandmaster/grandmaster_b234034_038703b7d8a/models/TestModel.ft6
+    Get Template. Visit Dlubal Center.
+
+    Args:
+        template_path (str): Path to tepmplate (.ft6 file)
     '''
     connectionGlobals.client.service.get_template(template_path)
 
@@ -705,7 +700,6 @@ def GetAluminumDesignULSConfiguration(no):
 def GetBuildingGrid(no):
     '''
     Get Building Grid
-    TODO: Not tested. Don't know what it is.
 
     Args:
         no (int): Number
@@ -724,7 +718,6 @@ def GetBuildingStory(no):
 def GetCalculationDiagram(no):
     '''
     Get Calculation Diagram
-    TODO: Not tested. Don't know what it is.
 
     Args:
         no (int): Number

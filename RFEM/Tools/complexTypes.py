@@ -68,7 +68,6 @@ class DxfFileModelObject(BaseComplexType):
         self.generating_object_info = generating_object_info
 
 
-
 class BuildingStory(BaseComplexType):
     def __init__(self,
         no = None, # int
