@@ -20,11 +20,10 @@ def closeApplication():
     '''
     connectionGlobals.client.service.close_application()
 
-# For both / and \\ in file path I get invalid file path
-# TODO: bug 158867
 def deleteProject(projectPath):
     '''
     Delete project
+    TODO: bug 158867. For both / and \\ in file path I get invalid file path
     '''
     connectionGlobals.client.service.delete_project(projectPath)
 
@@ -246,10 +245,10 @@ def CalculateAllInCloud(machine_id:str, run_plausibility_check:bool, calculate_d
     Calculate All In Cloud
 
     Args:
-        machine_id (str):
-        run_plausibility_check (bool):
-        calculate_despite_warnings_or_errors (bool):
-        email_notification (bool):
+        machine_id (str): Machine ID
+        run_plausibility_check (bool): Run plausibility check
+        calculate_despite_warnings_or_errors (bool): Calculate despite warnings or errors
+        email_notification (bool): Email notification
     '''
     Model.clientModel.service.calculate_all_in_cloud(machine_id, run_plausibility_check, calculate_despite_warnings_or_errors, email_notification)
 
