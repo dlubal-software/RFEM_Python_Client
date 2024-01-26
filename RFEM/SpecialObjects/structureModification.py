@@ -130,12 +130,12 @@ class StructureModification():
         if modify_stiffnesses['modify_stiffnesses_sections']:
             for i in modify_stiffnesses_sections_list:
                 idx = i['no']-1
-                clientObject.modify_stiffnesses_sections_table[0][idx].row.A = i['A']
-                clientObject.modify_stiffnesses_sections_table[0][idx].row.A_y = i['A_y']
-                clientObject.modify_stiffnesses_sections_table[0][idx].row.A_z = i['A_z']
-                clientObject.modify_stiffnesses_sections_table[0][idx].row.J = i['J']
-                clientObject.modify_stiffnesses_sections_table[0][idx].row.I_Y = i['I_y']
-                clientObject.modify_stiffnesses_sections_table[0][idx].row.I_z = i['I_z']
+                clientObject.modify_stiffnesses_section_table[0][idx].row.A = i['A']
+                clientObject.modify_stiffnesses_section_table[0][idx].row.A_y = i['A_y']
+                clientObject.modify_stiffnesses_section_table[0][idx].row.A_z = i['A_z']
+                clientObject.modify_stiffnesses_section_table[0][idx].row.J = i['J']
+                clientObject.modify_stiffnesses_section_table[0][idx].row.I_y = i['I_y']
+                clientObject.modify_stiffnesses_section_table[0][idx].row.I_z = i['I_z']
         if modify_stiffnesses['modify_stiffnesses_members']:
             for i in modify_stiffnesses_members_list:
                 idx = i['no']-1
