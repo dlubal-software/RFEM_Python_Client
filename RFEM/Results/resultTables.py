@@ -4766,3 +4766,447 @@ class ResultTables():
         '''
 
         return model.clientModel.service.has_results(loading_type.name, loading_no)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMemberRepresentativesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_representatives_by_construction_stage(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMemberRepresentativesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_representatives_by_design_situation(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMemberRepresentativesByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_representatives_by_loading(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMemberRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_representatives_by_location(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMemberRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_representatives_by_material(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMemberRepresentativesByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_representatives_by_member_representative(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMemberRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_representatives_by_section(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMemberSetRepresentativesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_set_representatives_by_construction_stage(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMemberSetRepresentativesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_set_representatives_by_design_situation(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMemberSetRepresentativesByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_set_representatives_by_loading(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMemberSetRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_set_representatives_by_location(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMemberSetRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_set_representatives_by_material(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMemberSetRepresentativesByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_set_representatives_by_member_set_representative(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMemberSetRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_set_representatives_by_section(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMembersByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_members_by_construction_stage(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMembersByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_members_by_design_situation(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMembersByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_members_by_loading(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMembersByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_members_by_location(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMembersByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_members_by_material(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMembersByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_members_by_member(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMembersByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_members_by_member_set(), include_base)
+
+    @staticmethod
+    def AluminumDesignDesignRatiosMembersBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_members_by_section(), include_base)
+
+    @staticmethod
+    def AluminumDesignGoverningInternalForcesByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_governing_internal_forces_by_member(), include_base)
+
+    @staticmethod
+    def AluminumDesignGoverningInternalForcesByMemberEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_governing_internal_forces_by_member_ends(), include_base)
+
+    @staticmethod
+    def AluminumDesignGoverningInternalForcesByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_governing_internal_forces_by_member_representative(), include_base)
+
+    @staticmethod
+    def AluminumDesignGoverningInternalForcesByMemberRepresentativeEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_governing_internal_forces_by_member_representative_ends(), include_base)
+
+    @staticmethod
+    def AluminumDesignGoverningInternalForcesByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_governing_internal_forces_by_member_set(), include_base)
+
+    @staticmethod
+    def AluminumDesignGoverningInternalForcesByMemberSetEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_governing_internal_forces_by_member_set_ends(), include_base)
+
+    @staticmethod
+    def AluminumDesignGoverningInternalForcesByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_governing_internal_forces_by_member_set_representative(), include_base)
+
+    @staticmethod
+    def AluminumDesignGoverningInternalForcesByMemberSetRepresentativeEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_governing_internal_forces_by_member_set_representative_ends(), include_base)
+
+    @staticmethod
+    def AluminumDesignGoverningLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_governing_loading(), include_base)
+
+    @staticmethod
+    def AluminumDesignOverviewErrorsAndWarnings(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_overview_errors_and_warnings(), include_base)
+
+    @staticmethod
+    def AluminumDesignOverviewNotValidDeactivated(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_overview_not_valid_deactivated(), include_base)
+
+    @staticmethod
+    def AluminumDesignSlendernessByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_slenderness_by_member(), include_base)
+
+    @staticmethod
+    def AluminumDesignSlendernessByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_slenderness_by_member_representative(), include_base)
+
+    @staticmethod
+    def AluminumDesignSlendernessByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_slenderness_by_member_set(), include_base)
+
+    @staticmethod
+    def AluminumDesignSlendernessByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_slenderness_by_member_set_representative(), include_base)
