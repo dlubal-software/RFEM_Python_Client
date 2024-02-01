@@ -333,3 +333,15 @@ class CoordinateSystem():
 
         # Add Coordinate System to client model
         model.clientModel.service.set_coordinate_system(clientObject)
+
+    @staticmethod
+    def GetCoordinateSystem(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Thickness Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Coordinate System from client model
+        return model.clientModel.service.get_coordinate_system(object_index)
