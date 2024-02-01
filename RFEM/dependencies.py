@@ -24,6 +24,7 @@ except:
     if instSUDS == 'y':
         # Subprocess will be opened in cmd and closed automaticaly after installation.
         # Prevents invoking pip by an old script wrapper (https://github.com/pypa/pip/issues/5599)
+        import os
         import subprocess
         try:
             subprocess.call('python -m pip install --upgrade pip')
