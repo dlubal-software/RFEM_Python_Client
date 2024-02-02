@@ -8,11 +8,10 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.enums import NodalSupportType, NodalLoadDirection, GlobalAxesOrientationType, DesignSituationType, ActionCategoryType, AddOn,FastenerDefinitionType, MultipleOffsetDefinitionType, AluminumMemberLocalSectionReductionType
+from RFEM.enums import NodalSupportType, NodalLoadDirection, DesignSituationType, ActionCategoryType, AddOn
 from RFEM.initModel import Model, SetAddonStatus, Calculate_all
 from RFEM.dataTypes import inf
-from RFEM.Results.resultTables import ResultTables, ConvertResultsToListOfDct
-from RFEM.baseSettings import BaseSettings
+from RFEM.Results.resultTables import ResultTables
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
@@ -27,8 +26,6 @@ from RFEM.Loads.nodalLoad import NodalLoad
 from RFEM.AluminumDesign.aluminumSLSConfiguration import AluminumDesignSLSConfigurations
 from RFEM.AluminumDesign.aluminumULSConfiguration import AluminumDesignULSConfigurations
 from RFEM.TypesForAluminumDesign.aluminumEffectiveLengths import AluminumEffectiveLengths
-from RFEM.TypesForAluminumDesign.aluminumMemberLocalSectionReduction import AluminumMemberLocalSectionReduction
-from RFEM.Calculate.meshSettings import GetModelInfo
 
 if Model.clientModel is None:
     Model()
