@@ -630,6 +630,17 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
     '''
     This method calculate just selected objects - load cases, designSituations, loadCombinations
 
+    TODO: It is not clear in what format the loadings parameter should be set.
+          Is it list of integers or list of strings? Putting any kind of load case for example returns same result:
+          (calculation_result){
+          succeeded = True
+          errors_and_warnings = ""
+          messages = None}
+
+          which I question if it is correct, because I don't see any results.
+          Also I see no calculation process in RFEM. In this case 'succeeded' parameter should be False and have some message.
+          bug ID 165699
+
     Args:
         loadCases (list, optional): Load Case List
         designSituations (list, optional): Design Situations List

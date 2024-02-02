@@ -114,7 +114,6 @@ def getDetailedLogging():
     '''
     return connectionGlobals.client.service.get_detailed_logging()
 
-# Doesn't work (tested on: ProgramLanguage.CZECH, etc.)
 def SetSettingsProgramLanguage(language:ProgramLanguage):
     '''
     Set program language
@@ -130,27 +129,6 @@ def SetSettingsProgramLanguage(language:ProgramLanguage):
 ###########################################
 # Model functions
 ############################################
-
-def calculateSpecific(loadings, skip_warnings=True):
-    '''
-    Calculate specified loadings. Equals to 'To Calculate' in RFEM.
-
-    TODO: It is not clear in what format the loadings parameter should be set.
-          Is it list of integers or list of strings? Putting any kind of load case for example returns same result:
-          (calculation_result){
-          succeeded = True
-          errors_and_warnings = ""
-          messages = None}
-
-          which I question if it is correct, because I don't see any results.
-          Also I see no calculation process in RFEM. In this case 'succeeded' parameter should be False and have some message.
-
-    Args:
-        loadings (list of strings): List of loadings
-        skip_warnings (bool): Set to True if warnings should be skipped
-    '''
-
-    Model.clientModel.service.calculate_specific(loadings, skip_warnings)
 
 def clearSelection():
     '''
