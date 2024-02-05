@@ -1424,7 +1424,7 @@ class PlausibilityCheckResult(Enum):
     '''
     Plausibility Check Result
     '''
-    CHECK_IS_OK, CHECK_FAILED = range(2)
+    CHECK_IS_OK, CHECK_FAILED, CHECK_ERRORS, CHECK_WARNINGS = range(4)
 
 
 class PlausibilityCheckType(Enum):

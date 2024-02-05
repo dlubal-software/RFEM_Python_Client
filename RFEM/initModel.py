@@ -296,7 +296,7 @@ def openFile(model_path):
 
     file_name = os.path.basename(model_path)
     connectionGlobals.client.service.open_model(model_path)
-    return Model(True, file_name)
+    return Model(False, file_name)
 
 def closeModel(index_or_name, save_changes = False):
     '''
