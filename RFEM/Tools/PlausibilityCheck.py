@@ -19,8 +19,8 @@ class PlausibilityCheck():
             self.checkresult = PlausibilityCheckResult.CHECK_ERRORS.name
             self.message = 'Errors'
             self.errormessage = "\n".join(errors)
-        elif not skip_warnings and "errors_and_warnings" in response:
-            warnings = [error_or_warning.message for error_or_warning in response["errors_and_warnings"][0] if error_or_warning.message_type=="WARNING"]
+        elif not skip_warnings and "errors_and_warnings" in response and \
+                len(warnings := [error_or_warning.message for error_or_warning in response["errors_and_warnings"][0] if error_or_warning.message_type=="WARNING"]) > 0:
             self.checkresult = PlausibilityCheckResult.CHECK_WARNINGS.name
             self.message = 'Warnings'
             self.errormessage = "\n".join(warnings)
