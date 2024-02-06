@@ -23,6 +23,8 @@ if __name__ == "__main__":
 
     load_cases = model.clientModel.service.get_all_object_numbers_by_type("E_OBJECT_TYPE_LOAD_CASE")
 
+    load_cases_no = []
     for item in load_cases.item:
-        result = CalculateSelectedCases(loadCases=[item.no])
-        
+        load_cases_no.append(item.no)
+    
+            
