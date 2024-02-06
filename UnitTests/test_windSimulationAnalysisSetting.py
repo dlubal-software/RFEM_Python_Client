@@ -23,12 +23,8 @@ def test_WindSimulationAnalysisSettings():
 
     # Set Static Analysis Settings
     WindSimulationAnalysisSettings(1, 'Steady Flow', 1.25, 0.000015, WindSimulationAnalysisSettingsMemberLoadDistribution.CONCENTRATED,
-                                    0.1, True, [False, False, 500, WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON],
-                                    [True, False, False, False])
-    WindSimulationAnalysisSettings.TransientFlow(2,'Transient Flow', [True, 250, WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON, 0.03],
-                                                    False, 10, 0, WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_LES, [0.01, 1000, 0.01, 1000],
-                                                    True, True)
-    WindSimulationAnalysisSettings.SurfaceRoughness(3, 'Surface Roughness', True, 2.0, 0.500)
+                                    0.1, True, [False, False, 500, WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON])
+    WindSimulationAnalysisSettings.TransientFlow(2,'Transient Flow', 1.3, 0.00002, 0.3, [True, 250, WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON, 0.03])
 
     Model.clientModel.service.finish_modification()
 
@@ -45,8 +41,3 @@ def test_WindSimulationAnalysisSettings():
     assert transient_flow['maximum_number_of_iterations'] == 250
     assert transient_flow['turbulence_model_type_for_initial_condition'] == WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON.name
     assert transient_flow['data_compression_error_tolerance'] == 0.03
-    assert transient_flow['user_defined_in_point_probes'] == True
-
-    surface_roughness= Model.clientModel.service.get_wind_simulation_analysis_settings(3)
-    assert surface_roughness['consider_surface_roughness'] == True
-
