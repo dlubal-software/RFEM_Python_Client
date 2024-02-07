@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import Enum, Flag, auto
 
 
 class MemberType(Enum):
@@ -1420,11 +1420,13 @@ class AmplitudeFunctionType(Enum):
     CONSTANT, LINEAR, QUADRATIC = range(3)
 
 
-class PlausibilityCheckResult(Enum):
+class PlausibilityCheckResult(Flag):
     '''
     Plausibility Check Result
     '''
-    CHECK_IS_OK, CHECK_FAILED, CHECK_ERRORS, CHECK_WARNINGS = range(4)
+    CHECK_IS_OK = auto()
+    CHECK_ERROR = auto()
+    CHECK_WARNING = auto()
 
 
 class PlausibilityCheckType(Enum):

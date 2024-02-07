@@ -10,29 +10,30 @@ class PlausibilityCheck():
                  model = Model):
 
         response = model.clientModel.service.plausibility_check(plausibility_check_type.name, skip_warnings)
+        
+        self.checkresult = PlausibilityCheckResult.CHECK_IS_OK
+        self.errormessage = {}
 
-        if "failed" in response:
-            self.checkresult = PlausibilityCheckResult.CHECK_FAILED.name
-            self.message = response.split("Messages received:", 1)[1]
-            self.errormessage = self.message.split("Result 'false'", 1)[0]
-        elif len((errors := [error_or_warning.message for error_or_warning in response["errors_and_warnings"][0] if error_or_warning.message_type=="ERROR"])) > 0:
-            self.checkresult = PlausibilityCheckResult.CHECK_ERRORS.name
-            self.message = 'Errors'
-            self.errormessage = "\n".join(errors)
-        elif not skip_warnings and "errors_and_warnings" in response and \
-                len(warnings := [error_or_warning.message for error_or_warning in response["errors_and_warnings"][0] if error_or_warning.message_type=="WARNING"]) > 0:
-            self.checkresult = PlausibilityCheckResult.CHECK_WARNINGS.name
-            self.message = 'Warnings'
-            self.errormessage = "\n".join(warnings)
-        else:
-            self.checkresult = PlausibilityCheckResult.CHECK_IS_OK.name
-            self.message = 'Success'
-            self.errormessage = ""
+        if response["errors_and_warnings"]:
+            if len(errors := [error for error in response["errors_and_warnings"][0] if error.message_type=="ERROR"]) > 0:
+                self.checkresult |= PlausibilityCheckResult.CHECK_ERROR
+                errors = ["".join(["Input field: ", error.input_field, ", object: ", error.object, ", current value: ", error.current_value, ". Message: ", error.message]) for error in errors]
+                self.errormessage[PlausibilityCheckResult.CHECK_ERROR] = "\n".join(errors)
+            if not skip_warnings and len(warnings := [error_or_warning.message for error_or_warning in response["errors_and_warnings"][0] if error_or_warning.message_type=="WARNING"]) > 0:
+                self.checkresult |= PlausibilityCheckResult.CHECK_WARNING
+                self.errormessage[PlausibilityCheckResult.CHECK_WARNING] = "\n".join(warnings)
 
     def IsModelOK(self):
+        return self.checkresult == PlausibilityCheckResult.CHECK_IS_OK
+    
+    def IsError(self):
+        return PlausibilityCheckResult.CHECK_ERROR in self.checkresult
+    
+    def IsWarning(self):
+        return PlausibilityCheckResult.CHECK_WARNING in self.checkresult
 
-        return self.checkresult
-
-    def GetErrorMessage(self):
-
-        return self.errormessage
+    def GetErrorMessages(self):
+        return self.errormessage[PlausibilityCheckResult.CHECK_ERROR]
+    
+    def GetWarningMessages(self):
+        return self.errormessage[PlausibilityCheckResult.CHECK_WARNING]
