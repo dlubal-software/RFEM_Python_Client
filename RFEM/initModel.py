@@ -153,9 +153,6 @@ class Model():
 
                 cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=connectionGlobals.ca, timeout=360)
 
-                cModel.service.delete_all_results()
-                cModel.service.delete_all()
-
                 self.clientModelDct[model_name] = cModel
 
         else:
@@ -296,7 +293,7 @@ def openFile(model_path):
 
     file_name = os.path.basename(model_path)
     connectionGlobals.client.service.open_model(model_path)
-    return Model(False, file_name)
+    return Model(True, file_name)
 
 def closeModel(index_or_name, save_changes = False):
     '''
