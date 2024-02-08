@@ -649,8 +649,6 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculateCC.no = loadCombination
             specificObjectsToCalculateCC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_COMBINATION.name
             specificObjectsToCalculate.loading.append(specificObjectsToCalculateCC)
-    
-    errors_and_warnings = []
 
     try:
         calculationMessages = model.clientModel.service.calculate_specific(specificObjectsToCalculate,skipWarnings)
@@ -665,7 +663,7 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
                                                     ". Message: ", message.message]) if message.message_type == "ERROR"\
                                                         else "".join([message.message_type, ": ", message.message]) if not skipWarnings else None for message in calculationMessages["errors_and_warnings"]["message"]]
 
-    return errors_and_warnings if errors_and_warnings else None
+    return errors_and_warnings
 
 def FirstFreeIdNumber(memType = ObjectTypes.E_OBJECT_TYPE_MEMBER, parent_no: int = 0, model = Model):
     '''
