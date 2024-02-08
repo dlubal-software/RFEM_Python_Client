@@ -6,8 +6,8 @@ print('basename:    ', baseName)
 print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
-from RFEM.enums import NodalSupportType, NodalLoadDirection, ActionCategoryType
-from RFEM.initModel import CalculateSelectedCases, Model, insertSpaces, Calculate_all
+from RFEM.enums import *
+from RFEM.initModel import CalculateSelectedCases, Model, insertSpaces, Calculate_all, SetAddonStatus
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.thickness import Thickness
@@ -19,7 +19,14 @@ from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.TypesForLines.lineSupport import LineSupport
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
+from RFEM.LoadCasesAndCombinations.loadCombination import LoadCombination
+from RFEM.LoadCasesAndCombinations.designSituation import DesignSituation
+from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
+from RFEM.LoadCasesAndCombinations.combinationWizard import CombinationWizard
+from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
+from RFEM.LoadCasesAndCombinations.modalAnalysisSettings import ModalAnalysisSettings
 from RFEM.Loads.nodalLoad import NodalLoad
+from RFEM.Loads.surfaceLoad import SurfaceLoad
 from RFEM.Calculate.meshSettings import GetModelInfo
 
 if __name__ == "__main__":
@@ -38,6 +45,9 @@ if __name__ == "__main__":
     l = 0
 
     Model.clientModel.service.begin_modification()
+
+    SetAddonStatus(Model.clientModel, addOn=AddOn.modal_active, status=True)
+    SetAddonStatus(Model.clientModel, addOn=AddOn.spectral_active, status=True)
 
     for i in range(3):
         Node(1 + j, 0, 0, height)
@@ -131,9 +141,19 @@ if __name__ == "__main__":
     LineSupport(1, '33 34 35 36 37 38')
     NodalSupport(1, '4 8 12', NodalSupportType.HINGED)
 
+    LoadCasesAndCombinations({'activate_combination_wizard':'True'})
+    CombinationWizard(1)
+    StaticAnalysisSettings(1)
+    ModalAnalysisSettings(1)
     LoadCase(1, 'Self-Weight', [True, 0, 0, 1], ActionCategoryType.ACTION_CATEGORY_PERMANENT_G)
+    LoadCase(2, 'Dead Load', [False], ActionCategoryType.ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_A_DOMESTIC_RESIDENTIAL_AREAS_QI_A)
+    LoadCase(3, 'Modal Analysis',action_category=ActionCategoryType.ACTION_CATEGORY_SEISMIC_ACTIONS_AE, params={'analysis_type':'ANALYSIS_TYPE_MODAL'})
 
-    Calculate_all()
+    LoadCombination(1, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 1, False, False, False, True, combination_items=[[1.35, 1, 0, False], [1.5, 2, 0, True]])
+    DesignSituation(1, DesignSituationType.DESIGN_SITUATION_TYPE_EQU_PERMANENT_AND_TRANSIENT, True, params={'combination_wizard' :'1'})
+
+    SurfaceLoad(1, 2, '1', 5000)
+
 
     Model.clientModel.service.finish_modification()
-
+    Calculate_all()
