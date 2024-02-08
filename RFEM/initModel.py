@@ -658,16 +658,12 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
         errors_and_warnings = ["Calculation was unsuccessful: " + repr(exp)]
 
     if calculationMessages["errors_and_warnings"] and calculationMessages["errors_and_warnings"]["message"]:
-        for message in calculationMessages["errors_and_warnings"]["message"]:
-            if message.current_value:
-                errors_and_warnings = ["".join([message.message_type,\
+        errors_and_warnings = ["".join([message.message_type,\
                                         ": Input field: ", message.input_field,\
                                             ", object: ", message.object,\
                                                 ", current value: ", message.current_value,\
                                                     ". Message: ", message.message]) if message.message_type == "ERROR"\
                                                         else "".join([message.message_type, ": ", message.message]) if not skipWarnings else None for message in calculationMessages["errors_and_warnings"]["message"]]
-            elif not skipWarnings:
-                errors_and_warnings = ["".join([message.message_type, ": ", message.message]) for message in calculationMessages["errors_and_warnings"]["message"]]
 
     return errors_and_warnings if errors_and_warnings else None
 
