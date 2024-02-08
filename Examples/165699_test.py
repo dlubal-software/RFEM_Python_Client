@@ -27,4 +27,6 @@ if __name__ == "__main__":
     for item in load_cases.item:
         load_cases_no.append(item.no)
     
+    calculation_messages = CalculateSelectedCases(loadCases=load_cases_no)
+    
             
