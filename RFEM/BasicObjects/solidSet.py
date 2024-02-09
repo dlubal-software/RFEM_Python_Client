@@ -1,5 +1,5 @@
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
-from RFEM.enums import SetType
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, ConvertStrToListOfInt
+from RFEM.enums import SetType, ObjectTypes
 
 class SolidSet():
     def __init__(self,
@@ -140,6 +140,19 @@ class SolidSet():
 
         # Add Solid Set to client model
         model.clientModel.service.set_solid_set(clientObject)
+
+    @staticmethod
+    def DeleteSolidSet(solids_no: str = '1 2', model = Model):
+
+        '''
+        Args:
+            solids_no (str): Numbers of Solid Sets to be deleted
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Delete solid sets from client model
+        for solid in ConvertStrToListOfInt(solids_no):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_SOLID_SET.name, solid)
 
     @staticmethod
     def GetSolidSet(object_index: int = 1, model = Model):

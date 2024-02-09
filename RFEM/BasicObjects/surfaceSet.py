@@ -1,5 +1,5 @@
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
-from RFEM.enums import SetType
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString, ConvertStrToListOfInt
+from RFEM.enums import SetType, ObjectTypes
 
 class SurfaceSet():
     def __init__(self,
@@ -140,6 +140,19 @@ class SurfaceSet():
 
         # Add Surface Set to client model
         model.clientModel.service.set_surface_set(clientObject)
+
+    @staticmethod
+    def DeleteSurfaceSet(surfaces_no: str = '1 2', model = Model):
+
+        '''
+        Args:
+            surfaces_no (str): Numbers of Surface Sets to be deleted
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Delete surface sets from the client model
+        for surface in ConvertStrToListOfInt(surfaces_no):
+            model.clientModel.service.delete_object(ObjectTypes.E_OBJECT_TYPE_SURFACE_SET.name, surface)
 
     @staticmethod
     def GetSurfaceSet(object_index: int = 1, model = Model):
