@@ -373,6 +373,9 @@ def Calculate_all(generateXmlSolverInput: bool = False, model = Model):
         generateXmlSolverInput (bool): Generate XML Solver Input
         model (RFEM Class, optional): Model to be edited
     '''
+    from RFEM.Tools.PlausibilityCheck import PlausibilityCheck
+    PlausibilityCheck()
+
     calculationMessages = model.clientModel.service.calculate_all(generateXmlSolverInput)
     return calculationMessages
 

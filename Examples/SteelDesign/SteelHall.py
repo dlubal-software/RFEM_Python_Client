@@ -24,7 +24,6 @@ from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.Loads.nodalLoad import NodalLoad
 from RFEM.Loads.memberLoad import MemberLoad
-from RFEM.Tools.PlausibilityCheck import PlausibilityCheck
 
 if __name__ == '__main__':
 
@@ -314,7 +313,6 @@ if __name__ == '__main__':
         n, k = n+6, k+13
 
     SteelDesignUltimateConfigurations(1, 'ULS1', 'All')
-    PlausibilityCheck()
 
     Model.clientModel.service.finish_modification()
     Calculate_all()
