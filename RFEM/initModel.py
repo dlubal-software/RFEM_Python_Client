@@ -359,7 +359,7 @@ def insertSpaces(lst: list):
     '''
     return ' '.join(str(item) for item in lst)
 
-def Calculate_all(generateXmlSolverInput: bool = False, model = Model):
+def Calculate_all(skipWarnings: bool = False, model = Model):
     '''
     Calculates model.
     CAUTION: Don't use it in unit tests!
@@ -370,7 +370,7 @@ def Calculate_all(generateXmlSolverInput: bool = False, model = Model):
         generateXmlSolverInput (bool): Generate XML Solver Input
         model (RFEM Class, optional): Model to be edited
     '''
-    calculationMessages = model.clientModel.service.calculate_all(generateXmlSolverInput)
+    calculationMessages = model.clientModel.service.calculate_all(skipWarnings)
     return calculationMessages
 
 def CalculateInCloud(machine_id, run_plausibility_check, calculate_despite_warnings_and_errors, email_notification, model = Model):
@@ -617,7 +617,7 @@ def SetAddonStatuses(AddOnDict, model = Model):
     model.clientModel.service.set_addon_statuses(currentStatus)
 
 
-def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None, skipWarnings = True, model = Model):
+def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None, skipWarnings = True, model = Model) -> list[str]:
     '''
     This method calculate just selected objects - load cases, designSituations, loadCombinations
 
