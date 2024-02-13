@@ -51,7 +51,7 @@ if __name__ == '__main__':
 
     # Calculate_all()
     messages = CalculateSelectedCases([1])
-    if not messages:
+    if messages:
         print("Calculation finished unsuccessfully")
         print(messages)
         # for message in messages:
