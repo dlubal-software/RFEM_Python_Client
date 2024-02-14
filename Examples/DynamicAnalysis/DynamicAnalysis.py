@@ -25,6 +25,8 @@ from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndC
 from RFEM.LoadCasesAndCombinations.combinationWizard import CombinationWizard
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.modalAnalysisSettings import ModalAnalysisSettings
+from RFEM.LoadCasesAndCombinations.spectralAnalysisSettings import SpectralAnalysisSettings
+from RFEM.DynamicLoads.responseSpectrum import ResponseSpectrum
 from RFEM.Loads.nodalLoad import NodalLoad
 from RFEM.Loads.surfaceLoad import SurfaceLoad
 from RFEM.Calculate.meshSettings import GetModelInfo
@@ -83,12 +85,12 @@ if __name__ == "__main__":
         Line(9 + l, insertSpaces([1 + j, 13 + j]))
         Line(10 + l, insertSpaces([2 + j, 14 + j]))
         Line(11 + l, insertSpaces([3 + j, 15 + j]))
-        Line(12 + l, insertSpaces([4 + j, 16 + j]))
+        #Line(12 + l, insertSpaces([4 + j, 16 + j]))
         Line(13 + l, insertSpaces([5 + j, 17 + j]))
         Line(14 + l, insertSpaces([7 + j, 19 + j]))
         Line(15 + l, insertSpaces([11 + j, 23 + j]))
-        Line(16 + l, insertSpaces([12 + j, 24 + j]))
-        Line(17 + l, insertSpaces([8 + j, 20 + j]))
+        #Line(16 + l, insertSpaces([12 + j, 24 + j]))
+        #Line(17 + l, insertSpaces([8 + j, 20 + j]))
         Line(18 + l, insertSpaces([6 + j, 18 + j]))
         Line(19 + l, insertSpaces([10 + j, 22 + j]))
         Line(20 + l, insertSpaces([9 + j, 21 + j]))
@@ -134,7 +136,6 @@ if __name__ == "__main__":
         Member(1 + j, 8 + l, 20 + l, 0, 1, 1)
         Member(2 + j, 4 + l, 16 + l, 0, 1, 1)
         Member(3 + j, 12 + l, 24 + l, 0, 1, 1)
-
         j += 3
         l += 12
 
@@ -142,13 +143,26 @@ if __name__ == "__main__":
     NodalSupport(1, '4 8 12', NodalSupportType.HINGED)
 
     LoadCasesAndCombinations({'activate_combination_wizard':'True'})
-    CombinationWizard(1)
+    CombinationWizard(1, 'Combi1', 1, 1, False, False, None, None)
     StaticAnalysisSettings(1)
     ModalAnalysisSettings(1)
+    SpectralAnalysisSettings(1)
+    ResponseSpectrum(1, params={'definition_type':'ACCORDING_TO_STANDARD'})
     LoadCase(1, 'Self-Weight', [True, 0, 0, 1], ActionCategoryType.ACTION_CATEGORY_PERMANENT_G)
     LoadCase(2, 'Dead Load', [False], ActionCategoryType.ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_A_DOMESTIC_RESIDENTIAL_AREAS_QI_A)
     LoadCase(3, 'Modal Analysis',action_category=ActionCategoryType.ACTION_CATEGORY_SEISMIC_ACTIONS_AE, params={'analysis_type':'ANALYSIS_TYPE_MODAL'})
-
+    LoadCase(4, 'Spectral Analysis', action_category=ActionCategoryType.ACTION_CATEGORY_SEISMIC_ACTIONS_AE,
+             params={
+                        'analysis_type':'ANALYSIS_TYPE_RESPONSE_SPECTRUM',
+                        'import_modal_analysis_from':'3',
+                        'response_spectrum_is_enabled_in_any_direction':'True',
+                        'response_spectrum_is_enabled_in_direction_x':'True',
+                        'response_spectrum_is_enabled_in_direction_y':'True',
+                        'response_spectrum_in_direction_x':'1',
+                        'response_spectrum_in_direction_y':'1',
+                        'response_spectrum_consider_accidental_torsion':'True',
+                        'response_spectrum_eccentricity_for_x_direction_relative':'0.05',
+                        'response_spectrum_eccentricity_for_y_direction_relative':'0.05'})
     LoadCombination(1, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 1, False, False, False, True, combination_items=[[1.35, 1, 0, False], [1.5, 2, 0, True]])
     DesignSituation(1, DesignSituationType.DESIGN_SITUATION_TYPE_EQU_PERMANENT_AND_TRANSIENT, True, params={'combination_wizard' :'1'})
 
