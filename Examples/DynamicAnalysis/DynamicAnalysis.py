@@ -7,7 +7,7 @@ print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
 from RFEM.enums import *
-from RFEM.initModel import CalculateSelectedCases, Model, insertSpaces, Calculate_all, SetAddonStatus
+from RFEM.initModel import Model, insertSpaces, Calculate_all, SetAddonStatus
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.thickness import Thickness
@@ -27,18 +27,16 @@ from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisS
 from RFEM.LoadCasesAndCombinations.modalAnalysisSettings import ModalAnalysisSettings
 from RFEM.LoadCasesAndCombinations.spectralAnalysisSettings import SpectralAnalysisSettings
 from RFEM.DynamicLoads.responseSpectrum import ResponseSpectrum
-from RFEM.Loads.nodalLoad import NodalLoad
 from RFEM.Loads.surfaceLoad import SurfaceLoad
-from RFEM.Calculate.meshSettings import GetModelInfo
 
 if __name__ == "__main__":
     # create structure
-    Model(True, "DynamicAnalysis.py")
+    Model(True, 'DynamicAnalysis.py')
 
-    Material(1, "C35/45")
-    Section(1, "SQ_M1 0.25")
-    Thickness(1, "Ceiling", 1, uniform_thickness_d=0.4)
-    Thickness(2, "Walls", 1, uniform_thickness_d=0.25)
+    Material(1, 'C35/45')
+    Section(1, 'SQ_M1 0.25')
+    Thickness(1, 'Ceiling', 1, uniform_thickness_d=0.4)
+    Thickness(2, 'Walls', 1, uniform_thickness_d=0.25)
     length = 10.5
     width = 13
     height = 0
@@ -85,18 +83,16 @@ if __name__ == "__main__":
         Line(9 + l, insertSpaces([1 + j, 13 + j]))
         Line(10 + l, insertSpaces([2 + j, 14 + j]))
         Line(11 + l, insertSpaces([3 + j, 15 + j]))
-        #Line(12 + l, insertSpaces([4 + j, 16 + j]))
-        Line(13 + l, insertSpaces([5 + j, 17 + j]))
-        Line(14 + l, insertSpaces([7 + j, 19 + j]))
-        Line(15 + l, insertSpaces([11 + j, 23 + j]))
-        #Line(16 + l, insertSpaces([12 + j, 24 + j]))
-        #Line(17 + l, insertSpaces([8 + j, 20 + j]))
-        Line(18 + l, insertSpaces([6 + j, 18 + j]))
-        Line(19 + l, insertSpaces([10 + j, 22 + j]))
-        Line(20 + l, insertSpaces([9 + j, 21 + j]))
+        Line(12 + l, insertSpaces([5 + j, 17 + j]))
+        Line(13 + l, insertSpaces([7 + j, 19 + j]))
+        Line(14 + l, insertSpaces([11 + j, 23 + j]))
+        Line(15 + l, insertSpaces([6 + j, 18 + j]))
+        Line(16 + l, insertSpaces([10 + j, 22 + j]))
+        Line(17 + l, insertSpaces([9 + j, 21 + j]))
 
-        l += 12
+        l += 9
         j += 12
+
     # horizontal lines
     j = 0
     l = 0
@@ -117,18 +113,17 @@ if __name__ == "__main__":
     j = 0
     for i in range(2):
         Surface(1 + k, insertSpaces([1 + m, 2 + m, 3 + m, 4 + m]), 1)
-        Surface(2 + k, insertSpaces([20 + l, 40 + j, 9 + l, 34 + j]), 2)
-        Surface(3 + k, insertSpaces([13 + l, 33 + j, 9 + l, 39 + j]), 2)
-        Surface(4 + k, insertSpaces([35 + j, 10 + l, 14 + l, 41 + j]), 2)
-        Surface(5 + k, insertSpaces([36 + j, 10 + l, 15 + l, 42 + j]), 2)
-        Surface(6 + k, insertSpaces([37 + j, 11 + l, 18 + l, 43 + j]), 2)
-        Surface(7 + k, insertSpaces([38 + j, 11 + l, 19 + l, 44 + j]), 2)
+        Surface(2 + k, insertSpaces([17 + l, 40 + j, 9 + l, 34 + j]), 2)
+        Surface(3 + k, insertSpaces([12 + l, 33 + j, 9 + l, 39 + j]), 2)
+        Surface(4 + k, insertSpaces([35 + j, 10 + l, 13 + l, 41 + j]), 2)
+        Surface(5 + k, insertSpaces([36 + j, 10 + l, 14 + l, 42 + j]), 2)
+        Surface(6 + k, insertSpaces([37 + j, 11 + l, 15 + l, 43 + j]), 2)
+        Surface(7 + k, insertSpaces([38 + j, 11 + l, 16 + l, 44 + j]), 2)
 
         k += 7
         m += 4
-        l += 12
+        l += 9
         j += 6
-
 
     j = 0
     l = 0
@@ -144,10 +139,13 @@ if __name__ == "__main__":
 
     LoadCasesAndCombinations({'activate_combination_wizard':'True'})
     CombinationWizard(1, 'Combi1', 1, 1, False, False, None, None)
+
     StaticAnalysisSettings(1)
     ModalAnalysisSettings(1)
     SpectralAnalysisSettings(1)
+
     ResponseSpectrum(1, params={'definition_type':'ACCORDING_TO_STANDARD'})
+
     LoadCase(1, 'Self-Weight', [True, 0, 0, 1], ActionCategoryType.ACTION_CATEGORY_PERMANENT_G)
     LoadCase(2, 'Dead Load', [False], ActionCategoryType.ACTION_CATEGORY_IMPOSED_LOADS_CATEGORY_A_DOMESTIC_RESIDENTIAL_AREAS_QI_A)
     LoadCase(3, 'Modal Analysis',action_category=ActionCategoryType.ACTION_CATEGORY_SEISMIC_ACTIONS_AE, params={'analysis_type':'ANALYSIS_TYPE_MODAL'})
@@ -163,11 +161,11 @@ if __name__ == "__main__":
                         'response_spectrum_consider_accidental_torsion':'True',
                         'response_spectrum_eccentricity_for_x_direction_relative':'0.05',
                         'response_spectrum_eccentricity_for_y_direction_relative':'0.05'})
+
     LoadCombination(1, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 1, False, False, False, True, combination_items=[[1.35, 1, 0, False], [1.5, 2, 0, True]])
     DesignSituation(1, DesignSituationType.DESIGN_SITUATION_TYPE_EQU_PERMANENT_AND_TRANSIENT, True, params={'combination_wizard' :'1'})
 
     SurfaceLoad(1, 2, '1', 5000)
-
 
     Model.clientModel.service.finish_modification()
     Calculate_all()
