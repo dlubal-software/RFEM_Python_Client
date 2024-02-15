@@ -153,8 +153,10 @@ class Model():
 
                 cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=connectionGlobals.ca, timeout=360)
 
-                cModel.service.delete_all_results()
-                cModel.service.delete_all()
+                if delete:
+                    cModel.service.delete_all_results()
+                if delete_all:
+                    cModel.service.delete_all()
 
                 self.clientModelDct[model_name] = cModel
 
