@@ -1420,13 +1420,6 @@ class AmplitudeFunctionType(Enum):
     CONSTANT, LINEAR, QUADRATIC = range(3)
 
 
-class PlausibilityCheckResult(Enum):
-    '''
-    Plausibility Check Result
-    '''
-    CHECK_IS_OK, CHECK_FAILED = range(2)
-
-
 class PlausibilityCheckType(Enum):
     '''
     Plausibility Check Type

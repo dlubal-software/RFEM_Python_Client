@@ -153,6 +153,11 @@ class Model():
 
                 cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=connectionGlobals.ca, timeout=360)
 
+                if delete:
+                    cModel.service.delete_all_results()
+                if delete_all:
+                    cModel.service.delete_all()
+
                 self.clientModelDct[model_name] = cModel
 
         else:
@@ -367,9 +372,13 @@ def Calculate_all(skipWarnings: bool = False, model = Model):
     it causes RFEM to stuck and generates failures, which are hard to investigate.
 
     Args:
-        generateXmlSolverInput (bool): Generate XML Solver Input
+        skipWarnings (bool): Warnings will be skipped
         model (RFEM Class, optional): Model to be edited
     '''
+
+    from RFEM.Tools.PlausibilityCheck import PlausibilityCheck
+    PlausibilityCheck()
+
     calculationMessages = model.clientModel.service.calculate_all(skipWarnings)
     return calculationMessages
 

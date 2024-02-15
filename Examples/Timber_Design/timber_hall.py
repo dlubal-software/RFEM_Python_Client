@@ -28,7 +28,6 @@ from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.Loads.memberLoad import MemberLoad
-from RFEM.Tools.PlausibilityCheck import PlausibilityCheck
 
 # importing modules requiered for timber design
 from RFEM.TimberDesign.timberUltimateConfigurations import TimberDesignUltimateConfigurations
@@ -223,7 +222,6 @@ TimberDesignServiceLimitStateConfigurations(1, 'SLS1', members_no = 'All')
 
 # finishing modification and calculating the model
 Model.clientModel.service.finish_modification()
-PlausibilityCheck()
 Calculate_all()
 
 # write outputs to an excel sheet
