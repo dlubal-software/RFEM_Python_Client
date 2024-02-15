@@ -99,6 +99,7 @@ class Model():
 
         Args:
             new_model (bool, optional): Set to True if new model is requested.
+                If model is opened in RFEM, FALSE should be used.
             model_name (str, optional): Defaults to "TestModel". If "" call get_active_model.
             delete (bool, optional):  Delete results
             delete_all (bool, optional): Delete all objects in Model.
@@ -122,26 +123,34 @@ class Model():
             model_name = model_name.split('.')[0]
 
         if new_model:
-            # Requested new model but the model with given name was already connected
+            # Requested new model but the model with given name is already connected
             if model_name in self.clientModelDct:
                 cModel = self.clientModelDct[model_name]
+                # Asuming the existing model should be recycled everything have to be deleted,
+                # so the script won't add new objects on top of the old ones.
+                # Mainly used in cycles.
                 cModel.service.delete_all_results()
                 cModel.service.delete_all()
 
-            # Requested new model, model with given name DOESN'T exist yet
             else:
                 modelPath = ''
-                # Requested new model, model with given name was NOT connected yet but file with the same name was opened
+                # Requested new model, model with given name was NOT connected yet but file with the same name is opened in RFEM
                 if model_name in modelLst:
                     id = 0
                     for i,j in enumerate(modelLst):
                         if modelLst[i] == model_name:
                             id = i
                     modelPath =  connectionGlobals.client.service.get_model(id)
-                elif model_name == "":
-                    modelPath =  connectionGlobals.client.service.get_active_model()
+
+                # Requested new model, model with given name DOESN'T exist yet
                 else:
-                    modelPath =  connectionGlobals.client.service.new_model(original_model_name)
+                    # If name is empty, active will be selected
+                    if model_name == "":
+                        modelPath =  connectionGlobals.client.service.get_active_model()
+                    # If there is no nodel with given name, new RFEM model will be created
+                    else:
+                        modelPath =  connectionGlobals.client.service.new_model(original_model_name)
+
                 modelPort = modelPath[-5:-1]
                 modelUrlPort = connectionGlobals.url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
@@ -153,19 +162,20 @@ class Model():
 
                 cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=connectionGlobals.ca, timeout=360)
 
-                if delete:
-                    cModel.service.delete_all_results()
-                if delete_all:
-                    cModel.service.delete_all()
-
                 self.clientModelDct[model_name] = cModel
 
         else:
-            # Requested model which was already connected
-            #assert model_name in self.clientModelDct or model_name in modelLst, 'WARNING: '+model_name +' is not connected neither opened in RFEM.'
+            # Requested model is already opened in RFEM or even connected in self.clientModelDct.
+            # In this statement RFEM doesn't create new model in RFEM via new_model().
 
+            # assert model_name in self.clientModelDct or model_name in modelLst, 'WARNING: '+model_name +' is not connected neither opened in RFEM.'
+
+            # If model with same name is opened and alredy in clientModelDct.
+            # This is typicaly model created by RFEM Python Client.
             if model_name in self.clientModelDct:
                 cModel = self.clientModelDct[model_name]
+            # If opening new file.
+            # Model is opened in RFEM (model in modelLst) but it is not in clientModelDct yet to be edited or closed.
             elif model_name in modelLst:
                 id = 0
                 for i,j in enumerate(modelLst):
@@ -285,7 +295,7 @@ def openFile(model_path):
     '''
     Open file with a name.
     This routine primarily adds client instance into
-    Model.clientModelLst which manages all connections to the models.
+    Model.clientModelDct which manages all connections to the models.
     New Model class instance is invoked.
     It should be used when opening a file.
 
@@ -298,7 +308,8 @@ def openFile(model_path):
 
     file_name = os.path.basename(model_path)
     connectionGlobals.client.service.open_model(model_path)
-    return Model(True, file_name)
+
+    return Model(False, file_name)
 
 def closeModel(index_or_name, save_changes = False):
     '''
