@@ -28,6 +28,7 @@ from RFEM.LoadCasesAndCombinations.modalAnalysisSettings import ModalAnalysisSet
 from RFEM.LoadCasesAndCombinations.spectralAnalysisSettings import SpectralAnalysisSettings
 from RFEM.DynamicLoads.responseSpectrum import ResponseSpectrum
 from RFEM.Loads.surfaceLoad import SurfaceLoad
+from RFEM.Results.resultTables import ResultTables
 
 if __name__ == "__main__":
     # create structure
@@ -137,6 +138,7 @@ if __name__ == "__main__":
     LineSupport(1, '33 34 35 36 37 38')
     NodalSupport(1, '4 8 12', NodalSupportType.HINGED)
 
+    # Load Cases and Combinations/Settings
     LoadCasesAndCombinations({'activate_combination_wizard':'True'})
     CombinationWizard(1, 'Combi1', 1, 1, False, False, None, None)
 
@@ -168,4 +170,8 @@ if __name__ == "__main__":
     SurfaceLoad(1, 2, '1', 5000)
 
     Model.clientModel.service.finish_modification()
+
     Calculate_all()
+
+    columnInternalForces = ResultTables.MembersInternalForces(loading_type=CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, loading_no=1)
+    print(columnInternalForces)
