@@ -25,7 +25,6 @@ from RFEM.TypesForMembers.memberEccentricity import MemberEccentricity
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.Loads.surfaceLoad import SurfaceLoad
 from RFEM.Loads.freeLoad import FreeLoad
-from RFEM.Tools.PlausibilityCheck import PlausibilityCheck
 
 if __name__ == "__main__":
     # ----------------INPUT PARAMETERS------------------#
@@ -190,6 +189,5 @@ if __name__ == "__main__":
         SurfaceLoad(1, 2, "1", 20000, "Road Traffic")
 
     Model.clientModel.service.finish_modification()
-    PlausibilityCheck()
     print("Calculating results.")
     Calculate_all()

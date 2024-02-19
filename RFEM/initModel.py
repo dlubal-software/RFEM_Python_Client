@@ -99,6 +99,7 @@ class Model():
 
         Args:
             new_model (bool, optional): Set to True if new model is requested.
+                If model is opened in RFEM, FALSE should be used.
             model_name (str, optional): Defaults to "TestModel". If "" call get_active_model.
             delete (bool, optional):  Delete results
             delete_all (bool, optional): Delete all objects in Model.
@@ -122,26 +123,34 @@ class Model():
             model_name = model_name.split('.')[0]
 
         if new_model:
-            # Requested new model but the model with given name was already connected
+            # Requested new model but the model with given name is already connected
             if model_name in self.clientModelDct:
                 cModel = self.clientModelDct[model_name]
+                # Asuming the existing model should be recycled everything have to be deleted,
+                # so the script won't add new objects on top of the old ones.
+                # Mainly used in cycles.
                 cModel.service.delete_all_results()
                 cModel.service.delete_all()
 
-            # Requested new model, model with given name DOESN'T exist yet
             else:
                 modelPath = ''
-                # Requested new model, model with given name was NOT connected yet but file with the same name was opened
+                # Requested new model, model with given name was NOT connected yet but file with the same name is opened in RFEM
                 if model_name in modelLst:
                     id = 0
                     for i,j in enumerate(modelLst):
                         if modelLst[i] == model_name:
                             id = i
                     modelPath =  connectionGlobals.client.service.get_model(id)
-                elif model_name == "":
-                    modelPath =  connectionGlobals.client.service.get_active_model()
+
+                # Requested new model, model with given name DOESN'T exist yet
                 else:
-                    modelPath =  connectionGlobals.client.service.new_model(original_model_name)
+                    # If name is empty, active will be selected
+                    if model_name == "":
+                        modelPath =  connectionGlobals.client.service.get_active_model()
+                    # If there is no nodel with given name, new RFEM model will be created
+                    else:
+                        modelPath =  connectionGlobals.client.service.new_model(original_model_name)
+
                 modelPort = modelPath[-5:-1]
                 modelUrlPort = connectionGlobals.url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
@@ -153,17 +162,20 @@ class Model():
 
                 cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=connectionGlobals.ca, timeout=360)
 
-                cModel.service.delete_all_results()
-                cModel.service.delete_all()
-
                 self.clientModelDct[model_name] = cModel
 
         else:
-            # Requested model which was already connected
-            #assert model_name in self.clientModelDct or model_name in modelLst, 'WARNING: '+model_name +' is not connected neither opened in RFEM.'
+            # Requested model is already opened in RFEM or even connected in self.clientModelDct.
+            # In this statement RFEM doesn't create new model in RFEM via new_model().
 
+            # assert model_name in self.clientModelDct or model_name in modelLst, 'WARNING: '+model_name +' is not connected neither opened in RFEM.'
+
+            # If model with same name is opened and alredy in clientModelDct.
+            # This is typicaly model created by RFEM Python Client.
             if model_name in self.clientModelDct:
                 cModel = self.clientModelDct[model_name]
+            # If opening new file.
+            # Model is opened in RFEM (model in modelLst) but it is not in clientModelDct yet to be edited or closed.
             elif model_name in modelLst:
                 id = 0
                 for i,j in enumerate(modelLst):
@@ -283,7 +295,7 @@ def openFile(model_path):
     '''
     Open file with a name.
     This routine primarily adds client instance into
-    Model.clientModelLst which manages all connections to the models.
+    Model.clientModelDct which manages all connections to the models.
     New Model class instance is invoked.
     It should be used when opening a file.
 
@@ -296,7 +308,8 @@ def openFile(model_path):
 
     file_name = os.path.basename(model_path)
     connectionGlobals.client.service.open_model(model_path)
-    return Model(True, file_name)
+
+    return Model(False, file_name)
 
 def closeModel(index_or_name, save_changes = False):
     '''
@@ -362,7 +375,7 @@ def insertSpaces(lst: list):
     '''
     return ' '.join(str(item) for item in lst)
 
-def Calculate_all(generateXmlSolverInput: bool = False, model = Model):
+def Calculate_all(skipWarnings: bool = False, model = Model):
     '''
     Calculates model.
     CAUTION: Don't use it in unit tests!
@@ -370,10 +383,14 @@ def Calculate_all(generateXmlSolverInput: bool = False, model = Model):
     it causes RFEM to stuck and generates failures, which are hard to investigate.
 
     Args:
-        generateXmlSolverInput (bool): Generate XML Solver Input
+        skipWarnings (bool): Warnings will be skipped
         model (RFEM Class, optional): Model to be edited
     '''
-    calculationMessages = model.clientModel.service.calculate_all(generateXmlSolverInput)
+
+    from RFEM.Tools.PlausibilityCheck import PlausibilityCheck
+    PlausibilityCheck()
+
+    calculationMessages = model.clientModel.service.calculate_all(skipWarnings)
     return calculationMessages
 
 def CalculateInCloud(machine_id, run_plausibility_check, calculate_despite_warnings_and_errors, email_notification, model = Model):
@@ -620,7 +637,7 @@ def SetAddonStatuses(AddOnDict, model = Model):
     model.clientModel.service.set_addon_statuses(currentStatus)
 
 
-def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None,skipWarnings = True, model = Model):
+def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None, skipWarnings = True, model = Model) -> list[str]:
     '''
     This method calculate just selected objects - load cases, designSituations, loadCombinations
 
@@ -652,12 +669,24 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculateCC.no = loadCombination
             specificObjectsToCalculateCC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_COMBINATION.name
             specificObjectsToCalculate.loading.append(specificObjectsToCalculateCC)
-    try:
-        calculationMessages = model.clientModel.service.calculate_specific(specificObjectsToCalculate,skipWarnings)
-    except Exception as exp:
-        calculationMessages = "Calculation was unsuccessful: " + repr(exp)
 
-    return calculationMessages
+    errors_and_warnings = []
+    calculationMessages = []
+
+    try:
+        calculationMessages = model.clientModel.service.calculate_specific(specificObjectsToCalculate, skipWarnings)
+    except Exception as exp:
+        errors_and_warnings = ["Calculation was unsuccessful: " + repr(exp)]
+
+    if calculationMessages["errors_and_warnings"] and calculationMessages["errors_and_warnings"]["message"]:
+        errors_and_warnings = ["".join([message.message_type,\
+                                        ": Input field: ", message.input_field,\
+                                            ", object: ", message.object,\
+                                                ", current value: ", message.current_value,\
+                                                    ". Message: ", message.message]) if message.message_type == "ERROR"\
+                                                        else "".join([message.message_type, ": ", message.message]) if not skipWarnings else None for message in calculationMessages["errors_and_warnings"]["message"]]
+
+    return errors_and_warnings
 
 def FirstFreeIdNumber(memType = ObjectTypes.E_OBJECT_TYPE_MEMBER, parent_no: int = 0, model = Model):
     '''
