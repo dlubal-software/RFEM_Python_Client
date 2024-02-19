@@ -375,7 +375,7 @@ def insertSpaces(lst: list):
     '''
     return ' '.join(str(item) for item in lst)
 
-def Calculate_all(generateXmlSolverInput: bool = False, model = Model):
+def Calculate_all(skipWarnings: bool = False, model = Model):
     '''
     Calculates model.
     CAUTION: Don't use it in unit tests!
@@ -383,13 +383,14 @@ def Calculate_all(generateXmlSolverInput: bool = False, model = Model):
     it causes RFEM to stuck and generates failures, which are hard to investigate.
 
     Args:
-        generateXmlSolverInput (bool): Generate XML Solver Input
+        skipWarnings (bool): Warnings will be skipped
         model (RFEM Class, optional): Model to be edited
     '''
+
     from RFEM.Tools.PlausibilityCheck import PlausibilityCheck
     PlausibilityCheck()
 
-    calculationMessages = model.clientModel.service.calculate_all(generateXmlSolverInput)
+    calculationMessages = model.clientModel.service.calculate_all(skipWarnings)
     return calculationMessages
 
 def CalculateInCloud(machine_id, run_plausibility_check, calculate_despite_warnings_and_errors, email_notification, model = Model):
@@ -636,7 +637,7 @@ def SetAddonStatuses(AddOnDict, model = Model):
     model.clientModel.service.set_addon_statuses(currentStatus)
 
 
-def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None,skipWarnings = True, model = Model):
+def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None, skipWarnings = True, model = Model) -> list[str]:
     '''
     This method calculate just selected objects - load cases, designSituations, loadCombinations
 
@@ -668,12 +669,24 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
             specificObjectsToCalculateCC.no = loadCombination
             specificObjectsToCalculateCC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_COMBINATION.name
             specificObjectsToCalculate.loading.append(specificObjectsToCalculateCC)
-    try:
-        calculationMessages = model.clientModel.service.calculate_specific(specificObjectsToCalculate,skipWarnings)
-    except Exception as exp:
-        calculationMessages = "Calculation was unsuccessful: " + repr(exp)
 
-    return calculationMessages
+    errors_and_warnings = []
+    calculationMessages = []
+
+    try:
+        calculationMessages = model.clientModel.service.calculate_specific(specificObjectsToCalculate, skipWarnings)
+    except Exception as exp:
+        errors_and_warnings = ["Calculation was unsuccessful: " + repr(exp)]
+
+    if calculationMessages["errors_and_warnings"] and calculationMessages["errors_and_warnings"]["message"]:
+        errors_and_warnings = ["".join([message.message_type,\
+                                        ": Input field: ", message.input_field,\
+                                            ", object: ", message.object,\
+                                                ", current value: ", message.current_value,\
+                                                    ". Message: ", message.message]) if message.message_type == "ERROR"\
+                                                        else "".join([message.message_type, ": ", message.message]) if not skipWarnings else None for message in calculationMessages["errors_and_warnings"]["message"]]
+
+    return errors_and_warnings
 
 def FirstFreeIdNumber(memType = ObjectTypes.E_OBJECT_TYPE_MEMBER, parent_no: int = 0, model = Model):
     '''
