@@ -29,7 +29,6 @@ from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisS
 from RFEM.Loads.nodalLoad import NodalLoad
 from RFEM.Loads.memberLoad import MemberLoad
 from RFEM.Results.resultTables import ResultTables, GetMaxValue, GetMinValue
-from RFEM.Tools.PlausibilityCheck import PlausibilityCheck
 
 try:
     import pandas
@@ -427,7 +426,6 @@ def main():
 
     # Finish Model
     Model.clientModel.service.finish_modification()
-    PlausibilityCheck()
 
     # Calculation
     print("Calculation started...")

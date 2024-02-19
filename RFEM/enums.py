@@ -1420,13 +1420,6 @@ class AmplitudeFunctionType(Enum):
     CONSTANT, LINEAR, QUADRATIC = range(3)
 
 
-class PlausibilityCheckResult(Enum):
-    '''
-    Plausibility Check Result
-    '''
-    CHECK_IS_OK, CHECK_FAILED = range(2)
-
-
 class PlausibilityCheckType(Enum):
     '''
     Plausibility Check Type
@@ -2612,8 +2605,34 @@ class SurfaceReleaseReleaseLocation(Enum):
     '''
     RELEASE_LOCATION_ORIGIN, RELEASE_LOCATION_RELEASED = range(2)
 
+class MaterialType(Enum):
+    '''
+    Material Type Enumeration
+    '''
+    TYPE_ALUMINUM, TYPE_BASIC, TYPE_CONCRETE, TYPE_FABRIC, TYPE_FIBER_CONCRETE, TYPE_FOIL, TYPE_GAS, TYPE_GLASS,\
+    TYPE_MASONRY, TYPE_METAL, TYPE_REINFORCING_STEEL, TYPE_SOIL, TYPE_STEEL, TYPE_TIMBER, TYPE_VIRTUAL_JOIST_GIRDER = range(15)
+
+class MaterialDefinitionType(Enum):
+    '''
+    Material Definition Type Enumeration
+    '''
+    DERIVED_G, DERIVED_NU, E_G_NO_NU, E_G_NU, NONE = range(5)
+
+class MaterialStiffnessModificationType(Enum):
+    '''
+    Material Stiffness Modification Type Enumeration
+    '''
+    STIFFNESS_MODIFICATION_TYPE_DIVISION, STIFFNESS_MODIFICATION_TYPE_MULTIPLICATION = range(2)
+
+class PoissonRatioEditableGroupType(Enum):
+    '''
+    Poisson Ratio Editable Group Type
+    '''
+    POISSON_RATIOS_GROUP_MAJOR_2D, POISSON_RATIOS_GROUP_MAJOR_3D, POISSON_RATIOS_GROUP_MINOR_2D, POISSON_RATIOS_GROUP_MINOR_3D = range(4)
+
 class ASFExportDataType(Enum):
     '''
     ASF Export Data Type
     '''
     EXPORT_NOT_COVERED_REINFORCEMENT, EXPORT_PROVIDED_REINFORCEMENT, EXPORT_REQUIRED_REINFORCEMENT = range(3)
+
