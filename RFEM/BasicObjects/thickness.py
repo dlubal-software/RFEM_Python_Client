@@ -480,6 +480,7 @@ class Thickness():
         if stiffness_reduction:
             clientObject.stiffness_reduction_enabled = stiffness_reduction
             if stiffness_modification:
+                clientObject.stiffness_reduction_elements_editing_enabled = True
                 clientObject.K33 = stiffness_modification[0][0]
                 clientObject.K33_note = stiffness_modification[0][1]
                 clientObject.K44 = stiffness_modification[1][0]
