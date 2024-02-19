@@ -1,34 +1,22 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
       {
-        "name": "Python: WebService",
-        "type": "python",
-        "request": "launch",
-        "module": "uvicorn",
-        "args": ["cloud_calculation.webservice:webservice", "--reload"],
-        "jinja": true,
-        "justMyCode": true
+          "name": "Python: Current File",
+          "type": "python",
+          "request": "launch",
+          "program": "${file}",
+          "console": "integratedTerminal"
       },
       {
-        "name": "Python: Web_API",
-        "type": "python",
-        "request": "launch",
-        "module": "uvicorn",
-        "args": ["tools.web_api:web_app", "--reload"],
-        "jinja": true,
-        "justMyCode": true
-      },
-      {
-        "name": "Python: Current File",
-        "type": "python",
-        "request": "launch",
-        "program": "${file}",
-        "console": "integratedTerminal",
-        "args": ["extranet"]
+          "name": "Main",
+          "type": "python",
+          "request": "launch",
+          "program": "main.py",
+          "console": "integratedTerminal"
       }
-    ]
+  ]
 }
