@@ -650,14 +650,14 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
     specificObjectsToCalculate = model.clientModel.factory.create('ns0:calculate_specific_loadings')
     if loadCases:
         for loadCase in loadCases:
-            specificObjectsToCalculateLS = model.clientModel.factory.create('ns0:calculate_specific_loadings.loading')
+            specificObjectsToCalculateLS = model.clientModel.factory.create('ns0:calculate_specific_loading')
             specificObjectsToCalculateLS.no = loadCase
             specificObjectsToCalculateLS.type = ObjectTypes.E_OBJECT_TYPE_LOAD_CASE.name
             specificObjectsToCalculate.loading.append(specificObjectsToCalculateLS)
 
     if designSituations:
         for designSituation in designSituations:
-            specificObjectsToCalculateDS = model.clientModel.factory.create('ns0:calculate_specific_loadings.loading')
+            specificObjectsToCalculateDS = model.clientModel.factory.create('ns0:calculate_specific_loading')
             specificObjectsToCalculateDS.no = designSituation
             specificObjectsToCalculateDS.type = ObjectTypes.E_OBJECT_TYPE_DESIGN_SITUATION.name
             specificObjectsToCalculate.loading.append(specificObjectsToCalculateDS)
@@ -665,12 +665,12 @@ def CalculateSelectedCases(loadCases: list = None, designSituations: list = None
 
     if loadCombinations:
         for loadCombination in loadCombinations:
-            specificObjectsToCalculateCC = model.clientModel.factory.create('ns0:calculate_specific_loadings.loading')
+            specificObjectsToCalculateCC = model.clientModel.factory.create('ns0:calculate_specific_loading')
             specificObjectsToCalculateCC.no = loadCombination
             specificObjectsToCalculateCC.type = ObjectTypes.E_OBJECT_TYPE_LOAD_COMBINATION.name
             specificObjectsToCalculate.loading.append(specificObjectsToCalculateCC)
     try:
-        calculationMessages = model.clientModel.service.calculate_specific(specificObjectsToCalculate,skipWarnings)
+        calculationMessages = model.clientModel.service.calculate_specific(specificObjectsToCalculate, skipWarnings)
     except Exception as exp:
         calculationMessages = "Calculation was unsuccessful: " + repr(exp)
 
