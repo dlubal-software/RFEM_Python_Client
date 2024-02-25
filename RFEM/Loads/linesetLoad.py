@@ -226,8 +226,8 @@ class LineSetLoad():
         elif load_distribution.name == "LOAD_DISTRIBUTION_CONCENTRATED_VARYING":
             clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:array_of_line_set_load_varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                #if len(load_parameter[i]) < 1:
-                 #   raise ValueError("WARNING: LineLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
+                if len(load_parameter[i]) != 2:
+                   raise ValueError("WARNING: LineLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = Model.clientModel.factory.create('ns0:line_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
                 mlvlp.row = Model.clientModel.factory.create('ns0:line_set_load_varying_load_parameters')
@@ -235,7 +235,7 @@ class LineSetLoad():
                 mlvlp.row.distance = load_parameter[i][0]
                 mlvlp.row.magnitude = load_parameter[i][1]
 
-                clientObject.varying_load_parameters.line_set_load_varying_load_parameters_row.append(mlvlp)
+                clientObject.varying_load_parameters.line_set_load_varying_load_parameters.append(mlvlp)
 
         elif load_distribution.name == "LOAD_DISTRIBUTION_TRAPEZOIDAL":
             if len(load_parameter) != 6:
