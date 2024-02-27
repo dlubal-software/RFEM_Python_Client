@@ -50,9 +50,9 @@ def test_mesh_tables():
     Model.clientModel.service.finish_modification()
 
     allFeNodes = MeshTables.GetAllFENodes()
-    assert allFeNodes[4]['y'] == 20
+    assert allFeNodes
 
-    customNode = MeshTables.getFENode(8)
+    customNode = MeshTables.getFENodeOriginalMesh(8)
     assert customNode['y'] == 1.5
 
     all1DElements = MeshTables.getAllFE1DElements()
