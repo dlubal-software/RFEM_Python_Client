@@ -21,6 +21,7 @@ if Model.clientModel is None:
 
 def test_mesh_tables():
 
+    Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Node(1, 0,0,0)
@@ -50,7 +51,7 @@ def test_mesh_tables():
     Model.clientModel.service.finish_modification()
 
     allFeNodes = MeshTables.GetAllFENodes()
-    assert allFeNodes
+    assert allFeNodes[4]['y'] == 20
 
     customNode = MeshTables.getFENodeOriginalMesh(8)
     assert customNode['y'] == 1.5
