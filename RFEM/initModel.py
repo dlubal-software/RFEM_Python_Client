@@ -3,6 +3,8 @@ import sys
 import RFEM.dependencies # dependency check ahead of imports
 import socket
 import requests
+import xmltodict
+from urllib import request
 from suds import WebFault
 from suds.client import Client
 from RFEM.enums import ObjectTypes, ModelType, AddOn
@@ -42,14 +44,23 @@ def connectToServer(url=connectionGlobals.url, port=connectionGlobals.port):
         a_socket.close()
         sys.exit()
 
-    # Delete cached WSDL older than 1 day to reflect newer version of RFEM
+    # Delete old cache if the version or mode doesn't correlate
     connectionGlobals.cacheLoc = os.path.join(gettempdir(), 'WSDL')
-    currentTime = time.time()
+    new_wsdl = request.urlopen(urlAndPort+'/wsdl')
+    new_wsdl_data = new_wsdl.read()
+    new_wsdl.close()
+    new_tns = xmltodict.parse(new_wsdl_data)['definitions']['@targetNamespace']
+
     if os.path.exists(connectionGlobals.cacheLoc):
         for file in os.listdir(connectionGlobals.cacheLoc):
             filePath = os.path.join(connectionGlobals.cacheLoc, file)
-            if (currentTime - os.path.getmtime(filePath)) > 86400:
-                os.remove(filePath)
+            if file.endswith('.xml'):
+                with open(filePath,'r', encoding='utf-8') as old_wsdl:
+                    old_wsdl_data = old_wsdl.read()
+                    old_wsdl.close()
+                    old_tns = xmltodict.parse(old_wsdl_data)['definitions']['@targetNamespace']
+                    if new_tns != old_tns:
+                        os.remove(filePath)
 
     # Check for issues locally and remotely
     try:
