@@ -20,7 +20,6 @@ from RFEM.BasicObjects.lineSet import LineSet
 from RFEM.BasicObjects.memberSet import MemberSet
 from RFEM.BasicObjects.solid import Solid
 from RFEM.BasicObjects.solidSet import SolidSet
-from RFEM.BasicObjects.coordinateSystem import CoordinateSystem
 from RFEM.Calculate.meshSettings import GetModelInfo
 
 if Model.clientModel is None:
