@@ -16,6 +16,7 @@ from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.surface import Surface
 from RFEM.GuideObjects.note import Note
+from RFEM.GuideObjects.coordinateSystem import CoordinateSystem
 
 if Model.clientModel is None:
     Model()
@@ -69,3 +70,39 @@ def test_note():
     note5 = Model.clientModel.service.get_note(5)
     assert note5.surface_first_coordinate == 5
     assert note5.offset_coordinate_y == 2
+
+def test_coordinate_system():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Material(1, 'S235')
+
+    Node(1, 0, 0, 0)
+
+    CoordinateSystem()
+    CoordinateSystem.OffsetXYZ(2, 1, 0, 0)
+    CoordinateSystem.ThreePoints(3, 2, 0, 0, 0, 1, 0, 0, 0, 3)
+    CoordinateSystem.TwoPointsAndAngle(4, 1.5, 0, 0, 0, 0, 0, 5.5)
+    CoordinateSystem.PointAndThreeAngles(5)
+
+    Model.clientModel.service.finish_modification()
+
+    coord2 = Model.clientModel.service.get_coordinate_system(2)
+
+    assert coord2.type == 'TYPE_OFFSET_XYZ'
+    assert coord2.origin_coordinate_x == 1
+
+    coord3 = Model.clientModel.service.get_coordinate_system(3)
+
+    assert coord3.type == 'TYPE_3_POINTS'
+    assert coord3.u_axis_point_coordinate_y == 1
+
+    coord4 = Model.clientModel.service.get_coordinate_system(4)
+
+    assert coord4.type == 'TYPE_2_POINTS_AND_ANGLE'
+    assert coord4.origin_coordinate_x == 1.5
+
+    coord5 = Model.clientModel.service.get_coordinate_system(5)
+
+    assert coord5.type == 'TYPE_POINT_AND_3_ANGLES'

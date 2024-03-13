@@ -4,7 +4,6 @@ from RFEM.enums import CoordinateSystemType, CoordinateSystemRotationAnglesSeque
 class CoordinateSystem():
     def __init__(self,
                  no: int = 1,
-                 type = CoordinateSystemType.TYPE_OFFSET_XYZ,
                  origin_coordinate_x: float = 0.0,
                  origin_coordinate_y: float = 0.0,
                  origin_coordinate_z: float = 0.0,
@@ -16,7 +15,6 @@ class CoordinateSystem():
         '''
          Args:
             no (int): Coordinate System Tag
-            type (enum): Coordinate System Type
             origin_coordinate_x (float): X-Coordinate
             origin_coordinate_y (float): Y-Coordinate
             origin_coordinate_z (float): Z-Coordinate
@@ -35,7 +33,7 @@ class CoordinateSystem():
         clientObject.no = no
 
         # Coordinate System Type
-        clientObject.type = type.name
+        clientObject.type = CoordinateSystemType.TYPE_OFFSET_XYZ.name
 
         # Coordinates
         clientObject.origin_coordinate_x = origin_coordinate_x
