@@ -2,7 +2,7 @@ from RFEM.enums import ThicknessDirection, ThicknessType, LayerType
 from RFEM.enums import ThicknessOrthotropyType, AddOn, ObjectTypes
 from RFEM.enums import ThicknessShapeOrthotropySelfWeightDefinitionType
 from RFEM.enums import ThicknessStiffnessMatrixSelfWeightDefinitionType
-from RFEM.enums import MaterialModel, ThicknessIntegrationMethod
+from RFEM.enums import ThicknessIntegrationMethod
 from RFEM.initModel import Model, GetAddonStatus, clearAttributes, deleteEmptyAttributes, SetAddonStatus, ConvertStrToListOfInt
 from math import pi
 
@@ -397,7 +397,7 @@ class Thickness():
     def Layers(
                  no: int = 1,
                  name: str = None,
-                 layers = [['E_THICKNESS_TYPE_DIRECTLY', 1, 0.012], ['E_THICKNESS_TYPE_DIRECTLY', 1, 0.01]],
+                 layers = [['E_THICKNESS_TYPE_DIRECTLY', 1, 0.012, pi / 2], ['E_THICKNESS_TYPE_DIRECTLY', 1, 0.01, pi / 2]],
                  stiffness_reduction: bool = False,
                  stiffness_modification: list = [[1, None], [1, None], [1, None], [1, None]],
                  specify_integration: bool = False,
@@ -416,7 +416,7 @@ class Thickness():
             layers (list of lists): Layers Table as an Array. Angle of the material will be set if material model is orthotropic.
                 layers = [layer[0], layer[1], layer[2],...]
                 for layers[i][0] == 'E_THICKNESS_TYPE_DIRECTLY':
-                    layers[i] = ['E_THICKNESS_TYPE_DIRECTLY', material_tag(int), thickness_in_meter(float), comment(optional)]
+                    layers[i] = ['E_THICKNESS_TYPE_DIRECTLY', material_tag(int), thickness_in_meter(float), angle(float), comment(optional)]
                 for layers[i][0] == previously_defined_thickness_tag:
                     layers[i] = [previously_defined_thickness_tag(int), comment(optional)]
             stiffness_reduction (bool, optional): Enable/disable Stiffness Reduction
@@ -466,8 +466,9 @@ class Thickness():
                 tlrt.row.thickness_type_or_id = 'E_THICKNESS_TYPE_DIRECTLY'
                 tlrt.row.material = layers[i][1]
                 tlrt.row.thickness = layers[i][2]
-                if len(layers[i]) == 4:
-                    tlrt.row.comment = layers[i][3]
+                tlrt.row.angle = layers[i][3]
+                if len(layers[i]) == 5:
+                    tlrt.row.comment = layers[i][4]
             elif type(layers[i][0]) == int:
                 tlrt.row.thickness_type_or_id = str(layers[i][0])
                 if len(layers[i]) == 2:
@@ -480,6 +481,7 @@ class Thickness():
         if stiffness_reduction:
             clientObject.stiffness_reduction_enabled = stiffness_reduction
             if stiffness_modification:
+                clientObject.stiffness_reduction_elements_editing_enabled = True
                 clientObject.K33 = stiffness_modification[0][0]
                 clientObject.K33_note = stiffness_modification[0][1]
                 clientObject.K44 = stiffness_modification[1][0]
