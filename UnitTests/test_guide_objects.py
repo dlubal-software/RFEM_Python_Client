@@ -81,7 +81,7 @@ def test_coordinate_system():
     Node(1, 0, 0, 0)
 
     CoordinateSystem()
-    CoordinateSystem.OffsetXYZ(2, 1, 0, 0)
+    CoordinateSystem.OffsetXYZ(2, 1, 0, 0, 'Offset')
     CoordinateSystem.ThreePoints(3, 2, 0, 0, 0, 1, 0, 0, 0, 3)
     CoordinateSystem.TwoPointsAndAngle(4, 1.5, 0, 0, 0, 0, 0, 5.5)
     CoordinateSystem.PointAndThreeAngles(5)
@@ -91,6 +91,7 @@ def test_coordinate_system():
     coord2 = Model.clientModel.service.get_coordinate_system(2)
 
     assert coord2.type == 'TYPE_OFFSET_XYZ'
+    assert coord2.name == 'Offset'
     assert coord2.origin_coordinate_x == 1
 
     coord3 = Model.clientModel.service.get_coordinate_system(3)
