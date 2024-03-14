@@ -83,9 +83,9 @@ class Material():
         '''
         Args:
             no (int): Material Tag
-            name (str): Name of Desired Material (As Named in RFEM Database)
-            material_type (Enum): Material Type
-            material_model (Enum): Material Model
+            name (str): User Defined Material Name
+            material_type (enum): Material Type Enumeration
+            material_model (enum): Material Model Enumeration
             elasticity_modulus (float): Elasticity Modulus
             elasticity_modulus_x (float): X-Direction Elasticity Modulus
             elasticity_modulus_y (float): Y-Direction Elasticity Modulus
@@ -101,13 +101,14 @@ class Material():
             poisson_ratio_zy (float): ZY-Direction Poisson Ratio
             poisson_ratio_zx (float): ZX-Direction Poisson Ratio
             poisson_ratio_yx (float): YX-Direction Poisson Ratio
+            poisson_ratio_editable_group_type (enum): Poisson Ratio Editable Group Type Enumeration
             mass_density (float): Mass Density
             thermal_expansion_coefficient (float): Thermal Expansion Coefficient
             thermal_expansion_coefficient_x (float): X-Direction Thermal Expansion Coefficient
             thermal_expansion_coefficient_y (float): Y-Direction Thermal Expansion Coefficient
             thermal_expansion_coefficient_z (float): Z-Direction Thermal Expansion Coefficient
-            definition_type (Enum): Definition Type
-            stiffness_modification_type (Enum): Stiffness Modification Type
+            definition_type (enum): Material Definition Type Enumeration
+            stiffness_modification_type (enum): Material Stiffness Modification Type Enumeration
             division_multiplication_factor (float): Division Multiplication Factor
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary

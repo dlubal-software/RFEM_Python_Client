@@ -16,13 +16,15 @@ class Action():
         Combination Wizard Action
 
         Args:
-            no (int, optional): Action number
-            action_category (enum, optional): Action category
-            action_type (enum, optional): Action type
-            action_items (list or list of lists, optional):
-                - if action_type == 'ACTING_DIFFERENTLY': [[Load_case, acting_group], ...]
-                - else: [Load_case, Load_case, ...]
-            name (str, optional): Action name
+            no (int, optional): Action Tag
+            action_category (enum, optional): Action Category Type Enumeration
+            action_type (enum, optional): Action Type Enumeration
+            action_items (list or list of lists, optional): Action Items
+                if action_type == 'ACTING_DIFFERENTLY':
+                    action_items = [[Load_case, acting_group], ...]
+                else:
+                    action_items = [Load_case, Load_case, ...]
+            name (str, optional): User Defined Action Name
             is_active (bool, optional): Define if active
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary

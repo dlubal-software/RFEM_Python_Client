@@ -184,11 +184,10 @@ class WindSimulationAnalysisSettings():
                 calculation_parameters = [Use Steady Flow Solver To Calculate Initial Condition, Maximum Number Of Iterations Of Steady Flow Solver, Turbulence Type For Initial Condition, Error Tolerance for Data Compression]
             simulation_time (float): Simulation Time
             start_time_for_saving_transient_result (float): Start Time For Saving Transient Result
-            turbulence_model_type (enums): Wind Simulation Analysis Settings Turbulence Model Type
+            turbulence_model_type (enum): Wind Simulation Analysis Settings Turbulence Model Type Enumeration
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
-
         """
 
         # Client model | Surface

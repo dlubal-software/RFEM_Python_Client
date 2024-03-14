@@ -217,7 +217,7 @@ class CoordinateSystem():
             u_axis_point_coordinate_y (float): Point on +U-Axis - 1st point Y-Coordinate
             u_axis_point_coordinate_z (float): Point on +U-Axis - 1st point Z-Coordinate
             uw_plane_angle (float): Rotation About U-Axis
-            name (str, optional): Name
+            name (str, optional): User Defined Coordinate System Name
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
