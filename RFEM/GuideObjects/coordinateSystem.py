@@ -4,7 +4,6 @@ from RFEM.enums import CoordinateSystemType, CoordinateSystemRotationAnglesSeque
 class CoordinateSystem():
     def __init__(self,
                  no: int = 1,
-                 type = CoordinateSystemType.TYPE_OFFSET_XYZ,
                  origin_coordinate_x: float = 0.0,
                  origin_coordinate_y: float = 0.0,
                  origin_coordinate_z: float = 0.0,
@@ -16,11 +15,10 @@ class CoordinateSystem():
         '''
          Args:
             no (int): Coordinate System Tag
-            type (enum): Coordinate System Type
             origin_coordinate_x (float): X-Coordinate
             origin_coordinate_y (float): Y-Coordinate
             origin_coordinate_z (float): Z-Coordinate
-            name (str): Name
+            name (str, optional): User Defined Coordinate System Name
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -35,7 +33,7 @@ class CoordinateSystem():
         clientObject.no = no
 
         # Coordinate System Type
-        clientObject.type = type.name
+        clientObject.type = CoordinateSystemType.TYPE_OFFSET_XYZ.name
 
         # Coordinates
         clientObject.origin_coordinate_x = origin_coordinate_x
@@ -44,6 +42,7 @@ class CoordinateSystem():
 
         # Name
         if name:
+            clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
         # Comment
@@ -76,7 +75,7 @@ class CoordinateSystem():
             origin_coordinate_x (float): X-Coordinate
             origin_coordinate_y (float): Y-Coordinate
             origin_coordinate_z (float): Z-Coordinate
-            name (str): Name
+            name (str, optional): User Defined Coordinate System Name
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -100,6 +99,7 @@ class CoordinateSystem():
 
         # Name
         if name:
+            clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
         # Comment
@@ -144,7 +144,7 @@ class CoordinateSystem():
             uw_plane_point_coordinate_x (float): Point in +UW-Plane - 2nd Point X-Coordinate
             uw_plane_point_coordinate_y (float): Point in +UW-Plane - 2nd Point Y-Coordinate
             uw_plane_point_coordinate_z (float): Point in +UW-Plane - 2nd Point Z-Coordinate
-            name (str): Name
+            name (str, optional): User Defined Coordinate System Name
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -176,6 +176,7 @@ class CoordinateSystem():
 
         # Name
         if name:
+            clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
         # Comment
@@ -216,7 +217,7 @@ class CoordinateSystem():
             u_axis_point_coordinate_y (float): Point on +U-Axis - 1st point Y-Coordinate
             u_axis_point_coordinate_z (float): Point on +U-Axis - 1st point Z-Coordinate
             uw_plane_angle (float): Rotation About U-Axis
-            name (str): Name
+            name (str, optional): Name
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -246,6 +247,7 @@ class CoordinateSystem():
 
         # Name
         if name:
+            clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
         # Comment
@@ -282,11 +284,11 @@ class CoordinateSystem():
             origin_coordinate_x (float): Origin Point X-Coordinate
             origin_coordinate_y (float): Origin Point Y-Coordinate
             origin_coordinate_z (float): Origin Point Z-Coordinate
-            rotation_angles_sequence (float): Rotation Angles Sequesce
+            rotation_angles_sequence (enum): Coordinate System Rotation Angles Sequence Enumeration
             rotation_angle_1 (float): Rotation about X Axes
             rotation_angle_2 (float): Rotation about Y Axes
             rotation_angle_3 (float): Rotation about Z Axes
-            name (str): Name
+            name (str, optional): User Defined Coordinate System Name
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -299,7 +301,6 @@ class CoordinateSystem():
 
         # Coordinate System No.
         clientObject.no = no
-
 
         # Coordinate System Type
         clientObject.type = CoordinateSystemType.TYPE_POINT_AND_3_ANGLES.name
@@ -318,6 +319,7 @@ class CoordinateSystem():
 
         # Name
         if name:
+            clientObject.user_defined_name_enabled = True
             clientObject.name = name
 
         # Comment
@@ -339,7 +341,7 @@ class CoordinateSystem():
 
         '''
         Args:
-            obejct_index (int): Thickness Index
+            obejct_index (int): Coordinate System Index
             model (RFEM Class, optional): Model to be edited
         '''
 

@@ -20,7 +20,6 @@ from RFEM.BasicObjects.lineSet import LineSet
 from RFEM.BasicObjects.memberSet import MemberSet
 from RFEM.BasicObjects.solid import Solid
 from RFEM.BasicObjects.solidSet import SolidSet
-from RFEM.BasicObjects.coordinateSystem import CoordinateSystem
 from RFEM.Calculate.meshSettings import GetModelInfo
 
 if Model.clientModel is None:
@@ -788,23 +787,18 @@ def test_thickness_shape_orthotropy():
 
     Model.clientModel.service.finish_modification()
 
-def test_coordinate_system():
+def test_get_thickness():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
 
-    Node(1, 0, 0, 0)
-
-    CoordinateSystem()
-    CoordinateSystem.OffsetXYZ(2)
-    CoordinateSystem.ThreePoints(3)
-    CoordinateSystem.TwoPointsAndAngle(4)
-    CoordinateSystem.PointAndThreeAngles(5)
+    Thickness(1, '20 mm', 1, 0.02)
 
     Model.clientModel.service.finish_modification()
 
-    coord = CoordinateSystem.GetCoordinateSystem(2)
+    thickness = Thickness.GetThickness(1)
 
-    assert coord.type == 'TYPE_OFFSET_XYZ'
+    assert thickness['type'] == "TYPE_UNIFORM"
+    assert thickness['uniform_thickness'] == 0.02
