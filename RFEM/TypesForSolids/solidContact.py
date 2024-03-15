@@ -13,10 +13,10 @@ class SolidContacts():
                  params: dict = None,
                  model = Model):
         """
-        Solid Contact
+        Solid Contacts
 
         Args:
-            no (int): Solid Contact Tag
+            no (int): Solid Contacts Tag
             perpendicular_contact (enum): Solid Contact Perpendicular Type Enumeration
             parallel_contact (enum): Solid Contact Parallel Type Enumeration
             contact_parameters (list): Contact Parameters List
