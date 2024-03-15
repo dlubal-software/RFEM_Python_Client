@@ -220,8 +220,6 @@ class Model():
                 print('Model name "'+model_name+'" is not created in RFEM. Consider changing new_model parameter in Model class from False to True.')
                 sys.exit()
 
-
-
         if delete:
             print('Deleting results...')
             cModel.service.delete_all_results()
@@ -659,7 +657,7 @@ def SetAddonStatuses(AddOnDict, model = Model):
     model.clientModel.service.set_addon_statuses(currentStatus)
 
 
-def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None, skipWarnings = True, model = Model) -> "list[str]":
+def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None, skipWarnings = True, model = Model):
     '''
     This method calculate just selected objects - load cases, designSituations, loadCombinations
 
