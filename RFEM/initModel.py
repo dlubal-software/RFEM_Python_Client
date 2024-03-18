@@ -193,6 +193,7 @@ class Model():
                     if modelLst[i] == model_name:
                         id = i
                 modelPath =  connectionGlobals.client.service.get_model(id)
+                self.clientModelDct[model_name] = cModel
                 modelPort = modelPath[-5:-1]
                 modelUrlPort = connectionGlobals.url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
@@ -203,10 +204,18 @@ class Model():
                 trans = RequestsTransport(connectionGlobals.session)
 
                 cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=connectionGlobals.ca, timeout=360)
-
-                self.clientModelDct[model_name] = cModel
             elif model_name == "":
                 modelPath =  connectionGlobals.client.service.get_active_model()
+                modelPort = modelPath[-5:-1]
+                modelUrlPort = connectionGlobals.url+':'+modelPort
+                modelCompletePath = modelUrlPort+'/wsdl'
+
+                connectionGlobals.session = requests.Session()
+                adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
+                connectionGlobals.session.mount('http://', adapter)
+                trans = RequestsTransport(connectionGlobals.session)
+
+                cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=connectionGlobals.ca, timeout=360)
             else:
                 print('Model name "'+model_name+'" is not created in RFEM. Consider changing new_model parameter in Model class from False to True.')
                 sys.exit()
@@ -648,7 +657,7 @@ def SetAddonStatuses(AddOnDict, model = Model):
     model.clientModel.service.set_addon_statuses(currentStatus)
 
 
-def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None, skipWarnings = True, model = Model) -> list[str]:
+def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None, skipWarnings = True, model = Model):
     '''
     This method calculate just selected objects - load cases, designSituations, loadCombinations
 
