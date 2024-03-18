@@ -7,7 +7,7 @@ def ActionCombinationItem(model = Model, **kwargs):
 
     Args:
         model (RFEM Class): Model to be edited
-        **kwargs - pass a keyworded, variable-length argument list. Following are all possible keywords:
+        **kwargs - Pass a keyworded, variable-length argument list. Following are all possible keywords:
 
         action_item, operator_type, left_parenthesis, right_parenthesis, group_factor, action_factor,
         action_load_type, group_load_type, action, is_leading, gamma, psi, xi, k_fi, c_esl, k_def,
@@ -47,10 +47,10 @@ class ActionCombination():
         WARNING: Only design situations with an assigned combination wizard where a user-defined action combination is set are valid.
 
         Args:
-            no (int, mandatory): Action number
-            design_situation (int, mandatory): Design Situation
-            action_combination_items (list, mandatory): Action Combination Items list
-            name (str, optional): Action Combination name
+            no (int): Action Combination Tag
+            design_situation (int): Design Situation
+            action_combination_items (list): Action Combination Items list
+            name (str, optional): User Defined Action Combination Name
             active (bool, optional): Define if Active
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -108,7 +108,7 @@ class ActionCombination():
         Delete Action Combination object(s)
 
         Args:
-            actions_no (str): Numbers of Action Combinations to be deleted
+            action_combination_no (str): Numbers of Action Combinations to be deleted
             model (RFEM Class, optional): Model to be edited
         '''
 
