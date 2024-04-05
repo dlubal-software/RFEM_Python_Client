@@ -16,7 +16,7 @@ class WindSimulationAnalysisSettings():
                  member_load_distribution = WindSimulationAnalysisSettingsMemberLoadDistribution.CONCENTRATED,
                  finite_volume_mesh_density: float = 0.2,
                  snap_to_model_edges: bool = True,
-                 calculation_parameters: list = [False, False, 500, WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON],
+                 calculation_parameters: list = [False, 500, WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON],
                  options: list = [True, False, False, False],
                  advanced_options: list = [0.2, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
                  residual_pressure: float = 0.001,
@@ -34,7 +34,7 @@ class WindSimulationAnalysisSettings():
             finite_volume_mesh_density (float): Finite Volume Mesh Density
             snap_to_model_edges (bool): Enable/disable Snap to Model Edges
             calculation_parameters (list): Calculation Parameters List
-                calculation_parameters = [Use Potential Flow to calculate initial Condition, Use Second Order numerical Scheme, Maximum number of Iterations, Turbulence Model]
+                calculation_parameters = [Use Second Order numerical Scheme, Maximum number of Iterations, Turbulence Model]
             options (list): Options List
                 options = [Consider Turbulence, Slip Boundary on Bottom Boundary, User Defined Dimensions of Wind Tunnel, Save Solver Data To Continue Calculation]
             advanced_options (list): Relaxation Factors
@@ -104,17 +104,14 @@ class WindSimulationAnalysisSettings():
         # Member Load Distribution
         clientObject.member_load_distribution = member_load_distribution.name
 
-        # Use Potential Flow to calculate initial Condition
-        clientObject.use_potential_flow_for_initial_condition = calculation_parameters[0]
-
         # Use Second Order numerical Scheme
-        clientObject.use_second_order_numerical_scheme = calculation_parameters[1]
+        clientObject.use_second_order_numerical_scheme = calculation_parameters[0]
 
         # Maximum number of Iterations
-        clientObject.maximum_number_of_iterations = calculation_parameters[2]
+        clientObject.maximum_number_of_iterations = calculation_parameters[1]
 
         # Turbulence Model
-        clientObject.turbulence_model_type = calculation_parameters[3].name
+        clientObject.turbulence_model_type = calculation_parameters[2].name
 
         # Pressure Field
         clientObject.pressure_field = advanced_options[0]

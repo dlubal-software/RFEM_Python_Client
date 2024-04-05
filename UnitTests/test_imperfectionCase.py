@@ -64,8 +64,10 @@ def test_imperfection_case():
     LoadCase(5, 'LC5')
 
     ImperfectionCase(1, ImperfectionType.IMPERFECTION_TYPE_LOCAL_IMPERFECTIONS, '2')
-    ImperfectionCase.Local(2)
+    ImperfectionCase.Local(2, '', '3')
+
     ImperfectionCase.InitialSwayViaTable(3,'1')
+
     ImperfectionCase.NotionalLoads(4,'3')
     ImperfectionCase.StaticDeformation(5,'4',magnitude_assignment_type = ImperfectionCaseAssignmentType.MAGNITUDE_ASSIGNMENT_LOCATION_WITH_LARGEST_DISPLACEMENT)
     ImperfectionCase.Group(6,'1')

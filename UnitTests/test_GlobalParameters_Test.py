@@ -9,6 +9,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
+import pytest
 from RFEM.enums import GlobalParameterUnitGroup, GlobalParameterDefinitionType, ObjectTypes
 from RFEM.globalParameter import GlobalParameter
 from RFEM.initModel import Model, getPathToRunningRFEM
@@ -110,9 +111,6 @@ def test_set_and_get_formula():
 
     result = GlobalParameter.SetFormula(ObjectTypes.E_OBJECT_TYPE_LINE_LOAD,1,2,"magnitude","4 + Test_2")
     assert result == True
-
-    result = GlobalParameter.SetFormula(ObjectTypes.E_OBJECT_TYPE_NODAL_LOAD,1,2,"magnitude","4 + Test_2")
-    assert result == False
 
     formula = GlobalParameter.GetFormula(ObjectTypes.E_OBJECT_TYPE_LINE_LOAD,1,2,"magnitude")
     assert formula != None

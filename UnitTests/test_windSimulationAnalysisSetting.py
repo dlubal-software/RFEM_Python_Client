@@ -23,7 +23,7 @@ def test_WindSimulationAnalysisSettings():
 
     # Set Static Analysis Settings
     WindSimulationAnalysisSettings(1, 'Steady Flow', 1.25, 0.000015, WindSimulationAnalysisSettingsMemberLoadDistribution.CONCENTRATED,
-                                    0.1, True, [False, False, 500, WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON])
+                                    0.1, True, [False, 500, WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON])
     WindSimulationAnalysisSettings.TransientFlow(2,'Transient Flow', 1.3, 0.00002, 0.3, [True, 250, WindSimulationAnalysisSettingsTurbulenceModelType.TURBULENCE_TYPE_EPSILON, 0.03])
 
     Model.clientModel.service.finish_modification()
