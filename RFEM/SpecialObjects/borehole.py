@@ -5,9 +5,9 @@ class Borehole:
     def __init__(self,
                  no: int = 1,
                  coordinates: list = [0.0, 0.0, 0.0],
-                 groundwater: float = None,
+                 groundwater: float = 0,
                  layers : list = [[1, 2.0], [2, 2.0], [3, 2.0]],
-                 name: str = None,
+                 name: str = '',
                  comment: str = '',
                  params: dict = None,
                  model = Model):

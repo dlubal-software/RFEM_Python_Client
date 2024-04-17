@@ -81,11 +81,11 @@ class GetAllObjects:
             [ObjectTypes.E_OBJECT_TYPE_SURFACES_CONTACT, lambda i: model.clientModel.service.get_surfaces_contact(i), 'from RFEM.SpecialObjects.surfaceContact import SurfaceContact\n', 'SurfaceContact'],
             [ObjectTypes.E_OBJECT_TYPE_RIGID_LINK, lambda i: model.clientModel.service.get_rigid_link(i), 'from RFEM.SpecialObjects.rigidLink import RigidLink\n', 'RigidLink'],
             [ObjectTypes.E_OBJECT_TYPE_RESULT_SECTION, lambda i: model.clientModel.service.get_result_section(i), 'from RFEM.SpecialObjects.resultSection import ResultSection\n', 'ResultSection'],
-            # nodal_release
+            [ObjectTypes.E_OBJECT_TYPE_NODAL_RELEASE, lambda i: model.clientModel.service.get_nodal_release(i), 'from RFEM.SpecialObjects.nodalRelease import NodalRelease\n', 'NodalRelease'],
             [ObjectTypes.E_OBJECT_TYPE_LINE_RELEASE, lambda i: model.clientModel.service.get_line_release(i), 'from RFEM.SpecialObjects.lineRelease import LineRelease\n', 'LineRelease'],
-            # surface_release
+            [ObjectTypes.E_OBJECT_TYPE_SURFACE_RELEASE, lambda i: model.clientModel.service.get_surface_release(i), 'from RFEM.SpecialObjects.surfaceRelease import SurfaceRelease\n', 'SurfaceRelease'],
             # blocks
-            # boreholes
+            [ObjectTypes.E_OBJECT_TYPE_BOREHOLE, lambda i: model.clientModel.service.get_borehole(i), 'from RFEM.SpecialObjects.borehole import Borehole\n', 'Borehole'],
             # soil_massif
 
             [ObjectTypes.E_OBJECT_TYPE_NODAL_SUPPORT, lambda i: model.clientModel.service.get_nodal_support(i), 'from RFEM.TypesForNodes.nodalSupport import NodalSupport\n', 'NodalSupport'],
@@ -121,7 +121,7 @@ class GetAllObjects:
             [ObjectTypes.E_OBJECT_TYPE_SURFACES_CONTACT, lambda i: model.clientModel.service.get_surfaces_contact(i), 'from RFEM.SpecialObjects.surfaceContact import SurfaceContact\n', 'SurfaceContact'],
 
             # nodal_release_type
-            [ObjectTypes.E_OBJECT_TYPE_LINE_RELEASE_TYPE, lambda i: model.clientModel.service.get_line_release_type(i), 'from RFEM.SpecialObjects.lineReleaseType import LineReleaseType\n', 'LineReleaseType'],
+            # line_release_type
             # surface_release_ty
             [ObjectTypes.E_OBJECT_TYPE_CONCRETE_EFFECTIVE_LENGTHS, lambda i: model.clientModel.service.get_concrete_effective_lengths(i), 'from RFEM.TypesforConcreteDesign.ConcreteEffectiveLength import ConcreteEffectiveLength\n', 'ConcreteEffectiveLength'],
             [ObjectTypes.E_OBJECT_TYPE_CONCRETE_DURABILITY, lambda i: model.clientModel.service.get_concrete_durability(i), 'from RFEM.TypesforConcreteDesign.ConcreteDurability import ConcreteDurability\n', 'ConcreteDurability'],

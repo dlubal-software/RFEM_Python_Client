@@ -61,7 +61,6 @@ def test_export():
                     Althought it is easy to change, it would not be easy to update on every remote computer.\
                     It is not necessary to evaluate Client as functional. Localy this tests still gets executed.")
 def test_import():
-    print(connectionGlobals.url, connectionGlobals.client)
     Model.clientModel.service.delete_all()
     ct = getConversionTables()
     setConversionTables(ct)

@@ -5,7 +5,7 @@ class ResultSection():
     def __init__(self,
                  no: int = 1,
                  type = ResultSectionType.TYPE_2_POINTS_AND_VECTOR,
-                 show_section_in_direction = ResultSectionResultDirection.SHOW_RESULTS_IN_LOCAL_PLUS_Z,
+                 show_results_in_direction = ResultSectionResultDirection.SHOW_RESULTS_IN_LOCAL_PLUS_Z,
                  show_values_on_isolines: bool = False,
                  parameters: list = None,
                  assigned_to_surfaces: str = '',
@@ -18,7 +18,7 @@ class ResultSection():
         Args:
             no (int): Result Section Tag
             type (enum): Result Section Type Enumeration
-            show_section_in_direction (enum): Result Section Result Direction Enumeration
+            show_results_in_direction (enum): Result Section Result Direction Enumeration
             show_values_on_isolines (bool): Show values on Isolines
             parameters (list): Variable parameters List
                 if type == ResultSectionType.TYPE_LINE:
@@ -44,7 +44,7 @@ class ResultSection():
         clientObject.type = type.name
 
         # Result Section Show Section in Direction
-        clientObject.show_results_in_direction = show_section_in_direction.name
+        clientObject.show_results_in_direction = show_results_in_direction.name
 
         # Result Section Show Values on Isolines Option
         clientObject.show_values_on_isolines_enabled = show_values_on_isolines
@@ -95,7 +95,7 @@ class ResultSection():
     def TwoPointsAndVector(
                            no: int = 1,
                            coordinate_system: int = 1,
-                           show_section_in_direction = ResultSectionResultDirection.SHOW_RESULTS_IN_LOCAL_PLUS_Z,
+                           show_results_in_direction = ResultSectionResultDirection.SHOW_RESULTS_IN_LOCAL_PLUS_Z,
                            show_values_on_isolines: bool = False,
                            first_point_coordinates: list = None,
                            second_point_coordinates: list = None,
@@ -111,7 +111,7 @@ class ResultSection():
         Args:
             no (int): Result Section Tag
             coordinate_system (int): Coordinate System Number
-            show_section_in_direction (enum): Result Section Result Direction Enumeration
+            show_results_in_direction (enum): Result Section Result Direction Enumeration
             show_values_on_isolines (bool): Enable/Disable Show values on Isolines Option
             first_point_coordinates (list): First point coordinates
             second_point_coordinates (list): Second point coordinates
@@ -136,7 +136,7 @@ class ResultSection():
         clientObject.coordinate_system = coordinate_system
 
         # Result Section Show Section in Direction
-        clientObject.show_results_in_direction = show_section_in_direction.name
+        clientObject.show_results_in_direction = show_results_in_direction.name
 
         # Result Section Show Values on Isolines
         clientObject.show_values_on_isolines_enabled = show_values_on_isolines
@@ -188,7 +188,7 @@ class ResultSection():
     @staticmethod
     def Line(
              no: int = 1,
-             show_section_in_direction = ResultSectionResultDirection.SHOW_RESULTS_IN_LOCAL_PLUS_Z,
+             show_results_in_direction = ResultSectionResultDirection.SHOW_RESULTS_IN_LOCAL_PLUS_Z,
              show_values_on_isolines: bool = False,
              lines: str = '1',
              assigned_to_surfaces: str = '',
@@ -201,7 +201,7 @@ class ResultSection():
         Args:
             no (int): Result Section Tag
             type (enum): Result Section Type Enumeration (Defaults to ResultSectionType.TYPE_2_POINTS_AND_VECTOR)
-            show_section_in_direction (enum): Result Section Result Direction Enumeration
+            show_results_in_direction (enum): Result Section Result Direction Enumeration
             show_values_on_isolines (bool): Enable/Disable Show Values on Isolines Option
             lines (str): Lines
             assigned_to_surfaces (str, optional) = Assigned to Surfaces
@@ -223,7 +223,7 @@ class ResultSection():
         clientObject.type = ResultSectionType.TYPE_LINE.name
 
         # Result Section Show Section in Direction
-        clientObject.show_results_in_direction = show_section_in_direction.name
+        clientObject.show_results_in_direction = show_results_in_direction.name
 
         # Result Section Show Values on Isolines Option
         clientObject.show_values_on_isolines_enabled = show_values_on_isolines

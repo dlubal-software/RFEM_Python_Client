@@ -167,9 +167,6 @@ class Member():
         # Member Type
         clientObject.type = MemberType.TYPE_BEAM.name
 
-        # Assigned Line No.
-        clientObject.line = line
-
         # Assigned Line number or Node numbers
         if line is None:
             clientObject.node_start = start_node_no
