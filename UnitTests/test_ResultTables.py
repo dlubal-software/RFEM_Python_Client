@@ -61,3 +61,31 @@ def test_result_tables():
 
     table = ResultTables.SurfacesPrincipalTotalStrains(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 1)
     assert table
+
+    table1 = ResultTables.MembersGlobalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=0, include_base=True, without_extremes=False)
+    table2 = ResultTables.MembersGlobalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=0, include_base=True, without_extremes=True)
+    table3 = ResultTables.MembersGlobalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=1, include_base=True, without_extremes=True)
+
+    assert len(table1) > len(table2)
+    assert len(table2) > len(table3)
+
+    table4 = ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=0, include_base=True, without_extremes=False)
+    table5 = ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=0, include_base=True, without_extremes=True)
+    table6 = ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=1, include_base=True, without_extremes=True)
+
+    assert len(table4) > len(table5)
+    assert len(table5) > len(table6)
+
+    table7 = ResultTables.MembersInternalForces(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=0, include_base=True, without_extremes=False)
+    table8 = ResultTables.MembersInternalForces(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=0, include_base=True, without_extremes=True)
+    table9 = ResultTables.MembersInternalForces(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=1, include_base=True, without_extremes=True)
+
+    assert len(table7) > len(table8)
+    assert len(table8) > len(table9)
+
+    table10 = ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=0, include_base=True, without_extremes=False)
+    table11 = ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=0, include_base=True, without_extremes=True)
+    table12 = ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=1, include_base=True, without_extremes=True)
+
+    assert len(table10) > len(table11)
+    assert len(table11) > len(table12)

@@ -502,6 +502,7 @@ class ResultTables():
         loading_no: int = 1,
         object_no: int = 0,
         include_base: bool = False,
+        without_extremes: bool = False,
         model = Model):
 
         '''
@@ -509,10 +510,31 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
+            include_base (bool, optional): Include Base (include_base must be 'True' for without_extremes=True)
+            without_extremes (bool, optional): Without Extremes Option
             model (class, optional): Model instance
         '''
+        if without_extremes:
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_global_deformations(loading_type.name, loading_no, object_no), include_base)
+            results = ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_global_deformations(loading_type.name, loading_no, object_no), True)
+            result, combos, combo = [], [], ()
+
+            for item in results:
+                description = item.get('description')
+                location = item.get('location')
+                node = item.get('node_number')
+                if isinstance(description, float) or description == 'Extremes':
+                    if description == 'Extremes':
+                        description = results[results.index(item) - 1].get('description')
+                    if location != None: combo = (description, node, location)
+                    if combo not in combos:
+                        combos.append(combo)
+                        result.append(item)
+
+            return result
+
+        else:
+            return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_global_deformations(loading_type.name, loading_no, object_no), include_base)
 
     @staticmethod
     def MembersHingeDeformations(
@@ -556,6 +578,7 @@ class ResultTables():
         loading_no: int = 1,
         object_no: int = 0,
         include_base: bool = False,
+        without_extremes: bool = False,
         model = Model):
 
         '''
@@ -563,10 +586,31 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
+            include_base (bool, optional): Include Base (include_base must be 'True' for without_extremes=True)
+            without_extremes (bool, optional): Without Extremes Option
             model (class, optional): Model instance
         '''
+        if without_extremes:
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_internal_forces(loading_type.name, loading_no, object_no), include_base)
+            results = ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_internal_forces(loading_type.name, loading_no, object_no), True)
+            result, combos, combo = [], [], ()
+
+            for item in results:
+                description = item.get('description')
+                location = item.get('location')
+                node = item.get('node_number')
+                if isinstance(description, float) or description == 'Extremes':
+                    if description == 'Extremes':
+                        description = results[results.index(item) - 1].get('description')
+                    if location != None: combo = (description, node, location)
+                    if combo not in combos:
+                        combos.append(combo)
+                        result.append(item)
+
+            return result
+
+        else:
+            return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_internal_forces(loading_type.name, loading_no, object_no), include_base)
 
     @staticmethod
     def MembersInternalForcesByMemberSet(
@@ -574,6 +618,7 @@ class ResultTables():
         loading_no: int = 1,
         object_no: int = 0,
         include_base: bool = False,
+        without_extremes: bool = False,
         model = Model):
 
         '''
@@ -581,10 +626,32 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
+            include_base (bool, optional): Include Base (include_base must be 'True' for without_extremes=True)
+            without_extremes (bool, optional): Without Extremes Option
             model (class, optional): Model instance
         '''
+        if without_extremes:
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_internal_forces_by_member_set(loading_type.name, loading_no, object_no), include_base)
+            results = ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_internal_forces_by_member_set(loading_type.name, loading_no, object_no), True)
+            result, combos, combo = [], [], ()
+
+            for item in results:
+                description = item.get('description')
+                location = item.get('location')
+                node = item.get('node_number')
+                member = item.get('member_number')
+                if isinstance(description, float) or description == 'Extremes':
+                    if description == 'Extremes':
+                        description = results[results.index(item) - 1].get('description')
+                    if location != None: combo = (description, member, node, location)
+                    if combo not in combos:
+                        combos.append(combo)
+                        result.append(item)
+
+            return result
+
+        else:
+            return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_internal_forces_by_member_set(loading_type.name, loading_no, object_no), include_base)
 
     @staticmethod
     def MembersInternalForcesBySection(
@@ -610,6 +677,7 @@ class ResultTables():
         loading_no: int = 1,
         object_no: int = 0,
         include_base: bool = False,
+        without_extremes: bool = False,
         model = Model):
 
         '''
@@ -617,10 +685,31 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
+            include_base (bool, optional): Include Base (include_base must be 'True' for without_extremes=True)
+            without_extremes (bool, optional): Without Extremes Option
             model (class, optional): Model instance
         '''
+        if without_extremes:
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_local_deformations(loading_type.name, loading_no, object_no), include_base)
+            results = ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_local_deformations(loading_type.name, loading_no, object_no), True)
+            result, combos, combo = [], [], ()
+
+            for item in results:
+                description = item.get('description')
+                location = item.get('location')
+                node = item.get('node_number')
+                if isinstance(description, float) or description == 'Extremes':
+                    if description == 'Extremes':
+                        description = results[results.index(item) - 1].get('description')
+                    if location != None: combo = (description, node, location)
+                    if combo not in combos:
+                        combos.append(combo)
+                        result.append(item)
+
+            return result
+
+        else:
+            return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_local_deformations(loading_type.name, loading_no, object_no), include_base)
 
     @staticmethod
     def MembersStrains(
@@ -628,6 +717,7 @@ class ResultTables():
         loading_no: int = 1,
         object_no: int = 0,
         include_base: bool = False,
+        without_extremes: bool = False,
         model = Model):
 
         '''
@@ -635,10 +725,31 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
+            include_base (bool, optional): Include Base (include_base must be 'True' for without_extremes=True)
+            without_extremes (bool, optional): Without Extremes Option
             model (class, optional): Model instance
         '''
+        if without_extremes:
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_strains(loading_type.name, loading_no, object_no), include_base)
+            results = ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_strains(loading_type.name, loading_no, object_no), True)
+            result, combos, combo = [], [], ()
+
+            for item in results:
+                description = item.get('description')
+                location = item.get('location')
+                node = item.get('node_number')
+                if isinstance(description, float) or description == 'Extremes':
+                    if description == 'Extremes':
+                        description = results[results.index(item) - 1].get('description')
+                    if location != None: combo = (description, node, location)
+                    if combo not in combos:
+                        combos.append(combo)
+                        result.append(item)
+
+            return result
+
+        else:
+            return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_strains(loading_type.name, loading_no, object_no), include_base)
 
     @staticmethod
     def ModalAnalysisEffectiveModalMasses(
