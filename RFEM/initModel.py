@@ -327,6 +327,7 @@ def openFile(model_path):
     assert os.path.exists(model_path)
 
     file_name = os.path.basename(model_path)
+    connectToServer()
     connectionGlobals.client.service.open_model(model_path)
 
     return Model(False, file_name)
@@ -341,8 +342,11 @@ def closeModel(index_or_name, save_changes = False):
         index_or_name : Model Index or Name to be Close
         save_changes (bool): Enable/Disable Save Changes Option
     '''
+
+    connectToServer()
+
     if isinstance(index_or_name, int):
-        Model.__delete__(Model, index_or_name)
+        # Model.__delete__(Model, index_or_name)
         connectionGlobals.client.service.close_model(index_or_name, save_changes)
 
     elif isinstance(index_or_name, str):
@@ -352,12 +356,12 @@ def closeModel(index_or_name, save_changes = False):
         modelLs = connectionGlobals.client.service.get_model_list().name
         if index_or_name in modelLs:
             try:
-                Model.__delete__(Model, index_or_name)
+                # Model.__delete__(Model, index_or_name)
                 connectionGlobals.client.service.close_model(modelLs.index(index_or_name), save_changes)
             except:
                 print('Model did NOT close properly.')
         else:
-            print('\nINFO: Model "'+modelLs+'" is not opened.')
+            print('\nINFO: Model "'+index_or_name+'" is not opened.')
     else:
         assert False, 'Parameter index_or_name must be int or string.'
 
