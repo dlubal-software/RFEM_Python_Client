@@ -241,7 +241,7 @@ class Model():
         Args:
             index_or_name (str or int): Name of the index of model
         '''
-        if isinstance(index_or_name, str):
+        if isinstance(index_or_name, str) and index_or_name in self.clientModelDct:
             assert index_or_name in list(self.clientModelDct)
             self.clientModelDct.pop(index_or_name)
             if len(self.clientModelDct) > 0:
@@ -252,8 +252,7 @@ class Model():
         if isinstance(index_or_name, int):
             assert index_or_name <= len(self.clientModelDct)
             modelLs = connectionGlobals.client.service.get_model_list()
-
-            if modelLs:
+            if modelLs and (modelLs.name[index_or_name] in self.clientModelDct):
                 self.clientModelDct.pop(modelLs.name[index_or_name])
                 if len(self.clientModelDct) > 0:
                     model_key = list(self.clientModelDct)[-1]
@@ -344,9 +343,8 @@ def closeModel(index_or_name, save_changes = False):
     '''
 
     connectToServer()
-
     if isinstance(index_or_name, int):
-        # Model.__delete__(Model, index_or_name)
+        Model.__delete__(Model, index_or_name)
         connectionGlobals.client.service.close_model(index_or_name, save_changes)
 
     elif isinstance(index_or_name, str):
@@ -356,7 +354,7 @@ def closeModel(index_or_name, save_changes = False):
         modelLs = connectionGlobals.client.service.get_model_list().name
         if index_or_name in modelLs:
             try:
-                # Model.__delete__(Model, index_or_name)
+                Model.__delete__(Model, index_or_name)
                 connectionGlobals.client.service.close_model(modelLs.index(index_or_name), save_changes)
             except:
                 print('Model did NOT close properly.')
