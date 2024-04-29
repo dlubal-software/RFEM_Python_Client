@@ -5,7 +5,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.enums import *
+from RFEM.enums import AddOn, DesignSupportOrientationYType, DesignSupportOrientationZType
 from RFEM.initModel import Model, SetAddonStatus
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
