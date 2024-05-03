@@ -25,6 +25,7 @@ def GetResultTableParameters(results):
 
     return params
 
+
 def ConvertResultsToListOfDct(results, includeBase = False):
     '''
     Args:
@@ -94,6 +95,7 @@ def ConvertResultsToListOfDct(results, includeBase = False):
 
     return lstOfDct
 
+
 def GetMinValue(structured_results, parameter):
 
     '''
@@ -113,6 +115,7 @@ def GetMinValue(structured_results, parameter):
     assert min_val < inf, 'Check if the parameter is in the table.'
 
     return min_val
+
 
 def GetMaxValue(structured_results, parameter):
 
@@ -155,26 +158,6 @@ def CreateObjectLocation(
 class ResultTables():
 
 
-
-
-    @staticmethod
-    def BuildingStoriesForcesInSpandrels(
-        loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
-        loading_no: int = 1,
-        object_no: int = 0,
-        include_base: bool = False,
-        model = Model):
-
-        '''
-         Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
-            loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
-            model (class, optional): Model instance
-        '''
-
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_building_stories_forces_in_spandrels(loading_type.name, loading_no, object_no), include_base)
-
     @staticmethod
     def BuildingStoriesForcesInShearWalls(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
@@ -191,7 +174,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_building_stories_forces_in_shear_walls(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_building_stories_forces_in_shear_walls(
+            loading_type.name,
+            loading_no,
+            object_locations = None # todo: add filtering by Shear Wall number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def BuildingStoriesCentresMassRigidity(
@@ -209,7 +199,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_building_stories_centres_mass_rigidity(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_building_stories_centres_mass_rigidity(
+            loading_type.name,
+            loading_no,
+            object_locations = None  # todo: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def BuildingStoriesInterstoryDrifts(
@@ -227,7 +224,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_building_stories_interstory_drifts(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_building_stories_interstory_drifts(
+            loading_type.name,
+            loading_no,
+            object_locations = None  # todo: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def BuildingStoriesStoryActions(
@@ -245,7 +249,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_building_stories_story_actions(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_building_stories_story_actions(
+            loading_type.name,
+            loading_no,
+            object_locations = None  # todo: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def CalculationDiagrams(
@@ -263,7 +274,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_calculation_diagrams(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_calculation_diagrams(
+            loading_type.name,
+            loading_no,
+            object_locations = None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def CriticalLoadFactors(
@@ -281,10 +299,17 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_critical_load_factors(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_critical_load_factors(
+            loading_type.name,
+            loading_no,
+            object_locations = None  # todo: add filtering by mode shape number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
-    def EfeectiveLengthsAndCriticalLoadsByEigenvector(
+    def EffectiveLengthsAndCriticalLoadsByEigenvector(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
@@ -299,10 +324,17 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_efeective_lengths_and_critical_loads_by_eigenvector(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_efeective_lengths_and_critical_loads_by_eigenvector(
+            loading_type.name,
+            loading_no,
+            object_locations = None  # todo: add filtering by mode shape number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
-    def EfeectiveLengthsAndCriticalLoadsByMember(
+    def EffectiveLengthsAndCriticalLoadsByMember(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
@@ -313,11 +345,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_efeective_lengths_and_critical_loads_by_member(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_efeective_lengths_and_critical_loads_by_member(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def EigenvectorsByMember(
@@ -331,11 +374,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_eigenvectors_by_member(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_eigenvectors_by_member(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def EigenvectorsByNode(
@@ -349,11 +403,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_eigenvectors_by_node(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_eigenvectors_by_node(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def EigenvectorsBySolid(
@@ -367,11 +432,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_eigenvectors_by_solid(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_eigenvectors_by_solid(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def EigenvectorsBySurface(
@@ -385,11 +461,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_eigenvectors_by_surface(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_eigenvectors_by_surface(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def Errors(
@@ -421,11 +508,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_line_hinges_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_line_hinges_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def LineHingesForces(
@@ -439,11 +537,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_line_hinges_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_line_hinges_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def LinesSlabWallConnections(
@@ -457,11 +566,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_lines_slab_wall_connections(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_lines_slab_wall_connections(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def LinesSupportForces(
@@ -478,6 +598,7 @@ class ResultTables():
             object_no (int): Line number
             model (class, optional): Model instance
         '''
+
         object_locations = None
         if object_no != 0:
             object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
@@ -487,6 +608,7 @@ class ResultTables():
             loading_no,
             object_locations if object_locations else None
         )
+
         return ConvertResultsToListOfDct(results, include_base)
 
 
@@ -797,7 +919,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_effective_modal_masses(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_modal_analysis_effective_modal_masses(
+            loading_type.name,
+            loading_no,
+            object_locations = None # todo: add filtering by mode shape number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisMassesInLocations(
@@ -815,7 +944,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_masses_in_locations(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_modal_analysis_effective_modal_masses(
+            loading_type.name,
+            loading_no,
+            object_locations = None # todo: add filtering by mesh point number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisMembersByModeShape(
@@ -829,11 +965,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_members_by_mode_shape(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_modal_analysis_members_by_mode_shape(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisModeShapesByMember(
@@ -847,11 +994,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_member(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_member(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisModeShapesByNode(
@@ -865,11 +1023,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_node(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_node(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisModeShapesBySolid(
@@ -883,11 +1052,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_solid(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_solid(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisModeShapesBySurface(
@@ -901,11 +1081,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_surface(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_surface(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisNaturalFrequencies(
@@ -923,7 +1114,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_natural_frequencies(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_modal_analysis_natural_frequencies(
+            loading_type.name,
+            loading_no,
+            object_locations = None # add filtering by mode shape number ?
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisNodesByModeShape(
@@ -937,11 +1135,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_nodes_by_mode_shape(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_modal_analysis_nodes_by_mode_shape(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisParticipationFactors(
@@ -959,7 +1168,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_participation_factors(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_modal_analysis_participation_factors(
+            loading_type.name,
+            loading_no,
+            object_locations = None # add filtering by mode shape number ?
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisSolidsByModeShape(
@@ -973,11 +1189,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_solids_by_mode_shape(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_modal_analysis_solids_by_mode_shape(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisSurfacesByModeShape(
@@ -995,7 +1222,18 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_surfaces_by_mode_shape(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_modal_analysis_surfaces_by_mode_shape(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def NodesByEigenvector(
@@ -1009,11 +1247,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_nodes_by_eigenvector(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_nodes_by_eigenvector(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def NodesDeformations(
@@ -1027,11 +1276,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_nodes_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_nodes_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def NodesSupportForces(
@@ -1045,11 +1305,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_nodes_support_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_nodes_support_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SolidsBasicPlasticStrains(
