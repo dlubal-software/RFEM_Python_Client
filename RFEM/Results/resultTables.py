@@ -1686,7 +1686,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_building_stories_centres_mass_rigidity(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_spectral_analysis_building_stories_centres_mass_rigidity(
+            loading_type.name,
+            loading_no,
+            object_locations = None  # todo: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisBuildingStoriesForcesInShearWalls(
@@ -1704,25 +1711,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_building_stories_forces_in_shear_walls(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_spectral_analysis_building_stories_forces_in_shear_walls(
+            loading_type.name,
+            loading_no,
+            object_locations = None  # todo: add filtering by Shear Wall number
+        )
 
-    @staticmethod
-    def SpectralAnalysisBuildingStoriesForcesInSpandrels(
-        loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
-        loading_no: int = 1,
-        object_no: int = 0,
-        include_base: bool = False,
-        model = Model):
+        return ConvertResultsToListOfDct(results, include_base)
 
-        '''
-         Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
-            loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
-            model (class, optional): Model instance
-        '''
-
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_building_stories_forces_in_spandrels(loading_type.name, loading_no, object_no), include_base)
 
     @staticmethod
     def SpectralAnalysisBuildingStoriesInterstoryDrifts(
@@ -1740,7 +1736,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_building_stories_interstory_drifts(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_spectral_analysis_building_stories_interstory_drifts(
+            loading_type.name,
+            loading_no,
+            object_locations = None  # todo: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisBuildingStoriesStoryActions(
@@ -1758,7 +1761,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_building_stories_story_actions(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_spectral_analysis_building_stories_story_actions(
+            loading_type.name,
+            loading_no,
+            object_locations = None  # todo: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisLineHingesDeformations(
@@ -1772,11 +1782,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_line_hinges_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_line_hinges_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisLineHingesForces(
@@ -1790,11 +1811,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_line_hinges_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_line_hinges_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisLinesSlabWallConnections(
@@ -1808,11 +1840,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_lines_slab_wall_connections(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_lines_slab_wall_connections(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisLinesSupportForces(
@@ -1826,11 +1869,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_lines_support_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_lines_support_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisMembersContactForces(
@@ -1844,11 +1898,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_contact_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_members_contact_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisMembersGlobalDeformations(
@@ -1862,11 +1927,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_global_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_members_global_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisMembersHingeDeformations(
@@ -1880,11 +1956,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_hinge_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_members_hinge_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisMembersHingeForces(
@@ -1898,11 +1985,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_hinge_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_members_hinge_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisMembersInternalForces(
@@ -1916,11 +2014,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisMembersInternalForcesByMemberSet(
@@ -1934,11 +2043,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member Set number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces_by_member_set(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER_SET.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces_by_member_set(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisMembersInternalForcesBySection(
@@ -1952,11 +2072,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Section number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces_by_section(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SECTION.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces_by_section(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisMembersLocalDeformations(
@@ -1970,11 +2101,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_local_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_members_local_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisMembersStrains(
@@ -1988,11 +2130,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_members_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisNodesDeformations(
@@ -2006,11 +2159,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_nodes_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_nodes_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisNodesPseudoAccelerations(
@@ -2024,11 +2188,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_nodes_pseudo_accelerations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_nodes_pseudo_accelerations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisNodesPseudoVelocities(
@@ -2042,11 +2217,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_nodes_pseudo_velocities(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_nodes_pseudo_velocities(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisNodesSupportForces(
@@ -2060,11 +2246,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_nodes_support_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_nodes_support_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSolidsBasicStresses(
@@ -2078,11 +2275,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_basic_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_solids_basic_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSolidsBasicTotalStrains(
@@ -2096,11 +2304,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_basic_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_solids_basic_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSolidsDeformations(
@@ -2114,11 +2333,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_solids_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSolidsEquivalentStresses(
@@ -2132,11 +2362,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_equivalent_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_solids_equivalent_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSolidsEquivalentTotalStrains(
@@ -2150,11 +2391,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_equivalent_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_solids_equivalent_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSolidsGasQuantities(
@@ -2168,11 +2420,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_gas_quantities(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_solids_gas_quantities(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSolidsPrincipalStresses(
@@ -2186,11 +2449,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_principal_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_solids_principal_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSolidsPrincipalTotalStrains(
@@ -2204,11 +2478,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_principal_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_solids_principal_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSummary(
@@ -2240,11 +2525,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesBasicStresses(
@@ -2258,11 +2554,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesBasicTotalStrains(
@@ -2276,11 +2583,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesContactStresses(
@@ -2294,11 +2612,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_contact_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_contact_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesDesignInternalForces(
@@ -2312,11 +2641,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_design_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_design_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesElasticStressComponents(
@@ -2330,11 +2670,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_elastic_stress_components(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_elastic_stress_components(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentStressesBach(
@@ -2348,11 +2699,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_bach(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_bach(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentStressesMises(
@@ -2366,11 +2728,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_mises(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_mises(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentStressesRankine(
@@ -2384,11 +2757,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_rankine(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_rankine(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentStressesTresca(
@@ -2402,11 +2786,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_tresca(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_tresca(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentTotalStrainsBach(
@@ -2420,11 +2815,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_bach(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_bach(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentTotalStrainsMises(
@@ -2438,11 +2844,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_mises(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_mises(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentTotalStrainsRankine(
@@ -2456,11 +2873,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_rankine(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_rankine(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentTotalStrainsTresca(
@@ -2474,11 +2902,21 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_tresca(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_tresca(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesGlobalDeformations(
@@ -2492,11 +2930,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_global_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_global_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesLocalDeformations(
@@ -2510,11 +2959,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_local_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_local_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesMaximumTotalStrains(
@@ -2528,11 +2988,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_maximum_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_maximum_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesPrincipalInternalForces(
@@ -2546,11 +3017,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesPrincipalStresses(
@@ -2564,11 +3046,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesPrincipalTotalStrains(
@@ -2582,11 +3075,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisBuildingStoriesCentresMassRigidity(
