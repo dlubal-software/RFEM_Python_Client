@@ -102,7 +102,7 @@ def ObjectLocations(locationsArray):
     return {'location': locationsArray}
 
 
-def ExportToIFC(targetFilePath: str, IFCSettings: IFCExportSettings, ObjectLoc = None, model = Model):
+def ExportToIFC(targetFilePath: str, IFCSettings = IFCExportSettings, ObjectLoc = None, model = Model):
     '''
     Use this function to export active model t o IFC.
 
