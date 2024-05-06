@@ -2626,18 +2626,36 @@ class MaterialStiffnessModificationType(Enum):
 
 class PoissonRatioEditableGroupType(Enum):
     '''
-    Poisson Ratio Editable Group Type
+    Poisson Ratio Editable Group Type Enumeration
     '''
     POISSON_RATIOS_GROUP_MAJOR_2D, POISSON_RATIOS_GROUP_MAJOR_3D, POISSON_RATIOS_GROUP_MINOR_2D, POISSON_RATIOS_GROUP_MINOR_3D = range(4)
 
 class DesignSupportOrientationZType(Enum):
     '''
-    Design Support Orientation Z Type
+    Design Support Orientation Z Type Enumeration
     '''
     DESIGN_SUPPORT_ORIENTATION_ZAXIS_BOTH, DESIGN_SUPPORT_ORIENTATION_ZAXIS_NEGATIVE, DESIGN_SUPPORT_ORIENTATION_ZAXIS_POSITIVE = range(3)
 
 class DesignSupportOrientationYType(Enum):
     '''
-    Design Support Orientation Y Type
+    Design Support Orientation Y Type Enumeration
     '''
     DESIGN_SUPPORT_ORIENTATION_YAXIS_BOTH, DESIGN_SUPPORT_ORIENTATION_YAXIS_NEGATIVE, DESIGN_SUPPORT_ORIENTATION_YAXIS_POSITIVE = range(3)
+
+class MemberSpringType(Enum):
+    '''
+    Member Spring Type Enumeration
+    '''
+    PARTIAL_ACTIVITY, DIAGRAM = range(2)
+
+class MemberSpringDiagramType(Enum):
+    '''
+    Member Spring Diagram Type Enumeration
+    '''
+    DIAGRAM_ENDING_TYPE_CONTINUOUS, DIAGRAM_ENDING_TYPE_STOP, DIAGRAM_ENDING_TYPE_FAILURE, DIAGRAM_ENDING_TYPE_YIELDING = range(4)
+
+class MemberSpringSelfWeightDefinition(Enum):
+    '''
+    Member Spring Self Weight Definition Enumeration
+    '''
+    MASS, MASS_PER_LENGTH, SPECIFIC_WEIGHT = range(3)
