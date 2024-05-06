@@ -5016,7 +5016,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_building_stories_centres_mass_rigidity(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_time_history_analysis_building_stories_centres_mass_rigidity(
+            loading_type.name,
+            loading_no,
+            object_locations = None # todo: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisBuildingStoriesForcesInShearWalls(
@@ -5034,25 +5041,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_building_stories_forces_in_shear_walls(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_time_history_analysis_building_stories_forces_in_shear_walls(
+            loading_type.name,
+            loading_no,
+            object_locations = None # todo: add filtering by Shear Wall number
+        )
 
-    @staticmethod
-    def TimeHistoryAnalysisBuildingStoriesForcesInSpandrels(
-        loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
-        loading_no: int = 1,
-        object_no: int = 0,
-        include_base: bool = False,
-        model = Model):
+        return ConvertResultsToListOfDct(results, include_base)
 
-        '''
-         Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
-            loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
-            model (class, optional): Model instance
-        '''
-
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_building_stories_forces_in_spandrels(loading_type.name, loading_no, object_no), include_base)
 
     @staticmethod
     def TimeHistoryAnalysisBuildingStoriesInterstoryDrifts(
@@ -5070,7 +5066,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_building_stories_interstory_drifts(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_time_history_analysis_building_stories_interstory_drifts(
+            loading_type.name,
+            loading_no,
+            object_locations = None # todo: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisBuildingStoriesStoryActions(
@@ -5088,7 +5091,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_building_stories_story_actions(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_time_history_analysis_building_stories_story_actions(
+            loading_type.name,
+            loading_no,
+            object_locations = None # todo: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisLineHingesDeformations(
@@ -5102,11 +5112,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_line_hinges_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_line_hinges_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisLineHingesForces(
@@ -5120,11 +5141,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_line_hinges_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_line_hinges_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisLinesSlabWallConnections(
@@ -5138,11 +5170,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_lines_slab_wall_connections(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_lines_slab_wall_connections(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisLinesSupportForces(
@@ -5156,11 +5199,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_lines_support_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_lines_support_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisMembersContactForces(
@@ -5174,11 +5228,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_contact_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_members_contact_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisMembersGlobalDeformations(
@@ -5192,11 +5257,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_global_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_members_global_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisMembersHingeDeformations(
@@ -5210,11 +5286,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_hinge_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_members_hinge_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisMembersHingeForces(
@@ -5228,11 +5315,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_hinge_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_members_hinge_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisMembersInternalForces(
@@ -5246,11 +5344,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisMembersInternalForcesByMemberSet(
@@ -5264,11 +5373,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member Set number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces_by_member_set(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER_SET.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces_by_member_set(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisMembersInternalForcesBySection(
@@ -5282,11 +5402,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Section number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces_by_section(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SECTION.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces_by_section(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisMembersLocalDeformations(
@@ -5300,11 +5431,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_local_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_members_local_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisMembersStrains(
@@ -5318,11 +5460,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_members_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisNodesAccelerations(
@@ -5336,11 +5489,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_nodes_accelerations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_nodes_accelerations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisNodesDeformations(
@@ -5354,11 +5518,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_nodes_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_nodes_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisNodesSupportForces(
@@ -5372,11 +5547,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_nodes_support_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_nodes_support_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisNodesVelocities(
@@ -5390,11 +5576,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_nodes_velocities(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_nodes_velocities(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsBasicPlasticStrains(
@@ -5408,11 +5605,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_basic_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_basic_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsBasicStresses(
@@ -5426,11 +5634,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_basic_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_basic_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsBasicTotalStrains(
@@ -5444,11 +5663,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_basic_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_basic_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsDeformations(
@@ -5462,11 +5692,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsEquivalentPlasticStrains(
@@ -5480,11 +5721,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsEquivalentStresses(
@@ -5498,11 +5750,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsEquivalentTotalStrains(
@@ -5516,11 +5779,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsGasQuantities(
@@ -5534,11 +5808,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_gas_quantities(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_gas_quantities(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsPrincipalPlasticStrains(
@@ -5552,11 +5837,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_principal_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_principal_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsPrincipalStresses(
@@ -5570,11 +5866,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_principal_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_principal_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsPrincipalTotalStrains(
@@ -5588,11 +5895,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_principal_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_principal_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSummary(
@@ -5624,11 +5942,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesBasicPlasticStrains(
@@ -5642,11 +5971,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesBasicStresses(
@@ -5660,11 +6000,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesBasicTotalStrains(
@@ -5678,11 +6029,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesContactStresses(
@@ -5696,11 +6058,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_contact_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_contact_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesDesignInternalForces(
@@ -5714,11 +6087,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_design_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_design_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesElasticStressComponents(
@@ -5732,11 +6116,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_elastic_stress_components(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_elastic_stress_components(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentPlasticStrainsBach(
@@ -5750,11 +6145,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_bach(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_bach(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentPlasticStrainsMises(
@@ -5768,11 +6174,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_mises(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_mises(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentPlasticStrainsRankine(
@@ -5786,11 +6203,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_rankine(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_rankine(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentPlasticStrainsTresca(
@@ -5804,11 +6232,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_tresca(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_tresca(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentStressesBach(
@@ -5822,11 +6261,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_bach(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_bach(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentStressesMises(
@@ -5840,11 +6290,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_mises(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_mises(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentStressesRankine(
@@ -5858,11 +6319,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_rankine(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_rankine(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentStressesTresca(
@@ -5876,11 +6348,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_tresca(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_tresca(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentTotalStrainsBach(
@@ -5894,11 +6377,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_bach(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_bach(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentTotalStrainsMises(
@@ -5912,11 +6406,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_mises(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_mises(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentTotalStrainsRankine(
@@ -5930,11 +6435,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_rankine(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_rankine(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentTotalStrainsTresca(
@@ -5948,11 +6464,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_tresca(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_tresca(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesGlobalDeformations(
@@ -5966,11 +6493,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_global_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_global_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesLocalDeformations(
@@ -5984,11 +6522,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_local_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_local_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesMaximumPlasticStrains(
@@ -6002,11 +6551,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_maximum_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_maximum_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesMaximumTotalStrains(
@@ -6020,11 +6580,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_maximum_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_maximum_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesPrincipalInternalForces(
@@ -6038,11 +6609,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesPrincipalPlasticStrains(
@@ -6056,11 +6638,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesPrincipalStresses(
@@ -6074,11 +6667,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesPrincipalTotalStrains(
@@ -6092,11 +6696,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def HasAnyResults( model = Model):
