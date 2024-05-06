@@ -9,7 +9,7 @@ class MemberSpring():
                  definition_type = MemberSpringType.PARTIAL_ACTIVITY,
                  parameters: list = [[PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE, 0.0], [PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE, 0.0]],
                  axial_stiffness: float = 0.0,
-                 self_weight: list = [MemberSpringSelfWeightDefinition.MASS],
+                 self_weight: list = [MemberSpringSelfWeightDefinition.MASS_PER_LENGTH, 1],
                  name: str = None,
                  comment: str = '',
                  params: dict = None,
@@ -17,6 +17,32 @@ class MemberSpring():
 
         '''
         Args:
+            no (int): Member Spring Tag
+            members (str): Assigned Members
+            definition_type (enum): Member Spring Type Enumeration
+            parameters (list of lists): List of Parameters for Spring Nonlinearity
+                for definition_type == 'PARTIAL_ACTIVITY':
+                    parameters = [negative zone, positive zone]
+                    for negative/positive zone[0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
+                        negative/positive zone = [negative/positive zone type (enum), slippage (float)]
+                    for negative/positive zone[0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FIXED:
+                        negative/positive zone = [negative/positive zone type (enum), slippage (float), displacement (float)]  (Note: Displacement must be greater than slippage)
+                    for negative/positive zone[0] == PartialActivityAlongType.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE/PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE:
+                        negative/positive zone = [negative/positive zone type (enum), slippage (float), force (float)]
+                for definition_type == 'DIAGRAM':
+                    parameters = [[symmetric(bool), LineReleaseDiagram Enumeration(start), LineReleaseDiagram Enumeration(end)], [[displacement, force],...]]
+            axial_stiffness (float): Axial Stiffness
+            self_weight (list): Self Weight Parameters List
+                for self_weight[0] == 'MASS':
+                    self_weight = [MemberSpringSelfWeightDefinition.MASS, mass (float)]
+                for self_weight[0] == 'MASS_PER_LENGTH':
+                    self_weight = [MemberSpringSelfWeightDefinition.MASS_PER_LENGTH, mass_per_length (float)]
+                for self_weight[0] == 'SPECIFIC_WEIGHT':
+                    self_weight = [MemberSpringSelfWeightDefinition.SPECIFIC_WEIGHT, specific_weight (float), section_area (float)]
+            name (str, option): User Defined Design Support Name
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
         '''
 
         # Client model | Member Hinge
@@ -124,3 +150,4 @@ class MemberSpring():
 
         # Add Member Spring to client model
         model.clientModel.service.set_member_spring(clientObject)
+
