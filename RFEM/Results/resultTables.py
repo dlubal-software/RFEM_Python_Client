@@ -3108,7 +3108,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_centres_mass_rigidity(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_centres_mass_rigidity(
+            loading_type.name,
+            loading_no,
+            object_locations = None # todo: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisBuildingStoriesForcesInShearWalls(
@@ -3126,25 +3133,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_forces_in_shear_walls(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_forces_in_shear_walls(
+            loading_type.name,
+            loading_no,
+            object_locations = None # todo: add filtering by Shear Wall number
+        )
 
-    @staticmethod
-    def StabilityIncrementalAnalysisBuildingStoriesForcesInSpandrels(
-        loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
-        loading_no: int = 1,
-        object_no: int = 0,
-        include_base: bool = False,
-        model = Model):
+        return ConvertResultsToListOfDct(results, include_base)
 
-        '''
-         Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
-            loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
-            model (class, optional): Model instance
-        '''
-
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_forces_in_spandrels(loading_type.name, loading_no, object_no), include_base)
 
     @staticmethod
     def StabilityIncrementalAnalysisBuildingStoriesInterstoryDrifts(
@@ -3162,7 +3158,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_interstory_drifts(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_interstory_drifts(
+            loading_type.name,
+            loading_no,
+            object_locations = None # todo: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisBuildingStoriesStoryActions(
@@ -3180,7 +3183,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_story_actions(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_story_actions(
+            loading_type.name,
+            loading_no,
+            object_locations = None # todo: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisCalculationDiagrams(
@@ -3198,7 +3208,14 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_calculation_diagrams(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_calculation_diagrams(
+            loading_type.name,
+            loading_no,
+            object_locations = None # todo: add filtering by ?
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisLineHingesDeformations(
@@ -3212,11 +3229,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_line_hinges_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_line_hinges_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisLineHingesForces(
@@ -3230,11 +3258,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_line_hinges_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_line_hinges_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisLinesSlabWallConnections(
@@ -3248,11 +3287,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_lines_slab_wall_connections(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_lines_slab_wall_connections(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisLinesSupportForces(
@@ -3266,11 +3316,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_lines_support_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_lines_support_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersContactForces(
@@ -3284,11 +3345,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_contact_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_contact_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersGlobalDeformations(
@@ -3302,11 +3374,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_global_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_global_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersHingeDeformations(
@@ -3320,11 +3403,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_hinge_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_hinge_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersHingeForces(
@@ -3338,11 +3432,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_hinge_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_hinge_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersInternalForces(
@@ -3356,11 +3461,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersInternalForcesByMemberSet(
@@ -3374,11 +3490,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member Set number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces_by_member_set(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER_SET.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces_by_member_set(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersInternalForcesBySection(
@@ -3392,11 +3519,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Section number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces_by_section(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SECTION.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces_by_section(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersLocalDeformations(
@@ -3410,11 +3548,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_local_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_local_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersStrains(
@@ -3428,11 +3577,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisNodesDeformations(
@@ -3446,11 +3606,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_nodes_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_nodes_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisNodesSupportForces(
@@ -3464,11 +3635,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_nodes_support_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_nodes_support_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsBasicPlasticStrains(
@@ -3482,11 +3664,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsBasicStresses(
@@ -3500,11 +3693,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsBasicTotalStrains(
@@ -3518,11 +3722,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsDeformations(
@@ -3536,11 +3751,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsEquivalentPlasticStrains(
@@ -3554,11 +3780,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsEquivalentStresses(
@@ -3572,11 +3809,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsEquivalentTotalStrains(
@@ -3590,11 +3838,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsGasQuantities(
@@ -3608,11 +3867,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_gas_quantities(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_gas_quantities(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsPrincipalPlasticStrains(
@@ -3626,11 +3896,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsPrincipalStresses(
@@ -3644,11 +3925,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsPrincipalTotalStrains(
@@ -3662,11 +3954,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSummary(
@@ -3698,11 +4001,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesBasicPlasticStrains(
@@ -3716,11 +4030,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesBasicStresses(
@@ -3734,11 +4059,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesBasicTotalStrains(
@@ -3752,11 +4088,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesContactStresses(
@@ -3770,11 +4117,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_contact_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_contact_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesDesignInternalForces(
@@ -3788,11 +4146,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_design_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_design_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesElasticStressComponents(
@@ -3806,11 +4175,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_elastic_stress_components(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_elastic_stress_components(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentPlasticStrainsBach(
@@ -3824,11 +4204,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_bach(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_bach(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentPlasticStrainsMises(
@@ -3842,11 +4233,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_mises(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_mises(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentPlasticStrainsRankine(
@@ -3860,11 +4262,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_rankine(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_rankine(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentPlasticStrainsTresca(
@@ -3878,11 +4291,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_tresca(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_tresca(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentStressesBach(
@@ -3896,11 +4320,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_bach(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_bach(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentStressesMises(
@@ -3914,11 +4349,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_mises(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_mises(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentStressesRankine(
@@ -3932,11 +4378,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_rankine(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_rankine(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentStressesTresca(
@@ -3950,11 +4407,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_tresca(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_tresca(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentTotalStrainsBach(
@@ -3968,11 +4436,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_bach(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_bach(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentTotalStrainsMises(
@@ -3986,11 +4465,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_mises(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_mises(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentTotalStrainsRankine(
@@ -4004,11 +4494,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_rankine(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_rankine(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentTotalStrainsTresca(
@@ -4022,11 +4523,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_tresca(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_tresca(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesGlobalDeformations(
@@ -4040,11 +4552,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_global_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_global_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesLocalDeformations(
@@ -4058,11 +4581,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_local_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_local_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesMaximumPlasticStrains(
@@ -4076,11 +4610,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_maximum_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_maximum_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesMaximumTotalStrains(
@@ -4094,11 +4639,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_maximum_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_maximum_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesPrincipalInternalForces(
@@ -4112,11 +4668,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesPrincipalPlasticStrains(
@@ -4130,11 +4697,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesPrincipalStresses(
@@ -4148,11 +4726,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesPrincipalTotalStrains(
@@ -4166,11 +4755,22 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = None
+        if object_no != 0:
+            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations if object_locations else None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def Summary(
