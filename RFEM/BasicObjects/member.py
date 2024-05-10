@@ -1728,6 +1728,63 @@ class Member():
         model.clientModel.service.set_member(clientObject)
 
     @staticmethod
+    def Spring(no: int = 1,
+               start_node_no: int = 1,
+               end_node_no: int = 2,
+               line: int = None,
+               spring_type: int = None,
+               comment: str = '',
+               params: dict = None,
+               model = Model):
+        """
+        Args:
+            no (int): Member Tag
+            start_node_no (int): Tag of Start Node
+            end_node_no (int): Tag of End Node
+            line (int, optional): Assigned Line
+            spring_type (int, optional): Assign Member Spring Type
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
+
+        # Client model | Member
+        clientObject = model.clientModel.factory.create('ns0:member')
+
+        # Clears object atributes | Sets all atributes to None
+        clearAttributes(clientObject)
+
+        # Member No.
+        clientObject.no = no
+
+        # Member Type
+        clientObject.type = MemberType.TYPE_SPRING.name
+
+        # Assigned Line number or Node numbers
+        if line is None:
+            clientObject.node_start = start_node_no
+            clientObject.node_end = end_node_no
+        else:
+            clientObject.line = line
+
+        # Spring Type
+        clientObject.member_type_spring = spring_type
+
+        # Comment
+        clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
+        # Add Member to client model
+        model.clientModel.service.set_member(clientObject)
+
+    @staticmethod
     def DeleteMember(members_no: str = '1 2', model = Model):
 
         '''
