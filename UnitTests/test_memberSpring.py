@@ -15,7 +15,7 @@ from RFEM.TypesForMembers.memberSpring import MemberSpring
 if Model.clientModel is None:
     Model()
 
-def test_DesignSituation():
+def test_MemberSpring():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
