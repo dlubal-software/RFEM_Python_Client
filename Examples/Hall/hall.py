@@ -22,7 +22,7 @@ if __name__ == '__main__':
     d = float(input('Distance between frames in m: '))
     h = float(input('Height of frame in m: '))
 
-    Model()
+    Model(True, 'hall')
     Model.clientModel.service.begin_modification()
 
     # nodes
@@ -65,14 +65,17 @@ if __name__ == '__main__':
 
     # vertical bracing
     # add a question about repeating in every block, one yes one no, only beginning and end
-
+    BracingV_C1, BracingV_C2, BracingV_C3 = '', '', ''
     BracingV = input('Would you like to include vertical bracing? (Y/N)')
     if BracingV.lower() == 'yes' or BracingV.lower() == 'y':
+
+        Material(3, 'EN AW-3004 H14')
+        Section(3, 'IPE 80', 3)
+
         BracingV_C1 = input(
             'Would you like to repeat a vertical bracing in every block? (Y/N)')
         if BracingV_C1.lower() == 'yes' or BracingV_C1.lower() == 'y':
-            Material(3, 'EN AW-3004 H14')
-            Section(3, 'IPE 80', 3)
+
             j = 4*n + 3*(n-1)
             k = 4*n + 2*(n-1)
             for i in range(n):
@@ -80,12 +83,11 @@ if __name__ == '__main__':
                 Member(k+2+4*i, i*5+2, i*5+6, 0.0, 3, 3)
                 Member(k+3+4*i, i*5+5, i*5+9, 0.0, 3, 3)
                 Member(k+4+4*i, i*5+4, i*5+10, 0.0, 3, 3)
+        else:
+            BracingV_C2 = input(
+                'Would you like to repeat a vertical bracing only in the first and last block? (Y/N)')
 
-        BracingV_C2 = input(
-            'Would you like to repeat a vertical bracing only in the first and last block? (Y/N)')
         if BracingV_C2.lower() == 'yes' or BracingV_C2.lower() == 'y':
-            Material(3, 'EN AW-3004 H14')
-            Section(3, 'IPE 80', 3)
 
             k = n*4+(n-1)*2
             for i in range(n):
@@ -99,12 +101,12 @@ if __name__ == '__main__':
                     Member.Tension(k+4+4*i, i*5+4, i*5+10,
                                    MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 3)
 
-        # MAKE IT MORE GENERAL!
-        BracingV_C3 = input(
-            'Would you like to repeat a vertical bracing in even/odd blocks? (Y/N)')
+        elif BracingV_C2.lower() == 'no' or BracingV_C2.lower() == 'n':
+            # MAKE IT MORE GENERAL!
+            BracingV_C3 = input(
+                'Would you like to repeat a vertical bracing in even/odd blocks? (Y/N)')
+
         if BracingV_C3.lower() == 'yes' or BracingV_C3.lower() == 'y':
-            Material(3, 'EN AW-3004 H14')
-            Section(3, 'IPE 80', 3)
 
             j = 4*n + 3*(n-1)
             k = 4*n + 2*(n-1)
@@ -124,17 +126,18 @@ if __name__ == '__main__':
 
     member_count = n*4+(n-1)*2
     BracingH = input('Would you like to include horizontal bracing? (Y/N)')
-    if BracingV.lower() == 'yes' or BracingV.lower() == 'y':
-        member_count += (n-1)*4
-        BracingH = 'yes'
-        if BracingH.lower() == 'yes' or BracingH.lower() == 'y':
+    if BracingH.lower() == 'yes' or BracingH.lower() == 'y':
 
-            for i in range(n-1):
-                j = i * 5
-                Member(int(member_count+1+4*i), j+2, j+8, 0.0, 3, 3)
-                Member(int(member_count+2+4*i), j+3, j+7, 0.0, 3, 3)
-                Member(int(member_count+3+4*i), j+3, j+9, 0.0, 3, 3)
-                Member(int(member_count+4+4*i), j+4, j+8, 0.0, 3, 3)
+        Material(3, 'EN AW-3004 H14')
+        Section(3, 'IPE 80', 3)
+
+        member_count += (n-1)*4
+        for i in range(n-1):
+            j = i * 5
+            Member(int(member_count+1+4*i), j+2, j+8, 0.0, 3, 3)
+            Member(int(member_count+2+4*i), j+3, j+7, 0.0, 3, 3)
+            Member(int(member_count+3+4*i), j+3, j+9, 0.0, 3, 3)
+            Member(int(member_count+4+4*i), j+4, j+8, 0.0, 3, 3)
 
     print("Preparing...")
     print('Ready!')
