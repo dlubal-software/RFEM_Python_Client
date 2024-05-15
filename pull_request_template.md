@@ -17,7 +17,7 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 - [ ] Attached examples
 
 **Test Configuration**:
-* RFEM / RSTAB version:
+* RFEM version:
 * Python version:
 
 

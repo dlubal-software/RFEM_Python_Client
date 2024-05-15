@@ -39,6 +39,10 @@ class LineReleaseType():
                         negative/positive zone = [negative/positive zone type, slippage, force]
                 for translational_release_ux/y/z_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
                     translational_release_ux/y/z_nonlinearity = [nonlinearity type Diagram, [symmetric(bool), LineReleaseDiagram Enumeration(start), LineReleaseDiagram Enumeration(end)], [[displacement, force],...]]
+                for translational_release_ux/y/z_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1/NONLINEARITY_TYPE_FRICTION_DIRECTION_2/NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2:
+                    translational_release_n/vy/vz_nonlinearity = [nonlinearity type Friction Direction, [friction coefficient(float)]]
+                for translational_release_ux/y/z_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2:
+                    translational_release_n/vy/vz_nonlinearity = [nonlinearity type Friction Direction, [friction coefficient 1(float), friction coefficient 2(float)]]
             rotational_release_phi_x_nonlinearity (list of lists): Nonlinearity Parameter for Rotational Release around X Direction
                 for rotational_release_phi_x_nonlinearity[0] == RotationalReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
                     rotational_release_phi_x_nonlinearity = [nonlinearity type Partial_Activity, negative zone, positive zone]
@@ -87,6 +91,38 @@ class LineReleaseType():
         clientObject.translational_release_u_y_nonlinearity = translational_release_uy_nonlinearity[0].name
         clientObject.translational_release_u_z_nonlinearity = translational_release_uz_nonlinearity[0].name
         clientObject.rotational_release_phi_x_nonlinearity = rotational_release_phi_x_nonlinearity[0].name
+
+        # Line Release Nonlinearity Parameters for Friction
+        # For translational_release_u_x_nonlinearity
+        if translational_release_ux_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1 \
+        or translational_release_ux_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_2 \
+        or translational_release_ux_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2:
+            clientObject.friction_coefficient_x = translational_release_ux_nonlinearity[1][0]
+
+        elif translational_release_ux_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2:
+            clientObject.friction_coefficient_xy = translational_release_ux_nonlinearity[1][0]
+            clientObject.friction_coefficient_xz = translational_release_ux_nonlinearity[1][1]
+
+        # For translational_release_u_y_nonlinearity
+        if translational_release_uy_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1 \
+        or translational_release_uy_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_2 \
+        or translational_release_uy_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2:
+            print('fsdfsf')
+            clientObject.friction_coefficient_y = translational_release_uy_nonlinearity[1][0]
+
+        elif translational_release_uy_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2:
+            clientObject.friction_coefficient_yx = translational_release_uy_nonlinearity[1][0]
+            clientObject.friction_coefficient_yz = translational_release_uy_nonlinearity[1][1]
+
+        # For translational_release_u_z_nonlinearity
+        if translational_release_uz_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1 \
+        or translational_release_uz_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_2 \
+        or translational_release_uz_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2:
+            clientObject.friction_coefficient_z = translational_release_uz_nonlinearity[1][0]
+
+        elif translational_release_uz_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2:
+            clientObject.friction_coefficient_zx = translational_release_uz_nonlinearity[1][0]
+            clientObject.friction_coefficient_zy = translational_release_uz_nonlinearity[1][1]
 
         # Line Release Nonlinearity Parameters for Partial Activity
         # For translational_release_u_x_nonlinearity
