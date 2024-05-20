@@ -25,18 +25,39 @@ def test_result_tables():
     assert ResultTables.MembersGlobalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 3)
     assert ResultTables.MembersInternalForces(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 2)
     assert ResultTables.MembersInternalForcesBySection(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 2)
-    assert not ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 4)
     assert ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 1)
+
+    try:
+        assert not ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 4)
+    except Exception as e:
+        assert 'Specified object does not exist.' in str(e)
+
+    try:
+        assert not ResultTables.MembersInternalForcesBySection(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 3)
+    except Exception as e:
+        assert 'Specified object does not exist.' in str(e)
+
+
 
     #LC1
     assert ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1,1)
     assert ResultTables.NodesDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, 20)
+
+    try:
+        assert not ResultTables.NodesDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, 5)
+    except Exception as e:
+        assert 'Specified object does not exist.' in str(e)
+
     assert ResultTables.NodesSupportForces(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, 16)
     assert ResultTables.Summary(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1)
     assert ResultTables.SurfacesBasicInternalForces(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, 4)
 
     #LC2
-    assert not ResultTables.SurfacesBasicStresses(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 2, 5)
+    try:
+        assert not ResultTables.SurfacesBasicStresses(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 2, 5)
+    except Exception as e:
+        assert 'Specified object does not exist.' in str(e)
+
     assert ResultTables.SurfacesBasicStresses(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 2, 4)
     assert ResultTables.SurfacesBasicTotalStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 2, 1)
     assert ResultTables.SurfacesDesignInternalForces(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 2, 2)
@@ -58,34 +79,25 @@ def test_result_tables():
     assert ResultTables.SurfacesMaximumTotalStrains(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 2)
     assert ResultTables.SurfacesPrincipalInternalForces(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 3)
     assert ResultTables.SurfacesPrincipalStresses(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 4)
+    assert ResultTables.SurfacesPrincipalTotalStrains(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 1)
 
-    table = ResultTables.SurfacesPrincipalTotalStrains(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 1)
-    assert table
 
-    table1 = ResultTables.MembersGlobalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=0, include_base=True, without_extremes=False)
-    table2 = ResultTables.MembersGlobalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=0, include_base=True, without_extremes=True)
-    table3 = ResultTables.MembersGlobalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=1, include_base=True, without_extremes=True)
+    table1 = ResultTables.MembersGlobalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, object_no=0)
+    table2 = ResultTables.MembersGlobalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, object_no=3)
+    assert table1[32] == table2[0]
 
-    assert len(table1) > len(table2)
-    assert len(table2) > len(table3)
+    table3 = ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, object_no=0)
+    table4 = ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, object_no=2)
+    assert table3[18] == table4[0]
 
-    table4 = ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=0, include_base=True, without_extremes=False)
-    table5 = ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=0, include_base=True, without_extremes=True)
-    table6 = ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=1, include_base=True, without_extremes=True)
+    table5 = ResultTables.MembersInternalForces(CaseObjectType.E_OBJECT_TYPE_RESULT_COMBINATION, 1, object_no=0)
+    table6 = ResultTables.MembersInternalForces(CaseObjectType.E_OBJECT_TYPE_RESULT_COMBINATION, 1, object_no=3)
+    assert table5[32] == table6[0]
 
-    assert len(table4) > len(table5)
-    assert len(table5) > len(table6)
+    table7 = ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, object_no=0)
+    table8 = ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, object_no=2)
+    assert table7[16] == table8[0]
 
-    table7 = ResultTables.MembersInternalForces(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=0, include_base=True, without_extremes=False)
-    table8 = ResultTables.MembersInternalForces(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=0, include_base=True, without_extremes=True)
-    table9 = ResultTables.MembersInternalForces(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=1, include_base=True, without_extremes=True)
-
-    assert len(table7) > len(table8)
-    assert len(table8) > len(table9)
-
-    table10 = ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=0, include_base=True, without_extremes=False)
-    table11 = ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=0, include_base=True, without_extremes=True)
-    table12 = ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,1, object_no=1, include_base=True, without_extremes=True)
-
-    assert len(table10) > len(table11)
-    assert len(table11) > len(table12)
+    table9 = ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, object_no=0, include_base=True)
+    table10 = ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, object_no=2, include_base=True)
+    assert not table9[16] == table10[0]
