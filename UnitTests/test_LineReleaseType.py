@@ -32,6 +32,10 @@ def test_LineReleaseType():
         LineReleaseLocalAxisSystem.E_LOCAL_AXIS_SYSTEM_TYPE_HELP_NODE, [0.3, 1, LocalAxisSystemObjectInPlane.LOCAL_AXIS_SYSTEM_IN_PLANE_XY], 'Type 2'
         )
 
+    LineReleaseType(3, [0, 0, 0, 0], [TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1, [0.12]], [TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2, [0.54]], \
+                    [TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2, [0.25, 0.85]])
+
+
     Model.clientModel.service.finish_modification()
 
     lrt_1 = Model.clientModel.service.get_line_release_type(1)
@@ -47,3 +51,8 @@ def test_LineReleaseType():
     assert lrt_2.force_moment_diagram_around_x_end == "FORCE_MOMENT_DIAGRAM_ENDING_TYPE_YIELDING"
     assert lrt_2.force_moment_diagram_around_x_table[0][0].row['force'] == 1500
     assert lrt_2.force_moment_diagram_around_x_table[0][2].row['max_moment'] == 450
+
+    lrt_3 = Model.clientModel.service.get_line_release_type(3)
+    assert lrt_3.translational_release_u_z_nonlinearity == "NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2"
+    assert round(lrt_3.friction_coefficient_x, 2) == 0.12
+    assert round(lrt_3.friction_coefficient_zy, 2) == 0.85

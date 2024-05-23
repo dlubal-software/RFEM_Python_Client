@@ -338,3 +338,23 @@ def test_member_couplingHingeHinge():
 
     assert round(member.analytical_length, 5) == 5.19615
     assert member.type == "TYPE_COUPLING_HINGE_HINGE"
+
+def test_member_spring():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    Material(1, 'S235')
+    Section(1, 'IPE 300', 1)
+
+    Node(1, 0, 0, 0)
+    Node(2, 3, 3, 3)
+
+    Member.Spring(1, 1, 2)
+
+    Model.clientModel.service.finish_modification()
+
+    member = Model.clientModel.service.get_member(1)
+
+    assert round(member.analytical_length, 5) == 5.19615
+    assert member.type == "TYPE_SPRING"
