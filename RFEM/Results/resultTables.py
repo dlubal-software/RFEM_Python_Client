@@ -143,16 +143,18 @@ def CreateObjectLocation(
         object_no = 1,
         model = Model):
 
-        object_locations = model.clientModel.factory.create('ns0:object_location_array')
+        if object_no > 0:
+            object_locations = model.clientModel.factory.create('ns0:object_location_array')
 
-        # object selection
-        object = model.clientModel.factory.create('ns0:object_location')
-        object.type = object_type
-        object.no = object_no
-        object_locations.object_location.append(object)
+            # object selection
+            object = model.clientModel.factory.create('ns0:object_location')
+            object.type = object_type
+            object.no = object_no
+            object_locations.object_location.append(object)
 
-        return object_locations
-
+            return object_locations
+        else:
+            return None
 
 
 class ResultTables():
