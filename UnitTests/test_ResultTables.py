@@ -1,5 +1,8 @@
 import sys
 import os
+import pytest
+from suds import WebFault
+
 PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.path.dirname(__file__),
                   os.pardir)
@@ -26,38 +29,23 @@ def test_result_tables():
     assert ResultTables.MembersInternalForces(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 2)
     assert ResultTables.MembersInternalForcesBySection(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 2)
     assert ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 1)
-
-    try:
-        assert not ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 4)
-    except Exception as e:
-        assert 'Specified object does not exist.' in str(e)
-
-    try:
-        assert not ResultTables.MembersInternalForcesBySection(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 3)
-    except Exception as e:
-        assert 'Specified object does not exist.' in str(e)
-
-
+    with pytest.raises(WebFault, match='Specified object does not exist.'):
+         ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 4)
+    with pytest.raises(WebFault, match='Specified object does not exist.'):
+         ResultTables.MembersInternalForcesBySection(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 3)
 
     #LC1
     assert ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1,1)
     assert ResultTables.NodesDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, 20)
-
-    try:
-        assert not ResultTables.NodesDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, 5)
-    except Exception as e:
-        assert 'Specified object does not exist.' in str(e)
-
+    with pytest.raises(WebFault, match='Specified object does not exist.'):
+         ResultTables.NodesDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, 5)
     assert ResultTables.NodesSupportForces(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, 16)
     assert ResultTables.Summary(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1)
     assert ResultTables.SurfacesBasicInternalForces(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, 4)
 
     #LC2
-    try:
-        assert not ResultTables.SurfacesBasicStresses(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 2, 5)
-    except Exception as e:
-        assert 'Specified object does not exist.' in str(e)
-
+    with pytest.raises(WebFault, match='Specified object does not exist.'):
+         ResultTables.SurfacesBasicStresses(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 2, 5)
     assert ResultTables.SurfacesBasicStresses(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 2, 4)
     assert ResultTables.SurfacesBasicTotalStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 2, 1)
     assert ResultTables.SurfacesDesignInternalForces(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 2, 2)
@@ -72,7 +60,7 @@ def test_result_tables():
     assert ResultTables.SurfacesEquivalentTotalStrainsMises(CaseObjectType.E_OBJECT_TYPE_RESULT_COMBINATION, 1, 1)
     assert ResultTables.SurfacesEquivalentTotalStrainsRankine(CaseObjectType.E_OBJECT_TYPE_RESULT_COMBINATION, 1, 2)
 
-    # DS1
+    #DS1
     assert ResultTables.SurfacesEquivalentTotalStrainsTresca(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 3)
     assert ResultTables.SurfacesGlobalDeformations(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 4)
     assert ResultTables.SurfacesLocalDeformations(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 1)
@@ -81,7 +69,7 @@ def test_result_tables():
     assert ResultTables.SurfacesPrincipalStresses(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 4)
     assert ResultTables.SurfacesPrincipalTotalStrains(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 1)
 
-
+    #Object selection all versus specific
     table1 = ResultTables.MembersGlobalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, object_no=0)
     table2 = ResultTables.MembersGlobalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, object_no=3)
     assert table1[32] == table2[0]
