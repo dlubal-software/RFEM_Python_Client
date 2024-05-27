@@ -351,14 +351,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_efeective_lengths_and_critical_loads_by_member(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -380,14 +378,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_eigenvectors_by_member(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -409,14 +405,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
 
         results = model.clientModel.service.get_results_for_eigenvectors_by_node(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -438,14 +432,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_eigenvectors_by_solid(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -467,14 +459,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_eigenvectors_by_surface(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -514,14 +504,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
 
         results = model.clientModel.service.get_results_for_line_hinges_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -543,14 +531,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
 
         results = model.clientModel.service.get_results_for_line_hinges_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -572,14 +558,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
 
         results = model.clientModel.service.get_results_for_lines_slab_wall_connections(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -601,14 +585,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
 
         results = model.clientModel.service.get_results_for_lines_support_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -630,14 +612,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_members_by_eigenvector(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -659,14 +639,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_members_contact_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -688,14 +666,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_members_global_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -717,14 +693,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_members_hinge_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -746,14 +720,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_members_hinge_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -775,14 +747,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_members_internal_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -804,14 +774,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER_SET.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER_SET.name, object_no)
 
         results = model.clientModel.service.get_results_for_members_internal_forces_by_member_set(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -833,14 +801,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SECTION.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SECTION.name, object_no)
 
         results = model.clientModel.service.get_results_for_members_internal_forces_by_section(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -862,14 +828,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_members_local_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -892,14 +856,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_members_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -971,14 +933,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_modal_analysis_members_by_mode_shape(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1000,14 +960,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_member(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1029,14 +987,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
 
         results = model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_node(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1058,14 +1014,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_solid(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1087,14 +1041,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_surface(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1141,14 +1093,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
 
         results = model.clientModel.service.get_results_for_modal_analysis_nodes_by_mode_shape(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1195,14 +1145,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_modal_analysis_solids_by_mode_shape(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1224,14 +1172,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_modal_analysis_surfaces_by_mode_shape(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1253,14 +1199,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
 
         results = model.clientModel.service.get_results_for_nodes_by_eigenvector(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1282,14 +1226,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
 
         results = model.clientModel.service.get_results_for_nodes_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1311,14 +1253,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
 
         results = model.clientModel.service.get_results_for_nodes_support_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1340,14 +1280,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_solids_basic_plastic_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1369,14 +1307,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_solids_basic_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1398,14 +1334,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_solids_basic_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1427,14 +1361,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_solids_by_eigenvector(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1456,14 +1388,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_solids_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1485,14 +1415,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_solids_equivalent_plastic_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1514,14 +1442,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_solids_equivalent_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1543,14 +1469,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_solids_equivalent_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1572,14 +1496,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_solids_gas_quantities(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1601,14 +1523,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_solids_principal_plastic_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1630,14 +1550,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_solids_principal_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1659,14 +1577,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_solids_principal_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1788,14 +1704,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_line_hinges_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1817,14 +1731,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_line_hinges_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1846,14 +1758,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_lines_slab_wall_connections(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1875,14 +1785,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_lines_support_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1904,14 +1812,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_members_contact_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1933,14 +1839,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_members_global_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1962,14 +1866,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_members_hinge_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1991,14 +1893,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_members_hinge_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2020,14 +1920,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2049,14 +1947,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER_SET.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER_SET.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces_by_member_set(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2078,14 +1974,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SECTION.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SECTION.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces_by_section(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2107,14 +2001,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_members_local_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2136,14 +2028,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_members_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2165,14 +2055,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_nodes_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2194,14 +2082,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_nodes_pseudo_accelerations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2223,14 +2109,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_nodes_pseudo_velocities(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2252,14 +2136,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_nodes_support_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2281,14 +2163,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_solids_basic_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2310,14 +2190,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_solids_basic_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2339,14 +2217,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_solids_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2368,14 +2244,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_solids_equivalent_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2397,14 +2271,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_solids_equivalent_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2426,14 +2298,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_solids_gas_quantities(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2455,14 +2325,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_solids_principal_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2484,14 +2352,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_solids_principal_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2531,14 +2397,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_internal_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2560,14 +2424,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2589,14 +2451,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2618,14 +2478,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_contact_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2647,14 +2505,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_design_internal_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2676,14 +2532,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_elastic_stress_components(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2705,14 +2559,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_bach(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2734,14 +2586,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_mises(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2763,14 +2613,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_rankine(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2792,14 +2640,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_tresca(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2821,14 +2667,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_bach(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2850,14 +2694,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_mises(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2879,14 +2721,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_rankine(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2907,14 +2747,12 @@ class ResultTables():
             object_no (int): Surface number
             model (class, optional): Model instance
         '''
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_tresca(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2936,14 +2774,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_global_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2965,14 +2801,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_local_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2994,14 +2828,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_maximum_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3023,14 +2855,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_internal_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3052,14 +2882,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3081,14 +2909,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3235,14 +3061,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_line_hinges_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3264,14 +3088,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_line_hinges_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3293,14 +3115,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_lines_slab_wall_connections(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3322,14 +3142,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_lines_support_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3351,14 +3169,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_contact_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3380,14 +3196,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_global_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3409,14 +3223,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_hinge_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3438,14 +3250,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_hinge_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3467,14 +3277,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3496,14 +3304,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER_SET.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER_SET.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces_by_member_set(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3525,14 +3331,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SECTION.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SECTION.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces_by_section(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3554,14 +3358,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_local_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3583,14 +3385,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3612,14 +3412,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_nodes_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3641,14 +3439,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_nodes_support_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3670,14 +3466,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_plastic_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3699,14 +3493,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3728,14 +3520,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3757,14 +3547,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3786,14 +3574,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_plastic_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3815,14 +3601,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3844,14 +3628,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3873,14 +3655,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_gas_quantities(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3902,14 +3682,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_plastic_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3931,14 +3709,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3960,14 +3736,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4007,14 +3781,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_internal_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4036,14 +3808,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_plastic_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4065,14 +3835,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4094,14 +3862,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4123,14 +3889,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_contact_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4152,14 +3916,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_design_internal_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4181,14 +3943,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_elastic_stress_components(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4210,14 +3970,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_bach(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4239,14 +3997,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_mises(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4268,14 +4024,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_rankine(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4297,14 +4051,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_tresca(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4326,14 +4078,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_bach(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4355,14 +4105,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_mises(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4384,14 +4132,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_rankine(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4413,14 +4159,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_tresca(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4442,14 +4186,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_bach(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4471,14 +4213,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_mises(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4500,14 +4240,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_rankine(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4529,14 +4267,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_tresca(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4558,14 +4294,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_global_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4587,14 +4321,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_local_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4616,14 +4348,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_maximum_plastic_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4645,14 +4375,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_maximum_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4674,14 +4402,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_internal_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4703,14 +4429,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_plastic_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4732,14 +4456,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4761,14 +4483,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4806,14 +4526,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_basic_internal_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4835,14 +4553,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_basic_plastic_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4864,14 +4580,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_basic_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4893,14 +4607,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_basic_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4922,14 +4634,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_by_eigenvector(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4951,14 +4661,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_contact_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -4980,14 +4688,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_design_internal_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5009,14 +4715,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_elastic_stress_components(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5038,14 +4742,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_equivalent_plastic_strains_bach(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5067,14 +4769,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_equivalent_plastic_strains_mises(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5096,14 +4796,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_equivalent_plastic_strains_rankine(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5125,14 +4823,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_equivalent_plastic_strains_tresca(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5154,14 +4850,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_equivalent_stresses_bach(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5183,14 +4877,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_equivalent_stresses_mises(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5212,14 +4904,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_equivalent_stresses_rankine(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5241,14 +4931,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_equivalent_stresses_tresca(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5270,14 +4958,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_equivalent_total_strains_bach(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5299,14 +4985,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_equivalent_total_strains_mises(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5328,14 +5012,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_equivalent_total_strains_rankine(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5357,14 +5039,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_equivalent_total_strains_tresca(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5386,14 +5066,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_global_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5415,14 +5093,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_local_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5444,14 +5120,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_maximum_plastic_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5473,14 +5147,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_maximum_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5502,14 +5174,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_principal_internal_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5531,14 +5201,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_principal_plastic_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5560,14 +5228,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_principal_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5589,14 +5255,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_surfaces_principal_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5718,14 +5382,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_line_hinges_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5747,14 +5409,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_line_hinges_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5776,14 +5436,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_lines_slab_wall_connections(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5805,14 +5463,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_lines_support_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5834,14 +5490,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_members_contact_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5863,14 +5517,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_members_global_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5892,14 +5544,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_members_hinge_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5921,14 +5571,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_members_hinge_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5950,14 +5598,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5979,14 +5625,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER_SET.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER_SET.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces_by_member_set(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6008,14 +5652,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SECTION.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SECTION.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces_by_section(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6037,14 +5679,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_members_local_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6066,14 +5706,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_members_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6095,14 +5733,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_nodes_accelerations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6124,14 +5760,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_nodes_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6153,14 +5787,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_nodes_support_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6182,14 +5814,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_nodes_velocities(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6211,14 +5841,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_solids_basic_plastic_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6240,14 +5868,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_solids_basic_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6269,14 +5895,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_solids_basic_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6298,14 +5922,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_solids_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6327,14 +5949,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_plastic_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6356,14 +5976,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6385,14 +6003,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6414,14 +6030,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_solids_gas_quantities(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6443,14 +6057,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_solids_principal_plastic_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6472,14 +6084,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_solids_principal_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6501,14 +6111,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_solids_principal_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6548,14 +6156,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_internal_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6577,14 +6183,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_plastic_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6606,14 +6210,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6635,14 +6237,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6664,14 +6264,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_contact_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6693,14 +6291,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_design_internal_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6722,14 +6318,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_elastic_stress_components(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6751,14 +6345,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_bach(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6780,14 +6372,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_mises(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6809,14 +6399,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_rankine(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6838,14 +6426,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_tresca(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6867,14 +6453,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_bach(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6896,14 +6480,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_mises(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6925,14 +6507,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_rankine(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6954,14 +6534,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_tresca(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -6983,14 +6561,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_bach(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -7012,14 +6588,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_mises(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -7041,14 +6615,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_rankine(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -7070,14 +6642,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_tresca(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -7099,14 +6669,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_global_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -7128,14 +6696,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_local_deformations(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -7157,14 +6723,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_maximum_plastic_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -7186,14 +6750,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_maximum_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -7215,14 +6777,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_internal_forces(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -7244,14 +6804,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_plastic_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -7273,14 +6831,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_stresses(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -7302,14 +6858,12 @@ class ResultTables():
             model (class, optional): Model instance
         '''
 
-        object_locations = None
-        if object_no != 0:
-            object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
         results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_total_strains(
             loading_type.name,
             loading_no,
-            object_locations if object_locations else None
+            object_locations
         )
 
         return ConvertResultsToListOfDct(results, include_base)
