@@ -10,7 +10,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 from RFEM.initModel import Model, getPathToRunningRFEM
 from RFEM.enums import CaseObjectType
-from RFEM.Results.resultTables import ResultTables, GetMaxValue, GetMinValue
+from RFEM.Results.resultTables import ResultTables
 
 if Model.clientModel is None:
     Model()
@@ -34,7 +34,7 @@ def test_result_tables():
     with pytest.raises(WebFault, match='Specified object does not exist.'):
          ResultTables.MembersInternalForcesBySection(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 3)
 
-    #LC1
+    # LC1
     assert ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1,1)
     assert ResultTables.NodesDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, 20)
     with pytest.raises(WebFault, match='Specified object does not exist.'):
@@ -43,7 +43,7 @@ def test_result_tables():
     assert ResultTables.Summary(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1)
     assert ResultTables.SurfacesBasicInternalForces(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, 4)
 
-    #LC2
+    # LC2
     with pytest.raises(WebFault, match='Specified object does not exist.'):
          ResultTables.SurfacesBasicStresses(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 2, 5)
     assert ResultTables.SurfacesBasicStresses(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 2, 4)
@@ -52,7 +52,7 @@ def test_result_tables():
     assert ResultTables.SurfacesElasticStressComponents(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 2, 3)
     assert ResultTables.SurfacesEquivalentStressesBach(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 2, 1)
 
-    #RC1
+    # RC1
     assert ResultTables.SurfacesEquivalentStressesRankine(CaseObjectType.E_OBJECT_TYPE_RESULT_COMBINATION, 1, 1)
     assert ResultTables.SurfacesEquivalentStressesTresca(CaseObjectType.E_OBJECT_TYPE_RESULT_COMBINATION, 1, 2)
     assert ResultTables.SurfacesEquivalentStressesMises(CaseObjectType.E_OBJECT_TYPE_RESULT_COMBINATION, 1, 3)
@@ -60,7 +60,7 @@ def test_result_tables():
     assert ResultTables.SurfacesEquivalentTotalStrainsMises(CaseObjectType.E_OBJECT_TYPE_RESULT_COMBINATION, 1, 1)
     assert ResultTables.SurfacesEquivalentTotalStrainsRankine(CaseObjectType.E_OBJECT_TYPE_RESULT_COMBINATION, 1, 2)
 
-    #DS1
+    # DS1
     assert ResultTables.SurfacesEquivalentTotalStrainsTresca(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 3)
     assert ResultTables.SurfacesGlobalDeformations(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 4)
     assert ResultTables.SurfacesLocalDeformations(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 1)
@@ -69,23 +69,25 @@ def test_result_tables():
     assert ResultTables.SurfacesPrincipalStresses(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 4)
     assert ResultTables.SurfacesPrincipalTotalStrains(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 1)
 
-    #Object selection all versus specific
-    table1 = ResultTables.MembersGlobalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, object_no=0)
-    table2 = ResultTables.MembersGlobalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, object_no=3)
-    assert table1[32] == table2[0]
-
-    table3 = ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, object_no=0)
-    table4 = ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, object_no=2)
+    # Object selection all versus specific
+    table3 = ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 0)
+    table4 = ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, 1, 2)
     assert table3[18] == table4[0]
 
-    table5 = ResultTables.MembersInternalForces(CaseObjectType.E_OBJECT_TYPE_RESULT_COMBINATION, 1, object_no=0)
-    table6 = ResultTables.MembersInternalForces(CaseObjectType.E_OBJECT_TYPE_RESULT_COMBINATION, 1, object_no=3)
+    table5 = ResultTables.MembersInternalForces(CaseObjectType.E_OBJECT_TYPE_RESULT_COMBINATION, 1, 0)
+    table6 = ResultTables.MembersInternalForces(CaseObjectType.E_OBJECT_TYPE_RESULT_COMBINATION, 1, 3)
     assert table5[32] == table6[0]
 
-    table7 = ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, object_no=0)
-    table8 = ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, object_no=2)
+    table7 = ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 0)
+    table8 = ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 2)
     assert table7[16] == table8[0]
 
-    table9 = ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, object_no=0, include_base=True)
-    table10 = ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, object_no=2, include_base=True)
+    table9 = ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 0, True)
+    table10 = ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 2, True)
     assert not table9[16] == table10[0]
+
+    table2 = ResultTables.MembersGlobalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, 3)
+    # TODO: Reseting object_locations parameter for test_resultTableAluminumDesignAddOn.py.
+    # Should be done automatically in WS Core before every calculate_all().
+    table1 = ResultTables.MembersGlobalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, 0)
+    assert table1[32] == table2[0]

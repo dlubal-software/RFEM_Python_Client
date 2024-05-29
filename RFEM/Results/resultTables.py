@@ -146,7 +146,6 @@ def CreateObjectLocation(
         if object_no > 0:
             object_locations = model.clientModel.factory.create('ns0:object_location_array')
 
-            # object selection
             object = model.clientModel.factory.create('ns0:object_location')
             object.type = object_type
             object.no = object_no
@@ -7083,6 +7082,9 @@ class ResultTables():
         Args:
             model(class, optional): Model instance
         '''
+        #object_locations = None # nefunguje
+        #object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, 0) # nefunguje
+        #object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, 1) # nefunguje
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_members_by_design_situation(), include_base)
 
