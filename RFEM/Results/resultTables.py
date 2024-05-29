@@ -7082,9 +7082,6 @@ class ResultTables():
         Args:
             model(class, optional): Model instance
         '''
-        #object_locations = None # nefunguje
-        #object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, 0) # nefunguje
-        #object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, 1) # nefunguje
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_members_by_design_situation(), include_base)
 
