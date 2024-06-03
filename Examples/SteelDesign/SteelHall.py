@@ -315,4 +315,5 @@ if __name__ == '__main__':
     SteelDesignUltimateConfigurations(1, 'ULS1', 'All')
 
     Model.clientModel.service.finish_modification()
+    Model.clientModel.service.generate_load_cases_and_combinations()
     Calculate_all()

@@ -43,15 +43,12 @@ class Member():
         # Member Type
         clientObject.type = MemberType.TYPE_BEAM.name
 
-        # Assigned Line No.
-        clientObject.line = line
-
-        if not line:
-            # Start Node No.
+        # Assigned Line number or Node numbers
+        if line is None:
             clientObject.node_start = start_node_no
-
-            # End Node No.
             clientObject.node_end = end_node_no
+        else:
+            clientObject.line = line
 
         # Member Rotation Angle beta
         clientObject.rotation_angle = rotation_angle
@@ -170,11 +167,12 @@ class Member():
         # Member Type
         clientObject.type = MemberType.TYPE_BEAM.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Assigned Line number or Node numbers
+        if line is None:
+            clientObject.node_start = start_node_no
+            clientObject.node_end = end_node_no
+        else:
+            clientObject.line = line
 
         # Section Distribution
         clientObject.section_distribution_type = section_distribution_type.name
@@ -299,9 +297,6 @@ class Member():
         # End Section No.
         clientObject.section_end = end_section_no
 
-        # Assigned Line No.
-        clientObject.line = line
-
         # Comment
         clientObject.comment = comment
 
@@ -367,11 +362,12 @@ class Member():
         # Member Type
         clientObject.type = MemberType.TYPE_RIGID.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Assigned Line number or Node numbers
+        if line is None:
+            clientObject.node_start = start_node_no
+            clientObject.node_end = end_node_no
+        else:
+            clientObject.line = line
 
         # Member Rotation
         clientObject.rotation_specification_type = rotation_specification_type.name
@@ -385,9 +381,6 @@ class Member():
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
-
-        # Assigned Line No.
-        clientObject.line = line
 
         # Comment
         clientObject.comment = comment
@@ -463,11 +456,12 @@ class Member():
         # Member Type
         clientObject.type = MemberType.TYPE_RIB.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Assigned Line number or Node numbers
+        if line is None:
+            clientObject.node_start = start_node_no
+            clientObject.node_end = end_node_no
+        else:
+            clientObject.line = line
 
         # Section Distribution
         clientObject.section_distribution_type = section_distribution_type.name
@@ -488,9 +482,6 @@ class Member():
 
         # Rib Alignment
         clientObject.member_type_rib_alignment = rib_alignment.name
-
-        # Assigned Line No.
-        clientObject.line = line
 
         # Comment
         clientObject.comment = comment
@@ -565,11 +556,12 @@ class Member():
         # Member Type
         clientObject.type = MemberType.TYPE_TRUSS.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Assigned Line number or Node numbers
+        if line is None:
+            clientObject.node_start = start_node_no
+            clientObject.node_end = end_node_no
+        else:
+            clientObject.line = line
 
         # Member Rotation
         clientObject.rotation_specification_type = rotation_specification_type.name
@@ -589,9 +581,6 @@ class Member():
 
         # End Section No.
         clientObject.section_end = section_no
-
-        # Assigned Line No.
-        clientObject.line = line
 
         # Comment
         clientObject.comment = comment
@@ -666,11 +655,12 @@ class Member():
         # Member Type
         clientObject.type = MemberType.TYPE_TRUSS_ONLY_N.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Assigned Line number or Node numbers
+        if line is None:
+            clientObject.node_start = start_node_no
+            clientObject.node_end = end_node_no
+        else:
+            clientObject.line = line
 
         # Member Rotation
         clientObject.rotation_specification_type = rotation_specification_type.name
@@ -690,9 +680,6 @@ class Member():
 
         # End Section No.
         clientObject.section_end = section_no
-
-        # Assigned Line No.
-        clientObject.line = line
 
         # Comment
         clientObject.comment = comment
@@ -767,11 +754,12 @@ class Member():
         # Member Type
         clientObject.type = MemberType.TYPE_TENSION.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Assigned Line number or Node numbers
+        if line is None:
+            clientObject.node_start = start_node_no
+            clientObject.node_end = end_node_no
+        else:
+            clientObject.line = line
 
         # Member Rotation
         clientObject.rotation_specification_type = rotation_specification_type.name
@@ -791,9 +779,6 @@ class Member():
 
         # End Section No.
         clientObject.section_end = section_no
-
-        # Assigned Line No.
-        clientObject.line = line
 
         # Comment
         clientObject.comment = comment
@@ -868,11 +853,12 @@ class Member():
         # Member Type
         clientObject.type = MemberType.TYPE_COMPRESSION.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Assigned Line number or Node numbers
+        if line is None:
+            clientObject.node_start = start_node_no
+            clientObject.node_end = end_node_no
+        else:
+            clientObject.line = line
 
         # Member Rotation
         clientObject.rotation_specification_type = rotation_specification_type.name
@@ -892,9 +878,6 @@ class Member():
 
         # End Section No.
         clientObject.section_end = section_no
-
-        # Assigned Line No.
-        clientObject.line = line
 
         # Comment
         clientObject.comment = comment
@@ -969,11 +952,12 @@ class Member():
         # Member Type
         clientObject.type = MemberType.TYPE_BUCKLING.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Assigned Line number or Node numbers
+        if line is None:
+            clientObject.node_start = start_node_no
+            clientObject.node_end = end_node_no
+        else:
+            clientObject.line = line
 
         # Member Rotation
         clientObject.rotation_specification_type = rotation_specification_type.name
@@ -993,9 +977,6 @@ class Member():
 
         # End Section No.
         clientObject.section_end = section_no
-
-        # Assigned Line No.
-        clientObject.line = line
 
         # Comment
         clientObject.comment = comment
@@ -1067,11 +1048,12 @@ class Member():
         # Member Type
         clientObject.type = MemberType.TYPE_CABLE.name
 
-        # Start Node No.
-        clientObject.node_start = start_node_no
-
-        # End Node No.
-        clientObject.node_end = end_node_no
+        # Assigned Line number or Node numbers
+        if line is None:
+            clientObject.node_start = start_node_no
+            clientObject.node_end = end_node_no
+        else:
+            clientObject.line = line
 
         # Member Rotation
         clientObject.rotation_specification_type = rotation_specification_type.name
@@ -1091,9 +1073,6 @@ class Member():
 
         # End Section No.
         clientObject.section_end = section_no
-
-        # Assigned Line No.
-        clientObject.line = line
 
         # Comment
         clientObject.comment = comment
@@ -1733,6 +1712,63 @@ class Member():
         elif rotation_specification_type == MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_SURFACE:
             clientObject.rotation_surface = rotation_parameters[0]
             clientObject.rotation_surface_plane_type = rotation_parameters[1].name
+
+        # Comment
+        clientObject.comment = comment
+
+        # Adding optional parameters via dictionary
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
+
+        # Add Member to client model
+        model.clientModel.service.set_member(clientObject)
+
+    @staticmethod
+    def Spring(no: int = 1,
+               start_node_no: int = 1,
+               end_node_no: int = 2,
+               line: int = None,
+               spring_type: int = None,
+               comment: str = '',
+               params: dict = None,
+               model = Model):
+        """
+        Args:
+            no (int): Member Tag
+            start_node_no (int): Tag of Start Node
+            end_node_no (int): Tag of End Node
+            line (int, optional): Assigned Line
+            spring_type (int, optional): Assign Member Spring Type
+            comment (str, optional): Comment
+            params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
+            model (RFEM Class, optional): Model to be edited
+        """
+
+        # Client model | Member
+        clientObject = model.clientModel.factory.create('ns0:member')
+
+        # Clears object atributes | Sets all atributes to None
+        clearAttributes(clientObject)
+
+        # Member No.
+        clientObject.no = no
+
+        # Member Type
+        clientObject.type = MemberType.TYPE_SPRING.name
+
+        # Assigned Line number or Node numbers
+        if line is None:
+            clientObject.node_start = start_node_no
+            clientObject.node_end = end_node_no
+        else:
+            clientObject.line = line
+
+        # Spring Type
+        clientObject.member_type_spring = spring_type
 
         # Comment
         clientObject.comment = comment

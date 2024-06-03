@@ -354,7 +354,7 @@ class Line():
         clientObject.no = no
 
         # Nodes No.
-        clientObject.definition_nodes = ConvertToDlString(nodes_no)
+        #clientObject.definition_nodes = ConvertToDlString(nodes_no)
         clientObject.parabola_first_node = nodes_no[0]
         clientObject.parabola_second_node = nodes_no[1]
 

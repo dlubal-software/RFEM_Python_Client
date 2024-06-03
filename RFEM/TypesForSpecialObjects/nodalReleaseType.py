@@ -50,9 +50,9 @@ class NodalReleaseType():
                 for translational_release_n/vy/vz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
                     translational_release_n/vy/vz_nonlinearity = [nonlinearity type Diagram, [symmetric(bool), NodalReleaseTypeDiagram Enumeration(start), NodalReleaseTypeDiagram Enumeration(end)], [[displacement, force],...]]
                 for translational_release_n/vy/vz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1/NONLINEARITY_TYPE_FRICTION_DIRECTION_2/NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2:
-                    translational_release_n/vy/vz_nonlinearity = [nonlinearity type Diagram, [friction coefficient(float)]]
+                    translational_release_n/vy/vz_nonlinearity = [nonlinearity type Friction Direction, [friction coefficient(float)]]
                 for translational_release_n/vy/vz_nonlinearity[0] == NodalReleaseTypeReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2:
-                    translational_release_n/vy/vz_nonlinearity = [nonlinearity type Diagram, [friction coefficient 1(float), friction coefficient 2(float)]]
+                    translational_release_n/vy/vz_nonlinearity = [nonlinearity type Friction Direction, [friction coefficient 1(float), friction coefficient 2(float)]]
             rotational_release_mt_nonlinearity (list/list of lists): Nonlinearity Parameter for Rotational Release around X Direction
             rotational_release_my_nonlinearity (list/list of lists): Nonlinearity Parameter for Rotational Release around Y Direction
             rotational_release_mz_nonlinearity (list/list of lists): Nonlinearity Parameter for Rotational Release around Z Direction
