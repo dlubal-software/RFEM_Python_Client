@@ -31,12 +31,17 @@ Python client (high-level functions) for [RFEM 6](https://www.dlubal.com/en/prod
 ## Description
 This Python project is focused on opening RFEM 6 to all of our customers, enabling them to interact with RFEM 6 on a much higher level. If you are looking for a tool to help you solve parametric models or optimization tasks, you have come to the right place. This community serves as a support portal and base for all of your future projects. The goal is to create an easily expandable Python library, which communicates instructions to RFEM 6 through WebServices (WS). WS enables access to RFEM 6 either via a local instance or a remote internet connection.
 
+
+> :eyes: *Eyes on Upcoming Developmets!* 🆕
+> ---
+> As you may have already heard, brand new WS features are in the works. Having support for Python scripting directly in the RFEM, we have foundations to build completely new WS API which will be faster, have better access to results, and will have full compatibility with RFEM Console.
+
+
 ## Architecture
 
 * [![RFEM](https://img.shields.io/badge/RFEM-blue)](/RFEM): folder following the structure of RFEM 6 navigator containing individual types of objects
 * [![initModel](https://img.shields.io/badge/initModel.py-blue)](/RFEM/initModel.py): runs after window and initializes suds.Client by connecting to `http://localhost:8081/wsdl` and activating model in RFEM. It also envelops essential global functions.
 * [![enums](https://img.shields.io/badge/enums.py-blue)](/RFEM/enums.py): definition of enumerations
-
 
 
 ## Getting started
