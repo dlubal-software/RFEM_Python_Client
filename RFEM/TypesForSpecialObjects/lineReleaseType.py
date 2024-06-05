@@ -40,9 +40,9 @@ class LineReleaseType():
                 for translational_release_ux/y/z_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
                     translational_release_ux/y/z_nonlinearity = [nonlinearity type Diagram, [symmetric(bool), LineReleaseDiagram Enumeration(start), LineReleaseDiagram Enumeration(end)], [[displacement, force],...]]
                 for translational_release_ux/y/z_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1/NONLINEARITY_TYPE_FRICTION_DIRECTION_2/NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2:
-                    translational_release_n/vy/vz_nonlinearity = [nonlinearity type Friction Direction, [friction coefficient(float)]]
+                    translational_release_ux/y/z_nonlinearity = [nonlinearity type Friction Direction, [friction coefficient(float)]]
                 for translational_release_ux/y/z_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2:
-                    translational_release_n/vy/vz_nonlinearity = [nonlinearity type Friction Direction, [friction coefficient 1(float), friction coefficient 2(float)]]
+                    translational_release_ux/y/z_nonlinearity = [nonlinearity type Friction Direction, [friction coefficient 1(float), friction coefficient 2(float)]]
             rotational_release_phi_x_nonlinearity (list of lists): Nonlinearity Parameter for Rotational Release around X Direction
                 for rotational_release_phi_x_nonlinearity[0] == RotationalReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
                     rotational_release_phi_x_nonlinearity = [nonlinearity type Partial_Activity, negative zone, positive zone]
