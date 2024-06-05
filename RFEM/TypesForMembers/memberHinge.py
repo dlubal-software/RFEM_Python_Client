@@ -19,6 +19,7 @@ class MemberHinge():
                  rotational_release_mt_nonlinearity = [MemberHingeNonlinearity.NONLINEARITY_TYPE_NONE],
                  rotational_release_my_nonlinearity = [MemberHingeNonlinearity.NONLINEARITY_TYPE_NONE],
                  rotational_release_mz_nonlinearity = [MemberHingeNonlinearity.NONLINEARITY_TYPE_NONE],
+                 name: str = None,
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -36,9 +37,34 @@ class MemberHinge():
             translational_release_n_nonlinearity (list): Nonlinearity Options Translational X
             translational_release_vy_nonlinearity (list): Nonlinearity Options Translational Y
             translational_release_vz_nonlinearity (list): Nonlinearity Options Translational Z
+                for translational_release_n/vy/vz_nonlinearity[0] == MemberHingeNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
+                    translational_release_n/vy/vz_nonlinearity = [nonlinearity type Partial_Activity, negative zone, positive zone]
+                    for negative/positive zone[0] == MemberHingePartialActivityType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
+                        negative/positive zone = [negative/positive zone type, slippage]
+                    for negative/positive zone[0] == MemberHingePartialActivityType.PARTIAL_ACTIVITY_TYPE_FIXED:
+                        negative/positive zone = [negative/positive zone type, slippage, displacement]  (Note: Displacement must be greater than slippage)
+                    for negative/positive zone[0] == MemberHingePartialActivityType.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE/PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE:
+                        negative/positive zone = [negative/positive zone type, slippage, force]
+                for translational_release_n/vy/vz_nonlinearity[0] == MemberHingeNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
+                    translational_release_n/vy/vz_nonlinearity = [nonlinearity type Diagram, [symmetric(bool), MemberHingeDiagram Enumeration(start), MemberHingeDiagram Enumeration(end)], [[displacement, force],...]]
+                for translational_release_n/vy/vz_nonlinearity[0] == MemberHingeNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1/NONLINEARITY_TYPE_FRICTION_DIRECTION_2/NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2:
+                    translational_release_n/vy/vz_nonlinearity = [nonlinearity type Friction Direction, friction coefficient(float)]
+                for translational_release_n/vy/vz_nonlinearity[0] == MemberHingeNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2:
+                    translational_release_n/vy/vz_nonlinearity = [nonlinearity type Friction Direction, friction coefficient 1(float), friction coefficient 2(float)]
             rotational_release_mt_nonlinearity (list): Nonlinearity Options Rotational X
             rotational_release_my_nonlinearity (list): Nonlinearity Options Rotational Y
             rotational_release_mz_nonlinearity (list): Nonlinearity Options Rotational Z
+                for rotational_release_mt/my/mz_nonlinearity[0] == MemberHingeNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
+                    rotational_release_mt/my/mz_nonlinearity = [nonlinearity type Partial_Activity, negative zone, positive zone]
+                    for negative/positive zone[0] == MemberHingePartialActivityType.PARTIAL_ACTIVITY_TYPE_COMPLETE:
+                        negative/positive zone = [negative/positive zone type, slippage]
+                    for negative/positive zone[0] == MemberHingePartialActivityType.PARTIAL_ACTIVITY_TYPE_FIXED:
+                        negative/positive zone = [negative/positive zone type, slippage, rotation]
+                    for negative/positive zone[0] == MemberHingePartialActivityType.PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT/PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT:
+                        negative/positive zone = [negative/positive zone type, slippage, moment]
+                for rotational_release_mt/my/mz_nonlinearity[0] == MemberHingePartialActivityType.NONLINEARITY_TYPE_DIAGRAM:
+                    rotational_release_mt/my/mz_nonlinearity = [nonlinearity type Diagram, [symmetric(bool), NodalReleaseTypeDiagram Enumeration(start), NodalReleaseTypeDiagram Enumeration(end)], [[rotation, moment],...]]
+            name (str, optional): User Defined Member Hinge Name
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -96,15 +122,16 @@ class MemberHinge():
                 clientObject.partial_activity_along_x_negative_slippage = translational_release_n_nonlinearity[1][1]
 
             elif translational_release_n_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_FIXED":
-                clientObject.partial_activity_along_x_negative_displacement = translational_release_n_nonlinearity[1][1]
+                clientObject.partial_activity_along_x_negative_slippage = translational_release_n_nonlinearity[1][1]
+                clientObject.partial_activity_along_x_negative_displacement = translational_release_n_nonlinearity[1][2]
 
-            elif translational_release_n_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_TEARING":
-                clientObject.partial_activity_along_x_negative_force = translational_release_n_nonlinearity[1][1]
-                clientObject.partial_activity_along_x_negative_slippage = translational_release_n_nonlinearity[1][2]
+            elif translational_release_n_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE":
+                clientObject.partial_activity_along_x_negative_slippage = translational_release_n_nonlinearity[1][1]
+                clientObject.partial_activity_along_x_negative_force = translational_release_n_nonlinearity[1][2]
 
-            elif translational_release_n_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING":
-                clientObject.partial_activity_along_x_negative_force = translational_release_n_nonlinearity[1][1]
-                clientObject.partial_activity_along_x_negative_slippage = translational_release_n_nonlinearity[1][2]
+            elif translational_release_n_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE":
+                clientObject.partial_activity_along_x_negative_slippage = translational_release_n_nonlinearity[1][1]
+                clientObject.partial_activity_along_x_negative_force = translational_release_n_nonlinearity[1][2]
 
             # Positive Zone
             clientObject.partial_activity_along_x_positive_type = translational_release_n_nonlinearity[2][0].name
@@ -113,31 +140,39 @@ class MemberHinge():
                 clientObject.partial_activity_along_x_positive_slippage = translational_release_n_nonlinearity[2][1]
 
             elif translational_release_n_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_FIXED":
-                clientObject.partial_activity_along_x_positive_displacement = translational_release_n_nonlinearity[2][1]
+                clientObject.partial_activity_along_x_positive_slippage = translational_release_n_nonlinearity[2][1]
+                clientObject.partial_activity_along_x_positive_displacement = translational_release_n_nonlinearity[2][2]
 
-            elif translational_release_n_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_TEARING":
-                clientObject.partial_activity_along_x_positive_force = translational_release_n_nonlinearity[2][1]
-                clientObject.partial_activity_along_x_positive_slippage = translational_release_n_nonlinearity[2][2]
+            elif translational_release_n_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE":
+                clientObject.partial_activity_along_x_positive_slippage = translational_release_n_nonlinearity[2][1]
+                clientObject.partial_activity_along_x_positive_force = translational_release_n_nonlinearity[2][2]
 
-            elif translational_release_n_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING":
-                clientObject.partial_activity_along_x_positive_force = translational_release_n_nonlinearity[2][1]
-                clientObject.partial_activity_along_x_positive_slippage = translational_release_n_nonlinearity[2][2]
+            elif translational_release_n_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE":
+                clientObject.partial_activity_along_x_positive_slippage = translational_release_n_nonlinearity[2][1]
+                clientObject.partial_activity_along_x_positive_force = translational_release_n_nonlinearity[2][2]
 
         elif translational_release_n_nonlinearity[0].name == "NONLINEARITY_TYPE_DIAGRAM":
             clientObject.axial_release_n_nonlinearity = translational_release_n_nonlinearity[0].name
-            clientObject.diagram_along_x_start = translational_release_n_nonlinearity[1][0].name
-            clientObject.diagram_along_x_end = translational_release_n_nonlinearity[1][1].name
+            clientObject.diagram_along_x_symmetric = translational_release_n_nonlinearity[1][0]
+            clientObject.diagram_along_x_is_sorted = True
+
+            if translational_release_n_nonlinearity[1][0]:
+                clientObject.diagram_along_x_start = translational_release_n_nonlinearity[1][1].name
+                clientObject.diagram_along_x_end = translational_release_n_nonlinearity[1][1].name
+
+            else:
+                clientObject.diagram_along_x_start = translational_release_n_nonlinearity[1][1].name
+                clientObject.diagram_along_x_end = translational_release_n_nonlinearity[1][2].name
 
             clientObject.diagram_along_x_table = Model.clientModel.factory.create('ns0:member_hinge.diagram_along_x_table')
 
-            for i,j in enumerate(translational_release_n_nonlinearity[1][2]):
+            for i,j in enumerate(translational_release_n_nonlinearity[2]):
                 mlvlp = Model.clientModel.factory.create('ns0:member_hinge_diagram_along_x_table_row')
                 mlvlp.no = i+1
                 mlvlp.row = Model.clientModel.factory.create('ns0:member_hinge_diagram_along_x_table')
                 clearAttributes(mlvlp.row)
-                mlvlp.row.displacement = translational_release_n_nonlinearity[1][2][i][0]
-                mlvlp.row.force = translational_release_n_nonlinearity[1][2][i][1]
-                mlvlp.row.spring = translational_release_n_nonlinearity[1][2][i][2]
+                mlvlp.row.displacement = translational_release_n_nonlinearity[2][i][0]
+                mlvlp.row.force = translational_release_n_nonlinearity[2][i][1]
 
                 clientObject.diagram_along_x_table.member_hinge_diagram_along_x_table.append(mlvlp)
 
@@ -145,12 +180,12 @@ class MemberHinge():
         or translational_release_n_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_2" \
         or translational_release_n_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2":
             clientObject.axial_release_n_nonlinearity = translational_release_n_nonlinearity[0].name
-            clientObject.friction_coefficient_x = translational_release_n_nonlinearity[1][0]
+            clientObject.friction_coefficient_x = translational_release_n_nonlinearity[1]
 
         elif translational_release_n_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2":
             clientObject.axial_release_n_nonlinearity = translational_release_n_nonlinearity[0].name
-            clientObject.friction_coefficient_xy = translational_release_n_nonlinearity[1][0]
-            clientObject.friction_coefficient_xz = translational_release_n_nonlinearity[1][1]
+            clientObject.friction_coefficient_xy = translational_release_n_nonlinearity[1]
+            clientObject.friction_coefficient_xz = translational_release_n_nonlinearity[2]
 
         # Translational Release Vy Nonlinearity
         if translational_release_vy_nonlinearity[0].name == "NONLINEARITY_TYPE_NONE" \
@@ -169,15 +204,16 @@ class MemberHinge():
                 clientObject.partial_activity_along_y_negative_slippage = translational_release_vy_nonlinearity[1][1]
 
             elif translational_release_vy_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_FIXED":
-                clientObject.partial_activity_along_y_negative_displacement = translational_release_vy_nonlinearity[1][1]
+                clientObject.partial_activity_along_y_negative_slippage = translational_release_vy_nonlinearity[1][1]
+                clientObject.partial_activity_along_y_negative_displacement = translational_release_vy_nonlinearity[1][2]
 
-            elif translational_release_vy_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_TEARING":
-                clientObject.partial_activity_along_y_negative_force = translational_release_vy_nonlinearity[1][1]
-                clientObject.partial_activity_along_y_negative_slippage = translational_release_vy_nonlinearity[1][2]
+            elif translational_release_vy_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE":
+                clientObject.partial_activity_along_y_negative_slippage = translational_release_vy_nonlinearity[1][1]
+                clientObject.partial_activity_along_y_negative_force = translational_release_vy_nonlinearity[1][2]
 
-            elif translational_release_vy_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING":
-                clientObject.partial_activity_along_y_negative_force = translational_release_vy_nonlinearity[1][1]
-                clientObject.partial_activity_along_y_negative_slippage = translational_release_vy_nonlinearity[1][2]
+            elif translational_release_vy_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE":
+                clientObject.partial_activity_along_y_negative_slippage = translational_release_vy_nonlinearity[1][1]
+                clientObject.partial_activity_along_y_negative_force = translational_release_vy_nonlinearity[1][2]
 
             # Positive Zone
             clientObject.partial_activity_along_y_positive_type = translational_release_vy_nonlinearity[2][0].name
@@ -186,31 +222,39 @@ class MemberHinge():
                 clientObject.partial_activity_along_y_positive_slippage = translational_release_vy_nonlinearity[2][1]
 
             elif translational_release_vy_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_FIXED":
-                clientObject.partial_activity_along_y_positive_displacement = translational_release_vy_nonlinearity[2][1]
+                clientObject.partial_activity_along_y_positive_slippage = translational_release_vy_nonlinearity[2][1]
+                clientObject.partial_activity_along_y_positive_displacement = translational_release_vy_nonlinearity[2][2]
 
-            elif translational_release_vy_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_TEARING":
-                clientObject.partial_activity_along_y_positive_force = translational_release_vy_nonlinearity[2][1]
-                clientObject.partial_activity_along_y_positive_slippage = translational_release_vy_nonlinearity[2][2]
+            elif translational_release_vy_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE":
+                clientObject.partial_activity_along_y_positive_slippage = translational_release_vy_nonlinearity[2][1]
+                clientObject.partial_activity_along_y_positive_force = translational_release_vy_nonlinearity[2][2]
 
-            elif translational_release_vy_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING":
-                clientObject.partial_activity_along_y_positive_force = translational_release_vy_nonlinearity[2][1]
-                clientObject.partial_activity_along_y_positive_slippage = translational_release_vy_nonlinearity[2][2]
+            elif translational_release_vy_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE":
+                clientObject.partial_activity_along_y_positive_slippage = translational_release_vy_nonlinearity[2][1]
+                clientObject.partial_activity_along_y_positive_force = translational_release_vy_nonlinearity[2][2]
 
         elif translational_release_vy_nonlinearity[0].name == "NONLINEARITY_TYPE_DIAGRAM":
             clientObject.axial_release_vy_nonlinearity = translational_release_vy_nonlinearity[0].name
-            clientObject.diagram_along_y_start = translational_release_vy_nonlinearity[1][0].name
-            clientObject.diagram_along_y_end = translational_release_vy_nonlinearity[1][1].name
+            clientObject.diagram_along_y_symmetric = translational_release_vy_nonlinearity[1][0]
+            clientObject.diagram_along_y_is_sorted = True
+
+            if translational_release_vy_nonlinearity[1][0]:
+                clientObject.diagram_along_y_start = translational_release_vy_nonlinearity[1][1].name
+                clientObject.diagram_along_y_end = translational_release_vy_nonlinearity[1][1].name
+
+            else:
+                clientObject.diagram_along_y_start = translational_release_vy_nonlinearity[1][1].name
+                clientObject.diagram_along_y_end = translational_release_vy_nonlinearity[1][2].name
 
             clientObject.diagram_along_y_table = Model.clientModel.factory.create('ns0:member_hinge.diagram_along_y_table')
 
-            for i,j in enumerate(translational_release_vy_nonlinearity[1][2]):
+            for i,j in enumerate(translational_release_vy_nonlinearity[2]):
                 mlvlp = Model.clientModel.factory.create('ns0:member_hinge_diagram_along_y_table_row')
                 mlvlp.no = i+1
                 mlvlp.row = Model.clientModel.factory.create('ns0:member_hinge_diagram_along_y_table')
                 clearAttributes(mlvlp.row)
-                mlvlp.row.displacement = translational_release_vy_nonlinearity[1][2][i][0]
-                mlvlp.row.force = translational_release_vy_nonlinearity[1][2][i][1]
-                mlvlp.row.spring = translational_release_vy_nonlinearity[1][2][i][2]
+                mlvlp.row.displacement = translational_release_vy_nonlinearity[2][i][0]
+                mlvlp.row.force = translational_release_vy_nonlinearity[2][i][1]
 
                 clientObject.diagram_along_y_table.member_hinge_diagram_along_y_table.append(mlvlp)
 
@@ -218,12 +262,12 @@ class MemberHinge():
         or translational_release_vy_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_2" \
         or translational_release_vy_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2":
             clientObject.axial_release_vy_nonlinearity = translational_release_vy_nonlinearity[0].name
-            clientObject.friction_coefficient_y = translational_release_vy_nonlinearity[1][0]
+            clientObject.friction_coefficient_y = translational_release_vy_nonlinearity[1]
 
         elif translational_release_vy_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2":
             clientObject.axial_release_vy_nonlinearity = translational_release_vy_nonlinearity[0].name
-            clientObject.friction_coefficient_yx = translational_release_vy_nonlinearity[1][0]
-            clientObject.friction_coefficient_yz = translational_release_vy_nonlinearity[1][1]
+            clientObject.friction_coefficient_yx = translational_release_vy_nonlinearity[1]
+            clientObject.friction_coefficient_yz = translational_release_vy_nonlinearity[2]
 
         # Translational Release Vz Nonlinearity
         if translational_release_vz_nonlinearity[0].name == "NONLINEARITY_TYPE_NONE" \
@@ -242,15 +286,16 @@ class MemberHinge():
                 clientObject.partial_activity_along_z_negative_slippage = translational_release_vz_nonlinearity[1][1]
 
             elif translational_release_vz_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_FIXED":
-                clientObject.partial_activity_along_z_negative_displacement = translational_release_vz_nonlinearity[1][1]
+                clientObject.partial_activity_along_z_negative_slippage = translational_release_vz_nonlinearity[1][1]
+                clientObject.partial_activity_along_z_negative_displacement = translational_release_vz_nonlinearity[1][2]
 
-            elif translational_release_vz_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_TEARING":
-                clientObject.partial_activity_along_z_negative_force = translational_release_vz_nonlinearity[1][1]
-                clientObject.partial_activity_along_z_negative_slippage = translational_release_vz_nonlinearity[1][2]
+            elif translational_release_vz_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE":
+                clientObject.partial_activity_along_z_negative_slippage = translational_release_vz_nonlinearity[1][1]
+                clientObject.partial_activity_along_z_negative_force = translational_release_vz_nonlinearity[1][2]
 
-            elif translational_release_vz_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING":
-                clientObject.partial_activity_along_z_negative_force = translational_release_vz_nonlinearity[1][1]
-                clientObject.partial_activity_along_z_negative_slippage = translational_release_vz_nonlinearity[1][2]
+            elif translational_release_vz_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE":
+                clientObject.partial_activity_along_z_negative_slippage = translational_release_vz_nonlinearity[1][1]
+                clientObject.partial_activity_along_z_negative_force = translational_release_vz_nonlinearity[1][2]
 
             # Positive Zone
             clientObject.partial_activity_along_z_positive_type = translational_release_vz_nonlinearity[2][0].name
@@ -259,31 +304,39 @@ class MemberHinge():
                 clientObject.partial_activity_along_z_positive_slippage = translational_release_vz_nonlinearity[2][1]
 
             elif translational_release_vz_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_FIXED":
-                clientObject.partial_activity_along_z_positive_displacement = translational_release_vz_nonlinearity[2][1]
+                clientObject.partial_activity_along_z_positive_slippage = translational_release_vz_nonlinearity[2][1]
+                clientObject.partial_activity_along_z_positive_displacement = translational_release_vz_nonlinearity[2][2]
 
-            elif translational_release_vz_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_TEARING":
-                clientObject.partial_activity_along_z_positive_force = translational_release_vz_nonlinearity[2][1]
-                clientObject.partial_activity_along_z_positive_slippage = translational_release_vz_nonlinearity[2][2]
+            elif translational_release_vz_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_FORCE":
+                clientObject.partial_activity_along_z_positive_slippage = translational_release_vz_nonlinearity[2][1]
+                clientObject.partial_activity_along_z_positive_force = translational_release_vz_nonlinearity[2][2]
 
-            elif translational_release_vz_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING":
-                clientObject.partial_activity_along_z_positive_force = translational_release_vz_nonlinearity[2][1]
-                clientObject.partial_activity_along_z_positive_slippage = translational_release_vz_nonlinearity[2][2]
+            elif translational_release_vz_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_FORCE":
+                clientObject.partial_activity_along_z_positive_slippage = translational_release_vz_nonlinearity[2][1]
+                clientObject.partial_activity_along_z_positive_force = translational_release_vz_nonlinearity[2][2]
 
         elif translational_release_vz_nonlinearity[0].name == "NONLINEARITY_TYPE_DIAGRAM":
             clientObject.axial_release_vz_nonlinearity = translational_release_vz_nonlinearity[0].name
-            clientObject.diagram_along_z_start = translational_release_vz_nonlinearity[1][0].name
-            clientObject.diagram_along_z_end = translational_release_vz_nonlinearity[1][1].name
+            clientObject.diagram_along_z_symmetric = translational_release_vz_nonlinearity[1][0]
+            clientObject.diagram_along_z_is_sorted = True
+
+            if translational_release_vz_nonlinearity[1][0]:
+                clientObject.diagram_along_z_start = translational_release_vz_nonlinearity[1][1].name
+                clientObject.diagram_along_z_end = translational_release_vz_nonlinearity[1][1].name
+
+            else:
+                clientObject.diagram_along_z_start = translational_release_vz_nonlinearity[1][1].name
+                clientObject.diagram_along_z_end = translational_release_vz_nonlinearity[1][2].name
 
             clientObject.diagram_along_z_table = Model.clientModel.factory.create('ns0:member_hinge.diagram_along_z_table')
 
-            for i,j in enumerate(translational_release_vz_nonlinearity[1][2]):
+            for i,j in enumerate(translational_release_vz_nonlinearity[2]):
                 mlvlp = Model.clientModel.factory.create('ns0:member_hinge_diagram_along_z_table_row')
                 mlvlp.no = i+1
                 mlvlp.row = Model.clientModel.factory.create('ns0:member_hinge_diagram_along_z_table')
                 clearAttributes(mlvlp.row)
-                mlvlp.row.displacement = translational_release_vz_nonlinearity[1][2][i][0]
-                mlvlp.row.force = translational_release_vz_nonlinearity[1][2][i][1]
-                mlvlp.row.spring = translational_release_vz_nonlinearity[1][2][i][2]
+                mlvlp.row.displacement = translational_release_vz_nonlinearity[2][i][0]
+                mlvlp.row.force = translational_release_vz_nonlinearity[2][i][1]
 
                 clientObject.diagram_along_z_table.member_hinge_diagram_along_z_table.append(mlvlp)
 
@@ -291,12 +344,12 @@ class MemberHinge():
         or translational_release_vz_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_2" \
         or translational_release_vz_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2":
             clientObject.axial_release_vz_nonlinearity = translational_release_vz_nonlinearity[0].name
-            clientObject.friction_coefficient_z = translational_release_vz_nonlinearity[1][0]
+            clientObject.friction_coefficient_z = translational_release_vz_nonlinearity[1]
 
         elif translational_release_vz_nonlinearity[0].name == "NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2":
             clientObject.axial_release_vz_nonlinearity = translational_release_vz_nonlinearity[0].name
-            clientObject.friction_coefficient_zx = translational_release_vz_nonlinearity[1][0]
-            clientObject.friction_coefficient_zy = translational_release_vz_nonlinearity[1][1]
+            clientObject.friction_coefficient_zx = translational_release_vz_nonlinearity[1]
+            clientObject.friction_coefficient_zy = translational_release_vz_nonlinearity[2]
 
         # Rotational Release Mt Nonlinearity
         if rotational_release_mt_nonlinearity[0].name == "NONLINEARITY_TYPE_NONE" \
@@ -315,15 +368,16 @@ class MemberHinge():
                 clientObject.partial_activity_around_x_negative_slippage = rotational_release_mt_nonlinearity[1][1]
 
             elif rotational_release_mt_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_FIXED":
-                clientObject.partial_activity_around_x_negative_displacement = rotational_release_mt_nonlinearity[1][1]
+                clientObject.partial_activity_around_x_negative_slippage = rotational_release_mt_nonlinearity[1][1]
+                clientObject.partial_activity_around_x_negative_rotation = rotational_release_mt_nonlinearity[1][2]
 
-            elif rotational_release_mt_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_TEARING":
-                clientObject.partial_activity_around_x_negative_force = rotational_release_mt_nonlinearity[1][1]
-                clientObject.partial_activity_around_x_negative_slippage = rotational_release_mt_nonlinearity[1][2]
+            elif rotational_release_mt_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT":
+                clientObject.partial_activity_around_x_negative_slippage = rotational_release_mt_nonlinearity[1][1]
+                clientObject.partial_activity_around_x_negative_moment = rotational_release_mt_nonlinearity[1][2]
 
-            elif rotational_release_mt_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING":
-                clientObject.partial_activity_around_x_negative_force = rotational_release_mt_nonlinearity[1][1]
-                clientObject.partial_activity_around_x_negative_slippage = rotational_release_mt_nonlinearity[1][2]
+            elif rotational_release_mt_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT":
+                clientObject.partial_activity_around_x_negative_slippage = rotational_release_mt_nonlinearity[1][1]
+                clientObject.partial_activity_around_x_negative_force = rotational_release_mt_nonlinearity[1][2]
 
             # Positive Zone
             clientObject.partial_activity_around_x_positive_type = rotational_release_mt_nonlinearity[2][0].name
@@ -332,31 +386,39 @@ class MemberHinge():
                 clientObject.partial_activity_around_x_positive_slippage = rotational_release_mt_nonlinearity[2][1]
 
             elif rotational_release_mt_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_FIXED":
-                clientObject.partial_activity_around_x_positive_displacement = rotational_release_mt_nonlinearity[2][1]
+                clientObject.partial_activity_around_x_positive_slippage = rotational_release_mt_nonlinearity[2][1]
+                clientObject.partial_activity_around_x_positive_rotation = rotational_release_mt_nonlinearity[2][2]
 
-            elif rotational_release_mt_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_TEARING":
-                clientObject.partial_activity_around_x_positive_force = rotational_release_mt_nonlinearity[2][1]
-                clientObject.partial_activity_around_x_positive_slippage = rotational_release_mt_nonlinearity[2][2]
+            elif rotational_release_mt_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT":
+                clientObject.partial_activity_around_x_positive_slippage = rotational_release_mt_nonlinearity[2][1]
+                clientObject.partial_activity_around_x_positive_moment = rotational_release_mt_nonlinearity[2][2]
 
-            elif rotational_release_mt_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING":
-                clientObject.partial_activity_around_x_positive_force = rotational_release_mt_nonlinearity[2][1]
-                clientObject.partial_activity_around_x_positive_slippage = rotational_release_mt_nonlinearity[2][2]
+            elif rotational_release_mt_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT":
+                clientObject.partial_activity_around_x_positive_slippage = rotational_release_mt_nonlinearity[2][1]
+                clientObject.partial_activity_around_x_positive_moment = rotational_release_mt_nonlinearity[2][2]
 
         elif rotational_release_mt_nonlinearity[0].name == "NONLINEARITY_TYPE_DIAGRAM":
             clientObject.moment_release_mt_nonlinearity = rotational_release_mt_nonlinearity[0].name
-            clientObject.diagram_around_x_start = rotational_release_mt_nonlinearity[1][0].name
-            clientObject.diagram_around_x_end = rotational_release_mt_nonlinearity[1][1].name
+            clientObject.diagram_around_x_symmetric = rotational_release_mt_nonlinearity[1][0]
+            clientObject.diagram_around_x_is_sorted = True
+
+            if rotational_release_mt_nonlinearity[1][0]:
+                clientObject.diagram_around_x_start = rotational_release_mt_nonlinearity[1][1].name
+                clientObject.diagram_around_x_end = rotational_release_mt_nonlinearity[1][1].name
+
+            else:
+                clientObject.diagram_around_x_start = rotational_release_mt_nonlinearity[1][1].name
+                clientObject.diagram_around_x_end = rotational_release_mt_nonlinearity[1][2].name
 
             clientObject.diagram_around_x_table = Model.clientModel.factory.create('ns0:member_hinge.diagram_around_x_table')
 
-            for i,j in enumerate(rotational_release_mt_nonlinearity[1][2]):
+            for i,j in enumerate(rotational_release_mt_nonlinearity[2]):
                 mlvlp = Model.clientModel.factory.create('ns0:member_hinge_diagram_around_x_table_row')
                 mlvlp.no = i+1
                 mlvlp.row = Model.clientModel.factory.create('ns0:member_hinge_diagram_around_x_table')
                 clearAttributes(mlvlp.row)
-                mlvlp.row.rotation = rotational_release_mt_nonlinearity[1][2][i][0]
-                mlvlp.row.moment = rotational_release_mt_nonlinearity[1][2][i][1]
-                mlvlp.row.spring = rotational_release_mt_nonlinearity[1][2][i][2]
+                mlvlp.row.rotation = rotational_release_mt_nonlinearity[2][i][0]
+                mlvlp.row.moment = rotational_release_mt_nonlinearity[2][i][1]
 
                 clientObject.diagram_around_x_table.member_hinge_diagram_around_x_table.append(mlvlp)
 
@@ -377,15 +439,16 @@ class MemberHinge():
                 clientObject.partial_activity_around_y_negative_slippage = rotational_release_my_nonlinearity[1][1]
 
             elif rotational_release_my_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_FIXED":
-                clientObject.partial_activity_around_y_negative_displacement = rotational_release_my_nonlinearity[1][1]
+                clientObject.partial_activity_around_y_negative_slippage = rotational_release_my_nonlinearity[1][1]
+                clientObject.partial_activity_around_y_negative_rotation = rotational_release_my_nonlinearity[1][2]
 
-            elif rotational_release_my_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_TEARING":
-                clientObject.partial_activity_around_y_negative_force = rotational_release_my_nonlinearity[1][1]
-                clientObject.partial_activity_around_y_negative_slippage = rotational_release_my_nonlinearity[1][2]
+            elif rotational_release_my_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT":
+                clientObject.partial_activity_around_y_negative_slippage = rotational_release_my_nonlinearity[1][1]
+                clientObject.partial_activity_around_y_negative_moment = rotational_release_my_nonlinearity[1][2]
 
-            elif rotational_release_my_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING":
-                clientObject.partial_activity_around_y_negative_force = rotational_release_my_nonlinearity[1][1]
-                clientObject.partial_activity_around_y_negative_slippage = rotational_release_my_nonlinearity[1][2]
+            elif rotational_release_my_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT":
+                clientObject.partial_activity_around_y_negative_slippage = rotational_release_my_nonlinearity[1][1]
+                clientObject.partial_activity_around_y_negative_force = rotational_release_my_nonlinearity[1][2]
 
             # Positive Zone
             clientObject.partial_activity_around_y_positive_type = rotational_release_my_nonlinearity[2][0].name
@@ -394,31 +457,39 @@ class MemberHinge():
                 clientObject.partial_activity_around_y_positive_slippage = rotational_release_my_nonlinearity[2][1]
 
             elif rotational_release_my_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_FIXED":
-                clientObject.partial_activity_around_y_positive_displacement = rotational_release_my_nonlinearity[2][1]
+                clientObject.partial_activity_around_y_positive_slippage = rotational_release_my_nonlinearity[2][1]
+                clientObject.partial_activity_around_y_positive_rotation = rotational_release_my_nonlinearity[2][2]
 
-            elif rotational_release_my_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_TEARING":
-                clientObject.partial_activity_around_y_positive_force = rotational_release_my_nonlinearity[2][1]
-                clientObject.partial_activity_around_y_positive_slippage = rotational_release_my_nonlinearity[2][2]
+            elif rotational_release_my_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT":
+                clientObject.partial_activity_around_y_positive_slippage = rotational_release_my_nonlinearity[2][1]
+                clientObject.partial_activity_around_y_positive_moment = rotational_release_my_nonlinearity[2][2]
 
-            elif rotational_release_my_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING":
-                clientObject.partial_activity_around_y_positive_force = rotational_release_my_nonlinearity[2][1]
-                clientObject.partial_activity_around_y_positive_slippage = rotational_release_my_nonlinearity[2][2]
+            elif rotational_release_my_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT":
+                clientObject.partial_activity_around_y_positive_slippage = rotational_release_my_nonlinearity[2][1]
+                clientObject.partial_activity_around_y_positive_moment = rotational_release_my_nonlinearity[2][2]
 
         elif rotational_release_my_nonlinearity[0].name == "NONLINEARITY_TYPE_DIAGRAM":
             clientObject.moment_release_my_nonlinearity = rotational_release_my_nonlinearity[0].name
-            clientObject.diagram_around_y_start = rotational_release_my_nonlinearity[1][0].name
-            clientObject.diagram_around_y_end = rotational_release_my_nonlinearity[1][1].name
+            clientObject.diagram_around_y_symmetric = rotational_release_my_nonlinearity[1][0]
+            clientObject.diagram_around_y_is_sorted = True
+
+            if rotational_release_my_nonlinearity[1][0]:
+                clientObject.diagram_around_y_start = rotational_release_my_nonlinearity[1][1].name
+                clientObject.diagram_around_y_end = rotational_release_my_nonlinearity[1][1].name
+
+            else:
+                clientObject.diagram_around_y_start = rotational_release_my_nonlinearity[1][1].name
+                clientObject.diagram_around_y_end = rotational_release_my_nonlinearity[1][2].name
 
             clientObject.diagram_around_y_table = Model.clientModel.factory.create('ns0:member_hinge.diagram_around_y_table')
 
-            for i,j in enumerate(rotational_release_my_nonlinearity[1][2]):
+            for i,j in enumerate(rotational_release_my_nonlinearity[2]):
                 mlvlp = Model.clientModel.factory.create('ns0:member_hinge_diagram_around_y_table_row')
                 mlvlp.no = i+1
                 mlvlp.row = Model.clientModel.factory.create('ns0:member_hinge_diagram_around_y_table')
                 clearAttributes(mlvlp.row)
-                mlvlp.row.rotation = rotational_release_my_nonlinearity[1][2][i][0]
-                mlvlp.row.moment = rotational_release_my_nonlinearity[1][2][i][1]
-                mlvlp.row.spring = rotational_release_my_nonlinearity[1][2][i][2]
+                mlvlp.row.rotation = rotational_release_my_nonlinearity[2][i][0]
+                mlvlp.row.moment = rotational_release_my_nonlinearity[2][i][1]
 
                 clientObject.diagram_around_y_table.member_hinge_diagram_around_y_table.append(mlvlp)
 
@@ -439,15 +510,16 @@ class MemberHinge():
                 clientObject.partial_activity_around_z_negative_slippage = rotational_release_mz_nonlinearity[1][1]
 
             elif rotational_release_mz_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_FIXED":
-                clientObject.partial_activity_around_z_negative_displacement = rotational_release_mz_nonlinearity[1][1]
+                clientObject.partial_activity_around_z_negative_slippage = rotational_release_mz_nonlinearity[1][1]
+                clientObject.partial_activity_around_z_negative_rotation = rotational_release_mz_nonlinearity[1][2]
 
-            elif rotational_release_mz_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_TEARING":
-                clientObject.partial_activity_around_z_negative_force = rotational_release_mz_nonlinearity[1][1]
-                clientObject.partial_activity_around_z_negative_slippage = rotational_release_mz_nonlinearity[1][2]
+            elif rotational_release_mz_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT":
+                clientObject.partial_activity_around_z_negative_slippage = rotational_release_mz_nonlinearity[1][1]
+                clientObject.partial_activity_around_z_negative_moment = rotational_release_mz_nonlinearity[1][2]
 
-            elif rotational_release_mz_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING":
-                clientObject.partial_activity_around_z_negative_force = rotational_release_mz_nonlinearity[1][1]
-                clientObject.partial_activity_around_z_negative_slippage = rotational_release_mz_nonlinearity[1][2]
+            elif rotational_release_mz_nonlinearity[1][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT":
+                clientObject.partial_activity_around_z_negative_slippage = rotational_release_mz_nonlinearity[1][1]
+                clientObject.partial_activity_around_z_negative_force = rotational_release_mz_nonlinearity[1][2]
 
             # Positive Zone
             clientObject.partial_activity_around_z_positive_type = rotational_release_mz_nonlinearity[2][0].name
@@ -456,33 +528,46 @@ class MemberHinge():
                 clientObject.partial_activity_around_z_positive_slippage = rotational_release_mz_nonlinearity[2][1]
 
             elif rotational_release_mz_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_FIXED":
-                clientObject.partial_activity_around_z_positive_displacement = rotational_release_mz_nonlinearity[2][1]
+                clientObject.partial_activity_around_z_positive_slippage = rotational_release_mz_nonlinearity[2][1]
+                clientObject.partial_activity_around_z_positive_rotation = rotational_release_mz_nonlinearity[2][2]
 
-            elif rotational_release_mz_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_TEARING":
-                clientObject.partial_activity_around_z_positive_force = rotational_release_mz_nonlinearity[2][1]
-                clientObject.partial_activity_around_z_positive_slippage = rotational_release_mz_nonlinearity[2][2]
+            elif rotational_release_mz_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_FAILURE_FROM_MOMENT":
+                clientObject.partial_activity_around_z_positive_slippage = rotational_release_mz_nonlinearity[2][1]
+                clientObject.partial_activity_around_z_positive_moment = rotational_release_mz_nonlinearity[2][2]
 
-            elif rotational_release_mz_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING":
-                clientObject.partial_activity_around_z_positive_force = rotational_release_mz_nonlinearity[2][1]
-                clientObject.partial_activity_around_z_positive_slippage = rotational_release_mz_nonlinearity[2][2]
+            elif rotational_release_mz_nonlinearity[2][0].name == "PARTIAL_ACTIVITY_TYPE_YIELDING_FROM_MOMENT":
+                clientObject.partial_activity_around_z_positive_slippage = rotational_release_mz_nonlinearity[2][1]
+                clientObject.partial_activity_around_z_positive_moment = rotational_release_mz_nonlinearity[2][2]
 
         elif rotational_release_mz_nonlinearity[0].name == "NONLINEARITY_TYPE_DIAGRAM":
             clientObject.moment_release_mz_nonlinearity = rotational_release_mz_nonlinearity[0].name
-            clientObject.diagram_around_z_start = rotational_release_mz_nonlinearity[1][0].name
-            clientObject.diagram_around_z_end = rotational_release_mz_nonlinearity[1][1].name
+            clientObject.diagram_around_z_symmetric = rotational_release_mz_nonlinearity[1][0]
+            clientObject.diagram_around_z_is_sorted = True
+
+            if rotational_release_mz_nonlinearity[1][0]:
+                clientObject.diagram_around_z_start = rotational_release_mz_nonlinearity[1][1].name
+                clientObject.diagram_around_z_end = rotational_release_mz_nonlinearity[1][1].name
+
+            else:
+                clientObject.diagram_around_z_start = rotational_release_mz_nonlinearity[1][1].name
+                clientObject.diagram_around_z_end = rotational_release_mz_nonlinearity[1][2].name
 
             clientObject.diagram_around_z_table = Model.clientModel.factory.create('ns0:member_hinge.diagram_around_z_table')
 
-            for i,j in enumerate(rotational_release_mz_nonlinearity[1][2]):
+            for i,j in enumerate(rotational_release_mz_nonlinearity[2]):
                 mlvlp = Model.clientModel.factory.create('ns0:member_hinge_diagram_around_z_table_row')
                 mlvlp.no = i+1
                 mlvlp.row = Model.clientModel.factory.create('ns0:member_hinge_diagram_around_z_table')
                 clearAttributes(mlvlp.row)
-                mlvlp.row.rotation = rotational_release_mz_nonlinearity[1][2][i][0]
-                mlvlp.row.moment = rotational_release_mz_nonlinearity[1][2][i][1]
-                mlvlp.row.spring = rotational_release_mz_nonlinearity[1][2][i][2]
+                mlvlp.row.rotation = rotational_release_mz_nonlinearity[2][i][0]
+                mlvlp.row.moment = rotational_release_mz_nonlinearity[2][i][1]
 
                 clientObject.diagram_around_z_table.member_hinge_diagram_around_z_table.append(mlvlp)
+
+        # Member HInge User defined name
+        if name:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
 
         # Comment
         clientObject.comment = comment
