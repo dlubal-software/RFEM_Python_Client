@@ -1,5 +1,5 @@
 from RFEM.enums import MemberType, MemberRotationSpecificationType, MemberSectionDistributionType, MemberTypeRibAlignment, MemberResultBeamIntegration, ObjectTypes
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertStrToListOfInt
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertStrToListOfInt, ConvertToDlString
 
 class Member():
     def __init__(self,
@@ -1101,6 +1101,8 @@ class Member():
             end_section_no: int = 1,
             distribution_parameters: list = None,
             integration_parameters: list = None,
+            include_objects: list = [True, True, True],
+            exclude_objects: list = [None, None, None],
             comment: str = '',
             params: dict = { 'end_modifications_member_start_extension': 0,
                             'end_modifications_member_start_slope_y': 0,
@@ -1157,6 +1159,14 @@ class Member():
                     integration_parameters = [result_beam_y_plus, result_beam_z_plus, result_beam_y_minus, result_beam_z_minus]
                 for result_beam_integrate_stresses_and_forces.name == "INTEGRATE_WITHIN_CYLINDER":
                     integration_parameters = [result_beam_radius]
+            include_objects (list): Include Objects List
+                include_objects[0] (bool/str)= Assign Include Surfaces (e.g '1 2 3') (Note: 'True' for all surfaces else string input)
+                include_objects[1] (bool/str)= Assign Include Solids (e.g '1 2 3') (Note: 'True' for all solids else string input)
+                include_objects[2] (bool/str)= Assign Include Members (e.g '1 2 3') (Note: 'True' for all members else string input)
+            exclude_objects (list): Exclude Objects List
+                exclude_objects[0] (str)= Assign Exclude Surfaces (e.g '1 2 3')
+                exclude_objects[1] (str)= Assign Exclude Solids (e.g '1 2 3')
+                exclude_objects[2] (str)= Assign Exclude Members (e.g '1 2 3')
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
                 params = {'end_modifications_member_start_extension': , 'end_modifications_member_start_slope_y': ,
@@ -1199,6 +1209,33 @@ class Member():
         elif result_beam_integrate_stresses_and_forces.name == "INTEGRATE_WITHIN_CYLINDER":
             clientObject.result_beam_radius = integration_parameters[0]
 
+        # Include Exclude Objects
+        if include_objects[0] == True:
+            clientObject.result_beam_include_all_surfaces = True
+        elif isinstance(include_objects[0], str):
+            clientObject.result_beam_include_all_surfaces = False
+            clientObject.result_beam_include_surfaces = ConvertToDlString(include_objects[0])
+
+        if include_objects[1] == True:
+            clientObject.result_beam_include_all_solids = True
+        elif isinstance(include_objects[1], str):
+            clientObject.result_beam_include_all_solids = False
+            clientObject.result_beam_include_solids = ConvertToDlString(include_objects[1])
+
+        if include_objects[2] == True:
+            clientObject.result_beam_include_all_members = True
+        elif isinstance(include_objects[2], str):
+            clientObject.result_beam_include_all_members = False
+            clientObject.result_beam_include_members = ConvertToDlString(include_objects[2])
+
+        if isinstance(exclude_objects[0], str):
+            clientObject.result_beam_exclude_surfaces = ConvertToDlString(exclude_objects[0])
+        if isinstance(exclude_objects[1], str):
+            clientObject.result_beam_exclude_solids = ConvertToDlString(exclude_objects[1])
+        if isinstance(exclude_objects[2], str):
+            clientObject.result_beam_exclude_members = ConvertToDlString(exclude_objects[2])
+
+        # Section Distribution
         if section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR:
             clientObject.section_alignment = distribution_parameters[0].name
         elif section_distribution_type == MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES:
