@@ -323,6 +323,7 @@ def test_line_set_loads():
     LineSetLoad.Mass(3, 1, '1', False, [3100])
     LineSetLoad.Moment(4, load_parameter=4000)
     LineSetLoad.Force(5, 1, '1', LineSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, LineSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, [[1,1200],[3,2300]])
+    LineSetLoad.Force(6, 1, '1', LineSetLoadDistribution.LOAD_DISTRIBUTION_VARYING, LineSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, [[1,1200],[3,2300]],)
     Model.clientModel.service.finish_modification()
 
     assert Model.clientModel.service.get_line_set_load(1, 1).magnitude == 1200.5
@@ -330,3 +331,4 @@ def test_line_set_loads():
     assert Model.clientModel.service.get_line_set_load(3, 1).mass_global == 3100
     assert Model.clientModel.service.get_line_set_load(4, 1).magnitude == 4000
     assert Model.clientModel.service.get_line_set_load(5, 1).load_distribution == 'LOAD_DISTRIBUTION_CONCENTRATED_VARYING'
+    assert Model.clientModel.service.get_line_set_load(6, 1).load_distribution == 'LOAD_DISTRIBUTION_VARYING'

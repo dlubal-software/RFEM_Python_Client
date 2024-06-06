@@ -287,7 +287,7 @@ class LineSetLoad():
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
             clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:line_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                if len(load_parameter[i]) != 3:
+                if len(load_parameter[i]) != 2:
                     raise ValueError("WARNING: LineLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = Model.clientModel.factory.create('ns0:line_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
@@ -532,7 +532,7 @@ class LineSetLoad():
         elif load_distribution.name == "LOAD_DISTRIBUTION_VARYING":
             clientObject.varying_load_parameters = Model.clientModel.factory.create('ns0:line_set_load.varying_load_parameters')
             for i,j in enumerate(load_parameter):
-                if len(load_parameter[i]) != 3:
+                if len(load_parameter[i]) != 2:
                     raise ValueError("WARNING: LineLoad no: %x, load case: %x - Wrong data input." % (no, load_case_no))
                 mlvlp = Model.clientModel.factory.create('ns0:line_set_load_varying_load_parameters_row')
                 mlvlp.no = i+1
