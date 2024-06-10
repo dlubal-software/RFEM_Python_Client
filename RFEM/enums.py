@@ -1862,7 +1862,7 @@ class SurfaceResultsAdjustmentType(Enum):
     '''
     Surface Result Adjustment Type. ZERO left out intentionaly.
     '''
-    AVERAGING_OF_MY_MXY_VY_NY_NXY, AVERAGING_OF_MX_MXY_VX_NX_NXY, USER_DEFINED, NONE = range(4)
+    AVERAGING_OF_MY_MXY_VY_NY_NXY, AVERAGING_OF_MX_MXY_VX_NX_NXY, USER_DEFINED, NONE, ZERO = range(5)
 
 class SurfaceResultsAdjustmentProjection(Enum):
     '''

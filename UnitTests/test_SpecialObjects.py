@@ -15,7 +15,7 @@ from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.surface import Surface
 from RFEM.SpecialObjects.intersection import Intersection
-from RFEM.SpecialObjects.surfaceResultAdjustment import SurfaceResultsAdjustment
+from RFEM.SpecialObjects.surfaceResultsAdjustment import SurfaceResultsAdjustment
 from RFEM.SpecialObjects.surfaceContact import SurfaceContact
 from RFEM.SpecialObjects.resultSection import ResultSection
 from RFEM.SpecialObjects.structureModification import StructureModification
