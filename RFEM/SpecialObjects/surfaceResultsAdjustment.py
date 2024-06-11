@@ -29,12 +29,13 @@ class SurfaceResultsAdjustment():
                  no: int = 1,
                  shape = SurfaceResultsAdjustmentShape.SHAPE_RECTANGLE,
                  dimensions: list = None,
-                 center_position: list = None,
+                 center_position: list = [0,0,0],
                  adjustment_type_in_direction_u = SurfaceResultsAdjustmentType.AVERAGING_OF_MY_MXY_VY_NY_NXY,
                  adjustment_type_in_direction_v = SurfaceResultsAdjustmentType.AVERAGING_OF_MX_MXY_VX_NX_NXY,
                  projection = SurfaceResultsAdjustmentProjection.PERPENDICULAR,
                  projection_vector: list = None,
                  surfaces: str = '',
+                 name: str = '',
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -43,14 +44,30 @@ class SurfaceResultsAdjustment():
 
         Args:
             no (int): Surface Results Adjustment Tag
-            shape (enum): Surface Results Adjustment Shape Enumeration
-            dimensions (list): Dimensions and Angular Rotation List
-            center_position (list, optional): Center Position List
+            shape (enum): Surface Results Adjustment Shape Enumeration (Note: 'SHAPE_POLYGON' is allowed only for adjustment type: 'CONTACT_STRESS_AREA')
+            dimensions (list/list of lists): Dimensions and Angular Rotation List for Shape
+                for shape == SHAPE_RECTANGLE:
+                    dimensions = [dimension_1, dimension_2, angular_rotation]
+                for shape == SHAPE_CIRCLE:
+                    dimensions = [dimension_1, angular_rotation]
+                for shape == SHAPE_ELLIPSE:
+                    dimensions = [dimension_1, dimension_2, angular_rotation]
+                for shape == SHAPE_POLYGON:
+                    dimensions = [[x1, y1, z1], [x2, y2, z2]...]
+            center_position (list): Center Position List
             adjustment_type_in_direction_u (enum/list): Surface Results Adjustment Type in Direction U
             adjustment_type_in_direction_v (enum/list): Surface Results Adjustment Type in Direction V
+                for adjustment type in u/v direction == AVERAGING_OF_MY_MXY_VY_NY_NXY/AVERAGING_OF_MX_MXY_VX_NX_NXY/NONE/CONTACT_STRESS_AREA:
+                    adjustment_type_in_direction_u/v (enum) = Surface Results Adjustment Type Enumeration
+                for adjustment type in u/v direction == USER_DEFINED/ZERO:
+                    adjustment_type_in_direction_u/v (list) = [Surface Results Adjustment Type Enumeration, Child_items dictionary]
             projection (enum, optional): Surface Results Adjustment Projection Enumeration
-            projection_vector (list, optional): Projection vector List in case projection == VECTOR
-            surfaces (str, optional): Assigned to surfaces
+            projection_vector (list, optional): Projection vector List in case projection
+                for projection == VECTOR:
+                    projection_vector (list): [coordinates_x, coordinates_y, coordinates_z]
+                else:
+                    projection_vector = None
+            surfaces (str): Assigned to surfaces
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -66,30 +83,49 @@ class SurfaceResultsAdjustment():
         clientObject.no = no
 
         # Surface Result Adjustment Shape
-        clientObject.shape = shape.name
+        if shape.name == 'SHAPE_POLYGON':
+            if (not isinstance(adjustment_type_in_direction_u, list) and adjustment_type_in_direction_u.name == 'CONTACT_STRESS_AREA') or \
+                (not isinstance(adjustment_type_in_direction_v, list) and adjustment_type_in_direction_v.name == 'CONTACT_STRESS_AREA'):
+                clientObject.shape = shape.name
+            else:
+                raise TypeError("WARNING! 'SHAPE_POLYGON' is allowed only for adjustment type: 'CONTACT_STRESS_AREA'")
+        else:
+            clientObject.shape = shape.name
 
         # Surface Result Adjustment Dimensions
         if shape == SurfaceResultsAdjustmentShape.SHAPE_RECTANGLE:
             clientObject.dimension_1 = dimensions[0]
             clientObject.dimension_2 = dimensions[1]
             clientObject.angular_rotation = dimensions[2]
+
         elif shape == SurfaceResultsAdjustmentShape.SHAPE_CIRCLE:
             clientObject.dimension_1 = dimensions[0]
-            clientObject.angular_rotaSurfaceResultsAdjustmentShapetion = dimensions[1]
+            clientObject.angular_rotation = dimensions[1]
+
         elif shape == SurfaceResultsAdjustmentShape.SHAPE_ELLIPSE:
             clientObject.dimension_1 = dimensions[0]
             clientObject.dimension_2 = dimensions[1]
             clientObject.angular_rotation = dimensions[2]
 
+        elif shape == SurfaceResultsAdjustmentShape.SHAPE_POLYGON:
+            clientObject.polygon_points = model.clientModel.factory.create('ns0:array_of_surface_results_adjustment_polygon_points')
+
+            # Polygon Points
+            for i, j in enumerate(dimensions):
+                srap = model.clientModel.factory.create('ns0:surface_results_adjustment_polygon_points_row')
+                srap.no = i+1
+                srap.row = model.clientModel.factory.create('ns0:surface_results_adjustment_polygon_points')
+                srap.row.x = dimensions[i][0]
+                srap.row.y = dimensions[i][1]
+                srap.row.z = dimensions[i][2]
+
+                clientObject.polygon_points.surface_results_adjustment_polygon_points.append(srap)
+
         # Surface Result Adjustment Center Position
-        if center_position:
+        if shape.name != 'SHAPE_POLYGON':
             clientObject.center_position_x = center_position[0]
             clientObject.center_position_y = center_position[1]
             clientObject.center_position_z = center_position[2]
-        else:
-            clientObject.center_position_x = 0
-            clientObject.center_position_y = 0
-            clientObject.center_position_z = 0
 
         # Surface Result Adjustment Type Direction U
         if isinstance(adjustment_type_in_direction_u, list):
@@ -212,6 +248,11 @@ class SurfaceResultsAdjustment():
         # assigned to surfaces
         clientObject.surfaces = ConvertToDlString(surfaces)
 
+        # Surface Results Adjustment User defined name
+        if name:
+            clientObject.user_defined_name_enabled = True
+            clientObject.name = name
+
         # Comment
         clientObject.comment = comment
 
@@ -220,5 +261,5 @@ class SurfaceResultsAdjustment():
             for key in params:
                 clientObject[key] = params[key]
 
-        # Add Surface Result Adjustmentto client model
+        # Add Surface Results Adjustment client model
         model.clientModel.service.set_surface_results_adjustment(clientObject)

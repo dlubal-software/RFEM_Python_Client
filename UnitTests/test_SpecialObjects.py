@@ -15,14 +15,13 @@ from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.surface import Surface
 from RFEM.SpecialObjects.intersection import Intersection
-from RFEM.SpecialObjects.surfaceResultsAdjustment import SurfaceResultsAdjustment
+from RFEM.SpecialObjects.surfaceResultsAdjustment import SurfaceResultsAdjustment, Child_items
 from RFEM.SpecialObjects.surfaceContact import SurfaceContact
 from RFEM.SpecialObjects.resultSection import ResultSection
 from RFEM.SpecialObjects.structureModification import StructureModification
 from RFEM.TypesForSpecialObjects.surfaceContactType import SurfaceContactType
-from RFEM.enums import SurfaceResultsAdjustmentShape
-from RFEM.enums import SurfaceContactPerpendicularType, SurfaceContactParallelType, SurfaceContactFrictionType
-from RFEM.enums import ResultSectionType, ResultSectionProjection, ResultSectionResultDirection, SurfaceStiffnessModificationType
+from RFEM.enums import SurfaceResultsAdjustmentShape, SurfaceContactPerpendicularType, SurfaceContactParallelType, SurfaceContactFrictionType, \
+    ResultSectionType, ResultSectionProjection, ResultSectionResultDirection, SurfaceStiffnessModificationType, SurfaceResultsAdjustmentType, SurfaceResultsAdjustmentProjection
 from RFEM.TypesForSurfaces.surfaceStiffnessModification import SurfaceStiffnessModification
 from RFEM.TypesForMembers.memberStiffnessModification import MemberStiffnessModification
 
@@ -86,7 +85,13 @@ def test_special_objects():
 
     Intersection(1, 1, 2)
 
-    SurfaceResultsAdjustment(1,SurfaceResultsAdjustmentShape.SHAPE_RECTANGLE, [1.1,1.2,0])
+    childItems1 = Child_items(False, True, False, True, False, True, False, True)
+    SurfaceResultsAdjustment(1, SurfaceResultsAdjustmentShape.SHAPE_RECTANGLE, [1.1,1.2,0], [0,0,0], SurfaceResultsAdjustmentType.AVERAGING_OF_MY_MXY_VY_NY_NXY, [SurfaceResultsAdjustmentType.USER_DEFINED, childItems1], name='SRA1')
+
+    childItems2 = Child_items(True, False, True, False, True, False, True, False)
+    SurfaceResultsAdjustment(2, SurfaceResultsAdjustmentShape.SHAPE_CIRCLE, [5,0], [1,1,0], SurfaceResultsAdjustmentType.AVERAGING_OF_MX_MXY_VX_NX_NXY, [SurfaceResultsAdjustmentType.ZERO, childItems2], name='SRA2')
+
+    SurfaceResultsAdjustment(3, SurfaceResultsAdjustmentShape.SHAPE_POLYGON, [[0,0,0], [1,0,0], [1,1,0]], None, SurfaceResultsAdjustmentType.NONE, SurfaceResultsAdjustmentType.CONTACT_STRESS_AREA, SurfaceResultsAdjustmentProjection.VECTOR, [1,1,1], '1', 'SRA3')
 
     SurfaceContactType(1, SurfaceContactPerpendicularType.FULL_FORCE_TRANSMISSION, SurfaceContactParallelType.ELASTIC_FRICTION, [2000, SurfaceContactFrictionType.FRICTION_COEFFICIENT, 0.25])
     SurfaceContactType.FullForce(2)
@@ -114,10 +119,21 @@ def test_special_objects():
     assert intersection.surface_a == 1
     assert intersection.surface_b == 2
 
-    sra = Model.clientModel.service.get_surface_results_adjustment(1)
-    assert sra.shape == SurfaceResultsAdjustmentShape.SHAPE_RECTANGLE.name
-    assert sra.dimension_1 == 1.1
-    assert sra.dimension_2 == 1.2
+    sra1 = Model.clientModel.service.get_surface_results_adjustment(1)
+    assert sra1.shape == SurfaceResultsAdjustmentShape.SHAPE_RECTANGLE.name
+    assert sra1.dimension_1 == 1.1
+    assert sra1.adjustment_type_in_direction_v == 'USER_DEFINED'
+
+    sra2 = Model.clientModel.service.get_surface_results_adjustment(2)
+    assert sra2.name == 'SRA2'
+    assert sra2.center_position_x == 1
+    assert sra2.adjustment_type_in_direction_v == 'ZERO'
+
+    sra3 = Model.clientModel.service.get_surface_results_adjustment(3)
+    assert sra3.surfaces == '1'
+    assert sra3.shape == 'SHAPE_POLYGON'
+    assert sra3.adjustment_type_in_direction_v == 'CONTACT_STRESS_AREA'
+    assert sra3.vector_of_projection_in_direction_coordinates_z == 1
 
     surface_contact = Model.clientModel.service.get_surfaces_contact(1)
     assert surface_contact.surfaces_group1 == '1'
