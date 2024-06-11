@@ -1,0 +1,37 @@
+Let’s start with the Cross Section section. {placeholder}
+
+This is the syntax:
+
+Section(no: int = 1, name: str = 'IPE 300', material_no: int = 1, comment: str = '', params: dict = None, model = Model)
+
+Thickness(no: int = 1, name: str = None, material_no: int = 1, uniform_thickness_d: float = 0.20, comment: str = '', params: dict = None, model = Model)
+
+Surface.Standard(no: int = 1, geometry_type = SurfaceGeometry.GEOMETRY_PLANE, geometry_type_parameters = None, boundary_lines_no: str = '1 2 3 4', thickness: int = 1, comment: str = '', params: dict = None, model = Model)
+
+the boundary_lines_no contains the lines defining Surface, e.g. Line or Line.Circle
+the boundary lines for defining a Surface have to be a convex hull.
+
+For the Surface.Standard class, the geometry_type comes in classes:
+1) for flat planes: SurfaceGeometry.GEOMETRY_PLANE: it has no geometry_type_parameters
+
+2) for curved surfaces, such as shells or membranes: SurfaceGeometry.GEOMETRY_QUADRANGLE: geometry_type_parameters = [quadrangle_corner_node_1, quadrangle_corner_node_2, quadrangle_corner_node_3, quadrangle_corner_node_4]
+
+3) for surfaces of revolution: SurfaceGeometry.GEOMETRY_ROTATED: geometry_type_parameters = [rotated_angle_of_rotation, [rotated_point_p_x, rotated_point_p_y, rotated_point_p_z], [rotated_point_r_x, rotated_point_r_y, rotated_point_r_z], rotated_boundary_line]
+
+For SurfaceGeometry.GEOMETRY_ROTATED only 1 line can be rotated not multiple and boundary_lines_no is the string of rotated_boundary_line!
+
+Solid(no: int = 1, boundary_surfaces_no: str = '1 2', material_no: int = 1, comment: str = '', params: dict = None, model = Model)
+
+
+This is an example of the Python code for a Cross Section:
+
+# ---- Cross Sections Sec ----
+
+Thickness(1, '12 mm', 1, 0.012)
+
+Surface.Standard(1, SurfaceGeometry.GEOMETRY_QUADRANGLE, [1,2,0,0], '1 2 3', 1)		# for shapes defined by a quadrangle
+Surface.Standard(3, SurfaceGeometry.GEOMETRY_PLANE, [360, [0,0,0], [0,0,1], 4], "2 3", 1)	# for flat plane surfaces using lines 2 and 3
+Surface.Standard(2, SurfaceGeometry.GEOMETRY_ROTATED, [360, [0,0,0], [0,0,1], 4], "2 3", 1)	# for rotated surfaces
+
+
+

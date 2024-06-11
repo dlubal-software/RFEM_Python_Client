@@ -1,0 +1,7 @@
+Now define the Solver section. {placeholder}
+This is the syntax of the Solver section:
+
+# ---- Solver Sec ----
+Model.clientModel.service.finish_modification()
+
+Calculate_all()
