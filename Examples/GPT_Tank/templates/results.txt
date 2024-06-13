@@ -1,0 +1,21 @@
+Now define the Results section. {placeholder}
+This is the syntax of the Results section:
+
+GetDesignOverview(model = Model)
+
+GetResultTableParameters(results)
+
+ConvertResultsToListOfDct(results, includeBase = False)
+
+GetMinValue(structured_results, parameter)
+GetMaxValue(structured_results, parameter)
+
+ResultTables()
+
+
+This is an example of the Results section:
+
+# ---- Results Sec ----
+global maxStress
+maxStressinit = ResultTables.SurfacesEquivalentStressesMises()
+maxStress = GetMaxValue(maxStressinit, 'equivalent_stresses_sigma_eqv_max') / 1000000
