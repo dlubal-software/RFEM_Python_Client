@@ -421,10 +421,10 @@ class NodalSupport():
                 clientObject.diagram_along_x_start = spring_x_nonlinearity[1][1].name
                 clientObject.diagram_along_x_end = spring_x_nonlinearity[1][2].name
 
-            clientObject.diagram_along_x_table = Model.clientModel.factory.create('ns0:nodal_support.diagram_along_x_table')
+            clientObject.diagram_along_x_table = model.clientModel.factory.create('ns0:nodal_support.diagram_along_x_table')
 
             for i, j in enumerate(spring_x_nonlinearity[2]):
-                nsux = Model.clientModel.factory.create('ns0:nodal_support_diagram_along_x_table_row')
+                nsux = model.clientModel.factory.create('ns0:nodal_support_diagram_along_x_table_row')
                 nsux.no = i+1
                 nsux.row = model.clientModel.factory.create('ns0:nodal_support_diagram_along_x_table')
                 clearAttributes(nsux.row)
@@ -447,10 +447,10 @@ class NodalSupport():
                 clientObject.diagram_along_y_end = spring_y_nonlinearity[1][2].name
                 clientObject.diagram_along_y_start = spring_y_nonlinearity[1][1].name
 
-            clientObject.diagram_along_y_table = Model.clientModel.factory.create('ns0:nodal_support.diagram_along_y_table')
+            clientObject.diagram_along_y_table = model.clientModel.factory.create('ns0:nodal_support.diagram_along_y_table')
 
             for i, j in enumerate(spring_y_nonlinearity[2]):
-                nsuy = Model.clientModel.factory.create('ns0:nodal_support_diagram_along_y_table_row')
+                nsuy = model.clientModel.factory.create('ns0:nodal_support_diagram_along_y_table_row')
                 nsuy.no = i+1
                 nsuy.row = model.clientModel.factory.create('ns0:nodal_support_diagram_along_y_table')
                 clearAttributes(nsuy.row)
@@ -473,10 +473,10 @@ class NodalSupport():
                 clientObject.diagram_along_z_start = spring_z_nonlinearity[1][1].name
                 clientObject.diagram_along_z_end = spring_z_nonlinearity[1][2].name
 
-            clientObject.diagram_along_z_table = Model.clientModel.factory.create('ns0:nodal_support.diagram_along_z_table')
+            clientObject.diagram_along_z_table = model.clientModel.factory.create('ns0:nodal_support.diagram_along_z_table')
 
             for i, j in enumerate(spring_z_nonlinearity[2]):
-                nsuz = Model.clientModel.factory.create('ns0:nodal_support_diagram_along_z_table_row')
+                nsuz = model.clientModel.factory.create('ns0:nodal_support_diagram_along_z_table_row')
                 nsuz.no = i+1
                 nsuz.row = model.clientModel.factory.create('ns0:nodal_support_diagram_along_z_table')
                 clearAttributes(nsuz.row)
@@ -499,10 +499,10 @@ class NodalSupport():
                 clientObject.diagram_around_x_start = rotational_x_nonlinearity[1][1].name
                 clientObject.diagram_around_x_end = rotational_x_nonlinearity[1][2].name
 
-            clientObject.diagram_around_x_table = Model.clientModel.factory.create('ns0:nodal_support.diagram_around_x_table')
+            clientObject.diagram_around_x_table = model.clientModel.factory.create('ns0:nodal_support.diagram_around_x_table')
 
             for i, j in enumerate(rotational_x_nonlinearity[2]):
-                nsrx = Model.clientModel.factory.create('ns0:nodal_support_diagram_around_x_table_row')
+                nsrx = model.clientModel.factory.create('ns0:nodal_support_diagram_around_x_table_row')
                 nsrx.no = i+1
                 nsrx.row = model.clientModel.factory.create('ns0:nodal_support_diagram_around_x_table')
                 clearAttributes(nsrx.row)
@@ -525,10 +525,10 @@ class NodalSupport():
                 clientObject.diagram_around_y_start = rotational_y_nonlinearity[1][1].name
                 clientObject.diagram_around_y_end = rotational_y_nonlinearity[1][2].name
 
-            clientObject.diagram_around_y_table = Model.clientModel.factory.create('ns0:nodal_support.diagram_around_y_table')
+            clientObject.diagram_around_y_table = model.clientModel.factory.create('ns0:nodal_support.diagram_around_y_table')
 
             for i, j in enumerate(rotational_y_nonlinearity[2]):
-                nsry = Model.clientModel.factory.create('ns0:nodal_support_diagram_around_y_table_row')
+                nsry = model.clientModel.factory.create('ns0:nodal_support_diagram_around_y_table_row')
                 nsry.no = i+1
                 nsry.row = model.clientModel.factory.create('ns0:nodal_support_diagram_around_y_table')
                 clearAttributes(nsry.row)
@@ -551,10 +551,10 @@ class NodalSupport():
                 clientObject.diagram_around_z_start = rotational_z_nonlinearity[1][1].name
                 clientObject.diagram_around_z_end = rotational_z_nonlinearity[1][2].name
 
-            clientObject.diagram_around_z_table = Model.clientModel.factory.create('ns0:nodal_support.diagram_around_z_table')
+            clientObject.diagram_around_z_table = model.clientModel.factory.create('ns0:nodal_support.diagram_around_z_table')
 
             for i, j in enumerate(rotational_z_nonlinearity[2]):
-                nsrz = Model.clientModel.factory.create('ns0:nodal_support_diagram_around_z_table_row')
+                nsrz = model.clientModel.factory.create('ns0:nodal_support_diagram_around_z_table_row')
                 nsrz.no = i+1
                 nsrz.row = model.clientModel.factory.create('ns0:nodal_support_diagram_around_z_table')
                 clearAttributes(nsrz.row)
@@ -613,10 +613,10 @@ class NodalSupport():
                 clientObject.stiffness_diagram_around_x_start = rotational_x_nonlinearity[1][2].name
                 clientObject.stiffness_diagram_around_x_end = rotational_x_nonlinearity[1][3].name
 
-            clientObject.stiffness_diagram_around_x_table = Model.clientModel.factory.create('ns0:nodal_support.stiffness_diagram_around_x_table')
+            clientObject.stiffness_diagram_around_x_table = model.clientModel.factory.create('ns0:nodal_support.stiffness_diagram_around_x_table')
 
             for i, j in enumerate(rotational_x_nonlinearity[2]):
-                nssrx = Model.clientModel.factory.create('ns0:nodal_support_stiffness_diagram_around_x_table_row')
+                nssrx = model.clientModel.factory.create('ns0:nodal_support_stiffness_diagram_around_x_table_row')
                 nssrx.no = i+1
                 nssrx.row = model.clientModel.factory.create('ns0:nodal_support_stiffness_diagram_around_x_table')
                 clearAttributes(nssrx.row)
@@ -643,10 +643,10 @@ class NodalSupport():
                 clientObject.stiffness_diagram_around_y_start = rotational_y_nonlinearity[1][2].name
                 clientObject.stiffness_diagram_around_y_end = rotational_y_nonlinearity[1][3].name
 
-            clientObject.stiffness_diagram_around_y_table = Model.clientModel.factory.create('ns0:nodal_support.stiffness_diagram_around_y_table')
+            clientObject.stiffness_diagram_around_y_table = model.clientModel.factory.create('ns0:nodal_support.stiffness_diagram_around_y_table')
 
             for i, j in enumerate(rotational_y_nonlinearity[2]):
-                nssry = Model.clientModel.factory.create('ns0:nodal_support_stiffness_diagram_around_y_table_row')
+                nssry = model.clientModel.factory.create('ns0:nodal_support_stiffness_diagram_around_y_table_row')
                 nssry.no = i+1
                 nssry.row = model.clientModel.factory.create('ns0:nodal_support_stiffness_diagram_around_y_table')
                 clearAttributes(nssry.row)
@@ -673,10 +673,10 @@ class NodalSupport():
                 clientObject.stiffness_diagram_around_z_start = rotational_z_nonlinearity[1][2].name
                 clientObject.stiffness_diagram_around_z_end = rotational_z_nonlinearity[1][3].name
 
-            clientObject.stiffness_diagram_around_z_table = Model.clientModel.factory.create('ns0:nodal_support.stiffness_diagram_around_z_table')
+            clientObject.stiffness_diagram_around_z_table = model.clientModel.factory.create('ns0:nodal_support.stiffness_diagram_around_z_table')
 
             for i, j in enumerate(rotational_z_nonlinearity[2]):
-                nssrz = Model.clientModel.factory.create('ns0:nodal_support_stiffness_diagram_around_z_table_row')
+                nssrz = model.clientModel.factory.create('ns0:nodal_support_stiffness_diagram_around_z_table_row')
                 nssrz.no = i+1
                 nssrz.row = model.clientModel.factory.create('ns0:nodal_support_stiffness_diagram_around_z_table')
                 clearAttributes(nssrz.row)

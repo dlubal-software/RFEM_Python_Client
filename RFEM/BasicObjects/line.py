@@ -153,7 +153,8 @@ class Line():
                 circle_radius: float = 1.0,
                 point_of_normal_to_circle_plane: list = [1,0,0],
                 comment: str = '',
-                params: dict = None, model = Model):
+                params: dict = None,
+                model = Model):
 
         '''
         Args:
@@ -213,7 +214,8 @@ class Line():
                       arc_angle_alpha: float = 0,
                       arc_angle_beta: float = 3.141592653589793,
                       comment: str = '',
-                      params: dict = None, model = Model):
+                      params: dict = None,
+                      model = Model):
 
         '''
         Args:
@@ -276,7 +278,8 @@ class Line():
                 nodes_no: list = [5,10],
                 ellipse_control_point: list = [18,-4.8,0],
                 comment: str = '',
-                params: dict = None, model = Model):
+                params: dict = None,
+                model = Model):
 
         '''
         Args:
@@ -331,7 +334,8 @@ class Line():
                  parabola_control_point: list = [10,-3,0],
                  parabola_alpha: float = 0,
                  comment: str = '',
-                 params: dict = None, model = Model):
+                 params: dict = None,
+                 model = Model):
 
         '''
         Args:
@@ -387,7 +391,8 @@ class Line():
                no: int = 1,
                nodes_no: str = '1 3 5',
                comment: str = '',
-               params: dict = None, model = Model):
+               params: dict = None,
+               model = Model):
 
         '''
         Args:
