@@ -24,10 +24,9 @@ def GetCOGTableParameters(results):
 def ConvertCOGInfoToListOfDct(cog):
     '''
     Args:
-        results (dict): Dictionary object of center of gravity and objects info
-        includeBase (bool): Include base information of every line. Default is False.
+        cog (dict): Dictionary object of center of gravity and objects information
     Returns:
-        List of dictionaries. Each dictionary corresponds to one line in result table.
+        List of dictionaries. Each dictionary corresponds to one line in center of gravity and objects information table.
     '''
     if not cog:
         return ''
@@ -79,6 +78,9 @@ class ObjectsInfo():
             objects (list of lists): List of Selected Objects
                 objects = [[ObjectTypes enumeration, Object number], ...]   (e.g. [[ObjectTypes.E_OBJECT_TYPE_MEMBER,1], [ObjectTypes.E_OBJECT_TYPE_MEMBER, 2]])
             model (class, optional): Model instance
+
+        Returns:
+            List of dictionaries.
         '''
 
         if objects:
@@ -102,6 +104,9 @@ class ObjectsInfo():
             objects (list of lists): List of Selected Objects
                 objects = [[ObjectTypes enumeration, Object number], ...]   (e.g. [[ObjectTypes.E_OBJECT_TYPE_MEMBER,1], [ObjectTypes.E_OBJECT_TYPE_MEMBER, 2]])
             model (class, optional): Model instance
+
+        Returns:
+            List of dictionary.
         '''
 
         allList = ObjectsInfo.AllInfo(objects, model)
@@ -120,6 +125,9 @@ class ObjectsInfo():
             objects (list of lists): List of Selected Objects
                 objects = [[ObjectTypes enumeration, Object number], ...]   (e.g. [[ObjectTypes.E_OBJECT_TYPE_MEMBER,1], [ObjectTypes.E_OBJECT_TYPE_MEMBER, 2]])
             model (class, optional): Model instance
+
+        Returns:
+            List of dictionary.
         '''
 
         allList = ObjectsInfo.AllInfo(objects, model)
@@ -138,6 +146,9 @@ class ObjectsInfo():
             objects (list of lists): List of Selected Objects
                 objects = [[ObjectTypes enumeration, Object number], ...]   (e.g. [[ObjectTypes.E_OBJECT_TYPE_MEMBER,1], [ObjectTypes.E_OBJECT_TYPE_MEMBER, 2]])
             model (class, optional): Model instance
+
+        Returns:
+            List of dictionary.
         '''
 
         allList = ObjectsInfo.AllInfo(objects, model)
@@ -156,6 +167,9 @@ class ObjectsInfo():
             objects (list of lists): List of Selected Objects
                 objects = [[ObjectTypes enumeration, Object number], ...]   (e.g. [[ObjectTypes.E_OBJECT_TYPE_MEMBER,1], [ObjectTypes.E_OBJECT_TYPE_MEMBER, 2]])
             model (class, optional): Model instance
+
+        Returns:
+            List of dictionary.
         '''
 
         allList = ObjectsInfo.AllInfo(objects, model)
@@ -174,6 +188,9 @@ class ObjectsInfo():
             objects (list of lists): List of Selected Objects
                 objects = [[ObjectTypes enumeration, Object number], ...]   (e.g. [[ObjectTypes.E_OBJECT_TYPE_MEMBER,1], [ObjectTypes.E_OBJECT_TYPE_MEMBER, 2]])
             model (class, optional): Model instance
+
+        Returns:
+            List of dictionary.
         '''
 
         allList = ObjectsInfo.AllInfo(objects, model)
@@ -192,6 +209,9 @@ class ObjectsInfo():
             objects (list of lists): List of Selected Objects
                 objects = [[ObjectTypes enumeration, Object number], ...]   (e.g. [[ObjectTypes.E_OBJECT_TYPE_MEMBER,1], [ObjectTypes.E_OBJECT_TYPE_MEMBER, 2]])
             model (class, optional): Model instance
+
+        Returns:
+            List of dictionary.
         '''
 
         allList = ObjectsInfo.AllInfo(objects, model)
