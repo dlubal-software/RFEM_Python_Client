@@ -11,7 +11,8 @@ class OpeningLoad():
                  load_direction = OpeningLoadDirection.LOAD_DIRECTION_LOCAL_Z,
                  load_parameter = [],
                  comment: str = '',
-                 params: dict = {}):
+                 params: dict = None,
+                 model = Model):
         '''
         Args:
             no (int): Load Tag
@@ -29,7 +30,7 @@ class OpeningLoad():
         '''
 
         # Client model | Opening Load
-        clientObject = Model.clientModel.factory.create('ns0:opening_load')
+        clientObject = model.clientModel.factory.create('ns0:opening_load')
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
@@ -72,11 +73,12 @@ class OpeningLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        for key in params:
-            clientObject[key] = params[key]
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
 
         # Add Opening Load to client model
-        Model.clientModel.service.set_opening_load(load_case_no, clientObject)
+        model.clientModel.service.set_opening_load(load_case_no, clientObject)
