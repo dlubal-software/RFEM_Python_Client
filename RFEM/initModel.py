@@ -292,7 +292,7 @@ def deleteEmptyAttributes(obj):
         ValueError('WARNING: Object feeded to deleteEmptyAttributes function is not iterable. It is type: '+str(type(obj))+'.')
 
     for i in it:
-        if isinstance(i, str) or isinstance(i, int) or isinstance(i, float) or isinstance(i, bool) or isinstance(i, Enum):
+        if isinstance(i, str) or isinstance(i, int) or isinstance(i, float) or isinstance(i, bool) or isinstance(i, Enum) or not isinstance(i, tuple):
             continue
         if len(i) > 2:
             i = deleteEmptyAttributes(i)

@@ -82,37 +82,39 @@ class SurfaceResultsAdjustment():
         # Surface Result Adjustment No.
         clientObject.no = no
 
-        # Surface Result Adjustment Shape
-        if shape.name == 'SHAPE_POLYGON':
-            if (not isinstance(adjustment_type_in_direction_u, list) and adjustment_type_in_direction_u.name == 'CONTACT_STRESS_AREA') or \
-                (not isinstance(adjustment_type_in_direction_v, list) and adjustment_type_in_direction_v.name == 'CONTACT_STRESS_AREA'):
-                clientObject.shape = shape.name
-            else:
-                raise TypeError("WARNING! 'SHAPE_POLYGON' is allowed only for adjustment type: 'CONTACT_STRESS_AREA'")
-        else:
-            clientObject.shape = shape.name
-
-        # Surface Result Adjustment Dimensions
+        # Surface Result Adjustment Shape and Dimensions
         if shape == SurfaceResultsAdjustmentShape.SHAPE_RECTANGLE:
+            clientObject.shape = shape.name
             clientObject.dimension_1 = dimensions[0]
             clientObject.dimension_2 = dimensions[1]
             clientObject.angular_rotation = dimensions[2]
 
         elif shape == SurfaceResultsAdjustmentShape.SHAPE_CIRCLE:
+            clientObject.shape = shape.name
             clientObject.dimension_1 = dimensions[0]
             clientObject.angular_rotation = dimensions[1]
 
         elif shape == SurfaceResultsAdjustmentShape.SHAPE_ELLIPSE:
+            clientObject.shape = shape.name
             clientObject.dimension_1 = dimensions[0]
             clientObject.dimension_2 = dimensions[1]
             clientObject.angular_rotation = dimensions[2]
 
         elif shape == SurfaceResultsAdjustmentShape.SHAPE_POLYGON:
+
+            if (not isinstance(adjustment_type_in_direction_u, list) and adjustment_type_in_direction_u.name == 'CONTACT_STRESS_AREA') or \
+                (not isinstance(adjustment_type_in_direction_v, list) and adjustment_type_in_direction_v.name == 'CONTACT_STRESS_AREA'):
+                clientObject.shape = shape.name
+
+            else:
+                raise TypeError("WARNING! 'SHAPE_POLYGON' is allowed only for adjustment type: 'CONTACT_STRESS_AREA'")
+
             clientObject.polygon_points = model.clientModel.factory.create('ns0:array_of_surface_results_adjustment_polygon_points')
 
             # Polygon Points
             for i, j in enumerate(dimensions):
                 srap = model.clientModel.factory.create('ns0:surface_results_adjustment_polygon_points_row')
+                clearAttributes(srap)
                 srap.no = i+1
                 srap.row = model.clientModel.factory.create('ns0:surface_results_adjustment_polygon_points')
                 srap.row.x = dimensions[i][0]
@@ -198,18 +200,20 @@ class SurfaceResultsAdjustment():
             clientObject.adjustment_type_in_direction_v = adjustment_type_in_direction_v.name
 
         # Surface Result Adjustment Type Zero
-        if (isinstance(adjustment_type_in_direction_u, list) and adjustment_type_in_direction_u[0].name == 'ZERO') and \
-            (isinstance(adjustment_type_in_direction_v, list) and adjustment_type_in_direction_v[0].name == 'ZERO'):
+        u_dir_zero = isinstance(adjustment_type_in_direction_u, list) and adjustment_type_in_direction_u[0].name == 'ZERO'
+        v_dir_zero = isinstance(adjustment_type_in_direction_v, list) and adjustment_type_in_direction_v[0].name == 'ZERO'
+
+        child_items_zero = None
+        if u_dir_zero and v_dir_zero:
             raise TypeError("WARNING: Surface result adjustment type in both directon can not be 'ZERO'.")
 
-        elif (isinstance(adjustment_type_in_direction_u, list) and adjustment_type_in_direction_u[0].name == 'ZERO') or \
-            (isinstance(adjustment_type_in_direction_v, list) and adjustment_type_in_direction_v[0].name == 'ZERO'):
+        elif u_dir_zero:
+            child_items_zero = adjustment_type_in_direction_u[1]
 
-            if isinstance(adjustment_type_in_direction_u, list) and adjustment_type_in_direction_u[0].name == 'ZERO':
-                child_items_zero = adjustment_type_in_direction_u[1]
-            else:
-                child_items_zero = adjustment_type_in_direction_v[1]
+        elif v_dir_zero:
+            child_items_zero = adjustment_type_in_direction_v[1]
 
+        if child_items_zero:
             clientObject.results_to_adjust_zero = model.clientModel.factory.create('ns0:array_of_surface_results_adjustment_results_to_adjust_zero_and_child_items')
 
             child_items_array = []
@@ -260,6 +264,9 @@ class SurfaceResultsAdjustment():
         if params:
             for key in params:
                 clientObject[key] = params[key]
+
+        # Delete None attributes for improved performance
+        deleteEmptyAttributes(clientObject)
 
         # Add Surface Results Adjustment client model
         model.clientModel.service.set_surface_results_adjustment(clientObject)
