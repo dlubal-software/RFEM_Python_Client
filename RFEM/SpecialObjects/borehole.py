@@ -1,7 +1,6 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
 
-class Borehole:
-
+class Borehole():
     def __init__(self,
                  no: int = 1,
                  coordinates: list = [0.0, 0.0, 0.0],
@@ -49,12 +48,12 @@ class Borehole:
             clientObject.groundwater = False
 
         # Soil Layer Table
-        clientObject.layers_table = Model.clientModel.factory.create('ns0:borehole.layers_table')
+        clientObject.layers_table = model.clientModel.factory.create('ns0:borehole.layers_table')
 
         for i, j in enumerate(layers):
-            sl = Model.clientModel.factory.create('ns0:borehole_layers_table_row')
+            sl = model.clientModel.factory.create('ns0:borehole_layers_table_row')
             sl.no = i+1
-            sl.row = Model.clientModel.factory.create('ns0:borehole_layers_table')
+            sl.row = model.clientModel.factory.create('ns0:borehole_layers_table')
             clearAttributes(sl.row)
             sl.row.layer_no = i+1
             sl.row.soil_material = layers[i][0]

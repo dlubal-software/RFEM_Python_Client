@@ -3,7 +3,7 @@ from RFEM.enums import ObjectTypes
 from suds.sax.text import Text
 import sys
 
-class GetObjectNumbersByType:
+class GetObjectNumbersByType():
 
     def __new__(cls,
                 ObjectType = ObjectTypes.E_OBJECT_TYPE_NODE,
@@ -41,7 +41,7 @@ class GetObjectNumbersByType:
 
         return ObjectNumberList
 
-class GetAllObjects:
+class GetAllObjects():
     """
     Returns tuple of 2 lists containing all objects and their parameters and list of imports needed to facilitate re-creating theese.
     Args:

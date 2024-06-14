@@ -1,0 +1,12 @@
+Now we define the Material section. {placeholder}
+This is the syntax of the Material section:
+
+Material(no: int = 1, name: str = 'S235', comment: str = '', params: dict = None, model = Model)
+
+avoid to fill params when not requested by the user.
+
+
+This is an example of the Material section:
+
+# ---- Material Sec ----
+Material(1, "S235")

@@ -1,0 +1,29 @@
+Now define the Load section. {placeholder}
+This is the syntax of the Load section:
+
+LoadCase(no: int = 1, name: str = 'Self-weight', self_weight: list = [True, 0.0, 0.0, 1.0], imperfection_case: int = None, structure_modification: int = None, comment: str = 'Comment', params: dict = None, model = Model)
+
+Use per default self_weight = [True, 0.0, 0.0, 1.0]. If the user explicitely does not want self weight, set self_weight: list = [True]
+
+NodalLoad(no: int = 1, load_case_no: int = 1, nodes_no: str= '1', load_direction= NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, magnitude: float = 0.0, comment: str= '', params: dict= None, model = Model)
+
+MemberLoad(no: int = 1, load_case_no: int = 1,members_no: str = '1', load_direction = MemberLoadDirection.LOAD_DIRECTION_LOCAL_Z, magnitude: float = 2000, comment: str = '', params: dict = None, model = Model)
+
+SurfaceLoad(no: int = 1, load_case_no: int = 1, surface_no: str = '1', magnitude: float = 1.0, comment: str = '', params: dict = None, model = Model)
+
+SurfaceLoad has multiple methods, e.g.:
+SurfaceLoad.Force(no: int = 1, load_case_no: int = 1, surface_no: str = '1', load_direction = SurfaceLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, load_distribution = SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, load_parameter: list = None, comment: str = '', params: dict = None, model = Model)
+
+SurfaceLoad.Temperature(no: int = 1, load_case_no: int = 1, surface_no: str = '1', load_distribution = SurfaceLoadDistribution.LOAD_DISTRIBUTION_UNIFORM, load_parameter: list = None, comment: str = '', params: dict = None, model = Model)
+
+
+Always multiply the user provided load magnitude with 1000 but do not comment.
+
+
+This is an example of the Load section:
+
+# ---- Loads Sec ----
+
+LoadCase()
+
+SurfaceLoad.Force(no = 1, load_case_no = 1, surface_no = '1 2', load_direction = SurfaceLoadDirection.LOAD_DIRECTION_LOCAL_Z, load_distribution = SurfaceLoadDistribution.LOAD_DISTRIBUTION_VARYING_IN_Z, load_parameter = [[-load_height, 0],[0, 9.81 * load_height * 1000]])

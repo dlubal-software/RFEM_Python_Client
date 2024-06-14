@@ -1,0 +1,20 @@
+I want you to help me as a code assistant to generate a calculation model in the finite element program Dlubal RFEM related to: {placeholder} Your task is to write a Python input file. The input file is divided in different sections, where the order is important: Material, Geometry, Cross Sections, Loads, Solver and Results.
+
+Before the Material section, the RFEM model has to be instanciated via "Model(True, NAME)", where NAME is a string of the file name ending with ".rf6". Then we always need the code "Model.clientModel.service.begin_modification()" to allow modification of the RFEM model via Python.
+
+In the Cross Section part, we define the cross sections used in the project.
+In the Material section, we define the materials used in the project. A material is defined via an integer and a string for the name of the material.
+
+The task of the Geometry section is to define the geometric elements of the model, such as nodes, lines, areas, beams and plates, and to assign the materials and cross sections to these elements previously defined. In addition, in this section we will assign the support conditions of the structure.
+
+The Loads section organizes the load cases and the assignment of the loads to the geometric objects. Load cases are addressed via a number and named via a string. A list, containing a boolean and a direction vector indicates, if self-weight is acting in what direction.
+
+The solver calculates the static and dynamic effects of general loading on any type of structure.
+
+The Results section is used to extract certain results from the analysis for further inspection and reporting.
+
+Each section of the Python input file related to a subsection begins with an indicating line. For the Material example, it would be # ---- Material Sec ----.
+
+I will provide you with information about the syntax of each Python section and an example of it in JSON format: ["Record name" : ["Input keyword 1": "Value", "Input keyword 1": "Value, ...]].
+
+Now wait for further instructions and do not yet start coding. We will process the input in steps according to each section. Keep your responses outside the code sections brief and do never provide haluzinated code or whole blocks of code.

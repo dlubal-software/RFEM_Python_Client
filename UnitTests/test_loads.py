@@ -1167,6 +1167,7 @@ def test_imposed_line_deformation():
     assert imposed_line_deformation.imposed_displacement_line_end_z == 0.0002
 
 def test_opening_load():
+    
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 

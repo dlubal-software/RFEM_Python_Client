@@ -104,12 +104,12 @@ class MemberSpring():
                 clientObject.diagram_along_x_start = parameters[0][1].name
                 clientObject.diagram_along_x_end = parameters[0][2].name
 
-            clientObject.diagram_along_x_table = Model.clientModel.factory.create('ns0:member_spring.diagram_along_x_table')
+            clientObject.diagram_along_x_table = model.clientModel.factory.create('ns0:member_spring.diagram_along_x_table')
 
             for i,j in enumerate(parameters[1]):
-                msdx = Model.clientModel.factory.create('ns0:member_spring_diagram_along_x_table_row')
+                msdx = model.clientModel.factory.create('ns0:member_spring_diagram_along_x_table_row')
                 msdx.no = i+1
-                msdx.row = Model.clientModel.factory.create('ns0:member_spring_diagram_along_x_table')
+                msdx.row = model.clientModel.factory.create('ns0:member_spring_diagram_along_x_table')
                 clearAttributes(msdx.row)
                 msdx.row.displacement = parameters[1][i][0]
                 msdx.row.force = parameters[1][i][1]

@@ -345,8 +345,9 @@ class MemberLoad():
         if 'eccentricity_horizontal_alignment' or 'eccentricity_vertical_alignment' or 'eccentricity_section_middle' or 'is_eccentricity_at_end_different_from_start' or 'eccentricity_y_at_end' or 'eccentricity_y_at_start' or 'eccentricity_z_at_end' or 'eccentricity_z_at_start':
             pass
         else:
-            for key in params:
-                clientObject[key] = params[key]
+            if params:
+                for key in params:
+                    clientObject[key] = params[key]
 
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
