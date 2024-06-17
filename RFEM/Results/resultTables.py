@@ -7336,3 +7336,783 @@ class ResultTables():
         '''
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_slenderness_by_member_set_representative(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosDeepBeamsByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_deep_beams_by_construction_stage(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosDeepBeamsByDeepBeam(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_deep_beams_by_deep_beam(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosDeepBeamsByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_deep_beams_by_design_situation(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosDeepBeamsByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_deep_beams_by_loading(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosDeepBeamsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_deep_beams_by_location(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosDeepBeamsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_deep_beams_by_material(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosDeepBeamsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_deep_beams_by_section(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberRepresentativesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_representatives_by_construction_stage(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberRepresentativesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_representatives_by_design_situation(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberRepresentativesByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_representatives_by_loading(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_representatives_by_location(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_representatives_by_material(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberRepresentativesByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_representatives_by_member_representative(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_representatives_by_section(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberSetRepresentativesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_set_representatives_by_construction_stage(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberSetRepresentativesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_set_representatives_by_design_situation(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberSetRepresentativesByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_set_representatives_by_loading(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberSetRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_set_representatives_by_location(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberSetRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_set_representatives_by_material(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberSetRepresentativesByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_set_representatives_by_member_set_representative(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberSetRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_set_representatives_by_section(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMembersByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_members_by_construction_stage(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMembersByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_members_by_design_situation(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMembersByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_members_by_loading(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMembersByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_members_by_location(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMembersByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_members_by_material(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMembersByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_members_by_member(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMembersByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_members_by_member_set(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosMembersBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_members_by_section(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosShearWallsByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_shear_walls_by_construction_stage(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosShearWallsByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_shear_walls_by_design_situation(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosShearWallsByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_shear_walls_by_loading(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosShearWallsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_shear_walls_by_location(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosShearWallsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_shear_walls_by_material(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosShearWallsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_shear_walls_by_section(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosShearWallsByShearWall(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_shear_walls_by_shear_wall(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosSurfacesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_surfaces_by_construction_stage(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosSurfacesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_surfaces_by_design_situation(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosSurfacesByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_surfaces_by_loading(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosSurfacesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_surfaces_by_location(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosSurfacesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_surfaces_by_material(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosSurfacesBySurface(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_surfaces_by_surface(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosSurfacesBySurfaceSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_surfaces_by_surface_set(), include_base)
+
+    @staticmethod
+    def TimberDesignDesignRatiosSurfacesByThickness(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_surfaces_by_thickness(), include_base)
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByDeepBeam(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_deep_beam(), include_base)
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByDeepBeamEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_deep_beam_ends(), include_base)
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_member(), include_base)
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByMemberEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_member_ends(), include_base)
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_member_representative(), include_base)
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByMemberRepresentativeEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_member_representative_ends(), include_base)
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_member_set(), include_base)
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByMemberSetEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_member_set_ends(), include_base)
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_member_set_representative(), include_base)
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByMemberSetRepresentativeEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_member_set_representative_ends(), include_base)
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByShearWall(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_shear_wall(), include_base)
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByShearWallEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_shear_wall_ends(), include_base)
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesBySurface(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_surface(), include_base)
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesBySurfaceSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_surface_set(), include_base)
+
+    @staticmethod
+    def TimberDesignGoverningLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_loading(), include_base)
+
+    @staticmethod
+    def TimberDesignOverviewErrorsAndWarnings(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_overview_errors_and_warnings(), include_base)
+
+    @staticmethod
+    def TimberDesignOverviewNotValidDeactivated(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_overview_not_valid_deactivated(), include_base)
+
+    @staticmethod
+    def TimberDesignSlendernessByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_slenderness_by_member(), include_base)
+
+    @staticmethod
+    def TimberDesignSlendernessByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_slenderness_by_member_representative(), include_base)
+
+    @staticmethod
+    def TimberDesignSlendernessByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_slenderness_by_member_set(), include_base)
+
+    @staticmethod
+    def TimberDesignSlendernessByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_slenderness_by_member_set_representative(), include_base)
