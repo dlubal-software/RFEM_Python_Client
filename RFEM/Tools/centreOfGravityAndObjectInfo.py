@@ -1,100 +1,219 @@
 from RFEM.initModel import Model
-from RFEM.enums import ObjectTypes, SelectedObjectInformation
 
-class ObjectInformation():
+def GetCOGTableParameters(results):
+    '''
+    Returns dict with attributes: base, row, and error.
+    '''
+    params = {'base': [], 'row': [], 'error': None}
+
+    if not results:
+        return params
+
+    if results[0][0]:
+        for section in results[0]:
+            params['base'] = list(set(params['base'] + section.__keylist__))
+            if 'rows' in section.__keylist__ and 'row' in section['rows']:
+                for row in section['rows']['row']:
+                    params['row'] = list(set(params['row'] + row.__keylist__))
+            else:
+                params['error'] = "Result table doesn't have attribute 'rows' or 'row'."
+
+    return params
+
+def ConvertCOGInfoToListOfDct(cog):
+    '''
+    Args:
+        cog (dict): Dictionary object of center of gravity and objects information
+    Returns:
+        List of dictionaries. Each dictionary corresponds to one line in center of gravity and objects information table.
+    '''
+    if not cog:
+        return ''
+
+    params = GetCOGTableParameters(cog)
+    lstOfDct = []
+
+    for c in cog[0]:
+        dct1 = {}
+        if 'title' in params['base']:
+            try:
+                dct1['title'] = float(c['title'])
+            except:
+                try:
+                    dct1['title'] = c['title']
+                except:
+                    pass
+
+        if 'rows' in params['base']:
+
+            for row in c['rows'][0]:
+                dct = {}
+                dct.update(dct1)
+                for y in params['row']:
+                    try:
+                        dct[y] = float(row[y])
+                    except:
+                        try:
+                            dct[y] = row[y]
+                        except:
+                            pass
+                lstOfDct.append(dct)
+
+    if params['error']:
+        return lstOfDct.append({'error': params['error']})
+
+    return lstOfDct
+
+class ObjectsInfo():
 
     @staticmethod
-    def CentreOfGravity(
-                        object_type = ObjectTypes.E_OBJECT_TYPE_MEMBER,
-                        parent_no = 0,
-                        no: int = 1,
-                        coord: str = 'X'):
+    def AllInfo(objects: list = None,
+                 model = Model):
         '''
-        This function returns the centre of gravity position (X, Y or Z) for a selected object.
         Args:
-           type (enum): Object Type
-           parent_no (int): Object Parent Number
-                Note:
-                (1) A geometric object has, in general, a parent_no = 0
-                (2) The parent_no parameter becomes significant for example with loads
-           no (int):  The Object Tag
-           coord (str): Desired global basis vector component of the Centre of Gravity (i.e. X, Y or Z)
+            objects (list of lists): List of Selected Objects
+                objects = [[ObjectTypes enumeration, Object number], ...]   (e.g. [[ObjectTypes.E_OBJECT_TYPE_MEMBER,1], [ObjectTypes.E_OBJECT_TYPE_MEMBER, 2]])
+            model (class, optional): Model instance
+
+        Returns:
+            List of dictionaries.
         '''
-        result = ObjectInformation.__BuildResultsArray(object_type, no, parent_no)
-        if coord == 'X' or coord.lstrip().rstrip().upper() == 'X':
-            return result['section'][0].rows[0][0].value
-        elif coord == 'Y' or coord.lstrip().rstrip().upper() == 'Y':
-            return result['section'][0].rows[0][1].value
-        elif coord == 'Z' or coord.lstrip().rstrip().upper() == 'Z':
-            return result['section'][0].rows[0][2].value
+
+        if objects:
+            cog_objects = {'center_of_gravity_objects' : []}
+
+            for obj in objects:
+                cog_objects["center_of_gravity_objects"].append({
+                    "type": obj[0].name,
+                    "no": obj[1]
+                })
+            return ConvertCOGInfoToListOfDct(model.clientModel.service.get_center_of_gravity_and_objects_info(cog_objects))
+
         else:
-            raise Exception ('WARNING: The desired Coordinate input not requested. Please provide either "X", "Y" or "Z"')
+            raise AssertionError('WARNING! Please give at lease one object.')
 
     @staticmethod
-    def MemberInformation(
-                          no: int = 1,
-                          information = SelectedObjectInformation.LENGTH):
+    def CenterofGravity(objects: list = None,
+                        model = Model):
         '''
-        This function returns further information associated with a member.
         Args:
-           no (int): Member Tag
-           information (enum): Desired Information (Length / Volume / Mass)
-        '''
-        if information.name == 'AREA':
-            raise Exception ('WARNING: Area information is only relevant for Surface and Volume Information.')
+            objects (list of lists): List of Selected Objects
+                objects = [[ObjectTypes enumeration, Object number], ...]   (e.g. [[ObjectTypes.E_OBJECT_TYPE_MEMBER,1], [ObjectTypes.E_OBJECT_TYPE_MEMBER, 2]])
+            model (class, optional): Model instance
 
-        result = ObjectInformation.__BuildResultsArray(ObjectTypes.E_OBJECT_TYPE_MEMBER, no, 0)
-        return ObjectInformation.__AreaVolumeMassInformationLength(information, result, 2)
+        Returns:
+            List of dictionary.
+        '''
+
+        allList = ObjectsInfo.AllInfo(objects, model)
+        cog_Info = {}
+        for item in allList:
+            if item['title'] == 'Center of Gravity':
+               cog_Info[item.get('name')] = item.get('value')
+
+        return cog_Info
 
     @staticmethod
-    def SurfaceInformation(
-                           no: int = 1,
-                           information = SelectedObjectInformation.AREA):
+    def AllSelectedObjectsInfo(objects: list = None,
+                           model = Model):
         '''
-        This function returns further information associated with a surface.
         Args:
-           no (int): Surface Tag
-           information (enum): Desired Information (Area / Volume / Mass)
-        '''
-        if information.name == 'LENGTH':
-            raise Exception ('WARNING: Length information is only relevant for Member Information.')
+            objects (list of lists): List of Selected Objects
+                objects = [[ObjectTypes enumeration, Object number], ...]   (e.g. [[ObjectTypes.E_OBJECT_TYPE_MEMBER,1], [ObjectTypes.E_OBJECT_TYPE_MEMBER, 2]])
+            model (class, optional): Model instance
 
-        result = ObjectInformation.__BuildResultsArray(ObjectTypes.E_OBJECT_TYPE_SURFACE, no, 0)
-        return ObjectInformation.__AreaVolumeMassInformationLength(information, result, 3)
+        Returns:
+            List of dictionary.
+        '''
+
+        allList = ObjectsInfo.AllInfo(objects, model)
+        cog_Info = {}
+        for item in allList:
+            if item['title'] == 'Information About All Selected Objects':
+               cog_Info[item.get('name')] = item.get('value')
+
+        return cog_Info
 
     @staticmethod
-    def SolidInformation(
-                         no: int = 1,
-                         information = SelectedObjectInformation.AREA):
+    def MembersInfo(objects: list = None,
+                model = Model):
         '''
-        This function returns further information associated with a solid.
         Args:
-           no (int): Solid Tag
-           information (enum): Desired Information (Area / Volume / Mass)
+            objects (list of lists): List of Selected Objects
+                objects = [[ObjectTypes enumeration, Object number], ...]   (e.g. [[ObjectTypes.E_OBJECT_TYPE_MEMBER,1], [ObjectTypes.E_OBJECT_TYPE_MEMBER, 2]])
+            model (class, optional): Model instance
+
+        Returns:
+            List of dictionary.
         '''
-        if information.name == 'LENGTH':
-            raise Exception ('WARNING: Length information is only relevant for Member Information.')
 
-        result = ObjectInformation.__BuildResultsArray(ObjectTypes.E_OBJECT_TYPE_SOLID, no, 0)
-        return ObjectInformation.__AreaVolumeMassInformationLength(information,result, 4)
+        allList = ObjectsInfo.AllInfo(objects, model)
+        cog_Info = {}
+        for item in allList:
+            if item['title'] == 'Information About Members':
+               cog_Info[item.get('name')] = item.get('value')
 
-    @staticmethod
-    def __BuildResultsArray(object_type, no, parent_no, model = Model):
-        elements = model.clientModel.factory.create('ns0:array_of_get_center_of_gravity_and_objects_info_elements_type')
-        clientObject = model.clientModel.factory.create('ns0:get_center_of_gravity_and_objects_info_element_type')
-        clientObject.parent_no = parent_no
-        clientObject.no = no
-        clientObject.type = object_type.name
-        elements.element.append(clientObject)
-        result = model.clientModel.service.get_center_of_gravity_and_objects_info(elements)
-        result = model.clientModel.dict(result)
-        return result
+        return cog_Info
 
     @staticmethod
-    def __AreaVolumeMassInformationLength(information, result, row_key):
-        if information.name == "LENGTH" or information.name == "AREA":
-            return result['section'][row_key].rows[0][0].value
-        elif information.name == "VOLUME":
-            return result['section'][row_key].rows[0][1].value
-        elif information.name == "MASS":
-            return result['section'][row_key].rows[0][2].value
+    def SurfacesInfo(objects: list = None,
+                 model = Model):
+        '''
+        Args:
+            objects (list of lists): List of Selected Objects
+                objects = [[ObjectTypes enumeration, Object number], ...]   (e.g. [[ObjectTypes.E_OBJECT_TYPE_MEMBER,1], [ObjectTypes.E_OBJECT_TYPE_MEMBER, 2]])
+            model (class, optional): Model instance
+
+        Returns:
+            List of dictionary.
+        '''
+
+        allList = ObjectsInfo.AllInfo(objects, model)
+        cog_Info = {}
+        for item in allList:
+            if item['title'] == 'Information About Surfaces':
+               cog_Info[item.get('name')] = item.get('value')
+
+        return cog_Info
+
+    @staticmethod
+    def SolidsInfo(objects: list = None,
+               model = Model):
+        '''
+        Args:
+            objects (list of lists): List of Selected Objects
+                objects = [[ObjectTypes enumeration, Object number], ...]   (e.g. [[ObjectTypes.E_OBJECT_TYPE_MEMBER,1], [ObjectTypes.E_OBJECT_TYPE_MEMBER, 2]])
+            model (class, optional): Model instance
+
+        Returns:
+            List of dictionary.
+        '''
+
+        allList = ObjectsInfo.AllInfo(objects, model)
+        cog_Info = {}
+        for item in allList:
+            if item['title'] == 'Information About Solids':
+               cog_Info[item.get('name')] = item.get('value')
+
+        return cog_Info
+
+    @staticmethod
+    def EnvelopeSize(objects: list = None,
+                     model = Model):
+        '''
+        Args:
+            objects (list of lists): List of Selected Objects
+                objects = [[ObjectTypes enumeration, Object number], ...]   (e.g. [[ObjectTypes.E_OBJECT_TYPE_MEMBER,1], [ObjectTypes.E_OBJECT_TYPE_MEMBER, 2]])
+            model (class, optional): Model instance
+
+        Returns:
+            List of dictionary.
+        '''
+
+        allList = ObjectsInfo.AllInfo(objects, model)
+        cog_Info = {}
+        for item in allList:
+            if item['title'] == 'Envelope Size':
+               cog_Info[item.get('name')] = item.get('value')
+
+        return cog_Info

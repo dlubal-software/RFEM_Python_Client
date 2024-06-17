@@ -1104,13 +1104,6 @@ class AnchorageEndAnchorType(Enum):
     ANCHORAGE_TYPE_STRAIGHT, ANCHORAGE_TYPE_STRAIGHT_WITH_TRANSVERSE_BAR, ANCHORAGE_TYPE_STRAIGHT_WITH_TWO_TRANSVERSE_BARS = range(7)
 
 
-class SelectedObjectInformation(Enum):
-    '''
-    Information About Members | Enum
-    '''
-    LENGTH, VOLUME, MASS, AREA = range(4)
-
-
 class GlobalAxesOrientationType(Enum):
     '''
     Model Settings and Options Global Axes Orientation Type
