@@ -1,5 +1,4 @@
 from RFEM.initModel import Model
-from RFEM.enums import ObjectTypes
 
 def GetCOGTableParameters(results):
     '''
@@ -45,12 +44,9 @@ def ConvertCOGInfoToListOfDct(cog):
                 except:
                     pass
 
-            # lstOfDct.append(dct1)
-
         if 'rows' in params['base']:
-            # print(c['title'], c['rows'])
+
             for row in c['rows'][0]:
-                # print(c['title'], row)
                 dct = {}
                 dct.update(dct1)
                 for y in params['row']:
