@@ -1,0 +1,37 @@
+Now let’s move on to the Geometry section. {placeholder}
+
+This is the syntax of the Geometry section:
+
+Node(no: int = 1, coordinate_X: float = 0.0, coordinate_Y: float = 0.0, coordinate_Z: float = 0.0, comment: str = '', params: dict = None, model = Model)
+
+Lines come in different methods:
+Line(no: int = 1, nodes_no: str = '1 2', comment: str = '', params: dict = None, model = Model)	# simple Line
+Line.Arc(no: int, nodes_no: list, control_point: list, comment: str = '', params: dict = None, model = Model)	# arch
+Line.Circle(no: int = 1, center_of_cirle: list = [20,0,0], circle_radius: float = 1.0, point_of_normal_to_circle_plane: list = [1,0,0], comment: str = '', params: dict = None, model = Model)
+Line.Spline(no: int = 1, nodes_no: str = '1 3 5', comment: str = '', params: dict = None, model = Model)
+
+
+this models openings and holes in surfaces: Opening(no: int = 1, lines_no: str = '1 2 3 4', comment: str = '', params: dict = None, model = Model)
+
+this is for defining line supports:
+LineSupport(no: int = 1, lines_no: str = '1 2', support_type = LineSupportType.HINGED, comment: str = '', params: dict = None, model = Model)
+The line support_type can be FIXED, HINGED, SLIDING_IN_X_AND_Y, SLIDING_IN_X, SLIDING_IN_Y, SLIDING_IN_Z, FREE
+
+this is for defining nodal supports:
+NodalSupport(no: int = 1, nodes_no: str = '1 2', support = NodalSupportType.HINGED, comment: str = '', params: dict = None, model = Model)
+The nodal support_type can be FIXED, HINGED, ROLLER, ROLLER_IN_X, ROLLER_IN_Y, ROLLER_IN_Z, FREE
+
+create only neccessary nodes, lines etc!
+if the user does not specify, assume the positive heigt in negative global z direction.
+
+
+This is an example of the Geometry section:
+
+# ---- Geometry Sec ----
+Node(1, 1, 0,0)
+
+Line.Circle(1, [0,0,0], 3, [0,0,1])
+
+LineSupport(1, '1', LineSupportType.HINGED)
+
+

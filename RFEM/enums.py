@@ -1849,13 +1849,13 @@ class SurfaceResultsAdjustmentShape(Enum):
     '''
     Surface Result Adjustment Shape Type
     '''
-    SHAPE_RECTANGLE, SHAPE_CIRCLE, SHAPE_ELLIPSE = range(3)
+    SHAPE_RECTANGLE, SHAPE_CIRCLE, SHAPE_ELLIPSE, SHAPE_POLYGON = range(4)
 
 class SurfaceResultsAdjustmentType(Enum):
     '''
     Surface Result Adjustment Type. ZERO left out intentionaly.
     '''
-    AVERAGING_OF_MY_MXY_VY_NY_NXY, AVERAGING_OF_MX_MXY_VX_NX_NXY, USER_DEFINED, NONE = range(4)
+    AVERAGING_OF_MY_MXY_VY_NY_NXY, AVERAGING_OF_MX_MXY_VX_NX_NXY, USER_DEFINED, NONE, ZERO, CONTACT_STRESS_AREA = range(6)
 
 class SurfaceResultsAdjustmentProjection(Enum):
     '''

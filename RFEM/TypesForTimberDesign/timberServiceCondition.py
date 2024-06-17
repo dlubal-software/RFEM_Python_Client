@@ -44,7 +44,7 @@ class TimberServiceConditions():
         """
 
          # Client Model | Types For Timber Design Service Condition
-        clientObject = Model.clientModel.factory.create('ns0:timber_service_conditions')
+        clientObject = model.clientModel.factory.create('ns0:timber_service_conditions')
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
