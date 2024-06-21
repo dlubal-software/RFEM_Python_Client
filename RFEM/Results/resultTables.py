@@ -7377,6 +7377,2370 @@ class ResultTables():
 
 
     @staticmethod
+    def ConcreteDesignDesignRatiosDeepBeamsByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_deep_beams_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosDeepBeamsByDeepBeam(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_deep_beams_by_deep_beam(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosDeepBeamsByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_deep_beams_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosDeepBeamsByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_deep_beams_by_loading(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosDeepBeamsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_deep_beams_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosDeepBeamsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_deep_beams_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosDeepBeamsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_deep_beams_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberRepresentativesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_representatives_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberRepresentativesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_representatives_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberRepresentativesByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_representatives_by_loading(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_representatives_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_representatives_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberRepresentativesByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_representatives_by_member_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_representatives_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberSetRepresentativesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_set_representatives_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberSetRepresentativesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_set_representatives_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberSetRepresentativesByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_set_representatives_by_loading(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberSetRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_set_representatives_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberSetRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_set_representatives_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberSetRepresentativesByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_set_representatives_by_member_set_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberSetRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_set_representatives_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMembersByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_members_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMembersByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_members_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMembersByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_members_by_loading(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMembersByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_members_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMembersByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_members_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMembersByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_members_by_member(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMembersByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_members_by_member_set(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMembersBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_members_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosNodesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_nodes_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosNodesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_nodes_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosNodesByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_nodes_by_loading(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosNodesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_nodes_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosNodesByNode(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_nodes_by_node(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosNodesBySurface(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_nodes_by_surface(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosNodesByThickness(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_nodes_by_thickness(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosShearWallsByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_shear_walls_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosShearWallsByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_shear_walls_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosShearWallsByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_shear_walls_by_loading(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosShearWallsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_shear_walls_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosShearWallsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_shear_walls_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosShearWallsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_shear_walls_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosShearWallsByShearWall(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_shear_walls_by_shear_wall(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosSurfacesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_surfaces_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosSurfacesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_surfaces_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosSurfacesByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_surfaces_by_loading(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosSurfacesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_surfaces_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosSurfacesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_surfaces_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosSurfacesBySurface(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_surfaces_by_surface(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosSurfacesBySurfaceSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_surfaces_by_surface_set(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosSurfacesByThickness(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_surfaces_by_thickness(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByDeepBeam(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_deep_beam(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByDeepBeamEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_deep_beam_ends(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_member(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByMemberEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_member_ends(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_member_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByMemberRepresentativeEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_member_representative_ends(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_member_set(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByMemberSetEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_member_set_ends(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_member_set_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByMemberSetRepresentativeEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_member_set_representative_ends(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByNode(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_node(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByShearWall(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_shear_wall(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByShearWallEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_shear_wall_ends(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesBySurface(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_surface(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesBySurfaceSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_surface_set(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_loading(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnDeepBeamsByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_deep_beams_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnDeepBeamsByDeepBeam(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_deep_beams_by_deep_beam(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnDeepBeamsByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_deep_beams_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnDeepBeamsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_deep_beams_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnDeepBeamsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_deep_beams_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnDeepBeamsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_deep_beams_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberRepresentativesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_representatives_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberRepresentativesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_representatives_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_representatives_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_representatives_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberRepresentativesByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_representatives_by_member_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_representatives_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberSetRepresentativesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_set_representatives_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberSetRepresentativesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_set_representatives_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberSetRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_set_representatives_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberSetRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_set_representatives_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberSetRepresentativesByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_set_representatives_by_member_set_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberSetRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_set_representatives_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMembersByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_members_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMembersByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_members_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMembersByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_members_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMembersByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_members_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMembersByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_members_by_member(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMembersByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_members_by_member_set(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMembersBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_members_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnShearWallsByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_shear_walls_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnShearWallsByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_shear_walls_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnShearWallsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_shear_walls_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnShearWallsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_shear_walls_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnShearWallsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_shear_walls_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnShearWallsByShearWall(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_shear_walls_by_shear_wall(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnSurfacesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_surfaces_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnSurfacesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_surfaces_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnSurfacesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_surfaces_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnSurfacesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_surfaces_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnSurfacesBySurface(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_surfaces_by_surface(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnSurfacesBySurfaceSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_surfaces_by_surface_set(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnSurfacesByThickness(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_surfaces_by_thickness(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignOverviewErrorsAndWarnings(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_overview_errors_and_warnings(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignOverviewNotValidDeactivated(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_overview_not_valid_deactivated(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnDeepBeamsByDeepBeam(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_deep_beams_by_deep_beam(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnDeepBeamsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_deep_beams_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnDeepBeamsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_deep_beams_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnDeepBeamsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_deep_beams_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMemberRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_member_representatives_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMemberRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_member_representatives_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMemberRepresentativesByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_member_representatives_by_member_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMemberRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_member_representatives_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMemberSetRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_member_set_representatives_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMemberSetRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_member_set_representatives_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMemberSetRepresentativesByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_member_set_representatives_by_member_set_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMemberSetRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_member_set_representatives_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMembersByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_members_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMembersByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_members_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMembersByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_members_by_member(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMembersByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_members_by_member_set(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMembersBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_members_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnNodesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_nodes_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnNodesByNode(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_nodes_by_node(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnNodesBySurface(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_nodes_by_surface(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnNodesByThickness(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_nodes_by_thickness(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnShearWallsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_shear_walls_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnShearWallsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_shear_walls_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnShearWallsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_shear_walls_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnShearWallsByShearWall(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_shear_walls_by_shear_wall(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnSurfacesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_surfaces_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnSurfacesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_surfaces_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnSurfacesBySurface(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_surfaces_by_surface(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnSurfacesBySurfaceSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_surfaces_by_surface_set(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnSurfacesByThickness(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_surfaces_by_thickness(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnDeepBeamsByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_deep_beams_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnDeepBeamsByDeepBeam(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_deep_beams_by_deep_beam(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnDeepBeamsByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_deep_beams_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnDeepBeamsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_deep_beams_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnDeepBeamsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_deep_beams_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnDeepBeamsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_deep_beams_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberRepresentativesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_representatives_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberRepresentativesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_representatives_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_representatives_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_representatives_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberRepresentativesByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_representatives_by_member_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_representatives_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberSetRepresentativesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_set_representatives_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberSetRepresentativesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_set_representatives_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberSetRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_set_representatives_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberSetRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_set_representatives_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberSetRepresentativesByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_set_representatives_by_member_set_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberSetRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_set_representatives_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMembersByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_members_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMembersByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_members_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMembersByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_members_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMembersByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_members_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMembersByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_members_by_member(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMembersByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_members_by_member_set(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMembersBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_members_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnNodesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_nodes_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnNodesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_nodes_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnNodesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_nodes_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnNodesByNode(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_nodes_by_node(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnNodesBySurface(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_nodes_by_surface(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnNodesByThickness(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_nodes_by_thickness(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnShearWallsByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_shear_walls_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnShearWallsByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_shear_walls_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnShearWallsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_shear_walls_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnShearWallsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_shear_walls_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnShearWallsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_shear_walls_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnShearWallsByShearWall(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_shear_walls_by_shear_wall(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnSurfacesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_surfaces_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnSurfacesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_surfaces_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnSurfacesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_surfaces_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnSurfacesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_surfaces_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnSurfacesBySurface(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_surfaces_by_surface(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnSurfacesBySurfaceSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_surfaces_by_surface_set(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnSurfacesByThickness(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_surfaces_by_thickness(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignSurfaceReinforcement(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_surface_reinforcement(), include_base)
+
+
+    @staticmethod
     def SteelDesignBraceConnectionByMember(
         include_base: bool = False,
         model = Model):
