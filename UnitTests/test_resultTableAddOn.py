@@ -26,6 +26,9 @@ from RFEM.Loads.nodalLoad import NodalLoad
 from RFEM.AluminumDesign.aluminumSLSConfiguration import AluminumDesignSLSConfigurations
 from RFEM.AluminumDesign.aluminumULSConfiguration import AluminumDesignULSConfigurations
 from RFEM.TypesForAluminumDesign.aluminumEffectiveLengths import AluminumEffectiveLengths
+from RFEM.TimberDesign.timberUltimateConfigurations import TimberDesignUltimateConfigurations
+from RFEM.TimberDesign.timberServiceLimitStateConfigurations import TimberDesignServiceLimitStateConfigurations
+from RFEM.TypesForTimberDesign.timberEffectiveLengths import TimberEffectiveLengths
 
 if Model.clientModel is None:
     Model()
@@ -48,15 +51,23 @@ def test_result_tables_aluminum_design_addon():
 
     NodalSupport(1, '1', NodalSupportType.HINGED)
     NodalSupport(2, '2', [0, inf, inf, inf, 0, inf])
+
     AluminumEffectiveLengths()
+
     LoadCasesAndCombinations()
     LoadCase.StaticAnalysis(1, 'Self-Weight',analysis_settings_no=1,action_category= ActionCategoryType.ACTION_CATEGORY_PERMANENT_G,self_weight=[True, 0.0, 0.0, 1.0])
+
     DesignSituation(1, DesignSituationType.DESIGN_SITUATION_TYPE_EQU_PERMANENT_AND_TRANSIENT, True)
+
     StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
+
     LoadCombination(1, combination_items=[[1,1,0,False]])
+
     NodalLoad(1, 1, '2', NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 1000)
+
     AluminumDesignSLSConfigurations()
     AluminumDesignULSConfigurations()
+
     Model.clientModel.service.finish_modification()
 
     Calculate_all()
@@ -65,3 +76,52 @@ def test_result_tables_aluminum_design_addon():
     assert ResultTables.AluminumDesignDesignRatiosMembersByDesignSituation()
     assert ResultTables.AluminumDesignDesignRatiosMembersByMember()
     assert ResultTables.AluminumDesignDesignRatiosMembersBySection()
+
+    SetAddonStatus(Model.clientModel, addOn=AddOn.aluminum_design_active, status=False)
+
+def test_result_tables_timber_design_addon():
+
+    Model.clientModel.service.delete_all()
+    Model.clientModel.service.begin_modification()
+
+    SetAddonStatus(Model.clientModel, addOn=AddOn.timber_design_active, status=True)
+
+    Material(1, 'GL20c')
+
+    Section(1, 'Batten 50/100')
+
+    Node(1, 0.0, 0.0, 0.0)
+    Node(2, 5, 0.0, 0.0)
+
+    Member(1, 1, 2, 0.0, 1, 1)
+
+    NodalSupport(1, '1', NodalSupportType.HINGED)
+    NodalSupport(2, '2', [0, inf, inf, inf, 0, inf])
+
+    TimberEffectiveLengths()
+
+    LoadCasesAndCombinations(params={"current_standard_for_combination_wizard":6517})
+    LoadCase.StaticAnalysis(1, 'Self-Weight',analysis_settings_no=1,action_category= ActionCategoryType.ACTION_CATEGORY_PERMANENT_G,self_weight=[True, 0.0, 0.0, 1.0])
+
+    DesignSituation(1, DesignSituationType.DESIGN_SITUATION_TYPE_EQU_PERMANENT_AND_TRANSIENT, True)
+
+    StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
+
+    LoadCombination(1, combination_items=[[1,1,0,False]])
+
+    NodalLoad(1, 1, '2', NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W, 1000)
+
+    TimberDesignUltimateConfigurations()
+    TimberDesignServiceLimitStateConfigurations()
+
+    Model.clientModel.service.finish_modification()
+
+    Calculate_all()
+
+    assert Model.clientModel.service.has_any_results()
+    assert ResultTables.TimberDesignDesignRatiosMembersByDesignSituation()
+    assert ResultTables.TimberDesignDesignRatiosMembersByMember()
+    assert ResultTables.TimberDesignDesignRatiosMembersBySection()
+
+    SetAddonStatus(Model.clientModel, addOn=AddOn.timber_design_active, status=False)
+    LoadCasesAndCombinations(params={"current_standard_for_combination_wizard":6207})

@@ -87,7 +87,7 @@ def test_result_tables():
     assert not table9[16] == table10[0]
 
     table2 = ResultTables.MembersGlobalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, 3)
-    # TODO: Reseting object_locations parameter for test_resultTableAluminumDesignAddOn.py.
+    # TODO: Reseting object_locations parameter for test_resultTableAddOn.py.
     # Should be done automatically in WS Core before every calculate_all().
     table1 = ResultTables.MembersGlobalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1, 0)
     assert table1[32] == table2[0]
