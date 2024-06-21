@@ -9,7 +9,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import NodalSupportType, NodalLoadDirection, DesignSituationType, ActionCategoryType, AddOn
-from RFEM.initModel import Model, SetAddonStatus, Calculate_all, closeModel
+from RFEM.initModel import Model, SetAddonStatus, Calculate_all
 from RFEM.dataTypes import inf
 from RFEM.Results.resultTables import ResultTables
 from RFEM.BasicObjects.material import Material
