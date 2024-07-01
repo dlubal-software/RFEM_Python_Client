@@ -175,3 +175,28 @@ if __name__ == "__main__":
 
     columnInternalForces = ResultTables.MembersInternalForces(loading_type=CaseObjectType.E_OBJECT_TYPE_DESIGN_SITUATION, loading_no=1)
     print(columnInternalForces)
+
+
+    rsaSummaryX = ResultTables.SpectralAnalysisSummary(
+        loading_type=CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
+        loading_no=4,
+        envelope_type=SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_DIRECTION_X)
+    print(rsaSummaryX)
+
+    nodeDeformationsX = ResultTables.SpectralAnalysisNodesDeformations(
+        loading_type=CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
+        loading_no=4,
+        envelope_type=SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_DIRECTION_X)
+    print(nodeDeformationsX)
+
+    # membersDeformationsX = ResultTables.SpectralAnalysisMembersLocalDeformations(
+    #     loading_type=CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
+    #     loading_no=4,
+    #     envelope_type=SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_DIRECTION_X)
+    # print(membersDeformationsX)
+
+    nodeDeformationsY = ResultTables.SpectralAnalysisSurfacesLocalDeformations(
+        loading_type=CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
+        loading_no=4,
+        envelope_type=SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_DIRECTION_X)
+    print(nodeDeformationsY)

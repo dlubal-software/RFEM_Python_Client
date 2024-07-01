@@ -1,6 +1,6 @@
 import enum
 from RFEM.initModel import Model
-from RFEM.enums import CaseObjectType, ObjectTypes
+from RFEM.enums import CaseObjectType, ObjectTypes, SpectralAnalysisEnvelopeType
 from RFEM.dataTypes import inf
 
 # We  can't extract lines with description: Extremes, Total, and Average. Those are language dependent.
@@ -154,6 +154,17 @@ def CreateObjectLocation(
             return object_locations
         else:
             return None
+
+
+def CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no, model = Model):
+
+        envelope = model.clientModel.factory.create('ns0:spectral_analysis_envelope')
+        envelope_list = model.clientModel.factory.create('ns0:spectral_analysis_envelope_type')
+
+        envelope.envelope_type = envelope_list[envelope_type.value]
+        envelope.mode_shape_no = mode_shape_no
+
+        return envelope
 
 
 class ResultTables():
@@ -1592,6 +1603,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -1600,13 +1613,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
+
+        object_locations = None
+
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_building_stories_centres_mass_rigidity(
             loading_type.name,
             loading_no,
-            object_locations = None  # todo: add filtering by Story number
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1617,6 +1637,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -1625,13 +1647,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
+
+        object_locations = None
+
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_building_stories_forces_in_shear_walls(
             loading_type.name,
             loading_no,
-            object_locations = None  # todo: add filtering by Shear Wall number
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1642,6 +1671,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -1650,13 +1681,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
+
+        object_locations = None
+
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_building_stories_interstory_drifts(
             loading_type.name,
             loading_no,
-            object_locations = None  # todo: add filtering by Story number
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1667,6 +1705,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -1675,13 +1715,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
+
+        object_locations = None
+
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_building_stories_story_actions(
             loading_type.name,
             loading_no,
-            object_locations = None  # todo: add filtering by Story number
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1692,6 +1739,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -1700,15 +1749,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Line number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_line_hinges_deformations(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1719,6 +1773,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -1727,15 +1783,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Line number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape numbe
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_line_hinges_forces(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1746,6 +1807,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -1754,15 +1817,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Line number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape numbe
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_lines_slab_wall_connections(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1773,6 +1841,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -1781,15 +1851,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Line number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape numbe
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_lines_support_forces(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1800,6 +1875,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -1808,15 +1885,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Member number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape numbe
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_members_contact_forces(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1827,23 +1909,30 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Member number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_members_global_deformations(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1854,6 +1943,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -1862,15 +1953,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Member number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_members_hinge_deformations(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1881,6 +1977,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -1889,15 +1987,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Member number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_members_hinge_forces(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1908,6 +2011,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -1916,15 +2021,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Member number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1935,6 +2045,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -1943,15 +2055,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Member Set number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER_SET.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces_by_member_set(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1962,6 +2079,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -1970,15 +2089,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Section number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SECTION.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces_by_section(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -1989,6 +2113,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -1997,15 +2123,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Member number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_members_local_deformations(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2016,6 +2147,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2024,15 +2157,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Member number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_members_strains(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2043,6 +2181,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2051,15 +2191,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Node number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_nodes_deformations(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2070,6 +2215,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2078,15 +2225,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Node number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_nodes_pseudo_accelerations(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2097,6 +2249,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2105,15 +2259,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Node number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_nodes_pseudo_velocities(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2124,6 +2283,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2132,15 +2293,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Node number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_nodes_support_forces(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2151,6 +2317,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2159,15 +2327,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Solid number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_solids_basic_stresses(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2178,6 +2351,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2186,15 +2361,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Solid number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_solids_basic_total_strains(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2205,6 +2385,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2213,15 +2395,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Solid number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_solids_deformations(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2232,6 +2419,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2240,15 +2429,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Solid number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_solids_equivalent_stresses(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2259,6 +2453,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2267,15 +2463,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Solid number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_solids_equivalent_total_strains(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2286,6 +2487,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2294,15 +2497,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Solid number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_solids_gas_quantities(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2313,6 +2521,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2321,15 +2531,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Solid number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_solids_principal_stresses(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2340,6 +2555,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2348,15 +2565,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Solid number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_solids_principal_total_strains(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2366,7 +2588,8 @@ class ResultTables():
     def SpectralAnalysisSummary(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
-        object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2374,17 +2597,32 @@ class ResultTables():
          Args:
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_summary(loading_type.name, loading_no, object_no), include_base)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
+        object_location = None
+
+        results = model.clientModel.service.get_results_for_spectral_analysis_summary(
+            loading_type.name,
+            loading_no,
+            object_location,
+            envelope
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesBasicInternalForces(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2393,15 +2631,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_internal_forces(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2412,6 +2655,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2420,15 +2665,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_stresses(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2439,6 +2689,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2447,15 +2699,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_total_strains(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2466,6 +2723,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2474,15 +2733,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_contact_stresses(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2493,6 +2757,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2501,15 +2767,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_design_internal_forces(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2520,6 +2791,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2528,15 +2801,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_elastic_stress_components(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2547,6 +2825,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2555,15 +2835,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_bach(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2574,6 +2859,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2582,15 +2869,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_mises(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2601,6 +2893,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2609,15 +2903,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_rankine(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2628,6 +2927,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2636,15 +2937,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_tresca(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2655,6 +2961,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2663,15 +2971,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_bach(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2682,6 +2995,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2690,15 +3005,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_mises(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2709,6 +3029,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2717,15 +3039,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_rankine(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2736,6 +3063,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2744,14 +3073,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
+
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
 
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_tresca(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2762,6 +3097,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2770,15 +3107,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_global_deformations(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2789,6 +3131,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2797,15 +3141,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_local_deformations(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2816,6 +3165,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2824,15 +3175,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_maximum_total_strains(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2843,6 +3199,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2851,15 +3209,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_internal_forces(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2870,6 +3233,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2878,15 +3243,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_stresses(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -2897,6 +3267,8 @@ class ResultTables():
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
@@ -2905,15 +3277,20 @@ class ResultTables():
             loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
 
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+
         results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_total_strains(
             loading_type.name,
             loading_no,
-            object_locations
+            object_locations,
+            envelope
         )
 
         return ConvertResultsToListOfDct(results, include_base)
