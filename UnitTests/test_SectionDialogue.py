@@ -7,12 +7,19 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.initModel import Model
+from RFEM.connectionGlobals import url
 from RFEM.Tools.sectionDialogue import *
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.material import Material
+import pytest
 
 if Model.clientModel is None:
     Model()
+
+
+@pytest.mark.skipif(url != 'http://127.0.0.1', reason="This test fails on remote PC due to incorrect file path. \
+                    Althought it is easy to change, it would not be easy to update on every remote computer.\
+                    It is not necessary to evaluate Client as functional. Localy this tests still gets executed.")
 
 def test_section_dialogue():
 

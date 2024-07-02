@@ -21,6 +21,7 @@ import functools
 import requests
 import suds.transport as transport
 import traceback
+import ssl
 from six import BytesIO
 
 def handle_errors(f):
@@ -46,25 +47,31 @@ def handle_errors(f):
 
 
 class RequestsTransport(transport.Transport):
-    def __init__(self, session=None):
+    def __init__(self, session=None, api_key=None, verify=True):
         transport.Transport.__init__(self)
         self._session = session or requests.Session()
+        self.api_key = api_key
+        self.verify = verify
 
     @handle_errors
     def open(self, request):
-        resp = self._session.get(request.url)
+        headers = {'Authorization': f'Bearer {self.api_key}'} if self.api_key else {}
+        resp = self._session.get(request.url, headers=headers, verify=self.verify)
         resp.raise_for_status()
         return BytesIO(resp.content)
 
     @handle_errors
     def send(self, request):
+        headers = request.headers
+        if self.api_key:
+            headers['Authorization'] = f'Bearer {self.api_key}'
         resp = self._session.post(
             request.url,
             data=request.message,
-            headers=request.headers,
+            headers=headers,
+            verify=self.verify,
         )
-        if resp.headers.get('content-type') not in ('text/xml',
-                                                    'application/soap+xml'):
+        if resp.headers.get('content-type') not in ('text/xml','application/soap+xml'):
             resp.raise_for_status()
         return transport.Reply(
             resp.status_code,
