@@ -21,7 +21,6 @@ import functools
 import requests
 import suds.transport as transport
 import traceback
-import ssl
 from six import BytesIO
 
 def handle_errors(f):

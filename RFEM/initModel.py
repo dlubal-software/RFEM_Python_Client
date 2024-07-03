@@ -90,7 +90,7 @@ def connectToServer(url=connectionGlobals.url, port=connectionGlobals.port):
         connectionGlobals.client = Client(urlAndPort+'/wsdl', location = urlAndPort, cache=connectionGlobals.ca, transport=trans)
         connectionGlobals.connected = True
 
-    except Exception as e:
+    except Exception:
         print('Error: Connection to server failed!')
         print('Please check:')
         print('- If you have started RFEM application')
@@ -104,7 +104,7 @@ def connectToServer(url=connectionGlobals.url, port=connectionGlobals.port):
 
     try:
         modelLst = connectionGlobals.client.service.get_model_list()
-    except Exception as e:
+    except Exception:
         print('Error: Please check if all RFEM dialogs are closed.')
         input('Press Enter to exit...')
         sys.exit()
