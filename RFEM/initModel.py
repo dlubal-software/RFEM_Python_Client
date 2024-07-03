@@ -34,7 +34,8 @@ def connectToServer(url=connectionGlobals.url, port=connectionGlobals.port):
     if url.startswith('https://'):
         hostname = url[8:]  # Remove 'https://'
         context = ssl.create_default_context()
-        # context.load_verify_locations(cafile=connectionGlobals.verify)
+        if isinstance(connectionGlobals.verify, str):
+            context.load_verify_locations(cafile=connectionGlobals.verify)
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         a_socket = context.wrap_socket(sock, server_hostname=hostname)
         new_wsdl = request.urlopen(urlAndPort+'/wsdl', context=context)
