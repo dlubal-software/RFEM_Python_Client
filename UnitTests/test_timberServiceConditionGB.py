@@ -23,7 +23,6 @@ if Model.clientModel is None:
 @pytest.mark.skipif(url != 'http://127.0.0.1', reason="This test fails on remote PC due to incorrect file path. \
                     Althought it is easy to change, it would not be easy to update on every remote computer.\
                     It is not necessary to evaluate Client as functional. Localy this tests still gets executed.")
-
 def test_timberServiceConditionsGB():
 
     dirname = os.path.join(os.getcwd(), os.path.dirname(__file__))

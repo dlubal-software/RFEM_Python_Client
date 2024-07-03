@@ -85,7 +85,6 @@ def test_global_parameters():
 @pytest.mark.skipif(url != 'http://127.0.0.1', reason="This test fails on remote PC due to incorrect file path. \
                     Althought it is easy to change, it would not be easy to update on every remote computer.\
                     It is not necessary to evaluate Client as functional. Localy this tests still gets executed.")
-
 def test_set_and_get_formula():
 
     Model.clientModel.service.delete_all()

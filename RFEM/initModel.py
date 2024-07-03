@@ -30,17 +30,14 @@ def connectToServer(url=connectionGlobals.url, port=connectionGlobals.port):
     # local machine url format: 'http://127.0.0.1'
     urlAndPort = f'{url}:{port}'
 
-
     # Parse the hostname from the URL
     if url.startswith('https://'):
         hostname = url[8:]  # Remove 'https://'
-
         context = ssl.create_default_context()
         # context.load_verify_locations(cafile=connectionGlobals.verify)
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         a_socket = context.wrap_socket(sock, server_hostname=hostname)
         new_wsdl = request.urlopen(urlAndPort+'/wsdl', context=context)
-
     elif url.startswith('http://'):
         hostname = url[7:]  # Remove 'http://'
         a_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -51,7 +48,6 @@ def connectToServer(url=connectionGlobals.url, port=connectionGlobals.port):
         new_wsdl = request.urlopen(urlAndPort+'/wsdl')
 
     location = (hostname, int(port))
-
 
     # Check if port is listening
     result_of_check = a_socket.connect_ex(location)
@@ -64,7 +60,6 @@ def connectToServer(url=connectionGlobals.url, port=connectionGlobals.port):
         print('- If you have started RFEM application at the remote destination correctly.')
         a_socket.close()
         sys.exit()
-
 
     # Delete old cache if the version or mode doesn't correlate
     connectionGlobals.cacheLoc = os.path.join(gettempdir(), 'WSDL')
