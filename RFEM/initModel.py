@@ -2,6 +2,7 @@ import os
 import sys
 import RFEM.dependencies # dependency check ahead of imports
 import socket
+import ssl
 import requests
 import xmltodict
 from urllib import request
@@ -29,10 +30,27 @@ def connectToServer(url=connectionGlobals.url, port=connectionGlobals.port):
     # local machine url format: 'http://127.0.0.1'
     urlAndPort = f'{url}:{port}'
 
-    # Check if port is listening
-    a_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # Parse the hostname from the URL
+    if url.startswith('https://'):
+        hostname = url[8:]  # Remove 'https://'
+        context = ssl.create_default_context()
+        if isinstance(connectionGlobals.verify, str):
+            context.load_verify_locations(cafile=connectionGlobals.verify)
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        a_socket = context.wrap_socket(sock, server_hostname=hostname)
+        new_wsdl = request.urlopen(urlAndPort+'/wsdl', context=context)
+    elif url.startswith('http://'):
+        hostname = url[7:]  # Remove 'http://'
+        a_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        new_wsdl = request.urlopen(urlAndPort+'/wsdl')
+    else:
+        hostname = url
+        a_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        new_wsdl = request.urlopen(urlAndPort+'/wsdl')
 
-    location = (url[7:], int(port))
+    location = (hostname, int(port))
+
+    # Check if port is listening
     result_of_check = a_socket.connect_ex(location)
 
     if result_of_check == 0:
@@ -46,7 +64,7 @@ def connectToServer(url=connectionGlobals.url, port=connectionGlobals.port):
 
     # Delete old cache if the version or mode doesn't correlate
     connectionGlobals.cacheLoc = os.path.join(gettempdir(), 'WSDL')
-    new_wsdl = request.urlopen(urlAndPort+'/wsdl')
+
     new_wsdl_data = new_wsdl.read()
     new_wsdl.close()
     new_tns = xmltodict.parse(new_wsdl_data)['definitions']['@targetNamespace']
@@ -65,10 +83,15 @@ def connectToServer(url=connectionGlobals.url, port=connectionGlobals.port):
     # Check for issues locally and remotely
     try:
         connectionGlobals.ca = DocumentCache(location=connectionGlobals.cacheLoc)
-        connectionGlobals.client = Client(urlAndPort+'/wsdl', location = urlAndPort, cache=connectionGlobals.ca)
+        trans = RequestsTransport(
+            api_key=connectionGlobals.api_key,
+            session=connectionGlobals.session,
+            verify=connectionGlobals.verify
+        )
+        connectionGlobals.client = Client(urlAndPort+'/wsdl', location = urlAndPort, cache=connectionGlobals.ca, transport=trans)
         connectionGlobals.connected = True
 
-    except:
+    except Exception:
         print('Error: Connection to server failed!')
         print('Please check:')
         print('- If you have started RFEM application')
@@ -82,7 +105,7 @@ def connectToServer(url=connectionGlobals.url, port=connectionGlobals.port):
 
     try:
         modelLst = connectionGlobals.client.service.get_model_list()
-    except:
+    except Exception:
         print('Error: Please check if all RFEM dialogs are closed.')
         input('Press Enter to exit...')
         sys.exit()
@@ -169,7 +192,12 @@ class Model():
                 connectionGlobals.session = requests.Session()
                 adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
                 connectionGlobals.session.mount('http://', adapter)
-                trans = RequestsTransport(connectionGlobals.session)
+                connectionGlobals.session.mount('https://', adapter)
+                trans = RequestsTransport(
+                    api_key=connectionGlobals.api_key,
+                    session = connectionGlobals.session,
+                    verify=connectionGlobals.verify
+                )
 
                 cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=connectionGlobals.ca, timeout=360)
 
@@ -201,7 +229,12 @@ class Model():
                 connectionGlobals.session = requests.Session()
                 adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
                 connectionGlobals.session.mount('http://', adapter)
-                trans = RequestsTransport(connectionGlobals.session)
+                connectionGlobals.session.mount('https://', adapter)
+                trans = RequestsTransport(
+                    api_key=connectionGlobals.api_key,
+                    session = connectionGlobals.session,
+                    verify=connectionGlobals.verify
+                )
 
                 cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=connectionGlobals.ca, timeout=360)
             elif model_name == "":
@@ -213,7 +246,12 @@ class Model():
                 connectionGlobals.session = requests.Session()
                 adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
                 connectionGlobals.session.mount('http://', adapter)
-                trans = RequestsTransport(connectionGlobals.session)
+                connectionGlobals.session.mount('https://', adapter)
+                trans = RequestsTransport(
+                    api_key=connectionGlobals.api_key,
+                    session = connectionGlobals.session,
+                    verify=connectionGlobals.verify
+                )
 
                 cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=connectionGlobals.ca, timeout=360)
             else:

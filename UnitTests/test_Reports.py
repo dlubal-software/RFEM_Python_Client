@@ -16,7 +16,6 @@ import time
 if Model.clientModel is None:
     Model()
 
-
 @pytest.mark.skipif(url != 'http://127.0.0.1', reason="This test fails on remote PC due to incorrect file path. \
                     Althought it is easy to change, it would not be easy to update on every remote computer.\
                     It is not necessary to evaluate Client as functional. Localy this tests still gets executed.")
@@ -34,6 +33,9 @@ def test_html_report():
 
     assert os.path.exists(folderPath)
 
+@pytest.mark.skipif(url != 'http://127.0.0.1', reason="This test fails on remote PC due to incorrect file path. \
+                    Althought it is easy to change, it would not be easy to update on every remote computer.\
+                    It is not necessary to evaluate Client as functional. Localy this tests still gets executed.")
 def test_printout_report():
     # Remove any previous results if they exist
     dirname = os.path.join(os.getcwd(), os.path.dirname(__file__))

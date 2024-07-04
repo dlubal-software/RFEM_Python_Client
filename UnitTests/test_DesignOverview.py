@@ -1,5 +1,6 @@
 import sys
 import os
+import pytest
 PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.path.dirname(__file__),
                   os.pardir)
@@ -8,6 +9,7 @@ sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import AddOn
 from RFEM.initModel import Model, SetAddonStatus, getPathToRunningRFEM
+from RFEM.connectionGlobals import url
 from RFEM.Results.designOverview import GetDesignOverview, GetPartialDesignOverview
 from RFEM.Reports.partsList import GetPartsListAllByMaterial, GetPartsListMemberRepresentativesByMaterial
 from RFEM.Reports.partsList import GetPartsListMemberSetsByMaterial, GetPartsListMembersByMaterial
@@ -15,6 +17,10 @@ from RFEM.Reports.partsList import GetPartsListSolidsByMaterial, GetPartsListSur
 
 if Model.clientModel is None:
     Model()
+
+@pytest.mark.skipif(url != 'http://127.0.0.1', reason="This test fails on remote PC due to incorrect file path. \
+                    Althought it is easy to change, it would not be easy to update on every remote computer.\
+                    It is not necessary to evaluate Client as functional. Localy this tests still gets executed.")
 
 def test_designOverview():
 

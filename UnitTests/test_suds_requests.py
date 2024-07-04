@@ -73,7 +73,11 @@ def test_open():
     assert response.read() == b'abc123'
 
 
-def test_send():
+@pytest.mark.parametrize("url", [
+    "http://url",
+    "https://url"
+])
+def test_send(url):
     session = mock.Mock()
     session.post.return_value.content = b'abc123'
     session.post.return_value.headers = {
@@ -83,7 +87,7 @@ def test_send():
     session.post.return_value.status_code = 200
     transport = suds_requests.RequestsTransport(session)
     request = suds.transport.Request(
-        'http://url',
+        url,
         'I AM SOAP! WHY AM I NOT CLEAN!!!',
     )
     request.headers = {
@@ -94,12 +98,13 @@ def test_send():
     reply = transport.send(request)
 
     session.post.assert_called_with(
-        'http://url',
+        url,
         data='I AM SOAP! WHY AM I NOT CLEAN!!!',
         headers={
             'A': 1,
             'B': 2,
         },
+        verify=True
     )
     assert reply.code == 200
     assert reply.headers == {
