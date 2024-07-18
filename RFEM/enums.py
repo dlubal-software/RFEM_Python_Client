@@ -2658,7 +2658,6 @@ class MemberSpringSelfWeightDefinition(Enum):
     '''
     MASS, MASS_PER_LENGTH, SPECIFIC_WEIGHT = range(3)
 
-
 class SpectralAnalysisEnvelopeType(Enum):
     '''
     Response Spectrum Analysis Enevelope Type
