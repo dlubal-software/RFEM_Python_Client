@@ -189,7 +189,7 @@ class ResultTables():
         results = model.clientModel.service.get_results_for_building_stories_forces_in_shear_walls(
             loading_type.name,
             loading_no,
-            object_locations = None # todo: add filtering by Shear Wall number
+            object_locations = None # TODO: add filtering by Shear Wall number
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -214,7 +214,7 @@ class ResultTables():
         results = model.clientModel.service.get_results_for_building_stories_centres_mass_rigidity(
             loading_type.name,
             loading_no,
-            object_locations = None  # todo: add filtering by Story number
+            object_locations = None  # TODO: add filtering by Story number
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -239,7 +239,7 @@ class ResultTables():
         results = model.clientModel.service.get_results_for_building_stories_interstory_drifts(
             loading_type.name,
             loading_no,
-            object_locations = None  # todo: add filtering by Story number
+            object_locations = None  # TODO: add filtering by Story number
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -264,7 +264,7 @@ class ResultTables():
         results = model.clientModel.service.get_results_for_building_stories_story_actions(
             loading_type.name,
             loading_no,
-            object_locations = None  # todo: add filtering by Story number
+            object_locations = None  # TODO: add filtering by Story number
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -314,7 +314,7 @@ class ResultTables():
         results = model.clientModel.service.get_results_for_critical_load_factors(
             loading_type.name,
             loading_no,
-            object_locations = None  # todo: add filtering by mode shape number
+            object_locations = None  # TODO: add filtering by mode shape number
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -339,7 +339,7 @@ class ResultTables():
         results = model.clientModel.service.get_results_for_efeective_lengths_and_critical_loads_by_eigenvector(
             loading_type.name,
             loading_no,
-            object_locations = None  # todo: add filtering by mode shape number
+            object_locations = None  # TODO: add filtering by mode shape number
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -896,7 +896,7 @@ class ResultTables():
         results = model.clientModel.service.get_results_for_modal_analysis_effective_modal_masses(
             loading_type.name,
             loading_no,
-            object_locations = None # todo: add filtering by mode shape number
+            object_locations = None # TODO: add filtering by mode shape number
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -921,7 +921,7 @@ class ResultTables():
         results = model.clientModel.service.get_results_for_modal_analysis_effective_modal_masses(
             loading_type.name,
             loading_no,
-            object_locations = None # todo: add filtering by mesh point number
+            object_locations = None # TODO: add filtering by mesh point number
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3161,7 +3161,7 @@ class ResultTables():
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_centres_mass_rigidity(
             loading_type.name,
             loading_no,
-            object_locations = None # todo: add filtering by Story number
+            object_locations = None # TODO: add filtering by Story number
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3186,7 +3186,7 @@ class ResultTables():
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_forces_in_shear_walls(
             loading_type.name,
             loading_no,
-            object_locations = None # todo: add filtering by Shear Wall number
+            object_locations = None # TODO: add filtering by Shear Wall number
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3211,7 +3211,7 @@ class ResultTables():
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_interstory_drifts(
             loading_type.name,
             loading_no,
-            object_locations = None # todo: add filtering by Story number
+            object_locations = None # TODO: add filtering by Story number
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3236,7 +3236,7 @@ class ResultTables():
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_story_actions(
             loading_type.name,
             loading_no,
-            object_locations = None # todo: add filtering by Story number
+            object_locations = None # TODO: add filtering by Story number
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -3261,7 +3261,7 @@ class ResultTables():
         results = model.clientModel.service.get_results_for_stability_incremental_analysis_calculation_diagrams(
             loading_type.name,
             loading_no,
-            object_locations = None # todo: add filtering by ?
+            object_locations = None # TODO: add filtering by ?
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5507,7 +5507,7 @@ class ResultTables():
         results = model.clientModel.service.get_results_for_time_history_analysis_building_stories_centres_mass_rigidity(
             loading_type.name,
             loading_no,
-            object_locations = None # todo: add filtering by Story number
+            object_locations = None # TODO: add filtering by Story number
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5532,7 +5532,7 @@ class ResultTables():
         results = model.clientModel.service.get_results_for_time_history_analysis_building_stories_forces_in_shear_walls(
             loading_type.name,
             loading_no,
-            object_locations = None # todo: add filtering by Shear Wall number
+            object_locations = None # TODO: add filtering by Shear Wall number
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5557,7 +5557,7 @@ class ResultTables():
         results = model.clientModel.service.get_results_for_time_history_analysis_building_stories_interstory_drifts(
             loading_type.name,
             loading_no,
-            object_locations = None # todo: add filtering by Story number
+            object_locations = None # TODO: add filtering by Story number
         )
 
         return ConvertResultsToListOfDct(results, include_base)
@@ -5582,7 +5582,7 @@ class ResultTables():
         results = model.clientModel.service.get_results_for_time_history_analysis_building_stories_story_actions(
             loading_type.name,
             loading_no,
-            object_locations = None # todo: add filtering by Story number
+            object_locations = None # TODO: add filtering by Story number
         )
 
         return ConvertResultsToListOfDct(results, include_base)

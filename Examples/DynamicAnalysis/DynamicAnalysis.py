@@ -189,7 +189,7 @@ if __name__ == "__main__":
         envelope_type=SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_DIRECTION_X)
     print(nodeDeformationsX)
 
-    # BUG: Bugfix G-228650: WS: Spectral analysis envelopes for members
+    # TODO: Bugfix G-228650: WS: Spectral analysis envelopes for members
     # membersDeformationsX = ResultTables.SpectralAnalysisMembersLocalDeformations(
     #     loading_type=CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
     #     loading_no=4,
