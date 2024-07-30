@@ -34,7 +34,10 @@ This Python project is focused on opening RFEM 6 to all of our customers, enabli
 
 ## Eyes on Upcoming Development! :eyes:
 
-As you may have already heard, brand new WS features are in the works. Having support for Python scripting directly in the RFEM, we have foundations to build completely new WS API which will be faster, have better access to results, and will have full compatibility with RFEM Console.
+As you may have already heard, brand new Web Services are in the works!
+* Using gRPC will ensure highest performance without compromise. First tests show 15x faster execution compared to current WS. According to [source](https://medium.com/@EmperorRXF/evaluating-performance-of-rest-vs-grpc-1b8bdf0b22da#:~:text=gRPC%20is%20roughly%207%20times,of%20HTTP%2F2%20by%20gRPC.) gRPC shows 7 to 10 times better performance than REST(GraphQL).
+* The new common results interface will ensure that users can effectively filter all results to get only the data they want.
+* All code can be tested and prototyped in the console as the syntax will be the same.
 
 
 ## Architecture
