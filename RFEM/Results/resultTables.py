@@ -1,6 +1,6 @@
 import enum
 from RFEM.initModel import Model
-from RFEM.enums import CaseObjectType
+from RFEM.enums import CaseObjectType, ObjectTypes, SpectralAnalysisEnvelopeType
 from RFEM.dataTypes import inf
 
 # We  can't extract lines with description: Extremes, Total, and Average. Those are language dependent.
@@ -24,6 +24,7 @@ def GetResultTableParameters(results):
                 params['errors'] = "Result table doesn't have attribute 'row'."
 
     return params
+
 
 def ConvertResultsToListOfDct(results, includeBase = False):
     '''
@@ -94,6 +95,7 @@ def ConvertResultsToListOfDct(results, includeBase = False):
 
     return lstOfDct
 
+
 def GetMinValue(structured_results, parameter):
 
     '''
@@ -113,6 +115,7 @@ def GetMinValue(structured_results, parameter):
     assert min_val < inf, 'Check if the parameter is in the table.'
 
     return min_val
+
 
 def GetMaxValue(structured_results, parameter):
 
@@ -134,25 +137,38 @@ def GetMaxValue(structured_results, parameter):
 
     return max_val
 
+
+def CreateObjectLocation(
+    object_type = 'E_OBJECT_TYPE_NODE',
+    object_no = 1,
+    model = Model):
+
+    if object_no > 0:
+        object_locations = model.clientModel.factory.create('ns0:object_location_array')
+
+        object = model.clientModel.factory.create('ns0:object_location')
+        object.type = object_type
+        object.no = object_no
+        object_locations.object_location.append(object)
+
+        return object_locations
+    else:
+        return None
+
+
+def CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no, model = Model):
+
+    envelope = model.clientModel.factory.create('ns0:spectral_analysis_envelope')
+    envelope_list = model.clientModel.factory.create('ns0:spectral_analysis_envelope_type')
+
+    envelope.envelope_type = envelope_list[envelope_type.value]
+    envelope.mode_shape_no = mode_shape_no
+
+    return envelope
+
+
 class ResultTables():
 
-    @staticmethod
-    def BuildingStoriesForcesInSpandrels(
-        loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
-        loading_no: int = 1,
-        object_no: int = 0,
-        include_base: bool = False,
-        model = Model):
-
-        '''
-         Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
-            loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
-            model (class, optional): Model instance
-        '''
-
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_building_stories_forces_in_spandrels(loading_type.name, loading_no, object_no), include_base)
 
     @staticmethod
     def BuildingStoriesForcesInShearWalls(
@@ -164,13 +180,20 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_building_stories_forces_in_shear_walls(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_building_stories_forces_in_shear_walls(
+            loading_type.name,
+            loading_no,
+            object_locations = None # TODO: add filtering by Shear Wall number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def BuildingStoriesCentresMassRigidity(
@@ -182,13 +205,20 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_building_stories_centres_mass_rigidity(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_building_stories_centres_mass_rigidity(
+            loading_type.name,
+            loading_no,
+            object_locations = None  # TODO: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def BuildingStoriesInterstoryDrifts(
@@ -200,13 +230,20 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_building_stories_interstory_drifts(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_building_stories_interstory_drifts(
+            loading_type.name,
+            loading_no,
+            object_locations = None  # TODO: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def BuildingStoriesStoryActions(
@@ -218,13 +255,20 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_building_stories_story_actions(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_building_stories_story_actions(
+            loading_type.name,
+            loading_no,
+            object_locations = None  # TODO: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def CalculationDiagrams(
@@ -236,13 +280,20 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_calculation_diagrams(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_calculation_diagrams(
+            loading_type.name,
+            loading_no,
+            object_locations = None
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def CriticalLoadFactors(
@@ -254,16 +305,23 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_critical_load_factors(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_critical_load_factors(
+            loading_type.name,
+            loading_no,
+            object_locations = None  # TODO: add filtering by mode shape number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
-    def EfeectiveLengthsAndCriticalLoadsByEigenvector(
+    def EffectiveLengthsAndCriticalLoadsByEigenvector(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
@@ -272,16 +330,23 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_efeective_lengths_and_critical_loads_by_eigenvector(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_efeective_lengths_and_critical_loads_by_eigenvector(
+            loading_type.name,
+            loading_no,
+            object_locations = None  # TODO: add filtering by mode shape number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
-    def EfeectiveLengthsAndCriticalLoadsByMember(
+    def EffectiveLengthsAndCriticalLoadsByMember(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
@@ -290,13 +355,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_efeective_lengths_and_critical_loads_by_member(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_efeective_lengths_and_critical_loads_by_member(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def EigenvectorsByMember(
@@ -308,13 +382,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_eigenvectors_by_member(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_eigenvectors_by_member(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def EigenvectorsByNode(
@@ -326,13 +409,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_eigenvectors_by_node(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_eigenvectors_by_node(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def EigenvectorsBySolid(
@@ -344,13 +436,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_eigenvectors_by_solid(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_eigenvectors_by_solid(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def EigenvectorsBySurface(
@@ -362,13 +463,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_eigenvectors_by_surface(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_eigenvectors_by_surface(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def Errors(
@@ -380,7 +490,7 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
@@ -398,13 +508,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_line_hinges_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_line_hinges_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def LineHingesForces(
@@ -416,13 +535,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_line_hinges_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_line_hinges_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def LinesSlabWallConnections(
@@ -434,13 +562,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_lines_slab_wall_connections(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_lines_slab_wall_connections(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def LinesSupportForces(
@@ -452,13 +589,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_lines_support_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_lines_support_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def MembersByEigenvector(
@@ -470,13 +616,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_by_eigenvector(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_members_by_eigenvector(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def MembersContactForces(
@@ -488,13 +643,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_contact_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_members_contact_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def MembersGlobalDeformations(
@@ -506,13 +670,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_global_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_members_global_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def MembersHingeDeformations(
@@ -524,13 +697,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_hinge_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_members_hinge_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def MembersHingeForces(
@@ -542,13 +724,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_hinge_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_members_hinge_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def MembersInternalForces(
@@ -560,13 +751,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_members_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def MembersInternalForcesByMemberSet(
@@ -578,13 +778,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member Set number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_internal_forces_by_member_set(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER_SET.name, object_no)
+
+        results = model.clientModel.service.get_results_for_members_internal_forces_by_member_set(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def MembersInternalForcesBySection(
@@ -596,13 +805,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Section number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_internal_forces_by_section(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SECTION.name, object_no)
+
+        results = model.clientModel.service.get_results_for_members_internal_forces_by_section(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def MembersLocalDeformations(
@@ -614,13 +832,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_local_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_members_local_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def MembersStrains(
@@ -628,17 +855,27 @@ class ResultTables():
         loading_no: int = 1,
         object_no: int = 0,
         include_base: bool = False,
+        without_extremes: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_members_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_members_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisEffectiveModalMasses(
@@ -650,13 +887,20 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_effective_modal_masses(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_modal_analysis_effective_modal_masses(
+            loading_type.name,
+            loading_no,
+            object_locations = None # TODO: add filtering by mode shape number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisMassesInLocations(
@@ -668,13 +912,20 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_masses_in_locations(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_modal_analysis_effective_modal_masses(
+            loading_type.name,
+            loading_no,
+            object_locations = None # TODO: add filtering by mesh point number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisMembersByModeShape(
@@ -686,13 +937,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_members_by_mode_shape(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_modal_analysis_members_by_mode_shape(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisModeShapesByMember(
@@ -704,13 +964,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_member(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_member(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisModeShapesByNode(
@@ -722,13 +991,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_node(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_node(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisModeShapesBySolid(
@@ -740,13 +1018,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_solid(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_solid(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisModeShapesBySurface(
@@ -758,13 +1045,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_surface(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_modal_analysis_mode_shapes_by_surface(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisNaturalFrequencies(
@@ -776,13 +1072,20 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_natural_frequencies(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_modal_analysis_natural_frequencies(
+            loading_type.name,
+            loading_no,
+            object_locations = None # add filtering by mode shape number ?
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisNodesByModeShape(
@@ -794,13 +1097,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_nodes_by_mode_shape(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_modal_analysis_nodes_by_mode_shape(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisParticipationFactors(
@@ -812,13 +1124,20 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_participation_factors(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_modal_analysis_participation_factors(
+            loading_type.name,
+            loading_no,
+            object_locations = None # add filtering by mode shape number ?
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisSolidsByModeShape(
@@ -830,13 +1149,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_solids_by_mode_shape(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_modal_analysis_solids_by_mode_shape(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def ModalAnalysisSurfacesByModeShape(
@@ -848,13 +1176,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_modal_analysis_surfaces_by_mode_shape(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_modal_analysis_surfaces_by_mode_shape(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def NodesByEigenvector(
@@ -866,13 +1203,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_nodes_by_eigenvector(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_nodes_by_eigenvector(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def NodesDeformations(
@@ -884,13 +1230,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_nodes_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_nodes_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def NodesSupportForces(
@@ -902,13 +1257,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_nodes_support_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_nodes_support_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SolidsBasicPlasticStrains(
@@ -920,13 +1284,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_basic_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_solids_basic_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SolidsBasicStresses(
@@ -938,13 +1311,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_basic_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_solids_basic_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SolidsBasicTotalStrains(
@@ -956,13 +1338,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_basic_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_solids_basic_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SolidsByEigenvector(
@@ -974,13 +1365,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_by_eigenvector(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_solids_by_eigenvector(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SolidsDeformations(
@@ -992,13 +1392,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_solids_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SolidsEquivalentPlasticStrains(
@@ -1010,13 +1419,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_equivalent_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_solids_equivalent_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SolidsEquivalentStresses(
@@ -1028,13 +1446,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_equivalent_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_solids_equivalent_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SolidsEquivalentTotalStrains(
@@ -1046,13 +1473,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_equivalent_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_solids_equivalent_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SolidsGasQuantities(
@@ -1064,13 +1500,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_gas_quantities(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_solids_gas_quantities(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SolidsPrincipalPlasticStrains(
@@ -1082,13 +1527,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_principal_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_solids_principal_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SolidsPrincipalStresses(
@@ -1100,13 +1554,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_principal_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_solids_principal_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SolidsPrincipalTotalStrains(
@@ -1118,931 +1581,1566 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_solids_principal_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_solids_principal_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisBuildingStoriesCentresMassRigidity(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_building_stories_centres_mass_rigidity(
+            loading_type.name,
+            loading_no,
+            object_locations = None,
+            envelope = envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_building_stories_centres_mass_rigidity(loading_type.name, loading_no, object_no), include_base)
 
     @staticmethod
     def SpectralAnalysisBuildingStoriesForcesInShearWalls(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_building_stories_forces_in_shear_walls(loading_type.name, loading_no, object_no), include_base)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_building_stories_forces_in_shear_walls(
+            loading_type.name,
+            loading_no,
+            object_locations = None,
+            envelope = envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
 
-    @staticmethod
-    def SpectralAnalysisBuildingStoriesForcesInSpandrels(
-        loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
-        loading_no: int = 1,
-        object_no: int = 0,
-        include_base: bool = False,
-        model = Model):
-
-        '''
-         Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
-            loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
-            model (class, optional): Model instance
-        '''
-
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_building_stories_forces_in_spandrels(loading_type.name, loading_no, object_no), include_base)
 
     @staticmethod
     def SpectralAnalysisBuildingStoriesInterstoryDrifts(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_building_stories_interstory_drifts(loading_type.name, loading_no, object_no), include_base)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_building_stories_interstory_drifts(
+            loading_type.name,
+            loading_no,
+            object_locations = None,
+            envelope = envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisBuildingStoriesStoryActions(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_building_stories_story_actions(loading_type.name, loading_no, object_no), include_base)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_building_stories_story_actions(
+            loading_type.name,
+            loading_no,
+            object_locations = None,
+            envelope = envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisLineHingesDeformations(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_line_hinges_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_line_hinges_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisLineHingesForces(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape numbe
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_line_hinges_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_line_hinges_forces(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisLinesSlabWallConnections(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape numbe
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_lines_slab_wall_connections(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_lines_slab_wall_connections(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisLinesSupportForces(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape numbe
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_lines_support_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_lines_support_forces(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisMembersContactForces(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape numbe
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_contact_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_members_contact_forces(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisMembersGlobalDeformations(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_global_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_members_global_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisMembersHingeDeformations(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_hinge_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_members_hinge_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisMembersHingeForces(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_hinge_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_members_hinge_forces(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisMembersInternalForces(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisMembersInternalForcesByMemberSet(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member Set number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces_by_member_set(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER_SET.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces_by_member_set(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisMembersInternalForcesBySection(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Section number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces_by_section(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SECTION.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces_by_section(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisMembersLocalDeformations(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_local_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_members_local_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            'MEMBER_AXES',
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisMembersStrains(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_members_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_members_strains(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisNodesDeformations(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_nodes_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_nodes_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisNodesPseudoAccelerations(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_nodes_pseudo_accelerations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_nodes_pseudo_accelerations(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisNodesPseudoVelocities(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_nodes_pseudo_velocities(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_nodes_pseudo_velocities(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisNodesSupportForces(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_nodes_support_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_nodes_support_forces(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSolidsBasicStresses(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_basic_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_solids_basic_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSolidsBasicTotalStrains(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_basic_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_solids_basic_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSolidsDeformations(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_solids_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSolidsEquivalentStresses(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_equivalent_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_solids_equivalent_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSolidsEquivalentTotalStrains(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_equivalent_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_solids_equivalent_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSolidsGasQuantities(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_gas_quantities(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_solids_gas_quantities(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSolidsPrincipalStresses(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_principal_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_solids_principal_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSolidsPrincipalTotalStrains(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_solids_principal_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_solids_principal_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSummary(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
-        object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_summary(loading_type.name, loading_no, object_no), include_base)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        object_location = None
+        results = model.clientModel.service.get_results_for_spectral_analysis_summary(
+            loading_type.name,
+            loading_no,
+            object_location,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesBasicInternalForces(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesBasicStresses(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesBasicTotalStrains(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_basic_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesContactStresses(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_contact_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_contact_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesDesignInternalForces(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_design_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_design_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesElasticStressComponents(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_elastic_stress_components(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_elastic_stress_components(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentStressesBach(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_bach(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_bach(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentStressesMises(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_mises(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_mises(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentStressesRankine(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_rankine(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_rankine(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentStressesTresca(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_tresca(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_stresses_tresca(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentTotalStrainsBach(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_bach(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_bach(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentTotalStrainsMises(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_mises(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_mises(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentTotalStrainsRankine(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_rankine(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_rankine(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesEquivalentTotalStrainsTresca(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_tresca(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_equivalent_total_strains_tresca(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesGlobalDeformations(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_global_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_global_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesLocalDeformations(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_local_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_local_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesMaximumTotalStrains(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_maximum_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_maximum_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesPrincipalInternalForces(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesPrincipalStresses(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SpectralAnalysisSurfacesPrincipalTotalStrains(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
+        envelope_type: enum = SpectralAnalysisEnvelopeType.SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE,
+        mode_shape_no: int = 1,
         include_base: bool = False,
         model = Model):
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
+            envelope_type (enum): Envelope type (SPECTRAL_ANALYSIS_SCALED_SUMS_ENVELOPE)
+            mode_shape_no (int): Mode shape number - considered only envelope type with mode shape number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+        envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
+        results = model.clientModel.service.get_results_for_spectral_analysis_surfaces_principal_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations,
+            envelope
+        )
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisBuildingStoriesCentresMassRigidity(
@@ -2054,13 +3152,20 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_centres_mass_rigidity(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_centres_mass_rigidity(
+            loading_type.name,
+            loading_no,
+            object_locations = None # TODO: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisBuildingStoriesForcesInShearWalls(
@@ -2072,31 +3177,20 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_forces_in_shear_walls(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_forces_in_shear_walls(
+            loading_type.name,
+            loading_no,
+            object_locations = None # TODO: add filtering by Shear Wall number
+        )
 
-    @staticmethod
-    def StabilityIncrementalAnalysisBuildingStoriesForcesInSpandrels(
-        loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
-        loading_no: int = 1,
-        object_no: int = 0,
-        include_base: bool = False,
-        model = Model):
+        return ConvertResultsToListOfDct(results, include_base)
 
-        '''
-         Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
-            loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
-            model (class, optional): Model instance
-        '''
-
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_forces_in_spandrels(loading_type.name, loading_no, object_no), include_base)
 
     @staticmethod
     def StabilityIncrementalAnalysisBuildingStoriesInterstoryDrifts(
@@ -2108,13 +3202,20 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_interstory_drifts(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_interstory_drifts(
+            loading_type.name,
+            loading_no,
+            object_locations = None # TODO: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisBuildingStoriesStoryActions(
@@ -2126,13 +3227,20 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_story_actions(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_building_stories_story_actions(
+            loading_type.name,
+            loading_no,
+            object_locations = None # TODO: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisCalculationDiagrams(
@@ -2144,13 +3252,20 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_calculation_diagrams(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_calculation_diagrams(
+            loading_type.name,
+            loading_no,
+            object_locations = None # TODO: add filtering by ?
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisLineHingesDeformations(
@@ -2162,13 +3277,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_line_hinges_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_line_hinges_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisLineHingesForces(
@@ -2180,13 +3304,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_line_hinges_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_line_hinges_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisLinesSlabWallConnections(
@@ -2198,13 +3331,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_lines_slab_wall_connections(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_lines_slab_wall_connections(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisLinesSupportForces(
@@ -2216,13 +3358,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_lines_support_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_lines_support_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersContactForces(
@@ -2234,13 +3385,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_contact_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_contact_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersGlobalDeformations(
@@ -2252,13 +3412,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_global_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_global_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersHingeDeformations(
@@ -2270,13 +3439,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_hinge_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_hinge_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersHingeForces(
@@ -2288,13 +3466,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_hinge_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_hinge_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersInternalForces(
@@ -2306,13 +3493,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersInternalForcesByMemberSet(
@@ -2324,13 +3520,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member Set number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces_by_member_set(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER_SET.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces_by_member_set(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersInternalForcesBySection(
@@ -2342,13 +3547,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Section number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces_by_section(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SECTION.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces_by_section(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersLocalDeformations(
@@ -2360,13 +3574,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_local_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_local_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisMembersStrains(
@@ -2378,13 +3601,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_members_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisNodesDeformations(
@@ -2396,13 +3628,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_nodes_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_nodes_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisNodesSupportForces(
@@ -2414,13 +3655,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_nodes_support_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_nodes_support_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsBasicPlasticStrains(
@@ -2432,13 +3682,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsBasicStresses(
@@ -2450,13 +3709,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsBasicTotalStrains(
@@ -2468,13 +3736,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_basic_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsDeformations(
@@ -2486,13 +3763,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsEquivalentPlasticStrains(
@@ -2504,13 +3790,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsEquivalentStresses(
@@ -2522,13 +3817,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsEquivalentTotalStrains(
@@ -2540,13 +3844,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_equivalent_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsGasQuantities(
@@ -2558,13 +3871,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_gas_quantities(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_gas_quantities(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsPrincipalPlasticStrains(
@@ -2576,13 +3898,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsPrincipalStresses(
@@ -2594,13 +3925,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSolidsPrincipalTotalStrains(
@@ -2612,13 +3952,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_solids_principal_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSummary(
@@ -2630,7 +3979,7 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
@@ -2648,13 +3997,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesBasicPlasticStrains(
@@ -2666,13 +4024,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesBasicStresses(
@@ -2684,13 +4051,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesBasicTotalStrains(
@@ -2702,13 +4078,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_basic_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesContactStresses(
@@ -2720,13 +4105,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_contact_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_contact_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesDesignInternalForces(
@@ -2738,13 +4132,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_design_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_design_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesElasticStressComponents(
@@ -2756,13 +4159,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_elastic_stress_components(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_elastic_stress_components(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentPlasticStrainsBach(
@@ -2774,13 +4186,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_bach(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_bach(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentPlasticStrainsMises(
@@ -2792,13 +4213,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_mises(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_mises(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentPlasticStrainsRankine(
@@ -2810,13 +4240,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_rankine(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_rankine(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentPlasticStrainsTresca(
@@ -2828,13 +4267,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_tresca(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_plastic_strains_tresca(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentStressesBach(
@@ -2846,13 +4294,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_bach(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_bach(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentStressesMises(
@@ -2864,13 +4321,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_mises(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_mises(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentStressesRankine(
@@ -2882,13 +4348,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_rankine(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_rankine(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentStressesTresca(
@@ -2900,13 +4375,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_tresca(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_stresses_tresca(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentTotalStrainsBach(
@@ -2918,13 +4402,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_bach(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_bach(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentTotalStrainsMises(
@@ -2936,13 +4429,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_mises(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_mises(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentTotalStrainsRankine(
@@ -2954,13 +4456,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_rankine(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_rankine(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesEquivalentTotalStrainsTresca(
@@ -2972,13 +4483,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_tresca(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_equivalent_total_strains_tresca(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesGlobalDeformations(
@@ -2990,13 +4510,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_global_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_global_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesLocalDeformations(
@@ -3008,13 +4537,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_local_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_local_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesMaximumPlasticStrains(
@@ -3026,13 +4564,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_maximum_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_maximum_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesMaximumTotalStrains(
@@ -3044,13 +4591,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_maximum_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_maximum_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesPrincipalInternalForces(
@@ -3062,13 +4618,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesPrincipalPlasticStrains(
@@ -3080,13 +4645,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesPrincipalStresses(
@@ -3098,13 +4672,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def StabilityIncrementalAnalysisSurfacesPrincipalTotalStrains(
@@ -3116,13 +4699,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_surfaces_principal_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def Summary(
@@ -3132,7 +4724,7 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
@@ -3150,13 +4742,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_basic_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_basic_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesBasicPlasticStrains(
@@ -3168,13 +4769,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_basic_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_basic_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesBasicStresses(
@@ -3186,13 +4796,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_basic_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_basic_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesBasicTotalStrains(
@@ -3204,13 +4823,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_basic_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_basic_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesByEigenvector(
@@ -3222,13 +4850,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_by_eigenvector(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_by_eigenvector(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesContactStresses(
@@ -3240,13 +4877,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_contact_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_contact_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesDesignInternalForces(
@@ -3258,13 +4904,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_design_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_design_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesElasticStressComponents(
@@ -3276,13 +4931,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_elastic_stress_components(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_elastic_stress_components(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesEquivalentPlasticStrainsBach(
@@ -3294,13 +4958,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_plastic_strains_bach(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_equivalent_plastic_strains_bach(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesEquivalentPlasticStrainsMises(
@@ -3312,13 +4985,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_plastic_strains_mises(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_equivalent_plastic_strains_mises(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesEquivalentPlasticStrainsRankine(
@@ -3330,13 +5012,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_plastic_strains_rankine(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_equivalent_plastic_strains_rankine(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesEquivalentPlasticStrainsTresca(
@@ -3348,13 +5039,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_plastic_strains_tresca(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_equivalent_plastic_strains_tresca(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesEquivalentStressesBach(
@@ -3366,13 +5066,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_stresses_bach(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_equivalent_stresses_bach(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesEquivalentStressesMises(
@@ -3384,13 +5093,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_stresses_mises(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_equivalent_stresses_mises(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesEquivalentStressesRankine(
@@ -3402,13 +5120,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_stresses_rankine(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_equivalent_stresses_rankine(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesEquivalentStressesTresca(
@@ -3420,13 +5147,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_stresses_tresca(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_equivalent_stresses_tresca(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesEquivalentTotalStrainsBach(
@@ -3438,13 +5174,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_total_strains_bach(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_equivalent_total_strains_bach(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesEquivalentTotalStrainsMises(
@@ -3456,13 +5201,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_total_strains_mises(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_equivalent_total_strains_mises(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesEquivalentTotalStrainsRankine(
@@ -3474,13 +5228,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_total_strains_rankine(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_equivalent_total_strains_rankine(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesEquivalentTotalStrainsTresca(
@@ -3492,13 +5255,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_equivalent_total_strains_tresca(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_equivalent_total_strains_tresca(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesGlobalDeformations(
@@ -3510,13 +5282,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_global_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_global_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesLocalDeformations(
@@ -3528,13 +5309,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_local_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_local_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesMaximumPlasticStrains(
@@ -3546,13 +5336,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_maximum_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_maximum_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesMaximumTotalStrains(
@@ -3564,13 +5363,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_maximum_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_maximum_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesPrincipalInternalForces(
@@ -3582,13 +5390,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_principal_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_principal_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesPrincipalPlasticStrains(
@@ -3600,13 +5417,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_principal_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_principal_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesPrincipalStresses(
@@ -3618,13 +5444,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_principal_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_principal_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def SurfacesPrincipalTotalStrains(
@@ -3636,13 +5471,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_surfaces_principal_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_surfaces_principal_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisBuildingStoriesCentresMassRigidity(
@@ -3654,13 +5498,20 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_building_stories_centres_mass_rigidity(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_time_history_analysis_building_stories_centres_mass_rigidity(
+            loading_type.name,
+            loading_no,
+            object_locations = None # TODO: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisBuildingStoriesForcesInShearWalls(
@@ -3672,31 +5523,20 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_building_stories_forces_in_shear_walls(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_time_history_analysis_building_stories_forces_in_shear_walls(
+            loading_type.name,
+            loading_no,
+            object_locations = None # TODO: add filtering by Shear Wall number
+        )
 
-    @staticmethod
-    def TimeHistoryAnalysisBuildingStoriesForcesInSpandrels(
-        loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
-        loading_no: int = 1,
-        object_no: int = 0,
-        include_base: bool = False,
-        model = Model):
+        return ConvertResultsToListOfDct(results, include_base)
 
-        '''
-         Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
-            loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
-            model (class, optional): Model instance
-        '''
-
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_building_stories_forces_in_spandrels(loading_type.name, loading_no, object_no), include_base)
 
     @staticmethod
     def TimeHistoryAnalysisBuildingStoriesInterstoryDrifts(
@@ -3708,13 +5548,20 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_building_stories_interstory_drifts(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_time_history_analysis_building_stories_interstory_drifts(
+            loading_type.name,
+            loading_no,
+            object_locations = None # TODO: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisBuildingStoriesStoryActions(
@@ -3726,13 +5573,20 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_building_stories_story_actions(loading_type.name, loading_no, object_no), include_base)
+        results = model.clientModel.service.get_results_for_time_history_analysis_building_stories_story_actions(
+            loading_type.name,
+            loading_no,
+            object_locations = None # TODO: add filtering by Story number
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisLineHingesDeformations(
@@ -3744,13 +5598,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_line_hinges_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_line_hinges_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisLineHingesForces(
@@ -3762,13 +5625,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_line_hinges_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_line_hinges_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisLinesSlabWallConnections(
@@ -3780,13 +5652,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_lines_slab_wall_connections(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_lines_slab_wall_connections(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisLinesSupportForces(
@@ -3798,13 +5679,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Line number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_lines_support_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_LINE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_lines_support_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisMembersContactForces(
@@ -3816,13 +5706,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_contact_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_members_contact_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisMembersGlobalDeformations(
@@ -3834,13 +5733,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_global_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_members_global_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisMembersHingeDeformations(
@@ -3852,13 +5760,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_hinge_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_members_hinge_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisMembersHingeForces(
@@ -3870,13 +5787,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_hinge_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_members_hinge_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisMembersInternalForces(
@@ -3888,13 +5814,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisMembersInternalForcesByMemberSet(
@@ -3906,13 +5841,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member Set number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces_by_member_set(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER_SET.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces_by_member_set(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisMembersInternalForcesBySection(
@@ -3924,13 +5868,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Section number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces_by_section(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SECTION.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces_by_section(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisMembersLocalDeformations(
@@ -3942,13 +5895,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_local_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_members_local_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisMembersStrains(
@@ -3960,13 +5922,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Member number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_members_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_MEMBER.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_members_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisNodesAccelerations(
@@ -3978,13 +5949,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_nodes_accelerations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_nodes_accelerations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisNodesDeformations(
@@ -3996,13 +5976,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_nodes_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_nodes_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisNodesSupportForces(
@@ -4014,13 +6003,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_nodes_support_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_nodes_support_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisNodesVelocities(
@@ -4032,13 +6030,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Node number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_nodes_velocities(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_NODE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_nodes_velocities(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsBasicPlasticStrains(
@@ -4050,13 +6057,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_basic_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_basic_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsBasicStresses(
@@ -4068,13 +6084,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_basic_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_basic_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsBasicTotalStrains(
@@ -4086,13 +6111,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_basic_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_basic_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsDeformations(
@@ -4104,13 +6138,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsEquivalentPlasticStrains(
@@ -4122,13 +6165,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsEquivalentStresses(
@@ -4140,13 +6192,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsEquivalentTotalStrains(
@@ -4158,13 +6219,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_equivalent_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsGasQuantities(
@@ -4176,13 +6246,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_gas_quantities(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_gas_quantities(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsPrincipalPlasticStrains(
@@ -4194,13 +6273,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_principal_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_principal_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsPrincipalStresses(
@@ -4212,13 +6300,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_principal_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_principal_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSolidsPrincipalTotalStrains(
@@ -4230,13 +6327,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Solid number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_solids_principal_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SOLID.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_solids_principal_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSummary(
@@ -4248,7 +6354,7 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             object_no (int): Object number
             model (class, optional): Model instance
@@ -4266,13 +6372,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesBasicPlasticStrains(
@@ -4284,13 +6399,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesBasicStresses(
@@ -4302,13 +6426,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesBasicTotalStrains(
@@ -4320,13 +6453,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_basic_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesContactStresses(
@@ -4338,13 +6480,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_contact_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_contact_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesDesignInternalForces(
@@ -4356,13 +6507,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_design_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_design_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesElasticStressComponents(
@@ -4374,13 +6534,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_elastic_stress_components(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_elastic_stress_components(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentPlasticStrainsBach(
@@ -4392,13 +6561,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_bach(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_bach(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentPlasticStrainsMises(
@@ -4410,13 +6588,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_mises(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_mises(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentPlasticStrainsRankine(
@@ -4428,13 +6615,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_rankine(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_rankine(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentPlasticStrainsTresca(
@@ -4446,13 +6642,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_tresca(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_plastic_strains_tresca(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentStressesBach(
@@ -4464,13 +6669,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_bach(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_bach(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentStressesMises(
@@ -4482,13 +6696,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_mises(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_mises(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentStressesRankine(
@@ -4500,13 +6723,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_rankine(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_rankine(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentStressesTresca(
@@ -4518,13 +6750,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_tresca(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_stresses_tresca(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentTotalStrainsBach(
@@ -4536,13 +6777,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_bach(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_bach(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentTotalStrainsMises(
@@ -4554,13 +6804,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_mises(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_mises(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentTotalStrainsRankine(
@@ -4572,13 +6831,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_rankine(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_rankine(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesEquivalentTotalStrainsTresca(
@@ -4590,13 +6858,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_tresca(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_equivalent_total_strains_tresca(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesGlobalDeformations(
@@ -4608,13 +6885,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_global_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_global_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesLocalDeformations(
@@ -4626,13 +6912,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_local_deformations(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_local_deformations(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesMaximumPlasticStrains(
@@ -4644,13 +6939,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_maximum_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_maximum_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesMaximumTotalStrains(
@@ -4662,13 +6966,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_maximum_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_maximum_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesPrincipalInternalForces(
@@ -4680,13 +6993,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_internal_forces(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_internal_forces(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesPrincipalPlasticStrains(
@@ -4698,13 +7020,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_plastic_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_plastic_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesPrincipalStresses(
@@ -4716,13 +7047,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_stresses(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_stresses(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def TimeHistoryAnalysisSurfacesPrincipalTotalStrains(
@@ -4734,13 +7074,22 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
-            object_no (int): Object number
+            object_no (int): Surface number
             model (class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_total_strains(loading_type.name, loading_no, object_no), include_base)
+        object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SURFACE.name, object_no)
+
+        results = model.clientModel.service.get_results_for_time_history_analysis_surfaces_principal_total_strains(
+            loading_type.name,
+            loading_no,
+            object_locations
+        )
+
+        return ConvertResultsToListOfDct(results, include_base)
+
 
     @staticmethod
     def HasAnyResults( model = Model):
@@ -4752,6 +7101,7 @@ class ResultTables():
 
         return model.clientModel.service.has_any_results()
 
+
     @staticmethod
     def HasResults(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
@@ -4760,12 +7110,13 @@ class ResultTables():
 
         '''
          Args:
-            loading_type (emun): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
+            loading_type (enum): Loading type (LC2 = E_OBJECT_TYPE_LOAD_CASE)
             loading_no (int): Loading Number (CO2 = 2)
             model (class, optional): Model instance
         '''
 
         return model.clientModel.service.has_results(loading_type.name, loading_no)
+
 
     @staticmethod
     def AluminumDesignDesignRatiosMemberRepresentativesByConstructionStage(
@@ -4779,6 +7130,7 @@ class ResultTables():
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_representatives_by_construction_stage(), include_base)
 
+
     @staticmethod
     def AluminumDesignDesignRatiosMemberRepresentativesByDesignSituation(
         include_base: bool = False,
@@ -4790,6 +7142,7 @@ class ResultTables():
         '''
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_representatives_by_design_situation(), include_base)
+
 
     @staticmethod
     def AluminumDesignDesignRatiosMemberRepresentativesByLoading(
@@ -4803,6 +7156,7 @@ class ResultTables():
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_representatives_by_loading(), include_base)
 
+
     @staticmethod
     def AluminumDesignDesignRatiosMemberRepresentativesByLocation(
         include_base: bool = False,
@@ -4814,6 +7168,7 @@ class ResultTables():
         '''
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_representatives_by_location(), include_base)
+
 
     @staticmethod
     def AluminumDesignDesignRatiosMemberRepresentativesByMaterial(
@@ -4827,6 +7182,7 @@ class ResultTables():
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_representatives_by_material(), include_base)
 
+
     @staticmethod
     def AluminumDesignDesignRatiosMemberRepresentativesByMemberRepresentative(
         include_base: bool = False,
@@ -4838,6 +7194,7 @@ class ResultTables():
         '''
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_representatives_by_member_representative(), include_base)
+
 
     @staticmethod
     def AluminumDesignDesignRatiosMemberRepresentativesBySection(
@@ -4851,6 +7208,7 @@ class ResultTables():
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_representatives_by_section(), include_base)
 
+
     @staticmethod
     def AluminumDesignDesignRatiosMemberSetRepresentativesByConstructionStage(
         include_base: bool = False,
@@ -4862,6 +7220,7 @@ class ResultTables():
         '''
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_set_representatives_by_construction_stage(), include_base)
+
 
     @staticmethod
     def AluminumDesignDesignRatiosMemberSetRepresentativesByDesignSituation(
@@ -4875,6 +7234,7 @@ class ResultTables():
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_set_representatives_by_design_situation(), include_base)
 
+
     @staticmethod
     def AluminumDesignDesignRatiosMemberSetRepresentativesByLoading(
         include_base: bool = False,
@@ -4886,6 +7246,7 @@ class ResultTables():
         '''
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_set_representatives_by_loading(), include_base)
+
 
     @staticmethod
     def AluminumDesignDesignRatiosMemberSetRepresentativesByLocation(
@@ -4899,6 +7260,7 @@ class ResultTables():
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_set_representatives_by_location(), include_base)
 
+
     @staticmethod
     def AluminumDesignDesignRatiosMemberSetRepresentativesByMaterial(
         include_base: bool = False,
@@ -4910,6 +7272,7 @@ class ResultTables():
         '''
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_set_representatives_by_material(), include_base)
+
 
     @staticmethod
     def AluminumDesignDesignRatiosMemberSetRepresentativesByMemberSetRepresentative(
@@ -4923,6 +7286,7 @@ class ResultTables():
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_set_representatives_by_member_set_representative(), include_base)
 
+
     @staticmethod
     def AluminumDesignDesignRatiosMemberSetRepresentativesBySection(
         include_base: bool = False,
@@ -4934,6 +7298,7 @@ class ResultTables():
         '''
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_set_representatives_by_section(), include_base)
+
 
     @staticmethod
     def AluminumDesignDesignRatiosMembersByConstructionStage(
@@ -4947,6 +7312,7 @@ class ResultTables():
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_members_by_construction_stage(), include_base)
 
+
     @staticmethod
     def AluminumDesignDesignRatiosMembersByDesignSituation(
         include_base: bool = False,
@@ -4958,6 +7324,7 @@ class ResultTables():
         '''
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_members_by_design_situation(), include_base)
+
 
     @staticmethod
     def AluminumDesignDesignRatiosMembersByLoading(
@@ -4971,6 +7338,7 @@ class ResultTables():
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_members_by_loading(), include_base)
 
+
     @staticmethod
     def AluminumDesignDesignRatiosMembersByLocation(
         include_base: bool = False,
@@ -4982,6 +7350,7 @@ class ResultTables():
         '''
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_members_by_location(), include_base)
+
 
     @staticmethod
     def AluminumDesignDesignRatiosMembersByMaterial(
@@ -4995,6 +7364,7 @@ class ResultTables():
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_members_by_material(), include_base)
 
+
     @staticmethod
     def AluminumDesignDesignRatiosMembersByMember(
         include_base: bool = False,
@@ -5006,6 +7376,7 @@ class ResultTables():
         '''
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_members_by_member(), include_base)
+
 
     @staticmethod
     def AluminumDesignDesignRatiosMembersByMemberSet(
@@ -5019,6 +7390,7 @@ class ResultTables():
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_members_by_member_set(), include_base)
 
+
     @staticmethod
     def AluminumDesignDesignRatiosMembersBySection(
         include_base: bool = False,
@@ -5030,6 +7402,7 @@ class ResultTables():
         '''
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_members_by_section(), include_base)
+
 
     @staticmethod
     def AluminumDesignGoverningInternalForcesByMember(
@@ -5043,6 +7416,7 @@ class ResultTables():
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_governing_internal_forces_by_member(), include_base)
 
+
     @staticmethod
     def AluminumDesignGoverningInternalForcesByMemberEnds(
         include_base: bool = False,
@@ -5054,6 +7428,7 @@ class ResultTables():
         '''
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_governing_internal_forces_by_member_ends(), include_base)
+
 
     @staticmethod
     def AluminumDesignGoverningInternalForcesByMemberRepresentative(
@@ -5067,6 +7442,7 @@ class ResultTables():
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_governing_internal_forces_by_member_representative(), include_base)
 
+
     @staticmethod
     def AluminumDesignGoverningInternalForcesByMemberRepresentativeEnds(
         include_base: bool = False,
@@ -5078,6 +7454,7 @@ class ResultTables():
         '''
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_governing_internal_forces_by_member_representative_ends(), include_base)
+
 
     @staticmethod
     def AluminumDesignGoverningInternalForcesByMemberSet(
@@ -5091,6 +7468,7 @@ class ResultTables():
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_governing_internal_forces_by_member_set(), include_base)
 
+
     @staticmethod
     def AluminumDesignGoverningInternalForcesByMemberSetEnds(
         include_base: bool = False,
@@ -5102,6 +7480,7 @@ class ResultTables():
         '''
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_governing_internal_forces_by_member_set_ends(), include_base)
+
 
     @staticmethod
     def AluminumDesignGoverningInternalForcesByMemberSetRepresentative(
@@ -5115,6 +7494,7 @@ class ResultTables():
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_governing_internal_forces_by_member_set_representative(), include_base)
 
+
     @staticmethod
     def AluminumDesignGoverningInternalForcesByMemberSetRepresentativeEnds(
         include_base: bool = False,
@@ -5126,6 +7506,7 @@ class ResultTables():
         '''
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_governing_internal_forces_by_member_set_representative_ends(), include_base)
+
 
     @staticmethod
     def AluminumDesignGoverningLoading(
@@ -5139,6 +7520,7 @@ class ResultTables():
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_governing_loading(), include_base)
 
+
     @staticmethod
     def AluminumDesignOverviewErrorsAndWarnings(
         include_base: bool = False,
@@ -5150,6 +7532,7 @@ class ResultTables():
         '''
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_overview_errors_and_warnings(), include_base)
+
 
     @staticmethod
     def AluminumDesignOverviewNotValidDeactivated(
@@ -5163,6 +7546,7 @@ class ResultTables():
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_overview_not_valid_deactivated(), include_base)
 
+
     @staticmethod
     def AluminumDesignSlendernessByMember(
         include_base: bool = False,
@@ -5174,6 +7558,7 @@ class ResultTables():
         '''
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_slenderness_by_member(), include_base)
+
 
     @staticmethod
     def AluminumDesignSlendernessByMemberRepresentative(
@@ -5187,6 +7572,7 @@ class ResultTables():
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_slenderness_by_member_representative(), include_base)
 
+
     @staticmethod
     def AluminumDesignSlendernessByMemberSet(
         include_base: bool = False,
@@ -5199,6 +7585,7 @@ class ResultTables():
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_slenderness_by_member_set(), include_base)
 
+
     @staticmethod
     def AluminumDesignSlendernessByMemberSetRepresentative(
         include_base: bool = False,
@@ -5210,3 +7597,4005 @@ class ResultTables():
         '''
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_slenderness_by_member_set_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosDeepBeamsByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_deep_beams_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosDeepBeamsByDeepBeam(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_deep_beams_by_deep_beam(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosDeepBeamsByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_deep_beams_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosDeepBeamsByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_deep_beams_by_loading(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosDeepBeamsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_deep_beams_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosDeepBeamsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_deep_beams_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosDeepBeamsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_deep_beams_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberRepresentativesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_representatives_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberRepresentativesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_representatives_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberRepresentativesByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_representatives_by_loading(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_representatives_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_representatives_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberRepresentativesByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_representatives_by_member_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_representatives_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberSetRepresentativesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_set_representatives_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberSetRepresentativesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_set_representatives_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberSetRepresentativesByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_set_representatives_by_loading(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberSetRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_set_representatives_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberSetRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_set_representatives_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberSetRepresentativesByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_set_representatives_by_member_set_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMemberSetRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_set_representatives_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMembersByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_members_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMembersByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_members_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMembersByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_members_by_loading(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMembersByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_members_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMembersByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_members_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMembersByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_members_by_member(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMembersByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_members_by_member_set(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosMembersBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_members_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosNodesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_nodes_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosNodesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_nodes_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosNodesByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_nodes_by_loading(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosNodesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_nodes_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosNodesByNode(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_nodes_by_node(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosNodesBySurface(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_nodes_by_surface(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosNodesByThickness(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_nodes_by_thickness(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosShearWallsByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_shear_walls_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosShearWallsByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_shear_walls_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosShearWallsByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_shear_walls_by_loading(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosShearWallsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_shear_walls_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosShearWallsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_shear_walls_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosShearWallsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_shear_walls_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosShearWallsByShearWall(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_shear_walls_by_shear_wall(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosSurfacesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_surfaces_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosSurfacesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_surfaces_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosSurfacesByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_surfaces_by_loading(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosSurfacesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_surfaces_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosSurfacesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_surfaces_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosSurfacesBySurface(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_surfaces_by_surface(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosSurfacesBySurfaceSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_surfaces_by_surface_set(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignDesignRatiosSurfacesByThickness(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_surfaces_by_thickness(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByDeepBeam(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_deep_beam(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByDeepBeamEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_deep_beam_ends(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_member(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByMemberEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_member_ends(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_member_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByMemberRepresentativeEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_member_representative_ends(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_member_set(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByMemberSetEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_member_set_ends(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_member_set_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByMemberSetRepresentativeEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_member_set_representative_ends(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByNode(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_node(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByShearWall(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_shear_wall(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesByShearWallEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_shear_wall_ends(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesBySurface(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_surface(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningInternalForcesBySurfaceSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_internal_forces_by_surface_set(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignGoverningLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_governing_loading(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnDeepBeamsByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_deep_beams_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnDeepBeamsByDeepBeam(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_deep_beams_by_deep_beam(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnDeepBeamsByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_deep_beams_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnDeepBeamsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_deep_beams_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnDeepBeamsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_deep_beams_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnDeepBeamsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_deep_beams_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberRepresentativesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_representatives_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberRepresentativesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_representatives_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_representatives_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_representatives_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberRepresentativesByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_representatives_by_member_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_representatives_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberSetRepresentativesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_set_representatives_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberSetRepresentativesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_set_representatives_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberSetRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_set_representatives_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberSetRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_set_representatives_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberSetRepresentativesByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_set_representatives_by_member_set_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberSetRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_set_representatives_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMembersByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_members_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMembersByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_members_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMembersByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_members_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMembersByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_members_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMembersByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_members_by_member(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMembersByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_members_by_member_set(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnMembersBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_members_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnShearWallsByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_shear_walls_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnShearWallsByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_shear_walls_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnShearWallsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_shear_walls_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnShearWallsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_shear_walls_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnShearWallsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_shear_walls_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnShearWallsByShearWall(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_shear_walls_by_shear_wall(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnSurfacesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_surfaces_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnSurfacesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_surfaces_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnSurfacesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_surfaces_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnSurfacesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_surfaces_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnSurfacesBySurface(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_surfaces_by_surface(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnSurfacesBySurfaceSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_surfaces_by_surface_set(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignNotCoveredReinforcementAreaOnSurfacesByThickness(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_surfaces_by_thickness(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignOverviewErrorsAndWarnings(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_overview_errors_and_warnings(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignOverviewNotValidDeactivated(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_overview_not_valid_deactivated(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnDeepBeamsByDeepBeam(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_deep_beams_by_deep_beam(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnDeepBeamsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_deep_beams_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnDeepBeamsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_deep_beams_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnDeepBeamsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_deep_beams_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMemberRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_member_representatives_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMemberRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_member_representatives_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMemberRepresentativesByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_member_representatives_by_member_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMemberRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_member_representatives_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMemberSetRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_member_set_representatives_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMemberSetRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_member_set_representatives_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMemberSetRepresentativesByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_member_set_representatives_by_member_set_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMemberSetRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_member_set_representatives_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMembersByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_members_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMembersByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_members_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMembersByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_members_by_member(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMembersByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_members_by_member_set(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnMembersBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_members_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnNodesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_nodes_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnNodesByNode(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_nodes_by_node(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnNodesBySurface(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_nodes_by_surface(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnNodesByThickness(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_nodes_by_thickness(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnShearWallsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_shear_walls_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnShearWallsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_shear_walls_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnShearWallsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_shear_walls_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnShearWallsByShearWall(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_shear_walls_by_shear_wall(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnSurfacesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_surfaces_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnSurfacesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_surfaces_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnSurfacesBySurface(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_surfaces_by_surface(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnSurfacesBySurfaceSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_surfaces_by_surface_set(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignProvidedReinforcementAreaOnSurfacesByThickness(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_surfaces_by_thickness(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnDeepBeamsByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_deep_beams_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnDeepBeamsByDeepBeam(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_deep_beams_by_deep_beam(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnDeepBeamsByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_deep_beams_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnDeepBeamsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_deep_beams_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnDeepBeamsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_deep_beams_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnDeepBeamsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_deep_beams_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberRepresentativesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_representatives_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberRepresentativesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_representatives_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_representatives_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_representatives_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberRepresentativesByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_representatives_by_member_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_representatives_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberSetRepresentativesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_set_representatives_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberSetRepresentativesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_set_representatives_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberSetRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_set_representatives_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberSetRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_set_representatives_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberSetRepresentativesByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_set_representatives_by_member_set_representative(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMemberSetRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_set_representatives_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMembersByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_members_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMembersByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_members_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMembersByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_members_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMembersByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_members_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMembersByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_members_by_member(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMembersByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_members_by_member_set(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnMembersBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_members_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnNodesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_nodes_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnNodesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_nodes_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnNodesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_nodes_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnNodesByNode(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_nodes_by_node(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnNodesBySurface(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_nodes_by_surface(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnNodesByThickness(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_nodes_by_thickness(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnShearWallsByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_shear_walls_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnShearWallsByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_shear_walls_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnShearWallsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_shear_walls_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnShearWallsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_shear_walls_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnShearWallsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_shear_walls_by_section(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnShearWallsByShearWall(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_shear_walls_by_shear_wall(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnSurfacesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_surfaces_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnSurfacesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_surfaces_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnSurfacesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_surfaces_by_location(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnSurfacesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_surfaces_by_material(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnSurfacesBySurface(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_surfaces_by_surface(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnSurfacesBySurfaceSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_surfaces_by_surface_set(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignRequiredReinforcementAreaOnSurfacesByThickness(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_surfaces_by_thickness(), include_base)
+
+
+    @staticmethod
+    def ConcreteDesignSurfaceReinforcement(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_surface_reinforcement(), include_base)
+
+
+    @staticmethod
+    def SteelDesignBraceConnectionByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_brace_connection_by_member(), include_base)
+
+
+    @staticmethod
+    def SteelDesignBraceConnectionByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_brace_connection_by_member_set(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosDeepBeamsByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_deep_beams_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosDeepBeamsByDeepBeam(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_deep_beams_by_deep_beam(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosDeepBeamsByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_deep_beams_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosDeepBeamsByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_deep_beams_by_loading(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosDeepBeamsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_deep_beams_by_location(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosDeepBeamsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_deep_beams_by_material(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosDeepBeamsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_deep_beams_by_section(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMemberRepresentativesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_member_representatives_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMemberRepresentativesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_member_representatives_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMemberRepresentativesByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_member_representatives_by_loading(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMemberRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_member_representatives_by_location(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMemberRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_member_representatives_by_material(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMemberRepresentativesByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_member_representatives_by_member_representative(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMemberRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_member_representatives_by_section(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMemberSetRepresentativesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_member_set_representatives_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMemberSetRepresentativesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_member_set_representatives_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMemberSetRepresentativesByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_member_set_representatives_by_loading(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMemberSetRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_member_set_representatives_by_location(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMemberSetRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_member_set_representatives_by_material(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMemberSetRepresentativesByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_member_set_representatives_by_member_set_representative(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMemberSetRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_member_set_representatives_by_section(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMembersByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_members_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMembersByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_members_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMembersByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_members_by_loading(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMembersByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_members_by_location(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMembersByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_members_by_material(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMembersByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_members_by_member(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMembersByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_members_by_member_set(), include_base)
+
+
+    @staticmethod
+    def SteelDesignDesignRatiosMembersBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_members_by_section(), include_base)
+
+
+    @staticmethod
+    def SteelDesignRatiosShearWallsByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_ratios_shear_walls_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def SteelDesignRatiosShearWallsByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_ratios_shear_walls_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def SteelDesignRatiosShearWallsByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_ratios_shear_walls_by_loading(), include_base)
+
+
+    @staticmethod
+    def SteelDesignRatiosShearWallsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_ratios_shear_walls_by_location(), include_base)
+
+
+    @staticmethod
+    def SteelDesignRatiosShearWallsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_ratios_shear_walls_by_material(), include_base)
+
+
+    @staticmethod
+    def SteelDesignRatiosShearWallsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_ratios_shear_walls_by_section(), include_base)
+
+
+    @staticmethod
+    def SteelDesignRatiosShearWallsByShearWall(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_ratios_shear_walls_by_shear_wall(), include_base)
+
+
+    @staticmethod
+    def SteelDesignGoverningInternalForcesByDeepBeam(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_governing_internal_forces_by_deep_beam(), include_base)
+
+
+    @staticmethod
+    def SteelDesignGoverningInternalForcesByDeepBeamEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_governing_internal_forces_by_deep_beam_ends(), include_base)
+
+
+    @staticmethod
+    def SteelDesignGoverningInternalForcesByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_governing_internal_forces_by_member(), include_base)
+
+
+    @staticmethod
+    def SteelDesignGoverningInternalForcesByMemberEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_governing_internal_forces_by_member_ends(), include_base)
+
+
+    @staticmethod
+    def SteelDesignGoverningInternalForcesByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_governing_internal_forces_by_member_representative(), include_base)
+
+
+    @staticmethod
+    def SteelDesignGoverningInternalForcesByMemberRepresentativeEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_governing_internal_forces_by_member_representative_ends(), include_base)
+
+
+    @staticmethod
+    def SteelDesignGoverningInternalForcesByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_governing_internal_forces_by_member_set(), include_base)
+
+
+    @staticmethod
+    def SteelDesignGoverningInternalForcesByMemberSetEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_governing_internal_forces_by_member_set_ends(), include_base)
+
+
+    @staticmethod
+    def SteelDesignGoverningInternalForcesByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_governing_internal_forces_by_member_set_representative(), include_base)
+
+
+    @staticmethod
+    def SteelDesignGoverningInternalForcesByMemberSetRepresentativeEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_governing_internal_forces_by_member_set_representative_ends(), include_base)
+
+
+    @staticmethod
+    def SteelDesignGoverningInternalForcesByShearWall(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_governing_internal_forces_by_shear_wall(), include_base)
+
+
+    @staticmethod
+    def SteelDesignGoverningInternalForcesByShearWallEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_governing_internal_forces_by_shear_wall_ends(), include_base)
+
+
+    @staticmethod
+    def SteelDesignGoverningLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_governing_loading(), include_base)
+
+
+    @staticmethod
+    def SteelDesignMomentFrameConnectionByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_moment_frame_connection_by_member(), include_base)
+
+
+    @staticmethod
+    def SteelDesignMomentFrameConnectionByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_moment_frame_connection_by_member_set(), include_base)
+
+
+    @staticmethod
+    def SteelDesignOverviewErrorsAndWarnings(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_overview_errors_and_warnings(), include_base)
+
+
+    @staticmethod
+    def SteelDesignOverviewNotValidDeactivated(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_overview_not_valid_deactivated(), include_base)
+
+
+    @staticmethod
+    def SteelDesignSlendernessByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_slenderness_by_member(), include_base)
+
+
+    @staticmethod
+    def SteelDesignSlendernessByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_slenderness_by_member_representative(), include_base)
+
+
+    @staticmethod
+    def SteelDesignSlendernessByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_slenderness_by_member_set(), include_base)
+
+
+    @staticmethod
+    def SteelDesignSlendernessByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_slenderness_by_member_set_representative(), include_base)
+
+
+    @staticmethod
+    def SteelDesignStabilityBracingByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_stability_bracing_by_member(), include_base)
+
+
+    @staticmethod
+    def SteelDesignStabilityBracingByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_stability_bracing_by_member_set(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosDeepBeamsByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_deep_beams_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosDeepBeamsByDeepBeam(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_deep_beams_by_deep_beam(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosDeepBeamsByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_deep_beams_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosDeepBeamsByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_deep_beams_by_loading(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosDeepBeamsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_deep_beams_by_location(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosDeepBeamsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_deep_beams_by_material(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosDeepBeamsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_deep_beams_by_section(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberRepresentativesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_representatives_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberRepresentativesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_representatives_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberRepresentativesByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_representatives_by_loading(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_representatives_by_location(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_representatives_by_material(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberRepresentativesByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_representatives_by_member_representative(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_representatives_by_section(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberSetRepresentativesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_set_representatives_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberSetRepresentativesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_set_representatives_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberSetRepresentativesByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_set_representatives_by_loading(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberSetRepresentativesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_set_representatives_by_location(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberSetRepresentativesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_set_representatives_by_material(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberSetRepresentativesByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_set_representatives_by_member_set_representative(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMemberSetRepresentativesBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_set_representatives_by_section(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMembersByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_members_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMembersByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_members_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMembersByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_members_by_loading(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMembersByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_members_by_location(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMembersByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_members_by_material(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMembersByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_members_by_member(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMembersByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_members_by_member_set(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosMembersBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_members_by_section(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosShearWallsByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_shear_walls_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosShearWallsByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_shear_walls_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosShearWallsByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_shear_walls_by_loading(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosShearWallsByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_shear_walls_by_location(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosShearWallsByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_shear_walls_by_material(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosShearWallsBySection(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_shear_walls_by_section(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosShearWallsByShearWall(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_shear_walls_by_shear_wall(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosSurfacesByConstructionStage(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_surfaces_by_construction_stage(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosSurfacesByDesignSituation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_surfaces_by_design_situation(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosSurfacesByLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_surfaces_by_loading(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosSurfacesByLocation(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_surfaces_by_location(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosSurfacesByMaterial(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_surfaces_by_material(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosSurfacesBySurface(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_surfaces_by_surface(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosSurfacesBySurfaceSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_surfaces_by_surface_set(), include_base)
+
+
+    @staticmethod
+    def TimberDesignDesignRatiosSurfacesByThickness(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_surfaces_by_thickness(), include_base)
+
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByDeepBeam(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_deep_beam(), include_base)
+
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByDeepBeamEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_deep_beam_ends(), include_base)
+
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_member(), include_base)
+
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByMemberEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_member_ends(), include_base)
+
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_member_representative(), include_base)
+
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByMemberRepresentativeEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_member_representative_ends(), include_base)
+
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_member_set(), include_base)
+
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByMemberSetEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_member_set_ends(), include_base)
+
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_member_set_representative(), include_base)
+
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByMemberSetRepresentativeEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_member_set_representative_ends(), include_base)
+
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByShearWall(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_shear_wall(), include_base)
+
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesByShearWallEnds(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_shear_wall_ends(), include_base)
+
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesBySurface(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_surface(), include_base)
+
+
+    @staticmethod
+    def TimberDesignGoverningInternalForcesBySurfaceSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_internal_forces_by_surface_set(), include_base)
+
+
+    @staticmethod
+    def TimberDesignGoverningLoading(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_governing_loading(), include_base)
+
+
+    @staticmethod
+    def TimberDesignOverviewErrorsAndWarnings(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_overview_errors_and_warnings(), include_base)
+
+
+    @staticmethod
+    def TimberDesignOverviewNotValidDeactivated(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_overview_not_valid_deactivated(), include_base)
+
+
+    @staticmethod
+    def TimberDesignSlendernessByMember(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_slenderness_by_member(), include_base)
+
+
+    @staticmethod
+    def TimberDesignSlendernessByMemberRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_slenderness_by_member_representative(), include_base)
+
+
+    @staticmethod
+    def TimberDesignSlendernessByMemberSet(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_slenderness_by_member_set(), include_base)
+
+
+    @staticmethod
+    def TimberDesignSlendernessByMemberSetRepresentative(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+        Args:
+            model(class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_slenderness_by_member_set_representative(), include_base)

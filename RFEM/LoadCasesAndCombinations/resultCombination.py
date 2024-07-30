@@ -20,10 +20,10 @@ class ResultCombination():
 
         '''
         Args:
-            no (int, mandatory): Result combination tag
-            design_situation (int, mandatory): Design situation
-            combination_type (enum, mandatory): Combination type
-            combination_items (list of lists, mandatory): Combination items
+            no (int): Result Combination tag
+            design_situation (int): Assign Design Situation
+            combination_type (enum): Result Combination Type Enumeration
+            combination_items (list of lists): Combination Items Table
                 combination_item[0](int) = case_object_item
                 combination_item[1](enum) = operator_type enumeration
                 combination_item[2](float) = case_object_factor
@@ -33,8 +33,8 @@ class ResultCombination():
                 combination_item[6](float) = group_factor (if left_parenthesis is True then value else None)
                 combination_item[7](enum) = group_load_type (if right_parenthesis is True then enumeration else None)
             srss_combination (list, optional): SRSS Combination. If None then False.
-                [srss_use_equivalent_linear_combination[bool], ]
-            name (str, optional): Result combination name
+                srss_combination = [srss_use_equivalent_linear_combination(bool), srss_extreme_value_sign(enum), srss_according_load_case_or_combination(int)]
+            name (str, optional): User Defined Result Combination Name
             comment (str, optional): Comments
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited

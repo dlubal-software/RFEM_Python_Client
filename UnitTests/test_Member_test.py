@@ -107,10 +107,12 @@ def test_all_member_types():
     Member.Cable(21, 41, 42, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0])
 
     # Result Beam 1
-    Member.ResultBeam(22, 43, 44, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, MemberResultBeamIntegration.INTEGRATE_WITHIN_CUBOID_QUADRATIC, [0], 1, 1,  integration_parameters = [0.1])
+    Member.ResultBeam(22, 43, 44, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, \
+        MemberResultBeamIntegration.INTEGRATE_WITHIN_CUBOID_QUADRATIC, [0], 1, 1,  integration_parameters = [0.1], include_objects=[True, True, True], exclude_objects=[None, None, '2 3'])
 
     # Result Beam 2
-    Member.ResultBeam(23, 45, 46, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, MemberResultBeamIntegration.INTEGRATE_WITHIN_CUBOID_GENERAL, [0], 1, 1, integration_parameters=[0.1, 0.2, 0.3, 0.4])
+    Member.ResultBeam(23, 45, 46, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, \
+        MemberResultBeamIntegration.INTEGRATE_WITHIN_CUBOID_GENERAL, [0], 1, 1, integration_parameters=[0.1, 0.2, 0.3, 0.4], include_objects=[True, True, '5 9 10 13 15'], exclude_objects= [None, None, '6 8'])
 
     # Result Beam 3
     Member.ResultBeam(24, 47, 48, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, MemberResultBeamIntegration.INTEGRATE_WITHIN_CYLINDER, [0], 1, 1, integration_parameters=[0.5])
@@ -170,6 +172,9 @@ def test_all_member_types():
     assert mem.result_beam_z_plus == 0.2
     assert mem.result_beam_y_minus == 0.3
     assert mem.result_beam_z_minus == 0.4
+    assert mem.result_beam_include_members == '5 9 10 13 15'
+    assert mem.result_beam_include_all_surfaces == True
+    assert mem.result_beam_exclude_members == '6 8'
 
     assert Model.clientModel.service.get_member(26).type == 'TYPE_DEFINABLE_STIFFNESS'
     assert Model.clientModel.service.get_member(30).type == 'TYPE_COUPLING_HINGE_HINGE'

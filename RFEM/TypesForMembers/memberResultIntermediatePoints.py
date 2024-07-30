@@ -40,12 +40,12 @@ class MemberResultIntermediatePoint():
             clientObject.point_count = point_count
 
         else:
-            clientObject.distances = Model.clientModel.factory.create('ns0:member_result_intermediate_point.distances')
+            clientObject.distances = model.clientModel.factory.create('ns0:member_result_intermediate_point.distances')
 
             for i,j in enumerate(distances):
-                mlvlp = Model.clientModel.factory.create('ns0:member_result_intermediate_point_distances_row')
+                mlvlp = model.clientModel.factory.create('ns0:member_result_intermediate_point_distances_row')
                 mlvlp.no = i+1
-                mlvlp.row = Model.clientModel.factory.create('ns0:member_result_intermediate_point_distances')
+                mlvlp.row = model.clientModel.factory.create('ns0:member_result_intermediate_point_distances')
                 mlvlp.row.value = distances[i][0]
 
                 clientObject.distances.member_result_intermediate_point_distances.append(mlvlp)

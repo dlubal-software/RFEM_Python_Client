@@ -8,15 +8,21 @@ sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import AddOn, TimberMoistureClassType
 from RFEM.initModel import Model, SetAddonStatus, AddOn, openFile, closeModel
+from RFEM.connectionGlobals import url
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForTimberDesign.timberMoistureClass import TimberMoistureClass
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
+import pytest
 
 if Model.clientModel is None:
     Model()
+
+@pytest.mark.skipif(url != 'http://127.0.0.1', reason="This test fails on remote PC due to incorrect file path. \
+                    Althought it is easy to change, it would not be easy to update on every remote computer.\
+                    It is not necessary to evaluate Client as functional. Localy this tests still gets executed.")
 
 def test_timberMoistureClass():
 
@@ -49,7 +55,7 @@ def test_timberMoistureClass():
     Model.clientModel.service.finish_modification()
 
     tmc = TimberMoistureClass.Get(1)
-    assert tmc.member == '1'
+    assert tmc.members == '1'
     assert tmc.moisture_class == TimberMoistureClassType.TIMBER_MOISTURE_CLASS_TYPE_2.name
 
     closeModel('timberMoistureClass.rf6')

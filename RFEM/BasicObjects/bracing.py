@@ -11,7 +11,8 @@
 #                  start_section_no: int = 1,
 #                  end_section_no: int = 1,
 #                  comment: str = '',
-#                  params: dict = None, model = Model):
+#                  params: dict = None,
+#                  model = Model):
 
 #        '''
 #        Args:
@@ -151,7 +152,8 @@
 #             start_bracing_hinge_no: int = 0,
 #             end_bracing_hinge_no: int = 0,
 #             comment: str = '',
-#             params: dict = None, model = Model):
+#             params: dict = None,
+#             model = Model):
 
 #            '''
 #            Args:

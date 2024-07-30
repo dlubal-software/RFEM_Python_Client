@@ -18,7 +18,7 @@ from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.material import Material
 from RFEM.initModel import Model
-from RFEM.enums import LineLoadDistribution, NodalLoadDirection, StaticAnalysisType
+from RFEM.enums import LineLoadDistribution, NodalLoadDirection, StaticAnalysisType, LineSetLoadDistribution, LineSetLoadDirection
 from RFEM.Loads.lineLoad import LineLoad
 
 if Model.clientModel is None:
@@ -322,9 +322,13 @@ def test_line_set_loads():
     LineSetLoad.Force(2, 1, '1', load_parameter=2500)
     LineSetLoad.Mass(3, 1, '1', False, [3100])
     LineSetLoad.Moment(4, load_parameter=4000)
+    LineSetLoad.Force(5, 1, '1', LineSetLoadDistribution.LOAD_DISTRIBUTION_CONCENTRATED_VARYING, LineSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, [[1,1200],[3,2300]])
+    LineSetLoad.Force(6, 1, '1', LineSetLoadDistribution.LOAD_DISTRIBUTION_VARYING, LineSetLoadDirection.LOAD_DIRECTION_LOCAL_Z, [[1,1200],[3,2300]],)
     Model.clientModel.service.finish_modification()
 
     assert Model.clientModel.service.get_line_set_load(1, 1).magnitude == 1200.5
     assert Model.clientModel.service.get_line_set_load(2, 1).magnitude == 2500
     assert Model.clientModel.service.get_line_set_load(3, 1).mass_global == 3100
     assert Model.clientModel.service.get_line_set_load(4, 1).magnitude == 4000
+    assert Model.clientModel.service.get_line_set_load(5, 1).load_distribution == 'LOAD_DISTRIBUTION_CONCENTRATED_VARYING'
+    assert Model.clientModel.service.get_line_set_load(6, 1).load_distribution == 'LOAD_DISTRIBUTION_VARYING'

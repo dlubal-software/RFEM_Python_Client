@@ -39,6 +39,10 @@ class LineReleaseType():
                         negative/positive zone = [negative/positive zone type, slippage, force]
                 for translational_release_ux/y/z_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_DIAGRAM:
                     translational_release_ux/y/z_nonlinearity = [nonlinearity type Diagram, [symmetric(bool), LineReleaseDiagram Enumeration(start), LineReleaseDiagram Enumeration(end)], [[displacement, force],...]]
+                for translational_release_ux/y/z_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1/NONLINEARITY_TYPE_FRICTION_DIRECTION_2/NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2:
+                    translational_release_ux/y/z_nonlinearity = [nonlinearity type Friction Direction, [friction coefficient(float)]]
+                for translational_release_ux/y/z_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2:
+                    translational_release_ux/y/z_nonlinearity = [nonlinearity type Friction Direction, [friction coefficient 1(float), friction coefficient 2(float)]]
             rotational_release_phi_x_nonlinearity (list of lists): Nonlinearity Parameter for Rotational Release around X Direction
                 for rotational_release_phi_x_nonlinearity[0] == RotationalReleaseNonlinearity.NONLINEARITY_TYPE_PARTIAL_ACTIVITY:
                     rotational_release_phi_x_nonlinearity = [nonlinearity type Partial_Activity, negative zone, positive zone]
@@ -87,6 +91,38 @@ class LineReleaseType():
         clientObject.translational_release_u_y_nonlinearity = translational_release_uy_nonlinearity[0].name
         clientObject.translational_release_u_z_nonlinearity = translational_release_uz_nonlinearity[0].name
         clientObject.rotational_release_phi_x_nonlinearity = rotational_release_phi_x_nonlinearity[0].name
+
+        # Line Release Nonlinearity Parameters for Friction
+        # For translational_release_u_x_nonlinearity
+        if translational_release_ux_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1 \
+        or translational_release_ux_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_2 \
+        or translational_release_ux_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2:
+            clientObject.friction_coefficient_x = translational_release_ux_nonlinearity[1][0]
+
+        elif translational_release_ux_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2:
+            clientObject.friction_coefficient_xy = translational_release_ux_nonlinearity[1][0]
+            clientObject.friction_coefficient_xz = translational_release_ux_nonlinearity[1][1]
+
+        # For translational_release_u_y_nonlinearity
+        if translational_release_uy_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1 \
+        or translational_release_uy_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_2 \
+        or translational_release_uy_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2:
+            print('fsdfsf')
+            clientObject.friction_coefficient_y = translational_release_uy_nonlinearity[1][0]
+
+        elif translational_release_uy_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2:
+            clientObject.friction_coefficient_yx = translational_release_uy_nonlinearity[1][0]
+            clientObject.friction_coefficient_yz = translational_release_uy_nonlinearity[1][1]
+
+        # For translational_release_u_z_nonlinearity
+        if translational_release_uz_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1 \
+        or translational_release_uz_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_2 \
+        or translational_release_uz_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_2:
+            clientObject.friction_coefficient_z = translational_release_uz_nonlinearity[1][0]
+
+        elif translational_release_uz_nonlinearity[0] == TranslationalReleaseNonlinearity.NONLINEARITY_TYPE_FRICTION_DIRECTION_1_PLUS_2:
+            clientObject.friction_coefficient_zx = translational_release_uz_nonlinearity[1][0]
+            clientObject.friction_coefficient_zy = translational_release_uz_nonlinearity[1][1]
 
         # Line Release Nonlinearity Parameters for Partial Activity
         # For translational_release_u_x_nonlinearity
@@ -235,12 +271,12 @@ class LineReleaseType():
                 clientObject.diagram_along_x_start = translational_release_ux_nonlinearity[1][1].name
                 clientObject.diagram_along_x_end = translational_release_ux_nonlinearity[1][2].name
 
-            clientObject.diagram_along_x_table = Model.clientModel.factory.create('ns0:line_release_type.diagram_along_x_table')
+            clientObject.diagram_along_x_table = model.clientModel.factory.create('ns0:line_release_type.diagram_along_x_table')
 
             for i,j in enumerate(translational_release_ux_nonlinearity[2]):
-                lrtdx = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_x_table_row')
+                lrtdx = model.clientModel.factory.create('ns0:line_release_type_diagram_along_x_table_row')
                 lrtdx.no = i+1
-                lrtdx.row = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_x_table')
+                lrtdx.row = model.clientModel.factory.create('ns0:line_release_type_diagram_along_x_table')
                 clearAttributes(lrtdx.row)
                 lrtdx.row.displacement = translational_release_ux_nonlinearity[2][i][0]
                 lrtdx.row.force = translational_release_ux_nonlinearity[2][i][1]
@@ -260,12 +296,12 @@ class LineReleaseType():
                 clientObject.diagram_along_y_start = translational_release_uy_nonlinearity[1][1].name
                 clientObject.diagram_along_y_end = translational_release_uy_nonlinearity[1][2].name
 
-            clientObject.diagram_along_y_table = Model.clientModel.factory.create('ns0:line_release_type.diagram_along_y_table')
+            clientObject.diagram_along_y_table = model.clientModel.factory.create('ns0:line_release_type.diagram_along_y_table')
 
             for i,j in enumerate(translational_release_uy_nonlinearity[2]):
-                lrtdy = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_y_table_row')
+                lrtdy = model.clientModel.factory.create('ns0:line_release_type_diagram_along_y_table_row')
                 lrtdy.no = i+1
-                lrtdy.row = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_y_table')
+                lrtdy.row = model.clientModel.factory.create('ns0:line_release_type_diagram_along_y_table')
                 clearAttributes(lrtdy.row)
                 lrtdy.row.displacement = translational_release_uy_nonlinearity[2][i][0]
                 lrtdy.row.force = translational_release_uy_nonlinearity[2][i][1]
@@ -285,12 +321,12 @@ class LineReleaseType():
                 clientObject.diagram_along_z_start = translational_release_uz_nonlinearity[1][1].name
                 clientObject.diagram_along_z_end = translational_release_uz_nonlinearity[1][2].name
 
-            clientObject.diagram_along_z_table = Model.clientModel.factory.create('ns0:line_release_type.diagram_along_z_table')
+            clientObject.diagram_along_z_table = model.clientModel.factory.create('ns0:line_release_type.diagram_along_z_table')
 
             for i,j in enumerate(translational_release_uz_nonlinearity[2]):
-                lrtdz = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_z_table_row')
+                lrtdz = model.clientModel.factory.create('ns0:line_release_type_diagram_along_z_table_row')
                 lrtdz.no = i+1
-                lrtdz.row = Model.clientModel.factory.create('ns0:line_release_type_diagram_along_z_table')
+                lrtdz.row = model.clientModel.factory.create('ns0:line_release_type_diagram_along_z_table')
                 clearAttributes(lrtdz.row)
                 lrtdz.row.displacement = translational_release_uz_nonlinearity[2][i][0]
                 lrtdz.row.force = translational_release_uz_nonlinearity[2][i][1]
@@ -310,12 +346,12 @@ class LineReleaseType():
                 clientObject.diagram_around_x_start = rotational_release_phi_x_nonlinearity[1][1].name
                 clientObject.diagram_around_x_end = rotational_release_phi_x_nonlinearity[1][2].name
 
-            clientObject.diagram_around_x_table = Model.clientModel.factory.create('ns0:array_of_line_release_type_diagram_around_x_table')
+            clientObject.diagram_around_x_table = model.clientModel.factory.create('ns0:array_of_line_release_type_diagram_around_x_table')
 
             for i,j in enumerate(rotational_release_phi_x_nonlinearity[2]):
-                lrtdr = Model.clientModel.factory.create('ns0:line_release_type_diagram_around_x_table_row')
+                lrtdr = model.clientModel.factory.create('ns0:line_release_type_diagram_around_x_table_row')
                 lrtdr.no = i+1
-                lrtdr.row = Model.clientModel.factory.create('ns0:line_release_type_diagram_around_x_table')
+                lrtdr.row = model.clientModel.factory.create('ns0:line_release_type_diagram_around_x_table')
                 clearAttributes(lrtdr.row)
                 lrtdr.row.rotation = rotational_release_phi_x_nonlinearity[2][i][0]
                 lrtdr.row.moment = rotational_release_phi_x_nonlinearity[2][i][1]
@@ -330,12 +366,12 @@ class LineReleaseType():
             clientObject.force_moment_diagram_around_x_end = rotational_release_phi_x_nonlinearity[1][1].name
             clientObject.force_moment_diagram_around_x_depends_on = rotational_release_phi_x_nonlinearity[1][2].name
 
-            clientObject.force_moment_diagram_around_x_table = Model.clientModel.factory.create('ns0:line_release_type.force_moment_diagram_around_x_table')
+            clientObject.force_moment_diagram_around_x_table = model.clientModel.factory.create('ns0:line_release_type.force_moment_diagram_around_x_table')
 
             for i,j in enumerate(rotational_release_phi_x_nonlinearity[2]):
-                lrtfm = Model.clientModel.factory.create('ns0:line_release_type_force_moment_diagram_around_x_table_row')
+                lrtfm = model.clientModel.factory.create('ns0:line_release_type_force_moment_diagram_around_x_table_row')
                 lrtfm.no = i+1
-                lrtfm.row = Model.clientModel.factory.create('ns0:line_release_type_force_moment_diagram_around_x_table')
+                lrtfm.row = model.clientModel.factory.create('ns0:line_release_type_force_moment_diagram_around_x_table')
                 clearAttributes(lrtfm.row)
                 lrtfm.row.force = rotational_release_phi_x_nonlinearity[2][i][0]
                 lrtfm.row.max_moment = rotational_release_phi_x_nonlinearity[2][i][1]

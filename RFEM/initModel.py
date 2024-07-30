@@ -2,7 +2,10 @@ import os
 import sys
 import RFEM.dependencies # dependency check ahead of imports
 import socket
+import ssl
 import requests
+import xmltodict
+from urllib import request
 from suds import WebFault
 from suds.client import Client
 from RFEM.enums import ObjectTypes, ModelType, AddOn
@@ -27,10 +30,27 @@ def connectToServer(url=connectionGlobals.url, port=connectionGlobals.port):
     # local machine url format: 'http://127.0.0.1'
     urlAndPort = f'{url}:{port}'
 
-    # Check if port is listening
-    a_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # Parse the hostname from the URL
+    if url.startswith('https://'):
+        hostname = url[8:]  # Remove 'https://'
+        context = ssl.create_default_context()
+        if isinstance(connectionGlobals.verify, str):
+            context.load_verify_locations(cafile=connectionGlobals.verify)
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        a_socket = context.wrap_socket(sock, server_hostname=hostname)
+        new_wsdl = request.urlopen(urlAndPort+'/wsdl', context=context)
+    elif url.startswith('http://'):
+        hostname = url[7:]  # Remove 'http://'
+        a_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        new_wsdl = request.urlopen(urlAndPort+'/wsdl')
+    else:
+        hostname = url
+        a_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        new_wsdl = request.urlopen(urlAndPort+'/wsdl')
 
-    location = (url[7:], int(port))
+    location = (hostname, int(port))
+
+    # Check if port is listening
     result_of_check = a_socket.connect_ex(location)
 
     if result_of_check == 0:
@@ -42,22 +62,36 @@ def connectToServer(url=connectionGlobals.url, port=connectionGlobals.port):
         a_socket.close()
         sys.exit()
 
-    # Delete cached WSDL older than 1 day to reflect newer version of RFEM
+    # Delete old cache if the version or mode doesn't correlate
     connectionGlobals.cacheLoc = os.path.join(gettempdir(), 'WSDL')
-    currentTime = time.time()
+
+    new_wsdl_data = new_wsdl.read()
+    new_wsdl.close()
+    new_tns = xmltodict.parse(new_wsdl_data)['definitions']['@targetNamespace']
+
     if os.path.exists(connectionGlobals.cacheLoc):
         for file in os.listdir(connectionGlobals.cacheLoc):
             filePath = os.path.join(connectionGlobals.cacheLoc, file)
-            if (currentTime - os.path.getmtime(filePath)) > 86400:
-                os.remove(filePath)
+            if file.endswith('.xml'):
+                with open(filePath,'r', encoding='utf-8') as old_wsdl:
+                    old_wsdl_data = old_wsdl.read()
+                    old_wsdl.close()
+                    old_tns = xmltodict.parse(old_wsdl_data)['definitions']['@targetNamespace']
+                    if new_tns != old_tns:
+                        os.remove(filePath)
 
     # Check for issues locally and remotely
     try:
         connectionGlobals.ca = DocumentCache(location=connectionGlobals.cacheLoc)
-        connectionGlobals.client = Client(urlAndPort+'/wsdl', location = urlAndPort, cache=connectionGlobals.ca)
+        trans = RequestsTransport(
+            api_key=connectionGlobals.api_key,
+            session=connectionGlobals.session,
+            verify=connectionGlobals.verify
+        )
+        connectionGlobals.client = Client(urlAndPort+'/wsdl', location = urlAndPort, cache=connectionGlobals.ca, transport=trans)
         connectionGlobals.connected = True
 
-    except:
+    except Exception:
         print('Error: Connection to server failed!')
         print('Please check:')
         print('- If you have started RFEM application')
@@ -71,7 +105,7 @@ def connectToServer(url=connectionGlobals.url, port=connectionGlobals.port):
 
     try:
         modelLst = connectionGlobals.client.service.get_model_list()
-    except:
+    except Exception:
         print('Error: Please check if all RFEM dialogs are closed.')
         input('Press Enter to exit...')
         sys.exit()
@@ -164,7 +198,12 @@ class Model():
                 connectionGlobals.session = requests.Session()
                 adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
                 connectionGlobals.session.mount('http://', adapter)
-                trans = RequestsTransport(connectionGlobals.session)
+                connectionGlobals.session.mount('https://', adapter)
+                trans = RequestsTransport(
+                    api_key=connectionGlobals.api_key,
+                    session = connectionGlobals.session,
+                    verify=connectionGlobals.verify
+                )
 
                 cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=connectionGlobals.ca, timeout=360)
 
@@ -188,6 +227,7 @@ class Model():
                     if modelLst[i] == model_name:
                         id = i
                 modelPath =  connectionGlobals.client.service.get_model(id)
+                self.clientModelDct[model_name] = cModel
                 modelPort = modelPath[-5:-1]
                 modelUrlPort = connectionGlobals.url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
@@ -195,13 +235,31 @@ class Model():
                 connectionGlobals.session = requests.Session()
                 adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
                 connectionGlobals.session.mount('http://', adapter)
-                trans = RequestsTransport(connectionGlobals.session)
+                connectionGlobals.session.mount('https://', adapter)
+                trans = RequestsTransport(
+                    api_key=connectionGlobals.api_key,
+                    session = connectionGlobals.session,
+                    verify=connectionGlobals.verify
+                )
 
                 cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=connectionGlobals.ca, timeout=360)
-
-                self.clientModelDct[model_name] = cModel
             elif model_name == "":
                 modelPath =  connectionGlobals.client.service.get_active_model()
+                modelPort = modelPath[-5:-1]
+                modelUrlPort = connectionGlobals.url+':'+modelPort
+                modelCompletePath = modelUrlPort+'/wsdl'
+
+                connectionGlobals.session = requests.Session()
+                adapter = requests.adapters.HTTPAdapter(pool_connections=1, pool_maxsize=1)
+                connectionGlobals.session.mount('http://', adapter)
+                connectionGlobals.session.mount('https://', adapter)
+                trans = RequestsTransport(
+                    api_key=connectionGlobals.api_key,
+                    session = connectionGlobals.session,
+                    verify=connectionGlobals.verify
+                )
+
+                cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=connectionGlobals.ca, timeout=360)
             else:
                 print('Model name "'+model_name+'" is not created in RFEM. Consider changing new_model parameter in Model class from False to True.')
                 sys.exit()
@@ -227,7 +285,7 @@ class Model():
         Args:
             index_or_name (str or int): Name of the index of model
         '''
-        if isinstance(index_or_name, str):
+        if isinstance(index_or_name, str) and index_or_name in self.clientModelDct:
             assert index_or_name in list(self.clientModelDct)
             self.clientModelDct.pop(index_or_name)
             if len(self.clientModelDct) > 0:
@@ -238,8 +296,7 @@ class Model():
         if isinstance(index_or_name, int):
             assert index_or_name <= len(self.clientModelDct)
             modelLs = connectionGlobals.client.service.get_model_list()
-
-            if modelLs:
+            if modelLs and (modelLs.name[index_or_name] in self.clientModelDct):
                 self.clientModelDct.pop(modelLs.name[index_or_name])
                 if len(self.clientModelDct) > 0:
                     model_key = list(self.clientModelDct)[-1]
@@ -279,7 +336,7 @@ def deleteEmptyAttributes(obj):
         ValueError('WARNING: Object feeded to deleteEmptyAttributes function is not iterable. It is type: '+str(type(obj))+'.')
 
     for i in it:
-        if isinstance(i, str) or isinstance(i, int) or isinstance(i, float) or isinstance(i, bool) or isinstance(i, Enum):
+        if isinstance(i, str) or isinstance(i, int) or isinstance(i, float) or isinstance(i, bool) or isinstance(i, Enum) or not isinstance(i, tuple):
             continue
         if len(i) > 2:
             i = deleteEmptyAttributes(i)
@@ -313,6 +370,7 @@ def openFile(model_path):
     assert os.path.exists(model_path)
 
     file_name = os.path.basename(model_path)
+    connectToServer()
     connectionGlobals.client.service.open_model(model_path)
 
     return Model(False, file_name)
@@ -327,6 +385,8 @@ def closeModel(index_or_name, save_changes = False):
         index_or_name : Model Index or Name to be Close
         save_changes (bool): Enable/Disable Save Changes Option
     '''
+
+    connectToServer()
     if isinstance(index_or_name, int):
         Model.__delete__(Model, index_or_name)
         connectionGlobals.client.service.close_model(index_or_name, save_changes)
@@ -343,7 +403,7 @@ def closeModel(index_or_name, save_changes = False):
             except:
                 print('Model did NOT close properly.')
         else:
-            print('\nINFO: Model "'+modelLs+'" is not opened.')
+            print('\nINFO: Model "'+index_or_name+'" is not opened.')
     else:
         assert False, 'Parameter index_or_name must be int or string.'
 
@@ -643,7 +703,7 @@ def SetAddonStatuses(AddOnDict, model = Model):
     model.clientModel.service.set_addon_statuses(currentStatus)
 
 
-def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None, skipWarnings = True, model = Model) -> list[str]:
+def CalculateSelectedCases(loadCases: list = None, designSituations: list = None, loadCombinations: list = None, skipWarnings = True, model = Model):
     '''
     This method calculate just selected objects - load cases, designSituations, loadCombinations
 

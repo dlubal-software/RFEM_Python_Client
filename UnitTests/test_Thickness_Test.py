@@ -6,12 +6,13 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.enums import ThicknessDirection, ThicknessOrthotropyType
+from RFEM.enums import ThicknessDirection, ThicknessOrthotropyType, MaterialType, MaterialModel, MaterialStiffnessModificationType
 from RFEM.enums import ThicknessShapeOrthotropySelfWeightDefinitionType, ThicknessStiffnessMatrixSelfWeightDefinitionType
 from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
+from math import pi
 
 if Model.clientModel is None:
     Model()
@@ -20,7 +21,16 @@ def test_thickness():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
+    
     Material(1, 'C30/37')
+    params = { 
+        "material_type": MaterialType.TYPE_TIMBER.name,
+        "material_model": MaterialModel.MODEL_ORTHOTROPIC_2D.name,
+        "stiffness_modification": True,
+        "stiffness_modification_type": MaterialStiffnessModificationType.STIFFNESS_MODIFICATION_TYPE_DIVISION.name,
+        "application_context": "TIMBER_DESIGN"
+    }
+    Material(no=2, name="C24 BBS XL", params=params)
 
     ##  THICKNESS TYPE
 
@@ -75,7 +85,7 @@ def test_thickness():
     Thickness.Layers(
                      no= 7,
                      name= 'Layers',
-                     layers= [['E_THICKNESS_TYPE_DIRECTLY', 1, 0.123],
+                     layers= [['E_THICKNESS_TYPE_DIRECTLY', 2, 0.123, pi / 2],
                               [2, 'Defined Thicness']],
                      comment= 'Comment')
 
@@ -126,6 +136,7 @@ def test_thickness():
 
     th = Model.clientModel.service.get_thickness(7)
     assert th.layers_reference_table['thickness_layers_reference_table'][0].row['thickness'] == 0.123
+    assert th.layers_reference_table['thickness_layers_reference_table'][0].row['angle'] == pi / 2
     assert th.layers_reference_table['thickness_layers_reference_table'][1].row['thickness_type_or_id'] == '2'
     assert th.layers_reference_table['thickness_layers_reference_table'][1].row['comment'] == 'Defined Thicness'
 

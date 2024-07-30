@@ -1,5 +1,5 @@
-from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes
-from RFEM.enums import ModalSolutionMethod, ModalMassConversionType, ModalMassMatrixType, ModalNeglectMasses
+from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, SetAddonStatus
+from RFEM.enums import ModalSolutionMethod, ModalMassConversionType, ModalMassMatrixType, ModalNeglectMasses, AddOn
 
 class ModalAnalysisSettings():
 
@@ -29,6 +29,8 @@ class ModalAnalysisSettings():
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
         """
+        SetAddonStatus(Model.clientModel, AddOn.modal_active, True)
+
         # Client model | Surface
         clientObject = model.clientModel.factory.create('ns0:modal_analysis_settings')
 
