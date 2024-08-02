@@ -8,7 +8,7 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.Reports.printoutReport import PrintoutReport
 from RFEM.Reports.html import ExportResultTablesToHtml
 from RFEM.initModel import Model, closeModel, openFile, getPathToRunningRFEM
-from RFEM.connectionGlobals import url, port
+from RFEM.connectionGlobals import url
 from shutil import rmtree
 import pytest
 import time
@@ -19,7 +19,6 @@ if Model.clientModel is None:
 @pytest.mark.skipif(url != 'http://127.0.0.1', reason="This test fails on remote PC due to incorrect file path. \
                     Althought it is easy to change, it would not be easy to update on every remote computer.\
                     It is not necessary to evaluate Client as functional. Localy this tests still gets executed.")
-#@pytest.mark.skip(reason='crashing RFEM')
 def test_html_report():
     Model.clientModel.service.delete_all()
     Model.clientModel.service.run_script(os.path.join(getPathToRunningRFEM(),'scripts\\internal\\Demos\\Demo-002 Cantilever Beams.js'))
@@ -62,11 +61,10 @@ def test_printout_report():
     PrintoutReport.exportToHTML(1, htmlPath)
     PrintoutReport.exportToPDF(2, pdfPath)
 
-    time.sleep(2)
+    #time.sleep(2)
 
     assert os.path.exists(htmlPath)
-    #assert os.path.exists(pdfPath) # this check creates timeouts often
+    assert os.path.exists(pdfPath) # this check creates timeouts often
 
-    #closeModel('printout.rf6')
-    closeModel(1)
-    #time.sleep(3)
+    closeModel('printout.rf6')
+

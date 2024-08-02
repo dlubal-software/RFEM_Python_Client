@@ -406,8 +406,6 @@ def closeModel(index_or_name, save_changes = False):
     else:
         assert False, 'Parameter index_or_name must be int or string.'
 
-    #time.sleep(4) # safety precaution
-
 def closeAllModels(save_changes = False):
     '''
     Function that closes all opened models in reverse order.
