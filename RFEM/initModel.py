@@ -206,7 +206,6 @@ class Model():
                 )
 
                 cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=connectionGlobals.ca, timeout=360)
-
                 self.clientModelDct[model_name] = cModel
 
         else:
@@ -227,7 +226,6 @@ class Model():
                     if modelLst[i] == model_name:
                         id = i
                 modelPath =  connectionGlobals.client.service.get_model(id)
-                self.clientModelDct[model_name] = cModel
                 modelPort = modelPath[-5:-1]
                 modelUrlPort = connectionGlobals.url+':'+modelPort
                 modelCompletePath = modelUrlPort+'/wsdl'
@@ -243,6 +241,7 @@ class Model():
                 )
 
                 cModel = Client(modelCompletePath, transport=trans, location = modelUrlPort, cache=connectionGlobals.ca, timeout=360)
+                self.clientModelDct[model_name] = cModel
             elif model_name == "":
                 modelPath =  connectionGlobals.client.service.get_active_model()
                 modelPort = modelPath[-5:-1]
@@ -401,11 +400,13 @@ def closeModel(index_or_name, save_changes = False):
                 Model.__delete__(Model, index_or_name)
                 connectionGlobals.client.service.close_model(modelLs.index(index_or_name), save_changes)
             except:
-                print('Model did NOT close properly.')
+                print('Model did not close properly.')
         else:
             print('\nINFO: Model "'+index_or_name+'" is not opened.')
     else:
         assert False, 'Parameter index_or_name must be int or string.'
+
+    #time.sleep(4) # safety precaution
 
 def closeAllModels(save_changes = False):
     '''
@@ -419,7 +420,7 @@ def closeAllModels(save_changes = False):
         for j in reversed(modelLs):
             closeModel(j, save_changes)
     except:
-        print('No models opened.')
+        print('Error: Closing all models caused an issue.')
 
 def saveFile(model_path):
     '''
@@ -593,8 +594,6 @@ def GetAllAddonStatuses(modelClient):
                 dct[str(item[0])] = bool(item[1])
         elif isinstance(lstType[1], bool):
             dct[str(lstType[0])] = bool(lstType[1])
-        else:
-            assert False
 
     return dct
 
@@ -612,10 +611,14 @@ def GetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active):
     """
     dct = GetAllAddonStatuses(modelClient)
 
-    # sanity check
-    assert addOn.name in dct, f"WARNING: {addOn.name} Add-on can not be reached."
+    status = None
+    try:
+        status = dct[addOn.name]
+    except:
+        status = None
+        print(f'Error: Function "GetAllAddonStatuses" did not find status of adddon {addOn.name}.')
 
-    return dct[addOn.name]
+    return status
 
 def SetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active, status = True):
     """
@@ -627,43 +630,41 @@ def SetAddonStatus(modelClient, addOn = AddOn.stress_analysis_active, status = T
         addOn (enum): AddOn Enumeration
         status (bool): in/active
 
-    Analysis addOns list:
-        material_nonlinear_analysis_active
-        structure_stability_active
-        construction_stages_active
-        time_dependent_active
-        influence_lines_areas_active
-        form_finding_active
-        cutting_patterns_active
-        torsional_warping_active
-        cost_estimation_active
+    design_addons =
+        stress_analysis_active = None
+        concrete_design_active = None
+        steel_design_active = None
+        timber_design_active = None
+        aluminum_design_active = None
+        glass_design_active = None
+        steel_joints_active = None
+        timber_joints_active = None
+        concrete_foundations_active = None
+        craneway_design_active = None
 
-    Design addOns list:
-        stress_analysis_active
-        concrete_design_active
-        steel_design_active
-        timber_design_active
-        aluminum_design_active
-        steel_joints_active
-        timber_joints_active
-        craneway_design_active
+    masonry_design_active = None
+    multilayer_surfaces_design_active = None
+    analysis =
+        material_nonlinear_analysis_active = None
+        structure_stability_active = None
+        construction_stages_active = None
+        time_dependent_active = None
+        form_finding_active = None
+        cutting_patterns_active = None
+        torsional_warping_active = None
+        cost_estimation_active = None
 
-    Dynamic addOns list:
-        modal_active
-        equivalent_lateral_forces_active
-        spectral_active
-        time_history_active
-        pushover_active
-        harmonic_response_active
+    dynamic_analysis_settings =
+        modal_active = None
+        spectral_active = None
+        time_history_active = None
+        pushover_active = None
+        harmonic_response_active = None
 
-    Special aadOns list:
-        building_model_active
-        wind_simulation_active
-        tower_wizard_active
-        tower_equipment_wizard_active
-        piping_active
-        air_cushions_active
-        geotechnical_analysis_active
+    special_solutions =
+        building_model_active = None
+        wind_simulation_active = None
+        geotechnical_analysis_active = None
     """
 
     # this will also provide sanity check
