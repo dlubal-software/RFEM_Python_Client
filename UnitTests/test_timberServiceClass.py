@@ -38,5 +38,5 @@ def test_timberServiceClass():
 
     tsc = Model.clientModel.service.get_timber_service_class(1)
 
-    assert tsc.member == '1 2'
+    assert tsc.members == '1 2'
     assert tsc.service_class == TimberServiceClassServiceClass.TIMBER_SERVICE_CLASS_TYPE_2.name
