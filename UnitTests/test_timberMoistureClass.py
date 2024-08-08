@@ -55,7 +55,7 @@ def test_timberMoistureClass():
     Model.clientModel.service.finish_modification()
 
     tmc = Model.clientModel.service.get_timber_moisture_class(1)
-    assert tmc.member == '1'
+    assert tmc.members == '1'
     assert tmc.moisture_class == TimberMoistureClassType.TIMBER_MOISTURE_CLASS_TYPE_2.name
 
     closeModel('timberMoistureClass.rf6')
