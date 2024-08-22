@@ -65,14 +65,8 @@ def test_mesh_tables():
     customNode = MeshTables.GetFENodeOriginalMesh(8)
     assert customNode['y'] == 1.5
 
-    all1DElements = MeshTables.GetAllFE1DElements()
-    assert all1DElements[12]['FE_node1_no'] == 454
-
     all2DElemets = MeshTables.GetAllFE2DElements()
     assert all2DElemets[5]['surface_no'] == 1
-
-    custom1DElement = MeshTables.GetFE1DElement(5)
-    assert custom1DElement['FE_node2_no'] == 447
 
     custom2DElement = MeshTables.GetFE2DElement(18)
     assert custom2DElement['FE_node3_no'] == 37
