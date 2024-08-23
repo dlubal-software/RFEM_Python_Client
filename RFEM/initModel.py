@@ -448,7 +448,8 @@ def Calculate_all(skipWarnings: bool = False, model = Model):
     '''
 
     from RFEM.Tools.PlausibilityCheck import PlausibilityCheck
-    PlausibilityCheck()
+    if not skipWarnings:
+        PlausibilityCheck()
 
     calculationMessages = model.clientModel.service.calculate_all(skipWarnings)
     return calculationMessages
