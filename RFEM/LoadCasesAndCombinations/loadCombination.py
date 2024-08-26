@@ -75,11 +75,6 @@ class LoadCombination():
         # Comment
         clientObject.comment = comment
 
-        # Adding optional parameters via dictionary
-        if params:
-            for key in params:
-                clientObject[key] = params[key]
-
         # Items
         clientObject.items = model.clientModel.factory.create('ns0:load_combination.items')
 
@@ -94,6 +89,11 @@ class LoadCombination():
             mlvlp.row.is_leading = combination_items[i][3]
 
             clientObject.items.load_combination_items.append(mlvlp)
+
+        # Adding optional parameters via dictionary
+        if params:
+            for key in params:
+                clientObject[key] = params[key]
 
         # Delete None attributes for improved performance
         deleteEmptyAttributes(clientObject)
