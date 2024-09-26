@@ -13,7 +13,7 @@ print('dirname:     ', dirName)
 sys.path.append(dirName + r'/../..')
 
 from RFEM.enums import *
-from RFEM.initModel import Model, SetAddonStatus, insertSpaces, Calculate_all, client
+from RFEM.initModel import Model, SetAddonStatus, insertSpaces, Calculate_all, connectionGlobals, connectToServer
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.section import Section
 from RFEM.BasicObjects.node import Node
@@ -76,6 +76,9 @@ def main():
 
     # Open the excel sheet
     wb = xw.Book.caller()
+    
+    # open active workbook (for testing)
+    # wb = xw.books.active
 
     # Read inputs
     inputSheet = wb.sheets('Inputs')
@@ -131,13 +134,14 @@ def main():
         bracingH = True
 
     # Creating Model
+    connectToServer()
     lst = None
-    lst = client.service.get_model_list()
+    lst = connectionGlobals.client.service.get_model_list()
 
     if lst:
         if 'SteelHallExcel' in lst[0]:
             print('Closing old Model...!')
-            client.service.close_model(0, False)
+            connectionGlobals.client.service.close_model(0, False)
             print('Creating new model...!')
             Model(True, 'SteelHallExcel.rf6', delete_all= True)
 
@@ -377,8 +381,8 @@ def main():
     # Creating Loads for LC2:Live Load
     n, k, l = 0, 0, 0
     for j in range(frame_number):
-        MemberLoad(n+1, 2, str(k+3), NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 3500)
-        MemberLoad(n+2, 2, str(k+4), NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 3500)
+        MemberLoad(n+1, 2, str(k+3), MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 3500)
+        MemberLoad(n+2, 2, str(k+4), MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_TRUE, 3500)
         NodalLoad.Components(n+1, 2, str(l+8), [0,0,10000,0,0,0])
         NodalLoad.Components(n+2, 2, str(l+9), [0,0,10000,0,0,0])
         n, k, l = n+2, k+13, l+9
@@ -386,37 +390,37 @@ def main():
     # Creating Loads for LC3:Snow Load
     n, k = 0, 0
     for j in range(frame_number):
-        MemberLoad(n+1, 3, str(k+3), NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, 1500)
-        MemberLoad(n+2, 3, str(k+4), NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, 1500)
+        MemberLoad(n+1, 3, str(k+3), MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, 1500)
+        MemberLoad(n+2, 3, str(k+4), MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Z_OR_USER_DEFINED_W_PROJECTED, 1500)
         n, k = n+2, k+13
 
     # Creating Loads for LC4:Wind-Load_x
     n, k = 0, 0
     for j in range(frame_number):
-        MemberLoad(n+1, 4, str(k+1), NodalLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 2000)
-        MemberLoad(n+2, 4, str(k+2), NodalLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 2000)
-        MemberLoad(n+3, 4, str(k+5), NodalLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 2000)
-        MemberLoad(n+4, 4, str(k+6), NodalLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 2000)
+        MemberLoad(n+1, 4, str(k+1), MemberLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 2000)
+        MemberLoad(n+2, 4, str(k+2), MemberLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 2000)
+        MemberLoad(n+3, 4, str(k+5), MemberLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 2000)
+        MemberLoad(n+4, 4, str(k+6), MemberLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 2000)
         n, k = n+4, k+13
 
     k = 0
     for j in range(frame_number-1):
-        MemberLoad(n+1, 4, str(k+9), NodalLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 1500)
-        MemberLoad(n+2, 4, str(k+10), NodalLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 1500)
-        MemberLoad(n+3, 4, str(k+11), NodalLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 1500)
-        MemberLoad(n+4, 4, str(k+12), NodalLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 1500)
-        MemberLoad(n+5, 4, str(k+13), NodalLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 1500)
+        MemberLoad(n+1, 4, str(k+9), MemberLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 1500)
+        MemberLoad(n+2, 4, str(k+10), MemberLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 1500)
+        MemberLoad(n+3, 4, str(k+11), MemberLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 1500)
+        MemberLoad(n+4, 4, str(k+12), MemberLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 1500)
+        MemberLoad(n+5, 4, str(k+13), MemberLoadDirection.LOAD_DIRECTION_GLOBAL_X_OR_USER_DEFINED_U_TRUE, 1500)
         n, k = n+5, k+13
 
     # Creating Loads for LC5:Wind-Load_y
     n, k = 0, 0
     for j in range(frame_number):
-        MemberLoad(n+1, 5, str(k+1), NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 1500)
-        MemberLoad(n+2, 5, str(k+2), NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 1500)
-        MemberLoad(n+3, 5, str(k+3), NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 2500)
-        MemberLoad(n+4, 5, str(k+4), NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 2500)
-        MemberLoad(n+5, 5, str(k+5), NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 1500)
-        MemberLoad(n+6, 5, str(k+6), NodalLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 1500)
+        MemberLoad(n+1, 5, str(k+1), MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 1500)
+        MemberLoad(n+2, 5, str(k+2), MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 1500)
+        MemberLoad(n+3, 5, str(k+3), MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 2500)
+        MemberLoad(n+4, 5, str(k+4), MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 2500)
+        MemberLoad(n+5, 5, str(k+5), MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 1500)
+        MemberLoad(n+6, 5, str(k+6), MemberLoadDirection.LOAD_DIRECTION_GLOBAL_Y_OR_USER_DEFINED_V_TRUE, 1500)
         n, k = n+6, k+13
 
     # Creating Steel Design Configuration
@@ -629,3 +633,4 @@ def main():
 
     Overview["A1"].value = new_df
 
+main()
