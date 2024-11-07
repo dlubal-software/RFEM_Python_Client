@@ -5,10 +5,11 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
     os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-from RFEM.initModel import Model, getPathToRunningRFEM
+from RFEM.initModel import Model
 from RFEM.connectionGlobals import url
 from RFEM.Tools.GetObjectNumbersByType import GetAllObjects
 import pytest
+from tools import getPathToRunningRFEM
 
 if Model.clientModel is None:
     Model()

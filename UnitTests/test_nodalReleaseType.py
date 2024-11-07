@@ -6,12 +6,13 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.initModel import Model, getPathToRunningRFEM
+from RFEM.initModel import Model
 from RFEM.connectionGlobals import url
 from RFEM.enums import NodalReleaseTypeReleaseNonlinearity, NodalReleaseTypePartialActivityAround, NodalReleaseTypeLocalAxisSystemObjectType
 from RFEM.enums import NodalReleaseTypePartialActivityAlong, NodalReleaseTypeDiagram
 from RFEM.TypesForSpecialObjects.nodalReleaseType import NodalReleaseType
 import pytest
+from tools import getPathToRunningRFEM
 
 if Model.clientModel is None:
     Model()
