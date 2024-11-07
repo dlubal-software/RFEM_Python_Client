@@ -6,14 +6,14 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
-
+from tools import getPathToRunningRFEM
 from RFEM.enums import ObjectTypes
 from RFEM.initModel import Model, closeModel
 from RFEM.ImportExport.exports import IFCExportSettings, ObjectLocation, ObjectLocations, ExportToIFC, GetTableExportConfigManager, SetTableExportConfigManager, ExportTo
 from RFEM.ImportExport.imports import getConversionTables, setConversionTables, getSAFSettings, setSAFSettings, importFrom
 sys.path.append('..')
 from RFEM import connectionGlobals
-from tools import getPathToRunningRFEM
+
 
 if Model.clientModel is None:
     Model()
