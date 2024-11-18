@@ -151,7 +151,6 @@ def main():
         print('Creating new model...!')
         Model(True, 'SteelHallExcel.rf6', delete_all= True)
 
-    Model(True, "SteelDesignExcel")
     Model.clientModel.service.begin_modification()
     print("Preparing...")
 
