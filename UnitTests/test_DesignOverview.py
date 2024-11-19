@@ -8,12 +8,13 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 
 from RFEM.enums import AddOn
-from RFEM.initModel import Model, SetAddonStatus, getPathToRunningRFEM
+from RFEM.initModel import Model, SetAddonStatus
 from RFEM.connectionGlobals import url
 from RFEM.Results.designOverview import GetDesignOverview, GetPartialDesignOverview
 from RFEM.Reports.partsList import GetPartsListAllByMaterial, GetPartsListMemberRepresentativesByMaterial
 from RFEM.Reports.partsList import GetPartsListMemberSetsByMaterial, GetPartsListMembersByMaterial
 from RFEM.Reports.partsList import GetPartsListSolidsByMaterial, GetPartsListSurfacessByMaterial
+from tools import getPathToRunningRFEM
 
 if Model.clientModel is None:
     Model()

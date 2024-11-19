@@ -7,11 +7,12 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 sys.path.append(PROJECT_ROOT)
 from RFEM.Reports.printoutReport import PrintoutReport
 from RFEM.Reports.html import ExportResultTablesToHtml
-from RFEM.initModel import Model, closeModel, openFile, getPathToRunningRFEM
+from RFEM.initModel import Model, closeModel, openFile
 from RFEM.connectionGlobals import url
 from shutil import rmtree
 import pytest
 import time
+from tools import getPathToRunningRFEM
 
 if Model.clientModel is None:
     Model()

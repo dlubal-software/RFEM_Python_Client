@@ -12,9 +12,10 @@ sys.path.append(PROJECT_ROOT)
 import pytest
 from RFEM.enums import GlobalParameterUnitGroup, GlobalParameterDefinitionType, ObjectTypes
 from RFEM.globalParameter import GlobalParameter
-from RFEM.initModel import Model, getPathToRunningRFEM
+from RFEM.initModel import Model
 from RFEM.connectionGlobals import url
 import pytest
+from tools import getPathToRunningRFEM
 
 if Model.clientModel is None:
     Model()
