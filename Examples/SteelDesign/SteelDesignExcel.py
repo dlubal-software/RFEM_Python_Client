@@ -141,7 +141,8 @@ def main():
     if lst:
         if 'SteelHallExcel' in lst[0]:
             print('Closing old Model...!')
-            connectionGlobals.client.service.close_model(0, False)
+            index = lst.index('SteelHallExcel')
+            connectionGlobals.client.service.close_model(index, False)
             print('Creating new model...!')
             Model(True, 'SteelHallExcel.rf6', delete_all= True)
 
