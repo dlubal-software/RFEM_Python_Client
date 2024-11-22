@@ -15,7 +15,6 @@ try:
     import mock
     import suds.transport
     import suds.client # suds-py3
-    import psutil
 
 except:
     print('One of the required modules is not installed in your Python env.')
@@ -28,11 +27,11 @@ except:
         import subprocess
         try:
             subprocess.call('python -m pip install --upgrade pip')
-            subprocess.call('python -m pip install psutil requests six suds-py3 xmltodict pytest mock --user')
+            subprocess.call('python -m pip install requests six suds-py3 xmltodict pytest mock --user')
             os.execv(sys.executable, ['python'] + sys.argv)
         except:
             print('WARNING: Installation of modules failed!')
-            print('Please use command "python -m pip install psutil requests six suds-py3 xmltodict pytest mock --user" in your Command Prompt.')
+            print('Please use command "python -m pip install requests six suds-py3 xmltodict pytest mock --user" in your Command Prompt.')
             input('Press Enter to exit...')
             sys.exit()
     else:
