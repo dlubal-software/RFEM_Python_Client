@@ -21,7 +21,7 @@ except:
     instSUDS = input('\nDo you want to install all dependencies and check all their versions (y/n)? ')
     instSUDS = instSUDS.lower()
     if instSUDS == 'y':
-        # Subprocess will be opened in cmd and closed automaticaly after installation.
+        # Subprocess will be opened in cmd and closed automaticaly after installation. Only needed packages
         # Prevents invoking pip by an old script wrapper (https://github.com/pypa/pip/issues/5599)
         import os
         import subprocess
