@@ -26,6 +26,7 @@ from RFEM.Imperfections.memberImperfection import MemberImperfection
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 from RFEM.LoadCasesAndCombinations.designSituation import DesignSituation
 from RFEM.LoadCasesAndCombinations.loadCombination import LoadCombination
+from RFEM.LoadCasesAndCombinations.combinationWizard import CombinationWizard
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.Loads.nodalLoad import NodalLoad
@@ -141,7 +142,7 @@ def main():
     if lst:
         if 'SteelHallExcel' in lst[0]:
             print('Closing old Model...!')
-            index = lst.index('SteelHallExcel')
+            index = lst[0].index('SteelHallExcel')
             connectionGlobals.client.service.close_model(index, False)
             print('Creating new model...!')
             Model(True, 'SteelHallExcel.rf6', delete_all= True)
@@ -379,8 +380,8 @@ def main():
     LoadCase.StaticAnalysis(4, 'Wind-Load_x', True, 1, ActionCategoryType.ACTION_CATEGORY_WIND_QW, [False])
     LoadCase.StaticAnalysis(5, 'Wind-Load_y', True, 1, ActionCategoryType.ACTION_CATEGORY_WIND_QW, [False])
 
-    DesignSituation(1, DesignSituationType.DESIGN_SITUATION_TYPE_EQU_PERMANENT_AND_TRANSIENT)
-    LoadCombination(1, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 1)
+    CombinationWizard(1, consider_imperfection_case=False, params={'structure_modification_enabled':'False'} )
+    DesignSituation(1, DesignSituationType.DESIGN_SITUATION_TYPE_EQU_PERMANENT_AND_TRANSIENT, params={'combination_wizard': 1})
 
     # Creating Loads for LC2:Live Load
     n, k, l = 0, 0, 0
@@ -437,7 +438,7 @@ def main():
 
     # Calculation
     print("Calculation started...")
-    #Model.clientModel.service.generate_load_cases_and_combinations()
+    Model.clientModel.service.generate_load_cases_and_combinations()
     Calculate_all()
     print("Done!")
 
