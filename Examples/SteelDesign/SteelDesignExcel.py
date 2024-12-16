@@ -24,6 +24,9 @@ from RFEM.SteelDesign.steelUltimateConfigurations import SteelDesignUltimateConf
 from RFEM.Imperfections.imperfectionCase import ImperfectionCase
 from RFEM.Imperfections.memberImperfection import MemberImperfection
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
+from RFEM.LoadCasesAndCombinations.designSituation import DesignSituation
+from RFEM.LoadCasesAndCombinations.loadCombination import LoadCombination
+from RFEM.LoadCasesAndCombinations.combinationWizard import CombinationWizard
 from RFEM.LoadCasesAndCombinations.loadCase import LoadCase
 from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisSettings
 from RFEM.Loads.nodalLoad import NodalLoad
@@ -139,7 +142,8 @@ def main():
     if lst:
         if 'SteelHallExcel' in lst[0]:
             print('Closing old Model...!')
-            connectionGlobals.client.service.close_model(0, False)
+            index = lst[0].index('SteelHallExcel')
+            connectionGlobals.client.service.close_model(index, False)
             print('Creating new model...!')
             Model(True, 'SteelHallExcel.rf6', delete_all= True)
 
@@ -376,6 +380,9 @@ def main():
     LoadCase.StaticAnalysis(4, 'Wind-Load_x', True, 1, ActionCategoryType.ACTION_CATEGORY_WIND_QW, [False])
     LoadCase.StaticAnalysis(5, 'Wind-Load_y', True, 1, ActionCategoryType.ACTION_CATEGORY_WIND_QW, [False])
 
+    CombinationWizard(1, consider_imperfection_case=False, params={'structure_modification_enabled':'False'} )
+    DesignSituation(1, DesignSituationType.DESIGN_SITUATION_TYPE_EQU_PERMANENT_AND_TRANSIENT, params={'combination_wizard': 1})
+
     # Creating Loads for LC2:Live Load
     n, k, l = 0, 0, 0
     for j in range(frame_number):
@@ -447,7 +454,7 @@ def main():
     nodeSupportForce_x, nodeSupportForce_y, nodeSupportForce_z, nodeMoment_x, nodeMoment_y, nodeMoment_z = [], [], [], [], [], []
 
     for j in range(nodes):
-        dispTab = ResultTables.NodesDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 7, j+1)
+        dispTab = ResultTables.NodesDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, j+1)
         nodisp_abs = GetMaxValue(dispTab, 'displacement_absolute') * 1000
         nodisp_x = GetMaxValue(dispTab, 'displacement_x') * 1000
         nodisp_y = GetMaxValue(dispTab, 'displacement_y') * 1000
@@ -467,7 +474,7 @@ def main():
         nodeType = '-'
         if (j+1) in nodes_no:
             nodeType = 'Hinged'
-            supportForceTab = ResultTables.NodesSupportForces(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 7, j+1)
+            supportForceTab = ResultTables.NodesSupportForces(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, j+1)
             nodesupforce_x = GetMaxValue(supportForceTab, 'support_force_p_x')
             nodesupforce_y = GetMaxValue(supportForceTab, 'support_force_p_y')
             nodesupforce_z = GetMaxValue(supportForceTab, 'support_force_p_z')
@@ -508,7 +515,7 @@ def main():
 
     k = 1
     for j in range(beam_column):
-        dispTable = ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 7, object_no=k)
+        dispTable = ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, object_no=k)
         maxDisp_abs = GetMaxValue(dispTable, 'displacement_absolute') * 1000
         maxDisp_x = GetMaxValue(dispTable, 'displacement_x') * 1000
         maxDisp_y = GetMaxValue(dispTable, 'displacement_y') * 1000
@@ -518,7 +525,7 @@ def main():
         maxDisplacement_y.append(round(maxDisp_y, 3))
         maxDisplacement_z.append(round(maxDisp_z, 3))
 
-        momentTable = ResultTables.MembersInternalForces(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 7, object_no=k)
+        momentTable = ResultTables.MembersInternalForces(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, object_no=k)
 
         if abs(GetMaxValue(momentTable, 'internal_force_n')) > abs(GetMinValue(momentTable, 'internal_force_n')):
             maxFor_n = GetMaxValue(momentTable, 'internal_force_n') / 1000
@@ -584,7 +591,7 @@ def main():
     maxMoment_my = np.array([maxMoment_my]).T
     maxMoment_mz = np.array([maxMoment_mz]).T
 
-    summary = ResultTables.Summary(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 7)
+    summary = ResultTables.Summary(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1)
     df = pd.DataFrame(summary)
     new_df = df.loc[:,['description', 'value', 'units', 'notes']]
 
