@@ -796,7 +796,7 @@ class ResultTables():
 
 
     @staticmethod
-    def MembersInternalForcesBySection(
+    def MembersInternalForcesByCrossSection(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
@@ -813,7 +813,7 @@ class ResultTables():
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SECTION.name, object_no)
 
-        results = model.clientModel.service.get_results_for_members_internal_forces_by_section(
+        results = model.clientModel.service.get_results_for_members_internal_forces_by_CrossSection(
             loading_type.name,
             loading_no,
             object_locations
@@ -2028,7 +2028,7 @@ class ResultTables():
 
 
     @staticmethod
-    def SpectralAnalysisMembersInternalForcesBySection(
+    def SpectralAnalysisMembersInternalForcesByCrossSection(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
@@ -2049,7 +2049,7 @@ class ResultTables():
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SECTION.name, object_no)
         envelope = CreateSpectralAnalysisEnvelope(envelope_type, mode_shape_no)
-        results = model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces_by_section(
+        results = model.clientModel.service.get_results_for_spectral_analysis_members_internal_forces_by_CrossSection(
             loading_type.name,
             loading_no,
             object_locations,
@@ -3538,7 +3538,7 @@ class ResultTables():
 
 
     @staticmethod
-    def StabilityIncrementalAnalysisMembersInternalForcesBySection(
+    def StabilityIncrementalAnalysisMembersInternalForcesByCrossSection(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
@@ -3555,7 +3555,7 @@ class ResultTables():
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SECTION.name, object_no)
 
-        results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces_by_section(
+        results = model.clientModel.service.get_results_for_stability_incremental_analysis_members_internal_forces_by_CrossSection(
             loading_type.name,
             loading_no,
             object_locations
@@ -5859,7 +5859,7 @@ class ResultTables():
 
 
     @staticmethod
-    def TimeHistoryAnalysisMembersInternalForcesBySection(
+    def TimeHistoryAnalysisMembersInternalForcesByCrossSection(
         loading_type: enum = CaseObjectType.E_OBJECT_TYPE_LOAD_CASE,
         loading_no: int = 1,
         object_no: int = 0,
@@ -5876,7 +5876,7 @@ class ResultTables():
 
         object_locations = CreateObjectLocation(ObjectTypes.E_OBJECT_TYPE_SECTION.name, object_no)
 
-        results = model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces_by_section(
+        results = model.clientModel.service.get_results_for_time_history_analysis_members_internal_forces_by_CrossSection(
             loading_type.name,
             loading_no,
             object_locations
@@ -7197,7 +7197,7 @@ class ResultTables():
 
 
     @staticmethod
-    def AluminumDesignDesignRatiosMemberRepresentativesBySection(
+    def AluminumDesignDesignRatiosMemberRepresentativesByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -7206,7 +7206,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_representatives_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_representatives_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -7288,7 +7288,7 @@ class ResultTables():
 
 
     @staticmethod
-    def AluminumDesignDesignRatiosMemberSetRepresentativesBySection(
+    def AluminumDesignDesignRatiosMemberSetRepresentativesByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -7297,7 +7297,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_set_representatives_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_member_set_representatives_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -7392,7 +7392,7 @@ class ResultTables():
 
 
     @staticmethod
-    def AluminumDesignDesignRatiosMembersBySection(
+    def AluminumDesignDesignRatiosMembersByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -7401,7 +7401,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_members_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_aluminum_design_design_ratios_members_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -7678,7 +7678,7 @@ class ResultTables():
 
 
     @staticmethod
-    def ConcreteDesignDesignRatiosDeepBeamsBySection(
+    def ConcreteDesignDesignRatiosDeepBeamsByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -7687,7 +7687,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_deep_beams_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_deep_beams_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -7769,7 +7769,7 @@ class ResultTables():
 
 
     @staticmethod
-    def ConcreteDesignDesignRatiosMemberRepresentativesBySection(
+    def ConcreteDesignDesignRatiosMemberRepresentativesByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -7778,7 +7778,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_representatives_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_representatives_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -7860,7 +7860,7 @@ class ResultTables():
 
 
     @staticmethod
-    def ConcreteDesignDesignRatiosMemberSetRepresentativesBySection(
+    def ConcreteDesignDesignRatiosMemberSetRepresentativesByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -7869,7 +7869,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_set_representatives_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_member_set_representatives_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -7964,7 +7964,7 @@ class ResultTables():
 
 
     @staticmethod
-    def ConcreteDesignDesignRatiosMembersBySection(
+    def ConcreteDesignDesignRatiosMembersByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -7973,7 +7973,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_members_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_members_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -8133,7 +8133,7 @@ class ResultTables():
 
 
     @staticmethod
-    def ConcreteDesignDesignRatiosShearWallsBySection(
+    def ConcreteDesignDesignRatiosShearWallsByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -8142,7 +8142,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_shear_walls_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_design_ratios_shear_walls_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -8536,7 +8536,7 @@ class ResultTables():
 
 
     @staticmethod
-    def ConcreteDesignNotCoveredReinforcementAreaOnDeepBeamsBySection(
+    def ConcreteDesignNotCoveredReinforcementAreaOnDeepBeamsByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -8545,7 +8545,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_deep_beams_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_deep_beams_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -8614,7 +8614,7 @@ class ResultTables():
 
 
     @staticmethod
-    def ConcreteDesignNotCoveredReinforcementAreaOnMemberRepresentativesBySection(
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberRepresentativesByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -8623,7 +8623,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_representatives_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_representatives_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -8692,7 +8692,7 @@ class ResultTables():
 
 
     @staticmethod
-    def ConcreteDesignNotCoveredReinforcementAreaOnMemberSetRepresentativesBySection(
+    def ConcreteDesignNotCoveredReinforcementAreaOnMemberSetRepresentativesByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -8701,7 +8701,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_set_representatives_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_member_set_representatives_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -8783,7 +8783,7 @@ class ResultTables():
 
 
     @staticmethod
-    def ConcreteDesignNotCoveredReinforcementAreaOnMembersBySection(
+    def ConcreteDesignNotCoveredReinforcementAreaOnMembersByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -8792,7 +8792,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_members_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_members_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -8848,7 +8848,7 @@ class ResultTables():
 
 
     @staticmethod
-    def ConcreteDesignNotCoveredReinforcementAreaOnShearWallsBySection(
+    def ConcreteDesignNotCoveredReinforcementAreaOnShearWallsByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -8857,7 +8857,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_shear_walls_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_not_covered_reinforcement_area_on_shear_walls_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -9028,7 +9028,7 @@ class ResultTables():
 
 
     @staticmethod
-    def ConcreteDesignProvidedReinforcementAreaOnDeepBeamsBySection(
+    def ConcreteDesignProvidedReinforcementAreaOnDeepBeamsByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -9037,7 +9037,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_deep_beams_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_deep_beams_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -9080,7 +9080,7 @@ class ResultTables():
 
 
     @staticmethod
-    def ConcreteDesignProvidedReinforcementAreaOnMemberRepresentativesBySection(
+    def ConcreteDesignProvidedReinforcementAreaOnMemberRepresentativesByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -9089,7 +9089,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_member_representatives_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_member_representatives_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -9132,7 +9132,7 @@ class ResultTables():
 
 
     @staticmethod
-    def ConcreteDesignProvidedReinforcementAreaOnMemberSetRepresentativesBySection(
+    def ConcreteDesignProvidedReinforcementAreaOnMemberSetRepresentativesByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -9141,7 +9141,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_member_set_representatives_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_member_set_representatives_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -9197,7 +9197,7 @@ class ResultTables():
 
 
     @staticmethod
-    def ConcreteDesignProvidedReinforcementAreaOnMembersBySection(
+    def ConcreteDesignProvidedReinforcementAreaOnMembersByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -9206,7 +9206,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_members_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_members_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -9288,7 +9288,7 @@ class ResultTables():
 
 
     @staticmethod
-    def ConcreteDesignProvidedReinforcementAreaOnShearWallsBySection(
+    def ConcreteDesignProvidedReinforcementAreaOnShearWallsByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -9297,7 +9297,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_shear_walls_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_provided_reinforcement_area_on_shear_walls_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -9444,7 +9444,7 @@ class ResultTables():
 
 
     @staticmethod
-    def ConcreteDesignRequiredReinforcementAreaOnDeepBeamsBySection(
+    def ConcreteDesignRequiredReinforcementAreaOnDeepBeamsByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -9453,7 +9453,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_deep_beams_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_deep_beams_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -9522,7 +9522,7 @@ class ResultTables():
 
 
     @staticmethod
-    def ConcreteDesignRequiredReinforcementAreaOnMemberRepresentativesBySection(
+    def ConcreteDesignRequiredReinforcementAreaOnMemberRepresentativesByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -9531,7 +9531,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_representatives_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_representatives_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -9600,7 +9600,7 @@ class ResultTables():
 
 
     @staticmethod
-    def ConcreteDesignRequiredReinforcementAreaOnMemberSetRepresentativesBySection(
+    def ConcreteDesignRequiredReinforcementAreaOnMemberSetRepresentativesByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -9609,7 +9609,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_set_representatives_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_member_set_representatives_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -9691,7 +9691,7 @@ class ResultTables():
 
 
     @staticmethod
-    def ConcreteDesignRequiredReinforcementAreaOnMembersBySection(
+    def ConcreteDesignRequiredReinforcementAreaOnMembersByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -9700,7 +9700,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_members_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_members_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -9834,7 +9834,7 @@ class ResultTables():
 
 
     @staticmethod
-    def ConcreteDesignRequiredReinforcementAreaOnShearWallsBySection(
+    def ConcreteDesignRequiredReinforcementAreaOnShearWallsByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -9843,7 +9843,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_shear_walls_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_concrete_design_required_reinforcement_area_on_shear_walls_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -10068,7 +10068,7 @@ class ResultTables():
 
 
     @staticmethod
-    def SteelDesignDesignRatiosDeepBeamsBySection(
+    def SteelDesignDesignRatiosDeepBeamsByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -10077,7 +10077,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_deep_beams_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_deep_beams_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -10159,7 +10159,7 @@ class ResultTables():
 
 
     @staticmethod
-    def SteelDesignDesignRatiosMemberRepresentativesBySection(
+    def SteelDesignDesignRatiosMemberRepresentativesByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -10168,7 +10168,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_member_representatives_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_member_representatives_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -10250,7 +10250,7 @@ class ResultTables():
 
 
     @staticmethod
-    def SteelDesignDesignRatiosMemberSetRepresentativesBySection(
+    def SteelDesignDesignRatiosMemberSetRepresentativesByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -10259,7 +10259,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_member_set_representatives_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_member_set_representatives_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -10354,7 +10354,7 @@ class ResultTables():
 
 
     @staticmethod
-    def SteelDesignDesignRatiosMembersBySection(
+    def SteelDesignDesignRatiosMembersByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -10363,7 +10363,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_members_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_design_ratios_members_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -10432,7 +10432,7 @@ class ResultTables():
 
 
     @staticmethod
-    def SteelDesignRatiosShearWallsBySection(
+    def SteelDesignRatiosShearWallsByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -10441,7 +10441,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_ratios_shear_walls_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_steel_design_ratios_shear_walls_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -10835,7 +10835,7 @@ class ResultTables():
 
 
     @staticmethod
-    def TimberDesignDesignRatiosDeepBeamsBySection(
+    def TimberDesignDesignRatiosDeepBeamsByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -10844,7 +10844,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_deep_beams_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_deep_beams_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -10926,7 +10926,7 @@ class ResultTables():
 
 
     @staticmethod
-    def TimberDesignDesignRatiosMemberRepresentativesBySection(
+    def TimberDesignDesignRatiosMemberRepresentativesByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -10935,7 +10935,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_representatives_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_representatives_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -11017,7 +11017,7 @@ class ResultTables():
 
 
     @staticmethod
-    def TimberDesignDesignRatiosMemberSetRepresentativesBySection(
+    def TimberDesignDesignRatiosMemberSetRepresentativesByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -11026,7 +11026,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_set_representatives_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_member_set_representatives_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -11121,7 +11121,7 @@ class ResultTables():
 
 
     @staticmethod
-    def TimberDesignDesignRatiosMembersBySection(
+    def TimberDesignDesignRatiosMembersByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -11130,7 +11130,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_members_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_members_by_CrossSection(), include_base)
 
 
     @staticmethod
@@ -11199,7 +11199,7 @@ class ResultTables():
 
 
     @staticmethod
-    def TimberDesignDesignRatiosShearWallsBySection(
+    def TimberDesignDesignRatiosShearWallsByCrossSection(
         include_base: bool = False,
         model = Model):
 
@@ -11208,7 +11208,7 @@ class ResultTables():
             model(class, optional): Model instance
         '''
 
-        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_shear_walls_by_section(), include_base)
+        return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_timber_design_design_ratios_shear_walls_by_CrossSection(), include_base)
 
 
     @staticmethod

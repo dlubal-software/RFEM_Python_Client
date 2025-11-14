@@ -11,7 +11,7 @@ from RFEM.enums import ImperfectionType, SetType, ImperfectionCaseAssignmentType
 from RFEM.initModel import Model
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.memberSet import MemberSet
 from RFEM.Imperfections.imperfectionCase import ImperfectionCase
@@ -33,8 +33,8 @@ def test_imperfection_case():
     Material(1, 'S235')
 
     # Create Section
-    Section(1, 'IPE 300')
-    Section(2, 'CHS 100x4')
+    CrossSection(1, 'IPE 300')
+    CrossSection(2, 'CHS 100x4')
 
     # Create Nodes
     Node(1, 0.0, 0.0, 0.0)

@@ -44,7 +44,7 @@ class AluminumMemberLocalSectionReduction():
         """
 
         # Client Model | Types For Aluminum Member Local Section Reduction
-        clientObject = model.clientModel.factory.create('ns0:aluminum_member_local_section_reduction')
+        clientObject = model.clientModel.factory.create('ns0:aluminum_member_local_cross_section_reduction')
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
@@ -64,12 +64,12 @@ class AluminumMemberLocalSectionReduction():
             clientObject.name = name
 
         # Local Section Reduction Components
-        clientObject.components = model.clientModel.factory.create('ns0:array_of_aluminum_member_local_section_reduction_components')
+        clientObject.components = model.clientModel.factory.create('ns0:array_of_aluminum_member_local_cross_section_reduction_components')
 
         for i,j in enumerate(components):
-            smlsr = model.clientModel.factory.create('ns0:aluminum_member_local_section_reduction_components_row')
+            smlsr = model.clientModel.factory.create('ns0:aluminum_member_local_cross_section_reduction_components_row')
             smlsr.no = i+1
-            smlsr.row = model.clientModel.factory.create('ns0:aluminum_member_local_section_reduction_components')
+            smlsr.row = model.clientModel.factory.create('ns0:aluminum_member_local_cross_section_reduction_components')
             clearAttributes(smlsr.row)
             smlsr.row.reduction_type = components[i][0].name
             smlsr.row.position = components[i][1]
@@ -86,7 +86,7 @@ class AluminumMemberLocalSectionReduction():
             else:
                 smlsr.row.multiple_offset_definition_type = None # important
 
-            clientObject.components.aluminum_member_local_section_reduction_components.append(smlsr)
+            clientObject.components.aluminum_member_local_cross_section_reduction_components.append(smlsr)
 
         # Comment
         clientObject.comment = comment
@@ -100,4 +100,4 @@ class AluminumMemberLocalSectionReduction():
         deleteEmptyAttributes(clientObject)
 
         # Add Aluminum Member Local Section Reduction to Client Model
-        model.clientModel.service.set_aluminum_member_local_section_reduction(clientObject)
+        model.clientModel.service.set_aluminum_member_local_cross_section_reduction(clientObject)

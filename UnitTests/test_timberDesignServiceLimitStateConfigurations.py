@@ -9,7 +9,7 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.enums import AddOn, NodalSupportType
 from RFEM.initModel import Model, SetAddonStatus
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
@@ -27,7 +27,7 @@ def test_timberDesignServiceLimitStateConfigurations():
 
     Material(1, 'C24 | EN 338:2016-04')
 
-    Section(1, 'R_M1 0.18/0.36')
+    CrossSection(1, 'R_M1 0.18/0.36')
 
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 5, 0.0, 0.0)

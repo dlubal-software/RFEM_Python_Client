@@ -8,7 +8,7 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.enums import AddOn, DesignSupportOrientationYType, DesignSupportOrientationZType
 from RFEM.initModel import Model, SetAddonStatus
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.memberSet import MemberSet
@@ -26,7 +26,7 @@ def test_DesignSituation():
 
     Material(1, 'S235')
 
-    Section(1, 'IPE 200')
+    CrossSection(1, 'IPE 200')
 
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 10, 0.0, 0.0)
@@ -64,7 +64,7 @@ def test_DesignSituation_Concrete():
 
     Material(1, 'C8/10')
 
-    Section(1, 'R_M1 0.5/1')
+    CrossSection(1, 'R_M1 0.5/1')
 
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 10, 0.0, 0.0)
@@ -100,7 +100,7 @@ def test_DesignSituation_Steel():
 
     Material(1, 'S235')
 
-    Section(1, 'IPE 200')
+    CrossSection(1, 'IPE 200')
 
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 10, 0.0, 0.0)
@@ -137,7 +137,7 @@ def test_DesignSituation_Timber():
 
     Material(1, 'GL32c')
 
-    Section(1, 'Batten 50/100')
+    CrossSection(1, 'Batten 50/100')
 
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 10, 0.0, 0.0)

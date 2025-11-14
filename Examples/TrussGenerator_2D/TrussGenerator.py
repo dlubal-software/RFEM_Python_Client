@@ -69,7 +69,7 @@ sys.path.append(dirName + r'/../..')
 from RFEM.enums import *
 from RFEM.initModel import *
 from RFEM.BasicObjects.material import *
-from RFEM.BasicObjects.section import *
+from RFEM.BasicObjects.crossSection import *
 from RFEM.BasicObjects.thickness import *
 from RFEM.BasicObjects.node import *
 from RFEM.BasicObjects.line import *
@@ -752,10 +752,10 @@ class Ui_MainWindow(object):
             Material(4, vertical_material)
             # Create Sections
             try:
-                Section(1, upper_chord_section, 1)
-                Section(2, lower_chord_section, 2)
-                Section(3, diagonal_section, 3)
-                Section(4, vertical_section, 4)
+                CrossSection(1, upper_chord_section, 1)
+                CrossSection(2, lower_chord_section, 2)
+                CrossSection(3, diagonal_section, 3)
+                CrossSection(4, vertical_section, 4)
             except:
                 allGood = False
                 msg = QtWidgets.QMessageBox()

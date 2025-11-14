@@ -20,7 +20,7 @@ from RFEM.enums import AddOn, StaticAnalysisType, ActionCategoryType, NodeRefere
 from RFEM.initModel import Model, SetAddonStatus, Calculate_all
 from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndCombinations
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.member import Member
@@ -61,10 +61,10 @@ Material(1, 'GL28c | EN 14080:2013-08')
 Material(2, 'C24 | EN 338:2016-04')
 
 # create section
-Section(1, 'R_M1 0.14/0.28', 1)
-Section(2, 'R_M1 0.14/0.14', 2)
-Section(3, 'R_M1 0.14/0.26', 1)
-Section(4, 'R_M1 0.12/0.12', 2)
+CrossSection(1, 'R_M1 0.14/0.28', 1)
+CrossSection(2, 'R_M1 0.14/0.14', 2)
+CrossSection(3, 'R_M1 0.14/0.26', 1)
+CrossSection(4, 'R_M1 0.12/0.12', 2)
 
 # setting static analysis settings
 StaticAnalysisSettings(1, analysis_type = StaticAnalysisType.GEOMETRICALLY_LINEAR)
@@ -72,8 +72,8 @@ StaticAnalysisSettings(1, analysis_type = StaticAnalysisType.GEOMETRICALLY_LINEA
 # Setting loadcases & combinations
 LoadCasesAndCombinations({
                     "current_standard_for_combination_wizard": 6066,
-                    "activate_combination_wizard_and_classification": True,
-                    "activate_combination_wizard": True,
+                    "combination_wizard_and_classification_active": True,
+                    "combination_wizard_active": True,
                     "result_combinations_active": False,
                     "result_combinations_parentheses_active": False,
                     "result_combinations_consider_sub_results": False,

@@ -61,11 +61,11 @@ class SpectralAnalysisSettings():
         clientObject.use_equivalent_linear_combination = equivalent_linear_combination
 
         # Save Results of All Selected Modes
-        clientObject.save_results_of_all_selected_modes = save_mode_results
+        #clientObject.save_results_of_all_selected_modes = save_mode_results
 
         # TODO: Signed Results Using Dominant Mode are currently deactivated in RFEM
         # Signed Results Using Dominant Mode
-        clientObject.signed_results_using_dominant_mode = signed_dominant_mode_results
+        #clientObject.signed_results_using_dominant_mode = signed_dominant_mode_results
         '''
         if signed_dominant_mode_results:
             if directional_combination != DirectionalComponentCombinationRule.SCALED_SUM:

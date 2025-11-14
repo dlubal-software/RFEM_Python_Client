@@ -9,7 +9,7 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.initModel import Model
 from RFEM.connectionGlobals import url
 from RFEM.Tools.sectionDialogue import *
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.material import Material
 import pytest
 
@@ -25,8 +25,8 @@ def test_section_dialogue():
     Model.clientModel.service.begin_modification()
 
     Material()
-    Section(1, "IPE 300")
-    Section(2, "HEA 200")
+    CrossSection(1, "IPE 300")
+    CrossSection(2, "HEA 200")
 
     #Create a Section Favorite List
     CreateSectionList("Favs_1")

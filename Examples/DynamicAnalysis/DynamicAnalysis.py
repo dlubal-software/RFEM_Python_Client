@@ -9,7 +9,7 @@ sys.path.append(dirName + r'/../..')
 from RFEM.enums import *
 from RFEM.initModel import Model, insertSpaces, Calculate_all, SetAddonStatus
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     Model(True, 'DynamicAnalysis.py')
 
     Material(1, 'C35/45')
-    Section(1, 'SQ_M1 0.25')
+    CrossSection(1, 'SQ_M1 0.25')
     Thickness(1, 'Ceiling', 1, uniform_thickness_d=0.4)
     Thickness(2, 'Walls', 1, uniform_thickness_d=0.25)
     length = 10.5
@@ -139,7 +139,7 @@ if __name__ == "__main__":
     NodalSupport(1, '4 8 12', NodalSupportType.HINGED)
 
     # Load Cases and Combinations/Settings
-    LoadCasesAndCombinations({'activate_combination_wizard':'True'})
+    LoadCasesAndCombinations({'combination_wizard_active':'True'})
     CombinationWizard(1, 'Combi1', 1, 1, False, False, None, None)
 
     StaticAnalysisSettings(1)

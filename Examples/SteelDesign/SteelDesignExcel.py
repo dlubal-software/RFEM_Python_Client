@@ -15,7 +15,7 @@ sys.path.append(dirName + r'/../..')
 from RFEM.enums import *
 from RFEM.initModel import Model, SetAddonStatus, insertSpaces, Calculate_all, connectToServer, connectionGlobals
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
@@ -168,9 +168,9 @@ def main():
     Material(3, bracing_mat)
 
     # Creating Sections
-    Section(1, column, 1)
-    Section(2, beam, 2)
-    Section(3, bracing, 3)
+    CrossSection(1, column, 1)
+    CrossSection(2, beam, 2)
+    CrossSection(3, bracing, 3)
 
     # Creating Nodes
     i = 0

@@ -10,7 +10,7 @@ from RFEM.enums import AddOn, TimberServiceConditionsMoistureType
 from RFEM.initModel import Model, SetAddonStatus, AddOn, openFile, closeModel
 from RFEM.connectionGlobals import url
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForTimberDesign.timberServiceCondition import TimberServiceConditions
@@ -36,14 +36,14 @@ def test_timberServiceConditionsGB():
     Node(1, 0, 0, 0)
     Node(2, 5, 0, 0)
     Material(1, 'KLH (20 mm) | KLH')
-    Section(1, 'R_M1 0.2/0.5', 1)
+    CrossSection(1, 'R_M1 0.2/0.5', 1)
     Member(1, 1, 2, 0, 1, 1)
 
     LoadCasesAndCombinations(
         params = {
         "current_standard_for_combination_wizard": 6514,
-        "activate_combination_wizard_and_classification": True,
-        "activate_combination_wizard": True,
+        "combination_wizard_and_classification_active": True,
+        "combination_wizard_active": True,
         "result_combinations_active": True,
         "result_combinations_parentheses_active": False,
         "result_combinations_consider_sub_results": False,

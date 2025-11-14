@@ -10,7 +10,7 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.enums import ObjectTypes
 from RFEM.initModel import CheckIfMethodOrTypeExists, Model
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
@@ -38,7 +38,7 @@ def test_center_of_gravity():
     Node(1, x1, y1, z1)
     Node(2, x2, y2, z2)
     Material(1, 'S235')
-    Section()
+    CrossSection()
     Member(1, start_node_no= 1, end_node_no= 2)
 
     Model.clientModel.service.finish_modification()
@@ -63,7 +63,7 @@ def test_member_information():
     Node(1, x1, y1, z1)
     Node(2, x2, y2, z2)
     Material(1, 'S235')
-    Section()
+    CrossSection()
     Member(1, start_node_no= 1, end_node_no= 2)
 
     Model.clientModel.service.finish_modification()

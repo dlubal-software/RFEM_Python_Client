@@ -2,7 +2,7 @@ Let’s start with the Cross Section section. {placeholder}
 
 This is the syntax:
 
-Section(no: int = 1, name: str = 'IPE 300', material_no: int = 1, comment: str = '', params: dict = None, model = Model)
+CrossSection(no: int = 1, name: str = 'IPE 300', material_no: int = 1, comment: str = '', params: dict = None, model = Model)
 
 Thickness(no: int = 1, name: str = None, material_no: int = 1, uniform_thickness_d: float = 0.20, comment: str = '', params: dict = None, model = Model)
 

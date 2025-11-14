@@ -9,7 +9,7 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.enums import AddOn, NodalSupportType, NodalLoadDirection
 from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
@@ -30,7 +30,7 @@ def test_concrete_design_uls():
 
     Material(1, 'C30/37')
 
-    Section(1, 'IPE 200', 1)
+    CrossSection(1, 'IPE 200', 1)
 
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 10, 0.0, 0.0)
@@ -64,7 +64,7 @@ def test_concrete_design_sls():
 
     Material(1, 'C30/37')
 
-    Section(1, 'IPE 200', 1)
+    CrossSection(1, 'IPE 200', 1)
 
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 10, 0.0, 0.0)

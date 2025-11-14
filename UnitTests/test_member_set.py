@@ -9,7 +9,7 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.enums import *
 from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.memberSet import MemberSet
@@ -28,7 +28,7 @@ def test_member_set():
 
     Material(1, 'S235')
 
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Member(1, 1, 2, 0, 1, 1)
     Member(2, 2, 3, 0, 1, 1)
@@ -54,7 +54,7 @@ def test_member_set_continuous():
 
     Material(1, 'S235')
 
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Member(1, 1, 2, 0, 1, 1)
     Member(2, 2, 3, 0, 1, 1)
@@ -80,7 +80,7 @@ def test_member_set_group():
 
     Material(1, 'S235')
 
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Member(1, 1, 2, 0, 1, 1)
     Member(2, 2, 3, 0, 1, 1)

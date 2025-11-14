@@ -10,7 +10,7 @@ sys.path.append(dirName + r'/../..')
 from RFEM.enums import NodalSupportType, MemberRotationSpecificationType
 from RFEM.initModel import Model, insertSpaces
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
@@ -45,8 +45,8 @@ if __name__ == '__main__':
     Material(1, 'S235')
 
     # sections
-    Section(1, 'HEM 700', 1)
-    Section(2, 'IPE 500', 1)
+    CrossSection(1, 'HEM 700', 1)
+    CrossSection(2, 'IPE 500', 1)
 
     # members x direction
     for i in range(n):
@@ -70,7 +70,7 @@ if __name__ == '__main__':
     if BracingV.lower() == 'yes' or BracingV.lower() == 'y':
 
         Material(3, 'EN AW-3004 H14')
-        Section(3, 'IPE 80', 3)
+        CrossSection(3, 'IPE 80', 3)
 
         BracingV_C1 = input(
             'Would you like to repeat a vertical bracing in every block? (Y/N)')
@@ -129,7 +129,7 @@ if __name__ == '__main__':
     if BracingH.lower() == 'yes' or BracingH.lower() == 'y':
 
         Material(3, 'EN AW-3004 H14')
-        Section(3, 'IPE 80', 3)
+        CrossSection(3, 'IPE 80', 3)
 
         member_count += (n-1)*4
         for i in range(n-1):

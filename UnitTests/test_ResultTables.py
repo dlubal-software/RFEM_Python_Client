@@ -32,12 +32,12 @@ def test_result_tables():
     assert ResultTables.LinesSupportForces(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 2)
     assert ResultTables.MembersGlobalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 3)
     assert ResultTables.MembersInternalForces(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 2)
-    assert ResultTables.MembersInternalForcesBySection(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 2)
+    assert ResultTables.MembersInternalForcesByCrossSection(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 2)
     assert ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 1)
     with pytest.raises(WebFault, match='Specified object does not exist.'):
          ResultTables.MembersLocalDeformations(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 4)
     with pytest.raises(WebFault, match='Specified object does not exist.'):
-         ResultTables.MembersInternalForcesBySection(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 3)
+         ResultTables.MembersInternalForcesByCrossSection(CaseObjectType.E_OBJECT_TYPE_LOAD_COMBINATION, 1, 3)
 
     # LC1
     assert ResultTables.MembersStrains(CaseObjectType.E_OBJECT_TYPE_LOAD_CASE, 1,1)

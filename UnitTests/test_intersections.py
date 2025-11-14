@@ -56,18 +56,18 @@ def test_intersections():
     Surface(2, '5-8')
     Surface.Standard(3,SurfaceGeometry.GEOMETRY_PIPE, params={'pipe_radius':0.3, 'pipe_center_line':9})
 
-    Intersection(1,1,2)
-    Intersection(2,1,3)
+    InterCrossSection(1,1,2)
+    InterCrossSection(2,1,3)
 
     Model.clientModel.service.finish_modification()
 
-    int_1 = Model.clientModel.service.get_intersection(1)
+    int_1 = Model.clientModel.service.get_interCrossSection(1)
     assert int_1.generated_lines == '13'
     assert int_1.generated_nodes == '15 16'
     assert int_1.surface_a == 1
     assert int_1.surface_b == 2
 
-    int_2 = Model.clientModel.service.get_intersection(2)
+    int_2 = Model.clientModel.service.get_interCrossSection(2)
     assert int_2.generated_lines == '14'
     assert int_2.generated_nodes == '17'
     assert int_2.surface_a == 1

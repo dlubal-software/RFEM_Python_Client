@@ -8,7 +8,7 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.enums import *
 from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
@@ -26,8 +26,8 @@ def test_all_member_types():
     Material(1, 'S235')
     Material(2, 'C30/37')
 
-    Section(1, 'IPE 300', 1)
-    Section(2, 'IPE 500', 1)
+    CrossSection(1, 'IPE 300', 1)
+    CrossSection(2, 'IPE 500', 1)
 
     Thickness(1, '180 mm', 2, 0.18)
 
@@ -59,28 +59,28 @@ def test_all_member_types():
                 params={'end_modifications_member_start_extension': 1, 'end_modifications_member_start_slope_y': 0.03, 'end_modifications_member_start_slope_z': 0.05, 'end_modifications_member_end_extension': 4, 'end_modifications_member_end_slope_y': 0.08, 'end_modifications_member_end_slope_z': 0.1})
 
     # Beam Member with Linear Distribution
-    Member.Beam(6, 11, 12, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 2, [MemberSectionAlignment.SECTION_ALIGNMENT_BOTTOM])
+    Member.Beam(6, 11, 12, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 2, [MemberCrossSectionAlignment.SECTION_ALIGNMENT_BOTTOM])
 
     # Beam Member with Tapered at Both Sides
-    Member.Beam(7, 13, 14, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 2, 2, [True, True, 0.25, 0.25, MemberSectionAlignment.SECTION_ALIGNMENT_CENTRIC, 1])
+    Member.Beam(7, 13, 14, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 2, 2, [True, True, 0.25, 0.25, MemberCrossSectionAlignment.SECTION_ALIGNMENT_CENTRIC, 1])
 
     # Beam Member with Tapered at the Start
-    Member.Beam(8, 15, 16, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 2, 1, [True, 0.25, MemberSectionAlignment.SECTION_ALIGNMENT_CENTRIC])
+    Member.Beam(8, 15, 16, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 2, 1, [True, 0.25, MemberCrossSectionAlignment.SECTION_ALIGNMENT_CENTRIC])
 
     # Beam Member with Tapered at the End
-    Member.Beam(9, 17, 18, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 2, [True, 0.25, MemberSectionAlignment.SECTION_ALIGNMENT_CENTRIC])
+    Member.Beam(9, 17, 18, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 2, [True, 0.25, MemberCrossSectionAlignment.SECTION_ALIGNMENT_CENTRIC])
 
     # Beam Member with Tapered at the End
-    Member.Beam(10, 19, 20, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_SADDLE, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 1, [True, 0.5, MemberSectionAlignment.SECTION_ALIGNMENT_CENTRIC, 2])
+    Member.Beam(10, 19, 20, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_SADDLE, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 1, [True, 0.5, MemberCrossSectionAlignment.SECTION_ALIGNMENT_CENTRIC, 2])
 
     # Beam Member with Offset at Both End
-    Member.Beam(11, 21, 22, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 1, [True, True, 0.25, 0.25, MemberSectionAlignment.SECTION_ALIGNMENT_CENTRIC, 2])
+    Member.Beam(11, 21, 22, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 1, [True, True, 0.25, 0.25, MemberCrossSectionAlignment.SECTION_ALIGNMENT_CENTRIC, 2])
 
     # Beam Member with Offset at Start
-    Member.Beam(12, 23, 24, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 2, [True, 0.25, MemberSectionAlignment.SECTION_ALIGNMENT_CENTRIC])
+    Member.Beam(12, 23, 24, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 2, [True, 0.25, MemberCrossSectionAlignment.SECTION_ALIGNMENT_CENTRIC])
 
     # Beam Member with Offset at End
-    Member.Beam(13, 25, 26, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 2, [True, 0.25, MemberSectionAlignment.SECTION_ALIGNMENT_CENTRIC])
+    Member.Beam(13, 25, 26, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 2, [True, 0.25, MemberCrossSectionAlignment.SECTION_ALIGNMENT_CENTRIC])
 
     # Rigid Member
     Member.Rigid(14, 27, 28, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0])

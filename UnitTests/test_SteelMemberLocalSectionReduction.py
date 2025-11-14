@@ -42,20 +42,20 @@ def test_SteelMemberLocalSectionReduction():
         )
     Model.clientModel.service.finish_modification()
 
-    smlr_1 = Model.clientModel.service.get_steel_member_local_section_reduction(1)
+    smlr_1 = Model.clientModel.service.get_steel_member_local_cross_section_reduction(1)
     assert smlr_1.components[0][0].row['position'] == 1
     assert smlr_1.components[0][0].row['multiple'] == False
     assert smlr_1.components[0][0].row['fastener_definition_type'] == 'DEFINITION_TYPE_ABSOLUTE'
     assert smlr_1.components[0][0].row['reduction_area'] == 0.2
 
-    smlr_2 = Model.clientModel.service.get_steel_member_local_section_reduction(2)
+    smlr_2 = Model.clientModel.service.get_steel_member_local_cross_section_reduction(2)
     assert smlr_2.components[0][0].row['position'] == 1.2
     assert smlr_2.components[0][0].row['multiple'] == True
     assert smlr_2.components[0][1].row['fastener_definition_type'] == 'DEFINITION_TYPE_RELATIVE'
     assert smlr_2.components[0][1].row['reduction_area_factor'] == 0.20
     assert smlr_2.components[0][0].row['multiple_offset'] == 2
 
-    smlr_3 = Model.clientModel.service.get_steel_member_local_section_reduction(3)
+    smlr_3 = Model.clientModel.service.get_steel_member_local_cross_section_reduction(3)
     assert smlr_3.components[0][1].row['position'] == 1.8
     assert smlr_3.components[0][0].row['multiple'] == False
     assert smlr_3.components[0][1].row['multiple'] == True

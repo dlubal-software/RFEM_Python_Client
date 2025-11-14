@@ -10,7 +10,7 @@ from RFEM.enums import *
 from RFEM.initModel import Model, SetAddonStatus
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.node import Node
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.material import Material
 from RFEM.TypesforConcreteDesign.ConcreteDurability import ConcreteDurability
 from RFEM.TypesforConcreteDesign.ConcreteEffectiveLength import ConcreteEffectiveLength
@@ -29,7 +29,7 @@ def test_concrete_design():
 
     Material(1, 'C30/37')
     Material(2, 'B550S(A)')
-    Section()
+    CrossSection()
 
     Node(1, 0, 0, 0)
     Node(2, 5, 0, 0)

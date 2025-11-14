@@ -12,7 +12,7 @@ from RFEM.enums import NodalSupportType, NodalLoadDirection
 from RFEM.initModel import Model, Calculate_all
 from RFEM.BasicObjects.material import Material
 from RFEM.Tools.sectionDialogue import CreateSectionFromRsectionFile
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
@@ -32,7 +32,7 @@ if __name__ == '__main__':
 
     Material(1, 'S275')
     CreateSectionFromRsectionFile(1, filepath)
-    Section(1, None, 1)
+    CrossSection(1, None, 1)
 
     Node(1, 0.0, 0.0, 0.0)
     Node(2, l, 0.0, 0.0)

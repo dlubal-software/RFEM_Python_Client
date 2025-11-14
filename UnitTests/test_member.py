@@ -9,7 +9,7 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.enums import *
 from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 
@@ -22,7 +22,7 @@ def test_init():
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Node(1, 0, 0, 0)
     Node(2, 5, 0, 0)
@@ -42,7 +42,7 @@ def test_member_beam():
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Node(1, 0, 0, 0)
     Node(2, 5, 0, 0)
@@ -62,7 +62,7 @@ def test_member_rigid():
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
@@ -82,7 +82,7 @@ def test_member_rib():
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
@@ -102,7 +102,7 @@ def test_member_truss():
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
@@ -122,7 +122,7 @@ def test_member_trussOnlyN():
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
@@ -142,7 +142,7 @@ def test_member_tension():
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
@@ -162,7 +162,7 @@ def test_member_compression():
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
@@ -182,7 +182,7 @@ def test_member_buckling():
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
@@ -202,7 +202,7 @@ def test_member_cable():
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
@@ -222,7 +222,7 @@ def test_member_resultBeam():
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
@@ -245,7 +245,7 @@ def test_member_definableStiffness():
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
@@ -265,7 +265,7 @@ def test_member_couplingRigidRigid():
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
@@ -285,7 +285,7 @@ def test_member_couplingRigidHinge():
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
@@ -305,7 +305,7 @@ def test_member_couplingHingeRigid():
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
@@ -325,7 +325,7 @@ def test_member_couplingHingeHinge():
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Node(1, 0, 0, 0)
     Node(2, 3, 3, 3)
@@ -345,7 +345,7 @@ def test_member_spring():
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Node(1, 0, 0, 0)
     Node(2, 3, 3, 3)

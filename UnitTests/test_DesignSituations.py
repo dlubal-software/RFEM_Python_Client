@@ -35,8 +35,8 @@ def test_design_situation():
     LoadCase()
 
     LoadCasesAndCombinations(params={"current_standard_for_combination_wizard": 6048,
-                                      "activate_combination_wizard_and_classification": True,
-                                      "activate_combination_wizard": True,
+                                      "combination_wizard_and_classification_active": True,
+                                      "combination_wizard_active": True,
                                       "result_combinations_active": True,
                                       "result_combinations_parentheses_active": True,
                                       "result_combinations_consider_sub_results": True,
@@ -61,7 +61,7 @@ def test_design_situation():
                                                method_of_equation_system = StaticAnalysisSettingsMethodOfEquationSystem.METHOD_OF_EQUATION_SYSTEM_DIRECT,
                                                plate_bending_theory = StaticAnalysisSettingsPlateBendingTheory.PLATE_BENDING_THEORY_MINDLIN,
                                                mass_conversion = [False, 0, 0, 1])
-
+    #
     ModalAnalysisSettings(no=1, name="Analyse Lanczos 300 Modes",
                           solution_method = ModalSolutionMethod.METHOD_LANCZOS,
                           mass_conversion_type = ModalMassConversionType.MASS_CONVERSION_TYPE_Z_COMPONENTS_OF_LOADS,

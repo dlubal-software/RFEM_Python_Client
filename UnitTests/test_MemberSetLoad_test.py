@@ -12,7 +12,7 @@ from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.BasicObjects.memberSet import MemberSet
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.node import Node
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.material import Material
 from RFEM.initModel import Model
 from RFEM.enums import *
@@ -29,8 +29,8 @@ def test_member_set_load():
     Material(1, 'S235')
 
     # Create Section
-    Section(1, 'IPE 300')
-    Section(2, 'CHS 100x4')
+    CrossSection(1, 'IPE 300')
+    CrossSection(2, 'CHS 100x4')
 
     # Create Nodes
     Node(1, 0.0, 0.0, 0.0)

@@ -11,7 +11,7 @@ sys.path.append(dirName + r'/../..')
 from RFEM.enums import *
 from RFEM.initModel import Calculate_all, Model, SetAddonStatus, insertSpaces
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
@@ -54,9 +54,9 @@ if __name__ == '__main__':
     Material(1, 'S235')
     Material(2)
     Material(3)
-    Section(1, 'HEA 220', 1)
-    Section(2, 'IPE 160', 2)
-    Section(3, 'R 30', 3)
+    CrossSection(1, 'HEA 220', 1)
+    CrossSection(2, 'IPE 160', 2)
+    CrossSection(3, 'R 30', 3)
     i = 0
     for j in range(frame_number):
 

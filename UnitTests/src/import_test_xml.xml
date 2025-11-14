@@ -21,8 +21,8 @@
             <current_standard_for_timber_joint_design>100014</current_standard_for_timber_joint_design>
             <current_standard_for_tower_design>100015</current_standard_for_tower_design>
             <activate_load_wizards>true</activate_load_wizards>
-            <activate_combination_wizard_and_classification>true</activate_combination_wizard_and_classification>
-            <activate_combination_wizard>false</activate_combination_wizard>
+            <combination_wizard_and_classification_active>true</combination_wizard_and_classification_active>
+            <combination_wizard_active>false</combination_wizard_active>
             <result_combinations_active>true</result_combinations_active>
             <result_combinations_parentheses_active>false</result_combinations_parentheses_active>
             <result_combinations_consider_sub_results>false</result_combinations_consider_sub_results>

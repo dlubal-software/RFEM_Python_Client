@@ -9,7 +9,7 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.node import Node
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.material import Material
 from RFEM.initModel import Model, CheckIfMethodOrTypeExists
 from RFEM.Tools.ModelCheck import ModelCheck
@@ -26,7 +26,7 @@ def test_model_check():
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Node(1, 0, 0, 0)
     Node(2, 0, 0, 0)

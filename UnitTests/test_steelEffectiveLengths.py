@@ -10,7 +10,7 @@ from RFEM.enums import *
 from RFEM.initModel import Model, SetAddonStatus
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.memberSet import MemberSet
 from RFEM.TypesForSteelDesign.steelEffectiveLengths import SteelEffectiveLengths
@@ -31,7 +31,7 @@ def test_steelEffectiveLengths():
 
     Material(1, 'S235')
 
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Member(1, 1, 2, 0, 1, 1)
     Member(2, 2, 3, 0, 1, 1)
