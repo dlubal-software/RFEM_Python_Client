@@ -18,7 +18,7 @@ class Borehole():
                 coordinates = [coordinate_x, coordinate_y, coordinate_z]
             groundwater (float): Groundwater Ordinate
             layers (liast of lists): Soil Layers Table
-                layers = [[soil_material_no(int), thickness(float)], ...]
+                layers = [[soil_material_no(int), depth(float)], ...]
             name (str, optional): User Defined Borehole Name
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
@@ -57,7 +57,7 @@ class Borehole():
             clearAttributes(sl.row)
             sl.row.layer_no = i+1
             sl.row.soil_material = layers[i][0]
-            sl.row.thickness = layers[i][1]
+            sl.row.depth = layers[i][1]
 
             clientObject.layers_table.borehole_layers_table.append(sl)
 

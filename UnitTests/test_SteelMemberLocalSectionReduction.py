@@ -6,9 +6,9 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
 )
 sys.path.append(PROJECT_ROOT)
 
-from RFEM.enums import SteelMemberLocalSectionReductionType, FastenerDefinitionType, MultipleOffsetDefinitionType
+from RFEM.enums import SteelMemberLocalCrossSectionReductionType, FastenerDefinitionType, MultipleOffsetDefinitionType
 from RFEM.initModel import Model
-from RFEM.TypesForSteelDesign.SteelMemberLocalSectionReduction import SteelMemberLocalSectionReduction
+from RFEM.TypesForSteelDesign.SteelMemberLocalSectionReduction import SteelMemberLocalCrossSectionReduction
 from RFEM.initModel import AddOn, SetAddonStatus
 
 if Model.clientModel is None:
@@ -21,23 +21,23 @@ def test_SteelMemberLocalSectionReduction():
 
     SetAddonStatus(Model.clientModel, AddOn.steel_design_active, True)
 
-    SteelMemberLocalSectionReduction(1, "", "",
+    SteelMemberLocalCrossSectionReduction(1, "", "",
         [
-            [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1, False, FastenerDefinitionType.DEFINITION_TYPE_ABSOLUTE, 0.2, 0, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 0.0]
+            [SteelMemberLocalCrossSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1, False, FastenerDefinitionType.DEFINITION_TYPE_ABSOLUTE, 0.2, 0, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 0.0]
         ],
         "")
 
-    SteelMemberLocalSectionReduction(2, "", "",
+    SteelMemberLocalCrossSectionReduction(2, "", "",
         [
-            [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1.2, True, FastenerDefinitionType.DEFINITION_TYPE_ABSOLUTE, 0.1, 2, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 2],
-            [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 2.0, True, FastenerDefinitionType.DEFINITION_TYPE_RELATIVE, 0.20, 3, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_RELATIVE, 0.1]
+            [SteelMemberLocalCrossSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1.2, True, FastenerDefinitionType.DEFINITION_TYPE_ABSOLUTE, 0.1, 2, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 2],
+            [SteelMemberLocalCrossSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 2.0, True, FastenerDefinitionType.DEFINITION_TYPE_RELATIVE, 0.20, 3, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_RELATIVE, 0.1]
         ],
         "")
 
-    SteelMemberLocalSectionReduction(3, "", "",
+    SteelMemberLocalCrossSectionReduction(3, "", "",
         [
-            [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1.5, False, FastenerDefinitionType.DEFINITION_TYPE_RELATIVE, 0.15, 0, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 0.0],
-            [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1.8, True, FastenerDefinitionType.DEFINITION_TYPE_RELATIVE, 0.25, 4, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 0.3]
+            [SteelMemberLocalCrossSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1.5, False, FastenerDefinitionType.DEFINITION_TYPE_RELATIVE, 0.15, 0, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 0.0],
+            [SteelMemberLocalCrossSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1.8, True, FastenerDefinitionType.DEFINITION_TYPE_RELATIVE, 0.25, 4, MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 0.3]
         ], ""
         )
     Model.clientModel.service.finish_modification()

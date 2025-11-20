@@ -71,5 +71,5 @@ class CrossSection():
             model (RFEM Class, optional): Model to be edited
         '''
 
-        # Get Section from client model
+        # Get Cross Section from client model
         return model.clientModel.service.get_cross_section(object_index)

@@ -10,7 +10,7 @@ sys.path.append(dirName + r'/../..')
 
 #Import all modules required to access RFEM
 from RFEM.enums import MemberEccentricitySpecificationType, ActionCategoryType, NodalSupportType,\
-     MemberSectionDistributionType, MemberCrossSectionAlignment, SurfaceEccentricityAlignment
+     MemberCrossSectionDistributionType, MemberCrossSectionAlignment, SurfaceEccentricityAlignment
 from RFEM.initModel import Model, Calculate_all
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.crossSection import CrossSection
@@ -63,7 +63,7 @@ if __name__ == "__main__":
     # materials
     Material(1, "C30/37")
     Material(2, "C50/60")
-    # sections
+    # cross sections
     CrossSection(1,"SQ_M1 " + str(pillar_dimension), 2, "pillar")
     CrossSection(2,f"R_M1 {girder_width}/{girder_height}", 2, "girder")
     CrossSection(3, f"R_M1 {beam_width}/{beam_height_inwards}", 2, "beam_1")
@@ -139,14 +139,14 @@ if __name__ == "__main__":
     for n in range(beams_per_field*num_bridge_fields):
         Member.Beam(
                     m_count+1, beam_start_node, beam_start_node+1,
-                    MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR,
+                    MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR,
                     start_section_no=3, end_section_no=4,
                     distribution_parameters= [MemberCrossSectionAlignment.SECTION_ALIGNMENT_TOP],
                     params= {"member_eccentricity_start":2, "member_eccentricity_end":1}
                     )
         Member.Beam(
                     m_count+2, beam_start_node, beam_start_node+2,
-                    MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR,
+                    MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR,
                     start_section_no=3, end_section_no=4,
                     distribution_parameters= [MemberCrossSectionAlignment.SECTION_ALIGNMENT_TOP],
                     params= {"member_eccentricity_start":3, "member_eccentricity_end":1}

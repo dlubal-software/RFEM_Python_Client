@@ -74,9 +74,9 @@ class AluminumMemberTransverseWeld():
             clientWeld.row.multiple_offset_definition_type = comp['multiple_offset_definition_type'].name
             clientWeld.row.multiple_offset = comp['multiple_offset']
             clientWeld.row.size = comp['size']
-            clientWeld.row.method_type = comp['method_type'].name
+            #clientWeld.row.method_type = comp['method_type'].name
             clientWeld.row.number_of_heat_paths = comp['number_of_heat_paths']
-            clientWeld.row.welding_temperature = comp['welding_temperature']
+            #clientWeld.row.welding_temperature = comp['welding_temperature']
 
             clientObject.components.aluminum_member_transverse_weld_components.append(clientWeld)
 

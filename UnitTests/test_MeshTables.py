@@ -24,6 +24,7 @@ from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndC
 from RFEM.LoadCasesAndCombinations.loadCombination import LoadCombination
 from RFEM.Loads.nodalLoad import NodalLoad
 from RFEM.Results.meshTables import MeshTables
+from RFEM.Calculate.meshSettings import GenerateMesh
 
 if Model.clientModel is None:
     Model()
@@ -56,8 +57,8 @@ def test_mesh_tables():
 
     Member(1, 5, 6, 0, 1, 1)
 
-    Model.clientModel.service.generate_mesh(True)
     Model.clientModel.service.finish_modification()
+    GenerateMesh()
 
     allFeNodes = MeshTables.GetAllFENodes()
     assert allFeNodes[4]['y'] == 20

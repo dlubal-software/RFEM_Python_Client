@@ -1,5 +1,5 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
-from RFEM.enums import SurfaceReinforcementLocationType, SurfaceReinforcementType, SurfaceReinforcementDirectionType, SurfaceReinforcementDesignDirection
+from RFEM.enums import SurfaceReinforcementLocationType, SurfaceReinforcementDefinitionType, SurfaceReinforcementDirectionType, SurfaceReinforcementDesignDirection
 from math import pi
 
 class ConcreteSurfaceReinforcements():
@@ -9,7 +9,7 @@ class ConcreteSurfaceReinforcements():
                 surfaces: str = "1",
                 material: str = "2",
                 location_type = SurfaceReinforcementLocationType.LOCATION_TYPE_ON_SURFACE,
-                reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_REBAR,
+                definition_type = SurfaceReinforcementDefinitionType.DEFINITION_TYPE_REBARS_ONE_DIRECTION,
                 reinforcement_type_parameters: list = [0.01, 0.15, False],
                 cover_offset: list = [True, True, 0, 0],
                 reinforcement_direction = SurfaceReinforcementDirectionType.REINFORCEMENT_DIRECTION_TYPE_IN_DESIGN_REINFORCEMENT_DIRECTION,
@@ -26,15 +26,13 @@ class ConcreteSurfaceReinforcements():
             surfaces (str): Assigned Surfaces
             material (str): Reinforcement Material
             location_type (enum): Surface Reinforcement Location Type Enumeration
-            reinforcement_type (enum): Surface Reinforcement Type Enumeration
+            definition_type (enum): Surface Reinforcement Type Enumeration
             reinforcement_type_parameters (list): Reinforcement Type Parameters List
-                for reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_REBAR:
-                    reinforcement_type_parameters = [rebar_diameter, rebar_spacing, additional_transverse_reinforcement_enabled]
-                    if additional_transverse_reinforcement_enabled == True:
-                        reinforcement_type_parameters = [rebar_diameter, rebar_spacing, additional_transverse_reinforcement_enabled, additional_rebar_diameter, additional_rebar_spacing]
-                for reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_STIRRUPS:
+                for definition_type = SurfaceReinforcementType.DEFINITION_TYPE_REBARS_ONE_DIRECTION:
+                    reinforcement_type_parameters = [rebar_diameter, rebar_spacing]
+                for definition_type = SurfaceReinforcementType.DEFINITION_TYPE_SHEAR_REINFORCEMENT_STIRRUPS:
                     reinforcement_type_parameters = [stirrup_diameter, stirrup_spacing]
-                for reinforcement_type = SurfaceReinforcementType.REINFORCEMENT_TYPE_MESH:
+                for definition_type = SurfaceReinforcementType.DEFINITION_TYPE_REINFORCING_MESH:
                     reinforcement_type_parameters = [mesh_product_range, mesh_shape, mesh_name]
             cover_offset (list): Cover Offset Parameters List
                 cover_offset = [alignment_top_enabled, alignment_bottom_enabled, additional_offset_to_concrete_cover_top, additional_offset_to_concrete_cover_bottom]
@@ -71,22 +69,14 @@ class ConcreteSurfaceReinforcements():
         clientObject.location_type = location_type.name
 
         # Reinforcement Type
-        clientObject.reinforcement_type = reinforcement_type.name
-        if reinforcement_type.name == "REINFORCEMENT_TYPE_REBAR":
+        clientObject.definition_type = definition_type.name
+        if definition_type.name == "DEFINITION_TYPE_REBARS_ONE_DIRECTION":
             clientObject.rebar_diameter = reinforcement_type_parameters[0]
             clientObject.rebar_spacing = reinforcement_type_parameters[1]
-
-            clientObject.additional_transverse_reinforcement_enabled = reinforcement_type_parameters[2]
-            if not isinstance(reinforcement_type_parameters[2], bool):
-                raise ValueError("WARNING: Last parameter should be type bool for cover_offset. Kindly check list inputs completeness and correctness.")
-
-            if reinforcement_type_parameters[2]:
-                clientObject.additional_rebar_diameter = reinforcement_type_parameters[3]
-                clientObject.additional_rebar_spacing = reinforcement_type_parameters[4]
-        elif reinforcement_type.name == "REINFORCEMENT_TYPE_STIRRUPS":
+        elif definition_type.name == "DEFINITION_TYPE_SHEAR_REINFORCEMENT_STIRRUPS":
             clientObject.stirrup_diameter = reinforcement_type_parameters[0]
             clientObject.stirrup_spacing = reinforcement_type_parameters[1]
-        elif reinforcement_type.name == "REINFORCEMENT_TYPE_MESH":
+        elif definition_type.name == "DEFINITION_TYPE_REINFORCING_MESH":
             clientObject.mesh_product_range = reinforcement_type_parameters[0].name
             clientObject.mesh_shape = reinforcement_type_parameters[1].name
             clientObject.mesh_name = reinforcement_type_parameters[2]

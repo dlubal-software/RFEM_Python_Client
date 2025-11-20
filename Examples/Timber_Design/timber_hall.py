@@ -50,7 +50,7 @@ Model(True, name)
 # starting modification of the model
 Model.clientModel.service.begin_modification()
 
-# deleting all available objects/materials/sections
+# deleting all available objects/materials/cross-sections
 Model.clientModel.service.delete_all()
 
 # activate required add-ons

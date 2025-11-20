@@ -5,7 +5,6 @@ from RFEM.enums import OptimizerType, OptimizationTargetValueType
 class OptimizationSettings():
     def __init__(self,
                  no: int = 1,
-                 number_of_mutations_to_keep: int = 20,
                  target_value_type: enum = OptimizationTargetValueType.MIN_TOTAL_WEIGHT,
                  optimizer_type: enum = OptimizerType.ALL_MUTATIONS,
                  percent_of_mutations: float = 0.1,
@@ -20,7 +19,6 @@ class OptimizationSettings():
         """
         Args:
             no: int = 1,
-            number_of_mutations_to_keep: int = 20,
             target_value_type: enum = OptimizationTargetValueType.MIN_TOTAL_WEIGHT,
             optimizer_type: enum = OptimizerType.ALL_MUTATIONS,
             percent_of_mutations: float = 0.1,
@@ -43,7 +41,6 @@ class OptimizationSettings():
         clientObject.no = no
 
         clientObject.active = active
-        clientObject.number_of_mutations_to_keep = number_of_mutations_to_keep
         clientObject.target_value_type = target_value_type.name
         clientObject.optimizer_type = optimizer_type.name
 

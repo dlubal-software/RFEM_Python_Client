@@ -38,7 +38,6 @@ def test_spectral_analysis_settings():
     assert sas.combination_rule_for_periodic_responses == 'SRSS'
     assert sas.combination_rule_for_directional_components == 'SCALED_SUM'
     assert sas.use_equivalent_linear_combination == True
-    assert sas.save_results_of_all_selected_modes == True
 
     assert Model.clientModel.service.get_spectral_analysis_settings(3).combination_rule_for_directional_components_value == 0.4
 

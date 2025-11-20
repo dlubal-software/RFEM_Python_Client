@@ -927,7 +927,7 @@ class export_to_ifc_export_type(Enum):
     E_EXPORT_IFC4_REFERENCE_VIEW, E_EXPORT_IFC4_STRUCTURAL_ANALYSIS_VIEW = range(2)
 
 
-class MemberSectionDistributionType(Enum):
+class MemberCrossSectionDistributionType(Enum):
     '''
     Member Section Distribution Type
     '''
@@ -971,7 +971,7 @@ class MemberResultBeamIntegration(Enum):
     INTEGRATE_FROM_LISTED_OBJECT, INTEGRATE_WITHIN_CUBOID_GENERAL, INTEGRATE_WITHIN_CUBOID_QUADRATIC, INTEGRATE_WITHIN_CYLINDER = range(4)
 
 
-class MemberSectionAlignment(Enum):
+class MemberCrossSectionAlignment(Enum):
     '''
     Member Section Alignment
     '''
@@ -1355,11 +1355,11 @@ class SurfaceReinforcementLocationType(Enum):
     LOCATION_TYPE_FREE_CIRCULAR, LOCATION_TYPE_FREE_POLYGON, LOCATION_TYPE_FREE_RECTANGULAR, LOCATION_TYPE_ON_SURFACE = range(4)
 
 
-class SurfaceReinforcementType(Enum):
+class SurfaceReinforcementDefinitionType(Enum):
     '''
     Surface Reinforcement Type
     '''
-    REINFORCEMENT_TYPE_MESH, REINFORCEMENT_TYPE_REBAR, REINFORCEMENT_TYPE_STIRRUPS = range(3)
+    DEFINITION_TYPE_CALCULATED_VALUE_NOT_COVERED_REQUIRED_REINFORCEMENT, DEFINITION_TYPE_REBARS_2_ORTHOGONAL_LAYERS, DEFINITION_TYPE_REBARS_ONE_DIRECTION, DEFINITION_TYPE_REINFORCING_MESH, DEFINITION_TYPE_SHEAR_REINFORCEMENT_STIRRUPS = range(5)
 
 
 class SurfaceReinforcementDirectionType(Enum):
@@ -2164,7 +2164,7 @@ class AluminumMemberLocalSectionReductionType(Enum):
     '''
     REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS = range(1)
 
-class SteelMemberLocalSectionReductionType(Enum):
+class SteelMemberLocalCrossSectionReductionType(Enum):
     '''
     Steel Member Local Section Reduction Type
     '''
@@ -2228,7 +2228,7 @@ class ResponseSpectrumDefinitionType(Enum):
     '''
     Response Spectrum Definition Type
     '''
-    ACCORDING_TO_STANDARD, GENERATED_FROM_ACCELEROGRAM, USER_DEFINED, USER_DEFINED_IN_G_FACTOR = range(4)
+    ACCORDING_TO_STANDARD, GENERATED_FROM_ACCELEROGRAM, USER_DEFINED = range(3)
 
 class WindSimulationAnalysisSettingsSimulationType(Enum):
     '''

@@ -24,7 +24,7 @@ def test_plausibility_check():
     # Create Material
     Material(1, 'S235')
 
-    # Create Sections
+    # Create Cross Sections
     CrossSection(1, 'HEA 240', 1)
 
     # Create Nodes

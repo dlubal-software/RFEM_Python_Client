@@ -44,7 +44,7 @@ if __name__ == '__main__':
     # members
     Material(1, 'S235')
 
-    # sections
+    # cross sections
     CrossSection(1, 'HEM 700', 1)
     CrossSection(2, 'IPE 500', 1)
 

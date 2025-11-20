@@ -120,7 +120,6 @@ def test_optimization_settings():
     opt_sett = OptimizationSettings.GetOptimizationSettings(1)
 
     assert opt_sett.active
-    assert opt_sett.number_of_mutations_to_keep == 20
     assert opt_sett.target_value_type == OptimizationTargetValueType.MIN_TOTAL_WEIGHT.name
 
     # Testing model is closed at the end of the testing session to enable easier and cleaned restart of the unit tests.

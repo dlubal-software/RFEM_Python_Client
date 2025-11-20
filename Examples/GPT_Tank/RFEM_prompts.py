@@ -31,7 +31,7 @@ _keywords = {
 def process_prompt(prompt):
     if ':' not in prompt:
         return prompt
-    key, value = prompt.split(':', 1)    
+    key, value = prompt.split(':', 1)
     if key not in _keywords:
         return prompt
-    return _keywords[key].format(placeholder =value)
+    return _keywords[key].format(placeholder=value)

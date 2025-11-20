@@ -46,4 +46,4 @@ class Intersection():
         deleteEmptyAttributes(clientObject)
 
         # Add Intersection to client model
-        model.clientModel.service.set_interCrossSection(clientObject)
+        model.clientModel.service.set_intersection(clientObject)

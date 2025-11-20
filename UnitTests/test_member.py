@@ -47,7 +47,7 @@ def test_member_beam():
     Node(1, 0, 0, 0)
     Node(2, 5, 0, 0)
 
-    Member.Beam(1, 1, 2, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1, 1)
+    Member.Beam(1, 1, 2, MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0.2618], 1, 1)
 
     Model.clientModel.service.finish_modification()
 
@@ -87,7 +87,7 @@ def test_member_rib():
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
 
-    Member.Rib(5, 1, 2, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, 1, 1, [0,1])
+    Member.Rib(5, 1, 2, MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, 1, 1, [0,1])
 
     Model.clientModel.service.finish_modification()
 
@@ -227,7 +227,7 @@ def test_member_resultBeam():
     Node(1, 0, 0, 0)
     Node(2, 3, 3, -3)
 
-    Member.ResultBeam(1, 1, 2, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM,
+    Member.ResultBeam(1, 1, 2, MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM,
                       MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE,
                       MemberResultBeamIntegration.INTEGRATE_WITHIN_CUBOID_GENERAL,
                       [0.2618], 1, 1, [], [1,2,3,4])

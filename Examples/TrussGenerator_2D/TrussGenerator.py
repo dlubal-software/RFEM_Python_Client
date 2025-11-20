@@ -750,7 +750,7 @@ class Ui_MainWindow(object):
             Material(2, lower_chord_material)
             Material(3, diagonal_material)
             Material(4, vertical_material)
-            # Create Sections
+            # Create Cross Sections
             try:
                 CrossSection(1, upper_chord_section, 1)
                 CrossSection(2, lower_chord_section, 2)

@@ -83,7 +83,7 @@ def test_special_objects():
     Surface(3, '8 9 10 11', 1)
     Surface(4, '12 13 14 9', 1)
 
-    InterCrossSection(1, 1, 2)
+    Intersection(1, 1, 2)
 
     childItems1 = Child_items(False, True, False, True, False, True, False, True)
     SurfaceResultsAdjustment(1, SurfaceResultsAdjustmentShape.SHAPE_RECTANGLE, [1.1,1.2,0], [0,0,0], SurfaceResultsAdjustmentType.AVERAGING_OF_MY_MXY_VY_NY_NXY, [SurfaceResultsAdjustmentType.USER_DEFINED, childItems1], name='SRA1')
@@ -101,7 +101,7 @@ def test_special_objects():
 
     SurfaceContact(1, 1, '1', '3')
 
-    ResultCrossSection(1,ResultSectionType.TYPE_2_POINTS_AND_VECTOR, ResultSectionResultDirection.SHOW_RESULTS_IN_GLOBAL_MINUS_X,True,[1, [1,0,0], [0,2,0], ResultSectionProjection.PROJECTION_IN_VECTOR, [1,1,1]], '2-4')
+    ResultSection(1,ResultSectionType.TYPE_2_POINTS_AND_VECTOR, ResultSectionResultDirection.SHOW_RESULTS_IN_GLOBAL_MINUS_X,True,[1, [1,0,0], [0,2,0], ResultSectionProjection.PROJECTION_IN_VECTOR, [1,1,1]], '2-4')
     ResultSection.Line(2,ResultSectionResultDirection.SHOW_RESULTS_IN_LOCAL_PLUS_Z,False, '2')
     ResultSection.TwoPointsAndVector(3,1,ResultSectionResultDirection.SHOW_RESULTS_IN_GLOBAL_MINUS_Y,False, [10,0,0], [5,5,5], ResultSectionProjection.PROJECTION_IN_GLOBAL_X)
     ResultSection.TwoPointsAndVector(4,1,ResultSectionResultDirection.SHOW_RESULTS_IN_GLOBAL_MINUS_Y,False, [10,0,0], [5,5,5], ResultSectionProjection.PROJECTION_IN_VECTOR, [-1,1,-1])
@@ -115,7 +115,7 @@ def test_special_objects():
 
     Model.clientModel.service.finish_modification()
 
-    intersection = Model.clientModel.service.get_interCrossSection(1)
+    intersection = Model.clientModel.service.get_intersection(1)
     assert intersection.surface_a == 1
     assert intersection.surface_b == 2
 
@@ -140,7 +140,7 @@ def test_special_objects():
     assert surface_contact.surfaces_group2 == '3'
     assert surface_contact.surfaces_contact_type == 1
 
-    rs1 = Model.clientModel.service.get_result_CrossSection(1)
+    rs1 = Model.clientModel.service.get_result_section(1)
     assert rs1.show_values_on_isolines_enabled == True
     assert rs1.coordinate_system == 1
     assert rs1.first_point_coordinate_1 == 1
@@ -152,19 +152,19 @@ def test_special_objects():
     assert rs1.vector_coordinate_2 == 1
     assert rs1.vector_coordinate_3 == 1
 
-    rs2 = Model.clientModel.service.get_result_CrossSection(2)
+    rs2 = Model.clientModel.service.get_result_section(2)
     assert rs2.type == ResultSectionType.TYPE_LINE.name
     assert rs2.lines == '2'
 
-    rs3 = Model.clientModel.service.get_result_CrossSection(3)
+    rs3 = Model.clientModel.service.get_result_section(3)
     assert rs3.type == ResultSectionType.TYPE_2_POINTS_AND_VECTOR.name
     assert rs3.second_point_coordinate_1 == 5
 
-    rs4 = Model.clientModel.service.get_result_CrossSection(4)
+    rs4 = Model.clientModel.service.get_result_section(4)
     assert rs4.type == ResultSectionType.TYPE_2_POINTS_AND_VECTOR.name
     assert rs4.first_point_coordinate_1 == 10
     assert rs4.second_point_coordinate_1 == 5
 
     structure_modification = Model.clientModel.service.get_structure_modification(1)
     assert structure_modification.modify_stiffnesses_materials == True
-    assert structure_modification.modify_stiffnesses_sections == False
+    assert structure_modification.modify_stiffnesses_cross_sections == False

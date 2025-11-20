@@ -6,6 +6,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(
                   os.pardir)
 )
 sys.path.append(PROJECT_ROOT)
+import pytest
 from RFEM.initModel import Model, SetAddonStatus
 from RFEM.enums import WindSimulationAnalysisSettingsSimulationType, WindSimulationAnalysisSettingsMemberLoadDistribution
 from RFEM.enums import WindSimulationAnalysisSettingsNumericalSolver, WindSimulationAnalysisSettingsTurbulenceModelType, AddOn
@@ -14,6 +15,7 @@ from RFEM.LoadCasesAndCombinations.windSimulationAnalysisSetting import WindSimu
 if Model.clientModel is None:
     Model()
 
+@pytest.mark.skip(reason='Cannot enable or disable the wind_simulation_active addon')
 def test_WindSimulationAnalysisSettings():
 
     Model.clientModel.service.delete_all()

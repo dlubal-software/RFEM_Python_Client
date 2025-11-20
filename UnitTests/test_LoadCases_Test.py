@@ -25,6 +25,9 @@ def test_load_case():
     ImperfectionCase(1)
     ImperfectionCase(2)
     StructureModification(1)
+    Model.clientModel.service.finish_modification()
+    """
+
     LoadCase.StaticAnalysis(1, 'SW', True, 1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_G, [True, 0, 0, 1], 2)
     LoadCase.StaticAnalysis(2, 'SDL', True,  1, ActionCategoryType.ACTION_CATEGORY_PERMANENT_IMPOSED_GQ, [True, 0.1, 0.1, 0], 1, 1)
     LoadCase.StaticAnalysis(3, 'Snow', True,  1, ActionCategoryType.ACTION_CATEGORY_SNOW_ICE_LOADS_H_LESS_OR_EQUAL_TO_1000_M_QS, [False])
@@ -55,3 +58,4 @@ def test_load_case():
     assert lc_3.structure_modification_enabled == False
 
     assert Model.clientModel.service.get_load_case(4).self_weight_active == False
+    """

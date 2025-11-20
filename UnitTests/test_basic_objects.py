@@ -271,7 +271,7 @@ def test_material():
     material = Material.GetMaterial(1)
 
     assert material.no == 1
-    assert material.name == 'S235 | CYS EN 1993-1-1:2009-03'
+    assert material.name == 'S235 | EN 1993-1-1:2005-05'
 
 def test_userDefinedMaterial():
 
@@ -319,7 +319,7 @@ def test_member_init():
      member = Member.GetMember(1)
 
      assert member.analytical_length == 5
-     assert member.section_start == 1
+     assert member.cross_section_start == 1
 
 def test_member_types():
 
@@ -474,7 +474,7 @@ def test_CrossSection():
 
     Model.clientModel.service.finish_modification()
 
-    section = Section.GetCrossSection(1)
+    section = CrossSection.GetCrossSection(1)
 
     assert section.no == 1
     assert section.name == 'IPE 300 | -- | British Steel'

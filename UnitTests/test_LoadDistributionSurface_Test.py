@@ -61,7 +61,7 @@ def test_load_distribution_surface():
     assert surface.is_advanced_distribution_settings_enabled == False
     assert surface.surface_weight == 10.0
     assert surface.consider_member_eccentricity == False
-    assert surface.consider_section_distribution == False
+    assert surface.consider_cross_section_distribution == False
     assert surface.load_distribution == "LOAD_DISTRIBUTION_VARYING"
     assert surface.neglect_equilibrium_of_moments == False
     assert surface.excluded_lines == '5'

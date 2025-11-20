@@ -288,7 +288,7 @@ def test_member_loads():
     assert ml.load_type == 'LOAD_TYPE_TEMPERATURE'
     assert ml.load_distribution == 'LOAD_DISTRIBUTION_VARYING'
     assert ml.varying_load_parameters['member_load_varying_load_parameters'][1].row['distance'] == 2
-    assert ml.varying_load_parameters['member_load_varying_load_parameters'][0].row['magnitude'] == 285
+    assert ml.varying_load_parameters['member_load_varying_load_parameters'][0].row['magnitude_t_t'] == 285
 
     ml = Model.clientModel.service.get_member_load(33, 1)
     assert ml.load_type == 'LOAD_TYPE_TEMPERATURE_CHANGE'

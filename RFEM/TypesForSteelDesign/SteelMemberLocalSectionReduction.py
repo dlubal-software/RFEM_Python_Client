@@ -1,14 +1,14 @@
 from RFEM.initModel import Model, clearAttributes, deleteEmptyAttributes, ConvertToDlString
-from RFEM.enums import SteelMemberLocalSectionReductionType, MultipleOffsetDefinitionType, FastenerDefinitionType
+from RFEM.enums import SteelMemberLocalCrossSectionReductionType, MultipleOffsetDefinitionType, FastenerDefinitionType
 
-class SteelMemberLocalSectionReduction():
+class SteelMemberLocalCrossSectionReduction():
 
     def __init__(self,
                  no: int = 1,
                  members: str = '1',
                  member_sets: str = '',
                  components: list = [
-                    [SteelMemberLocalSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1.0, False,\
+                    [SteelMemberLocalCrossSectionReductionType.REDUCTION_COMPONENT_TYPE_DESIGN_PARAMETERS, 1.0, False,\
                      FastenerDefinitionType.DEFINITION_TYPE_ABSOLUTE, 0.5, 2,\
                      MultipleOffsetDefinitionType.OFFSET_DEFINITION_TYPE_ABSOLUTE, 1.0]
                                     ],

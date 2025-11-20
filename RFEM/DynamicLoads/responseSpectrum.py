@@ -114,7 +114,7 @@ class ResponseSpectrum():
         clientObject.no = no
 
         # response spectrum definition type
-        clientObject.definition_type = ResponseSpectrumDefinitionType.USER_DEFINED_IN_G_FACTOR.name
+        clientObject.definition_type = ResponseSpectrumDefinitionType.ACCORDING_TO_STANDARD.name
 
         # user defined name
         if name:
