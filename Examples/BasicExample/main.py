@@ -12,7 +12,7 @@ from Examples.BasicExample.window import window
 from RFEM.dataTypes import inf
 from RFEM.initModel import Model, Calculate_all, insertSpaces, GetListOfOpenedModels
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
@@ -38,11 +38,11 @@ def main(hall_width_L, hall_height_h_o, hall_height_h_m, number_frames, frame_sp
     Material(3, "Concrete f'c = 20 MPa | CSA A23.3-19", "Test")
 
 # -------------------------------------------------------------
-    # Sections
-    Section(1, "HEB 220")
-    Section(2, "IPE 300")
-    Section(3, "U 100")
-    Section(4, "Cable 14.00")
+    # Cross Sections
+    CrossSection(1, "HEB 220")
+    CrossSection(2, "IPE 300")
+    CrossSection(3, "U 100")
+    CrossSection(4, "Cable 14.00")
 
 # -------------------------------------------------------------
     # Thicknesses

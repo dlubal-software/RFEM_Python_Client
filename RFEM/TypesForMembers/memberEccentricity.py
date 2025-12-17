@@ -21,11 +21,11 @@ class MemberEccentricity():
             eccentricity_type (enum): Member Eccentricity Specification Type Enumeration
             eccentricity_parameters (list): Eccentricity Parameters List
                 for eccentricity_type == MemberEccentricitySpecificationType.TYPE_RELATIVE:
-                    eccentricity_parameters = [horizontal_section_alignment, vertical_section_alignment]
+                    eccentricity_parameters = [horizontal_cross_section_alignment, vertical_cross_section_alignment]
                 for eccentricity_type == MemberEccentricitySpecificationType.TYPE_ABSOLUTE:
                     eccentricity_parameters = [coordinate_system, offset_x, offset_y, offset_z]
                 for eccentricity_type == MemberEccentricitySpecificationType.TYPE_RELATIVE_AND_ABSOLUTE:
-                    eccentricity_parameters = [coordinate_system, offset_x, offset_y, offset_z, horizontal_section_alignment, vertical_section_alignment]
+                    eccentricity_parameters = [coordinate_system, offset_x, offset_y, offset_z, horizontal_cross_section_alignment, vertical_cross_section_alignment]
             transverse_offset_type (enum): Member Eccentricity Transverse Offset Type Enumeration
             transverse_offset_parameters (list): Transverse Offset Parameters List
                 for transverse_offset_type == MemberEccentricityTransverseOffsetType.TRANSVERSE_OFFSET_TYPE_NONE:
@@ -59,8 +59,8 @@ class MemberEccentricity():
         clientObject.specification_type = eccentricity_type.name
 
         if eccentricity_type.name == "TYPE_RELATIVE":
-            clientObject.horizontal_section_alignment = eccentricity_parameters[0].name
-            clientObject.vertical_section_alignment = eccentricity_parameters[1].name
+            clientObject.horizontal_cross_section_alignment = eccentricity_parameters[0].name
+            clientObject.vertical_cross_section_alignment = eccentricity_parameters[1].name
 
         elif eccentricity_type.name == "TYPE_ABSOLUTE":
             clientObject.coordinate_system = eccentricity_parameters[0]
@@ -73,8 +73,8 @@ class MemberEccentricity():
             clientObject.offset_x = eccentricity_parameters[1]
             clientObject.offset_y = eccentricity_parameters[2]
             clientObject.offset_z = eccentricity_parameters[3]
-            clientObject.horizontal_section_alignment = eccentricity_parameters[4].name
-            clientObject.vertical_section_alignment = eccentricity_parameters[5].name
+            clientObject.horizontal_cross_section_alignment = eccentricity_parameters[4].name
+            clientObject.vertical_cross_section_alignment = eccentricity_parameters[5].name
 
         else:
             raise ValueError("WARNING: Invalid eccentricity type.")

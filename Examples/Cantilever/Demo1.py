@@ -11,7 +11,7 @@ sys.path.append(dirName + r'/../..')
 from RFEM.enums import NodalSupportType, NodalLoadDirection, ActionCategoryType
 from RFEM.initModel import CalculateSelectedCases, Model
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
     Material(1, 'S235')
 
-    Section(1, 'IPE 200')
+    CrossSection(1, 'IPE 200')
 
     Node(1, 0.0, 0.0, 0.0)
     Node(2, l, 0.0, 0.0)

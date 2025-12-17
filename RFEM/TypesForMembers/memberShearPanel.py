@@ -172,10 +172,10 @@ class MemberShearPanel():
         clientObject.material_name = material_name
 
         # Member Shear Panel Diagonal Section
-        clientObject.diagonals_section_name = diagonal_section
+        clientObject.diagonals_cross_section_name = diagonal_section
 
         # Member Shear Panel Posts Section
-        clientObject.posts_section_name = posts_section
+        clientObject.posts_cross_section_name = posts_section
 
         # Member Shear Panel Modulus of Elasticity
         clientObject.modulus_of_elasticity = modulus_of_elasticity
@@ -358,10 +358,10 @@ class MemberShearPanel():
         clientObject.material_name = material_name
 
         # Member Shear Panel Diagonals Section
-        clientObject.diagonals_section_name = diagonals_section
+        clientObject.diagonals_cross_section_name = diagonals_section
 
         # Member Shear Panel Posts Section
-        clientObject.posts_section_name = posts_section
+        clientObject.posts_cross_section_name = posts_section
 
         # Member Shear Panel Fastening Arrangement
         clientObject.fastening_arrangement = fastening_arrangement.name

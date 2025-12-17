@@ -9,7 +9,7 @@ sys.path.append(dirName + r'/../..')
 from RFEM.enums import NodalSupportType, StaticAnalysisType, NodalLoadDirection
 from RFEM.initModel import Model, Calculate_all
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
@@ -64,7 +64,7 @@ class MyDialog(QtWidgets.QDialog):
 
         Material(1, 'S235')
 
-        Section(1, 'IPE 200')
+        CrossSection(1, 'IPE 200')
 
         Node(1, 0.0, 0.0, 0.0)
         Node(2, l, 0.0, 0.0)

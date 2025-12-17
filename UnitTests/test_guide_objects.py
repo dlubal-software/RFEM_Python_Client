@@ -9,7 +9,7 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.enums import NoteType, NoteOffsetType, NoteMemberReferenceType, NoteSurfaceReferenceType
 from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
@@ -27,7 +27,7 @@ def test_note():
     Model.clientModel.service.begin_modification()
 
     Material()
-    Section()
+    CrossSection()
     Thickness()
     Node(1, 0, 0, 0)
     Node(2, 10, 0, 0)

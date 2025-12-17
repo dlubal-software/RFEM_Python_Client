@@ -9,7 +9,7 @@ sys.path.append(dirName + r'/../..')
 from RFEM.enums import *
 from RFEM.initModel import Model, insertSpaces, Calculate_all, SetAddonStatus
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     Model(True, 'DynamicAnalysis.py')
 
     Material(1, 'C35/45')
-    Section(1, 'SQ_M1 0.25')
+    CrossSection(1, 'SQ_M1 0.25')
     Thickness(1, 'Ceiling', 1, uniform_thickness_d=0.4)
     Thickness(2, 'Walls', 1, uniform_thickness_d=0.25)
     length = 10.5
@@ -139,7 +139,7 @@ if __name__ == "__main__":
     NodalSupport(1, '4 8 12', NodalSupportType.HINGED)
 
     # Load Cases and Combinations/Settings
-    LoadCasesAndCombinations({'activate_combination_wizard':'True'})
+    LoadCasesAndCombinations({'combination_wizard_active':'True'})
     CombinationWizard(1, 'Combi1', 1, 1, False, False, None, None)
 
     StaticAnalysisSettings(1)
@@ -159,10 +159,7 @@ if __name__ == "__main__":
                         'response_spectrum_is_enabled_in_direction_x':'True',
                         'response_spectrum_is_enabled_in_direction_y':'True',
                         'response_spectrum_in_direction_x':'1',
-                        'response_spectrum_in_direction_y':'1',
-                        'response_spectrum_consider_accidental_torsion':'True',
-                        'response_spectrum_eccentricity_for_x_direction_relative':'0.05',
-                        'response_spectrum_eccentricity_for_y_direction_relative':'0.05'})
+                        'response_spectrum_in_direction_y':'1'})
 
     LoadCombination(1, AnalysisType.ANALYSIS_TYPE_STATIC, 1, '', 1, False, False, False, True, combination_items=[[1.35, 1, 0, False], [1.5, 2, 0, True]])
     DesignSituation(1, DesignSituationType.DESIGN_SITUATION_TYPE_EQU_PERMANENT_AND_TRANSIENT, True, params={'combination_wizard' :'1'})

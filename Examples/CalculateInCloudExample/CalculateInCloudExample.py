@@ -10,7 +10,7 @@ from RFEM.initModel import Model, CalculateInCloud
 from RFEM.initModel import saveFile
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.enums import NodalSupportType, MemberLoadDirection, ActionCategoryType
@@ -25,7 +25,7 @@ Node(1)
 Node(2, 5, 0, 0)
 
 Material(1, "S235")
-Section(1,"IPE 300", 1)
+CrossSection(1,"IPE 300", 1)
 
 Member(1, 1,2, 0, 1, 1)
 NodalSupport(1, "1", NodalSupportType.FIXED)

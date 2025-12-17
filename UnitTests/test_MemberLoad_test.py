@@ -16,7 +16,7 @@ from RFEM.LoadCasesAndCombinations.staticAnalysisSettings import StaticAnalysisS
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.node import Node
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.material import Material
 from RFEM.initModel import Model
 from RFEM.enums import *
@@ -33,8 +33,8 @@ def test_member_loads():
     Material(1, 'S235')
 
     # Create Thickness
-    Section(1, 'IPE 300')
-    Section(2, 'CHS 100x4')
+    CrossSection(1, 'IPE 300')
+    CrossSection(2, 'CHS 100x4')
 
     # Create Nodes
     Node(1, 0.0, 0.0, 0.0)
@@ -288,7 +288,7 @@ def test_member_loads():
     assert ml.load_type == 'LOAD_TYPE_TEMPERATURE'
     assert ml.load_distribution == 'LOAD_DISTRIBUTION_VARYING'
     assert ml.varying_load_parameters['member_load_varying_load_parameters'][1].row['distance'] == 2
-    assert ml.varying_load_parameters['member_load_varying_load_parameters'][0].row['magnitude'] == 285
+    assert ml.varying_load_parameters['member_load_varying_load_parameters'][0].row['magnitude_t_t'] == 285
 
     ml = Model.clientModel.service.get_member_load(33, 1)
     assert ml.load_type == 'LOAD_TYPE_TEMPERATURE_CHANGE'

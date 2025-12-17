@@ -8,7 +8,7 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.enums import *
 from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
@@ -136,7 +136,7 @@ def test_member_load_init():
     Node(2, 5, 0, 0)
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
     Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
@@ -160,7 +160,7 @@ def test_member_load_force():
     Node(2, 5, 0, 0)
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
     Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
@@ -184,7 +184,7 @@ def test_member_load_moment():
     Node(2, 5, 0, 0)
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
     Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
@@ -208,7 +208,7 @@ def test_member_load_mass():
     Node(2, 5, 0, 0)
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
     Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
@@ -231,7 +231,7 @@ def test_member_load_temperature():
     Node(2, 5, 0, 0)
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
     Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
@@ -255,7 +255,7 @@ def test_member_load_temperature_change():
     Node(2, 5, 0, 0)
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
     Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
@@ -279,7 +279,7 @@ def test_member_load_axial_strain():
     Node(2, 5, 0, 0)
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
     Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
@@ -303,7 +303,7 @@ def test_member_load_axial_displacement():
     Node(2, 5, 0, 0)
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
     Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
@@ -327,7 +327,7 @@ def test_member_load_precamber():
     Node(2, 5, 0, 0)
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
     Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
@@ -351,7 +351,7 @@ def test_member_load_initial_prestress():
     Node(2, 5, 0, 0)
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
     Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
@@ -375,7 +375,7 @@ def test_member_load_displacement():
     Node(2, 5, 0, 0)
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
     Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
@@ -399,7 +399,7 @@ def test_member_load_rotation():
     Node(2, 5, 0, 0)
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
     Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
@@ -423,7 +423,7 @@ def test_member_load_pipecontentfull():
     Node(2, 5, 0, 0)
 
     Material(1, 'S235')
-    Section(1, 'CHS 100x4', 1)
+    CrossSection(1, 'CHS 100x4', 1)
     Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
@@ -447,7 +447,7 @@ def test_member_load_pipecontentpartial():
     Node(2, 5, 0, 0)
 
     Material(1, 'S235')
-    Section(1, 'CHS 100x4', 1)
+    CrossSection(1, 'CHS 100x4', 1)
     Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
@@ -471,7 +471,7 @@ def test_member_load_pipeinternalpressure():
     Node(2, 5, 0, 0)
 
     Material(1, 'S235')
-    Section(1, 'CHS 100x4', 1)
+    CrossSection(1, 'CHS 100x4', 1)
     Member(1,  1, 2, 0, 1, 1)
 
     StaticAnalysisSettings(1, 'Linear', StaticAnalysisType.GEOMETRICALLY_LINEAR)
@@ -1118,7 +1118,7 @@ def test_imposed_nodal_deformation():
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 10.0, 0.0, 0.0)
 
-    Section(1, 'IPE 300')
+    CrossSection(1, 'IPE 300')
 
     Member(1, 1, 2)
 
@@ -1167,7 +1167,7 @@ def test_imposed_line_deformation():
     assert imposed_line_deformation.imposed_displacement_line_end_z == 0.0002
 
 def test_opening_load():
-    
+
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 

@@ -35,8 +35,8 @@ def test_resultCombination():
     StaticAnalysisSettings.GeometricallyLinear(1, "Linear")
     LoadCasesAndCombinations({
                     "current_standard_for_combination_wizard": 6207,
-                    "activate_combination_wizard_and_classification": True,
-                    "activate_combination_wizard": False,
+                    "combination_wizard_and_classification_active": True,
+                    "combination_wizard_active": False,
                     "result_combinations_active": True,
                     "result_combinations_parentheses_active": False,
                     "result_combinations_consider_sub_results": True,
@@ -68,8 +68,8 @@ def test_resultCombination2():
 
     LoadCasesAndCombinations({
                     "current_standard_for_combination_wizard": 6207,
-                    "activate_combination_wizard_and_classification": True,
-                    "activate_combination_wizard": False,
+                    "combination_wizard_and_classification_active": True,
+                    "combination_wizard_active": False,
                     "result_combinations_active": True,
                     "result_combinations_parentheses_active": True,
                     "result_combinations_consider_sub_results": True,

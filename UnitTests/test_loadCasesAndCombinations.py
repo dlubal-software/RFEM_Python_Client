@@ -20,8 +20,8 @@ def test_load_cases_and_combinations():
     LoadCasesAndCombinations(
         params = {
         "current_standard_for_combination_wizard": 6237,
-        "activate_combination_wizard_and_classification": True,
-        "activate_combination_wizard": True,
+        "combination_wizard_and_classification_active": True,
+        "combination_wizard_active": True,
         "result_combinations_active": True,
         "result_combinations_parentheses_active": False,
         "result_combinations_consider_sub_results": False,

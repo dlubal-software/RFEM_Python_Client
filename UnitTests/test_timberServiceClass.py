@@ -9,7 +9,7 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.enums import AddOn, TimberServiceClassServiceClass
 from RFEM.initModel import Model, SetAddonStatus
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForTimberDesign.timberServiceClass import TimberServiceClass
@@ -28,7 +28,7 @@ def test_timberServiceClass():
     Node(2, 5, 0, 0)
     Node(3, 10, 0, 0)
     Material(1, 'KLH (20 mm) | KLH')
-    Section(1, 'R_M1 0.2/0.5', 1)
+    CrossSection(1, 'R_M1 0.2/0.5', 1)
     Member(1, 1, 2, 0, 1, 1)
     Member(2, 2, 3, 0, 1, 1)
 

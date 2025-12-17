@@ -36,12 +36,13 @@ def test_borehole():
 
     assert bore1.no == 1
     assert bore1.groundwater == False
-    assert bore1.layers_table[0][1].row['thickness'] == 4.5
+    print(bore1.layers_table[0][1].row)
+    assert bore1.layers_table[0][1].row['depth'] == 4.5
 
     assert bore2.no == 2
     assert bore2.groundwater == True
     assert bore2.coordinate_2 == -2
-    assert bore2.layers_table[0][0].row['thickness'] == 3.5
+    assert bore2.layers_table[0][0].row['depth'] == 3.5
     assert bore2.name == 'Borehole 2'
 
 def test_getBorehole():

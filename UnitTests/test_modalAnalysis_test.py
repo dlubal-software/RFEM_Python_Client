@@ -10,7 +10,7 @@ from RFEM.enums import NodalSupportType, StaticAnalysisType, ModalSolutionMethod
 from RFEM.enums import ModalMassConversionType, ModalMassMatrixType, AnalysisType, AddOn
 from RFEM.initModel import Model, SetAddonStatus
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
@@ -30,7 +30,7 @@ def test_modal_analysis_settings():
     Material(1, 'S235')
 
     # Crate Section
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     # Create Nodes
     Node(1, 0, 0, 0)

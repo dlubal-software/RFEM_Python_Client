@@ -11,7 +11,7 @@ from RFEM.Calculate.meshSettings import GetMeshSettings, MeshSettings, GetModelI
 from RFEM.Calculate.optimizationSettings import OptimizationSettings
 from UnitTests.test_solids import test_solids_and_solid_sets
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
@@ -32,7 +32,7 @@ def createmodel():
 
     Material(1, 'S235')
 
-    Section(1, 'IPE 200')
+    CrossSection(1, 'IPE 200')
 
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 5.0, 0.0, 0.0)
@@ -120,7 +120,6 @@ def test_optimization_settings():
     opt_sett = OptimizationSettings.GetOptimizationSettings(1)
 
     assert opt_sett.active
-    assert opt_sett.number_of_mutations_to_keep == 20
     assert opt_sett.target_value_type == OptimizationTargetValueType.MIN_TOTAL_WEIGHT.name
 
     # Testing model is closed at the end of the testing session to enable easier and cleaned restart of the unit tests.

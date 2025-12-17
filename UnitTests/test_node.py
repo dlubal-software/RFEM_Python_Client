@@ -9,7 +9,7 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.enums import *
 from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.member import Member
@@ -32,7 +32,7 @@ def test_node():
     Node.OnLine(6, 1, NodeReferenceType.REFERENCE_TYPE_L, 1, [True, 0.50])
 
     Material(1, 'S235')
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
     Member(1, 1, 2, 0, 1, 1)
     Node.OnMember(7,1,NodeReferenceType.REFERENCE_TYPE_L)
 

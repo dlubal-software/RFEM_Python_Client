@@ -9,7 +9,6 @@ class SpectralAnalysisSettings():
                  periodic_combination = PeriodicResponseCombinationRule.SRSS,
                  directional_combination = DirectionalComponentCombinationRule.SRSS,
                  equivalent_linear_combination : bool = False,
-                 save_mode_results : bool = False,
                  signed_dominant_mode_results : bool = False,
                  directional_component_scale_value : float = 0.3,
                  damping_for_cqc_rule = CqsDampingRule.CONSTANT_FOR_EACH_MODE,
@@ -25,7 +24,6 @@ class SpectralAnalysisSettings():
             periodic_combination (enum): Periodic Combination Rule Enumeration
             directional_combination (enum): Directional Component Combination Rule Enumeration
             equivalent_linear_combination (bool): Equivalent Linear Combination Boolean
-            save_mode_results (bool): Save Mode Results Boolean
             signed_dominant_mode_results (bool): Signed Dominant Mode Results Boolean
             directional_component_scale_value (float): Directional Component Scale Value
             damping_for_cqc_rule (enum): Cqs Damping Rule Enumeration
@@ -60,12 +58,9 @@ class SpectralAnalysisSettings():
         # Equivalent Linear Combination
         clientObject.use_equivalent_linear_combination = equivalent_linear_combination
 
-        # Save Results of All Selected Modes
-        clientObject.save_results_of_all_selected_modes = save_mode_results
-
         # TODO: Signed Results Using Dominant Mode are currently deactivated in RFEM
         # Signed Results Using Dominant Mode
-        clientObject.signed_results_using_dominant_mode = signed_dominant_mode_results
+        #clientObject.signed_results_using_dominant_mode = signed_dominant_mode_results
         '''
         if signed_dominant_mode_results:
             if directional_combination != DirectionalComponentCombinationRule.SCALED_SUM:

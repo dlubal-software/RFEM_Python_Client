@@ -11,7 +11,7 @@ from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.member import Member
 from RFEM.BasicObjects.surface import Surface
 from RFEM.SpecialObjects.intersection import Intersection
@@ -73,7 +73,7 @@ def test_special_objects():
     Line(14, '12 9')
 
     Line(15, '6 9')
-    Section()
+    CrossSection()
     Member(1,4, 9, 0, 1)
 
     # Create Surfaces
@@ -167,4 +167,4 @@ def test_special_objects():
 
     structure_modification = Model.clientModel.service.get_structure_modification(1)
     assert structure_modification.modify_stiffnesses_materials == True
-    assert structure_modification.modify_stiffnesses_sections == False
+    assert structure_modification.modify_stiffnesses_cross_sections == False

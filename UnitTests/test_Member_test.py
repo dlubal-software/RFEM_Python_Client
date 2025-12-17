@@ -8,7 +8,7 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.enums import *
 from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
@@ -26,8 +26,8 @@ def test_all_member_types():
     Material(1, 'S235')
     Material(2, 'C30/37')
 
-    Section(1, 'IPE 300', 1)
-    Section(2, 'IPE 500', 1)
+    CrossSection(1, 'IPE 300', 1)
+    CrossSection(2, 'IPE 500', 1)
 
     Thickness(1, '180 mm', 2, 0.18)
 
@@ -45,42 +45,42 @@ def test_all_member_types():
     Member(1, 1, 2, 0, 1, 1)
 
     # Beam Member with Angle Rotation
-    Member.Beam(2, 3, 4, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [15], 1, 1)
+    Member.Beam(2, 3, 4, MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [15], 1, 1)
 
     # Beam Member with Node Rotation
-    Member.Beam(3, 5, 6, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE, [5, MemberRotationPlaneType.ROTATION_PLANE_XY], 1, 1)
+    Member.Beam(3, 5, 6, MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_HELP_NODE, [5, MemberRotationPlaneType.ROTATION_PLANE_XY], 1, 1)
 
     # Beam Member with Member Hinge
     MemberHinge(1, "Local", rotational_release_my= 0.0, rotational_release_mz=0.0)
-    Member.Beam(4, 7, 8, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 1, params={'member_hinge_start': 1, 'member_hinge_end' : 1})
+    Member.Beam(4, 7, 8, MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 1, params={'member_hinge_start': 1, 'member_hinge_end' : 1})
 
     # Beam Member with End Modifications
-    Member.Beam(5, 9, 10, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 1,
+    Member.Beam(5, 9, 10, MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 1,
                 params={'end_modifications_member_start_extension': 1, 'end_modifications_member_start_slope_y': 0.03, 'end_modifications_member_start_slope_z': 0.05, 'end_modifications_member_end_extension': 4, 'end_modifications_member_end_slope_y': 0.08, 'end_modifications_member_end_slope_z': 0.1})
 
     # Beam Member with Linear Distribution
-    Member.Beam(6, 11, 12, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 2, [MemberSectionAlignment.SECTION_ALIGNMENT_BOTTOM])
+    Member.Beam(6, 11, 12, MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_LINEAR, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 2, [MemberCrossSectionAlignment.SECTION_ALIGNMENT_BOTTOM])
 
     # Beam Member with Tapered at Both Sides
-    Member.Beam(7, 13, 14, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 2, 2, [True, True, 0.25, 0.25, MemberSectionAlignment.SECTION_ALIGNMENT_CENTRIC, 1])
+    Member.Beam(7, 13, 14, MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_BOTH_SIDES, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 2, 2, [True, True, 0.25, 0.25, MemberCrossSectionAlignment.SECTION_ALIGNMENT_CENTRIC, 1])
 
     # Beam Member with Tapered at the Start
-    Member.Beam(8, 15, 16, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 2, 1, [True, 0.25, MemberSectionAlignment.SECTION_ALIGNMENT_CENTRIC])
+    Member.Beam(8, 15, 16, MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_START_OF_MEMBER, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 2, 1, [True, 0.25, MemberCrossSectionAlignment.SECTION_ALIGNMENT_CENTRIC])
 
     # Beam Member with Tapered at the End
-    Member.Beam(9, 17, 18, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 2, [True, 0.25, MemberSectionAlignment.SECTION_ALIGNMENT_CENTRIC])
+    Member.Beam(9, 17, 18, MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_TAPERED_AT_END_OF_MEMBER, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 2, [True, 0.25, MemberCrossSectionAlignment.SECTION_ALIGNMENT_CENTRIC])
 
     # Beam Member with Tapered at the End
-    Member.Beam(10, 19, 20, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_SADDLE, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 1, [True, 0.5, MemberSectionAlignment.SECTION_ALIGNMENT_CENTRIC, 2])
+    Member.Beam(10, 19, 20, MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_SADDLE, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 1, [True, 0.5, MemberCrossSectionAlignment.SECTION_ALIGNMENT_CENTRIC, 2])
 
     # Beam Member with Offset at Both End
-    Member.Beam(11, 21, 22, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 1, [True, True, 0.25, 0.25, MemberSectionAlignment.SECTION_ALIGNMENT_CENTRIC, 2])
+    Member.Beam(11, 21, 22, MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_BOTH_SIDES, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 1, [True, True, 0.25, 0.25, MemberCrossSectionAlignment.SECTION_ALIGNMENT_CENTRIC, 2])
 
     # Beam Member with Offset at Start
-    Member.Beam(12, 23, 24, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 2, [True, 0.25, MemberSectionAlignment.SECTION_ALIGNMENT_CENTRIC])
+    Member.Beam(12, 23, 24, MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_START_OF_MEMBER, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 2, [True, 0.25, MemberCrossSectionAlignment.SECTION_ALIGNMENT_CENTRIC])
 
     # Beam Member with Offset at End
-    Member.Beam(13, 25, 26, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 2, [True, 0.25, MemberSectionAlignment.SECTION_ALIGNMENT_CENTRIC])
+    Member.Beam(13, 25, 26, MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_OFFSET_AT_END_OF_MEMBER, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0], 1, 2, [True, 0.25, MemberCrossSectionAlignment.SECTION_ALIGNMENT_CENTRIC])
 
     # Rigid Member
     Member.Rigid(14, 27, 28, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0])
@@ -107,18 +107,18 @@ def test_all_member_types():
     Member.Cable(21, 41, 42, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, [0])
 
     # Result Beam 1
-    Member.ResultBeam(22, 43, 44, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, \
+    Member.ResultBeam(22, 43, 44, MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, \
         MemberResultBeamIntegration.INTEGRATE_WITHIN_CUBOID_QUADRATIC, [0], 1, 1,  integration_parameters = [0.1], include_objects=[True, True, True], exclude_objects=[None, None, '2 3'])
 
     # Result Beam 2
-    Member.ResultBeam(23, 45, 46, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, \
+    Member.ResultBeam(23, 45, 46, MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, \
         MemberResultBeamIntegration.INTEGRATE_WITHIN_CUBOID_GENERAL, [0], 1, 1, integration_parameters=[0.1, 0.2, 0.3, 0.4], include_objects=[True, True, '5 9 10 13 15'], exclude_objects= [None, None, '6 8'])
 
     # Result Beam 3
-    Member.ResultBeam(24, 47, 48, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, MemberResultBeamIntegration.INTEGRATE_WITHIN_CYLINDER, [0], 1, 1, integration_parameters=[0.5])
+    Member.ResultBeam(24, 47, 48, MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, MemberResultBeamIntegration.INTEGRATE_WITHIN_CYLINDER, [0], 1, 1, integration_parameters=[0.5])
 
     # Result Beam 4
-    Member.ResultBeam(25, 49, 50, MemberSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, MemberResultBeamIntegration.INTEGRATE_FROM_LISTED_OBJECT, [0], 1, 1)
+    Member.ResultBeam(25, 49, 50, MemberCrossSectionDistributionType.SECTION_DISTRIBUTION_TYPE_UNIFORM, MemberRotationSpecificationType.COORDINATE_SYSTEM_ROTATION_VIA_ANGLE, MemberResultBeamIntegration.INTEGRATE_FROM_LISTED_OBJECT, [0], 1, 1)
 
     # Member Definable Stiffness
     MemberDefinableStiffness(1)
@@ -140,7 +140,7 @@ def test_all_member_types():
 
     mem = Model.clientModel.service.get_member(1)
     assert mem.type == 'TYPE_BEAM'
-    assert mem.section_distribution_type == 'SECTION_DISTRIBUTION_TYPE_UNIFORM'
+    assert mem.cross_section_distribution_type == 'SECTION_DISTRIBUTION_TYPE_UNIFORM'
 
     mem = Model.clientModel.service.get_member(2)
     assert mem.rotation_specification_type == 'COORDINATE_SYSTEM_ROTATION_VIA_ANGLE'

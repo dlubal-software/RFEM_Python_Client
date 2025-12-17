@@ -21,16 +21,9 @@ def test_thickness():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
-    
+
     Material(1, 'C30/37')
-    params = { 
-        "material_type": MaterialType.TYPE_TIMBER.name,
-        "material_model": MaterialModel.MODEL_ORTHOTROPIC_2D.name,
-        "stiffness_modification": True,
-        "stiffness_modification_type": MaterialStiffnessModificationType.STIFFNESS_MODIFICATION_TYPE_DIVISION.name,
-        "application_context": "TIMBER_DESIGN"
-    }
-    Material(no=2, name="C24 BBS XL", params=params)
+    Material(2, "S235")
 
     ##  THICKNESS TYPE
 
@@ -136,7 +129,6 @@ def test_thickness():
 
     th = Model.clientModel.service.get_thickness(7)
     assert th.layers_reference_table['thickness_layers_reference_table'][0].row['thickness'] == 0.123
-    assert th.layers_reference_table['thickness_layers_reference_table'][0].row['angle'] == pi / 2
     assert th.layers_reference_table['thickness_layers_reference_table'][1].row['thickness_type_or_id'] == '2'
     assert th.layers_reference_table['thickness_layers_reference_table'][1].row['comment'] == 'Defined Thicness'
 

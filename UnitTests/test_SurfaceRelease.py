@@ -10,7 +10,7 @@ from RFEM.dataTypes import inf
 from RFEM.initModel import Model
 from RFEM.enums import *
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
@@ -29,7 +29,7 @@ def test_LineRelease():
     Model.clientModel.service.begin_modification()
 
     Material(1)
-    Section(1, 'IPE 120')
+    CrossSection(1, 'IPE 120')
     Thickness(1, uniform_thickness_d= 0.1)
 
     Node(1,0,0,0)

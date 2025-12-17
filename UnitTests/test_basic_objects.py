@@ -8,7 +8,7 @@ sys.path.append(PROJECT_ROOT)
 from RFEM.enums import *
 from RFEM.initModel import Model
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.thickness import Thickness
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
@@ -271,7 +271,7 @@ def test_material():
     material = Material.GetMaterial(1)
 
     assert material.no == 1
-    assert material.name == 'S235 | CYS EN 1993-1-1:2009-03'
+    assert material.name == 'S235 | EN 1993-1-1:2005-05'
 
 def test_userDefinedMaterial():
 
@@ -311,7 +311,7 @@ def test_member_init():
      Node(1, 0, 0, 0)
      Node(2, 5, 0, 0)
      Material(1, 'S235')
-     Section(1, 'IPE 300', 1)
+     CrossSection(1, 'IPE 300', 1)
      Member(1,  1, 2, 0, 1, 1)
 
      Model.clientModel.service.finish_modification()
@@ -319,7 +319,7 @@ def test_member_init():
      member = Member.GetMember(1)
 
      assert member.analytical_length == 5
-     assert member.section_start == 1
+     assert member.cross_section_start == 1
 
 def test_member_types():
 
@@ -343,7 +343,7 @@ def test_member_types():
 
     Material(1, 'S235')
 
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Member.Beam(1, 1, 2)
     Member.Rigid(2, 2, 3)
@@ -387,7 +387,7 @@ def test_member_set():
 
     Material(1, 'S235')
 
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Member(1, 1, 2, 0, 1, 1)
     Member(2, 2, 3, 0, 1, 1)
@@ -412,7 +412,7 @@ def test_member_delete():
 
     Material(1, 'S235')
 
-    Section(1, 'IPE 300', 1)
+    CrossSection(1, 'IPE 300', 1)
 
     Member(1, 1, 2, 0, 1, 1)
     Member(2, 2, 3, 0, 1, 1)
@@ -464,17 +464,17 @@ def test_opening():
     assert opening.area == 1
     assert opening.center_of_opening_x == 2.5
 
-def test_section():
+def test_CrossSection():
 
     Model.clientModel.service.delete_all()
     Model.clientModel.service.begin_modification()
 
     Material(1, 'S235')
-    Section(1, 'IPE 300')
+    CrossSection(1, 'IPE 300')
 
     Model.clientModel.service.finish_modification()
 
-    section = Section.GetSection(1)
+    section = CrossSection.GetCrossSection(1)
 
     assert section.no == 1
     assert section.name == 'IPE 300 | -- | British Steel'

@@ -13,7 +13,7 @@ from RFEM.initModel import Model, SetAddonStatus, Calculate_all
 from RFEM.dataTypes import inf
 from RFEM.Results.resultTables import ResultTables
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
@@ -48,7 +48,7 @@ def test_result_tables_aluminum_design_addon():
 
     Material(1, 'EN AW-3004 H14 | EN 1999-1-1:2007')
 
-    Section(1, 'L 100x6 | DIN 1028:1994-03 | Ferona')
+    CrossSection(1, 'L 100x6 | DIN 1028:1994-03 | Ferona')
 
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 5, 0.0, 0.0)
@@ -81,7 +81,7 @@ def test_result_tables_aluminum_design_addon():
     assert Model.clientModel.service.has_any_results()
     assert ResultTables.AluminumDesignDesignRatiosMembersByDesignSituation()
     assert ResultTables.AluminumDesignDesignRatiosMembersByMember()
-    assert ResultTables.AluminumDesignDesignRatiosMembersBySection()
+    assert ResultTables.AluminumDesignDesignRatiosMembersByCrossSection()
 
     SetAddonStatus(Model.clientModel, addOn=AddOn.aluminum_design_active, status=False)
 
@@ -94,7 +94,7 @@ def test_result_tables_concrete_design_addon():
 
     Material(1, 'LC50/55 | DIN EN 1992-1-1/NA/A1:2015-12')
 
-    Section(1, '2LR_M2 0.25/0.2/0.3')
+    CrossSection(1, '2LR_M2 0.25/0.2/0.3')
 
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 5, 0.0, 0.0)
@@ -138,7 +138,7 @@ def test_result_tables_steel_design_addon():
 
     Material(1, 'S235')
 
-    Section(1, 'IPE 120')
+    CrossSection(1, 'IPE 120')
 
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 5, 0.0, 0.0)
@@ -171,7 +171,7 @@ def test_result_tables_steel_design_addon():
     assert Model.clientModel.service.has_any_results()
     assert ResultTables.SteelDesignDesignRatiosMembersByDesignSituation()
     assert ResultTables.SteelDesignDesignRatiosMembersByMember()
-    assert ResultTables.SteelDesignDesignRatiosMembersBySection()
+    assert ResultTables.SteelDesignDesignRatiosMembersByCrossSection()
 
     SetAddonStatus(Model.clientModel, addOn=AddOn.steel_design_active, status=False)
 
@@ -184,7 +184,7 @@ def test_result_tables_timber_design_addon():
 
     Material(1, 'GL20c')
 
-    Section(1, 'Batten 50/100')
+    CrossSection(1, 'Batten 50/100')
 
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 5, 0.0, 0.0)
@@ -217,7 +217,7 @@ def test_result_tables_timber_design_addon():
     assert Model.clientModel.service.has_any_results()
     assert ResultTables.TimberDesignDesignRatiosMembersByDesignSituation()
     assert ResultTables.TimberDesignDesignRatiosMembersByMember()
-    assert ResultTables.TimberDesignDesignRatiosMembersBySection()
+    assert ResultTables.TimberDesignDesignRatiosMembersByCrossSection()
 
     SetAddonStatus(Model.clientModel, addOn=AddOn.timber_design_active, status=False)
     LoadCasesAndCombinations(params={"current_standard_for_combination_wizard":6207})

@@ -22,12 +22,12 @@ def test_multiple_models_with_parameter():
     Material(4,'S235', model = model1)
     Material(5,'S275', model = model2)
 
-    assert model1.clientModel.service.get_material(1).name in ["S235 | EN 1993-1-1:2005-05", "S235 | CYS EN 1993-1-1:2009-03"]
-    assert model1.clientModel.service.get_material(2).name == "S235 | CYS EN 1993-1-1:2009-03"
-    assert model1.clientModel.service.get_material(4).name == "S235 | CYS EN 1993-1-1:2009-03"
+    assert model1.clientModel.service.get_material(1).name in ["S235 | EN 1993-1-1:2005-05", "S235 | EN 1993-1-1:2005-05"]
+    assert model1.clientModel.service.get_material(2).name == "S235 | EN 1993-1-1:2005-05"
+    assert model1.clientModel.service.get_material(4).name == "S235 | EN 1993-1-1:2005-05"
 
-    assert model2.clientModel.service.get_material(3).name == "S275 | CYS EN 1993-1-1:2009-03"
-    assert model2.clientModel.service.get_material(5).name == "S275 | CYS EN 1993-1-1:2009-03"
+    assert model2.clientModel.service.get_material(3).name == "S275 | EN 1993-1-1:2005-05"
+    assert model2.clientModel.service.get_material(5).name == "S275 | EN 1993-1-1:2005-05"
 
     closeModel(2)
     closeModel(1)
@@ -47,12 +47,12 @@ def test_multiple_models_calling_class():
     Model(False, 'TestModel6')
     Material(5,'S275')
 
-    assert model1.clientModel.service.get_material(1).name in ["S235 | EN 1993-1-1:2005-05", "S235 | CYS EN 1993-1-1:2009-03"]
-    assert model1.clientModel.service.get_material(2).name == "S235 | CYS EN 1993-1-1:2009-03"
-    assert model1.clientModel.service.get_material(4).name == "S235 | CYS EN 1993-1-1:2009-03"
+    assert model1.clientModel.service.get_material(1).name in ["S235 | EN 1993-1-1:2005-05", "S235 | EN 1993-1-1:2005-05"]
+    assert model1.clientModel.service.get_material(2).name == "S235 | EN 1993-1-1:2005-05"
+    assert model1.clientModel.service.get_material(4).name == "S235 | EN 1993-1-1:2005-05"
 
-    assert model2.clientModel.service.get_material(3).name == "S275 | CYS EN 1993-1-1:2009-03"
-    assert model2.clientModel.service.get_material(5).name == "S275 | CYS EN 1993-1-1:2009-03"
+    assert model2.clientModel.service.get_material(3).name == "S275 | EN 1993-1-1:2005-05"
+    assert model2.clientModel.service.get_material(5).name == "S275 | EN 1993-1-1:2005-05"
 
     closeModel(2)
     closeModel(1)

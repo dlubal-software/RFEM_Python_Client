@@ -15,7 +15,7 @@ sys.path.append(dirName + r'/../..')
 from RFEM.enums import *
 from RFEM.initModel import Model, SetAddonStatus, insertSpaces, Calculate_all, connectToServer, connectionGlobals
 from RFEM.BasicObjects.material import Material
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.member import Member
 from RFEM.TypesForNodes.nodalSupport import NodalSupport
@@ -103,7 +103,7 @@ def main():
     verticalBracing = inputSheet["K6:K8"].value[0] # Vertical Bracing
     horizontalBracing = inputSheet["K9:K11"].value[0] # Horizontal Bracing
 
-    # Member Materials and Sections
+    # Member Materials and Cross Sections
     column_mat = str(inputSheet["H15:I15"].value[0]) # Column Material
     beam_mat = str(inputSheet["H16:I16"].value[0]) # Beam Material
     bracing_mat = str(inputSheet["H17:I17"].value[0]) # Bracing Material
@@ -167,10 +167,10 @@ def main():
     Material(2, beam_mat)
     Material(3, bracing_mat)
 
-    # Creating Sections
-    Section(1, column, 1)
-    Section(2, beam, 2)
-    Section(3, bracing, 3)
+    # Creating Cross Sections
+    CrossSection(1, column, 1)
+    CrossSection(2, beam, 2)
+    CrossSection(3, bracing, 3)
 
     # Creating Nodes
     i = 0

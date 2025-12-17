@@ -97,7 +97,7 @@ class TimberMemberLocalSectionReduction():
         """
 
         # Client Model | Types For Timber Member Local Section Reduction
-        clientObject = model.clientModel.factory.create('ns0:timber_member_local_section_reduction')
+        clientObject = model.clientModel.factory.create('ns0:timber_member_local_cross_section_reduction')
 
         # Clears object atributes | Sets all atributes to None
         clearAttributes(clientObject)
@@ -117,12 +117,12 @@ class TimberMemberLocalSectionReduction():
             clientObject.name = name
 
         # Local Section Reduction Components
-        clientObject.components = model.clientModel.factory.create('ns0:array_of_timber_member_local_section_reduction_components')
+        clientObject.components = model.clientModel.factory.create('ns0:array_of_timber_member_local_cross_section_reduction_components')
 
         for i,j in enumerate(components):
-            smlsr = model.clientModel.factory.create('ns0:timber_member_local_section_reduction_components_row')
+            smlsr = model.clientModel.factory.create('ns0:timber_member_local_cross_section_reduction_components_row')
             smlsr.no = i+1
-            smlsr.row = model.clientModel.factory.create('ns0:timber_member_local_section_reduction_components')
+            smlsr.row = model.clientModel.factory.create('ns0:timber_member_local_cross_section_reduction_components')
             clearAttributes(smlsr.row)
             smlsr.row.reduction_type = components[i].reduction_type
             if smlsr.row.reduction_type == 'REDUCTION_COMPONENT_TYPE_RECTANGLE_OPENING':
@@ -199,7 +199,7 @@ class TimberMemberLocalSectionReduction():
             else:
                 assert True, 'Unsupported reduction_type'
 
-            clientObject.components.timber_member_local_section_reduction_components.append(smlsr)
+            clientObject.components.timber_member_local_cross_section_reduction_components.append(smlsr)
 
         # Comment
         clientObject.comment = comment
@@ -213,4 +213,4 @@ class TimberMemberLocalSectionReduction():
         deleteEmptyAttributes(clientObject)
 
         # Add Timber Member Local Section Reduction to Client Model
-        model.clientModel.service.set_timber_member_local_section_reduction(clientObject)
+        model.clientModel.service.set_timber_member_local_cross_section_reduction(clientObject)

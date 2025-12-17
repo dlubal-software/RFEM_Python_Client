@@ -11,7 +11,7 @@ from RFEM.enums import *
 from RFEM.dataTypes import inf
 from RFEM.BasicObjects.material import Material
 from RFEM.BasicObjects.thickness import Thickness
-from RFEM.BasicObjects.section import Section
+from RFEM.BasicObjects.crossSection import CrossSection
 from RFEM.BasicObjects.node import Node
 from RFEM.BasicObjects.line import Line
 from RFEM.BasicObjects.surface import Surface
@@ -24,6 +24,7 @@ from RFEM.LoadCasesAndCombinations.loadCasesAndCombinations import LoadCasesAndC
 from RFEM.LoadCasesAndCombinations.loadCombination import LoadCombination
 from RFEM.Loads.nodalLoad import NodalLoad
 from RFEM.Results.meshTables import MeshTables
+from RFEM.Calculate.meshSettings import GenerateMesh
 
 if Model.clientModel is None:
     Model()
@@ -49,15 +50,15 @@ def test_mesh_tables():
 
     Surface(1, '1 2 3 4', 1)
 
-    Section(1, "IPE 300", 1)
+    CrossSection(1, "IPE 300", 1)
 
     Node(5, 0,20,0)
     Node(6, 20,20,0)
 
     Member(1, 5, 6, 0, 1, 1)
 
-    Model.clientModel.service.generate_mesh(True)
     Model.clientModel.service.finish_modification()
+    GenerateMesh()
 
     allFeNodes = MeshTables.GetAllFENodes()
     assert allFeNodes[4]['y'] == 20
@@ -77,7 +78,7 @@ def test_deformed_mesh():
     Model.clientModel.service.begin_modification()
 
     Material(1)
-    Section(1)
+    CrossSection(1)
 
     Node(1, 0.0, 0.0, 0.0)
     Node(2, 5, 0.0, 0.0)

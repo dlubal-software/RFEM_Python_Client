@@ -120,7 +120,7 @@ class MemberLoad():
                 for force_eccentricity == True:
                     params = {'eccentricity_horizontal_alignment': MemberLoadEccentricityHorizontalAlignment.ALIGN_NONE,
                         'eccentricity_vertical_alignment': MemberLoadEccentricityVerticalAlignment.ALIGN_NONE,
-                        'eccentricity_section_middle': MemberLoadEccentricitySectionMiddle.LOAD_ECCENTRICITY_SECTION_MIDDLE_CENTER_OF_GRAVITY,
+                        'eccentricity_cross_section_middle': MemberLoadEccentricitySectionMiddle.LOAD_ECCENTRICITY_SECTION_MIDDLE_CENTER_OF_GRAVITY,
                         'is_eccentricity_at_end_different_from_start': False,
                         'eccentricity_y_at_end': 0.0,
                         'eccentricity_y_at_start': 0.0,
@@ -309,7 +309,7 @@ class MemberLoad():
 
             params_ecc = {'eccentricity_horizontal_alignment': MemberLoadEccentricityHorizontalAlignment.ALIGN_NONE,
                            'eccentricity_vertical_alignment': MemberLoadEccentricityVerticalAlignment.ALIGN_NONE,
-                           'eccentricity_section_middle': MemberLoadEccentricitySectionMiddle.LOAD_ECCENTRICITY_SECTION_MIDDLE_CENTER_OF_GRAVITY,
+                           'eccentricity_cross_section_middle': MemberLoadEccentricitySectionMiddle.LOAD_ECCENTRICITY_SECTION_MIDDLE_CENTER_OF_GRAVITY,
                            'is_eccentricity_at_end_different_from_start': False,
                            'eccentricity_y_at_end': 0.0,
                            'eccentricity_y_at_start': 0.0,
@@ -322,7 +322,7 @@ class MemberLoad():
 
                 clientObject.eccentricity_horizontal_alignment= params_ecc['eccentricity_horizontal_alignment'].name
                 clientObject.eccentricity_vertical_alignment= params_ecc['eccentricity_vertical_alignment'].name
-                clientObject.eccentricity_section_middle = params_ecc['eccentricity_section_middle'].name
+                clientObject.eccentricity_cross_section_middle = params_ecc['eccentricity_cross_section_middle'].name
                 clientObject.eccentricity_y_at_end= params_ecc['eccentricity_y_at_start']
                 clientObject.eccentricity_y_at_start= params_ecc['eccentricity_y_at_start']
                 clientObject.eccentricity_z_at_end= params_ecc['eccentricity_z_at_start']
@@ -332,7 +332,7 @@ class MemberLoad():
 
                 clientObject.eccentricity_horizontal_alignment= params_ecc['eccentricity_horizontal_alignment']
                 clientObject.eccentricity_vertical_alignment= params_ecc['eccentricity_vertical_alignment']
-                clientObject.eccentricity_section_middle = params_ecc['eccentricity_section_middle']
+                clientObject.eccentricity_cross_section_middle = params_ecc['eccentricity_cross_section_middle']
                 clientObject.eccentricity_y_at_end= params_ecc['eccentricity_y_at_end']
                 clientObject.eccentricity_y_at_start= params_ecc['eccentricity_y_at_start']
                 clientObject.eccentricity_z_at_end= params_ecc['eccentricity_z_at_end']
@@ -342,7 +342,7 @@ class MemberLoad():
         clientObject.comment = comment
 
         # Adding optional parameters via dictionary
-        if 'eccentricity_horizontal_alignment' or 'eccentricity_vertical_alignment' or 'eccentricity_section_middle' or 'is_eccentricity_at_end_different_from_start' or 'eccentricity_y_at_end' or 'eccentricity_y_at_start' or 'eccentricity_z_at_end' or 'eccentricity_z_at_start':
+        if 'eccentricity_horizontal_alignment' or 'eccentricity_vertical_alignment' or 'eccentricity_cross_section_middle' or 'is_eccentricity_at_end_different_from_start' or 'eccentricity_y_at_end' or 'eccentricity_y_at_start' or 'eccentricity_z_at_end' or 'eccentricity_z_at_start':
             pass
         else:
             if params:

@@ -35,8 +35,8 @@ def test_design_situation():
     LoadCase()
 
     LoadCasesAndCombinations(params={"current_standard_for_combination_wizard": 6048,
-                                      "activate_combination_wizard_and_classification": True,
-                                      "activate_combination_wizard": True,
+                                      "combination_wizard_and_classification_active": True,
+                                      "combination_wizard_active": True,
                                       "result_combinations_active": True,
                                       "result_combinations_parentheses_active": True,
                                       "result_combinations_consider_sub_results": True,
@@ -72,8 +72,7 @@ def test_design_situation():
 
     SpectralAnalysisSettings(no=1, name='SRSS | SRSS', periodic_combination = PeriodicResponseCombinationRule.SRSS,
                              directional_combination = DirectionalComponentCombinationRule.SRSS,
-                             equivalent_linear_combination = False, save_mode_results = False,
-                             signed_dominant_mode_results = False)
+                             equivalent_linear_combination = False, signed_dominant_mode_results = False)
 
     ResponseSpectrum(1, user_defined_spectrum=[[0, 0.66], [0.15, 1.66]])
 
@@ -92,7 +91,7 @@ def test_design_situation():
                                            user_defined_action_combinations = False,
                                            favorable_permanent_actions = False,
                                            generate_subcombinations_of_type_superposition = False)
-
+    #
     ResultCombination(no = 1, design_situation = 4,
                       combination_type = ResultCombinationType.COMBINATION_TYPE_GENERAL,
                       combination_items = [[1, OperatorType.OPERATOR_NONE, 1.0, ActionLoadType.LOAD_TYPE_PERMANENT]],
@@ -105,5 +104,5 @@ def test_design_situation():
     DesignSituation(no = 3, design_situation_type = DesignSituationType.DESIGN_SITUATION_TYPE_SEISMIC_MASS, active = True, params = {'combination_wizard': 1})
     DesignSituation(no = 4, design_situation_type = DesignSituationType.DESIGN_SITUATION_TYPE_STR_SEISMIC, active = True, params = {'combination_wizard': 3})
     DesignSituation(no = 5, design_situation_type = DesignSituationType.DESIGN_SITUATION_TYPE_STR_ACCIDENTAL_PSI_2_1, active = True, params = {'combination_wizard': 1})
-
+    
     Model.clientModel.service.finish_modification()

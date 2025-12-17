@@ -124,7 +124,7 @@ class MemberRotationalRestraint():
                 no: int = 1,
                 name: str = '',
                 section_material: str = 'S235',
-                section_name: str = 'CHC 60.3x3.2',
+                cross_section_name: str = 'CHC 60.3x3.2',
                 rotational_stifness: list = [MemberRotationalRestraintRotationalStiffness.ROTATIONAL_STIFFNESS_INFINITELY],
                 continous_beam_effect = MemberRotationalRestraintContinousBeamEffect.CONTINUOUS_BEAM_EFFECT_END_PANEL,
                 section_deformation_cdb: bool =  True,
@@ -146,7 +146,7 @@ class MemberRotationalRestraint():
                     user_defined_name_enabled = True
                     name = User Defined Name
             section_material (str): Section Material
-            section_name (str): Section Name
+            cross_section_name (str): Section Name
             rotational_stifness (list): Rotational Stiffness
                 if rotational_stiffness[0] == MemberRotationalRestraintRotationalStiffness.ROTATIONAL_STIFFNESS_INFINITELY:
                     pass
@@ -184,7 +184,7 @@ class MemberRotationalRestraint():
         clientObject.material_name = section_material
 
         # Member Rotational Restraint Section Name
-        clientObject.section_name = section_name
+        clientObject.cross_section_name = cross_section_name
 
         # Member Rotational Restraint Stiffness Cda
         clientObject.rotational_stiffness = rotational_stifness[0].name

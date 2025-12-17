@@ -6,7 +6,7 @@ class RigidLink():
                  no: int = 1,
                  line_1: int = 1,
                  line_2: int = 2,
-                 ignore_relative_position: bool = True,
+                 ignore_influence_of_distance: bool = True,
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -17,7 +17,7 @@ class RigidLink():
             no (int): Rigid Link Tag
             line_1 (int): Assigned Line Number
             line_2 (int): Assigned Line Number
-            ignore_relative_position (bool): Enable/Disable Ignore Relative Position
+            ignore_influence_of_distance (bool): Enable/Disable Ignore Influence of Distance
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -41,7 +41,7 @@ class RigidLink():
         clientObject.line2 = line_2
 
         # Ignore relative possition
-        clientObject.ignore_relative_position = ignore_relative_position
+        clientObject.ignore_influence_of_distance = ignore_influence_of_distance
 
         # Comment
         clientObject.comment = comment
@@ -62,7 +62,7 @@ class RigidLink():
                  no: int = 1,
                  line_1: int = 1,
                  line_2: int = 2,
-                 ignore_relative_position: bool = True,
+                 ignore_influence_of_distance: bool = True,
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -73,7 +73,7 @@ class RigidLink():
             no (int): Rigid Link Tag
             line_1 (int): Assigned Line Number
             line_2 (int): Assigned Line Number
-            ignore_relative_position (bool): Enable/Disable Ignore Relative Position
+            ignore_influence_of_distance (bool): Enable/Disable Ignore Relative Position
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -96,7 +96,7 @@ class RigidLink():
         clientObject.line2 = line_2
 
         # Ignore relative possition
-        clientObject.ignore_relative_position = ignore_relative_position
+        clientObject.ignore_influence_of_distance = ignore_influence_of_distance
 
         # Comment
         clientObject.comment = comment
@@ -117,7 +117,7 @@ class RigidLink():
                  no: int = 1,
                  line_1: int = 1,
                  surface: int = 1,
-                 ignore_relative_position: bool = True,
+                 ignore_influence_of_distance: bool = True,
                  comment: str = '',
                  params: dict = None,
                  model = Model):
@@ -128,7 +128,7 @@ class RigidLink():
             no (int): Rigid Link Tag
             line_1 (int): Assigned Line Number
             surface (int): Assigned Surface Number
-            ignore_relative_position (bool): Enable/Disable Ignore Relative Position
+            ignore_influence_of_distance (bool): Enable/Disable Ignore Relative Position
             comment (str, optional): Comment
             params (dict, optional): Any WS Parameter relevant to the object and its value in form of a dictionary
             model (RFEM Class, optional): Model to be edited
@@ -152,7 +152,7 @@ class RigidLink():
         clientObject.surface = surface
 
         # Ignore relative possition
-        clientObject.ignore_relative_position = ignore_relative_position
+        clientObject.ignore_influence_of_distance = ignore_influence_of_distance
 
         # Comment
         clientObject.comment = comment
